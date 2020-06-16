@@ -259,6 +259,11 @@ extension Notification.Name {
     
     // MARK: FX commands
     
+    // Switches the Effects panel tab group to a specfic tab
+    static let fx_showFXUnitTab = Notification.Name("fx_showFXUnitTab")
+
+    static let fx_updateFXUnitView = Notification.Name("fx_updateFXUnitView")
+    
     // ----------------------------------------------------------------------------------------
     
     // MARK: Master FX unit commands
@@ -325,10 +330,6 @@ extension Notification.Name {
     static let deletePlaybackProfile = Notification.Name("deletePlaybackProfile")
     
 
-    static let showEffectsUnitTab = Notification.Name("showEffectsUnitTab")
-
-    static let updateEffectsView = Notification.Name("updateEffectsView")
-    
     // Show/hide the playlist window
     static let windowLayout_togglePlaylistWindow = Notification.Name("windowLayout_togglePlaylistWindow")
 
