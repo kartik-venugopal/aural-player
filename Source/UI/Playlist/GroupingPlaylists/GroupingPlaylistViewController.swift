@@ -90,7 +90,12 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .playlist_pageUp, {(PlaylistViewSelector) in self.pageUp()}, filter: viewSelectionFilter)
         Messenger.subscribe(self, .playlist_pageDown, {(PlaylistViewSelector) in self.pageDown()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_expandSelectedGroups, {(PlaylistViewSelector) in self.expandSelectedGroups()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_collapseSelectedItems, {(PlaylistViewSelector) in self.collapseSelectedItems()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_expandAllGroups, {(PlaylistViewSelector) in self.expandAllGroups()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_collapseAllGroups, {(PlaylistViewSelector) in self.collapseAllGroups()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -839,22 +844,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             case .showTrackInFinder:
                 
                 showTrackInFinder()
-                
-            case .expandSelectedGroups:
-                
-                expandSelectedGroups()
-                
-            case .collapseSelectedItems:
-                
-                collapseSelectedItems()
-                
-            case .expandAllGroups:
-                
-                expandAllGroups()
-                
-            case .collapseAllGroups:
-                
-                collapseAllGroups()
                 
             default: return
                 

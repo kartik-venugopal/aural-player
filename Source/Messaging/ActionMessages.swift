@@ -71,16 +71,6 @@ enum ActionType {
     // Invoke the sort dialog
     case sort
     
-    case expandSelectedGroups
-    
-    case collapseSelectedItems
-    
-    case collapseParentGroup
-    
-    case expandAllGroups
-    
-    case collapseAllGroups
-    
     // Switch to the previous playlist view (in the tab group)
     case previousPlaylistView
     
