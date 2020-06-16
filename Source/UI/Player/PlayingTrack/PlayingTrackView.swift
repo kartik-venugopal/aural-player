@@ -63,52 +63,56 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
     }
     
     // Switches between the 2 sub-views (Default and Expanded Art)
-    private func switchView(_ viewType: PlayerViewType) {
+    func switchView(_ viewType: PlayerViewType) {
         
         inactiveView.hideView()
         activeView.showView()
+        
+        setUpMouseTracking()
     }
     
-    private func showOrHidePlayingTrackInfo() {
+    func showOrHidePlayingTrackInfo() {
         
         defaultView.showOrHidePlayingTrackInfo()
         expandedArtView.showOrHidePlayingTrackInfo()
     }
     
-    private func showOrHidePlayingTrackFunctions() {
+    func showOrHidePlayingTrackFunctions() {
         
         defaultView.showOrHidePlayingTrackFunctions()
         expandedArtView.showOrHidePlayingTrackFunctions()
     }
     
-    private func showOrHideAlbumArt() {
+    func showOrHideAlbumArt() {
         
         defaultView.showOrHideAlbumArt()
         expandedArtView.showOrHideAlbumArt()
     }
     
-    private func showOrHideArtist() {
+    func showOrHideArtist() {
         
         defaultView.showOrHideArtist()
         expandedArtView.showOrHideArtist()
     }
     
-    private func showOrHideAlbum() {
+    func showOrHideAlbum() {
         
         defaultView.showOrHideAlbum()
         expandedArtView.showOrHideAlbum()
     }
     
-    private func showOrHideCurrentChapter() {
+    func showOrHideCurrentChapter() {
         
         defaultView.showOrHideCurrentChapter()
         expandedArtView.showOrHideCurrentChapter()
     }
     
-    private func showOrHideMainControls() {
+    func showOrHideMainControls() {
         
         defaultView.showOrHideMainControls()
         expandedArtView.showOrHideMainControls()
+        
+        setUpMouseTracking()
     }
     
     override func mouseEntered(with event: NSEvent) {
@@ -121,6 +125,21 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         // will cause a false positive mouse exit event.
         if !self.frame.contains(event.locationInWindow) {
             activeView.mouseExited()
+        }
+    }
+
+    // Set up mouse tracking if necessary (for auto-hide).
+    private func setUpMouseTracking() {
+        
+        if activeView.needsMouseTracking {
+            
+            if !isTracking {
+                startTracking()
+            }
+            
+        } else if isTracking {
+            
+            stopTracking()
         }
     }
     
@@ -184,65 +203,5 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         
         defaultView.changeTertiaryTextColor(color)
         expandedArtView.changeTertiaryTextColor(color)
-    }
-    
-    func performAction(_ action: PlayerViewActionMessage) {
-        
-        switch action.actionType {
-            
-        case .changePlayerView:
-            
-            if let viewType = action.viewType {
-                switchView(viewType)
-            }
-            
-        case .showOrHidePlayingTrackInfo:
-            
-            showOrHidePlayingTrackInfo()
-            
-        case .showOrHidePlayingTrackFunctions:
-            
-            showOrHidePlayingTrackFunctions()
-            
-        case .showOrHideAlbumArt:
-            
-            showOrHideAlbumArt()
-            
-        case .showOrHideArtist:
-            
-            showOrHideArtist()
-            
-        case .showOrHideAlbum:
-            
-            showOrHideAlbum()
-            
-        case .showOrHideCurrentChapter:
-            
-            showOrHideCurrentChapter()
-            
-        case .showOrHideMainControls:
-            
-            showOrHideMainControls()
-            
-        default: return
-            
-        }
-        
-        setUpMouseTracking()
-    }
-
-    // Set up mouse tracking if necessary (for auto-hide).
-    private func setUpMouseTracking() {
-        
-        if activeView.needsMouseTracking {
-            
-            if !isTracking {
-                startTracking()
-            }
-            
-        } else if isTracking {
-            
-            stopTracking()
-        }
     }
 }

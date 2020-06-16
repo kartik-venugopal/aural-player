@@ -36,7 +36,16 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         
         Messenger.subscribe(self, .changePlayerTextSize, infoView.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
+        Messenger.subscribe(self, .player_changeView, infoView.switchView(_:))
+        Messenger.subscribe(self, .player_showOrHideAlbumArt, infoView.showOrHideAlbumArt)
+        Messenger.subscribe(self, .player_showOrHideArtist, infoView.showOrHideArtist)
+        Messenger.subscribe(self, .player_showOrHideAlbum, infoView.showOrHideAlbum)
+        Messenger.subscribe(self, .player_showOrHideCurrentChapter, infoView.showOrHideCurrentChapter)
+        Messenger.subscribe(self, .player_showOrHideMainControls, infoView.showOrHideMainControls)
+        Messenger.subscribe(self, .player_showOrHidePlayingTrackInfo, infoView.showOrHidePlayingTrackInfo)
+        Messenger.subscribe(self, .player_showOrHidePlayingTrackFunctions, infoView.showOrHidePlayingTrackFunctions)
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
     
     private func trackChanged(_ track: Track?) {
@@ -60,7 +69,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     
     func chapterChanged(_ notification: ChapterChangedNotification) {
         
-        if let playingTrack = player.playingTrack, PlayerViewState.showCurrentChapter {
+        if let playingTrack = player.playingTrack {
             infoView.trackInfo = PlayingTrackInfo(playingTrack, notification.newChapter?.chapter.title)
         }
     }
@@ -69,12 +78,7 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
 
     func consumeMessage(_ message: ActionMessage) {
         
-        if let pvActionMsg = message as? PlayerViewActionMessage {
-            
-            infoView.performAction(pvActionMsg)
-            return
-            
-        } else if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
+        if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
             
             infoView.applyColorSchemeComponent(colorComponentActionMsg)
             return
