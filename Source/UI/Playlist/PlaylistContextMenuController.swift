@@ -332,7 +332,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func showTrackInFinderAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.showTrackInFinder, PlaylistViewState.current))
+        Messenger.publish(.playlist_showTrackInFinder, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func viewChaptersAction(_ sender: Any) {

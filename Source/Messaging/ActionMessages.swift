@@ -46,9 +46,6 @@ enum ActionType {
     // Clear the playlist of all tracks
     case clearPlaylist
     
-    // Show the currently playing track within the current playlist view, if there is one
-    case showPlayingTrack
-    
     // Play the item selected within the current playlist view
     case playSelectedItem
     
@@ -61,9 +58,6 @@ enum ActionType {
     case insertGaps
     
     case removeGaps
-    
-    // Show the selected track in Finder
-    case showTrackInFinder
     
     // Invoke the search dialog
     case search
