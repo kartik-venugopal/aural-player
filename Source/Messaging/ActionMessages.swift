@@ -106,9 +106,6 @@ enum ActionType {
     
     // MARK: View actions
     
-    // Show/hide the Chapters list window
-    case toggleChaptersList
-    
     case bookmarkPosition
     case bookmarkLoop
     
@@ -119,22 +116,8 @@ enum ActionType {
     case deleteEffectsPresets
     case applyEffectsPreset
     
-    // Now playing view actions
-    
-    case changePlayerView
-    
-    case showOrHideAlbumArt
-    case showOrHideArtist
-    case showOrHideAlbum
-    case showOrHideCurrentChapter
-    
-    case showOrHidePlayingTrackInfo
-    case showOrHideSequenceInfo
-    case showOrHidePlayingTrackFunctions
-    
     // Player view actions
     
-    case showOrHideMainControls
     case setTimeElapsedDisplayFormat
     case setTimeRemainingDisplayFormat
     case showOrHideTimeElapsedRemaining

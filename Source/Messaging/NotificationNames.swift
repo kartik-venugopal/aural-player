@@ -118,6 +118,33 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
+    // MARK: Player view commands
+    
+    static let player_changeView = Notification.Name("player_changeView")
+
+    static let player_showOrHideAlbumArt = Notification.Name("player_showOrHideAlbumArt")
+
+    static let player_showOrHideArtist = Notification.Name("player_showOrHideArtist")
+
+    static let player_showOrHideAlbum = Notification.Name("player_showOrHideAlbum")
+
+    static let player_showOrHideCurrentChapter = Notification.Name("player_showOrHideCurrentChapter")
+
+    static let player_showOrHidePlayingTrackInfo = Notification.Name("player_showOrHidePlayingTrackInfo")
+
+    static let player_showOrHidePlayingTrackFunctions = Notification.Name("player_showOrHidePlayingTrackFunctions")
+
+    static let player_showOrHideMainControls = Notification.Name("player_showOrHideMainControls")
+    
+    
+    static let player_showOrHideTimeElapsedRemaining = Notification.Name("player_showOrHideTimeElapsedRemaining")
+
+    static let player_setTimeElapsedDisplayFormat = Notification.Name("player_setTimeElapsedDisplayFormat")
+
+    static let player_setTimeRemainingDisplayFormat = Notification.Name("player_setTimeRemainingDisplayFormat")
+    
+    // ----------------------------------------------------------------------------------------
+    
     // MARK: Playlist commands
     
     static let playlist_refresh = Notification.Name("playlist_refresh")
@@ -305,30 +332,7 @@ extension Notification.Name {
     static let deleteEffectsPresets = Notification.Name("deleteEffectsPresets")
 
     static let applyEffectsPreset = Notification.Name("applyEffectsPreset")
-
-    static let changePlayerView = Notification.Name("changePlayerView")
-
-    static let showOrHideAlbumArt = Notification.Name("showOrHideAlbumArt")
-
-    static let showOrHideArtist = Notification.Name("showOrHideArtist")
-
-    static let showOrHideAlbum = Notification.Name("showOrHideAlbum")
-
-    static let showOrHideCurrentChapter = Notification.Name("showOrHideCurrentChapter")
-
-    static let showOrHidePlayingTrackInfo = Notification.Name("showOrHidePlayingTrackInfo")
-
-    static let showOrHideSequenceInfo = Notification.Name("showOrHideSequenceInfo")
-
-    static let showOrHidePlayingTrackFunctions = Notification.Name("showOrHidePlayingTrackFunctions")
-
-    static let showOrHideMainControls = Notification.Name("showOrHideMainControls")
-
-    static let setTimeElapsedDisplayFormat = Notification.Name("setTimeElapsedDisplayFormat")
-
-    static let setTimeRemainingDisplayFormat = Notification.Name("setTimeRemainingDisplayFormat")
-
-    static let showOrHideTimeElapsedRemaining = Notification.Name("showOrHideTimeElapsedRemaining")
+    
 
     static let changePlayerTextSize = Notification.Name("changePlayerTextSize")
 
