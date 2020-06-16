@@ -9,7 +9,7 @@ import Cocoa
  
         - Since the dock menu runs outside the Aural Player process, it does not respond to menu delegate callbacks. For this reason, it needs to listen for model updates and be updated eagerly. It cannot be updated lazily, just in time, as the menu is about to open.
  */
-class DockMenuController: NSObject, MessageSubscriber {
+class DockMenuController: NSObject, NSMenuDelegate, MessageSubscriber {
     
     // TODO: Add Bookmarks sub-menu under Favorites sub-menu
     
@@ -46,8 +46,6 @@ class DockMenuController: NSObject, MessageSubscriber {
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
     override func awakeFromNib() {
         
-        updateRepeatAndShuffleMenuItemStates()
-        
         favoritesMenuItem.off()
         
         Messenger.subscribeAsync(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:), queue: .main)
@@ -69,6 +67,13 @@ class DockMenuController: NSObject, MessageSubscriber {
             item.favorite = $0
             favoritesMenu.addItem(item)
         })
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        // TODO: Recreate history and favorites menus here ???
+        
+        updateRepeatAndShuffleMenuItemStates()
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
@@ -207,32 +212,27 @@ class DockMenuController: NSObject, MessageSubscriber {
     
     // Sets the repeat mode to "Off"
     @IBAction func repeatOffAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.repeatOff))
-        updateRepeatAndShuffleMenuItemStates()
+        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.off)
     }
     
     // Sets the repeat mode to "Repeat One"
     @IBAction func repeatOneAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.repeatOne))
-        updateRepeatAndShuffleMenuItemStates()
+        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.one)
     }
     
     // Sets the repeat mode to "Repeat All"
     @IBAction func repeatAllAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.repeatAll))
-        updateRepeatAndShuffleMenuItemStates()
+        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.all)
     }
     
     // Sets the shuffle mode to "Off"
     @IBAction func shuffleOffAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.shuffleOff))
-        updateRepeatAndShuffleMenuItemStates()
+        Messenger.publish(.player_setShuffleMode, payload: ShuffleMode.off)
     }
     
     // Sets the shuffle mode to "On"
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.shuffleOn))
-        updateRepeatAndShuffleMenuItemStates()
+        Messenger.publish(.player_setShuffleMode, payload: ShuffleMode.on)
     }
     
     // Mutes or unmutes the player
