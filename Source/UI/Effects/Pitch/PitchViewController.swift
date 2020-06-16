@@ -35,14 +35,17 @@ class PitchViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increasePitch, .decreasePitch, .setPitch], subscriber: self)
+        
+        Messenger.subscribe(self, .pitchFXUnit_decreasePitch, self.decreasePitch)
+        Messenger.subscribe(self, .pitchFXUnit_increasePitch, self.increasePitch)
+        Messenger.subscribe(self, .pitchFXUnit_setPitch, self.setPitch(_:))
     }
     
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
         
-        // TODO: Move this to generic view
+        // TODO: Move this to a generic view
         pitchView.initialize(self.unitStateFunction)
         
         functionLabels = [lblPitch, lblOverlap, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
@@ -151,28 +154,6 @@ class PitchViewController: FXUnitViewController {
         
         if pitchUnit.state == .suppressed {
             pitchView.redrawSliders()
-        }
-    }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if let message = message as? AudioGraphActionMessage {
-        
-            switch message.actionType {
-                
-            case .increasePitch: increasePitch()
-                
-            case .decreasePitch: decreasePitch()
-                
-            case .setPitch: setPitch(message.value!)
-                
-            default: return
-                
-            }
         }
     }
 }

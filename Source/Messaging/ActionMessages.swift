@@ -88,15 +88,6 @@ enum ActionType {
     
     // MARK: Audio graph actions
 
-    // Increases the pitch by a certain preset increment
-    case increasePitch
-    
-    // Decreases the pitch by a certain preset decrement
-    case decreasePitch
-    
-    // Sets the pitch to a specific value
-    case setPitch
-    
     // Increases the playback rate by a certain preset increment
     case increaseRate
     
