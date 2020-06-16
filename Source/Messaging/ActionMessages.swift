@@ -37,6 +37,17 @@ enum ActionType {
     
     // MARK: Playlist actions
     
+    // ******** NO PAYLOAD ****************************************************************************************
+    
+
+    // ------- PLAYER ------------------
+    
+    case savePlaybackProfile
+    case deletePlaybackProfile
+    
+    // ------- PLAYLIST ------------------
+    
+    
     // Add tracks to playlist
     case addTracks
     
@@ -46,14 +57,11 @@ enum ActionType {
     // Clear the playlist of all tracks
     case clearPlaylist
     
-    // Play the chapter selected within the chapters list
-    case playSelectedChapter
-    
     // Invoke the search dialog
-    case search
-    
-    // Invoke the sort dialog
-    case sort
+       case search
+       
+       // Invoke the sort dialog
+       case sort
     
     // Switch to the previous playlist view (in the tab group)
     case previousPlaylistView
@@ -64,38 +72,37 @@ enum ActionType {
     // Display detailed track info popover for the selected playlist track
     case selectedTrackInfo
     
-    // MARK: Playlist window actions
-    
     // Show chapters list window for currently playing track
-    case viewChapters
+       case viewChapters
     
-    // MARK: Playback actions
+       // MARK: Playback actions
+       
+       // Play the previous available chapter
+       case previousChapter
+       
+       // Play the next available chapter
+       case nextChapter
+       
+       // Replay the currently playing chapter from the beginning, if there is one
+       case replayChapter
+       
+       // Toggle the current chapter playback loop
+       case toggleChapterLoop
     
-    // Play the previous available chapter
-    case previousChapter
     
-    // Play the next available chapter
-    case nextChapter
-    
-    // Replay the currently playing chapter from the beginning, if there is one
-    case replayChapter
-    
-    // Toggle the current chapter playback loop
-    case toggleChapterLoop
-    
-    // Show detailed info for the currently playing track
-    case moreInfo
-    
-    // MARK: Audio graph actions
+    // MARK: FX actions
     
     // Saves the current settings in a sound profile for the current track
     case saveSoundProfile
     
     case deleteSoundProfile
     
-    case savePlaybackProfile
     
-    case deletePlaybackProfile
+   // ******** WITH PAYLOAD ****************************************************************************************
+    
+    
+     // Play the chapter selected within the chapters list
+     case playSelectedChapter
     
     // MARK: Effects view actions
     
@@ -105,9 +112,6 @@ enum ActionType {
     case updateEffectsView
     
     // MARK: View actions
-    
-    case bookmarkPosition
-    case bookmarkLoop
     
     // MARK: Effects presets editor actions
     
