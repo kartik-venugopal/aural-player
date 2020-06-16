@@ -87,25 +87,7 @@ enum ActionType {
     case moreInfo
     
     // MARK: Audio graph actions
-    
-    // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
-    case increaseBass
-    
-    // Decreases each of the EQ bass bands by a certain preset decrement
-    case decreaseBass
-    
-    // Increases each of the EQ mid-frequency bands by a certain preset increment
-    case increaseMids
-    
-    // Decreases each of the EQ mid-frequency bands by a certain preset decrement
-    case decreaseMids
-    
-    // Decreases each of the EQ treble bands by a certain preset increment
-    case increaseTreble
-    
-    // Decreases each of the EQ treble bands by a certain preset decrement
-    case decreaseTreble
-    
+
     // Increases the pitch by a certain preset increment
     case increasePitch
     

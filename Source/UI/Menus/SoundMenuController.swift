@@ -170,32 +170,32 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Decreases each of the EQ bass bands by a certain preset decrement
     @IBAction func decreaseBassAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseBass))
+        Messenger.publish(.eqFXUnit_decreaseBass)
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     @IBAction func increaseBassAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseBass))
+        Messenger.publish(.eqFXUnit_increaseBass)
     }
     
     // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     @IBAction func decreaseMidsAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseMids))
+        Messenger.publish(.eqFXUnit_decreaseMids)
     }
     
     // Increases each of the EQ mid-frequency bands by a certain preset increment
     @IBAction func increaseMidsAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseMids))
+        Messenger.publish(.eqFXUnit_increaseMids)
     }
     
     // Decreases each of the EQ treble bands by a certain preset decrement
     @IBAction func decreaseTrebleAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.decreaseTreble))
+        Messenger.publish(.eqFXUnit_decreaseTreble)
     }
     
     // Decreases each of the EQ treble bands by a certain preset increment
     @IBAction func increaseTrebleAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(AudioGraphActionMessage(.increaseTreble))
+        Messenger.publish(.eqFXUnit_increaseTreble)
     }
     
     // Decreases the pitch by a certain preset decrement

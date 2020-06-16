@@ -14,6 +14,7 @@ class EQViewController: FXUnitViewController {
     override func awakeFromNib() {
         
         super.awakeFromNib()
+        
         self.unitType = .eq
         self.fxUnit = graph.eqUnit
         self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
@@ -28,7 +29,17 @@ class EQViewController: FXUnitViewController {
     override func initSubscriptions() {
         
         super.initSubscriptions()
-        SyncMessenger.subscribe(actionTypes: [.increaseBass, .decreaseBass, .increaseMids, .decreaseMids, .increaseTreble, .decreaseTreble, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor], subscriber: self)
+        
+        Messenger.subscribe(self, .eqFXUnit_decreaseBass, self.decreaseBass)
+        Messenger.subscribe(self, .eqFXUnit_increaseBass, self.increaseBass)
+        
+        Messenger.subscribe(self, .eqFXUnit_decreaseMids, self.decreaseMids)
+        Messenger.subscribe(self, .eqFXUnit_increaseMids, self.increaseMids)
+        
+        Messenger.subscribe(self, .eqFXUnit_decreaseTreble, self.decreaseTreble)
+        Messenger.subscribe(self, .eqFXUnit_increaseTreble, self.increaseTreble)
+        
+        SyncMessenger.subscribe(actionTypes: [.changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor], subscriber: self)
     }
     
     override func initControls() {
@@ -163,27 +174,6 @@ class EQViewController: FXUnitViewController {
     override func consumeMessage(_ message: ActionMessage) {
         
         super.consumeMessage(message)
-        
-        if let message = message as? AudioGraphActionMessage {
-        
-            switch message.actionType {
-                
-            case .increaseBass: increaseBass()
-                
-            case .decreaseBass: decreaseBass()
-                
-            case .increaseMids: increaseMids()
-                
-            case .decreaseMids: decreaseMids()
-                
-            case .increaseTreble: increaseTreble()
-                
-            case .decreaseTreble: decreaseTreble()
-                
-            default: return
-                
-            }
-        }
         
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
