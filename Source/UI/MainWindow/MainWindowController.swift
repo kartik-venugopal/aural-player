@@ -70,7 +70,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
-        changeTextSize()
+        changeTextSize(PlayerViewState.textSize)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -91,8 +91,10 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     
     private func initSubscriptions() {
         
+        Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
+        
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)
         
         Messenger.subscribe(self, .windowLayoutChanged, self.windowLayoutChanged(_:))
     }
@@ -129,7 +131,7 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         theWindow.miniaturize(self)
     }
     
-    private func changeTextSize() {
+    private func changeTextSize(_ textSize: TextSize) {
         btnSettingsMenu.font = Fonts.Player.menuFont
     }
     
@@ -183,8 +185,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         case .toggleEffects: toggleEffects()
             
         case .togglePlaylist: togglePlaylist()
-            
-        case .changePlayerTextSize: changeTextSize()
             
         case .changeBackgroundColor:
             

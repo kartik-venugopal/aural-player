@@ -128,9 +128,9 @@ class TimeViewController: FXUnitViewController {
         timeView.updatePitchShift(timeUnit.formattedPitch)
     }
     
-    override func changeTextSize() {
+    override func changeTextSize(_ textSize: TextSize) {
         
-        super.changeTextSize()
+        super.changeTextSize(textSize)
         btnShiftPitch.redraw()
     }
     
@@ -196,12 +196,6 @@ class TimeViewController: FXUnitViewController {
             default: return
 
             }
-        }
-        
-        if message.actionType == .changeEffectsTextSize {
-            
-            changeTextSize()
-            return
         }
     }
 }

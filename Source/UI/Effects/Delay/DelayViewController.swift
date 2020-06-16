@@ -93,17 +93,4 @@ class DelayViewController: FXUnitViewController {
         super.changeSuppressedUnitStateColor(color)
         delayView.redrawSliders()
     }
-
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if message.actionType == .changeEffectsTextSize {
-            
-            changeTextSize()
-            return
-        }
-    }
 }

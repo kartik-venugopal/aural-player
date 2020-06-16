@@ -65,8 +65,8 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
-        changeTextSize()
-        SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
+        changeTextSize(EffectsViewState.textSize)
+        Messenger.publish(.changeFXTextSize, payload: EffectsViewState.textSize)
         
         applyColorScheme(ColorSchemes.systemScheme)
         
@@ -113,7 +113,9 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
         Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
         
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
+        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize)
+        
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -133,7 +135,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         SyncMessenger.publishActionMessage(ViewActionMessage(.toggleEffects))
     }
     
-    private func changeTextSize() {
+    private func changeTextSize(_ textSize: TextSize) {
         viewMenuButton.font = Fonts.Effects.menuFont
     }
     
@@ -239,12 +241,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             default: return
 
             }
-        }
-        
-        if message is TextSizeActionMessage {
-            
-            changeTextSize()
-            return
         }
         
         if let colorSchemeMsg = message as? ColorSchemeActionMessage {

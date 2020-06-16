@@ -34,7 +34,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         
         Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .changePlayerTextSize, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
+        Messenger.subscribe(self, .changePlayerTextSize, infoView.changeTextSize(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlayerView, .showOrHideAlbumArt, .showOrHideArtist, .showOrHideAlbum, .showOrHideCurrentChapter, .showOrHideMainControls, .showOrHidePlayingTrackInfo, .showOrHideSequenceInfo, .showOrHidePlayingTrackFunctions, .applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
     
     private func trackChanged(_ track: Track?) {
@@ -80,11 +82,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         } else if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
             
             infoView.applyColorScheme(colorSchemeActionMsg.scheme)
-            return
-            
-        } else if let textSizeMessage = message as? TextSizeActionMessage {
-            
-            infoView.changeTextSize(textSizeMessage.textSize)
             return
         }
     }

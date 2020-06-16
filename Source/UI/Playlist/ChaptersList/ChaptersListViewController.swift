@@ -114,7 +114,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Register self as a subscriber to synchronous message notifications
         Messenger.subscribeAsync(self, .trackTransition, self.trackChanged, queue: .main)
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changePlaylistTextSize, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
+        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -353,10 +355,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
             
             toggleCurrentChapterLoopAction(self)
             
-        case .changePlaylistTextSize:
-            
-            changeTextSize()
-            
         case .applyColorScheme:
             
             if let colorSchemeMsg = message as? ColorSchemeActionMessage {
@@ -470,7 +468,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         looping = false
     }
     
-    private func changeTextSize() {
+    private func changeTextSize(_ textSize: TextSize) {
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
