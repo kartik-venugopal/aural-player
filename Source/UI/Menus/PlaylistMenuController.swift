@@ -372,11 +372,11 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func clearSelectionAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.clearSelection, PlaylistViewState.current))
+        Messenger.publish(.playlist_clearSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func invertSelectionAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.invertSelection, PlaylistViewState.current))
+        Messenger.publish(.playlist_invertSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func cropSelectionAction(_ sender: Any) {
@@ -387,7 +387,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.cropSelection, PlaylistViewState.current))
+        Messenger.publish(.playlist_cropSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
