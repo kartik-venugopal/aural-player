@@ -90,7 +90,7 @@ extension Notification.Name {
     // ----------
     
     
-    static let refresh = Notification.Name("refresh")
+    static let playlist_refresh = Notification.Name("playlist_refresh")
 
     static let addTracks = Notification.Name("addTracks")
 

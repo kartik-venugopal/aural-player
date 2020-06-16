@@ -43,20 +43,25 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
         Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: .main)
-        
-        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
+
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
+        Messenger.subscribeAsync(self, .trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
         
         // Don't bother responding if only album art was updated
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
         Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
+        // MARK: Command handling -------------------------------------------------------------------------------------------------
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
+        
+        let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(.tracks)}
+        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -93,7 +98,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
     private func clearPlaylist() {
         
         playlist.clear()
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
+        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.allViews)
     }
     
     private func removeTracks() {
@@ -126,7 +131,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         }
     }
     
-    private func refresh() {
+    func refresh() {
         
         DispatchQueue.main.async {
             self.playlistView.reloadData()
@@ -635,10 +640,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             }
             
             switch msg.actionType {
-                
-            case .refresh:
-                
-                refresh()
                 
             case .removeTracks:
                 
