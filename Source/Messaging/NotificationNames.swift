@@ -87,76 +87,78 @@ extension Notification.Name {
     // Toggle A->B segment playback loop
     static let player_toggleLoop = Notification.Name("player_toggleLoop")
     
-    // ----------
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Playlist commands
     
     
     static let playlist_refresh = Notification.Name("playlist_refresh")
 
-    static let addTracks = Notification.Name("addTracks")
+    static let playlist_addTracks = Notification.Name("playlist_addTracks")
 
-    static let removeTracks = Notification.Name("removeTracks")
+    static let playlist_removeTracks = Notification.Name("playlist_removeTracks")
 
-    static let savePlaylist = Notification.Name("savePlaylist")
+    static let playlist_savePlaylist = Notification.Name("playlist_savePlaylist")
 
-    static let clearPlaylist = Notification.Name("clearPlaylist")
+    static let playlist_clearPlaylist = Notification.Name("playlist_clearPlaylist")
 
-    static let showPlayingTrack = Notification.Name("showPlayingTrack")
+    static let playlist_showPlayingTrack = Notification.Name("playlist_showPlayingTrack")
 
-    static let playSelectedItem = Notification.Name("playSelectedItem")
+    static let playlist_playSelectedItem = Notification.Name("playlist_playSelectedItem")
 
-    static let playSelectedItemWithDelay = Notification.Name("playSelectedItemWithDelay")
+    static let playlist_playSelectedItemWithDelay = Notification.Name("playlist_playSelectedItemWithDelay")
 
-    static let playSelectedChapter = Notification.Name("playSelectedChapter")
+    static let playlist_playSelectedChapter = Notification.Name("playlist_playSelectedChapter")
 
-    static let insertGaps = Notification.Name("insertGaps")
+    static let playlist_insertGaps = Notification.Name("playlist_insertGaps")
 
-    static let removeGaps = Notification.Name("removeGaps")
+    static let playlist_removeGaps = Notification.Name("playlist_removeGaps")
 
-    static let moveTracksUp = Notification.Name("moveTracksUp")
+    static let playlist_moveTracksUp = Notification.Name("playlist_moveTracksUp")
 
-    static let moveTracksToTop = Notification.Name("moveTracksToTop")
+    static let playlist_moveTracksToTop = Notification.Name("playlist_moveTracksToTop")
 
-    static let moveTracksDown = Notification.Name("moveTracksDown")
+    static let playlist_moveTracksDown = Notification.Name("playlist_moveTracksDown")
 
-    static let moveTracksToBottom = Notification.Name("moveTracksToBottom")
+    static let playlist_moveTracksToBottom = Notification.Name("playlist_moveTracksToBottom")
 
-    static let showTrackInFinder = Notification.Name("showTrackInFinder")
+    static let playlist_showTrackInFinder = Notification.Name("playlist_showTrackInFinder")
 
-    static let search = Notification.Name("search")
+    static let playlist_search = Notification.Name("playlist_search")
 
-    static let sort = Notification.Name("sort")
+    static let playlist_sort = Notification.Name("playlist_sort")
 
-    static let clearSelection = Notification.Name("clearSelection")
+    static let playlist_clearSelection = Notification.Name("playlist_clearSelection")
 
-    static let invertSelection = Notification.Name("invertSelection")
+    static let playlist_invertSelection = Notification.Name("playlist_invertSelection")
 
-    static let cropSelection = Notification.Name("cropSelection")
+    static let playlist_cropSelection = Notification.Name("playlist_cropSelection")
 
-    static let expandSelectedGroups = Notification.Name("expandSelectedGroups")
+    static let playlist_expandSelectedGroups = Notification.Name("playlist_expandSelectedGroups")
 
-    static let collapseSelectedItems = Notification.Name("collapseSelectedItems")
+    static let playlist_collapseSelectedItems = Notification.Name("playlist_collapseSelectedItems")
 
-    static let collapseParentGroup = Notification.Name("collapseParentGroup")
+    static let playlist_collapseParentGroup = Notification.Name("playlist_collapseParentGroup")
 
-    static let expandAllGroups = Notification.Name("expandAllGroups")
+    static let playlist_expandAllGroups = Notification.Name("playlist_expandAllGroups")
 
-    static let collapseAllGroups = Notification.Name("collapseAllGroups")
+    static let playlist_collapseAllGroups = Notification.Name("playlist_collapseAllGroups")
 
-    static let scrollToTop = Notification.Name("scrollToTop")
+    static let playlist_scrollToTop = Notification.Name("playlist_scrollToTop")
 
-    static let scrollToBottom = Notification.Name("scrollToBottom")
+    static let playlist_scrollToBottom = Notification.Name("playlist_scrollToBottom")
 
-    static let pageUp = Notification.Name("pageUp")
+    static let playlist_pageUp = Notification.Name("playlist_pageUp")
 
-    static let pageDown = Notification.Name("pageDown")
+    static let playlist_pageDown = Notification.Name("playlist_pageDown")
 
-    static let previousPlaylistView = Notification.Name("previousPlaylistView")
+    static let playlist_previousPlaylistView = Notification.Name("playlist_previousPlaylistView")
 
-    static let nextPlaylistView = Notification.Name("nextPlaylistView")
+    static let playlist_nextPlaylistView = Notification.Name("playlist_nextPlaylistView")
 
-    static let selectedTrackInfo = Notification.Name("selectedTrackInfo")
+    static let playlist_selectedTrackInfo = Notification.Name("playlist_selectedTrackInfo")
 
-    static let viewChapters = Notification.Name("viewChapters")
+    static let playlist_viewChapters = Notification.Name("playlist_viewChapters")
 
     
 

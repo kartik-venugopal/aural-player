@@ -195,7 +195,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
+        Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
@@ -225,7 +225,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
+        Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
@@ -238,7 +238,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToTop, PlaylistViewState.current))
+        Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
@@ -251,7 +251,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
+        Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
@@ -264,7 +264,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksToBottom, PlaylistViewState.current))
+        Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
