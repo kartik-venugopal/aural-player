@@ -217,16 +217,22 @@ extension Notification.Name {
     
     // MARK: EQ FX unit commands
     
+    // Decreases each of the EQ bass bands by a certain preset decrement
     static let eqFXUnit_decreaseBass = Notification.Name("eqFXUnit_decreaseBass")
 
+    // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     static let eqFXUnit_increaseBass = Notification.Name("eqFXUnit_increaseBass")
 
+    // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     static let eqFXUnit_decreaseMids = Notification.Name("eqFXUnit_decreaseMids")
     
+    // Increases each of the EQ mid-frequency bands by a certain preset increment
     static let eqFXUnit_increaseMids = Notification.Name("eqFXUnit_increaseMids")
 
+    // Decreases each of the EQ treble bands by a certain preset decrement
     static let eqFXUnit_decreaseTreble = Notification.Name("eqFXUnit_decreaseTreble")
     
+    // Decreases each of the EQ treble bands by a certain preset increment
     static let eqFXUnit_increaseTreble = Notification.Name("eqFXUnit_increaseTreble")
     
     // ----------------------------------------------------------------------------------------
