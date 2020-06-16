@@ -108,6 +108,16 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
+    // MARK: Player sequencing commands
+    
+    // Set repeat mode (to a specific value)
+    static let player_setRepeatMode = Notification.Name("player_setRepeatMode")
+    
+    // Set shuffle mode (to a specific value)
+    static let player_setShuffleMode = Notification.Name("player_setShuffleMode")
+    
+    // ----------------------------------------------------------------------------------------
+    
     // MARK: Playlist commands
     
     static let playlist_refresh = Notification.Name("playlist_refresh")
@@ -179,7 +189,7 @@ extension Notification.Name {
     static let playlist_viewChapters = Notification.Name("playlist_viewChapters")
 
     
-
+    
     static let previousChapter = Notification.Name("previousChapter")
 
     static let nextChapter = Notification.Name("nextChapter")
@@ -189,17 +199,7 @@ extension Notification.Name {
     static let toggleChapterLoop = Notification.Name("toggleChapterLoop")
 
     
-
-    static let repeatOff = Notification.Name("repeatOff")
-
-    static let repeatOne = Notification.Name("repeatOne")
-
-    static let repeatAll = Notification.Name("repeatAll")
-
-    static let shuffleOff = Notification.Name("shuffleOff")
-
-    static let shuffleOn = Notification.Name("shuffleOn")
-
+    
     static let moreInfo = Notification.Name("moreInfo")
 
     static let enableEffects = Notification.Name("enableEffects")

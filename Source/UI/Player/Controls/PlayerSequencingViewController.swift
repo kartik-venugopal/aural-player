@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber {
+class PlayerSequencingViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
@@ -30,8 +30,16 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
         
         redrawButtons()
         
+        initSubscriptions()
+    }
+    
+    private func initSubscriptions() {
+        
+        Messenger.subscribe(self, .player_setRepeatMode, self.setRepeatMode(_:))
+        Messenger.subscribe(self, .player_setShuffleMode, self.setShuffleMode(_:))
+        
         // Subscribe to message notifications
-        SyncMessenger.subscribe(actionTypes: [.repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
     }
     
     // Toggles the repeat mode
@@ -42,6 +50,14 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
     // Toggles the shuffle mode
     @IBAction func shuffleAction(_ sender: AnyObject) {
         updateRepeatAndShuffleControls(sequencer.toggleShuffleMode())
+    }
+    
+    private func setRepeatMode(_ repeatMode: RepeatMode) {
+        updateRepeatAndShuffleControls(sequencer.setRepeatMode(repeatMode))
+    }
+    
+    private func setShuffleMode(_ shuffleMode: ShuffleMode) {
+        updateRepeatAndShuffleControls(sequencer.setShuffleMode(shuffleMode))
     }
     
     private func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {
@@ -59,26 +75,6 @@ class PlayerSequencingViewController: NSViewController, ActionMessageSubscriber 
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-      
-        case .repeatOff:
-            
-            updateRepeatAndShuffleControls(sequencer.setRepeatMode(.off))
-            
-        case .repeatOne:
-            
-            updateRepeatAndShuffleControls(sequencer.setRepeatMode(.one))
-            
-        case .repeatAll:
-            
-            updateRepeatAndShuffleControls(sequencer.setRepeatMode(.all))
-            
-        case .shuffleOff:
-            
-            updateRepeatAndShuffleControls(sequencer.setShuffleMode(.off))
-            
-        case .shuffleOn:
-            
-            updateRepeatAndShuffleControls(sequencer.setShuffleMode(.on))
             
         case .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor:
             

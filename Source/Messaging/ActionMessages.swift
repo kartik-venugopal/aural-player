@@ -83,21 +83,6 @@ enum ActionType {
     // Toggle the current chapter playback loop
     case toggleChapterLoop
     
-    // Set repeat mode to "Off"
-    case repeatOff
-    
-    // Set repeat mode to "Repeat One"
-    case repeatOne
-    
-    // Set repeat mode to "Repeat All"
-    case repeatAll
-    
-    // Set shuffle mode to "Off"
-    case shuffleOff
-    
-    // Set shuffle mode to "On"
-    case shuffleOn
-    
     // Show detailed info for the currently playing track
     case moreInfo
     

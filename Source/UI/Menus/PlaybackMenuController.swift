@@ -187,27 +187,27 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Sets the repeat mode to "Off"
     @IBAction func repeatOffAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.repeatOff))
+        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.off)
     }
     
     // Sets the repeat mode to "Repeat One"
     @IBAction func repeatOneAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.repeatOne))
+        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.one)
     }
     
     // Sets the repeat mode to "Repeat All"
     @IBAction func repeatAllAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.repeatAll))
+        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.all)
     }
     
     // Sets the shuffle mode to "Off"
     @IBAction func shuffleOffAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.shuffleOff))
+        Messenger.publish(.player_setShuffleMode, payload: ShuffleMode.off)
     }
     
     // Sets the shuffle mode to "On"
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.shuffleOn))
+        Messenger.publish(.player_setShuffleMode, payload: ShuffleMode.on)
     }
     
     // MARK: Miscellaneous playing track functions
