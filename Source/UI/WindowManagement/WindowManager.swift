@@ -5,14 +5,10 @@ class WindowManager {
     private static var appState: WindowLayoutState!
     private static var preferences: ViewPreferences!
     
-    private static let subscriberId: String = "WindowManager"
-    
     static func initialize(_ appState: WindowLayoutState, _ preferences: ViewPreferences) {
         
         WindowManager.appState = appState
         WindowManager.preferences = preferences
-        
-        Messenger.subscribe(subscriberId, .appLaunched, self.initializeWindows)
     }
     
     // App's main window
