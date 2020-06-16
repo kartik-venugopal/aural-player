@@ -81,16 +81,6 @@ enum ActionType {
     
     case collapseAllGroups
     
-    // Scroll to the top of the playlist
-    case scrollToTop
-    
-    // Scroll to the bottom of the playlist
-    case scrollToBottom
-    
-    case pageUp
-    
-    case pageDown
-    
     // Switch to the previous playlist view (in the tab group)
     case previousPlaylistView
     

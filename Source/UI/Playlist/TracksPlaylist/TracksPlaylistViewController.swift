@@ -39,6 +39,20 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         // Register for key press and gesture events
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
+        initSubscriptions()
+        
+        // Set up the serial operation queue for playlist view updates
+        playlistUpdateQueue.maxConcurrentOperationCount = 1
+        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
+        playlistUpdateQueue.qualityOfService = .background
+        
+        playlistView.menu = contextMenu
+        
+        applyColorScheme(ColorSchemes.systemScheme, false)
+    }
+    
+    private func initSubscriptions() {
+        
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
         Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: .main)
 
@@ -70,16 +84,12 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         Messenger.subscribe(self, .playlist_invertSelection, {(PlaylistViewSelector) in self.invertSelection()}, filter: viewSelectionFilter)
         Messenger.subscribe(self, .playlist_cropSelection, {(PlaylistViewSelector) in self.cropSelection()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.scrollToTop, .scrollToBottom, .pageUp, .pageDown, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_scrollToTop, {(PlaylistViewSelector) in self.scrollToTop()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_scrollToBottom, {(PlaylistViewSelector) in self.scrollToBottom()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_pageUp, {(PlaylistViewSelector) in self.pageUp()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_pageDown, {(PlaylistViewSelector) in self.pageDown()}, filter: viewSelectionFilter)
         
-        // Set up the serial operation queue for playlist view updates
-        playlistUpdateQueue.maxConcurrentOperationCount = 1
-        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
-        playlistUpdateQueue.qualityOfService = .background
-        
-        playlistView.menu = contextMenu
-        
-        applyColorScheme(ColorSchemes.systemScheme, false)
+        SyncMessenger.subscribe(actionTypes: [.showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -651,22 +661,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             case .playSelectedItem:
                 
                 playSelectedTrackAction(self)
-                
-            case .scrollToTop:
-                
-                scrollToTop()
-                
-            case .scrollToBottom:
-                
-                scrollToBottom()
-                
-            case .pageUp:
-                
-                pageUp()
-                
-            case .pageDown:
-                
-                pageDown()
                 
             case .selectedTrackInfo:
                 
