@@ -73,9 +73,16 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
         
         let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(self.playlistType)}
-        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_removeTracks, {(PlaylistViewSelector) in self.removeTracks()}, filter: viewSelectionFilter)
+        
+        Messenger.subscribe(self, .playlist_moveTracksUp, {(PlaylistViewSelector) in self.moveTracksUp()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksDown, {(PlaylistViewSelector) in self.moveTracksDown()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksToTop, {(PlaylistViewSelector) in self.moveTracksToTop()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksToBottom, {(PlaylistViewSelector) in self.moveTracksToBottom()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -90,6 +97,10 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
     @IBAction func playSelectedItemAction(_ sender: AnyObject) {
+        playSelectedItemWithDelay(nil)
+    }
+    
+    func playSelectedItem() {
         playSelectedItemWithDelay(nil)
     }
     
@@ -142,12 +153,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         if (groups.isEmpty && tracks.isEmpty) {
             
             // Nothing selected, nothing to do
-            return
-        }
-        
-        // If all groups are selected, this is the same as clearing the playlist
-        if (groups.count == playlist.numberOfGroups(self.groupType)) {
-            clearPlaylist()
             return
         }
         
@@ -815,10 +820,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             
             switch msg.actionType {
                 
-            case .removeTracks:
-                
-                removeTracks()
-                
             case .showPlayingTrack:
                 
                 showPlayingTrack()
@@ -826,22 +827,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             case .playSelectedItem:
                 
                 playSelectedItemAction(self)
-                
-            case .moveTracksUp:
-                
-                moveTracksUp()
-                
-            case .moveTracksDown:
-                
-                moveTracksDown()
-                
-            case .moveTracksToTop:
-                
-                moveTracksToTop()
-                
-            case .moveTracksToBottom:
-                
-                moveTracksToBottom()
                 
             case .scrollToTop:
                 

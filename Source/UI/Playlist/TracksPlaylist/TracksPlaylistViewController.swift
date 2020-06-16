@@ -27,8 +27,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
     
     override var nibName: String? {return "Tracks"}
     
-    var rows: Int = 0
-    
     convenience init() {
         self.init(nibName: "Tracks", bundle: Bundle.main)
     }
@@ -59,9 +57,16 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
         
         let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(.tracks)}
-        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksToBottom, .moveTracksDown, .clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_removeTracks, {(PlaylistViewSelector) in self.removeTracks()}, filter: viewSelectionFilter)
+        
+        Messenger.subscribe(self, .playlist_moveTracksUp, {(PlaylistViewSelector) in self.moveTracksUp()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksDown, {(PlaylistViewSelector) in self.moveTracksDown()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksToTop, {(PlaylistViewSelector) in self.moveTracksToTop()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksToBottom, {(PlaylistViewSelector) in self.moveTracksToBottom()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.clearSelection, .invertSelection, .cropSelection, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
         
         // Set up the serial operation queue for playlist view updates
         playlistUpdateQueue.maxConcurrentOperationCount = 1
@@ -105,12 +110,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         
         let selectedIndexes = playlistView.selectedRowIndexes
         if (!selectedIndexes.isEmpty) {
-            
-            // Special case: If all tracks were removed, this is the same as clearing the playlist, delegate to that (simpler and more efficient) function instead.
-            if (selectedIndexes.count == playlistView.numberOfRows) {
-                clearPlaylist()
-                return
-            }
             
             playlist.removeTracks(selectedIndexes)
             
@@ -641,10 +640,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             
             switch msg.actionType {
                 
-            case .removeTracks:
-                
-                removeTracks()
-                
             case .showPlayingTrack:
                 
                 showPlayingTrack()
@@ -652,22 +647,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             case .playSelectedItem:
                 
                 playSelectedTrackAction(self)
-                
-            case .moveTracksUp:
-                
-                moveTracksUp()
-                
-            case .moveTracksDown:
-                
-                moveTracksDown()
-                
-            case .moveTracksToTop:
-                
-                moveTracksToTop()
-                
-            case .moveTracksToBottom:
-                
-                moveTracksToBottom()
                 
             case .scrollToTop:
                 

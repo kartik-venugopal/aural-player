@@ -247,7 +247,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.removeTracks, PlaylistViewState.current))
+        Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
         
 //        sequenceChanged()
         updatePlaylistSummary()
@@ -300,7 +300,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksUp, PlaylistViewState.current))
+        Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
@@ -313,7 +313,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
             return
         }
         
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.moveTracksDown, PlaylistViewState.current))
+        Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
 //        sequenceChanged()
     }
     
