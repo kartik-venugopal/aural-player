@@ -88,10 +88,6 @@ enum ActionType {
     
     // MARK: Audio graph actions
     
-    case enableEffects
-    
-    case disableEffects
-    
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     case increaseBass
     
