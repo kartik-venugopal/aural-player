@@ -224,7 +224,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         PlayerViewState.timeElapsedDisplayType = format
-        SyncMessenger.publishActionMessage(SetTimeElapsedDisplayFormatActionMessage(format))
+        Messenger.publish(.player_setTimeElapsedDisplayFormat, payload: format)
     }
     
     @IBAction func timeRemainingDisplayFormatAction(_ sender: NSMenuItem) {
@@ -248,7 +248,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         PlayerViewState.timeRemainingDisplayType = format
-        SyncMessenger.publishActionMessage(SetTimeRemainingDisplayFormatActionMessage(format))
+        Messenger.publish(.player_setTimeRemainingDisplayFormat, payload: format)
     }
     
     @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {

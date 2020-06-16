@@ -43,9 +43,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .player_jumpToTime, self.jumpToTime(_:))
         Messenger.subscribe(self, .player_toggleLoop, self.toggleLoop)
         
+        Messenger.subscribe(self, .player_showOrHideTimeElapsedRemaining, playbackView.showOrHideTimeElapsedRemaining)
+        Messenger.subscribe(self, .player_setTimeElapsedDisplayFormat, playbackView.setTimeElapsedDisplayFormat(_:))
+        Messenger.subscribe(self, .player_setTimeRemainingDisplayFormat, playbackView.setTimeRemainingDisplayFormat(_:))
+        
         Messenger.subscribe(self, .changePlayerTextSize, playbackView.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor, .showOrHideTimeElapsedRemaining, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor,
+                                              .changePlayerSliderColors, .changePlayerSliderValueTextColor], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -374,25 +379,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        // MARK: Player view settings
-            
-        case .showOrHideTimeElapsedRemaining:
-            
-            playbackView.showOrHideTimeElapsedRemaining()
-            
-        case .setTimeElapsedDisplayFormat:
-            
-            if let format = (message as? SetTimeElapsedDisplayFormatActionMessage)?.format {
-                playbackView.setTimeElapsedDisplayFormat(format)
-            }
-            
-        case .setTimeRemainingDisplayFormat:
-            
-            if let format = (message as? SetTimeRemainingDisplayFormatActionMessage)?.format {
-                playbackView.setTimeRemainingDisplayFormat(format)
-            }
-            
+
         // MARK: Appearance
             
         case .applyColorScheme:

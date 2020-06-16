@@ -116,12 +116,6 @@ enum ActionType {
     case deleteEffectsPresets
     case applyEffectsPreset
     
-    // Player view actions
-    
-    case setTimeElapsedDisplayFormat
-    case setTimeRemainingDisplayFormat
-    case showOrHideTimeElapsedRemaining
-    
     // Color scheme change actions
     case applyColorScheme
     
@@ -374,28 +368,6 @@ class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
         self.gapAfterTrack = gapAfterTrack
         
         super.init(notificationName: .playlist_insertGaps, viewSelector: viewSelector)
-    }
-}
-
-struct SetTimeElapsedDisplayFormatActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .setTimeElapsedDisplayFormat
-    
-    let format: TimeElapsedDisplayType
-    
-    init(_ format: TimeElapsedDisplayType) {
-        self.format = format
-    }
-}
-
-struct SetTimeRemainingDisplayFormatActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .setTimeRemainingDisplayFormat
-    
-    let format: TimeRemainingDisplayType
-    
-    init(_ format: TimeRemainingDisplayType) {
-        self.format = format
     }
 }
 
