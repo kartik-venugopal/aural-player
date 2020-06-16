@@ -99,7 +99,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
         playlist.sort(sortOptions, PlaylistViewState.current)
         
         // Notify playlist views
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, PlaylistViewState.current))
+        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
         
         // The playing track may have moved within the playlist. Update the sequence information displayed.
 //        if playbackInfo.currentTrack != nil {

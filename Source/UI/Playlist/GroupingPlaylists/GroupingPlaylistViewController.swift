@@ -58,19 +58,24 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
         Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: .main)
         
-        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
+        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
+        Messenger.subscribeAsync(self, .trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
         
         // Don't bother responding if only album art was updated
         Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
         Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
+        // MARK: Command handling -------------------------------------------------------------------------------------------------
         
-        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .refresh, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
+        
+        let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(self.playlistType)}
+        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
+        
+        SyncMessenger.subscribe(actionTypes: [.removeTracks, .moveTracksUp, .moveTracksToTop, .moveTracksDown, .moveTracksToBottom, .clearSelection, .invertSelection, .cropSelection, .expandSelectedGroups, .collapseSelectedItems, .collapseParentGroup, .expandAllGroups, .collapseAllGroups, .scrollToTop, .scrollToBottom, .pageUp, .pageDown, .showPlayingTrack, .playSelectedItem, .playSelectedItemWithDelay, .showTrackInFinder, .insertGaps, .removeGaps, .changePlaylistTextSize, .applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -106,7 +111,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
     private func clearPlaylist() {
         
         playlist.clear()
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
+        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.allViews)
     }
     
     // Helper function that gathers all selected playlist items as tracks and groups
@@ -178,7 +183,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         }
     }
     
-    private func refresh() {
+    func refresh() {
         
         DispatchQueue.main.async {
             self.playlistView.reloadData()
@@ -809,10 +814,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             }
             
             switch msg.actionType {
-                
-            case .refresh:
-                
-                refresh()
                 
             case .removeTracks:
                 

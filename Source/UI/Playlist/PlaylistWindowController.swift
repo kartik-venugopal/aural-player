@@ -286,7 +286,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         playlist.clear()
         
         // Tell all playlist views to refresh themselves
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.refresh, nil))
+        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.allViews)
         
         updatePlaylistSummary()
     }
