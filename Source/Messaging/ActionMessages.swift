@@ -49,11 +49,6 @@ enum ActionType {
     // Play the chapter selected within the chapters list
     case playSelectedChapter
     
-    // Insert a playback gap before/after the selected track
-    case insertGaps
-    
-    case removeGaps
-    
     // Invoke the search dialog
     case search
     
@@ -464,33 +459,6 @@ struct EffectsPresetsEditorActionMessage: ActionMessage {
     }
 }
 
-struct InsertPlaybackGapsActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .insertGaps
-    
-    let gapBeforeTrack: PlaybackGap?
-    let gapAfterTrack: PlaybackGap?
-    let playlistType: PlaylistType?
-    
-    init(_ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?, _ playlistType: PlaylistType?) {
-        
-        self.gapBeforeTrack = gapBeforeTrack
-        self.gapAfterTrack = gapAfterTrack
-        self.playlistType = playlistType
-    }
-}
-
-struct RemovePlaybackGapsActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .removeGaps
-    
-    let playlistType: PlaylistType?
-    
-    init(_ playlistType: PlaylistType?) {
-        self.playlistType = playlistType
-    }
-}
-
 class PlaylistCommandNotification: NotificationPayload {
 
     let notificationName: Notification.Name
@@ -512,6 +480,20 @@ class DelayedPlaybackCommandNotification: PlaylistCommandNotification {
         
         self.delay = delay
         super.init(notificationName: .playlist_playSelectedItemWithDelay, viewSelector: viewSelector)
+    }
+}
+
+class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
+    
+    let gapBeforeTrack: PlaybackGap?
+    let gapAfterTrack: PlaybackGap?
+    
+    init(gapBeforeTrack: PlaybackGap?, gapAfterTrack: PlaybackGap?, viewSelector: PlaylistViewSelector) {
+        
+        self.gapBeforeTrack = gapBeforeTrack
+        self.gapAfterTrack = gapAfterTrack
+        
+        super.init(notificationName: .playlist_insertGaps, viewSelector: viewSelector)
     }
 }
 

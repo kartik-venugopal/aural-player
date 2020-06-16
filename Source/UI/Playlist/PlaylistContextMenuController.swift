@@ -186,7 +186,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             let gapBefore = gapPosn == .beforeTrack ? gap : nil
             let gapAfter = gapPosn == .afterTrack ? gap : nil
             
-            SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(gapBefore, gapAfter, PlaylistViewState.current))
+            Messenger.publish(InsertPlaybackGapsCommandNotification(gapBeforeTrack: gapBefore, gapAfterTrack: gapAfter,
+                                                                    viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
             
         } else {
             
@@ -221,7 +222,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(RemovePlaybackGapsActionMessage(PlaylistViewState.current))
+        Messenger.publish(.playlist_removeGaps, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list

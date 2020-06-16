@@ -288,7 +288,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             let gapBefore = gapPosn == .beforeTrack ? gap : nil
             let gapAfter = gapPosn == .afterTrack ? gap : nil
             
-            SyncMessenger.publishActionMessage(InsertPlaybackGapsActionMessage(gapBefore, gapAfter, PlaylistViewState.current))
+            Messenger.publish(InsertPlaybackGapsCommandNotification(gapBeforeTrack: gapBefore, gapAfterTrack: gapAfter,
+                                                                    viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
             
         } else {
             
@@ -323,7 +324,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             return
         }
         
-        SyncMessenger.publishActionMessage(RemovePlaybackGapsActionMessage(PlaylistViewState.current))
+        Messenger.publish(.playlist_removeGaps, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
