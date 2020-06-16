@@ -392,19 +392,19 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func expandSelectedGroupsAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.expandSelectedGroups, PlaylistViewState.current))
+        Messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func collapseSelectedItemsAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.collapseSelectedItems, PlaylistViewState.current))
+        Messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func expandAllGroupsAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.expandAllGroups, PlaylistViewState.current))
+        Messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     @IBAction func collapseAllGroupsAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.collapseAllGroups, PlaylistViewState.current))
+        Messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     // Scrolls the current playlist view to the very top
