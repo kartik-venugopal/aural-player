@@ -359,27 +359,23 @@ class Sequencer: SequencerProtocol, MessageSubscriber, PersistentModelObject {
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
         
-        // If the playing track was removed, playback is stopped, and the current sequence has ended
-        if !playingTrackRemoved {
-            
-            // Playing track was not removed. If the scope is a group, it might be unaffected.
-            guard !removeResults.tracks.isEmpty else {return}
-            
-            if let group = scope.group {
+        // Playing track was not removed. If the scope is a group, it might be unaffected.
+        guard !removeResults.tracks.isEmpty else {return}
+        
+        if let group = scope.group {
 
-                // We are only interested in the results matching the scope's group type.
-                let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
-                
-                // Loop through the results to see if a result for the scope group exists.
-                if let theResults = filteredResults,
-                    !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
-                    
-                    return
-                }
-            }
+            // We are only interested in the results matching the scope's group type.
+            let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
             
-            updateSequence(true)
+            // Loop through the results to see if a result for the scope group exists.
+            if let theResults = filteredResults,
+                !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
+                
+                return
+            }
         }
+        
+        updateSequence(true)
     }
     
     func playlistCleared() {
@@ -390,8 +386,7 @@ class Sequencer: SequencerProtocol, MessageSubscriber, PersistentModelObject {
     // to update the size of the sequence, and the sequence cursor, both of which may have changed.
     private func updateSequence(_ resize: Bool) {
         
-        // No need to update the sequence if no track is playing. It will get updated whenever playback begins.
-        guard let playingTrackIndex = calculatePlayingTrackIndex() else {return}
+        let playingTrackIndex = calculatePlayingTrackIndex()
         
         if resize {
             

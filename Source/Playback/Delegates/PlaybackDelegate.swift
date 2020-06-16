@@ -128,12 +128,20 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     func stop() {
+        doStop()
+    }
+    
+    // theCurrentTrack points to the (precomputed) current track before this stop operation.
+    // It is required because sometimes, the sequence will have been cleared before stop() is called,
+    // making it impossible to capture the current track before stopping playback.
+    // If nil, the current track can be computed normally (by calling currentTrack).
+    func doStop(_ theCurrentTrack: Track? = nil) {
         
         let stateBeforeChange = state
         
         if stateBeforeChange != .noTrack {
             
-            let trackBeforeChange = currentTrack
+            let trackBeforeChange = theCurrentTrack ?? currentTrack
             let seekPositionBeforeChange = seekPosition.timeElapsed
             
             let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
@@ -440,9 +448,13 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
-    
+        
+        sequencer.tracksRemoved(removeResults, playingTrackRemoved, removedPlayingTrack)
+        
         // Cannot continue playback if the playing track was removed from the playlist.
-        playingTrackRemoved ? stop() : sequencer.tracksRemoved(removeResults, playingTrackRemoved, removedPlayingTrack)
+        if playingTrackRemoved {
+            doStop(removedPlayingTrack)
+        }
     }
     
     // Stop playback when the playlist is cleared.
@@ -450,18 +462,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // Capture current track before the sequence is cleared
         let trackBeforeChange = currentTrack
-
+        
         sequencer.playlistCleared()
         
-        // Essentially stop()
-        
-        let stateBeforeChange = state
-        
-        if stateBeforeChange != .noTrack {
-            
-            let seekPositionBeforeChange = seekPosition.timeElapsed
-            let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
-            stopPlaybackChain.execute(requestContext)
-        }
+        // Stop playback
+        doStop(trackBeforeChange)
     }
 }
