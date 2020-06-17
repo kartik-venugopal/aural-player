@@ -153,10 +153,6 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
      
         switch msg.actionType {
             
-        case .changeBackgroundColor:
-            
-            changeBackgroundColor(msg.color)
-            
         case .changePlayerTrackInfoPrimaryTextColor:
             
             changePrimaryTextColor(msg.color)

@@ -70,7 +70,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeAppLogoColor() {
         
         ColorSchemes.systemScheme.general.appLogoColor = appLogoColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeAppLogoColor, appLogoColorPicker.color))
+        Messenger.publish(.colorScheme_changeAppLogoColor, payload: appLogoColorPicker.color)
     }
     
     @IBAction func backgroundColorAction(_ sender: Any) {
@@ -82,7 +82,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeBackgroundColor() {
         
         ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeBackgroundColor, backgroundColorPicker.color))
+        Messenger.publish(.colorScheme_changeBackgroundColor, payload: backgroundColorPicker.color)
     }
     
     @IBAction func viewControlButtonColorAction(_ sender: Any) {

@@ -93,12 +93,14 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .colorScheme_changeAppLogoColor, self.changeAppLogoColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
 
         Messenger.subscribe(self, .windowLayout_togglePlaylistWindow, self.togglePlaylistWindow)
         Messenger.subscribe(self, .windowLayout_toggleEffectsWindow, self.toggleEffectsWindow)
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeViewControlButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
         
         Messenger.subscribe(self, .windowLayoutChanged, self.windowLayoutChanged(_:))
     }
@@ -185,18 +187,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     func consumeMessage(_ message: ActionMessage) {
         
         switch message.actionType {
-            
-        case .changeBackgroundColor:
-            
-            if let bkColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeBackgroundColor(bkColor)
-            }
-            
-        case .changeAppLogoColor:
-            
-            if let logoTextColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeAppLogoColor(logoTextColor)
-            }
             
         case .changeViewControlButtonColor:
             

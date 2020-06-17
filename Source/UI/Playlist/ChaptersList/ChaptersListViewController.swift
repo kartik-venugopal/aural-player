@@ -107,9 +107,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
         
         Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -323,10 +325,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorSchemeMsg.actionType {
-                
-            case .changeBackgroundColor:
-                
-                changeBackgroundColor(colorSchemeMsg.color)
                 
             case .changeMainCaptionTextColor:
                 

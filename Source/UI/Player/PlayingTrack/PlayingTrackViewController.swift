@@ -46,8 +46,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         Messenger.subscribe(self, .player_showOrHidePlayingTrackFunctions, infoView.showOrHidePlayingTrackFunctions)
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, infoView.applyColorScheme(_:))
+        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, infoView.changeBackgroundColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
     
     private func trackChanged(_ track: Track?) {
