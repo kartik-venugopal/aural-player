@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Recorder unit
  */
-class RecorderViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class RecorderViewController: NSViewController, MessageSubscriber {
     
     // Recorder controls
     @IBOutlet weak var btnRecord: OnOffImageButton!
@@ -47,7 +47,8 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .colorScheme_changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeFXFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFXFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
     }
     
     private func initControls() {
@@ -207,26 +208,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         } else {
             
             request.appendResponse(okToExit: true)
-        }
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorSchemeMsg.actionType {
-                
-            case .changeEffectsFunctionCaptionTextColor:
-                
-                changeFunctionCaptionTextColor(colorSchemeMsg.color)
-                
-            case .changeEffectsFunctionValueTextColor:
-                
-                changeFunctionValueTextColor(colorSchemeMsg.color)
-                
-            default: return
-                
-            }
         }
     }
 }
