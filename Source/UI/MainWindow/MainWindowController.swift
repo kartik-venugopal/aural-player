@@ -92,9 +92,9 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
-        
-        Messenger.subscribe(self, .windowLayout_toggleEffectsWindow, self.toggleEffectsWindow)
+
         Messenger.subscribe(self, .windowLayout_togglePlaylistWindow, self.togglePlaylistWindow)
+        Messenger.subscribe(self, .windowLayout_toggleEffectsWindow, self.toggleEffectsWindow)
         
         // Subscribe to various messages
         SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)

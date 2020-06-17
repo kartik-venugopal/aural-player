@@ -69,7 +69,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
-        Messenger.subscribe(self, .selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
+        Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == self.playlistType})
         
         let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(self.playlistType)}
         

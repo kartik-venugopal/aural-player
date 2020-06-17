@@ -20,7 +20,6 @@ extension Notification.Name {
     static let playbackRateChanged = Notification.Name("playbackRateChanged")
     static let chapterChanged = Notification.Name("chapterChanged")
     static let playbackCompleted = Notification.Name("playbackCompleted")
-    static let playTrack = Notification.Name("playTrack")
     static let trackNotPlayed = Notification.Name("trackNotPlayed")
     static let preTrackChange = Notification.Name("preTrackChange")
     
@@ -32,7 +31,6 @@ extension Notification.Name {
     
     static let playlistTypeChanged = Notification.Name("playlistTypeChanged")
     
-    static let selectSearchResult = Notification.Name("selectSearchResult")
     static let searchTextChanged = Notification.Name("searchTextChanged")
     
     static let trackAdded = Notification.Name("trackAdded")
@@ -42,16 +40,19 @@ extension Notification.Name {
     static let trackTransition = Notification.Name("trackTransition")
     static let trackInfoUpdated = Notification.Name("trackInfoUpdated")
     static let trackNotTranscoded = Notification.Name("trackNotTranscoded")
-    static let audioOutputChanged = Notification.Name("audioOutputChanged")
     static let transcodingFinished = Notification.Name("transcodingFinished")
-    static let sequenceChanged = Notification.Name("sequenceChanged")
     static let playingTrackInfoUpdated = Notification.Name("playingTrackInfoUpdated")
     static let playbackLoopChanged = Notification.Name("playbackLoopChanged")
+    
+    static let audioOutputChanged = Notification.Name("audioOutputChanged")
+    
     static let editorSelectionChanged = Notification.Name("editorSelectionChanged")
     
     // ----------------------------------------------------------------------------------------
     
     // MARK: Playback commands
+    
+    static let player_playTrack = Notification.Name("player_playTrack")
     
     // Play, pause, or resume playback
     static let player_playOrPause = Notification.Name("player_playOrPause")
@@ -263,6 +264,8 @@ extension Notification.Name {
 
     // Invoke the sort dialog
     static let playlist_sort = Notification.Name("playlist_sort")
+    
+    static let playlist_selectSearchResult = Notification.Name("playlist_selectSearchResult")
 
     // ----------------------------------------------------------------------------------------
     
@@ -349,22 +352,33 @@ extension Notification.Name {
     // Show/hide the effects window
     static let windowLayout_toggleEffectsWindow = Notification.Name("windowLayout_toggleEffectsWindow")
     
+    // ----------------------------------------------------------------------------------------
     
+    // MARK: FX presets editor commands
 
-    static let reloadPresets = Notification.Name("reloadPresets")
+    static let fxPresetsEditor_reloadPresets = Notification.Name("fxPresetsEditor_reloadPresets")
 
-    static let renameEffectsPreset = Notification.Name("renameEffectsPreset")
+    static let fxPresetsEditor_renameEffectsPreset = Notification.Name("fxPresetsEditor_renameEffectsPreset")
 
-    static let deleteEffectsPresets = Notification.Name("deleteEffectsPresets")
+    static let fxPresetsEditor_deleteEffectsPresets = Notification.Name("fxPresetsEditor_deleteEffectsPresets")
 
-    static let applyEffectsPreset = Notification.Name("applyEffectsPreset")
+    static let fxPresetsEditor_applyEffectsPreset = Notification.Name("fxPresetsEditor_applyEffectsPreset")
     
-
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Text size commands
+    
     static let changePlayerTextSize = Notification.Name("changePlayerTextSize")
 
     static let changeFXTextSize = Notification.Name("changeFXTextSize")
 
     static let changePlaylistTextSize = Notification.Name("changePlaylistTextSize")
+    
+    
+    // ----------------------------------------------------------------------------------------
+    
+    // MARK: Color scheme commands
 
     static let applyColorScheme = Notification.Name("applyColorScheme")
 

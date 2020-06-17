@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, ActionMessageSubscriber {
+class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, MessageSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
     @IBOutlet weak var previewBox: NSBox!
@@ -13,10 +13,27 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     var oldPresetName: String = ""
     
     override func viewDidLoad() {
-        SyncMessenger.subscribe(actionTypes: [.reloadPresets, .applyEffectsPreset, .renameEffectsPreset, .deleteEffectsPresets], subscriber: self)
+        
+        let unitTypeFilter: (EffectsUnit) -> Bool = {(unit: EffectsUnit) in unit == self.unitType}
+        
+        Messenger.subscribe(self, .fxPresetsEditor_reloadPresets, {(EffectsUnit) in self.doViewDidAppear()},
+                            filter: unitTypeFilter)
+        
+        Messenger.subscribe(self, .fxPresetsEditor_applyEffectsPreset, {(EffectsUnit) in self.applySelectedPreset()},
+                            filter: unitTypeFilter)
+        
+        Messenger.subscribe(self, .fxPresetsEditor_renameEffectsPreset, {(EffectsUnit) in self.renameSelectedPreset()},
+                            filter: unitTypeFilter)
+        
+        Messenger.subscribe(self, .fxPresetsEditor_deleteEffectsPresets, {(EffectsUnit) in self.deleteSelectedPresets()},
+                            filter: unitTypeFilter)
     }
     
     override func viewDidAppear() {
+        doViewDidAppear()
+    }
+    
+    private func doViewDidAppear() {
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -25,10 +42,10 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     }
     
     @IBAction func tableDoubleClickAction(_ sender: AnyObject) {
-        applyPresetAction()
+        applySelectedPreset()
     }
     
-    func deleteSelectedPresetsAction() {
+    func deleteSelectedPresets() {
         
         presetsWrapper.deletePresets(selectedPresetNames)
         editorView.reloadData()
@@ -55,7 +72,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         return (editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as! NSTableCellView).textField!.stringValue
     }
     
-    func renamePresetAction() {
+    func renameSelectedPreset() {
         
         let rowIndex = editorView.selectedRow
         let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
@@ -64,7 +81,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         self.view.window?.makeFirstResponder(editedTextField)
     }
     
-    func applyPresetAction() {
+    func applySelectedPreset() {
         
         fxUnit.applyPreset(firstSelectedPresetName)
         Messenger.publish(.fx_updateFXUnitView, payload: self.unitType!)
@@ -157,35 +174,6 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             
             // IMPOSSIBLE
             editedTextField.stringValue = oldPresetName
-        }
-    }
-    
-    // MARK: Message handling
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let msg = message as? EffectsPresetsEditorActionMessage {
-            
-            if msg.effectsPresetsUnit == self.unitType {
-                
-                switch msg.actionType {
-                    
-                case .reloadPresets:
-                    viewDidAppear()
-                    
-                case .renameEffectsPreset:
-                    renamePresetAction()
-                    
-                case .deleteEffectsPresets:
-                    deleteSelectedPresetsAction()
-                    
-                case .applyEffectsPreset:
-                    applyPresetAction()
-                    
-                default: return
-                    
-                }
-            }
         }
     }
 }

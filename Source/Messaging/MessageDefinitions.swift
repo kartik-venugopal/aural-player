@@ -84,7 +84,7 @@ struct ChapterChangedNotification: NotificationPayload {
 // Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.
 struct SelectSearchResultCommandNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .selectSearchResult
+    let notificationName: Notification.Name = .playlist_selectSearchResult
     let searchResult: SearchResult
 }
 
@@ -128,7 +128,7 @@ struct PlaylistTypeChangedNotification: NotificationPayload {
 // A command to initiate playback for a particular track/group
 struct TrackPlaybackCommandNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .playTrack
+    let notificationName: Notification.Name = .player_playTrack
     
     // Type indicates whether the request parameter is an index, track, or group. This is used to initialize the new playback sequence.
     let type: PlaybackCommandType
