@@ -83,7 +83,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeFXFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFXFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
     }
     
     func initControls() {
@@ -236,14 +239,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
             
             switch colorSchemeMsg.actionType {
                 
-            case .changeEffectsFunctionCaptionTextColor:
-                
-                changeFunctionCaptionTextColor(colorSchemeMsg.color)
-                
-            case .changeEffectsFunctionValueTextColor:
-                
-                changeFunctionValueTextColor(colorSchemeMsg.color)
-                
             case .changeEffectsActiveUnitStateColor:
                 
                 changeActiveUnitStateColor(colorSchemeMsg.color)
@@ -255,8 +250,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
             case .changeEffectsSuppressedUnitStateColor:
                 
                 changeSuppressedUnitStateColor(colorSchemeMsg.color)
-                
-            default: return
                 
             }
         }

@@ -102,7 +102,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionCaptionTextColor() {
         
         ColorSchemes.systemScheme.effects.functionCaptionTextColor = functionCaptionTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsFunctionCaptionTextColor, functionCaptionTextColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXFunctionCaptionTextColor, payload: functionCaptionTextColorPicker.color)
     }
     
     @IBAction func functionValueTextColorAction(_ sender: Any) {
@@ -114,7 +114,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionValueTextColor() {
         
         ColorSchemes.systemScheme.effects.functionValueTextColor = functionValueTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsFunctionValueTextColor, functionValueTextColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXFunctionValueTextColor, payload: functionValueTextColorPicker.color)
     }
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {

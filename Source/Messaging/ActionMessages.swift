@@ -37,9 +37,6 @@ enum ActionType {
     
    // ******** WITH PAYLOAD ****************************************************************************************
     
-    case changeEffectsFunctionCaptionTextColor
-    case changeEffectsFunctionValueTextColor
-    
     case changeEffectsActiveUnitStateColor
     case changeEffectsBypassedUnitStateColor
     case changeEffectsSuppressedUnitStateColor
