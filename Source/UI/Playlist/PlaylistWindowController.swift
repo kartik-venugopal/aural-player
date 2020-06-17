@@ -144,7 +144,9 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.subscribe(self, .playlist_previousView, self.previousView)
         Messenger.subscribe(self, .playlist_nextView, self.nextView)
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .viewChapters], subscriber: self)
+        Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -469,7 +471,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
             
             // Only show chapters list if preferred by user
             if playlistPreferences.showChaptersList {
-                viewChapters()
+                viewChaptersList()
             }
             
         } else {
@@ -479,7 +481,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         }
     }
     
-    private func viewChapters() {
+    private func viewChaptersList() {
         WindowManager.showChaptersList()
     }
     
@@ -531,10 +533,6 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         case .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor:
             
             redrawSelectedTabButton()
-            
-        case .viewChapters:
-            
-            viewChapters()
             
         default: return
             

@@ -666,26 +666,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
 
     func consumeMessage(_ message: ActionMessage) {
         
-        if let msg = message as? PlaylistActionMessage {
-            
-            // Check if this message is intended for this playlist view
-            if let playlistType = msg.playlistType, playlistType != .tracks {
-                return
-            }
-            
-            switch msg.actionType {
-                
-            case .selectedTrackInfo:
-                
-                showSelectedTrackInfo()
-                
-            default: return
-                
-            }
-            
-            return
-        }
-        
         if let colorSchemeMsg = message as? ColorSchemeActionMessage {
             
             applyColorScheme(colorSchemeMsg.scheme)

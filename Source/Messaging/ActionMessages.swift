@@ -39,14 +39,6 @@ enum ActionType {
     
     // ******** NO PAYLOAD ****************************************************************************************
 
-    // ------- PLAYLIST ------------------
-    
-    // Display detailed track info popover for the selected playlist track
-    case selectedTrackInfo
-    
-    // Show chapters list window for currently playing track
-       case viewChapters
-    
        // MARK: Playback actions
        
        // Play the previous available chapter
