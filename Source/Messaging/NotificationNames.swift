@@ -104,7 +104,6 @@ extension Notification.Name {
     // Toggle the current chapter playback loop
     static let player_toggleChapterLoop = Notification.Name("player_toggleChapterLoop")
     
-    
 
     static let player_savePlaybackProfile = Notification.Name("player_savePlaybackProfile")
 
@@ -381,6 +380,7 @@ extension Notification.Name {
     // MARK: Color scheme commands
 
     static let colorScheme_applyColorScheme = Notification.Name("colorScheme_applyColorScheme")
+    
 
     static let colorScheme_changeAppLogoColor = Notification.Name("colorScheme_changeAppLogoColor")
 
@@ -403,6 +403,7 @@ extension Notification.Name {
     static let colorScheme_changeSelectedTabButtonTextColor = Notification.Name("colorScheme_changeSelectedTabButtonTextColor")
 
     static let colorScheme_changeButtonMenuTextColor = Notification.Name("colorScheme_changeButtonMenuTextColor")
+    
 
     static let colorScheme_changePlayerTrackInfoPrimaryTextColor = Notification.Name("colorScheme_changePlayerTrackInfoPrimaryTextColor")
 
@@ -413,6 +414,7 @@ extension Notification.Name {
     static let colorScheme_changePlayerSliderValueTextColor = Notification.Name("colorScheme_changePlayerSliderValueTextColor")
 
     static let colorScheme_changePlayerSliderColors = Notification.Name("colorScheme_changePlayerSliderColors")
+    
 
     static let colorScheme_changePlaylistTrackNameTextColor = Notification.Name("colorScheme_changePlaylistTrackNameTextColor")
 
@@ -435,6 +437,7 @@ extension Notification.Name {
     static let colorScheme_changePlaylistSelectionBoxColor = Notification.Name("colorScheme_changePlaylistSelectionBoxColor")
 
     static let colorScheme_changePlaylistPlayingTrackIconColor = Notification.Name("colorScheme_changePlaylistPlayingTrackIconColor")
+    
 
     static let colorScheme_changeFXFunctionCaptionTextColor = Notification.Name("colorScheme_changeFXFunctionCaptionTextColor")
 

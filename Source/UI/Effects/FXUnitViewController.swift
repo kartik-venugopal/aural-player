@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, MessageSubscriber, ActionMessageSubscriber {
+class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, MessageSubscriber {
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
@@ -86,7 +86,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         Messenger.subscribe(self, .colorScheme_changeFXFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changeFXFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeFXActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFXBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFXSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
     }
     
     func initControls() {
@@ -229,30 +231,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         // Don't select any items from the EQ presets menu
         presetsMenu.selectItem(at: -1)
-    }
-    
-    // MARK: Message handling
-    
-    func consumeMessage(_ message: ActionMessage) {
-
-        if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorSchemeMsg.actionType {
-                
-            case .changeEffectsActiveUnitStateColor:
-                
-                changeActiveUnitStateColor(colorSchemeMsg.color)
-                
-            case .changeEffectsBypassedUnitStateColor:
-                
-                changeBypassedUnitStateColor(colorSchemeMsg.color)
-                
-            case .changeEffectsSuppressedUnitStateColor:
-                
-                changeSuppressedUnitStateColor(colorSchemeMsg.color)
-                
-            }
-        }
     }
 }
 

@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
+class EffectsWindowController: NSWindowController, MessageSubscriber {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var effectsContainerBox: NSBox!
@@ -124,7 +124,9 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeFXActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFXBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFXSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
     }
 
     // Switches the tab group to a particular tab
@@ -238,30 +240,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             
         case .master: tabViewAction(masterTabViewButton)
             
-        }
-    }
-
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-                
-            case .changeEffectsActiveUnitStateColor:
-                
-                changeActiveUnitStateColor(colorChangeMsg.color)
-                
-            case .changeEffectsBypassedUnitStateColor:
-                
-                changeBypassedUnitStateColor(colorChangeMsg.color)
-                
-            case .changeEffectsSuppressedUnitStateColor:
-                
-                changeSuppressedUnitStateColor(colorChangeMsg.color)
-                
-            default: return
-                
-            }
         }
     }
 }

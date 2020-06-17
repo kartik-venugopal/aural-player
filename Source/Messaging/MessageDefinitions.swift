@@ -376,3 +376,87 @@ struct TranscodingFinishedNotification: NotificationPayload {
     let track: Track
     let success: Bool
 }
+
+enum ActionMode {
+    
+    case discrete
+    
+    case continuous
+}
+
+// Helps in filtering command notifications sent to playlist views, i.e. "selects" a playlist view
+// as the intended recipient of a command notification.
+struct PlaylistViewSelector {
+    
+    // A specific playlist view, if any, that should be exclusively selected.
+    // nil value means all playlist views are selected.
+    let specificView: PlaylistType?
+    
+    private init(_ specificView: PlaylistType? = nil) {
+        self.specificView = specificView
+    }
+    
+    // Whether or not a given playlist view is included in the selection specified by this object.
+    // If a specific view was specified when creating this object, this method will return true
+    // only for that playlist view. Otherwise, it will return true for all playlist views.
+    func includes(_ view: PlaylistType) -> Bool {
+        return specificView == nil || specificView == view
+    }
+    
+    // A selector instance that specifies a selection of all playlist views.
+    static let allViews: PlaylistViewSelector = PlaylistViewSelector()
+    
+    // Factory method that creates a selector for a specific playlist view.
+    static func forView(_ view: PlaylistType) -> PlaylistViewSelector {
+        return PlaylistViewSelector(view)
+    }
+}
+
+class PlaylistCommandNotification: NotificationPayload {
+
+    let notificationName: Notification.Name
+    let viewSelector: PlaylistViewSelector
+    
+    init(notificationName: Notification.Name, viewSelector: PlaylistViewSelector) {
+        
+        self.notificationName = notificationName
+        self.viewSelector = viewSelector
+    }
+}
+
+class DelayedPlaybackCommandNotification: PlaylistCommandNotification {
+    
+    let delay: Double
+    
+    init(delay: Double, viewSelector: PlaylistViewSelector) {
+        
+        self.delay = delay
+        super.init(notificationName: .playlist_playSelectedItemWithDelay, viewSelector: viewSelector)
+    }
+}
+
+class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
+    
+    let gapBeforeTrack: PlaybackGap?
+    let gapAfterTrack: PlaybackGap?
+    
+    init(gapBeforeTrack: PlaybackGap?, gapAfterTrack: PlaybackGap?, viewSelector: PlaylistViewSelector) {
+        
+        self.gapBeforeTrack = gapBeforeTrack
+        self.gapAfterTrack = gapAfterTrack
+        
+        super.init(notificationName: .playlist_insertGaps, viewSelector: viewSelector)
+    }
+}
+
+// Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.
+class SelectSearchResultCommandNotification: PlaylistCommandNotification {
+    
+    let searchResult: SearchResult
+    
+    init(searchResult: SearchResult, viewSelector: PlaylistViewSelector) {
+        
+        self.searchResult = searchResult
+        super.init(notificationName: .playlist_selectSearchResult, viewSelector: viewSelector)
+    }
+}
