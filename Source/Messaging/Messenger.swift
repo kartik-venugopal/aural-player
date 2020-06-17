@@ -1,43 +1,12 @@
 import Foundation
 
-/*
-    Contract for all subscribers of messages
- */
-protocol MessageSubscriber {
-    
-    // A unique identifer for this subscriber (typically the class name and some instance identifier like hashValue)
-    var subscriberId: String {get}
-}
-
-// Default implementations
-extension MessageSubscriber {
-    
-    var subscriberId: String {
-        
-        let className = String(describing: mirrorFor(self).subjectType)
-        
-        if let obj = self as? NSObject {
-            return String(format: "%@-%d", className, obj.hashValue)
-        }
-        
-        return className
-    }
-}
-
-protocol NotificationPayload {
-    
-    var notificationName: Notification.Name {get}
-}
-
 class Messenger {
     
     static let notifCtr: NotificationCenter = NotificationCenter.default
     
-    private static var subscriptions: [String: [Notification.Name: NSObjectProtocol]] = [:]
+    typealias Observer = NSObjectProtocol
     
-//    static func printSubs() {
-//        print("\nMessenger subscriptions:\n\n", subscriptions)
-//    }
+    private static var subscriptions: [String: [Notification.Name: Observer]] = [:]
     
     // With payload
     static func publish<P>(_ payload: P) where P: NotificationPayload {
@@ -147,13 +116,37 @@ class Messenger {
         }
     }
     
-    private static func registerSubscription(_ subscriberId: String, _ notifName: Notification.Name, _ observer: NSObjectProtocol) {
+    private static func registerSubscription(_ subscriberId: String, _ notifName: Notification.Name, _ observer: Observer) {
         
         if subscriptions[subscriberId] == nil {
             subscriptions[subscriberId] = [:]
         }
         
         subscriptions[subscriberId]![notifName] = observer
+    }
+}
+
+/*
+    Contract for all subscribers of messages
+ */
+protocol MessageSubscriber {
+    
+    // A unique identifer for this subscriber (typically the class name and some instance identifier like hashValue)
+    var subscriberId: String {get}
+}
+
+// Default implementations
+extension MessageSubscriber {
+    
+    var subscriberId: String {
+        
+        let className = String(describing: mirrorFor(self).subjectType)
+        
+        if let obj = self as? NSObject {
+            return String(format: "%@-%d", className, obj.hashValue)
+        }
+        
+        return className
     }
 }
 

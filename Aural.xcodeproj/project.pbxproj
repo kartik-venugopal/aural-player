@@ -1856,9 +1856,9 @@
 		3E50ADAA24613A6E00B31339 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
-				3E29C9102495F0040066D8B9 /* NotificationNames.swift */,
-				3E3AD5471F5D2BEC006123E9 /* MessageDefinitions.swift */,
 				3E8E2C472493D3FF00D795F6 /* Messenger.swift */,
+				3E3AD5471F5D2BEC006123E9 /* MessageDefinitions.swift */,
+				3E29C9102495F0040066D8B9 /* NotificationNames.swift */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
