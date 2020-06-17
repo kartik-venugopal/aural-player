@@ -190,3 +190,15 @@ class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
         super.init(notificationName: .playlist_insertGaps, viewSelector: viewSelector)
     }
 }
+
+// Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.
+class SelectSearchResultCommandNotification: PlaylistCommandNotification {
+    
+    let searchResult: SearchResult
+    
+    init(searchResult: SearchResult, viewSelector: PlaylistViewSelector) {
+        
+        self.searchResult = searchResult
+        super.init(notificationName: .playlist_selectSearchResult, viewSelector: viewSelector)
+    }
+}

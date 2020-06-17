@@ -68,7 +68,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
-        Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:), filter: {msg in PlaylistViewState.current == .tracks})
+        Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:),
+                            filter: {cmd in cmd.viewSelector.includes(.tracks)})
         
         let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(.tracks)}
         

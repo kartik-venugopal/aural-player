@@ -81,13 +81,6 @@ struct ChapterChangedNotification: NotificationPayload {
     let newChapter: IndexedChapter?
 }
 
-// Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.
-struct SelectSearchResultCommandNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .playlist_selectSearchResult
-    let searchResult: SearchResult
-}
-
 // Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
 struct PlaybackRateChangedNotification: NotificationPayload {
     
