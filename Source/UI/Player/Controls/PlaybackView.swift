@@ -150,6 +150,10 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         }
     }
     
+    func changeSliderColors() {
+        sliderView.changeSliderColors()
+    }
+    
     private func changeFunctionButtonColor() {
         
         [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach({

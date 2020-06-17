@@ -64,7 +64,9 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderColors, .changePlayerSliderValueTextColor],
+        Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, self.changeSliderColors)
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changePlayerSliderValueTextColor],
                                 subscriber: self)
     }
     
@@ -239,10 +241,6 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
             if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
                 changeFunctionButtonColor(colorComponentActionMsg.color)
             }
-            
-        case .changePlayerSliderColors:
-            
-            changeSliderColors()
             
         case .changePlayerSliderValueTextColor:
             

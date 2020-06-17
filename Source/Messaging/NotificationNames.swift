@@ -380,71 +380,71 @@ extension Notification.Name {
     
     // MARK: Color scheme commands
 
-    static let applyColorScheme = Notification.Name("applyColorScheme")
+    static let colorScheme_applyColorScheme = Notification.Name("colorScheme_applyColorScheme")
 
-    static let changeAppLogoColor = Notification.Name("changeAppLogoColor")
+    static let colorScheme_changeAppLogoColor = Notification.Name("colorScheme_changeAppLogoColor")
 
-    static let changeBackgroundColor = Notification.Name("changeBackgroundColor")
+    static let colorScheme_changeBackgroundColor = Notification.Name("colorScheme_changeBackgroundColor")
 
-    static let changeViewControlButtonColor = Notification.Name("changeViewControlButtonColor")
+    static let colorScheme_changeViewControlButtonColor = Notification.Name("colorScheme_changeViewControlButtonColor")
 
-    static let changeFunctionButtonColor = Notification.Name("changeFunctionButtonColor")
+    static let colorScheme_changeFunctionButtonColor = Notification.Name("colorScheme_changeFunctionButtonColor")
 
-    static let changeTextButtonMenuColor = Notification.Name("changeTextButtonMenuColor")
+    static let colorScheme_changeTextButtonMenuColor = Notification.Name("colorScheme_changeTextButtonMenuColor")
 
-    static let changeToggleButtonOffStateColor = Notification.Name("changeToggleButtonOffStateColor")
+    static let colorScheme_changeToggleButtonOffStateColor = Notification.Name("colorScheme_changeToggleButtonOffStateColor")
 
-    static let changeSelectedTabButtonColor = Notification.Name("changeSelectedTabButtonColor")
+    static let colorScheme_changeSelectedTabButtonColor = Notification.Name("colorScheme_changeSelectedTabButtonColor")
 
-    static let changeMainCaptionTextColor = Notification.Name("changeMainCaptionTextColor")
+    static let colorScheme_changeMainCaptionTextColor = Notification.Name("colorScheme_changeMainCaptionTextColor")
 
-    static let changeTabButtonTextColor = Notification.Name("changeTabButtonTextColor")
+    static let colorScheme_changeTabButtonTextColor = Notification.Name("colorScheme_changeTabButtonTextColor")
 
-    static let changeSelectedTabButtonTextColor = Notification.Name("changeSelectedTabButtonTextColor")
+    static let colorScheme_changeSelectedTabButtonTextColor = Notification.Name("colorScheme_changeSelectedTabButtonTextColor")
 
-    static let changeButtonMenuTextColor = Notification.Name("changeButtonMenuTextColor")
+    static let colorScheme_changeButtonMenuTextColor = Notification.Name("colorScheme_changeButtonMenuTextColor")
 
-    static let changePlayerTrackInfoPrimaryTextColor = Notification.Name("changePlayerTrackInfoPrimaryTextColor")
+    static let colorScheme_changePlayerTrackInfoPrimaryTextColor = Notification.Name("colorScheme_changePlayerTrackInfoPrimaryTextColor")
 
-    static let changePlayerTrackInfoSecondaryTextColor = Notification.Name("changePlayerTrackInfoSecondaryTextColor")
+    static let colorScheme_changePlayerTrackInfoSecondaryTextColor = Notification.Name("colorScheme_changePlayerTrackInfoSecondaryTextColor")
 
-    static let changePlayerTrackInfoTertiaryTextColor = Notification.Name("changePlayerTrackInfoTertiaryTextColor")
+    static let colorScheme_changePlayerTrackInfoTertiaryTextColor = Notification.Name("colorScheme_changePlayerTrackInfoTertiaryTextColor")
 
-    static let changePlayerSliderValueTextColor = Notification.Name("changePlayerSliderValueTextColor")
+    static let colorScheme_changePlayerSliderValueTextColor = Notification.Name("colorScheme_changePlayerSliderValueTextColor")
 
-    static let changePlayerSliderColors = Notification.Name("changePlayerSliderColors")
+    static let colorScheme_changePlayerSliderColors = Notification.Name("colorScheme_changePlayerSliderColors")
 
-    static let changePlaylistTrackNameTextColor = Notification.Name("changePlaylistTrackNameTextColor")
+    static let colorScheme_changePlaylistTrackNameTextColor = Notification.Name("colorScheme_changePlaylistTrackNameTextColor")
 
-    static let changePlaylistGroupNameTextColor = Notification.Name("changePlaylistGroupNameTextColor")
+    static let colorScheme_changePlaylistGroupNameTextColor = Notification.Name("colorScheme_changePlaylistGroupNameTextColor")
 
-    static let changePlaylistIndexDurationTextColor = Notification.Name("changePlaylistIndexDurationTextColor")
+    static let colorScheme_changePlaylistIndexDurationTextColor = Notification.Name("colorScheme_changePlaylistIndexDurationTextColor")
 
-    static let changePlaylistTrackNameSelectedTextColor = Notification.Name("changePlaylistTrackNameSelectedTextColor")
+    static let colorScheme_changePlaylistTrackNameSelectedTextColor = Notification.Name("colorScheme_changePlaylistTrackNameSelectedTextColor")
 
-    static let changePlaylistGroupNameSelectedTextColor = Notification.Name("changePlaylistGroupNameSelectedTextColor")
+    static let colorScheme_changePlaylistGroupNameSelectedTextColor = Notification.Name("colorScheme_changePlaylistGroupNameSelectedTextColor")
 
-    static let changePlaylistIndexDurationSelectedTextColor = Notification.Name("changePlaylistIndexDurationSelectedTextColor")
+    static let colorScheme_changePlaylistIndexDurationSelectedTextColor = Notification.Name("colorScheme_changePlaylistIndexDurationSelectedTextColor")
 
-    static let changePlaylistSummaryInfoColor = Notification.Name("changePlaylistSummaryInfoColor")
+    static let colorScheme_changePlaylistSummaryInfoColor = Notification.Name("colorScheme_changePlaylistSummaryInfoColor")
 
-    static let changePlaylistGroupIconColor = Notification.Name("changePlaylistGroupIconColor")
+    static let colorScheme_changePlaylistGroupIconColor = Notification.Name("colorScheme_changePlaylistGroupIconColor")
 
-    static let changePlaylistGroupDisclosureTriangleColor = Notification.Name("changePlaylistGroupDisclosureTriangleColor")
+    static let colorScheme_changePlaylistGroupDisclosureTriangleColor = Notification.Name("colorScheme_changePlaylistGroupDisclosureTriangleColor")
 
-    static let changePlaylistSelectionBoxColor = Notification.Name("changePlaylistSelectionBoxColor")
+    static let colorScheme_changePlaylistSelectionBoxColor = Notification.Name("colorScheme_changePlaylistSelectionBoxColor")
 
-    static let changePlaylistPlayingTrackIconColor = Notification.Name("changePlaylistPlayingTrackIconColor")
+    static let colorScheme_changePlaylistPlayingTrackIconColor = Notification.Name("colorScheme_changePlaylistPlayingTrackIconColor")
 
-    static let changeEffectsFunctionCaptionTextColor = Notification.Name("changeEffectsFunctionCaptionTextColor")
+    static let colorScheme_changeFXFunctionCaptionTextColor = Notification.Name("colorScheme_changeFXFunctionCaptionTextColor")
 
-    static let changeEffectsFunctionValueTextColor = Notification.Name("changeEffectsFunctionValueTextColor")
+    static let colorScheme_changeFXFunctionValueTextColor = Notification.Name("colorScheme_changeFXFunctionValueTextColor")
 
-    static let changeEffectsSliderColors = Notification.Name("changeEffectsSliderColors")
+    static let colorScheme_changeFXSliderColors = Notification.Name("colorScheme_changeFXSliderColors")
 
-    static let changeEffectsActiveUnitStateColor = Notification.Name("changeEffectsActiveUnitStateColor")
+    static let colorScheme_changeFXActiveUnitStateColor = Notification.Name("colorScheme_changeFXActiveUnitStateColor")
 
-    static let changeEffectsBypassedUnitStateColor = Notification.Name("changeEffectsBypassedUnitStateColor")
+    static let colorScheme_changeFXBypassedUnitStateColor = Notification.Name("colorScheme_changeFXBypassedUnitStateColor")
 
-    static let changeEffectsSuppressedUnitStateColor = Notification.Name("changeEffectsSuppressedUnitStateColor")
+    static let colorScheme_changeFXSuppressedUnitStateColor = Notification.Name("colorScheme_changeFXSuppressedUnitStateColor")
 }
