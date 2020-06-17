@@ -236,10 +236,8 @@ extension Notification.Name {
     // Switch to the next playlist view (in the tab group)
     static let playlist_nextView = Notification.Name("playlist_nextView")
     
-
-    static let playlist_selectedTrackInfo = Notification.Name("playlist_selectedTrackInfo")
-
-    static let playlist_viewChapters = Notification.Name("playlist_viewChapters")
+    // Show chapters list window for currently playing track
+    static let playlist_viewChaptersList = Notification.Name("playlist_viewChaptersList")
     
     
     // Invoke the search dialog
@@ -326,20 +324,18 @@ extension Notification.Name {
 
     // Sets the playback rate to a specific value
     static let timeFXUnit_setRate = Notification.Name("timeFXUnit_setRate")
-
     
-
-
+    // ----------------------------------------------------------------------------------------
     
+    // MARK: Window layout commands
     
-
     // Show/hide the playlist window
     static let windowLayout_togglePlaylistWindow = Notification.Name("windowLayout_togglePlaylistWindow")
 
     // Show/hide the effects window
     static let windowLayout_toggleEffectsWindow = Notification.Name("windowLayout_toggleEffectsWindow")
-
-    static let windowLayout = Notification.Name("windowLayout")
+    
+    
 
     static let reloadPresets = Notification.Name("reloadPresets")
 

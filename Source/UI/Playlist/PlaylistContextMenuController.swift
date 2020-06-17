@@ -338,7 +338,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func viewChaptersAction(_ sender: Any) {
-        SyncMessenger.publishActionMessage(PlaylistActionMessage(.viewChapters, nil))
+        Messenger.publish(.playlist_viewChaptersList)
     }
     
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
