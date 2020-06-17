@@ -6,7 +6,7 @@ import Cocoa
  
     Also handles such requests from app menus.
  */
-class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber {
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
@@ -60,8 +60,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        
-        SyncMessenger.subscribe(actionTypes: [.changeToggleButtonOffStateColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
         
         self.view.hide()
     }
@@ -261,7 +260,7 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         allButtons.forEach({$0.reTint()})
     }
     
-    private func changeToggleButtonOffStateColor() {
+    private func changeToggleButtonOffStateColor(_ color: NSColor) {
         btnFavorite.reTint()
     }
     
@@ -269,18 +268,5 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
     
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         trackChanged(notification.endTrack)
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        switch message.actionType {
-        
-        case .changeToggleButtonOffStateColor:
-            
-            changeToggleButtonOffStateColor()
-
-        default: return
-            
-        }
     }
 }

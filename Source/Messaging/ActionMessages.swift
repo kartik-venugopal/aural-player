@@ -41,7 +41,6 @@ enum ActionType {
     
    // ******** WITH PAYLOAD ****************************************************************************************
     
-    case changeToggleButtonOffStateColor
     case changeSelectedTabButtonColor
     
     case changeMainCaptionTextColor

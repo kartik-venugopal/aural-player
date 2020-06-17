@@ -130,7 +130,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeToggleButtonOffStateColor() {
         
         ColorSchemes.systemScheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeToggleButtonOffStateColor, toggleButtonOffStateColorPicker.color))
+        Messenger.publish(.colorScheme_changeToggleButtonOffStateColor, payload: toggleButtonOffStateColorPicker.color)
     }
     
     @IBAction func selectedTabButtonColorAction(_ sender: Any) {
