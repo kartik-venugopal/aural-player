@@ -118,7 +118,12 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameTextColor, self.changeTrackNameTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationTextColor, self.changeIndexDurationTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistSummaryInfoColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
+        
+        Messenger.subscribe(self, .colorScheme_changePlaylistSummaryInfoColor, self.changeSummaryInfoColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -332,18 +337,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorSchemeMsg.actionType {
-                
-            case .changePlaylistSummaryInfoColor:
-                
-                changeSummaryInfoColor(colorSchemeMsg.color)
-                
-            case .changePlaylistTrackNameSelectedTextColor:
-                
-                changeTrackNameSelectedTextColor(colorSchemeMsg.color)
-                
-            case .changePlaylistIndexDurationSelectedTextColor:
-                
-                changeIndexDurationSelectedTextColor(colorSchemeMsg.color)
                 
             case .changePlaylistPlayingTrackIconColor:
                 

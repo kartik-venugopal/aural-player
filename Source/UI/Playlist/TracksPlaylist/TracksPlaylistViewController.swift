@@ -113,7 +113,10 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameTextColor, self.changeTrackNameTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationTextColor, self.changeIndexDurationTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -681,14 +684,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
             
             switch colorChangeMsg.actionType {
 
-            case .changePlaylistTrackNameSelectedTextColor:
-                
-                changeTrackNameSelectedTextColor(colorChangeMsg.color)
-                
-            case .changePlaylistIndexDurationSelectedTextColor:
-                
-                changeIndexDurationSelectedTextColor(colorChangeMsg.color)
-                
             case .changePlaylistPlayingTrackIconColor:
                 
                 changePlayingTrackIconColor(colorChangeMsg.color)
