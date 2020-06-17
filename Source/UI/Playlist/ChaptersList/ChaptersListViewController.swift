@@ -4,7 +4,7 @@ import Cocoa
  View controller for the Chapters list.
  Displays the chapters list in a tabular format, and provides chapter search and playback functions.
  */
-class ChaptersListViewController: NSViewController, ModalComponentProtocol, MessageSubscriber, ActionMessageSubscriber {
+class ChaptersListViewController: NSViewController, ModalComponentProtocol, MessageSubscriber {
     
     @IBOutlet weak var chaptersListView: NSTableView!
     @IBOutlet weak var scrollView: NSScrollView!
@@ -121,9 +121,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistSummaryInfoColor, self.changeSummaryInfoColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistPlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistSelectionBoxColor, self.changeSelectionBoxColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistSummaryInfoColor, self.changeSummaryInfoColor(_:))
     }
     
     override func viewDidAppear() {
@@ -331,28 +332,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     }
     
     // MARK: Message handling
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorSchemeMsg.actionType {
-                
-            case .changePlaylistPlayingTrackIconColor:
-                
-                changePlayingTrackIconColor(colorSchemeMsg.color)
-                
-            case .changePlaylistSelectionBoxColor:
-                
-                changeSelectionBoxColor(colorSchemeMsg.color)
-                
-            default: return
-                
-            }
-            
-            return
-        }
-    }
     
     func trackChanged() {
         
