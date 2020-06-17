@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlayerSequencingViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class PlayerSequencingViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
@@ -40,9 +40,7 @@ class PlayerSequencingViewController: NSViewController, MessageSubscriber, Actio
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        
-        // Subscribe to message notifications
-        SyncMessenger.subscribe(actionTypes: [.changeToggleButtonOffStateColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
     }
     
     // Toggles the repeat mode
@@ -77,22 +75,11 @@ class PlayerSequencingViewController: NSViewController, MessageSubscriber, Actio
         redrawButtons()
     }
     
-    private func redrawButtons() {
-        [btnRepeat, btnShuffle].forEach({$0.reTint()})
+    private func changeToggleButtonOffStateColor(_ color: NSColor) {
+        redrawButtons()
     }
     
-    // MARK: Message handling
-
-    func consumeMessage(_ message: ActionMessage) {
-        
-        switch message.actionType {
-            
-        case .changeToggleButtonOffStateColor:
-            
-            redrawButtons()
-        
-        default: return
-            
-        }
+    private func redrawButtons() {
+        [btnRepeat, btnShuffle].forEach({$0.reTint()})
     }
 }

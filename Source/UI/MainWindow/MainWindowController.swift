@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main application window.
  */
-class MainWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
+class MainWindowController: NSWindowController, MessageSubscriber {
     
     // Main application window. Contains the Now Playing info box and player controls. Not resizable.
     private var theWindow: SnappingWindow {
@@ -97,12 +97,10 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .colorScheme_changeAppLogoColor, self.changeAppLogoColor(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
 
         Messenger.subscribe(self, .windowLayout_togglePlaylistWindow, self.togglePlaylistWindow)
         Messenger.subscribe(self, .windowLayout_toggleEffectsWindow, self.toggleEffectsWindow)
-        
-        // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.changeToggleButtonOffStateColor], subscriber: self)
         
         Messenger.subscribe(self, .windowLayoutChanged, self.windowLayoutChanged(_:))
     }
@@ -184,20 +182,5 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
         
         btnToggleEffects.onIf(notification.showingEffects)
         btnTogglePlaylist.onIf(notification.showingPlaylist)
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        switch message.actionType {
-            
-        case .changeToggleButtonOffStateColor:
-            
-            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeToggleButtonOffStateColor(ctrlColor)
-            }
-            
-        default: return
-            
-        }
     }
 }
