@@ -94,7 +94,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeViewControlButtonColor() {
         
         ColorSchemes.systemScheme.general.viewControlButtonColor = viewControlButtonColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeViewControlButtonColor, viewControlButtonColorPicker.color))
+        Messenger.publish(.colorScheme_changeViewControlButtonColor, payload: viewControlButtonColorPicker.color)
     }
     
     @IBAction func functionButtonColorAction(_ sender: Any) {
@@ -106,7 +106,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionButtonColor() {
         
         ColorSchemes.systemScheme.general.functionButtonColor = functionButtonColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeFunctionButtonColor, functionButtonColorPicker.color))
+        Messenger.publish(.colorScheme_changeFunctionButtonColor, payload: functionButtonColorPicker.color)
     }
     
     @IBAction func textButtonMenuColorAction(_ sender: Any) {

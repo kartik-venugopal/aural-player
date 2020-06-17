@@ -149,8 +149,10 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -500,18 +502,6 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         
         switch message.actionType {
 
-        case .changeViewControlButtonColor:
-            
-            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeViewControlButtonColor(ctrlColor)
-            }
-            
-        case .changeFunctionButtonColor:
-            
-            if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeFunctionButtonColor(ctrlColor)
-            }
-            
         case .changePlaylistSummaryInfoColor:
             
             if let summaryColor = (message as? ColorSchemeComponentActionMessage)?.color {

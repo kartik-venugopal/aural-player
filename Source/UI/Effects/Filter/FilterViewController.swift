@@ -278,6 +278,8 @@ class FilterViewController: FXUnitViewController {
         // Need to do this to avoid multiple redundant redraw() calls
         
         changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
+        
+        super.changeFunctionButtonColor(scheme.general.functionButtonColor)
         super.changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
         super.changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
         
@@ -286,8 +288,6 @@ class FilterViewController: FXUnitViewController {
         super.changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
         
         filterView.redrawChart()
-        
-        super.changeFunctionButtonColor()
         
         [btnAdd, btnRemove].forEach({$0?.redraw()})
         [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
@@ -336,9 +336,9 @@ class FilterViewController: FXUnitViewController {
         bandControllers.forEach({$0.changeFunctionValueTextColor(color)})
     }
     
-    override func changeFunctionButtonColor() {
+    override func changeFunctionButtonColor(_ color: NSColor) {
         
-        super.changeFunctionButtonColor()
+        super.changeFunctionButtonColor(color)
         
         [btnScrollLeft, btnScrollRight].forEach({$0?.reTint()})
         bandControllers.forEach({$0.changeFunctionButtonColor()})

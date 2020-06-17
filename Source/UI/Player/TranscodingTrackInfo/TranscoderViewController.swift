@@ -57,9 +57,10 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, self.changeSliderColors)
         
-        SyncMessenger.subscribe(actionTypes: [.changeFunctionButtonColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor], subscriber: self)
         
         Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: .main)
     }
@@ -165,10 +166,6 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         if let msg = message as? ColorSchemeComponentActionMessage {
             
             switch msg.actionType {
-                
-            case .changeFunctionButtonColor:
-                
-                changeFunctionButtonColor(msg.color)
                 
             case .changePlayerTrackInfoPrimaryTextColor:
                 
