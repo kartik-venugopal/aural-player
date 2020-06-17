@@ -261,7 +261,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeActiveUnitStateColor() {
         
         ColorSchemes.systemScheme.effects.activeUnitStateColor = activeUnitStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsActiveUnitStateColor, activeUnitStateColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXActiveUnitStateColor, payload: activeUnitStateColorPicker.color)
     }
     
     @IBAction func bypassedUnitStateColorAction(_ sender: Any) {
@@ -273,7 +273,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeBypassedUnitStateColor() {
 
         ColorSchemes.systemScheme.effects.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsBypassedUnitStateColor, bypassedUnitStateColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXBypassedUnitStateColor, payload: bypassedUnitStateColorPicker.color)
     }
     
     @IBAction func suppressedUnitStateColorAction(_ sender: Any) {
@@ -285,6 +285,6 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSuppressedUnitStateColor() {
         
         ColorSchemes.systemScheme.effects.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSuppressedUnitStateColor, suppressedUnitStateColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXSuppressedUnitStateColor, payload: suppressedUnitStateColorPicker.color)
     }
 }
