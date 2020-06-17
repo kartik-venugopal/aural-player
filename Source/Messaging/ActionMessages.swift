@@ -154,17 +154,6 @@ struct ColorSchemeActionMessage: ActionMessage {
     }
 }
 
-struct EffectsPresetsEditorActionMessage: ActionMessage {
-    
-    let actionType: ActionType
-    let effectsPresetsUnit: EffectsUnit
-    
-    init(_ actionType: ActionType, _ effectsPresetsUnit: EffectsUnit) {
-        self.actionType = actionType
-        self.effectsPresetsUnit = effectsPresetsUnit
-    }
-}
-
 class PlaylistCommandNotification: NotificationPayload {
 
     let notificationName: Notification.Name

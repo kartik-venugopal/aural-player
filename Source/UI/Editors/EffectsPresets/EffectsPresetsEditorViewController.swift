@@ -41,8 +41,9 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         [btnApply, btnRename, btnDelete].forEach({$0.disable()})
         tabViewAction(masterPresetsTabViewButton)
         
-        let units: [EffectsUnit] = [.master, .eq, .pitch, .time, .reverb, .delay, .filter]
-        units.forEach({SyncMessenger.publishActionMessage(EffectsPresetsEditorActionMessage(.reloadPresets, $0))})
+        for unit: EffectsUnit in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
+            Messenger.publish(.fxPresetsEditor_reloadPresets, payload: unit)
+        }
     }
     
     private func addSubViews() {
@@ -88,15 +89,15 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(EffectsPresetsEditorActionMessage(.renameEffectsPreset, effectsUnit()))
+        Messenger.publish(.fxPresetsEditor_renameEffectsPreset, payload: effectsUnit)
     }
     
     @IBAction func deletePresetsAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(EffectsPresetsEditorActionMessage(.deleteEffectsPresets, effectsUnit()))
+        Messenger.publish(.fxPresetsEditor_deleteEffectsPresets, payload: effectsUnit)
     }
     
     @IBAction func applyPresetAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(EffectsPresetsEditorActionMessage(.applyEffectsPreset, effectsUnit()))
+        Messenger.publish(.fxPresetsEditor_applyEffectsPreset, payload: effectsUnit)
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
@@ -114,7 +115,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         return GenericTableRowView()
     }
     
-    private func effectsUnit() -> EffectsUnit {
+    private var effectsUnit: EffectsUnit {
         
         let id = fxPresetsTabView.selectedTabViewItem!.identifier as! String
         let selItem = Int(id)

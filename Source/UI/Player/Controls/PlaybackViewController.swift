@@ -28,7 +28,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // MARK: Commands --------------------------------------------------------------
         
-        Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
+        Messenger.subscribe(self, .player_playTrack, self.performTrackPlayback(_:))
         
         Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
         Messenger.subscribe(self, .player_stop, self.stop)
