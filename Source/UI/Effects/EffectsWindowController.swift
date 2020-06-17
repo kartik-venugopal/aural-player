@@ -121,8 +121,9 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -244,10 +245,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorChangeMsg.actionType {
-                
-            case .changeViewControlButtonColor:
-                
-                changeViewControlButtonColor(colorChangeMsg.color)
                 
             case .changeEffectsActiveUnitStateColor:
                 

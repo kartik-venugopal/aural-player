@@ -80,8 +80,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         Messenger.subscribe(self, .colorScheme_changeFXSliderColors, self.changeSliderColors)
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
     }
     
     func initControls() {
@@ -128,14 +129,14 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     func applyColorScheme(_ scheme: ColorScheme) {
         
         changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
+        
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
         changeFunctionCaptionTextColor(scheme.effects.functionCaptionTextColor)
         changeFunctionValueTextColor(scheme.effects.functionValueTextColor)
         
         changeActiveUnitStateColor(scheme.effects.activeUnitStateColor)
         changeBypassedUnitStateColor(scheme.effects.bypassedUnitStateColor)
         changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
-        
-        changeFunctionButtonColor()
         
         // Should not need to do this because the function buttons will already get redrawn by changeFunctionButtonColor()
 //        changeButtonMenuTextColor()
@@ -174,7 +175,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         }
     }
     
-    func changeFunctionButtonColor() {
+    func changeFunctionButtonColor(_ color: NSColor) {
         
         btnSavePreset.reTint()
         presetsMenuIconItem.reTint()
@@ -260,10 +261,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
             case .changeEffectsSuppressedUnitStateColor:
                 
                 changeSuppressedUnitStateColor(colorSchemeMsg.color)
-                
-            case .changeFunctionButtonColor:
-                
-                changeFunctionButtonColor()
                 
             default: return
                 

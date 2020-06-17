@@ -126,7 +126,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     func applyColorScheme(_ scheme: ColorScheme) {
         
         // This call will also take care of toggle buttons
-        changeFunctionButtonColor()
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
         sliderView.applyColorScheme(scheme)
     }
     
@@ -136,10 +136,6 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
      
         switch msg.actionType {
 
-        case .changeFunctionButtonColor:
-            
-            changeFunctionButtonColor()
-            
         case .changeToggleButtonOffStateColor:
             
             changeToggleButtonOffStateColor()
@@ -154,14 +150,14 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         sliderView.changeSliderColors()
     }
     
-    private func changeFunctionButtonColor() {
+    func changeFunctionButtonColor(_ color: NSColor) {
         
         [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }
     
-    private func changeToggleButtonOffStateColor() {
+    func changeToggleButtonOffStateColor() {
         
         // Only these buttons have off states that look different from their on states
         btnLoop.reTint()

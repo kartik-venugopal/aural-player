@@ -59,8 +59,9 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         Messenger.subscribe(self, .player_bookmarkLoop, self.bookmarkLoop)
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeToggleButtonOffStateColor], subscriber: self)
         
         self.view.hide()
     }
@@ -252,6 +253,10 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         redrawButtons()
     }
     
+    private func changeFunctionButtonColor(_ color: NSColor) {
+        redrawButtons()
+    }
+    
     private func redrawButtons() {
         allButtons.forEach({$0.reTint()})
     }
@@ -270,10 +275,6 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber, 
         
         switch message.actionType {
         
-        case .changeFunctionButtonColor:
-               
-            redrawButtons()
-            
         case .changeToggleButtonOffStateColor:
             
             changeToggleButtonOffStateColor()
