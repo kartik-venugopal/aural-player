@@ -45,7 +45,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         Messenger.subscribe(self, .player_showOrHidePlayingTrackInfo, infoView.showOrHidePlayingTrackInfo)
         Messenger.subscribe(self, .player_showOrHidePlayingTrackFunctions, infoView.showOrHidePlayingTrackFunctions)
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, infoView.applyColorScheme(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
     }
     
     private func trackChanged(_ track: Track?) {
@@ -81,11 +83,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
             
             infoView.applyColorSchemeComponent(colorComponentActionMsg)
-            return
-            
-        } else if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
-            
-            infoView.applyColorScheme(colorSchemeActionMsg.scheme)
             return
         }
     }

@@ -48,7 +48,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         
         playlistView.menu = contextMenu
         
-        applyColorScheme(ColorSchemes.systemScheme, false)
+        doApplyColorScheme(ColorSchemes.systemScheme, false)
     }
     
     private func initSubscriptions() {
@@ -106,8 +106,9 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
         
         Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -597,7 +598,11 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
     }
     
-    private func applyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        doApplyColorScheme(scheme)
+    }
+    
+    private func doApplyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
         
@@ -666,12 +671,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
     // MARK: Message handling
 
     func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
-            
-            applyColorScheme(colorSchemeMsg.scheme)
-            return
-        }
         
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             

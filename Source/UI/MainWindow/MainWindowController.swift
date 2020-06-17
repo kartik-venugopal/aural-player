@@ -92,12 +92,13 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
     private func initSubscriptions() {
         
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
 
         Messenger.subscribe(self, .windowLayout_togglePlaylistWindow, self.togglePlaylistWindow)
         Messenger.subscribe(self, .windowLayout_toggleEffectsWindow, self.toggleEffectsWindow)
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor, .applyColorScheme], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeToggleButtonOffStateColor, .changeAppLogoColor], subscriber: self)
         
         Messenger.subscribe(self, .windowLayoutChanged, self.windowLayoutChanged(_:))
     }
@@ -207,12 +208,6 @@ class MainWindowController: NSWindowController, MessageSubscriber, ActionMessage
             
             if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {
                 changeToggleButtonOffStateColor(ctrlColor)
-            }
-            
-        case .applyColorScheme:
-            
-            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
-                applyColorScheme(scheme)
             }
             
         default: return

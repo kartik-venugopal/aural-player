@@ -1,8 +1,8 @@
 import Cocoa
 
 /*
-    View controller for the Chapters list.
-    Displays the chapters list in a tabular format, and provides chapter search and playback functions.
+ View controller for the Chapters list.
+ Displays the chapters list in a tabular format, and provides chapter search and playback functions.
  */
 class ChaptersListViewController: NSViewController, ModalComponentProtocol, MessageSubscriber, ActionMessageSubscriber {
     
@@ -104,15 +104,16 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Register self as a subscriber to synchronous message notifications
         Messenger.subscribeAsync(self, .trackTransition, self.trackChanged, queue: .main)
         
-        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
-        
         Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
+        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
     }
     
     override func viewDidAppear() {
-
+        
         // Need to do this every time the view reappears (i.e. the Chapters list window is opened)
         chaptersListView.reloadData()
         
@@ -140,7 +141,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     private func playSelectedChapter() {
         
         if let selRow = chaptersListView.selectedRowIndexes.first {
-        
+            
             Messenger.publish(.player_playChapter, payload: selRow)
             btnLoopChapter.onIf(player.chapterLoopExists)
             
@@ -172,7 +173,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Should not do anything when no chapter is playing
         // (possible if chapters don't cover the entire timespan of the track)
         if player.playingChapter != nil {
-        
+            
             Messenger.publish(.player_replayChapter)
             btnLoopChapter.onIf(player.chapterLoopExists)
         }
@@ -186,7 +187,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // Should not do anything when no chapter is playing
         // (possible if chapters don't cover the entire timespan of the track)
         if player.playingChapter != nil {
-        
+            
             // Toggle the loop
             Messenger.publish(.player_toggleChapterLoop)
             btnLoopChapter.onIf(player.chapterLoopExists)
@@ -207,7 +208,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         // Ensure that there is some query text and that the playing track has some chapters
         if !queryText.isEmpty, let chapters = player.playingTrack?.chapters {
-
+            
             // Compare the query text with all chapter titles
             for index in 0..<chapters.count {
                 
@@ -267,10 +268,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     }
     
     /*
-        Selects the given search result within the NSTableView
-    
-        @param index
-              Index within the searchResults array (eg. first result, second result, etc)
+     Selects the given search result within the NSTableView
+     
+     @param index
+     Index within the searchResults array (eg. first result, second result, etc)
      */
     private func selectSearchResult(_ index: Int) {
         
@@ -319,76 +320,63 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     func consumeMessage(_ message: ActionMessage) {
         
-        switch message.actionType {
+        if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
-        case .applyColorScheme:
-            
-            if let colorSchemeMsg = message as? ColorSchemeActionMessage {
+            switch colorSchemeMsg.actionType {
                 
-                applyColorScheme(colorSchemeMsg.scheme)
-                return
+            case .changeBackgroundColor:
+                
+                changeBackgroundColor(colorSchemeMsg.color)
+                
+            case .changeMainCaptionTextColor:
+                
+                changeMainCaptionTextColor(colorSchemeMsg.color)
+                
+            case .changeViewControlButtonColor:
+                
+                changeViewControlButtonColor(colorSchemeMsg.color)
+                
+            case .changeFunctionButtonColor:
+                
+                changeFunctionButtonColor(colorSchemeMsg.color)
+                
+            case .changeToggleButtonOffStateColor:
+                
+                changeToggleButtonOffStateColor(colorSchemeMsg.color)
+                
+            case .changePlaylistSummaryInfoColor:
+                
+                changeSummaryInfoColor(colorSchemeMsg.color)
+                
+            case .changePlaylistTrackNameTextColor:
+                
+                changeTrackNameTextColor(colorSchemeMsg.color)
+                
+            case .changePlaylistIndexDurationTextColor:
+                
+                changeIndexDurationTextColor(colorSchemeMsg.color)
+                
+            case .changePlaylistTrackNameSelectedTextColor:
+                
+                changeTrackNameSelectedTextColor(colorSchemeMsg.color)
+                
+            case .changePlaylistIndexDurationSelectedTextColor:
+                
+                changeIndexDurationSelectedTextColor(colorSchemeMsg.color)
+                
+            case .changePlaylistPlayingTrackIconColor:
+                
+                changePlayingTrackIconColor(colorSchemeMsg.color)
+                
+            case .changePlaylistSelectionBoxColor:
+                
+                changeSelectionBoxColor(colorSchemeMsg.color)
+                
+            default: return
+                
             }
             
-        default:
-            
-            if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
-                
-                switch colorSchemeMsg.actionType {
-                    
-                case .changeBackgroundColor:
-                    
-                    changeBackgroundColor(colorSchemeMsg.color)
-                    
-                case .changeMainCaptionTextColor:
-                    
-                    changeMainCaptionTextColor(colorSchemeMsg.color)
-                    
-                case .changeViewControlButtonColor:
-                    
-                    changeViewControlButtonColor(colorSchemeMsg.color)
-                    
-                case .changeFunctionButtonColor:
-                    
-                    changeFunctionButtonColor(colorSchemeMsg.color)
-                    
-                case .changeToggleButtonOffStateColor:
-                    
-                    changeToggleButtonOffStateColor(colorSchemeMsg.color)
-                    
-                case .changePlaylistSummaryInfoColor:
-                    
-                    changeSummaryInfoColor(colorSchemeMsg.color)
-                    
-                case .changePlaylistTrackNameTextColor:
-                    
-                    changeTrackNameTextColor(colorSchemeMsg.color)
-                    
-                case .changePlaylistIndexDurationTextColor:
-                    
-                    changeIndexDurationTextColor(colorSchemeMsg.color)
-                    
-                case .changePlaylistTrackNameSelectedTextColor:
-                    
-                    changeTrackNameSelectedTextColor(colorSchemeMsg.color)
-                    
-                case .changePlaylistIndexDurationSelectedTextColor:
-                    
-                    changeIndexDurationSelectedTextColor(colorSchemeMsg.color)
-                    
-                case .changePlaylistPlayingTrackIconColor:
-                    
-                    changePlayingTrackIconColor(colorSchemeMsg.color)
-                    
-                case .changePlaylistSelectionBoxColor:
-                    
-                    changeSelectionBoxColor(colorSchemeMsg.color)
-                    
-                default: return
-                    
-                }
-                
-                return
-            }
+            return
         }
     }
     
@@ -419,9 +407,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
-        
+            
             let refreshRows: [Int] = [notification.oldChapter?.index, notification.newChapter?.index]
-                                        .compactMap {$0}.filter({$0 >= 0})
+                .compactMap {$0}.filter({$0 >= 0})
             
             if !refreshRows.isEmpty {
                 self.chaptersListView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
@@ -440,7 +428,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
-        
+            
             let selRows = chaptersListView.selectedRowIndexes
             chaptersListView.reloadData()
             chaptersListView.selectRowIndexes(selRows, byExtendingSelection: false)
@@ -453,7 +441,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         }
     }
     
-    private func applyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
+    private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
         changeViewControlButtonColor(scheme.general.viewControlButtonColor)
@@ -465,9 +453,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         redrawSearchField()
         
-        if mustReloadRows {
-            chaptersListView.reloadData()
-        }
+        chaptersListView.reloadData()
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -477,13 +463,13 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {
-     
+        
         functionButtons.forEach({$0.reTint()})
         [btnPreviousMatch, btnNextMatch].forEach({$0?.reTint()})
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
-       btnClose.reTint()
+        btnClose.reTint()
     }
     
     private func changeToggleButtonOffStateColor(_ color: NSColor) {
@@ -511,16 +497,16 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         txtSearch.textColor = Colors.Playlist.trackNameTextColor
         
         if let cell: NSSearchFieldCell = txtSearch.cell as? NSSearchFieldCell {
-
+            
             // This is a hack to force these cells to redraw
             cell.resetCancelButtonCell()
             cell.resetSearchButtonCell()
-        
+            
             // Tint the 2 cell images according to the appropriate color.
             cell.cancelButtonCell?.image = cell.cancelButtonCell?.image?.applyingTint(Colors.Playlist.trackNameTextColor)
             cell.searchButtonCell?.image = cell.searchButtonCell?.image?.applyingTint(Colors.Playlist.trackNameTextColor)
         }
-
+        
         txtSearch.redraw()
     }
     

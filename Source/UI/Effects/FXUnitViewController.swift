@@ -79,7 +79,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         Messenger.subscribe(self, .colorScheme_changeFXSliderColors, self.changeSliderColors)
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
     }
     
     func initControls() {
@@ -231,12 +233,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     func consumeMessage(_ message: ActionMessage) {
 
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
-            
-            applyColorScheme(colorSchemeMsg.scheme)
-            return
-        }
-        
         if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorSchemeMsg.actionType {

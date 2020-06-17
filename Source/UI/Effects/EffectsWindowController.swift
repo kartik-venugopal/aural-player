@@ -113,13 +113,14 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
 
         Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
         
-        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize)
-        
         // MARK: Commands ----------------------------------------------------------------------------------------
         
         Messenger.subscribe(self, .fx_showFXUnitTab, self.showTab(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
+        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize)
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -237,12 +238,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
     }
 
     func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
-            
-            applyColorScheme(colorSchemeMsg.scheme)
-            return
-        }
         
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
