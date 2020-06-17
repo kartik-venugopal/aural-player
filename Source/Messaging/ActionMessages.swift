@@ -61,15 +61,6 @@ enum ActionType {
        // Toggle the current chapter playback loop
        case toggleChapterLoop
     
-    
-    // MARK: FX actions
-    
-    // Saves the current settings in a sound profile for the current track
-    case saveSoundProfile
-    
-    case deleteSoundProfile
-    
-    
    // ******** WITH PAYLOAD ****************************************************************************************
     
     
@@ -215,17 +206,6 @@ struct ColorSchemeActionMessage: ActionMessage {
     init(_ scheme: ColorScheme) {
         self.scheme = scheme
     }
-}
-
-struct SoundProfileActionMessage: ActionMessage {
-    
-    let actionType: ActionType
-    
-    private init(_ actionType: ActionType) {self.actionType = actionType}
-    
-    static let save: SoundProfileActionMessage = SoundProfileActionMessage(.saveSoundProfile)
-    
-    static let delete: SoundProfileActionMessage = SoundProfileActionMessage(.deleteSoundProfile)
 }
 
 struct EffectsPresetsEditorActionMessage: ActionMessage {
