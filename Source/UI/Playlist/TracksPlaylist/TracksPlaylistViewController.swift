@@ -3,7 +3,7 @@ import Cocoa
 /*
  View controller for the flat ("Tracks") playlist view
  */
-class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class TracksPlaylistViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
@@ -116,7 +116,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistPlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistSelectionBoxColor, self.changeSelectionBoxColor(_:))
     }
     
     override func viewDidAppear() {
@@ -673,30 +674,6 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber, ActionM
         if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
             
             playlistView.reloadData(forRowIndexes: IndexSet([playingTrackIndex]), columnIndexes: IndexSet([0]))
-        }
-    }
-    
-    // MARK: Message handling
-
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-
-            case .changePlaylistPlayingTrackIconColor:
-                
-                changePlayingTrackIconColor(colorChangeMsg.color)
-                
-            case .changePlaylistSelectionBoxColor:
-                
-                changeSelectionBoxColor(colorChangeMsg.color)
-                
-            default: return
-                
-            }
-            
-            return
         }
     }
 }

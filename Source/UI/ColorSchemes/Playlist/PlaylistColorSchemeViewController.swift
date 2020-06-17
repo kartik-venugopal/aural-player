@@ -174,7 +174,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeSelectionBoxColor() {
         
         ColorSchemes.systemScheme.playlist.selectionBoxColor = selectionBoxColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistSelectionBoxColor, selectionBoxColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistSelectionBoxColor, payload: selectionBoxColorPicker.color)
     }
     
     @IBAction func playingTrackIconColorAction(_ sender: Any) {
@@ -186,7 +186,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changePlayingTrackIconColor() {
         
         ColorSchemes.systemScheme.playlist.playingTrackIconColor = playingTrackIconColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistPlayingTrackIconColor, playingTrackIconColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistPlayingTrackIconColor, payload: playingTrackIconColorPicker.color)
     }
     
     @IBAction func summaryInfoColorAction(_ sender: Any) {

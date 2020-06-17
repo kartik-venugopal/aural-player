@@ -3,7 +3,7 @@ import Cocoa
 /*
     Base view controller for the hierarchical/grouping ("Artists", "Albums", and "Genres") playlist views
  */
-class GroupingPlaylistViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
@@ -128,7 +128,8 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .colorScheme_changePlaylistGroupIconColor, self.changeGroupIconColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistGroupDisclosureTriangleColor, self.changeGroupDisclosureTriangleColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistPlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistSelectionBoxColor, self.changeSelectionBoxColor(_:))
     }
     
     override func viewDidAppear() {
@@ -855,30 +856,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
     
     private func changeGroupDisclosureTriangleColor(_ color: NSColor) {
         playlistView.changeDisclosureIconColor(color)
-    }
-    
-    // MARK: Message handlers
-    
-    func consumeMessage(_ message: ActionMessage) {
-       
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-                
-            case .changePlaylistPlayingTrackIconColor:
-                
-                changePlayingTrackIconColor(colorChangeMsg.color)
-                
-            case .changePlaylistSelectionBoxColor:
-                
-                changeSelectionBoxColor(colorChangeMsg.color)
-                
-            default: return
-                
-            }
-            
-            return
-        }
     }
 }
 
