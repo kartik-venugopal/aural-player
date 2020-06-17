@@ -37,9 +37,7 @@ enum ActionType {
     
    // ******** WITH PAYLOAD ****************************************************************************************
     
-    case changePlaylistTrackNameTextColor
     case changePlaylistGroupNameTextColor
-    case changePlaylistIndexDurationTextColor
     
     case changePlaylistTrackNameSelectedTextColor
     case changePlaylistGroupNameSelectedTextColor

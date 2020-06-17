@@ -78,7 +78,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameTextColor() {
         
         ColorSchemes.systemScheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistTrackNameTextColor, trackNameTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistTrackNameTextColor, payload: trackNameTextColorPicker.color)
     }
     
     @IBAction func groupNameTextColorAction(_ sender: Any) {
@@ -102,7 +102,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeIndexDurationTextColor() {
         
         ColorSchemes.systemScheme.playlist.indexDurationTextColor = indexDurationTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistIndexDurationTextColor, indexDurationTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistIndexDurationTextColor, payload: indexDurationTextColorPicker.color)
     }
     
     @IBAction func trackNameSelectedTextColorAction(_ sender: Any) {
