@@ -49,7 +49,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         playlistUpdateQueue.underlyingQueue = DispatchQueue.main
         playlistUpdateQueue.qualityOfService = .userInitiated
         
-        applyColorScheme(ColorSchemes.systemScheme, false)
+        doApplyColorScheme(ColorSchemes.systemScheme, false)
     }
     
     private func initSubscriptions() {
@@ -112,8 +112,9 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
         
         Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -743,7 +744,11 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
     }
     
-    private func applyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        doApplyColorScheme(scheme)
+    }
+    
+    private func doApplyColorScheme(_ scheme: ColorScheme, _ mustReloadRows: Bool = true) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
         
@@ -894,12 +899,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
                 
             }
             
-            return
-        }
-        
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
-            
-            applyColorScheme(colorSchemeMsg.scheme)
             return
         }
     }

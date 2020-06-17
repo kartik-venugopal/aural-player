@@ -130,7 +130,6 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.subscribeAsync(self, .trackTransition, self.trackChanged, queue: .main)
         
         Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
-        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
         
         // MARK: Commands -------------------------------------------------------------------------------------
         
@@ -146,7 +145,10 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         
         Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
+        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -496,12 +498,6 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         
         switch message.actionType {
 
-        case .applyColorScheme:
-            
-            if let scheme = (message as? ColorSchemeActionMessage)?.scheme {
-                applyColorScheme(scheme)
-            }
-            
         case .changeBackgroundColor:
             
             if let bkColor = (message as? ColorSchemeComponentActionMessage)?.color {

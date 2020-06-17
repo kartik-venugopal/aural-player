@@ -41,9 +41,6 @@ enum ActionType {
     
    // ******** WITH PAYLOAD ****************************************************************************************
     
-    // Color scheme change actions
-    case applyColorScheme
-    
     case changeAppLogoColor
     case changeBackgroundColor
     
@@ -131,16 +128,6 @@ struct ColorSchemeComponentActionMessage: ActionMessage {
         
         self.actionType = actionType
         self.color = color
-    }
-}
-
-struct ColorSchemeActionMessage: ActionMessage {
-    
-    let actionType: ActionType = .applyColorScheme
-    let scheme: ColorScheme
-    
-    init(_ scheme: ColorScheme) {
-        self.scheme = scheme
     }
 }
 

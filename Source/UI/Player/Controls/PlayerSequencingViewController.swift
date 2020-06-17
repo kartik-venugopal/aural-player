@@ -38,8 +38,10 @@ class PlayerSequencingViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .player_setRepeatMode, self.setRepeatMode(_:))
         Messenger.subscribe(self, .player_setShuffleMode, self.setShuffleMode(_:))
         
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        
         // Subscribe to message notifications
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeFunctionButtonColor, .changeToggleButtonOffStateColor], subscriber: self)
     }
     
     // Toggles the repeat mode
@@ -66,6 +68,10 @@ class PlayerSequencingViewController: NSViewController, MessageSubscriber, Actio
         btnRepeat.switchState(modes.repeatMode)
     }
     
+    private func applyColorScheme(_ scheme: ColorScheme) {
+        redrawButtons()
+    }
+    
     private func redrawButtons() {
         [btnRepeat, btnShuffle].forEach({$0.reTint()})
     }
@@ -76,7 +82,7 @@ class PlayerSequencingViewController: NSViewController, MessageSubscriber, Actio
         
         switch message.actionType {
             
-        case .applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor:
+        case .changeFunctionButtonColor, .changeToggleButtonOffStateColor:
             
             redrawButtons()
         

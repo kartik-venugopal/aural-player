@@ -4,7 +4,7 @@ import Cocoa
     Window controller for the Chapters list window.
     Contains the Chapters list view and performs window snapping.
  */
-class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber {
+class ChaptersListWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     
@@ -16,11 +16,16 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
         
         changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         WindowManager.hideChaptersList()
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        changeBackgroundColor(scheme.general.backgroundColor)
     }
     
     func consumeMessage(_ message: ActionMessage) {
@@ -37,12 +42,6 @@ class ChaptersListWindowController: NSWindowController, ActionMessageSubscriber 
 
             }
             
-            return
-        }
-        
-        if let colorSchemeMsg = message as? ColorSchemeActionMessage {
-            
-            changeBackgroundColor(colorSchemeMsg.scheme.general.backgroundColor)
             return
         }
     }

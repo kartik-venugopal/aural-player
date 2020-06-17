@@ -54,7 +54,9 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -167,11 +169,6 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
                 changeBackgroundColor()
             }
             
-            return
-            
-        } else if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
-            
-            applyColorScheme(colorSchemeActionMsg.scheme)
             return
         }
     }

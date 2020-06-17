@@ -54,9 +54,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .changePlayerTextSize, playbackView.changeTextSize(_:))
         
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, playbackView.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, playbackView.changeSliderColors)
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor,
+        SyncMessenger.subscribe(actionTypes: [.changeFunctionButtonColor, .changeToggleButtonOffStateColor,
                                               .changePlayerSliderValueTextColor], subscriber: self)
     }
     
@@ -358,23 +359,14 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     func consumeMessage(_ message: ActionMessage) {
         
-        switch message.actionType {
 
         // MARK: Appearance
             
-        case .applyColorScheme:
-            
-            if let colorSchemeActionMsg = message as? ColorSchemeActionMessage {
-                playbackView.applyColorScheme(colorSchemeActionMsg.scheme)
-            }
-            
-        default:
             
             if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
                 
                 playbackView.applyColorSchemeComponent(colorComponentActionMsg)
                 return
             }
-        }
     }
 }
