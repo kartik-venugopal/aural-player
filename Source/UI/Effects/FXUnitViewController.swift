@@ -138,9 +138,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         changeActiveUnitStateColor(scheme.effects.activeUnitStateColor)
         changeBypassedUnitStateColor(scheme.effects.bypassedUnitStateColor)
         changeSuppressedUnitStateColor(scheme.effects.suppressedUnitStateColor)
-        
-        // Should not need to do this because the function buttons will already get redrawn by changeFunctionButtonColor()
-//        changeButtonMenuTextColor()
     }
     
     func changeMainCaptionTextColor(_ color: NSColor) {
