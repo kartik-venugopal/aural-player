@@ -214,11 +214,11 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, NSTabView
 //    }
     
     // Handles an error when tracks could not be added to the playlist
-    func tracksNotAdded(_ notification: TracksNotAddedNotification) {
+    func tracksNotAdded(_ errors: [DisplayableError]) {
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            _ = UIUtils.showAlert(DialogsAndAlerts.tracksNotAddedAlertWithErrors(notification.errors))
+            _ = UIUtils.showAlert(DialogsAndAlerts.tracksNotAddedAlertWithErrors(errors))
         }
     }
     
@@ -511,7 +511,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, NSTabView
     // MARK: Message handling
     
     // Updates the summary in response to a change in the tab group selected tab
-    func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
+    func playlistTypeChanged(_ newPlaylistType: PlaylistType) {
         updatePlaylistSummary()
     }
 }

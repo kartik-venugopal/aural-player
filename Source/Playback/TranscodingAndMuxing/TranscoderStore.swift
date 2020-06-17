@@ -130,7 +130,7 @@ class TranscoderStore: MessageSubscriber {
         }
         
         // Proceed with exit
-        request.appendResponse(okToExit: true)
+        request.acceptResponse(okToExit: true)
     }
     
     //    func checkDiskSpaceUsage() {

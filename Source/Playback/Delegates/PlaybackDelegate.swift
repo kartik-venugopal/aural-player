@@ -36,7 +36,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // Subscribe to message notifications
         Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
-        Messenger.subscribeAsync(self, .playbackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
+        Messenger.subscribeAsync(self, .trackPlaybackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
         
         Messenger.subscribe(self, .player_savePlaybackProfile, self.savePlaybackProfile)
         Messenger.subscribe(self, .player_deletePlaybackProfile, self.deletePlaybackProfile)
@@ -374,10 +374,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // MARK: Message handling
     
-    func trackPlaybackCompleted(_ notification: PlaybackCompletedNotification) {
+    func trackPlaybackCompleted(_ completedSession: PlaybackSession) {
         
         // If the given session has expired, do not continue playback.
-        if PlaybackSession.isCurrent(notification.completedSession) {
+        if PlaybackSession.isCurrent(completedSession) {
             doTrackPlaybackCompleted()
             
         } else {
@@ -385,7 +385,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             // If the session has expired, the track completion chain will not execute
             // and the track's profile will not be updated, so ensure that it is.
             // Reset the seek position to 0 since the track completed playback.
-            savePlaybackProfileIfNeeded(notification.completedSession.track, 0)
+            savePlaybackProfileIfNeeded(completedSession.track, 0)
         }
     }
     
@@ -410,7 +410,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
         
         // Proceed with exit
-        request.appendResponse(okToExit: true)
+        request.acceptResponse(okToExit: true)
     }
     
     // ------------------- PlaylistChangeListenerProtocol methods ---------------------

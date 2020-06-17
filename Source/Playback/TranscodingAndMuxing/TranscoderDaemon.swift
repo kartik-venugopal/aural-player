@@ -157,7 +157,7 @@ class TranscoderDaemon: MessageSubscriber {
         tasks.removeAll()
         
         // Proceed with exit
-        request.appendResponse(okToExit: true)
+        request.acceptResponse(okToExit: true)
     }
 }
 

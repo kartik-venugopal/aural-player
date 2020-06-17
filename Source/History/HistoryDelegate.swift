@@ -141,11 +141,11 @@ class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, PersistentMod
     }
     
     // Whenever items are added to the playlist, add entries to the "Recently added" list
-    func itemsAdded(_ notification: HistoryItemsAddedNotification) {
+    func itemsAdded(_ files: [URL]) {
         
         let now = Date()
         
-        for file in notification.files {
+        for file in files {
             
             if let track = playlist.findFile(file) {
                 

@@ -128,7 +128,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override func tableViewSelectionDidChange(_ notification: Notification) {
         
-        let numRows = editorView.numberOfSelectedRows
+        let numRows: Int = editorView.numberOfSelectedRows
         previewBox.showIf(numRows == 1)
         
         if numRows == 1 {
@@ -141,7 +141,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
             oldPresetName = presetName
         }
         
-        Messenger.publish(EditorSelectionChangedNotification(numberOfSelectedRows: numRows))
+        Messenger.publish(.editorSelectionChanged, payload: numRows)
     }
     
     // MARK: Text field delegate functions

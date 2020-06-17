@@ -436,10 +436,10 @@ class Sequencer: SequencerProtocol, MessageSubscriber, PersistentModelObject {
     // MARK: Message handling --------------------------------------------------------------------------------------------------------------
     
     // When the selected playlist view type changes in the UI (i.e. the selected playlist tab changes), this notification is sent out. Here, we make note of the new playlist type, so that the playback scope may be determined from it.
-    func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
+    func playlistTypeChanged(_ newPlaylistType: PlaylistType) {
         
         // Updates the instance variable playlistType, with the new playlistType value
-        self.playlistType = notification.newPlaylistType
+        self.playlistType = newPlaylistType
     }
     
     var persistentState: PersistentState {

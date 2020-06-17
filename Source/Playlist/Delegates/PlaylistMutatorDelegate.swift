@@ -91,7 +91,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             if atLeastOneTrackAdded {
 
                 if userAction {
-                    Messenger.publish(HistoryItemsAddedNotification(files: self.addSession.addedItems))
+                    Messenger.publish(.historyItemsAdded, payload: self.addSession.addedItems)
                 }
                 
                 // Notify change listeners
@@ -103,7 +103,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display a non-intrusive popover instead of annoying alert (error details optional "Click for more details")
             if !self.addSession.progress.errors.isEmpty {
-                Messenger.publish(TracksNotAddedNotification(errors: self.addSession.progress.errors))
+                Messenger.publish(.tracksNotAdded, payload: self.addSession.progress.errors)
             }
             
             self.addSession = nil
@@ -298,7 +298,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
                                                       addOperationProgress: TrackAddOperationProgressNotification(1, 1))
             
             Messenger.publish(trackAddedNotification)
-            Messenger.publish(HistoryItemsAddedNotification(files: [file]))
+            Messenger.publish(.historyItemsAdded, payload: [file])
             
             self.changeListeners.forEach({$0.tracksAdded([result])})
             
@@ -468,9 +468,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
     
     // MARK: Message handling
     
-    func appLaunched(_ notification: AppLaunchedNotification) {
-        
-        let filesToOpen = notification.filesToOpen
+    func appLaunched(_ filesToOpen: [URL]) {
         
         // Check if any launch parameters were specified
         if !filesToOpen.isEmpty {

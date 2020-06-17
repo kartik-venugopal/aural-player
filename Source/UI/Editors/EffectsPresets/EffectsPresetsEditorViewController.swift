@@ -143,7 +143,7 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
     
     // MARK: Message handling
     
-    func editorSelectionChanged(_ notification: EditorSelectionChangedNotification) {
-        updateButtonStates(notification.numberOfSelectedRows)
+    func editorSelectionChanged(_ numberOfSelectedRows: Int) {
+        updateButtonStates(numberOfSelectedRows)
     }
 }
