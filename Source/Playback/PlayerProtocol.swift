@@ -44,7 +44,9 @@ protocol PlayerProtocol {
     var seekPosition: Double {get}
     
     // Define a segment loop bounded by the given start/end time values (and continue playback as before, from the current position).
-    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double)
+    // The isChapterLoop parameter indicates whether or not this segment loop is associated with (i.e. bounded by) a chapter marking
+    // of the currently playing track.
+    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double, _ isChapterLoop: Bool)
     
     /*
         Toggles the state of an A->B segment playback loop for the currently playing track. There are 3 possible states:

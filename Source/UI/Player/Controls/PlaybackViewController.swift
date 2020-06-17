@@ -29,7 +29,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // MARK: Commands --------------------------------------------------------------
         
         Messenger.subscribe(self, .playTrack, self.performTrackPlayback(_:))
-        Messenger.subscribe(self, .chapterPlayback, self.performChapterPlayback(_:))
         
         Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
         Messenger.subscribe(self, .player_stop, self.stop)
@@ -42,6 +41,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .player_seekForward_secondary, self.seekForward_secondary)
         Messenger.subscribe(self, .player_jumpToTime, self.jumpToTime(_:))
         Messenger.subscribe(self, .player_toggleLoop, self.toggleLoop)
+        
+        Messenger.subscribe(self, .player_playChapter, self.playChapter(_:))
+        Messenger.subscribe(self, .player_previousChapter, self.previousChapter)
+        Messenger.subscribe(self, .player_nextChapter, self.nextChapter)
+        Messenger.subscribe(self, .player_replayChapter, self.replayChapter)
+        Messenger.subscribe(self, .player_toggleChapterLoop, self.toggleChapterLoop)
         
         Messenger.subscribe(self, .player_showOrHideTimeElapsedRemaining, playbackView.showOrHideTimeElapsedRemaining)
         Messenger.subscribe(self, .player_setTimeElapsedDisplayFormat, playbackView.setTimeElapsedDisplayFormat(_:))
@@ -268,29 +273,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     
     // MARK: Chapter playback functions ------------------------------------------------------------
     
-    func performChapterPlayback(_ command: ChapterPlaybackCommandNotification) {
-        
-        switch command.commandType {
-            
-        case .playSelectedChapter:
-            
-            if let index = command.chapterIndex {
-                playChapter(index)
-            }
-            
-        case .previousChapter:  previousChapter()
-            
-        case .nextChapter:  nextChapter()
-            
-        case .replayChapter:    replayChapter()
-            
-        case .addChapterLoop:   addChapterLoop()
-            
-        case .removeChapterLoop:    removeChapterLoop()
-            
-        }
-    }
-    
     private func playChapter(_ index: Int) {
         
         player.playChapter(index)
@@ -319,16 +301,12 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         playbackView.playbackStateChanged(player.state)
     }
     
-    private func addChapterLoop() {
+    private func toggleChapterLoop() {
         
-        player.loopChapter()
+        _ = player.toggleChapterLoop()
         playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
-    }
-    
-    private func removeChapterLoop() {
         
-        _ = player.toggleLoop()
-        playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
+        Messenger.publish(.playbackLoopChanged)
     }
     
     // MARK: Current chapter tracking ---------------------------------------------------------------------

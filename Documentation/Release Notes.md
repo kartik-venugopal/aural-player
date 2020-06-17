@@ -6,6 +6,8 @@ The internal messaging framework has been redesigned as a thin wrapper around No
 
 ### Bug fixes
 
+* (Chapter playback) Chapter playback functions don't work at all if chapters list window has never been displayed.
+* (Transcoder crash) When the playing track is removed from the playlist, the transcoder sometimes causes a crash.
 * (Playlist) When all tracks are removed from the playlist, the summary (number of tracks) is not updated in some rare cases.
 * (Player) The current chapter title does not update properly when it is hidden and then shown again.
 * (Player) The seek slider does not redraw when a segment loop is removed (if paused)

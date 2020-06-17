@@ -16,12 +16,14 @@ struct PlaybackLoop: Equatable {
     
     init(_ startTime: Double) {
         self.startTime = startTime
+        self.isChapterLoop = false
     }
     
-    init(_ startTime: Double, _ endTime: Double) {
+    init(_ startTime: Double, _ endTime: Double, _ isChapterLoop: Bool = false) {
         
         self.startTime = startTime
         self.endTime = endTime
+        self.isChapterLoop = isChapterLoop
         
         correctTimesIfNecessary()
     }
@@ -30,6 +32,9 @@ struct PlaybackLoop: Equatable {
     var isComplete: Bool {
         return endTime != nil
     }
+    
+    // Whether or not this segment loop is associated with (i.e. bounded by) a chapter marking of the currently playing track.
+    var isChapterLoop: Bool
     
     // Calculates the duration of this loop (if end time is defined)
     var duration: Double {

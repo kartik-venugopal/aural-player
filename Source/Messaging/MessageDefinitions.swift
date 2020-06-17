@@ -179,45 +179,6 @@ enum PlaybackCommandType {
     case group
 }
 
-// A command related to playback of a chapter within a track.
-struct ChapterPlaybackCommandNotification: NotificationPayload {
-
-    let notificationName: Notification.Name = .chapterPlayback
-    
-    let commandType: ChapterPlaybackCommandType
-    
-    // The index of the chapter to which this command applies (may be nil).
-    var chapterIndex: Int? = nil
-   
-    init(commandType: ChapterPlaybackCommandType, chapterIndex: Int? = nil) {
-        
-        self.commandType = commandType
-        self.chapterIndex = chapterIndex
-    }
-}
-
-// The various types of chapter playback commands. See ChapterPlaybackCommandNotification.
-enum ChapterPlaybackCommandType {
-    
-    // Play the chapter selected in the chapters list
-    case playSelectedChapter
-    
-    // Play the previous chapter (relative to the currently playing chapter)
-    case previousChapter
-    
-    // Play the next chapter (relative to the currently playing chapter)
-    case nextChapter
-    
-    // Replay the currently playing chapter from its start time
-    case replayChapter
-    
-    // Loop the currently playing chapter from its start time
-    case addChapterLoop
-    
-    // Remove the previously added loop for the current chapter
-    case removeChapterLoop
-}
-
 // Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.
 class AppExitRequestNotification: NotificationPayload {
     

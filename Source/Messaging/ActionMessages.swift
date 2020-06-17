@@ -38,26 +38,11 @@ enum ActionType {
     // MARK: Playlist actions
     
     // ******** NO PAYLOAD ****************************************************************************************
+    
+    case changePlayerSliderColors
+    case changeEffectsSliderColors
 
-       // MARK: Playback actions
-       
-       // Play the previous available chapter
-       case previousChapter
-       
-       // Play the next available chapter
-       case nextChapter
-       
-       // Replay the currently playing chapter from the beginning, if there is one
-       case replayChapter
-       
-       // Toggle the current chapter playback loop
-       case toggleChapterLoop
-    
    // ******** WITH PAYLOAD ****************************************************************************************
-    
-    
-     // Play the chapter selected within the chapters list
-     case playSelectedChapter
     
     // MARK: Effects presets editor actions
     
@@ -88,8 +73,6 @@ enum ActionType {
     case changePlayerTrackInfoTertiaryTextColor
     case changePlayerSliderValueTextColor
     
-    case changePlayerSliderColors
-    
     case changePlaylistTrackNameTextColor
     case changePlaylistGroupNameTextColor
     case changePlaylistIndexDurationTextColor
@@ -108,8 +91,6 @@ enum ActionType {
     
     case changeEffectsFunctionCaptionTextColor
     case changeEffectsFunctionValueTextColor
-    
-    case changeEffectsSliderColors
     
     case changeEffectsActiveUnitStateColor
     case changeEffectsBypassedUnitStateColor
@@ -148,33 +129,6 @@ struct PlaylistViewSelector {
     // Factory method that creates a selector for a specific playlist view.
     static func forView(_ view: PlaylistType) -> PlaylistViewSelector {
         return PlaylistViewSelector(view)
-    }
-}
-
-// A message sent to one of the playlist view controllers, either from another playlist view controller or from another app component, to perform some action on the playlist.
-struct PlaylistActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    
-    // Specifies the type of playlist to which this action applies. A nil value indicates that it is independent of playlist type, i.e. applies to all of them.
-    let playlistType: PlaylistType?
-    
-    init(_ actionType: ActionType, _ playlistType: PlaylistType?) {
-        
-        self.actionType = actionType
-        self.playlistType = playlistType
-    }
-}
-
-// A message sent to the playback view controller to perform a playback function.
-struct PlaybackActionMessage: ActionMessage {
-    
-    var actionType: ActionType
-    var actionMode: ActionMode
-    
-    init(_ actionType: ActionType, _ actionMode: ActionMode = .discrete) {
-        self.actionType = actionType
-        self.actionMode = actionMode
     }
 }
 

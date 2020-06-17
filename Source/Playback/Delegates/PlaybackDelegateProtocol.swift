@@ -112,8 +112,12 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     // For the currently playing track, replays the currently playing chapter (i.e. seeks to the chapter's start time)
     func replayChapter()
     
-    // For the currently playing track, defines a segment loop bounded by the currently playing chapter's start and end time
-    func loopChapter()
+    // For the currently playing track, toggles a segment loop bounded by the currently playing chapter's start and end time
+    // Returns whether or not a loop exists for the currently playing chapter, after the toggle operation.
+    func toggleChapterLoop() -> Bool
+    
+    // Whether or not a loop exists for the currently playing chapter
+    var chapterLoopExists: Bool {get}
     
     var profiles: PlaybackProfiles {get}
 }

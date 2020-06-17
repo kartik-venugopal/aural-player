@@ -40,16 +40,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    // Indicates whether or not the currently playing chapter is being looped. Will be false if there are no chapters available.
-    private var looping: Bool = false {
-        
-        didSet {
-            
-            // Update the loop toggle button image to reflect the looping state
-            btnLoopChapter?.onIf(looping)
-        }
-    }
-    
     // The chapters list window is only considered modal when it is the key window AND the search bar has focus
     // (i.e. a search is being performed)
     var isModal: Bool {
@@ -73,7 +63,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         initSubscriptions()
         
-        looping = false
+        btnLoopChapter.off()
         
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
@@ -116,7 +106,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.playSelectedChapter, .previousChapter, .nextChapter, .replayChapter, .toggleChapterLoop, .changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
+        Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
+        
+        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeMainCaptionTextColor, .changeFunctionButtonColor, .changeToggleButtonOffStateColor, .changePlaylistSummaryInfoColor, .changePlaylistTrackNameTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistPlayingTrackIconColor, .changePlaylistSelectionBoxColor, .applyColorScheme], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -133,6 +125,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         txtSearch.font = Fonts.Playlist.chapterSearchFont
         lblNumMatches.font = Fonts.Playlist.chapterSearchFont
         
+        btnLoopChapter.onIf(player.chapterLoopExists)
+        
         // Make sure the chapters list view has focus every time the window is opened
         self.view.window?.makeFirstResponder(chaptersListView)
     }
@@ -140,14 +134,15 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     // MARK: Playback functions
     
     @IBAction func playSelectedChapterAction(_ sender: AnyObject) {
+        playSelectedChapter()
+    }
+    
+    private func playSelectedChapter() {
         
         if let selRow = chaptersListView.selectedRowIndexes.first {
         
-            Messenger.publish(ChapterPlaybackCommandNotification(commandType: .playSelectedChapter, chapterIndex: selRow))
-            
-            if player.playbackLoop == nil {
-                looping = false
-            }
+            Messenger.publish(.player_playChapter, payload: selRow)
+            btnLoopChapter.onIf(player.chapterLoopExists)
             
             // Remove focus from the search field (if necessary)
             self.view.window?.makeFirstResponder(chaptersListView)
@@ -156,11 +151,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     @IBAction func playPreviousChapterAction(_ sender: AnyObject) {
         
-        Messenger.publish(ChapterPlaybackCommandNotification(commandType: .previousChapter))
-        
-        if player.playbackLoop == nil {
-            looping = false
-        }
+        Messenger.publish(.player_previousChapter)
+        btnLoopChapter.onIf(player.chapterLoopExists)
         
         // Remove focus from the search field (if necessary)
         self.view.window?.makeFirstResponder(chaptersListView)
@@ -168,11 +160,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
     
     @IBAction func playNextChapterAction(_ sender: AnyObject) {
         
-        Messenger.publish(ChapterPlaybackCommandNotification(commandType: .nextChapter))
-        
-        if player.playbackLoop == nil {
-            looping = false
-        }
+        Messenger.publish(.player_nextChapter)
+        btnLoopChapter.onIf(player.chapterLoopExists)
         
         // Remove focus from the search field (if necessary)
         self.view.window?.makeFirstResponder(chaptersListView)
@@ -184,11 +173,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         // (possible if chapters don't cover the entire timespan of the track)
         if player.playingChapter != nil {
         
-            Messenger.publish(ChapterPlaybackCommandNotification(commandType: .replayChapter))
-            
-            if player.playbackLoop == nil {
-                looping = false
-            }
+            Messenger.publish(.player_replayChapter)
+            btnLoopChapter.onIf(player.chapterLoopExists)
         }
         
         // Remove focus from the search field (if necessary)
@@ -202,8 +188,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         if player.playingChapter != nil {
         
             // Toggle the loop
-            Messenger.publish(ChapterPlaybackCommandNotification(commandType: looping ? .removeChapterLoop : .addChapterLoop))
-            looping.toggle()
+            Messenger.publish(.player_toggleChapterLoop)
+            btnLoopChapter.onIf(player.chapterLoopExists)
         }
         
         // Remove focus from the search field (if necessary)
@@ -335,26 +321,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         
         switch message.actionType {
             
-        case .playSelectedChapter:
-            
-            playSelectedChapterAction(self)
-            
-        case .previousChapter:
-            
-            playPreviousChapterAction(self)
-            
-        case .nextChapter:
-            
-            playNextChapterAction(self)
-            
-        case .replayChapter:
-            
-            replayCurrentChapterAction(self)
-            
-        case .toggleChapterLoop:
-            
-            toggleCurrentChapterLoopAction(self)
-            
         case .applyColorScheme:
             
             if let colorSchemeMsg = message as? ColorSchemeActionMessage {
@@ -439,7 +405,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
         }
         
         // This should always be done
-        looping = false
+        btnLoopChapter.onIf(player.chapterLoopExists)
         txtSearch.stringValue = ""
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
@@ -461,11 +427,13 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Mess
                 self.chaptersListView.reloadData(forRowIndexes: IndexSet(refreshRows), columnIndexes: [0])
             }
         }
+        
+        btnLoopChapter.onIf(player.chapterLoopExists)
     }
     
     // When the player's segment loop has been changed externally (from the player), it invalidates the chapter loop if there is one
     func playbackLoopChanged() {
-        looping = false
+        btnLoopChapter.onIf(player.chapterLoopExists)
     }
     
     private func changeTextSize(_ textSize: TextSize) {
