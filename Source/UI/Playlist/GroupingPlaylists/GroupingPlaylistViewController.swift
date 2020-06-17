@@ -116,7 +116,10 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistTrackNameTextColor, .changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameTextColor, self.changeTrackNameTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationTextColor, self.changeDurationTextColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -853,17 +856,9 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             
             switch colorChangeMsg.actionType {
                 
-            case .changePlaylistTrackNameTextColor:
-                
-                changeTrackNameTextColor(colorChangeMsg.color)
-                
             case .changePlaylistGroupNameTextColor:
                 
                 changeGroupNameTextColor(colorChangeMsg.color)
-                
-            case .changePlaylistIndexDurationTextColor:
-                
-                changeDurationTextColor(colorChangeMsg.color)
                 
             case .changePlaylistTrackNameSelectedTextColor:
                 
