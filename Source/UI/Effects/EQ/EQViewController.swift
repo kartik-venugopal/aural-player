@@ -40,8 +40,9 @@ class EQViewController: FXUnitViewController {
         Messenger.subscribe(self, .eqFXUnit_increaseTreble, self.increaseTreble)
         
         Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeSelectedTabButtonTextColor], subscriber: self)
     }
     
     override func initControls() {
@@ -123,7 +124,7 @@ class EQViewController: FXUnitViewController {
         super.applyColorScheme(scheme)
         
         changeSelectedTabButtonColor(scheme.general.selectedTabButtonColor)
-        changeTabButtonTextColor()
+        changeTabButtonTextColor(scheme.general.tabButtonTextColor)
         changeSelectedTabButtonTextColor()
         changeSliderColors()
     }
@@ -159,7 +160,7 @@ class EQViewController: FXUnitViewController {
         eqView.changeSelectedTabButtonColor()
     }
     
-    func changeTabButtonTextColor() {
+    func changeTabButtonTextColor(_ color: NSColor) {
         eqView.changeTabButtonTextColor()
     }
     
@@ -180,10 +181,6 @@ class EQViewController: FXUnitViewController {
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorChangeMsg.actionType {
-                
-            case .changeTabButtonTextColor:
-                
-                changeTabButtonTextColor()
                 
             case .changeSelectedTabButtonTextColor:
                 

@@ -166,7 +166,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeTabButtonTextColor()	{
         
         ColorSchemes.systemScheme.general.tabButtonTextColor = tabButtonTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeTabButtonTextColor, tabButtonTextColorPicker.color))
+        Messenger.publish(.colorScheme_changeTabButtonTextColor, payload: tabButtonTextColorPicker.color)
     }
     
     @IBAction func selectedTabButtonTextColorAction(_ sender: Any) {

@@ -35,13 +35,8 @@ protocol ActionMessage {
 // Enumeration of the different message types. See the various Message structs below, for descriptions of each message type.
 enum ActionType {
     
-    // MARK: Playlist actions
-    
-    // ******** NO PAYLOAD ****************************************************************************************
-    
    // ******** WITH PAYLOAD ****************************************************************************************
     
-    case changeTabButtonTextColor
     case changeSelectedTabButtonTextColor
     case changeButtonMenuTextColor
     
