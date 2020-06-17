@@ -38,11 +38,10 @@ class EQViewController: FXUnitViewController {
         
         Messenger.subscribe(self, .eqFXUnit_decreaseTreble, self.decreaseTreble)
         Messenger.subscribe(self, .eqFXUnit_increaseTreble, self.increaseTreble)
-        
-        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+
         Messenger.subscribe(self, .colorScheme_changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
-        
-        SyncMessenger.subscribe(actionTypes: [.changeSelectedTabButtonTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
     }
     
     override func initControls() {
@@ -125,7 +124,7 @@ class EQViewController: FXUnitViewController {
         
         changeSelectedTabButtonColor(scheme.general.selectedTabButtonColor)
         changeTabButtonTextColor(scheme.general.tabButtonTextColor)
-        changeSelectedTabButtonTextColor()
+        changeSelectedTabButtonTextColor(scheme.general.selectedTabButtonTextColor)
         changeSliderColors()
     }
     
@@ -164,33 +163,11 @@ class EQViewController: FXUnitViewController {
         eqView.changeTabButtonTextColor()
     }
     
-    func changeSelectedTabButtonTextColor() {
+    func changeSelectedTabButtonTextColor(_ color: NSColor) {
         eqView.changeSelectedTabButtonTextColor()
     }
     
     override func changeSliderColors() {
         eqView.changeSliderColor()
-    }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-                
-            case .changeSelectedTabButtonTextColor:
-                
-                changeSelectedTabButtonTextColor()
-                
-            default: return
-                
-            }
-            
-            return
-        }
     }
 }
