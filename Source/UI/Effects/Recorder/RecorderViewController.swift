@@ -44,8 +44,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeButtonMenuTextColor, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeButtonMenuTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor], subscriber: self)
     }
     
     private func initControls() {
@@ -213,10 +214,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorSchemeMsg.actionType {
-                
-            case .changeMainCaptionTextColor:
-                
-                changeMainCaptionTextColor(colorSchemeMsg.color)
                 
             case .changeEffectsFunctionCaptionTextColor:
                 

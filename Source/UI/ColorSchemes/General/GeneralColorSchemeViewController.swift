@@ -154,7 +154,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeMainCaptionTextColor() {
         
         ColorSchemes.systemScheme.general.mainCaptionTextColor = mainCaptionTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeMainCaptionTextColor, mainCaptionTextColorPicker.color))
+        Messenger.publish(.colorScheme_changeMainCaptionTextColor, payload: mainCaptionTextColorPicker.color)
     }
     
     @IBAction func tabButtonTextColorAction(_ sender: Any) {

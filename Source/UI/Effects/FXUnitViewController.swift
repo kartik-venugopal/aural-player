@@ -81,8 +81,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
     }
     
     func initControls() {
@@ -237,10 +238,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         if let colorSchemeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorSchemeMsg.actionType {
-                
-            case .changeMainCaptionTextColor:
-                
-                changeMainCaptionTextColor(colorSchemeMsg.color)
                 
             case .changeEffectsFunctionCaptionTextColor:
                 
