@@ -77,7 +77,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         Messenger.subscribe(self, .fx_updateFXUnitView, {(EffectsUnit) in self.initControls()},
                             filter: {(unit: EffectsUnit) in unit == .master || (unit == self.unitType)})
         
-        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor, .changeEffectsSliderColors], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeFXSliderColors, self.changeSliderColors)
+        
+        SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeMainCaptionTextColor, .changeEffectsFunctionCaptionTextColor, .changeEffectsFunctionValueTextColor, .changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeFunctionButtonColor], subscriber: self)
     }
     
     func initControls() {
@@ -266,10 +268,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
             case .changeFunctionButtonColor:
                 
                 changeFunctionButtonColor()
-                
-            case .changeEffectsSliderColors:
-                
-                changeSliderColors()
                 
             default: return
                 

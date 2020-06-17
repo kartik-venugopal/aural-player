@@ -54,8 +54,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         Messenger.subscribe(self, .changePlayerTextSize, playbackView.changeTextSize(_:))
         
+        Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, playbackView.changeSliderColors)
+        
         SyncMessenger.subscribe(actionTypes: [.applyColorScheme, .changeFunctionButtonColor, .changeToggleButtonOffStateColor,
-                                              .changePlayerSliderColors, .changePlayerSliderValueTextColor], subscriber: self)
+                                              .changePlayerSliderValueTextColor], subscriber: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------

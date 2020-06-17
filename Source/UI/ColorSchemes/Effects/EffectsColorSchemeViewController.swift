@@ -213,7 +213,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     }
     
     private func sliderColorsChanged() {
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderBackgroundColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXSliderColors)
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
@@ -225,7 +225,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderKnobColor() {
         
         ColorSchemes.systemScheme.effects.sliderKnobColor = sliderKnobColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderKnobColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXSliderColors)
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
@@ -237,7 +237,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func toggleKnobColorSameAsForeground() {
         
         ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderKnobColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXSliderColors)
     }
     
     @IBAction func sliderTickColorAction(_ sender: Any) {
@@ -249,7 +249,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderTickColor() {
         
         ColorSchemes.systemScheme.effects.sliderTickColor = sliderTickColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeEffectsSliderColors, sliderTickColorPicker.color))
+        Messenger.publish(.colorScheme_changeFXSliderColors)
     }
     
     @IBAction func activeUnitStateColorAction(_ sender: Any) {

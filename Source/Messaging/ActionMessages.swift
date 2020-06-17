@@ -39,17 +39,7 @@ enum ActionType {
     
     // ******** NO PAYLOAD ****************************************************************************************
     
-    case changePlayerSliderColors
-    case changeEffectsSliderColors
-
    // ******** WITH PAYLOAD ****************************************************************************************
-    
-    // MARK: Effects presets editor actions
-    
-    case reloadPresets
-    case renameEffectsPreset
-    case deleteEffectsPresets
-    case applyEffectsPreset
     
     // Color scheme change actions
     case applyColorScheme

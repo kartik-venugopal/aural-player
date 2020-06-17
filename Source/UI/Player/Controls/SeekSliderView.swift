@@ -188,10 +188,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         
         switch msg.actionType {
             
-        case .changePlayerSliderColors:
-            
-            changeSliderColors()
-            
         case .changePlayerSliderValueTextColor:
             
             changeSliderValueTextColor()
@@ -208,7 +204,7 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         lblTimeRemaining.textColor = Colors.Player.trackTimesTextColor
     }
     
-    private func changeSliderColors() {
+    func changeSliderColors() {
         seekSlider.redraw()
     }
     
