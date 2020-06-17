@@ -1,5 +1,10 @@
 import Foundation
 
+protocol NotificationPayload {
+    
+    var notificationName: Notification.Name {get}
+}
+
 struct TrackTransitionNotification: NotificationPayload {
 
     let notificationName: Notification.Name = .trackTransition
@@ -79,15 +84,6 @@ struct ChapterChangedNotification: NotificationPayload {
     
     // The chapter that is now playing (may be nil, meaning no chapter playing)
     let newChapter: IndexedChapter?
-}
-
-// Notification that the playback rate has changed, in response to the user manipulating the time stretch effects unit controls.
-struct PlaybackRateChangedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .playbackRateChanged
-    
-    // The new playback rate
-    let newPlaybackRate: Float
 }
 
 // Notification that the app has launched (used to perform UI initialization)

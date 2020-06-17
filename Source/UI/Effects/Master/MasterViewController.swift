@@ -101,7 +101,7 @@ class MasterViewController: FXUnitViewController {
         
         _ = timeUnit.toggleState()
         
-        Messenger.publish(PlaybackRateChangedNotification(newPlaybackRate: timeUnit.effectiveRate))
+        Messenger.publish(.playbackRateChanged, payload: timeUnit.effectiveRate)
         
         updateButtons()
         broadcastStateChangeNotification()
