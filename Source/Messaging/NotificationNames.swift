@@ -87,6 +87,10 @@ extension Notification.Name {
     // Toggle A->B segment playback loop
     static let player_toggleLoop = Notification.Name("player_toggleLoop")
     
+    static let player_savePlaybackProfile = Notification.Name("player_savePlaybackProfile")
+
+    static let player_deletePlaybackProfile = Notification.Name("player_deletePlaybackProfile")
+    
     // ----------------------------------------------------------------------------------------
     
     // MARK: Player sound commands
@@ -264,6 +268,11 @@ extension Notification.Name {
 
     static let fx_updateFXUnitView = Notification.Name("fx_updateFXUnitView")
     
+    // Saves the current settings in a sound profile for the current track
+    static let fx_saveSoundProfile = Notification.Name("fx_saveSoundProfile")
+
+    static let fx_deleteSoundProfile = Notification.Name("fx_deleteSoundProfile")
+    
     // ----------------------------------------------------------------------------------------
     
     // MARK: Master FX unit commands
@@ -320,14 +329,8 @@ extension Notification.Name {
 
     
 
-    static let saveSoundProfile = Notification.Name("saveSoundProfile")
 
-    static let deleteSoundProfile = Notification.Name("deleteSoundProfile")
     
-
-    static let player_savePlaybackProfile = Notification.Name("player_savePlaybackProfile")
-
-    static let player_deletePlaybackProfile = Notification.Name("player_deletePlaybackProfile")
     
 
     // Show/hide the playlist window

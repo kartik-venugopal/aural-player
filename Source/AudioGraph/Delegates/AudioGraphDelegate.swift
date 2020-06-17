@@ -4,7 +4,7 @@
 
 import AVFoundation
 
-class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionMessageSubscriber {
+class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber {
     
     var availableDevices: [AudioDevice] {
         return graph.availableDevices
@@ -94,7 +94,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
                                  filter: {msg in msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) && self.preferences.rememberEffectsSettings},
                                  queue: notificationQueue)
         
-        SyncMessenger.subscribe(actionTypes: [.saveSoundProfile, .deleteSoundProfile], subscriber: self)
+        Messenger.subscribe(self, .fx_saveSoundProfile, self.saveSoundProfile)
+        Messenger.subscribe(self, .fx_deleteSoundProfile, self.deleteSoundProfile)
     }
     
     var settingsAsMasterPreset: MasterPreset {
@@ -156,12 +157,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber, ActionM
     }
     
     // MARK: Message handling
-    
-    let subscriberId: String = "AudioGraphDelegate"
-    
-    func consumeMessage(_ message: ActionMessage) {
-        message.actionType == .saveSoundProfile ? saveSoundProfile() : deleteSoundProfile()
-    }
     
     private func saveSoundProfile() {
         

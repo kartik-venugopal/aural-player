@@ -233,8 +233,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func rememberSettingsAction(_ sender: ToggleMenuItem) {
-        
-        !rememberSettingsMenuItem.isOn ? SyncMessenger.publishActionMessage(SoundProfileActionMessage.save) : SyncMessenger.publishActionMessage(SoundProfileActionMessage.delete)
+        Messenger.publish(!rememberSettingsMenuItem.isOn ? .fx_saveSoundProfile : .fx_deleteSoundProfile)
     }
 }
 
