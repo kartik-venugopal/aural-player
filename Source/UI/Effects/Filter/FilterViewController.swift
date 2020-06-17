@@ -69,8 +69,8 @@ class FilterViewController: FXUnitViewController {
         Messenger.subscribe(self, .colorScheme_changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
         Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
-        
-        SyncMessenger.subscribe(actionTypes: [.changeSelectedTabButtonTextColor, .changeButtonMenuTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
     }
     
     private func clearBands() {
@@ -353,7 +353,7 @@ class FilterViewController: FXUnitViewController {
         bandControllers.forEach({$0.changeTextButtonMenuColor()})
     }
 
-    func changeButtonMenuTextColor() {
+    func changeButtonMenuTextColor(_ color: NSColor) {
         
         [btnAdd, btnRemove].forEach({$0?.redraw()})
         bandControllers.forEach({$0.changeButtonMenuTextColor()})
@@ -370,36 +370,10 @@ class FilterViewController: FXUnitViewController {
         tabButtons.forEach({$0.redraw()})
     }
     
-    func changeSelectedTabButtonTextColor() {
+    func changeSelectedTabButtonTextColor(_ color: NSColor) {
         
         if selTab >= 0 && selTab < numTabs {
             tabButtons[selTab].redraw()
-        }
-    }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-                
-            case .changeSelectedTabButtonTextColor:
-                
-                changeSelectedTabButtonTextColor()
-                
-            case .changeButtonMenuTextColor:
-                
-                changeButtonMenuTextColor()
-                
-            default: return
-                
-            }
-            
-            return
         }
     }
 }

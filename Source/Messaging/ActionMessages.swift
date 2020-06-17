@@ -37,9 +37,6 @@ enum ActionType {
     
    // ******** WITH PAYLOAD ****************************************************************************************
     
-    case changeSelectedTabButtonTextColor
-    case changeButtonMenuTextColor
-    
     case changePlayerTrackInfoPrimaryTextColor
     case changePlayerTrackInfoSecondaryTextColor
     case changePlayerTrackInfoTertiaryTextColor

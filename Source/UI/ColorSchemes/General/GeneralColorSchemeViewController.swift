@@ -178,7 +178,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeSelectedTabButtonTextColor()    {
         
         ColorSchemes.systemScheme.general.selectedTabButtonTextColor = selectedTabButtonTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeSelectedTabButtonTextColor, selectedTabButtonTextColorPicker.color))
+        Messenger.publish(.colorScheme_changeSelectedTabButtonTextColor, payload: selectedTabButtonTextColorPicker.color)
     }
     
     @IBAction func buttonMenuTextColorAction(_ sender: Any) {
@@ -190,6 +190,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeButtonMenuTextColor() {
         
         ColorSchemes.systemScheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeButtonMenuTextColor, buttonMenuTextColorPicker.color))
+        Messenger.publish(.colorScheme_changeButtonMenuTextColor, payload: buttonMenuTextColorPicker.color)
     }
 }

@@ -31,7 +31,7 @@ class ReverbViewController: FXUnitViewController {
         super.initSubscriptions()
         
         Messenger.subscribe(self, .colorScheme_changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
-        SyncMessenger.subscribe(actionTypes: [.changeButtonMenuTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
     }
     
     override func initControls() {
@@ -107,29 +107,7 @@ class ReverbViewController: FXUnitViewController {
         reverbView.redrawMenu()
     }
     
-    func changeButtonMenuTextColor() {
+    func changeButtonMenuTextColor(_ color: NSColor) {
         reverbView.redrawMenu()
-    }
-    
-    // MARK: Message handling
-    
-    override func consumeMessage(_ message: ActionMessage) {
-        
-        super.consumeMessage(message)
-        
-        if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
-            
-            switch colorChangeMsg.actionType {
-                
-            case .changeButtonMenuTextColor:
-                
-                changeButtonMenuTextColor()
-                
-            default: return
-                
-            }
-            
-            return
-        }
     }
 }
