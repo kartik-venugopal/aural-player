@@ -8,7 +8,7 @@ import Cocoa
 
     Also handles such requests from app menus.
 */
-class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class WaitingTrackViewController: NSViewController, MessageSubscriber {
  
     @IBOutlet weak var artView: NSImageView!
     @IBOutlet weak var overlayBox: NSBox!
@@ -56,8 +56,7 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
-        
-        SyncMessenger.subscribe(actionTypes: [.changePlayerTrackInfoPrimaryTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoPrimaryTextColor, self.changeTextColor(_:))
     }
     
     override func viewDidAppear() {
@@ -134,7 +133,7 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
-        changeTextColor()
+        changeTextColor(scheme.player.trackInfoPrimaryTextColor)
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -143,7 +142,7 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
     }
     
-    private func changeTextColor() {
+    private func changeTextColor(_ color: NSColor) {
         [lblTrackNameCaption, lblTrackName, lblTimeRemaining].forEach({$0?.textColor = Colors.Player.trackInfoTitleTextColor})
     }
     
@@ -154,18 +153,6 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         
         if let track = notification.endTrack, let endTime = notification.gapEndTime {
             gapStarted(track, endTime)
-        }
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
-            
-            if colorComponentActionMsg.actionType == .changePlayerTrackInfoPrimaryTextColor {
-                changeTextColor()
-            }
-            
-            return
         }
     }
 }

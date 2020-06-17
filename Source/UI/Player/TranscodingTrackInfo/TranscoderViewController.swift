@@ -6,7 +6,7 @@ import Cocoa
  
     Displays transcoding progress, e.g. percentage transcoded, speed, and estimated time remaining.
 */
-class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class TranscoderViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var artView: NSImageView!
     @IBOutlet weak var overlayBox: NSBox!
@@ -59,8 +59,8 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, self.changeSliderColors)
-        
-        SyncMessenger.subscribe(actionTypes: [.changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoPrimaryTextColor, self.changePrimaryTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoSecondaryTextColor, self.changeSecondaryTextColor(_:))
         
         Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: .main)
     }
@@ -125,8 +125,8 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         changeBackgroundColor(scheme.general.backgroundColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         
-        changePrimaryTextColor()
-        changeSecondaryTextColor()
+        changePrimaryTextColor(scheme.player.trackInfoPrimaryTextColor)
+        changeSecondaryTextColor(scheme.player.trackInfoSecondaryTextColor)
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -142,11 +142,11 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
         transcodingIcon.reTint()
     }
     
-    private func changePrimaryTextColor() {
+    private func changePrimaryTextColor(_ color: NSColor) {
         lblTrack.textColor = Colors.Player.trackInfoTitleTextColor
     }
     
-    private func changeSecondaryTextColor() {
+    private func changeSecondaryTextColor(_ color: NSColor) {
         
         [lblTimeElapsed, lblTimeRemaining].forEach({
             $0?.textColor = Colors.Player.trackInfoArtistAlbumTextColor
@@ -160,29 +160,6 @@ class TranscoderViewController: NSViewController, MessageSubscriber, ActionMessa
     }
     
     // MARK: Message handling
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let msg = message as? ColorSchemeComponentActionMessage {
-            
-            switch msg.actionType {
-                
-            case .changePlayerTrackInfoPrimaryTextColor:
-                
-                changePrimaryTextColor()
-                
-            case .changePlayerTrackInfoSecondaryTextColor:
-                
-                changeSecondaryTextColor()
-                
-            default:
-                
-                return
-            }
-            
-            return
-        }
-    }
     
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         

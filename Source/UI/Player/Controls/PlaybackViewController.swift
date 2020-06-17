@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class PlaybackViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var playbackView: PlaybackView!
     
@@ -58,8 +58,7 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, playbackView.changeSliderColors)
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, playbackView.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, playbackView.changeToggleButtonOffStateColor(_:))
-        
-        SyncMessenger.subscribe(actionTypes: [.changePlayerSliderValueTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlayerSliderValueTextColor, playbackView.changeSliderValueTextColor(_:))
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -356,14 +355,5 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     func playbackRateChanged(_ notification: PlaybackRateChangedNotification) {
         playbackView.playbackRateChanged(notification.newPlaybackRate, player.state)
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
-            
-            playbackView.applyColorSchemeComponent(colorComponentActionMsg)
-            return
-        }
     }
 }

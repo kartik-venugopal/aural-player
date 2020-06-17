@@ -180,25 +180,11 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     
     func applyColorScheme(_ scheme: ColorScheme) {
         
-        changeSliderValueTextColor()
+        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
         changeSliderColors()
     }
     
-    func applyColorSchemeComponent(_ msg: ColorSchemeComponentActionMessage) {
-        
-        switch msg.actionType {
-            
-        case .changePlayerSliderValueTextColor:
-            
-            changeSliderValueTextColor()
-            
-        default:
-            
-            return
-        }
-    }
-    
-    private func changeSliderValueTextColor() {
+    func changeSliderValueTextColor(_ color: NSColor) {
         
         lblTimeElapsed.textColor = Colors.Player.trackTimesTextColor
         lblTimeRemaining.textColor = Colors.Player.trackTimesTextColor

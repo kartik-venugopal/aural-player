@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, MessageSubscriber {
+class PlayingTrackViewController: NSViewController, MessageSubscriber {
     
     @IBOutlet weak var infoView: PlayingTrackView!
     
@@ -48,7 +48,9 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
         Messenger.subscribe(self, .colorScheme_applyColorScheme, infoView.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, infoView.changeBackgroundColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlayerTrackInfoPrimaryTextColor, .changePlayerTrackInfoSecondaryTextColor, .changePlayerTrackInfoTertiaryTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoPrimaryTextColor, infoView.changePrimaryTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoSecondaryTextColor, infoView.changeSecondaryTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoTertiaryTextColor, infoView.changeTertiaryTextColor(_:))
     }
     
     private func trackChanged(_ track: Track?) {
@@ -79,15 +81,6 @@ class PlayingTrackViewController: NSViewController, ActionMessageSubscriber, Mes
     
     // MARK: Message handling
 
-    func consumeMessage(_ message: ActionMessage) {
-        
-        if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
-            
-            infoView.applyColorSchemeComponent(colorComponentActionMsg)
-            return
-        }
-    }
-    
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         trackChanged(notification.endTrack)
     }
