@@ -130,13 +130,12 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         sliderView.applyColorScheme(scheme)
     }
     
-    func applyColorSchemeComponent(_ msg: ColorSchemeComponentActionMessage) {
-        
-        sliderView.applyColorSchemeComponent(msg)
-    }
-    
     func changeSliderColors() {
         sliderView.changeSliderColors()
+    }
+    
+    func changeSliderValueTextColor(_ color: NSColor) {
+        sliderView.changeSliderValueTextColor(color)
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {

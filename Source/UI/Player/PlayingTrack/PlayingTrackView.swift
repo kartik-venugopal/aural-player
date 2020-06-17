@@ -149,28 +149,6 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         expandedArtView.changeTextSize(size)
     }
     
-    func applyColorSchemeComponent(_ msg: ColorSchemeComponentActionMessage) {
-     
-        switch msg.actionType {
-            
-        case .changePlayerTrackInfoPrimaryTextColor:
-            
-            changePrimaryTextColor(msg.color)
-            
-        case .changePlayerTrackInfoSecondaryTextColor:
-            
-            changeSecondaryTextColor(msg.color)
-            
-        case .changePlayerTrackInfoTertiaryTextColor:
-            
-            changeTertiaryTextColor(msg.color)
-            
-        default:
-            
-            return
-        }
-    }
-    
     func applyColorScheme(_ scheme: ColorScheme) {
         
         defaultView.applyColorScheme(scheme)

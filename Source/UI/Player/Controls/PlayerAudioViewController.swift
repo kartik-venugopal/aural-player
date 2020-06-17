@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMessageSubscriber {
+class PlayerAudioViewController: NSViewController, MessageSubscriber {
     
     // Volume/pan controls
     @IBOutlet weak var btnVolume: TintedImageButton!
@@ -67,9 +67,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, self.changeSliderColors)
-        
-        SyncMessenger.subscribe(actionTypes: [.changePlayerSliderValueTextColor],
-                                subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlayerSliderValueTextColor, self.changeSliderValueTextColor(_:))
     }
     
     // Updates the volume
@@ -191,7 +189,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         
         changeFunctionButtonColor(scheme.general.functionButtonColor)   // This call will also take care of toggle buttons.
         changeSliderColors()
-        changeSliderValueTextColor()
+        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {
@@ -206,7 +204,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
         [volumeSlider, panSlider].forEach({$0?.redraw()})
     }
     
-    private func changeSliderValueTextColor() {
+    private func changeSliderValueTextColor(_ color: NSColor) {
         
         lblVolume.textColor = Colors.Player.feedbackTextColor
         lblPan.textColor = Colors.Player.feedbackTextColor
@@ -226,18 +224,5 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber, ActionMess
     
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         trackChanged(notification.endTrack)
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        switch message.actionType {
-            
-        case .changePlayerSliderValueTextColor:
-            
-            changeSliderValueTextColor()
-            
-        default: return
-
-        }
     }
 }

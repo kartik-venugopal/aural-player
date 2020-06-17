@@ -105,7 +105,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changePrimaryTextColor() {
         
         ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor = trackInfoPrimaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerTrackInfoPrimaryTextColor, trackInfoPrimaryTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlayerTrackInfoPrimaryTextColor, payload: trackInfoPrimaryTextColorPicker.color)
     }
     
     @IBAction func secondaryTextColorAction(_ sender: Any) {
@@ -117,7 +117,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSecondaryTextColor() {
         
         ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor = trackInfoSecondaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerTrackInfoSecondaryTextColor, trackInfoSecondaryTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlayerTrackInfoSecondaryTextColor, payload: trackInfoSecondaryTextColorPicker.color)
     }
     
     @IBAction func tertiaryTextColorAction(_ sender: Any) {
@@ -129,7 +129,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeTertiaryTextColor() {
         
         ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor = trackInfoTertiaryTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerTrackInfoTertiaryTextColor, trackInfoTertiaryTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlayerTrackInfoTertiaryTextColor, payload: trackInfoTertiaryTextColorPicker.color)
     }
     
     @IBAction func sliderValueTextColorAction(_ sender: Any) {
@@ -141,7 +141,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderValueTextColor() {
         
         ColorSchemes.systemScheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlayerSliderValueTextColor, sliderValueTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlayerSliderValueTextColor, payload: sliderValueTextColorPicker.color)
     }
     
     @IBAction func sliderForegroundColorAction(_ sender: Any) {
