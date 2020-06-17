@@ -48,11 +48,28 @@ extension PlaybackDelegate {
         }
     }
     
-    func loopChapter() {
+    func toggleChapterLoop() -> Bool {
         
         if let chapter = playingChapter?.chapter {
-            player.defineLoop(chapter.startTime, chapter.endTime)
+            
+            if !chapterLoopExists {
+                
+                player.defineLoop(chapter.startTime, chapter.endTime, true)
+                return true
+                
+            } else {
+                
+                // Remove chapter loop
+                _ = toggleLoop()
+                return false
+            }
         }
+        
+        return false
+    }
+    
+    var chapterLoopExists: Bool {
+        return playbackLoop?.isChapterLoop ?? false
     }
     
     var chapterCount: Int {

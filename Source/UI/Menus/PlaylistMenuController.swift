@@ -349,7 +349,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         if WindowManager.isChaptersListWindowKey {
             
-            SyncMessenger.publishActionMessage(PlaylistActionMessage(.playSelectedChapter, nil))
+            Messenger.publish(.chaptersList_playSelectedChapter)
             
         } else {
 

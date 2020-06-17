@@ -156,11 +156,11 @@ class Player: PlayerProtocol, MessageSubscriber {
     
     // MARK: Looping functions and state
     
-    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double) {
+    func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double, _ isChapterLoop: Bool = false) {
         
         if let currentSession = PlaybackSession.startNewSessionForPlayingTrack() {
 
-            PlaybackSession.defineLoop(loopStartPosition, loopEndPosition)
+            PlaybackSession.defineLoop(loopStartPosition, loopEndPosition, isChapterLoop)
             scheduler.playLoop(currentSession, seekPosition, state == .playing)
         }
     }

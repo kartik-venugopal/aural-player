@@ -139,22 +139,22 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Plays the previous available chapter
     @IBAction func previousChapterAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.previousChapter))
+        Messenger.publish(.player_previousChapter)
     }
     
     // Plays the next available chapter
     @IBAction func nextChapterAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.nextChapter))
+        Messenger.publish(.player_nextChapter)
     }
     
     // Replays the currently playing chapter from the beginning, if there is one
     @IBAction func replayChapterAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.replayChapter))
+        Messenger.publish(.player_replayChapter)
     }
     
     // Toggles current chapter playback loop
     @IBAction func toggleChapterLoopAction(_ sender: AnyObject) {
-        SyncMessenger.publishActionMessage(PlaybackActionMessage(.toggleChapterLoop))
+        Messenger.publish(.player_toggleChapterLoop)
     }
     
     // MARK: Seeking functions

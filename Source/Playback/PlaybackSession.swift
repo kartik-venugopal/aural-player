@@ -120,8 +120,8 @@ class PlaybackSession: Hashable {
     }
     
     // Marks the start and end point for a track segment playback loop
-    static func defineLoop(_ loopStartTime: Double, _ loopEndTime: Double) {
-        currentSession?.loop = PlaybackLoop(loopStartTime, loopEndTime)
+    static func defineLoop(_ loopStartTime: Double, _ loopEndTime: Double, _ isChapterLoop: Bool = false) {
+        currentSession?.loop = PlaybackLoop(loopStartTime, loopEndTime, isChapterLoop)
     }
     
     // Removes a track segment playback loop

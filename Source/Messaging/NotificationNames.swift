@@ -21,7 +21,6 @@ extension Notification.Name {
     static let chapterChanged = Notification.Name("chapterChanged")
     static let playbackCompleted = Notification.Name("playbackCompleted")
     static let playTrack = Notification.Name("playTrack")
-    static let chapterPlayback = Notification.Name("chapterPlayback")
     static let trackNotPlayed = Notification.Name("trackNotPlayed")
     static let preTrackChange = Notification.Name("preTrackChange")
     
@@ -87,6 +86,25 @@ extension Notification.Name {
     // Toggle A->B segment playback loop
     static let player_toggleLoop = Notification.Name("player_toggleLoop")
     
+    
+    // MARK: Chapter playback commands
+    
+    static let player_playChapter = Notification.Name("player_playChapter")
+    
+    // Play the previous available chapter
+    static let player_previousChapter = Notification.Name("player_previousChapter")
+    
+    // Play the next available chapter
+    static let player_nextChapter = Notification.Name("player_nextChapter")
+    
+    // Replay the currently playing chapter from the beginning, if there is one
+    static let player_replayChapter = Notification.Name("player_replayChapter")
+    
+    // Toggle the current chapter playback loop
+    static let player_toggleChapterLoop = Notification.Name("player_toggleChapterLoop")
+    
+    
+
     static let player_savePlaybackProfile = Notification.Name("player_savePlaybackProfile")
 
     static let player_deletePlaybackProfile = Notification.Name("player_deletePlaybackProfile")
@@ -246,16 +264,12 @@ extension Notification.Name {
     // Invoke the sort dialog
     static let playlist_sort = Notification.Name("playlist_sort")
 
+    // ----------------------------------------------------------------------------------------
     
-    static let playSelectedChapter = Notification.Name("playSelectedChapter")
+    // MARK: Chapters List commands
     
-    static let previousChapter = Notification.Name("previousChapter")
-
-    static let nextChapter = Notification.Name("nextChapter")
-
-    static let replayChapter = Notification.Name("replayChapter")
-
-    static let toggleChapterLoop = Notification.Name("toggleChapterLoop")
+    // Play the chapter selected within the chapters list
+    static let chaptersList_playSelectedChapter = Notification.Name("chaptersList_playSelectedChapter")
 
     // ----------------------------------------------------------------------------------------
     
