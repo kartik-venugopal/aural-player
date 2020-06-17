@@ -118,7 +118,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeTextButtonMenuColor() {
         
         ColorSchemes.systemScheme.general.textButtonMenuColor = textButtonMenuColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changeTextButtonMenuColor, textButtonMenuColorPicker.color))
+        Messenger.publish(.colorScheme_changeTextButtonMenuColor, payload: textButtonMenuColorPicker.color)
     }
     
     @IBAction func toggleButtonOffStateColorAction(_ sender: Any) {
