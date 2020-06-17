@@ -122,8 +122,9 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor, .changeSelectedTabButtonColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsActiveUnitStateColor, .changeEffectsBypassedUnitStateColor, .changeEffectsSuppressedUnitStateColor], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -204,7 +205,7 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
         })
     }
     
-    private func changeSelectedTabButtonColor() {
+    private func changeSelectedTabButtonColor(_ color: NSColor) {
         fxTabViewButtons[fxTabView.selectedIndex].redraw()
     }
 
@@ -257,10 +258,6 @@ class EffectsWindowController: NSWindowController, MessageSubscriber, ActionMess
             case .changeEffectsSuppressedUnitStateColor:
                 
                 changeSuppressedUnitStateColor(colorChangeMsg.color)
-                
-            case .changeSelectedTabButtonColor:
-                
-                changeSelectedTabButtonColor()
                 
             default: return
                 

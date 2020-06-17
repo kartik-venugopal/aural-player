@@ -151,8 +151,9 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistSummaryInfoColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -467,6 +468,10 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab].forEach({$0?.redraw()})
     }
     
+    func changeSelectedTabButtonColor(_ color: NSColor) {
+        redrawSelectedTabButton()
+    }
+    
     private func redrawSelectedTabButton() {
         (tabGroup.selectedTabViewItem as? AuralTabViewItem)?.tabButton.redraw()
     }
@@ -512,7 +517,7 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
             
             redrawTabButtons()
             
-        case .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor:
+        case .changeSelectedTabButtonTextColor:
             
             redrawSelectedTabButton()
             
