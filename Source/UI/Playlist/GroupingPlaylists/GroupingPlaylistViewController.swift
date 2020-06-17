@@ -125,7 +125,10 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameTextColor, self.changeGroupNameTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameSelectedTextColor, self.changeGroupNameSelectedTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistGroupIconColor, self.changeGroupIconColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistGroupDisclosureTriangleColor, self.changeGroupDisclosureTriangleColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -869,14 +872,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             case .changePlaylistSelectionBoxColor:
                 
                 changeSelectionBoxColor(colorChangeMsg.color)
-                
-            case .changePlaylistGroupIconColor:
-                
-                changeGroupIconColor(colorChangeMsg.color)
-                
-            case .changePlaylistGroupDisclosureTriangleColor:
-                
-                changeGroupDisclosureTriangleColor(colorChangeMsg.color)
                 
             default: return
                 

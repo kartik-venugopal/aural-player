@@ -150,7 +150,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupIconColor() {
         
         ColorSchemes.systemScheme.playlist.groupIconColor = groupIconColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupIconColor, groupIconColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistGroupIconColor, payload: groupIconColorPicker.color)
     }
     
     @IBAction func groupDisclosureTriangleColorAction(_ sender: Any) {
@@ -162,7 +162,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupDisclosureTriangleColor() {
         
         ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor = groupDisclosureTriangleColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupDisclosureTriangleColor, groupDisclosureTriangleColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistGroupDisclosureTriangleColor, payload: groupDisclosureTriangleColorPicker.color)
     }
     
     @IBAction func selectionBoxColorAction(_ sender: Any) {
