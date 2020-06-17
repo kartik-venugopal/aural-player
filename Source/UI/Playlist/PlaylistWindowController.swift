@@ -146,9 +146,11 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
         
         Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeViewControlButtonColor, .changeFunctionButtonColor, .changePlaylistSummaryInfoColor, .changeSelectedTabButtonColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -498,12 +500,6 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         
         switch message.actionType {
 
-        case .changeBackgroundColor:
-            
-            if let bkColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeBackgroundColor(bkColor)
-            }
-            
         case .changeViewControlButtonColor:
             
             if let ctrlColor = (message as? ColorSchemeComponentActionMessage)?.color {

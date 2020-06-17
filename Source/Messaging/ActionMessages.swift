@@ -41,9 +41,6 @@ enum ActionType {
     
    // ******** WITH PAYLOAD ****************************************************************************************
     
-    case changeAppLogoColor
-    case changeBackgroundColor
-    
     case changeViewControlButtonColor
     case changeFunctionButtonColor
     case changeTextButtonMenuColor

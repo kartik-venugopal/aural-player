@@ -55,8 +55,9 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changePlayerTrackInfoPrimaryTextColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlayerTrackInfoPrimaryTextColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -132,11 +133,11 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
     
     private func applyColorScheme(_ scheme: ColorScheme) {
         
-        changeBackgroundColor()
+        changeBackgroundColor(scheme.general.backgroundColor)
         changeTextColor()
     }
     
-    private func changeBackgroundColor() {
+    private func changeBackgroundColor(_ color: NSColor) {
         
         overlayBox.fillColor = Colors.windowBackgroundColor.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
         artView.layer?.shadowColor = Colors.windowBackgroundColor.visibleShadowColor.cgColor
@@ -161,12 +162,7 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber, ActionMes
         if let colorComponentActionMsg = message as? ColorSchemeComponentActionMessage {
             
             if colorComponentActionMsg.actionType == .changePlayerTrackInfoPrimaryTextColor {
-                
                 changeTextColor()
-                
-            } else if colorComponentActionMsg.actionType == .changeBackgroundColor {
-            
-                changeBackgroundColor()
             }
             
             return

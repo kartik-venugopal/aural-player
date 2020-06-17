@@ -65,7 +65,9 @@ class FilterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        SyncMessenger.subscribe(actionTypes: [.changeBackgroundColor, .changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changeTabButtonTextColor, .changeSelectedTabButtonTextColor, .changeSelectedTabButtonColor, .changeTextButtonMenuColor, .changeButtonMenuTextColor], subscriber: self)
     }
     
     private func clearBands() {
@@ -293,7 +295,7 @@ class FilterViewController: FXUnitViewController {
         bandControllers.forEach({$0.applyColorScheme(scheme)})
     }
     
-    func changeBackgroundColor() {
+    func changeBackgroundColor(_ color: NSColor) {
         filterView.redrawChart()
     }
     
@@ -381,10 +383,6 @@ class FilterViewController: FXUnitViewController {
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorChangeMsg.actionType {
-                
-            case .changeBackgroundColor:
-                
-                changeBackgroundColor()
                 
             case .changeSelectedTabButtonColor:
                 
