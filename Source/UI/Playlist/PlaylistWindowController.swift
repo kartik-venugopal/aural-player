@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMessageSubscriber, NSTabViewDelegate {
+class PlaylistWindowController: NSWindowController, MessageSubscriber, NSTabViewDelegate {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
@@ -149,13 +149,15 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
         
         Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        
         Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+        
         Messenger.subscribe(self, .colorScheme_changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
         Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistSummaryInfoColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistSummaryInfoColor, self.changeSummaryInfoColor(_:))
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -511,20 +513,5 @@ class PlaylistWindowController: NSWindowController, MessageSubscriber, ActionMes
     // Updates the summary in response to a change in the tab group selected tab
     func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
-    }
-    
-    func consumeMessage(_ message: ActionMessage) {
-        
-        switch message.actionType {
-
-        case .changePlaylistSummaryInfoColor:
-            
-            if let summaryColor = (message as? ColorSchemeComponentActionMessage)?.color {
-                changeSummaryInfoColor(summaryColor)
-            }
-            
-        default: return
-            
-        }
     }
 }

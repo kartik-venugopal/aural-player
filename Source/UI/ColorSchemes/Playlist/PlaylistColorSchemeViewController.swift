@@ -114,7 +114,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameSelectedTextColor() {
         
         ColorSchemes.systemScheme.playlist.trackNameSelectedTextColor = trackNameSelectedTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistTrackNameSelectedTextColor, trackNameSelectedTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistTrackNameSelectedTextColor, payload: trackNameSelectedTextColorPicker.color)
     }
     
     @IBAction func groupNameSelectedTextColorAction(_ sender: Any) {
@@ -138,7 +138,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeIndexDurationSelectedTextColor() {
         
         ColorSchemes.systemScheme.playlist.indexDurationSelectedTextColor = indexDurationSelectedTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistIndexDurationSelectedTextColor, indexDurationSelectedTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistIndexDurationSelectedTextColor, payload: indexDurationSelectedTextColorPicker.color)
     }
     
     @IBAction func groupIconColorAction(_ sender: Any) {
@@ -198,6 +198,6 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeSummaryInfoColor() {
         
         ColorSchemes.systemScheme.playlist.summaryInfoColor = summaryInfoColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistSummaryInfoColor, summaryInfoColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistSummaryInfoColor, payload: summaryInfoColorPicker.color)
     }
 }

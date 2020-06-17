@@ -119,10 +119,13 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameTextColor, self.changeTrackNameTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationTextColor, self.changeDurationTextColor(_:))
         
+        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationSelectedTextColor, self.changeDurationSelectedTextColor(_:))
+        
         Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameTextColor, self.changeGroupNameTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameSelectedTextColor, self.changeGroupNameSelectedTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -858,14 +861,6 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         if let colorChangeMsg = message as? ColorSchemeComponentActionMessage {
             
             switch colorChangeMsg.actionType {
-                
-            case .changePlaylistTrackNameSelectedTextColor:
-                
-                changeTrackNameSelectedTextColor(colorChangeMsg.color)
-                
-            case .changePlaylistIndexDurationSelectedTextColor:
-                
-                changeDurationSelectedTextColor(colorChangeMsg.color)
                 
             case .changePlaylistPlayingTrackIconColor:
                 
