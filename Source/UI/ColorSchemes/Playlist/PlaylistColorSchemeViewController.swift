@@ -90,7 +90,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupNameTextColor() {
         
         ColorSchemes.systemScheme.playlist.groupNameTextColor = groupNameTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupNameTextColor, groupNameTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistGroupNameTextColor, payload: groupNameTextColorPicker.color)
     }
     
     @IBAction func indexDurationTextColorAction(_ sender: Any) {
@@ -126,7 +126,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupNameSelectedTextColor() {
         
         ColorSchemes.systemScheme.playlist.groupNameSelectedTextColor = groupNameSelectedTextColorPicker.color
-        SyncMessenger.publishActionMessage(ColorSchemeComponentActionMessage(.changePlaylistGroupNameSelectedTextColor, groupNameSelectedTextColorPicker.color))
+        Messenger.publish(.colorScheme_changePlaylistGroupNameSelectedTextColor, payload: groupNameSelectedTextColorPicker.color)
     }
     
     @IBAction func indexDurationSelectedTextColorAction(_ sender: Any) {

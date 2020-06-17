@@ -119,7 +119,10 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
         Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameTextColor, self.changeTrackNameTextColor(_:))
         Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationTextColor, self.changeDurationTextColor(_:))
         
-        SyncMessenger.subscribe(actionTypes: [.changePlaylistTrackNameSelectedTextColor, .changePlaylistGroupNameTextColor, .changePlaylistGroupNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
+        Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameTextColor, self.changeGroupNameTextColor(_:))
+        Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameSelectedTextColor, self.changeGroupNameSelectedTextColor(_:))
+        
+        SyncMessenger.subscribe(actionTypes: [.changePlaylistTrackNameSelectedTextColor, .changePlaylistIndexDurationSelectedTextColor, .changePlaylistSelectionBoxColor, .changePlaylistPlayingTrackIconColor, .changePlaylistGroupIconColor, .changePlaylistGroupDisclosureTriangleColor], subscriber: self)
     }
     
     override func viewDidAppear() {
@@ -856,17 +859,9 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber, Actio
             
             switch colorChangeMsg.actionType {
                 
-            case .changePlaylistGroupNameTextColor:
-                
-                changeGroupNameTextColor(colorChangeMsg.color)
-                
             case .changePlaylistTrackNameSelectedTextColor:
                 
                 changeTrackNameSelectedTextColor(colorChangeMsg.color)
-                
-            case .changePlaylistGroupNameSelectedTextColor:
-                
-                changeGroupNameSelectedTextColor(colorChangeMsg.color)
                 
             case .changePlaylistIndexDurationSelectedTextColor:
                 
