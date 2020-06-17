@@ -65,7 +65,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
+        Messenger.subscribe(self, .playbackGapUpdated, self.gapUpdated(_:))
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
@@ -139,7 +139,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
         PlaylistViewState.current = self.playlistType
         PlaylistViewState.currentView = playlistView
 
-        Messenger.publish(PlaylistTypeChangedNotification(newPlaylistType: self.playlistType))
+        Messenger.publish(.playlistTypeChanged, payload: self.playlistType)
     }
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
@@ -719,7 +719,8 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
         if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
             
             playlist.setGapsForTrack(selTrack, gapBefore, gapAfter)
-            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: selTrack))
+            Messenger.publish(.playbackGapUpdated, payload: selTrack)
+            
         }
     }
     
@@ -728,14 +729,14 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
         if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
             
             playlist.removeGapsForTrack(selTrack)
-            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: selTrack))
+            Messenger.publish(.playbackGapUpdated, payload: selTrack)
         }
     }
     
-    func gapUpdated(_ notification: PlaybackGapUpdatedNotification) {
+    func gapUpdated(_ updatedTrack: Track) {
         
         // Find track and refresh it
-        let updatedRow = playlistView.row(forItem: notification.updatedTrack)
+        let updatedRow = playlistView.row(forItem: updatedTrack)
         
         if updatedRow >= 0 {
             refreshRow(updatedRow)

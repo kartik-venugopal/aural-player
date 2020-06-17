@@ -212,6 +212,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber {
         }
         
         // Proceed with exit
-        request.appendResponse(okToExit: true)
+        request.acceptResponse(okToExit: true)
     }
 }

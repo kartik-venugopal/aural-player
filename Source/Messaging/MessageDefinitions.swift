@@ -86,15 +86,6 @@ struct ChapterChangedNotification: NotificationPayload {
     let newChapter: IndexedChapter?
 }
 
-// Notification that the app has launched (used to perform UI initialization)
-struct AppLaunchedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .appLaunched
-    
-    // Files specified as launch parameters (files that the app needs to open upon launch)
-    let filesToOpen: [URL]
-}
-
 // Notification that the app has been reopened with a request to open certain files
 struct AppReopenedNotification: NotificationPayload {
     
@@ -105,13 +96,6 @@ struct AppReopenedNotification: NotificationPayload {
     
     // Whether or not the app has already sent a notification of this type very recently
     let isDuplicateNotification: Bool
-}
-
-// Notification that the playlist view (tracks/artists, etc) has been changed, by switching playlist tabs, within the UI
-struct PlaylistTypeChangedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .playlistTypeChanged
-    let newPlaylistType: PlaylistType
 }
 
 // A command to initiate playback for a particular track/group
@@ -179,7 +163,7 @@ class AppExitRequestNotification: NotificationPayload {
         return !responses.contains(false)
     }
     
-    func appendResponse(okToExit: Bool) {
+    func acceptResponse(okToExit: Bool) {
         responses.append(okToExit)
     }
 }
@@ -188,30 +172,9 @@ class AppExitRequestNotification: NotificationPayload {
 struct WindowLayoutChangedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .windowLayoutChanged
-    
-    let showingEffects: Bool
-    let showingPlaylist: Bool
-}
 
-struct EditorSelectionChangedNotification: NotificationPayload {
-
-    let notificationName: Notification.Name = .editorSelectionChanged
-    let numberOfSelectedRows: Int
-}
-
-struct PlaybackGapUpdatedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .gapUpdated
-    let updatedTrack: Track
-}
-
-// Indicates that playback of the currently playing track has completed
-struct PlaybackCompletedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .playbackCompleted
-    
-    // The playback session corresponding to the track that just finished playing.
-    let completedSession: PlaybackSession
+    let showingPlaylistWindow: Bool
+    let showingEffectsWindow: Bool
 }
 
 // AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name/art, etc), and that the UI should refresh itself to show the new information
@@ -319,39 +282,6 @@ struct TrackNotTranscodedNotification: NotificationPayload {
     
     // An error object containing detailed information such as the track file and the root cause
     let error: InvalidTrackError
-}
-
-// Indicates that some selected files were not loaded into the playlist
-struct TracksNotAddedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .tracksNotAdded
-    
-    // An array of error objects containing detailed information such as the track file and the root cause
-    let errors: [DisplayableError]
-}
-
-// Indicates that some items were added to the playlist. This is used for the History feature, to keep track of recently added items.
-struct HistoryItemsAddedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .historyItemsAdded
-    
-    // The files that were added to the playlist
-    let files: [URL]
-}
-
-// Indicates that the playing track has either been added to, or removed from, the Favorites list
-struct FavoritesUpdatedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name
-    
-    // The filesystem file of the track that was added to or removed from Favorites
-    let trackFile: URL
-    
-    init(notificationName: Notification.Name, trackFile: URL) {
-        
-        self.notificationName = notificationName
-        self.trackFile = trackFile
-    }
 }
 
 struct TranscodingProgressNotification: NotificationPayload {

@@ -19,7 +19,7 @@ extension Notification.Name {
     
     static let playbackRateChanged = Notification.Name("playbackRateChanged")
     static let chapterChanged = Notification.Name("chapterChanged")
-    static let playbackCompleted = Notification.Name("playbackCompleted")
+    static let trackPlaybackCompleted = Notification.Name("trackPlaybackCompleted")
     static let trackNotPlayed = Notification.Name("trackNotPlayed")
     static let preTrackChange = Notification.Name("preTrackChange")
     
@@ -35,7 +35,7 @@ extension Notification.Name {
     
     static let trackAdded = Notification.Name("trackAdded")
     static let tracksRemoved = Notification.Name("tracksRemoved")
-    static let gapUpdated = Notification.Name("gapUpdated")
+    static let playbackGapUpdated = Notification.Name("playbackGapUpdated")
     
     static let trackTransition = Notification.Name("trackTransition")
     static let trackInfoUpdated = Notification.Name("trackInfoUpdated")

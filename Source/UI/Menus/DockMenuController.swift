@@ -82,9 +82,9 @@ class DockMenuController: NSObject, NSMenuDelegate, MessageSubscriber {
     }
     
     // Responds to a notification that a track has been added to the Favorites list, by updating the Favorites menu
-    func trackAddedToFavorites(_ notification: FavoritesUpdatedNotification) {
+    func trackAddedToFavorites(_ trackFile: URL) {
         
-        if let fav = favorites.getFavoriteWithFile(notification.trackFile) {
+        if let fav = favorites.getFavoriteWithFile(trackFile) {
             
             // Add it to the menu
             let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
@@ -95,18 +95,18 @@ class DockMenuController: NSObject, NSMenuDelegate, MessageSubscriber {
         }
         
         // Update the toggle menu item
-        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == notification.trackFile.path {
+        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == trackFile.path {
             favoritesMenuItem.on()
         }
     }
     
     // Responds to a notification that a track has been removed from the Favorites list, by updating the Favorites menu
-    func trackRemovedFromFavorites(_ notification: FavoritesUpdatedNotification) {
+    func trackRemovedFromFavorites(_ trackFile: URL) {
         
         // Remove it from the menu
         favoritesMenu.items.forEach({
             
-            if let favItem = $0 as? FavoritesMenuItem, favItem.favorite.file.path == notification.trackFile.path {
+            if let favItem = $0 as? FavoritesMenuItem, favItem.favorite.file.path == trackFile.path {
                 
                 favoritesMenu.removeItem($0)
                 return
@@ -114,7 +114,7 @@ class DockMenuController: NSObject, NSMenuDelegate, MessageSubscriber {
         })
         
         // Update the toggle menu item
-        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == notification.trackFile.path {
+        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == trackFile.path {
             favoritesMenuItem.off()
         }
     }

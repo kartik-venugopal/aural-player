@@ -52,7 +52,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         previewBox.hide()
         
-        Messenger.publish(EditorSelectionChangedNotification(numberOfSelectedRows: 0))
+        Messenger.publish(.editorSelectionChanged, payload: Int(0))
     }
     
     var selectedPresetNames: [String] {
@@ -98,7 +98,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         
-        let numRows = editorView.numberOfSelectedRows
+        let numRows: Int = editorView.numberOfSelectedRows
         previewBox.showIf(numRows == 1)
         
         if numRows == 1 {
@@ -108,7 +108,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             oldPresetName = presetName
         }
         
-        Messenger.publish(EditorSelectionChangedNotification(numberOfSelectedRows: numRows))
+        Messenger.publish(.editorSelectionChanged, payload: numRows)
     }
     
     // Returns a view for a single row

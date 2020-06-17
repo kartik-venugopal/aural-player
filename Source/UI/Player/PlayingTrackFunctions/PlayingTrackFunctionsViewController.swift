@@ -46,8 +46,8 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber {
         // Subscribe to various notifications
         
         // TODO: Add a subscribe() method overload to Messenger that takes multiple notif names for a single msgHandler ???
-        Messenger.subscribe(self, .trackAddedToFavorites, self.favoritesUpdated(_:))
-        Messenger.subscribe(self, .trackRemovedFromFavorites, self.favoritesUpdated(_:))
+        Messenger.subscribe(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:))
+        Messenger.subscribe(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:))
         
         Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
@@ -193,13 +193,19 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber {
         }
     }
     
+    func trackAddedToFavorites(_ trackFile: URL) {
+        favoritesUpdated(trackFile, true)
+    }
+    
+    func trackRemovedFromFavorites(_ trackFile: URL) {
+        favoritesUpdated(trackFile, false)
+    }
+    
     // Responds to a notification that a track has been added to / removed from the Favorites list, by updating the UI to reflect the new state
-    func favoritesUpdated(_ notification: FavoritesUpdatedNotification) {
+    private func favoritesUpdated(_ trackFile: URL, _ added: Bool) {
         
         // Do this only if the track in the message is the playing track
-        if let playingTrack = player.currentTrack, notification.trackFile == playingTrack.file {
-            
-            let added: Bool = notification.notificationName == .trackAddedToFavorites
+        if let playingTrack = player.currentTrack, trackFile == playingTrack.file {
             
             // TODO: Is this really required ???
             WindowManager.mainWindow.makeKeyAndOrderFront(self)

@@ -78,7 +78,7 @@ class WindowManager {
             effectsWindow.setIsVisible(appState.showEffects)
             playlistWindow.setIsVisible(appState.showPlaylist)
             
-            Messenger.publish(WindowLayoutChangedNotification(showingEffects: appState.showEffects, showingPlaylist: appState.showPlaylist))
+            Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: appState.showPlaylist, showingEffectsWindow: appState.showEffects))
         }
     }
     
@@ -107,7 +107,7 @@ class WindowManager {
         effectsWindow.setIsVisible(layout.showEffects)
         playlistWindow.setIsVisible(layout.showPlaylist)
         
-        Messenger.publish(WindowLayoutChangedNotification(showingEffects: layout.showEffects, showingPlaylist: layout.showPlaylist))
+        Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: layout.showPlaylist, showingEffectsWindow: layout.showEffects))
     }
     
     static var currentWindowLayout: WindowLayout {

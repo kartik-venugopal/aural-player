@@ -180,7 +180,7 @@ class MainWindowController: NSWindowController, MessageSubscriber {
     
     func windowLayoutChanged(_ notification: WindowLayoutChangedNotification) {
         
-        btnToggleEffects.onIf(notification.showingEffects)
-        btnTogglePlaylist.onIf(notification.showingPlaylist)
+        btnToggleEffects.onIf(notification.showingEffectsWindow)
+        btnTogglePlaylist.onIf(notification.showingPlaylistWindow)
     }
 }

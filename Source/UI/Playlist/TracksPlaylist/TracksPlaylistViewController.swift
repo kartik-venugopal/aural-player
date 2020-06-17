@@ -64,7 +64,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber {
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .gapUpdated, self.gapUpdated(_:))
+        Messenger.subscribe(self, .playbackGapUpdated, self.gapUpdated(_:))
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
@@ -127,7 +127,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber {
         PlaylistViewState.current = .tracks
         PlaylistViewState.currentView = playlistView
 
-        Messenger.publish(PlaylistTypeChangedNotification(newPlaylistType: .tracks))
+        Messenger.publish(.playlistTypeChanged, payload: PlaylistType.tracks)
     }
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
@@ -567,7 +567,7 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber {
             playlist.setGapsForTrack(track, gapBefore, gapAfter)
             
             // This should also refresh this view
-            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: track))
+            Messenger.publish(.playbackGapUpdated, payload: track)
         }
     }
     
@@ -578,14 +578,14 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber {
             playlist.removeGapsForTrack(track)
             
             // This should also refresh this view
-            Messenger.publish(PlaybackGapUpdatedNotification(updatedTrack: track))
+            Messenger.publish(.playbackGapUpdated, payload: track)
         }
     }
     
-    func gapUpdated(_ notification: PlaybackGapUpdatedNotification) {
+    func gapUpdated(_ updatedTrack: Track) {
         
         // Find track and refresh it
-        if let updatedRow = playlist.indexOfTrack(notification.updatedTrack)?.index, updatedRow >= 0 {
+        if let updatedRow = playlist.indexOfTrack(updatedTrack)?.index, updatedRow >= 0 {
             
             refreshRow(updatedRow)
             

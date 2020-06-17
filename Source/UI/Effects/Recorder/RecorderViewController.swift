@@ -203,11 +203,11 @@ class RecorderViewController: NSViewController, MessageSubscriber {
                 recorder.deleteRecording()
             }
             
-            request.appendResponse(okToExit: userResponse != RecordingAlertResponse.dontExit.rawValue)
+            request.acceptResponse(okToExit: userResponse != RecordingAlertResponse.dontExit.rawValue)
             
         } else {
             
-            request.appendResponse(okToExit: true)
+            request.acceptResponse(okToExit: true)
         }
     }
 }
