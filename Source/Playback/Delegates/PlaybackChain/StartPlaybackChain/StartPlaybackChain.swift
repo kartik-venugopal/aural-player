@@ -25,7 +25,7 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
         .withAction(AudioFilePreparationAction(player, transcoder))
         .withAction(StartPlaybackAction(player))
         
-        Messenger.subscribeAsync(self, .transcodingFinished, self.transcodingFinished(_:), queue: .main)
+        Messenger.subscribeAsync(self, .transcoder_finished, self.transcodingFinished(_:), queue: .main)
     }
     
     // Halts playback and ends the playback sequence when an error is encountered.

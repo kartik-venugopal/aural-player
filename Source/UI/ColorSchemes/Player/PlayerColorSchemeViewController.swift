@@ -105,7 +105,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changePrimaryTextColor() {
         
         ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor = trackInfoPrimaryTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlayerTrackInfoPrimaryTextColor, payload: trackInfoPrimaryTextColorPicker.color)
+        Messenger.publish(.player_changeTrackInfoPrimaryTextColor, payload: trackInfoPrimaryTextColorPicker.color)
     }
     
     @IBAction func secondaryTextColorAction(_ sender: Any) {
@@ -117,7 +117,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSecondaryTextColor() {
         
         ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor = trackInfoSecondaryTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlayerTrackInfoSecondaryTextColor, payload: trackInfoSecondaryTextColorPicker.color)
+        Messenger.publish(.player_changeTrackInfoSecondaryTextColor, payload: trackInfoSecondaryTextColorPicker.color)
     }
     
     @IBAction func tertiaryTextColorAction(_ sender: Any) {
@@ -129,7 +129,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeTertiaryTextColor() {
         
         ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor = trackInfoTertiaryTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlayerTrackInfoTertiaryTextColor, payload: trackInfoTertiaryTextColorPicker.color)
+        Messenger.publish(.player_changeTrackInfoTertiaryTextColor, payload: trackInfoTertiaryTextColorPicker.color)
     }
     
     @IBAction func sliderValueTextColorAction(_ sender: Any) {
@@ -141,7 +141,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderValueTextColor() {
         
         ColorSchemes.systemScheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlayerSliderValueTextColor, payload: sliderValueTextColorPicker.color)
+        Messenger.publish(.player_changeSliderValueTextColor, payload: sliderValueTextColorPicker.color)
     }
     
     @IBAction func sliderForegroundColorAction(_ sender: Any) {
@@ -200,7 +200,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func sliderForegroundChanged() {
         
         Colors.Player.updateSliderForegroundColor()
-        Messenger.publish(.colorScheme_changePlayerSliderColors)
+        Messenger.publish(.player_changeSliderColors)
     }
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
@@ -259,7 +259,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func sliderBackgroundChanged() {
         
         Colors.Player.updateSliderBackgroundColor()
-        Messenger.publish(.colorScheme_changePlayerSliderColors)
+        Messenger.publish(.player_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
@@ -271,7 +271,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderKnobColor() {
         
         ColorSchemes.systemScheme.player.sliderKnobColor = sliderKnobColorPicker.color
-        Messenger.publish(.colorScheme_changePlayerSliderColors)
+        Messenger.publish(.player_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
@@ -283,7 +283,7 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func toggleKnobColorSameAsForeground() {
         
         ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        Messenger.publish(.colorScheme_changePlayerSliderColors)
+        Messenger.publish(.player_changeSliderColors)
     }
     
     @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {
@@ -295,6 +295,6 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderLoopSegmentColor() {
         
         ColorSchemes.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
-        Messenger.publish(.colorScheme_changePlayerSliderColors)
+        Messenger.publish(.player_changeSliderColors)
     }
 }

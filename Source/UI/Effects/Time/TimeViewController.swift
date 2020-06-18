@@ -66,7 +66,7 @@ class TimeViewController: FXUnitViewController {
         super.bypassAction(sender)
         
         // The playback rate may have changed, send out a notification
-        Messenger.publish(.playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
     }
 
     // Toggles the "pitch shift" option of the Time stretch effects unit
@@ -84,7 +84,7 @@ class TimeViewController: FXUnitViewController {
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeUnit.isActive {
-            Messenger.publish(.playbackRateChanged, payload: timeUnit.rate)
+            Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.rate)
         }
     }
 
@@ -109,14 +109,14 @@ class TimeViewController: FXUnitViewController {
     // Changes the playback rate to a specific value
     private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
 
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
 
         timeView.setRate(rateInfo.rate, rateInfo.rateString, timeUnit.formattedPitch)
         stateChanged()
 
         showThisTab()
 
-        Messenger.publish(.playbackRateChanged, payload: rateInfo.rate)
+        Messenger.publish(.fx_playbackRateChanged, payload: rateInfo.rate)
     }
 
     // Updates the Overlap parameter of the Time stretch effects unit

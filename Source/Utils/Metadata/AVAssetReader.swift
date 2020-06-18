@@ -21,7 +21,7 @@ class AVAssetReader: MetadataReader, NotificationSubscriber {
         
         self.muxer = muxer
         
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.global(qos: .background))
+        Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved(_:), queue: DispatchQueue.global(qos: .background))
     }
     
     // Helper function that ensures that a track's AVURLAsset has been initialized

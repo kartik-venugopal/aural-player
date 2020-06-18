@@ -27,10 +27,10 @@ class Transcoder: TranscoderProtocol, NotificationSubscriber, PersistentModelObj
         self.playlist = playlist
         self.sequencer = sequencer
         
-        Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: backgroundQueue)
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: backgroundQueue)
+        Messenger.subscribeAsync(self, .playlist_doneAddingTracks, self.doneAddingTracks, queue: backgroundQueue)
+        Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved(_:), queue: backgroundQueue)
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: backgroundQueue)
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: backgroundQueue)
     }
     
     func transcodeImmediately(_ track: Track) -> (readyForPlayback: Bool, transcodingFailed: Bool) {

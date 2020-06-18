@@ -81,7 +81,7 @@ class PitchViewController: FXUnitViewController {
         btnBypass.updateState()
         pitchView.stateChanged()
         
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
         
         // Show the Pitch tab
         showThisTab()
@@ -111,7 +111,7 @@ class PitchViewController: FXUnitViewController {
     // Changes the pitch to a specified value
     private func pitchChange(_ pitch: Float, _ pitchString: String) {
         
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
         
         pitchView.setPitch(pitch, pitchString)
         pitchView.stateChanged()

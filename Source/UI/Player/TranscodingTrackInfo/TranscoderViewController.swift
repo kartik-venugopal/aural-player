@@ -44,25 +44,25 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
     private func initSubscriptions() {
         
         // Only respond if the waiting track was updated
-        Messenger.subscribeAsync(self, .trackInfoUpdated, self.transcodingTrackInfoUpdated(_:),
+        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.transcodingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.transcodingTrack &&
                                         msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.transcodingStarted},
                                  queue: .main)
         
-        Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, self.changeSliderColors)
-        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoPrimaryTextColor, self.changePrimaryTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoSecondaryTextColor, self.changeSecondaryTextColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
+        Messenger.subscribe(self, .player_changeTrackInfoPrimaryTextColor, self.changePrimaryTextColor(_:))
+        Messenger.subscribe(self, .player_changeTrackInfoSecondaryTextColor, self.changeSecondaryTextColor(_:))
         
-        Messenger.subscribeAsync(self, .transcodingProgress, self.transcodingProgress(_:), queue: .main)
+        Messenger.subscribeAsync(self, .transcoder_progress, self.transcodingProgress(_:), queue: .main)
     }
     
     override func viewDidAppear() {

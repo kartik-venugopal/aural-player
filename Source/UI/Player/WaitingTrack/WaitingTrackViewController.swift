@@ -42,21 +42,21 @@ class WaitingTrackViewController: NSViewController, NotificationSubscriber {
     private func initSubscriptions() {
         
         // Only respond if the waiting track was updated
-        Messenger.subscribeAsync(self, .trackInfoUpdated, self.waitingTrackInfoUpdated(_:),
+        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.waitingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.waitingTrack &&
                                     msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.gapStarted},
                                  queue: .main)
         
-        Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlayerTrackInfoPrimaryTextColor, self.changeTextColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .player_changeTrackInfoPrimaryTextColor, self.changeTextColor(_:))
     }
     
     override func viewDidAppear() {

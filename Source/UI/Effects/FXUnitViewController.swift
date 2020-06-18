@@ -70,25 +70,25 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     func initSubscriptions() {
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
+        Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
         
-        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize(_:))
         
         Messenger.subscribe(self, .fx_updateFXUnitView, {(EffectsUnit) in self.initControls()},
                             filter: {(unit: EffectsUnit) in unit == .master || (unit == self.unitType)})
         
-        Messenger.subscribe(self, .colorScheme_changeFXSliderColors, self.changeSliderColors)
+        Messenger.subscribe(self, .fx_changeSliderColors, self.changeSliderColors)
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changeFXFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFXFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+        Messenger.subscribe(self, .fx_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
+        Messenger.subscribe(self, .fx_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changeFXActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFXBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFXSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
+        Messenger.subscribe(self, .fx_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
+        Messenger.subscribe(self, .fx_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
+        Messenger.subscribe(self, .fx_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
     }
     
     func initControls() {
@@ -110,7 +110,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         _ = fxUnit.toggleState()
         stateChanged()
         
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
     }
     
     // Applies a preset to the effects unit

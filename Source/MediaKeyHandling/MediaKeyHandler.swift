@@ -36,7 +36,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
     init(_ preferences: ControlsPreferences) {
         
         self.preferences = preferences
-        Messenger.subscribe(self, .appLaunched, self.startMonitoring, filter: {preferences.respondToMediaKeys})
+        Messenger.subscribe(self, .application_launched, self.startMonitoring, filter: {preferences.respondToMediaKeys})
     }
     
     func startMonitoring() {
@@ -106,7 +106,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
-                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: ActionMode.discrete)
+                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
                     
                 }, queue: .main)
                 
@@ -173,7 +173,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
         if event.keyPressed && !event.keyRepeat {
             
             DispatchQueue.main.async {
-                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: ActionMode.discrete)
+                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
             }
             
             // Only do this on keyDown, if it is being repeated
@@ -183,7 +183,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
                 
                 repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
                     
-                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: ActionMode.discrete)
+                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
                     
                 }, queue: .main)
                 

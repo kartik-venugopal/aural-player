@@ -90,7 +90,7 @@ class GestureHandler {
         if preferences.allowVolumeControl && ScrollSession.validateEvent(event, scrollDirection) {
         
             // Scroll up = increase volume, scroll down = decrease volume
-            Messenger.publish(scrollDirection == .up ?.player_increaseVolume : .player_decreaseVolume, payload: ActionMode.continuous)
+            Messenger.publish(scrollDirection == .up ?.player_increaseVolume : .player_decreaseVolume, payload: UserInputMode.continuous)
         }
     }
     
@@ -111,7 +111,7 @@ class GestureHandler {
             if ScrollSession.validateEvent(event, scrollDirection) {
         
                 // Scroll left = seek backward, scroll right = seek forward
-                Messenger.publish(scrollDirection == .left ? .player_seekBackward : .player_seekForward, payload: ActionMode.continuous)
+                Messenger.publish(scrollDirection == .left ? .player_seekBackward : .player_seekForward, payload: UserInputMode.continuous)
             }
         }
     }

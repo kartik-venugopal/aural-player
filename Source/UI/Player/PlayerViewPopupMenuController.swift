@@ -256,7 +256,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         if let size = TextSize(rawValue: sender.title.lowercased()), PlayerViewState.textSize != size {
             
             PlayerViewState.textSize = size
-            Messenger.publish(.changePlayerTextSize, payload: size)
+            Messenger.publish(.player_changeTextSize, payload: size)
         }
     }
 }

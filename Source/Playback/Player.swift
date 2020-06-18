@@ -22,7 +22,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
         self.playerNode = graph.playerNode
         self.scheduler = scheduler
         
-        Messenger.subscribeAsync(self, .audioOutputChanged, self.audioOutputDeviceChanged, queue: .main)
+        Messenger.subscribeAsync(self, .audioGraph_outputDeviceChanged, self.audioOutputDeviceChanged, queue: .main)
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {

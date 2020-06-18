@@ -38,17 +38,17 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
+        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
-        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
+        Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
+        Messenger.subscribe(self, .changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changeFXFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFXFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+        Messenger.subscribe(self, .fx_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
+        Messenger.subscribe(self, .fx_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
     }
     
     private func initControls() {
@@ -85,7 +85,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.show()
         
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
     }
     
     // Stops the current recording
@@ -101,7 +101,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         saveRecording(recordingInfo!.format)
         recordingInfoBox.hide()
         
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
     }
     
     // Prompts the user to save the new recording

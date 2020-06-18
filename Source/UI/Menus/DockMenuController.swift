@@ -48,12 +48,12 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
         
         favoritesMenuItem.off()
         
-        Messenger.subscribeAsync(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:), queue: .main)
-        Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:), queue: .main)
-        Messenger.subscribeAsync(self, .historyUpdated, self.recreateHistoryMenus, queue: .main)
+        Messenger.subscribeAsync(self, .favoritesList_trackAdded, self.trackAddedToFavorites(_:), queue: .main)
+        Messenger.subscribeAsync(self, .favoritesList_trackRemoved, self.trackRemovedFromFavorites(_:), queue: .main)
+        Messenger.subscribeAsync(self, .history_updated, self.recreateHistoryMenus, queue: .main)
         
         // Subscribe to notifications
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
@@ -78,7 +78,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
-        Messenger.publish(.player_addOrRemoveFavorite)
+        Messenger.publish(.favoritesList_addOrRemove)
     }
     
     // Responds to a notification that a track has been added to the Favorites list, by updating the Favorites menu
@@ -193,12 +193,12 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        Messenger.publish(.player_seekBackward, payload: ActionMode.discrete)
+        Messenger.publish(.player_seekBackward, payload: UserInputMode.discrete)
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        Messenger.publish(.player_seekForward, payload: ActionMode.discrete)
+        Messenger.publish(.player_seekForward, payload: UserInputMode.discrete)
     }
     
     // Sets the repeat mode to "Off"
@@ -233,12 +233,12 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     
     // Decreases the volume by a certain preset decrement
     @IBAction func decreaseVolumeAction(_ sender: Any) {
-        Messenger.publish(.player_decreaseVolume, payload: ActionMode.discrete)
+        Messenger.publish(.player_decreaseVolume, payload: UserInputMode.discrete)
     }
     
     // Increases the volume by a certain preset increment
     @IBAction func increaseVolumeAction(_ sender: Any) {
-        Messenger.publish(.player_increaseVolume, payload: ActionMode.discrete)
+        Messenger.publish(.player_increaseVolume, payload: UserInputMode.discrete)
     }
     
     // Updates the menu item states per the current playback modes

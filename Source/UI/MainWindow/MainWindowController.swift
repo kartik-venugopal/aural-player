@@ -91,18 +91,18 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     private func initSubscriptions() {
         
-        Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeAppLogoColor, self.changeAppLogoColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeAppLogoColor, self.changeAppLogoColor(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
+        Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
 
-        Messenger.subscribe(self, .windowLayout_togglePlaylistWindow, self.togglePlaylistWindow)
-        Messenger.subscribe(self, .windowLayout_toggleEffectsWindow, self.toggleEffectsWindow)
+        Messenger.subscribe(self, .windowManager_togglePlaylistWindow, self.togglePlaylistWindow)
+        Messenger.subscribe(self, .windowManager_toggleEffectsWindow, self.toggleEffectsWindow)
         
-        Messenger.subscribe(self, .windowLayoutChanged, self.windowLayoutChanged(_:))
+        Messenger.subscribe(self, .windowManager_layoutChanged, self.windowLayoutChanged(_:))
     }
     
     // Shows/hides the playlist window (by delegating)

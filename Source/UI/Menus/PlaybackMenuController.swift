@@ -161,12 +161,12 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        Messenger.publish(.player_seekBackward, payload: ActionMode.discrete)
+        Messenger.publish(.player_seekBackward, payload: UserInputMode.discrete)
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        Messenger.publish(.player_seekForward, payload: ActionMode.discrete)
+        Messenger.publish(.player_seekForward, payload: UserInputMode.discrete)
     }
     
     // Seeks backward within the currently playing track

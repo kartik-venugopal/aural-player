@@ -54,18 +54,18 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func initSubscriptions() {
         
-        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_trackAdded, self.trackAdded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved(_:), queue: .main)
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribeAsync(self, .trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
+        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
         
         // Don't bother responding if only album art was updated
-        Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
+        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .playbackGapUpdated, self.gapUpdated(_:))
+        Messenger.subscribe(self, .playlist_playbackGapUpdated, self.gapUpdated(_:))
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
@@ -111,25 +111,25 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameTextColor, self.changeTrackNameTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationTextColor, self.changeDurationTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeTrackNameTextColor, self.changeTrackNameTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeIndexDurationTextColor, self.changeDurationTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationSelectedTextColor, self.changeDurationSelectedTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeIndexDurationSelectedTextColor, self.changeDurationSelectedTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameTextColor, self.changeGroupNameTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistGroupNameSelectedTextColor, self.changeGroupNameSelectedTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeGroupNameTextColor, self.changeGroupNameTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeGroupNameSelectedTextColor, self.changeGroupNameSelectedTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistGroupIconColor, self.changeGroupIconColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistGroupDisclosureTriangleColor, self.changeGroupDisclosureTriangleColor(_:))
+        Messenger.subscribe(self, .playlist_changeGroupIconColor, self.changeGroupIconColor(_:))
+        Messenger.subscribe(self, .playlist_changeGroupDisclosureTriangleColor, self.changeGroupDisclosureTriangleColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistPlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistSelectionBoxColor, self.changeSelectionBoxColor(_:))
+        Messenger.subscribe(self, .playlist_changePlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
+        Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
     }
     
     override func viewDidAppear() {
@@ -139,7 +139,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         PlaylistViewState.current = self.playlistType
         PlaylistViewState.currentView = playlistView
 
-        Messenger.publish(.playlistTypeChanged, payload: self.playlistType)
+        Messenger.publish(.playlist_viewChanged, payload: self.playlistType)
     }
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
@@ -719,7 +719,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
             
             playlist.setGapsForTrack(selTrack, gapBefore, gapAfter)
-            Messenger.publish(.playbackGapUpdated, payload: selTrack)
+            Messenger.publish(.playlist_playbackGapUpdated, payload: selTrack)
             
         }
     }
@@ -729,7 +729,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         if let selTrack = playlistView.item(atRow: playlistView.selectedRow) as? Track {
             
             playlist.removeGapsForTrack(selTrack)
-            Messenger.publish(.playbackGapUpdated, payload: selTrack)
+            Messenger.publish(.playlist_playbackGapUpdated, payload: selTrack)
         }
     }
     

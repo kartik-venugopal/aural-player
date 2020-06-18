@@ -16,8 +16,8 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
         
         changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {

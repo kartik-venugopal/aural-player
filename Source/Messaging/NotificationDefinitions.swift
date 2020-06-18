@@ -1,49 +1,65 @@
 import Foundation
 
+// A contract for payload objects dispatched by Messenger.
 protocol NotificationPayload {
     
+    // The name of the associated Notification.
     var notificationName: Notification.Name {get}
 }
 
+/*
+    Signifies that a track transition has occurred, i.e. either the playback state, the current
+    track, or both, have changed. eg. when changing tracks or a track goes from waiting/transcoding
+    to playing, or when a playing track is stopped.
+ 
+    Contains information required for UI elements to update themselves to reflect the new state.
+ */
 struct TrackTransitionNotification: NotificationPayload {
 
-    let notificationName: Notification.Name = .trackTransition
+    let notificationName: Notification.Name = .player_trackTransitioned
     
-    // The track that was playing before the track transition (may be nil, meaning no track was playing)
+    // The track that was playing before the transition (may be nil, meaning no track was playing)
     let beginTrack: Track?
     
     // Playback state before the track transition
     let beginState: PlaybackState
     
-    // The track that was playing before the track transition (may be nil, meaning no track was playing)
+    // The track that is now current, after the transition (may be nil, meaning that playback was stopped)
     let endTrack: Track?
     
     // Playback state before the track transition
     let endState: PlaybackState
     
-    // nil unless a playback gap has started
+    // Signifies a Date in the future when a playback gap will end and playback will begin
+    // (nil unless a playback gap has started).
     let gapEndTime: Date?
     
+    // Whether or not the current track has changed as a result of this transition.
     var trackChanged: Bool {
         return beginTrack != endTrack
     }
     
+    // Whether or not playback has started as a result of this transition.
     var playbackStarted: Bool {
         return endState == .playing
     }
     
+    // Whether or not playback has ended/stopped as a result of this transition.
     var playbackEnded: Bool {
         return endState == .noTrack
     }
     
+    // Whether or not the playback state has changed as a result of this transition.
     var stateChanged: Bool {
         return beginState != endState
     }
     
+    // Whether or not a playback gap has started as a result of this transition.
     var gapStarted: Bool {
         return endState == .waiting
     }
     
+    // Whether or not transcoding of a track has started as a result of this transition.
     var transcodingStarted: Bool {
         return endState == .transcoding
     }
@@ -60,9 +76,13 @@ struct TrackTransitionNotification: NotificationPayload {
     }
 }
 
+/*
+    Signifies that a track change is about to occur. Gives observers a chance to perform some
+    computation/processing before the track change occurs (eg. saving/applying audio settings).
+*/
 struct PreTrackChangeNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .preTrackChange
+    let notificationName: Notification.Name = .player_preTrackChange
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
     let oldTrack: Track?
@@ -77,7 +97,7 @@ struct PreTrackChangeNotification: NotificationPayload {
 // Notification to indicate that the currently playing chapter has changed
 struct ChapterChangedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .chapterChanged
+    let notificationName: Notification.Name = .player_chapterChanged
     
     // The chapter that was playing before the chapter change (may be nil, meaning no defined chapter was playing)
     let oldChapter: IndexedChapter?
@@ -86,10 +106,10 @@ struct ChapterChangedNotification: NotificationPayload {
     let newChapter: IndexedChapter?
 }
 
-// Notification that the app has been reopened with a request to open certain files
+// Notification that the app has been reopened with a set of files
 struct AppReopenedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .appReopened
+    let notificationName: Notification.Name = .application_reopened
     
     // Files specified as launch parameters (files that the app needs to open)
     let filesToOpen: [URL]
@@ -103,10 +123,11 @@ struct TrackPlaybackCommandNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .player_playTrack
     
-    // Type indicates whether the request parameter is an index, track, or group. This is used to initialize the new playback sequence.
+    // Type indicates whether the request parameter is an index, track, or group.
+    // This is used to initialize the new playback sequence.
     let type: PlaybackCommandType
     
-    // Only one of these 3 fields will be non-nil, depending on the request type
+    // Only one of these 3 fields will be non-nil, depending on the command type
     var index: Int? = nil
     var track: Track? = nil
     var group: Group? = nil
@@ -152,40 +173,52 @@ enum PlaybackCommandType {
     case group
 }
 
-// Request from the application to its components to perform an exit. Receiving components will determine whether or not the app may exit, and send an AppExitResponse, in response.
+// Request from the application to its components to perform an exit. Receiving components will determine
+// whether or not the app may exit, by submitting appropriate responses.
 class AppExitRequestNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .appExitRequest
+    let notificationName: Notification.Name = .application_exitRequest
     
+    // A collection of individual responses from all observers, indicating whether or not the app may exit.
+    // NOTE - This collection will be empty at the time this notification is dispatched. Observers will
+    // populate the collection as and when they receive the notification. A true value signifies it is ok
+    // to exit, and false signifies not ok to exit.
     private var responses: [Bool] = []
     
+    // The aggregate result of all the received responses, i.e whether or not the app may safely exit.
+    // true means ok to exit, false otherwise.
     var okToExit: Bool {
         return !responses.contains(false)
     }
     
+    // Accepts a single response from an observer, and adds it to the responses collection for later use.
     func acceptResponse(okToExit: Bool) {
         responses.append(okToExit)
     }
 }
 
-// Notification that the layout manager has changed the window layout
+// Notification that the window manager has changed the window layout.
 struct WindowLayoutChangedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .windowLayoutChanged
+    let notificationName: Notification.Name = .windowManager_layoutChanged
 
+    // Whether or not the playlist window is now being shown.
     let showingPlaylistWindow: Bool
+    
+    // Whether or not the effects window is now being shown.
     let showingEffectsWindow: Bool
 }
 
-// AsyncMessage indicating that some new information has been loaded for a track (e.g. duration/display name/art, etc), and that the UI should refresh itself to show the new information
+// Indicates that some new information has been loaded for a track (e.g. duration/display name/art, etc),
+// and that the UI should refresh itself to show the new information.
 struct TrackInfoUpdatedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .trackInfoUpdated
+    let notificationName: Notification.Name = .player_trackInfoUpdated
     
     // The track that has been updated
     let updatedTrack: Track
     
-    // The track info fields that have been updated
+    // The track info fields that have been updated. Different UI components may display different fields.
     let updatedFields: Set<UpdatedTrackInfoField>
     
     init(updatedTrack: Track, updatedFields: UpdatedTrackInfoField...) {
@@ -217,7 +250,7 @@ enum UpdatedTrackInfoField: CaseIterable {
 // Indicates that a new track has been added to the playlist, and that the UI should refresh itself to show the new information.
 struct TrackAddedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .trackAdded
+    let notificationName: Notification.Name = .playlist_trackAdded
     
     // The index of the newly added track
     let trackIndex: Int
@@ -229,10 +262,10 @@ struct TrackAddedNotification: NotificationPayload {
     let addOperationProgress: TrackAddOperationProgressNotification
 }
 
-// Message indicating that some tracks have been removed from the playlist.
+// Indicates that some tracks have been removed from the playlist.
 struct TracksRemovedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .tracksRemoved
+    let notificationName: Notification.Name = .playlist_tracksRemoved
     
     // Information about which tracks were removed and their former locations within the playlist (used to refresh the playlist views)
     let results: TrackRemovalResults
@@ -241,7 +274,7 @@ struct TracksRemovedNotification: NotificationPayload {
     let playingTrackRemoved: Bool
 }
 
-// Indicates current progress associated with a TrackAddedNotification
+// Indicates current progress associated with a TrackAddedNotification.
 struct TrackAddOperationProgressNotification {
     
     // Number of tracks added so far
@@ -261,10 +294,10 @@ struct TrackAddOperationProgressNotification {
     }
 }
 
-// AsyncMessage indicating that an error was encountered while attempting to play back a track
+// Signifies that an error was encountered while attempting to play back a track.
 struct TrackNotPlayedNotification: NotificationPayload {
  
-    let notificationName: Notification.Name = .trackNotPlayed
+    let notificationName: Notification.Name = .player_trackNotPlayed
     
     // The track that was playing before this error occurred (used to refresh certain UI elements, eg. playlist).
     let oldTrack: Track?
@@ -273,40 +306,62 @@ struct TrackNotPlayedNotification: NotificationPayload {
     let error: InvalidTrackError
 }
 
+// Signifies that an error was encountered while attempting to transcode a track.
 struct TrackNotTranscodedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .trackNotTranscoded
+    let notificationName: Notification.Name = .player_trackNotTranscoded
     
-    // The track that was playing before the track change (may be nil, meaning no track was playing)
+    // The track for which the failure occurred.
     let track: Track
     
-    // An error object containing detailed information such as the track file and the root cause
+    // An error object containing detailed information such as the track file and the root cause.
     let error: InvalidTrackError
 }
 
+/*
+    Encapsulates progress information for an ongoing transcoding task, that can be displayed in the UI.
+ */
 struct TranscodingProgressNotification: NotificationPayload {
 
-    let notificationName: Notification.Name = .transcodingProgress
+    let notificationName: Notification.Name = .transcoder_progress
     
+    // The track being transcoded.
     let track: Track
     
+    // Task percentage completed.
     let percentageTranscoded: Double
+    
+    // Task time elapsed so far.
     let timeElapsed: Double
+    
+    // Estimated task time remaining.
     let timeRemaining: Double
 }
 
+// Signifies that a transcoding task has finished.
 struct TranscodingFinishedNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .transcodingFinished
+    let notificationName: Notification.Name = .transcoder_finished
     
+    // The track that was transcoded.
     let track: Track
+    
+    // Whether or not the task succeeded.
     let success: Bool
 }
 
-enum ActionMode {
-    
+// A user input mode that determines how the user provided a certain input, which in turn
+// determines how the corresponding command should be executed by the app.
+// Certain functions, such as player seeking, use this mode.
+enum UserInputMode {
+
+    // A discrete input is one that occurs as a single separate event.
+    // eg. when a user clicks a menu item.
     case discrete
     
+    // A continuous input is one that occurs as part of a continuous sequence of similar events.
+    // eg. when a user scrolls using a mouse or trackpad.
+    // Many such events are generated one after the other.
     case continuous
 }
 
@@ -338,9 +393,12 @@ struct PlaylistViewSelector {
     }
 }
 
+// A base class for commands sent to the playlist.
 class PlaylistCommandNotification: NotificationPayload {
 
     let notificationName: Notification.Name
+    
+    // Helps determine which playlist view(s) the command is intended for.
     let viewSelector: PlaylistViewSelector
     
     init(notificationName: Notification.Name, viewSelector: PlaylistViewSelector) {
@@ -350,8 +408,10 @@ class PlaylistCommandNotification: NotificationPayload {
     }
 }
 
+// A command to begin delayed playback of the track selected within the playlist.
 class DelayedPlaybackCommandNotification: PlaylistCommandNotification {
     
+    // The delay interval, in seconds, before playback should begin.
     let delay: Double
     
     init(delay: Double, viewSelector: PlaylistViewSelector) {
@@ -361,9 +421,13 @@ class DelayedPlaybackCommandNotification: PlaylistCommandNotification {
     }
 }
 
+// A command to insert playback gaps around a track within the playlist.
 class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
     
+    // A playback gap, if there is one, that occurs before a track.
     let gapBeforeTrack: PlaybackGap?
+    
+    // A playback gap, if there is one, that occurs after a track.
     let gapAfterTrack: PlaybackGap?
     
     init(gapBeforeTrack: PlaybackGap?, gapAfterTrack: PlaybackGap?, viewSelector: PlaylistViewSelector) {
@@ -375,9 +439,11 @@ class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
     }
 }
 
-// Command from the playlist search dialog to the playlist, to show a specific search result within the playlist.
+// Command from the playlist search dialog to the playlist, to show (i.e. select) a specific search result within the playlist.
 class SelectSearchResultCommandNotification: PlaylistCommandNotification {
     
+    // Encapsulates information about the search result (eg. row index)
+    // that helps the playlist locate the result.
     let searchResult: SearchResult
     
     init(searchResult: SearchResult, viewSelector: PlaylistViewSelector) {

@@ -19,12 +19,12 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         
         // MARK: Notifications --------------------------------------------------------------
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribe(self, .trackNotPlayed, self.trackNotPlayed(_:))
-        Messenger.subscribeAsync(self, .trackNotTranscoded, self.trackNotTranscoded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
+        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
+        Messenger.subscribeAsync(self, .player_trackNotTranscoded, self.trackNotTranscoded(_:), queue: .main)
         
-        Messenger.subscribe(self, .playbackRateChanged, self.playbackRateChanged(_:))
-        Messenger.subscribe(self, .playbackLoopChanged, self.playbackLoopChanged)
+        Messenger.subscribe(self, .fx_playbackRateChanged, self.playbackRateChanged(_:))
+        Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
         
         // MARK: Commands --------------------------------------------------------------
         
@@ -52,13 +52,13 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_setTimeElapsedDisplayFormat, playbackView.setTimeElapsedDisplayFormat(_:))
         Messenger.subscribe(self, .player_setTimeRemainingDisplayFormat, playbackView.setTimeRemainingDisplayFormat(_:))
         
-        Messenger.subscribe(self, .changePlayerTextSize, playbackView.changeTextSize(_:))
+        Messenger.subscribe(self, .player_changeTextSize, playbackView.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, playbackView.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, playbackView.changeSliderColors)
-        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, playbackView.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, playbackView.changeToggleButtonOffStateColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlayerSliderValueTextColor, playbackView.changeSliderValueTextColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, playbackView.applyColorScheme(_:))
+        Messenger.subscribe(self, .player_changeSliderColors, playbackView.changeSliderColors)
+        Messenger.subscribe(self, .changeFunctionButtonColor, playbackView.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .changeToggleButtonOffStateColor, playbackView.changeToggleButtonOffStateColor(_:))
+        Messenger.subscribe(self, .player_changeSliderValueTextColor, playbackView.changeSliderValueTextColor(_:))
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -206,9 +206,9 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         seekBackward(.discrete)
     }
     
-    func seekBackward(_ actionMode: ActionMode) {
+    func seekBackward(_ inputMode: UserInputMode) {
         
-        player.seekBackward(actionMode)
+        player.seekBackward(inputMode)
         playbackView.updateSeekPosition()
     }
     
@@ -223,9 +223,9 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         seekForward(.discrete)
     }
     
-    func seekForward(_ actionMode: ActionMode) {
+    func seekForward(_ inputMode: UserInputMode) {
         
-        player.seekForward(actionMode)
+        player.seekForward(inputMode)
         playbackView.updateSeekPosition()
     }
     
@@ -262,7 +262,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
             _ = player.toggleLoop()
             playbackLoopChanged()
             
-            Messenger.publish(.playbackLoopChanged)
+            Messenger.publish(.player_playbackLoopChanged)
         }
     }
     
@@ -309,7 +309,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         _ = player.toggleChapterLoop()
         playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
         
-        Messenger.publish(.playbackLoopChanged)
+        Messenger.publish(.player_playbackLoopChanged)
     }
     
     // MARK: Current chapter tracking ---------------------------------------------------------------------

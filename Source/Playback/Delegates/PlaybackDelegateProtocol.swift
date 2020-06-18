@@ -55,28 +55,24 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     /*
         Seeks forward by a preset time interval, within the current track.
      
-        The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+        The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the time interval of the seek.
      */
-    func seekForward(_ actionMode: ActionMode)
+    func seekForward(_ inputMode: UserInputMode)
     
     /*
         Seeks backward by a preset time interval, within the current track.
      
-        The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+        The "inputMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The input mode will affect the time interval of the seek.
      */
-    func seekBackward(_ actionMode: ActionMode)
+    func seekBackward(_ inputMode: UserInputMode)
     
     /*
-     Seeks forward by a preset time interval, within the current track.
-     
-     The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+        Seeks forward by a preset time interval, within the current track.
      */
     func seekForwardSecondary()
     
     /*
-     Seeks backward by a preset time interval, within the current track.
-     
-     The "actionMode" parameter specifies whether this action is part of a larger continuous sequence of such actions (such as when performing a trackpad gesture) or a single discrete operation (such as when clicking a menu item). The action mode will affect the time interval of the seek.
+        Seeks backward by a preset time interval, within the current track.
      */
     func seekBackwardSecondary()
     

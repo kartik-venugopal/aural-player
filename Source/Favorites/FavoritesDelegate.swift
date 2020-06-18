@@ -22,7 +22,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func addFavorite(_ track: Track) -> Favorite {
         
         let fav = favorites.addFavorite(track.file, track.conciseDisplayName)
-        Messenger.publish(.trackAddedToFavorites, payload: track.file)
+        Messenger.publish(.favoritesList_trackAdded, payload: track.file)
         
         return fav
     }
@@ -30,7 +30,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     func addFavorite(_ file: URL, _ name: String) -> Favorite {
         
         let fav = favorites.addFavorite(file, name)
-        Messenger.publish(.trackAddedToFavorites, payload: file)
+        Messenger.publish(.favoritesList_trackAdded, payload: file)
         
         return fav
     }
@@ -51,13 +51,13 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let fav = getFavoriteAtIndex(index)
         favorites.deleteFavoriteAtIndex(index)
-        Messenger.publish(.trackRemovedFromFavorites, payload: fav.file)
+        Messenger.publish(.favoritesList_trackRemoved, payload: fav.file)
     }
     
     func deleteFavoriteWithFile(_ file: URL) {
         
         favorites.deleteFavoriteWithFile(file)
-        Messenger.publish(.trackRemovedFromFavorites, payload: file)
+        Messenger.publish(.favoritesList_trackRemoved, payload: file)
     }
     
     var count: Int {

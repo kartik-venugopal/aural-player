@@ -102,7 +102,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionCaptionTextColor() {
         
         ColorSchemes.systemScheme.effects.functionCaptionTextColor = functionCaptionTextColorPicker.color
-        Messenger.publish(.colorScheme_changeFXFunctionCaptionTextColor, payload: functionCaptionTextColorPicker.color)
+        Messenger.publish(.fx_changeFunctionCaptionTextColor, payload: functionCaptionTextColorPicker.color)
     }
     
     @IBAction func functionValueTextColorAction(_ sender: Any) {
@@ -114,7 +114,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionValueTextColor() {
         
         ColorSchemes.systemScheme.effects.functionValueTextColor = functionValueTextColorPicker.color
-        Messenger.publish(.colorScheme_changeFXFunctionValueTextColor, payload: functionValueTextColorPicker.color)
+        Messenger.publish(.fx_changeFunctionValueTextColor, payload: functionValueTextColorPicker.color)
     }
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {
@@ -213,7 +213,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     }
     
     private func sliderColorsChanged() {
-        Messenger.publish(.colorScheme_changeFXSliderColors)
+        Messenger.publish(.fx_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
@@ -225,7 +225,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderKnobColor() {
         
         ColorSchemes.systemScheme.effects.sliderKnobColor = sliderKnobColorPicker.color
-        Messenger.publish(.colorScheme_changeFXSliderColors)
+        Messenger.publish(.fx_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
@@ -237,7 +237,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func toggleKnobColorSameAsForeground() {
         
         ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        Messenger.publish(.colorScheme_changeFXSliderColors)
+        Messenger.publish(.fx_changeSliderColors)
     }
     
     @IBAction func sliderTickColorAction(_ sender: Any) {
@@ -249,7 +249,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderTickColor() {
         
         ColorSchemes.systemScheme.effects.sliderTickColor = sliderTickColorPicker.color
-        Messenger.publish(.colorScheme_changeFXSliderColors)
+        Messenger.publish(.fx_changeSliderColors)
     }
     
     @IBAction func activeUnitStateColorAction(_ sender: Any) {
@@ -261,7 +261,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeActiveUnitStateColor() {
         
         ColorSchemes.systemScheme.effects.activeUnitStateColor = activeUnitStateColorPicker.color
-        Messenger.publish(.colorScheme_changeFXActiveUnitStateColor, payload: activeUnitStateColorPicker.color)
+        Messenger.publish(.fx_changeActiveUnitStateColor, payload: activeUnitStateColorPicker.color)
     }
     
     @IBAction func bypassedUnitStateColorAction(_ sender: Any) {
@@ -273,7 +273,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeBypassedUnitStateColor() {
 
         ColorSchemes.systemScheme.effects.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
-        Messenger.publish(.colorScheme_changeFXBypassedUnitStateColor, payload: bypassedUnitStateColorPicker.color)
+        Messenger.publish(.fx_changeBypassedUnitStateColor, payload: bypassedUnitStateColorPicker.color)
     }
     
     @IBAction func suppressedUnitStateColorAction(_ sender: Any) {
@@ -285,6 +285,6 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSuppressedUnitStateColor() {
         
         ColorSchemes.systemScheme.effects.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
-        Messenger.publish(.colorScheme_changeFXSuppressedUnitStateColor, payload: suppressedUnitStateColorPicker.color)
+        Messenger.publish(.fx_changeSuppressedUnitStateColor, payload: suppressedUnitStateColorPicker.color)
     }
 }

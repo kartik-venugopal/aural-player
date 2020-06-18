@@ -87,7 +87,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     @IBAction func applySelectedSchemeAction(_ sender: AnyObject) {
         
         if let scheme = ColorSchemes.applyScheme(selectedSchemeNames[0]) {
-            Messenger.publish(.colorScheme_applyColorScheme, payload: scheme)
+            Messenger.publish(.applyColorScheme, payload: scheme)
         }
     }
     

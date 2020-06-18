@@ -115,21 +115,21 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
             return event
         });
         
-        Messenger.subscribeAsync(self, .startedAddingTracks, self.startedAddingTracks, queue: .main)
-        Messenger.subscribeAsync(self, .doneAddingTracks, self.doneAddingTracks, queue: .main)
+        Messenger.subscribeAsync(self, .playlist_startedAddingTracks, self.startedAddingTracks, queue: .main)
+        Messenger.subscribeAsync(self, .playlist_doneAddingTracks, self.doneAddingTracks, queue: .main)
         
-        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved, queue: .main)
-        Messenger.subscribeAsync(self, .tracksNotAdded, self.tracksNotAdded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_trackAdded, self.trackAdded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved, queue: .main)
+        Messenger.subscribeAsync(self, .playlist_tracksNotAdded, self.tracksNotAdded(_:), queue: .main)
         
         // Respond only if track duration has changed (affecting the summary)
-        Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
+        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration)},
                                  queue: .main)
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackChanged, queue: .main)
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, queue: .main)
         
-        Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
+        Messenger.subscribe(self, .playlist_viewChanged, self.playlistTypeChanged(_:))
         
         // MARK: Commands -------------------------------------------------------------------------------------
         
@@ -145,23 +145,23 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         
         Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
         
-        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
+        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
+        Messenger.subscribe(self, .changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
+        Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+        Messenger.subscribe(self, .changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistSummaryInfoColor, self.changeSummaryInfoColor(_:))
+        Messenger.subscribe(self, .playlist_changeSummaryInfoColor, self.changeSummaryInfoColor(_:))
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        Messenger.publish(.windowLayout_togglePlaylistWindow)
+        Messenger.publish(.windowManager_togglePlaylistWindow)
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
