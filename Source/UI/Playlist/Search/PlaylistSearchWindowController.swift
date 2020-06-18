@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist search dialog
  */
-class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, MessageSubscriber {
+class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, NotificationSubscriber {
     
     // Playlist search modal dialog fields
     

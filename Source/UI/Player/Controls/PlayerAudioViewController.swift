@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayerAudioViewController: NSViewController, MessageSubscriber {
+class PlayerAudioViewController: NSViewController, NotificationSubscriber {
     
     // Volume/pan controls
     @IBOutlet weak var btnVolume: TintedImageButton!
@@ -50,7 +50,7 @@ class PlayerAudioViewController: NSViewController, MessageSubscriber {
     
     private func initSubscriptions() {
         
-        // Subscribe to message notifications
+        // Subscribe to notifications
         Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)

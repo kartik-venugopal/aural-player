@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Recorder unit
  */
-class RecorderViewController: NSViewController, MessageSubscriber {
+class RecorderViewController: NSViewController, NotificationSubscriber {
     
     // Recorder controls
     @IBOutlet weak var btnRecord: OnOffImageButton!
@@ -37,7 +37,7 @@ class RecorderViewController: NSViewController, MessageSubscriber {
         initControls()
         applyColorScheme(ColorSchemes.systemScheme)
         
-        // Subscribe to message notifications
+        // Subscribe to notifications
         Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
         
         Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize(_:))

@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlaybackViewController: NSViewController, MessageSubscriber {
+class PlaybackViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var playbackView: PlaybackView!
     

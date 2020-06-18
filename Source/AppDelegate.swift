@@ -56,6 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             
             // Publish a notification to the app that it needs to open the new set of files
             let reopenMsg = AppReopenedNotification(filesToOpen: filesToOpen, isDuplicateNotification: timeSinceLastFileOpen < fileOpenNotificationWindow_seconds)
+            
             Messenger.publish(reopenMsg)
         }
         

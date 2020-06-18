@@ -1,6 +1,6 @@
 import Cocoa
 
-class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
+class EffectsPresetsEditorViewController: NSViewController, NotificationSubscriber {
     
     private let masterPresetsEditorView: NSView = ViewFactory.masterPresetsEditorView
     private let eqPresetsEditorView: NSView = ViewFactory.eqPresetsEditorView

@@ -4,7 +4,7 @@ import Cocoa
     Window controller for the Chapters list window.
     Contains the Chapters list view and performs window snapping.
  */
-class ChaptersListWindowController: NSWindowController, MessageSubscriber {
+class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     

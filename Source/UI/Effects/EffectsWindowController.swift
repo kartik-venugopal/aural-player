@@ -4,7 +4,7 @@
 
 import Cocoa
 
-class EffectsWindowController: NSWindowController, MessageSubscriber {
+class EffectsWindowController: NSWindowController, NotificationSubscriber {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var effectsContainerBox: NSBox!

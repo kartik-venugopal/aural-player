@@ -3,7 +3,7 @@ import Foundation
 /*
     See SequencerProtocol.
  */
-class Sequencer: SequencerProtocol, MessageSubscriber, PersistentModelObject {
+class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObject {
     
     // The underlying linear sequence of tracks for the current playback scope
     let sequence: PlaybackSequence

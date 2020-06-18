@@ -1,6 +1,6 @@
 import Cocoa
 
-class JumpToTimeEditorWindowController: NSWindowController, MessageSubscriber, ModalDialogDelegate {
+class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscriber, ModalDialogDelegate {
     
     override var windowNibName: String? {return "JumpToTimeEditorDialog"}
     

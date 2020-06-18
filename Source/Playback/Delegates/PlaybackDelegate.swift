@@ -3,7 +3,7 @@ import Foundation
 // A function that produces an optional Track (used when deciding which track will play next)
 typealias TrackProducer = () -> Track?
 
-class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, MessageSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, NotificationSubscriber {
     
     // The actual player
     let player: PlayerProtocol
@@ -34,7 +34,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         self.stopPlaybackChain = stopPlaybackChain
         self.trackPlaybackCompletedChain = trackPlaybackCompletedChain
         
-        // Subscribe to message notifications
+        // Subscribe to notifications
         Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
         Messenger.subscribeAsync(self, .trackPlaybackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
         

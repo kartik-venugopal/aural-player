@@ -5,7 +5,7 @@
 import Cocoa
 import AVFoundation
 
-class Player: PlayerProtocol, MessageSubscriber {
+class Player: PlayerProtocol, NotificationSubscriber {
     
     // The underlying audio graph used to perform playback
     private let graph: PlayerGraphProtocol

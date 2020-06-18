@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, MessageSubscriber, NSTabViewDelegate {
+class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTabViewDelegate {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!

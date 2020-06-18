@@ -6,7 +6,7 @@ import Cocoa
  
     Displays transcoding progress, e.g. percentage transcoded, speed, and estimated time remaining.
 */
-class TranscoderViewController: NSViewController, MessageSubscriber {
+class TranscoderViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var artView: NSImageView!
     @IBOutlet weak var overlayBox: NSBox!

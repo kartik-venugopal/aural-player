@@ -35,7 +35,7 @@ class PlaylistInputEventHandler {
         
         if preferences.allowPlaylistNavigation {
         
-            // Publish the action message
+            // Publish the command notification
             Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom, payload: PlaylistViewSelector.allViews)
         }
     }
@@ -44,7 +44,7 @@ class PlaylistInputEventHandler {
         
         if preferences.allowPlaylistTabToggle {
             
-            // Publish the action message
+            // Publish the command notification
             Messenger.publish(swipeDirection == .left ? .playlist_previousView : .playlist_nextView)
         }
     }

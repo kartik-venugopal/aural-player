@@ -6,7 +6,7 @@ import Cocoa
  
     Also handles such requests from app menus.
  */
-class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber {
+class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscriber {
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
@@ -113,7 +113,6 @@ class PlayingTrackFunctionsViewController: NSViewController, MessageSubscriber {
             // Toggle the button state
             btnFavorite.toggle()
             
-            // Publish an action message to add/remove the item to/from Favorites
             btnFavorite.isOn ? _ = favorites.addFavorite(playingTrack) : favorites.deleteFavoriteWithFile(playingTrack.file)
         }
     }

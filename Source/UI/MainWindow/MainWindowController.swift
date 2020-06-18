@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the main application window.
  */
-class MainWindowController: NSWindowController, MessageSubscriber {
+class MainWindowController: NSWindowController, NotificationSubscriber {
     
     // Main application window. Contains the Now Playing info box and player controls. Not resizable.
     private var theWindow: SnappingWindow {

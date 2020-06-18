@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayingTrackViewController: NSViewController, MessageSubscriber {
+class PlayingTrackViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var infoView: PlayingTrackView!
     

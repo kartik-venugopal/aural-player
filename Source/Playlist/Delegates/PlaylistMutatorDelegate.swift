@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of PlaylistMutatorDelegateProtocol
  */
-class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscriber {
+class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubscriber {
     
     // The actual playlist
     private let playlist: PlaylistCRUDProtocol
@@ -55,7 +55,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, MessageSubscribe
         trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
         trackUpdateQueue.qualityOfService = .utility
         
-        // Subscribe to message notifications
+        // Subscribe to notifications
         Messenger.subscribe(self, .appLaunched, self.appLaunched(_:))
         Messenger.subscribe(self, .appReopened, self.appReopened(_:))
     }

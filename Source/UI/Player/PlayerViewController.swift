@@ -17,7 +17,7 @@
  */
 import Cocoa
 
-class PlayerViewController: NSViewController, MessageSubscriber {
+class PlayerViewController: NSViewController, NotificationSubscriber {
     
     private var playingTrackView: PlayingTrackView = ViewFactory.playingTrackView as! PlayingTrackView
     private var waitingTrackView: NSView = ViewFactory.waitingTrackView

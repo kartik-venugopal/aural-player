@@ -8,7 +8,7 @@ import Cocoa
 
     Also handles such requests from app menus.
 */
-class WaitingTrackViewController: NSViewController, MessageSubscriber {
+class WaitingTrackViewController: NSViewController, NotificationSubscriber {
  
     @IBOutlet weak var artView: NSImageView!
     @IBOutlet weak var overlayBox: NSBox!
@@ -148,7 +148,6 @@ class WaitingTrackViewController: NSViewController, MessageSubscriber {
     
     // MARK: Message handling
 
-    // Consume synchronous notification messages
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         if let track = notification.endTrack, let endTime = notification.gapEndTime {

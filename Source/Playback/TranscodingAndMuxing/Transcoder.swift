@@ -1,6 +1,6 @@
 import Foundation
 
-class Transcoder: TranscoderProtocol, MessageSubscriber, PersistentModelObject {
+class Transcoder: TranscoderProtocol, NotificationSubscriber, PersistentModelObject {
     
     // TODO: On appExit(), cancel all tasks and delete in-progress output files.
     
@@ -204,9 +204,9 @@ class Transcoder: TranscoderProtocol, MessageSubscriber, PersistentModelObject {
         }
     }
     
-    private func tracksRemoved(_ message: TracksRemovedNotification) {
+    private func tracksRemoved(_ notification: TracksRemovedNotification) {
         
-        for track in message.results.tracks {
+        for track in notification.results.tracks {
             cancelTranscoding(track)
         }
     }

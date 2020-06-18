@@ -4,7 +4,7 @@
 
 import AVFoundation
 
-class AudioGraphDelegate: AudioGraphDelegateProtocol, MessageSubscriber {
+class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var availableDevices: [AudioDevice] {
         return graph.availableDevices
