@@ -24,6 +24,10 @@ class AuralPlayerNode: AVAudioPlayerNode {
     // around 1000 frames, which results in inaccurate seeking and seek position reporting.
     // Apply a correction by noting this offset when segment playback begins.
     var numFramesCorrection: AVAudioFramePosition = 0
+    
+    // Indicates whether or not a correction (see numFramesCorrection for explanation) has already been applied for the currently playing segment.
+    // This flag will be reset every time a new segment is scheduled for playback (i.e. whenever the track changes, a loop is added/removed, or seeking is performed).
+    var correctionAppliedForSegment: Bool = false
 
     // Cached seek position (used when looping, to remember last seek position and avoid displaying 0 when player is temporarily stopped at the end of a loop)
     var cachedSeekPosn: Double = 0
@@ -53,11 +57,19 @@ class AuralPlayerNode: AVAudioPlayerNode {
     override func play() {
         
         super.play()
+        
+        // Apply a correction for the initial (non-zero) frame offset when beginning segment playback.
+        // The correction should be applied only once per scheduled segment.
+        if !correctionAppliedForSegment {
 
-        if let nodeTime = lastRenderTime, let playerTime = playerTime(forNodeTime: nodeTime) {
-            numFramesCorrection = playerTime.sampleTime
-        } else {
-            numFramesCorrection = 0
+            if let nodeTime = lastRenderTime, let playerTime = playerTime(forNodeTime: nodeTime) {
+                numFramesCorrection = playerTime.sampleTime
+                
+            } else { // Should be impossible
+                numFramesCorrection = 0
+            }
+            
+            correctionAppliedForSegment = true
         }
     }
     
@@ -78,6 +90,9 @@ class AuralPlayerNode: AVAudioPlayerNode {
             // Advance the last seek position to the new position
             startFrame = segment.firstFrame
             cachedSeekPosn = segment.startTime
+            
+            // Reset this flag for the new segment
+            correctionAppliedForSegment = false
         }
         
         if #available(OSX 10.13, *), !useLegacyAPI {

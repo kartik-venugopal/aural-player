@@ -54,7 +54,11 @@ extension PlaybackDelegate {
             
             if !chapterLoopExists {
                 
-                player.defineLoop(chapter.startTime, chapter.endTime, true)
+                // Apply margins to both start/end time to avoid overlap with adjacent chapters.
+                let startTime = chapter.startTime + (chapter.startTime > 0 ? chapterPlaybackStartTimeMargin : 0)
+                let endTime = chapter.endTime - chapterPlaybackStartTimeMargin
+                
+                player.defineLoop(startTime, endTime, true)
                 return true
                 
             } else {
