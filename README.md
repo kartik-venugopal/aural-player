@@ -7,8 +7,8 @@
   * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
-    + [Enabling media keys support](#enabling-media-keys-support-optional)
     + [Compatibility](#compatibility)
+    + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
   * [Screenshots](#screenshots)
   * [Third party code attributions](#third-party-code-attributions)
@@ -48,6 +48,12 @@ Download the DMG image (containing the app bundle) from the latest release [here
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
+### Compatibility
+
+**User**: macOS 10.12 (Sierra) or later versions
+
+**Developer**: Swift 5 and XCode 11.
+
 ### Enabling media keys support (optional)
 
 ![Enabling media keys support](/Documentation/Screenshots/EnablingMediaKeys.png?raw=true "Enabling media keys support")
@@ -60,12 +66,6 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 **NOTE**
 * Media keys support is available from version 1.3.0 onwards.
 * You will have to repeat this simple process whenever you upgrade to a new version of the app, because the macOS Accessibility permissions are tied to a single instance of the app.
-
-### Compatibility
-
-**User**: macOS 10.12 (Sierra) or later versions
-
-**Developer**: Swift 5 and XCode 11.
 
 ## Summary of features
 
