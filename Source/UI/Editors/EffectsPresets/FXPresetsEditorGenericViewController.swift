@@ -16,16 +16,16 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         let unitTypeFilter: (EffectsUnit) -> Bool = {(unit: EffectsUnit) in unit == self.unitType}
         
-        Messenger.subscribe(self, .fxPresetsEditor_reloadPresets, {(EffectsUnit) in self.doViewDidAppear()},
+        Messenger.subscribe(self, .fxPresetsEditor_reload, {(EffectsUnit) in self.doViewDidAppear()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsEditor_applyEffectsPreset, {(EffectsUnit) in self.applySelectedPreset()},
+        Messenger.subscribe(self, .fxPresetsEditor_apply, {(EffectsUnit) in self.applySelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsEditor_renameEffectsPreset, {(EffectsUnit) in self.renameSelectedPreset()},
+        Messenger.subscribe(self, .fxPresetsEditor_rename, {(EffectsUnit) in self.renameSelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsEditor_deleteEffectsPresets, {(EffectsUnit) in self.deleteSelectedPresets()},
+        Messenger.subscribe(self, .fxPresetsEditor_delete, {(EffectsUnit) in self.deleteSelectedPresets()},
                             filter: unitTypeFilter)
     }
     
@@ -52,7 +52,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         previewBox.hide()
         
-        Messenger.publish(.editorSelectionChanged, payload: Int(0))
+        Messenger.publish(.presetsEditor_selectionChanged, payload: Int(0))
     }
     
     var selectedPresetNames: [String] {
@@ -108,7 +108,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             oldPresetName = presetName
         }
         
-        Messenger.publish(.editorSelectionChanged, payload: numRows)
+        Messenger.publish(.presetsEditor_selectionChanged, payload: numRows)
     }
     
     // Returns a view for a single row

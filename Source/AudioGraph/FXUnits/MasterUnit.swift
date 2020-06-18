@@ -26,7 +26,7 @@ class MasterUnit: FXUnit, NotificationSubscriber {
         super.init(.master, appState.masterUnit.state)
         presets.addPresets(appState.masterUnit.userPresets)
         
-        Messenger.subscribe(self, .fxUnitActivated, self.ensureActive)
+        Messenger.subscribe(self, .fx_unitActivated, self.ensureActive)
     }
     
     override func toggleState() -> EffectsUnitState {

@@ -39,9 +39,9 @@ class EQViewController: FXUnitViewController {
         Messenger.subscribe(self, .eqFXUnit_decreaseTreble, self.decreaseTreble)
         Messenger.subscribe(self, .eqFXUnit_increaseTreble, self.increaseTreble)
 
-        Messenger.subscribe(self, .colorScheme_changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
+        Messenger.subscribe(self, .changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
+        Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+        Messenger.subscribe(self, .changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
     }
     
     override func initControls() {
@@ -106,7 +106,7 @@ class EQViewController: FXUnitViewController {
         stateChanged()
         eqView.bandsUpdated(bands, eqUnit.globalGain)
         
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
         showThisTab()
     }
     

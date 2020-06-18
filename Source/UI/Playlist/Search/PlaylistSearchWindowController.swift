@@ -41,7 +41,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     
     override func windowDidLoad() {
         
-        Messenger.subscribe(self, .searchTextChanged, self.searchTextChanged)
+        Messenger.subscribe(self, .playlist_searchTextChanged, self.searchTextChanged)
         WindowManager.registerModalComponent(self)
     }
     

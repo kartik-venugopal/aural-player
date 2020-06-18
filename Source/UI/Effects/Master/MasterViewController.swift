@@ -40,7 +40,7 @@ class MasterViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackChanged(_:),
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged(_:),
                                  filter: {msg in msg.trackChanged && self.soundPreferences.rememberEffectsSettings},
                                  queue: .main)
         
@@ -78,7 +78,7 @@ class MasterViewController: FXUnitViewController {
     
     private func broadcastStateChangeNotification() {
         // Update the bypass buttons for the effects units
-        Messenger.publish(.fxUnitStateChanged)
+        Messenger.publish(.fx_unitStateChanged)
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
@@ -101,7 +101,7 @@ class MasterViewController: FXUnitViewController {
         
         _ = timeUnit.toggleState()
         
-        Messenger.publish(.playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
         
         updateButtons()
         broadcastStateChangeNotification()

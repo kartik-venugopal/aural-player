@@ -27,7 +27,7 @@ class FXUnit {
     func stateChanged() {
         
         if isActive && unitType != .master {
-            Messenger.publish(.fxUnitActivated)
+            Messenger.publish(.fx_unitActivated)
         }
     }
     

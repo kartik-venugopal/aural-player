@@ -37,7 +37,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
         })
 
         switchView()
-        Messenger.subscribeAsync(self, .trackTransition, self.switchView, queue: .main)
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.switchView, queue: .main)
     }
     
     // Depending on current player state, switch to one of the 3 views.

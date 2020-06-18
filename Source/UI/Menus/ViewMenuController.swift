@@ -87,12 +87,12 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
  
     // Shows/hides the playlist window
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
-        Messenger.publish(.windowLayout_togglePlaylistWindow)
+        Messenger.publish(.windowManager_togglePlaylistWindow)
     }
     
     // Shows/hides the effects window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        Messenger.publish(.windowLayout_toggleEffectsWindow)
+        Messenger.publish(.windowManager_toggleEffectsWindow)
     }
     
     // Shows/hides the chapters list window

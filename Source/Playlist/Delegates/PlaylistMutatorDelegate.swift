@@ -56,8 +56,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
         trackUpdateQueue.qualityOfService = .utility
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .appLaunched, self.appLaunched(_:))
-        Messenger.subscribe(self, .appReopened, self.appReopened(_:))
+        Messenger.subscribe(self, .application_launched, self.appLaunched(_:))
+        Messenger.subscribe(self, .application_reopened, self.appReopened(_:))
     }
     
     func addFiles(_ files: [URL]) {
@@ -78,7 +78,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
             
             // ------------------ ADD --------------------
             
-            Messenger.publish(.startedAddingTracks)
+            Messenger.publish(.playlist_startedAddingTracks)
             
             self.collectTracks(files, false)
             self.addSessionTracks()
@@ -91,19 +91,19 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
             if atLeastOneTrackAdded {
 
                 if userAction {
-                    Messenger.publish(.historyItemsAdded, payload: self.addSession.addedItems)
+                    Messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
                 }
                 
                 // Notify change listeners
                 self.changeListeners.forEach({$0.tracksAdded(results)})
             }
             
-            Messenger.publish(.doneAddingTracks)
+            Messenger.publish(.playlist_doneAddingTracks)
             
             // If errors > 0, send AsyncMessage to UI
             // TODO: Display a non-intrusive popover instead of annoying alert (error details optional "Click for more details")
             if !self.addSession.progress.errors.isEmpty {
-                Messenger.publish(.tracksNotAdded, payload: self.addSession.progress.errors)
+                Messenger.publish(.playlist_tracksNotAdded, payload: self.addSession.progress.errors)
             }
             
             self.addSession = nil
@@ -298,7 +298,7 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
                                                       addOperationProgress: TrackAddOperationProgressNotification(1, 1))
             
             Messenger.publish(trackAddedNotification)
-            Messenger.publish(.historyItemsAdded, payload: [file])
+            Messenger.publish(.history_itemsAdded, payload: [file])
             
             self.changeListeners.forEach({$0.tracksAdded([result])})
             

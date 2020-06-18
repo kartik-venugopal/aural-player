@@ -141,12 +141,12 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Decreases the volume by a certain preset decrement
     @IBAction func decreaseVolumeAction(_ sender: Any) {
-        Messenger.publish(.player_decreaseVolume, payload: ActionMode.discrete)
+        Messenger.publish(.player_decreaseVolume, payload: UserInputMode.discrete)
     }
     
     // Increases the volume by a certain preset increment
     @IBAction func increaseVolumeAction(_ sender: Any) {
-        Messenger.publish(.player_increaseVolume, payload: ActionMode.discrete)
+        Messenger.publish(.player_increaseVolume, payload: UserInputMode.discrete)
     }
     
     // Pans the sound towards the left channel, by a certain preset value

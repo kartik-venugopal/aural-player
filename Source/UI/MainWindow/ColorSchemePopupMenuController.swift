@@ -37,7 +37,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
         
         if let scheme = ColorSchemes.applyScheme(sender.title) {
-            Messenger.publish(.colorScheme_applyColorScheme, payload: scheme)
+            Messenger.publish(.applyColorScheme, payload: scheme)
         }
     }
     

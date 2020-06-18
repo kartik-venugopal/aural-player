@@ -66,7 +66,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
         changeTextSize(EffectsViewState.textSize)
-        Messenger.publish(.changeFXTextSize, payload: EffectsViewState.textSize)
+        Messenger.publish(.fx_changeTextSize, payload: EffectsViewState.textSize)
         
         applyColorScheme(ColorSchemes.systemScheme)
         
@@ -111,22 +111,22 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
 
     private func initSubscriptions() {
 
-        Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
+        Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
         
         // MARK: Commands ----------------------------------------------------------------------------------------
         
         Messenger.subscribe(self, .fx_showFXUnitTab, self.showTab(_:))
         
-        Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize)
+        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize)
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
+        Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changeFXActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFXBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeFXSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
+        Messenger.subscribe(self, .fx_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
+        Messenger.subscribe(self, .fx_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
+        Messenger.subscribe(self, .fx_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
     }
 
     // Switches the tab group to a particular tab
@@ -143,7 +143,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        Messenger.publish(.windowLayout_toggleEffectsWindow)
+        Messenger.publish(.windowManager_toggleEffectsWindow)
     }
     
     private func changeTextSize(_ textSize: TextSize) {

@@ -4,7 +4,7 @@ import Foundation
     A thin wrapper around NotificationCenter that is used to dispatch notifications between app components. It does the following:
  
         - Wraps and unwraps payload objects in and from Notification objects, so clients can deal directly with relevant payload objects.
-        - Provides a filtering mechanism to allow clients to filter incoming notifications (and reject unwanted ones) based on any arbitrary criteria.
+        - Provides a mechanism to allow clients to filter incoming notifications (and reject unwanted ones) based on any arbitrary criteria.
         - Allows notifications to be delivered on a desired queue either synchronously or asynchronously.
         - Provides methods that use publish/subscribe parlance.
  */

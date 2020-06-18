@@ -35,8 +35,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         self.trackPlaybackCompletedChain = trackPlaybackCompletedChain
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
-        Messenger.subscribeAsync(self, .trackPlaybackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
+        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
+        Messenger.subscribeAsync(self, .player_trackPlaybackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
         
         Messenger.subscribe(self, .player_savePlaybackProfile, self.savePlaybackProfile)
         Messenger.subscribe(self, .player_deletePlaybackProfile, self.deletePlaybackProfile)
@@ -183,16 +183,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     // MARK: Seeking functions
     
-    func seekBackward(_ actionMode: ActionMode = .discrete) {
-        attemptSeek(player.seekPosition - getPrimarySeekLength(actionMode))
+    func seekBackward(_ inputMode: UserInputMode = .discrete) {
+        attemptSeek(player.seekPosition - getPrimarySeekLength(inputMode))
     }
     
     func seekBackwardSecondary() {
         attemptSeek(player.seekPosition - secondarySeekLength)
     }
     
-    func seekForward(_ actionMode: ActionMode = .discrete) {
-        attemptSeek(player.seekPosition + getPrimarySeekLength(actionMode))
+    func seekForward(_ inputMode: UserInputMode = .discrete) {
+        attemptSeek(player.seekPosition + getPrimarySeekLength(inputMode))
     }
     
     func seekForwardSecondary() {
@@ -217,14 +217,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         Computes the seek length (i.e. interval/adjustment/delta) used as an increment/decrement when performing a "primary" seek, i.e.
         the seeking that can be performed through the player's seek control buttons.
      
-        The "actionMode" parameter denotes whether the seeking is occurring in a discrete (using the main controls) or continuous (through a scroll gesture) mode. The amount of seeking performed
+        The "inputMode" parameter denotes whether the seeking is occurring in a discrete (using the main controls) or continuous (through a scroll gesture) mode. The amount of seeking performed
         will vary depending on the mode.
      
-        TODO: Clarify how useful this actionMode is, and see if it can be eliminated to prevent confusion.
+        TODO: Clarify how useful this inputMode is, and see if it can be eliminated to prevent confusion.
      */
-    private func getPrimarySeekLength(_ actionMode: ActionMode) -> Double {
+    private func getPrimarySeekLength(_ inputMode: UserInputMode) -> Double {
         
-        if actionMode == .discrete {
+        if inputMode == .discrete {
             
             if preferences.primarySeekLengthOption == .constant {
                 
@@ -292,7 +292,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
                 doTrackPlaybackCompleted()
                 
             } else if seekResult.loopRemoved {
-                Messenger.publish(.playbackLoopChanged)
+                Messenger.publish(.player_playbackLoopChanged)
             }
         }
     }

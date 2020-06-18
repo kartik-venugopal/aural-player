@@ -33,7 +33,7 @@ class EffectsPresetsEditorViewController: NSViewController, NotificationSubscrib
     override func viewDidLoad() {
         
         addSubViews()
-        Messenger.subscribe(self, .editorSelectionChanged, self.editorSelectionChanged(_:))
+        Messenger.subscribe(self, .presetsEditor_selectionChanged, self.editorSelectionChanged(_:))
     }
     
     override func viewDidAppear() {
@@ -42,7 +42,7 @@ class EffectsPresetsEditorViewController: NSViewController, NotificationSubscrib
         tabViewAction(masterPresetsTabViewButton)
         
         for unit: EffectsUnit in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
-            Messenger.publish(.fxPresetsEditor_reloadPresets, payload: unit)
+            Messenger.publish(.fxPresetsEditor_reload, payload: unit)
         }
     }
     
@@ -89,15 +89,15 @@ class EffectsPresetsEditorViewController: NSViewController, NotificationSubscrib
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
-        Messenger.publish(.fxPresetsEditor_renameEffectsPreset, payload: effectsUnit)
+        Messenger.publish(.fxPresetsEditor_rename, payload: effectsUnit)
     }
     
     @IBAction func deletePresetsAction(_ sender: AnyObject) {
-        Messenger.publish(.fxPresetsEditor_deleteEffectsPresets, payload: effectsUnit)
+        Messenger.publish(.fxPresetsEditor_delete, payload: effectsUnit)
     }
     
     @IBAction func applyPresetAction(_ sender: AnyObject) {
-        Messenger.publish(.fxPresetsEditor_applyEffectsPreset, payload: effectsUnit)
+        Messenger.publish(.fxPresetsEditor_apply, payload: effectsUnit)
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {

@@ -91,7 +91,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
-        Messenger.publish(.player_addOrRemoveFavorite)
+        Messenger.publish(.favoritesList_addOrRemove)
     }
     
     // When a "Favorites" menu item is clicked, the item is played

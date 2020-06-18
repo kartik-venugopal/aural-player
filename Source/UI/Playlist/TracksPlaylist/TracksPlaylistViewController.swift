@@ -53,18 +53,18 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func initSubscriptions() {
         
-        Messenger.subscribeAsync(self, .trackAdded, self.trackAdded(_:), queue: .main)
-        Messenger.subscribeAsync(self, .tracksRemoved, self.tracksRemoved(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_trackAdded, self.trackAdded(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved(_:), queue: .main)
 
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribeAsync(self, .trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
+        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
         
         // Don't bother responding if only album art was updated
-        Messenger.subscribeAsync(self, .trackInfoUpdated, self.trackInfoUpdated(_:),
+        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .playbackGapUpdated, self.gapUpdated(_:))
+        Messenger.subscribe(self, .playlist_playbackGapUpdated, self.gapUpdated(_:))
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
@@ -105,19 +105,19 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .changePlaylistTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameTextColor, self.changeTrackNameTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationTextColor, self.changeIndexDurationTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeTrackNameTextColor, self.changeTrackNameTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeIndexDurationTextColor, self.changeIndexDurationTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
         
-        Messenger.subscribe(self, .colorScheme_changePlaylistPlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlaylistSelectionBoxColor, self.changeSelectionBoxColor(_:))
+        Messenger.subscribe(self, .playlist_changePlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
+        Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
     }
     
     override func viewDidAppear() {
@@ -127,7 +127,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         PlaylistViewState.current = .tracks
         PlaylistViewState.currentView = playlistView
 
-        Messenger.publish(.playlistTypeChanged, payload: PlaylistType.tracks)
+        Messenger.publish(.playlist_viewChanged, payload: PlaylistType.tracks)
     }
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
@@ -567,7 +567,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             playlist.setGapsForTrack(track, gapBefore, gapAfter)
             
             // This should also refresh this view
-            Messenger.publish(.playbackGapUpdated, payload: track)
+            Messenger.publish(.playlist_playbackGapUpdated, payload: track)
         }
     }
     
@@ -578,7 +578,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             playlist.removeGapsForTrack(track)
             
             // This should also refresh this view
-            Messenger.publish(.playbackGapUpdated, payload: track)
+            Messenger.publish(.playlist_playbackGapUpdated, payload: track)
         }
     }
     

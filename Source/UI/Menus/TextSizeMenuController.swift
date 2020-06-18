@@ -11,19 +11,19 @@ class TextSizeMenuController: NSObject, NSMenuDelegate {
             if PlayerViewState.textSize != size {
                 
                 PlayerViewState.textSize = size
-                Messenger.publish(.changePlayerTextSize, payload: size)
+                Messenger.publish(.player_changeTextSize, payload: size)
             }
             
             if PlaylistViewState.textSize != size {
                 
                 PlaylistViewState.textSize = size
-                Messenger.publish(.changePlaylistTextSize, payload: size)
+                Messenger.publish(.playlist_changeTextSize, payload: size)
             }
             
             if EffectsViewState.textSize != size {
                 
                 EffectsViewState.textSize = size
-                Messenger.publish(.changeFXTextSize, payload: size)
+                Messenger.publish(.fx_changeTextSize, payload: size)
             }
         }
     }

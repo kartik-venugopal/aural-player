@@ -150,7 +150,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     private func schemeUpdated(_ systemScheme: ColorScheme) {
         
         subViews.forEach({$0.resetFields(systemScheme, history, clipboard)})
-        Messenger.publish(.colorScheme_applyColorScheme, payload: systemScheme)
+        Messenger.publish(.applyColorScheme, payload: systemScheme)
         updateButtonStates()
     }
     

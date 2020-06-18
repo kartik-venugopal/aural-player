@@ -51,7 +51,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
     private func initSubscriptions() {
         
         // Subscribe to notifications
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
@@ -62,12 +62,12 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_panLeft, self.panLeft)
         Messenger.subscribe(self, .player_panRight, self.panRight)
         
-        Messenger.subscribe(self, .changePlayerTextSize, self.changeTextSize(_:))
+        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changePlayerSliderColors, self.changeSliderColors)
-        Messenger.subscribe(self, .colorScheme_changePlayerSliderValueTextColor, self.changeSliderValueTextColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
+        Messenger.subscribe(self, .player_changeSliderValueTextColor, self.changeSliderValueTextColor(_:))
     }
     
     // Updates the volume
@@ -89,16 +89,16 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
     }
     
     // Decreases the volume by a certain preset decrement
-    private func decreaseVolume(_ actionMode: ActionMode) {
+    private func decreaseVolume(_ inputMode: UserInputMode) {
         
-        let newVolume = audioGraph.decreaseVolume(actionMode)
+        let newVolume = audioGraph.decreaseVolume(inputMode)
         volumeChanged(newVolume, audioGraph.muted)
     }
     
     // Increases the volume by a certain preset increment
-    private func increaseVolume(_ actionMode: ActionMode) {
+    private func increaseVolume(_ inputMode: UserInputMode) {
         
-        let newVolume = audioGraph.increaseVolume(actionMode)
+        let newVolume = audioGraph.increaseVolume(inputMode)
         volumeChanged(newVolume, audioGraph.muted)
     }
     

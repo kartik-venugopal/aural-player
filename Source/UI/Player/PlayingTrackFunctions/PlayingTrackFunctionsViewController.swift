@@ -46,21 +46,21 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         // Subscribe to various notifications
         
         // TODO: Add a subscribe() method overload to Messenger that takes multiple notif names for a single msgHandler ???
-        Messenger.subscribe(self, .trackAddedToFavorites, self.trackAddedToFavorites(_:))
-        Messenger.subscribe(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:))
+        Messenger.subscribe(self, .favoritesList_trackAdded, self.trackAddedToFavorites(_:))
+        Messenger.subscribe(self, .favoritesList_trackRemoved, self.trackRemovedFromFavorites(_:))
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
         Messenger.subscribe(self, .player_moreInfo, self.moreInfo)
-        Messenger.subscribe(self, .player_addOrRemoveFavorite, self.addOrRemoveFavorite)
+        Messenger.subscribe(self, .favoritesList_addOrRemove, self.addOrRemoveFavorite)
         Messenger.subscribe(self, .player_bookmarkPosition, self.bookmarkPosition)
         Messenger.subscribe(self, .player_bookmarkLoop, self.bookmarkLoop)
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
         
         self.view.hide()
     }

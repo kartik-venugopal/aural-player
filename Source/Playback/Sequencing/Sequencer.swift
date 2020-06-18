@@ -30,7 +30,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
         self.scope = SequenceScope(playlistType.toPlaylistScopeType())
         
         // Subscribe to notifications that the playlist view type has changed
-        Messenger.subscribe(self, .playlistTypeChanged, self.playlistTypeChanged(_:))
+        Messenger.subscribe(self, .playlist_viewChanged, self.playlistTypeChanged(_:))
     }
     
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {

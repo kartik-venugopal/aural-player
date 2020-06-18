@@ -30,8 +30,8 @@ class ReverbViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .colorScheme_changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
+        Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
+        Messenger.subscribe(self, .changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
     }
     
     override func initControls() {

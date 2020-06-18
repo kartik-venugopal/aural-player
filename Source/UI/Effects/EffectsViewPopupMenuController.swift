@@ -35,7 +35,7 @@ class EffectsViewPopupMenuController: NSObject, NSMenuDelegate {
         if let size = TextSize(rawValue: sender.title.lowercased()), EffectsViewState.textSize != size {
             
             EffectsViewState.textSize = size
-            Messenger.publish(.changeFXTextSize, payload: size)
+            Messenger.publish(.fx_changeTextSize, payload: size)
         }
     }
 }

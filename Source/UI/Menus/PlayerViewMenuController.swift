@@ -39,7 +39,7 @@ class PlaylistViewMenuController: NSObject, NSMenuDelegate {
         if let size = TextSize(rawValue: sender.title.lowercased()), PlaylistViewState.textSize != size {
             
             PlaylistViewState.textSize = size
-            Messenger.publish(.changePlaylistTextSize, payload: size)
+            Messenger.publish(.playlist_changeTextSize, payload: size)
         }
     }
 }
@@ -78,7 +78,7 @@ class EffectsViewMenuController: NSObject, NSMenuDelegate {
         if let size = TextSize(rawValue: sender.title.lowercased()), EffectsViewState.textSize != size {
             
             EffectsViewState.textSize = size
-            Messenger.publish(.changeFXTextSize, payload: size)
+            Messenger.publish(.fx_changeTextSize, payload: size)
         }
     }
 }

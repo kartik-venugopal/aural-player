@@ -78,7 +78,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameTextColor() {
         
         ColorSchemes.systemScheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistTrackNameTextColor, payload: trackNameTextColorPicker.color)
+        Messenger.publish(.playlist_changeTrackNameTextColor, payload: trackNameTextColorPicker.color)
     }
     
     @IBAction func groupNameTextColorAction(_ sender: Any) {
@@ -90,7 +90,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupNameTextColor() {
         
         ColorSchemes.systemScheme.playlist.groupNameTextColor = groupNameTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistGroupNameTextColor, payload: groupNameTextColorPicker.color)
+        Messenger.publish(.playlist_changeGroupNameTextColor, payload: groupNameTextColorPicker.color)
     }
     
     @IBAction func indexDurationTextColorAction(_ sender: Any) {
@@ -102,7 +102,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeIndexDurationTextColor() {
         
         ColorSchemes.systemScheme.playlist.indexDurationTextColor = indexDurationTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistIndexDurationTextColor, payload: indexDurationTextColorPicker.color)
+        Messenger.publish(.playlist_changeIndexDurationTextColor, payload: indexDurationTextColorPicker.color)
     }
     
     @IBAction func trackNameSelectedTextColorAction(_ sender: Any) {
@@ -114,7 +114,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameSelectedTextColor() {
         
         ColorSchemes.systemScheme.playlist.trackNameSelectedTextColor = trackNameSelectedTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistTrackNameSelectedTextColor, payload: trackNameSelectedTextColorPicker.color)
+        Messenger.publish(.playlist_changeTrackNameSelectedTextColor, payload: trackNameSelectedTextColorPicker.color)
     }
     
     @IBAction func groupNameSelectedTextColorAction(_ sender: Any) {
@@ -126,7 +126,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupNameSelectedTextColor() {
         
         ColorSchemes.systemScheme.playlist.groupNameSelectedTextColor = groupNameSelectedTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistGroupNameSelectedTextColor, payload: groupNameSelectedTextColorPicker.color)
+        Messenger.publish(.playlist_changeGroupNameSelectedTextColor, payload: groupNameSelectedTextColorPicker.color)
     }
     
     @IBAction func indexDurationSelectedTextColorAction(_ sender: Any) {
@@ -138,7 +138,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeIndexDurationSelectedTextColor() {
         
         ColorSchemes.systemScheme.playlist.indexDurationSelectedTextColor = indexDurationSelectedTextColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistIndexDurationSelectedTextColor, payload: indexDurationSelectedTextColorPicker.color)
+        Messenger.publish(.playlist_changeIndexDurationSelectedTextColor, payload: indexDurationSelectedTextColorPicker.color)
     }
     
     @IBAction func groupIconColorAction(_ sender: Any) {
@@ -150,7 +150,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupIconColor() {
         
         ColorSchemes.systemScheme.playlist.groupIconColor = groupIconColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistGroupIconColor, payload: groupIconColorPicker.color)
+        Messenger.publish(.playlist_changeGroupIconColor, payload: groupIconColorPicker.color)
     }
     
     @IBAction func groupDisclosureTriangleColorAction(_ sender: Any) {
@@ -162,7 +162,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupDisclosureTriangleColor() {
         
         ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor = groupDisclosureTriangleColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistGroupDisclosureTriangleColor, payload: groupDisclosureTriangleColorPicker.color)
+        Messenger.publish(.playlist_changeGroupDisclosureTriangleColor, payload: groupDisclosureTriangleColorPicker.color)
     }
     
     @IBAction func selectionBoxColorAction(_ sender: Any) {
@@ -174,7 +174,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeSelectionBoxColor() {
         
         ColorSchemes.systemScheme.playlist.selectionBoxColor = selectionBoxColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistSelectionBoxColor, payload: selectionBoxColorPicker.color)
+        Messenger.publish(.playlist_changeSelectionBoxColor, payload: selectionBoxColorPicker.color)
     }
     
     @IBAction func playingTrackIconColorAction(_ sender: Any) {
@@ -186,7 +186,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changePlayingTrackIconColor() {
         
         ColorSchemes.systemScheme.playlist.playingTrackIconColor = playingTrackIconColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistPlayingTrackIconColor, payload: playingTrackIconColorPicker.color)
+        Messenger.publish(.playlist_changePlayingTrackIconColor, payload: playingTrackIconColorPicker.color)
     }
     
     @IBAction func summaryInfoColorAction(_ sender: Any) {
@@ -198,6 +198,6 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeSummaryInfoColor() {
         
         ColorSchemes.systemScheme.playlist.summaryInfoColor = summaryInfoColorPicker.color
-        Messenger.publish(.colorScheme_changePlaylistSummaryInfoColor, payload: summaryInfoColorPicker.color)
+        Messenger.publish(.playlist_changeSummaryInfoColor, payload: summaryInfoColorPicker.color)
     }
 }

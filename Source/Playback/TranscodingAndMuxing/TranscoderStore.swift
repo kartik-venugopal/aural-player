@@ -33,7 +33,7 @@ class TranscoderStore: NotificationSubscriber {
             })
         }
         
-        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
+        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
 //        backgroundQueue.async {
 //            self.cleanUpMappings()

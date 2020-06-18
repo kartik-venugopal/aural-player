@@ -141,7 +141,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
             oldPresetName = presetName
         }
         
-        Messenger.publish(.editorSelectionChanged, payload: numRows)
+        Messenger.publish(.presetsEditor_selectionChanged, payload: numRows)
     }
     
     // MARK: Text field delegate functions

@@ -87,10 +87,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
             masterUnit.applyPreset(presetName)
         }
         
-        Messenger.subscribe(self, .appExitRequest, self.onAppExit(_:))
-        Messenger.subscribe(self, .preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
+        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
+        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
         
-        Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) && self.preferences.rememberEffectsSettings},
                                  queue: notificationQueue)
         
@@ -124,17 +124,17 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var formattedBalance: String {return ValueFormatter.formatPan(balance)}
     
-    func increaseVolume(_ actionMode: ActionMode) -> Float {
+    func increaseVolume(_ inputMode: UserInputMode) -> Float {
         
-        let volumeDelta = actionMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
+        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
         graph.volume = min(1, graph.volume + volumeDelta)
         
         return volume
     }
     
-    func decreaseVolume(_ actionMode: ActionMode) -> Float {
+    func decreaseVolume(_ inputMode: UserInputMode) -> Float {
         
-        let volumeDelta = actionMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
+        let volumeDelta = inputMode == .discrete ? preferences.volumeDelta : preferences.volumeDelta_continuous
         graph.volume = max(0, graph.volume - volumeDelta)
         
         return volume

@@ -38,9 +38,9 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_setRepeatMode, self.setRepeatMode(_:))
         Messenger.subscribe(self, .player_setShuffleMode, self.setShuffleMode(_:))
         
-        Messenger.subscribe(self, .colorScheme_applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .colorScheme_changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .colorScheme_changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
     }
     
     // Toggles the repeat mode
