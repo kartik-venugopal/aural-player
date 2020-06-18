@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, MessageSubscriber {
+class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, NotificationSubscriber {
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
@@ -69,7 +69,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     func initSubscriptions() {
         
-        // Subscribe to message notifications
+        // Subscribe to notifications
         Messenger.subscribe(self, .fxUnitStateChanged, self.stateChanged)
         
         Messenger.subscribe(self, .changeFXTextSize, self.changeTextSize(_:))

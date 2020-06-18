@@ -3,7 +3,7 @@ import Cocoa
 /*
     Base view controller for the hierarchical/grouping ("Artists", "Albums", and "Genres") playlist views
  */
-class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
+class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
@@ -631,9 +631,9 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
         groupsToReload.forEach({playlistView.reloadItem($0)})
     }
     
-    func trackTransitioned(_ message: TrackTransitionNotification) {
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        let oldTrack = message.beginTrack
+        let oldTrack = notification.beginTrack
         
         if let _oldTrack = oldTrack {
             
@@ -650,7 +650,7 @@ class GroupingPlaylistViewController: NSViewController, MessageSubscriber {
         
         let needToShowTrack: Bool = PlaylistViewState.current.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist
         
-        if let newTrack = message.endTrack {
+        if let newTrack = notification.endTrack {
             
             // There is a new track, select it if necessary
             

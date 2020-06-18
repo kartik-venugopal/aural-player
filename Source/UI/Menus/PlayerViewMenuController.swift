@@ -1,11 +1,10 @@
 import Cocoa
 
 /*
- Provides actions for the View menu that alters the layout of the app's windows and views.
- 
- NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
+     Provides actions for the View menu that alters the layout of the app's windows and views.
+     
+     NOTE - No actions are directly handled by this class. Command notifications are published to another app component that is responsible for these functions.
  */
-
 class PlaylistViewMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!

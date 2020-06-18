@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlayerSequencingViewController: NSViewController, MessageSubscriber {
+class PlayerSequencingViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!

@@ -1,6 +1,6 @@
 import Foundation
 
-class TranscoderDaemon: MessageSubscriber {
+class TranscoderDaemon: NotificationSubscriber {
     
     let immediateExecutionQueue: OperationQueue = OperationQueue()
     let backgroundExecutionQueue: OperationQueue = OperationQueue()

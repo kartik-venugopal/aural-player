@@ -1,6 +1,6 @@
 import Foundation
 
-class TranscoderStore: MessageSubscriber {
+class TranscoderStore: NotificationSubscriber {
     
     // TODO: Be more careful when deleting files from file system (don't want to delete unrelated files)
     

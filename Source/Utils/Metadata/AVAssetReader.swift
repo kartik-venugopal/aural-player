@@ -1,7 +1,7 @@
 import Cocoa
 import AVFoundation
 
-class AVAssetReader: MetadataReader, MessageSubscriber {
+class AVAssetReader: MetadataReader, NotificationSubscriber {
     
     var allParsers: [AVAssetParser]
     var muxer: MuxerProtocol

@@ -66,7 +66,7 @@ class GestureHandler {
         
         if preferences.allowTrackChange {
             
-            // Publish the action message
+            // Publish the command notification
             Messenger.publish(swipeDirection == .left ? .player_previousTrack : .player_nextTrack)
         }
     }

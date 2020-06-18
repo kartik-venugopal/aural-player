@@ -5,11 +5,11 @@ import Cocoa
  
     NOTE:
  
-        - No actions are directly handled by this class. Action messages are published to other app components that are responsible for these functions.
+        - No actions are directly handled by this class. Command notifications are published to other app components that are responsible for these functions.
  
         - Since the dock menu runs outside the Aural Player process, it does not respond to menu delegate callbacks. For this reason, it needs to listen for model updates and be updated eagerly. It cannot be updated lazily, just in time, as the menu is about to open.
  */
-class DockMenuController: NSObject, NSMenuDelegate, MessageSubscriber {
+class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     
     // TODO: Add Bookmarks sub-menu under Favorites sub-menu
     
@@ -52,7 +52,7 @@ class DockMenuController: NSObject, NSMenuDelegate, MessageSubscriber {
         Messenger.subscribeAsync(self, .trackRemovedFromFavorites, self.trackRemovedFromFavorites(_:), queue: .main)
         Messenger.subscribeAsync(self, .historyUpdated, self.recreateHistoryMenus, queue: .main)
         
-        // Subscribe to message notifications
+        // Subscribe to notifications
         Messenger.subscribeAsync(self, .trackTransition, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)

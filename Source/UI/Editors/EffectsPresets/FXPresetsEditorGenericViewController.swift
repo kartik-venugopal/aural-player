@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, MessageSubscriber {
+class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NotificationSubscriber {
     
     @IBOutlet weak var editorView: NSTableView!
     @IBOutlet weak var previewBox: NSBox!

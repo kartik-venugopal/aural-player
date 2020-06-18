@@ -3,7 +3,7 @@ import Cocoa
 /*
     Provides actions for the Playback menu that affect the playing track and playback sequence (repeat/shuffle modes).
  
-    NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
+    NOTE - No actions are directly handled by this class. Command notifications are published to another app component that is responsible for these functions.
  */
 class PlaybackMenuController: NSObject, NSMenuDelegate {
     

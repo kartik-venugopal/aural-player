@@ -3,7 +3,7 @@ import Cocoa
 /*
  View controller for the flat ("Tracks") playlist view
  */
-class TracksPlaylistViewController: NSViewController, MessageSubscriber {
+class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
@@ -434,8 +434,8 @@ class TracksPlaylistViewController: NSViewController, MessageSubscriber {
         playlistView.noteNumberOfRowsChanged()
     }
     
-    private func trackTransitioned(_ message: TrackTransitionNotification) {
-        trackTransitioned(message.beginTrack, message.endTrack)
+    private func trackTransitioned(_ notification: TrackTransitionNotification) {
+        trackTransitioned(notification.beginTrack, notification.endTrack)
     }
     
     private func trackTransitioned(_ oldTrack: Track?, _ newTrack: Track?) {

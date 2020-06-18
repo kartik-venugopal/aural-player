@@ -3,7 +3,7 @@ import Cocoa
 /*
     Handler that responds to macOS media keys (play/pause, next, previous)
  */
-class MediaKeyHandler: MediaKeyTapDelegate, MessageSubscriber {
+class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
     
     private var preferences: ControlsPreferences
     

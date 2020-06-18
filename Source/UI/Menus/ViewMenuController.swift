@@ -3,7 +3,7 @@ import Cocoa
 /*
     Provides actions for the View menu that alters the layout of the app's windows and views.
  
-    NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
+    NOTE - No actions are directly handled by this class. Command notifications are published to another app component that is responsible for these functions.
  */
 class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     

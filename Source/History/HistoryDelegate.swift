@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of HistoryDelegateProtocol
  */
-class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, PersistentModelObject {
+class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber, PersistentModelObject {
     
     // The actual underlying History model object
     private let history: HistoryProtocol
@@ -130,9 +130,9 @@ class HistoryDelegate: HistoryDelegateProtocol, MessageSubscriber, PersistentMod
     }
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
-    func trackPlayed(_ message: TrackTransitionNotification) {
+    func trackPlayed(_ notification: TrackTransitionNotification) {
         
-        if let newTrack = message.endTrack {
+        if let newTrack = notification.endTrack {
         
             lastPlayedTrack = newTrack
             history.addRecentlyPlayedItem(newTrack.file, newTrack.conciseDisplayName, Date())

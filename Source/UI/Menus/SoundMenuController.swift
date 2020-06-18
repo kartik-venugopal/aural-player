@@ -3,7 +3,7 @@ import Cocoa
 /*
     Provides actions for the Sound menu that alter the sound output.
  
-    NOTE - No actions are directly handled by this class. Action messages are published to another app component that is responsible for these functions.
+    NOTE - No actions are directly handled by this class. Command notifications are published to another app component that is responsible for these functions.
  */
 class SoundMenuController: NSObject, NSMenuDelegate {
     
