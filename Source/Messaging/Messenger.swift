@@ -223,6 +223,21 @@ class Messenger {
         }
     }
     
+    /// Unsubscribes a subscriber from all its registered notifications.
+    ///
+    /// - Parameter subscriber:     The subscriber that is unsubscribing from notifications.
+    ///
+    static func unsubscribeAll(for subscriber: NotificationSubscriber) {
+        
+        // Retrieve the subscriptions from the subscriptions map
+        if let subscriptionsForSubscriber = subscriptions[subscriber.subscriberId] {
+            
+            for observer in subscriptionsForSubscriber.values {
+                notifCtr.removeObserver(observer)
+            }
+        }
+    }
+    
     /// Helper function that adds a new subscription to the subscriptions map, for later reference (eg. when unsubscribing).
     ///
     /// - Parameter subscriberId:   A unique identifier for the subscriber of the relevant notification.

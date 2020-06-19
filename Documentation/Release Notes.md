@@ -1,6 +1,6 @@
 #  What's New in Version 2.2.0
 
-### Messaging (back end) redesign
+### Messaging framework (back end) redesign
 
 The internal messaging framework has been redesigned and reimplemented as a thin wrapper around NotificationCenter, resulting in much cleaner and more concise notification handling code throughout the app. Lines of code have been reduced by around 2400.
 
