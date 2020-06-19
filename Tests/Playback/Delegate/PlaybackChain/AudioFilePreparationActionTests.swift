@@ -1,6 +1,6 @@
 import XCTest
 
-class AudioFilePreparationActionTests: AuralTestCase, AsyncMessageSubscriber {
+class AudioFilePreparationActionTests: AuralTestCase, NotificationSubscriber {
     
     var action: AudioFilePreparationAction!
     var chain: MockPlaybackChain!
@@ -29,23 +29,22 @@ class AudioFilePreparationActionTests: AuralTestCase, AsyncMessageSubscriber {
         action = AudioFilePreparationAction(player, transcoder)
         chain = MockPlaybackChain()
         
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: .main)
+        Messenger.subscribe(self, .player_trackTransitioned, self.gapStarted(_:), filter: {notif in notif.gapStarted})
         
         PlaybackRequestContext.clearCurrentContext()
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    override func tearDown() {
+        Messenger.unsubscribeAll(for: self)
+    }
+    
+    func gapStarted(_ notif: TrackTransitionNotification) {
         
-        if let gapStartedMsg = message as? TrackTransitionAsyncMessage, gapStartedMsg.gapStarted {
-            
-            gapStartedMsgCount.increment()
-            
-            gapStartedMsg_oldTrack = gapStartedMsg.beginTrack
-            gapStartedMsg_endTime = gapStartedMsg.gapEndTime
-            gapStartedMsg_newTrack = gapStartedMsg.endTrack
-            
-            return
-        }
+        gapStartedMsgCount.increment()
+        
+        gapStartedMsg_oldTrack = notif.beginTrack
+        gapStartedMsg_endTime = notif.gapEndTime
+        gapStartedMsg_newTrack = notif.endTrack
     }
     
     func testAudioFilePreparationAction_noRequestedTrack() {
@@ -402,20 +401,14 @@ class AudioFilePreparationActionTests: AuralTestCase, AsyncMessageSubscriber {
     
     private func assertGapStarted(_ oldTrack: Track?, _ newTrack: Track) {
         
-        executeAfter(0.5) {
-            
-            XCTAssertEqual(self.gapStartedMsgCount, 1)
-            XCTAssertEqual(self.gapStartedMsg_oldTrack, oldTrack)
-            XCTAssertEqual(self.gapStartedMsg_newTrack!, newTrack)
-            XCTAssertEqual(self.gapStartedMsg_endTime!.compare(Date()), ComparisonResult.orderedDescending)
-        }
+        XCTAssertEqual(self.gapStartedMsgCount, 1)
+        XCTAssertEqual(self.gapStartedMsg_oldTrack, oldTrack)
+        XCTAssertEqual(self.gapStartedMsg_newTrack!, newTrack)
+        XCTAssertEqual(self.gapStartedMsg_endTime!.compare(Date()), ComparisonResult.orderedDescending)
     }
     
     private func assertGapNotStarted() {
-        
-        executeAfter(0.5) {
-            XCTAssertEqual(self.gapStartedMsgCount, 0)
-        }
+        XCTAssertEqual(self.gapStartedMsgCount, 0)
     }
     
     private func waitAndAssertChainProceeded(_ context: PlaybackRequestContext) {

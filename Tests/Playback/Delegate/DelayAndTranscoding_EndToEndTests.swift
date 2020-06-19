@@ -20,7 +20,7 @@ class DelayAndTranscoding_EndToEndTests: PlaybackDelegateTests {
             
             // Prepare track and signal transcoding finished
             track.prepareWithAudioFile(URL(fileURLWithPath: "/Dummy/TranscoderOutputFile.m4a"))
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, true))
+            Messenger.publish(TranscodingFinishedNotification(track: track, success: true))
             
             usleep(500000)
             
@@ -42,7 +42,7 @@ class DelayAndTranscoding_EndToEndTests: PlaybackDelegateTests {
             
             // Prepare track and signal transcoding finished
             track.prepareWithAudioFile(URL(fileURLWithPath: "/Dummy/TranscoderOutputFile.m4a"))
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(track, true))
+            Messenger.publish(TranscodingFinishedNotification(track: track, success: true))
             
             usleep(500000)
             

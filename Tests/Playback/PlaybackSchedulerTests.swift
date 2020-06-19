@@ -1,7 +1,7 @@
 import XCTest
 import Cocoa
 
-class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
+class PlaybackSchedulerTests: AuralTestCase, NotificationSubscriber {
     
     private var scheduler: PlaybackScheduler!
     private var mockPlayerNode: MockPlayerNode!
@@ -19,7 +19,7 @@ class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
             mockPlayerNode = MockPlayerNode(useLegacyAPI: false)
             scheduler = PlaybackScheduler(mockPlayerNode)
             
-            AsyncMessenger.subscribe([.playbackCompleted], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
+            Messenger.subscribe(self, .player_trackPlaybackCompleted, self.trackPlaybackCompleted(_:))
         }
         
         track.setDuration(300)
@@ -36,18 +36,15 @@ class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
     }
     
     override func tearDown() {
-        
+
         // Prevent test case objects from receiving each other's messages.
-        AsyncMessenger.unsubscribe([.playbackCompleted], subscriber: self)
+        Messenger.unsubscribeAll(for: self)
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let completionMessage = message as? PlaybackCompletedAsyncMessage {
-            
-            trackCompletionMsgReceived = true
-            completedSessionIsCurrent = PlaybackSession.isCurrent(completionMessage.session)
-        }
+    func trackPlaybackCompleted(_ completedSession: PlaybackSession) {
+
+        trackCompletionMsgReceived = true
+        completedSessionIsCurrent = PlaybackSession.isCurrent(completedSession)
     }
     
     // MARK: seekPosition tests ---------------------------------------------------------------------------------------------------------
@@ -250,10 +247,7 @@ class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
         // Track should not complete playback when resumed.
         scheduler.resume()
         
-        // Wait 1/2 second, then validate
-        executeAfter(0.5) {
-            XCTAssertFalse(self.trackCompletionMsgReceived || self.completedSessionIsCurrent)
-        }
+        XCTAssertFalse(self.trackCompletionMsgReceived || self.completedSessionIsCurrent)
     }
     
     func testResume_trackCompletedWhilePaused() {
@@ -272,10 +266,7 @@ class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
         // Track should complete playback when resumed.
         scheduler.resume()
         
-        // Wait 1/2 second, then validate
-        executeAfter(0.5) {
-            XCTAssertTrue(self.trackCompletionMsgReceived && self.completedSessionIsCurrent)
-        }
+        XCTAssertTrue(self.trackCompletionMsgReceived && self.completedSessionIsCurrent)
     }
     
     func testStop_playing() {
@@ -323,10 +314,7 @@ class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
         XCTAssertFalse(mockPlayerNode.isPlaying)
         XCTAssertEqual(mockPlayerNode.stopped, true)
         
-        // Wait 1/2 second, then validate (no message should be received).
-        executeAfter(0.5) {
-            XCTAssertFalse(self.trackCompletionMsgReceived || self.completedSessionIsCurrent)
-        }
+        XCTAssertFalse(self.trackCompletionMsgReceived || self.completedSessionIsCurrent)
     }
     
     // MARK: playLoop() tests ---------------------------------------------------------------------------------------------------------
@@ -511,11 +499,8 @@ class PlaybackSchedulerTests: AuralTestCase, AsyncMessageSubscriber {
         // Even if no scheduling was done, the player's playback state should not have been altered (i.e. if it was playing, it is still playing).
         XCTAssertEqual(mockPlayerNode.isPlaying, playing)
 
-        // Wait 1/2 second, then validate
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackCompletionMsgReceived, isSessionCurrent && playing)
-            XCTAssertEqual(self.completedSessionIsCurrent, isSessionCurrent && playing)
-        }
+        XCTAssertEqual(self.trackCompletionMsgReceived, isSessionCurrent && playing)
+        XCTAssertEqual(self.completedSessionIsCurrent, isSessionCurrent && playing)
     }
     
     // MARK: loopSegmentCompleted() tests ---------------------------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import XCTest
 
-class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
+class ForcedSeekingTests: PlaybackDelegateTests {
     
     // MARK: seekToPercentage() tests ------------------------------------------------------------------------
     
@@ -47,7 +47,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToPercentage_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -98,7 +98,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToPercentage() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -147,22 +147,17 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     
     private var loopChangedMsgCount: Int = 0
     
-    func consumeNotification(_ notification: NotificationMessage) {
-        
-        if notification is PlaybackLoopChangedNotification {
-            
-            loopChangedMsgCount.increment()
-            return
-        }
+    func loopChanged() {
+        loopChangedMsgCount.increment()
     }
     
     func testSeekToPercentage_loopRemoved() {
         
         // Don't want track change notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         // Subscribe to loop change messages
-        SyncMessenger.subscribe(messageTypes: [.playbackLoopChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .player_playbackLoopChanged, self.loopChanged)
         
         let track = createTrack("Like a Virgin", 250)
         
@@ -222,7 +217,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, nil, 2)
         }
     }
@@ -252,7 +247,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, subsequentTrack, 2)
         }
     }
@@ -293,7 +288,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToTime_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -343,7 +338,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToTime() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...1000 {
@@ -392,10 +387,10 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
     func testSeekToTime_loopRemoved() {
         
         // Don't want track change notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         // Subscribe to loop change messages
-        SyncMessenger.subscribe(messageTypes: [.playbackLoopChangedNotification], subscriber: self)
+        Messenger.subscribe(self, .player_playbackLoopChanged, self.loopChanged)
         
         let track = createTrack("Like a Virgin", 250)
         
@@ -454,7 +449,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, nil, 2)
         }
     }
@@ -484,7 +479,7 @@ class ForcedSeekingTests: PlaybackDelegateTests, MessageSubscriber {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, subsequentTrack, 2)
         }
     }

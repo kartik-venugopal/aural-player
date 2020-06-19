@@ -1,7 +1,7 @@
 import XCTest
 
 class SecondarySeekingTests: PlaybackDelegateTests {
-
+    
     // MARK: seekBackwardSecondary() tests ------------------------------------------------------------------------
     
     func testSeekBackwardSecondary_noPlayingTrack() {
@@ -38,7 +38,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekBackwardSecondary_constantSeekLength() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -102,7 +102,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekBackwardSecondary_constantSeekLength_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -170,7 +170,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekBackwardSecondary_trackDurationPercentage() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -231,7 +231,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekBackwardSecondary_trackDurationPercentage_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -329,7 +329,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekForwardSecondary_constantSeekLength() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -396,7 +396,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekForwardSecondary_constantSeekLength_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -463,7 +463,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekForwardSecondary_trackDurationPercentage() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -527,7 +527,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
     func testSeekForwardSecondary_trackDurationPercentage_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -617,7 +617,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, nil, 2)
         }
     }
@@ -652,7 +652,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, subsequentTrack, 2)
         }
     }

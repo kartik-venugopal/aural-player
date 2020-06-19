@@ -1,6 +1,6 @@
 import XCTest
 
-class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSubscriber {
+class StartPlaybackChainTests: AuralTestCase, NotificationSubscriber {
     
     var chain: TestableStartPlaybackChain!
     
@@ -21,10 +21,10 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
     var preTrackChangeMsg_currentState: PlaybackState?
     var preTrackChangeMsg_newTrack: Track?
     
-    var trackTransitionMsgCount: Int = 0
-    var trackTransitionMsg_currentTrack: Track?
-    var trackTransitionMsg_currentState: PlaybackState?
-    var trackTransitionMsg_newTrack: Track?
+    var trackChangeMsgCount: Int = 0
+    var trackChangeMsg_currentTrack: Track?
+    var trackChangeMsg_currentState: PlaybackState?
+    var trackChangeMsg_newTrack: Track?
     
     var gapStartedMsgCount: Int = 0
     var gapStartedMsg_oldTrack: Track?
@@ -61,68 +61,75 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         
         chain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
         
-        SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
-        AsyncMessenger.subscribe([.trackTransition, .trackNotPlayed], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
+        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:))
+        Messenger.subscribe(self, .player_trackTransitioned, self.trackTransitioned(_:))
+        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
     }
     
     override func tearDown() {
-        
-        SyncMessenger.unsubscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
-        AsyncMessenger.unsubscribe([.trackTransition, .trackNotPlayed], subscriber: self)
-        
-        AsyncMessenger.unsubscribe([.transcodingFinished], subscriber: chain)
+        Messenger.unsubscribeAll(for: self)
+        Messenger.unsubscribeAll(for: chain)
     }
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    func trackTransitioned(_ notif: TrackTransitionNotification) {
         
-        if let msg = notification as? PreTrackChangeNotification {
+        ConcurrencyUtils.executeSynchronized(self, closure: {
             
-            preTrackChangeMsgCount.increment()
-            
-            preTrackChangeMsg_currentTrack = msg.oldTrack
-            preTrackChangeMsg_currentState = msg.oldState
-            preTrackChangeMsg_newTrack = msg.newTrack
-            
-            return
-        }
-    }
-    
-    func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
-            
-            if trackTransitionMsg.gapStarted {
+            if notif.gapStarted {
                 
-                gapStartedMsgCount.increment()
+                gapStarted(notif)
                 
-                gapStartedMsg_oldTrack = trackTransitionMsg.beginTrack
-                gapStartedMsg_endTime = trackTransitionMsg.gapEndTime
-                gapStartedMsg_newTrack = trackTransitionMsg.endTrack
+            } else if notif.transcodingStarted {
                 
-            } else if trackTransitionMsg.transcodingStarted {
+                transcodingStarted(notif)
                 
-                transcodingStartedMsgCount.increment()
+            } else if notif.playbackStarted || notif.playbackEnded {
                 
-                transcodingStartedMsg_oldTrack = trackTransitionMsg.beginTrack
-                transcodingStartedMsg_newTrack = trackTransitionMsg.endTrack
-                
-            } else if trackTransitionMsg.playbackStarted {
-            
-                trackTransitionMsgCount.increment()
-                
-                trackTransitionMsg_currentTrack = trackTransitionMsg.beginTrack
-                trackTransitionMsg_currentState = trackTransitionMsg.beginState
-                trackTransitionMsg_newTrack = trackTransitionMsg.endTrack
+                trackChanged(notif)
             }
-            
-        } else if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
-            
-            trackNotPlayedMsgCount.increment()
-            trackNotPlayedMsg_oldTrack = trackNotPlayedMsg.oldTrack
-            trackNotPlayedMsg_error = trackNotPlayedMsg.error
-            
-            return
-        }
+        })
+    }
+    
+    func preTrackChange(_ notif: PreTrackChangeNotification) {
+        
+        preTrackChangeMsgCount.increment()
+        
+        preTrackChangeMsg_currentTrack = notif.oldTrack
+        preTrackChangeMsg_currentState = notif.oldState
+        preTrackChangeMsg_newTrack = notif.newTrack
+    }
+    
+    func trackChanged(_ notif: TrackTransitionNotification) {
+        
+        trackChangeMsgCount.increment()
+        
+        trackChangeMsg_currentTrack = notif.beginTrack
+        trackChangeMsg_newTrack = notif.endTrack
+        trackChangeMsg_currentState = notif.beginState
+    }
+    
+    func gapStarted(_ notif: TrackTransitionNotification) {
+        
+        gapStartedMsgCount.increment()
+        
+        gapStartedMsg_oldTrack = notif.beginTrack
+        gapStartedMsg_endTime = notif.gapEndTime
+        gapStartedMsg_newTrack = notif.endTrack
+    }
+    
+    func transcodingStarted(_ notif: TrackTransitionNotification) {
+        
+        transcodingStartedMsgCount.increment()
+        
+        transcodingStartedMsg_oldTrack = notif.beginTrack
+        transcodingStartedMsg_newTrack = notif.endTrack
+    }
+    
+    func trackNotPlayed(_ notif: TrackNotPlayedNotification) {
+        
+        trackNotPlayedMsgCount.increment()
+        trackNotPlayedMsg_oldTrack = notif.oldTrack
+        trackNotPlayedMsg_error = notif.error
     }
     
     func testStartPlayback_noRequestedTrack() {
@@ -160,7 +167,7 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         
         chain.execute(context)
         
-        assertTrackChange(currentTrack, .playing, requestedTrack)
+        assertTrackChange(currentTrack, .playing, requestedTrack, 1)
     }
     
     func testStartPlayback_currentTrackIsTranscoding_transcodingCancelled() {
@@ -175,7 +182,7 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
         XCTAssertEqual(transcoder.transcodeCancel_track, currentTrack)
         
-        assertTrackChange(currentTrack, .transcoding, requestedTrack)
+        assertTrackChange(currentTrack, .transcoding, requestedTrack, 1)
     }
     
     func testStartPlayback_currentTrackIsWaiting_oldContextInvalidated() {
@@ -199,13 +206,13 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         // The old context should no longer be current
         XCTAssertFalse(PlaybackRequestContext.isCurrent(oldContext))
         
-        assertTrackChange(currentTrack, .waiting, requestedTrack)
+        assertTrackChange(currentTrack, .waiting, requestedTrack, 1)
         
         // Wait for the old track's delay to transpire
         executeAfter(oldRequestParams.delay! + 1) {
             
             // Assert that the old context did not cause a track change
-            XCTAssertEqual(self.trackTransitionMsgCount, 1)
+            XCTAssertEqual(self.trackChangeMsgCount, 1)
         }
     }
     
@@ -229,7 +236,7 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         let newProfile = profiles.get(currentTrack)!
         XCTAssertEqual(newProfile.lastPosition, context.currentSeekPosition)
         
-        assertTrackChange(currentTrack, .playing, requestedTrack)
+        assertTrackChange(currentTrack, .playing, requestedTrack, 1)
     }
     
     func testStartPlayback_currentTrackHasPlaybackProfile_profilePositionResetTo0() {
@@ -252,7 +259,7 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         let newProfile = profiles.get(currentTrack)!
         XCTAssertEqual(newProfile.lastPosition, 0)
         
-        assertTrackChange(currentTrack, .playing, requestedTrack)
+        assertTrackChange(currentTrack, .playing, requestedTrack, 1)
     }
     
     func testStartPlayback_delayBeforeRequestedTrack() {
@@ -269,7 +276,7 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         assertGapStarted(currentTrack, requestedTrack)
         
         justWait(context.delay!)
-        assertTrackChange(requestedTrack, .waiting, requestedTrack)
+        assertTrackChange(requestedTrack, .waiting, requestedTrack, 1)
     }
     
     func testStartPlayback_delayBeforeRequestedTrack_requestedTrackInvalid() {
@@ -306,7 +313,7 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         assertGapStarted(currentTrack, requestedTrack)
         
         justWait(context.delay!)
-        assertTrackChange(requestedTrack, .waiting, requestedTrack)
+        assertTrackChange(requestedTrack, .waiting, requestedTrack, 1)
     }
     
     func testStartPlayback_requestedTrackNeedsTranscoding() {
@@ -328,10 +335,10 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         requestedTrack.prepareWithAudioFile(URL(fileURLWithPath: "/Dummy/AudioFile.m4a"))
         XCTAssertTrue(requestedTrack.lazyLoadingInfo.preparedForPlayback)
         
-        AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(requestedTrack, true))
-        justWait(0.5)
+        Messenger.publish(TranscodingFinishedNotification(track: requestedTrack, success: true))
+        justWait(0.2)
         
-        assertTrackChange(requestedTrack, .transcoding, requestedTrack)
+        assertTrackChange(requestedTrack, .transcoding, requestedTrack, 1)
     }
     
     func testStartPlayback_requestedTrackNeedsTranscoding_transcodingFailed() {
@@ -354,8 +361,8 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         
         // Simulate transcoding failed
         requestedTrack.lazyLoadingInfo.preparationFailed(NoAudioTracksError(requestedTrack))
-        AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(requestedTrack, false))
-        justWait(0.5)
+        Messenger.publish(TranscodingFinishedNotification(track: requestedTrack, success: false))
+        justWait(0.2)
         
         assertTrackNotPlayed(requestedTrack, requestedTrack)
     }
@@ -365,17 +372,14 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         XCTAssertEqual(player.state, .noTrack)
         XCTAssertEqual(preTrackChangeMsgCount, 0)
         
-        executeAfter(0.5) {
-            
-            XCTAssertEqual(self.trackTransitionMsgCount, 0)
-            
-            XCTAssertEqual(self.trackNotPlayedMsgCount, 1)
-            XCTAssertEqual(self.trackNotPlayedMsg_oldTrack, oldTrack)
-            XCTAssertEqual(self.trackNotPlayedMsg_error!.track, newTrack)
-        }
+        XCTAssertEqual(self.trackChangeMsgCount, 0)
+        
+        XCTAssertEqual(self.trackNotPlayedMsgCount, 1)
+        XCTAssertEqual(self.trackNotPlayedMsg_oldTrack, oldTrack)
+        XCTAssertEqual(self.trackNotPlayedMsg_error!.track, newTrack)
     }
     
-    private func assertTrackChange(_ currentTrack: Track?, _ currentState: PlaybackState, _ newTrack: Track) {
+    private func assertTrackChange(_ currentTrack: Track?, _ currentState: PlaybackState, _ newTrack: Track, _ expectedTransitionCount: Int) {
         
         let trackChanged = currentTrack != newTrack
         
@@ -388,28 +392,22 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
             XCTAssertEqual(preTrackChangeMsg_newTrack!, newTrack)
         }
         
-        XCTAssertEqual(player.state, .playing)
+        XCTAssertEqual(self.player.state, .playing)
         
-        executeAfter(0.5) {
-        
-            XCTAssertEqual(self.trackTransitionMsgCount, 1)
-            XCTAssertEqual(self.trackTransitionMsg_currentTrack, currentTrack)
-            XCTAssertEqual(self.trackTransitionMsg_currentState, currentState)
-            XCTAssertEqual(self.trackTransitionMsg_newTrack, newTrack)
-        }
+        XCTAssertEqual(self.trackChangeMsgCount, expectedTransitionCount)
+        XCTAssertEqual(self.trackChangeMsg_currentTrack, currentTrack)
+        XCTAssertEqual(self.trackChangeMsg_currentState, currentState)
+        XCTAssertEqual(self.trackChangeMsg_newTrack, newTrack)
     }
     
     private func assertGapStarted(_ oldTrack: Track?, _ newTrack: Track) {
         
         XCTAssertEqual(player.state, PlaybackState.waiting)
-        
-        executeAfter(0.5) {
-            
-            XCTAssertEqual(self.gapStartedMsgCount, 1)
-            XCTAssertEqual(self.gapStartedMsg_oldTrack, oldTrack)
-            XCTAssertEqual(self.gapStartedMsg_newTrack!, newTrack)
-            XCTAssertEqual(self.gapStartedMsg_endTime!.compare(Date()), ComparisonResult.orderedDescending)
-        }
+    
+        XCTAssertEqual(self.gapStartedMsgCount, 1)
+        XCTAssertEqual(self.gapStartedMsg_oldTrack, oldTrack)
+        XCTAssertEqual(self.gapStartedMsg_newTrack!, newTrack)
+        XCTAssertEqual(self.gapStartedMsg_endTime!.compare(Date()), ComparisonResult.orderedDescending)
     }
     
     private func assertTranscodingStarted(_ oldTrack: Track?, _ newTrack: Track) {
@@ -419,18 +417,12 @@ class StartPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSub
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediately_track, newTrack)
         
-        executeAfter(0.5) {
-            
-            XCTAssertEqual(self.transcodingStartedMsgCount, 1)
-            XCTAssertEqual(self.transcodingStartedMsg_oldTrack, oldTrack)
-            XCTAssertEqual(self.transcodingStartedMsg_newTrack!, newTrack)
-        }
+        XCTAssertEqual(self.transcodingStartedMsgCount, 1)
+        XCTAssertEqual(self.transcodingStartedMsg_oldTrack, oldTrack)
+        XCTAssertEqual(self.transcodingStartedMsg_newTrack!, newTrack)
     }
     
     private func assertGapNotStarted() {
-        
-        executeAfter(0.5) {
-            XCTAssertEqual(self.gapStartedMsgCount, 0)
-        }
+        XCTAssertEqual(self.gapStartedMsgCount, 0)
     }
 }

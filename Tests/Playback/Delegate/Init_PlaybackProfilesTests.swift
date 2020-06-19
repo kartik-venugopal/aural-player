@@ -5,6 +5,8 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
     // Create a PlaybackDelegate instance with no playback profiles
     func testInit_noProfiles() {
         
+        Messenger.unsubscribeAll(for: startPlaybackChain)
+        
         let profiles = PlaybackProfiles()
         
         startPlaybackChain = TestableStartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences)
@@ -14,10 +16,15 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         let testDelegate = PlaybackDelegate(player, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
         XCTAssertEqual(testDelegate.profiles.size, 0)
+        
+        Messenger.unsubscribeAll(for: testDelegate)
+        Messenger.unsubscribeAll(for: startPlaybackChain)
     }
 
     // Create a PlaybackDelegate instance with some playback profiles
     func testInit_withProfiles() {
+        
+        Messenger.unsubscribeAll(for: startPlaybackChain)
         
         let track1 = createTrack("Strangelove", 300)
         let track2 = createTrack("Money for Nothing", 420)
@@ -47,5 +54,8 @@ class Init_PlaybackProfilesTests: PlaybackDelegateTests {
         let profileForTrack2 = testDelegate.profiles.get(track2)
         XCTAssertEqual(profileForTrack2!.file, track2.file)
         XCTAssertEqual(profileForTrack2!.lastPosition, profile2.lastPosition)
+        
+        Messenger.unsubscribeAll(for: testDelegate)
+        Messenger.unsubscribeAll(for: startPlaybackChain)
     }
 }

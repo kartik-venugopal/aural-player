@@ -15,9 +15,9 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
         sequencer.subsequentTrack = nil
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -40,9 +40,9 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
         preferences.gapBetweenTracks = false
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -65,9 +65,9 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
         preferences.gapBetweenTracksDuration = 3
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -98,9 +98,9 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
         sequencer.subsequentTrack = subsequentTrack
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -135,9 +135,9 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
         XCTAssertEqual(playlist.getGapBeforeTrack(subsequentTrack), gapBeforeSubsequentTrack)
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -170,9 +170,9 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
         XCTAssertEqual(playlist.getGapBeforeTrack(subsequentTrack), gapBeforeSubsequentTrack)
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -205,9 +205,9 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
         XCTAssertEqual(playlist.getGapBeforeTrack(subsequentTrack), gapBeforeSubsequentTrack)
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -227,7 +227,7 @@ class TrackCompletion_EndToEndTests: PlaybackDelegateTests {
             
             // Prepare track and signal transcoding finished
             subsequentTrack.prepareWithAudioFile(URL(fileURLWithPath: "/Dummy/TranscoderOutputFile.m4a"))
-            AsyncMessenger.publishMessage(TranscodingFinishedAsyncMessage(subsequentTrack, true))
+            Messenger.publish(TranscodingFinishedNotification(track: subsequentTrack, success: true))
             
             usleep(500000)
             

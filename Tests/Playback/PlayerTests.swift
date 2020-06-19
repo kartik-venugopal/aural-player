@@ -4,7 +4,7 @@ import AVFoundation
 /*
     Unit tests for Player
  */
-class PlayerTests: XCTestCase {
+class PlayerTests: AuralTestCase {
     
     private var player: Player!
     
@@ -1295,7 +1295,8 @@ class PlayerTests: XCTestCase {
         XCTAssertNil(PlaybackSession.currentSession)
         XCTAssertEqual(player.state, PlaybackState.noTrack)
         
-        player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
+        Messenger.publish(.audioGraph_outputDeviceChanged)
+        justWait(0.25)
         
         XCTAssertFalse(mockScheduler.seekToTimeInvoked)
         XCTAssertTrue(mockPlayerGraph.audioEngineRestarted)
@@ -1312,7 +1313,8 @@ class PlayerTests: XCTestCase {
         
         XCTAssertEqual(player.state, PlaybackState.playing)
         
-        player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
+        Messenger.publish(.audioGraph_outputDeviceChanged)
+        justWait(0.25)
         
         let newSession = PlaybackSession.currentSession
         XCTAssertNotNil(newSession)
@@ -1339,7 +1341,8 @@ class PlayerTests: XCTestCase {
         player.pause()
         XCTAssertEqual(player.state, PlaybackState.paused)
         
-        player.consumeAsyncMessage(AudioOutputChangedMessage.instance)
+        Messenger.publish(.audioGraph_outputDeviceChanged)
+        justWait(0.25)
         
         let newSession = PlaybackSession.currentSession
         XCTAssertNotNil(newSession)

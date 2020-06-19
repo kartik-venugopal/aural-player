@@ -57,11 +57,6 @@
                BlueprintName = "Tests"
                ReferencedContainer = "container:Aural.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "ResetPlaybackProfileActionTests">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

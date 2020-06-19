@@ -6,18 +6,11 @@ class MessageHandlingTests: PlaybackDelegateTests {
     var trackNotPlayedMsg_oldTrack: Track?
     var trackNotPlayedMsg_error: InvalidTrackError?
     
-    override func consumeAsyncMessage(_ message: AsyncMessage) {
-        
-        super.consumeAsyncMessage(message)
-        
-        if let trackNotPlayedMsg = message as? TrackNotPlayedAsyncMessage {
-            
-            trackNotPlayedMsgCount.increment()
-            trackNotPlayedMsg_oldTrack = trackNotPlayedMsg.error.track
-            trackNotPlayedMsg_error = trackNotPlayedMsg.error
-            
-            return
-        }
+    func trackNotPlayed(_ notif: TrackNotPlayedNotification) {
+
+        trackNotPlayedMsgCount.increment()
+        trackNotPlayedMsg_oldTrack = notif.error.track
+        trackNotPlayedMsg_error = notif.error
     }
     
     // MARK: .playbackCompleted tests ----------------------------------------------------------------------------
@@ -35,9 +28,9 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertFalse(PlaybackSession.isCurrent(expiredSession))
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(expiredSession))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: expiredSession)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been ignored because the session has expired
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 0)
@@ -69,9 +62,9 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertFalse(PlaybackSession.isCurrent(expiredSession))
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(expiredSession))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: expiredSession)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been ignored because the session has expired
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 0)
@@ -97,9 +90,9 @@ class MessageHandlingTests: PlaybackDelegateTests {
         let seekPosBeforeChange = delegate.seekPosition.timeElapsed
         
         // Publish a message for the delegate to process
-        AsyncMessenger.publishMessage(PlaybackCompletedAsyncMessage(PlaybackSession.currentSession!))
+        Messenger.publish(.player_trackPlaybackCompleted, payload: PlaybackSession.currentSession!)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             
             // Message should have been processed ... track playback should have continued
             XCTAssertEqual(self.trackPlaybackCompletedChain.executionCount, 1)
@@ -114,7 +107,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         assertNoTrack()
         XCTAssertEqual(delegate.profiles.size, 0)
         
-        SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.save)
+        Messenger.publish(.player_savePlaybackProfile)
         
         XCTAssertEqual(delegate.profiles.size, 0)
     }
@@ -141,7 +134,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         mockScheduler.seekPosition = 27.9349894387
         XCTAssertEqual(delegate.seekPosition.timeElapsed, mockScheduler.seekPosition)
         
-        SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.save)
+        Messenger.publish(.player_savePlaybackProfile)
         
         let newProfile = delegate.profiles.get(track)!
         XCTAssertEqual(newProfile.file, track.file)
@@ -177,7 +170,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         mockScheduler.seekPosition = 27.9349894387
         XCTAssertEqual(delegate.seekPosition.timeElapsed, mockScheduler.seekPosition)
         
-        SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.save)
+        Messenger.publish(.player_savePlaybackProfile)
         
         // Verify that the new profile has replaced the old one
         let newProfile = delegate.profiles.get(track)!
@@ -202,7 +195,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         assertNoTrack()
         XCTAssertEqual(delegate.profiles.size, 1)
         
-        SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
+        Messenger.publish(.player_deletePlaybackProfile)
         
         // Previously added profile should remain undeleted.
         XCTAssertEqual(delegate.profiles.size, 1)
@@ -228,7 +221,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         // Verify that only one profile exists
         XCTAssertEqual(delegate.profiles.size, 1)
         
-        SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
+        Messenger.publish(.player_deletePlaybackProfile)
 
         // After the delete, no profile should exist for the playing track
         XCTAssertNil(delegate.profiles.get(track))
@@ -260,7 +253,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         // Verify that both profiles exist
         XCTAssertEqual(delegate.profiles.size, 2)
         
-        SyncMessenger.publishActionMessage(PlaybackProfileActionMessage.delete)
+        Messenger.publish(.player_deletePlaybackProfile)
 
         // After the delete, no profile should exist for the playing track
         XCTAssertNil(delegate.profiles.get(track))
@@ -281,11 +274,11 @@ class MessageHandlingTests: PlaybackDelegateTests {
         preferences.rememberLastPosition = true
         preferences.rememberLastPositionOption = .allTracks
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         XCTAssertEqual(delegate.profiles.size, 0)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackWaiting_noProfile() {
@@ -302,11 +295,12 @@ class MessageHandlingTests: PlaybackDelegateTests {
         preferences.rememberLastPosition = true
         preferences.rememberLastPositionOption = .allTracks
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         XCTAssertNil(delegate.profiles.get(track))
         XCTAssertEqual(delegate.profiles.size, 0)
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackWaiting_hasProfile_unchanged() {
@@ -325,7 +319,8 @@ class MessageHandlingTests: PlaybackDelegateTests {
         preferences.rememberLastPosition = true
         preferences.rememberLastPositionOption = .allTracks
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // Verify that the old profile is unchanged (because the track was in a waiting state).
         let newProfile = delegate.profiles.get(track)!
@@ -333,8 +328,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(newProfile.lastPosition, oldProfile.lastPosition, accuracy: 0.001)
         
         XCTAssertEqual(delegate.profiles.size, 1)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackTranscoding_noProfile() {
@@ -351,13 +345,13 @@ class MessageHandlingTests: PlaybackDelegateTests {
         preferences.rememberLastPosition = true
         preferences.rememberLastPositionOption = .allTracks
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // No profile was saved for track
         XCTAssertNil(delegate.profiles.get(track))
         XCTAssertEqual(delegate.profiles.size, 0)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackTranscoding_hasProfile_unchanged() {
@@ -376,7 +370,8 @@ class MessageHandlingTests: PlaybackDelegateTests {
         preferences.rememberLastPosition = true
         preferences.rememberLastPositionOption = .allTracks
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // Verify that the old profile is unchanged (because the track was in a transcoding state).
         let newProfile = delegate.profiles.get(track)!
@@ -384,8 +379,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(newProfile.lastPosition, oldProfile.lastPosition, accuracy: 0.001)
         
         XCTAssertEqual(delegate.profiles.size, 1)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackPlaying_rememberLastPositionOptionOff() {
@@ -401,12 +395,12 @@ class MessageHandlingTests: PlaybackDelegateTests {
         // Set this option to false so that the last playback position will not be remembered for the playing track
         preferences.rememberLastPosition = false
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         XCTAssertNil(delegate.profiles.get(track))
         XCTAssertEqual(delegate.profiles.size, 0)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackPlaying_rememberLastPositionForAllTracks_noProfileForPlayingTrack() {
@@ -425,7 +419,8 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         mockScheduler.seekPosition = 101.92929292
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // Verify that a profile was saved for the playing track, with the right seek position
         let profile = delegate.profiles.get(track)
@@ -433,7 +428,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(profile!.lastPosition, delegate.seekPosition.timeElapsed)
         
         XCTAssertEqual(delegate.profiles.size, 1)
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackPlaying_rememberLastPositionForAllTracks_playingTrackHasProfile() {
@@ -454,7 +449,8 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         mockScheduler.seekPosition = 101.92929292
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // Verify that the existing profile was updated for the playing track
         let updatedProfile = delegate.profiles.get(track)
@@ -462,8 +458,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(updatedProfile!.lastPosition, delegate.seekPosition.timeElapsed)
         
         XCTAssertEqual(delegate.profiles.size, 1)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackPlaying_rememberLastPositionForIndividualTracks_noProfileForPlayingTrack() {
@@ -482,13 +477,13 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         mockScheduler.seekPosition = 101.92929292
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // Verify that no profile was saved for the playing track
         XCTAssertNil(delegate.profiles.get(track))
         XCTAssertEqual(delegate.profiles.size, 0)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackPlaying_rememberLastPositionForIndividualTracks_playingTrackHasProfile() {
@@ -509,7 +504,8 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         mockScheduler.seekPosition = 101.92929292
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // Verify that the existing profile was updated for the playing track
         let updatedProfile = delegate.profiles.get(track)
@@ -517,8 +513,7 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(updatedProfile!.lastPosition, delegate.seekPosition.timeElapsed)
         
         XCTAssertEqual(delegate.profiles.size, 1)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
     
     func testOnAppExit_trackPlaying_rememberLastPositionForIndividualTracks_positionResetTo0() {
@@ -539,7 +534,8 @@ class MessageHandlingTests: PlaybackDelegateTests {
         
         mockScheduler.seekPosition = track.duration
         
-        let response = SyncMessenger.publishRequest(AppExitRequest.instance)
+        let appExitRequest = AppExitRequestNotification()
+        Messenger.publish(appExitRequest)
         
         // Verify that the existing profile was updated for the playing track
         let updatedProfile = delegate.profiles.get(track)
@@ -549,7 +545,6 @@ class MessageHandlingTests: PlaybackDelegateTests {
         XCTAssertEqual(updatedProfile!.lastPosition, 0)
         
         XCTAssertEqual(delegate.profiles.size, 1)
-        
-        XCTAssertTrue((response[0] as! AppExitResponse).okToExit)
+        XCTAssertTrue(appExitRequest.okToExit)
     }
 }
