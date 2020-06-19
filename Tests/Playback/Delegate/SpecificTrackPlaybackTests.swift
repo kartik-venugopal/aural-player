@@ -176,9 +176,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
                                                 seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
-        }
+        self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
     }
     
     private func doPlayIndex_withDelay(_ index: Int, _ delay: Double, _ defineDelayInParams: Bool = false) {
@@ -220,10 +218,8 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(.waiting, track,
                                                 seekPosBeforeChange, track, requestParams, true)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
+        self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
     }
     
     private func doPlayIndex_trackNeedsTranscoding(_ index: Int) {
@@ -256,10 +252,8 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(.transcoding, track,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
+        XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
     }
     
     // MARK: play(track) tests ------------------------------------------------------------------------------------
@@ -434,9 +428,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
-        }
+        self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
     }
     
     private func doPlayTrack_withDelay(_ track: Track, _ delay: Double, _ defineDelayInParams: Bool = false) {
@@ -473,10 +465,8 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(.waiting, track,
                                                 seekPosBeforeChange, track, requestParams, true)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
+        self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
     }
     
     private func doPlayTrack_trackNeedsTranscoding(_ track: Track) {
@@ -506,10 +496,8 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(.transcoding, track,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
+        XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
     }
     
     // MARK: play(group) tests ------------------------------------------------------------------------------------
@@ -686,9 +674,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(stateBeforeChange, trackBeforeChange,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
-        }
+        self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
     }
     
     private func doPlayGroup_withDelay(_ group: Group, _ delay: Double, _ defineDelayInParams: Bool = false) {
@@ -729,10 +715,8 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(.waiting, track,
                                                 seekPosBeforeChange, track, requestParams, true)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
+        self.assertGapStarted(trackBeforeChange, track, gapStartedMsgCountBeforeChange + 1)
     }
     
     private func doPlayGroup_trackNeedsTranscoding(_ group: Group) {
@@ -765,9 +749,7 @@ class SpecificTrackPlaybackTests: PlaybackDelegateTests {
         verifyRequestContext_startPlaybackChain(.transcoding, track,
         seekPosBeforeChange, track, PlaybackParams.defaultParams(), true)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
+        XCTAssertEqual(self.gapStartedMessages.count, gapStartedMsgCountBeforeChange)
     }
 }

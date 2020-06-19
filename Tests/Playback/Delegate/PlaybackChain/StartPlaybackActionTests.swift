@@ -57,34 +57,6 @@ class StartPlaybackActionTests: AuralTestCase, NotificationSubscriber {
         preTrackChangeMsg_newTrack = notif.newTrack
     }
     
-//    func consumeNotification(_ notification: NotificationMessage) {
-//
-//        if let msg = notification as? PreTrackChangeNotification {
-//
-//            preTrackChangeMsgCount.increment()
-//
-//            preTrackChangeMsg_currentTrack = msg.oldTrack
-//            preTrackChangeMsg_currentState = msg.oldState
-//            preTrackChangeMsg_newTrack = msg.newTrack
-//
-//            return
-//        }
-//    }
-//
-//    func consumeAsyncMessage(_ message: AsyncMessage) {
-//
-//        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
-//
-//            trackTransitionMsgCount.increment()
-//
-//            trackTransitionMsg_currentTrack = trackTransitionMsg.beginTrack
-//            trackTransitionMsg_currentState = trackTransitionMsg.beginState
-//            trackTransitionMsg_newTrack = trackTransitionMsg.endTrack
-//
-//            return
-//        }
-//    }
-    
     func testStartPlaybackAction_noRequestedTrack() {
      
         let context = PlaybackRequestContext(.noTrack, nil, 0, nil, PlaybackParams.defaultParams())
@@ -252,13 +224,10 @@ class StartPlaybackActionTests: AuralTestCase, NotificationSubscriber {
             XCTAssertEqual(preTrackChangeMsg_newTrack!, context.requestedTrack!)
         }
         
-        executeAfter(0.2) {
-        
-            XCTAssertEqual(self.trackTransitionMsgCount, 1)
-            XCTAssertEqual(self.trackTransitionMsg_currentTrack, context.currentTrack)
-            XCTAssertEqual(self.trackTransitionMsg_currentState, context.currentState)
-            XCTAssertEqual(self.trackTransitionMsg_newTrack!, context.requestedTrack!)
-        }
+        XCTAssertEqual(self.trackTransitionMsgCount, 1)
+        XCTAssertEqual(self.trackTransitionMsg_currentTrack, context.currentTrack)
+        XCTAssertEqual(self.trackTransitionMsg_currentState, context.currentState)
+        XCTAssertEqual(self.trackTransitionMsg_newTrack!, context.requestedTrack!)
     }
     
     private func assertChainCompleted(_ context: PlaybackRequestContext) {

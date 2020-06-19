@@ -1,7 +1,7 @@
 import XCTest
 
 class PlaybackParamsTests: PlaybackDelegateTests {
-
+    
     func testParams_allowDelay_explicitDelay() {
         
         let delay = 5.0
@@ -14,10 +14,8 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertWaitingTrack(track, delay)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 0)
-            self.assertGapStarted(nil, track)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 0)
+        self.assertGapStarted(nil, track)
     }
     
     func testParams_dontAllowDelay_explicitDelay() {
@@ -33,10 +31,8 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-            XCTAssertEqual(self.gapStartedMessages.count, 0)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
+        XCTAssertEqual(self.gapStartedMessages.count, 0)
     }
     
     func testParams_allowDelay_gapBeforeTrack() {
@@ -56,10 +52,8 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertWaitingTrack(track, gapBeforeTrack)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 0)
-            self.assertGapStarted(nil, track)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 0)
+        self.assertGapStarted(nil, track)
     }
     
     func testParams_dontAllowDelay_gapBeforeTrack() {
@@ -80,10 +74,8 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-            XCTAssertEqual(self.gapStartedMessages.count, 0)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
+        XCTAssertEqual(self.gapStartedMessages.count, 0)
     }
     
     // Bookmark playback
@@ -100,9 +92,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertTrue(mockScheduler.playTrackInvoked)
         XCTAssertEqual(mockScheduler.playTrack_startPosition, 0)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     // Bookmark playback
@@ -120,9 +110,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertTrue(mockScheduler.playTrackInvoked)
         XCTAssertEqual(mockScheduler.playTrack_startPosition!, startPosition, accuracy: 0.001)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     // Bookmarked loop playback
@@ -143,9 +131,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertEqual(mockScheduler.playLoop_session!.loop!.startTime, startPosition, accuracy: 0.001)
         XCTAssertEqual(mockScheduler.playLoop_session!.loop!.endTime!, endPosition, accuracy: 0.001)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     func testParams_interruptPlayback_noTrackPlaying() {
@@ -158,9 +144,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertPlayingTrack(track)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     func testParams_interruptPlayback_trackPlaying() {
@@ -176,9 +160,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertPlayingTrack(track)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 2)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 2)
     }
     
     func testParams_dontInterruptPlayback_noTrackPlaying() {
@@ -191,9 +173,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertPlayingTrack(track)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     func testParams_dontInterruptPlayback_trackPlaying() {
@@ -210,8 +190,6 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         // New track should not have begun playing (first track should still be playing)
         assertPlayingTrack(firstTrack)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
 }

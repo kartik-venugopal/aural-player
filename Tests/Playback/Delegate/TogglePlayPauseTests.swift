@@ -43,10 +43,8 @@ class TogglePlayPauseTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(sequencer.beginCallCount, 1)
         
-        executeAfter(0.2) {
-            //XCTAssertEqual(self.trackTransitionMessages.count, 0)
-            self.assertGapStarted(nil, track)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 0)
+        self.assertGapStarted(nil, track)
     }
     
     func testTogglePlayPause_trackNeedsTranscoding() {
@@ -66,9 +64,7 @@ class TogglePlayPauseTests: PlaybackDelegateTests {
         
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .waiting, track)
-        }
+        self.assertTrackChange(track, .waiting, track)
     }
     
     func testTogglePlayPause_transcoding() {
@@ -82,9 +78,7 @@ class TogglePlayPauseTests: PlaybackDelegateTests {
         
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         
-        executeAfter(0.2) {
-            //XCTAssertEqual(self.trackTransitionMessages.count, 0)
-//            XCTAssertEqual(self.gapStartedMessages.count, 0)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 0)
+        XCTAssertEqual(self.gapStartedMessages.count, 0)
     }
 }

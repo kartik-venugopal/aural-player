@@ -134,13 +134,10 @@ class EndPlaybackSequenceActionTests: AuralTestCase, NotificationSubscriber {
     
     private func assertTrackChange(_ currentTrack: Track?, _ currentState: PlaybackState) {
         
-        executeAfter(0.2) {
-        
-            XCTAssertEqual(self.trackTransitionMsgCount, 1)
-            XCTAssertEqual(self.trackTransitionMsg_currentTrack, currentTrack)
-            XCTAssertEqual(self.trackTransitionMsg_currentState, currentState)
-            XCTAssertEqual(self.trackTransitionMsg_newTrack, nil)
-        }
+        XCTAssertEqual(self.trackTransitionMsgCount, 1)
+        XCTAssertEqual(self.trackTransitionMsg_currentTrack, currentTrack)
+        XCTAssertEqual(self.trackTransitionMsg_currentState, currentState)
+        XCTAssertEqual(self.trackTransitionMsg_newTrack, nil)
     }
     
     private func assertChainCompleted(_ context: PlaybackRequestContext) {

@@ -209,7 +209,7 @@ class StartPlaybackChainTests: AuralTestCase, NotificationSubscriber {
         assertTrackChange(currentTrack, .waiting, requestedTrack, 1)
         
         // Wait for the old track's delay to transpire
-        executeAfter(oldRequestParams.delay! + 1) {
+        executeAfter(oldRequestParams.delay! + 0.5) {
             
             // Assert that the old context did not cause a track change
             XCTAssertEqual(self.trackChangeMsgCount, 1)
