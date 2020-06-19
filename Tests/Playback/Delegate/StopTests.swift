@@ -9,7 +9,7 @@ class StopTests: PlaybackDelegateTests {
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 0)
         }
     }
@@ -27,7 +27,7 @@ class StopTests: PlaybackDelegateTests {
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         verifyRequestContext_stopPlaybackChain(.playing, track, seekPosBeforeChange)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, nil, 2)
         }
     }
@@ -46,7 +46,7 @@ class StopTests: PlaybackDelegateTests {
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         verifyRequestContext_stopPlaybackChain(.paused, track, seekPosBeforeChange)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .paused, nil, 2)
         }
     }
@@ -64,7 +64,7 @@ class StopTests: PlaybackDelegateTests {
         
         XCTAssertNil(stopPlaybackChain.executedContext!.delay)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .waiting, nil)
         }
     }
@@ -83,7 +83,7 @@ class StopTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
         XCTAssertEqual(transcoder.transcodeCancel_track!, track)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .transcoding, nil)
         }
     }

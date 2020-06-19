@@ -38,7 +38,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekBackward_constantSeekLength() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -102,7 +102,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekBackward_constantSeekLength_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -170,7 +170,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekBackward_trackDurationPercentage() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -231,7 +231,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekBackward_trackDurationPercentage_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -296,7 +296,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekBackward_continuousActionMode() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -348,7 +348,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekBackward_continuousActionMode_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -437,7 +437,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekForward_constantSeekLength() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -504,7 +504,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekForward_constantSeekLength_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -571,7 +571,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekForward_trackDurationPercentage() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -635,7 +635,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekForward_trackDurationPercentage_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -700,7 +700,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekForward_continuousActionMode() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -755,7 +755,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     func testSeekForward_continuousActionMode_trackPaused() {
         
         // Don't want notifications for this test
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribe(self, .player_trackTransitioned)
         
         var trackDurations: Set<Double> = Set()
         for _ in 1...100 {
@@ -837,7 +837,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, nil, 2)
         }
     }
@@ -872,7 +872,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             self.assertTrackChange(track, .playing, subsequentTrack, 2)
         }
     }

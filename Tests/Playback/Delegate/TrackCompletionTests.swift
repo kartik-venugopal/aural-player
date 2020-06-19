@@ -190,7 +190,7 @@ class TrackCompletionTests: PlaybackDelegateTests {
             transcoder.transcodeImmediately_failed = false
         }
         
-        delegate.trackPlaybackCompleted()
+        delegate.trackPlaybackCompleted(PlaybackSession.currentSession!)
         
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, 1)
         

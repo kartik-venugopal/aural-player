@@ -14,9 +14,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 0)
         XCTAssertEqual(sequencer.previousCallCount, 0)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 0)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 0)
     }
     
     func testPreviousTrack_trackPlaying_noPreviousTrack() {
@@ -109,10 +107,8 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-            self.assertGapStarted(someTrack, previousTrack)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
+        self.assertGapStarted(someTrack, previousTrack)
     }
     
     func testPreviousTrack_trackPlaying_previousTrackNeedsTranscoding() {
@@ -138,9 +134,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediately_track, previousTrack)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     func testPreviousTrack_trackPaused_gapBeforePreviousTrack() {
@@ -169,10 +163,8 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.previousCallCount, 1)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-            self.assertGapStarted(someTrack, previousTrack)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
+        self.assertGapStarted(someTrack, previousTrack)
     }
     
     func testPreviousTrack_trackPaused_previousTrackNeedsTranscoding() {
@@ -199,9 +191,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediately_track, previousTrack)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     private func doPreviousTrack(_ track: Track?) {
@@ -256,13 +246,10 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.previousCallCount, previousCallCountBeforeChange + 1)
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + (track != nil ? 1 : 0))
         
-        executeAfter(0.5) {
-            
-            if track != nil {
-                self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
-            } else {
-                XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            }
+        if track != nil {
+            self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
+        } else {
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
         }
     }
     
@@ -277,9 +264,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 0)
         XCTAssertEqual(sequencer.nextCallCount, 0)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 0)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 0)
     }
     
     func testNextTrack_trackPlaying_noNextTrack() {
@@ -372,10 +357,8 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-            self.assertGapStarted(someTrack, nextTrack)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
+        self.assertGapStarted(someTrack, nextTrack)
     }
     
     func testNextTrack_trackPlaying_nextTrackNeedsTranscoding() {
@@ -401,9 +384,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediately_track, nextTrack)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     func testNextTrack_trackPaused_gapBeforeNextTrack() {
@@ -432,10 +413,8 @@ class IterationTests: PlaybackDelegateTests {
         
         XCTAssertEqual(sequencer.nextCallCount, 1)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-            self.assertGapStarted(someTrack, nextTrack)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
+        self.assertGapStarted(someTrack, nextTrack)
     }
     
     func testNextTrack_trackPaused_nextTrackNeedsTranscoding() {
@@ -462,9 +441,7 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeImmediatelyCallCount, 1)
         XCTAssertEqual(transcoder.transcodeImmediately_track, nextTrack)
         
-        executeAfter(0.5) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 1)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 1)
     }
     
     private func doNextTrack(_ track: Track?) {
@@ -519,13 +496,10 @@ class IterationTests: PlaybackDelegateTests {
         XCTAssertEqual(sequencer.nextCallCount, nextCallCountBeforeChange + 1)
         XCTAssertEqual(startPlaybackChain.executionCount, startPlaybackChainCallCountBeforeChange + (track != nil ? 1 : 0))
         
-        executeAfter(0.5) {
-            
-            if track != nil {
-                self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
-            } else {
-                XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
-            }
+        if track != nil {
+            self.assertTrackChange(trackBeforeChange, stateBeforeChange, track, trackTransitionMsgCountBeforeChange + 1)
+        } else {
+            XCTAssertEqual(self.trackTransitionMessages.count, trackTransitionMsgCountBeforeChange)
         }
     }
 }

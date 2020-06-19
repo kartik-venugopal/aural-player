@@ -6,7 +6,7 @@ class SequencerPlaylistTypeChangeTests: SequencerTests {
         
         for playlistType in PlaylistType.allCases {
             
-            sequencer.consumeNotification(PlaylistTypeChangedNotification(newPlaylistType: playlistType))
+            sequencer.playlistTypeChanged(playlistType)
             XCTAssertEqual(sequencer.playlistType, playlistType)
         }
     }

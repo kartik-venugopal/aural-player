@@ -84,7 +84,7 @@ class SequencerTests: AuralTestCase {
     
     func preTest(_ playlistType: PlaylistType, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode) {
         
-        sequencer.consumeNotification(PlaylistTypeChangedNotification(newPlaylistType: playlistType))
+        sequencer.playlistTypeChanged(playlistType)
         XCTAssertEqual(sequencer.playlistType, playlistType)
         
         _ = sequencer.setRepeatMode(repeatMode)

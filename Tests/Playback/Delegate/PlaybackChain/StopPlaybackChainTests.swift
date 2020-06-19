@@ -1,6 +1,6 @@
 import XCTest
 
-class StopPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSubscriber {
+class StopPlaybackChainTests: AuralTestCase, NotificationSubscriber {
     
     var chain: TestableStopPlaybackChain!
     
@@ -40,42 +40,30 @@ class StopPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSubs
         
         chain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
         
-        SyncMessenger.subscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
-        AsyncMessenger.subscribe([.trackTransition], subscriber: self, dispatchQueue: DispatchQueue.global(qos: .userInteractive))
+        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:))
+        Messenger.subscribe(self, .player_trackTransitioned, self.trackTransitioned(_:))
     }
     
     override func tearDown() {
-        
-        SyncMessenger.unsubscribe(messageTypes: [.preTrackChangeNotification], subscriber: self)
-        AsyncMessenger.unsubscribe([.trackTransition], subscriber: self)
+        Messenger.unsubscribeAll(for: self)
     }
     
-    func consumeNotification(_ notification: NotificationMessage) {
+    func trackTransitioned(_ notif: TrackTransitionNotification) {
         
-        if let msg = notification as? PreTrackChangeNotification {
-            
-            preTrackChangeMsgCount.increment()
-            
-            preTrackChangeMsg_currentTrack = msg.oldTrack
-            preTrackChangeMsg_currentState = msg.oldState
-            preTrackChangeMsg_newTrack = msg.newTrack
-            
-            return
-        }
+        trackTransitionMsgCount.increment()
+        
+        trackTransitionMsg_currentTrack = notif.beginTrack
+        trackTransitionMsg_currentState = notif.beginState
+        trackTransitionMsg_newTrack = notif.endTrack
     }
     
-    func consumeAsyncMessage(_ message: AsyncMessage) {
+    func preTrackChange(_ notif: PreTrackChangeNotification) {
         
-        if let trackTransitionMsg = message as? TrackTransitionAsyncMessage {
-            
-            trackTransitionMsgCount.increment()
-            
-            trackTransitionMsg_currentTrack = trackTransitionMsg.beginTrack
-            trackTransitionMsg_currentState = trackTransitionMsg.beginState
-            trackTransitionMsg_newTrack = trackTransitionMsg.endTrack
-            
-            return
-        }
+        preTrackChangeMsgCount.increment()
+        
+        preTrackChangeMsg_currentTrack = notif.oldTrack
+        preTrackChangeMsg_currentState = notif.oldState
+        preTrackChangeMsg_newTrack = notif.newTrack
     }
     
     func testActions() {
@@ -192,12 +180,9 @@ class StopPlaybackChainTests: AuralTestCase, MessageSubscriber, AsyncMessageSubs
         XCTAssertEqual(preTrackChangeMsg_currentState, currentState)
         XCTAssertEqual(preTrackChangeMsg_newTrack, nil)
         
-        executeAfter(0.5) {
-        
-            XCTAssertEqual(self.trackTransitionMsgCount, 1)
-            XCTAssertEqual(self.trackTransitionMsg_currentTrack, currentTrack)
-            XCTAssertEqual(self.trackTransitionMsg_currentState, currentState)
-            XCTAssertEqual(self.trackTransitionMsg_newTrack, nil)
-        }
+        XCTAssertEqual(self.trackTransitionMsgCount, 1)
+        XCTAssertEqual(self.trackTransitionMsg_currentTrack, currentTrack)
+        XCTAssertEqual(self.trackTransitionMsg_currentState, currentState)
+        XCTAssertEqual(self.trackTransitionMsg_newTrack, nil)
     }
 }

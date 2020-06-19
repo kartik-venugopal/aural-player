@@ -14,7 +14,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertWaitingTrack(track, delay)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 0)
             self.assertGapStarted(nil, track)
         }
@@ -33,7 +33,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
             XCTAssertEqual(self.gapStartedMessages.count, 0)
         }
@@ -56,7 +56,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertWaitingTrack(track, gapBeforeTrack)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 0)
             self.assertGapStarted(nil, track)
         }
@@ -80,7 +80,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertNil(startPlaybackChain.executedContext!.delay)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
             XCTAssertEqual(self.gapStartedMessages.count, 0)
         }
@@ -100,7 +100,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertTrue(mockScheduler.playTrackInvoked)
         XCTAssertEqual(mockScheduler.playTrack_startPosition, 0)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
@@ -120,7 +120,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertTrue(mockScheduler.playTrackInvoked)
         XCTAssertEqual(mockScheduler.playTrack_startPosition!, startPosition, accuracy: 0.001)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
@@ -143,7 +143,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         XCTAssertEqual(mockScheduler.playLoop_session!.loop!.startTime, startPosition, accuracy: 0.001)
         XCTAssertEqual(mockScheduler.playLoop_session!.loop!.endTime!, endPosition, accuracy: 0.001)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
@@ -158,7 +158,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertPlayingTrack(track)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
@@ -176,7 +176,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertPlayingTrack(track)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 2)
         }
     }
@@ -191,7 +191,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         
         assertPlayingTrack(track)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }
@@ -210,7 +210,7 @@ class PlaybackParamsTests: PlaybackDelegateTests {
         // New track should not have begun playing (first track should still be playing)
         assertPlayingTrack(firstTrack)
         
-        executeAfter(0.5) {
+        executeAfter(0.2) {
             XCTAssertEqual(self.trackTransitionMessages.count, 1)
         }
     }

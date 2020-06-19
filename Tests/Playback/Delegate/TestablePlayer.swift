@@ -64,7 +64,7 @@ class TestablePlayer: Player {
     var defineLoop_startTime: Double?
     var defineLoop_endTime: Double?
     
-    override func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double) {
+    override func defineLoop(_ loopStartPosition: Double, _ loopEndPosition: Double, _ isChapterLoop: Bool) {
         
         defineLoopCallCount.increment()
         defineLoop_startTime = loopStartPosition

@@ -1155,7 +1155,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         
         assertNoTrack()
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertFalse(loopExists)
             
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
@@ -1168,7 +1169,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
         assertWaitingTrack(track, 5)
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertFalse(loopExists)
         
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
@@ -1181,7 +1183,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         delegate.play(track)
         assertTranscodingTrack(track)
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertFalse(loopExists)
         
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
@@ -1197,7 +1200,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertFalse(loopExists)
         
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
@@ -1222,7 +1226,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position between chapter 1 and 2
         mockScheduler.seekPosition = 245
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertFalse(loopExists)
         
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
@@ -1327,7 +1332,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPausedTrack(track)
         XCTAssertEqual(delegate.chapterCount, 0)
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertFalse(loopExists)
         
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
@@ -1354,7 +1360,8 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         // Seek to a position between chapter 1 and 2
         mockScheduler.seekPosition = 245
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertFalse(loopExists)
         
         XCTAssertEqual(player.defineLoopCallCount, 0)
         XCTAssertNil(delegate.playbackLoop)
@@ -1459,16 +1466,17 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         let track = delegate.playingTrack!
         let defineLoopCallCountBefore: Int = player.defineLoopCallCount
         
-        delegate.loopChapter()
+        let loopExists = delegate.toggleChapterLoop()
+        XCTAssertTrue(loopExists)
         
         XCTAssertEqual(player.defineLoopCallCount, defineLoopCallCountBefore + 1)
-        XCTAssertEqual(player.defineLoop_startTime!, track.chapters[chapterIndex].startTime, accuracy: 0.001)
-        XCTAssertEqual(player.defineLoop_endTime!, track.chapters[chapterIndex].endTime, accuracy: 0.001)
+        XCTAssertEqual(player.defineLoop_startTime!, track.chapters[chapterIndex].startTime, accuracy: 0.0011)
+        XCTAssertEqual(player.defineLoop_endTime!, track.chapters[chapterIndex].endTime, accuracy: 0.0011)
         
         let loop = delegate.playbackLoop
         XCTAssertTrue(loop!.isComplete)
-        XCTAssertEqual(loop!.startTime, track.chapters[chapterIndex].startTime, accuracy: 0.001)
-        XCTAssertEqual(loop!.endTime!, track.chapters[chapterIndex].endTime, accuracy: 0.001)
+        XCTAssertEqual(loop!.startTime, track.chapters[chapterIndex].startTime, accuracy: 0.0011)
+        XCTAssertEqual(loop!.endTime!, track.chapters[chapterIndex].endTime, accuracy: 0.0011)
     }
     
     // MARK: chapterCount tests --------------------------------------------------------------------------------------------
