@@ -217,9 +217,7 @@ class ForcedSeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, nil, 2)
-        }
+        self.assertTrackChange(track, .playing, nil, 2)
     }
     
     func testSeekToPercentage_trackCompletion_newTrack() {
@@ -247,9 +245,7 @@ class ForcedSeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, subsequentTrack, 2)
-        }
+        self.assertTrackChange(track, .playing, subsequentTrack, 2)
     }
     
     // MARK: seekToTime() tests ------------------------------------------------------------------------
@@ -449,9 +445,7 @@ class ForcedSeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, nil, 2)
-        }
+        self.assertTrackChange(track, .playing, nil, 2)
     }
     
     func testSeekToTime_trackCompletion_newTrack() {
@@ -479,8 +473,6 @@ class ForcedSeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, subsequentTrack, 2)
-        }
+        self.assertTrackChange(track, .playing, subsequentTrack, 2)
     }
 }

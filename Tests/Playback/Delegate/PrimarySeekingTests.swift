@@ -324,7 +324,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     }
     
     private func doSeekBackward_continuousActionMode(_ track: Track, _ currentPosition: Double, _ sensitivity: ScrollSensitivity) {
-            
+        
         let seekToTimeCallCountBefore = player.attemptSeekToTimeCallCount
         let trackCompletionCountBefore = trackPlaybackCompletedChain.executionCount
         
@@ -380,7 +380,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     }
     
     private func doSeekBackward_continuousActionMode_trackPaused(_ track: Track, _ currentPosition: Double, _ sensitivity: ScrollSensitivity) {
-            
+        
         let seekToTimeCallCountBefore = player.attemptSeekToTimeCallCount
         let trackCompletionCountBefore = trackPlaybackCompletedChain.executionCount
         
@@ -400,7 +400,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
         XCTAssertFalse(player.attemptSeekResult!.trackPlaybackCompleted)
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, trackCompletionCountBefore)
     }
-
+    
     // MARK: seekForward() tests ------------------------------------------------------------------------
     
     func testSeekForward_noPlayingTrack() {
@@ -728,7 +728,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     }
     
     private func doSeekForward_continuousActionMode(_ track: Track, _ currentPosition: Double, _ sensitivity: ScrollSensitivity) {
-            
+        
         let seekToTimeCallCountBefore = player.attemptSeekToTimeCallCount
         let trackCompletionCountBefore = trackPlaybackCompletedChain.executionCount
         
@@ -787,7 +787,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
     }
     
     private func doSeekForward_continuousActionMode_trackPaused(_ track: Track, _ currentPosition: Double, _ sensitivity: ScrollSensitivity) {
-            
+        
         let seekToTimeCallCountBefore = player.attemptSeekToTimeCallCount
         let trackCompletionCountBefore = trackPlaybackCompletedChain.executionCount
         
@@ -837,9 +837,7 @@ class PrimarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, nil, 2)
-        }
+        self.assertTrackChange(track, .playing, nil, 2)
     }
     
     func testSeekForward_trackCompletion_newTrack() {
@@ -872,8 +870,6 @@ class PrimarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, subsequentTrack, 2)
-        }
+        self.assertTrackChange(track, .playing, subsequentTrack, 2)
     }
 }

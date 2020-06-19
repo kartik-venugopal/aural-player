@@ -1,7 +1,7 @@
 import XCTest
 
 class StopTests: PlaybackDelegateTests {
-
+    
     func testStop_noPlayingTrack() {
         
         delegate.stop()
@@ -9,9 +9,7 @@ class StopTests: PlaybackDelegateTests {
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.2) {
-            XCTAssertEqual(self.trackTransitionMessages.count, 0)
-        }
+        XCTAssertEqual(self.trackTransitionMessages.count, 0)
     }
     
     func testStop_trackPlaying() {
@@ -27,9 +25,7 @@ class StopTests: PlaybackDelegateTests {
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         verifyRequestContext_stopPlaybackChain(.playing, track, seekPosBeforeChange)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, nil, 2)
-        }
+        self.assertTrackChange(track, .playing, nil, 2)
     }
     
     func testStop_trackPaused() {
@@ -46,9 +42,7 @@ class StopTests: PlaybackDelegateTests {
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         verifyRequestContext_stopPlaybackChain(.paused, track, seekPosBeforeChange)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .paused, nil, 2)
-        }
+        self.assertTrackChange(track, .paused, nil, 2)
     }
     
     func testStop_trackWaiting() {
@@ -64,9 +58,7 @@ class StopTests: PlaybackDelegateTests {
         
         XCTAssertNil(stopPlaybackChain.executedContext!.delay)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .waiting, nil)
-        }
+        self.assertTrackChange(track, .waiting, nil)
     }
     
     func testStop_trackTranscoding() {
@@ -83,8 +75,6 @@ class StopTests: PlaybackDelegateTests {
         XCTAssertEqual(transcoder.transcodeCancelCallCount, 1)
         XCTAssertEqual(transcoder.transcodeCancel_track!, track)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .transcoding, nil)
-        }
+        self.assertTrackChange(track, .transcoding, nil)
     }
 }

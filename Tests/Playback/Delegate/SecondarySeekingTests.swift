@@ -292,14 +292,14 @@ class SecondarySeekingTests: PlaybackDelegateTests {
         XCTAssertFalse(player.attemptSeekResult!.trackPlaybackCompleted)
         XCTAssertEqual(trackPlaybackCompletedChain.executionCount, trackCompletionCountBefore)
     }
-
+    
     // MARK: seekForwardSecondary() tests ------------------------------------------------------------------------
     
     func testSeekForwardSecondary_noPlayingTrack() {
         
         assertNoTrack()
         delegate.seekForwardSecondary()
-     
+        
         assertNoTrack()
         XCTAssertEqual(player.attemptSeekToTimeCallCount, 0)
     }
@@ -617,9 +617,7 @@ class SecondarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 1)
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, nil, 2)
-        }
+        self.assertTrackChange(track, .playing, nil, 2)
     }
     
     func testSeekForwardSecondary_trackCompletion_newTrack() {
@@ -652,8 +650,6 @@ class SecondarySeekingTests: PlaybackDelegateTests {
         XCTAssertEqual(startPlaybackChain.executionCount, 2)
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         
-        executeAfter(0.2) {
-            self.assertTrackChange(track, .playing, subsequentTrack, 2)
-        }
+        self.assertTrackChange(track, .playing, subsequentTrack, 2)
     }
 }

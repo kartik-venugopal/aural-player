@@ -1151,7 +1151,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
     
     // MARK: loopChapter() tests --------------------------------------------------------------------------------------------
     
-    func testLoopChapter_noTrackPlaying() {
+    func testToggleChapterLoop_noTrackPlaying() {
         
         assertNoTrack()
         
@@ -1163,7 +1163,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertNoTrack()
     }
     
-    func testLoopChapter_trackWaiting() {
+    func testToggleChapterLoop_trackWaiting() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         delegate.play(track, PlaybackParams.defaultParams().withDelay(5))
@@ -1177,7 +1177,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertWaitingTrack(track, 5)
     }
     
-    func testLoopChapter_trackTranscoding() {
+    func testToggleChapterLoop_trackTranscoding() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", "ogg", 600)
         delegate.play(track)
@@ -1191,7 +1191,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertTranscodingTrack(track)
     }
     
-    func testLoopChapter_trackPlaying_noChapters() {
+    func testToggleChapterLoop_trackPlaying_noChapters() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         XCTAssertEqual(track.chapters.count, 0)
@@ -1208,7 +1208,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
     }
     
-    func testLoopChapter_trackPlaying_playingBetweenChapters() {
+    func testToggleChapterLoop_trackPlaying_playingBetweenChapters() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         
@@ -1234,7 +1234,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPlayingTrack(track)
     }
     
-    func testLoopChapter_trackPlaying_playingChapter_noPredefinedLoop() {
+    func testToggleChapterLoop_trackPlaying_playingChapter_noPredefinedLoop() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         track.chapters = createChapters(10)
@@ -1258,7 +1258,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         }
     }
     
-    func testLoopChapter_trackPlaying_playingChapter_predefinedLoopStarted() {
+    func testToggleChapterLoop_trackPlaying_playingChapter_predefinedLoopStarted() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         track.chapters = createChapters(10)
@@ -1287,7 +1287,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         }
     }
     
-    func testLoopChapter_trackPlaying_playingChapter_predefinedLoopComplete() {
+    func testToggleChapterLoop_trackPlaying_playingChapter_predefinedLoopComplete() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         track.chapters = createChapters(10)
@@ -1321,7 +1321,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         }
     }
     
-    func testLoopChapter_trackPaused_noChapters() {
+    func testToggleChapterLoop_trackPaused_noChapters() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         XCTAssertEqual(track.chapters.count, 0)
@@ -1340,7 +1340,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPausedTrack(track)
     }
     
-    func testLoopChapter_trackPaused_playingBetweenChapters() {
+    func testToggleChapterLoop_trackPaused_playingBetweenChapters() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         
@@ -1368,7 +1368,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         assertPausedTrack(track)
     }
     
-    func testLoopChapter_trackPaused_playingChapter_noPredefinedLoop() {
+    func testToggleChapterLoop_trackPaused_playingChapter_noPredefinedLoop() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         track.chapters = createChapters(10)
@@ -1394,7 +1394,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         }
     }
     
-    func testLoopChapter_trackPaused_playingChapter_predefinedLoopStarted() {
+    func testToggleChapterLoop_trackPaused_playingChapter_predefinedLoopStarted() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         track.chapters = createChapters(10)
@@ -1425,7 +1425,7 @@ class ChapterPlaybackTests: PlaybackDelegateTests {
         }
     }
     
-    func testLoopChapter_trackPaused_playingChapter_predefinedLoopComplete() {
+    func testToggleChapterLoop_trackPaused_playingChapter_predefinedLoopComplete() {
         
         let track = createTrack("Eckhart Tolle - Art of Presence", 600)
         track.chapters = createChapters(10)
