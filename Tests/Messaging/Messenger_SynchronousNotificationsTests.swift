@@ -593,13 +593,70 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         }
     }
     
-    // TODO: Arbitrary payloads of different kinds: numbers, strings, structs, classes, tuples, enums, collections, etc.
+    // MARK: Tests for error cases -------------------------------------------------------------------------------------------
     
-    /*
-        TODO: Error cases
-        - Payload type doesn't match expected type
-        - Expected payload, none was sent
-        - Not expecting payload, payload was sent
-        - Listening to wrong notifName (notifName mismatch)
-     */
+    func testSynchronousNotification_payloadExpected_payloadTypeMismatch() {
+        
+        var receivedNotif: Bool = false
+        
+        let notifName: Notification.Name = Notification.Name("testSynchronousNotification_payloadExpected_payloadTypeMismatch")
+        
+        Messenger.subscribe(self, notifName, {(thePayload: Double) in
+            receivedNotif = true
+        })
+        
+        // Subscriber is expecting a Double, but send a Float
+        Messenger.publish(notifName, payload: Float(234.435364))
+        
+        XCTAssertFalse(receivedNotif)
+    }
+    
+    func testSynchronousNotification_payloadExpected_noPayloadProvided() {
+        
+        var receivedNotif: Bool = false
+        
+        let notifName: Notification.Name = Notification.Name("testSynchronousNotification_payloadExpected_noPayloadProvided")
+        
+        Messenger.subscribe(self, notifName, {(thePayload: Double) in
+            receivedNotif = true
+        })
+        
+        // Subscriber is expecting a Double, but don't send a payload
+        Messenger.publish(notifName)
+        
+        XCTAssertFalse(receivedNotif)
+    }
+    
+    func testSynchronousNotification_noPayloadExpected_payloadProvided_payloadIgnored() {
+        
+        var receivedNotif: Bool = false
+        
+        let notifName: Notification.Name = Notification.Name("testSynchronousNotification_noPayloadExpected_payloadProvided_payloadIgnored")
+        
+        Messenger.subscribe(self, notifName, {
+            receivedNotif = true
+        })
+        
+        // Subscriber is expecting no payload, but send a Float
+        Messenger.publish(notifName, payload: Float(234.435364))
+        
+        XCTAssertTrue(receivedNotif)
+    }
+    
+    func testSynchronousNotification_notificationNameMismatch() {
+        
+        var receivedNotif: Bool = false
+        
+        let notifName: Notification.Name = Notification.Name("testSynchronousNotification_notificationNameMismatch")
+        let wrongNotifName: Notification.Name = Notification.Name("testSynchronousNotification_notificationNameMismatch_xyz")
+        
+        Messenger.subscribe(self, wrongNotifName, {
+            receivedNotif = true
+        })
+        
+        // Subscriber is subscribed to the wrong notification name, so this notification should not be received.
+        Messenger.publish(notifName)
+        
+        XCTAssertFalse(receivedNotif)
+    }
 }
