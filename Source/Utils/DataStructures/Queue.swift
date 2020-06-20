@@ -12,7 +12,7 @@ class Queue<T> {
     func dequeue() -> T? {
         
         if array.count > 0 {
-            return array.first
+            return array.remove(at: 0)
         }
         
         return nil

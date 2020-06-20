@@ -86,7 +86,7 @@ class ConcurrentMap<T: Hashable, U: Any> {
 class ConcurrentSet<T: Hashable> {
     
     private let syncQueue: DispatchQueue
-    private var set: Set<T> = Set<T>()
+    private(set) var set: Set<T> = Set<T>()
     
     init(_ id: String) {
         syncQueue = DispatchQueue(label: id, attributes: .concurrent)
