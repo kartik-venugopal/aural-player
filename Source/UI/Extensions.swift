@@ -541,12 +541,3 @@ extension NSGradient {
         return NSGradient(starting: end, ending: start)!
     }
 }
-
-extension NSObject {
-    
-    var subscriberId: String {
-
-        let className = String(describing: mirrorFor(self).subjectType)
-        return String(format: "%@-%d", className, self.hashValue)
-    }
-}
