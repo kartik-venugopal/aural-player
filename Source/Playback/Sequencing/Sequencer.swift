@@ -362,6 +362,10 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
         // Playing track was not removed. If the scope is a group, it might be unaffected.
         guard !removeResults.tracks.isEmpty else {return}
         
+        if playingTrackRemoved {
+            end()
+        }
+        
         if let group = scope.group {
 
             // We are only interested in the results matching the scope's group type.
@@ -379,6 +383,8 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
     }
     
     func playlistCleared() {
+        
+        end()
         sequence.clear()
     }
     
