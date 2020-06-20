@@ -22,9 +22,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
-    // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
-    private let playlistUpdateQueue = OperationQueue()
-    
     // Intended to be overriden by subclasses
     
     // Indicates the type of each parent group in this playlist view
@@ -43,11 +40,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)
         
         initSubscriptions()
-        
-        // Set up the serial operation queue for playlist view updates
-        playlistUpdateQueue.maxConcurrentOperationCount = 1
-        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
-        playlistUpdateQueue.qualityOfService = .userInitiated
         
         doApplyColorScheme(ColorSchemes.systemScheme, false)
     }
@@ -236,10 +228,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     func refresh() {
-        
-        DispatchQueue.main.async {
-            self.playlistView.reloadData()
-        }
+        self.playlistView.reloadData()
     }
     
     // Refreshes the playlist view by rearranging the items that were moved

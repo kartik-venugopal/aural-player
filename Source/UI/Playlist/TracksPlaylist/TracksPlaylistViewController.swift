@@ -20,9 +20,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
-    // A serial operation queue to help perform playlist update tasks serially, without overwhelming the main thread
-    private let playlistUpdateQueue = OperationQueue()
-    
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
     override var nibName: String? {return "Tracks"}
@@ -40,11 +37,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
         
         initSubscriptions()
-        
-        // Set up the serial operation queue for playlist view updates
-        playlistUpdateQueue.maxConcurrentOperationCount = 1
-        playlistUpdateQueue.underlyingQueue = DispatchQueue.main
-        playlistUpdateQueue.qualityOfService = .background
         
         playlistView.menu = contextMenu
         
@@ -177,10 +169,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     func refresh() {
-        
-        DispatchQueue.main.async {
-            self.playlistView.reloadData()
-        }
+        self.playlistView.reloadData()
     }
     
     private func moveTracksUp() {
