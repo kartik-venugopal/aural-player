@@ -90,8 +90,25 @@ class Messenger {
         
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: { notif in
             
-            if let payload = notif.payload as? P, filter?(payload) ?? true {
-                msgHandler(payload)
+            if let payload = notif.payload as? P {
+                
+                if filter?(payload) ?? true {
+                    msgHandler(payload)
+                }
+                
+            } else {
+                
+                if let payload = notif.payload {
+                    
+                    // Payload is non-nil, type mismatch
+                
+                    NSLog("Warning: Unable to deliver notification '%@' because of a payload type mismatch. Expected type: %@, but found type: %@", notifName.rawValue, String(describing: mirrorFor(P.self).subjectType), String(describing: mirrorFor(payload).subjectType))
+                    
+                } else {
+                    
+                    // No payload provided
+                    NSLog("Warning: Unable to deliver notification '%@' because a payload of type %@ was expected but no payload was published.", notifName.rawValue, String(describing: mirrorFor(P.self).subjectType))
+                }
             }
         })
         
@@ -161,8 +178,25 @@ class Messenger {
             // Dispatch the notification asynchronously on the specified queue.
             queue.async {
             
-                if let payload = notif.payload as? P, filter?(payload) ?? true {
-                    msgHandler(payload)
+                if let payload = notif.payload as? P {
+                    
+                    if filter?(payload) ?? true {
+                        msgHandler(payload)
+                    }
+                    
+                } else {
+                    
+                    if let payload = notif.payload {
+                        
+                        // Payload is non-nil, type mismatch
+                    
+                        NSLog("Warning: Unable to deliver notification '%@' because of a payload type mismatch. Expected type: %@, but found type: %@", notifName.rawValue, String(describing: mirrorFor(P.self).subjectType), String(describing: mirrorFor(payload).subjectType))
+                        
+                    } else {
+                        
+                        // No payload provided
+                        NSLog("Warning: Unable to deliver notification '%@' because a payload of type %@ was expected but no payload was published.", notifName.rawValue, String(describing: mirrorFor(P.self).subjectType))
+                    }
                 }
             }
         })
@@ -269,15 +303,17 @@ protocol NotificationSubscriber {
 // Default implementations
 extension NotificationSubscriber {
     
+    // CAUTION - For implementation classes of which multiple instances are subscribers, ensure that hashValue is unique across all those instances.
+    
     // Default implementation of subscriberId.
-    // NOTE - Subscribers should override this implementation if they are not an NSObject and not a singleton instance.
+    // NOTE - Subscribers should always override this implementation if they are not an NSObject and not a singleton instance.
     var subscriberId: String {
         
         let className = String(describing: mirrorFor(self).subjectType)
         
         // If the subscriber is an NSObject, its hashValue is appended to the subscriberId to provide more uniqueness.
         if let object = self as? NSObject {
-            return String(format: "%@-%d", className, object.hashValue)
+            return String(format: "%@-%ld", className, object.hashValue)
         }
         
         // For singleton objects, the className will suffice as a unique subscriberId.
