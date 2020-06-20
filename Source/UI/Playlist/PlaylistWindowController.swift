@@ -224,10 +224,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     
     // Handles a notification that a single track has been added to the playlist
     func trackAdded(_ notification: TrackAddedNotification) {
-        
-        DispatchQueue.main.async {
-            self.updatePlaylistSummary(notification.addOperationProgress)
-        }
+        self.updatePlaylistSummary(notification.addOperationProgress)
     }
     
     func tracksRemoved() {

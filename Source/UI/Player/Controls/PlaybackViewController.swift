@@ -167,11 +167,6 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         
         self.trackChanged(nil)
         
-        //        DispatchQueue.main.async {
-        //            // Position and display an alert with error info
-        //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(error))
-        //        }
-        
         let error = notification.error
         alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
     }
@@ -181,14 +176,6 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
     }
     
     func trackNotTranscoded(_ notification: TrackNotTranscodedNotification) {
-        
-        // This needs to be done async. Otherwise, other open dialogs could hang.
-        //        DispatchQueue.main.async {
-        //
-        //            // Position and display an alert with error info
-        //            _ = UIUtils.showAlert(DialogsAndAlerts.trackNotTranscodedAlertWithError(msg.error, "OK"))
-        //        }
-        
         alertDialog.showAlert(.error, "Track not transcoded", notification.track.conciseDisplayName, notification.error.message)
     }
     
