@@ -1602,6 +1602,9 @@
 				3E3DCABF244B31F100563AE4 /* PlayerViewState.swift */,
 				3E50ADC6246140F500B31339 /* InfoPopup */,
 				3E50ADC5246140E700B31339 /* DetailedTrackInfo */,
+				3E50ADE024614C9600B31339 /* Gaps */,
+				3E50ADE124614CA300B31339 /* DelayedPlayback */,
+				3E50ADE224614CB200B31339 /* JumpToTime */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -1674,9 +1677,6 @@
 				3E50ADDD24614C5F00B31339 /* Favorites */,
 				3E50ADDE24614C6E00B31339 /* ColorSchemes */,
 				3E50ADDF24614C7E00B31339 /* Layouts */,
-				3E50ADE024614C9600B31339 /* Gaps */,
-				3E50ADE124614CA300B31339 /* DelayedPlayback */,
-				3E50ADE224614CB200B31339 /* JumpToTime */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
