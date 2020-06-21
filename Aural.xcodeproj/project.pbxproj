@@ -504,7 +504,6 @@
 		3E7266C7247666FC007D6DAA /* PlaybackSequencePeekingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C6247666FC007D6DAA /* PlaybackSequencePeekingTests.swift */; };
 		3E7266C92476B172007D6DAA /* PlaybackSequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C82476B172007D6DAA /* PlaybackSequenceTests.swift */; };
 		3E733A0324869E010001D205 /* ValidateNewTrackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E733A0224869E010001D205 /* ValidateNewTrackAction.swift */; };
-		3E76C9FE21D4471000B45D27 /* PlayerViewMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */; };
 		3E76CA0221D4A4A800B45D27 /* ProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */; };
 		3E76D9BC1F0F4228007FF3F8 /* AppDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */; };
 		3E7740012482450000298B92 /* PropertyGettersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7740002482450000298B92 /* PropertyGettersTests.swift */; };
@@ -1133,7 +1132,6 @@
 		3E7266C6247666FC007D6DAA /* PlaybackSequencePeekingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequencePeekingTests.swift; sourceTree = "<group>"; };
 		3E7266C82476B172007D6DAA /* PlaybackSequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceTests.swift; sourceTree = "<group>"; };
 		3E733A0224869E010001D205 /* ValidateNewTrackAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidateNewTrackAction.swift; sourceTree = "<group>"; };
-		3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewMenuController.swift; sourceTree = "<group>"; };
 		3E76CA0121D4A4A800B45D27 /* ProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressArc.swift; sourceTree = "<group>"; };
 		3E76D9BB1F0F4228007FF3F8 /* AppDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
 		3E7740002482450000298B92 /* PropertyGettersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyGettersTests.swift; sourceTree = "<group>"; };
@@ -1553,7 +1551,6 @@
 				3EDDF6AF1FB54AB800DF2E9A /* PlaybackMenuController.swift */,
 				3EB029131FB58CEC00A2D920 /* SoundMenuController.swift */,
 				3EDDF6A81FB4FAA600DF2E9A /* ViewMenuController.swift */,
-				3E76C9FD21D4471000B45D27 /* PlayerViewMenuController.swift */,
 				3E9847811F5CF23D001A2D28 /* HelpMenuController.swift */,
 				3EB029111FB55EEF00A2D920 /* DockMenuController.swift */,
 				3ECF12F724578E95007209BC /* TextSizeMenuController.swift */,
@@ -1636,9 +1633,9 @@
 			children = (
 				3E850D5F1FB459230017CD02 /* Playlist.xib */,
 				3E850D621FB45BA90017CD02 /* PlaylistWindowController.swift */,
+				3EC2A0F7249F7BF5008E85E9 /* PlaylistGestureHandler.swift */,
 				3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */,
 				3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */,
-				3EC2A0F7249F7BF5008E85E9 /* PlaylistGestureHandler.swift */,
 				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
 				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
 				3E50ADC72461412000B31339 /* TracksPlaylist */,
@@ -3241,7 +3238,6 @@
 				3E84F8411F5FBE8F0010BCDA /* PlaylistAccessorDelegate.swift in Sources */,
 				3EA0074F1FC4E21E00AC7612 /* DateUtils.swift in Sources */,
 				3EAFE3C71FB40DD400B4A327 /* PreferencesWindowController.swift in Sources */,
-				3E76C9FE21D4471000B45D27 /* PlayerViewMenuController.swift in Sources */,
 				3E154D7921DCC206006DBD22 /* AudioDataSource.swift in Sources */,
 				3E822B381F21DCF20006CDBC /* RecordingFormat.swift in Sources */,
 				3E4045D421DDEFF300F4708C /* Muxer.swift in Sources */,

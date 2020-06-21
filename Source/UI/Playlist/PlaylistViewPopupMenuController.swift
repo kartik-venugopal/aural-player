@@ -5,19 +5,16 @@ class PlaylistViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
     @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
     @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
-    
-    private var textSizes: [NSMenuItem] = []
+    private var textSizeMenuItems: [NSMenuItem] = []
     
     override func awakeFromNib() {
-        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
+        textSizeMenuItems = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        textSizes.forEach({
-            $0.off()
-        })
+        textSizeMenuItems.forEach({$0.off()})
         
         switch PlaylistViewState.textSize {
             

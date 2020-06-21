@@ -1,5 +1,5 @@
 /*
-    Handles trackpad/MagicMouse gestures for certain playlist functions like scrolling and tab group navigation.
+    Handles trackpad/MagicMouse gestures for certain playlist functions like scrolling and tab group tab switching.
 */
 import Cocoa
 
@@ -19,11 +19,11 @@ class PlaylistGestureHandler {
         if event.type == .swipe, !WindowManager.isShowingModalComponent && event.window === WindowManager.playlistWindow,
             let swipeDirection = UIUtils.determineSwipeDirection(event) {
             
-            swipeDirection.isHorizontal ? handlePlaylistTabToggle(event, swipeDirection) : handlePlaylistNavigation(event, swipeDirection)
+            swipeDirection.isHorizontal ? handleTabToggle(swipeDirection) : handleScrolling(swipeDirection)
         }
     }
     
-    private static func handlePlaylistNavigation(_ event: NSEvent, _ swipeDirection: GestureDirection) {
+    private static func handleScrolling(_ swipeDirection: GestureDirection) {
         
         if preferences.allowPlaylistNavigation {
         
@@ -33,7 +33,7 @@ class PlaylistGestureHandler {
         }
     }
     
-    private static func handlePlaylistTabToggle(_ event: NSEvent, _ swipeDirection: GestureDirection) {
+    private static func handleTabToggle(_ swipeDirection: GestureDirection) {
         
         if preferences.allowPlaylistTabToggle {
             

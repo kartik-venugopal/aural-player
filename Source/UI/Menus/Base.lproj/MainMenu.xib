@@ -178,14 +178,14 @@
                 <outlet property="timeRemainingMenuItem_seconds" destination="dpf-Rp-xFl" id="OjR-xo-gMB"/>
             </connections>
         </customObject>
-        <customObject id="TVr-fw-yU3" customClass="PlaylistViewMenuController" customModule="Aural" customModuleProvider="target">
+        <customObject id="TVr-fw-yU3" customClass="PlaylistViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="textSizeLargerMenuItem" destination="fdP-w5-f1I" id="xPI-9q-MJ0"/>
                 <outlet property="textSizeLargestMenuItem" destination="mNh-kR-wvy" id="Fn6-0n-Mc3"/>
                 <outlet property="textSizeNormalMenuItem" destination="G8v-bX-69u" id="se8-aj-hyS"/>
             </connections>
         </customObject>
-        <customObject id="REd-Fk-TGW" customClass="EffectsViewMenuController" customModule="Aural" customModuleProvider="target">
+        <customObject id="REd-Fk-TGW" customClass="EffectsViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="textSizeLargerMenuItem" destination="DZs-Y8-cOe" id="AxJ-MH-r3n"/>
                 <outlet property="textSizeLargestMenuItem" destination="uFu-L8-YPW" id="45h-Qp-uAA"/>
