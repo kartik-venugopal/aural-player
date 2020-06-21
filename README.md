@@ -51,6 +51,8 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 #### Granting access on macOS 10.15 Catalina
 
+![Catalina security prompt screenshot](/Documentation/Screenshots/catalina-access-prompt.png?raw=true)
+
 Aural Player uses the **Documents** user folder to store persisted application state, logs, and transcoder output files. In other words, Aural Player needs access to the Documents directory to function.
 
 Due to increased security on macOS Catalina, you will need to grant Aural.app access to your Documents folder. Please perform this step once by going to **System Preferences > Security & Privacy > Privacy > Files and Folders**
