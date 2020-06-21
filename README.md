@@ -7,6 +7,7 @@
   * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
+    + [Granting access on macOS Catalina](#granting-access-on-macos-1015-catalina)
     + [Compatibility](#compatibility)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
@@ -47,6 +48,14 @@ Download the DMG image (containing the app bundle) from the latest release [here
 4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
+
+#### Granting access on macOS 10.15 Catalina
+
+Aural Player uses the **Documents** user folder to store persisted application state, logs, and transcoder output files. In other words, Aural Player needs access to the Documents directory to function.
+
+Due to increased security on macOS Catalina, you will need to grant Aural.app access to your Documents folder. Please perform this step once by going to **System Preferences > Security & Privacy > Privacy > Files and Folders**
+
+NOTE - Future versions of Aural Player may make the app storage location configurable, to circumvent this security restriction, but for now, this step is necessary for the app to function on macOS Catalina.
 
 ### Compatibility
 
