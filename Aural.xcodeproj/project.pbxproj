@@ -1725,6 +1725,7 @@
 			isa = PBXGroup;
 			children = (
 				3E50ADB024613CA600B31339 /* Delegates */,
+				3EC2A0F9249F8810008E85E9 /* SearchAndSort */,
 				3EC947AE1F5DDEB100FDBE25 /* PlaylistProtocols.swift */,
 				3E357B4F1F9C798500C8F7B1 /* FlatPlaylistProtocols.swift */,
 				3E357B511F9C79E900C8F7B1 /* GroupingPlaylistProtocols.swift */,
@@ -1735,10 +1736,6 @@
 				3E1D93511F626BF9008AC59E /* Playlist.swift */,
 				3E357B531F9C7DFB00C8F7B1 /* FlatPlaylist.swift */,
 				3E221FB91F98541100DA3AD8 /* GroupingPlaylist.swift */,
-				3E864ADC1F25E289006A7626 /* SearchResults.swift */,
-				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
-				3E3BAF231F274771008F090E /* Sort.swift */,
-				3EF6A0011FA313120050F0D2 /* SortComparator.swift */,
 				3E1DAAA31FAEB561002BB405 /* CRUDOperationResults.swift */,
 			);
 			path = Playlist;
@@ -2859,6 +2856,17 @@
 				3EB4BCD124702744005024E5 /* DelayAfterTrackCompletionAction.swift */,
 			);
 			path = TrackPlaybackCompletedChain;
+			sourceTree = "<group>";
+		};
+		3EC2A0F9249F8810008E85E9 /* SearchAndSort */ = {
+			isa = PBXGroup;
+			children = (
+				3E864ADC1F25E289006A7626 /* SearchResults.swift */,
+				3E0012291F26A5100059B2D0 /* SearchQuery.swift */,
+				3E3BAF231F274771008F090E /* Sort.swift */,
+				3EF6A0011FA313120050F0D2 /* SortComparator.swift */,
+			);
+			path = SearchAndSort;
 			sourceTree = "<group>";
 		};
 		3ED5E8082485077900D4AECE /* PlaybackChain */ = {

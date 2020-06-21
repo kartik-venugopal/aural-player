@@ -117,6 +117,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         editorWindowController.showLayoutsEditor()
     }
     
+    // TODO: Separate these functions into a new WindowLayoutNameInputReceiver class
     // MARK - StringInputReceiver functions
     
     var inputPrompt: String {
