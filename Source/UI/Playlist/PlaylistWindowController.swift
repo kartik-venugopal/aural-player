@@ -15,10 +15,11 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     @IBOutlet weak var btnGenresTab: NSButton!
     
     @IBOutlet weak var controlsBox: NSBox!
-    
     @IBOutlet weak var controlButtonsSuperview: NSView!
+    
     @IBOutlet weak var btnClose: TintedImageButton!
     @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
+    
     @IBOutlet weak var btnPageUp: TintedImageButton!
     @IBOutlet weak var btnPageDown: TintedImageButton!
     @IBOutlet weak var btnScrollToTop: TintedImageButton!
@@ -41,7 +42,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     @IBOutlet weak var lblDurationSummary: VALabel!
     
     // Spinner that shows progress when tracks are being added to the playlist
-    @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
+    @IBOutlet weak var progressSpinner: NSProgressIndicator!
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
@@ -69,6 +70,9 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         return self.window! as! SnappingWindow
     }
     
+    private lazy var fileOpenDialog = DialogsAndAlerts.openDialog
+    private lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
+    
     override var windowNibName: String? {return "Playlist"}
 
     override func windowDidLoad() {
@@ -93,13 +97,13 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         // Initialize all the tab views (and select the one preferred by the user)
         [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
         
-        if (playlistPreferences.viewOnStartup.option == .specific) {
+        if playlistPreferences.viewOnStartup.option == .specific {
             
             tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)
             
         } else {
             
-            // Remember
+            // Remember the view from the last app launch
             tabGroup.selectTabViewItem(at: PlaylistViewState.current.index)
         }
         
@@ -129,7 +133,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, queue: .main)
         
-        Messenger.subscribe(self, .playlist_viewChanged, self.playlistTypeChanged(_:))
+        Messenger.subscribe(self, .playlist_viewChanged, self.playlistTypeChanged)
         
         // MARK: Commands -------------------------------------------------------------------------------------
         
@@ -173,12 +177,8 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
             return
         }
         
-        let dialog = DialogsAndAlerts.openDialog
-        
-        let modalResponse = dialog.runModal()
-        
-        if (modalResponse == NSApplication.ModalResponse.OK) {
-            playlist.addFiles(dialog.urls)
+        if fileOpenDialog.runModal() == NSApplication.ModalResponse.OK {
+            playlist.addFiles(fileOpenDialog.urls)
         }
     }
     
@@ -189,16 +189,16 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     // When a track add operation starts, the progress spinner needs to be initialized
     func startedAddingTracks() {
         
-        playlistWorkSpinner.doubleValue = 0
-        playlistWorkSpinner.show()
-        playlistWorkSpinner.startAnimation(self)
+        progressSpinner.doubleValue = 0
+        progressSpinner.show()
+        progressSpinner.startAnimation(self)
     }
     
     // When a track add operation ends, the progress spinner needs to be de-initialized
     func doneAddingTracks() {
         
-        playlistWorkSpinner.stopAnimation(self)
-        playlistWorkSpinner.hide()
+        progressSpinner.stopAnimation(self)
+        progressSpinner.hide()
         
         updatePlaylistSummary()
         
@@ -242,26 +242,27 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     private func updatePlaylistSummary(_ trackAddProgress: TrackAddOperationProgressNotification? = nil) {
         
         let summary = playlist.summary(PlaylistViewState.current)
+        lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(summary.totalDuration)
         
         let numTracks = summary.size
-        let duration = ValueFormatter.formatSecondsToHMS(summary.totalDuration)
         
-        lblDurationSummary.stringValue = String(format: "%@", duration)
-        
-        if (PlaylistViewState.current == .tracks) {
+        if PlaylistViewState.current == .tracks {
             
-            lblTracksSummary.stringValue = String(format: "%d %@", numTracks, numTracks == 1 ? "track" : "tracks")
+            lblTracksSummary.stringValue = String(format: "%d %@",
+                                                  numTracks, numTracks == 1 ? "track" : "tracks")
             
         } else if let groupType = PlaylistViewState.groupType {
 
             let numGroups = summary.numGroups
             
-            lblTracksSummary.stringValue = String(format: "%d %@   %d %@", numGroups, groupType.rawValue + (numGroups == 1 ? "" : "s"), numTracks, numTracks == 1 ? "track" : "tracks", duration)
+            lblTracksSummary.stringValue = String(format: "%d %@   %d %@",
+                                                  numGroups, groupType.rawValue + (numGroups == 1 ? "" : "s"),
+                                                  numTracks, numTracks == 1 ? "track" : "tracks")
         }
         
         // Update spinner with current progress, if tracks are being added
         if let progressPercentage = trackAddProgress?.percentage {
-            playlistWorkSpinner.doubleValue = progressPercentage
+            progressSpinner.doubleValue = progressPercentage
         }
     }
     
@@ -290,14 +291,8 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         }
         
         // Make sure there is at least one track to save
-        if (playlist.size > 0) {
-            
-            let dialog = DialogsAndAlerts.savePlaylistDialog
-            let modalResponse = dialog.runModal()
-            
-            if (modalResponse == NSApplication.ModalResponse.OK) {
-                playlist.savePlaylist(dialog.url!)
-            }
+        if playlist.size > 0 && saveDialog.runModal() == NSApplication.ModalResponse.OK, let newFileURL = saveDialog.url {
+            playlist.savePlaylist(newFileURL)
         }
     }
     
@@ -352,17 +347,12 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
 //        sequenceChanged()
     }
     
-    // Shows the currently playing track, within the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
-    func showPlayingTrack() {
-        Messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-    }
-    
     private func nextView() {
-        PlaylistViewState.current == .genres ? tabGroup.selectTabViewItem(at: 0) : tabGroup.selectNextTabViewItem(self)
+        PlaylistViewState.current == .genres ? tabGroup.selectFirstTabViewItem(self) : tabGroup.selectNextTabViewItem(self)
     }
     
     private func previousView() {
-        PlaylistViewState.current == .tracks ? tabGroup.selectTabViewItem(at: 3) : tabGroup.selectPreviousTabViewItem(self)
+        PlaylistViewState.current == .tracks ? tabGroup.selectLastTabViewItem(self) : tabGroup.selectPreviousTabViewItem(self)
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
@@ -415,7 +405,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         lblTracksSummary.font = Fonts.Playlist.summaryFont
         lblDurationSummary.font = Fonts.Playlist.summaryFont
         
-        tabGroup.items.forEach({$0.tabButton.redraw()})
+        redrawTabButtons()
         
         viewMenuButton.font = Fonts.Playlist.menuFont
     }
@@ -450,7 +440,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     private func changeFunctionButtonColor(_ color: NSColor) {
         
         [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom].forEach({
-            $0?.reTint()
+            $0.reTint()
         })
         
         controlButtonsSuperview.subviews.forEach({
@@ -461,12 +451,12 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     private func changeSummaryInfoColor(_ color: NSColor) {
         
         [lblTracksSummary, lblDurationSummary].forEach({
-            $0?.textColor = color
+            $0.textColor = color
         })
     }
     
     private func redrawTabButtons() {
-        [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab].forEach({$0?.redraw()})
+        [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab].forEach({$0.redraw()})
     }
     
     func changeSelectedTabButtonColor(_ color: NSColor) {
@@ -487,17 +477,15 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     
     func trackChanged() {
         
-        if playbackInfo.chapterCount > 0 {
-            
-            // Only show chapters list if preferred by user
-            if playlistPreferences.showChaptersList {
-                viewChaptersList()
-            }
-            
-        } else {
+        if playbackInfo.chapterCount == 0 {
             
             // New track has no chapters, or there is no new track
             WindowManager.hideChaptersList()
+            
+        } // Only show chapters list if preferred by user
+        else if playlistPreferences.showChaptersList {
+            
+            viewChaptersList()
         }
     }
     
@@ -508,7 +496,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     // MARK: Message handling
     
     // Updates the summary in response to a change in the tab group selected tab
-    func playlistTypeChanged(_ newPlaylistType: PlaylistType) {
+    func playlistTypeChanged() {
         updatePlaylistSummary()
     }
 }

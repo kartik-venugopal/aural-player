@@ -206,7 +206,6 @@ class WindowManager {
         // After that, the window will be restored to its previous on-screen location
         if !chaptersListWindowLoaded {
             
-            // TODO: Uncomment this before release
             UIUtils.centerDialogWRTWindow(chaptersListWindow, playlistWindow)
             chaptersListWindowLoaded = true
         }
