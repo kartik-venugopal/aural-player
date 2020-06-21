@@ -102,3 +102,27 @@ enum GroupsScope {
     case allGroups
     case selectedGroups
 }
+
+struct SortResults {
+    
+    let playlistType: PlaylistType
+
+    let tracksSorted: Bool
+    
+    // These 2 fields are only applicable when tracks are sorted within groups.
+    let affectedGroupsScope: GroupsScope?
+    let affectedParentGroups: [Group]   // This array will be non-empty only when affectedGroupsScope == .selectedGroups
+    
+    let groupsSorted: Bool
+    
+    init(_ playlistType: PlaylistType, _ sort: Sort) {
+        
+        self.playlistType = playlistType
+        
+        self.tracksSorted = sort.tracksSort != nil
+        self.groupsSorted = sort.groupsSort != nil
+        
+        self.affectedGroupsScope = sort.tracksSort?.scope
+        self.affectedParentGroups = sort.tracksSort?.parentGroups ?? []
+    }
+}

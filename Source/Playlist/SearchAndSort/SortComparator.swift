@@ -139,6 +139,8 @@ class SortComparator {
         }
     }
     
+    // TODO: compareNumbers<N>
+    
     private func compareDoubles(_ d1: Double, _ d2: Double) -> ComparisonResult {
         
         if d1 == d2 {
