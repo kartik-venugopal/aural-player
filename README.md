@@ -7,6 +7,7 @@
   * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
+    + [Granting access on macOS Catalina](#granting-access-on-macos-1015-catalina)
     + [Compatibility](#compatibility)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
