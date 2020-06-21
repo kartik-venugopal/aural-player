@@ -103,14 +103,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             trackMenuItems.forEach({$0.show()})
             groupMenuItems.forEach({$0.hide()})
             
-            // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             let _clickedTrack = clickedTrack
             
             transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(_clickedTrack))
-            [playTrackMenuItem].forEach({$0?.hideIf_elseShow(playbackInfo.transcodingTrack == _clickedTrack)})
-            
-            // playTrackDelayedMenuItem
-            
+            playTrackMenuItem.hideIf_elseShow(playbackInfo.transcodingTrack == _clickedTrack)
+
+            // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(_clickedTrack.file))
             
             let gaps = playlist.getGapsAroundTrack(_clickedTrack)
@@ -129,7 +127,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
     }
     
-    @IBAction func transcodeTrackAction(_ sender: Any) {
+    @IBAction func transcodeTrackInBackgroundAction(_ sender: Any) {
         
         let track = clickedTrack
         transcoder.transcodeInBackground(track)
@@ -247,17 +245,14 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         WindowManager.mainWindow.orderFront(self)
     }
     
-    // Shows a popover with detailed information for the currently playing track, if there is one
+    // Shows a popover with detailed information for the track that was right-clicked to bring up this context menu
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
         let track = clickedTrack
         track.loadDetailedInfo()
         
-        let rowView = playlistSelectedRowView
-        
         WindowManager.playlistWindow.makeKeyAndOrderFront(self)
-        detailedInfoPopover.show(track, rowView, NSRectEdge.maxY)
-        
+        detailedInfoPopover.show(track, playlistSelectedRowView, NSRectEdge.maxY)   // Display the popover below the selected row
         WindowManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
