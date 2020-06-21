@@ -36,9 +36,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         playlistView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([String(kUTTypeFileURL), "public.data"]))
         playlistView.menu = contextMenu
         
-        // Register for key press and gesture events
-        PlaylistInputEventHandler.registerViewForPlaylistType(self.playlistType, playlistView)
-        
         initSubscriptions()
         
         doApplyColorScheme(ColorSchemes.systemScheme, false)

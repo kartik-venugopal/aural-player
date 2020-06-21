@@ -1,19 +1,11 @@
 /*
-    Handles input events (key presses and trackpad/MagicMouse gestures) for certain playlist functions like type selection and scrolling.
+    Handles trackpad/MagicMouse gestures for certain playlist functions like scrolling and tab group navigation.
 */
-
 import Cocoa
 
-class PlaylistInputEventHandler {
+class PlaylistGestureHandler {
     
-    // A mapping of playlist type to the corresponding view that displays it
-    private static var playlistViews: [PlaylistType: NSTableView] = [:]
-    
-    private static let preferences: ControlsPreferences = ObjectGraph.preferencesDelegate.preferences.controlsPreferences
-    
-    static func registerViewForPlaylistType(_ playlistType: PlaylistType, _ playlistView: NSTableView) {
-        playlistViews[playlistType] = playlistView
-    }
+    private static let preferences: ControlsPreferences = ObjectGraph.preferences.controlsPreferences
     
     // Handles a single event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
     static func handle(_ event: NSEvent) {
@@ -36,7 +28,8 @@ class PlaylistInputEventHandler {
         if preferences.allowPlaylistNavigation {
         
             // Publish the command notification
-            Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom, payload: PlaylistViewSelector.allViews)
+            Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom,
+                              payload: PlaylistViewSelector.forView(PlaylistViewState.current))
         }
     }
     

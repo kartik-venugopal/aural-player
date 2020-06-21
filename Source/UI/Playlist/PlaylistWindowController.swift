@@ -115,7 +115,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         // Set up an input handler to handle scrolling and gestures
         eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.swipe], handler: {(event: NSEvent) -> NSEvent? in
             
-            PlaylistInputEventHandler.handle(event)
+            PlaylistGestureHandler.handle(event)
             return event
         });
         

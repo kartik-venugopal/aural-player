@@ -33,9 +33,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         // Enable drag n drop
         playlistView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([String(kUTTypeFileURL), "public.data"]))
         
-        // Register for key press and gesture events
-        PlaylistInputEventHandler.registerViewForPlaylistType(.tracks, self.playlistView)
-        
         initSubscriptions()
         
         playlistView.menu = contextMenu

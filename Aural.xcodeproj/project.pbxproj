@@ -496,7 +496,7 @@
 		3E6D0F8021C1C81900640450 /* Transcoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F7F21C1C81900640450 /* Transcoder.swift */; };
 		3E6D0F8521C1D43A00640450 /* FFMpegWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */; };
 		3E6D0F8921C2542A00640450 /* LibAVInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D0F8821C2542A00640450 /* LibAVInfo.swift */; };
-		3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */; };
+		3E6D75F81EFF79E0007F22A3 /* PlaylistGestureHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6D75F71EFF79E0007F22A3 /* PlaylistGestureHandler.swift */; };
 		3E7022B52465CA1E00E64581 /* PlaybackSchedulerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */; };
 		3E722F7B1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */; };
 		3E7266C1247664C7007D6DAA /* PlaybackSequenceIterationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7266C0247664C7007D6DAA /* PlaybackSequenceIterationTests.swift */; };
@@ -1125,7 +1125,7 @@
 		3E6D0F7F21C1C81900640450 /* Transcoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcoder.swift; sourceTree = "<group>"; };
 		3E6D0F8421C1D43A00640450 /* FFMpegWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFMpegWrapper.swift; sourceTree = "<group>"; };
 		3E6D0F8821C2542A00640450 /* LibAVInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibAVInfo.swift; sourceTree = "<group>"; };
-		3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistInputEventHandler.swift; sourceTree = "<group>"; };
+		3E6D75F71EFF79E0007F22A3 /* PlaylistGestureHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistGestureHandler.swift; sourceTree = "<group>"; };
 		3E7022B42465CA1E00E64581 /* PlaybackSchedulerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSchedulerProtocol.swift; sourceTree = "<group>"; };
 		3E722F7A1EFCF4EC00916BF2 /* TracksPlaylistViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewDataSource.swift; sourceTree = "<group>"; };
 		3E7266C0247664C7007D6DAA /* PlaybackSequenceIterationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceIterationTests.swift; sourceTree = "<group>"; };
@@ -1636,7 +1636,7 @@
 			children = (
 				3E850D5F1FB459230017CD02 /* Playlist.xib */,
 				3E850D621FB45BA90017CD02 /* PlaylistWindowController.swift */,
-				3E6D75F71EFF79E0007F22A3 /* PlaylistInputEventHandler.swift */,
+				3E6D75F71EFF79E0007F22A3 /* PlaylistGestureHandler.swift */,
 				3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */,
 				3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */,
 				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
@@ -3271,7 +3271,7 @@
 				3E154D7B21DCC21F006DBD22 /* FileSystemDataSource.swift in Sources */,
 				3E1BF76524310DBD00B6B9F9 /* RecordingParams.swift in Sources */,
 				3E5F00D421543D3800A76C23 /* StringInputReceiver.swift in Sources */,
-				3E6D75F81EFF79E0007F22A3 /* PlaylistInputEventHandler.swift in Sources */,
+				3E6D75F81EFF79E0007F22A3 /* PlaylistGestureHandler.swift in Sources */,
 				3E186FC021CE2CE400FD5F34 /* AlbumArtCache.swift in Sources */,
 				3E27D20B246FCC1800B6170B /* EndPlaybackSequenceAction.swift in Sources */,
 				3EDA1FB9214F278C003591FA /* TrackPeekingButton.swift in Sources */,
