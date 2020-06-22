@@ -52,7 +52,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.groupingInfoForTrack(type, track)
     }
     
-    func indexOfGroup(_ group: Group) -> Int {
+    func indexOfGroup(_ group: Group) -> Int? {
         return accessor.indexOfGroup(group)
     }
     

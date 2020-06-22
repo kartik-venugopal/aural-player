@@ -43,7 +43,7 @@ protocol PlaylistAccessorDelegateProtocol {
     func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack?
     
     // Returns the index of a group within the appropriate grouping/hierarchical playlist (indicated by the group's type).
-    func indexOfGroup(_ group: Group) -> Int
+    func indexOfGroup(_ group: Group) -> Int?
     
     // Returns all groups of the given type
     func allGroups(_ type: GroupType) -> [Group]

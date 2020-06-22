@@ -50,7 +50,7 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.groupingInfoForTrack(type, track)
     }
     
-    func indexOfGroup(_ group: Group) -> Int {
+    func indexOfGroup(_ group: Group) -> Int? {
         return playlist.indexOfGroup(group)
     }
     

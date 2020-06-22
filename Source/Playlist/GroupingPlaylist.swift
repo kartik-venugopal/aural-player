@@ -56,20 +56,14 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     // Assumes group exists in groups array
-    func indexOfGroup(_ group: Group) -> Int {
-        return groups.firstIndex(of: group)!
+    func indexOfGroup(_ group: Group) -> Int? {
+        return groups.firstIndex(of: group)
     }
     
     func groupingInfoForTrack(_ track: Track) -> GroupedTrack? {
         
-        if let group = getGroupForTrack(track) {
-            
-            let groupIndex = indexOfGroup(group)
-            
-            // Track may not have been added to group yet, or track may have been removed from playlist
-            if let trackIndex = group.indexOfTrack(track) {
-                return GroupedTrack(track, group, trackIndex, groupIndex)
-            }
+        if let group = getGroupForTrack(track), let groupIndex = indexOfGroup(group), let trackIndex = group.indexOfTrack(track) {
+            return GroupedTrack(track, group, trackIndex, groupIndex)
         }
         
         return nil
@@ -240,16 +234,24 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var trackRemovedResults = [GroupedTracksRemovalResult]()
         
         // Gather group removals with group indexes
-        _groups.forEach({groupRemovedResults.append(GroupRemovalResult($0, indexOfGroup($0)))})
+        for group in _groups {
+            
+            if let groupIndex = indexOfGroup(group) {
+                groupRemovedResults.append(GroupRemovalResult(group, groupIndex))
+            }
+        }
         
         // Remove tracks from their respective parent groups and note the track indexes (this does not have to be done in the order of group index)
         tracksByGroup.forEach({
             
             let group = $0.key
-            let tracks = $0.value
             
-            let trackIndexes = removeTracksFromGroup(tracks, group)
-            trackRemovedResults.append(GroupedTracksRemovalResult(trackIndexes, group, indexOfGroup(group)))
+            if let groupIndex = indexOfGroup(group) {
+                
+                let tracks = $0.value
+                let trackIndexes = removeTracksFromGroup(tracks, group)
+                trackRemovedResults.append(GroupedTracksRemovalResult(trackIndexes, group, groupIndex))
+            }
         })
         
         // Sort group removals by group index (descending), and remove groups
@@ -333,8 +335,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     private func moveGroupsUp(_ groupsToMove: [Group]) -> ItemMoveResults {
         
-        var indexes = [Int]()
-        groupsToMove.forEach({indexes.append(indexOfGroup($0))})
+        let indexes = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
         
         // Indexes need to be in ascending order, because groups need to be moved up, one by one, from top to bottom of the playlist
         let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
@@ -426,8 +427,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         var groupsMoved: Int = 0
         
-        var groupIndexes: [Int] = []
-        groupsToMove.forEach({groupIndexes.append(indexOfGroup($0))})
+        let groupIndexes: [Int] = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
         var results = [ItemMoveResult]()
@@ -496,8 +496,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     private func moveGroupsDown(_ groupsToMove: [Group]) -> ItemMoveResults {
         
-        var indexes = [Int]()
-        groupsToMove.forEach({indexes.append(indexOfGroup($0))})
+        let indexes = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
         
         // Indexes need to be in descending order, because groups need to be moved down, one by one, from bottom to top of the playlist
         let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
@@ -588,9 +587,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     private func moveGroupsToBottom(_ groupsToMove: [Group]) -> ItemMoveResults {
         
         var groupsMoved: Int = 0
-        
-        var groupIndexes: [Int] = []
-        groupsToMove.forEach({groupIndexes.append(indexOfGroup($0))})
+        let groupIndexes = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
         
         let sortedGroups = groupIndexes.sorted(by: {x, y -> Bool in x > y})
         var results = [ItemMoveResult]()
@@ -627,12 +624,12 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // For tracks and groups, get their child indexes within their parents
     private func getChildIndexes(_ tracks: [Track], _ groups: [Group], _ dropParent: Group?, _ movingGroups: Bool) -> IndexSet {
         
-        var childIndexes = [Int]()
+        let childIndexes: [Int]
         
-        if (movingGroups) {
-            groups.forEach({childIndexes.append(indexOfGroup($0))})
+        if movingGroups {
+            childIndexes = groups.map {indexOfGroup($0)}.compactMap {$0}
         } else {
-            tracks.forEach({childIndexes.append(dropParent!.indexOfTrack($0)!)})
+            childIndexes = tracks.map {dropParent?.indexOfTrack($0)}.compactMap {$0}
         }
         
         return IndexSet(childIndexes)

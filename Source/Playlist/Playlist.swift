@@ -295,8 +295,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return groupingPlaylists[type.toPlaylistType()]!.groupingInfoForTrack(track)
     }
     
-    func indexOfGroup(_ group: Group) -> Int {
-        return groupingPlaylists[group.type.toPlaylistType()]!.indexOfGroup(group)
+    func indexOfGroup(_ group: Group) -> Int? {
+        return groupingPlaylists[group.type.toPlaylistType()]?.indexOfGroup(group)
     }
     
     func numberOfGroups(_ type: GroupType) -> Int {
