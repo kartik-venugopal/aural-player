@@ -36,8 +36,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // Mappings of groups by name, for quick and convenient searching of groups. GroupName -> Group
     private var groupsByName: [String: Group] = [String: Group]()
     
-//    private let trackAddQueue = DispatchQueue(label: "threadSafeGroupsArray", attributes: .concurrent)
-    
     private var opsAdded: Int = 0
     private var opsFinished: Int = 0
     
@@ -167,8 +165,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var group: Group?
         var groupCreated: Bool = false
         var groupIndex: Int = -1
-        
-        //        trackAddQueue.async(flags: .barrier) {
         
         group = self.groupsByName[groupName]
         
@@ -335,7 +331,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     private func moveGroupsUp(_ groupsToMove: [Group]) -> ItemMoveResults {
         
-        let indexes = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
+        let indexes = groupsToMove.compactMap {indexOfGroup($0)}
         
         // Indexes need to be in ascending order, because groups need to be moved up, one by one, from top to bottom of the playlist
         let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
@@ -427,7 +423,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         var groupsMoved: Int = 0
         
-        let groupIndexes: [Int] = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
+        let groupIndexes: [Int] = groupsToMove.compactMap {indexOfGroup($0)}
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
         var results = [ItemMoveResult]()
@@ -496,7 +492,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     private func moveGroupsDown(_ groupsToMove: [Group]) -> ItemMoveResults {
         
-        let indexes = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
+        let indexes = groupsToMove.compactMap {indexOfGroup($0)}
         
         // Indexes need to be in descending order, because groups need to be moved down, one by one, from bottom to top of the playlist
         let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
@@ -587,7 +583,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     private func moveGroupsToBottom(_ groupsToMove: [Group]) -> ItemMoveResults {
         
         var groupsMoved: Int = 0
-        let groupIndexes = groupsToMove.map {indexOfGroup($0)}.compactMap {$0}
+        let groupIndexes = groupsToMove.compactMap {indexOfGroup($0)}
         
         let sortedGroups = groupIndexes.sorted(by: {x, y -> Bool in x > y})
         var results = [ItemMoveResult]()
@@ -624,12 +620,13 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // For tracks and groups, get their child indexes within their parents
     private func getChildIndexes(_ tracks: [Track], _ groups: [Group], _ dropParent: Group?, _ movingGroups: Bool) -> IndexSet {
         
-        let childIndexes: [Int]
+        var childIndexes: [Int] = []
         
         if movingGroups {
-            childIndexes = groups.map {indexOfGroup($0)}.compactMap {$0}
-        } else {
-            childIndexes = tracks.map {dropParent?.indexOfTrack($0)}.compactMap {$0}
+            childIndexes = groups.compactMap {indexOfGroup($0)}
+            
+        } else if let theDropParent = dropParent {
+            childIndexes = tracks.compactMap {theDropParent.indexOfTrack($0)}
         }
         
         return IndexSet(childIndexes)
@@ -675,15 +672,16 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var sourceItems = [Track]()
         var sourceIndexMappings = [Track: Int]()
         
-        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        // Make sure they the source indexes are iterated in descending order. This will be important in Step 2.
         sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             
-            let track = parentGroup.removeTrackAtIndex($0)
-            sourceItems.append(track)
-            sourceIndexMappings[track] = $0
+            if let track = parentGroup.removeTrackAtIndex($0) {
+                sourceItems.append(track)
+                sourceIndexMappings[track] = $0
+            }
         })
         
-        // Step 4 - Copy over the source items into the destination holes
+        // Step 2 - Copy over the source items into the destination holes
         var cursor = 0
         
         // Destination rows need to be sorted in ascending order
@@ -715,7 +713,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var sourceItems = [Group]()
         var sourceIndexMappings = [Group: Int]()
         
-        // Make sure they the source indexes are iterated in descending order. This will be important in Step 4.
+        // Make sure they the source indexes are iterated in descending order. This will be important in Step 2.
         sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             
             let group = groups.remove(at: $0)
@@ -723,7 +721,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             sourceIndexMappings[group] = $0
         })
         
-        // Step 4 - Copy over the source items into the destination holes
+        // Step 2 - Copy over the source items into the destination holes
         var cursor = 0
         
         // Destination rows need to be sorted in ascending order

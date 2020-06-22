@@ -9,7 +9,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     
     // MARK: Accessor functions
     
-    var size: Int {return tracks.count}
+    var size: Int {tracks.count}
     
     var duration: Double {
         
@@ -23,7 +23,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func trackAtIndex(_ index: Int) -> Track? {
-        return index < 0 || index >= tracks.count ? nil : tracks[index]
+        return optionalIndexedOperation(index, {tracks[index]})
     }
     
     func indexOfTrack(_ track: Track) -> Int?  {
@@ -103,6 +103,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     // MARK: Mutator functions
     
     func addTrack(_ track: Track) -> Int {
+        
         tracks.append(track)
         return tracks.count - 1
     }
@@ -110,9 +111,13 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     func clear() {
         tracks.removeAll()
     }
+    
+    private func optionalIndexedOperation(_ index: Int, _ successValueFunction: () -> Track) -> Track? {
+        return index < 0 || index >= tracks.count ? nil : successValueFunction()
+    }
  
-    private func removeTrackAtIndex(_ index: Int) -> Track {
-        return tracks.remove(at: index)
+    private func removeTrackAtIndex(_ index: Int) -> Track? {
+        return optionalIndexedOperation(index, {tracks.remove(at: index)})
     }
     
     private func removeTrack(_ track: Track) -> Int? {
@@ -127,16 +132,13 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     
     func removeTracks(_ removedTracks: [Track]) -> IndexSet {
         
-        var trackIndexes = [Int]()
-        
         // Collect the indexes of each of the tracks being removed
-        removedTracks.forEach({trackIndexes.append(indexOfTrack($0)!)})
-        
         // Sort the indexes in descending order (tracks need to be removed in descending order)
-        trackIndexes = trackIndexes.sorted(by: {i1, i2 -> Bool in return i1 > i2})
+        let trackIndexes: [Int] = removedTracks.compactMap {indexOfTrack($0)}
+                                               .sorted(by: {i1, i2 -> Bool in return i1 > i2})
         
         // Remove the tracks at the indexes
-        trackIndexes.forEach({_ = removeTrackAtIndex($0)})
+        trackIndexes.forEach({tracks.remove(at: $0)})
         
         return IndexSet(trackIndexes)
     }
@@ -144,24 +146,22 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     func removeTracks(_ indexes: IndexSet) -> [Track] {
         
         // Need to remove tracks in descending order of index, so that indexes of yet-to-be-removed elements are not messed up
-        
-        // Sort descending
-        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
-        
-        // TODO: Use .map {} instead of forEach
-        // Collect the tracks as they are removed
-        var removedTracks = [Track]()
-        sortedIndexes.forEach({removedTracks.append(removeTrackAtIndex($0))})
-        
-        return removedTracks
+        // Sort descending, and collect the tracks as they are removed
+        return indexes.sorted(by: {x, y -> Bool in x > y}).compactMap {removeTrackAtIndex($0)}
     }
     
     // Assume track can be moved
     private func moveTrackUp(_ index: Int) -> Int {
+
+        tracks.swapAt(index, index - 1)
+        return index - 1
+    }
+    
+    // Assume track can be moved
+    private func moveTrackDown(_ index: Int) -> Int {
         
-        let upIndex = index - 1
-        swapTracks(index, upIndex)
-        return upIndex
+        tracks.swapAt(index, index + 1)
+        return index + 1
     }
     
     // Assume tracks can be moved
@@ -209,14 +209,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         
         // Descending order (by old index)
         return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), .tracks)
-    }
-    
-    // Assume track can be moved
-    private func moveTrackDown(_ index: Int) -> Int {
-        
-        let downIndex = index + 1
-        swapTracks(index, downIndex)
-        return downIndex
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
@@ -284,14 +276,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         
         // Descending order (by old index)
         return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), .tracks)
-    }
-    
-    // Swaps two tracks in the array of tracks
-    private func swapTracks(_ trackIndex1: Int, _ trackIndex2: Int) {
-
-        let temp = tracks[trackIndex1]
-        tracks[trackIndex1] = tracks[trackIndex2]
-        tracks[trackIndex2] = temp
     }
  
     func sort(_ sort: Sort) {
