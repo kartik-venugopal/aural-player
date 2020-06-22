@@ -21,7 +21,7 @@ protocol GroupingPlaylistAccessorProtocol {
     func groupAtIndex(_ index: Int) -> Group?
     
     // Returns the index of a group within this playlist.
-    func indexOfGroup(_ group: Group) -> Int
+    func indexOfGroup(_ group: Group) -> Int?
     
     // Given a track, returns all grouping information, such as the parent group and the index of the track within that group.
     func groupingInfoForTrack(_ track: Track) -> GroupedTrack?
