@@ -287,8 +287,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     
     // MARK: Grouping/hierarchical playlist functions
     
-    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
-        return groupingPlaylists[type.toPlaylistType()]!.groupAtIndex(index)
+    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group? {
+        return groupingPlaylists[type.toPlaylistType()]?.groupAtIndex(index)
     }
     
     func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack? {
