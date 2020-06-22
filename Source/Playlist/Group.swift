@@ -68,8 +68,8 @@ class Group: Hashable, GroupAccessorProtocol, PlaylistItem {
     }
     
     // Removes a track at the given index, and returns the removed track
-    func removeTrackAtIndex(_ index: Int) -> Track {
-        return tracks.remove(at: index)
+    func removeTrackAtIndex(_ index: Int) -> Track? {
+        return index < 0 || index >= tracks.count ? nil : tracks.remove(at: index)
     }
     
     // Moves tracks within this group, at the given indexes, up one index, if possible. Returns a mapping of source indexes to destination indexes.
