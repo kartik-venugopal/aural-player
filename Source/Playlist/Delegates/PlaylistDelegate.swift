@@ -24,11 +24,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     var duration: Double {return accessor.duration}
     
-    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
+    func trackAtIndex(_ index: Int) -> Track? {
         return accessor.trackAtIndex(index)
     }
     
-    func indexOfTrack(_ track: Track) -> IndexedTrack? {
+    func indexOfTrack(_ track: Track) -> Int? {
         return accessor.indexOfTrack(track)
     }
     
@@ -68,7 +68,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.addFiles(files)
     }
     
-    func findOrAddFile(_ file: URL) throws -> IndexedTrack? {
+    func findOrAddFile(_ file: URL) throws -> Track? {
         return try mutator.findOrAddFile(file)
     }
     
@@ -157,7 +157,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.getGapsAroundTrack(track)
     }
     
-    func findFile(_ file: URL) -> IndexedTrack? {
+    func findFile(_ file: URL) -> Track? {
         return accessor.findFile(file)
     }
 }

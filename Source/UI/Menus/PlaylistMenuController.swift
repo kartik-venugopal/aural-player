@@ -171,7 +171,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     private var selectedTrack: Track {
         
         let selItem = PlaylistViewState.selectedItem
-        return selItem.type == .index ? playlist.trackAtIndex(selItem.index!)!.track : selItem.track!
+        return selItem.type == .index ? playlist.trackAtIndex(selItem.index!)! : selItem.track!
     }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist

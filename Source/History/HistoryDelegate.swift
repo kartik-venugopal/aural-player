@@ -64,7 +64,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber, Persiste
             if let newTrack = try playlist.findOrAddFile(item) {
             
                 // Play it
-                player.play(newTrack.track)
+                player.play(newTrack)
             }
             
         } catch let error {
@@ -150,7 +150,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber, Persiste
             if let track = playlist.findFile(file) {
                 
                 // Track
-                history.addRecentlyAddedItem(track.track, now)
+                history.addRecentlyAddedItem(track, now)
                 
             } else {
                 

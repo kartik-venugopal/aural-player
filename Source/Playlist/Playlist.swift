@@ -29,16 +29,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     
     var duration: Double {return flatPlaylist.duration}
     
-    func findTrackByFile(_ file: URL) -> IndexedTrack? {
-        
-        if let track = tracksByFilePath[file.path] {
-            
-            if let index = flatPlaylist.indexOfTrack(track) {
-                return IndexedTrack(track, index)
-            }
-        }
-        
-        return nil
+    func findTrackByFile(_ file: URL) -> Track? {
+        return tracksByFilePath[file.path]
     }
     
     func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String {
@@ -285,7 +277,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return flatPlaylist.moveTracksToTop(indexes)
     }
     
-    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
+    func trackAtIndex(_ index: Int) -> Track? {
         return flatPlaylist.trackAtIndex(index)
     }
     

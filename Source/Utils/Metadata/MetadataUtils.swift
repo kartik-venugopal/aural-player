@@ -70,7 +70,7 @@ class MetadataUtils {
     static func artForFile(_ file: URL) -> CoverArt? {
         
         // If playlist has this track, get art from there
-        if let track = playlist.findFile(file)?.track {
+        if let track = playlist.findFile(file) {
             
             if track.displayInfo.art == nil {
                 loadArt(track)

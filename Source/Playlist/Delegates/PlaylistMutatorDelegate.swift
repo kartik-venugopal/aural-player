@@ -264,26 +264,26 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
         }
     }
     
-    func findOrAddFile(_ file: URL) throws -> IndexedTrack? {
+    func findOrAddFile(_ file: URL) throws -> Track? {
+        
+        // Always resolve sym links and aliases before reading the file
+        let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
+        let resolvedFile = resolvedFileInfo.resolvedURL
         
         // If track exists, return it
-        if let foundTrack = playlist.findTrackByFile(file) {
+        if let foundTrack = playlist.findTrackByFile(resolvedFile) {
             return foundTrack
         }
         
         // Track doesn't exist, need to add it
         
         // If the file points to an invalid location, throw an error
-        if (!FileSystemUtils.fileExists(file)) {
-            throw FileNotFoundError(file)
+        if (!FileSystemUtils.fileExists(resolvedFile)) {
+            throw FileNotFoundError(resolvedFile)
         }
         
-        // Always resolve sym links and aliases before reading the file
-        let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
-        let file = resolvedFileInfo.resolvedURL
-        
         // Load display info
-        let track = Track(file)
+        let track = Track(resolvedFile)
         TrackIO.loadPrimaryInfo(track)
         
         // Non-nil result indicates success
@@ -298,12 +298,12 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
                                                       addOperationProgress: TrackAddOperationProgressNotification(1, 1))
             
             Messenger.publish(trackAddedNotification)
-            Messenger.publish(.history_itemsAdded, payload: [file])
+            Messenger.publish(.history_itemsAdded, payload: [resolvedFile])
             
             self.changeListeners.forEach({$0.tracksAdded([result])})
             
             TrackIO.loadSecondaryInfo(track)
-            return IndexedTrack(track, result.flatPlaylistResult)
+            return track
         }
         
         return nil

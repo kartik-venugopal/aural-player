@@ -188,7 +188,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
             // For the allTracks scope, the index is the absolute index within the flat playlist
             case .allTracks:
                 
-                return playlist.trackAtIndex(index)?.track
+                return playlist.trackAtIndex(index)
                 
             // For the allArtists, allAlbums, and allGenres scopes, the index is an absolute index that needs to be mapped to a group index and track index within that group.
                 

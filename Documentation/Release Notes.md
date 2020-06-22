@@ -6,6 +6,7 @@
 
 ### Bug fixes
 
+* (Playlist) When playing a track from the Favorites list, symlink paths would not get resolved before the playlist lookup and no playback would occur.
 * (Playlist) Some scroll gestures would perform actions on all playlist views (tabs) instead of only the current view.
 
 ### **For more info**
