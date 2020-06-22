@@ -44,7 +44,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         return accessor.displayNameForTrack(playlistType, track)
     }
     
-    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group {
+    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group? {
         return accessor.groupAtIndex(type, index)
     }
     

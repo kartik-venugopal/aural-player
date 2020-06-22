@@ -192,7 +192,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
             }
             
             // Dropping on a selected group is not allowed
-            if childIndex < numGroups, groups.contains(playlist.groupAtIndex(self.groupType, childIndex)) {
+            if childIndex < numGroups, let destinationGroup = playlist.groupAtIndex(self.groupType, childIndex), groups.contains(destinationGroup) {
                 return false
             }
         }

@@ -34,7 +34,7 @@ protocol PlaylistAccessorDelegateProtocol {
     func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults
     
     // Returns the group, of a specific type, at the given index.
-    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group
+    func groupAtIndex(_ type: GroupType, _ index: Int) -> Group?
     
     // Returns the total number of groups of a specific type, within the playlist.
     func numberOfGroups(_ type: GroupType) -> Int

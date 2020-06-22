@@ -51,8 +51,8 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
    
     var numberOfGroups: Int {return groups.count}
     
-    func groupAtIndex(_ index: Int) -> Group {
-        return groups[index]
+    func groupAtIndex(_ index: Int) -> Group? {
+        return index < 0 || index >= numberOfGroups ? nil : groups[index]
     }
     
     // Assumes group exists in groups array

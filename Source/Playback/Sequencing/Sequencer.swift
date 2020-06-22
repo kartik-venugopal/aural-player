@@ -221,7 +221,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
             -> Track 0 (absolute index 5)
             -> Track 1 (absolute index 6)
     */
-    private func getGroupedTrackForAbsoluteIndex(_ groupType: GroupType, _ absoluteIndex: Int) -> Track {
+    private func getGroupedTrackForAbsoluteIndex(_ groupType: GroupType, _ absoluteIndex: Int) -> Track? {
         
         var groupIndex = 0
         var tracksSoFar = 0
@@ -230,32 +230,50 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
         // Iterate over groups while the tracks count (tracksSoFar) is less than the target absolute index
         while tracksSoFar < absoluteIndex {
             
-            // Add the size of the current group, to tracksSoFar
-            tracksSoFar += playlist.groupAtIndex(groupType, groupIndex).size
+            if let group = playlist.groupAtIndex(groupType, groupIndex) {
             
-            // Increment the groupIndex to iterate to the next group
-            groupIndex.increment()
+                // Add the size of the current group, to tracksSoFar
+                tracksSoFar += group.size
+                
+                // Increment the groupIndex to iterate to the next group
+                groupIndex.increment()
+                
+            } else {
+                
+                // Group at index groupIndex not found
+                return nil
+            }
         }
         
         // If you've overshot the target index, go back one group, and use the offset to calculate track index within that previous group
         if tracksSoFar > absoluteIndex {
             
             groupIndex.decrement()
-            trackIndexInGroup = playlist.groupAtIndex(groupType, groupIndex).size - (tracksSoFar - absoluteIndex)
+            
+            if let group = playlist.groupAtIndex(groupType, groupIndex) {
+                
+                trackIndexInGroup = group.size - (tracksSoFar - absoluteIndex)
+                
+            } else {
+                
+                // Group at index groupIndex not found
+                return nil
+            }
         }
         
         // Given the groupIndex and trackIndex, retrieve the desired track
-        let group = playlist.groupAtIndex(groupType, groupIndex)
-        let track = group.trackAtIndex(trackIndexInGroup)
+        if let group = playlist.groupAtIndex(groupType, groupIndex) {
+            return group.trackAtIndex(trackIndexInGroup)
+        }
         
-        return track
+        return nil
     }
    
     /*
         Does the opposite/inverse of what getGroupedTrackForAbsoluteIndex() does.
         Maps a track within a grouping/hierarchical playlist to its absolute index within that playlist.
      */
-    private func getAbsoluteIndexForGroupedTrack(_ groupType: GroupType, _ groupIndex: Int, _ trackIndex: Int) -> Int {
+    private func getAbsoluteIndexForGroupedTrack(_ groupType: GroupType, _ groupIndex: Int, _ trackIndex: Int) -> Int? {
         
         // If we're looking inside the first group, the absolute index is simply the track index
         if groupIndex == 0 {
@@ -265,7 +283,12 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
         // Iterate over all the groups, noting the size of each group, till the target group is reached
         var absIndexSoFar = 0
         for i in 0..<groupIndex {
-            absIndexSoFar += playlist.groupAtIndex(groupType, i).size
+            
+            if let group = playlist.groupAtIndex(groupType, i) {
+                absIndexSoFar += group.size
+            } else {
+                return nil  // group not found
+            }
         }
         
         // The target group has been reached. Now, simply add the track index to absIndexSoFar, and that is the desired value
@@ -417,7 +440,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
             case .allArtists, .allAlbums, .allGenres:
                 
                 // Recalculate the absolute index of the playing track, given its parent group and track index within that group
-                
+        
                 if let groupType = scope.type.toGroupType(), let groupInfo = playlist.groupingInfoForTrack(groupType, playingTrack) {
                     return getAbsoluteIndexForGroupedTrack(groupType, groupInfo.groupIndex, groupInfo.trackIndex)
                 }

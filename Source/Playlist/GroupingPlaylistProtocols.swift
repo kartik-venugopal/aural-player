@@ -18,7 +18,7 @@ protocol GroupingPlaylistAccessorProtocol {
     var numberOfGroups: Int {get}
     
     // Returns the group at the given index within this playlist. Assumes a valid index.
-    func groupAtIndex(_ index: Int) -> Group
+    func groupAtIndex(_ index: Int) -> Group?
     
     // Returns the index of a group within this playlist.
     func indexOfGroup(_ group: Group) -> Int
