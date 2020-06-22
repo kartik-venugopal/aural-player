@@ -75,12 +75,11 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
             if let newTrack = try playlist.findOrAddFile(favorite.file) {
             
                 // Try playing it
-                player.play(newTrack.track)
+                player.play(newTrack)
             }
             
         } catch let error {
             
-            // TODO: Handle FileNotFoundError
             if let fnfError = error as? FileNotFoundError {
                 
                 // Log and rethrow error

@@ -18,7 +18,7 @@ protocol FlatPlaylistAccessorProtocol {
     var tracks: [Track] {get}
     
     // Returns the track at a given index. Returns nil if an invalid index is specified.
-    func trackAtIndex(_ index: Int?) -> IndexedTrack?
+    func trackAtIndex(_ index: Int) -> Track?
     
     // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track) -> Int?

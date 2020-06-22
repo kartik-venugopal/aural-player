@@ -50,7 +50,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
             
                 // Play it immediately. Don't allow a gap/delay.
                 let params = PlaybackParams().withStartAndEndPosition(bookmark.startPosition, bookmark.endPosition).withAllowDelay(false)
-                player.play(newTrack.track, params)
+                player.play(newTrack, params)
             }
             
         } catch let error {

@@ -24,14 +24,14 @@ protocol PlaylistAccessorProtocol {
     func hasTrack(_ track: Track) -> Bool
     
     // Tries to finds a track by its filesystem file. Returns nil if not found.
-    func findTrackByFile(_ file: URL) -> IndexedTrack?
+    func findTrackByFile(_ file: URL) -> Track?
     
     /*
         Returns the track at a given index within the flat playlist. Returns nil if an invalid index is specified.
      
         NOTE - This function is only intended to be used by the flat playlist. The result is meaningless to a grouping/hierarchical playlist.
      */
-    func trackAtIndex(_ index: Int?) -> IndexedTrack?
+    func trackAtIndex(_ index: Int) -> Track?
     
     // Returns a summary for a specific playlist type - size (number of tracks), total duration, and number of groups. Number of groups will always be 0 for the flat (tracks) playlist.
     func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int)

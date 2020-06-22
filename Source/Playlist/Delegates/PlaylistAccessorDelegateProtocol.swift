@@ -6,7 +6,7 @@ import Foundation
 protocol PlaylistAccessorDelegateProtocol {
     
     // Searches for a track by file. If it is found, its information is returned. If not, nil is returned.
-    func findFile(_ file: URL) -> IndexedTrack?
+    func findFile(_ file: URL) -> Track?
     
     // Retrieves all tracks, in the same order as in the flat playlist
     var tracks: [Track] {get}
@@ -18,14 +18,14 @@ protocol PlaylistAccessorDelegateProtocol {
     var duration: Double {get}
     
     // Returns the track at a given index. Returns nil if an invalid index is specified.
-    func trackAtIndex(_ index: Int?) -> IndexedTrack?
+    func trackAtIndex(_ index: Int) -> Track?
     
     /*
         Determines the index of a given track, within the flat playlist. Returns nil if the track doesn't exist within the playlist.
      
         NOTE - This function is only intended to be used by the flat playlist. The result is meaningless to a grouping/hierarchical playlist.
      */
-    func indexOfTrack(_ track: Track) -> IndexedTrack?
+    func indexOfTrack(_ track: Track) -> Int?
     
     // Returns a summary for a specific playlist type - size (number of tracks), total duration, and number of groups. Number of groups will always be 0 for the flat (tracks) playlist.
     func summary(_ playlistType: PlaylistType) -> (size: Int, totalDuration: Double, numGroups: Int)

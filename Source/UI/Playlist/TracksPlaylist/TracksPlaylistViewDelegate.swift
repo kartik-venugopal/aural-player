@@ -42,12 +42,12 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             return nil
         }
         
-        return playlist.trackAtIndex(row)?.track.conciseDisplayName
+        return playlist.trackAtIndex(row)?.conciseDisplayName
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         
-        if let track = playlist.trackAtIndex(row)?.track {
+        if let track = playlist.trackAtIndex(row) {
             
             let ga = playlist.getGapAfterTrack(track)
             let gb = playlist.getGapBeforeTrack(track)
@@ -65,7 +65,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if let track = playlist.trackAtIndex(row)?.track {
+        if let track = playlist.trackAtIndex(row) {
             
             let gapA = playlist.getGapAfterTrack(track)
             let gapB = playlist.getGapBeforeTrack(track)
@@ -82,7 +82,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     case .playing, .paused:
                         
                         if let playingTrack = self.playbackInfo.playingTrack,
-                            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index, playingTrackIndex == row {
+                            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack), playingTrackIndex == row {
                             
                             return createPlayingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
@@ -90,7 +90,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     case .transcoding:
                     
                         if let transcodingTrack = self.playbackInfo.transcodingTrack,
-                            let transcodingTrackIndex = self.playlist.indexOfTrack(transcodingTrack)?.index, transcodingTrackIndex == row {
+                            let transcodingTrackIndex = self.playlist.indexOfTrack(transcodingTrack), transcodingTrackIndex == row {
                             
                             return createTranscodingTrackImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }
@@ -98,7 +98,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
                     case .waiting:
                         
                         if let waitingTrack = self.playbackInfo.waitingTrack,
-                            let waitingTrackIndex = self.playlist.indexOfTrack(waitingTrack)?.index, waitingTrackIndex == row {
+                            let waitingTrackIndex = self.playlist.indexOfTrack(waitingTrack), waitingTrackIndex == row {
                             
                             return createWaitingImageCell(tableView, UIConstants.playlistIndexColumnID, indexText, gapB, gapA, row)
                         }

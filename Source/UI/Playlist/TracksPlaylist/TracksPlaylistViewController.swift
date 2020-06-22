@@ -364,7 +364,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     private func showPlayingTrack() {
         
         if let playingTrack = self.playbackInfo.currentTrack,
-            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
+            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack) {
             
             selectTrack(playingTrackIndex)
             
@@ -375,8 +375,11 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func showSelectedTrackInfo() {
         
-        let track = playlist.trackAtIndex(playlistView.selectedRow)!.track
-        track.loadDetailedInfo()
+        // TODO: Is this method even being used ???
+        
+        if let track = playlist.trackAtIndex(playlistView.selectedRow) {
+            track.loadDetailedInfo()
+        }
     }
     
     func trackAdded(_ notification: TrackAddedNotification) {
@@ -387,7 +390,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         DispatchQueue.main.async {
             
-            if let updatedTrackIndex = self.playlist.indexOfTrack(notification.updatedTrack)?.index {
+            if let updatedTrackIndex = self.playlist.indexOfTrack(notification.updatedTrack) {
                 
                 self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             }
@@ -428,7 +431,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         var refreshIndexes = [Int]()
 
-        if let track = oldTrack, let oldTrackIndex = playlist.indexOfTrack(track)?.index {
+        if let track = oldTrack, let oldTrackIndex = playlist.indexOfTrack(track) {
             refreshIndexes.append(oldTrackIndex)
         }
 
@@ -436,7 +439,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
 
         if let _newTrack = newTrack {
             
-            let newTrackIndex = playlist.indexOfTrack(_newTrack)?.index
+            let newTrackIndex = playlist.indexOfTrack(_newTrack)
 
             // If new and old are the same, don't refresh the same row twice
             if _newTrack != oldTrack, let index = newTrackIndex {
@@ -480,19 +483,19 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         let oldTrack = notification.oldTrack
         var refreshIndexes = [Int]()
 
-        if let _oldTrack = oldTrack, let oldTrackIndex = playlist.indexOfTrack(_oldTrack)?.index {
+        if let _oldTrack = oldTrack, let oldTrackIndex = playlist.indexOfTrack(_oldTrack) {
             refreshIndexes.append(oldTrackIndex)
         }
 
-        if let track = notification.error.track, let errTrack = playlist.indexOfTrack(track) {
+        if let errTrack = notification.error.track, let errTrackIndex = playlist.indexOfTrack(errTrack) {
 
             // If new and old are the same, don't refresh the same row twice
-            if errTrack.track != oldTrack {
-                refreshIndexes.append(errTrack.index)
+            if errTrack != oldTrack {
+                refreshIndexes.append(errTrackIndex)
             }
 
             if PlaylistViewState.current == .tracks {
-                selectTrack(errTrack.index)
+                selectTrack(errTrackIndex)
             }
         }
 
@@ -508,7 +511,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     private func showTrackInFinder() {
         
         let selTrack = playlist.trackAtIndex(playlistView.selectedRow)
-        FileSystemUtils.showFileInFinder((selTrack?.track.file)!)
+        FileSystemUtils.showFileInFinder((selTrack?.file)!)
     }
     
     private func clearSelection() {
@@ -548,7 +551,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func insertGaps(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
         
-        if let track = playlist.trackAtIndex(playlistView.selectedRow)?.track {
+        if let track = playlist.trackAtIndex(playlistView.selectedRow) {
             
             playlist.setGapsForTrack(track, gapBefore, gapAfter)
             
@@ -559,7 +562,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func removeGaps() {
         
-        if let track = playlist.trackAtIndex(playlistView.selectedRow)?.track {
+        if let track = playlist.trackAtIndex(playlistView.selectedRow) {
             
             playlist.removeGapsForTrack(track)
             
@@ -571,7 +574,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     func gapUpdated(_ updatedTrack: Track) {
         
         // Find track and refresh it
-        if let updatedRow = playlist.indexOfTrack(updatedTrack)?.index, updatedRow >= 0 {
+        if let updatedRow = playlist.indexOfTrack(updatedTrack), updatedRow >= 0 {
             
             refreshRow(updatedRow)
             
@@ -657,7 +660,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
-        if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack)?.index {
+        if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack) {
             
             playlistView.reloadData(forRowIndexes: IndexSet([playingTrackIndex]), columnIndexes: IndexSet([0]))
         }

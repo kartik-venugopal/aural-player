@@ -672,16 +672,15 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
             playlistView.reloadItem(_oldTrack)
         }
         
-        // TODO: Remove errTrack, simply reference track
-        if let track = notification.error.track, let errTrack = playlist.indexOfTrack(track) {
+        if let errTrack = notification.error.track {
             
-            if errTrack.track != oldTrack {
-                playlistView.reloadItem(errTrack.track)
+            if errTrack != oldTrack {
+                playlistView.reloadItem(errTrack)
             }
             
             // Only need to do this if this playlist view is shown
             if PlaylistViewState.current.toGroupType() == self.groupType {
-                selectTrack(playlist.groupingInfoForTrack(self.groupType, errTrack.track))
+                selectTrack(playlist.groupingInfoForTrack(self.groupType, errTrack))
             }
         }
     }

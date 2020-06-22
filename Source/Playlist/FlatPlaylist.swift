@@ -22,13 +22,8 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return track.conciseDisplayName
     }
     
-    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
-        
-        if let theIndex = index {
-            return theIndex < 0 || theIndex >= tracks.count ? nil : IndexedTrack(tracks[theIndex], theIndex)
-        }
-        
-        return nil
+    func trackAtIndex(_ index: Int) -> Track? {
+        return index < 0 || index >= tracks.count ? nil : tracks[index]
     }
     
     func indexOfTrack(_ track: Track) -> Int?  {

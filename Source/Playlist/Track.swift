@@ -380,22 +380,6 @@ class MetadataEntry {
     }
 }
 
-// Wrapper around Track that includes its index in the flat playlist
-class IndexedTrack: NSObject {
-    
-    let track: Track
-    let index: Int
-    
-    init(_ track: Track, _ index: Int) {
-        self.track = track
-        self.index = index
-    }
-    
-    func equals(_ other: IndexedTrack?) -> Bool {
-        return other != nil && other!.index == self.index
-    }
-}
-
 // Wrapper around Chapter that includes its parent track and chronological index
 class IndexedChapter: Equatable {
     

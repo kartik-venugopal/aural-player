@@ -18,16 +18,11 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
     
     var duration: Double {return playlist.duration}
     
-    func indexOfTrack(_ track: Track) -> IndexedTrack? {
-        
-        if let index = playlist.indexOfTrack(track) {
-            return IndexedTrack(track, index)
-        }
-        
-        return nil
+    func indexOfTrack(_ track: Track) -> Int? {
+        return playlist.indexOfTrack(track)
     }
     
-    func trackAtIndex(_ index: Int?) -> IndexedTrack? {
+    func trackAtIndex(_ index: Int) -> Track? {
         return playlist.trackAtIndex(index)
     }
     
@@ -83,7 +78,7 @@ class PlaylistAccessorDelegate: PlaylistAccessorDelegateProtocol {
         return playlist.getGapAfterTrack(track)
     }
     
-    func findFile(_ file: URL) -> IndexedTrack? {
+    func findFile(_ file: URL) -> Track? {
         return playlist.findTrackByFile(file)
     }
 }

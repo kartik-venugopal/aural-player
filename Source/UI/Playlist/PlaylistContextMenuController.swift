@@ -87,7 +87,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private var clickedTrack: Track {
         
         let clickedItem = PlaylistViewContext.clickedItem
-        return clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)!.track : clickedItem.track!
+        return clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)! : clickedItem.track!
     }
     
     // Sets up the menu items that need to be displayed, depending on what type of playlist item was clicked, and the current state of that item
