@@ -171,10 +171,8 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         var tracks = [Track]()
         var groups = [Group]()
         
-        indexes.forEach({
-            
-            let item = playlistView.item(atRow: $0)
-            item is Track ? tracks.append(item as! Track) : groups.append(item as! Group)
+        indexes.compactMap {playlistView.item(atRow: $0)}.forEach({
+            $0 is Track ? tracks.append($0 as! Track) : groups.append($0 as! Group)
         })
         
         return (tracks, groups)

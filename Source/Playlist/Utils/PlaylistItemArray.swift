@@ -1,11 +1,19 @@
 import Foundation
 
 extension Array where Element: Equatable {
+    
+    func itemAtIndex(_ index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 
     mutating func addItem(_ item: Element) -> Int {
         
         self.append(item)
         return lastIndex
+    }
+    
+    mutating func removeItem(_ index: Int) -> Element? {
+        return indices.contains(index) ? self.remove(at: index) : nil
     }
     
     mutating func removeItem(_ item: Element) -> Int? {
@@ -51,6 +59,10 @@ extension Array where Element: Equatable {
         swapAt(index, index + 1)
         return index + 1
     }
+    
+    mutating func moveItemsUp(_ items: [Element]) -> [Int: Int] {
+        return moveItemsUp(IndexSet(items.compactMap {self.firstIndex(of: $0)}))
+    }
 
     mutating func moveItemsUp(_ indices: IndexSet) -> [Int: Int] {
         
@@ -75,6 +87,10 @@ extension Array where Element: Equatable {
         }
         
         return results
+    }
+    
+    mutating func moveItemsDown(_ items: [Element]) -> [Int: Int] {
+        return moveItemsDown(IndexSet(items.compactMap {self.firstIndex(of: $0)}))
     }
     
     mutating func moveItemsDown(_ indices: IndexSet) -> [Int: Int] {
@@ -111,6 +127,10 @@ extension Array where Element: Equatable {
         return !self.isEmpty && !indices.isEmpty && indices.first! < self.count && indices.last! >= 0 && indices.count < self.count
     }
     
+    mutating func moveItemsToTop(_ items: [Element]) -> [Int: Int] {
+        return moveItemsToTop(IndexSet(items.compactMap {self.firstIndex(of: $0)}))
+    }
+    
     mutating func moveItemsToTop(_ indices: IndexSet) -> [Int: Int] {
         
         let sortedIndices = indices.sorted(by: {x, y -> Bool in x < y})
@@ -133,6 +153,10 @@ extension Array where Element: Equatable {
         }
         
         return results
+    }
+    
+    mutating func moveItemsToBottom(_ items: [Element]) -> [Int: Int] {
+        return moveItemsToBottom(IndexSet(items.compactMap {self.firstIndex(of: $0)}))
     }
     
     mutating func moveItemsToBottom(_ indices: IndexSet) -> [Int: Int] {
