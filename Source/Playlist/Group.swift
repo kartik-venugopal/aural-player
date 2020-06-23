@@ -10,15 +10,13 @@ class Group: Hashable, GroupAccessorProtocol, PlaylistItem {
     // The unique name of this group (either an artist, album, or genre name)
     let name: String
     
+    // TODO: Create a type TracksArray with common operations like swap(), moveTracksUp, etc
     // The tracks within this group
     private var tracks: [Track] = [Track]()
     
     // Total duration of all tracks in this group
     var duration: Double {
-        
-        var totalDuration: Double = 0
-        tracks.forEach({totalDuration += $0.duration})
-        return totalDuration
+        return tracks.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
     }
     
     init(_ type: GroupType, _ name: String) {

@@ -12,6 +12,13 @@ extension Int {
         return self
     }
     
+    mutating func getAndIncrement() -> Int {
+        
+        let returnValue = self
+        self += 1
+        return returnValue
+    }
+    
     mutating func decrement() {
         self -= 1
     }
@@ -20,5 +27,12 @@ extension Int {
         
         self -= 1
         return self
+    }
+    
+    mutating func getAndDecrement() -> Int {
+        
+        let returnValue = self
+        self -= 1
+        return returnValue
     }
 }
