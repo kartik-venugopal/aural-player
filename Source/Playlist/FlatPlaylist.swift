@@ -12,10 +12,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     var size: Int {tracks.count}
     
     var duration: Double {
-        
-        var totalDuration: Double = 0
-        tracks.forEach({totalDuration += $0.duration})
-        return totalDuration
+        return tracks.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
     }
     
     func displayNameForTrack(_ track: Track) -> String {
@@ -103,9 +100,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     // MARK: Mutator functions
     
     func addTrack(_ track: Track) -> Int {
-        
-        tracks.append(track)
-        return tracks.count - 1
+        return tracks.addItem(track)
     }
     
     func clear() {
@@ -121,161 +116,56 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     private func removeTrack(_ track: Track) -> Int? {
-        
-        if let index = indexOfTrack(track) {
-            tracks.remove(at: index)
-            return index
-        }
-        
-        return nil
+        return tracks.removeItem(track)
     }
     
     func removeTracks(_ removedTracks: [Track]) -> IndexSet {
-        
-        // Collect the indexes of each of the tracks being removed
-        // Sort the indexes in descending order (tracks need to be removed in descending order)
-        let trackIndexes: [Int] = removedTracks.compactMap {indexOfTrack($0)}
-                                               .sorted(by: {i1, i2 -> Bool in return i1 > i2})
-        
-        // Remove the tracks at the indexes
-        trackIndexes.forEach({tracks.remove(at: $0)})
-        
-        return IndexSet(trackIndexes)
+        return tracks.removeItems(removedTracks)
     }
     
-    func removeTracks(_ indexes: IndexSet) -> [Track] {
-        
-        // Need to remove tracks in descending order of index, so that indexes of yet-to-be-removed elements are not messed up
-        // Sort descending, and collect the tracks as they are removed
-        return indexes.sorted(by: {x, y -> Bool in x > y}).compactMap {removeTrackAtIndex($0)}
-    }
-    
-    // Assume track can be moved
-    private func moveTrackUp(_ index: Int) -> Int {
-
-        tracks.swapAt(index, index - 1)
-        return index - 1
-    }
-    
-    // Assume track can be moved
-    private func moveTrackDown(_ index: Int) -> Int {
-        
-        tracks.swapAt(index, index + 1)
-        return index + 1
+    func removeTracks(_ indices: IndexSet) -> [Track] {
+        return tracks.removeItems(indices)
     }
     
     // Assume tracks can be moved
-    func moveTracksToTop(_ indexes: IndexSet) -> ItemMoveResults {
+    func moveTracksToTop(_ indices: IndexSet) -> ItemMoveResults {
         
-        var tracksMoved: Int = 0
-        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
+        // 1 - Move tracks to top
+        // 2 - Sort the [srcIndex: destIndex] results in ascending order by srcIndex
+        // 3 - Map the results to an array of TrackMoveResult
+        let results: [TrackMoveResult] = tracks.moveItemsToTop(indices).sorted(by: {$0.0 < $1.0}).map {TrackMoveResult($0.key, $0.value)}
         
-        var results = [TrackMoveResult]()
-        
-        for index in sortedIndexes {
-            
-            // Remove from original location and insert at top, one after another, below the previous one
-            let track = tracks.remove(at: index)
-            tracks.insert(track, at: tracksMoved)
-            
-            results.append(TrackMoveResult(index, tracksMoved))
-            
-            tracksMoved += 1
-        }
-        
-        // Ascending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), .tracks)
+        return ItemMoveResults(results, .tracks)
     }
     
-    func moveTracksToBottom(_ indexes: IndexSet) -> ItemMoveResults {
+    func moveTracksToBottom(_ indices: IndexSet) -> ItemMoveResults {
         
-        var tracksMoved: Int = 0
-        let sortedIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        // 1 - Move tracks to bottom
+        // 2 - Sort the [srcIndex: destIndex] results in descending order by srcIndex
+        // 3 - Map the results to an array of TrackMoveResult
+        let results: [TrackMoveResult] = tracks.moveItemsToBottom(indices).sorted(by: {$0.0 > $1.0}).map {TrackMoveResult($0.key, $0.value)}
         
-        var results = [TrackMoveResult]()
-        
-        for index in sortedIndexes {
-            
-            // Remove from original location and insert at top, one after another, below the previous one
-            let track = tracks.remove(at: index)
-            
-            let newIndex = tracks.endIndex - tracksMoved
-            tracks.insert(track, at: newIndex)
-            
-            results.append(TrackMoveResult(index, newIndex))
-            
-            tracksMoved += 1
-        }
-        
-        // Descending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), .tracks)
+        return ItemMoveResults(results, .tracks)
     }
     
-    func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
+    func moveTracksUp(_ indices: IndexSet) -> ItemMoveResults {
         
-        // Indexes need to be in ascending order, because tracks need to be moved up, one by one, from top to bottom of the playlist
-        let ascendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x < y})
+        // 1 - Move tracks up
+        // 2 - Sort the [srcIndex: destIndex] results in ascending order by srcIndex
+        // 3 - Map the results to an array of TrackMoveResult
+        let results: [TrackMoveResult] = tracks.moveItemsUp(indices).sorted(by: {$0.0 < $1.0}).map {TrackMoveResult($0.key, $0.value)}
         
-        // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var results = [TrackMoveResult]()
-        
-        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size. At the end of the loop, the cursor's value will equal the size of the block.
-        var unmovableBlockCursor = 0
-        while (ascendingOldIndexes.contains(unmovableBlockCursor)) {
-            
-            // Since this track cannot be moved, map its old index to the same old index
-            unmovableBlockCursor += 1
-        }
-        
-        // If there are any tracks that can be moved, move them and store the index mappings
-        if (unmovableBlockCursor < ascendingOldIndexes.count) {
-            
-            for index in unmovableBlockCursor...ascendingOldIndexes.count - 1 {
-                
-                let oldIndex = ascendingOldIndexes[index]
-                let newIndex = moveTrackUp(oldIndex)
-                results.append(TrackMoveResult(oldIndex, newIndex))
-            }
-        }
-        
-        // Ascending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex < r2.sortIndex}), .tracks)
+        return ItemMoveResults(results, .tracks)
     }
     
-    func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
+    func moveTracksDown(_ indices: IndexSet) -> ItemMoveResults {
         
-        // Indexes need to be in descending order, because tracks need to be moved down, one by one, from bottom to top of the playlist
-        let descendingOldIndexes = indexes.sorted(by: {x, y -> Bool in x > y})
+        // 1 - Move tracks down
+        // 2 - Sort the [srcIndex: destIndex] results in descending order by srcIndex
+        // 3 - Map the results to an array of TrackMoveResult
+        let results: [TrackMoveResult] = tracks.moveItemsDown(indices).sorted(by: {$0.0 > $1.0}).map {TrackMoveResult($0.key, $0.value)}
         
-        // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var results = [TrackMoveResult]()
-        
-        // Determine if there is a contiguous block of tracks at the top of the playlist, that cannot be moved. If there is, determine its size.
-        var unmovableBlockCursor = tracks.count - 1
-        
-        // Tracks the size of the unmovable block. At the end of the loop, the variable's value will equal the size of the block.
-        var unmovableBlockSize = 0
-        
-        while (descendingOldIndexes.contains(unmovableBlockCursor)) {
-            
-            // Since this track cannot be moved, map its old index to the same old index
-            unmovableBlockCursor -= 1
-            unmovableBlockSize += 1
-        }
-        
-        // If there are any tracks that can be moved, move them and store the index mappings
-        if (unmovableBlockSize < descendingOldIndexes.count) {
-            
-            for index in unmovableBlockSize...descendingOldIndexes.count - 1 {
-                
-                let oldIndex = descendingOldIndexes[index]
-                let newIndex = moveTrackDown(oldIndex)
-                results.append(TrackMoveResult(oldIndex, newIndex))
-            }
-        }
-        
-        // Descending order (by old index)
-        return ItemMoveResults(results.sorted(by: {r1, r2 -> Bool in return r1.sortIndex > r2.sortIndex}), .tracks)
+        return ItemMoveResults(results, .tracks)
     }
  
     func sort(_ sort: Sort) {

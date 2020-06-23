@@ -19,7 +19,7 @@ extension MutableCollection where Indices.Iterator.Element == Index {
         }
     }
     
-    var lastIndex: Int? {
-        return count > 0 ? count - 1 : nil
+    var lastIndex: Int {
+        return count - 1
     }
 }

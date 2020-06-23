@@ -672,7 +672,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         var sourceItems = [Track]()
         var sourceIndexMappings = [Track: Int]()
         
-        // Make sure they the source indexes are iterated in descending order. This will be important in Step 2.
+        // Make sure that the source indexes are iterated in descending order. This will be important in Step 2.
         sourceIndexSet.sorted(by: {x, y -> Bool in x > y}).forEach({
             
             if let track = parentGroup.removeTrackAtIndex($0) {
