@@ -42,7 +42,7 @@ class SequencerBeginAndEndTests: SequencerTests {
         
             for repeatMode in RepeatMode.allCases {
                 
-                let expectedTrack = playlistType == .tracks ? playlist.tracks[0] : playlist.groupAtIndex(playlistType.toGroupType()!, 0).trackAtIndex(0)
+                let expectedTrack = playlistType == .tracks ? playlist.tracks[0] : playlist.groupAtIndex(playlistType.toGroupType()!, 0)!.trackAtIndex(0)
                 
                 doTestBegin_noShuffle(playlistType, repeatMode, expectedTrack, 1, playlist.size)
             }
@@ -161,7 +161,7 @@ class SequencerBeginAndEndTests: SequencerTests {
         
             for repeatMode in RepeatMode.allCases {
                 
-                let expectedTrack = playlistType == .tracks ? playlist.tracks[0] : playlist.groupAtIndex(playlistType.toGroupType()!, 0).trackAtIndex(0)
+                let expectedTrack = playlistType == .tracks ? playlist.tracks[0] : playlist.groupAtIndex(playlistType.toGroupType()!, 0)!.trackAtIndex(0)
                 
                 doTestBegin_noShuffle(playlistType, repeatMode, expectedTrack, 1, playlist.size)
                 
