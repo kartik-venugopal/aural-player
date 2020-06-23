@@ -20,7 +20,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func trackAtIndex(_ index: Int) -> Track? {
-        return optionalIndexedOperation(index, {tracks[index]})
+        return tracks.itemAtIndex(index)
     }
     
     func indexOfTrack(_ track: Track) -> Int?  {
