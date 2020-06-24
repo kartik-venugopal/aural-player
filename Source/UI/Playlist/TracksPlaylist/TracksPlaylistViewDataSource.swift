@@ -78,6 +78,10 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Given source indexes, a destination index (dropRow), and the drop operation (on/above), determines if the drop is a valid reorder operation (depending on the bounds of the playlist, and the source and destination indexes)
     private func validateReorderOperation(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableView.DropOperation) -> Bool {
         
+        if operation != .above {
+            return false
+        }
+        
         // If all rows are selected, they cannot be moved, and dropRow cannot be one of the source rows
         if (sourceIndexSet.count == tableView.numberOfRows || sourceIndexSet.contains(dropRow)) {
             return false
@@ -99,7 +103,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
             if let sourceIndexSet = getSourceIndexes(info) {
                 
                 // Perform the reordering
-                let destination = playlist.dropTracks(sourceIndexSet, row, DropType.fromDropOperation(dropOperation))
+                let destination = playlist.dropTracks(sourceIndexSet, row)
                 
                 // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
                 

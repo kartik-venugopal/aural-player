@@ -501,9 +501,9 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
         addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification, true))
     }
     
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
         
-        let destination = playlist.dropTracks(sourceIndexes, dropIndex, dropType)
+        let destination = playlist.dropTracks(sourceIndexes, dropIndex)
         changeListeners.forEach({$0.tracksReordered(ItemMoveResults([], .tracks))})
         return destination
     }

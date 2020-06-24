@@ -177,11 +177,11 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     func sort(_ sort: Sort, _ playlistType: PlaylistType) -> SortResults
     
     /*
-        Performs a drag and drop reordering operation on the flat playlist, from a set of source indexes to a destination drop index (either on or above the drop index). Returns the set of new destination indexes for the reordered items.
+        Performs a drag and drop reordering operation on the flat playlist, from a set of source indexes to a destination drop index (above the drop index). Returns the set of new destination indexes for the reordered items.
      
         NOTE: Only the flat playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
      */
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet
     
     /*
         Performs a drag and drop reordering operation on a specific grouping/hierarchical playlist. Source items (tracks or groups) are dropped, under a given parent (either the root, if groups are being moved, or a specific group, if tracks are being moved), at a destination drop index.
@@ -301,5 +301,5 @@ enum PlaylistType: String, CaseIterable {
 // Marker protocol indicating an item that belongs to a playlist (i.e. either a track or a group)
 protocol PlaylistItem {}
 
-let ascendingIndexComparator: (Int, Int) -> Bool = {$0 < $1}
-let descendingIndexComparator: (Int, Int) -> Bool = {$0 > $1}
+let ascendingIntComparator: (Int, Int) -> Bool = {$0 < $1}
+let descendingIntComparator: (Int, Int) -> Bool = {$0 > $1}

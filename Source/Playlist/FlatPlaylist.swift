@@ -171,47 +171,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         }
     }
     
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
-        
-        let destination = calculateReorderingDestination(sourceIndexes, dropIndex, dropType)
-        performReordering(sourceIndexes, destination)
-        return destination
-    }
-    
-    /*
-        In response to a playlist reordering by drag and drop, and given source indexes, a destination index, and the drop operation (on/above), determines which destination indexes the source indexs will occupy.
-     */
-    private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
-        
-        // Find out how many source items are above the dropIndex and how many below
-        let dropsAboveDropIndex = sourceIndexSet.count(in: 0..<dropIndex)
-        let dropsBelowDropIndex = sourceIndexSet.count - dropsAboveDropIndex
-        
-        // The destination indexes will depend on:
-        // 1 - whether the drop is to be performed above or on the dropIndex
-        // 2 - if there are more source items above/below the drop index
-        
-        return dropType == .above || dropsAboveDropIndex <= dropsBelowDropIndex ?
-            IndexSet((dropIndex - dropsAboveDropIndex)...(dropIndex + dropsBelowDropIndex - 1)) :
-            IndexSet((dropIndex - dropsAboveDropIndex + 1)...(dropIndex + dropsBelowDropIndex))
-    }
-    
-    /*
-        Performs a playlist reordering (drag n drop)
-     */
-    private func performReordering(_ sourceIndexes: IndexSet, _ destinationIndexes: IndexSet) {
-        
-        // Store all source items (tracks) that are being reordered, in a temporary location.
-        // Make sure they the source indexes are iterated in descending order, because tracks need to be removed from the bottom up.
-        let sourceItems: [Track] = sourceIndexes.sorted(by: descendingIndexComparator).compactMap {tracks.removeItem($0)}
-        
-        // Destination indexes need to be sorted in ascending order, because tracks need to be inserted from the top down
-        let destinationIndexes = destinationIndexes.sorted(by: ascendingIndexComparator)
-        
-        // Reverse the source items collection to match the order of the destination indexes
-        // For each destination index, copy over a source item into the corresponding destination hole
-        for (loopIndex, sourceItem) in sourceItems.reversed().enumerated() {
-            tracks.insert(sourceItem, at: destinationIndexes[loopIndex])
-        }
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
+        return tracks.dragAndDropItems(sourceIndexes, dropIndex)
     }
 }
