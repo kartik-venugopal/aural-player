@@ -46,6 +46,19 @@ protocol ItemRemovalResult {
     var sortIndex: Int {get}
 }
 
+struct ItemRemovalResultComparators {
+    
+    private init() {}
+    
+    static func compareAscending(_ result1: ItemRemovalResult, _ result2: ItemRemovalResult) -> Bool {
+        return result1.sortIndex < result2.sortIndex
+    }
+    
+    static func compareDescending(_ result1: ItemRemovalResult, _ result2: ItemRemovalResult) -> Bool {
+        return result1.sortIndex > result2.sortIndex
+    }
+}
+
 // Contains the result of removing a group from a single grouping playlist
 struct GroupRemovalResult: ItemRemovalResult {
     
@@ -64,6 +77,14 @@ struct GroupRemovalResult: ItemRemovalResult {
         
         self.group = group
         self.groupIndex = groupIndex
+    }
+    
+    static func compareAscending(_ result1: GroupRemovalResult, _ result2: GroupRemovalResult) -> Bool {
+        return result1.sortIndex < result2.sortIndex
+    }
+    
+    static func compareDescending(_ result1: GroupRemovalResult, _ result2: GroupRemovalResult) -> Bool {
+        return result1.sortIndex > result2.sortIndex
     }
 }
 
@@ -85,6 +106,7 @@ struct GroupedTracksRemovalResult: ItemRemovalResult {
     }
     
     init(_ trackIndexesInGroup: IndexSet, _ parentGroup: Group, _ groupIndex: Int) {
+        
         self.trackIndexesInGroup = trackIndexesInGroup
         self.parentGroup = parentGroup
         self.groupIndex = groupIndex
@@ -145,6 +167,14 @@ struct GroupMoveResult: ItemMoveResult {
         self.movedUp = newGroupIndex < oldGroupIndex
         self.movedDown = !self.movedUp
     }
+    
+    static func compareAscending(_ result1: GroupMoveResult, _ result2: GroupMoveResult) -> Bool {
+        return result1.sortIndex < result2.sortIndex
+    }
+    
+    static func compareDescending(_ result1: GroupMoveResult, _ result2: GroupMoveResult) -> Bool {
+        return result1.sortIndex > result2.sortIndex
+    }
 }
 
 // Contains the result of moving a single track, either within a group, or within the flat playlist
@@ -176,5 +206,13 @@ struct TrackMoveResult: ItemMoveResult {
         
         self.movedUp = newTrackIndex < oldTrackIndex
         self.movedDown = !self.movedUp
+    }
+    
+    static func compareAscending(_ result1: TrackMoveResult, _ result2: TrackMoveResult) -> Bool {
+        return result1.sortIndex < result2.sortIndex
+    }
+    
+    static func compareDescending(_ result1: TrackMoveResult, _ result2: TrackMoveResult) -> Bool {
+        return result1.sortIndex > result2.sortIndex
     }
 }

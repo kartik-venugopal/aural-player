@@ -486,6 +486,7 @@
 		3E6341D8243DC28500190502 /* ControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341D7243DC28500190502 /* ControlsPreferences.swift */; };
 		3E6341DA243DC50500190502 /* PreferencesDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341D9243DC50500190502 /* PreferencesDefaults.swift */; };
 		3E6341DC243DC53B00190502 /* HistoryPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6341DB243DC53B00190502 /* HistoryPreferences.swift */; };
+		3E64634D24A374FF00A4E926 /* GroupingPlaylistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E64634C24A374FF00A4E926 /* GroupingPlaylistTests.swift */; };
 		3E680DE82480341A00ACE971 /* LoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E680DE72480341A00ACE971 /* LoopTests.swift */; };
 		3E680DEA248040CD00ACE971 /* ChapterPlaybackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E680DE9248040CD00ACE971 /* ChapterPlaybackTests.swift */; };
 		3E688ABF21E3842800164E84 /* WMParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E688ABE21E3842800164E84 /* WMParser.swift */; };
@@ -1116,6 +1117,7 @@
 		3E6341D7243DC28500190502 /* ControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsPreferences.swift; sourceTree = "<group>"; };
 		3E6341D9243DC50500190502 /* PreferencesDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDefaults.swift; sourceTree = "<group>"; };
 		3E6341DB243DC53B00190502 /* HistoryPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPreferences.swift; sourceTree = "<group>"; };
+		3E64634C24A374FF00A4E926 /* GroupingPlaylistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistTests.swift; sourceTree = "<group>"; };
 		3E67BEC821D273E80091DC6C /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ffmpeg-sourceCode.bz2"; path = "Resources/ffmpeg/ffmpeg-sourceCode.bz2"; sourceTree = SOURCE_ROOT; };
 		3E680DE72480341A00ACE971 /* LoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopTests.swift; sourceTree = "<group>"; };
 		3E680DE9248040CD00ACE971 /* ChapterPlaybackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterPlaybackTests.swift; sourceTree = "<group>"; };
@@ -2972,6 +2974,7 @@
 			isa = PBXGroup;
 			children = (
 				3EF2384B24A22ED6000F2F2D /* PlaylistItemArrayTests.swift */,
+				3E64634C24A374FF00A4E926 /* GroupingPlaylistTests.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -3882,6 +3885,7 @@
 				3E12ACA02469CBA100A07611 /* PlaylistDelegate.swift in Sources */,
 				3E12AD1D2469CC3B00A07611 /* PlaylistPreferences.swift in Sources */,
 				3E12AD172469CC3700A07611 /* ColorState.swift in Sources */,
+				3E64634D24A374FF00A4E926 /* GroupingPlaylistTests.swift in Sources */,
 				3E12ACCF2469CC0C00A07611 /* FXUnitDelegate.swift in Sources */,
 				3EC76A49247EAC180001CE28 /* PrimarySeekingTests.swift in Sources */,
 				3EF13D132472DC0D008CA5C0 /* EndPlaybackSequenceAction.swift in Sources */,
