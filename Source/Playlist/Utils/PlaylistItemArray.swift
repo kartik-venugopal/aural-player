@@ -1,5 +1,12 @@
 import Foundation
 
+extension Array {
+    
+    var isNonEmpty: Bool {
+        return !isEmpty
+    }
+}
+
 extension Array where Element: Equatable {
     
     func itemAtIndex(_ index: Int) -> Element? {
@@ -30,7 +37,7 @@ extension Array where Element: Equatable {
     mutating func removeItems(_ indices: IndexSet) -> [Element] {
         
         return indices.sorted(by: descendingIndexComparator)
-                      .compactMap {($0 < 0 || $0 >= self.count) ? nil : self.remove(at: $0)}
+            .compactMap {self.indices.contains($0) ? self.remove(at: $0) : nil}
     }
     
     mutating func removeItems(_ items: [Element]) -> IndexSet {
@@ -169,5 +176,19 @@ extension Array where Element: Equatable {
         }
         
         return results
+    }
+    
+    func categorizeBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
+        
+        var map: [C: [Element]] = [:]
+        
+        for item in self {
+            
+            let category: C = categorizingFunction(item)
+            map[category] = map[category] ?? []
+            map[category]!.append(item)
+        }
+        
+        return map
     }
 }

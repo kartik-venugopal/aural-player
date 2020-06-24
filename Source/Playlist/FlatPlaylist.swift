@@ -190,22 +190,10 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // The destination indexes will depend on:
         // 1 - whether the drop is to be performed above or on the dropIndex
         // 2 - if there are more source items above/below the drop index
-        if dropType == .above || dropsAboveDropIndex <= dropsBelowDropIndex {
-            
-            // All source items above the dropIndex will form a contiguous block ending just above (one index above) the dropIndex
-            // All source items below the dropIndex will form a contiguous block starting at the dropIndex and extending below it
-            
-            return IndexSet((dropIndex - dropsAboveDropIndex)...(dropIndex + dropsBelowDropIndex - 1))
-            
-        } else {
-            
-            // Drop is being performed * on * the destination index. There are more source items above the dropIndex than below it
-            
-            // All source items above the dropIndex will form a contiguous block ending at the dropIndex
-            // All source items below the dropIndex will form a contiguous block starting one index below the dropIndex and extending below it
-            
-            return IndexSet((dropIndex - dropsAboveDropIndex + 1)...(dropIndex + dropsBelowDropIndex))
-        }
+        
+        return dropType == .above || dropsAboveDropIndex <= dropsBelowDropIndex ?
+            IndexSet((dropIndex - dropsAboveDropIndex)...(dropIndex + dropsBelowDropIndex - 1)) :
+            IndexSet((dropIndex - dropsAboveDropIndex + 1)...(dropIndex + dropsBelowDropIndex))
     }
     
     /*
@@ -215,7 +203,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         
         // Store all source items (tracks) that are being reordered, in a temporary location.
         // Make sure they the source indexes are iterated in descending order, because tracks need to be removed from the bottom up.
-        let sourceItems: [Track] = sourceIndexes.sorted(by: descendingIndexComparator).compactMap {tracks.remove(at: $0)}
+        let sourceItems: [Track] = sourceIndexes.sorted(by: descendingIndexComparator).compactMap {tracks.removeItem($0)}
         
         // Destination indexes need to be sorted in ascending order, because tracks need to be inserted from the top down
         let destinationIndexes = destinationIndexes.sorted(by: ascendingIndexComparator)
