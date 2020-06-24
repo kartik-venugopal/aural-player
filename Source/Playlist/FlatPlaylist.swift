@@ -172,6 +172,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
-        return tracks.dragAndDropItems(sourceIndexes, dropIndex)
+        return IndexSet(tracks.dragAndDropItems(sourceIndexes, dropIndex).values)
     }
 }

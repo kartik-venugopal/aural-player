@@ -411,8 +411,8 @@ class PlaylistMutatorDelegate: PlaylistMutatorDelegateProtocol, NotificationSubs
         results.results.forEach({
         
             let trackMovedResult = $0 as! TrackMoveResult
-            if trackMovedResult.oldTrackIndex == oldIndex {
-                newIndex = trackMovedResult.newTrackIndex
+            if trackMovedResult.sourceIndex == oldIndex {
+                newIndex = trackMovedResult.destinationIndex
             }
         })
         

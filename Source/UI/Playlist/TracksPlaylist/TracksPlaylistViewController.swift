@@ -344,8 +344,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             
             if let trackMovedResult = result as? TrackMoveResult {
                 
-                playlistView.removeRows(at: IndexSet([trackMovedResult.oldTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
-                playlistView.insertRows(at: IndexSet([trackMovedResult.newTrackIndex]), withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
+                playlistView.removeRows(at: IndexSet([trackMovedResult.sourceIndex]), withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
+                playlistView.insertRows(at: IndexSet([trackMovedResult.destinationIndex]), withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
             }
         }
     }
@@ -355,8 +355,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         for result in results.results as! [TrackMoveResult] {
             
-            playlistView.moveRow(at: result.oldTrackIndex, to: result.newTrackIndex)
-            playlistView.reloadData(forRowIndexes: IndexSet([result.oldTrackIndex, result.newTrackIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.moveRow(at: result.sourceIndex, to: result.destinationIndex)
+            playlistView.reloadData(forRowIndexes: IndexSet([result.sourceIndex, result.destinationIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
         }
     }
     
@@ -431,8 +431,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         var refreshIndexes = [Int]()
 
-        if let track = oldTrack, let oldTrackIndex = playlist.indexOfTrack(track) {
-            refreshIndexes.append(oldTrackIndex)
+        if let track = oldTrack, let sourceIndex = playlist.indexOfTrack(track) {
+            refreshIndexes.append(sourceIndex)
         }
 
         let needToShowTrack: Bool = PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
@@ -483,8 +483,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         let oldTrack = notification.oldTrack
         var refreshIndexes = [Int]()
 
-        if let _oldTrack = oldTrack, let oldTrackIndex = playlist.indexOfTrack(_oldTrack) {
-            refreshIndexes.append(oldTrackIndex)
+        if let _oldTrack = oldTrack, let sourceIndex = playlist.indexOfTrack(_oldTrack) {
+            refreshIndexes.append(sourceIndex)
         }
 
         if let errTrack = notification.error.track, let errTrackIndex = playlist.indexOfTrack(errTrack) {
