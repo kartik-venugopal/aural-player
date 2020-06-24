@@ -263,8 +263,8 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         // First, sort all the move operations, so that they do not interfere with each other (all downward moves in descending order, followed by all upward moves in ascending order)
         
         var sortedMoves = [ItemMoveResult]()
-        sortedMoves.append(contentsOf: results.results.filter({$0.movedDown}).sorted(by: {r1, r2 -> Bool in r1.sortIndex > r2.sortIndex}))
-        sortedMoves.append(contentsOf: results.results.filter({$0.movedUp}).sorted(by: {r1, r2 -> Bool in r1.sortIndex < r2.sortIndex}))
+        sortedMoves.append(contentsOf: results.results.filter({$0.movedDown}).sorted(by: ItemMoveResultComparators.compareDescending))
+        sortedMoves.append(contentsOf: results.results.filter({$0.movedUp}).sorted(by: ItemMoveResultComparators.compareAscending))
         
         // Then, move the relevant items within the playlist view
         sortedMoves.forEach({
@@ -272,12 +272,12 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
             if let trackMoveResult = $0 as? TrackMoveResult {
                 
                 // Move track from the old source index within its parent group to its new destination index
-                outlineView.moveItem(at: trackMoveResult.oldTrackIndex, inParent: trackMoveResult.parentGroup!, to: trackMoveResult.newTrackIndex, inParent: trackMoveResult.parentGroup!)
+                outlineView.moveItem(at: trackMoveResult.sourceIndex, inParent: trackMoveResult.parentGroup!, to: trackMoveResult.destinationIndex, inParent: trackMoveResult.parentGroup!)
                 
             } else if let groupMoveResult = $0 as? GroupMoveResult {
                 
                 // Move group from the old source index within its parent (root) to its new destination index
-                outlineView.moveItem(at: groupMoveResult.oldGroupIndex, inParent: nil, to: groupMoveResult.newGroupIndex, inParent: nil)
+                outlineView.moveItem(at: groupMoveResult.sourceIndex, inParent: nil, to: groupMoveResult.destinationIndex, inParent: nil)
             }
         })
     }

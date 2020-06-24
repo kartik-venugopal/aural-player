@@ -195,28 +195,24 @@ extension Array where Element: Equatable {
     /*
        In response to a playlist reordering by drag and drop, and given source indices, a destination index, and the drop operation (on/above), determines which destination indices the source indexs will occupy.
     */
-    mutating func dragAndDropItems(_ sourceIndices: IndexSet, _ dropIndex: Int) -> IndexSet {
-        
-        // Find out how many source items are above the dropIndex and how many below
-        let dropsAboveDropIndex = sourceIndices.count(in: 0..<dropIndex)
-        let dropsBelowDropIndex = sourceIndices.count - dropsAboveDropIndex
+    mutating func dragAndDropItems(_ sourceIndices: IndexSet, _ dropIndex: Int) -> [Int: Int] {
         
         // The destination indices will depend on whether there are more source items above/below the drop index
-        let destinationIndices = IndexSet((dropIndex - dropsAboveDropIndex)...(dropIndex + dropsBelowDropIndex - 1))
+        // Find out how many source items are above the dropIndex and how many below
+        let dropsAboveDropIndex: Int = sourceIndices.count(in: 0..<dropIndex)
+        let dropsBelowDropIndex: Int = sourceIndices.count - dropsAboveDropIndex
+        let destinationIndices = [Int]((dropIndex - dropsAboveDropIndex)...(dropIndex + dropsBelowDropIndex - 1))
         
-        // Store all source items (tracks) that are being reordered, in a temporary location.
-        // Make sure they the source indices are iterated in descending order, because tracks need to be removed from the bottom up.
+        // Make sure that the source indices are iterated in descending order, because tracks need to be removed from the bottom up.
+        // Collect all the tracks into an array for re-insertion later.
         let sourceItems: [Element] = sourceIndices.sorted(by: descendingIntComparator).compactMap {self.removeItem($0)}
         
-        // Destination indices need to be sorted in ascending order, because tracks need to be inserted from the top down
-        let sortedDestinationIndices = destinationIndices.sorted(by: ascendingIntComparator)
-        
-        // Reverse the source items collection to match the order of the destination indices
-        // For each destination index, copy over a source item into the corresponding destination hole
-        for (loopIndex, sourceItem) in sourceItems.reversed().enumerated() {
-            self.insert(sourceItem, at: sortedDestinationIndices[loopIndex])
+        // Reverse the source items collection to match the order of the destination indices.
+        // For each destination index, copy over a source item into the corresponding destination hole.
+        for (sourceItem, destinationIndex) in zip(sourceItems.reversed(), destinationIndices) {
+            self.insert(sourceItem, at: destinationIndex)
         }
         
-        return destinationIndices
+        return Dictionary(uniqueKeysWithValues: zip(sourceIndices.sorted(by: ascendingIntComparator), destinationIndices))
     }
 }

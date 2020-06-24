@@ -233,15 +233,15 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
             
             if let trackMovedResult = result as? TrackMoveResult {
                 
-                playlistView.removeItems(at: IndexSet([trackMovedResult.oldTrackIndex]), inParent: trackMovedResult.parentGroup, withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
+                playlistView.removeItems(at: IndexSet([trackMovedResult.sourceIndex]), inParent: trackMovedResult.parentGroup, withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
                 
-                playlistView.insertItems(at: IndexSet([trackMovedResult.newTrackIndex]), inParent: trackMovedResult.parentGroup, withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
+                playlistView.insertItems(at: IndexSet([trackMovedResult.destinationIndex]), inParent: trackMovedResult.parentGroup, withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
                 
             } else if let groupMovedResult = result as? GroupMoveResult {
                 
-                playlistView.removeItems(at: IndexSet([groupMovedResult.oldGroupIndex]), inParent: nil, withAnimation: groupMovedResult.movedUp ? .slideUp : .slideDown)
+                playlistView.removeItems(at: IndexSet([groupMovedResult.sourceIndex]), inParent: nil, withAnimation: groupMovedResult.movedUp ? .slideUp : .slideDown)
                 
-                playlistView.insertItems(at: IndexSet([groupMovedResult.newGroupIndex]), inParent: nil, withAnimation: groupMovedResult.movedUp ? .slideDown : .slideUp)
+                playlistView.insertItems(at: IndexSet([groupMovedResult.destinationIndex]), inParent: nil, withAnimation: groupMovedResult.movedUp ? .slideDown : .slideUp)
             }
         }
     }
@@ -255,11 +255,11 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
             
             if let trackMovedResult = result as? TrackMoveResult {
                 
-                playlistView.moveItem(at: trackMovedResult.oldTrackIndex, inParent: trackMovedResult.parentGroup, to: trackMovedResult.newTrackIndex, inParent: trackMovedResult.parentGroup)
+                playlistView.moveItem(at: trackMovedResult.sourceIndex, inParent: trackMovedResult.parentGroup, to: trackMovedResult.destinationIndex, inParent: trackMovedResult.parentGroup)
                 
             } else if let groupMovedResult = result as? GroupMoveResult {
                 
-                playlistView.moveItem(at: groupMovedResult.oldGroupIndex, inParent: nil, to: groupMovedResult.newGroupIndex, inParent: nil)
+                playlistView.moveItem(at: groupMovedResult.sourceIndex, inParent: nil, to: groupMovedResult.destinationIndex, inParent: nil)
             }
         }
     }

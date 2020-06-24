@@ -99,6 +99,10 @@ class Group: Hashable, GroupAccessorProtocol, PlaylistItem {
         return tracks.moveItemsToBottom(indices)
     }
     
+    func dragAndDropItems(_ sourceIndices: IndexSet, _ dropIndex: Int) -> [Int: Int] {
+        return tracks.dragAndDropItems(sourceIndices, dropIndex)
+    }
+    
     // Sorts all tracks in this group, using the given strategy to compare tracks
     func sort(_ strategy: (Track, Track) -> Bool) {
         tracks.sort(by: strategy)

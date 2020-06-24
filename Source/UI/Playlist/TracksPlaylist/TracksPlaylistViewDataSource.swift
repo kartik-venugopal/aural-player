@@ -98,7 +98,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
             return false
         }
         
-        if (info.draggingSource is NSTableView) {
+        if info.draggingSource is NSTableView {
             
             if let sourceIndexSet = getSourceIndexes(info) {
                 
@@ -107,8 +107,8 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 
                 // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
                 
-                var srcArray = sourceIndexSet.toArray()
-                var destArray = destination.toArray()
+                var srcArray = sourceIndexSet.sorted(by: ascendingIntComparator)
+                var destArray = destination.sorted(by: ascendingIntComparator)
                 
                 // If items are being moved down, the order of the srcArray and destArray needs to be reversed
                 let movingDown = srcArray[0] < destArray[0]

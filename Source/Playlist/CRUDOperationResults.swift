@@ -129,44 +129,50 @@ struct ItemMoveResults {
 }
 
 // Marker protocol for the result of a track/group move
-protocol ItemMoveResult {
+class ItemMoveResult {
     
     // Index by which these results will be sorted
-    var sortIndex: Int {get}
+    var sortIndex: Int {
+        return sourceIndex
+    }
+    
+    // The old (source) index of the moved item
+    let sourceIndex: Int
+    
+    // The new (destination) index of the moved item
+    let destinationIndex: Int
     
     // Whether or not the track/group was moved up within the playlist
-    var movedUp: Bool {get}
+    let movedUp: Bool
     
     // Whether or not the track/group was moved down within the playlist
-    var movedDown: Bool {get}
+    let movedDown: Bool
+    
+    init(_ sourceIndex: Int, _ destinationIndex: Int) {
+        
+        self.sourceIndex = sourceIndex
+        self.destinationIndex = destinationIndex
+        
+        self.movedUp = destinationIndex < sourceIndex
+        self.movedDown = !self.movedUp
+    }
+}
+
+struct ItemMoveResultComparators {
+    
+    private init() {}
+    
+    static func compareAscending(_ result1: ItemMoveResult, _ result2: ItemMoveResult) -> Bool {
+        return result1.sortIndex < result2.sortIndex
+    }
+    
+    static func compareDescending(_ result1: ItemMoveResult, _ result2: ItemMoveResult) -> Bool {
+        return result1.sortIndex > result2.sortIndex
+    }
 }
 
 // Contains the result of moving a single group
-struct GroupMoveResult: ItemMoveResult {
-    
-    // The old (source) index of the moved group
-    let oldGroupIndex: Int
-    
-    // The new (destination) index of the moved group
-    let newGroupIndex: Int
-    
-    // Flags indicating whether the group was moved up/down
-    let movedUp: Bool
-    let movedDown: Bool
-    
-    // These results will be sorted by the source group index
-    var sortIndex: Int {
-        return oldGroupIndex
-    }
-    
-    init(_ oldGroupIndex: Int, _ newGroupIndex: Int) {
-        
-        self.oldGroupIndex = oldGroupIndex
-        self.newGroupIndex = newGroupIndex
-        
-        self.movedUp = newGroupIndex < oldGroupIndex
-        self.movedDown = !self.movedUp
-    }
+class GroupMoveResult: ItemMoveResult {
     
     static func compareAscending(_ result1: GroupMoveResult, _ result2: GroupMoveResult) -> Bool {
         return result1.sortIndex < result2.sortIndex
@@ -178,34 +184,15 @@ struct GroupMoveResult: ItemMoveResult {
 }
 
 // Contains the result of moving a single track, either within a group, or within the flat playlist
-struct TrackMoveResult: ItemMoveResult {
-    
-    // The old (source) index of the moved track
-    let oldTrackIndex: Int
-    
-    // The new (destination) index of the moved track
-    let newTrackIndex: Int
+class TrackMoveResult: ItemMoveResult {
     
     // The parent group, if the move occurred within a grouping playlist, or nil, if the move occurred within the flat playlist
     let parentGroup: Group?
     
-    // Flags indicating whether the track was moved up/down
-    let movedUp: Bool
-    let movedDown: Bool
-    
-    // These results will be sorted by the source track index
-    var sortIndex: Int {
-        return oldTrackIndex
-    }
-    
-    init(_ oldTrackIndex: Int, _ newTrackIndex: Int, _ parentGroup: Group? = nil) {
+    init(_ sourceIndex: Int, _ destinationIndex: Int, _ parentGroup: Group? = nil) {
         
-        self.oldTrackIndex = oldTrackIndex
-        self.newTrackIndex = newTrackIndex
         self.parentGroup = parentGroup
-        
-        self.movedUp = newTrackIndex < oldTrackIndex
-        self.movedDown = !self.movedUp
+        super.init(sourceIndex, destinationIndex)
     }
     
     static func compareAscending(_ result1: TrackMoveResult, _ result2: TrackMoveResult) -> Bool {
