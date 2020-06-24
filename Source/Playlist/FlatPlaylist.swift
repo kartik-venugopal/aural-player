@@ -106,13 +106,9 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     func clear() {
         tracks.removeAll()
     }
-    
-    private func optionalIndexedOperation(_ index: Int, _ successValueFunction: () -> Track) -> Track? {
-        return index < 0 || index >= tracks.count ? nil : successValueFunction()
-    }
  
     private func removeTrackAtIndex(_ index: Int) -> Track? {
-        return optionalIndexedOperation(index, {tracks.remove(at: index)})
+        return tracks.removeItem(index)
     }
     
     private func removeTrack(_ track: Track) -> Int? {
@@ -188,52 +184,28 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     private func calculateReorderingDestination(_ sourceIndexSet: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
         
         // Find out how many source items are above the dropIndex and how many below
-        let sourceIndexesAboveDropIndex = sourceIndexSet.count(in: 0..<dropIndex)
-        let sourceIndexesBelowDropIndex = sourceIndexSet.count - sourceIndexesAboveDropIndex
+        let dropsAboveDropIndex = sourceIndexSet.count(in: 0..<dropIndex)
+        let dropsBelowDropIndex = sourceIndexSet.count - dropsAboveDropIndex
         
-        // The lowest index in the destination indexes
-        var minDestinationIndex: Int
-        
-        // The highest index in the destination indexes
-        var maxDestinationIndex: Int
-        
-        // The destination indexes will depend on whether the drop is to be performed above or on the dropIndex
-        if (dropType == .above) {
+        // The destination indexes will depend on:
+        // 1 - whether the drop is to be performed above or on the dropIndex
+        // 2 - if there are more source items above/below the drop index
+        if dropType == .above || dropsAboveDropIndex <= dropsBelowDropIndex {
             
             // All source items above the dropIndex will form a contiguous block ending just above (one index above) the dropIndex
             // All source items below the dropIndex will form a contiguous block starting at the dropIndex and extending below it
             
-            minDestinationIndex = dropIndex - sourceIndexesAboveDropIndex
-            maxDestinationIndex = dropIndex + sourceIndexesBelowDropIndex - 1
+            return IndexSet((dropIndex - dropsAboveDropIndex)...(dropIndex + dropsBelowDropIndex - 1))
             
         } else {
             
-            // On
+            // Drop is being performed * on * the destination index. There are more source items above the dropIndex than below it
             
-            // If the drop is being performed on the dropIndex, the destination indexes will further depend on whether there are more source items above or below the dropIndex.
-            if (sourceIndexesAboveDropIndex > sourceIndexesBelowDropIndex) {
-                
-                // There are more source items above the dropIndex than below it
-                
-                // All source items above the dropIndex will form a contiguous block ending at the dropIndex
-                // All source items below the dropIndex will form a contiguous block starting one index below the dropIndex and extending below it
-                
-                minDestinationIndex = dropIndex - sourceIndexesAboveDropIndex + 1
-                maxDestinationIndex = dropIndex + sourceIndexesBelowDropIndex
-                
-            } else {
-                
-                // There are more source items below the dropIndex than above it
-                
-                // All source items above the dropIndex will form a contiguous block ending just above (one index above) the dropIndex
-                // All source items below the dropIndex will form a contiguous block starting at the dropIndex and extending below it
-                
-                minDestinationIndex = dropIndex - sourceIndexesAboveDropIndex
-                maxDestinationIndex = dropIndex + sourceIndexesBelowDropIndex - 1
-            }
+            // All source items above the dropIndex will form a contiguous block ending at the dropIndex
+            // All source items below the dropIndex will form a contiguous block starting one index below the dropIndex and extending below it
+            
+            return IndexSet((dropIndex - dropsAboveDropIndex + 1)...(dropIndex + dropsBelowDropIndex))
         }
-        
-        return IndexSet(minDestinationIndex...maxDestinationIndex)
     }
     
     /*
@@ -242,28 +214,16 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     private func performReordering(_ sourceIndexes: IndexSet, _ destinationIndexes: IndexSet) {
         
         // Store all source items (tracks) that are being reordered, in a temporary location.
-        var sourceItems = [Track]()
-        
         // Make sure they the source indexes are iterated in descending order, because tracks need to be removed from the bottom up.
-        sourceIndexes.sorted(by: {x, y -> Bool in x > y}).forEach({
-            
-            // Remove the track at this index and collect it
-            sourceItems.append(tracks.remove(at: $0))
-        })
-        
-        var cursor = 0
+        let sourceItems: [Track] = sourceIndexes.sorted(by: descendingIndexComparator).compactMap {tracks.remove(at: $0)}
         
         // Destination indexes need to be sorted in ascending order, because tracks need to be inserted from the top down
-        let destinationIndexes = destinationIndexes.sorted(by: {x, y -> Bool in x < y})
+        let destinationIndexes = destinationIndexes.sorted(by: ascendingIndexComparator)
         
         // Reverse the source items collection to match the order of the destination indexes
-        sourceItems = sourceItems.reversed()
-        
-        destinationIndexes.forEach({
-            
-            // For each destination index, copy over a source item into the corresponding destination hole
-            tracks.insert(sourceItems[cursor], at: $0)
-            cursor += 1
-        })
+        // For each destination index, copy over a source item into the corresponding destination hole
+        for (loopIndex, sourceItem) in sourceItems.reversed().enumerated() {
+            tracks.insert(sourceItem, at: destinationIndexes[loopIndex])
+        }
     }
 }

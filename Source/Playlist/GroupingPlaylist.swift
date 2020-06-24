@@ -85,11 +85,18 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return groupName ?? "<Unknown>"
     }
     
-    // Assumes track already exists in playlist, i.e. return value cannot be nil
     private func getGroupForTrack(_ track: Track) -> Group? {
+        return groupsByName[getGroupNameForTrack(track)]
+    }
+    
+    private func createGroupForTrack(_ track: Track) -> (group: Group, groupIndex: Int) {
         
-        let name = getGroupNameForTrack(track)
-        return groupsByName[name]
+        let groupName = getGroupNameForTrack(track)
+        let newGroup = Group(self.typeOfGroups, groupName)
+        groupsByName[groupName] = newGroup
+        let groupIndex = groups.addItem(newGroup)
+        
+        return (newGroup, groupIndex)
     }
     
     func displayNameForTrack(_ track: Track) -> String {
@@ -158,22 +165,16 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func addTrack(_ track: Track) -> GroupedTrackAddResult {
         
-        // Determine the name of the group this track belongs in (the group may not already exist)
-        let groupName = getGroupNameForTrack(track)
-
-        // Create the group if it doesn't already exist
-        let groupCreated: Bool = groupsByName[groupName] == nil
-        
-        if groupCreated {
-            groupsByName[groupName] = Group(self.typeOfGroups, groupName)
+        // Determine the group this track belongs in (the group may not already exist)
+        if let group = getGroupForTrack(track) {
+            return GroupedTrackAddResult(track: GroupedTrack(track, group, group.addTrack(track), groups.firstIndex(of: group)!), groupCreated: false)
         }
         
-        let group = groupsByName[groupName]!
-        let groupIndex: Int = groups.firstIndex(of: group)!
-        let trackIndex: Int = group.addTrack(track)
-        let groupedTrack = GroupedTrack(track, group, trackIndex, groupIndex)
+        // Group doesn't exist, create it.
+        let newGroupAndIndex = createGroupForTrack(track)
+        let newGroup = newGroupAndIndex.group
         
-        return GroupedTrackAddResult(track: groupedTrack, groupCreated: groupCreated)
+        return GroupedTrackAddResult(track: GroupedTrack(track, newGroup, newGroup.addTrack(track), newGroupAndIndex.groupIndex), groupCreated: true)
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [ItemRemovalResult] {

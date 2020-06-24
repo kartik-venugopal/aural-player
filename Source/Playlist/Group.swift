@@ -21,8 +21,6 @@ class Group: Hashable, GroupAccessorProtocol, PlaylistItem {
     init(_ type: GroupType, _ name: String) {
         self.type = type
         self.name = name
-        
-        print("\nTracks:", tracks.hashValue, ", AllTracks:", allTracks().hashValue)
     }
     
     func hash(into hasher: inout Hasher) {

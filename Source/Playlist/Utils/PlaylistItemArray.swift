@@ -29,7 +29,7 @@ extension Array where Element: Equatable {
     
     mutating func removeItems(_ indices: IndexSet) -> [Element] {
         
-        return indices.sorted(by: {x, y -> Bool in x > y})
+        return indices.sorted(by: descendingIndexComparator)
                       .compactMap {($0 < 0 || $0 >= self.count) ? nil : self.remove(at: $0)}
     }
     
@@ -37,7 +37,7 @@ extension Array where Element: Equatable {
 
         // Collect and sort indices before removing items
         let indices: [Int] = items.compactMap {self.firstIndex(of: ($0))}
-                                    .sorted(by: {i1, i2 -> Bool in return i1 > i2})
+                                    .sorted(by: descendingIndexComparator)
         
         indices.forEach({self.remove(at: $0)})
         
@@ -67,7 +67,7 @@ extension Array where Element: Equatable {
     mutating func moveItemsUp(_ indices: IndexSet) -> [Int: Int] {
         
         // Indices need to be in ascending order, because items need to be moved up, one by one, from top to bottom of the playlist
-        let ascendingOldIndices = indices.sorted(by: {x, y -> Bool in x < y})
+        let ascendingOldIndices = indices.sorted(by: ascendingIndexComparator)
         guard areAscendingIndicesValid(ascendingOldIndices) else {return [:]}
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
@@ -96,7 +96,7 @@ extension Array where Element: Equatable {
     mutating func moveItemsDown(_ indices: IndexSet) -> [Int: Int] {
         
         // Indices need to be in descending order, because items need to be moved down, one by one, from bottom to top of the playlist
-        let descendingOldIndices = indices.sorted(by: {x, y -> Bool in x > y})
+        let descendingOldIndices = indices.sorted(by: descendingIndexComparator)
         guard areDescendingIndicesValid(descendingOldIndices) else {return [:]}
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
@@ -133,23 +133,17 @@ extension Array where Element: Equatable {
     
     mutating func moveItemsToTop(_ indices: IndexSet) -> [Int: Int] {
         
-        let sortedIndices = indices.sorted(by: {x, y -> Bool in x < y})
+        let sortedIndices = indices.sorted(by: ascendingIndexComparator)
         guard areAscendingIndicesValid(sortedIndices) else {return [:]}
 
-        var tracksMoved: Int = 0
         var results: [Int: Int] = [:]
         
-        for index in sortedIndices {
+        // Remove from original location and insert at the top, one after another, below the previous one
+        // No need to move the item if the original location is the same as the destination
+        for (newIndex, oldIndex) in sortedIndices.enumerated().filter({$0.0 != $0.1}) {
             
-            // Remove from original location and insert at the top, one after another, below the previous one
-            // No need to move the item if the original location is the same as the destination
-            if index != tracksMoved {
-            
-                self.removeAndInsertItem(index, tracksMoved)
-                results[index] = tracksMoved
-            }
-            
-            tracksMoved.increment()
+            self.removeAndInsertItem(oldIndex, newIndex)
+            results[oldIndex] = newIndex
         }
         
         return results
@@ -161,25 +155,17 @@ extension Array where Element: Equatable {
     
     mutating func moveItemsToBottom(_ indices: IndexSet) -> [Int: Int] {
         
-        let sortedIndices = indices.sorted(by: {x, y -> Bool in x > y})
+        let sortedIndices = indices.sorted(by: descendingIndexComparator)
         guard areDescendingIndicesValid(sortedIndices) else {return [:]}
         
-        var tracksMoved: Int = 0
         var results: [Int: Int] = [:]
-        
-        for index in sortedIndices {
+
+        // Remove from original location and insert at the bottom, one after another, above the previous one
+        // No need to move the item if the original location is the same as the destination
+        for (newIndex, oldIndex) in sortedIndices.enumerated().map({(self.lastIndex - $0, $1)}).filter({$0.0 != $0.1}) {
             
-            let newIndex = self.lastIndex - tracksMoved
-            
-            // Remove from original location and insert at the bottom, one after another, above the previous one
-            // No need to move the item if the original location is the same as the destination
-            if index != newIndex {
-                
-                self.removeAndInsertItem(index, newIndex)
-                results[index] = newIndex
-            }
-            
-            tracksMoved.increment()
+            self.removeAndInsertItem(oldIndex, newIndex)
+            results[oldIndex] = newIndex
         }
         
         return results
