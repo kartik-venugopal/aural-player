@@ -281,8 +281,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return flatPlaylist.trackAtIndex(index)
     }
     
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int, _ dropType: DropType) -> IndexSet {
-        return flatPlaylist.dropTracks(sourceIndexes, dropIndex, dropType)
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
+        return flatPlaylist.dropTracks(sourceIndexes, dropIndex)
     }
     
     // MARK: Grouping/hierarchical playlist functions

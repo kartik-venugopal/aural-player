@@ -36,7 +36,7 @@ extension Array where Element: Equatable {
     
     mutating func removeItems(_ indices: IndexSet) -> [Element] {
         
-        return indices.sorted(by: descendingIndexComparator)
+        return indices.sorted(by: descendingIntComparator)
             .compactMap {self.indices.contains($0) ? self.remove(at: $0) : nil}
     }
     
@@ -44,7 +44,7 @@ extension Array where Element: Equatable {
 
         // Collect and sort indices before removing items
         let indices: [Int] = items.compactMap {self.firstIndex(of: ($0))}
-                                    .sorted(by: descendingIndexComparator)
+                                    .sorted(by: descendingIntComparator)
         
         indices.forEach({self.remove(at: $0)})
         
@@ -74,7 +74,7 @@ extension Array where Element: Equatable {
     mutating func moveItemsUp(_ indices: IndexSet) -> [Int: Int] {
         
         // Indices need to be in ascending order, because items need to be moved up, one by one, from top to bottom of the playlist
-        let ascendingOldIndices = indices.sorted(by: ascendingIndexComparator)
+        let ascendingOldIndices = indices.sorted(by: ascendingIntComparator)
         guard areAscendingIndicesValid(ascendingOldIndices) else {return [:]}
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
@@ -103,7 +103,7 @@ extension Array where Element: Equatable {
     mutating func moveItemsDown(_ indices: IndexSet) -> [Int: Int] {
         
         // Indices need to be in descending order, because items need to be moved down, one by one, from bottom to top of the playlist
-        let descendingOldIndices = indices.sorted(by: descendingIndexComparator)
+        let descendingOldIndices = indices.sorted(by: descendingIntComparator)
         guard areDescendingIndicesValid(descendingOldIndices) else {return [:]}
         
         // Mappings of oldIndex (prior to move) -> newIndex (after move)
@@ -140,7 +140,7 @@ extension Array where Element: Equatable {
     
     mutating func moveItemsToTop(_ indices: IndexSet) -> [Int: Int] {
         
-        let sortedIndices = indices.sorted(by: ascendingIndexComparator)
+        let sortedIndices = indices.sorted(by: ascendingIntComparator)
         guard areAscendingIndicesValid(sortedIndices) else {return [:]}
 
         var results: [Int: Int] = [:]
@@ -162,7 +162,7 @@ extension Array where Element: Equatable {
     
     mutating func moveItemsToBottom(_ indices: IndexSet) -> [Int: Int] {
         
-        let sortedIndices = indices.sorted(by: descendingIndexComparator)
+        let sortedIndices = indices.sorted(by: descendingIntComparator)
         guard areDescendingIndicesValid(sortedIndices) else {return [:]}
         
         var results: [Int: Int] = [:]
@@ -190,5 +190,33 @@ extension Array where Element: Equatable {
         }
         
         return map
+    }
+    
+    /*
+       In response to a playlist reordering by drag and drop, and given source indices, a destination index, and the drop operation (on/above), determines which destination indices the source indexs will occupy.
+    */
+    mutating func dragAndDropItems(_ sourceIndices: IndexSet, _ dropIndex: Int) -> IndexSet {
+        
+        // Find out how many source items are above the dropIndex and how many below
+        let dropsAboveDropIndex = sourceIndices.count(in: 0..<dropIndex)
+        let dropsBelowDropIndex = sourceIndices.count - dropsAboveDropIndex
+        
+        // The destination indices will depend on whether there are more source items above/below the drop index
+        let destinationIndices = IndexSet((dropIndex - dropsAboveDropIndex)...(dropIndex + dropsBelowDropIndex - 1))
+        
+        // Store all source items (tracks) that are being reordered, in a temporary location.
+        // Make sure they the source indices are iterated in descending order, because tracks need to be removed from the bottom up.
+        let sourceItems: [Element] = sourceIndices.sorted(by: descendingIntComparator).compactMap {self.removeItem($0)}
+        
+        // Destination indices need to be sorted in ascending order, because tracks need to be inserted from the top down
+        let sortedDestinationIndices = destinationIndices.sorted(by: ascendingIntComparator)
+        
+        // Reverse the source items collection to match the order of the destination indices
+        // For each destination index, copy over a source item into the corresponding destination hole
+        for (loopIndex, sourceItem) in sourceItems.reversed().enumerated() {
+            self.insert(sourceItem, at: sortedDestinationIndices[loopIndex])
+        }
+        
+        return destinationIndices
     }
 }
