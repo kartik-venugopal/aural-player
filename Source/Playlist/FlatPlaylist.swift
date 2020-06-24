@@ -133,7 +133,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // 1 - Move tracks to top
         // 2 - Sort the [srcIndex: destIndex] results in ascending order by srcIndex
         // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsToTop(indices).sorted(by: {$0.0 < $1.0}).map {TrackMoveResult($0.key, $0.value)}
+        let results: [TrackMoveResult] = tracks.moveItemsToTop(indices).sorted(by: {$0.key < $1.key}).map {TrackMoveResult($0.key, $0.value)}
         
         return ItemMoveResults(results, .tracks)
     }
@@ -143,7 +143,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // 1 - Move tracks to bottom
         // 2 - Sort the [srcIndex: destIndex] results in descending order by srcIndex
         // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsToBottom(indices).sorted(by: {$0.0 > $1.0}).map {TrackMoveResult($0.key, $0.value)}
+        let results: [TrackMoveResult] = tracks.moveItemsToBottom(indices).sorted(by: {$0.key > $1.key}).map {TrackMoveResult($0.key, $0.value)}
         
         return ItemMoveResults(results, .tracks)
     }
@@ -153,7 +153,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // 1 - Move tracks up
         // 2 - Sort the [srcIndex: destIndex] results in ascending order by srcIndex
         // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsUp(indices).sorted(by: {$0.0 < $1.0}).map {TrackMoveResult($0.key, $0.value)}
+        let results: [TrackMoveResult] = tracks.moveItemsUp(indices).sorted(by: {$0.key < $1.key}).map {TrackMoveResult($0.key, $0.value)}
         
         return ItemMoveResults(results, .tracks)
     }
@@ -163,7 +163,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // 1 - Move tracks down
         // 2 - Sort the [srcIndex: destIndex] results in descending order by srcIndex
         // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsDown(indices).sorted(by: {$0.0 > $1.0}).map {TrackMoveResult($0.key, $0.value)}
+        let results: [TrackMoveResult] = tracks.moveItemsDown(indices).sorted(by: {$0.key > $1.key}).map {TrackMoveResult($0.key, $0.value)}
         
         return ItemMoveResults(results, .tracks)
     }
