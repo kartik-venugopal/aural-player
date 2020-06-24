@@ -52,9 +52,9 @@ class TrackPlaybackCompletedChainTests: AuralTestCase, NotificationSubscriber {
         profiles = PlaybackProfiles()
         
         let flatPlaylist = FlatPlaylist()
-        let artistsPlaylist = GroupingPlaylist(.artists, .artist)
-        let albumsPlaylist = GroupingPlaylist(.albums, .album)
-        let genresPlaylist = GroupingPlaylist(.genres, .genre)
+        let artistsPlaylist = GroupingPlaylist(.artists)
+        let albumsPlaylist = GroupingPlaylist(.albums)
+        let genresPlaylist = GroupingPlaylist(.genres)
         
         playlist = TestablePlaylist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         

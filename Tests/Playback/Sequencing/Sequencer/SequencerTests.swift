@@ -71,9 +71,9 @@ class SequencerTests: AuralTestCase {
         if sequencer == nil {
             
             let flatPlaylist = FlatPlaylist()
-            let artistsPlaylist = GroupingPlaylist(.artists, .artist)
-            let albumsPlaylist = GroupingPlaylist(.albums, .album)
-            let genresPlaylist = GroupingPlaylist(.genres, .genre)
+            let artistsPlaylist = GroupingPlaylist(.artists)
+            let albumsPlaylist = GroupingPlaylist(.albums)
+            let genresPlaylist = GroupingPlaylist(.genres)
             
             playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
             sequencer = Sequencer(playlist, .off, .off, .tracks)
