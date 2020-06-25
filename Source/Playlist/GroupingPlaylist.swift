@@ -102,46 +102,18 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func search(_ query: SearchQuery) -> SearchResults {
         
-        var results: [SearchResult] = [SearchResult]()
-        
         // The name of the "search field" is simply the description of the group type, for ex - "artist"
         let searchField = typeOfGroups.rawValue
+
+        var results: [SearchResult] = []
         
-        // Return all tracks whose group name matches the search text
-        for group in groups {
+        for group in groups.filter({query.compare($0.name)}) {
             
-            if (compare(group.name, query)) {
-                
-                for track in group.allTracks() {
-                    
-                    // Location info does not need to be computed here
-                    results.append(SearchResult(location: SearchResultLocation(trackIndex: nil, track: track, groupInfo: nil), match: (searchField, group.name)))
-                }
-            }
+            results += group.tracks.map {SearchResult(location: SearchResultLocation(trackIndex: nil, track: $0, groupInfo: nil),
+                                                           match: (searchField, group.name))}
         }
         
         return SearchResults(results)
-    }
-    
-    // Helper function that compares the value of a single field to the search text to determine if there is a match
-    private func compare(_ fieldVal: String, _ query: SearchQuery) -> Bool {
-        
-        let caseSensitive: Bool = query.options.caseSensitive
-        let queryText: String = caseSensitive ? query.text : query.text.lowercased()
-        let compared: String = caseSensitive ? fieldVal : fieldVal.lowercased()
-        let type: SearchType = query.type
-        
-        switch type {
-            
-        case .beginsWith: return compared.hasPrefix(queryText)
-            
-        case .endsWith: return compared.hasSuffix(queryText)
-            
-        case .equals: return compared == queryText
-            
-        case .contains: return compared.contains(queryText)
-            
-        }
     }
     
     // MARK: Mutator functions
