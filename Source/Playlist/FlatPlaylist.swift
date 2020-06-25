@@ -37,10 +37,9 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     private func executeQuery(_ track: Track, _ query: SearchQuery) -> SearchQueryMatch? {
-        
+
+        // Check both the filename and the display name
         if query.fields.name {
-            
-            // Check both the filename and the display name
             
             let filename = track.fileSystemInfo.fileName
             if query.compare(filename) {
@@ -88,52 +87,24 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         return tracks.removeItems(indices)
     }
     
-    // Assume tracks can be moved
     func moveTracksToTop(_ indices: IndexSet) -> ItemMoveResults {
-        
-        // 1 - Move tracks to top
-        // 2 - Sort the [srcIndex: destIndex] results in ascending order by srcIndex
-        // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsToTop(indices).sorted(by: {$0.key < $1.key}).map {TrackMoveResult($0.key, $0.value)}
-        
-        return ItemMoveResults(results, .tracks)
+        return ItemMoveResults(tracks.moveItemsToTop(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
     }
     
     func moveTracksToBottom(_ indices: IndexSet) -> ItemMoveResults {
-        
-        // 1 - Move tracks to bottom
-        // 2 - Sort the [srcIndex: destIndex] results in descending order by srcIndex
-        // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsToBottom(indices).sorted(by: {$0.key > $1.key}).map {TrackMoveResult($0.key, $0.value)}
-        
-        return ItemMoveResults(results, .tracks)
+        return ItemMoveResults(tracks.moveItemsToBottom(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
     }
     
     func moveTracksUp(_ indices: IndexSet) -> ItemMoveResults {
-        
-        // 1 - Move tracks up
-        // 2 - Sort the [srcIndex: destIndex] results in ascending order by srcIndex
-        // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsUp(indices).sorted(by: {$0.key < $1.key}).map {TrackMoveResult($0.key, $0.value)}
-        
-        return ItemMoveResults(results, .tracks)
+        return ItemMoveResults(tracks.moveItemsUp(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
     }
     
     func moveTracksDown(_ indices: IndexSet) -> ItemMoveResults {
-        
-        // 1 - Move tracks down
-        // 2 - Sort the [srcIndex: destIndex] results in descending order by srcIndex
-        // 3 - Map the results to an array of TrackMoveResult
-        let results: [TrackMoveResult] = tracks.moveItemsDown(indices).sorted(by: {$0.key > $1.key}).map {TrackMoveResult($0.key, $0.value)}
-        
-        return ItemMoveResults(results, .tracks)
+        return ItemMoveResults(tracks.moveItemsDown(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
     }
  
     func sort(_ sort: Sort) {
-        
-        if sort.tracksSort != nil {
-            tracks.sort(by: SortComparator(sort, self.displayNameForTrack).compareTracks)
-        }
+        tracks.sort(by: SortComparator(sort, self.displayNameForTrack).compareTracks)
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
