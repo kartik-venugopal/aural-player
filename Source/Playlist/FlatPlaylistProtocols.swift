@@ -71,7 +71,7 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      
         Returns the set of new destination indexes for the reordered tracks.
      */
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults
     
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)

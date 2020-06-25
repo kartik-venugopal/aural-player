@@ -281,7 +281,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return flatPlaylist.trackAtIndex(index)
     }
     
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {
         return flatPlaylist.dropTracks(sourceIndexes, dropIndex)
     }
     

@@ -123,7 +123,7 @@ protocol PlaylistMutatorDelegateProtocol {
      
         NOTE: Only the flat playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
     */
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults
     
     /*
         Performs a drag and drop reordering operation on a specific grouping/hierarchical playlist. Source items (tracks or groups) are dropped, under a given parent (either the root, if groups are being moved, or a specific group, if tracks are being moved), at a destination drop index. Returns mappings of source locations to destination locations.

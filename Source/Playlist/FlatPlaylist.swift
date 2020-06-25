@@ -107,7 +107,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         tracks.sort(by: SortComparator(sort, self.displayNameForTrack).compareTracks)
     }
     
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
-        return IndexSet(tracks.dragAndDropItems(sourceIndexes, dropIndex).values)
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {
+        return ItemMoveResults(tracks.dragAndDropItems(sourceIndexes, dropIndex).map {TrackMoveResult($0.key, $0.value)}, .tracks)
     }
 }
