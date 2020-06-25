@@ -40,8 +40,11 @@ class TracksSort {
     
     var fields: [SortField] = [.name]
     var order: SortOrder = .ascending
-    var scope: GroupsScope = .allGroups     // Used only when sorting tracks within groups
-    var parentGroups: [Group]?
+    
+    // These 2 fields are used only when sorting tracks within groups
+    var scope: GroupsScope = .allGroups
+    var parentGroups: [Group] = []
+    
     var options: [TracksSortOptions] = [.useNameIfNoMetadata]
     
     func withFields(_ fields: SortField...) -> TracksSort {

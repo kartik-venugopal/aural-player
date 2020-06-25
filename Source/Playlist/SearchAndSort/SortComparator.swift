@@ -7,28 +7,21 @@ class SortComparator {
     let trackDisplayNameFunction: ((Track) -> String)
     
     init(_ sort: Sort, _ trackDisplayNameFunction: @escaping ((Track) -> String)) {
+        
         self.sort = sort
         self.trackDisplayNameFunction = trackDisplayNameFunction
     }
     
     private func shouldUseTrackNameIfNoMetadata() -> Bool {
-        
-        if let options = sort.tracksSort?.options {
-            return options.contains(.useNameIfNoMetadata)
-        }
-        
-        return false
+        return sort.tracksSort?.options.contains(.useNameIfNoMetadata) ?? false
     }
     
     func compareGroups(_ aGroup: Group, _ anotherGroup: Group) -> Bool {
         
         if let groupsSort = sort.groupsSort {
             
-            if groupsSort.order == .ascending {
-                return compareGroups(aGroup, anotherGroup, groupsSort.fields.first!) == .orderedAscending
-            } else {
-                return compareGroups(aGroup, anotherGroup, groupsSort.fields.first!) == .orderedDescending
-            }
+            let comparison = compareGroups(aGroup, anotherGroup, groupsSort.fields[0])
+            return groupsSort.order == .ascending ? comparison == .orderedAscending : comparison == .orderedDescending
         }
         
         return true
@@ -44,7 +37,7 @@ class SortComparator {
             
         case .duration:
             
-            return compareDoubles(aGroup.duration, anotherGroup.duration)
+            return aGroup.duration.compare(anotherGroup.duration)
             
         // Impossible
         default: return .orderedSame
@@ -58,29 +51,15 @@ class SortComparator {
         
         if let tracksSort = sort.tracksSort {
         
-            if tracksSort.order == .ascending {
-                return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedAscending
-            } else {
-                return compareTracks(aTrack, anotherTrack, tracksSort.fields) == .orderedDescending
-            }
+            let comparison = compareTracks(aTrack, anotherTrack, tracksSort.fields)
+            return tracksSort.order == .ascending ? comparison == .orderedAscending : comparison == .orderedDescending
         }
         
         return true
     }
     
     private func compareTracks(_ aTrack: Track, _ anotherTrack: Track, _ fields: [SortField]) -> ComparisonResult {
-        
-        var result: ComparisonResult = .orderedSame
-        
-        for field in fields {
-            
-            result = compareTracks(aTrack, anotherTrack, field)
-            if result != .orderedSame {
-                return result
-            }
-        }
-        
-        return result
+        return fields.map {compareTracks(aTrack, anotherTrack, $0)}.filter({$0 != .orderedSame}).first ?? .orderedSame
     }
     
     private func compareTracks(_ aTrack: Track, _ anotherTrack: Track, _ field: SortField) -> ComparisonResult {
@@ -89,77 +68,55 @@ class SortComparator {
             
         case .name:
             
-            let n1 = trackDisplayNameFunction(aTrack)
-            let n2 = trackDisplayNameFunction(anotherTrack)
-            
-            return n1.compare(n2)
+            return trackDisplayNameFunction(aTrack).compare(trackDisplayNameFunction(anotherTrack))
             
         case .duration:
             
-            return compareDoubles(aTrack.duration, anotherTrack.duration)
+            return aTrack.duration.compare(anotherTrack.duration)
             
         case .artist:
             
-            if shouldUseTrackNameIfNoMetadata() && aTrack.groupingInfo.artist == nil && anotherTrack.groupingInfo.artist == nil {
-                return compareTracks(aTrack, anotherTrack, .name)
-            }
-            
-            let a1 = aTrack.groupingInfo.artist ?? ""
-            let a2 = anotherTrack.groupingInfo.artist ?? ""
-            return a1.compare(a2)
+            return compareOptionalFieldForTracks(aTrack, anotherTrack, {$0.groupingInfo.artist}, "")
             
         case .album:
             
-            if shouldUseTrackNameIfNoMetadata() && aTrack.groupingInfo.album == nil && anotherTrack.groupingInfo.album == nil {
-                return compareTracks(aTrack, anotherTrack, .name)
-            }
-            
-            let a1 = aTrack.groupingInfo.album ?? ""
-            let a2 = anotherTrack.groupingInfo.album ?? ""
-            return a1.compare(a2)
+            return compareOptionalFieldForTracks(aTrack, anotherTrack, {$0.groupingInfo.album}, "")
             
         case .discNumberAndTrackNumber:
             
-            if shouldUseTrackNameIfNoMetadata() && aTrack.groupingInfo.discNumber == nil && anotherTrack.groupingInfo.discNumber == nil && aTrack.groupingInfo.trackNumber == nil && anotherTrack.groupingInfo.trackNumber == nil {
-                
-                return compareTracks(aTrack, anotherTrack, .name)
-            }
+            let discNumberComparison = compareOptionalFieldForTracks(aTrack, anotherTrack, {$0.groupingInfo.discNumber}, 0)
             
-            let d1 = aTrack.groupingInfo.discNumber ?? 0
-            let d2 = anotherTrack.groupingInfo.discNumber ?? 0
-            
-            if d1 == d2 {
-                
-                let t1 = aTrack.groupingInfo.trackNumber ?? 0
-                let t2 = anotherTrack.groupingInfo.trackNumber ?? 0
-                return compareInts(t1, t2)
-            }
-            
-            return compareInts(d1, d2)
+            return discNumberComparison != .orderedSame ?
+                discNumberComparison :
+                (aTrack.groupingInfo.trackNumber ?? 0).compare(anotherTrack.groupingInfo.trackNumber ?? 0)
         }
     }
     
-    // TODO: compareNumbers<N>
-    
-    private func compareDoubles(_ d1: Double, _ d2: Double) -> ComparisonResult {
+    private func compareOptionalFieldForTracks<F>(_ t1: Track, _ t2: Track, _ field: (Track) -> F?, _ defaultValue: F) -> ComparisonResult where F: Comparable {
         
-        if d1 == d2 {
-            return .orderedSame
-        } else if d1 < d2 {
-            return .orderedAscending
-        } else {
-            return .orderedDescending
+        let f1 = field(t1)
+        let f2 = field(t2)
+        
+        if shouldUseTrackNameIfNoMetadata() && f1 == nil && f2 == nil {
+            return compareTracks(t1, t2, .name)
         }
+        
+        return (f1 ?? defaultValue).compare(f2 ?? defaultValue)
     }
+}
+
+extension Comparable {
     
-    private func compareInts(_ i1: Int, _ i2: Int) -> ComparisonResult {
+    func compare(_ other: Self) -> ComparisonResult {
         
-        if i1 == i2 {
+        if self == other {
             return .orderedSame
-        } else if i1 < i2 {
-            return .orderedAscending
-        } else {
-            return .orderedDescending
         }
+        
+        if self < other {
+            return .orderedAscending
+        }
+        
+        return .orderedDescending
     }
 }

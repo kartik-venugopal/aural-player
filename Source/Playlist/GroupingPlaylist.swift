@@ -1,13 +1,13 @@
 import Foundation
 
 /*
-    A grouping playlist is a hierarchical playlist in which tracks are categorized by a certain criterion, for example - artist/album/genre.
+    A grouping playlist is a hierarchical playlist in which tracks are categorized, into groups, by a certain criterion, for example - artist/album/genre.
  
     Each such category of tracks that have matching criteria (for ex, all have the same artist) is a "group". In such a playlist, groups are the top-level items, and tracks are children of the groups.
  
     The groups are ordered and have indexes ("group index"), and the tracks under each group are also ordered and have indexes ("track index") relative to their parent group.
  
-    The hierarchy structure looks like the following:
+    The playlist's hierarchy looks like the following:
  
     Group 0
         -> Track 0
@@ -104,7 +104,6 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         // The name of the "search field" is simply the description of the group type, for ex - "artist"
         let searchField = typeOfGroups.rawValue
-
         var results: [SearchResult] = []
         
         for group in groups.filter({query.compare($0.name)}) {
@@ -279,32 +278,17 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         if sort.groupsSort != nil {
             groups.sort(by: comparator.compareGroups)
         }
-        
+
+        // Sorts all tracks within each given parent group
         if let tracksSort = sort.tracksSort {
             
-            if tracksSort.scope == .allGroups {
-                sortTracksInGroups(self.groups, comparator.compareTracks)
-            } else {
-                // Selected groups
-                sortTracksInGroups(tracksSort.parentGroups!, comparator.compareTracks)
-            }
+            let parentGroups = tracksSort.scope == .allGroups ? self.groups : tracksSort.parentGroups
+            parentGroups.forEach({$0.sort(comparator.compareTracks)})
         }
     }
     
-    // Sorts all tracks within each given parent group, with the specified track comparison strategy
-    private func sortTracksInGroups(_ parentGroups: [Group], _ trackComparisonStrategy: (Track, Track) -> Bool) {
-        parentGroups.forEach({$0.sort(trackComparisonStrategy)})
-    }
-    
-    private func compareTracks_ascendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return displayNameForTrack(aTrack).compare(displayNameForTrack(anotherTrack)) == ComparisonResult.orderedAscending
-    }
-    
-    private func compareTracks_descendingByDisplayName(aTrack: Track, anotherTrack: Track) -> Bool {
-        return displayNameForTrack(aTrack).compare(displayNameForTrack(anotherTrack)) == ComparisonResult.orderedDescending
-    }
-    
     func clear() {
+        
         groups.removeAll()
         groupsByName.removeAll()
     }
