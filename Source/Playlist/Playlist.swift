@@ -240,7 +240,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             gapsAfter.removeValue(forKey: $0)
         })
         
-        var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
+        var groupingPlaylistResults = [GroupType: [GroupedItemRemovalResult]]()
         
         // Remove tracks from all other playlists
         groupingPlaylists.values.forEach({
@@ -345,7 +345,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
             gapsAfter.removeValue(forKey: $0)
         })
         
-        var groupingPlaylistResults = [GroupType: [ItemRemovalResult]]()
+        var groupingPlaylistResults = [GroupType: [GroupedItemRemovalResult]]()
         
         // Remove from playlist with specified group type
         groupingPlaylistResults[groupType] = groupingPlaylists[groupType.toPlaylistType()]!.removeTracksAndGroups(tracks, groups)

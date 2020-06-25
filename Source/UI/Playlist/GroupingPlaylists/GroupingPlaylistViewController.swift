@@ -598,10 +598,10 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
             if let tracksRemoval = removal as? GroupedTracksRemovalResult {
                 
                 // Remove tracks from their parent group
-                playlistView.removeItems(at: tracksRemoval.trackIndexesInGroup, inParent: tracksRemoval.parentGroup, withAnimation: .effectFade)
+                playlistView.removeItems(at: tracksRemoval.trackIndexesInGroup, inParent: tracksRemoval.group, withAnimation: .effectFade)
 
                 // Make note of the parent group for later
-                groupsToReload.append(tracksRemoval.parentGroup)
+                groupsToReload.append(tracksRemoval.group)
 
             } else {
                 

@@ -49,7 +49,7 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      
         Returns location information about the removal of the tracks from the playlist.
      */
-    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group]) -> [ItemRemovalResult]
+    func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group]) -> [GroupedItemRemovalResult]
     
     /*
         Moves either the specified tracks, or the specified groups (groups take precedence), up one index in this playlist, if they can be moved (they are not already at the top).

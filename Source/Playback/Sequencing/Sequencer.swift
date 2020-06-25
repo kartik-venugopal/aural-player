@@ -392,11 +392,10 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
         if let group = scope.group {
 
             // We are only interested in the results matching the scope's group type.
-            let filteredResults: [ItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
+            let filteredResults: [GroupedItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
             
             // Loop through the results to see if a result for the scope group exists.
-            if let theResults = filteredResults,
-                !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.parentGroup}) {
+            if let theResults = filteredResults, !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.group}) {
                 
                 return
             }
