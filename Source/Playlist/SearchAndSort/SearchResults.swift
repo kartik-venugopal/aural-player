@@ -63,35 +63,23 @@ class SearchResults {
         return SearchResults(Array(union))
     }
     
+    // Sorts in ascending order by track index
     // For display in tracks view
-    func sortedByTrackIndex() -> SearchResults {
-        
-        // Sorts in ascending order by track index
-        results.sort(by: {r1, r2 -> Bool in
-            return r1.location.trackIndex! < r2.location.trackIndex!
-        })
-        
-        return SearchResults(results)
+    func sortByTrackIndex() {
+        results.sort(by: {$0.location.trackIndex! < $1.location.trackIndex!})
     }
-    
+
+    // Sorts in ascending order by group index (and track index if group indexes are equal)
     // For display in grouping/hierarchical views
-    func sortedByGroupAndTrackIndex() -> SearchResults {
+    func sortByGroupAndTrackIndex() {
         
-        // Sorts in ascending order by group index (and track index if group indexes are equal)
         results.sort(by: {r1, r2 -> Bool in
             
             let g1 = r1.location.groupInfo!.groupIndex
             let g2 = r2.location.groupInfo!.groupIndex
             
-            if (g1 == g2) {
-                return r1.location.groupInfo!.trackIndex < r2.location.groupInfo!.trackIndex
-            }
-            
-            return g1 < g2
+            return g1 == g2 ? r1.location.groupInfo!.trackIndex < r2.location.groupInfo!.trackIndex : g1 < g2
         })
-        
-        // TODO: Can I return self ?
-        return SearchResults(results)
     }
 }
 

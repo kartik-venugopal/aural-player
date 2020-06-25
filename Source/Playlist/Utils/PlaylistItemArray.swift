@@ -155,20 +155,6 @@ extension Array where Element: Equatable {
         return results
     }
     
-    func categorizeBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
-        
-        var map: [C: [Element]] = [:]
-        
-        for item in self {
-            
-            let category: C = categorizingFunction(item)
-            map[category] = map[category] ?? []
-            map[category]!.append(item)
-        }
-        
-        return map
-    }
-    
     /*
        In response to a playlist reordering by drag and drop, and given source indices, a destination index, and the drop operation (on/above), determines which destination indices the source indexs will occupy.
     */
@@ -191,5 +177,19 @@ extension Array where Element: Equatable {
         }
         
         return Dictionary(uniqueKeysWithValues: zip(sourceIndices.sorted(by: ascendingIntComparator), destinationIndices))
+    }
+    
+    func categorizeBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
+        
+        var map: [C: [Element]] = [:]
+        
+        for item in self {
+            
+            let category: C = categorizingFunction(item)
+            map[category] = map[category] ?? []
+            map[category]!.append(item)
+        }
+        
+        return map
     }
 }
