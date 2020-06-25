@@ -93,11 +93,10 @@ enum WindowLayoutStartupOptions: String {
 class LayoutOnStartup {
     
     // TODO: This should be set to remember by default, and WindowManager should load vertical stack the first time
-    var option: WindowLayoutStartupOptions = .specific
+    var option: WindowLayoutStartupOptions = .rememberFromLastAppLaunch
     
     // This is used only if option == .specific
-    var layoutName: String = "Vertical full stack"
-    // Can I do this with WindowLayoutPresets.verticalFullStack.rawValue ? Dependency problem ?
+    var layoutName: String = ""
     
     // NOTE: This is mutable. Potentially unsafe
     static let defaultInstance: LayoutOnStartup = LayoutOnStartup()
