@@ -67,19 +67,15 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // Track may or may not already exist in playlist
     private func getGroupNameForTrack(_ track: Track) -> String {
         
-        var groupName: String?
-        
         switch self.typeOfGroups {
             
-        case .artist: groupName = track.groupingInfo.artist
+        case .artist: return track.groupingInfo.artist ?? "<Unknown>"
             
-        case .album: groupName = track.groupingInfo.album
+        case .album: return track.groupingInfo.album ?? "<Unknown>"
             
-        case .genre: groupName = track.groupingInfo.genre
+        case .genre: return track.groupingInfo.genre ?? "<Unknown>"
             
         }
-        
-        return groupName ?? "<Unknown>"
     }
     
     private func getGroupForTrack(_ track: Track) -> Group? {
@@ -171,68 +167,48 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         return groupsToMove.isNonEmpty ?
             moveGroupsUp(groupsToMove) :
-            doMoveTracks(tracks, { group, tracks in group.moveTracksUp(tracks)}, true)
+            doMoveTracks(tracks, {group, tracks in group.moveTracksUp(tracks)})
     }
     
     private func moveGroupsUp(_ groupsToMove: [Group]) -> ItemMoveResults {
-        
-        // Move groups, map and sort results
-        let results: [GroupMoveResult] = groups.moveItemsUp(groupsToMove).map {GroupMoveResult($0.key, $0.value)}.sorted(by: GroupMoveResult.compareAscending)
-        
-        // Ascending order (by old index)
-        return ItemMoveResults(results, playlistType)
+        return ItemMoveResults(groups.moveItemsUp(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
     }
     
     func moveTracksAndGroupsToTop(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {
         
         return groupsToMove.isNonEmpty ?
             moveGroupsToTop(groupsToMove) :
-            doMoveTracks(tracks, { group, tracks in group.moveTracksToTop(tracks)}, true)
+            doMoveTracks(tracks, {group, tracks in group.moveTracksToTop(tracks)})
     }
     
     private func moveGroupsToTop(_ groupsToMove: [Group]) -> ItemMoveResults {
-        
-        // Move groups, map and sort results
-        let results: [GroupMoveResult] = groups.moveItemsToTop(groupsToMove).map {GroupMoveResult($0.key, $0.value)}.sorted(by: GroupMoveResult.compareAscending)
-        
-        // Ascending order (by old index)
-        return ItemMoveResults(results, playlistType)
+        return ItemMoveResults(groups.moveItemsToTop(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {
         
         return groupsToMove.isNonEmpty ?
             moveGroupsDown(groupsToMove) :
-            doMoveTracks(tracks, { group, tracks in group.moveTracksDown(tracks)}, false)
+            doMoveTracks(tracks, {group, tracks in group.moveTracksDown(tracks)})
     }
     
     private func moveGroupsDown(_ groupsToMove: [Group]) -> ItemMoveResults {
-        
-        // Move groups, map and sort results
-        let results: [GroupMoveResult] = groups.moveItemsDown(groupsToMove).map {GroupMoveResult($0.key, $0.value)}.sorted(by: GroupMoveResult.compareDescending)
-        
-        // Descending order (by old index)
-        return ItemMoveResults(results, playlistType)
+        return ItemMoveResults(groups.moveItemsDown(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
     }
     
     func moveTracksAndGroupsToBottom(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {
         
         return groupsToMove.isNonEmpty ?
             moveGroupsToBottom(groupsToMove) :
-            doMoveTracks(tracks, { group, tracks in group.moveTracksToBottom(tracks)}, false)
+            doMoveTracks(tracks, {group, tracks in group.moveTracksToBottom(tracks)})
     }
 
     private func moveGroupsToBottom(_ groupsToMove: [Group]) -> ItemMoveResults {
-        
-        // Move groups, map and sort results
-        let results: [GroupMoveResult] = groups.moveItemsToBottom(groupsToMove).map {GroupMoveResult($0.key, $0.value)}.sorted(by: GroupMoveResult.compareDescending)
-        
-        // Descending order (by old index)
-        return ItemMoveResults(results, playlistType)
+        return ItemMoveResults(groups.moveItemsToBottom(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
     }
     
     // Move tracks within a group
-    private func doMoveTracks(_ tracks: [Track], _ moveOperation: (Group, [Track]) -> [Int: Int], _ sortAscending: Bool) -> ItemMoveResults {
+    private func doMoveTracks(_ tracks: [Track], _ moveOperation: (Group, [Track]) -> [Int: Int]) -> ItemMoveResults {
         
         // Find out which group(s) these tracks belong to
         let parentGroups: Set<Group> = Set(tracks.compactMap {getGroupForTrack($0)})
@@ -242,10 +218,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             return ItemMoveResults([], playlistType)
         }
         
-        let results: [TrackMoveResult] = moveOperation(group, tracks).map {TrackMoveResult($0.key, $0.value, group)}
-            .sorted(by: sortAscending ? TrackMoveResult.compareAscending : TrackMoveResult.compareDescending)
-        
-        return ItemMoveResults(results, playlistType)
+        return ItemMoveResults(moveOperation(group, tracks).map {TrackMoveResult($0.key, $0.value, group)}, playlistType)
     }
     
     // MARK: Drag 'n drop ---------------------------------------------------------------------------------------------------
