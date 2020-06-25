@@ -49,6 +49,8 @@ class WindowManager {
             
         } else {
             
+            // TODO: Improve the logic for defaultLayout ... maybe do a guard check at the beginning to see if defaultLayout is required ???
+            
             // Remember from last app launch
             mainWindow.setFrameOrigin(appState.mainWindowOrigin)
             
