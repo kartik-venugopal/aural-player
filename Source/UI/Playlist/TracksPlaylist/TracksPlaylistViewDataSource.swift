@@ -5,6 +5,8 @@ import Cocoa
  */
 class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     
+    private static let pasteboardType: NSPasteboard.PasteboardType = NSPasteboard.PasteboardType(rawValue: "public.data")
+    
     // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
@@ -24,13 +26,11 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Writes source information to the pasteboard
     func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
         
-        if playlist.isBeingModified {
-            return false
-        }
+        if playlist.isBeingModified {return false}
         
         let data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
         let item = NSPasteboardItem()
-        item.setData(data, forType: convertToNSPasteboardPasteboardType("public.data"))
+        item.setData(data, forType: TracksPlaylistViewDataSource.pasteboardType)
         pboard.writeObjects([item])
         
         return true
@@ -41,10 +41,8 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         
         let pasteboard = draggingInfo.draggingPasteboard
         
-        if let data = pasteboard.pasteboardItems?.first?.data(forType: convertToNSPasteboardPasteboardType("public.data")),
-            let sourceIndexSet = NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
-        {
-            return sourceIndexSet
+        if let data = pasteboard.pasteboardItems?.first?.data(forType: TracksPlaylistViewDataSource.pasteboardType) {
+            return NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
         }
         
         return nil
@@ -53,16 +51,13 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Validates the proposed drag/drop operation
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         
-        if playlist.isBeingModified {
-            return invalidDragOperation
-        }
+        if playlist.isBeingModified {return invalidDragOperation}
         
         // If the source is the tableView, that means playlist tracks are being reordered
-        if (info.draggingSource is NSTableView) {
+        if info.draggingSource is NSTableView {
             
             // Reordering of tracks
             if let sourceIndexSet = getSourceIndexes(info) {
-                
                 return validateReorderOperation(tableView, sourceIndexSet, row, dropOperation) ? .move : invalidDragOperation
             }
             
@@ -70,7 +65,6 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         }
         
         // TODO: What about items added from apps other than Finder ??? From VOX or other audio players ???
-        
         // Otherwise, files are being dragged in from outside the app (e.g. tracks/playlists from Finder)
         return .copy
     }
@@ -78,25 +72,14 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Given source indexes, a destination index (dropRow), and the drop operation (on/above), determines if the drop is a valid reorder operation (depending on the bounds of the playlist, and the source and destination indexes)
     private func validateReorderOperation(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableView.DropOperation) -> Bool {
         
-        if operation != .above {
-            return false
-        }
-        
         // If all rows are selected, they cannot be moved, and dropRow cannot be one of the source rows
-        if (sourceIndexSet.count == tableView.numberOfRows || sourceIndexSet.contains(dropRow)) {
-            return false
-        }
-        
-        // Doesn't match any of the invalid cases, it's a valid operation
-        return true
+        return operation == .above && sourceIndexSet.count < tableView.numberOfRows && !sourceIndexSet.contains(dropRow)
     }
     
     // Performs the drop
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         
-        if playlist.isBeingModified {
-            return false
-        }
+        if playlist.isBeingModified {return false}
         
         if info.draggingSource is NSTableView {
             
@@ -104,36 +87,24 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 
                 // Perform the reordering
                 let destination = playlist.dropTracks(sourceIndexSet, row)
+                let movingDown = sourceIndexSet.min()! < destination.min()!
                 
                 // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
-                
-                var srcArray = sourceIndexSet.sorted(by: ascendingIntComparator)
-                var destArray = destination.sorted(by: ascendingIntComparator)
-                
-                // If items are being moved down, the order of the srcArray and destArray needs to be reversed
-                let movingDown = srcArray[0] < destArray[0]
-                if movingDown {
-                    
-                    // Sort in descending order
-                    srcArray = srcArray.reversed()
-                    destArray = destArray.reversed()
-                }
+                let srcArray = sourceIndexSet.sorted(by: movingDown ? descendingIntComparator : ascendingIntComparator)
+                let destArray = destination.sorted(by: movingDown ? descendingIntComparator : ascendingIntComparator)
                 
                 // Swap source rows with destination rows
-                var cur = 0
-                while (cur < sourceIndexSet.count) {
-                    tableView.moveRow(at: srcArray[cur], to: destArray[cur])
-                    cur += 1
+                for (sourceIndex, destIndex) in zip(srcArray, destArray) {
+                    tableView.moveRow(at: sourceIndex, to: destIndex)
                 }
                 
                 // Reload all source and destination rows, and all rows in between
                 let srcDestUnion = sourceIndexSet.union(destination)
                 let reloadIndexes = IndexSet(srcDestUnion.min()!...srcDestUnion.max()!)
-                
+
+                // Reload and select all the destination rows (the new locations of the moved tracks)
                 tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
                 tableView.noteHeightOfRows(withIndexesChanged: reloadIndexes)
-                
-                // Select all the destination rows (the new locations of the moved tracks)
                 tableView.selectRowIndexes(destination, byExtendingSelection: false)
                 
                 // If a track is playing, the playback sequence may have changed (depending on the location of the playing track)
@@ -144,20 +115,13 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 return true
             }
             
-        } else {
+        } else if let files = info.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL] {
             
             // Files added from Finder, add them to the playlist as URLs
-            let objects = info.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: nil)
-            playlist.addFiles(objects! as! [URL])
-            
+            playlist.addFiles(files)
             return true
         }
         
         return false
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSPasteboardPasteboardType(_ input: String) -> NSPasteboard.PasteboardType {
-	return NSPasteboard.PasteboardType(rawValue: input)
 }

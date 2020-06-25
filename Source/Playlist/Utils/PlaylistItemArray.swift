@@ -74,26 +74,14 @@ extension Array where Element: Equatable {
     mutating func moveItemsUp(_ indices: IndexSet) -> [Int: Int] {
         
         // Indices need to be in ascending order, because items need to be moved up, one by one, from top to bottom of the playlist
-        let ascendingOldIndices = indices.sorted(by: ascendingIntComparator)
-        guard areAscendingIndicesValid(ascendingOldIndices) else {return [:]}
-        
-        // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var results: [Int: Int] = [:]
-        
         // Determine if there is a contiguous block of items at the top of the playlist, that cannot be moved. If there is, determine its size.
+        let ascendingOldIndices = indices.sorted(by: ascendingIntComparator)
         let unmovableBlockSize: Int = self.indices.first(where: {!ascendingOldIndices.contains($0)}) ?? 0
         
-        // If there are any items that can be moved, move them and store the index mappings
-        if unmovableBlockSize < ascendingOldIndices.count {
-            
-            for index in unmovableBlockSize..<ascendingOldIndices.count {
-                
-                let oldIndex = ascendingOldIndices[index]
-                results[oldIndex] = moveItemUp(oldIndex)
-            }
-        }
+        guard areAscendingIndicesValid(ascendingOldIndices) && unmovableBlockSize < ascendingOldIndices.count else {return [:]}
         
-        return results
+        let oldIndices = (unmovableBlockSize..<ascendingOldIndices.count).map({ascendingOldIndices[$0]})
+        return Dictionary(uniqueKeysWithValues: zip(oldIndices, oldIndices.map {moveItemUp($0)}))
     }
     
     mutating func moveItemsDown(_ items: [Element]) -> [Int: Int] {
@@ -104,34 +92,23 @@ extension Array where Element: Equatable {
         
         // Indices need to be in descending order, because items need to be moved down, one by one, from bottom to top of the playlist
         let descendingOldIndices = indices.sorted(by: descendingIntComparator)
-        guard areDescendingIndicesValid(descendingOldIndices) else {return [:]}
-        
-        // Mappings of oldIndex (prior to move) -> newIndex (after move)
-        var results: [Int: Int] = [:]
         
         // Determine if there is a contiguous block of items at the bottom of the playlist, that cannot be moved. If there is, determine its size.
         let indicesReversed = self.indices.reversed()
         let unmovableBlockSize = self.lastIndex - (indicesReversed.first(where: {!descendingOldIndices.contains($0)}) ?? 0)
         
-        // If there are any items that can be moved, move them and store the index mappings
-        if unmovableBlockSize < descendingOldIndices.count {
-            
-            for index in unmovableBlockSize..<descendingOldIndices.count {
-                
-                let oldIndex = descendingOldIndices[index]
-                results[oldIndex] = moveItemDown(oldIndex)
-            }
-        }
+        guard areDescendingIndicesValid(descendingOldIndices) && unmovableBlockSize < descendingOldIndices.count else {return [:]}
         
-        return results
+        let oldIndices = (unmovableBlockSize..<descendingOldIndices.count).map({descendingOldIndices[$0]})
+        return Dictionary(uniqueKeysWithValues: zip(oldIndices, oldIndices.map {moveItemDown($0)}))
     }
     
     private func areAscendingIndicesValid(_ indices: [Int]) -> Bool {
-        return !self.isEmpty && !indices.isEmpty && indices.first! >= 0 && indices.last! < self.count && indices.count < self.count
+        return !indices.isEmpty && indices.first! >= 0 && indices.last! < self.count && indices.count < self.count
     }
     
     private func areDescendingIndicesValid(_ indices: [Int]) -> Bool {
-        return !self.isEmpty && !indices.isEmpty && indices.first! < self.count && indices.last! >= 0 && indices.count < self.count
+        return !indices.isEmpty && indices.first! < self.count && indices.last! >= 0 && indices.count < self.count
     }
     
     mutating func moveItemsToTop(_ items: [Element]) -> [Int: Int] {
