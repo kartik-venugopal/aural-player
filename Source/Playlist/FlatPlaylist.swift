@@ -29,72 +29,37 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {
         
-        var results: [SearchResult] = [SearchResult]()
-        
-        // Iterate through all tracks
-        tracks.forEach({
+        return SearchResults(tracks.compactMap {executeQuery($0, searchQuery)}.map {
             
-            // Check if this track matches the search query
-            let match = trackMatchesQuery($0, searchQuery)
-            
-            // If there was a match, append the result to the set of results
-            if match.matched, let matchedField = match.matchedField, let matchedFieldValue = match.matchedFieldValue {
-                
-                // Track index will be determined later, if required
-                results.append(SearchResult(location: SearchResultLocation(trackIndex: -1, track: $0, groupInfo: nil), match: (matchedField, matchedFieldValue)))
-            }
+            SearchResult(location: SearchResultLocation(trackIndex: -1, track: $0.track, groupInfo: nil),
+                         match: ($0.matchedField, $0.matchedFieldValue))
         })
-        
-        return SearchResults(results)
     }
     
-    // Checks if a single track matches search criteria, and returns information about the match, if there is one
-    private func trackMatchesQuery(_ track: Track, _ searchQuery: SearchQuery) -> (matched: Bool, matchedField: String?, matchedFieldValue: String?) {
+    private func executeQuery(_ track: Track, _ query: SearchQuery) -> SearchQueryMatch? {
         
-        // Compare name field if included in search
-        if (searchQuery.fields.name) {
+        if query.fields.name {
             
             // Check both the filename and the display name
             
             let filename = track.fileSystemInfo.fileName
-            if compare(filename, searchQuery) {
-                return (true, "filename", filename)
+            if query.compare(filename) {
+                return SearchQueryMatch(track: track, matchedField: "filename", matchedFieldValue: filename)
             }
             
             let displayName = track.conciseDisplayName
-            if compare(displayName, searchQuery) {
-                return (true, "name", displayName)
+            if query.compare(displayName) {
+                return SearchQueryMatch(track: track, matchedField: "name", matchedFieldValue: displayName)
             }
         }
         
         // Compare title field if included in search
-        if searchQuery.fields.title, let title = track.displayInfo.title, compare(title, searchQuery) {
-            return (true, "title", title)
+        if query.fields.title, let title = track.displayInfo.title, query.compare(title) {
+            return SearchQueryMatch(track: track, matchedField: "title", matchedFieldValue: title)
         }
         
         // Didn't match
-        return (false, nil, nil)
-    }
-    
-    // Helper function that compares the value of a single field to the search text to determine if there is a match
-    private func compare(_ fieldVal: String, _ query: SearchQuery) -> Bool {
-        
-        let caseSensitive: Bool = query.options.caseSensitive
-        let queryText: String = caseSensitive ? query.text : query.text.lowercased()
-        let compared: String = caseSensitive ? fieldVal : fieldVal.lowercased()
-        let type: SearchType = query.type
-        
-        switch type {
-            
-        case .beginsWith: return compared.hasPrefix(queryText)
-            
-        case .endsWith: return compared.hasSuffix(queryText)
-            
-        case .equals: return compared == queryText
-            
-        case .contains: return compared.contains(queryText)
-            
-        }
+        return nil
     }
     
     // MARK: Mutator functions

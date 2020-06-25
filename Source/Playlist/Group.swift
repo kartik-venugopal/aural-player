@@ -15,15 +15,17 @@ class Group: Hashable, GroupAccessorProtocol, PlaylistItem {
     
     // Total duration of all tracks in this group
     var duration: Double {
-        return tracks.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
+        tracks.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
     }
     
     init(_ type: GroupType, _ name: String) {
+        
         self.type = type
         self.name = name
     }
     
     func hash(into hasher: inout Hasher) {
+        
         hasher.combine(type)
         hasher.combine(name)
     }

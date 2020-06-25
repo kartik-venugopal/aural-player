@@ -7,6 +7,33 @@ class SearchQuery {
     var type: SearchType = .contains
     var fields: SearchFields = SearchFields()
     var options: SearchOptions = SearchOptions()
+    
+    // Helper function that compares the value of a single field to the search text to determine if there is a match
+    func compare(_ fieldValue: String) -> Bool {
+        
+        let caseSensitive: Bool = options.caseSensitive
+        let queryText: String = caseSensitive ? text : text.lowercased()
+        let compared: String = caseSensitive ? fieldValue : fieldValue.lowercased()
+        
+        switch type {
+            
+        case .beginsWith: return compared.hasPrefix(queryText)
+            
+        case .endsWith: return compared.hasSuffix(queryText)
+            
+        case .equals: return compared == queryText
+            
+        case .contains: return compared.contains(queryText)
+            
+        }
+    }
+}
+
+struct SearchQueryMatch {
+    
+    let track: Track
+    let matchedField: String
+    let matchedFieldValue: String
 }
 
 // Indicates which track fields are to be compared, in the search
