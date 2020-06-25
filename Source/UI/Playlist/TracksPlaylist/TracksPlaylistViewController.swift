@@ -109,6 +109,16 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
     }
     
+    private var selectedRows: IndexSet {playlistView.selectedRowIndexes}
+    
+    private var selectedRowsArr: [Int] {playlistView.selectedRowIndexes.toArray()}
+    
+    private var selectedRowCount: Int {playlistView.selectedRowIndexes.count}
+    
+    private var rowCount: Int {playlistView.numberOfRows}
+    
+    private var atLeastOneRow: Bool {playlistView.numberOfRows > 0}
+    
     override func viewDidAppear() {
         
         // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
@@ -158,7 +168,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         // TODO: Check if index is within the bounds ( < numRows)
         
-        if let index = selIndex, playlistView.numberOfRows > 0, index >= 0 {
+        if let index = selIndex, atLeastOneRow, index >= 0 {
             
             playlistView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
             playlistView.scrollRowToVisible(index)
@@ -169,95 +179,80 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         self.playlistView.reloadData()
     }
     
+    // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
     private func moveTracksUp() {
+
+        guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
         
-        let selRows = playlistView.selectedRowIndexes
-        let numRows = playlistView.numberOfRows
-        
-        /*
-         If playlist empty or has only 1 row OR
-         no tracks selected OR
-         all tracks selected, don't do anything
-         */
-        if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
+        if let results = playlist.moveTracksUp(selectedRows).results as? [TrackMoveResult] {
             
-            moveItems(playlist.moveTracksUp(selRows))
-            playlistView.scrollRowToVisible(selRows.min()!)
+            moveAndReloadItems(results.sorted(by: TrackMoveResult.compareAscending))
+            playlistView.scrollRowToVisible(selectedRows.min()!)
         }
     }
     
+    // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
     private func moveTracksToTop() {
         
-        let selRows = playlistView.selectedRowIndexes
-        let numRows = playlistView.numberOfRows
+        let selectedRows = self.selectedRows
+        let selectedRowCount = selectedRows.count
         
-        /*
-         If playlist empty or has only 1 row OR
-         no tracks selected OR
-         all tracks selected, don't do anything
-         */
-        if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
+        guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
+        
+        if let results = playlist.moveTracksToTop(selectedRows).results as? [TrackMoveResult] {
             
-            let results = playlist.moveTracksToTop(selRows)
-            removeAndInsertItems(results)
+            // Move the rows
+            removeAndInsertItems(results.sorted(by: TrackMoveResult.compareAscending))
             
-            let updatedRows = IndexSet(integersIn: 0...selRows.max()!)
-            playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            // Refresh the relevant rows
+            playlistView.reloadData(forRowIndexes: IndexSet(0...selectedRows.max()!), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             
             // Select all the same items but now at the top
             playlistView.scrollRowToVisible(0)
-            playlistView.selectRowIndexes(IndexSet(0..<selRows.count), byExtendingSelection: false)
+            playlistView.selectRowIndexes(IndexSet(0..<selectedRowCount), byExtendingSelection: false)
         }
     }
     
+    // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
     private func moveTracksDown() {
         
-        let selRows = playlistView.selectedRowIndexes
-        let numRows = playlistView.numberOfRows
+        guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
         
-        /*
-         If playlist empty or has only 1 row OR
-         no tracks selected OR
-         all tracks selected, don't do anything
-         */
-        if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
+        if let results = playlist.moveTracksDown(selectedRows).results as? [TrackMoveResult] {
             
-            moveItems(playlist.moveTracksDown(selRows))
-            playlistView.scrollRowToVisible(selRows.min()!)
+            moveAndReloadItems(results.sorted(by: TrackMoveResult.compareDescending))
+            playlistView.scrollRowToVisible(selectedRows.min()!)
         }
     }
     
+    // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
     private func moveTracksToBottom() {
         
-        let selRows = playlistView.selectedRowIndexes
-        let numRows = playlistView.numberOfRows
+        let selectedRows = self.selectedRows
+        let selectedRowCount = selectedRows.count
         
-        /*
-         If playlist empty or has only 1 row OR
-         no tracks selected OR
-         all tracks selected, don't do anything
-         */
-        if (numRows > 1 && selRows.count > 0 && selRows.count < numRows) {
-            
-            let lastIndex = playlistView.numberOfRows - 1
-            
-            let results = playlist.moveTracksToBottom(selRows)
-            removeAndInsertItems(results)
-            
-            let updatedRows = IndexSet(integersIn: selRows.min()!...lastIndex)
-            playlistView.reloadData(forRowIndexes: updatedRows, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
+        
+        if let results = playlist.moveTracksToBottom(selectedRows).results as? [TrackMoveResult] {
+
+            // Move the rows
+            removeAndInsertItems(results.sorted(by: TrackMoveResult.compareDescending))
+
+            // Refresh the relevant rows
+            let lastIndex = rowCount - 1
+            playlistView.reloadData(forRowIndexes: IndexSet(selectedRows.min()!...lastIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             
             // Select all the same items but now at the bottom
+            let firstSelectedRow = lastIndex - selectedRowCount + 1
             playlistView.scrollRowToVisible(lastIndex)
-            let firstSel = lastIndex - selRows.count + 1
-            playlistView.selectRowIndexes(IndexSet(firstSel...lastIndex), byExtendingSelection: false)
+            playlistView.selectRowIndexes(IndexSet(firstSelectedRow...lastIndex), byExtendingSelection: false)
         }
     }
     
     // Scrolls the playlist view to the very top
     private func scrollToTop() {
         
-        if (playlistView.numberOfRows > 0) {
+        if atLeastOneRow {
             playlistView.scrollRowToVisible(0)
         }
     }
@@ -265,8 +260,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     // Scrolls the playlist view to the very bottom
     private func scrollToBottom() {
         
-        if (playlistView.numberOfRows > 0) {
-            playlistView.scrollRowToVisible(playlistView.numberOfRows - 1)
+        if atLeastOneRow {
+            playlistView.scrollRowToVisible(rowCount - 1)
         }
     }
     
@@ -338,22 +333,19 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     // Refreshes the playlist view by rearranging the items that were moved
-    private func removeAndInsertItems(_ results: ItemMoveResults) {
+    private func removeAndInsertItems(_ results: [TrackMoveResult]) {
         
-        for result in results.results {
+        for result in results {
             
-            if let trackMovedResult = result as? TrackMoveResult {
-                
-                playlistView.removeRows(at: IndexSet([trackMovedResult.sourceIndex]), withAnimation: trackMovedResult.movedUp ? .slideUp : .slideDown)
-                playlistView.insertRows(at: IndexSet([trackMovedResult.destinationIndex]), withAnimation: trackMovedResult.movedUp ? .slideDown : .slideUp)
-            }
+            playlistView.removeRows(at: IndexSet([result.sourceIndex]), withAnimation: result.movedUp ? .slideUp : .slideDown)
+            playlistView.insertRows(at: IndexSet([result.destinationIndex]), withAnimation: result.movedUp ? .slideDown : .slideUp)
         }
     }
     
     // Rearranges tracks within the view that have been reordered
-    private func moveItems(_ results: ItemMoveResults) {
+    private func moveAndReloadItems(_ results: [TrackMoveResult]) {
         
-        for result in results.results as! [TrackMoveResult] {
+        for result in results {
             
             playlistView.moveRow(at: result.sourceIndex, to: result.destinationIndex)
             playlistView.reloadData(forRowIndexes: IndexSet([result.sourceIndex, result.destinationIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
