@@ -20,14 +20,14 @@ class SortComparator {
         
         if let groupsSort = sort.groupsSort {
             
-            let comparison = compareGroups(aGroup, anotherGroup, groupsSort.fields[0])
+            let comparison = doCompareGroups(aGroup, anotherGroup, groupsSort.fields[0])
             return groupsSort.order == .ascending ? comparison == .orderedAscending : comparison == .orderedDescending
         }
         
         return true
     }
     
-    private func compareGroups(_ aGroup: Group, _ anotherGroup: Group, _ field: SortField) -> ComparisonResult {
+    private func doCompareGroups(_ aGroup: Group, _ anotherGroup: Group, _ field: SortField) -> ComparisonResult {
         
         switch field {
             
@@ -51,18 +51,18 @@ class SortComparator {
         
         if let tracksSort = sort.tracksSort {
         
-            let comparison = compareTracks(aTrack, anotherTrack, tracksSort.fields)
+            let comparison = doCompareTracks(aTrack, anotherTrack, tracksSort.fields)
             return tracksSort.order == .ascending ? comparison == .orderedAscending : comparison == .orderedDescending
         }
         
         return true
     }
     
-    private func compareTracks(_ aTrack: Track, _ anotherTrack: Track, _ fields: [SortField]) -> ComparisonResult {
-        return fields.map {compareTracks(aTrack, anotherTrack, $0)}.filter({$0 != .orderedSame}).first ?? .orderedSame
+    private func doCompareTracks(_ aTrack: Track, _ anotherTrack: Track, _ fields: [SortField]) -> ComparisonResult {
+        return fields.map {doCompareTracks(aTrack, anotherTrack, $0)}.filter({$0 != .orderedSame}).first ?? .orderedSame
     }
     
-    private func compareTracks(_ aTrack: Track, _ anotherTrack: Track, _ field: SortField) -> ComparisonResult {
+    private func doCompareTracks(_ aTrack: Track, _ anotherTrack: Track, _ field: SortField) -> ComparisonResult {
         
         switch field {
             
@@ -76,32 +76,31 @@ class SortComparator {
             
         case .artist:
             
-            return compareOptionalFieldForTracks(aTrack, anotherTrack, {$0.groupingInfo.artist}, "")
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.groupingInfo.artist}, ""))
             
         case .album:
             
-            return compareOptionalFieldForTracks(aTrack, anotherTrack, {$0.groupingInfo.album}, "")
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.groupingInfo.album}, ""))
             
         case .discNumberAndTrackNumber:
             
-            let discNumberComparison = compareOptionalFieldForTracks(aTrack, anotherTrack, {$0.groupingInfo.discNumber}, 0)
-            
-            return discNumberComparison != .orderedSame ?
-                discNumberComparison :
-                (aTrack.groupingInfo.trackNumber ?? 0).compare(anotherTrack.groupingInfo.trackNumber ?? 0)
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.groupingInfo.discNumber}, 0), ({$0.groupingInfo.trackNumber}, 0))
         }
     }
     
-    private func compareOptionalFieldForTracks<F>(_ t1: Track, _ t2: Track, _ field: (Track) -> F?, _ defaultValue: F) -> ComparisonResult where F: Comparable {
+    typealias SortFieldValue<F> = (field: (Track) -> F?, defaultValue: F) where F: Comparable
+    
+    private func compareOptionalFieldsForTracks<F>(_ t1: Track, _ t2: Track, _ sortFieldValues: SortFieldValue<F>...) -> ComparisonResult where F: Comparable {
         
-        let f1 = field(t1)
-        let f2 = field(t2)
+        let allFieldsNil: Bool = !(sortFieldValues.map {$0.field(t1)} + sortFieldValues.map {$0.field(t2)}).contains(where: {$0 != nil})
         
-        if shouldUseTrackNameIfNoMetadata() && f1 == nil && f2 == nil {
-            return compareTracks(t1, t2, .name)
+        if shouldUseTrackNameIfNoMetadata() && allFieldsNil {
+            return doCompareTracks(t1, t2, .name)
         }
         
-        return (f1 ?? defaultValue).compare(f2 ?? defaultValue)
+        // Compare fields in given order. Return the first encountered non-equal comparison result (or conclude that they are equal).
+        return sortFieldValues.map {($0.field(t1) ?? $0.defaultValue).compare($0.field(t2) ?? $0.defaultValue)}
+            .filter({$0 != .orderedSame}).first ?? .orderedSame
     }
 }
 
