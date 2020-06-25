@@ -83,34 +83,36 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         
         if info.draggingSource is NSTableView {
             
-            if let sourceIndexSet = getSourceIndexes(info) {
+            if let sourceIndices = getSourceIndexes(info), let results = playlist.dropTracks(sourceIndices, row).results as? [TrackMoveResult] {
                 
-                // Perform the reordering
-                let destination = playlist.dropTracks(sourceIndexSet, row)
-                let movingDown = sourceIndexSet.min()! < destination.min()!
+                let sortedMoves = results.filter({$0.movedDown}).sorted(by: ItemMoveResultComparators.compareDescending) +
+                    results.filter({$0.movedUp}).sorted(by: ItemMoveResultComparators.compareAscending)
                 
-                // Refresh the playlist view (only the relevant rows), and re-select the source rows that were reordered
-                let srcArray = sourceIndexSet.sorted(by: movingDown ? descendingIntComparator : ascendingIntComparator)
-                let destArray = destination.sorted(by: movingDown ? descendingIntComparator : ascendingIntComparator)
+                var allIndices: [Int] = []
+                var destinationIndices: [Int] = []
                 
-                // Swap source rows with destination rows
-                for (sourceIndex, destIndex) in zip(srcArray, destArray) {
-                    tableView.moveRow(at: sourceIndex, to: destIndex)
+                for move in sortedMoves {
+                    
+                    // Move the row
+                    tableView.moveRow(at: move.sourceIndex, to: move.destinationIndex)
+                    
+                    // Collect source and destination indices for later
+                    allIndices += [move.sourceIndex, move.destinationIndex]
+                    destinationIndices.append(move.destinationIndex)
                 }
                 
                 // Reload all source and destination rows, and all rows in between
-                let srcDestUnion = sourceIndexSet.union(destination)
-                let reloadIndexes = IndexSet(srcDestUnion.min()!...srcDestUnion.max()!)
-
-                // Reload and select all the destination rows (the new locations of the moved tracks)
-                tableView.reloadData(forRowIndexes: reloadIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-                tableView.noteHeightOfRows(withIndexesChanged: reloadIndexes)
-                tableView.selectRowIndexes(destination, byExtendingSelection: false)
+                let reloadIndices: IndexSet = IndexSet(allIndices.min()!...allIndices.max()!)
+                tableView.reloadData(forRowIndexes: reloadIndices, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+                tableView.noteHeightOfRows(withIndexesChanged: reloadIndices)
+                
+                // Select all the destination rows (the new locations of the moved tracks)
+                tableView.selectRowIndexes(IndexSet(destinationIndices), byExtendingSelection: false)
                 
                 // If a track is playing, the playback sequence may have changed (depending on the location of the playing track)
-//                if playbackInfo.currentTrack != nil {
-//                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-//                }
+                //                if playbackInfo.currentTrack != nil {
+                //                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
+                //                }
                 
                 return true
             }

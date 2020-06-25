@@ -120,7 +120,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         mutator.sort(sort, playlistType)
     }
     
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> IndexSet {
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {
         return mutator.dropTracks(sourceIndexes, dropIndex)
     }
     
