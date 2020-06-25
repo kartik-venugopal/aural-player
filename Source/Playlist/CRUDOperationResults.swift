@@ -3,8 +3,6 @@
  */
 import Foundation
 
-// TODO: Clean up these structs and make them more consistent with each other.
-
 // Contains the aggregated results of adding a track to each of the playlist types
 struct TrackAddResult {
     
@@ -31,7 +29,7 @@ struct GroupedTrackAddResult {
 struct TrackRemovalResults {
     
     // Results from each of the grouping playlists (grouping info)
-    let groupingPlaylistResults: [GroupType: [ItemRemovalResult]]
+    let groupingPlaylistResults: [GroupType: [GroupedItemRemovalResult]]
     
     // Result from the flat playlist (indexes)
     let flatPlaylistResults: IndexSet
@@ -39,28 +37,8 @@ struct TrackRemovalResults {
     let tracks: [Track]
 }
 
-// Marker protocol for a track/group removal result
-protocol ItemRemovalResult {
-    
-    // The index by which these results will be sorted (for ex, a track index or group index)
-    var sortIndex: Int {get}
-}
-
-struct ItemRemovalResultComparators {
-    
-    private init() {}
-    
-    static func compareAscending(_ result1: ItemRemovalResult, _ result2: ItemRemovalResult) -> Bool {
-        return result1.sortIndex < result2.sortIndex
-    }
-    
-    static func compareDescending(_ result1: ItemRemovalResult, _ result2: ItemRemovalResult) -> Bool {
-        return result1.sortIndex > result2.sortIndex
-    }
-}
-
-// Contains the result of removing a group from a single grouping playlist
-struct GroupRemovalResult: ItemRemovalResult {
+// Base class (not meant to be instantiated) for a track/group removal result
+class GroupedItemRemovalResult {
     
     // The group that was removed
     let group: Group
@@ -68,15 +46,23 @@ struct GroupRemovalResult: ItemRemovalResult {
     // The index from which the group was removed
     let groupIndex: Int
     
-    // These results will be sorted by groupIndex
+    // The index by which these results will be sorted (for ex, a track index or group index)
     var sortIndex: Int {
         return groupIndex
     }
     
-    init(_ group: Group, _ groupIndex: Int) {
+    fileprivate init(_ group: Group, _ groupIndex: Int) {
         
         self.group = group
         self.groupIndex = groupIndex
+    }
+}
+
+// Contains the result of removing a group from a single grouping playlist
+class GroupRemovalResult: GroupedItemRemovalResult {
+    
+    override init(_ group: Group, _ groupIndex: Int) {
+        super.init(group, groupIndex)
     }
     
     static func compareAscending(_ result1: GroupRemovalResult, _ result2: GroupRemovalResult) -> Bool {
@@ -89,27 +75,15 @@ struct GroupRemovalResult: ItemRemovalResult {
 }
 
 // Contains the results of removing a set of tracks from a group within a single grouping playlist
-struct GroupedTracksRemovalResult: ItemRemovalResult {
+class GroupedTracksRemovalResult: GroupedItemRemovalResult {
     
     // Indexes of the removed tracks within their parent group
     let trackIndexesInGroup: IndexSet
     
-    // The parent group from which the tracks were removed
-    let parentGroup: Group
-    
-    // The index of the parent group
-    let groupIndex: Int
-    
-    // These results will be sorted by the index of the parent group
-    var sortIndex: Int {
-        return groupIndex
-    }
-    
-    init(_ trackIndexesInGroup: IndexSet, _ parentGroup: Group, _ groupIndex: Int) {
+    init(_ group: Group, _ groupIndex: Int, _ trackIndexesInGroup: IndexSet) {
         
         self.trackIndexesInGroup = trackIndexesInGroup
-        self.parentGroup = parentGroup
-        self.groupIndex = groupIndex
+        super.init(group, groupIndex)
     }
 }
 
@@ -123,12 +97,13 @@ struct ItemMoveResults {
     let playlistType: PlaylistType
     
     init(_ results: [ItemMoveResult], _ playlistType: PlaylistType) {
+        
         self.results = results
         self.playlistType = playlistType
     }
 }
 
-// Marker protocol for the result of a track/group move
+// Base class (not meant to be instantiated) for the result of a track/group move
 class ItemMoveResult {
     
     // Index by which these results will be sorted
@@ -148,7 +123,7 @@ class ItemMoveResult {
     // Whether or not the track/group was moved down within the playlist
     let movedDown: Bool
     
-    init(_ sourceIndex: Int, _ destinationIndex: Int) {
+    fileprivate init(_ sourceIndex: Int, _ destinationIndex: Int) {
         
         self.sourceIndex = sourceIndex
         self.destinationIndex = destinationIndex
@@ -158,21 +133,12 @@ class ItemMoveResult {
     }
 }
 
-struct ItemMoveResultComparators {
-    
-    private init() {}
-    
-    static func compareAscending(_ result1: ItemMoveResult, _ result2: ItemMoveResult) -> Bool {
-        return result1.sortIndex < result2.sortIndex
-    }
-    
-    static func compareDescending(_ result1: ItemMoveResult, _ result2: ItemMoveResult) -> Bool {
-        return result1.sortIndex > result2.sortIndex
-    }
-}
-
 // Contains the result of moving a single group
 class GroupMoveResult: ItemMoveResult {
+    
+    override init(_ sourceIndex: Int, _ destinationIndex: Int) {
+        super.init(sourceIndex, destinationIndex)
+    }
     
     static func compareAscending(_ result1: GroupMoveResult, _ result2: GroupMoveResult) -> Bool {
         return result1.sortIndex < result2.sortIndex
@@ -200,6 +166,32 @@ class TrackMoveResult: ItemMoveResult {
     }
     
     static func compareDescending(_ result1: TrackMoveResult, _ result2: TrackMoveResult) -> Bool {
+        return result1.sortIndex > result2.sortIndex
+    }
+}
+
+struct ItemMoveResultComparators {
+    
+    private init() {}
+    
+    static func compareAscending(_ result1: ItemMoveResult, _ result2: ItemMoveResult) -> Bool {
+        return result1.sortIndex < result2.sortIndex
+    }
+    
+    static func compareDescending(_ result1: ItemMoveResult, _ result2: ItemMoveResult) -> Bool {
+        return result1.sortIndex > result2.sortIndex
+    }
+}
+
+struct GroupedItemRemovalResultComparators {
+    
+    private init() {}
+    
+    static func compareAscending(_ result1: GroupedItemRemovalResult, _ result2: GroupedItemRemovalResult) -> Bool {
+        return result1.sortIndex < result2.sortIndex
+    }
+    
+    static func compareDescending(_ result1: GroupedItemRemovalResult, _ result2: GroupedItemRemovalResult) -> Bool {
         return result1.sortIndex > result2.sortIndex
     }
 }

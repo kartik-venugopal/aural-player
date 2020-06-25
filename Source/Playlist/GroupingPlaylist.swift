@@ -127,7 +127,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         return GroupedTrackAddResult(track: GroupedTrack(track, newGroup, newGroup.addTrack(track), newGroupAndIndex.groupIndex), groupCreated: true)
     }
     
-    func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [ItemRemovalResult] {
+    func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [GroupedItemRemovalResult] {
         
         var groupsToRemove = removedGroups
         var tracksByGroup: [Group: [Track]] = tracks.categorizeBy({getGroupForTrack($0)!}).filter({!groupsToRemove.contains($0.key)})
@@ -146,10 +146,9 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         groupRemovedResults.forEach({removeGroupAtIndex($0.groupIndex)})
         
         // Remove tracks from their respective parent groups and note the track indexes (this does not have to be done in the order of group index)
-        let trackRemovedResults: [GroupedTracksRemovalResult] = tracksByGroup.map {GroupedTracksRemovalResult(removeTracksFromGroup($1, $0), $0, indexOfGroup($0)!)}
+        let trackRemovedResults: [GroupedTracksRemovalResult] = tracksByGroup.map {GroupedTracksRemovalResult($0, indexOfGroup($0)!, removeTracksFromGroup($1, $0))}
         
-        // Gather all results, and sort by group index (descending)
-        return (groupRemovedResults + trackRemovedResults).sorted(by: ItemRemovalResultComparators.compareDescending)
+        return (groupRemovedResults + trackRemovedResults)
     }
     
     private func removeGroupAtIndex(_ index: Int) {
