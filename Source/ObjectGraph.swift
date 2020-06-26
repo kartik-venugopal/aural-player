@@ -80,11 +80,8 @@ class ObjectGraph {
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
         // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.
         if #available(macOS 10.13, *) {
-
             playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
-
         } else {
-
             playbackScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
         }
         
@@ -107,9 +104,6 @@ class ObjectGraph {
         sequencer = Sequencer(playlist, repeatMode, shuffleMode, playlistType)
         sequencerDelegate = SequencerDelegate(sequencer)
         
-        // History (and delegate)
-        history = History(preferences.historyPreferences)
-        
         transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, sequencerDelegate)
         
         let profiles = PlaybackProfiles()
@@ -128,17 +122,15 @@ class ObjectGraph {
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
         
         // Playlist Delegate
-        let accessor = PlaylistAccessorDelegate(playlist)
-        
-        let mutator = PlaylistMutatorDelegate(playlist, sequencer, playbackDelegate, appState.playlist, preferences,
-                                              [playbackDelegate as! PlaybackDelegate])
-        
-        playlistDelegate = PlaylistDelegate(accessor, mutator)
+        playlistDelegate = PlaylistDelegate(playlist, sequencer, playbackDelegate, appState.playlist, preferences,
+                                            [playbackDelegate as! PlaybackDelegate])
         
         // Recorder (and delegate)
         recorder = Recorder(audioGraph)
         recorderDelegate = RecorderDelegate(recorder)
         
+        // History (and delegate)
+        history = History(preferences.historyPreferences)
         historyDelegate = HistoryDelegate(history, playlistDelegate, playbackDelegate, appState.history)
         
         bookmarks = Bookmarks()
