@@ -3,7 +3,7 @@ import Foundation
 /*
     Represents a group of tracks categorized by a certain property of the tracks - such as artist, album, or genre
  */
-class Group: Hashable, GroupAccessorProtocol, PlaylistItem {
+class Group: Hashable, PlaylistItem {
     
     let type: GroupType
     
