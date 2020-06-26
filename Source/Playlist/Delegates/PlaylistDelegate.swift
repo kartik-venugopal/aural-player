@@ -6,7 +6,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     private let playlist: PlaylistCRUDProtocol
     
     // The actual playback sequence
-    private let playbackSequencer: SequencerProtocol
+    private let sequencer: SequencerProtocol
     
     // A set of all observers/listeners that are interested in changes to the playlist
     private let changeListeners: [PlaylistChangeListenerProtocol]
@@ -25,7 +25,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     private var addSession: TrackAddSession!
     
-    private let concurrentAddOpCount = Int(Double(SystemUtils.numberOfActiveCores) * 1.5)
+    private let concurrentAddOpCount = roundedInt(Double(SystemUtils.numberOfActiveCores) * 1.5)
     
     var isBeingModified: Bool {addSession != nil}
     
@@ -35,10 +35,20 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     var duration: Double {return playlist.duration}
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playbackSequencer: SequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    // NOTE - Circular dependencies
+    
+    // TODO: Remove player dependency and send playback command instead.
+    
+    // TODO: Remove the sequencer dependency from here.
+    // Don't send playingTrackRemoved info to changeListeners.
+    // Let player figure out if playing track was removed.
+    
+    // Finally, see if change listeners can be replaced with sync messages
+    
+    init(_ playlist: PlaylistCRUDProtocol, _ sequencer: SequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
-        self.playbackSequencer = playbackSequencer
+        self.sequencer = sequencer
         
         self.player = player
         
@@ -49,8 +59,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         trackAddQueue.maxConcurrentOperationCount = concurrentAddOpCount
         
-        trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInitiated)
-        trackAddQueue.qualityOfService = .userInitiated
+        trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
+        trackAddQueue.qualityOfService = .userInteractive
         
         trackUpdateQueue.maxConcurrentOperationCount = concurrentAddOpCount
         trackUpdateQueue.underlyingQueue = DispatchQueue.global(qos: .utility)
@@ -140,7 +150,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         let autoplay: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = preferences.playbackPreferences.autoplayAfterAddingOption == .always
         
-        addFiles_async(files, AutoplayOptions(autoplay, interruptPlayback))
+        addFiles_async(files, AutoplayOptions(autoplay, .playSpecificTrack, interruptPlayback))
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
@@ -304,6 +314,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     private func processBatch(_ batch: AddBatch) {
         
+        // TODO: Use batch.indexes.map {}, addOperations(), and wait until finished in one go
         for index in batch.indexes {
             
             trackAddQueue.addOperation {
@@ -333,17 +344,17 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
                 Messenger.publish(trackAddedNotification)
                 
                 if batchIndex == 0 && addSession.autoplayOptions.autoplay {
-                    autoplay(result.track, addSession.autoplayOptions.interruptPlayback, addSession.autoplayOptions.playFirstAddedTrack)
+                    autoplay(addSession.autoplayOptions.autoplayType, result.track, addSession.autoplayOptions.interruptPlayback)
                 }
             }
         }
     }
     
+    // TODO: If not found, and need to add, simply call the above func add()
     func findOrAddFile(_ file: URL) throws -> Track? {
         
         // Always resolve sym links and aliases before reading the file
-        let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
-        let resolvedFile = resolvedFileInfo.resolvedURL
+        let resolvedFile = FileSystemUtils.resolveTruePath(file).resolvedURL
         
         // If track exists, return it
         if let foundTrack = playlist.findTrackByFile(resolvedFile) {
@@ -394,25 +405,18 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     }
     
     // Performs autoplay, by delegating a playback request to the player
-    private func autoplay(_ track: Track, _ interruptPlayback: Bool, _ playFirstAddedTrack: Bool) {
+    private func autoplay(_ autoplayType: AutoplayCommandType, _ track: Track, _ interruptPlayback: Bool) {
         
-        DispatchQueue.main.async {
-
-            let params = PlaybackParams().withInterruptPlayback(interruptPlayback)
-            
-            // On app startup, just begin the sequence by calling togglePlayPause()
-            // When adding tracks, play the first added track
-            playFirstAddedTrack ?
-                self.player.play(track, params) :
-                (self.player.state == .noTrack ? self.player.togglePlayPause() : self.player.play(track, params))
-        }
+        Messenger.publish(autoplayType == .playSpecificTrack ?
+            AutoplayCommandNotification(type: .playSpecificTrack, interruptPlayback: interruptPlayback, candidateTrack: track) :
+            AutoplayCommandNotification(type: .beginPlayback))
     }
     
     func removeTracks(_ indexes: IndexSet) {
         
         // TODO: Do the remove on a background thread (maybe if lots are being removed)
         
-        let playingTrack: Track? = playbackSequencer.currentTrack
+        let playingTrack: Track? = sequencer.currentTrack
         let indexOfPlayingTrack: Int? = playingTrack == nil ? nil : playlist.indexOfTrack(playingTrack!)
         
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
@@ -435,7 +439,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         // TODO: Do the remove on a background thread
         
-        let playingTrack: Track? = playbackSequencer.currentTrack
+        let playingTrack: Track? = sequencer.currentTrack
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
         
         var playingTrackRemoved: Bool = false
@@ -549,23 +553,23 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         if !filesToOpen.isEmpty {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            addFiles_async(filesToOpen, AutoplayOptions(true, true), false)
+            addFiles_async(filesToOpen, AutoplayOptions(true), false)
             
         } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
             
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
+            addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             
         } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
             
             if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
-                addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
+                addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             }
             
         } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder) {
             
             if let folder: URL = preferences.playlistPreferences.tracksFolder {
-                addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup, true, false), false)
+                addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             }
         }
     }
@@ -573,7 +577,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     func appReopened(_ notification: AppReopenedNotification) {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification, true))
+        addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification))
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {
@@ -620,15 +624,15 @@ class AutoplayOptions {
     
     // Whether or not the first added track should be selected for playback.
     // If false, the first track in the playlist will play.
-    var playFirstAddedTrack: Bool
+    var autoplayType: AutoplayCommandType
     
     init(_ autoplay: Bool,
-         _ interruptPlayback: Bool,
-         _ playFirstAddedTrack: Bool = true) {
+         _ autoplayType: AutoplayCommandType = .beginPlayback,
+         _ interruptPlayback: Bool = true) {
         
         self.autoplay = autoplay
+        self.autoplayType = autoplayType
         self.interruptPlayback = interruptPlayback
-        self.playFirstAddedTrack = playFirstAddedTrack
     }
 }
 
