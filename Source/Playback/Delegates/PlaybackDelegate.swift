@@ -452,7 +452,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         sequencer.tracksRemoved(removeResults)
         
         // Playing track was removed, need to stop playback
-        if let thePlayingTrack = trackBeforeChange {
+        if let thePlayingTrack = trackBeforeChange, !playlist.hasTrack(thePlayingTrack) {
             doStop(thePlayingTrack)
         }
     }
