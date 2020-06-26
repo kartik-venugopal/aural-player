@@ -59,7 +59,14 @@ class SortComparator {
     }
     
     private func doCompareTracks(_ aTrack: Track, _ anotherTrack: Track, _ fields: [SortField]) -> ComparisonResult {
-        return fields.map {doCompareTracks(aTrack, anotherTrack, $0)}.filter({$0 != .orderedSame}).first ?? .orderedSame
+        
+        for field in fields {
+            
+            let comparison = doCompareTracks(aTrack, anotherTrack, field)
+            if comparison != .orderedSame {return comparison}
+        }
+        
+        return .orderedSame
     }
     
     private func doCompareTracks(_ aTrack: Track, _ anotherTrack: Track, _ field: SortField) -> ComparisonResult {
