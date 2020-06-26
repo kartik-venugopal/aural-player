@@ -16,90 +16,61 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
     // Delegate that retrieves current playback information
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+//    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
     override var windowNibName: String? {return "PlaylistSortDialog"}
     
+    private var theWindow: NSWindow {self.window!}
+    
+    private var displayedSortView: SortViewProtocol!
+    
     override func windowDidLoad() {
         
-        container.addSubview(tracksPlaylistSortView.sortView)
-        container.addSubview(artistsPlaylistSortView.sortView)
-        container.addSubview(albumsPlaylistSortView.sortView)
-        container.addSubview(genresPlaylistSortView.sortView)
-        
+        container.addSubviews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
         WindowManager.registerModalComponent(self)
-        
-        super.windowDidLoad()
     }
     
-    var isModal: Bool {
-        return self.window?.isVisible ?? false
-    }
+    var isModal: Bool {window?.isVisible ?? false}
     
     func showDialog() -> ModalDialogResponse {
         
         // Don't do anything if either no tracks or only 1 track in playlist
-        if (playlist.size < 2) {
-            return .cancel
-        }
+        guard playlist.size >= 2 else {return .cancel}
         
         // Force loading of the window if it hasn't been loaded yet (only once)
-        if (!self.isWindowLoaded) {
-            _ = self.window!
-        }
+        if !self.isWindowLoaded {_ = theWindow}
         
         // Choose sort view based on current playlist view
-        [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach({$0.sortView.hide()})
+        NSView.hideViews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
+        
         switch PlaylistViewState.current {
 
-        case .tracks:
+        case .tracks:       displayedSortView = tracksPlaylistSortView
             
-            tracksPlaylistSortView.sortView.show()
-            tracksPlaylistSortView.resetFields()
+        case .artists:      displayedSortView = artistsPlaylistSortView
             
-        case .artists:
+        case .albums:       displayedSortView = albumsPlaylistSortView
             
-            artistsPlaylistSortView.sortView.show()
-            artistsPlaylistSortView.resetFields()
-            
-        case .albums:
-            
-            albumsPlaylistSortView.sortView.show()
-            albumsPlaylistSortView.resetFields()
-            
-        case .genres:
-            
-            genresPlaylistSortView.sortView.show()
-            genresPlaylistSortView.resetFields()
+        case .genres:       displayedSortView = genresPlaylistSortView
+
         }
         
-        UIUtils.showDialog(self.window!)
+        displayedSortView.resetFields()
+        displayedSortView.sortView.show()
+        
+        UIUtils.showDialog(theWindow)
         return modalDialogResponse
     }
     
     @IBAction func sortBtnAction(_ sender: Any) {
-        
-        var sortOptions: Sort
-        
-        switch PlaylistViewState.current {
-            
-        case .tracks:  sortOptions = tracksPlaylistSortView.sortOptions
-            
-        case .artists: sortOptions = artistsPlaylistSortView.sortOptions
-            
-        case .albums: sortOptions = albumsPlaylistSortView.sortOptions
-            
-        case .genres: sortOptions = genresPlaylistSortView.sortOptions
-            
-        }
-        
+
         // Perform the sort
-        playlist.sort(sortOptions, PlaylistViewState.current)
+        playlist.sort(displayedSortView.sortOptions, displayedSortView.playlistType)
         
         // Notify playlist views
-        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.forView(displayedSortView.playlistType))
         
         // The playing track may have moved within the playlist. Update the sequence information displayed.
 //        if playbackInfo.currentTrack != nil {
@@ -107,12 +78,13 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
 //        }
         
         modalDialogResponse = .ok
-        UIUtils.dismissDialog(self.window!)
+        UIUtils.dismissDialog(theWindow)
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {
+        
         modalDialogResponse = .cancel
-        UIUtils.dismissDialog(self.window!)
+        UIUtils.dismissDialog(theWindow)
     }
 }
 
@@ -120,6 +92,7 @@ protocol SortViewProtocol {
     
     var sortView: NSView {get}
     var sortOptions: Sort {get}
+    var playlistType: PlaylistType {get}
     
     func resetFields()
 }

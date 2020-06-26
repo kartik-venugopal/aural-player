@@ -36,6 +36,8 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
         return self.view
     }
     
+    var playlistType: PlaylistType {.genres}
+    
     func resetFields() {
         
         sortGroups.on()

@@ -31,6 +31,8 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
         return self.view
     }
     
+    var playlistType: PlaylistType {.artists}
+    
     func resetFields() {
         
         sortGroups.on()

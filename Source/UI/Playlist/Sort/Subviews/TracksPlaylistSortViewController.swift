@@ -23,6 +23,8 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
         return self.view
     }
     
+    var playlistType: PlaylistType {.tracks}
+    
     func resetFields() {
         
         sortByName.on()
