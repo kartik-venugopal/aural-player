@@ -158,7 +158,7 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         [gapsBeforeTracks, gapsAfterTracks].forEach({
             
-            for (track, gap) in $0 {
+            for (track, gap) in $0.filter({$0.value.type == .persistent}) {
                 
                 let gapState = PlaybackGapState()
                 
