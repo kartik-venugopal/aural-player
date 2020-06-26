@@ -115,12 +115,12 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         
         // The Artists playlist searches only by artist
         if searchQuery.fields.artist, let artistsPlaylist = groupingPlaylists[.artists] {
-            allResults = allResults.union(artistsPlaylist.search(searchQuery))
+            allResults.performUnionWith(artistsPlaylist.search(searchQuery))
         }
         
         // The Albums playlist searches only by album
         if searchQuery.fields.album, let albumsPlaylist = groupingPlaylists[.albums] {
-            allResults = allResults.union(albumsPlaylist.search(searchQuery))
+            allResults.performUnionWith(albumsPlaylist.search(searchQuery))
         }
         
         // Determine locations for each of the result tracks, within the given playlist type, and sort results in ascending order by location

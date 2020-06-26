@@ -6,53 +6,39 @@ import Cocoa
 class SearchResults {
     
     // Total number of results
-    var count: Int
+    var count: Int {results.count}
     
-    var results: [SearchResult]
+    var hasResults: Bool {results.count > 0}
+    
+    private(set) var results: [SearchResult]
     
     // Marks the current result (used during iteration)
     private var cursor: Int = -1
     
     init(_ results: [SearchResult]) {
-        
         self.results = results
-        count = results.count
-        
-        if (count > 0) {
-        
-            for i in 0...count - 1 {
-                
-                results[i].resultIndex = i + 1
-                results[i].hasPrevious = i > 0
-                results[i].hasNext = i < count - 1
-            }
-        }
     }
     
     // Retrieve the next result, if there is one
-    func next() -> SearchResult? {
-        
-        if (count == 0 || cursor >= (count - 1)) {
-            return nil
-        }
-        
-        cursor += 1
-        return results[cursor]
+    func next() -> IndexedSearchResult? {
+        return count == 0 || cursor >= (count - 1) ? nil : IndexedSearchResult(result: results[cursor.incrementAndGet()], index: cursor)
+    }
+    
+    var hasNext: Bool {
+        return count > 0 && cursor < count - 1
     }
     
     // Retrieve the previous result, if there is one
-    func previous() -> SearchResult? {
-        
-        if (count == 0 || cursor < 1) {
-            return nil
-        }
-        
-        cursor -= 1
-        return results[cursor]
+    func previous() -> IndexedSearchResult? {
+        return count == 0 || cursor < 1 ? nil : IndexedSearchResult(result: results[cursor.decrementAndGet()], index: cursor)
+    }
+    
+    var hasPrevious: Bool {
+        return count > 0 && cursor > 0
     }
     
     // Perform a union of this set of results with another set
-    func union(_ otherResults: SearchResults) -> SearchResults {
+    func performUnionWith(_ otherResults: SearchResults) {
         
         var union = Set<SearchResult>()
         
@@ -60,7 +46,7 @@ class SearchResults {
         self.results.forEach({union.insert($0)})
         otherResults.results.forEach({union.insert($0)})
         
-        return SearchResults(Array(union))
+        self.results = Array(union)
     }
     
     // Sorts in ascending order by track index
@@ -83,11 +69,17 @@ class SearchResults {
     }
 }
 
-// Represents a single result (track) in a playlist search
-class SearchResult: Hashable  {
+struct IndexedSearchResult {
+    
+    // The actual search result
+    let result: SearchResult
     
     // The index of this result within the set of all results
-    var resultIndex: Int
+    let index: Int
+}
+
+// Represents a single result (track) in a playlist search
+class SearchResult: Hashable  {
     
     // The location of the track represented by this result, within the playlist
     var location: SearchResultLocation
@@ -95,21 +87,12 @@ class SearchResult: Hashable  {
     // Describes which field matched the search query, and its value
     var match: (fieldKey: String, fieldValue: String)
     
-    // Flag to indicate whether there is another result to consume after this one (during iteration)
-    var hasNext: Bool = false
-    
-    // Flag to indicate whether there is another result to consume before this one (during iteration)
-    var hasPrevious: Bool = false
-    
     // Needed for Hashable conformance
     func hash(into hasher: inout Hasher) {
         hasher.combine(location.track.file.path)
     }
     
     init(location: SearchResultLocation, match: (fieldKey: String, fieldValue: String)) {
-        
-        // This field will be set by SearchResults
-        self.resultIndex = -1
         
         self.location = location
         self.match = match

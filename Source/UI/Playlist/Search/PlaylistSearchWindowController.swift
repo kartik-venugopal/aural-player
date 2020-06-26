@@ -5,8 +5,6 @@ import Cocoa
  */
 class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, NotificationSubscriber {
     
-    // Playlist search modal dialog fields
-    
     @IBOutlet weak var searchField: ColoredCursorSearchField!
     
     @IBOutlet weak var searchResultsSummaryLabel: NSTextField!
@@ -33,41 +31,36 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     private var searchQuery: SearchQuery = SearchQuery()
     
     // Current playlist search results
-    private var searchResults: SearchResults?
+    private var searchResults: SearchResults!
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
     override var windowNibName: String? {return "PlaylistSearch"}
     
+    private var theWindow: NSWindow {self.window!}
+    
     override func windowDidLoad() {
         
-        Messenger.subscribe(self, .playlist_searchTextChanged, self.searchTextChanged)
+        Messenger.subscribe(self, .playlist_searchTextChanged, self.searchTextChanged(_:))
         WindowManager.registerModalComponent(self)
     }
     
-    var isModal: Bool {
-        return self.window?.isVisible ?? false
-    }
+    var isModal: Bool {self.window?.isVisible ?? false}
 
     func showDialog() -> ModalDialogResponse {
         
         // Don't do anything if no tracks in playlist
-        if (playlist.size == 0) {
-            return .cancel
-        }
+        guard playlist.size > 0 else {return .cancel}
         
         // Force loading of the window if it hasn't been loaded yet (only once)
-        if (!self.isWindowLoaded) {
-            _ = self.window!
-        }
+        if !self.isWindowLoaded {_ = theWindow}
         
         searchField.stringValue = ""
         searchQuery.text = ""
+        noResultsFound()
+        theWindow.makeFirstResponder(searchField)
         
-        resetSearchFields()
-        self.window?.makeFirstResponder(searchField)
-        
-        UIUtils.showDialog(self.window!)
+        UIUtils.showDialog(theWindow)
         return modalDialogResponse
     }
     
@@ -76,78 +69,67 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
         
         searchResults = playlist.search(searchQuery, PlaylistViewState.current)
         
-        if ((searchResults?.count)! > 0) {
-            
-            // Show the first result
-            nextSearchAction(self)
-            
-        } else {
-            resetSearchFields()
-        }
+        // Show the first result
+        searchResults.hasResults ? nextSearchAction(self) : noResultsFound()
     }
     
-    private func resetSearchFields() {
+    private func noResultsFound() {
         
-        if (searchField.stringValue.isEmpty) {
-            searchResultsSummaryLabel.stringValue = "No results"
-        } else {
-            searchResultsSummaryLabel.stringValue = "No results found"
-        }
+        searchResultsSummaryLabel.stringValue = "No results"
         searchResultMatchInfo.stringValue = ""
-        [btnNextSearch, btnPreviousSearch].forEach({$0.hide()})
+        NSView.hideViews(btnNextSearch, btnPreviousSearch)
     }
     
     // Iterates to the previous search result
     @IBAction func previousSearchAction(_ sender: Any) {
-        updateSearchPanelWithResult(searchResult: (searchResults?.previous())!)
+        
+        if let result = searchResults.previous() {
+            updateSearchPanelWithResult(result)
+        }
     }
     
     // Iterates to the next search result
     @IBAction func nextSearchAction(_ sender: Any) {
-        updateSearchPanelWithResult(searchResult: (searchResults?.next())!)
+        
+        if let result = searchResults.next() {
+            updateSearchPanelWithResult(result)
+        }
     }
     
     // Updates displayed search results info with the current search result
-    private func updateSearchPanelWithResult(searchResult: SearchResult) {
+    private func updateSearchPanelWithResult(_ searchResult: IndexedSearchResult) {
         
-        // Select the track in the playlist view, to show the user where the track is
-        selectTrack(searchResult)
+        let result = searchResult.result
+        let numResults = searchResults.count
         
-        let numResults = (searchResults?.count)!
-        let resultsText = numResults == 1 ? "result found" : "results found"
-        searchResultsSummaryLabel.stringValue = String(format: "%d %@. Selected %d / %d", numResults, resultsText, searchResult.resultIndex, numResults)
+        let resultsSingularOrPluralText = numResults > 1 ? "results" : "result"
         
-        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey, searchResult.match.fieldValue)
+        searchResultsSummaryLabel.stringValue = String(format: "%d %@ found. Selected %d / %d", numResults, resultsSingularOrPluralText, searchResult.index + 1, numResults)
+        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", result.match.fieldKey, result.match.fieldValue)
         
-        btnNextSearch.showIf(searchResult.hasNext)
-        btnPreviousSearch.showIf(searchResult.hasPrevious)
-    }
-    
-    // Selects a track within the playlist view, to show the user where the track is located within the playlist
-    private func selectTrack(_ result: SearchResult) {
+        btnNextSearch.showIf(searchResults.hasNext)
+        btnPreviousSearch.showIf(searchResults.hasPrevious)
         
+        // Selects a track within the playlist view, to show the user where the track is located within the playlist
         Messenger.publish(SelectSearchResultCommandNotification(searchResult: result,
                                                                 viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {
+        
         modalDialogResponse = .ok
-        UIUtils.dismissDialog(self.window!)
+        UIUtils.dismissDialog(theWindow)
     }
     
-    func searchTextChanged() {
+    // If no fields to compare or no search text, don't do the search
+    private func redoSearchIfPossible() {
+        searchQuery.queryPossible ? updateSearch() : noResultsFound()
+    }
+    
+    func searchTextChanged(_ searchText: String) {
         
-        let searchText = searchField.stringValue
         searchQuery.text = searchText
-        
-        // No search text, don't do the search
-        if searchText.isEmpty {
-            
-            resetSearchFields()
-            return
-        }
-        
-        updateSearch()
+        redoSearchIfPossible()
     }
     
     @IBAction func searchFieldsChangedAction(_ sender: Any) {
@@ -159,47 +141,31 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
         searchFields.title = searchByTitle.isOn
         searchFields.album = searchByAlbum.isOn
         
-        // No fields to compare or no search text, don't do the search
-        if (searchFields.noFieldsSelected() || searchQuery.text == "") {
-            resetSearchFields()
-            return
-        }
-        
-        updateSearch()
+        redoSearchIfPossible()
     }
     
     @IBAction func searchTypeChangedAction(_ sender: Any) {
         
-        if (comparisonTypeEquals.isOn) {
+        if comparisonTypeEquals.isOn {
             searchQuery.type = .equals
-        } else if (comparisonTypeContains.isOn) {
+            
+        } else if comparisonTypeContains.isOn {
             searchQuery.type = .contains
-        } else if (comparisonTypeBeginsWith.isOn) {
+            
+        } else if comparisonTypeBeginsWith.isOn {
             searchQuery.type = .beginsWith
+            
         } else {
             // Ends with
             searchQuery.type = .endsWith
         }
         
-        // No fields to compare or no search text, don't do the search
-        if (searchQuery.fields.noFieldsSelected() || searchQuery.text == "") {
-            resetSearchFields()
-            return
-        }
-        
-        updateSearch()
+        redoSearchIfPossible()
     }
     
     @IBAction func searchOptionsChangedAction(_ sender: Any) {
         
         searchQuery.options.caseSensitive = searchCaseSensitive.isOn
-        
-        // No fields to compare or no search text, don't do the search
-        if (searchQuery.fields.noFieldsSelected() || searchQuery.text == "") {
-            resetSearchFields()
-            return
-        }
-        
-        updateSearch()
+        redoSearchIfPossible()
     }
 }

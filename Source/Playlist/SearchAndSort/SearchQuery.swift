@@ -8,6 +8,12 @@ class SearchQuery {
     var fields: SearchFields = SearchFields()
     var options: SearchOptions = SearchOptions()
     
+    var noFieldsSelected: Bool {fields.noFieldsSelected}
+    
+    var noQueryText: Bool {text == ""}
+    
+    var queryPossible: Bool {!(noFieldsSelected || noQueryText)}
+    
     // Helper function that compares the value of a single field to the search text to determine if there is a match
     func compare(_ fieldValue: String) -> Bool {
         
@@ -46,9 +52,7 @@ class SearchFields {
     var album: Bool = true
     
     // Returns true if none of the four fields has been selected for the search
-    func noFieldsSelected() -> Bool {
-        return !name && !artist && !title && !album
-    }
+    var noFieldsSelected: Bool {!(name || artist || title || album)}
 }
 
 // Additional search options
