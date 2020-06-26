@@ -588,9 +588,9 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     // Refreshes the playlist view in response to tracks/groups being removed from the playlist
-    private func tracksRemoved(_ notification: TracksRemovedNotification) {
+    private func tracksRemoved(_ results: TrackRemovalResults) {
         
-        let removals = notification.results.groupingPlaylistResults[self.groupType]!
+        let removals = results.groupingPlaylistResults[self.groupType]!
         var groupsToReload = [Group]()
 
         for removal in removals {

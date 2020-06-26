@@ -204,9 +204,9 @@ class Transcoder: TranscoderProtocol, NotificationSubscriber, PersistentModelObj
         }
     }
     
-    private func tracksRemoved(_ notification: TracksRemovedNotification) {
+    private func tracksRemoved(_ results: TrackRemovalResults) {
         
-        for track in notification.results.tracks {
+        for track in results.tracks {
             cancelTranscoding(track)
         }
     }

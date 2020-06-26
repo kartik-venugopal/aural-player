@@ -8,6 +8,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // The actual player
     let player: PlayerProtocol
     
+    let playlist: PlaylistAccessorProtocol
+    
     // The playback sequence
     let sequencer: SequencerProtocol
     
@@ -22,10 +24,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     let stopPlaybackChain: StopPlaybackChain
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
-    init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
+    init(_ player: PlayerProtocol, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
          _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {
         
         self.player = player
+        self.playlist = playlist
         self.sequencer = sequencer
         self.preferences = preferences
         self.profiles = profiles
@@ -441,13 +444,16 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         sequencer.playlistSorted(sortResults)
     }
     
-    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
+    func tracksRemoved(_ removeResults: TrackRemovalResults) {
         
-        sequencer.tracksRemoved(removeResults, playingTrackRemoved, removedPlayingTrack)
+        // Capture current track before the sequence is ended.
+        let trackBeforeChange = currentTrack
         
-        // Cannot continue playback if the playing track was removed from the playlist.
-        if playingTrackRemoved {
-            doStop(removedPlayingTrack)
+        sequencer.tracksRemoved(removeResults)
+        
+        // Playing track was removed, need to stop playback
+        if let thePlayingTrack = trackBeforeChange {
+            doStop(thePlayingTrack)
         }
     }
     

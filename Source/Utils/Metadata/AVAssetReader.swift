@@ -378,9 +378,9 @@ class AVAssetReader: MetadataReader, NotificationSubscriber {
         return nil
     }
     
-    func tracksRemoved(_ notification: TracksRemovedNotification) {
+    func tracksRemoved(_ results: TrackRemovalResults) {
         
-        for track in notification.results.tracks {
+        for track in results.tracks {
             _ = metadataMap.remove(track)
         }
     }

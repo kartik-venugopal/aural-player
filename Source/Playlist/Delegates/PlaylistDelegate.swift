@@ -5,14 +5,9 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     // The actual playlist
     private let playlist: PlaylistCRUDProtocol
     
-    // The actual playback sequence
-    private let sequencer: SequencerProtocol
-    
+    // TODO - See if change listeners can be replaced with sync messages
     // A set of all observers/listeners that are interested in changes to the playlist
     private let changeListeners: [PlaylistChangeListenerProtocol]
-    
-    // A player with basic playback functionality (used for autoplay)
-    private let player: PlaybackDelegateProtocol
     
     // Persistent playlist state (used upon app startup)
     private let playlistState: PlaylistState
@@ -35,22 +30,9 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     var duration: Double {return playlist.duration}
     
-    // NOTE - Circular dependencies
-    
-    // TODO: Remove player dependency and send playback command instead.
-    
-    // TODO: Remove the sequencer dependency from here.
-    // Don't send playingTrackRemoved info to changeListeners.
-    // Let player figure out if playing track was removed.
-    
-    // Finally, see if change listeners can be replaced with sync messages
-    
-    init(_ playlist: PlaylistCRUDProtocol, _ sequencer: SequencerProtocol, _ player: PlaybackDelegateProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    init(_ playlist: PlaylistCRUDProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
-        self.sequencer = sequencer
-        
-        self.player = player
         
         self.playlistState = playlistState
         self.preferences = preferences
@@ -416,44 +398,20 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         // TODO: Do the remove on a background thread (maybe if lots are being removed)
         
-        let playingTrack: Track? = sequencer.currentTrack
-        let indexOfPlayingTrack: Int? = playingTrack == nil ? nil : playlist.indexOfTrack(playingTrack!)
-        
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
+        Messenger.publish(.playlist_tracksRemoved, payload: results)
         
-        var playingTrackRemoved: Bool = false
-        var removedPlayingTrack: Track? = nil
-        
-        if let thePlayingTrack = playingTrack, let playingTrackIndex = indexOfPlayingTrack, indexes.contains(playingTrackIndex) {
-            
-            playingTrackRemoved = true
-            removedPlayingTrack = thePlayingTrack
-        }
-        
-        Messenger.publish(TracksRemovedNotification(results: results, playingTrackRemoved: playingTrackRemoved))
-        
-        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, removedPlayingTrack)})
+        changeListeners.forEach({$0.tracksRemoved(results)})
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
         // TODO: Do the remove on a background thread
         
-        let playingTrack: Track? = sequencer.currentTrack
         let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
+        Messenger.publish(.playlist_tracksRemoved, payload: results)
         
-        var playingTrackRemoved: Bool = false
-        var removedPlayingTrack: Track? = nil
-        
-        if let thePlayingTrack = playingTrack, playlist.indexOfTrack(thePlayingTrack) == nil {
-            
-            playingTrackRemoved = true
-            removedPlayingTrack = thePlayingTrack
-        }
-        
-        Messenger.publish(TracksRemovedNotification(results: results, playingTrackRemoved: playingTrackRemoved))
-        
-        changeListeners.forEach({$0.tracksRemoved(results, playingTrackRemoved, removedPlayingTrack)})
+        changeListeners.forEach({$0.tracksRemoved(results)})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
