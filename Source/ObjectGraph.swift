@@ -117,12 +117,12 @@ class ObjectGraph {
         let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences.playbackPreferences)
         
         // Playback Delegate
-        playbackDelegate = PlaybackDelegate(player, sequencer, profiles, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+        playbackDelegate = PlaybackDelegate(player, playlist, sequencer, profiles, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
         
         // Playlist Delegate
-        playlistDelegate = PlaylistDelegate(playlist, sequencer, playbackDelegate, appState.playlist, preferences,
+        playlistDelegate = PlaylistDelegate(playlist, appState.playlist, preferences,
                                             [playbackDelegate as! PlaybackDelegate])
         
         // Recorder (and delegate)

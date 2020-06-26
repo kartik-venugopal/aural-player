@@ -299,18 +299,6 @@ struct TrackAddedNotification: NotificationPayload {
     let addOperationProgress: TrackAddOperationProgressNotification
 }
 
-// Indicates that some tracks have been removed from the playlist.
-struct TracksRemovedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .playlist_tracksRemoved
-    
-    // Information about which tracks were removed and their former locations within the playlist (used to refresh the playlist views)
-    let results: TrackRemovalResults
-    
-    // Flag indicating whether or not the currently playing track was removed. If no track was playing, this will be false.
-    let playingTrackRemoved: Bool
-}
-
 // Indicates current progress associated with a TrackAddedNotification.
 struct TrackAddOperationProgressNotification {
     

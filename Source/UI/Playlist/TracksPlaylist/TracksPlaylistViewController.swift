@@ -389,11 +389,11 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         }
     }
     
-    private func tracksRemoved(_ notification: TracksRemovedNotification) {
+    private func tracksRemoved(_ results: TrackRemovalResults) {
         
         // TODO: Can we simply use playlistView.removeRows() here ??? Analogous to playlistView.insertRows on tracksAdded.
         
-        let indexes = notification.results.flatPlaylistResults
+        let indexes = results.flatPlaylistResults
         
         if indexes.isEmpty {
             return

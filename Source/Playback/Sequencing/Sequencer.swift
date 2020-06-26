@@ -380,12 +380,12 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
         updateSequence(false)
     }
     
-    func tracksRemoved(_ removeResults: TrackRemovalResults, _ playingTrackRemoved: Bool, _ removedPlayingTrack: Track?) {
+    func tracksRemoved(_ removeResults: TrackRemovalResults) {
         
         // Playing track was not removed. If the scope is a group, it might be unaffected.
         guard !removeResults.tracks.isEmpty else {return}
         
-        if playingTrackRemoved {
+        if let thePlayingTrack = currentTrack, !playlist.hasTrack(thePlayingTrack) {
             end()
         }
         
@@ -396,7 +396,6 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
             
             // Loop through the results to see if a result for the scope group exists.
             if let theResults = filteredResults, !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.group}) {
-                
                 return
             }
         }
