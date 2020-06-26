@@ -152,6 +152,9 @@ extension Notification.Name {
     // Commands the player to play a specific track
     static let player_playTrack = Notification.Name("player_playTrack")
     
+    // Commands the player to perform "autoplay"
+    static let player_autoplay = Notification.Name("player_autoplay")
+    
     // Commands the player to play, pause, or resume playback
     static let player_playOrPause = Notification.Name("player_playOrPause")
 

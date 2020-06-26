@@ -37,12 +37,24 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         // Subscribe to notifications
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         Messenger.subscribeAsync(self, .player_trackPlaybackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
-        
+
+        // Commands
+        Messenger.subscribeAsync(self, .player_autoplay, self.autoplay(_:), queue: .main)
         Messenger.subscribe(self, .player_savePlaybackProfile, self.savePlaybackProfile)
         Messenger.subscribe(self, .player_deletePlaybackProfile, self.deletePlaybackProfile)
     }
     
     // MARK: play()
+    
+    func autoplay(_ command: AutoplayCommandNotification) {
+        
+        if command.type == .beginPlayback && state == .noTrack {
+            beginPlayback()
+            
+        } else if command.type == .playSpecificTrack, let track = command.candidateTrack {
+            play(track, PlaybackParams().withInterruptPlayback(command.interruptPlayback))
+        }
+    }
     
     func togglePlayPause() {
         
