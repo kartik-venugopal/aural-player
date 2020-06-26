@@ -19,9 +19,11 @@ class SearchResults {
         self.results = results
     }
     
+    var currentIndex: Int {cursor}
+    
     // Retrieve the next result, if there is one
-    func next() -> IndexedSearchResult? {
-        return count == 0 || cursor >= (count - 1) ? nil : IndexedSearchResult(result: results[cursor.incrementAndGet()], index: cursor)
+    func next() -> SearchResult? {
+        return count == 0 || cursor >= (count - 1) ? nil : results[cursor.incrementAndGet()]
     }
     
     var hasNext: Bool {
@@ -29,8 +31,8 @@ class SearchResults {
     }
     
     // Retrieve the previous result, if there is one
-    func previous() -> IndexedSearchResult? {
-        return count == 0 || cursor < 1 ? nil : IndexedSearchResult(result: results[cursor.decrementAndGet()], index: cursor)
+    func previous() -> SearchResult? {
+        return count == 0 || cursor < 1 ? nil : results[cursor.decrementAndGet()]
     }
     
     var hasPrevious: Bool {
@@ -67,15 +69,6 @@ class SearchResults {
             return g1 == g2 ? r1.location.groupInfo!.trackIndex < r2.location.groupInfo!.trackIndex : g1 < g2
         })
     }
-}
-
-struct IndexedSearchResult {
-    
-    // The actual search result
-    let result: SearchResult
-    
-    // The index of this result within the set of all results
-    let index: Int
 }
 
 // Represents a single result (track) in a playlist search

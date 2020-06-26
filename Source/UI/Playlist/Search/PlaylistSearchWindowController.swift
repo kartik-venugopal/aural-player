@@ -97,21 +97,20 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     }
     
     // Updates displayed search results info with the current search result
-    private func updateSearchPanelWithResult(_ searchResult: IndexedSearchResult) {
+    private func updateSearchPanelWithResult(_ searchResult: SearchResult) {
         
-        let result = searchResult.result
         let numResults = searchResults.count
         
         let resultsSingularOrPluralText = numResults > 1 ? "results" : "result"
         
-        searchResultsSummaryLabel.stringValue = String(format: "%d %@ found. Selected %d / %d", numResults, resultsSingularOrPluralText, searchResult.index + 1, numResults)
-        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", result.match.fieldKey, result.match.fieldValue)
+        searchResultsSummaryLabel.stringValue = String(format: "%d %@ found. Selected %d / %d", numResults, resultsSingularOrPluralText, searchResults.currentIndex + 1, numResults)
+        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey, searchResult.match.fieldValue)
         
         btnNextSearch.showIf(searchResults.hasNext)
         btnPreviousSearch.showIf(searchResults.hasPrevious)
         
         // Selects a track within the playlist view, to show the user where the track is located within the playlist
-        Messenger.publish(SelectSearchResultCommandNotification(searchResult: result,
+        Messenger.publish(SelectSearchResultCommandNotification(searchResult: searchResult,
                                                                 viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
     }
     
