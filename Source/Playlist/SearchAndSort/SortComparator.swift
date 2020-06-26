@@ -106,8 +106,13 @@ class SortComparator {
         }
         
         // Compare fields in given order. Return the first encountered non-equal comparison result (or conclude that they are equal).
-        return sortFieldValues.map {($0.field(t1) ?? $0.defaultValue).compare($0.field(t2) ?? $0.defaultValue)}
-            .filter({$0 != .orderedSame}).first ?? .orderedSame
+        for fieldValue in sortFieldValues {
+            
+            let comparison = (fieldValue.field(t1) ?? fieldValue.defaultValue).compare(fieldValue.field(t2) ?? fieldValue.defaultValue)
+            if comparison != .orderedSame {return comparison}
+        }
+        
+        return .orderedSame
     }
 }
 
