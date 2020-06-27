@@ -24,11 +24,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     var isBeingModified: Bool {addSession != nil}
     
-    var tracks: [Track] {return playlist.tracks}
+    var tracks: [Track] {playlist.tracks}
     
-    var size: Int {return playlist.size}
+    var size: Int {playlist.size}
     
-    var duration: Double {return playlist.duration}
+    var duration: Double {playlist.duration}
     
     init(_ playlist: PlaylistCRUDProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
@@ -99,10 +99,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     func getGapsAroundTrack(_ track: Track) -> (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?) {
         
-        let before = getGapBeforeTrack(track)
-        let after = getGapAfterTrack(track)
+        let gapBefore = getGapBeforeTrack(track)
+        let gapAfter = getGapAfterTrack(track)
         
-        return (before != nil || after != nil, before, after)
+        return (gapBefore != nil || gapAfter != nil, gapBefore, gapAfter)
     }
     
     func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
@@ -129,14 +129,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     func addFiles(_ files: [URL]) {
         
-        let autoplay: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
+        let autoplayEnabled: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = preferences.playbackPreferences.autoplayAfterAddingOption == .always
         
-        addFiles_async(files, AutoplayOptions(autoplay, .playSpecificTrack, interruptPlayback))
+        addFiles_async(files, [:], AutoplayOptions(autoplayEnabled, .playSpecificTrack, interruptPlayback))
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
-    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
+    private func addFiles_async(_ files: [URL], _ gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)], _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
         
         addSession = TrackAddSession(files.count, autoplayOptions)
         
@@ -148,44 +148,32 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             Messenger.publish(.playlist_startedAddingTracks)
             
             self.collectTracks(files, false)
-            self.addSessionTracks()
+            self.addSessionTracks(gapsByFile)
             
             // ------------------ NOTIFY ------------------
             
-            let atLeastOneTrackAdded: Bool = !self.addSession.tracks.isEmpty
             let results = self.addSession.progress.results
             
-            if atLeastOneTrackAdded {
-
-                if userAction {
-                    Messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
-                }
-                
-                // Notify change listeners
-                self.changeListeners.forEach({$0.tracksAdded(results)})
+            if userAction {
+                Messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
             }
+            
+            // Notify change listeners
+            self.changeListeners.forEach({$0.tracksAdded(results)})
             
             Messenger.publish(.playlist_doneAddingTracks)
             
             // If errors > 0, send AsyncMessage to UI
-            // TODO: Display a non-intrusive popover instead of annoying alert (error details optional "Click for more details")
             if !self.addSession.progress.errors.isEmpty {
                 Messenger.publish(.playlist_tracksNotAdded, payload: self.addSession.progress.errors)
             }
             
             self.addSession = nil
-
+            
             // ------------------ UPDATE --------------------
             
-            if atLeastOneTrackAdded {
-                
-                for result in results {
-                    
-                    self.trackUpdateQueue.addOperation {
-                        TrackIO.loadSecondaryInfo(result.track)
-                    }
-                }
-            }
+            self.trackUpdateQueue.addOperations(results.map {result in BlockOperation {TrackIO.loadSecondaryInfo(result.track)}},
+                                                waitUntilFinished: false)
         }
     }
     
@@ -275,7 +263,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         }
     }
     
-    private func addSessionTracks() {
+    private func addSessionTracks(_ gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)]) {
         
         if addSession.tracks.isEmpty {return}
         
@@ -288,34 +276,25 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             let batch = AddBatch()
             batch.indexes = firstIndex...lastIndex
             
-            processBatch(batch)
+            processBatch(batch, gapsByFile)
             addSession.processed += batch.indexes.count
             firstIndex = lastIndex + 1
         }
     }
     
-    private func processBatch(_ batch: AddBatch) {
+    private func processBatch(_ batch: AddBatch, _ gapsByFile: [URL: (gapBeforeTrack: PlaybackGap?, gapAfterTrack: PlaybackGap?)]) {
         
-        // TODO: Use batch.indexes.map {}, addOperations(), and wait until finished in one go
-        for index in batch.indexes {
-            
-            trackAddQueue.addOperation {
-                TrackIO.loadPrimaryInfo(self.addSession.tracks[index])
-            }
-        }
+        // Process all tracks in batch concurrently and wait until the entire batch finishes.
+        trackAddQueue.addOperations(batch.indexes.map {index in BlockOperation {TrackIO.loadPrimaryInfo(self.addSession.tracks[index])}}, waitUntilFinished: true)
         
-        trackAddQueue.waitUntilAllOperationsAreFinished()
-        
-        for batchIndex in batch.indexes {
-            
-            let track = addSession.tracks[batchIndex]
+        for (batchIndex, track) in zip(batch.indexes, batch.indexes.map {addSession.tracks[$0]}) {
             
             if let result = self.playlist.addTrack(track) {
                 
                 // Add gaps around this track (persistent ones)
-                let gapsForTrack = self.playlistState.getGapsForTrack(track)
-                self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
-                self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
+                if let gapsForTrack = gapsByFile[track.file] {
+                    self.playlist.setGapsForTrack(track, gapsForTrack.gapBeforeTrack, gapsForTrack.gapAfterTrack)
+                }
                 
                 addSession.progress.tracksAdded += 1
                 addSession.progress.results.append(result)
@@ -332,7 +311,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         }
     }
     
-    // TODO: If not found, and need to add, simply call the above func add()
+    // TODO: If not found, and need to add, simply call the above func add() ???
     func findOrAddFile(_ file: URL) throws -> Track? {
         
         // Always resolve sym links and aliases before reading the file
@@ -346,44 +325,34 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         // Track doesn't exist, need to add it
         
         // If the file points to an invalid location, throw an error
-        if (!FileSystemUtils.fileExists(resolvedFile)) {
-            throw FileNotFoundError(resolvedFile)
-        }
+        guard FileSystemUtils.fileExists(resolvedFile) else {throw FileNotFoundError(resolvedFile)}
         
         // Load display info
         let track = Track(resolvedFile)
         TrackIO.loadPrimaryInfo(track)
         
         // Non-nil result indicates success
-        if let result = self.playlist.addTrack(track) {
+        guard let result = self.playlist.addTrack(track) else {return nil}
             
-            // Add gaps around this track (persistent ones)
-            let gapsForTrack = self.playlistState.getGapsForTrack(track)
-            self.playlist.setGapsForTrack(track, self.convertGapStateToGap(gapsForTrack.gapBeforeTrack), self.convertGapStateToGap(gapsForTrack.gapAfterTrack))
-            self.playlistState.removeGapsForTrack(track)    // TODO: Better way to do this ? App state is only to be used at app startup, not for subsequent calls to addTrack()
-            
-            let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults,
-                                                      addOperationProgress: TrackAddOperationProgressNotification(1, 1))
-            
-            Messenger.publish(trackAddedNotification)
-            Messenger.publish(.history_itemsAdded, payload: [resolvedFile])
-            
-            self.changeListeners.forEach({$0.tracksAdded([result])})
-            
-            TrackIO.loadSecondaryInfo(track)
-            return track
-        }
+        let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults,
+                                                            addOperationProgress: TrackAddOperationProgressNotification(1, 1))
         
-        return nil
+        Messenger.publish(trackAddedNotification)
+        Messenger.publish(.history_itemsAdded, payload: [resolvedFile])
+        
+        self.changeListeners.forEach({$0.tracksAdded([result])})
+        
+        TrackIO.loadSecondaryInfo(track)
+        return track
     }
         
     private func convertGapStateToGap(_ gapState: PlaybackGapState?) -> PlaybackGap? {
         
-        if gapState == nil {
-            return nil
+        if let theGapState = gapState {
+            return PlaybackGap(theGapState.duration, theGapState.position, theGapState.type)
         }
         
-        return PlaybackGap(gapState!.duration, gapState!.position, gapState!.type)
+        return nil
     }
     
     // Performs autoplay, by delegating a playback request to the player
@@ -507,35 +476,39 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     func appLaunched(_ filesToOpen: [URL]) {
         
+        var gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)] = [:]
+        
+        for file in Set(playlistState.gaps.compactMap({$0.track})) {
+            
+            let theGaps = playlistState.getGapsForTrack(file)
+            gapsByFile[file] = (convertGapStateToGap(theGaps.gapBeforeTrack), convertGapStateToGap(theGaps.gapAfterTrack))
+        }
+        
         // Check if any launch parameters were specified
         if !filesToOpen.isEmpty {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            addFiles_async(filesToOpen, AutoplayOptions(true), false)
+            addFiles_async(filesToOpen, [:], AutoplayOptions(true), false)
             
         } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
             
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
+            addFiles_async(playlistState.tracks, gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             
-        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile) {
+        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile), let playlistFile: URL = preferences.playlistPreferences.playlistFile {
             
-            if let playlistFile: URL = preferences.playlistPreferences.playlistFile {
-                addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
-            }
+            addFiles_async([playlistFile], gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             
-        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder) {
+        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder), let folder: URL = preferences.playlistPreferences.tracksFolder {
             
-            if let folder: URL = preferences.playlistPreferences.tracksFolder {
-                addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
-            }
+            addFiles_async([folder], gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
         }
     }
     
     func appReopened(_ notification: AppReopenedNotification) {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification))
+        addFiles_async(notification.filesToOpen, [:], AutoplayOptions(!notification.isDuplicateNotification))
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {

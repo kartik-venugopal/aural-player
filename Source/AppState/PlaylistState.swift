@@ -12,8 +12,8 @@ class PlaylistState: PersistentState {
     private var _transient_gapsBeforeMap: [URL: PlaybackGapState] = [:]
     private var _transient_gapsAfterMap: [URL: PlaybackGapState] = [:]
     
-    func getGapsForTrack(_ track: Track) -> (gapBeforeTrack: PlaybackGapState?, gapAfterTrack: PlaybackGapState?) {
-        return (_transient_gapsBeforeMap[track.file], _transient_gapsAfterMap[track.file])
+    func getGapsForTrack(_ file: URL) -> (gapBeforeTrack: PlaybackGapState?, gapAfterTrack: PlaybackGapState?) {
+        return (_transient_gapsBeforeMap[file], _transient_gapsAfterMap[file])
     }
     
     func removeGapsForTrack(_ track: Track) {
