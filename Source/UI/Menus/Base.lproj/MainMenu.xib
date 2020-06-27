@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -486,7 +486,7 @@ DQ
                                     <action selector="editGapsAction:" target="sXT-Pr-clR" id="lQn-m4-OVn"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="     Remove silent gaps around selected track(s)" id="iK1-11-rDP" userLabel="Remove gaps">
+                            <menuItem title="     Remove silent gaps around selected track" id="iK1-11-rDP" userLabel="Remove gaps">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="removeGapsAction:" target="sXT-Pr-clR" id="4rn-ui-ejH"/>

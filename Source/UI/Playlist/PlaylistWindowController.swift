@@ -239,7 +239,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
-    private func updatePlaylistSummary(_ trackAddProgress: TrackAddOperationProgressNotification? = nil) {
+    private func updatePlaylistSummary(_ trackAddProgress: TrackAddOperationProgress? = nil) {
         
         let summary = playlist.summary(PlaylistViewState.current)
         lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(summary.totalDuration)

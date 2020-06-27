@@ -91,11 +91,21 @@ class PlaylistIO {
                 }
             }
             
-            return SavedPlaylist(file, tracks)
+            return SavedPlaylist(file: file, tracks: tracks)
             
         } catch let error as NSError {
             NSLog("Error reading playlist file '%@': %@", file.path, error.description)
             return nil
         }
     }
+}
+
+// Represents a persistent playlist (as opposed to a playing playlist) stored in a m3u file.
+struct SavedPlaylist {
+
+    // The filesystem location of the playlist file referenced by this object
+    let file: URL
+    
+    // URLs of tracks in this playlist
+    let tracks: [URL]
 }

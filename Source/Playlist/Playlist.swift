@@ -206,6 +206,10 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
         return tracksByFile[track.file] != nil
     }
     
+    func hasTrackForFile(_ file: URL) -> Bool {
+        return tracksByFile[file] != nil
+    }
+    
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
         return flatPlaylist.moveTracksDown(indexes)
     }

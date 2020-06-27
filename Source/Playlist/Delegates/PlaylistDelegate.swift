@@ -40,7 +40,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         self.changeListeners = changeListeners
         
         trackAddQueue.maxConcurrentOperationCount = concurrentAddOpCount
-        
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
         trackAddQueue.qualityOfService = .userInteractive
         
@@ -99,8 +98,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     func getGapsAroundTrack(_ track: Track) -> (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?) {
         
-        let gapBefore = getGapBeforeTrack(track)
-        let gapAfter = getGapAfterTrack(track)
+        let gapBefore = playlist.getGapBeforeTrack(track)
+        let gapAfter = playlist.getGapAfterTrack(track)
         
         return (gapBefore != nil || gapAfter != nil, gapBefore, gapAfter)
     }
@@ -136,7 +135,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
-    private func addFiles_async(_ files: [URL], _ gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)], _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
+    private func addFiles_async(_ files: [URL], _ gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)],
+                                _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
         
         addSession = TrackAddSession(files.count, autoplayOptions)
         
@@ -152,7 +152,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             
             // ------------------ NOTIFY ------------------
             
-            let results = self.addSession.progress.results
+            let results = self.addSession.results
             
             if userAction {
                 Messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
@@ -164,8 +164,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             Messenger.publish(.playlist_doneAddingTracks)
             
             // If errors > 0, send AsyncMessage to UI
-            if !self.addSession.progress.errors.isEmpty {
-                Messenger.publish(.playlist_tracksNotAdded, payload: self.addSession.progress.errors)
+            if self.addSession.errors.isNonEmpty {
+                Messenger.publish(.playlist_tracksNotAdded, payload: self.addSession.errors)
             }
             
             self.addSession = nil
@@ -186,52 +186,42 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
      */
     private func collectTracks(_ files: [URL], _ isRecursiveCall: Bool) {
         
-        if (files.count > 0) {
+        for file in files {
             
-            for _file in files {
+            // Playlists might contain broken file references
+            if !FileSystemUtils.fileExists(file) {
                 
-                // Playlists might contain broken file references
-                if (!FileSystemUtils.fileExists(_file)) {
-                    addSession.progress.errors.append(FileNotFoundError(_file))
-                    continue
-                }
+                addSession.addError(FileNotFoundError(file))
+                continue
+            }
+            
+            // Always resolve sym links and aliases before reading the file
+            let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
+            let resolvedFile = resolvedFileInfo.resolvedURL
+            
+            if resolvedFileInfo.isDirectory {
+
+                // Directory
+                if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
+                expandDirectory(resolvedFile)
                 
-                // Always resolve sym links and aliases before reading the file
-                let resolvedFileInfo = FileSystemUtils.resolveTruePath(_file)
-                let file = resolvedFileInfo.resolvedURL
+            } else {
                 
-                if (resolvedFileInfo.isDirectory) {
+                // Single file - playlist or track
+                let fileExtension = resolvedFile.pathExtension.lowercased()
+
+                if AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension) {
+
+                    // Playlist
+                    if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
+                    expandPlaylist(resolvedFile)
                     
-                    if !isRecursiveCall {addSession.addedItems.append(file)}
+                } else if AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension),
+                    !playlist.hasTrackForFile(resolvedFile) {
                     
-                    // Directory
-                    expandDirectory(file)
-                    
-                } else {
-                    
-                    // Single file - playlist or track
-                    let fileExtension = file.pathExtension.lowercased()
-                    
-                    if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
-                        
-                        if !isRecursiveCall {addSession.addedItems.append(file)}
-                        
-                        // Playlist
-                        expandPlaylist(file)
-                        
-                        
-                    } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
-                        
-                        // Track
-                        
-                        let track = Track(file)
-                        
-                        if !playlist.hasTrack(track) {
-                            
-                            addSession.tracks.append(track)
-                            if !isRecursiveCall {addSession.addedItems.append(file)}
-                        }
-                    }
+                    // Track
+                    if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
+                    addSession.tracks.append(Track(resolvedFile))
                 }
             }
         }
@@ -240,54 +230,45 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     // Expands a playlist into individual tracks
     private func expandPlaylist(_ playlistFile: URL) {
         
-        let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile)
-        if (loadedPlaylist != nil) {
+        if let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile) {
             
-            addSession.progress.totalTracks -= 1
-            addSession.progress.totalTracks += (loadedPlaylist?.tracks.count)!
-            
-            collectTracks(loadedPlaylist!.tracks, true)
+            addSession.totalTracks += loadedPlaylist.tracks.count - 1
+            collectTracks(loadedPlaylist.tracks, true)
         }
     }
     
     // Expands a directory into individual tracks (and subdirectories)
     private func expandDirectory(_ dir: URL) {
         
-        let dirContents = FileSystemUtils.getContentsOfDirectory(dir)
-        if (dirContents != nil) {
+        if let dirContents = FileSystemUtils.getContentsOfDirectory(dir) {
             
-            addSession.progress.totalTracks -= 1
-            addSession.progress.totalTracks += (dirContents?.count)!
-            
-            collectTracks(dirContents!, true)
+            addSession.totalTracks += dirContents.count - 1
+            collectTracks(dirContents, true)
         }
     }
     
     private func addSessionTracks(_ gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)]) {
         
-        if addSession.tracks.isEmpty {return}
-        
-        var firstIndex: Int = 0
-        while addSession.processed < addSession.tracks.count {
+        var firstBatchIndex: Int = 0
+        while addSession.tracksProcessed < addSession.tracks.count {
             
-            let remainingTracks = addSession.tracks.count - addSession.processed
-            let lastIndex = firstIndex + min(remainingTracks, concurrentAddOpCount) - 1
+            let remainingTracks = addSession.tracks.count - addSession.tracksProcessed
+            let lastBatchIndex = firstBatchIndex + min(remainingTracks, concurrentAddOpCount) - 1
             
-            let batch = AddBatch()
-            batch.indexes = firstIndex...lastIndex
-            
+            let batch = firstBatchIndex...lastBatchIndex
             processBatch(batch, gapsByFile)
-            addSession.processed += batch.indexes.count
-            firstIndex = lastIndex + 1
+            addSession.tracksProcessed += batch.count
+            
+            firstBatchIndex = lastBatchIndex + 1
         }
     }
     
     private func processBatch(_ batch: AddBatch, _ gapsByFile: [URL: (gapBeforeTrack: PlaybackGap?, gapAfterTrack: PlaybackGap?)]) {
         
         // Process all tracks in batch concurrently and wait until the entire batch finishes.
-        trackAddQueue.addOperations(batch.indexes.map {index in BlockOperation {TrackIO.loadPrimaryInfo(self.addSession.tracks[index])}}, waitUntilFinished: true)
+        trackAddQueue.addOperations(batch.map {index in BlockOperation {TrackIO.loadPrimaryInfo(self.addSession.tracks[index])}}, waitUntilFinished: true)
         
-        for (batchIndex, track) in zip(batch.indexes, batch.indexes.map {addSession.tracks[$0]}) {
+        for (batchIndex, track) in zip(batch, batch.map {addSession.tracks[$0]}) {
             
             if let result = self.playlist.addTrack(track) {
                 
@@ -296,23 +277,26 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
                     self.playlist.setGapsForTrack(track, gapsForTrack.gapBeforeTrack, gapsForTrack.gapAfterTrack)
                 }
                 
-                addSession.progress.tracksAdded += 1
-                addSession.progress.results.append(result)
+                addSession.tracksAdded.increment()
+                addSession.results.append(result)
                 
-                let progressMsg = TrackAddOperationProgressNotification(addSession.progress.tracksAdded, addSession.progress.totalTracks)
-                let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults, addOperationProgress: progressMsg)
-                
-                Messenger.publish(trackAddedNotification)
+                let progress = TrackAddOperationProgress(tracksAdded: addSession.tracksAdded, totalTracks: addSession.totalTracks)
+                Messenger.publish(TrackAddedNotification(trackIndex: result.flatPlaylistResult,
+                                                         groupingInfo: result.groupingPlaylistResults, addOperationProgress: progress))
                 
                 if batchIndex == 0 && addSession.autoplayOptions.autoplay {
-                    autoplay(addSession.autoplayOptions.autoplayType, result.track, addSession.autoplayOptions.interruptPlayback)
+                    autoplay(addSession.autoplayOptions.autoplayType, track, addSession.autoplayOptions.interruptPlayback)
                 }
             }
         }
     }
     
-    // TODO: If not found, and need to add, simply call the above func add() ???
     func findOrAddFile(_ file: URL) throws -> Track? {
+        
+        // If track exists, return it
+        if let foundTrack = playlist.findTrackByFile(file) {
+            return foundTrack
+        }
         
         // Always resolve sym links and aliases before reading the file
         let resolvedFile = FileSystemUtils.resolveTruePath(file).resolvedURL
@@ -322,7 +306,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             return foundTrack
         }
         
-        // Track doesn't exist, need to add it
+        // Track doesn't exist yet, need to add it
         
         // If the file points to an invalid location, throw an error
         guard FileSystemUtils.fileExists(resolvedFile) else {throw FileNotFoundError(resolvedFile)}
@@ -334,8 +318,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         // Non-nil result indicates success
         guard let result = self.playlist.addTrack(track) else {return nil}
             
-        let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults,
-                                                            addOperationProgress: TrackAddOperationProgressNotification(1, 1))
+        let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults, addOperationProgress: TrackAddOperationProgress(tracksAdded: 1, totalTracks: 1))
         
         Messenger.publish(trackAddedNotification)
         Messenger.publish(.history_itemsAdded, payload: [resolvedFile])
@@ -343,9 +326,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         self.changeListeners.forEach({$0.tracksAdded([result])})
         
         TrackIO.loadSecondaryInfo(track)
+        
         return track
     }
-        
+    
     private func convertGapStateToGap(_ gapState: PlaybackGapState?) -> PlaybackGap? {
         
         if let theGapState = gapState {
@@ -365,89 +349,63 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     func removeTracks(_ indexes: IndexSet) {
         
-        // TODO: Do the remove on a background thread (maybe if lots are being removed)
-        
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
         Messenger.publish(.playlist_tracksRemoved, payload: results)
-        
         changeListeners.forEach({$0.tracksRemoved(results)})
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
-        // TODO: Do the remove on a background thread
-        
-        let results = playlist.removeTracksAndGroups(tracks, groups, groupType)
+        let results: TrackRemovalResults = playlist.removeTracksAndGroups(tracks, groups, groupType)
         Messenger.publish(.playlist_tracksRemoved, payload: results)
-        
         changeListeners.forEach({$0.tracksRemoved(results)})
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
-        
-        let results = playlist.moveTracksUp(indexes)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
+        return doMoveTracks({playlist.moveTracksUp(indexes)})
     }
     
     func moveTracksToTop(_ indexes: IndexSet) -> ItemMoveResults {
-        
-        let results = playlist.moveTracksToTop(indexes)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
+        return doMoveTracks({playlist.moveTracksToTop(indexes)})
     }
     
     func moveTracksDown(_ indexes: IndexSet) -> ItemMoveResults {
-        let results = playlist.moveTracksDown(indexes)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
+        return doMoveTracks({playlist.moveTracksDown(indexes)})
     }
     
     func moveTracksToBottom(_ indexes: IndexSet) -> ItemMoveResults {
-        
-        let results = playlist.moveTracksToBottom(indexes)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
-    }
-    
-    private func findNewIndexFor(_ oldIndex: Int, _ results: ItemMoveResults) -> Int {
-        
-        var newIndex: Int = -1
-        
-        results.results.forEach({
-        
-            let trackMovedResult = $0 as! TrackMoveResult
-            if trackMovedResult.sourceIndex == oldIndex {
-                newIndex = trackMovedResult.destinationIndex
-            }
-        })
-        
-        return newIndex
+        return doMoveTracks({playlist.moveTracksToBottom(indexes)})
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
-        
-        let results = playlist.moveTracksAndGroupsUp(tracks, groups, groupType)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
+        return doMoveTracks({playlist.moveTracksAndGroupsUp(tracks, groups, groupType)})
     }
     
     func moveTracksAndGroupsToTop(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
-        
-        let results = playlist.moveTracksAndGroupsToTop(tracks, groups, groupType)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
+        return doMoveTracks({playlist.moveTracksAndGroupsToTop(tracks, groups, groupType)})
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
-        let results = playlist.moveTracksAndGroupsDown(tracks, groups, groupType)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
+        return doMoveTracks({playlist.moveTracksAndGroupsDown(tracks, groups, groupType)})
     }
     
     func moveTracksAndGroupsToBottom(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
+        return doMoveTracks({playlist.moveTracksAndGroupsToBottom(tracks, groups, groupType)})
+    }
+    
+    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {
+        return doMoveTracks({playlist.dropTracks(sourceIndexes, dropIndex)})
+    }
+    
+    func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group],
+                             _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
         
-        let results = playlist.moveTracksAndGroupsToBottom(tracks, groups, groupType)
+        return doMoveTracks({playlist.dropTracksAndGroups(tracks, groups, groupType, dropParent, dropIndex)})
+    }
+    
+    private func doMoveTracks(_ moveOperation: () -> ItemMoveResults) -> ItemMoveResults {
+        
+        let results = moveOperation()
         changeListeners.forEach({$0.tracksReordered(results)})
         return results
     }
@@ -485,21 +443,21 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         }
         
         // Check if any launch parameters were specified
-        if !filesToOpen.isEmpty {
+        if filesToOpen.isNonEmpty {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
             addFiles_async(filesToOpen, [:], AutoplayOptions(true), false)
             
-        } else if (preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch) {
+        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch {
             
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
             addFiles_async(playlistState.tracks, gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             
-        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFile), let playlistFile: URL = preferences.playlistPreferences.playlistFile {
+        } else if preferences.playlistPreferences.playlistOnStartup == .loadFile, let playlistFile: URL = preferences.playlistPreferences.playlistFile {
             
             addFiles_async([playlistFile], gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             
-        } else if (preferences.playlistPreferences.playlistOnStartup == .loadFolder), let folder: URL = preferences.playlistPreferences.tracksFolder {
+        } else if preferences.playlistPreferences.playlistOnStartup == .loadFolder, let folder: URL = preferences.playlistPreferences.tracksFolder {
             
             addFiles_async([folder], gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
         }
@@ -509,38 +467,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
         addFiles_async(notification.filesToOpen, [:], AutoplayOptions(!notification.isDuplicateNotification))
-    }
-    
-    func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {
-        
-        let results = playlist.dropTracks(sourceIndexes, dropIndex)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
-    }
-    
-    func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
-        
-        let results = playlist.dropTracksAndGroups(tracks, groups, groupType, dropParent, dropIndex)
-        changeListeners.forEach({$0.tracksReordered(results)})
-        return results
-    }
-}
-
-// Indicates current progress for an operation that adds tracks to the playlist
-class TrackAddOperationProgress {
-
-    var tracksAdded: Int
-    var totalTracks: Int
-    var results: [TrackAddResult]
-    var errors: [DisplayableError]
-
-    init(_ tracksAdded: Int, _ totalTracks: Int, _ results: [TrackAddResult], _ errors: [DisplayableError]) {
-        
-        self.tracksAdded = tracksAdded
-        self.totalTracks = totalTracks
-        
-        self.results = results
-        self.errors = errors
     }
 }
 
@@ -567,24 +493,35 @@ class AutoplayOptions {
     }
 }
 
-class TrackAddSession {
+fileprivate class TrackAddSession {
     
     var tracks: [Track] = []
-    var processed: Int = 0
     
-    var progress: TrackAddOperationProgress
+    // For history
+    var addedItems: [URL] = []
+    
     var autoplayOptions: AutoplayOptions
     
-    var addedItems: [URL] = []
-
+    // Progress
+    var tracksProcessed: Int = 0
+    var tracksAdded: Int = 0
+    var totalTracks: Int = 0
+    var results: [TrackAddResult] = []
+    var errors: [DisplayableError] = []
+    
     init(_ numTracks: Int, _ autoplayOptions: AutoplayOptions) {
         
-        progress = TrackAddOperationProgress(0, numTracks, [], [])
+        self.totalTracks = numTracks
         self.autoplayOptions = autoplayOptions
+    }
+    
+    func addHistoryItem(_ item: URL) {
+        addedItems.append(item)
+    }
+    
+    func addError(_ error: DisplayableError) {
+        errors.append(error)
     }
 }
 
-class AddBatch {
-    
-    var indexes: ClosedRange<Int> = 0...0
-}
+typealias AddBatch = ClosedRange<Int>
