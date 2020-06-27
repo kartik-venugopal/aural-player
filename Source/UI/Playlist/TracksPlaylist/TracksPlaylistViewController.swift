@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
- View controller for the flat ("Tracks") playlist view
+    View controller for the flat ("Tracks") playlist view
  */
 class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
@@ -20,7 +20,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
-    private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
+    private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
     override var nibName: String? {return "Tracks"}
     
@@ -114,26 +114,27 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private var atLeastOneRow: Bool {playlistView.numberOfRows > 0}
     
+    private var lastRow: Int {rowCount - 1}
+    
     override func viewDidAppear() {
         
         // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
-        
         PlaylistViewState.current = .tracks
         PlaylistViewState.currentView = playlistView
-
+        
         Messenger.publish(.playlist_viewChanged, payload: PlaylistType.tracks)
     }
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
-        playSelectedTrackWithDelay(nil)
+        playSelectedTrackWithDelay()
     }
     
     func playSelectedTrack() {
-        playSelectedTrackWithDelay(nil)
+        playSelectedTrackWithDelay()
     }
     
-    func playSelectedTrackWithDelay(_ delay: Double?) {
+    func playSelectedTrackWithDelay(_ delay: Double? = nil) {
         
         if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
             Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow, delay: delay))
@@ -156,9 +157,9 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     // Selects (and shows) a certain track within the playlist view
-    private func selectTrack(_ selIndex: Int?) {
+    private func selectTrack(_ index: Int) {
         
-        if let index = selIndex, index >= 0 && index < rowCount {
+        if index >= 0 && index < rowCount {
             
             playlistView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
             playlistView.scrollRowToVisible(index)
@@ -182,6 +183,28 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
+    private func moveTracksDown() {
+        
+        guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
+        
+        if let results = playlist.moveTracksDown(selectedRows).results as? [TrackMoveResult] {
+            
+            moveAndReloadItems(results.sorted(by: TrackMoveResult.compareDescending))
+            playlistView.scrollRowToVisible(selectedRows.min()!)
+        }
+    }
+    
+    // Rearranges tracks within the view that have been reordered
+    private func moveAndReloadItems(_ results: [TrackMoveResult]) {
+        
+        for result in results {
+            
+            playlistView.moveRow(at: result.sourceIndex, to: result.destinationIndex)
+            playlistView.reloadData(forRowIndexes: IndexSet([result.sourceIndex, result.destinationIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        }
+    }
+    
+    // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
     private func moveTracksToTop() {
         
         let selectedRows = self.selectedRows
@@ -197,21 +220,9 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             // Refresh the relevant rows
             playlistView.reloadData(forRowIndexes: IndexSet(0...selectedRows.max()!), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             
-            // Select all the same items but now at the top
+            // Select all the same rows but now at the top
             playlistView.scrollRowToVisible(0)
             playlistView.selectRowIndexes(IndexSet(0..<selectedRowCount), byExtendingSelection: false)
-        }
-    }
-    
-    // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
-    private func moveTracksDown() {
-        
-        guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
-        
-        if let results = playlist.moveTracksDown(selectedRows).results as? [TrackMoveResult] {
-            
-            moveAndReloadItems(results.sorted(by: TrackMoveResult.compareDescending))
-            playlistView.scrollRowToVisible(selectedRows.min()!)
         }
     }
     
@@ -229,13 +240,22 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             removeAndInsertItems(results.sorted(by: TrackMoveResult.compareDescending))
 
             // Refresh the relevant rows
-            let lastIndex = rowCount - 1
-            playlistView.reloadData(forRowIndexes: IndexSet(selectedRows.min()!...lastIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: IndexSet(selectedRows.min()!...lastRow), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             
             // Select all the same items but now at the bottom
-            let firstSelectedRow = lastIndex - selectedRowCount + 1
-            playlistView.scrollRowToVisible(lastIndex)
-            playlistView.selectRowIndexes(IndexSet(firstSelectedRow...lastIndex), byExtendingSelection: false)
+            let firstSelectedRow = lastRow - selectedRowCount + 1
+            playlistView.scrollRowToVisible(lastRow)
+            playlistView.selectRowIndexes(IndexSet(firstSelectedRow...lastRow), byExtendingSelection: false)
+        }
+    }
+    
+    // Refreshes the playlist view by rearranging the items that were moved
+    private func removeAndInsertItems(_ results: [TrackMoveResult]) {
+        
+        for result in results {
+            
+            playlistView.removeRows(at: IndexSet(integer: result.sourceIndex), withAnimation: result.movedUp ? .slideUp : .slideDown)
+            playlistView.insertRows(at: IndexSet(integer: result.destinationIndex), withAnimation: result.movedUp ? .slideDown : .slideUp)
         }
     }
     
@@ -251,7 +271,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     private func scrollToBottom() {
         
         if atLeastOneRow {
-            playlistView.scrollRowToVisible(rowCount - 1)
+            playlistView.scrollRowToVisible(lastRow)
         }
     }
     
@@ -322,50 +342,16 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         }
     }
     
-    // Refreshes the playlist view by rearranging the items that were moved
-    private func removeAndInsertItems(_ results: [TrackMoveResult]) {
-        
-        for result in results {
-            
-            playlistView.removeRows(at: IndexSet([result.sourceIndex]), withAnimation: result.movedUp ? .slideUp : .slideDown)
-            playlistView.insertRows(at: IndexSet([result.destinationIndex]), withAnimation: result.movedUp ? .slideDown : .slideUp)
-        }
-    }
-    
-    // Rearranges tracks within the view that have been reordered
-    private func moveAndReloadItems(_ results: [TrackMoveResult]) {
-        
-        for result in results {
-            
-            playlistView.moveRow(at: result.sourceIndex, to: result.destinationIndex)
-            playlistView.reloadData(forRowIndexes: IndexSet([result.sourceIndex, result.destinationIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        }
-    }
-    
     // Shows the currently playing track, within the playlist view
     private func showPlayingTrack() {
         
-        if let playingTrack = self.playbackInfo.currentTrack,
-            let playingTrackIndex = self.playlist.indexOfTrack(playingTrack) {
-            
+        if let playingTrack = playbackInfo.currentTrack, let playingTrackIndex = playlist.indexOfTrack(playingTrack) {
             selectTrack(playingTrackIndex)
-            
-        } else {
-            selectTrack(nil)
-        }
-    }
-    
-    private func showSelectedTrackInfo() {
-        
-        // TODO: Is this method even being used ???
-        
-        if let track = playlist.trackAtIndex(playlistView.selectedRow) {
-            track.loadDetailedInfo()
         }
     }
     
     func trackAdded(_ notification: TrackAddedNotification) {
-        self.playlistView.insertRows(at: IndexSet([notification.trackIndex]), withAnimation: .slideDown)
+        self.playlistView.insertRows(at: IndexSet(integer: notification.trackIndex), withAnimation: .slideDown)
     }
     
     private func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
@@ -373,7 +359,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         DispatchQueue.main.async {
             
             if let updatedTrackIndex = self.playlist.indexOfTrack(notification.updatedTrack) {
-                
                 self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             }
         }
@@ -381,56 +366,35 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func tracksRemoved(_ results: TrackRemovalResults) {
         
-        // TODO: Can we simply use playlistView.removeRows() here ??? Analogous to playlistView.insertRows on tracksAdded.
-        
         let indexes = results.flatPlaylistResults
+        guard !indexes.isEmpty else {return}
         
-        if indexes.isEmpty {
-            return
-        }
+        // Tell the playlist view that the number of rows has changed (should result in removal of rows)
+        playlistView.noteNumberOfRowsChanged()
         
         // Update all rows from the first (i.e. smallest index) removed row, down to the end of the playlist
-        let minIndex = (indexes.min())!
-        let maxIndex = playlist.size - 1
+        let firstRemovedRow = indexes.min()!
+        let lastPlaylistRowAfterRemove = playlist.size - 1
         
-        // If not all removed rows are contiguous and at the end of the playlist
-        if (minIndex <= maxIndex) {
+        // This will be true unless a contiguous block of tracks was removed from the bottom of the playlist.
+        if firstRemovedRow <= lastPlaylistRowAfterRemove {
             
-            let refreshIndexes = IndexSet(minIndex...maxIndex)
+            let refreshIndexes = IndexSet(firstRemovedRow...lastPlaylistRowAfterRemove)
             playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
             playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexes)
         }
-        
-        // Tell the playlist view that the number of rows has changed
-        playlistView.noteNumberOfRowsChanged()
     }
     
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
-        trackTransitioned(notification.beginTrack, notification.endTrack)
-    }
-    
-    private func trackTransitioned(_ oldTrack: Track?, _ newTrack: Track?) {
         
-        var refreshIndexes = [Int]()
-
-        if let track = oldTrack, let sourceIndex = playlist.indexOfTrack(track) {
-            refreshIndexes.append(sourceIndex)
-        }
-
+        let refreshIndexes: IndexSet = IndexSet(Set([notification.beginTrack, notification.endTrack].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
         let needToShowTrack: Bool = PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
 
-        if let _newTrack = newTrack {
+        if let newTrack = notification.endTrack {
             
-            let newTrackIndex = playlist.indexOfTrack(_newTrack)
-
-            // If new and old are the same, don't refresh the same row twice
-            if _newTrack != oldTrack, let index = newTrackIndex {
-                refreshIndexes.append(index)
-            }
-
             if needToShowTrack {
 
-                if let index = newTrackIndex, index >= playlistView.numberOfRows {
+                if let newTrackIndex = playlist.indexOfTrack(newTrack), newTrackIndex >= playlistView.numberOfRows {
 
                     // This means the track is in the playlist but has not yet been added to the playlist view (Bookmark/Recently played/Favorite item), and will be added shortly (this is a race condition). So, dispatch an async delayed handler to show the track in the playlist, after it is expected to be added.
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
@@ -446,15 +410,13 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             clearSelection()
         }
 
-        // Gaps may have been removed, so row heights need to be updated too
-        let indexSet: IndexSet = IndexSet(refreshIndexes)
-
         // If this is not done async, the row view could get garbled.
         // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
+        // Gaps may have been removed, so row heights need to be updated too
         DispatchQueue.main.async {
             
-            self.playlistView.reloadData(forRowIndexes: indexSet, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            self.playlistView.noteHeightOfRows(withIndexesChanged: indexSet)
+            self.playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            self.playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexes)
         }
     }
     
@@ -462,42 +424,35 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     // If not, call this code from main.async()
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
-        let oldTrack = notification.oldTrack
-        var refreshIndexes = [Int]()
+        let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, notification.error.track].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
+        
+        if let errTrack = notification.error.track, let errTrackIndex = playlist.indexOfTrack(errTrack),
+            PlaylistViewState.current == .tracks {
 
-        if let _oldTrack = oldTrack, let sourceIndex = playlist.indexOfTrack(_oldTrack) {
-            refreshIndexes.append(sourceIndex)
+            selectTrack(errTrackIndex)
         }
 
-        if let errTrack = notification.error.track, let errTrackIndex = playlist.indexOfTrack(errTrack) {
-
-            // If new and old are the same, don't refresh the same row twice
-            if errTrack != oldTrack {
-                refreshIndexes.append(errTrackIndex)
-            }
-
-            if PlaylistViewState.current == .tracks {
-                selectTrack(errTrackIndex)
-            }
-        }
-
-        playlistView.reloadData(forRowIndexes: IndexSet(refreshIndexes), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     // Selects an item within the playlist view, to show a single search result
     func selectSearchResult(_ command: SelectSearchResultCommandNotification) {
-        selectTrack(command.searchResult.location.trackIndex)
+        
+        if let trackIndex = command.searchResult.location.trackIndex {
+            selectTrack(trackIndex)
+        }
     }
     
     // Show the selected track in Finder
     private func showTrackInFinder() {
         
-        let selTrack = playlist.trackAtIndex(playlistView.selectedRow)
-        FileSystemUtils.showFileInFinder((selTrack?.file)!)
+        if let selTrack = playlist.trackAtIndex(playlistView.selectedRow) {
+            FileSystemUtils.showFileInFinder(selTrack.file)
+        }
     }
     
     private func clearSelection() {
-        playlistView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+        playlistView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
     }
     
     private func invertSelection() {
@@ -505,26 +460,14 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     private var invertedSelection: IndexSet {
-        
-        let selRows = playlistView.selectedRowIndexes
-        let playlistSize = playlist.size
-        var targetSelRows = IndexSet()
-        
-        for index in 0..<playlistSize {
-            
-            if !selRows.contains(index) {
-                targetSelRows.insert(index)
-            }
-        }
-        
-        return targetSelRows
+        IndexSet((0..<playlist.size).filter {!selectedRows.contains($0)})
     }
     
     private func cropSelection() {
         
         let tracksToDelete: IndexSet = invertedSelection
         
-        if (tracksToDelete.count > 0) {
+        if tracksToDelete.count > 0 {
             
             playlist.removeTracks(tracksToDelete)
             playlistView.reloadData()
@@ -536,8 +479,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         if let track = playlist.trackAtIndex(playlistView.selectedRow) {
             
             playlist.setGapsForTrack(track, gapBefore, gapAfter)
-            
-            // This should also refresh this view
             Messenger.publish(.playlist_playbackGapUpdated, payload: track)
         }
     }
@@ -547,35 +488,25 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         if let track = playlist.trackAtIndex(playlistView.selectedRow) {
             
             playlist.removeGapsForTrack(track)
-            
-            // This should also refresh this view
             Messenger.publish(.playlist_playbackGapUpdated, payload: track)
         }
     }
     
     func gapUpdated(_ updatedTrack: Track) {
         
-        // Find track and refresh it
         if let updatedRow = playlist.indexOfTrack(updatedTrack), updatedRow >= 0 {
             
-            refreshRow(updatedRow)
-            
-            // TODO
-//            playlistView.scrollRowToVisible(updatedRow)
+            playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedRow), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet(integer: updatedRow))
+            playlistView.scrollRowToVisible(updatedRow)
         }
-    }
-    
-    private func refreshRow(_ row: Int) {
-        
-        playlistView.reloadData(forRowIndexes: IndexSet([row]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-        playlistView.noteHeightOfRows(withIndexesChanged: IndexSet([row]))
     }
     
     private func changeTextSize(_ textSize: TextSize) {
         
-        let selRows = playlistView.selectedRowIndexes
+        let selectedRows = self.selectedRows
         playlistView.reloadData()
-        playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+        playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -590,9 +521,9 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             
             playlistViewDelegate.changeGapIndicatorColor(scheme.playlist.indexDurationSelectedTextColor)
             
-            let selRows = playlistView.selectedRowIndexes
+            let selectedRows = self.selectedRows
             playlistView.reloadData()
-            playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+            playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
         }
     }
     
@@ -607,14 +538,12 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
     }
     
-    private var allRows: IndexSet {
-        return IndexSet(integersIn: 0..<playlistView.numberOfRows)
-    }
+    private var allRows: IndexSet {IndexSet(integersIn: 0..<rowCount)}
     
     private func changeTrackNameTextColor(_ color: NSColor) {
         
         playlistViewDelegate.changeGapIndicatorColor(color)
-        playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
+        playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet(integer: 1))
     }
     
     private func changeIndexDurationTextColor(_ color: NSColor) {
@@ -622,28 +551,29 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     private func changeTrackNameSelectedTextColor(_ color: NSColor) {
-        playlistView.reloadData(forRowIndexes: playlistView.selectedRowIndexes, columnIndexes: IndexSet([1]))
+        playlistView.reloadData(forRowIndexes: selectedRows, columnIndexes: IndexSet(integer: 1))
     }
     
     private func changeIndexDurationSelectedTextColor(_ color: NSColor) {
-        playlistView.reloadData(forRowIndexes: playlistView.selectedRowIndexes, columnIndexes: IndexSet([0, 2]))
+        playlistView.reloadData(forRowIndexes: selectedRows, columnIndexes: IndexSet([0, 2]))
     }
     
     private func changeSelectionBoxColor(_ color: NSColor) {
         
         // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
-        let selRows = playlistView.selectedRowIndexes
+        let selectedRows = self.selectedRows
         
-        if !selRows.isEmpty {
+        if !selectedRows.isEmpty {
+            
             clearSelection()
-            playlistView.selectRowIndexes(selRows, byExtendingSelection: false)
+            playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
         }
     }
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
         if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack) {
-            playlistView.reloadData(forRowIndexes: IndexSet([playingTrackIndex]), columnIndexes: IndexSet([0]))
+            playlistView.reloadData(forRowIndexes: IndexSet(integer: playingTrackIndex), columnIndexes: IndexSet(integer: 0))
         }
     }
 }
