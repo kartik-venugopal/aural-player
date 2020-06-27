@@ -166,9 +166,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     // Selects (and shows) a certain track within the playlist view
     private func selectTrack(_ selIndex: Int?) {
         
-        // TODO: Check if index is within the bounds ( < numRows)
-        
-        if let index = selIndex, atLeastOneRow, index >= 0 {
+        if let index = selIndex, index >= 0 && index < rowCount {
             
             playlistView.selectRowIndexes(IndexSet(integer: index), byExtendingSelection: false)
             playlistView.scrollRowToVisible(index)

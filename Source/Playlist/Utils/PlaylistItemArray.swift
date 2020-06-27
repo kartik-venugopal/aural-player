@@ -2,8 +2,20 @@ import Foundation
 
 extension Array {
     
-    var isNonEmpty: Bool {
-        return !isEmpty
+    var isNonEmpty: Bool {!isEmpty}
+    
+    func categorizeBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
+        
+        var map: [C: [Element]] = [:]
+        
+        for item in self {
+            
+            let category: C = categorizingFunction(item)
+            map[category] = map[category] ?? []
+            map[category]!.append(item)
+        }
+        
+        return map
     }
 }
 
@@ -177,22 +189,5 @@ extension Array where Element: Equatable {
         }
         
         return Dictionary(uniqueKeysWithValues: zip(sourceIndices.sorted(by: ascendingIntComparator), destinationIndices))
-    }
-}
-
-extension Array {
-    
-    func categorizeBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
-        
-        var map: [C: [Element]] = [:]
-        
-        for item in self {
-            
-            let category: C = categorizingFunction(item)
-            map[category] = map[category] ?? []
-            map[category]!.append(item)
-        }
-        
-        return map
     }
 }

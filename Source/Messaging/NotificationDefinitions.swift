@@ -295,12 +295,12 @@ struct TrackAddedNotification: NotificationPayload {
     // Grouping info (parent groups) for the newly added track
     let groupingInfo: [GroupType: GroupedTrackAddResult]
     
-    // The current progress of the track add operation (See TrackAddedMessageProgress)
-    let addOperationProgress: TrackAddOperationProgressNotification
+    // The current progress of the track add operation (See TrackAddOperationProgress)
+    let addOperationProgress: TrackAddOperationProgress
 }
 
 // Indicates current progress associated with a TrackAddedNotification.
-struct TrackAddOperationProgressNotification {
+struct TrackAddOperationProgress {
     
     // Number of tracks added so far
     let tracksAdded: Int
@@ -309,14 +309,7 @@ struct TrackAddOperationProgressNotification {
     let totalTracks: Int
     
     // Percentage of tracks added (computed)
-    let percentage: Double
-    
-    init(_ tracksAdded: Int, _ totalTracks: Int) {
-        
-        self.tracksAdded = tracksAdded
-        self.totalTracks = totalTracks
-        self.percentage = totalTracks > 0 ? Double(tracksAdded) * 100 / Double(totalTracks) : 0
-    }
+    var percentage: Double {totalTracks > 0 ? Double(tracksAdded) * 100 / Double(totalTracks) : 0}
 }
 
 // Signifies that an error was encountered while attempting to play back a track.

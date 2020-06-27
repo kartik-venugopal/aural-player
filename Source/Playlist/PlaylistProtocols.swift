@@ -23,6 +23,8 @@ protocol PlaylistAccessorProtocol {
     
     func hasTrack(_ track: Track) -> Bool
     
+    func hasTrackForFile(_ file: URL) -> Bool
+    
     // Tries to finds a track by its filesystem file. Returns nil if not found.
     func findTrackByFile(_ file: URL) -> Track?
     
