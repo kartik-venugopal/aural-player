@@ -24,14 +24,9 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     override var nibName: String? {return "Tracks"}
     
-    convenience init() {
-        self.init(nibName: "Tracks", bundle: Bundle.main)
-    }
-    
     override func viewDidLoad() {
         
-        // Enable drag n drop
-        playlistView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([String(kUTTypeFileURL), "public.data"]))
+        playlistView.enableDragDrop()
         
         initSubscriptions()
         
@@ -153,12 +148,9 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func removeTracks() {
         
-        let selectedIndexes = playlistView.selectedRowIndexes
-        if (!selectedIndexes.isEmpty) {
+        if selectedRowCount > 0 {
             
-            playlist.removeTracks(selectedIndexes)
-            
-            // Clear the playlist selection
+            playlist.removeTracks(selectedRows)
             clearSelection()
         }
     }
@@ -651,13 +643,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
         if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack) {
-            
             playlistView.reloadData(forRowIndexes: IndexSet([playingTrackIndex]), columnIndexes: IndexSet([0]))
         }
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
-    return input.map { key in NSPasteboard.PasteboardType(key) }
 }

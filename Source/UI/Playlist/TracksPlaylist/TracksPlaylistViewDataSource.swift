@@ -28,9 +28,8 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         
         if playlist.isBeingModified {return false}
         
-        let data = NSKeyedArchiver.archivedData(withRootObject: rowIndexes)
         let item = NSPasteboardItem()
-        item.setData(data, forType: TracksPlaylistViewDataSource.pasteboardType)
+        item.setData(NSKeyedArchiver.archivedData(withRootObject: rowIndexes), forType: TracksPlaylistViewDataSource.pasteboardType)
         pboard.writeObjects([item])
         
         return true
@@ -39,9 +38,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
     private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
         
-        let pasteboard = draggingInfo.draggingPasteboard
-        
-        if let data = pasteboard.pasteboardItems?.first?.data(forType: TracksPlaylistViewDataSource.pasteboardType) {
+        if let data = draggingInfo.draggingPasteboard.pasteboardItems?.first?.data(forType: TracksPlaylistViewDataSource.pasteboardType) {
             return NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
         }
         
@@ -73,7 +70,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     private func validateReorderOperation(_ tableView: NSTableView, _ sourceIndexSet: IndexSet, _ dropRow: Int, _ operation: NSTableView.DropOperation) -> Bool {
         
         // If all rows are selected, they cannot be moved, and dropRow cannot be one of the source rows
-        return operation == .above && sourceIndexSet.count < tableView.numberOfRows && !sourceIndexSet.contains(dropRow)
+        return operation == .above && (sourceIndexSet.count < tableView.numberOfRows) && !sourceIndexSet.contains(dropRow)
     }
     
     // Performs the drop
@@ -83,7 +80,8 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         
         if info.draggingSource is NSTableView {
             
-            if let sourceIndices = getSourceIndexes(info), let results = playlist.dropTracks(sourceIndices, row).results as? [TrackMoveResult] {
+            if let sourceIndices = getSourceIndexes(info),
+                let results = playlist.dropTracks(sourceIndices, row).results as? [TrackMoveResult] {
                 
                 let sortedMoves = results.filter({$0.movedDown}).sorted(by: ItemMoveResultComparators.compareDescending) +
                     results.filter({$0.movedUp}).sorted(by: ItemMoveResultComparators.compareAscending)

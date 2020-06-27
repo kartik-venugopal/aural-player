@@ -21,6 +21,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     private let invalidDragOperation: NSDragOperation = []
     
     init(_ playlistType: PlaylistType, _ groupType: GroupType) {
+        
         self.playlistType = playlistType
         self.groupType = groupType
     }
@@ -61,10 +62,8 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         return ""
     }
     
-    // Determines if a given item is expandable
+    // Determines if a given item is expandable (only groups are expandable)
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        
-        // Only groups are expandable
         return item is Group
     }
     
@@ -73,9 +72,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     // Writes source information to the pasteboard
     func outlineView(_ outlineView: NSOutlineView, writeItems items: [Any], to pasteboard: NSPasteboard) -> Bool {
         
-        if playlist.isBeingModified {
-            return false
-        }
+        if playlist.isBeingModified {return false}
         
         var srcRows = [Int]()
         items.forEach({srcRows.append(outlineView.row(forItem: $0))})

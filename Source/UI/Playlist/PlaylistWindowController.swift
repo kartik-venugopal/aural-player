@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTabViewDelegate {
+class PlaylistWindowController: NSWindowController, NSTabViewDelegate, NotificationSubscriber {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
@@ -38,7 +38,6 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     
     // Fields that display playlist summary info
     @IBOutlet weak var lblTracksSummary: VALabel!
-    
     @IBOutlet weak var lblDurationSummary: VALabel!
     
     // Spinner that shows progress when tracks are being added to the playlist
@@ -63,17 +62,19 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let viewPreferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
-    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
+    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
-    private var theWindow: SnappingWindow {
-        return self.window! as! SnappingWindow
-    }
+    private var theWindow: SnappingWindow {self.window! as! SnappingWindow}
     
     private lazy var fileOpenDialog = DialogsAndAlerts.openDialog
     private lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
     override var windowNibName: String? {return "Playlist"}
+    
+    private var childContainerBoxes: [NSBox] = []
+    private var viewControlButtons: [Tintable] = []
+    private var functionButtons: [TintedImageButton] = []
+    private var tabButtons: [NSButton] = []
 
     override func windowDidLoad() {
         
@@ -84,26 +85,27 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         
         setUpTabGroup()
         
+        childContainerBoxes = [playlistContainerBox, tabButtonsBox, controlsBox]
+        viewControlButtons = [btnClose, viewMenuIconItem].compactMap {$0 as? Tintable}
+        functionButtons = [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] + controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
+        tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
+
         changeTextSize(PlaylistViewState.textSize)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
     }
     
+    // Initialize all the tab views (and select the one preferred by the user)
     private func setUpTabGroup() {
         
         tabGroup.addViewsForTabs([tracksView, artistsView, albumsView, genresView])
-
-        // Initialize all the tab views (and select the one preferred by the user)
         [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
         
         if playlistPreferences.viewOnStartup.option == .specific {
-            
             tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)
             
-        } else {
-            
-            // Remember the view from the last app launch
+        } else {    // Remember the view from the last app launch
             tabGroup.selectTabViewItem(at: PlaylistViewState.current.index)
         }
         
@@ -168,14 +170,21 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         Messenger.publish(.windowManager_togglePlaylistWindow)
     }
     
+    private func checkIfPlaylistIsBeingModified() -> Bool {
+        
+        let playlistBeingModified = playlist.isBeingModified
+        
+        if playlistBeingModified {
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+        }
+        
+        return playlistBeingModified
+    }
+    
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addTracksAction(_ sender: AnyObject) {
         
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
+        guard !checkIfPlaylistIsBeingModified() else {return}
         
         if fileOpenDialog.runModal() == NSApplication.ModalResponse.OK {
             playlist.addFiles(fileOpenDialog.urls)
@@ -199,7 +208,6 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         
         progressSpinner.stopAnimation(self)
         progressSpinner.hide()
-        
         updatePlaylistSummary()
         
 //        sequenceChanged()
@@ -224,18 +232,16 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     
     // Handles a notification that a single track has been added to the playlist
     func trackAdded(_ notification: TrackAddedNotification) {
-        self.updatePlaylistSummary(notification.addOperationProgress)
+        updatePlaylistSummary(notification.addOperationProgress)
     }
     
     func tracksRemoved() {
         updatePlaylistSummary()
     }
     
-    // Handles a notification that a single track has been updated
+    // Track duration may have changed, affecting the total playlist duration (i.e. summary)
     func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
-        
-        // Track duration may have changed, affecting the total playlist duration
-        self.updatePlaylistSummary()
+        updatePlaylistSummary()
     }
     
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
@@ -269,11 +275,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     // Removes selected items from the current playlist view. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func removeTracksAction(_ sender: AnyObject) {
         
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
+        guard !checkIfPlaylistIsBeingModified() else {return}
         
         Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
         
@@ -284,11 +286,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
         
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
+        guard !checkIfPlaylistIsBeingModified() else {return}
         
         // Make sure there is at least one track to save
         if playlist.size > 0 && saveDialog.runModal() == NSApplication.ModalResponse.OK, let newFileURL = saveDialog.url {
@@ -303,11 +301,7 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     // Removes all items from the playlist
     @IBAction func clearPlaylistAction(_ sender: AnyObject) {
         
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
+        guard !checkIfPlaylistIsBeingModified() else {return}
         
         playlist.clear()
         
@@ -324,27 +318,21 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     // Moves any selected playlist items up one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
+        if !checkIfPlaylistIsBeingModified() {
         
-        Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-//        sequenceChanged()
+            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            //        sequenceChanged()
+        }
     }
     
     // Moves any selected playlist items down one row in the playlist. Delegates the action to the appropriate playlist view, because this operation depends on which playlist view is currently shown.
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
-        if playlist.isBeingModified {
+        if !checkIfPlaylistIsBeingModified() {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            //        sequenceChanged()
         }
-        
-        Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-//        sequenceChanged()
     }
     
     private func nextView() {
@@ -357,27 +345,23 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
     @IBAction func searchAction(_ sender: AnyObject) {
-        _ = playlistSearchDialog.showDialog()
+        search()
     }
     
     private func search() {
-        searchAction(self)
+        _ = playlistSearchDialog.showDialog()
     }
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
     @IBAction func sortAction(_ sender: AnyObject) {
-        
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
-        
-        _ = playlistSortDialog.showDialog()
+        sort()
     }
     
     private func sort() {
-        sortAction(self)
+        
+        if !checkIfPlaylistIsBeingModified() {
+            _ = playlistSortDialog.showDialog()
+        }
     }
     
     // MARK: Playlist window actions
@@ -422,41 +406,29 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
         
         rootContainerBox.fillColor = color
      
-        [playlistContainerBox, tabButtonsBox, controlsBox].forEach({
-            $0!.fillColor = color
-            $0!.isTransparent = !color.isOpaque
-        })
+        for box in childContainerBoxes {
+            
+            box.fillColor = color
+            box.isTransparent = !color.isOpaque
+        }
         
         redrawTabButtons()
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
-        
-        [btnClose, viewMenuIconItem].forEach({
-            ($0 as? Tintable)?.reTint()
-        })
+        viewControlButtons.forEach {$0.reTint()}
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {
-        
-        [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom].forEach({
-            $0.reTint()
-        })
-        
-        controlButtonsSuperview.subviews.forEach({
-            ($0 as? TintedImageButton)?.reTint()
-        })
+        functionButtons.forEach {$0.reTint()}
     }
     
     private func changeSummaryInfoColor(_ color: NSColor) {
-        
-        [lblTracksSummary, lblDurationSummary].forEach({
-            $0.textColor = color
-        })
+        [lblTracksSummary, lblDurationSummary].forEach {$0.textColor = color}
     }
     
     private func redrawTabButtons() {
-        [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab].forEach({$0.redraw()})
+        tabButtons.forEach {$0.redraw()}
     }
     
     func changeSelectedTabButtonColor(_ color: NSColor) {
@@ -477,14 +449,12 @@ class PlaylistWindowController: NSWindowController, NotificationSubscriber, NSTa
     
     func trackChanged() {
         
+        // New track has no chapters, or there is no new track
         if playbackInfo.chapterCount == 0 {
-            
-            // New track has no chapters, or there is no new track
             WindowManager.hideChaptersList()
             
         } // Only show chapters list if preferred by user
         else if playlistPreferences.showChaptersList {
-            
             viewChaptersList()
         }
     }
