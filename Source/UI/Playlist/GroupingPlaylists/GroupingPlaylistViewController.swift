@@ -33,7 +33,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     override func viewDidLoad() {
         
         // Enable drag n drop
-        playlistView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([String(kUTTypeFileURL), "public.data"]))
+        playlistView.enableDragDrop()
         playlistView.menu = contextMenu
         
         initSubscriptions()

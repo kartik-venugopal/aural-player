@@ -541,3 +541,10 @@ class TableViewHolder {
     
     static var instance: NSTableView?
 }
+
+extension NSTableView {
+    
+    func enableDragDrop() {
+        self.registerForDraggedTypes([String(kUTTypeFileURL), "public.data"].map {NSPasteboard.PasteboardType($0)})
+    }
+}
