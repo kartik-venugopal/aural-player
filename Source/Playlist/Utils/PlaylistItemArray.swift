@@ -178,6 +178,9 @@ extension Array where Element: Equatable {
         
         return Dictionary(uniqueKeysWithValues: zip(sourceIndices.sorted(by: ascendingIntComparator), destinationIndices))
     }
+}
+
+extension Array {
     
     func categorizeBy<C>(_ categorizingFunction: (Element) -> C) -> [C: [Element]] where C: Hashable {
         
