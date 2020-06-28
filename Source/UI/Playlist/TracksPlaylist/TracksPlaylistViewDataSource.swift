@@ -14,6 +14,11 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     
+    // Returns the total number of playlist rows
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return playlist.size
+    }
+    
     // MARK: Drag n drop
     
     // Writes source information to the pasteboard
