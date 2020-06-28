@@ -4,7 +4,7 @@
 
 Major refactoring of the playlist code in all app layers:
 
-* Simplification and optimization using functional programming (map/filter/reduce) leading to much more concise code. Reduced lines of code by > 1000.
+* Simplification and optimization using functional programming (map/filter/reduce) leading to much more concise code. Reduced lines of code by > 2000.
 * Factored out lots of redundant code into common utilities.
 * Implemented safe checking of optional values.
 * Improved interface definitions and reduced redundant code in struct definitions.

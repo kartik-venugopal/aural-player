@@ -117,7 +117,7 @@ class GenericTableRowView: NSTableRowView {
 
 class BasicTableCellView: NSTableCellView {
     
-    var selectionFunction: (() -> Bool) = {() -> Bool in return false}
+    var selectionFunction: (() -> Bool) = {false}
     
     var textFont: NSFont = Fonts.Constants.mainFont_10
     var selectedTextFont: NSFont = Fonts.Constants.mainFont_10
@@ -125,9 +125,7 @@ class BasicTableCellView: NSTableCellView {
     var textColor: NSColor = Colors.playlistTextColor
     var selectedTextColor: NSColor = Colors.playlistSelectedTextColor
     
-    var isSelRow: Bool {
-        return selectionFunction()
-    }
+    var isSelRow: Bool {selectionFunction()}
     
     override var backgroundStyle: NSView.BackgroundStyle {
         
@@ -139,11 +137,8 @@ class BasicTableCellView: NSTableCellView {
     func backgroundStyleChanged() {
         
         // Check if this row is selected, change font and color accordingly
-        if let textField = self.textField {
-            
-            textField.textColor = isSelRow ?  selectedTextColor : textColor
-            textField.font = isSelRow ? selectedTextFont : textFont
-        }
+        textField?.textColor = isSelRow ?  selectedTextColor : textColor
+        textField?.font = isSelRow ? selectedTextFont : textFont
     }
 }
 

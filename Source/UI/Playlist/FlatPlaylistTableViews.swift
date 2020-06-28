@@ -1,5 +1,20 @@
 import Cocoa
 
+extension NSView {
+    
+    func activateAndAddConstraint(_ constraint: NSLayoutConstraint) {
+        
+        constraint.isActive = true
+        self.addConstraint(constraint)
+    }
+    
+    func deactivateAndRemoveConstraint(_ constraint: NSLayoutConstraint) {
+        
+        constraint.isActive = false
+        self.removeConstraint(constraint)
+    }
+}
+
 /*
     A customized NSTableView that overrides contextual menu behavior
  */
@@ -10,12 +25,6 @@ class AuralPlaylistTableView: NSTableView {
     }
 }
 
-// Utility class to hold an NSTableView instance for convenient access
-class TableViewHolder {
-    
-    static var instance: NSTableView?
-}
-
 /*
     Custom view for a NSTableView row that displays a single playlist track or group. Customizes the selection look and feel.
  */
@@ -24,7 +33,7 @@ class PlaylistRowView: NSTableRowView {
     // Draws a fancy rounded rectangle around the selected track in the playlist view
     override func drawSelection(in dirtyRect: NSRect) {
         
-        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
+        if self.selectionHighlightStyle != .none {
             
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
@@ -37,13 +46,10 @@ class PlaylistRowView: NSTableRowView {
 
 class BasicFlatPlaylistCellView: NSTableCellView {
     
-    // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
-    var row: Int = -1
+    // Used to determine whether or not this cell is selected.
+    var rowSelectionStateFunction: (() -> Bool) = {false}
     
-    // TODO: Store this logic in a closure passed in by the view delegate, instead of using TableViewHolder
-    var isSelRow: Bool {
-        return TableViewHolder.instance!.selectedRowIndexes.contains(row)
-    }
+    var rowIsSelected: Bool {rowSelectionStateFunction()}
     
     func updateText(_ font: NSFont, _ text: String) {
         
@@ -63,59 +69,37 @@ class BasicFlatPlaylistCellView: NSTableCellView {
     }
     
     override var backgroundStyle: NSView.BackgroundStyle {
-        
-        didSet {
-            backgroundStyleChanged()
-        }
+        didSet {backgroundStyleChanged()}
     }
-    
+
+    // Check if this row is selected, change font and color accordingly
     func backgroundStyleChanged() {
         
-        // Check if this row is selected, change font and color accordingly
-        if let textField = self.textField {
-            
-            textField.textColor = isSelRow ? Colors.Playlist.trackNameSelectedTextColor : Colors.Playlist.trackNameTextColor
-            textField.font = Fonts.Playlist.trackNameFont
-        }
+        textField?.textColor = rowIsSelected ? Colors.Playlist.trackNameSelectedTextColor : Colors.Playlist.trackNameTextColor
+        textField?.font = Fonts.Playlist.trackNameFont
     }
     
     func placeTextFieldOnTop() {
         
-        let textField = self.textField!
-        
-        for con in self.constraints {
+        guard let textField = self.textField else {return}
             
-            if con.firstItem === textField && con.firstAttribute == .top {
-                
-                con.isActive = false
-                self.removeConstraint(con)
-                break
-            }
-        }
+        // Remove any existing constraints on the text field's 'top' attribute
+        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .top}.forEach {self.deactivateAndRemoveConstraint($0)}
         
         // textField.top == self.top
         let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: -2)
-        textFieldOnTopConstraint.isActive = true
-        self.addConstraint(textFieldOnTopConstraint)
+        self.activateAndAddConstraint(textFieldOnTopConstraint)
     }
     
     func placeTextFieldBelowView(_ view: NSView) {
         
-        let textField = self.textField!
+        guard let textField = self.textField else {return}
         
-        for con in self.constraints {
-            
-            if con.firstItem === textField && con.firstAttribute == .top {
-                
-                con.isActive = false
-                self.removeConstraint(con)
-                break
-            }
-        }
+        // Remove any existing constraints on the text field's 'top' attribute
+        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .top}.forEach {self.deactivateAndRemoveConstraint($0)}
         
         let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -2)
-        textFieldBelowViewConstraint.isActive = true
-        self.addConstraint(textFieldBelowViewConstraint)
+        self.activateAndAddConstraint(textFieldBelowViewConstraint)
     }
 }
 
@@ -154,20 +138,14 @@ class DurationCellView: BasicFlatPlaylistCellView {
     override func backgroundStyleChanged() {
         
         // Check if this row is selected, change font and color accordingly
-        textField?.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        textField?.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
         textField?.font = Fonts.Playlist.indexFont
-    }
-    
-    override var backgroundStyle: NSView.BackgroundStyle {
         
-        didSet {
-            
-            gapBeforeTextField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-            gapBeforeTextField.font = Fonts.Playlist.indexFont
+        gapBeforeTextField.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        gapBeforeTextField.font = Fonts.Playlist.indexFont
         
-            gapAfterTextField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-            gapAfterTextField.font = Fonts.Playlist.indexFont
-        }
+        gapAfterTextField.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        gapAfterTextField.font = Fonts.Playlist.indexFont
     }
     
     func updateForGaps(_ gapBeforeTrack: Bool, _ gapAfterTrack: Bool, _ gapBeforeDuration: Double?, _ gapAfterDuration: Double?) {
@@ -179,47 +157,6 @@ class DurationCellView: BasicFlatPlaylistCellView {
         gapAfterTextField.stringValue = gapAfterTrack ? ValueFormatter.formatSecondsToHMS(gapAfterDuration!) : ""
         
         gapBeforeTrack ? placeTextFieldBelowView(gapBeforeTextField) : placeTextFieldOnTop()
-    }
-    
-    override func placeTextFieldOnTop() {
-        
-        if let textField = self.textField {
-            
-            for con in self.constraints {
-                
-                if con.firstItem === textField && con.firstAttribute == .top {
-                    
-                    con.isActive = false
-                    self.removeConstraint(con)
-                    break
-                }
-            }
-            
-            // textField.top == self.top
-            let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: -2)
-            textFieldOnTopConstraint.isActive = true
-            self.addConstraint(textFieldOnTopConstraint)
-            
-        }
-    }
-    
-    override func placeTextFieldBelowView(_ view: NSView) {
-        
-        let textField = self.textField!
-        
-        for con in self.constraints {
-            
-            if con.firstItem === textField && con.firstAttribute == .top {
-                
-                con.isActive = false
-                self.removeConstraint(con)
-                break
-            }
-        }
-        
-        let textFieldBelowViewConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -2)
-        textFieldBelowViewConstraint.isActive = true
-        self.addConstraint(textFieldBelowViewConstraint)
     }
 }
 
@@ -249,95 +186,55 @@ class IndexCellView: BasicFlatPlaylistCellView {
     override func backgroundStyleChanged() {
         
         // Check if this row is selected, change font and color accordingly
-        if let textField = self.textField {
-            
-            textField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-            textField.font = Fonts.Playlist.indexFont
-        }
+        textField?.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        textField?.font = Fonts.Playlist.indexFont
     }
     
     func adjustIndexConstraints_beforeGapOnly() {
         
-        let textField = self.textField!
-        let imgView = self.imageView!
+        guard let textField = self.textField, let imgView = self.imageView else {return}
         
-        for con in self.constraints {
-            
-            if con.firstItem === textField && con.firstAttribute == .centerY {
-                con.isActive = false
-                self.removeConstraint(con)
-            }
-            
-            if con.firstItem === imgView && con.firstAttribute == .centerY {
-                con.isActive = false
-                self.removeConstraint(con)
-            }
-        }
+        // Remove any existing constraints on the text field's and image view's 'centerY' attribute
+        self.constraints.filter {($0.firstItem === textField || $0.firstItem === imgView) && $0.firstAttribute == .centerY}.forEach {self.deactivateAndRemoveConstraint($0)}
+
+        // textField.centerY = self.bottom
+        let textFieldCtrYConstraint = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -14.5)
+        self.activateAndAddConstraint(textFieldCtrYConstraint)
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -14.5)
-        indexTF.isActive = true
-        self.addConstraint(indexTF)
-        
-        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -12)
-        indexIV.isActive = true
-        self.addConstraint(indexIV)
+        // imgView.centerY = self.bottom
+        let imgViewCtrYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -12)
+        self.activateAndAddConstraint(imgViewCtrYConstraint)
     }
     
     func adjustIndexConstraints_afterGapOnly() {
         
-        let textField = self.textField!
-        let imgView = self.imageView!
+        guard let textField = self.textField, let imgView = self.imageView else {return}
         
-        for con in self.constraints {
-            
-            if con.firstItem === textField && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                self.removeConstraint(con)
-            }
-            
-            if con.firstItem === imgView && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                self.removeConstraint(con)
-            }
-        }
+        // Remove any existing constraints on the text field's and image view's 'centerY' attribute
+        self.constraints.filter {($0.firstItem === textField || $0.firstItem === imgView) && $0.firstAttribute == .centerY}.forEach {self.deactivateAndRemoveConstraint($0)}
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 10.5)
-        indexTF.isActive = true
-        self.addConstraint(indexTF)
+        // textField.centerY = self.top
+        let textFieldCtrYConstraint = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 10.5)
+        self.activateAndAddConstraint(textFieldCtrYConstraint)
         
-        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -30)
-        indexIV.isActive = true
-        self.addConstraint(indexIV)
+        // imgView.centerY = self.bottom
+        let imgViewCtrYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -30)
+        self.activateAndAddConstraint(imgViewCtrYConstraint)
     }
     
     func adjustIndexConstraints_centered() {
         
-        let textField = self.textField!
-        let imgView = self.imageView!
+        guard let textField = self.textField, let imgView = self.imageView else {return}
         
-        for con in self.constraints {
-            
-            if con.firstItem === textField && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                self.removeConstraint(con)
-            }
-            
-            if con.firstItem === imageView && con.firstAttribute == .centerY {
-                
-                con.isActive = false
-                self.removeConstraint(con)
-            }
-        }
+        // Remove any existing constraints on the text field's and image view's 'centerY' attribute
+        self.constraints.filter {($0.firstItem === textField || $0.firstItem === imgView) && $0.firstAttribute == .centerY}.forEach {self.deactivateAndRemoveConstraint($0)}
         
-        let indexTF = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: -2)
-        indexTF.isActive = true
-        self.addConstraint(indexTF)
+        // textField.centerY = self.centerY
+        let textFieldCtrYConstraint = NSLayoutConstraint(item: textField, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: -2)
+        self.activateAndAddConstraint(textFieldCtrYConstraint)
         
-        let indexIV = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
-        indexIV.isActive = true
-        self.addConstraint(indexIV)
+        // imgView.centerY = self.centerY
+        let imgViewCtrYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
+        self.activateAndAddConstraint(imgViewCtrYConstraint)
     }
 }
