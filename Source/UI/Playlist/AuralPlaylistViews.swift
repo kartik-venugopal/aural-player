@@ -202,6 +202,23 @@ class BasicFlatPlaylistCellView: NSTableCellView {
         return TableViewHolder.instance!.selectedRowIndexes.contains(row)
     }
     
+    func updateText(_ font: NSFont, _ text: String) {
+        
+        textField?.font = font
+        textField?.stringValue = text
+        textField?.show()
+        
+        imageView?.hide()
+    }
+    
+    func updateImage(_ image: NSImage) {
+        
+        imageView?.image = image
+        imageView?.show()
+        
+        textField?.hide()
+    }
+    
     override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
@@ -265,8 +282,21 @@ class BasicFlatPlaylistCellView: NSTableCellView {
 @IBDesignable
 class TrackNameCellView: BasicFlatPlaylistCellView {
     
+    var gapImage: NSImage!
+    
     @IBInspectable @IBOutlet weak var gapBeforeImg: NSImageView!
     @IBInspectable @IBOutlet weak var gapAfterImg: NSImageView!
+    
+    func updateForGaps(_ gapBeforeTrack: Bool, _ gapAfterTrack: Bool) {
+
+        gapBeforeImg.image = gapBeforeTrack ? gapImage : nil
+        gapBeforeImg.showIf(gapBeforeTrack)
+
+        gapAfterImg.image = gapAfterTrack ? gapImage : nil
+        gapAfterImg.showIf(gapAfterTrack)
+
+        gapBeforeTrack ? placeTextFieldBelowView(gapBeforeImg) : placeTextFieldOnTop()
+    }
 }
 
 /*
@@ -281,52 +311,55 @@ class DurationCellView: BasicFlatPlaylistCellView {
     override func backgroundStyleChanged() {
         
         // Check if this row is selected, change font and color accordingly
-        if let textField = self.textField {
-            
-            textField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-            textField.font = Fonts.Playlist.indexFont
-        }
+        textField?.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        textField?.font = Fonts.Playlist.indexFont
     }
     
     override var backgroundStyle: NSView.BackgroundStyle {
         
         didSet {
             
-            // Check if this row is selected
-//            backgroundStyleChanged()
-            
-            if let gapField = self.gapBeforeTextField {
-                
-                gapField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-                gapField.font = Fonts.Playlist.indexFont
-            }
-            
-            if let gapField = self.gapAfterTextField {
-                
-                gapField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-                gapField.font = Fonts.Playlist.indexFont
-            }
+            gapBeforeTextField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+            gapBeforeTextField.font = Fonts.Playlist.indexFont
+        
+            gapAfterTextField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+            gapAfterTextField.font = Fonts.Playlist.indexFont
         }
+    }
+    
+    func updateForGaps(_ gapBeforeTrack: Bool, _ gapAfterTrack: Bool, _ gapBeforeDuration: Double?, _ gapAfterDuration: Double?) {
+        
+        gapBeforeTextField.showIf(gapBeforeTrack)
+        gapBeforeTextField.stringValue = gapBeforeTrack ? ValueFormatter.formatSecondsToHMS(gapBeforeDuration!) : ""
+        
+        gapAfterTextField.showIf(gapAfterTrack)
+        gapAfterTextField.stringValue = gapAfterTrack ? ValueFormatter.formatSecondsToHMS(gapAfterDuration!) : ""
+        
+        gapBeforeTrack ? placeTextFieldBelowView(gapBeforeTextField) : placeTextFieldOnTop()
     }
     
     override func placeTextFieldOnTop() {
         
-        let textField = self.textField!
-        
-        for con in self.constraints {
+        if let textField = self.textField {
             
-            if con.firstItem === textField && con.firstAttribute == .top {
+//            if let existingContraint = self.constr
+            
+            for con in self.constraints {
                 
-                con.isActive = false
-                self.removeConstraint(con)
-                break
+                if con.firstItem === textField && con.firstAttribute == .top {
+                    
+                    con.isActive = false
+                    self.removeConstraint(con)
+                    break
+                }
             }
+            
+            // textField.top == self.top
+            let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: -2)
+            textFieldOnTopConstraint.isActive = true
+            self.addConstraint(textFieldOnTopConstraint)
+            
         }
-        
-        // textField.top == self.top
-        let textFieldOnTopConstraint = NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: -2)
-        textFieldOnTopConstraint.isActive = true
-        self.addConstraint(textFieldOnTopConstraint)
     }
     
     override func placeTextFieldBelowView(_ view: NSView) {
@@ -353,6 +386,24 @@ class DurationCellView: BasicFlatPlaylistCellView {
  Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 class IndexCellView: BasicFlatPlaylistCellView {
+    
+    func updateForGaps(_ gapBeforeTrack: Bool, _ gapAfterTrack: Bool) {
+
+        switch (gapBeforeTrack, gapAfterTrack) {
+
+        case (false, false), (true, true):
+            
+            adjustIndexConstraints_centered()
+            
+        case (false, true):
+
+            adjustIndexConstraints_afterGapOnly()
+
+        case (true, false):
+            
+            adjustIndexConstraints_beforeGapOnly()
+        }
+    }
     
     override func backgroundStyleChanged() {
         
