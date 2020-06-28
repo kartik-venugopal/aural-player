@@ -5,8 +5,6 @@ import Cocoa
  */
 class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     
-    private static let pasteboardType: NSPasteboard.PasteboardType = NSPasteboard.PasteboardType(rawValue: "public.data")
-    
     // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
@@ -16,11 +14,6 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     
-    // Returns the total number of playlist rows
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return playlist.size
-    }
-    
     // MARK: Drag n drop
     
     // Writes source information to the pasteboard
@@ -29,7 +22,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         if playlist.isBeingModified {return false}
         
         let item = NSPasteboardItem()
-        item.setData(NSKeyedArchiver.archivedData(withRootObject: rowIndexes), forType: TracksPlaylistViewDataSource.pasteboardType)
+        item.setData(NSKeyedArchiver.archivedData(withRootObject: rowIndexes), forType: .data)
         pboard.writeObjects([item])
         
         return true
@@ -38,7 +31,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Helper function to retrieve source indexes from the NSDraggingInfo pasteboard
     private func getSourceIndexes(_ draggingInfo: NSDraggingInfo) -> IndexSet? {
         
-        if let data = draggingInfo.draggingPasteboard.pasteboardItems?.first?.data(forType: TracksPlaylistViewDataSource.pasteboardType) {
+        if let data = draggingInfo.draggingPasteboard.pasteboardItems?.first?.data(forType: .data) {
             return NSKeyedUnarchiver.unarchiveObject(with: data) as? IndexSet
         }
         
@@ -54,14 +47,15 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         if info.draggingSource is NSTableView {
             
             // Reordering of tracks
-            if let sourceIndexSet = getSourceIndexes(info) {
-                return validateReorderOperation(tableView, sourceIndexSet, row, dropOperation) ? .move : invalidDragOperation
+            if let sourceIndexSet = getSourceIndexes(info), validateReorderOperation(tableView, sourceIndexSet, row, dropOperation) {
+                return .move
             }
             
             return invalidDragOperation
         }
         
         // TODO: What about items added from apps other than Finder ??? From VOX or other audio players ???
+        
         // Otherwise, files are being dragged in from outside the app (e.g. tracks/playlists from Finder)
         return .copy
     }
@@ -91,7 +85,6 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 
                 for move in sortedMoves {
                     
-                    // Move the row
                     tableView.moveRow(at: move.sourceIndex, to: move.destinationIndex)
                     
                     // Collect source and destination indices for later
