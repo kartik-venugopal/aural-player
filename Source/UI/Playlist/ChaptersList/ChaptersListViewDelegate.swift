@@ -10,7 +10,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     
     // Returns a custom view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return FlatPlaylistRowView()
+        return PlaylistRowView()
     }
     
     // Returns a view for a single column
