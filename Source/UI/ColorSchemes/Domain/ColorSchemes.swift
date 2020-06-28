@@ -15,6 +15,7 @@ class ColorSchemes {
             
             // Update the player's seek slider gradient cache whenever the system scheme changes.
             Colors.Player.updateSliderColors()
+            AuralPlaylistOutlineView.updateCachedImages()
         }
     }
     
@@ -44,6 +45,7 @@ class ColorSchemes {
         
         // Update seek slider gradient cache
         Colors.Player.updateSliderColors()
+        AuralPlaylistOutlineView.updateCachedImages()
         
         return systemScheme
     }
@@ -57,6 +59,7 @@ class ColorSchemes {
             
             // Update seek slider gradient cache
             Colors.Player.updateSliderColors()
+            AuralPlaylistOutlineView.updateCachedImages()
             
             return systemScheme
             
@@ -66,6 +69,7 @@ class ColorSchemes {
             
             // Update seek slider gradient cache
             Colors.Player.updateSliderColors()
+            AuralPlaylistOutlineView.updateCachedImages()
             
             return systemScheme
         }

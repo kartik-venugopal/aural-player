@@ -17,17 +17,13 @@ extension NSTableView {
     func menuHandler(for event: NSEvent) -> NSMenu? {
         
         // If tableView has no rows, don't show the menu
-        if (self.numberOfRows == 0) {
-            return nil
-        }
+        if self.numberOfRows == 0 {return nil}
         
         // Calculate the clicked row
         let row = self.row(at: self.convert(event.locationInWindow, from: nil))
         
         // If the click occurred outside of any of the playlist rows (i.e. empty space), don't show the menu
-        if (row == -1) {
-            return nil
-        }
+        if row == -1 {return nil}
         
         // Select the clicked row, implicitly clearing the previous selection
         self.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)

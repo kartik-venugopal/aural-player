@@ -115,7 +115,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .playlist_changeGroupNameSelectedTextColor, self.changeGroupNameSelectedTextColor(_:))
         
         Messenger.subscribe(self, .playlist_changeGroupIconColor, self.changeGroupIconColor(_:))
-        Messenger.subscribe(self, .playlist_changeGroupDisclosureTriangleColor, self.changeGroupDisclosureTriangleColor(_:))
         
         Messenger.subscribe(self, .playlist_changePlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
         Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
@@ -570,10 +569,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         if mustReloadRows {
             
-            playlistViewDelegate.changeGroupIconColor(scheme.playlist.groupIconColor)
-            playlistViewDelegate.changeGapIndicatorColor(scheme.playlist.indexDurationSelectedTextColor)
-            playlistView.changeDisclosureIconColor(scheme.playlist.groupDisclosureTriangleColor)
-            
             let selectedRows = self.selectedRows
             playlistView.reloadData()
             playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
@@ -596,8 +591,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     private var allGroups: [Group] {playlist.allGroups(self.groupType)}
     
     private func changeTrackNameTextColor(_ color: NSColor) {
-        
-        playlistViewDelegate.changeGapIndicatorColor(color)
         
         let trackRows = allRows.filteredIndexSet(includeInteger: {playlistView.item(atRow: $0) is Track})
         playlistView.reloadData(forRowIndexes: trackRows, columnIndexes: IndexSet(integer: 0))
@@ -647,12 +640,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     private func changeGroupIconColor(_ color: NSColor) {
-        
-        playlistViewDelegate.changeGroupIconColor(color)
         allGroups.forEach({playlistView.reloadItem($0)})
-    }
-    
-    private func changeGroupDisclosureTriangleColor(_ color: NSColor) {
-        playlistView.changeDisclosureIconColor(color)
     }
 }
