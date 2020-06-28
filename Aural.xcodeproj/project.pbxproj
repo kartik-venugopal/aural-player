@@ -608,6 +608,8 @@
 		3EA9D08C249CF94F0054EF00 /* Messenger_SynchronousNotificationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA9D08B249CF94F0054EF00 /* Messenger_SynchronousNotificationsTests.swift */; };
 		3EA9D08E249D50470054EF00 /* Messenger_UnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA9D08D249D50470054EF00 /* Messenger_UnsubscribeTests.swift */; };
 		3EA9D090249D534B0054EF00 /* Messenger_AsynchronousNotificationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA9D08F249D534B0054EF00 /* Messenger_AsynchronousNotificationsTests.swift */; };
+		3EAB1BD524A8BC0F007D130F /* GroupingPlaylistTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB1BD424A8BC0F007D130F /* GroupingPlaylistTableViews.swift */; };
+		3EAB1BD724A8CC67007D130F /* FlatPlaylistTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB1BD624A8CC67007D130F /* FlatPlaylistTableViews.swift */; };
 		3EAC65ED249109E600E7D56B /* libswiftAVFoundation.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EAC65EB249109D800E7D56B /* libswiftAVFoundation.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3EAC65EE249109E600E7D56B /* libswiftsimd.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EAC65EC249109D800E7D56B /* libswiftsimd.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3EAC65EF249109E600E7D56B /* libswiftSwiftOnoneSupport.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3EAC65EA249109D800E7D56B /* libswiftSwiftOnoneSupport.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1237,6 +1239,8 @@
 		3EA9D08B249CF94F0054EF00 /* Messenger_SynchronousNotificationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger_SynchronousNotificationsTests.swift; sourceTree = "<group>"; };
 		3EA9D08D249D50470054EF00 /* Messenger_UnsubscribeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger_UnsubscribeTests.swift; sourceTree = "<group>"; };
 		3EA9D08F249D534B0054EF00 /* Messenger_AsynchronousNotificationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messenger_AsynchronousNotificationsTests.swift; sourceTree = "<group>"; };
+		3EAB1BD424A8BC0F007D130F /* GroupingPlaylistTableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistTableViews.swift; sourceTree = "<group>"; };
+		3EAB1BD624A8CC67007D130F /* FlatPlaylistTableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatPlaylistTableViews.swift; sourceTree = "<group>"; };
 		3EAC65EA249109D800E7D56B /* libswiftSwiftOnoneSupport.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftSwiftOnoneSupport.dylib; path = "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/macosx/libswiftSwiftOnoneSupport.dylib"; sourceTree = DEVELOPER_DIR; };
 		3EAC65EB249109D800E7D56B /* libswiftAVFoundation.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftAVFoundation.dylib; path = "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/macosx/libswiftAVFoundation.dylib"; sourceTree = DEVELOPER_DIR; };
 		3EAC65EC249109D800E7D56B /* libswiftsimd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libswiftsimd.dylib; path = "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/macosx/libswiftsimd.dylib"; sourceTree = DEVELOPER_DIR; };
@@ -1623,6 +1627,8 @@
 				3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */,
 				3EB499F1244AF1E200711BC5 /* PlaylistViewPopupMenuController.swift */,
 				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
+				3EAB1BD624A8CC67007D130F /* FlatPlaylistTableViews.swift */,
+				3EAB1BD424A8BC0F007D130F /* GroupingPlaylistTableViews.swift */,
 				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
 				3E50ADC72461412000B31339 /* TracksPlaylist */,
 				3E50ADC82461412F00B31339 /* GroupingPlaylists */,
@@ -3412,6 +3418,8 @@
 				3E09C6B71F2F25A7007BB489 /* ShuffleSequence.swift in Sources */,
 				3E23E097246E6F1900367E2B /* CancelTranscodingAction.swift in Sources */,
 				3EA2F8F521CF6D88007D0264 /* MetadataReader.swift in Sources */,
+				3EAB1BD524A8BC0F007D130F /* GroupingPlaylistTableViews.swift in Sources */,
+				3EAB1BD724A8CC67007D130F /* FlatPlaylistTableViews.swift in Sources */,
 				3E17D03221E604D800951F81 /* LanguageMap.swift in Sources */,
 				3E0DF1C42431C0300096C2A1 /* ChaptersListWindowController.swift in Sources */,
 				3E98478B1F5CFD87001A2D28 /* RecorderDelegateProtocol.swift in Sources */,

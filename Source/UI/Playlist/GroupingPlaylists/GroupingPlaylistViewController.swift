@@ -357,6 +357,8 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func collapseSelectedItems() {
         
+        // TODO: After collapsing, select the parent groups
+        
         let selectedTracksAndGroups = collectSelectedTracksAndGroups()
         
         let selectedGroups: [Group] = selectedTracksAndGroups.groups
