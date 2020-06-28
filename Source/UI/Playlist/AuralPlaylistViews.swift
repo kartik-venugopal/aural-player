@@ -99,7 +99,7 @@ class AuralPlaylistOutlineView: NSOutlineView {
 extension NSTableView {
     
     func enableDragDrop() {
-        self.registerForDraggedTypes([String(kUTTypeFileURL), "public.data"].map {NSPasteboard.PasteboardType($0)})
+        self.registerForDraggedTypes([.data, .file_URL])
     }
     
     /*
@@ -601,4 +601,13 @@ class BasicTableCellView: NSTableCellView {
 class TableViewHolder {
     
     static var instance: NSTableView?
+}
+
+extension NSPasteboard.PasteboardType {
+
+    // Enables drag/drop reordering of playlist rows
+    static let data: NSPasteboard.PasteboardType = NSPasteboard.PasteboardType(rawValue: String(kUTTypeData))
+    
+    // Enables drag/drop adding of tracks into the playlist from Finder
+    static let file_URL: NSPasteboard.PasteboardType = NSPasteboard.PasteboardType(rawValue: String(kUTTypeFileURL))
 }

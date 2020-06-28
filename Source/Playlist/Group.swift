@@ -44,8 +44,8 @@ class Group: Hashable, PlaylistItem {
         return tracks.firstIndex(of: track)
     }
     
-    func trackAtIndex(_ index: Int) -> Track {
-        return tracks[index]
+    func trackAtIndex(_ index: Int) -> Track? {
+        return tracks.itemAtIndex(index)
     }
     
     func insertTrackAtIndex(_ track: Track, _ index: Int) {
