@@ -317,7 +317,10 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         // For groups that are expanded but not selected, invert the selection of their tracks.
         for group in allGroups.filter({playlistView.isItemExpanded($0) && !isItemSelected($0)}) {
-            inversionItems += group.tracks.filter {!isItemSelected($0)}
+            
+            // If all tracks in group are to be selected, just select the group instead.
+            let unselectedTracks = group.tracks.filter {!isItemSelected($0)}
+            inversionItems += unselectedTracks.count == group.tracks.count ? [group] : unselectedTracks
         }
         
         // Map items to rows
