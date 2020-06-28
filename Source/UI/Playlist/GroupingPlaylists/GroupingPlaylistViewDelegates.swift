@@ -16,29 +16,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
     fileprivate var playlistType: PlaylistType
     
-    private var cachedGroupIcon: NSImage!
-    private var cachedGapImage: NSImage!
-    
     init(_ playlistType: PlaylistType) {
         self.playlistType = playlistType
     }
     
     override func awakeFromNib() {
-        
         OutlineViewHolder.instances[self.playlistType] = playlistView
-        
-        cachedGroupIcon = Images.imgGroup.applyingTint(Colors.Playlist.groupIconColor)
-        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
     }
 
-    func changeGroupIconColor(_ color: NSColor) {
-        cachedGroupIcon = Images.imgGroup.applyingTint(color)
-    }
-    
-    func changeGapIndicatorColor(_ color: NSColor) {
-        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
-    }
-    
     // Returns a view for a single row
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
         return PlaylistRowView()
@@ -133,7 +118,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         let gapAfter = playlist.getGapAfterTrack(track)
         let gapBefore = playlist.getGapBeforeTrack(track)
         
-        cell.gapImage = cachedGapImage
+        cell.gapImage = AuralPlaylistOutlineView.cachedGapImage
         cell.updateForGaps(gapBefore != nil, gapAfter != nil)
         
         return cell
@@ -181,7 +166,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
             
         cell.updateText(Fonts.Playlist.groupNameFont, String(format: "%@ (%d)", group.name, group.size))
-        cell.imageView?.image = cachedGroupIcon
+        cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         cell.updateForGaps(false, false)
         cell.textField?.setFrameOrigin(NSPoint.zero)

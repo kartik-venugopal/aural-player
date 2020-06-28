@@ -6,31 +6,45 @@ import Cocoa
 class AuralPlaylistOutlineView: NSOutlineView {
     
     // TODO - Can these be static so that only one copy is made for all playlists ? Not 3.
-    var cachedDisclosureIcon_collapsed: NSImage!
-    var cachedDisclosureIcon_expanded: NSImage!
+    static var cachedDisclosureIcon_collapsed: NSImage!
+    static var cachedDisclosureIcon_expanded: NSImage!
     
-    var disclosureButtons: [NSButton] = []
+    static var cachedGroupIcon: NSImage!
+    static var cachedGapImage: NSImage!
     
-    override func awakeFromNib() {
+    static var disclosureButtons: [NSButton] = []
+    
+    static func updateCachedImages() {
         
         cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
         cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
+        
+        cachedGroupIcon = Images.imgGroup.applyingTint(Colors.Playlist.groupIconColor)
+        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
     }
     
-    // See extension below
-    override func menu(for event: NSEvent) -> NSMenu? {
-        return menuHandler(for: event)
-    }
-    
-    func changeDisclosureIconColor(_ color: NSColor) {
+    static func changeDisclosureTriangleColor(_ color: NSColor) {
         
         cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(color)
         cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(color)
         
-        disclosureButtons.forEach({
-            $0.image = cachedDisclosureIcon_collapsed
-            $0.alternateImage = cachedDisclosureIcon_expanded
-        })
+        for button in disclosureButtons {
+            
+            button.image = cachedDisclosureIcon_collapsed
+            button.alternateImage = cachedDisclosureIcon_expanded
+        }
+    }
+    
+    static func changeGroupIconColor(_ color: NSColor) {
+        cachedGroupIcon = Images.imgGroup.applyingTint(color)
+    }
+    
+    static func changeGapIndicatorColor(_ color: NSColor) {
+        cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
+    }
+    
+    override func menu(for event: NSEvent) -> NSMenu? {
+        return menuHandler(for: event)
     }
     
     // Customize the disclosure triangle image
@@ -40,10 +54,10 @@ class AuralPlaylistOutlineView: NSOutlineView {
         
         if identifier == NSOutlineView.disclosureButtonIdentifier, let disclosureButton = view as? NSButton {
             
-            disclosureButton.image = cachedDisclosureIcon_collapsed
-            disclosureButton.alternateImage = cachedDisclosureIcon_expanded
+            disclosureButton.image = Self.cachedDisclosureIcon_collapsed
+            disclosureButton.alternateImage = Self.cachedDisclosureIcon_expanded
             
-            disclosureButtons.append(disclosureButton)
+            Self.disclosureButtons.append(disclosureButton)
         }
         
         return view

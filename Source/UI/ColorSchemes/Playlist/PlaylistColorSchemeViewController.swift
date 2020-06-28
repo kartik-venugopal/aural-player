@@ -78,6 +78,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameTextColor() {
         
         ColorSchemes.systemScheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
+        AuralPlaylistOutlineView.changeGapIndicatorColor(trackNameTextColorPicker.color)
+        
         Messenger.publish(.playlist_changeTrackNameTextColor, payload: trackNameTextColorPicker.color)
     }
     
@@ -150,6 +152,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupIconColor() {
         
         ColorSchemes.systemScheme.playlist.groupIconColor = groupIconColorPicker.color
+        AuralPlaylistOutlineView.changeGroupIconColor(groupIconColorPicker.color)
+        
         Messenger.publish(.playlist_changeGroupIconColor, payload: groupIconColorPicker.color)
     }
     
@@ -162,6 +166,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupDisclosureTriangleColor() {
         
         ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor = groupDisclosureTriangleColorPicker.color
+        AuralPlaylistOutlineView.changeDisclosureTriangleColor(groupDisclosureTriangleColorPicker.color)
+        
         Messenger.publish(.playlist_changeGroupDisclosureTriangleColor, payload: groupDisclosureTriangleColorPicker.color)
     }
     
