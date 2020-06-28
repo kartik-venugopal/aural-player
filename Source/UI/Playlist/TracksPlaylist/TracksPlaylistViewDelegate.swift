@@ -16,9 +16,6 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     private var cachedGapImage: NSImage!
     
     override func awakeFromNib() {
-        
-        // Store the NSTableView in a variable for convenient subsequent access
-        TableViewHolder.instance = playlistView
         cachedGapImage = Images.imgGap.applyingTint(Colors.Playlist.trackNameTextColor)
     }
     
@@ -73,23 +70,27 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             // Check if there is a track currently playing, and if this row matches that track.
             if let currentTrack = playbackInfo.currentTrack, currentTrack == track {
                 
+                var image: NSImage!
+                
                 switch playbackInfo.state {
                     
                 case .playing, .paused:
                     
-                    return createPlayingTrackImageCell(tableView, indexText, gapBeforeTrack, gapAfterTrack, row)
+                    image = Images.imgPlayingTrack
                     
                 case .waiting:
                     
-                    return createWaitingImageCell(tableView, indexText, gapBeforeTrack, gapAfterTrack, row)
+                    image = Images.imgWaitingTrack
                     
                 case .transcoding:
                     
-                    return createTranscodingTrackImageCell(tableView, indexText, gapBeforeTrack, gapAfterTrack, row)
-                    
+                    image = Images.imgTranscodingTrack
+                
                 default: return nil // Impossible
-                    
+                
                 }
+                
+                return createIndexImageCell(tableView, gapBeforeTrack, gapAfterTrack, row, image.applyingTint(Colors.Playlist.playingTrackIconColor))
             }
             
             // Otherwise, create a text cell with the track index
@@ -111,10 +112,22 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     private func createIndexTextCell(_ tableView: NSTableView, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
      
         guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
-            
-        cell.row = row
+        
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
         
         cell.updateText(Fonts.Playlist.indexFont, text)
+        cell.updateForGaps(gapBefore != nil, gapAfter != nil)
+        
+        return cell
+    }
+    
+    private func createIndexImageCell(_ tableView: NSTableView, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int, _ image: NSImage) -> IndexCellView? {
+        
+        guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
+            
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        
+        cell.updateImage(image)
         cell.updateForGaps(gapBefore != nil, gapAfter != nil)
         
         return cell
@@ -124,7 +137,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_trackName, owner: nil) as? TrackNameCellView else {return nil}
             
-        cell.row = row
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
         
         cell.updateText(Fonts.Playlist.trackNameFont, text)
         
@@ -138,40 +151,10 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_duration, owner: nil) as? DurationCellView else {return nil}
         
-        cell.row = row
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
         
         cell.updateText(Fonts.Playlist.indexFont, text)
         cell.updateForGaps(gapBefore != nil, gapAfter != nil, gapBefore?.duration, gapAfter?.duration)
-        
-        return cell
-    }
-    
-    // Creates a cell view containing the animation for the currently playing track
-    private func createPlayingTrackImageCell(_ tableView: NSTableView, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
-        
-        return createIndexImageCell(tableView, text, gapBefore, gapAfter, row, Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
-    }
-    
-    // Creates a cell view containing the animation for the currently playing track
-    private func createTranscodingTrackImageCell(_ tableView: NSTableView, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
-        
-        return createIndexImageCell(tableView, text, gapBefore, gapAfter, row, Images.imgTranscodingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
-    }
-    
-    // Creates a cell view containing the animation for the currently playing track
-    private func createWaitingImageCell(_ tableView: NSTableView, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int) -> IndexCellView? {
-        
-        return createIndexImageCell(tableView, text, gapBefore, gapAfter, row, Images.imgWaitingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
-    }
-    
-    private func createIndexImageCell(_ tableView: NSTableView, _ text: String, _ gapBefore: PlaybackGap? = nil, _ gapAfter: PlaybackGap? = nil, _ row: Int, _ image: NSImage) -> IndexCellView? {
-        
-        guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
-            
-        cell.row = row
-        
-        cell.updateImage(image)
-        cell.updateForGaps(gapBefore != nil, gapAfter != nil)
         
         return cell
     }
