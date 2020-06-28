@@ -51,7 +51,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         scrollView.drawsBackground = false
         clipView.drawsBackground = false
         
-        functionButtons = [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive]
+        functionButtons = [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive, btnPreviousMatch, btnNextMatch]
         
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         applyColorScheme(ColorSchemes.systemScheme)
@@ -77,16 +77,14 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         header.wantsLayer = true
         header.layer?.backgroundColor = NSColor.black.cgColor
         
-        chaptersListView.tableColumns.forEach({
+        for column in chaptersListView.tableColumns {
             
-            let col = $0
             let header = ChaptersListTableHeaderCell()
-            
-            header.stringValue = col.headerCell.stringValue
+            header.stringValue = column.headerCell.stringValue
             header.isBordered = false
             
-            col.headerCell = header
-        })
+            column.headerCell = header
+        }
     }
     
     private func setHeaderHeight() {
@@ -224,15 +222,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         // Ensure that there is some query text and that the playing track has some chapters
         if !queryText.isEmpty, let chapters = player.playingTrack?.chapters {
             
-            // Compare the query text with all chapter titles
-            for index in 0..<chapters.count {
-                
-                if compare(queryText, chapters[index].title) {
-                    
-                    // Append the row index for this chapter to the search results array
-                    searchResults.append(index)
-                }
-            }
+            searchResults = chapters.indices.filter {index in compare(queryText, chapters[index].title)}
             
             let numResults: Int = searchResults.count
             let hasResults: Bool = numResults > 0
@@ -292,14 +282,14 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         
         // Select the search result and scroll to make it visible
         let row = searchResults[index]
-        chaptersListView.selectRowIndexes(IndexSet([row]), byExtendingSelection: false)
+        chaptersListView.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
         chaptersListView.scrollRowToVisible(row)
         
         resultIndex = index
         
         // Update the navigation buttons
-        btnPreviousMatch.enableIf(resultIndex! > 0)
-        btnNextMatch.enableIf(resultIndex! < searchResults.count - 1)
+        btnPreviousMatch.enableIf(index > 0)
+        btnNextMatch.enableIf(index < searchResults.count - 1)
     }
     
     // Compares query text with a chapter title
@@ -382,9 +372,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
             
-            let selRows = chaptersListView.selectedRowIndexes
+            let selectedRows = chaptersListView.selectedRowIndexes
             chaptersListView.reloadData()
-            chaptersListView.selectRowIndexes(selRows, byExtendingSelection: false)
+            chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
             
             lblWindowTitle.font = Fonts.Playlist.chaptersListCaptionFont
             lblSummary.font = Fonts.Playlist.summaryFont
@@ -416,9 +406,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {
-        
         functionButtons.forEach({$0.reTint()})
-        [btnPreviousMatch, btnNextMatch].forEach({$0?.reTint()})
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
@@ -468,7 +456,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     }
     
     private func changeTrackNameSelectedTextColor(_ color: NSColor) {
-        chaptersListView.reloadData(forRowIndexes: chaptersListView.selectedRowIndexes, columnIndexes: IndexSet([1]))
+        chaptersListView.reloadData(forRowIndexes: chaptersListView.selectedRowIndexes, columnIndexes: IndexSet(integer: 1))
     }
     
     private func changeIndexDurationSelectedTextColor(_ color: NSColor) {
@@ -478,19 +466,19 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     private func changeSelectionBoxColor(_ color: NSColor) {
         
         // Note down the selected rows, clear the selection, and re-select the originally selected rows (to trigger a repaint of the selection boxes)
-        let selRows = chaptersListView.selectedRowIndexes
+        let selectedRows = chaptersListView.selectedRowIndexes
         
-        if !selRows.isEmpty {
+        if !selectedRows.isEmpty {
             
-            chaptersListView.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
-            chaptersListView.selectRowIndexes(selRows, byExtendingSelection: false)
+            chaptersListView.selectRowIndexes(IndexSet(), byExtendingSelection: false)
+            chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
         }
     }
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
         if let playingChapterIndex = player.playingChapter?.index {
-            chaptersListView.reloadData(forRowIndexes: IndexSet([playingChapterIndex]), columnIndexes: IndexSet([0]))
+            chaptersListView.reloadData(forRowIndexes: IndexSet(integer: playingChapterIndex), columnIndexes: IndexSet(integer: 0))
         }
     }
     

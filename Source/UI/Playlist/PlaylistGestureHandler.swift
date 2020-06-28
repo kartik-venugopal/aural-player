@@ -27,7 +27,6 @@ class PlaylistGestureHandler {
         
         if preferences.allowPlaylistNavigation {
         
-            // Publish the command notification
             Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom,
                               payload: PlaylistViewSelector.forView(PlaylistViewState.current))
         }
@@ -36,8 +35,6 @@ class PlaylistGestureHandler {
     private static func handleTabToggle(_ swipeDirection: GestureDirection) {
         
         if preferences.allowPlaylistTabToggle {
-            
-            // Publish the command notification
             Messenger.publish(swipeDirection == .left ? .playlist_previousView : .playlist_nextView)
         }
     }
