@@ -38,13 +38,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             let gapBeforeTrack = playlist.getGapBeforeTrack(track) != nil
 
             if gapAfterTrack && gapBeforeTrack {
-                return 61
+                return 62
                 
             } else if gapAfterTrack || gapBeforeTrack {
-                return 43
+                return 44
             }
 
-            return 25
+            return 26
 
         } else {
 
@@ -169,7 +169,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         cell.updateForGaps(false, false)
-        cell.textField?.setFrameOrigin(NSPoint.zero)
         
         return cell
     }

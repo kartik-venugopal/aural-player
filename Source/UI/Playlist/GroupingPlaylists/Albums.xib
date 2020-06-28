@@ -73,9 +73,9 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="zL2-10-8G3"/>
                                                     </imageView>
                                                     <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GZi-f8-q8M" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="23" y="18" width="351" height="25"/>
+                                                        <rect key="frame" x="23" y="18" width="351" height="26"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="KvR-EV-FDa"/>
+                                                            <constraint firstAttribute="height" constant="26" id="KvR-EV-FDa"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Owf-of-tsI" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
@@ -134,9 +134,9 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nIb-9O-Jw2" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="10" width="84" height="25"/>
+                                                        <rect key="frame" x="-7" y="9" width="84" height="26"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="PU9-6j-ux6"/>
+                                                            <constraint firstAttribute="height" constant="26" id="PU9-6j-ux6"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="qKW-d1-uAU" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
@@ -145,7 +145,7 @@
                                                         </textFieldCell>
                                                     </textField>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nYE-Lz-bxf" userLabel="Gap After">
-                                                        <rect key="frame" x="-7" y="-5" width="84" height="18"/>
+                                                        <rect key="frame" x="-7" y="-6" width="84" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="18" id="YuN-C8-FsV"/>
                                                         </constraints>
