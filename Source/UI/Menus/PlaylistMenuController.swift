@@ -104,7 +104,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         if numSelectedRows == 1 && !onlyGroupsSelected && selectedTrack == playbackInfo.transcodingTrack {
             playSelectedItemMenuItem.disable()
-            playSelectedItemDelayedMenuItem.disable()
         }
         
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
