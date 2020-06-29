@@ -105,11 +105,6 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 // Select all the destination rows (the new locations of the moved tracks)
                 tableView.selectRowIndexes(IndexSet(destinationIndices), byExtendingSelection: false)
                 
-                // If a track is playing, the playback sequence may have changed (depending on the location of the playing track)
-                //                if playbackInfo.currentTrack != nil {
-                //                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-                //                }
-                
                 return true
             }
             
