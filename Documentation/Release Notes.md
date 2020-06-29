@@ -11,6 +11,7 @@ Major refactoring of the playlist code in all app layers:
 
 ### Bug fixes
 
+* (M3U playlists) M3U playlists with ISO-8859 encoding were not being read. Also, references to online streams were being treated as files.
 * (Playlist) When playing a track from the Favorites list, symlink paths would not get resolved before the playlist lookup and no playback would occur.
 * (Playlist) Some scroll gestures would perform actions on all playlist views (tabs) instead of only the current view.
 
