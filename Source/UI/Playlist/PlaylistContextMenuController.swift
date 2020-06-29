@@ -84,16 +84,21 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     }
     
     // Helper to determine the track represented by the clicked item
-    private var clickedTrack: Track {
+    private var clickedTrack: Track? {
         
-        let clickedItem = PlaylistViewContext.clickedItem
-        return clickedItem.type == .index ? playlist.trackAtIndex(clickedItem.index!)! : clickedItem.track!
+        guard let clickedItem = PlaylistViewState.clickedItem else {return nil}
+        
+        if clickedItem.type == .index, let index = clickedItem.index {
+            return playlist.trackAtIndex(index)
+        }
+        
+        return clickedItem.track
     }
     
     // Sets up the menu items that need to be displayed, depending on what type of playlist item was clicked, and the current state of that item
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let clickedItem = PlaylistViewContext.clickedItem
+        guard let clickedItem = PlaylistViewState.clickedItem else {return}
         
         switch clickedItem.type {
             
@@ -103,21 +108,21 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             trackMenuItems.forEach({$0.show()})
             groupMenuItems.forEach({$0.hide()})
             
-            let _clickedTrack = clickedTrack
+            guard let theClickedTrack = clickedTrack else {return}
             
-            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(_clickedTrack))
-            playTrackMenuItem.hideIf_elseShow(playbackInfo.transcodingTrack == _clickedTrack)
+            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(theClickedTrack))
+            playTrackMenuItem.hideIf_elseShow(playbackInfo.transcodingTrack == theClickedTrack)
 
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
-            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(_clickedTrack.file))
+            favoritesMenuItem.onIf(favorites.favoriteWithFileExists(theClickedTrack.file))
             
-            let gaps = playlist.getGapsAroundTrack(_clickedTrack)
+            let gaps = playlist.getGapsAroundTrack(theClickedTrack)
             insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
             removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
             
-            let isPlayingTrack: Bool = playbackInfo.playingTrack == _clickedTrack
-            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && _clickedTrack.hasChapters && !WindowManager.isShowingChaptersList)
+            let isPlayingTrack: Bool = playbackInfo.playingTrack == theClickedTrack
+            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && theClickedTrack.hasChapters && !WindowManager.isShowingChaptersList)
             
         case .group:
             
@@ -129,7 +134,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func transcodeTrackInBackgroundAction(_ sender: Any) {
         
-        let track = clickedTrack
+        guard let track = clickedTrack else {return}
+        
         transcoder.transcodeInBackground(track)
         
         if !track.lazyLoadingInfo.preparationFailed {
@@ -166,11 +172,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func insertGapsAction(_ sender: NSMenuItem) {
         
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
-        }
+        guard !checkIfPlaylistIsBeingModified() else {return}
         
         // Sender's tag is gap duration in seconds
         let tag = sender.tag
@@ -189,55 +191,47 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            // Custom gap dialog
             gapsEditor.setDataForKey("gaps", nil)
-            
             _ = gapsEditor.showDialog()
         }
     }
     
     @IBAction func editGapsAction(_ sender: NSMenuItem) {
         
-        if playlist.isBeingModified {
+        if !checkIfPlaylistIsBeingModified(), let theClickedTrack = clickedTrack {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+            // Custom gap dialog
+            let gaps = playlist.getGapsAroundTrack(theClickedTrack)
+            
+            gapsEditor.setDataForKey("gaps", gaps)
+            _ = gapsEditor.showDialog()
         }
-        
-        // Custom gap dialog
-        let gaps = playlist.getGapsAroundTrack(clickedTrack)
-        
-        gapsEditor.setDataForKey("gaps", gaps)
-        
-        _ = gapsEditor.showDialog()
     }
     
     @IBAction func removeGapsAction(_ sender: NSMenuItem) {
         
-        if playlist.isBeingModified {
-            
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+        if !checkIfPlaylistIsBeingModified() {
+            Messenger.publish(.playlist_removeGaps, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
         }
-        
-        Messenger.publish(.playlist_removeGaps, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
+        
+        guard let theClickedTrack = clickedTrack else {return}
         
         WindowManager.playlistWindow.makeKeyAndOrderFront(self)
         
         if favoritesMenuItem.isOn {
         
             // Remove from Favorites list and display notification
-            favorites.deleteFavoriteWithFile(clickedTrack.file)
+            favorites.deleteFavoriteWithFile(theClickedTrack.file)
             infoPopup.showMessage("Track removed from Favorites !", playlistSelectedRowView, NSRectEdge.maxX)
             
         } else {
             
             // Add to Favorites list and display notification
-            _ = favorites.addFavorite(clickedTrack)
+            _ = favorites.addFavorite(theClickedTrack)
             infoPopup.showMessage("Track added to Favorites !", playlistSelectedRowView, NSRectEdge.maxX)
         }
         
@@ -248,84 +242,67 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Shows a popover with detailed information for the track that was right-clicked to bring up this context menu
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
-        let track = clickedTrack
-        track.loadDetailedInfo()
+        guard let theClickedTrack = clickedTrack else {return}
+        
+        theClickedTrack.loadDetailedInfo()
         
         WindowManager.playlistWindow.makeKeyAndOrderFront(self)
-        detailedInfoPopover.show(track, playlistSelectedRowView, NSRectEdge.maxY)   // Display the popover below the selected row
+        detailedInfoPopover.show(theClickedTrack, playlistSelectedRowView, NSRectEdge.maxY)   // Display the popover below the selected row
         WindowManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)
-    private var playlistSelectedRowView: NSView {
-        
-        let playlistView = PlaylistViewContext.clickedView
-        return playlistView.rowView(atRow: playlistView.selectedRow, makeIfNecessary: false)!
-    }
+    // Defaults to the content view of the playlist window
+    private var playlistSelectedRowView: NSView {PlaylistViewState.selectedRowView ?? WindowManager.playlistWindow.contentView!}
  
     // Removes the selected playlist item from the playlist
     @IBAction func removeSelectedItemAction(_ sender: Any) {
         
-        if playlist.isBeingModified {
+        if !checkIfPlaylistIsBeingModified() {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+            Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            //        sequenceChanged()
         }
-        
-        Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
     @IBAction func moveItemUpAction(_ sender: Any) {
         
-        if playlist.isBeingModified {
+        if !checkIfPlaylistIsBeingModified() {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            //        sequenceChanged()
         }
-        
-        Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
     @IBAction func moveItemToTopAction(_ sender: Any) {
         
-        if playlist.isBeingModified {
+        if !checkIfPlaylistIsBeingModified() {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+            Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            //        sequenceChanged()
         }
-        
-        Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-//        sequenceChanged()
     }
     
     // Moves the selected playlist item down one row in the playlist
     @IBAction func moveItemDownAction(_ sender: Any) {
         
-        if playlist.isBeingModified {
+        if !checkIfPlaylistIsBeingModified() {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            //        sequenceChanged()
         }
-        
-        Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-//        sequenceChanged()
     }
     
     // Moves the selected playlist item up one row in the playlist
     @IBAction func moveItemToBottomAction(_ sender: Any) {
         
-        if playlist.isBeingModified {
+        if !checkIfPlaylistIsBeingModified() {
             
-            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
-            return
+            Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            //        sequenceChanged()
         }
-        
-        Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-//        sequenceChanged()
     }
     
     @IBAction func showTrackInFinderAction(_ sender: Any) {
@@ -334,6 +311,17 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func viewChaptersAction(_ sender: Any) {
         Messenger.publish(.playlist_viewChaptersList)
+    }
+    
+    private func checkIfPlaylistIsBeingModified() -> Bool {
+        
+        let playlistBeingModified = playlist.isBeingModified
+        
+        if playlistBeingModified {
+            alertDialog.showAlert(.error, "Playlist not modified", "The playlist cannot be modified while tracks are being added", "Please wait till the playlist is done adding tracks ...")
+        }
+        
+        return playlistBeingModified
     }
     
     // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary

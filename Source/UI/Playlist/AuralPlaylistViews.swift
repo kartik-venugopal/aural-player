@@ -29,7 +29,7 @@ extension NSTableView {
         self.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
         
         // Note that this view was clicked (this is required by the contextual menu)
-        PlaylistViewContext.noteViewClicked(self)
+        PlaylistViewState.registerTableViewClick(self)
         
         return self.menu
     }
