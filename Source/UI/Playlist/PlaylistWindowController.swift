@@ -209,17 +209,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         progressSpinner.stopAnimation(self)
         progressSpinner.hide()
         updatePlaylistSummary()
-        
-//        sequenceChanged()
     }
-    
-    // When the playback sequence has changed, the UI needs to show the updated info
-//    private func sequenceChanged() {
-//
-//        if playbackInfo.currentTrack != nil {
-//            SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-//        }
-//    }
     
     // Handles an error when tracks could not be added to the playlist
     func tracksNotAdded(_ errors: [DisplayableError]) {
@@ -278,8 +268,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         guard !checkIfPlaylistIsBeingModified() else {return}
         
         Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-        
-//        sequenceChanged()
         updatePlaylistSummary()
     }
     
@@ -319,9 +307,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-        
             Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-            //        sequenceChanged()
         }
     }
     
@@ -329,9 +315,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-            
             Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-            //        sequenceChanged()
         }
     }
     

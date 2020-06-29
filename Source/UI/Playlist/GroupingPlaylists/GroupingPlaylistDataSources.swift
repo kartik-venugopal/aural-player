@@ -195,11 +195,6 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
                 // Given the results of the reordering, refresh the playlist view
                 refreshView(outlineView, results)
                 
-                // The playback sequence may have changed and the UI may need to be updated
-//                if playbackInfo.currentTrack != nil {
-//                    SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-//                }
-                
                 return true
             }
             

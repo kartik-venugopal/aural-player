@@ -115,10 +115,6 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         sliderView.showOrHideTimeElapsedRemaining()
     }
     
-    func sequenceChanged() {
-        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
-    }
-    
     func changeTextSize(_ size: TextSize) {
         sliderView.changeTextSize(size)
     }
@@ -139,6 +135,8 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {
+        
+        // TODO: Put these buttons in an array on initialization and refer to the array here
         
         [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach({
             ($0 as? Tintable)?.reTint()

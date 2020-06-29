@@ -259,9 +259,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func removeSelectedItemAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            
             Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-            //        sequenceChanged()
         }
     }
     
@@ -269,9 +267,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemUpAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            
             Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-            //        sequenceChanged()
         }
     }
     
@@ -279,9 +275,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemToTopAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            
             Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-            //        sequenceChanged()
         }
     }
     
@@ -289,9 +283,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemDownAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            
             Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-            //        sequenceChanged()
         }
     }
     
@@ -299,9 +291,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemToBottomAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            
             Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-            //        sequenceChanged()
         }
     }
     
@@ -323,12 +313,4 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         return playlistBeingModified
     }
-    
-    // Publishes a notification that the playback sequence may have changed, so that interested UI observers may update their views if necessary
-//    private func sequenceChanged() {
-//        
-//        if playbackInfo.playingTrack != nil {
-//            SyncMessenger.publishNotification(SequenceChangedNotification.instance)
-//        }
-//    }
 }
