@@ -777,7 +777,7 @@
 		3EF5E5C31FBDB64F004270A4 /* GenresPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5C21FBDB64F004270A4 /* GenresPlaylistViewController.swift */; };
 		3EF5E5C81FBDBE9C004270A4 /* PlaylistContextMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */; };
 		3EF5E5CA1FBE49B6004270A4 /* AuralPlaylistViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */; };
-		3EF5E5CC1FBE55D2004270A4 /* PlaylistViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */; };
+		3EF5E5CC1FBE55D2004270A4 /* PlaylistViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5CB1FBE55D2004270A4 /* PlaylistViewState.swift */; };
 		3EF5E5CE1FBE843D004270A4 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5CD1FBE843D004270A4 /* Strings.swift */; };
 		3EF5E5D21FBF0373004270A4 /* TracksPlaylistViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */; };
 		3EF5E5D51FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E5D41FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift */; };
@@ -1390,7 +1390,7 @@
 		3EF5E5C21FBDB64F004270A4 /* GenresPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenresPlaylistViewController.swift; sourceTree = "<group>"; };
 		3EF5E5C71FBDBE9C004270A4 /* PlaylistContextMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistContextMenuController.swift; sourceTree = "<group>"; };
 		3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuralPlaylistViews.swift; sourceTree = "<group>"; };
-		3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewContext.swift; sourceTree = "<group>"; };
+		3EF5E5CB1FBE55D2004270A4 /* PlaylistViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistViewState.swift; sourceTree = "<group>"; };
 		3EF5E5CD1FBE843D004270A4 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		3EF5E5D11FBF0373004270A4 /* TracksPlaylistViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracksPlaylistViewDelegate.swift; sourceTree = "<group>"; };
 		3EF5E5D41FBF104D004270A4 /* GroupingPlaylistViewDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistViewDelegates.swift; sourceTree = "<group>"; };
@@ -1629,7 +1629,7 @@
 				3EF5E5C91FBE49B6004270A4 /* AuralPlaylistViews.swift */,
 				3EAB1BD624A8CC67007D130F /* FlatPlaylistTableViews.swift */,
 				3EAB1BD424A8BC0F007D130F /* GroupingPlaylistTableViews.swift */,
-				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewContext.swift */,
+				3EF5E5CB1FBE55D2004270A4 /* PlaylistViewState.swift */,
 				3E50ADC72461412000B31339 /* TracksPlaylist */,
 				3E50ADC82461412F00B31339 /* GroupingPlaylists */,
 				3E50ADC92461417800B31339 /* ChaptersList */,
@@ -3517,7 +3517,7 @@
 				3E3C20A81F0A697800AF5A62 /* AppConstants.swift in Sources */,
 				3E6341D2243DB1AC00190502 /* PlaybackPreferences.swift in Sources */,
 				3EA2E6542192FA1900FB5BAC /* FilterView.swift in Sources */,
-				3EF5E5CC1FBE55D2004270A4 /* PlaylistViewContext.swift in Sources */,
+				3EF5E5CC1FBE55D2004270A4 /* PlaylistViewState.swift in Sources */,
 				3E8103D7244DD82F00ACCFA1 /* TintedIconMenuItem.swift in Sources */,
 				3EB499F4244AF2D100711BC5 /* WindowLayoutPopupMenuController.swift in Sources */,
 				3EC90B99246C811E009D2181 /* PlaybackLoop.swift in Sources */,

@@ -13,6 +13,33 @@ class PlaylistViewState {
     
     static var textSize: TextSize = .normal
     
+    // The playlist view that was clicked. Will be nil initially.
+    private static var _clickedView: NSTableView?
+    
+    // The playlist item that was clicked. Will be nil initially.
+    private static var _clickedItem: SelectedPlaylistItem?
+    
+    // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
+    static var clickedView: NSTableView? {_clickedView}
+    
+    static var selectedRowView: NSView? {
+        
+        if let theClickedView = _clickedView {
+            return theClickedView.rowView(atRow: theClickedView.selectedRow, makeIfNecessary: false)
+        }
+        
+        return nil
+    }
+    
+    // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
+    static var clickedItem: SelectedPlaylistItem? {_clickedItem}
+    
+    static var hasSelectedChapter: Bool {chaptersListView.selectedRow >= 0}
+    
+    static var selectedChapter: SelectedPlaylistItem? {
+        chaptersListView.selectedRow >= 0 ? SelectedPlaylistItem(index: chaptersListView.selectedRow) : nil
+    }
+    
     static func initialize(_ appState: PlaylistUIState) {
         
         textSize = appState.textSize
@@ -30,11 +57,9 @@ class PlaylistViewState {
     }
     
     // The group type corresponding to the current playlist view type
-    static var groupType: GroupType? {
-        return current.toGroupType()
-    }
+    static var groupType: GroupType? {current.toGroupType()}
     
-    static var selectedItem: SelectedItem {
+    static var selectedItem: SelectedPlaylistItem? {
         
         // Determine which item was clicked, and what kind of item it is
         if let outlineView = currentView as? AuralPlaylistOutlineView {
@@ -43,84 +68,49 @@ class PlaylistViewState {
             let item = outlineView.item(atRow: outlineView.selectedRow)
             
             if let group = item as? Group {
-                return SelectedItem(group: group)
-            } else {
+                return SelectedPlaylistItem(group: group)
+                
+            } else if let track = item as? Track {
                 // Track
-                return SelectedItem(track: item as! Track)
+                return SelectedPlaylistItem(track: track)
             }
+            
+            return nil
+            
         } else {
             
             // Tracks view
-            return SelectedItem(index: currentView.selectedRow)
+            return currentView.selectedRow >= 0 ? SelectedPlaylistItem(index: currentView.selectedRow) : nil
         }
     }
     
-    static var selectedItems: [SelectedItem] {
+    static var selectedItemCount: Int {currentView.numberOfSelectedRows}
+    
+    static var selectedItems: [SelectedPlaylistItem] {
         
-        let selRows = currentView.selectedRowIndexes
-        var items: [SelectedItem] = []
+        let selectedRows = currentView.selectedRowIndexes
+        var items: [SelectedPlaylistItem] = []
         
         if let outlineView = currentView as? AuralPlaylistOutlineView {
             
             // Grouping view
-            for row in selRows {
-                
-                let item = outlineView.item(atRow: row)
+            for item in selectedRows.compactMap({outlineView.item(atRow: $0)}) {
                 
                 if let group = item as? Group {
-                    items.append(SelectedItem(group: group))
-                } else {
+                    items.append(SelectedPlaylistItem(group: group))
+                    
+                } else if let track = item as? Track {
                     // Track
-                    items.append(SelectedItem(track: item as! Track))
+                    items.append(SelectedPlaylistItem(track: track))
                 }
             }
             
-        } else {
+        } else {    // Tracks view
             
-            for row in selRows {
-                // Tracks view
-                items.append(SelectedItem(index: row))
-            }
+            items = selectedRows.map {SelectedPlaylistItem(index: $0)}
         }
         
         return items
-    }
-    
-    static var hasSelectedChapter: Bool {
-        return chaptersListView.selectedRow >= 0
-    }
-    
-    static var selectedChapter: SelectedItem? {
-        
-        if chaptersListView.selectedRow >= 0 {
-            return SelectedItem(index: chaptersListView.selectedRow)
-        }
-        
-        return nil
-    }
-}
-
-/*
-    Utility that holds information about the currently displayed playlist view and about its current selection state when presenting a contextual menu. This is required in order to expose an NSTableView outside the scope of its owning ViewController.
- 
-    TODO: Merge this with PlaylistViewState
- */
-class PlaylistViewContext {
-    
-    // The playlist view that was clicked. Will be nil initially.
-    private static var _clickedView: NSTableView!
-    
-    // The playlist item that was clicked. Will be nil initially.
-    private static var _clickedItem: SelectedItem!
-    
-    // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
-    static var clickedView: NSTableView {
-        return _clickedView!
-    }
-    
-    // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
-    static var clickedItem: SelectedItem {
-        return _clickedItem!
     }
     
     /*
@@ -128,7 +118,7 @@ class PlaylistViewContext {
      
         NOTE - This function should only be called when the playlist is non-empty (i.e. has at least one row). This is assumed by the code inside this function.
      */
-    static func noteViewClicked(_ view: NSTableView) {
+    static func registerTableViewClick(_ view: NSTableView) {
         
         _clickedView = view
         
@@ -139,21 +129,22 @@ class PlaylistViewContext {
             let item = outlineView.item(atRow: outlineView.selectedRow)
             
             if let group = item as? Group {
-                _clickedItem = SelectedItem(group: group)
-            } else {
-                // Track
-                _clickedItem = SelectedItem(track: item as! Track)
+                _clickedItem = SelectedPlaylistItem(group: group)
+                
+            } else if let track = item as? Track {
+                _clickedItem = SelectedPlaylistItem(track: track)
             }
-        } else {
+            
+        } else if let theClickedView = _clickedView {
             
             // Tracks view (or chapters list)
-            _clickedItem = SelectedItem(index: _clickedView.selectedRow)
+            _clickedItem = theClickedView.selectedRow >= 0 ? SelectedPlaylistItem(index: theClickedView.selectedRow) : nil
         }
     }
 }
 
 // Encapsulates information about a playlist item that was clicked
-struct SelectedItem {
+struct SelectedPlaylistItem {
     
     var type: SelectedItemType
     
@@ -162,20 +153,23 @@ struct SelectedItem {
     var track: Track?
     var group: Group?
     
-    // Initialize the object with a track index. This represents an item from the Tracks playlist.
+    // Initialize the object with a track index or a track chapter.
     init(index: Int) {
+        
         self.index = index
         self.type = .index
     }
     
     // Initialize the object with a track. This represents an item from a grouping/hierarchical playlist.
     init(track: Track) {
+        
         self.track = track
         self.type = .track
     }
     
     // Initialize the object with a group. This represents an item from a grouping/hierarchical playlist.
     init(group: Group) {
+        
         self.group = group
         self.type = .group
     }
