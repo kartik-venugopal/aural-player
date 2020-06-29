@@ -20,12 +20,10 @@ class PlaylistIO {
     // Save current playlist to an output file
     static func savePlaylist(_ file: URL) {
         
-        let tracks = playlist.tracks
-        
         var contents: String = m3uHeader + "\n"
         
         // Buffer the output
-        for track in tracks {
+        for track in playlist.tracks {
             
             // EXTINF line consists of the prefix, followed by duration and track name (without extension)
             let extInfo = String(format: "%@%d,%@", m3uInfoPrefix, roundedInt(track.duration), track.conciseDisplayName)
@@ -59,7 +57,7 @@ class PlaylistIO {
             } catch {}
         }
         
-        NSLog("Error reading playlist file '%@'", file.path)
+        NSLog("Error reading playlist file '%@'. Unable to decode. Check file encoding.", file.path)
         return nil
     }
     
