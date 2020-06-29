@@ -9,6 +9,8 @@ class PlaylistIO {
     private static let m3uInfoPrefix: String = "#EXTINF:"
     private static let absoluteFilePathPrefix: String = "file:///"
     
+    private static let stringEncodingFormats: [String.Encoding] = [.utf8, .ascii, .macOSRoman, .isoLatin1, .isoLatin2, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .unicode, .utf16, .utf16BigEndian, .utf16LittleEndian, .utf32, .utf32BigEndian, .utf32LittleEndian, .iso2022JP, .japaneseEUC, .nextstep, .nonLossyASCII, .shiftJIS, .symbol]
+    
     static var playlist: PlaylistAccessorProtocol!
     
     static func initialize(_ playlist: PlaylistAccessorProtocol) {
@@ -48,63 +50,74 @@ class PlaylistIO {
         }
     }
     
+    private static func readFileAsString(_ file: URL) -> String? {
+        
+        for encoding in stringEncodingFormats {
+
+            do {
+                return try String(contentsOf: file, encoding: encoding)
+            } catch {}
+        }
+        
+        NSLog("Error reading playlist file '%@'", file.path)
+        return nil
+    }
+    
     // Load playlist from file into current playlist. Handles varying M3U formats.
     static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist? {
         
-        do {
+        guard let fileContents: String = readFileAsString(playlistFile) else {return nil}
+        
+        let lines = fileContents.components(separatedBy: .newlines)
+        
+        var tracks: [URL] = []
+        
+        for line in lines {
             
-            let fileContents = try String(contentsOfFile: playlistFile.path)
-            let lines = fileContents.components(separatedBy: .newlines)
-            
-            var tracks: [URL] = [URL]()
-            
-            for line in lines {
+            if line.contains(m3uHeader) {
+                // IGNORE EXTM3U header
                 
-                if line.contains(m3uHeader) {
-                    // IGNORE EXTM3U header
+            } else if line.contains(m3uInfoPrefix) {
+                // IGNORE EXTINF (duration and display name are recomputed anyway)
+                
+            } else {
+                
+                // Line contains track path
+                if !StringUtils.isStringEmpty(line) {
                     
-                } else if line.contains(m3uInfoPrefix) {
-                    // IGNORE EXTINF (duration and display name are recomputed anyway)
+                    // Convert Windows paths to UNIX paths (this will not work for absolute Windows paths like "C:\...")
+                    let trackFilePath: String = line.replacingOccurrences(of: "\\", with: "/")
                     
-                } else {
-                    
-                    // Line contains track path
-                    if !StringUtils.isStringEmpty(line) {
-                        
-                        // Convert Windows paths to UNIX paths (this will not work for absolute Windows paths like "C:\...")
-                        let trackFilePath: String = line.replacingOccurrences(of: "\\", with: "/")
-                        
-                        var url: URL
-                        if trackFilePath.hasPrefix("/") {
-                            
-                            // Absolute path
-                            url = URL(fileURLWithPath: trackFilePath)
-                            
-                        } else if trackFilePath.hasPrefix(absoluteFilePathPrefix) {
-                            
-                            // Absolute path with prefix. Remove the prefix
-                            let cleanURLPath: String = trackFilePath.replacingOccurrences(of: absoluteFilePathPrefix, with: "/")
-                            url = URL(fileURLWithPath: cleanURLPath)
-                            
-                        } else {
-                            
-                            // Relative path
-                            let playlistFolder: URL = playlistFile.deletingLastPathComponent()
-                            url = playlistFolder.appendingPathComponent(trackFilePath, isDirectory: false)
-                        }
-                        
-                        tracks.append(url)
+                    // If a scheme is defined, and it doesn't point to a local file, ignore the file.
+                    if let scheme = URL(string: trackFilePath)?.scheme, scheme != "file" {
+                        continue
                     }
+                    
+                    var url: URL
+                    if trackFilePath.hasPrefix("/") {
+                        
+                        // Absolute path
+                        url = URL(fileURLWithPath: trackFilePath)
+                        
+                    } else if trackFilePath.hasPrefix(absoluteFilePathPrefix) {
+                        
+                        // Absolute path with prefix. Remove the prefix
+                        let cleanURLPath: String = trackFilePath.replacingOccurrences(of: absoluteFilePathPrefix, with: "/")
+                        url = URL(fileURLWithPath: cleanURLPath)
+                        
+                    } else {
+                        
+                        // Relative path
+                        let playlistFolder: URL = playlistFile.deletingLastPathComponent()
+                        url = playlistFolder.appendingPathComponent(trackFilePath, isDirectory: false)
+                    }
+                    
+                    tracks.append(url)
                 }
             }
-            
-            return SavedPlaylist(file: playlistFile, tracks: tracks)
-            
-        } catch let error as NSError {
-            
-            NSLog("Error reading playlist file '%@': %@", playlistFile.path, error.description)
-            return nil
         }
+        
+        return SavedPlaylist(file: playlistFile, tracks: tracks)
     }
 }
 
