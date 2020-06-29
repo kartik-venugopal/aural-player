@@ -65,6 +65,11 @@ class AuralPlaylistOutlineView: NSOutlineView {
 
 class GroupedItemCellView: NSTableCellView {
     
+    // Used to determine whether or not this cell is selected.
+    var rowSelectionStateFunction: () -> Bool = {false}
+    
+    var rowIsSelected: Bool {rowSelectionStateFunction()}
+    
     // Whether or not this cell is contained within a row that represents a group (as opposed to a track)
     var isGroup: Bool = false
     
@@ -140,7 +145,7 @@ class GroupedItemCellView: NSTableCellView {
 }
 
 @IBDesignable
-class GroupedTrackNameCellView: GroupedItemCellView {
+class GroupedItemNameCellView: GroupedItemCellView {
     
     var gapImage: NSImage!
     
@@ -153,10 +158,7 @@ class GroupedTrackNameCellView: GroupedItemCellView {
         didSet {
             
             // Check if this row is selected
-            let outlineView = OutlineViewHolder.instances[self.playlistType]!
-            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
-            
-            textField?.textColor = isSelRow ?
+            textField?.textColor = rowIsSelected ?
                 isGroup ? Colors.Playlist.groupNameSelectedTextColor : Colors.Playlist.trackNameSelectedTextColor :
                 isGroup ? Colors.Playlist.groupNameTextColor : Colors.Playlist.trackNameTextColor
             
@@ -188,7 +190,7 @@ class GroupedTrackNameCellView: GroupedItemCellView {
 /*
     Custom view for a single NSTableView self. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
-class GroupedTrackDurationCellView: GroupedItemCellView {
+class GroupedItemDurationCellView: GroupedItemCellView {
     
     @IBInspectable @IBOutlet weak var gapBeforeTextField: NSTextField!
     @IBInspectable @IBOutlet weak var gapAfterTextField: NSTextField!
@@ -198,19 +200,17 @@ class GroupedTrackDurationCellView: GroupedItemCellView {
         
         didSet {
             
-            // Check if this row is selected
-            let outlineView = OutlineViewHolder.instances[self.playlistType]!
-            let isSelRow = outlineView.selectedRowIndexes.contains(outlineView.row(forItem: item))
+            let isSelectedRow = rowIsSelected
             
-            textField?.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+            textField?.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
             textField?.font = isGroup ? Fonts.Playlist.groupDurationFont : Fonts.Playlist.indexFont
             
             if !isGroup {
             
-                gapBeforeTextField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+                gapBeforeTextField.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
                 gapBeforeTextField.font = Fonts.Playlist.indexFont
             
-                gapAfterTextField.textColor = isSelRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+                gapAfterTextField.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
                 gapAfterTextField.font = Fonts.Playlist.indexFont
             }
         }
@@ -235,11 +235,4 @@ class GroupedTrackDurationCellView: GroupedItemCellView {
             gapBeforeTrack ? adjustConstraints_beforeGapFieldOnTop(gapBeforeTextField) : adjustConstraints_mainFieldOnTop(gapAfterTrack ? 0 : -2)
         }
     }
-}
-
-// Utility class to hold NSOutlineView instances for convenient access
-class OutlineViewHolder {
-    
-    // Mapping of playlist types to their corresponding outline views
-    static var instances = [PlaylistType: NSOutlineView]()
 }

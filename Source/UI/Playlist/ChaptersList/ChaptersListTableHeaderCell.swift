@@ -4,13 +4,12 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        let cellPath = NSBezierPath(roundedRect: cellFrame, xRadius: 0, yRadius: 0)
         Colors.windowBackgroundColor.setFill()
-        cellPath.fill()
+        cellFrame.fill()
         
         let attrsDict: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: Fonts.Playlist.chaptersListHeaderFont,
-            NSAttributedString.Key.foregroundColor: Colors.Playlist.summaryInfoColor]
+            .font: Fonts.Playlist.chaptersListHeaderFont,
+            .foregroundColor: Colors.Playlist.summaryInfoColor]
         
         let size: CGSize = stringValue.size(withAttributes: attrsDict)
         

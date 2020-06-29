@@ -92,9 +92,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
             cell.textField?.stringValue = text
             cell.textFont = Fonts.Constants.mainFont_10
             cell.selectedTextFont = Fonts.Constants.mainFont_10
-            cell.selectionFunction = {() -> Bool in
-                return tableView.selectedRowIndexes.contains(row)
-            }
+            cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
             
             return cell
         }
