@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -10,10 +9,10 @@
             <connections>
                 <outlet property="btnNextSearch" destination="wzS-Js-F7X" id="0eY-zx-faR"/>
                 <outlet property="btnPreviousSearch" destination="dsi-H5-TDe" id="j1r-s1-opM"/>
-                <outlet property="comparisonTypeBeginsWith" destination="DBk-ZA-FYA" id="B0S-XM-rpN"/>
-                <outlet property="comparisonTypeContains" destination="KRq-Ug-oPl" id="lsC-R0-w6Q"/>
-                <outlet property="comparisonTypeEndsWith" destination="0Ai-F3-vec" id="x6A-sF-G0L"/>
-                <outlet property="comparisonTypeEquals" destination="Sel-YQ-xey" id="kIA-vT-aX9"/>
+                <outlet property="comparisonType_beginsWith" destination="DBk-ZA-FYA" id="B0S-XM-rpN"/>
+                <outlet property="comparisonType_contains" destination="KRq-Ug-oPl" id="lsC-R0-w6Q"/>
+                <outlet property="comparisonType_endsWith" destination="0Ai-F3-vec" id="x6A-sF-G0L"/>
+                <outlet property="comparisonType_equals" destination="Sel-YQ-xey" id="kIA-vT-aX9"/>
                 <outlet property="searchByAlbum" destination="ehl-oq-GJK" id="YAU-F5-Qaq"/>
                 <outlet property="searchByArtist" destination="I8h-tD-YQw" id="mRh-LJ-auS"/>
                 <outlet property="searchByName" destination="1Id-TW-Vq3" id="xS6-ku-2lc"/>
@@ -31,7 +30,7 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="383" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" wantsLayer="YES" id="kqR-d7-kUd">
                 <rect key="frame" x="0.0" y="0.0" width="383" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -39,7 +38,7 @@
                     <box fixedFrame="YES" boxType="custom" cornerRadius="3" translatesAutoresizingMaskIntoConstraints="NO" id="qYB-rZ-2ds" userLabel="Search Box">
                         <rect key="frame" x="20" y="212" width="352" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="Ppw-f9-SIJ">
+                        <view key="contentView" id="Ppw-f9-SIJ">
                             <rect key="frame" x="1" y="1" width="350" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -65,7 +64,7 @@
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Options:" translatesAutoresizingMaskIntoConstraints="NO" id="Ic5-Ks-l8C" userLabel="Search Options Box">
                         <rect key="frame" x="20" y="102" width="352" height="103"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="iEm-kI-N0w">
+                        <view key="contentView" id="iEm-kI-N0w">
                             <rect key="frame" x="1" y="1" width="350" height="101"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -203,7 +202,7 @@
                     <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Results:" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="SEv-8i-Np6" userLabel="Search Results Box">
                         <rect key="frame" x="20" y="42" width="352" height="53"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="v0b-Hu-8zc">
+                        <view key="contentView" id="v0b-Hu-8zc">
                             <rect key="frame" x="1" y="1" width="350" height="51"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -230,7 +229,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="swf-Dj-1UU" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="cellTitle"/>
+                                        <font key="font" metaFont="label" size="12"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="previousSearchAction:" target="-2" id="KQV-9c-Ptk"/>
@@ -241,7 +240,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="roundRect" title="&gt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3F3-LX-Sr9" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="cellTitle"/>
+                                        <font key="font" metaFont="label" size="12"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="nextSearchAction:" target="-2" id="C3B-TA-R08"/>

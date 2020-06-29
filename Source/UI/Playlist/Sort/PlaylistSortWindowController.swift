@@ -15,9 +15,6 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     // Delegate that relays sort requests to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
-    // Delegate that retrieves current playback information
-//    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    
     private var modalDialogResponse: ModalDialogResponse = .ok
     
     override var windowNibName: String? {return "PlaylistSortDialog"}
@@ -88,11 +85,18 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     }
 }
 
+// Contract for a constituent view of the playlist sort dialog.
 protocol SortViewProtocol {
     
+    // The actual displayed view
     var sortView: NSView {get}
+    
+    // The set of sort options selected within this view
     var sortOptions: Sort {get}
+    
+    // The playlist type associated with this view.
     var playlistType: PlaylistType {get}
     
+    // Resets fields each time this view is about to be displayed.
     func resetFields()
 }

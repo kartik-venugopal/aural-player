@@ -40,16 +40,9 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     func resetFields() {
         
-        sortGroups.on()
-        sortGroups_byGenre.on()
-        sortGroups_ascending.on()
-        groupsSortToggleAction(self)
+        [sortGroups, sortGroups_byGenre, sortGroups_ascending, sortTracks, sortTracks_allGroups, sortTracks_byName, sortTracks_ascending, useTrackNameIfNoMetadata].forEach {$0.on()}
         
-        sortTracks.on()
-        sortTracks_allGroups.on()
-        sortTracks_byName.on()
-        sortTracks_ascending.on()
-        useTrackNameIfNoMetadata.on()
+        groupsSortToggleAction(self)
         tracksSortToggleAction(self)
     }
     
@@ -80,44 +73,41 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
         
         if sortGroups.isOn {
             
-            let field: SortField = sortGroups_byGenre.isOn ? .name : .duration
-            _ = sort.withGroupsSort(GroupsSort().withFields(field).withOrder(sortGroups_ascending.isOn ? .ascending : .descending))
+            _ = sort.withGroupsSort(GroupsSort().withFields(sortGroups_byGenre.isOn ? .name : .duration)
+                .withOrder(sortGroups_ascending.isOn ? .ascending : .descending))
         }
         
         if sortTracks.isOn {
             
-            let tracksSort: TracksSort = TracksSort()
+            let tracksSort: TracksSort = TracksSort().withScope(sortTracks_allGroups.isOn ? .allGroups : .selectedGroups)
             
             // Scope
-            _ = tracksSort.withScope(sortTracks_allGroups.isOn ? .allGroups : .selectedGroups)
             if tracksSort.scope == .selectedGroups {
                 
-                let selItems = PlaylistViewState.selectedItems
-                var groups: [Group] = []
-                
                 // Pick up only the groups selected (ignoring the tracks)
-                for item in selItems {
-                    if let group = item.group {
-                        groups.append(group)
-                    }
-                }
-                
-                _ = tracksSort.withParentGroups(groups)
+                let selGroups: [Group] = PlaylistViewState.selectedItems.compactMap {$0.group}
+                _ = tracksSort.withParentGroups(selGroups)
             }
             
             // Fields
             if sortTracks_byName.isOn {
                 _ = tracksSort.withFields(.name)
+                
             } else if sortTracks_byArtist_andName.isOn {
                 _ = tracksSort.withFields(.artist, .name)
+                
             } else if sortTracks_byArtist_andAlbum_andDiscTrack.isOn {
                 _ = tracksSort.withFields(.artist, .album, .discNumberAndTrackNumber)
+                
             } else if sortTracks_byArtist_andAlbum_andName.isOn {
                 _ = tracksSort.withFields(.artist, .album, .name)
+                
             } else if sortTracks_byAlbum_andDiscTrack.isOn {
                 _ = tracksSort.withFields(.album, .discNumberAndTrackNumber)
+                
             } else if sortTracks_byAlbum_andName.isOn {
                 _ = tracksSort.withFields(.album, .name)
+                
             } else {
                 // By duration
                 _ = tracksSort.withFields(.duration)

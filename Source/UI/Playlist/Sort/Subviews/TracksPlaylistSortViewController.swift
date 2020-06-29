@@ -19,17 +19,12 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     override var nibName: String? {return "TracksPlaylistSort"}
     
-    var sortView: NSView {
-        return self.view
-    }
+    var sortView: NSView {self.view}
     
     var playlistType: PlaylistType {.tracks}
     
     func resetFields() {
-        
-        sortByName.on()
-        sortAscending.on()
-        useTrackNameIfNoMetadata.on()
+        [sortByName, sortAscending, useTrackNameIfNoMetadata].forEach {$0.on()}
     }
     
     @IBAction func sortFieldsAction(_ sender: Any) {}
@@ -38,10 +33,8 @@ class TracksPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     var sortOptions: Sort {
         
-        let sort: Sort = Sort()
-        
         let tracksSort: TracksSort = TracksSort()
-        _ = sort.withTracksSort(tracksSort)
+        let sort: Sort = Sort().withTracksSort(tracksSort)
         
         if sortByName.isOn {
             
