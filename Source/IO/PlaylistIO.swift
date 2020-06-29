@@ -26,7 +26,7 @@ class PlaylistIO {
         for track in tracks {
             
             // EXTINF line consists of the prefix, followed by duration and track name (without extension)
-            let extInfo = String(format: "%@%d,%@", m3uInfoPrefix, Int(round(track.duration)), track.conciseDisplayName)
+            let extInfo = String(format: "%@%d,%@", m3uInfoPrefix, roundedInt(track.duration), track.conciseDisplayName)
             contents.append(extInfo + "\n")
             
             // Compute a relative path for this track, relative to the playlist folder.
@@ -37,17 +37,23 @@ class PlaylistIO {
         
         // Write to output file
         do {
-            try contents.write(to: file, atomically: false, encoding: String.Encoding.utf8)
+            
+            let encodeAsUTF8: Bool = file.pathExtension.lowercased() == AppConstants.SupportedTypes.m3u8
+            
+            try contents.write(to: file, atomically: true,
+                               encoding: encodeAsUTF8 ? String.Encoding.utf8 : String.Encoding.macOSRoman)
+            
         } catch let error as NSError {
             NSLog("Error writing playlist file '%@': %@", file.path, error.description)
         }
     }
     
     // Load playlist from file into current playlist. Handles varying M3U formats.
-    static func loadPlaylist(_ file: URL) -> SavedPlaylist? {
+    static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist? {
         
         do {
-            let fileContents = try String(contentsOfFile: file.path)
+            
+            let fileContents = try String(contentsOfFile: playlistFile.path)
             let lines = fileContents.components(separatedBy: .newlines)
             
             var tracks: [URL] = [URL]()
@@ -56,34 +62,35 @@ class PlaylistIO {
                 
                 if line.contains(m3uHeader) {
                     // IGNORE EXTM3U header
+                    
                 } else if line.contains(m3uInfoPrefix) {
                     // IGNORE EXTINF (duration and display name are recomputed anyway)
+                    
                 } else {
                     
                     // Line contains track path
-                    if (!StringUtils.isStringEmpty(line)) {
+                    if !StringUtils.isStringEmpty(line) {
                         
                         // Convert Windows paths to UNIX paths (this will not work for absolute Windows paths like "C:\...")
-                        let trackFilePath = line.replacingOccurrences(of: "\\", with: "/")
+                        let trackFilePath: String = line.replacingOccurrences(of: "\\", with: "/")
                         
                         var url: URL
-                        if (trackFilePath.hasPrefix("/")) {
+                        if trackFilePath.hasPrefix("/") {
                             
                             // Absolute path
                             url = URL(fileURLWithPath: trackFilePath)
                             
-                        } else if (trackFilePath.hasPrefix(absoluteFilePathPrefix)) {
+                        } else if trackFilePath.hasPrefix(absoluteFilePathPrefix) {
                             
                             // Absolute path with prefix. Remove the prefix
-                            let cleanURL = trackFilePath.replacingOccurrences(of: absoluteFilePathPrefix, with: "/")
-                            url = URL(fileURLWithPath: cleanURL)
+                            let cleanURLPath: String = trackFilePath.replacingOccurrences(of: absoluteFilePathPrefix, with: "/")
+                            url = URL(fileURLWithPath: cleanURLPath)
                             
                         } else {
                             
                             // Relative path
-                            let playlistFolder = file.deletingLastPathComponent()
-                            let relativePath = playlistFolder.path + "/" + trackFilePath
-                            url = URL(fileURLWithPath: relativePath)
+                            let playlistFolder: URL = playlistFile.deletingLastPathComponent()
+                            url = playlistFolder.appendingPathComponent(trackFilePath, isDirectory: false)
                         }
                         
                         tracks.append(url)
@@ -91,10 +98,11 @@ class PlaylistIO {
                 }
             }
             
-            return SavedPlaylist(file: file, tracks: tracks)
+            return SavedPlaylist(file: playlistFile, tracks: tracks)
             
         } catch let error as NSError {
-            NSLog("Error reading playlist file '%@': %@", file.path, error.description)
+            
+            NSLog("Error reading playlist file '%@': %@", playlistFile.path, error.description)
             return nil
         }
     }

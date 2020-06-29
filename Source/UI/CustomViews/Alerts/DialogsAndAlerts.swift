@@ -57,12 +57,12 @@ struct DialogsAndAlerts {
         
         let dialog = NSSavePanel()
         
-        dialog.title                   = String(format: "Save current playlist as a (.%@) file", AppConstants.SupportedTypes.m3u)
+        dialog.title                   = String(format: "Save current playlist as a (.%@/.%@) file", AppConstants.SupportedTypes.m3u, AppConstants.SupportedTypes.m3u8)
         dialog.showsResizeIndicator    = true
         dialog.showsHiddenFiles        = true
         
         dialog.canCreateDirectories    = true
-        dialog.allowedFileTypes        = [AppConstants.SupportedTypes.m3u]
+        dialog.allowedFileTypes        = AppConstants.SupportedTypes.playlistExtensions
         
         dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
         
