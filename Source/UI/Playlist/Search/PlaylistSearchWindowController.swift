@@ -18,10 +18,10 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     @IBOutlet weak var searchByTitle: NSButton!
     @IBOutlet weak var searchByAlbum: NSButton!
     
-    @IBOutlet weak var comparisonTypeContains: NSButton!
-    @IBOutlet weak var comparisonTypeEquals: NSButton!
-    @IBOutlet weak var comparisonTypeBeginsWith: NSButton!
-    @IBOutlet weak var comparisonTypeEndsWith: NSButton!
+    @IBOutlet weak var comparisonType_contains: NSButton!
+    @IBOutlet weak var comparisonType_equals: NSButton!
+    @IBOutlet weak var comparisonType_beginsWith: NSButton!
+    @IBOutlet weak var comparisonType_endsWith: NSButton!
     
     @IBOutlet weak var searchCaseSensitive: NSButton!
     
@@ -100,7 +100,6 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     private func updateSearchPanelWithResult(_ searchResult: SearchResult) {
         
         let numResults = searchResults.count
-        
         let resultsSingularOrPluralText = numResults > 1 ? "results" : "result"
         
         searchResultsSummaryLabel.stringValue = String(format: "%d %@ found. Selected %d / %d", numResults, resultsSingularOrPluralText, searchResults.currentIndex + 1, numResults)
@@ -145,13 +144,13 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     
     @IBAction func searchTypeChangedAction(_ sender: Any) {
         
-        if comparisonTypeEquals.isOn {
+        if comparisonType_equals.isOn {
             searchQuery.type = .equals
             
-        } else if comparisonTypeContains.isOn {
+        } else if comparisonType_contains.isOn {
             searchQuery.type = .contains
             
-        } else if comparisonTypeBeginsWith.isOn {
+        } else if comparisonType_beginsWith.isOn {
             searchQuery.type = .beginsWith
             
         } else {

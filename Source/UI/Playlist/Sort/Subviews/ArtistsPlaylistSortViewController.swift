@@ -27,24 +27,15 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     override var nibName: String? {return "ArtistsPlaylistSort"}
     
-    var sortView: NSView {
-        return self.view
-    }
+    var sortView: NSView {self.view}
     
     var playlistType: PlaylistType {.artists}
     
     func resetFields() {
         
-        sortGroups.on()
-        sortGroups_byArtist.on()
-        sortGroups_ascending.on()
+        [sortGroups, sortGroups_byArtist, sortGroups_ascending, sortTracks, sortTracks_allGroups, sortTracks_byName, sortTracks_ascending, useTrackNameIfNoMetadata].forEach {$0.on()}
+
         groupsSortToggleAction(self)
-        
-        sortTracks.on()
-        sortTracks_allGroups.on()
-        sortTracks_byName.on()
-        sortTracks_ascending.on()
-        useTrackNameIfNoMetadata.on()
         tracksSortToggleAction(self)
     }
     
@@ -75,38 +66,32 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
 
         if sortGroups.isOn {
             
-            let field: SortField = sortGroups_byArtist.isOn ? .name : .duration
-            _ = sort.withGroupsSort(GroupsSort().withFields(field).withOrder(sortGroups_ascending.isOn ? .ascending : .descending))
+            _ = sort.withGroupsSort(GroupsSort().withFields(sortGroups_byArtist.isOn ? .name : .duration)
+                .withOrder(sortGroups_ascending.isOn ? .ascending : .descending))
         }
         
         if sortTracks.isOn {
             
-            let tracksSort: TracksSort = TracksSort()
+            let tracksSort: TracksSort = TracksSort().withScope(sortTracks_allGroups.isOn ? .allGroups : .selectedGroups)
             
             // Scope
-            _ = tracksSort.withScope(sortTracks_allGroups.isOn ? .allGroups : .selectedGroups)
             if tracksSort.scope == .selectedGroups {
                 
-                let selItems = PlaylistViewState.selectedItems
-                var groups: [Group] = []
-                
                 // Pick up only the groups selected (ignoring the tracks)
-                for item in selItems {
-                    if let group = item.group {
-                        groups.append(group)
-                    }
-                }
-                
-                _ = tracksSort.withParentGroups(groups)
+                let selGroups: [Group] = PlaylistViewState.selectedItems.compactMap {$0.group}
+                _ = tracksSort.withParentGroups(selGroups)
             }
             
             // Fields
             if sortTracks_byName.isOn {
                 _ = tracksSort.withFields(.name)
+                
             } else if sortTracks_byAlbum_andDiscTrack.isOn {
                 _ = tracksSort.withFields(.album, .discNumberAndTrackNumber)
+                
             } else if sortTracks_byAlbum_andName.isOn {
                 _ = tracksSort.withFields(.album, .name)
+                
             } else {
                 // By duration
                 _ = tracksSort.withFields(.duration)
