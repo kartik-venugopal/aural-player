@@ -20,10 +20,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         self.playlistType = playlistType
     }
     
-    override func awakeFromNib() {
-        OutlineViewHolder.instances[self.playlistType] = playlistView
-    }
-
     // Returns a view for a single row
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
         return PlaylistRowView()
@@ -82,13 +78,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         return nil
     }
     
-    private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedTrackNameCellView? {
+    private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedTrackNameCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = track
         cell.isGroup = false
+        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
         cell.updateText(Fonts.Playlist.trackNameFont, playlist.displayNameForTrack(self.playlistType, track))
         
@@ -124,13 +121,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         return cell
     }
     
-    private func createTrackDurationCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedTrackDurationCellView? {
+    private func createTrackDurationCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemDurationCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedTrackDurationCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = track
         cell.isGroup = false
+        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
         cell.updateText(Fonts.Playlist.indexFont, ValueFormatter.formatSecondsToHMS(track.duration))
         
@@ -142,32 +140,34 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         return cell
     }
     
-    private func createGroupDurationCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedTrackDurationCellView? {
+    // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
+    private func createGroupNameCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedTrackDurationCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = group
         cell.isGroup = true
+        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
+            
+        cell.updateText(Fonts.Playlist.groupNameFont, String(format: "%@ (%d)", group.name, group.size))
+        cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
-        cell.updateText(Fonts.Playlist.groupDurationFont, ValueFormatter.formatSecondsToHMS(group.duration))
         cell.updateForGaps(false, false)
         
         return cell
     }
     
-    // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
-    private func createGroupNameCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedTrackNameCellView? {
+    private func createGroupDurationCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemDurationCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedTrackNameCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = group
         cell.isGroup = true
-            
-        cell.updateText(Fonts.Playlist.groupNameFont, String(format: "%@ (%d)", group.name, group.size))
-        cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
+        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
         
+        cell.updateText(Fonts.Playlist.groupDurationFont, ValueFormatter.formatSecondsToHMS(group.duration))
         cell.updateForGaps(false, false)
         
         return cell

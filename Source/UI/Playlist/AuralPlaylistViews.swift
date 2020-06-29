@@ -113,7 +113,7 @@ class GenericTableRowView: NSTableRowView {
 
 class BasicTableCellView: NSTableCellView {
     
-    var selectionFunction: (() -> Bool) = {false}
+    var rowSelectionStateFunction: () -> Bool = {false}
     
     var textFont: NSFont = Fonts.Constants.mainFont_10
     var selectedTextFont: NSFont = Fonts.Constants.mainFont_10
@@ -121,7 +121,7 @@ class BasicTableCellView: NSTableCellView {
     var textColor: NSColor = Colors.playlistTextColor
     var selectedTextColor: NSColor = Colors.playlistSelectedTextColor
     
-    var isSelRow: Bool {selectionFunction()}
+    var rowIsSelected: Bool {rowSelectionStateFunction()}
     
     override var backgroundStyle: NSView.BackgroundStyle {
         
@@ -132,9 +132,11 @@ class BasicTableCellView: NSTableCellView {
     
     func backgroundStyleChanged() {
         
+        let isSelectedRow = rowIsSelected
+        
         // Check if this row is selected, change font and color accordingly
-        textField?.textColor = isSelRow ?  selectedTextColor : textColor
-        textField?.font = isSelRow ? selectedTextFont : textFont
+        textField?.textColor = isSelectedRow ?  selectedTextColor : textColor
+        textField?.font = isSelectedRow ? selectedTextFont : textFont
     }
 }
 
@@ -145,6 +147,14 @@ extension NSUserInterfaceItemIdentifier {
     static let uid_trackName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.playlistNameColumnID)
     
     static let uid_duration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.playlistDurationColumnID)
+    
+    static let uid_chapterIndex: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterIndexColumnID)
+    
+    static let uid_chapterTitle: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterTitleColumnID)
+    
+    static let uid_chapterStartTime: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterStartTimeColumnID)
+    
+    static let uid_chapterDuration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterDurationColumnID)
 }
 
 extension NSPasteboard.PasteboardType {

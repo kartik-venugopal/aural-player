@@ -47,7 +47,7 @@ class PlaylistRowView: NSTableRowView {
 class BasicFlatPlaylistCellView: NSTableCellView {
     
     // Used to determine whether or not this cell is selected.
-    var rowSelectionStateFunction: (() -> Bool) = {false}
+    var rowSelectionStateFunction: () -> Bool = {false}
     
     var rowIsSelected: Bool {rowSelectionStateFunction()}
     
@@ -104,7 +104,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
 }
 
 /*
- Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 @IBDesignable
 class TrackNameCellView: BasicFlatPlaylistCellView {
@@ -127,7 +127,7 @@ class TrackNameCellView: BasicFlatPlaylistCellView {
 }
 
 /*
- Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 @IBDesignable
 class DurationCellView: BasicFlatPlaylistCellView {
@@ -137,14 +137,16 @@ class DurationCellView: BasicFlatPlaylistCellView {
     
     override func backgroundStyleChanged() {
         
+        let isSelectedRow = rowIsSelected
+        
         // Check if this row is selected, change font and color accordingly
-        textField?.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        textField?.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
         textField?.font = Fonts.Playlist.indexFont
         
-        gapBeforeTextField.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        gapBeforeTextField.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
         gapBeforeTextField.font = Fonts.Playlist.indexFont
         
-        gapAfterTextField.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
+        gapAfterTextField.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
         gapAfterTextField.font = Fonts.Playlist.indexFont
     }
     
@@ -161,7 +163,7 @@ class DurationCellView: BasicFlatPlaylistCellView {
 }
 
 /*
- Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
+    Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 class IndexCellView: BasicFlatPlaylistCellView {
     

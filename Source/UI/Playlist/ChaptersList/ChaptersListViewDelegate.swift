@@ -16,116 +16,95 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if let track = playbackInfo.playingTrack, track.hasChapters, row < playbackInfo.chapterCount {
+        guard let track = playbackInfo.playingTrack, track.hasChapters, row < playbackInfo.chapterCount, let columnId = tableColumn?.identifier else {return nil}
             
-            let chapter = track.chapters[row]
-            let columnId: String = tableColumn!.identifier.rawValue
-            
-            switch columnId {
-                
-            case UIConstants.chapterIndexColumnID:
-                
-                // Display a marker icon if this chapter is currently playing
-                return createIndexCell(tableView, String(describing: row + 1), row, row == playbackInfo.playingChapter?.index)
-                
-            case UIConstants.chapterTitleColumnID:
-                
-                return createTitleCell(tableView, chapter.title, row)
-                
-            case UIConstants.chapterStartTimeColumnID:
-                
-                return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.startTime), row)
-                
-            case UIConstants.chapterDurationColumnID:
-                
-                return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.duration), row)
-                
-            default: return nil
-                
-            }
-        }
+        let chapter = track.chapters[row]
         
-        return nil
+        switch columnId {
+            
+        case .uid_chapterIndex:
+            
+            // Display a marker icon if this chapter is currently playing
+            return createIndexCell(tableView, String(row + 1), row, row == playbackInfo.playingChapter?.index)
+            
+        case .uid_chapterTitle:
+            
+            return createTitleCell(tableView, chapter.title, row)
+            
+        case .uid_chapterStartTime:
+            
+            return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.startTime), row)
+            
+        case .uid_chapterDuration:
+            
+            return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.duration), row)
+            
+        default: return nil
+            
+        }
     }
     
     private func createIndexCell(_ tableView: NSTableView, _ text: String, _ row: Int, _ showCurrentChapterMarker: Bool) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.chapterIndexColumnID), owner: nil) as? BasicTableCellView {
-            
-            cell.textFont = Fonts.Playlist.indexFont
-            cell.selectedTextFont = Fonts.Playlist.indexFont
-            
-            cell.textColor = Colors.Playlist.indexDurationTextColor
-            cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
-            
-            cell.selectionFunction = {() -> Bool in
-                return tableView.selectedRowIndexes.contains(row)
-            }
-            
-            cell.textField?.stringValue = text
-            cell.textField?.showIf(!showCurrentChapterMarker)
-            
-            cell.imageView!.image = showCurrentChapterMarker ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
-            cell.imageView!.showIf(showCurrentChapterMarker)
-            
-            return cell
-        }
+        guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? BasicTableCellView else {return nil}
         
-        return nil
+        cell.textFont = Fonts.Playlist.indexFont
+        cell.selectedTextFont = Fonts.Playlist.indexFont
+        
+        cell.textColor = Colors.Playlist.indexDurationTextColor
+        cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
+        
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        
+        cell.textField?.stringValue = text
+        cell.textField?.showIf(!showCurrentChapterMarker)
+        
+        cell.imageView?.image = showCurrentChapterMarker ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
+        cell.imageView?.showIf(showCurrentChapterMarker)
+        
+        return cell
     }
     
     private func createTitleCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(UIConstants.chapterTitleColumnID), owner: nil) as? BasicTableCellView {
-            
-            cell.textFont = Fonts.Playlist.trackNameFont
-            cell.selectedTextFont = Fonts.Playlist.trackNameFont
-            
-            cell.textColor = Colors.Playlist.trackNameTextColor
-            cell.selectedTextColor = Colors.Playlist.trackNameSelectedTextColor
-            
-            cell.textField?.stringValue = text
-            cell.textField?.show()
-            
-            cell.selectionFunction = {() -> Bool in
-                return tableView.selectedRowIndexes.contains(row)
-            }
-            
-            return cell
-        }
+        guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? BasicTableCellView else {return nil}
         
-        return nil
+        cell.textFont = Fonts.Playlist.trackNameFont
+        cell.selectedTextFont = Fonts.Playlist.trackNameFont
+        
+        cell.textColor = Colors.Playlist.trackNameTextColor
+        cell.selectedTextColor = Colors.Playlist.trackNameSelectedTextColor
+        
+        cell.textField?.stringValue = text
+        cell.textField?.show()
+        
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        
+        return cell
     }
     
-    private func createDurationCell(_ tableView: NSTableView, _ id: String, _ text: String, _ row: Int) -> BasicTableCellView? {
+    private func createDurationCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ text: String, _ row: Int) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
-            
-            cell.textFont = Fonts.Playlist.indexFont
-            cell.selectedTextFont = Fonts.Playlist.indexFont
-            
-            cell.textColor = Colors.Playlist.indexDurationTextColor
-            cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
-            
-            cell.textField?.stringValue = text
-            cell.textField?.show()
-            
-            cell.selectionFunction = {() -> Bool in
-                return tableView.selectedRowIndexes.contains(row)
-            }
-            
-            return cell
-        }
+        guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? BasicTableCellView else {return nil}
         
-        return nil
+        cell.textFont = Fonts.Playlist.indexFont
+        cell.selectedTextFont = Fonts.Playlist.indexFont
+        
+        cell.textColor = Colors.Playlist.indexDurationTextColor
+        cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
+        
+        cell.textField?.stringValue = text
+        cell.textField?.show()
+        
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        
+        return cell
     }
     
     // Enables type selection, allowing the user to conveniently and efficiently find a chapter by typing its display name, which results in the chapter, if found, being selected within the list
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
-        if let track = playbackInfo.playingTrack, let colID = tableColumn?.identifier.rawValue, colID == UIConstants.chapterTitleColumnID,
-            row < playbackInfo.chapterCount {
-            
+        if let track = playbackInfo.playingTrack, tableColumn?.identifier == .uid_chapterTitle, row < playbackInfo.chapterCount {
             return track.chapters[row].title
         }
         
@@ -141,13 +120,6 @@ class ChaptersListViewDataSource: NSObject, NSTableViewDataSource {
     // Used to determine if a track is currently playing
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    // Returns the total number of playlist rows
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return playbackInfo.chapterCount
-    }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSUserInterfaceItemIdentifier(_ input: String) -> NSUserInterfaceItemIdentifier {
-    return NSUserInterfaceItemIdentifier(rawValue: input)
+    // Returns the total number of playlist rows (i.e. the number of chapters for the currently playing track)
+    func numberOfRows(in tableView: NSTableView) -> Int {playbackInfo.chapterCount}
 }

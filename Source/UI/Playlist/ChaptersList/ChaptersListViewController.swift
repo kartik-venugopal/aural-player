@@ -1,8 +1,8 @@
 import Cocoa
 
 /*
- View controller for the Chapters list.
- Displays the chapters list in a tabular format, and provides chapter search and playback functions.
+     View controller for the Chapters list.
+     Displays the chapters list in a tabular format, and provides chapter search and playback functions.
  */
 class ChaptersListViewController: NSViewController, ModalComponentProtocol, NotificationSubscriber {
     
@@ -99,7 +99,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         
         Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
         
-        // Register self as a subscriber to synchronous message notifications
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, queue: .main)
         
         Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
@@ -249,10 +248,9 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     }
     
     @IBAction func toggleCaseSensitiveSearchAction(_ sender: AnyObject) {
-        
-        btnCaseSensitive.toggle()
-        
+
         // Perform the search again
+        btnCaseSensitive.toggle()
         searchAction(self)
     }
     
@@ -429,7 +427,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     
     private func changeTrackNameTextColor(_ color: NSColor) {
         
-        chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet([1]))
+        chaptersListView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet(integer: 1))
         redrawSearchField()
     }
     

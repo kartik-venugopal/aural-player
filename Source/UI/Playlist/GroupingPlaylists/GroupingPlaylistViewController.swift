@@ -356,14 +356,14 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private func collapseSelectedItems() {
         
-        // TODO: After collapsing, select the parent groups
-        
         let selectedTracksAndGroups = collectSelectedTracksAndGroups()
         
         let selectedGroups: [Group] = selectedTracksAndGroups.groups
         let selectedTracksParentGroups: [Group] = selectedTracksAndGroups.tracks.compactMap {playlistView.parent(forItem: $0) as? Group}
         
-        Set(selectedGroups + selectedTracksParentGroups).forEach({playlistView.collapseItem($0, collapseChildren: false)})
+        let groupsToCollapse: Set<Group> = Set(selectedGroups + selectedTracksParentGroups)
+        groupsToCollapse.forEach({playlistView.collapseItem($0, collapseChildren: false)})
+        playlistView.selectRowIndexes(IndexSet(groupsToCollapse.map {playlistView.row(forItem: $0)}), byExtendingSelection: false)
     }
     
     private func expandAllGroups() {
