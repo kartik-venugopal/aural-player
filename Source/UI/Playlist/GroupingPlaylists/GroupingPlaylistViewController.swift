@@ -363,7 +363,10 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         let groupsToCollapse: Set<Group> = Set(selectedGroups + selectedTracksParentGroups)
         groupsToCollapse.forEach({playlistView.collapseItem($0, collapseChildren: false)})
-        playlistView.selectRowIndexes(IndexSet(groupsToCollapse.map {playlistView.row(forItem: $0)}), byExtendingSelection: false)
+        
+        let indices = IndexSet(groupsToCollapse.map {playlistView.row(forItem: $0)})
+        playlistView.selectRowIndexes(indices, byExtendingSelection: false)
+        playlistView.scrollRowToVisible(indices.min() ?? 0)
     }
     
     private func expandAllGroups() {

@@ -100,13 +100,10 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         // The name of the "search field" is simply the description of the group type, for ex - "artist"
         let searchField = typeOfGroups.rawValue
-        var results: [SearchResult] = []
         
-        for group in groups.filter({query.compare($0.name)}) {
-            
-            results += group.tracks.map {SearchResult(location: SearchResultLocation(trackIndex: nil, track: $0, groupInfo: nil),
-                                                           match: (searchField, group.name))}
-        }
+        // For all groups whose names match the query, collect all their child tracks
+        let results: [SearchResult] = groups.filter{query.compare($0.name)}.flatMap {group in group.tracks.map
+        {SearchResult(location: SearchResultLocation(trackIndex: nil, track: $0, groupInfo: nil), match: (searchField, group.name))}}
         
         return SearchResults(results)
     }

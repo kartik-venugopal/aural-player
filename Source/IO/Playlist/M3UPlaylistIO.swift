@@ -35,10 +35,7 @@ class M3UPlaylistIO: PlaylistIOProtocol {
         // Write to output file
         do {
             
-            let encodeAsUTF8: Bool = file.pathExtension.lowercased() == AppConstants.SupportedTypes.m3u8
-            
-            try contents.write(to: file, atomically: true,
-                               encoding: encodeAsUTF8 ? String.Encoding.utf8 : String.Encoding.macOSRoman)
+            try contents.write(to: file, atomically: true, encoding: String.Encoding.utf8)
             
         } catch let error as NSError {
             NSLog("Error writing playlist file '%@': %@", file.path, error.description)
