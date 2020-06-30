@@ -131,7 +131,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                     for playingTrackIndex in playingTrackIndices {
                         
                         // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
-                        let playingTrack = sequencer.select(group.trackAtIndex(playingTrackIndex))
+                        let playingTrack = sequencer.select(group.trackAtIndex(playingTrackIndex)!)
                         
                         let sequence = sequencer.sequenceInfo
                         XCTAssertEqual(sequence.scope.type, group.type.toScopeType())
@@ -408,7 +408,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                     for playingTrackIndex in playingTrackIndices {
                         
                         // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
-                        let playingTrack = sequencer.select(group.trackAtIndex(playingTrackIndex))
+                        let playingTrack = sequencer.select(group.trackAtIndex(playingTrackIndex)!)
                         
                         let sequence = sequencer.sequenceInfo
                         XCTAssertEqual(sequence.scope.type, group.type.toScopeType())
@@ -687,7 +687,7 @@ class SequencerIteration_Group_Tests: SequencerTests {
                     for playingTrackIndex in playingTrackIndices {
                         
                         // Begin the playback sequence (either from a specified index, or from the beginning - i.e. index 0)
-                        let playingTrack = sequencer.select(group.trackAtIndex(playingTrackIndex))
+                        let playingTrack = sequencer.select(group.trackAtIndex(playingTrackIndex)!)
                         
                         let sequence = sequencer.sequenceInfo
                         XCTAssertEqual(sequence.scope.type, group.type.toScopeType())

@@ -51,7 +51,7 @@ class PlaybackDelegateTests: AuralTestCase, NotificationSubscriber {
             stopPlaybackChain = TestableStopPlaybackChain(player, sequencer, transcoder, profiles, preferences)
             trackPlaybackCompletedChain = TestableTrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences)
             
-            delegate = PlaybackDelegate(player, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
+            delegate = PlaybackDelegate(player, playlist, sequencer, profiles, preferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         }
         
         sequencer.reset()

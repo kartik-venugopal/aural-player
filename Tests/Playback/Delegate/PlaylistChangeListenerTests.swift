@@ -6,7 +6,7 @@ class PlaylistChangeListenerTests: PlaybackDelegateTests {
         
         assertNoTrack()
         
-        delegate.tracksRemoved(TrackRemovalResults.empty, false, nil)
+        delegate.tracksRemoved(TrackRemovalResults.empty)
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         assertNoTrack()
@@ -18,7 +18,7 @@ class PlaylistChangeListenerTests: PlaybackDelegateTests {
         doBeginPlayback(someTrack)
         assertPlayingTrack(someTrack)
         
-        delegate.tracksRemoved(TrackRemovalResults.empty, false, nil)
+        delegate.tracksRemoved(TrackRemovalResults.empty)
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 0)
         assertPlayingTrack(someTrack)
@@ -30,7 +30,7 @@ class PlaylistChangeListenerTests: PlaybackDelegateTests {
         doBeginPlayback(someTrack)
         assertPlayingTrack(someTrack)
         
-        delegate.tracksRemoved(TrackRemovalResults.empty, true, someTrack)
+        delegate.tracksRemoved(TrackRemovalResults.empty)
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         assertNoTrack()
@@ -42,7 +42,7 @@ class PlaylistChangeListenerTests: PlaybackDelegateTests {
         doBeginPlaybackWithDelay(someTrack, 3)
         assertWaitingTrack(someTrack)
         
-        delegate.tracksRemoved(TrackRemovalResults.empty, true, someTrack)
+        delegate.tracksRemoved(TrackRemovalResults.empty)
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         assertNoTrack()
@@ -54,7 +54,7 @@ class PlaylistChangeListenerTests: PlaybackDelegateTests {
         doBeginPlayback_trackNeedsTranscoding(someTrack)
         assertTranscodingTrack(someTrack)
         
-        delegate.tracksRemoved(TrackRemovalResults.empty, true, someTrack)
+        delegate.tracksRemoved(TrackRemovalResults.empty)
         
         XCTAssertEqual(stopPlaybackChain.executionCount, 1)
         assertNoTrack()
