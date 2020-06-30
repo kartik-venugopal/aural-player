@@ -426,7 +426,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, 3)
             
             let removeResults = playlist.removeTracks(IndexSet(0...4))
-            sequencer.tracksRemoved(removeResults, true, playingTrack)
+            sequencer.tracksRemoved(removeResults)
             
             XCTAssertNil(sequencer.sequence.curTrackIndex)
             XCTAssertNil(sequencer.currentTrack)
@@ -454,7 +454,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, randomGroup.indexOfTrack(playingTrack!))
                 
                 let removeResults = playlist.removeTracksAndGroups([], groups, playlistType.toGroupType()!)
-                sequencer.tracksRemoved(removeResults, true, playingTrack)
+                sequencer.tracksRemoved(removeResults)
                 
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
                 XCTAssertNil(sequencer.currentTrack)
@@ -483,7 +483,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         let sequenceTrackIndexBeforeRemove = sequencer.sequence.curTrackIndex
 
         let removeResults = playlist.removeTracks(IndexSet([4]))
-        sequencer.tracksRemoved(removeResults, false, nil)
+        sequencer.tracksRemoved(removeResults)
         
         XCTAssertEqual(sequencer.currentTrack, playingTrack!)
         XCTAssertEqual(sequencer.sequence.curTrackIndex!, sequenceTrackIndexBeforeRemove)
@@ -540,7 +540,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
 
             // Remove the last track from the group
             let removeResults = playlist.removeTracksAndGroups([lastTrack], [], groupType)
-            sequencer.tracksRemoved(removeResults, false, nil)
+            sequencer.tracksRemoved(removeResults)
             
             XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, sequenceTrackIndexBeforeRemove)
@@ -574,7 +574,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 let sequenceSizeBeforeRemove = sequencer.sequence.size
                 let sequenceTrackIndexBeforeRemove = sequencer.sequence.curTrackIndex
                 
-                sequencer.tracksRemoved(TrackRemovalResults.empty, false, nil)
+                sequencer.tracksRemoved(TrackRemovalResults.empty)
                 
                 XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, sequenceTrackIndexBeforeRemove)
@@ -612,7 +612,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 let sequenceSizeBeforeRemove = sequencer.sequence.size
                 let sequenceTrackIndexBeforeRemove = sequencer.sequence.curTrackIndex
 
-                sequencer.tracksRemoved(TrackRemovalResults.empty, false, nil)
+                sequencer.tracksRemoved(TrackRemovalResults.empty)
 
                 XCTAssertEqual(sequencer.currentTrack, playingTrack!)
                 XCTAssertEqual(sequencer.sequence.curTrackIndex!, sequenceTrackIndexBeforeRemove)
@@ -648,7 +648,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 
                 let removedTracks = playlist.removeTracks(IndexSet(removedTracksIndices))
 
-                sequencer.tracksRemoved(removedTracks, false, nil)
+                sequencer.tracksRemoved(removedTracks)
 
                 XCTAssertNil(sequencer.currentTrack)
                 XCTAssertNil(sequencer.sequence.curTrackIndex)
@@ -688,7 +688,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             let removedTracks = playlist.removeTracks(IndexSet(removedTracksIndices))
             XCTAssertEqual(playlist.size, playlistSizeBeforeRemoval - removedTracksIndices.count)
             
-            sequencer.tracksRemoved(removedTracks, false, nil)
+            sequencer.tracksRemoved(removedTracks)
 
             XCTAssertEqual(sequencer.currentTrack, playingTrack!)
             XCTAssertEqual(sequencer.sequence.curTrackIndex!, playlist.indexOfTrack(playingTrack!))
@@ -736,7 +736,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
                 let removedTrackResults = playlist.removeTracksAndGroups(tracksToRemoveArr, [], playlistType.toGroupType()!)
                 XCTAssertEqual(playlist.size, playlistSizeBeforeRemoval - tracksToRemoveArr.count)
                 
-                sequencer.tracksRemoved(removedTrackResults, false, nil)
+                sequencer.tracksRemoved(removedTrackResults)
 
                 XCTAssertEqual(sequencer.sequence.size, playlist.size)
                 XCTAssertEqual(sequencer.currentTrack, playingTrack!)
@@ -766,7 +766,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             let grimesArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == "Grimes"}).first!
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
-            let tracksToRemoveFromMadonnaGroup: [Track] = [1, 9, 17].map {madonnaArtistGroup.trackAtIndex($0)}
+            let tracksToRemoveFromMadonnaGroup: [Track] = [1, 9, 17].compactMap {madonnaArtistGroup.trackAtIndex($0)}
             doTestTracksRemoved_groupPlaying(madonnaArtistGroup, tracksToRemoveFromMadonnaGroup + Array(grimesArtistGroup.allTracks().suffix(5)), [])
         }
     }
@@ -813,7 +813,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             let halfaxaAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == "Halfaxa"}).first!
             let visionsAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == album_visions}).first!
 
-            let tracksToRemoveFromVisionsGroup: [Track] = [1, 9, 17].map {visionsAlbumGroup.trackAtIndex($0)}
+            let tracksToRemoveFromVisionsGroup: [Track] = [1, 9, 17].compactMap {visionsAlbumGroup.trackAtIndex($0)}
             
             doTestTracksRemoved_groupPlaying(visionsAlbumGroup, tracksToRemoveFromVisionsGroup, [halfaxaAlbumGroup])
         }
@@ -861,7 +861,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
             let intlGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == "International"}).first!
             let popGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == genre_pop}).first!
 
-            let tracksToRemoveFromPopGroup: [Track] = [1, 9, 17].map {popGenreGroup.trackAtIndex($0)}
+            let tracksToRemoveFromPopGroup: [Track] = [1, 9, 17].compactMap {popGenreGroup.trackAtIndex($0)}
             doTestTracksRemoved_groupPlaying(popGenreGroup, tracksToRemoveFromPopGroup, [intlGenreGroup])
         }
     }
@@ -910,7 +910,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         let numTracksRemovedFromScopeGroup: Int = filteredTracksToRemove.filter({groupTracks.contains($0)}).count
         
         let removalResults = playlist.removeTracksAndGroups(filteredTracksToRemove, groupsToRemove, group.type)
-        sequencer.tracksRemoved(removalResults, false, nil)
+        sequencer.tracksRemoved(removalResults)
         
         XCTAssertEqual(group.size, groupSizeBeforeRemove - numTracksRemovedFromScopeGroup)
         XCTAssertEqual(sequencer.sequence.size, group.size)
@@ -939,7 +939,7 @@ class SequencerPlaylistResizingTests: SequencerTests {
         XCTAssertNil(sequencer.scope.group)
 
         let trackRemovalResults = playlist.removeTracks(IndexSet([3]))
-        sequencer.tracksRemoved(trackRemovalResults, true, playingTrack)
+        sequencer.tracksRemoved(trackRemovalResults)
 
         // Check that the sequence has ended.
         XCTAssertNil(sequencer.currentTrack)

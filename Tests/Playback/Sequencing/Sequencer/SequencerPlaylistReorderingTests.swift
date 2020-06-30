@@ -245,7 +245,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let grimesArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == "Grimes"}).first!
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
-            let tracksToMoveInMadonnaGroup: [Track] = [1, 9, 17].map {madonnaArtistGroup.trackAtIndex($0)}
+            let tracksToMoveInMadonnaGroup: [Track] = [1, 9, 17].compactMap {madonnaArtistGroup.trackAtIndex($0)}
             
             doTestTracksReordered_groupPlaying(madonnaArtistGroup, tracksToMoveInMadonnaGroup, [grimesArtistGroup])
         }
@@ -293,7 +293,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let grimesArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == "Grimes"}).first!
             let madonnaArtistGroup: Group = playlist.allGroups(.artist).filter({$0.name == artist_madonna}).first!
             
-            let tracksToMoveInGrimesGroup: [Track] = [1, 5, 7].map {grimesArtistGroup.trackAtIndex($0)}
+            let tracksToMoveInGrimesGroup: [Track] = [1, 5, 7].compactMap {grimesArtistGroup.trackAtIndex($0)}
             
             doTestTracksReordered_groupPlaying(madonnaArtistGroup, tracksToMoveInGrimesGroup, [])
         }
@@ -318,7 +318,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let halfaxaAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == "Halfaxa"}).first!
             let eroticaAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == album_erotica}).first!
             
-            let tracksToMoveInEroticaGroup: [Track] = [1, 9, 17].map {eroticaAlbumGroup.trackAtIndex($0)}
+            let tracksToMoveInEroticaGroup: [Track] = [1, 9, 17].compactMap {eroticaAlbumGroup.trackAtIndex($0)}
             
             doTestTracksReordered_groupPlaying(eroticaAlbumGroup, tracksToMoveInEroticaGroup, [halfaxaAlbumGroup])
         }
@@ -366,7 +366,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let halfaxaAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == "Halfaxa"}).first!
             let eroticaAlbumGroup: Group = playlist.allGroups(.album).filter({$0.name == album_erotica}).first!
             
-            let tracksToMoveInHalfaxaGroup: [Track] = [1, 5, 7].map {halfaxaAlbumGroup.trackAtIndex($0)}
+            let tracksToMoveInHalfaxaGroup: [Track] = [1, 5, 7].compactMap {halfaxaAlbumGroup.trackAtIndex($0)}
             
             doTestTracksReordered_groupPlaying(eroticaAlbumGroup, tracksToMoveInHalfaxaGroup, [])
         }
@@ -391,7 +391,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let danceGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == "Dance"}).first!
             let popGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == genre_pop}).first!
             
-            let tracksToMoveInPopGroup: [Track] = [1, 9, 17].map {popGenreGroup.trackAtIndex($0)}
+            let tracksToMoveInPopGroup: [Track] = [1, 9, 17].compactMap {popGenreGroup.trackAtIndex($0)}
             
             doTestTracksReordered_groupPlaying(popGenreGroup, tracksToMoveInPopGroup, [danceGenreGroup])
         }
@@ -439,7 +439,7 @@ class SequencerPlaylistReorderingTests: SequencerTests {
             let danceGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == "Dance"}).first!
             let popGenreGroup: Group = playlist.allGroups(.genre).filter({$0.name == genre_pop}).first!
             
-            let tracksToMoveInDanceGroup: [Track] = [1, 5, 7].map {danceGenreGroup.trackAtIndex($0)}
+            let tracksToMoveInDanceGroup: [Track] = [1, 5, 7].compactMap {danceGenreGroup.trackAtIndex($0)}
             
             doTestTracksReordered_groupPlaying(popGenreGroup, tracksToMoveInDanceGroup, [])
         }
