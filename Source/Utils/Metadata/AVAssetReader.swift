@@ -322,12 +322,13 @@ class AVAssetReader: MetadataReader, NotificationSubscriber {
             let chapterMetadataGroups = asset.chapterMetadataGroups(bestMatchingPreferredLanguages: [langCode])
             
             // Collect title and start time from each group
-            let titlesAndStartTimes: [(title: String, startTime: Double)] =
+            var titlesAndStartTimes: [(title: String, startTime: Double)] =
                 chapterMetadataGroups.map {(getChapterTitle($0.items) ?? "", $0.timeRange.start.seconds)}
             
             if titlesAndStartTimes.isEmpty {return chapters}
-            
-            // TODO: First sort by start time
+
+            // Start times must be in ascending order
+            titlesAndStartTimes.sort(by: {$0.startTime < $1.startTime})
             
             for index in 0..<titlesAndStartTimes.count {
                 
