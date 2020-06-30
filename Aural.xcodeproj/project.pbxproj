@@ -477,7 +477,6 @@
 		3E6C329124AB18930011D44C /* PlaybackSequenceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C329024AB18930011D44C /* PlaybackSequenceState.swift */; };
 		3E6C329324AB19EB0011D44C /* HistoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C329224AB19EB0011D44C /* HistoryState.swift */; };
 		3E6C329524AB1A390011D44C /* TranscoderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C329424AB1A390011D44C /* TranscoderState.swift */; };
-		3E6C329724AB1AE80011D44C /* CueSheetIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C329624AB1AE80011D44C /* CueSheetIOTests.swift */; };
 		3E6C329D24AB1B860011D44C /* AppStateProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C329C24AB1B860011D44C /* AppStateProtocols.swift */; };
 		3E6C32A224AB1BF40011D44C /* AudioDeviceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C32A124AB1BF40011D44C /* AudioDeviceState.swift */; };
 		3E6C32A424AB1C110011D44C /* BookmarkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C32A324AB1C110011D44C /* BookmarkState.swift */; };
@@ -1121,7 +1120,6 @@
 		3E6C329024AB18930011D44C /* PlaybackSequenceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequenceState.swift; sourceTree = "<group>"; };
 		3E6C329224AB19EB0011D44C /* HistoryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryState.swift; sourceTree = "<group>"; };
 		3E6C329424AB1A390011D44C /* TranscoderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscoderState.swift; sourceTree = "<group>"; };
-		3E6C329624AB1AE80011D44C /* CueSheetIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSheetIOTests.swift; sourceTree = "<group>"; };
 		3E6C329C24AB1B860011D44C /* AppStateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateProtocols.swift; sourceTree = "<group>"; };
 		3E6C32A124AB1BF40011D44C /* AudioDeviceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceState.swift; sourceTree = "<group>"; };
 		3E6C32A324AB1C110011D44C /* BookmarkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkState.swift; sourceTree = "<group>"; };
@@ -2811,7 +2809,6 @@
 				3E8718D22466B856007D9672 /* MathUtilsTests.swift */,
 				3E89CBA4249DCB7700972AE6 /* ConcurrentQueue.swift */,
 				3E89CBA8249DF48B00972AE6 /* AtomicCounter.swift */,
-				3E6C329624AB1AE80011D44C /* CueSheetIOTests.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3617,7 +3614,6 @@
 				3E40A538247FDFC500C831B7 /* SecondarySeekingTests.swift in Sources */,
 				3E6C32B224AB1C400011D44C /* PlaybackSequenceState.swift in Sources */,
 				3E4B5474247C0591009CE7EA /* MockTrack.swift in Sources */,
-				3E6C329724AB1AE80011D44C /* CueSheetIOTests.swift in Sources */,
 				3E626920246BF357002FAC63 /* WindowManagerProtocol.swift in Sources */,
 				3E6C327524AB11780011D44C /* CueSheetIO.swift in Sources */,
 				3E12ADDE2469CF5300A07611 /* CommonAVAssetParser.swift in Sources */,

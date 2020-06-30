@@ -8,31 +8,25 @@ protocol PlaylistIOProtocol {
     static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist?
 }
 
+// Facade for all importing/exporting of playlist file formats (e.g. M3U)
 class PlaylistIO: PlaylistIOProtocol {
     
     static let absoluteFilePathPrefix: String = "file:///"
     
     static let stringEncodingFormats: [String.Encoding] = [.utf8, .ascii, .macOSRoman, .isoLatin1, .isoLatin2, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .unicode, .utf16, .utf16BigEndian, .utf16LittleEndian, .utf32, .utf32BigEndian, .utf32LittleEndian, .iso2022JP, .japaneseEUC, .nextstep, .nonLossyASCII, .shiftJIS, .symbol]
     
-    static var playlist: PlaylistAccessorProtocol!
-    
     static func initialize(_ playlist: PlaylistAccessorProtocol) {
-        PlaylistIO.playlist = playlist
+        M3UPlaylistIO.initialize(playlist)
     }
     
     // Save current playlist to an output file
     static func savePlaylist(_ file: URL) {
-        
-        switch file.pathExtension.lowercased() {
-            
-        case AppConstants.SupportedTypes.m3u, AppConstants.SupportedTypes.m3u8:
-            
-            M3UPlaylistIO.savePlaylist(file)
-            
-        default:
-            
-            return
-        }
+        M3UPlaylistIO.savePlaylist(file)
+    }
+    
+    // Load playlist from file into current playlist.
+    static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist? {
+        return M3UPlaylistIO.loadPlaylist(playlistFile)
     }
     
     static func readFileAsString(_ file: URL) -> String? {
@@ -41,26 +35,12 @@ class PlaylistIO: PlaylistIOProtocol {
 
             do {
                 return try String(contentsOf: file, encoding: encoding)
+                
             } catch {}
         }
         
         NSLog("Error reading playlist file '%@'. Unable to decode. Check file encoding.", file.path)
         return nil
-    }
-    
-    // Load playlist from file into current playlist. Handles varying M3U formats.
-    static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist? {
-        
-        switch playlistFile.pathExtension.lowercased() {
-            
-        case AppConstants.SupportedTypes.m3u, AppConstants.SupportedTypes.m3u8:
-            
-            return M3UPlaylistIO.loadPlaylist(playlistFile)
-            
-        default:
-            
-            return nil
-        }
     }
 }
 
