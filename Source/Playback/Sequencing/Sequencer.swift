@@ -3,7 +3,7 @@ import Foundation
 /*
     See SequencerProtocol.
  */
-class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObject {
+class Sequencer: SequencerProtocol, NotificationSubscriber {
     
     // The underlying linear sequence of tracks for the current playback scope
     let sequence: PlaybackSequence
@@ -467,16 +467,5 @@ class Sequencer: SequencerProtocol, NotificationSubscriber, PersistentModelObjec
         
         // Updates the instance variable playlistType, with the new playlistType value
         self.playlistType = newPlaylistType
-    }
-    
-    var persistentState: PersistentState {
-        
-        let state = PlaybackSequenceState()
-        
-        let modes = sequence.repeatAndShuffleModes
-        state.repeatMode = modes.repeatMode
-        state.shuffleMode = modes.shuffleMode
-        
-        return state
     }
 }

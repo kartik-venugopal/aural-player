@@ -2,7 +2,7 @@ import Foundation
 
 class BookmarksDelegate: BookmarksDelegateProtocol {
     
-    private let bookmarks: BookmarksProtocol
+    let bookmarks: BookmarksProtocol
     
     // Delegate used to perform CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol
@@ -74,16 +74,5 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     
     func deleteBookmarkWithName(_ name: String) {
         bookmarks.deleteBookmarkWithName(name)
-    }
-    
-    var persistentState: [BookmarkState] {
-        
-        var arr = [BookmarkState]()
-        
-        bookmarks.allBookmarks.forEach({
-            arr.append(BookmarkState($0.name, $0.file, $0.startPosition, $0.endPosition))
-        })
-        
-        return arr
     }
 }

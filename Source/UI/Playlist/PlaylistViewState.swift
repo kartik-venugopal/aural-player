@@ -40,22 +40,6 @@ class PlaylistViewState {
         chaptersListView.selectedRow >= 0 ? SelectedPlaylistItem(index: chaptersListView.selectedRow) : nil
     }
     
-    static func initialize(_ appState: PlaylistUIState) {
-        
-        textSize = appState.textSize
-        current = PlaylistType(rawValue: appState.view.lowercased()) ?? .tracks
-    }
-    
-    static var persistentState: PlaylistUIState {
-        
-        let state = PlaylistUIState()
-        
-        state.textSize = textSize
-        state.view = current.rawValue.capitalizingFirstLetter()
-        
-        return state
-    }
-    
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {current.toGroupType()}
     

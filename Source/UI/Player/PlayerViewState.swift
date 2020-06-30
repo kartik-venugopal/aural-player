@@ -23,54 +23,6 @@ class PlayerViewState {
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
     static var textSize: TextSize = .normal
-    
-    static func initialize(_ appState: PlayerUIState) {
-        
-        viewType = appState.viewType
-        
-        showAlbumArt = appState.showAlbumArt
-        showArtist = appState.showArtist
-        showAlbum = appState.showAlbum
-        showCurrentChapter = appState.showCurrentChapter
-        
-        showTrackInfo = appState.showTrackInfo
-        showSequenceInfo = appState.showSequenceInfo
-        
-        showPlayingTrackFunctions = appState.showPlayingTrackFunctions
-        showControls = appState.showControls
-        showTimeElapsedRemaining = appState.showTimeElapsedRemaining
-        
-        timeElapsedDisplayType = appState.timeElapsedDisplayType
-        timeRemainingDisplayType = appState.timeRemainingDisplayType
-        
-        textSize = appState.textSize
-    }
-    
-    static var persistentState: PlayerUIState {
-        
-        let state = PlayerUIState()
-        
-        state.viewType = viewType
-        
-        state.showAlbumArt = showAlbumArt
-        state.showArtist = showArtist
-        state.showAlbum = showAlbum
-        state.showCurrentChapter = showCurrentChapter
-        
-        state.showTrackInfo = showTrackInfo
-        state.showSequenceInfo = showSequenceInfo
-        
-        state.showPlayingTrackFunctions = showPlayingTrackFunctions
-        state.showControls = showControls
-        state.showTimeElapsedRemaining = showTimeElapsedRemaining
-        
-        state.timeElapsedDisplayType = timeElapsedDisplayType
-        state.timeRemainingDisplayType = timeRemainingDisplayType
-        
-        state.textSize = textSize
-        
-        return state
-    }
 }
 
 enum PlayerViewType: String {
