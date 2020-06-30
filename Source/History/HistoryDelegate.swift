@@ -3,7 +3,7 @@ import Foundation
 /*
     Concrete implementation of HistoryDelegateProtocol
  */
-class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber, PersistentModelObject {
+class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
     
     // The actual underlying History model object
     private let history: HistoryProtocol
@@ -90,16 +90,6 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber, Persiste
         
         history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize)
         Messenger.publish(.history_updated)
-    }
-    
-    var persistentState: PersistentState {
-        
-        let state = HistoryState()
-        
-        allRecentlyAddedItems().forEach({state.recentlyAdded.append(($0.file, $0.displayName, $0.time))})
-        allRecentlyPlayedItems().forEach({state.recentlyPlayed.append(($0.file, $0.displayName, $0.time))})
-        
-        return state
     }
     
     func clearAllHistory() {

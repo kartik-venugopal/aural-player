@@ -71,3 +71,30 @@ class PlaybackGapState: PersistentState {
         return state
     }
 }
+
+extension Playlist: PersistentModelObject {
+    
+    // Returns all state for this playlist that needs to be persisted to disk
+    var persistentState: PersistentState {
+        
+        let state = PlaylistState()
+        state.tracks = tracks.map {$0.file}
+        
+        [gapsBeforeTracks, gapsAfterTracks].forEach({
+            
+            for (track, gap) in $0.filter({$0.value.type == .persistent}) {
+                
+                let gapState = PlaybackGapState()
+                
+                gapState.track = track.file
+                gapState.duration = gap.duration
+                gapState.position = gap.position
+                gapState.type = gap.type
+                
+                state.gaps.append(gapState)
+            }
+        })
+        
+        return state
+    }
+}

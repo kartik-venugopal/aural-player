@@ -1,10 +1,10 @@
 import Foundation
 
-class Transcoder: TranscoderProtocol, NotificationSubscriber, PersistentModelObject {
+class Transcoder: TranscoderProtocol, NotificationSubscriber {
     
     // TODO: On appExit(), cancel all tasks and delete in-progress output files.
     
-    private let store: TranscoderStore
+    let store: TranscoderStore
     private let daemon: TranscoderDaemon
     
     private let preferences: TranscodingPreferences
@@ -173,13 +173,6 @@ class Transcoder: TranscoderProtocol, NotificationSubscriber, PersistentModelObj
     
     func trackNeedsTranscoding(_ track: Track) -> Bool {
         return !track.playbackNativelySupported && !store.hasForTrack(track) && !daemon.hasTaskForTrack(track)
-    }
-    
-    var persistentState: PersistentState {
-        
-        let state = TranscoderState()
-        state.entries = store.files.kvPairs
-        return state
     }
     
     // MARK: Message handling

@@ -3,7 +3,7 @@ import Foundation
 /*
     A facade providing unified access to all underlying playlist types (flat and grouping/hierarchical). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
  */
-class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
+class Playlist: PlaylistCRUDProtocol {
     
     // Flat playlist
     private var flatPlaylist: FlatPlaylistCRUDProtocol
@@ -14,8 +14,8 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFile: [URL: Track] = [:]
     
-    private var gapsBeforeTracks: [Track: PlaybackGap] = [:]
-    private var gapsAfterTracks: [Track: PlaybackGap] = [:]
+    var gapsBeforeTracks: [Track: PlaybackGap] = [:]
+    var gapsAfterTracks: [Track: PlaybackGap] = [:]
     
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
         
@@ -148,30 +148,6 @@ class Playlist: PlaylistCRUDProtocol, PersistentModelObject {
 
         // The results are independent of specific reordering operations
         return SortResults(playlistType, sort)
-    }
-    
-    // Returns all state for this playlist that needs to be persisted to disk
-    var persistentState: PersistentState {
-        
-        let state = PlaylistState()
-        state.tracks = tracks.map {$0.file}
-        
-        [gapsBeforeTracks, gapsAfterTracks].forEach({
-            
-            for (track, gap) in $0.filter({$0.value.type == .persistent}) {
-                
-                let gapState = PlaybackGapState()
-                
-                gapState.track = track.file
-                gapState.duration = gap.duration
-                gapState.position = gap.position
-                gapState.type = gap.type
-                
-                state.gaps.append(gapState)
-            }
-        })
-        
-        return state
     }
     
     // MARK: Flat playlist functions
