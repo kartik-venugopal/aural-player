@@ -6,7 +6,7 @@ Version 3.0 is in active development and is expected to come out later this year
 
 * A new visualizer (e.g Spectrogram, circular).
 * Real-time playback (without transcoding) of non-native formats (eg. Vorbis, Opus, APE, etc).
-* Support for more non-native formats (eg. True Audio).
+* Support for more non-native formats (eg. True Audio, TAK, RealAudio, etc).
 * A newly designed play queue and library with better organization and searching.
 * A new file system browser.
 * A new "Unified" interface, in addition to the existing modular interface.
