@@ -93,7 +93,7 @@ NOTE - Future versions of Aural Player may make the app storage location configu
 
 (Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
 
-* Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, WMA, DTS, & more)
+* Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, APE, WMA, DSD & more)
 * Supports M3U / M3U8 playlists
 * **Playback:** Bookmarking, segment looping, 2 custom seek intervals, delayed playback, last position memory, timed gaps, autoplay
 * **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
