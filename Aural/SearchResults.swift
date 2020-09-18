@@ -120,6 +120,7 @@ class SearchResult: Hashable  {
         return location.track.file.path.hashValue
     }
     
+    
     init(location: SearchResultLocation, match: (fieldKey: String, fieldValue: String)) {
         
         // This field will be set by SearchResults

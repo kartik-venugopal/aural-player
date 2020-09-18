@@ -1,6 +1,6 @@
 import Foundation
 
-class ConcurrentMap<T: Hashable, U: Any> {
+class ConcurrentMap<T:Hashable, U:Any> {
     
     private let syncQueue: DispatchQueue
     private var map: [T: U] = [:]
