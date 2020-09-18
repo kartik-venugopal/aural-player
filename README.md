@@ -1,5 +1,16 @@
 # Aural Player
 
+### Update (Sep 19, 2020)
+
+Version 3.0 is in active development and is expected to come out later this year. New features and enhancements include:
+
+* A new visualizer (e.g Spectrogram, circular).
+* Real-time playback (without transcoding) of non-native formats (eg. Vorbis, Opus, APE, etc).
+* Support for more non-native formats (eg. True Audio).
+* A newly designed play queue and library with better organization and searching.
+* A new file system browser.
+* A new "Unified" interface, in addition to the existing modular interface.
+
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
 ## Table of Contents
