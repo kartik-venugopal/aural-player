@@ -2,7 +2,7 @@
 
 ### Update (Sep 19, 2020)
 
-Version 3.0 is in active development and is expected to come out later this year. New features and enhancements include:
+Version 3.0 is in active development and may come out later this year or early next year. New features and enhancements include:
 
 * A new visualizer (e.g Spectrogram, circular).
 * Real-time playback (without transcoding) of non-native formats (eg. Vorbis, Opus, APE, etc).
