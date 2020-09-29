@@ -22,6 +22,7 @@ Version 3.0 is in active development and may come out later this year or early n
     + [Compatibility](#compatibility)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
+  * [Known issues](#known-issues)
   * [Screenshots](#screenshots)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
@@ -105,6 +106,22 @@ NOTE - Future versions of Aural Player may make the app storage location configu
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **UI:** Color schemes (built-in and custom), window layout presets (built-in and custom), window snapping, collapsible UI components, adjustable text size.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition
+
+## Known issues
+
+### Bad audio quality when using Bluetooth headphones
+
+If you notice poor audio quality when using Bluetooth headphones, try the following:
+
+**Fix# 1 - Set your system's input device to the built-in device **
+
+When you connect Bluetooth headphones to your Mac, if your headphones have a microphone, the OS will typically switch to using your Bluetooth microphone as its input device. Simply go to **System Preferences > Sound > Input**, and change the input device back to your Mac's built-in input device.
+
+This should fix the problem. If not, try Fix# 2.
+
+**Fix# 2 - Change your system's Bluetooth audio codec settings**
+
+Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable-aptx-aac-bluetooth-audio-codecs-macos/).
       
 ## Screenshots
 
