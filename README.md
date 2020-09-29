@@ -113,7 +113,7 @@ NOTE - Future versions of Aural Player may make the app storage location configu
 
 If you notice poor audio quality when using Bluetooth headphones, try the following:
 
-**Fix# 1 - Set your system's input device to the built-in device **
+**Fix# 1 - Set your system's input device to the built-in device**
 
 When you connect Bluetooth headphones to your Mac, if your headphones have a microphone, the OS will typically switch to using your Bluetooth microphone as its input device. Simply go to **System Preferences > Sound > Input**, and change the input device back to your Mac's built-in input device.
 
