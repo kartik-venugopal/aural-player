@@ -179,7 +179,7 @@ public extension NSBezierPath {
                                                control1: CGPoint(x: points[0].x, y: points[0].y),
                                                control2: CGPoint(x: points[1].x, y: points[1].y) )
             case .closePath: path.closeSubpath()
-            @unknown default:<#fatalError#>
+            @unknown default: 0
             }
         }
         return path

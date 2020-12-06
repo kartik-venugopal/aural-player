@@ -44,7 +44,7 @@ class ConcurrentMap<T:Hashable, U:Any> {
     
     func put(_ key: T, _ value: U) {
         
-        _ = syncQueue.sync(flags: .barrier) {
+        syncQueue.sync(flags: .barrier) {
             map[key] = value
         }
     }
