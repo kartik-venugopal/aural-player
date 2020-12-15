@@ -59,6 +59,11 @@ Download the DMG image (containing the app bundle) from the latest release [here
 3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
 4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
 
+If you have [Homebrew](https://brew.sh/) installed, try run the following in your terminal:
+```shell
+brew install --cask aural
+```
+
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
 ### Granting access on macOS 10.15 Catalina
