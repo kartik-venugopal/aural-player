@@ -1,15 +1,12 @@
 # Aural Player
 
-### Update (Sep 19, 2020)
+### Update (Feb 5, 2021)
 
-Version 3.0 is in active development and may come out later this year or early next year. New features and enhancements include:
+Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
 
-* A new visualizer (e.g Spectrogram, etc.).
-* Real-time playback (without transcoding) of non-native formats (eg. Vorbis, Opus, APE, etc).
-* Support for more non-native formats (eg. True Audio, TAK, RealAudio, etc).
-* A newly designed play queue and library with better organization and searching.
-* A new file system browser.
-* A new "Unified" interface, in addition to the existing modular interface.
+#### Doesn't work on macOS Big Sur
+
+Per my brief testing, Aural Player does not run at all on macOS Big Sur. It crashes immediately on startup. I have no clue how to fix it yet, and am not sure when I will return to working on this project. I apologize for this.
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
