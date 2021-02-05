@@ -70,7 +70,9 @@ NOTE - Future versions of Aural Player may make the app storage location configu
 
 ### Compatibility
 
-**User**: macOS 10.12 (Sierra) or later versions
+**User**: macOS 10.12 (Sierra) or later versions.
+
+NOTE - Aural Player currently seems to be incompatible with macOS Big Sur, and I don't have a fix ready.
 
 **Developer**: Swift 5 and XCode 11.
 
