@@ -2,6 +2,8 @@
 
 ### Update (Feb 5, 2021)
 
+#### Version 3.0 release delayed
+
 Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
 
 #### Doesn't work on macOS Big Sur
