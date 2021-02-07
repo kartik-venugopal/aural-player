@@ -53,8 +53,8 @@ class TickedSliderCell: HorizontalSliderCell {
 // Cell for pan slider
 class PanTickedSliderCell: TickedSliderCell {
     
-    override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 1.85}
+    override var barRadius: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 0}
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 2}
@@ -62,7 +62,7 @@ class PanTickedSliderCell: TickedSliderCell {
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
-        let offsetRect = aRect.offsetBy(dx: 0, dy: 0.25)
+        let offsetRect = aRect.offsetBy(dx: 0, dy: 0)
         
         var drawPath = NSBezierPath.init(roundedRect: offsetRect, xRadius: barRadius, yRadius: barRadius)
         backgroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
@@ -79,7 +79,12 @@ class PanTickedSliderCell: TickedSliderCell {
             
             let panRect = NSRect(x: panRectX, y: offsetRect.minY, width: panRectWidth, height: offsetRect.height)
             drawPath = NSBezierPath.init(roundedRect: panRect, xRadius: barRadius, yRadius: barRadius)
-            foregroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+            
+            if doubleValue > 0 {
+                foregroundGradient.draw(in: drawPath, angle: -UIConstants.horizontalGradientDegrees)
+            } else {
+                foregroundGradient.reversed().draw(in: drawPath, angle: -UIConstants.horizontalGradientDegrees)
+            }
         }
     }
     

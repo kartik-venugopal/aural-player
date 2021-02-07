@@ -63,8 +63,8 @@ class HorizontalSliderCell: NSSliderCell {
 // Cell for volume slider
 class VolumeSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 2}
+    override var barRadius: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 0}
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 2}
@@ -96,11 +96,11 @@ struct PlaybackLoopRange {
 // Cell for seek position slider
 class SeekSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 0}
-    override var barInsetY: CGFloat {return 2}
+    override var barRadius: CGFloat {return 1}
+    override var barInsetY: CGFloat {return 0}
     
-    override var knobRadius: CGFloat {return 1.5}
-    override var knobWidth: CGFloat {return 6}
+    override var knobRadius: CGFloat {return 1}
+    override var knobWidth: CGFloat {return 10}
     override var knobHeightOutsideBar: CGFloat {return 2}
     
     var loop: PlaybackLoopRange?
