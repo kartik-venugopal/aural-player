@@ -54,7 +54,7 @@ class TickedSliderCell: HorizontalSliderCell {
 class PanTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 0}
+    override var barInsetY: CGFloat {return 0.5}
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 2}
@@ -65,7 +65,7 @@ class PanTickedSliderCell: TickedSliderCell {
         let offsetRect = aRect.offsetBy(dx: 0, dy: 0)
         
         var drawPath = NSBezierPath.init(roundedRect: offsetRect, xRadius: barRadius, yRadius: barRadius)
-        backgroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        backgroundGradient.draw(in: drawPath, angle: UIConstants.horizontalGradientDegrees)
         
         drawTicks(aRect)
         

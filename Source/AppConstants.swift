@@ -137,17 +137,7 @@ struct AppConstants {
     
     struct FilesAndPaths {
         
-        static let baseDir: URL = {
-            
-            // In debugging environments on macOS Catalina, use a folder not protected by macOS security features.
-            // This is in order to avoid repeated annoying security prompts on every debug run.
-            if #available(macOS 10.15, *), ProcessInfo.processInfo.environment["DEBUG_MODE"] != nil {
-                return FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music/aural")).resolvedURL
-            }
-
-            // Default user's documents directory (where app state and log are written to)
-            return URL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true).first!).appendingPathComponent("aural", isDirectory: true)
-        }()
+        static let baseDir: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music/aural")).resolvedURL
         
         // App state/log files
         static let appStateFileName = "state.json"
