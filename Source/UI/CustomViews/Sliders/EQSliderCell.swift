@@ -46,7 +46,7 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     }
     
     override func barRect(flipped: Bool) -> NSRect {
-        return super.barRect(flipped: false)
+        return super.barRect(flipped: false).offsetBy(dx: SystemUtils.osVersion.majorVersion == 10 ? 0 : 3, dy: 0)
     }
     
     override internal func drawKnob(_ knobRect: NSRect) {

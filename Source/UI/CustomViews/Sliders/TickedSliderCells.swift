@@ -11,6 +11,12 @@ class TickedSliderCell: HorizontalSliderCell {
     var tickWidth: CGFloat {return 2}
     var tickColor: NSColor {return Colors.sliderNotchColor}
     
+    var osDependentYOffset: CGFloat {0}
+    
+    override func barRect(flipped: Bool) -> NSRect {
+        return super.barRect(flipped: flipped).offsetBy(dx: 0, dy: osDependentYOffset)
+    }
+    
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         super.drawBar(inside: aRect, flipped: flipped)
@@ -58,6 +64,10 @@ class PanTickedSliderCell: TickedSliderCell {
     override var knobWidth: CGFloat {return 6}
     override var knobRadius: CGFloat {return 1}
     override var knobHeightOutsideBar: CGFloat {return 2}
+    
+    override var osDependentYOffset: CGFloat {
+        SystemUtils.osVersion.majorVersion == 10 ? 0 : 2
+    }
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
@@ -140,6 +150,10 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     }
     
     var unitState: EffectsUnitState = .bypassed
+    
+    override var osDependentYOffset: CGFloat {
+        SystemUtils.osVersion.majorVersion == 10 ? 0 : -3
+    }
 }
 
 class EffectsTickedSliderPreviewCell: EffectsTickedSliderCell {

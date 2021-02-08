@@ -8,7 +8,7 @@ class FilterBandViewController: NSViewController {
     
     @IBOutlet weak var freqRangeSlider: FilterBandSlider!
     @IBOutlet weak var cutoffSlider: CutoffFrequencySlider!
-    @IBOutlet weak var cutoffSliderCell: CutoffFrequencySliderCell!
+    @IBOutlet weak var cutoffSliderCell: FilterCutoffFrequencySliderCell!
     
     @IBOutlet weak var lblRangeCaption: NSTextField!
     @IBOutlet weak var presetRangesMenu: NSPopUpButton!

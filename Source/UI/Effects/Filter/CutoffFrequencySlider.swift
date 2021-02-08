@@ -102,6 +102,11 @@ class CutoffFrequencySliderCell: EffectsTickedSliderCell {
     }
 }
 
+class FilterCutoffFrequencySliderCell: CutoffFrequencySliderCell {
+    
+    override var osDependentYOffset: CGFloat {0}
+}
+
 class CutoffFrequencySliderPreviewCell: CutoffFrequencySliderCell {
     
     override var knobColor: NSColor {
