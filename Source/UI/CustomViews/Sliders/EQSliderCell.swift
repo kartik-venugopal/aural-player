@@ -42,7 +42,7 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     // Force knobRect and barRect to NOT be flipped
     
     override func knobRect(flipped: Bool) -> NSRect {
-        return super.knobRect(flipped: false)
+        return super.knobRect(flipped: SystemUtils.osVersion.majorVersion == 10 ? false : true)
     }
     
     override func barRect(flipped: Bool) -> NSRect {

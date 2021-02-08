@@ -1221,8 +1221,8 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F3C25CEB98600BF0D07 /* TracksPlaylist */,
-				3E6C0F4125CEB98600BF0D07 /* Sort */,
 				3E6C0F4D25CEB98600BF0D07 /* GroupingPlaylists */,
+				3E6C0F4125CEB98600BF0D07 /* Sort */,
 				3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */,
 				3E6C0F5825CEB98600BF0D07 /* Playlist.xib */,
 				3E6C0F5925CEB98600BF0D07 /* Search */,
@@ -1623,21 +1623,21 @@
 		3E6C0FED25CEB98600BF0D07 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C100925CEB98600BF0D07 /* Effects.xib */,
+				3E6C100525CEB98600BF0D07 /* Master */,
+				3E6C0FF725CEB98600BF0D07 /* EQ */,
 				3E6C0FEE25CEB98600BF0D07 /* Pitch */,
+				3E6C100125CEB98600BF0D07 /* Time */,
+				3E6C0FFD25CEB98600BF0D07 /* Reverb */,
+				3E6C101525CEB98600BF0D07 /* Delay */,
+				3E6C100D25CEB98600BF0D07 /* Filter */,
+				3E6C100A25CEB98600BF0D07 /* Recorder */,
 				3E6C0FF225CEB98600BF0D07 /* EffectsViewPopupMenuController.swift */,
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
 				3E6C0FF425CEB98600BF0D07 /* EffectsViewState.swift */,
 				3E6C0FF525CEB98600BF0D07 /* FXUnitViewController.swift */,
 				3E6C0FF625CEB98600BF0D07 /* EffectsUnitView.swift */,
-				3E6C0FF725CEB98600BF0D07 /* EQ */,
 				3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */,
-				3E6C0FFD25CEB98600BF0D07 /* Reverb */,
-				3E6C100125CEB98600BF0D07 /* Time */,
-				3E6C100525CEB98600BF0D07 /* Master */,
-				3E6C100925CEB98600BF0D07 /* Effects.xib */,
-				3E6C100A25CEB98600BF0D07 /* Recorder */,
-				3E6C100D25CEB98600BF0D07 /* Filter */,
-				3E6C101525CEB98600BF0D07 /* Delay */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -1655,9 +1655,9 @@
 		3E6C0FF725CEB98600BF0D07 /* EQ */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0FFA25CEB98600BF0D07 /* EQ.xib */,
 				3E6C0FF825CEB98600BF0D07 /* EQViewController.swift */,
 				3E6C0FF925CEB98600BF0D07 /* EQView.swift */,
-				3E6C0FFA25CEB98600BF0D07 /* EQ.xib */,
 				3E6C0FFB25CEB98600BF0D07 /* EQSubview.swift */,
 			);
 			path = EQ;
