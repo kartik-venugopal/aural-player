@@ -66,7 +66,7 @@ class PanTickedSliderCell: TickedSliderCell {
     override var knobHeightOutsideBar: CGFloat {return 2}
     
     override var osDependentYOffset: CGFloat {
-        SystemUtils.osVersion.majorVersion == 10 ? 0 : 2
+        SystemUtils.osVersion.majorVersion == 10 ? 0 : -3
     }
     
     // Draw entire bar with single gradient
