@@ -14,9 +14,9 @@ UPDATE - If you'd like to try out a working development build on Big Sur, please
 
 If someone is able to get the v2.2.0 app bundle working on Big Sur, I'd appreciate you letting me know !
 
-#### Doesn't seem to work on Macs with the M1 chip (or perhaps related to the Big Sur issue)
+#### May not work on Macs with the M1 chip (or perhaps related to the Big Sur issue) ... unknown ???
 
-One user reported that Aural doesn't work on their M1 Macbook Air. Now, I don't have access to any M1 hardware, so I will not be able to troubleshoot/support for M1 Macs. Sorry :(
+One user reported that Aural v2.2.0 doesn't work on their M1 Macbook Air. Now, I don't have access to any M1 hardware, so I will not be able to troubleshoot/support specifically for M1 Macs. Sorry :(
 
 NOTE - It is uncertain whether it's a compatibility issue with the M1 chip because Aural doesn't work on Intel Macs running Big Sur (yet). Maybe Aural works on M1 Macs running Catalina. But all M1 Macs run Big Sur currently, so it cannot be tested.
 
