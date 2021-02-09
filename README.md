@@ -10,7 +10,7 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
 
 Per my brief testing, the latest version of Aural Player (v2.2.0) does not run at all on an Intel Mac running macOS Big Sur. It crashes immediately on startup. I'm currently working on a fix to get it working on Big Sur. I will try to release this fix some time later this month or next month.
 
-If someone is able to get it working on Big Sur, I'd appreciate you letting me know !
+If someone is able to get the v2.2.0 app bundle working on Big Sur, I'd appreciate you letting me know !
 
 #### Doesn't seem to work on Macs with the M1 chip (or perhaps related to the Big Sur issue)
 
