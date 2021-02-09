@@ -8,7 +8,11 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
 
 #### Doesn't work on macOS Big Sur (yet)
 
-Per my brief testing, the latest version of Aural Player (v2.2.0) does not run at all on macOS Big Sur. It crashes immediately on startup. I'm currently working on a fix to get it working on Big Sur. I may release this fix some time later this month.
+Per my brief testing, the latest version of Aural Player (v2.2.0) does not run at all on macOS Big Sur. It crashes immediately on startup. I'm currently working on a fix to get it working on Big Sur. I will try to release this fix some time later this month or next month.
+
+#### Doesn't seem to work on Macs with the M1 chip
+
+One user reported that Aural doesn't work on their M1 Macbook Air. Now, I don't have access to any M1 hardware, so I will not be able to troubleshoot/support for M1 Macs. Sorry :(
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
