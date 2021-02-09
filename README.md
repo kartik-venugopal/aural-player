@@ -53,7 +53,7 @@ NOTE - The documentation is incomplete and is a work in progress.
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 ### For macOS Big Sur
-No releases yet, but a working development build is available [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev).
+No stable releases yet, but a working development build is available [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev). Stable release (hopefully) coming soon.
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
