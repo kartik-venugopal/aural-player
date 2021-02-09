@@ -10,7 +10,7 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
 
 Per my brief testing, the latest *release* version of Aural Player (v2.2.0) does not run at all on macOS Big Sur.
 
-But, I have a working development build that runs on Big Sur; please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this release has minor UI issues, but is generally functional. I will try to get a stable release out later this month or next month.
+But, I have a working development build that runs on Big Sur; please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this pre-release build has minor UI issues, but is generally functional. I will try to get a stable release out later this month or next month.
 
 PS - If someone is able to get the v2.2.0 app bundle working on Big Sur, I'd appreciate you letting me know !
 
