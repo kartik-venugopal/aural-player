@@ -118,9 +118,9 @@ NOTE - I don't have a release version ready for macOS Big Sur, but if you'd like
 
 ## Known issues
 
-### Bad audio quality when using Bluetooth headphones
+### Bad audio quality when plugging in Bluetooth headphones
 
-If you notice poor audio quality when using Bluetooth headphones, try the following:
+If you notice poor audio quality when you first plug in Bluetooth headphones, try the following:
 
 **Fix# 1 - Set your system's input device to the built-in device**
 
