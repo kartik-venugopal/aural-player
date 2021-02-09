@@ -10,6 +10,8 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
 
 Per my brief testing, the latest version of Aural Player (v2.2.0) does not run at all on an Intel Mac running macOS Big Sur. It crashes immediately on startup. I'm currently working on a fix to get it working on Big Sur. I will try to release this fix some time later this month or next month.
 
+UPDATE - If you'd like to try out a working development build on Big Sur, please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this release has minor UI issues, but is generally functional.
+
 If someone is able to get the v2.2.0 app bundle working on Big Sur, I'd appreciate you letting me know !
 
 #### Doesn't seem to work on Macs with the M1 chip (or perhaps related to the Big Sur issue)
@@ -53,7 +55,11 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ## Download
 
+### For macOS versions older than Big Sur
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
+
+### For macOS Big Sur
+No releases yet, but a working development build is available [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
@@ -80,11 +86,11 @@ NOTE - Future versions of Aural Player may make the app storage location configu
 
 ### Compatibility
 
-**User**: macOS 10.12 (Sierra) or later versions.
+**User**: macOS 10.12 (Sierra) or later versions (read note for macOS Big Sur below).
 
-NOTE - Aural Player currently seems to be incompatible with macOS Big Sur, and I don't have a fix ready.
+NOTE - I don't have a release version ready for macOS Big Sur, but if you'd like to try out a working development build on Big Sur, please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this release has minor UI issues, but is generally functional.
 
-**Developer**: Swift 5 and XCode 11.
+**Developer**: Swift 5 and XCode 12.
 
 ### Enabling media keys support (optional)
 
