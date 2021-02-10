@@ -6,9 +6,13 @@
 
 Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
 
-#### Doesn't work on macOS Big Sur
+#### Note for macOS Big Sur
 
-Per my brief testing, Aural Player does not run at all on macOS Big Sur. It crashes immediately on startup. I have no clue how to fix it yet, and am not sure when I will return to working on this project. I apologize for this.
+Per my brief testing, the latest *release* version of Aural Player (v2.2.0) does not run at all on macOS Big Sur.
+
+But, I have a working development build that runs on Big Sur; please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this pre-release build has minor UI issues, but is generally functional. I will try to get a stable release out later this month or next month.
+
+PS - If someone is able to get the v2.2.0 app bundle working on Big Sur, I'd appreciate you letting me know !
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
@@ -31,7 +35,7 @@ Per my brief testing, Aural Player does not run at all on macOS Big Sur. It cras
 Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and customizable, with some sound tuning capabilities for audio enthusiasts.
 
 #### Goals:
-* To have a simple drag-drop-play player for the music collection on your local hard drive(s), that requires no configuration out of the box, although plenty of customization/configuration is possible.
+* To have a simple drag-drop-play player for the music collection on your local drives, that requires no configuration out of the box, although plenty of customization/configuration is possible.
 * To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
 * To have a decent macOS alternative for Winamp.
 
@@ -45,7 +49,11 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ## Download
 
+### For macOS versions older than Big Sur
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
+
+### For macOS Big Sur
+No stable releases yet, but a working development build is available [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev). Stable release (hopefully) coming soon.
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
@@ -72,11 +80,11 @@ NOTE - Future versions of Aural Player may make the app storage location configu
 
 ### Compatibility
 
-**User**: macOS 10.12 (Sierra) or later versions.
+**User**: macOS 10.12 (Sierra) or later versions (read note for macOS Big Sur below).
 
-NOTE - Aural Player currently seems to be incompatible with macOS Big Sur, and I don't have a fix ready.
+NOTE - I don't have a release version ready for macOS Big Sur, but if you'd like to try out a working development build on Big Sur, please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this release has minor UI issues, but is generally functional.
 
-**Developer**: Swift 5 and XCode 11.
+**Developer**: Swift 5 and XCode 12.
 
 ### Enabling media keys support (optional)
 
@@ -110,9 +118,9 @@ NOTE - Aural Player currently seems to be incompatible with macOS Big Sur, and I
 
 ## Known issues
 
-### Bad audio quality when using Bluetooth headphones
+### Bad audio quality when plugging in Bluetooth headphones
 
-If you notice poor audio quality when using Bluetooth headphones, try the following:
+If you notice poor audio quality when you first plug in Bluetooth headphones, try the following:
 
 **Fix# 1 - Set your system's input device to the built-in device**
 
