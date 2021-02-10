@@ -131,9 +131,9 @@
                         </userDefinedRuntimeAttributes>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ip-H9-wbf" userLabel="Toggle box 1">
-                        <rect key="frame" x="22" y="311" width="160" height="20"/>
+                        <rect key="frame" x="22" y="311" width="160" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="Before track plays" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="EjZ-sN-6BO">
+                        <buttonCell key="cell" type="check" title="Before track plays" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EjZ-sN-6BO">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>
@@ -193,9 +193,9 @@
                         </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eYc-vm-O5r" userLabel="Toggle box 2">
-                        <rect key="frame" x="22" y="165" width="170" height="20"/>
+                        <rect key="frame" x="22" y="162" width="169" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="check" title="After track plays" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="00h-ZT-nNG">
+                        <buttonCell key="cell" type="check" title="After track plays" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="00h-ZT-nNG">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="13" name="Play-Regular"/>
                         </buttonCell>

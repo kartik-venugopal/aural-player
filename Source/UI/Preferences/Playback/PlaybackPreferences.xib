@@ -88,15 +88,6 @@
                                             <action selector="autoplayAfterAddingRadioButtonAction:" target="Uko-LS-fAN" id="bUF-hx-hXC"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q4q-ps-2EU" userLabel="Insert gap">
-                                        <rect key="frame" x="45" y="64" width="268" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Insert a silent gap between tracks" id="9i3-mL-qv9">
-                                            <font key="font" size="13" name="Play-Regular"/>
-                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9eN-Ud-3NT" userLabel="Secondary Seek % Label">
                                         <rect key="frame" x="468" y="335" width="40" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -360,9 +351,9 @@
                                         </connections>
                                     </stepper>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1l-lM-mep">
-                                        <rect key="frame" x="25" y="62" width="293" height="20"/>
+                                        <rect key="frame" x="25" y="67" width="293" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="8xp-y5-tyP">
+                                        <buttonCell key="cell" type="check" title="Insert a silent gap between tracks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8xp-y5-tyP">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="13" name="Play-Regular"/>
                                         </buttonCell>
