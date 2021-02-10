@@ -194,7 +194,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RAh-7u-OwD" userLabel="Media key response">
-                    <rect key="frame" x="17" y="429" width="226" height="25"/>
+                    <rect key="frame" x="16" y="428" width="227" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Respond to media keys" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="a1U-qL-Hru">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -209,7 +209,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Seeking only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gj0-ry-JO1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="skipKeyBehaviorAction:" target="-2" id="2Es-ls-lfp"/>
@@ -220,7 +220,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Track changes only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rMT-Sx-IjD">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="skipKeyBehaviorAction:" target="-2" id="kTk-7i-Lga"/>
@@ -231,7 +231,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Press to change tracks, press and hold to seek" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="FnW-cL-NUx">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="skipKeyBehaviorAction:" target="-2" id="9H7-bY-lqg"/>
