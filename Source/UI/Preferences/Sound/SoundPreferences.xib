@@ -75,7 +75,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8Y-mu-4NB" userLabel="Volume Increment Field">
-                    <rect key="frame" x="613" y="305" width="40" height="20"/>
+                    <rect key="frame" x="613" y="305" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5%" id="Bos-7D-fxE">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="yaJ-bf-NOR">
@@ -88,7 +88,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fH7-I4-NvB" userLabel="Volume Increment Stepper">
-                    <rect key="frame" x="653" y="306" width="15" height="22"/>
+                    <rect key="frame" x="653" y="303" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="9M5-do-Kcy"/>
                     <connections>
@@ -96,7 +96,7 @@
                     </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73W-yJ-QHa" userLabel="Volume on startup Label">
-                    <rect key="frame" x="18" y="307" width="144" height="20"/>
+                    <rect key="frame" x="18" y="307" width="196" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume on app startup" id="9eu-6m-iQS">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -127,7 +127,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Jo-NAm" userLabel="Startup Volume Field">
-                    <rect key="frame" x="313" y="264" width="40" height="20"/>
+                    <rect key="frame" x="313" y="263" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" state="on" alignment="right" title="50%" id="2bU-2S-WcG">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="pCw-0G-sGB">
@@ -149,7 +149,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbm-7J-t6p" userLabel="Pan Delta Field">
-                    <rect key="frame" x="613" y="276" width="40" height="20"/>
+                    <rect key="frame" x="613" y="276" width="40" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="GcH-LX-E4h">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="dbE-da-bit">
@@ -162,7 +162,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ff-Ne-aOf" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="653" y="278" width="15" height="22"/>
+                    <rect key="frame" x="653" y="274" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="XvN-Mz-6h3"/>
                     <connections>
@@ -170,7 +170,7 @@
                     </connections>
                 </stepper>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cBh-5a-sGE" userLabel="Pan Delta Field">
-                    <rect key="frame" x="577" y="173" width="76" height="20"/>
+                    <rect key="frame" x="577" y="173" width="76" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="100 cents" id="Ak5-LK-kXa">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Xvz-O1-T1i">
@@ -183,7 +183,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="87x-lR-h9b" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="653" y="174" width="15" height="22"/>
+                    <rect key="frame" x="653" y="171" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="5" minValue="5" maxValue="2400" doubleValue="100" id="4cU-Q8-O9g"/>
                     <connections>
@@ -200,7 +200,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBe-ZM-Kwc">
-                    <rect key="frame" x="29" y="85" width="371" height="20"/>
+                    <rect key="frame" x="29" y="86" width="371" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Remember and apply all sound settings last used for the track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="e0v-Gn-fQK">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -211,7 +211,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-mY-wbQ">
-                    <rect key="frame" x="56" y="43" width="213" height="20"/>
+                    <rect key="frame" x="56" y="44" width="213" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="dK2-pD-7s0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -222,7 +222,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVf-sh-3eM" userLabel="For individual tracks">
-                    <rect key="frame" x="56" y="63" width="354" height="20"/>
+                    <rect key="frame" x="56" y="64" width="354" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Sound menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="bEt-OS-mc6">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -251,7 +251,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Olr-u5-HZY" userLabel="Pan Delta Field">
-                    <rect key="frame" x="606" y="142" width="47" height="20"/>
+                    <rect key="frame" x="606" y="142" width="47" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="0.05x" id="J2O-Tp-4as">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="aog-Ng-Kr1">
@@ -264,7 +264,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w86-tN-oiq" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="653" y="143" width="15" height="22"/>
+                    <rect key="frame" x="653" y="140" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="0.01" minValue="0.01" maxValue="1" doubleValue="0.050000000000000003" id="VD6-El-Gyk"/>
                     <connections>
@@ -281,7 +281,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RmF-6a-wok" userLabel="Pan Delta Field">
-                    <rect key="frame" x="589" y="206" width="64" height="20"/>
+                    <rect key="frame" x="589" y="204" width="64" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="1 dB" id="7mt-G0-azH">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="T9s-uS-EAW">
@@ -294,7 +294,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KNB-aq-OlW" userLabel="Pan Delta Stepper">
-                    <rect key="frame" x="653" y="207" width="15" height="22"/>
+                    <rect key="frame" x="653" y="202" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="0.10000000000000001" minValue="0.10000000000000001" maxValue="5" doubleValue="1" id="PXj-zO-9jj"/>
                     <connections>
@@ -311,7 +311,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9mN-NX-HGu">
-                    <rect key="frame" x="30" y="415" width="248" height="20"/>
+                    <rect key="frame" x="30" y="416" width="248" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Use system device" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="wyL-s8-Y7J">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -322,7 +322,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hiy-yg-h9M">
-                    <rect key="frame" x="30" y="396" width="369" height="20"/>
+                    <rect key="frame" x="30" y="397" width="369" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember device from last app launch (if available)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="xMu-Pn-9ge">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -342,7 +342,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BC5-pf-jU7">
-                    <rect key="frame" x="30" y="184" width="304" height="20"/>
+                    <rect key="frame" x="30" y="185" width="304" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember effects settings from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="PJh-13-Anb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -353,7 +353,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HfS-ug-1LJ">
-                    <rect key="frame" x="30" y="165" width="130" height="20"/>
+                    <rect key="frame" x="30" y="166" width="130" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Apply Master preset:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gdc-dg-UUG">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
