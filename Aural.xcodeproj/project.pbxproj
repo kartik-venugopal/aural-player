@@ -13,7 +13,6 @@
 		3E6C115625CEB9C200BF0D07 /* AlegreyaSansSC-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114B25CEB9C100BF0D07 /* AlegreyaSansSC-Medium.ttf */; };
 		3E6C115725CEB9C200BF0D07 /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114E25CEB9C100BF0D07 /* ffmpeg */; };
 		3E6C115825CEB9C200BF0D07 /* build-ffmpeg.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */; };
-		3E6C115925CEB9C200BF0D07 /* ffmpeg-sourceCode.bz2 in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115025CEB9C100BF0D07 /* ffmpeg-sourceCode.bz2 */; };
 		3E6C115A25CEB9C200BF0D07 /* ffprobe in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115125CEB9C100BF0D07 /* ffprobe */; };
 		3E6C115B25CEB9C200BF0D07 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115225CEB9C100BF0D07 /* README.txt */; };
 		3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115325CEB9C100BF0D07 /* Assets.xcassets */; };
@@ -1218,12 +1217,12 @@
 		3E6C0F3B25CEB98600BF0D07 /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0F5825CEB98600BF0D07 /* Playlist.xib */,
 				3E6C0F3C25CEB98600BF0D07 /* TracksPlaylist */,
 				3E6C0F4D25CEB98600BF0D07 /* GroupingPlaylists */,
+				3E6C0F5925CEB98600BF0D07 /* Search */,
 				3E6C0F4125CEB98600BF0D07 /* Sort */,
 				3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */,
-				3E6C0F5825CEB98600BF0D07 /* Playlist.xib */,
-				3E6C0F5925CEB98600BF0D07 /* Search */,
 				3E6C0F5C25CEB98600BF0D07 /* AuralPlaylistViews.swift */,
 				3E6C0F5D25CEB98600BF0D07 /* GroupingPlaylistTableViews.swift */,
 				3E6C0F5E25CEB98600BF0D07 /* PlaylistContextMenuController.swift */,
@@ -1260,14 +1259,14 @@
 		3E6C0F4325CEB98600BF0D07 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0F4A25CEB98600BF0D07 /* TracksPlaylistSort.xib */,
+				3E6C0F4725CEB98600BF0D07 /* ArtistsPlaylistSort.xib */,
+				3E6C0F4B25CEB98600BF0D07 /* AlbumsPlaylistSort.xib */,
+				3E6C0F4625CEB98600BF0D07 /* GenresPlaylistSort.xib */,
 				3E6C0F4425CEB98600BF0D07 /* ArtistsPlaylistSortViewController.swift */,
 				3E6C0F4525CEB98600BF0D07 /* GenresPlaylistSortViewController.swift */,
-				3E6C0F4625CEB98600BF0D07 /* GenresPlaylistSort.xib */,
-				3E6C0F4725CEB98600BF0D07 /* ArtistsPlaylistSort.xib */,
 				3E6C0F4825CEB98600BF0D07 /* TracksPlaylistSortViewController.swift */,
 				3E6C0F4925CEB98600BF0D07 /* AlbumsPlaylistSortViewController.swift */,
-				3E6C0F4A25CEB98600BF0D07 /* TracksPlaylistSort.xib */,
-				3E6C0F4B25CEB98600BF0D07 /* AlbumsPlaylistSort.xib */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -2445,7 +2444,6 @@
 				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
 				3E6C12E025CEBE8100BF0D07 /* DelayedPlaybackEditorDialog.xib in Resources */,
-				3E6C115925CEB9C200BF0D07 /* ffmpeg-sourceCode.bz2 in Resources */,
 				3E6C126025CEBE0600BF0D07 /* EditorWindow.xib in Resources */,
 				3E6C12D925CEBE8100BF0D07 /* Filter.xib in Resources */,
 				3E6C127A25CEBE1800BF0D07 /* ColorSchemes.xib in Resources */,
@@ -3058,12 +3056,14 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2.3.0_dev;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 2.3.0_dev;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -3078,12 +3078,14 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2.3.0_dev;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MARKETING_VERSION = 2.3.0_dev;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

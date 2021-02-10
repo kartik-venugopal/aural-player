@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +31,7 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="383" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" wantsLayer="YES" id="kqR-d7-kUd">
                 <rect key="frame" x="0.0" y="0.0" width="383" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -71,7 +72,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhS-Ea-x2G" userLabel="Case Sensitive">
                                     <rect key="frame" x="251" y="59" width="99" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Case sensitive" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7CW-Y3-1om" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="check" title="Case sensitive" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="7CW-Y3-1om">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -100,7 +101,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sel-YQ-xey" userLabel="Equals">
                                     <rect key="frame" x="137" y="42" width="79" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="radio" title="Equals" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="FFf-DG-tGg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="radio" title="Equals" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="FFf-DG-tGg">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -111,7 +112,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KRq-Ug-oPl" userLabel="Contains">
                                     <rect key="frame" x="137" y="59" width="79" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="radio" title="Contains" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" state="on" inset="2" id="YEm-i1-zBz" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="radio" title="Contains" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" state="on" inset="2" id="YEm-i1-zBz">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -122,7 +123,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DBk-ZA-FYA" userLabel="Begins with">
                                     <rect key="frame" x="137" y="25" width="91" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="radio" title="Begins with" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="Wot-YK-G8l" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="radio" title="Begins with" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="Wot-YK-G8l">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -133,7 +134,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Ai-F3-vec" userLabel="Ends with">
                                     <rect key="frame" x="137" y="8" width="91" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="radio" title="Ends with" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="yrV-uR-0PJ" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="radio" title="Ends with" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" inset="2" id="yrV-uR-0PJ">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -144,7 +145,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Id-TW-Vq3" userLabel="Name field">
                                     <rect key="frame" x="5" y="59" width="121" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Name / filename" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="z4N-z4-L1n" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="check" title="Name / filename" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="z4N-z4-L1n">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -155,7 +156,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I8h-tD-YQw" userLabel="Artist field">
                                     <rect key="frame" x="5" y="42" width="121" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Artist (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="G3q-RG-u6d" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="check" title="Artist (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="G3q-RG-u6d">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -166,7 +167,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uuB-zu-8aq" userLabel="Title field">
                                     <rect key="frame" x="5" y="25" width="121" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Title (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="hDc-LV-4SB" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="check" title="Title (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="hDc-LV-4SB">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -177,7 +178,7 @@
                                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ehl-oq-GJK" userLabel="Album field">
                                     <rect key="frame" x="5" y="8" width="121" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="check" title="Album (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="VSu-m2-17D" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                    <buttonCell key="cell" type="check" title="Album (if available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="VSu-m2-17D">
                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                         <font key="font" size="11" name="Play-Regular"/>
                                     </buttonCell>
@@ -229,7 +230,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="roundRect" title="&lt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="swf-Dj-1UU" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="previousSearchAction:" target="-2" id="KQV-9c-Ptk"/>
@@ -240,7 +241,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="roundRect" title="&gt;" bezelStyle="roundedRect" alignment="center" borderStyle="border" inset="2" id="3F3-LX-Sr9" customClass="ColoredNavigationButtonCell" customModule="Aural" customModuleProvider="target">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="label" size="12"/>
+                                        <font key="font" metaFont="cellTitle"/>
                                     </buttonCell>
                                     <connections>
                                         <action selector="nextSearchAction:" target="-2" id="C3B-TA-R08"/>
