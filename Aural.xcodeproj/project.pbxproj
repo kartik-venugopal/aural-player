@@ -1146,14 +1146,14 @@
 		3E6C0F2425CEB98500BF0D07 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0F2C25CEB98500BF0D07 /* Preferences.xib */,
 				3E6C0F2525CEB98500BF0D07 /* Playlist */,
+				3E6C0F2D25CEB98500BF0D07 /* Playback */,
+				3E6C0F3825CEB98600BF0D07 /* Sound */,
+				3E6C0F3525CEB98600BF0D07 /* View */,
+				3E6C0F3225CEB98500BF0D07 /* History */,
 				3E6C0F2825CEB98500BF0D07 /* Controls */,
 				3E6C0F2B25CEB98500BF0D07 /* PreferencesWindowController.swift */,
-				3E6C0F2C25CEB98500BF0D07 /* Preferences.xib */,
-				3E6C0F2D25CEB98500BF0D07 /* Playback */,
-				3E6C0F3225CEB98500BF0D07 /* History */,
-				3E6C0F3525CEB98600BF0D07 /* View */,
-				3E6C0F3825CEB98600BF0D07 /* Sound */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -1190,8 +1190,8 @@
 		3E6C0F3225CEB98500BF0D07 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F3325CEB98600BF0D07 /* HistoryPreferencesViewController.swift */,
 				3E6C0F3425CEB98600BF0D07 /* HistoryPreferences.xib */,
+				3E6C0F3325CEB98600BF0D07 /* HistoryPreferencesViewController.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1780,8 +1780,8 @@
 		3E6C102A25CEB98600BF0D07 /* Gaps */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C102B25CEB98600BF0D07 /* GapsEditorWindowController.swift */,
 				3E6C102C25CEB98600BF0D07 /* GapsEditorDialog.xib */,
+				3E6C102B25CEB98600BF0D07 /* GapsEditorWindowController.swift */,
 			);
 			path = Gaps;
 			sourceTree = "<group>";
@@ -1846,8 +1846,8 @@
 		3E6C104C25CEB98600BF0D07 /* JumpToTime */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C104D25CEB98600BF0D07 /* JumpToTimeEditorWindowController.swift */,
 				3E6C104E25CEB98600BF0D07 /* JumpToTimeEditorDialog.xib */,
+				3E6C104D25CEB98600BF0D07 /* JumpToTimeEditorWindowController.swift */,
 			);
 			path = JumpToTime;
 			sourceTree = "<group>";
