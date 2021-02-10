@@ -160,7 +160,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMd-rA-qI4">
-                                            <rect key="frame" x="24" y="7" width="91" height="18"/>
+                                            <rect key="frame" x="28" y="7" width="91" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Shift pitch" id="8kJ-1d-cF3">
                                                 <font key="font" size="11" name="Play-Regular"/>
@@ -201,11 +201,11 @@
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAb-B7-V4R" userLabel="Shift Pitch">
-                                            <rect key="frame" x="9" y="4" width="122" height="27"/>
+                                            <rect key="frame" x="7" y="3" width="124" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title=" Shift pitch" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" state="on" inset="2" id="eWD-DA-VzS">
+                                            <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="eWD-DA-VzS">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" size="11" name="Play-Regular"/>
+                                                <font key="font" metaFont="system"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDs-4W-f2g" userLabel="Pitch shift value">
