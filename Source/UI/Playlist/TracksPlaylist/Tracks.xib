@@ -35,7 +35,7 @@
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn identifier="cid_Index" editable="NO" width="35" minWidth="35" maxWidth="50" id="jKd-hl-wqD">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Index">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Index">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -50,16 +50,24 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSC-GP-VQk" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="25"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="CYN-3o-XKG" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                                            <font key="font" usesAppearanceFont="YES"/>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qSC-GP-VQk" userLabel="Index TextField" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="-2" y="0.0" width="39" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="sTr-eJ-hsO"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="CYN-3o-XKG" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" size="12" name="Play-Regular"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="qSC-GP-VQk" firstAttribute="leading" secondItem="9Lt-gx-kH6" secondAttribute="leading" id="0e8-fa-dDY"/>
+                                                    <constraint firstItem="qSC-GP-VQk" firstAttribute="bottom" secondItem="9Lt-gx-kH6" secondAttribute="bottom" id="MR7-n6-2rZ"/>
+                                                    <constraint firstItem="qSC-GP-VQk" firstAttribute="top" secondItem="9Lt-gx-kH6" secondAttribute="top" id="qiD-7K-ayu"/>
+                                                    <constraint firstItem="qSC-GP-VQk" firstAttribute="trailing" secondItem="9Lt-gx-kH6" secondAttribute="trailing" id="xha-io-xuU"/>
+                                                </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="qSC-GP-VQk" id="EIT-S7-NOW"/>
                                                 </connections>
