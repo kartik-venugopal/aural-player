@@ -85,7 +85,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn editable="NO" width="405" minWidth="370" maxWidth="10000" id="VZ4-Ua-rT2">
+                                    <tableColumn identifier="cid_Name" editable="NO" width="405" minWidth="370" maxWidth="10000" id="VZ4-Ua-rT2">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Track Name">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -97,14 +97,14 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="XOV-2U-gj8">
-                                                <rect key="frame" x="41" y="0.0" width="405" height="17"/>
+                                            <tableCellView id="XOV-2U-gj8" customClass="TrackNameCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="41" y="0.0" width="405" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Op4-Yf-N9h">
-                                                        <rect key="frame" x="0.0" y="0.0" width="405" height="16"/>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Op4-Yf-N9h" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="405" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="FRB-aT-g7U">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="FRB-aT-g7U" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
