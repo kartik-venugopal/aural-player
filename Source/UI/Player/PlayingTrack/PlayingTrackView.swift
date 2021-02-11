@@ -37,7 +37,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         setUpMouseTracking()
     }
     
-    // This is required when the player view was hidden and is now shown (eg. after waiting or transcoding).
+    // This is required when the player view was hidden and is now shown (eg. after transcoding).
     func showView() {
         
         setUpMouseTracking()
@@ -46,7 +46,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         self.show()
     }
     
-    // This is required when the player view is hidden (eg. when waiting or transcoding).
+    // This is required when the player view is hidden (eg. when transcoding).
     func hideView() {
         
         self.hide()

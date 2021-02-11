@@ -86,23 +86,6 @@ struct Fonts {
             }
         }
         
-        private static let gapCaptionFont_normal: NSFont = Constants.mainFont_14
-        private static let gapCaptionFont_larger: NSFont = Constants.mainFont_15
-        private static let gapCaptionFont_largest: NSFont = Constants.mainFont_16
-        
-        static var gapCaptionFont: NSFont {
-            
-            switch PlayerViewState.textSize {
-                
-            case .normal: return gapCaptionFont_normal
-                
-            case .larger: return gapCaptionFont_larger
-                
-            case .largest: return gapCaptionFont_largest
-                
-            }
-        }
-        
         private static let infoBoxArtistAlbumFont_normal: NSFont = Constants.mainFont_14
         private static let infoBoxArtistAlbumFont_larger: NSFont = Constants.mainFont_16
         private static let infoBoxArtistAlbumFont_largest: NSFont = Constants.mainFont_18

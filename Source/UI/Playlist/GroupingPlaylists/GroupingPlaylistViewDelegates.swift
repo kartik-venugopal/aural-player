@@ -28,25 +28,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Determines the height of a single row
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         
-        if let track = item as? Track {
-
-            let gapAfterTrack = playlist.getGapAfterTrack(track) != nil
-            let gapBeforeTrack = playlist.getGapBeforeTrack(track) != nil
-
-            if gapAfterTrack && gapBeforeTrack {
-                return 62
-                
-            } else if gapAfterTrack || gapBeforeTrack {
-                return 44
-            }
-
-            return 26
-
-        } else {
-
-            // Group
-            return 28
-        }
+        // Track or group
+        return item is Track ? 26 : 28
     }
     
     // Returns a view for a single column
@@ -97,10 +80,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             image = track == playbackInfo.playingTrack ? Images.imgPlayingTrack : nil
             
-        case .waiting:
-            
-            image = track == playbackInfo.waitingTrack ? Images.imgWaitingTrack : nil
-            
         case .transcoding:
             
             image = track == playbackInfo.transcodingTrack ? Images.imgTranscodingTrack : nil
@@ -111,12 +90,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         }
         
         cell.imageView?.image = image?.applyingTint(Colors.Playlist.playingTrackIconColor)
-        
-        let gapAfter = playlist.getGapAfterTrack(track)
-        let gapBefore = playlist.getGapBeforeTrack(track)
-        
-        cell.gapImage = AuralPlaylistOutlineView.cachedGapImage
-        cell.updateForGaps(gapBefore != nil, gapAfter != nil)
         
         return cell
     }
@@ -131,11 +104,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
         cell.updateText(Fonts.Playlist.indexFont, ValueFormatter.formatSecondsToHMS(track.duration))
-        
-        let gapAfter = playlist.getGapAfterTrack(track)
-        let gapBefore = playlist.getGapBeforeTrack(track)
-        
-        cell.updateForGaps(gapBefore != nil, gapAfter != nil, gapBefore?.duration, gapAfter?.duration)
         
         return cell
     }
@@ -153,8 +121,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.updateText(Fonts.Playlist.groupNameFont, String(format: "%@ (%d)", group.name, group.size))
         cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
-        cell.updateForGaps(false, false)
-        
         return cell
     }
     
@@ -168,7 +134,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
         
         cell.updateText(Fonts.Playlist.groupDurationFont, ValueFormatter.formatSecondsToHMS(group.duration))
-        cell.updateForGaps(false, false)
         
         return cell
     }

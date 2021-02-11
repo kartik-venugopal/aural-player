@@ -78,8 +78,6 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameTextColor() {
         
         ColorSchemes.systemScheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
-        AuralPlaylistOutlineView.changeGapIndicatorColor(trackNameTextColorPicker.color)
-        
         Messenger.publish(.playlist_changeTrackNameTextColor, payload: trackNameTextColorPicker.color)
     }
     

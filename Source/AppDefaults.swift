@@ -45,8 +45,4 @@ struct AppDefaults {
     static let filterBandMaxFreq: Float = AppConstants.Sound.subBass_max
     
     static let lastTrackPosition: Double = 0
-    
-    static let playbackGapDuration: Double = 5
-    static let playbackGapPosition: PlaybackGapPosition = .afterTrack
-    static let playbackGapType: PlaybackGapType = .persistent
 }

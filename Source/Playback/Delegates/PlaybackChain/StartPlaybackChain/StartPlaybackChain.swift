@@ -21,7 +21,6 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
         .withAction(HaltPlaybackAction(player))
         .withAction(ValidateNewTrackAction())
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
-        .withAction(SetPlaybackDelayAction(playlist))
         .withAction(AudioFilePreparationAction(player, transcoder))
         .withAction(StartPlaybackAction(player))
         
@@ -47,12 +46,12 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
         // Match the transcoded track to that from the deferred (i.e. current) request context.
         if let currentContext = PlaybackRequestContext.currentContext, notification.track == currentContext.requestedTrack {
 
-            // Make sure there is no delay (i.e. state != waiting) before proceeding.
-            if player.state != .waiting && notification.success {
+            // Proceed with playback if transcoding was successful.
+            if notification.success {
 
                 proceed(currentContext)
                 
-            } else if !notification.success, let error = notification.track.lazyLoadingInfo.preparationError {
+            } else if let error = notification.track.lazyLoadingInfo.preparationError {
                 
                 terminate(currentContext, error)
             }

@@ -9,7 +9,6 @@ struct Images {
     
     static let imgPlayingTrack: NSImage = NSImage(named: "PlayingTrack")!
     static let imgTranscodingTrack: NSImage = NSImage(named: "TranscodingTrack")!
-    static let imgWaitingTrack: NSImage = NSImage(named: "WaitingTrack")!
     
     static let imgVolumeZero: NSImage = NSImage(named: "VolumeZero")!
     static let imgVolumeLow: NSImage = NSImage(named: "VolumeLow")!
@@ -39,9 +38,6 @@ struct Images {
     
     // Displayed in the playlist view
     static let imgGroup: NSImage = NSImage(named: "Group")!
-    
-    // Gap image displayed in the playlist
-    static let imgGap: NSImage = NSImage(named: "Gap")!
     
     // Displayed in the History menu
     static let imgGroup_menu: NSImage = NSImage(named: "Group-Menu")!

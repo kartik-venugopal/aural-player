@@ -81,39 +81,33 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         case .index:
             
             if let index = command.index {
-                playTrackWithIndex(index, command.delay)
+                playTrackWithIndex(index)
             }
             
         case .track:
             
             if let track = command.track {
-                playTrack(track, command.delay)
+                playTrack(track)
             }
             
         case .group:
             
             if let group = command.group {
-                playGroup(group, command.delay)
+                playGroup(group)
             }
         }
     }
     
-    private func playTrackWithIndex(_ trackIndex: Int, _ delay: Double?) {
-        
-        let params = PlaybackParams.defaultParams().withDelay(delay)
-        player.play(trackIndex, params)
+    private func playTrackWithIndex(_ trackIndex: Int) {
+        player.play(trackIndex, PlaybackParams.defaultParams())
     }
     
-    private func playTrack(_ track: Track, _ delay: Double?) {
-        
-        let params = PlaybackParams.defaultParams().withDelay(delay)
-        player.play(track, params)
+    private func playTrack(_ track: Track) {
+        player.play(track, PlaybackParams.defaultParams())
     }
     
-    private func playGroup(_ group: Group, _ delay: Double?) {
-        
-        let params = PlaybackParams.defaultParams().withDelay(delay)
-        player.play(group, params)
+    private func playGroup(_ group: Group) {
+        player.play(group, PlaybackParams.defaultParams())
     }
     
     // Plays the previous track in the current playback sequence
@@ -171,8 +165,8 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
     }
     
-    private func gapOrTranscodingStarted() {
-        playbackView.gapOrTranscodingStarted()
+    private func transcodingStarted() {
+        playbackView.transcodingStarted()
     }
     
     func trackNotTranscoded(_ notification: TrackNotTranscodedNotification) {
@@ -331,8 +325,8 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         
-        if notification.gapStarted || notification.transcodingStarted {
-            gapOrTranscodingStarted()
+        if notification.transcodingStarted {
+            transcodingStarted()
             
         } else {
             trackChanged(notification.endTrack)

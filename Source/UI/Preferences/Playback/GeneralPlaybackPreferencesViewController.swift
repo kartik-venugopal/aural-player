@@ -34,10 +34,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
     @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
     
-    @IBOutlet weak var btnGapBetweenTracks: NSButton!
-    @IBOutlet weak var gapDurationPicker: IntervalPicker!
-    @IBOutlet weak var lblGapDuration: FormattedIntervalLabel!
-    
     @IBOutlet weak var btnInfo_primarySeekLength: NSButton!
     @IBOutlet weak var btnInfo_secondarySeekLength: NSButton!
     
@@ -117,13 +113,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         } else {
             btnRememberPosition_allTracks.on()
         }
-        
-        // Gap between tracks
-        
-        btnGapBetweenTracks.onIf(prefs.gapBetweenTracks)
-        [lblGapDuration, gapDurationPicker].forEach({$0?.enableIf(btnGapBetweenTracks.isOn)})
-        gapDurationPicker.setInterval(Double(prefs.gapBetweenTracksDuration))
-        gapDurationPickerAction(self)
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
@@ -167,14 +156,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     
     @IBAction func rememberLastPositionRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
-    }
-    
-    @IBAction func gapDurationAction(_ sender: NSButton) {
-        [lblGapDuration, gapDurationPicker].forEach({$0?.enableIf(btnGapBetweenTracks.isOn)})
-    }
-    
-    @IBAction func gapDurationPickerAction(_ sender: Any) {
-        lblGapDuration.interval = gapDurationPicker.interval
     }
     
     @IBAction func seekLengthPrimary_infoAction(_ sender: Any) {
@@ -224,9 +205,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         if !prefs.rememberLastPosition || (wasAllTracks && isNowIndividualTracks) {
             playbackProfiles.removeAll()
         }
-        
-        prefs.gapBetweenTracks = btnGapBetweenTracks.isOn
-        prefs.gapBetweenTracksDuration = Int(round(gapDurationPicker.interval))
     }
 }
 

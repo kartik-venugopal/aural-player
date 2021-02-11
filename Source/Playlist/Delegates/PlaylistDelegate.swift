@@ -95,23 +95,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     func allGroups(_ type: GroupType) -> [Group] {
         return playlist.allGroups(type)
     }
-    
-    func getGapsAroundTrack(_ track: Track) -> (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?) {
-        
-        let gapBefore = playlist.getGapBeforeTrack(track)
-        let gapAfter = playlist.getGapAfterTrack(track)
-        
-        return (gapBefore != nil || gapAfter != nil, gapBefore, gapAfter)
-    }
-    
-    func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
-        return playlist.getGapBeforeTrack(track)
-    }
-    
-    func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
-        return playlist.getGapAfterTrack(track)
-    }
-    
+   
     func findFile(_ file: URL) -> Track? {
         return playlist.findTrackByFile(file)
     }
@@ -131,12 +115,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         let autoplayEnabled: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
         let interruptPlayback: Bool = preferences.playbackPreferences.autoplayAfterAddingOption == .always
         
-        addFiles_async(files, [:], AutoplayOptions(autoplayEnabled, .playSpecificTrack, interruptPlayback))
+        addFiles_async(files, AutoplayOptions(autoplayEnabled, .playSpecificTrack, interruptPlayback))
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
-    private func addFiles_async(_ files: [URL], _ gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)],
-                                _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
+    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
         
         addSession = TrackAddSession(files.count, autoplayOptions)
         
@@ -148,7 +131,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             Messenger.publish(.playlist_startedAddingTracks)
             
             self.collectTracks(files, false)
-            self.addSessionTracks(gapsByFile)
+            self.addSessionTracks()
             
             // ------------------ NOTIFY ------------------
             
@@ -247,7 +230,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         }
     }
     
-    private func addSessionTracks(_ gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)]) {
+    private func addSessionTracks() {
         
         var firstBatchIndex: Int = 0
         while addSession.tracksProcessed < addSession.tracks.count {
@@ -256,14 +239,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             let lastBatchIndex = firstBatchIndex + min(remainingTracks, concurrentAddOpCount) - 1
             
             let batch = firstBatchIndex...lastBatchIndex
-            processBatch(batch, gapsByFile)
+            processBatch(batch)
             addSession.tracksProcessed += batch.count
             
             firstBatchIndex = lastBatchIndex + 1
         }
     }
     
-    private func processBatch(_ batch: AddBatch, _ gapsByFile: [URL: (gapBeforeTrack: PlaybackGap?, gapAfterTrack: PlaybackGap?)]) {
+    private func processBatch(_ batch: AddBatch) {
         
         // Process all tracks in batch concurrently and wait until the entire batch finishes.
         trackAddQueue.addOperations(batch.map {index in BlockOperation {TrackIO.loadPrimaryInfo(self.addSession.tracks[index])}}, waitUntilFinished: true)
@@ -271,11 +254,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         for (batchIndex, track) in zip(batch, batch.map {addSession.tracks[$0]}) {
             
             if let result = self.playlist.addTrack(track) {
-                
-                // Add gaps around this track (persistent ones)
-                if let gapsForTrack = gapsByFile[track.file] {
-                    self.playlist.setGapsForTrack(track, gapsForTrack.gapBeforeTrack, gapsForTrack.gapAfterTrack)
-                }
                 
                 addSession.tracksAdded.increment()
                 addSession.results.append(result)
@@ -328,15 +306,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         TrackIO.loadSecondaryInfo(track)
         
         return track
-    }
-    
-    private func convertGapStateToGap(_ gapState: PlaybackGapState?) -> PlaybackGap? {
-        
-        if let theGapState = gapState {
-            return PlaybackGap(theGapState.duration, theGapState.position, theGapState.type)
-        }
-        
-        return nil
     }
     
     // Performs autoplay, by delegating a playback request to the player
@@ -416,14 +385,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         changeListeners.forEach({$0.playlistCleared()})
     }
     
-    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
-        playlist.setGapsForTrack(track, gapBeforeTrack, gapAfterTrack)
-    }
-    
-    func removeGapsForTrack(_ track: Track) {
-        playlist.removeGapsForTrack(track)
-    }
-    
     func sort(_ sort: Sort, _ playlistType: PlaylistType) {
         
         let results = playlist.sort(sort, playlistType)
@@ -434,39 +395,31 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     func appLaunched(_ filesToOpen: [URL]) {
         
-        var gapsByFile: [URL: (PlaybackGap?, PlaybackGap?)] = [:]
-        
-        for file in Set(playlistState.gaps.compactMap({$0.track})) {
-            
-            let theGaps = playlistState.getGapsForTrack(file)
-            gapsByFile[file] = (convertGapStateToGap(theGaps.gapBeforeTrack), convertGapStateToGap(theGaps.gapAfterTrack))
-        }
-        
         // Check if any launch parameters were specified
         if filesToOpen.isNonEmpty {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            addFiles_async(filesToOpen, [:], AutoplayOptions(true), false)
+            addFiles_async(filesToOpen, AutoplayOptions(true), false)
             
         } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch {
             
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(playlistState.tracks, gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
+            addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             
         } else if preferences.playlistPreferences.playlistOnStartup == .loadFile, let playlistFile: URL = preferences.playlistPreferences.playlistFile {
             
-            addFiles_async([playlistFile], gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
+            addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
             
         } else if preferences.playlistPreferences.playlistOnStartup == .loadFolder, let folder: URL = preferences.playlistPreferences.tracksFolder {
             
-            addFiles_async([folder], gapsByFile, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
+            addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
         }
     }
     
     func appReopened(_ notification: AppReopenedNotification) {
         
         // When a duplicate notification is sent, don't autoplay ! Otherwise, always autoplay.
-        addFiles_async(notification.filesToOpen, [:], AutoplayOptions(!notification.isDuplicateNotification))
+        addFiles_async(notification.filesToOpen, AutoplayOptions(!notification.isDuplicateNotification))
     }
 }
 

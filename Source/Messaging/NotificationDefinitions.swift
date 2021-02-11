@@ -9,7 +9,7 @@ protocol NotificationPayload {
 
 /*
     Signifies that a track transition has occurred, i.e. either the playback state, the current
-    track, or both, have changed. eg. when changing tracks or a track goes from waiting/transcoding
+    track, or both, have changed. eg. when changing tracks or a track goes from transcoding
     to playing, or when a playing track is stopped.
  
     Contains information required for UI elements to update themselves to reflect the new state.
@@ -29,10 +29,6 @@ struct TrackTransitionNotification: NotificationPayload {
     
     // Playback state before the track transition
     let endState: PlaybackState
-    
-    // Signifies a Date in the future when a playback gap will end and playback will begin
-    // (nil unless a playback gap has started).
-    let gapEndTime: Date?
     
     // Whether or not the current track has changed as a result of this transition.
     var trackChanged: Bool {
@@ -54,25 +50,18 @@ struct TrackTransitionNotification: NotificationPayload {
         return beginState != endState
     }
     
-    // Whether or not a playback gap has started as a result of this transition.
-    var gapStarted: Bool {
-        return endState == .waiting
-    }
-    
     // Whether or not transcoding of a track has started as a result of this transition.
     var transcodingStarted: Bool {
         return endState == .transcoding
     }
     
-    init(beginTrack: Track?, beginState: PlaybackState, endTrack: Track?, endState: PlaybackState, gapEndTime: Date? = nil) {
+    init(beginTrack: Track?, beginState: PlaybackState, endTrack: Track?, endState: PlaybackState) {
         
         self.beginTrack = beginTrack
         self.beginState = beginState
         
         self.endTrack = endTrack
         self.endState = endState
-        
-        self.gapEndTime = gapEndTime
     }
 }
 
@@ -169,31 +158,25 @@ struct TrackPlaybackCommandNotification: NotificationPayload {
     var track: Track? = nil
     var group: Group? = nil
     
-    // An (optional) delay before starting playback.
-    var delay: Double? = nil
-    
     // Initialize the request with a track index. This will be done from the Tracks playlist.
-    init(index: Int, delay: Double? = nil) {
+    init(index: Int) {
         
         self.index = index
         self.type = .index
-        self.delay = delay
     }
     
     // Initialize the request with a track. This will be done from a grouping/hierarchical playlist.
-    init(track: Track, delay: Double? = nil) {
+    init(track: Track) {
         
         self.track = track
         self.type = .track
-        self.delay = delay
     }
     
     // Initialize the request with a group. This will be done from a grouping/hierarchical playlist.
-    init(group: Group, delay: Double? = nil) {
+    init(group: Group) {
         
         self.group = group
         self.type = .group
-        self.delay = delay
     }
 }
 
@@ -423,37 +406,6 @@ class PlaylistCommandNotification: NotificationPayload {
         
         self.notificationName = notificationName
         self.viewSelector = viewSelector
-    }
-}
-
-// A command to begin delayed playback of the track selected within the playlist.
-class DelayedPlaybackCommandNotification: PlaylistCommandNotification {
-    
-    // The delay interval, in seconds, before playback should begin.
-    let delay: Double
-    
-    init(delay: Double, viewSelector: PlaylistViewSelector) {
-        
-        self.delay = delay
-        super.init(notificationName: .playlist_playSelectedItemWithDelay, viewSelector: viewSelector)
-    }
-}
-
-// A command to insert playback gaps around a track within the playlist.
-class InsertPlaybackGapsCommandNotification: PlaylistCommandNotification {
-    
-    // A playback gap, if there is one, that occurs before a track.
-    let gapBeforeTrack: PlaybackGap?
-    
-    // A playback gap, if there is one, that occurs after a track.
-    let gapAfterTrack: PlaybackGap?
-    
-    init(gapBeforeTrack: PlaybackGap?, gapAfterTrack: PlaybackGap?, viewSelector: PlaylistViewSelector) {
-        
-        self.gapBeforeTrack = gapBeforeTrack
-        self.gapAfterTrack = gapAfterTrack
-        
-        super.init(notificationName: .playlist_insertGaps, viewSelector: viewSelector)
     }
 }
 

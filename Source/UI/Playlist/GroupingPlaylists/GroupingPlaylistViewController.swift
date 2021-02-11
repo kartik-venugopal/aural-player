@@ -54,8 +54,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .playlist_playbackGapUpdated, self.gapUpdated(_:))
-        
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
         Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:),
@@ -89,16 +87,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .playlist_showTrackInFinder, {(PlaylistViewSelector) in self.showTrackInFinder()}, filter: viewSelectionFilter)
         
         Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedItem()}, filter: viewSelectionFilter)
-        
-        Messenger.subscribe(self, .playlist_playSelectedItemWithDelay,
-                            {(notif: DelayedPlaybackCommandNotification) in self.playSelectedItemWithDelay(notif.delay)},
-                            filter: {(notif: DelayedPlaybackCommandNotification) in notif.viewSelector.includes(self.playlistType)})
-        
-        Messenger.subscribe(self, .playlist_insertGaps,
-                            {(notif: InsertPlaybackGapsCommandNotification) in self.insertGaps(notif.gapBeforeTrack, notif.gapAfterTrack)},
-                            filter: {(notif: InsertPlaybackGapsCommandNotification) in notif.viewSelector.includes(self.playlistType)})
-        
-        Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
         
         Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
         
@@ -157,10 +145,10 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
             let item = playlistView.item(atRow: firstSelectedRow)
             
             if let track = item as? Track {
-                Messenger.publish(TrackPlaybackCommandNotification(track: track, delay: delay))
+                Messenger.publish(TrackPlaybackCommandNotification(track: track))
                 
             } else if let group = item as? Group {
-                Messenger.publish(TrackPlaybackCommandNotification(group: group, delay: delay))
+                Messenger.publish(TrackPlaybackCommandNotification(group: group))
             }
         }
     }
@@ -522,36 +510,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         // This is a safe typecast, because the context menu will prevent this function from being executed on groups. In other words, the selected item will always be a track.
         if let selTrack = selectedItem as? Track {
             FileSystemUtils.showFileInFinder(selTrack.file)
-        }
-    }
-    
-    private func insertGaps(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
-        
-        if let selectedTrack = selectedItem as? Track {
-            
-            playlist.setGapsForTrack(selectedTrack, gapBefore, gapAfter)
-            Messenger.publish(.playlist_playbackGapUpdated, payload: selectedTrack)
-        }
-    }
-    
-    private func removeGaps() {
-        
-        if let selectedTrack = selectedItem as? Track {
-            
-            playlist.removeGapsForTrack(selectedTrack)
-            Messenger.publish(.playlist_playbackGapUpdated, payload: selectedTrack)
-        }
-    }
-    
-    // Find track and refresh it
-    func gapUpdated(_ updatedTrack: Track) {
-        
-        let updatedRow = playlistView.row(forItem: updatedTrack)
-        
-        if updatedRow >= 0 {
-            
-            playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedRow), columnIndexes: UIConstants.groupingPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet(integer: updatedRow))
         }
     }
     

@@ -15,15 +15,13 @@ class TrackPlaybackCompletedChain: PlaybackChain {
     
     private let sequencer: SequencerProtocol
     
-    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ sequencer: SequencerProtocol, _ playlist: PlaylistCRUDProtocol, _ preferences: PlaybackPreferences) {
+    init(_ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ sequencer: SequencerProtocol) {
         
         self.startPlaybackChain = startPlaybackChain
         self.stopPlaybackChain = stopPlaybackChain
         self.sequencer = sequencer
         
         super.init()
-        
-        _ = withAction(DelayAfterTrackCompletionAction(playlist, sequencer, preferences))
     }
     
     override func execute(_ context: PlaybackRequestContext) {
