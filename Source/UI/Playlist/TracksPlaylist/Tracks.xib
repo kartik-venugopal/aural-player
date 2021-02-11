@@ -61,14 +61,25 @@
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LWP-9p-H5a" userLabel="PlayingTrack Icon">
+                                                        <rect key="frame" x="0.0" y="4" width="20" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="GXi-xs-vvb"/>
+                                                            <constraint firstAttribute="height" constant="17" id="Tqw-H2-GBx"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="t6X-q0-UA3"/>
+                                                    </imageView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="qSC-GP-VQk" firstAttribute="leading" secondItem="9Lt-gx-kH6" secondAttribute="leading" id="0e8-fa-dDY"/>
                                                     <constraint firstItem="qSC-GP-VQk" firstAttribute="bottom" secondItem="9Lt-gx-kH6" secondAttribute="bottom" id="MR7-n6-2rZ"/>
+                                                    <constraint firstItem="LWP-9p-H5a" firstAttribute="leading" secondItem="9Lt-gx-kH6" secondAttribute="leading" id="eGQ-JM-sLn"/>
+                                                    <constraint firstItem="LWP-9p-H5a" firstAttribute="centerY" secondItem="9Lt-gx-kH6" secondAttribute="centerY" id="qZh-mK-Kh5"/>
                                                     <constraint firstItem="qSC-GP-VQk" firstAttribute="top" secondItem="9Lt-gx-kH6" secondAttribute="top" id="qiD-7K-ayu"/>
                                                     <constraint firstItem="qSC-GP-VQk" firstAttribute="trailing" secondItem="9Lt-gx-kH6" secondAttribute="trailing" id="xha-io-xuU"/>
                                                 </constraints>
                                                 <connections>
+                                                    <outlet property="imageView" destination="LWP-9p-H5a" id="36O-Ve-zGa"/>
                                                     <outlet property="textField" destination="qSC-GP-VQk" id="EIT-S7-NOW"/>
                                                 </connections>
                                             </tableCellView>
@@ -140,6 +151,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="playSelectedTrackAction:" target="-2" id="q1a-Xu-aX3"/>
                                     <outlet property="dataSource" destination="vH7-ho-Ykd" id="zZv-8B-q5d"/>
                                     <outlet property="delegate" destination="fxO-kG-Bir" id="gth-NU-vQK"/>
                                 </connections>
@@ -510,7 +522,6 @@
                             </tableColumn>
                         </tableColumns>
                         <connections>
-                            <action trigger="doubleAction" selector="playSelectedTrackAction:" target="-2" id="a2O-w4-AZP"/>
                             <outlet property="dataSource" destination="vH7-ho-Ykd" id="rMZ-Tv-mS9"/>
                             <outlet property="delegate" destination="fxO-kG-Bir" id="W79-Oi-yR7"/>
                         </connections>
@@ -641,7 +652,6 @@
                 </tableColumn>
             </tableColumns>
             <connections>
-                <action trigger="doubleAction" selector="playSelectedTrackAction:" target="-2" id="mGH-MT-Jmw"/>
                 <outlet property="dataSource" destination="vH7-ho-Ykd" id="r2j-Lc-rqK"/>
                 <outlet property="delegate" destination="fxO-kG-Bir" id="G5b-Dr-ahu"/>
             </connections>
