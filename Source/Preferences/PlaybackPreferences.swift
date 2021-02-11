@@ -26,9 +26,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var rememberLastPosition: Bool
     var rememberLastPositionOption: RememberSettingsForTrackOptions
     
-    var gapBetweenTracks: Bool
-    var gapBetweenTracksDuration: Int
-    
     // Transcoding preferences
     
     var transcodingPreferences: TranscodingPreferences
@@ -76,9 +73,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
             rememberLastPositionOption = PreferencesDefaults.Playback.rememberLastPositionOption
         }
         
-        gapBetweenTracks = defaultsDictionary["playback.gapBetweenTracks"] as? Bool ?? PreferencesDefaults.Playback.gapBetweenTracks
-        gapBetweenTracksDuration = defaultsDictionary["playback.gapBetweenTracks.duration"] as? Int ?? PreferencesDefaults.Playback.gapBetweenTracksDuration
-        
         transcodingPreferences = TranscodingPreferences(defaultsDictionary)
     }
     
@@ -98,9 +92,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         
         defaults.set(rememberLastPosition, forKey: "playback.rememberLastPosition")
         defaults.set(rememberLastPositionOption.rawValue, forKey: "playback.rememberLastPosition.option")
-        
-        defaults.set(gapBetweenTracks, forKey: "playback.gapBetweenTracks")
-        defaults.set(gapBetweenTracksDuration, forKey: "playback.gapBetweenTracks.duration")
         
         transcodingPreferences.persist(defaults: defaults)
     }

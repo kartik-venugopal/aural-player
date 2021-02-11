@@ -21,10 +21,6 @@ class WindowFactory {
     
     private static var playlistSortWindowController : PlaylistSortWindowController = PlaylistSortWindowController()
     
-    private static var gapsEditorWindowController: GapsEditorWindowController = GapsEditorWindowController()
-    
-    private static var delayedPlaybackEditorWindowController: DelayedPlaybackEditorWindowController = DelayedPlaybackEditorWindowController()
-    
     private static var jumpToTimeEditorWindowController: JumpToTimeEditorWindowController = JumpToTimeEditorWindowController()
     
     private static var colorSchemesWindowController: ColorSchemesWindowController = ColorSchemesWindowController()
@@ -68,15 +64,7 @@ class WindowFactory {
     static var playlistSortDialog: ModalDialogDelegate {
         return playlistSortWindowController
     }
-    
-    static var gapsEditorDialog: ModalDialogDelegate {
-        return gapsEditorWindowController
-    }
-    
-    static var delayedPlaybackEditorDialog: ModalDialogDelegate {
-        return delayedPlaybackEditorWindowController
-    }
-    
+
     static var jumpToTimeEditorDialog: ModalDialogDelegate {
         return jumpToTimeEditorWindowController
     }

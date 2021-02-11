@@ -242,19 +242,6 @@
                                             <action selector="rememberLastPositionRadioButtonAction:" target="Uko-LS-fAN" id="jbf-7W-F72"/>
                                         </connections>
                                     </button>
-                                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAw-u5-cMW">
-                                        <rect key="frame" x="50" y="42" width="74" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" title="Duration" id="4e4-wc-xua">
-                                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="F8z-Ta-0Wj">
-                                                <real key="minimum" value="3"/>
-                                                <real key="maximum" value="300"/>
-                                            </numberFormatter>
-                                            <font key="font" size="11" name="Play-Regular"/>
-                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="una-AI-AIV">
                                         <rect key="frame" x="37" y="251" width="281" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -350,38 +337,6 @@
                                             <action selector="primarySeekLengthPercAction:" target="Uko-LS-fAN" id="Dwo-xt-nju"/>
                                         </connections>
                                     </stepper>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h1l-lM-mep">
-                                        <rect key="frame" x="25" y="67" width="293" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Insert a silent gap between tracks" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="8xp-y5-tyP">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" size="13" name="Play-Regular"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="gapDurationAction:" target="Uko-LS-fAN" id="868-d9-PrX"/>
-                                        </connections>
-                                    </button>
-                                    <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txi-Zt-bSd" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="206" y="38" width="112" height="25"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="eFg-eu-Bp7">
-                                            <font key="font" size="11" name="Play-Regular"/>
-                                            <date key="date" timeIntervalSinceReferenceDate="-595929600">
-                                                <!--1982-02-12 16:00:00 +0000-->
-                                            </date>
-                                            <color key="backgroundColor" name="selectedMenuItemTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
-                                        </datePickerCell>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
-                                                <real key="value" value="86400"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="gapDurationPickerAction:" target="Uko-LS-fAN" id="gnO-eI-WEn"/>
-                                        </connections>
-                                    </datePicker>
                                     <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sCR-Of-2vY" userLabel="Info - Seek length primary">
                                         <rect key="frame" x="481" y="390" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -670,7 +625,6 @@
                 <outlet property="btnAutoplayAlways" destination="SK6-iR-O16" id="OUh-1F-47v"/>
                 <outlet property="btnAutoplayIfNotPlaying" destination="NZ2-Ue-pVH" id="XaG-xh-gOL"/>
                 <outlet property="btnAutoplayOnStartup" destination="ofo-If-zC9" id="TUN-Jt-LJg"/>
-                <outlet property="btnGapBetweenTracks" destination="h1l-lM-mep" id="vKO-wJ-KJb"/>
                 <outlet property="btnInfo_primarySeekLength" destination="rQr-Ku-gtD" id="aUg-34-FkC"/>
                 <outlet property="btnInfo_secondarySeekLength" destination="sCR-Of-2vY" id="Gc4-jY-r0B"/>
                 <outlet property="btnPrimarySeekLengthConstant" destination="ydp-pW-ikg" id="bLX-XS-FJn"/>
@@ -680,8 +634,6 @@
                 <outlet property="btnRememberPosition_individualTracks" destination="KNq-Ex-x9M" id="aiC-OD-Idq"/>
                 <outlet property="btnSecondarySeekLengthConstant" destination="JQv-9T-De7" id="cbz-3S-lrv"/>
                 <outlet property="btnSecondarySeekLengthPerc" destination="1vo-yr-TCH" id="yTo-iI-FOQ"/>
-                <outlet property="gapDurationPicker" destination="txi-Zt-bSd" id="jkv-xJ-DWr"/>
-                <outlet property="lblGapDuration" destination="uMr-EY-5ys" id="NaA-0S-DZa"/>
                 <outlet property="lblPrimarySeekLength" destination="IFZ-W3-kt7" id="LzD-na-Ecx"/>
                 <outlet property="lblPrimarySeekLengthPerc" destination="EAS-uj-pAe" id="Rg4-qf-Ooy"/>
                 <outlet property="lblSecondarySeekLength" destination="zRc-b6-ger" id="gxI-4R-lIT"/>

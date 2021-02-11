@@ -5,14 +5,6 @@ import Foundation
  */
 class PlaybackParams {
     
-    // Whether or not there can be a delay before the track begins playing
-    // eg. if there is a gap defined in the playlist.
-    // A false value indicates immediate playback.
-    var allowDelay: Bool = true
-    
-    // The explicit delay interval provided specifically for this request.
-    var delay: Double? = nil
-    
     // An optional seek time at which playback will start for the relevant track.
     // e.g. used when playing a bookmark
     var startPosition: Double? = nil
@@ -28,13 +20,6 @@ class PlaybackParams {
     // e.g. used for autoplay
     var interruptPlayback: Bool = true
     
-    // Builder pattern function to set a delay.
-    func withDelay(_ delay: Double?) -> PlaybackParams {
-        
-        self.delay = delay
-        return self
-    }
-    
     // Builder pattern function to set a start position.
     func withStartPosition(_ startPosition: Double) -> PlaybackParams {
         
@@ -48,13 +33,6 @@ class PlaybackParams {
         self.startPosition = startPosition
         self.endPosition = endPosition
         
-        return self
-    }
-    
-    // Builder pattern function to set the allowDelay parameter.
-    func withAllowDelay(_ allowDelay: Bool) -> PlaybackParams {
-        
-        self.allowDelay = allowDelay
         return self
     }
     

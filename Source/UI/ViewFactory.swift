@@ -11,8 +11,6 @@ struct ViewFactory {
         
         fileprivate static let playingTrackViewController: PlayingTrackViewController = PlayingTrackViewController()
         
-        fileprivate static let waitingTrackViewController: WaitingTrackViewController = WaitingTrackViewController()
-        
         fileprivate static let transcodingTrackViewController: TranscoderViewController = TranscoderViewController()
         
         fileprivate static let playingTrackFunctionsViewController: PlayingTrackFunctionsViewController = PlayingTrackFunctionsViewController()
@@ -127,11 +125,6 @@ struct ViewFactory {
     // Returns the view that displays the player
     static var playingTrackView: NSView {
         return PlayerViews.playingTrackViewController.view
-    }
-    
-    // Returns the view that displays the player
-    static var waitingTrackView: NSView {
-        return PlayerViews.waitingTrackViewController.view
     }
     
     // Returns the view that displays the player

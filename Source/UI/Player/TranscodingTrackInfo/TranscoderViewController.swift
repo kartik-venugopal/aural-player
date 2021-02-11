@@ -43,7 +43,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
     
     private func initSubscriptions() {
         
-        // Only respond if the waiting track was updated
+        // Only respond if the transcoding track was updated
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.transcodingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.transcodingTrack &&
                                         msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},

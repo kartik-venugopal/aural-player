@@ -77,7 +77,7 @@ extension Notification.Name {
     static let player_preTrackChange = Notification.Name("player_preTrackChange")
     
     // Signifies that a track / playback state transition has occurred.
-    // eg. when changing tracks, stopping playback, or a track finishes waiting or transcoding.
+    // eg. when changing tracks, stopping playback, or a track finishes transcoding.
     // and is ready for playback.
     static let player_trackTransitioned = Notification.Name("player_trackTransitioned")
     
@@ -115,9 +115,6 @@ extension Notification.Name {
     
     // Signifies that some tracks have been removed from the playlist.
     static let playlist_tracksRemoved = Notification.Name("playlist_tracksRemoved")
-    
-    // Signifies that some playback gaps have been updated within the playlist.
-    static let playlist_playbackGapUpdated = Notification.Name("playlist_playbackGapUpdated")
     
     // ----------------------------------------------------------------------------------------
     
@@ -318,15 +315,6 @@ extension Notification.Name {
     // Commands the playlist to initiate playback of a selected item.
     static let playlist_playSelectedItem = Notification.Name("playlist_playSelectedItem")
 
-    // Commands the playlist to initiate playback of a selected item, with a specific delay interval before playback.
-    static let playlist_playSelectedItemWithDelay = Notification.Name("playlist_playSelectedItemWithDelay")
-    
-    // Commands the playlist to insert playback gaps around a selected track.
-    static let playlist_insertGaps = Notification.Name("playlist_insertGaps")
-
-    // Commands the playlist to remove playback gaps around a selected track.
-    static let playlist_removeGaps = Notification.Name("playlist_removeGaps")
-    
     // Commands the playlist to move selected tracks up one row.
     static let playlist_moveTracksUp = Notification.Name("playlist_moveTracksUp")
 

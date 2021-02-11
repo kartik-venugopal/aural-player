@@ -147,7 +147,7 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         }
     }
     
-    func gapOrTranscodingStarted() {
+    func transcodingStarted() {
         NSView.hideViews(seekSlider, lblTimeElapsed, lblTimeRemaining)
     }
     

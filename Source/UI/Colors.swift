@@ -124,10 +124,6 @@ struct Colors {
             return ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor
         }
         
-        static var gapTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor
-        }
-        
         static var trackTimesTextColor: NSColor {
             return ColorSchemes.systemScheme.player.sliderValueTextColor
         }
@@ -513,9 +509,6 @@ struct Colors {
     
     // Color of selected item text inside the playlist
     static let playlistGroupSelectedIndexTextColor: NSColor = Constants.white70Percent
-    
-    static let playlistGapTextColor: NSColor = Constants.white80Percent
-    static let playlistSelectedGapTextColor: NSColor = NSColor.white
     
     // Color for playlist grouped views
     static let playlistGroupNameTextColor: NSColor = Constants.white50Percent

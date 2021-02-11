@@ -91,7 +91,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) && self.preferences.rememberEffectsSettings},
+                                 filter: {msg in msg.trackChanged && msg.transcodingStarted && self.preferences.rememberEffectsSettings},
                                  queue: notificationQueue)
         
         Messenger.subscribe(self, .fx_saveSoundProfile, self.saveSoundProfile)
