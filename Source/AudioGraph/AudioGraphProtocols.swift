@@ -14,13 +14,13 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     var balance: Float {get set}
     var muted: Bool {get set}
     
-    var masterUnit: MasterUnit {get set}
-    var eqUnit: EQUnit {get set}
-    var pitchUnit: PitchUnit {get set}
-    var timeUnit: TimeUnit {get set}
-    var reverbUnit: ReverbUnit {get set}
-    var delayUnit: DelayUnit {get set}
-    var filterUnit: FilterUnit {get set}
+    var masterUnit: MasterUnit {get}
+    var eqUnit: EQUnit {get}
+    var pitchUnit: PitchUnit {get}
+    var timeUnit: TimeUnit {get}
+    var reverbUnit: ReverbUnit {get}
+    var delayUnit: DelayUnit {get}
+    var filterUnit: FilterUnit {get}
     
     var settingsAsMasterPreset: MasterPreset {get}
     
