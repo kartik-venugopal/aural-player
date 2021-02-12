@@ -108,8 +108,8 @@ NOTE - I don't have a release version ready for macOS Big Sur, but if you'd like
 * **Playback:** Bookmarking, segment looping, 2 custom seek intervals, delayed playback, last position memory, timed gaps, autoplay
 * **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
 * **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
-* Built-in and custom effects presets, per-track effects settings memory
-* Recording of clips with effects captured
+  * Built-in and custom effects presets, per-track effects settings memory
+  * Recording of clips with effects captured
 * **Playlist:** Grouping, searching, sorting, type selection
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
