@@ -57,6 +57,24 @@ class AuralPlaylistOutlineView: NSOutlineView {
     }
 }
 
+class GroupingPlaylistRowView: PlaylistRowView {
+    
+    override func didAddSubview(_ subview: NSView) {
+        
+      if let disclosureButton = subview as? NSButton {
+        
+        disclosureButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+          disclosureButton.topAnchor.constraint(equalTo: topAnchor, constant: 13),
+          disclosureButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+        ])
+      }
+      
+      super.didAddSubview(subview)
+    }
+}
+
 class GroupedItemCellView: NSTableCellView {
     
     // Used to determine whether or not this cell is selected.

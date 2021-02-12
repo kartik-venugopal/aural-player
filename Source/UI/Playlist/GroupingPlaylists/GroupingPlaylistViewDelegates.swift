@@ -22,7 +22,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     // Returns a view for a single row
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return PlaylistRowView()
+        return GroupingPlaylistRowView()
     }
     
     // Determines the height of a single row
