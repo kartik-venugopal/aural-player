@@ -48,12 +48,14 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="ujl-hT-ANW" customClass="IndexCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="40" height="25"/>
+                                                <rect key="frame" x="1" y="2" width="35" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cqj-AE-0ae" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="25"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Cqj-AE-0ae" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="-2" y="0.0" width="39" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" priority="750" constant="25" id="mRe-m7-idj"/>
+                                                        </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="MPS-bC-LrH" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -61,6 +63,12 @@
                                                         </textFieldCell>
                                                     </textField>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="Cqj-AE-0ae" firstAttribute="top" secondItem="ujl-hT-ANW" secondAttribute="top" priority="750" id="Ocw-AZ-mam"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Cqj-AE-0ae" secondAttribute="bottom" priority="750" id="QXj-bQ-ERA"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Cqj-AE-0ae" secondAttribute="trailing" priority="750" id="bPB-wr-FeT"/>
+                                                    <constraint firstItem="Cqj-AE-0ae" firstAttribute="leading" secondItem="ujl-hT-ANW" secondAttribute="leading" priority="750" id="wqS-NK-dc3"/>
+                                                </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="Cqj-AE-0ae" id="s99-iW-6nr"/>
                                                 </connections>
@@ -139,6 +147,10 @@
                             </tableView>
                         </subviews>
                     </clipView>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="178" id="FId-l5-dKk"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="495" id="ueq-OB-H5Y"/>
+                    </constraints>
                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="i4F-2q-RT1">
                         <rect key="frame" x="-100" y="-100" width="238" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -168,7 +180,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="7g3-uB-tEW">
                 <rect key="frame" x="0.0" y="0.0" width="493" height="176"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" id="IKK-IX-lae" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="528" height="176"/>
