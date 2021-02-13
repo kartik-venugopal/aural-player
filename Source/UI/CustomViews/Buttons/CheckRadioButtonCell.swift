@@ -3,6 +3,28 @@
  */
 import Cocoa
 
+private func attributedString(_ text: String, _ font: NSFont, _ color: NSColor) -> NSAttributedString {
+        
+        return NSAttributedString(string: text, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
+    }
+
+/*
+    Custom check box / radio button that can custom-color its title.
+ */
+class DialogCheckRadioButton: NSButton {
+    
+    override func awakeFromNib() {
+        titleUpdated()
+    }
+    
+    // Call this function whenever the title is updated
+    func titleUpdated() {
+        
+        self.attributedTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.boxTextColor)
+        self.attributedAlternateTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.playlistSelectedTextColor)
+    }
+}
+
 class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.checkRadioButtonFont}

@@ -7,9 +7,9 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var lblTrackDuration: NSTextField!
     
-    @IBOutlet weak var btnHMS: NSButton!
-    @IBOutlet weak var btnSeconds: NSButton!
-    @IBOutlet weak var btnPercentage: NSButton!
+    @IBOutlet weak var btnHMS: DialogCheckRadioButton!
+    @IBOutlet weak var btnSeconds: DialogCheckRadioButton!
+    @IBOutlet weak var btnPercentage: DialogCheckRadioButton!
     
     @IBOutlet weak var timePicker: IntervalPicker!
     
@@ -99,7 +99,10 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         radioButtonAction(self)
         
         btnHMS.title = String(format: "Specify as hh : mm : ss (00:00:00 to %@)", formattedDuration)
+        btnHMS.titleUpdated()
+        
         btnSeconds.title = String(format: "Specify as seconds (0 to %d)", durationInt)
+        btnSeconds.titleUpdated()
         
         // Reset to 00:00:00
         timePicker.maxInterval = roundedDuration

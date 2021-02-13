@@ -1427,12 +1427,12 @@
 		3E6C0F9925CEB98600BF0D07 /* ColorSchemes */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0F9B25CEB98600BF0D07 /* ColorSchemes.xib */,
 				3E6C0F9F25CEB98600BF0D07 /* General */,
 				3E6C0FAE25CEB98600BF0D07 /* Player */,
 				3E6C0F9C25CEB98600BF0D07 /* Playlist */,
 				3E6C0FA425CEB98600BF0D07 /* Effects */,
 				3E6C0F9A25CEB98600BF0D07 /* ColorSchemeViewController.swift */,
-				3E6C0F9B25CEB98600BF0D07 /* ColorSchemes.xib */,
 				3E6C0FA225CEB98600BF0D07 /* AuralColorPicker.swift */,
 				3E6C0FA325CEB98600BF0D07 /* ColorSchemesWindowController.swift */,
 				3E6C0FA725CEB98600BF0D07 /* Domain */,

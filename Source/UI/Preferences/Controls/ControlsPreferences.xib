@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -98,7 +98,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EWq-Ot-KSS">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EWq-Ot-KSS" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="51" y="52" width="318" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="(Horizontal swipe) Switch playlist view tabs" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oTM-Ba-724">
@@ -106,7 +106,7 @@
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXI-ya-hRS">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXI-ya-hRS" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="51" y="72" width="318" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="(Vertical swipe) Scroll to top/bottom of playlist" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="kfP-hP-NPx">
@@ -123,7 +123,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EDg-hi-cnH">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EDg-hi-cnH" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="51" y="124" width="277" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="(Horizontal swipe) Previous/next track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="1Vv-Ye-yjp">
@@ -131,7 +131,7 @@
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yr4-1a-eyr">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yr4-1a-eyr" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="51" y="165" width="277" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="(Horizontal scroll) Seek backward/forward" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oIi-Lf-Iuy">
@@ -142,7 +142,7 @@
                         <action selector="allowSeekingAction:" target="-2" id="hzg-B4-4mb"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qyy-A4-KcT">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qyy-A4-KcT" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="51" y="205" width="277" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="(Vertical scroll) Increase/decrease volume " bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Ue0-gt-7hK">
@@ -193,7 +193,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RAh-7u-OwD" userLabel="Media key response">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RAh-7u-OwD" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="16" y="428" width="227" height="27"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Respond to media keys" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="a1U-qL-Hru">
@@ -204,7 +204,7 @@
                         <action selector="mediaKeyResponseAction:" target="-2" id="M7C-4A-AC5"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eBk-bY-8SI">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eBk-bY-8SI" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="66" y="343" width="177" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Seeking only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gj0-ry-JO1">
@@ -215,7 +215,7 @@
                         <action selector="skipKeyBehaviorAction:" target="-2" id="2Es-ls-lfp"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eup-wD-UuU">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eup-wD-UuU" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="66" y="363" width="200" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Track changes only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rMT-Sx-IjD">
@@ -226,7 +226,7 @@
                         <action selector="skipKeyBehaviorAction:" target="-2" id="kTk-7i-Lga"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nU4-1G-tWz">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nU4-1G-tWz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="66" y="383" width="343" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Press to change tracks, press and hold to seek" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="FnW-cL-NUx">
