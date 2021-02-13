@@ -55,7 +55,6 @@ class HorizontalSliderCell: NSSliderCell {
     }
     
     override func barRect(flipped: Bool) -> NSRect {
-        
         return super.barRect(flipped: flipped).insetBy(dx: barInsetX, dy: barInsetY)
     }
 }
@@ -64,9 +63,10 @@ class HorizontalSliderCell: NSSliderCell {
 class VolumeSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 0.5}
+    override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
+    
     override var knobWidth: CGFloat {return 6}
-    override var knobRadius: CGFloat {return 1}
+    override var knobRadius: CGFloat {return 0.5}
     override var knobHeightOutsideBar: CGFloat {return 1.5}
     
     override func knobRect(flipped: Bool) -> NSRect {
