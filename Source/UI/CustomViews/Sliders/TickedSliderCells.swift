@@ -11,12 +11,6 @@ class TickedSliderCell: HorizontalSliderCell {
     var tickWidth: CGFloat {return 2}
     var tickColor: NSColor {return Colors.sliderNotchColor}
     
-    var osDependentYOffset: CGFloat {0}
-    
-    override func barRect(flipped: Bool) -> NSRect {
-        return super.barRect(flipped: flipped).offsetBy(dx: 0, dy: osDependentYOffset)
-    }
-    
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         super.drawBar(inside: aRect, flipped: flipped)
@@ -113,7 +107,7 @@ class PanTickedSliderCell: TickedSliderCell {
 class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return 0.5}
+    override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
     
     override var knobWidth: CGFloat {return 10}
     override var knobRadius: CGFloat {return 1}
@@ -146,8 +140,13 @@ class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     var unitState: EffectsUnitState = .bypassed
     
-    override var osDependentYOffset: CGFloat {
-        SystemUtils.osVersion.majorVersion == 10 ? 0 : -3
+    override func barRect(flipped: Bool) -> NSRect {
+        
+        if SystemUtils.isBigSur {
+            return NSRect(x: 2, y: 4, width: super.barRect(flipped: flipped).width, height: 4)
+        } else {
+            return super.barRect(flipped: flipped)
+        }
     }
 }
 

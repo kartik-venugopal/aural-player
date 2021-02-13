@@ -12,7 +12,7 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     let knobHeight: CGFloat = 10
     let knobRadius: CGFloat = 1
-    let knobWidthOutsideBar: CGFloat = 2
+    let knobWidthOutsideBar: CGFloat = 1.5
     
     var unitState: EffectsUnitState = .bypassed
     
@@ -68,8 +68,6 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     }
     
     override internal func drawBar(inside drawRect: NSRect, flipped: Bool) {
-        
-        print("EQ DrawBar:", drawRect, flipped)
         
         let knobFrame = knobRect(flipped: false)
         let halfKnobWidth = knobFrame.width / 2
