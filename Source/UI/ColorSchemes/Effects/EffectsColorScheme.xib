@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -291,7 +291,7 @@
                                         <rect key="frame" x="30" y="290" width="249" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J3R-Q9-3UF">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J3R-Q9-3UF" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="7" y="49" width="165" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="eh5-bv-qh2" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
@@ -302,7 +302,7 @@
                                                     <action selector="enableSliderBackgroundGradientAction:" target="-2" id="Lgj-SX-KvB"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RaM-gs-hYe">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RaM-gs-hYe" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="26" width="202" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="mz2-kh-S7w">
@@ -313,7 +313,7 @@
                                                     <action selector="sliderBackgroundGradientBrightenOrDarkenAction:" target="-2" id="aQP-SK-vaR"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P9c-Bu-dPu">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P9c-Bu-dPu" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="5" width="137" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="TDt-r9-kV2">
@@ -340,7 +340,7 @@
                                         <rect key="frame" x="30" y="160" width="249" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NH3-V5-pR0">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NH3-V5-pR0" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="7" y="49" width="165" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="TRQ-lR-3bp">
@@ -351,7 +351,7 @@
                                                     <action selector="enableSliderForegroundGradientAction:" target="-2" id="M0m-E2-AcY"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEv-ha-AQq">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zEv-ha-AQq" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="26" width="202" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="45N-YR-jnB">
@@ -362,7 +362,7 @@
                                                     <action selector="sliderForegroundGradientBrightenOrDarkenAction:" target="-2" id="2Bk-Lb-VSz"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQx-sZ-dJR">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uQx-sZ-dJR" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="5" width="137" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="u5a-nS-rzp">

@@ -94,19 +94,14 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
         // Autoplay
         
         btnAutoplayOnStartup.onIf(prefs.autoplayOnStartup)
-        
         btnAutoplayAfterAddingTracks.onIf(prefs.autoplayAfterAddingTracks)
         
-        btnAutoplayIfNotPlaying.enableIf(prefs.autoplayAfterAddingTracks)
         btnAutoplayIfNotPlaying.onIf(prefs.autoplayAfterAddingOption == .ifNotPlaying)
-        
-        btnAutoplayAlways.enableIf(prefs.autoplayAfterAddingTracks)
         btnAutoplayAlways.onIf(prefs.autoplayAfterAddingOption == .always)
         
         // Remember last track position
         
         btnRememberPosition.onIf(prefs.rememberLastPosition)
-        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.enableIf(btnRememberPosition.isOn)})
         
         if prefs.rememberLastPositionOption == .individualTracks {
             btnRememberPosition_individualTracks.on()
@@ -116,11 +111,13 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     }
     
     @IBAction func primarySeekLengthRadioButtonAction(_ sender: Any) {
+        
         primarySeekLengthConstantFields.forEach({$0.enableIf(btnPrimarySeekLengthConstant.isOn)})
         primarySeekLengthPercStepper.enableIf(btnPrimarySeekLengthPerc.isOn)
     }
     
     @IBAction func secondarySeekLengthRadioButtonAction(_ sender: Any) {
+        
         secondarySeekLengthConstantFields.forEach({$0.enableIf(btnSecondarySeekLengthConstant.isOn)})
         secondarySeekLengthPercStepper.enableIf(btnSecondarySeekLengthPerc.isOn)
     }
@@ -143,7 +140,6 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     
     // When the check box for "autoplay after adding tracks" is checked/unchecked, update the enabled state of the 2 option radio buttons
     @IBAction func autoplayAfterAddingAction(_ sender: Any) {
-        [btnAutoplayIfNotPlaying, btnAutoplayAlways].forEach({$0!.enableIf(btnAutoplayAfterAddingTracks.isOn)})
     }
     
     @IBAction func autoplayAfterAddingRadioButtonAction(_ sender: Any) {
@@ -151,7 +147,7 @@ class GeneralPlaybackPreferencesViewController: NSViewController, PreferencesVie
     }
     
     @IBAction func rememberLastPositionAction(_ sender: Any) {
-        [btnRememberPosition_individualTracks, btnRememberPosition_allTracks].forEach({$0?.enableIf(btnRememberPosition.isOn)})
+        
     }
     
     @IBAction func rememberLastPositionRadioButtonAction(_ sender: Any) {
