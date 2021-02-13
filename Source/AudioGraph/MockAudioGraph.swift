@@ -31,9 +31,7 @@ class MockAudioGraph: AudioGraphProtocol, PersistentModelObject {
         set {}
     }
     
-    var playerNode: AuralPlayerNode {
-        AuralPlayerNode(useLegacyAPI: true)
-    }
+    var playerNode: AuralPlayerNode
     
     var nodeForRecorderTap: AVAudioNode {
         return AuralPlayerNode(useLegacyAPI: true)
@@ -47,11 +45,15 @@ class MockAudioGraph: AudioGraphProtocol, PersistentModelObject {
     // Sets up the audio engine
     init(_ state: AudioGraphState) {
         
+        playerNode = AuralPlayerNode(useLegacyAPI: true)
+        
         soundProfiles = SoundProfiles()
         _state = state
         
         playerVolume = state.volume
         muted = state.muted
+        playerNode.volume = muted ? 0 : playerVolume
+        playerNode.pan = state.balance
         
         eqUnit = EQUnit(state)
         pitchUnit = PitchUnit(state)

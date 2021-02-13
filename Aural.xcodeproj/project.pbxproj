@@ -1562,10 +1562,10 @@
 		3E6C0FD225CEB98600BF0D07 /* Sliders */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCells.swift */,
 				3E6C0FD325CEB98600BF0D07 /* TickedSliderCells.swift */,
 				3E6C0FD425CEB98600BF0D07 /* RangeSlider.swift */,
 				3E6C0FD525CEB98600BF0D07 /* EffectsUnitSliderCellProtocol.swift */,
-				3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCells.swift */,
 				3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */,
 			);
 			path = Sliders;

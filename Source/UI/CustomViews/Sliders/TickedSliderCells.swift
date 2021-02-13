@@ -60,34 +60,29 @@ class TickedSliderCell: HorizontalSliderCell {
 class PanTickedSliderCell: TickedSliderCell {
     
     override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return 0.5}
-    override var knobWidth: CGFloat {return 6}
-    override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 2}
+    override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
     
-    override var osDependentYOffset: CGFloat {
-        SystemUtils.osVersion.majorVersion == 10 ? 0 : -3
-    }
+    override var knobWidth: CGFloat {return 6}
+    override var knobRadius: CGFloat {return 0.5}
+    override var knobHeightOutsideBar: CGFloat {return 1.5}
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
-        let offsetRect = aRect.offsetBy(dx: 0, dy: 0)
-        
-        var drawPath = NSBezierPath.init(roundedRect: offsetRect, xRadius: barRadius, yRadius: barRadius)
+        var drawPath = NSBezierPath.init(roundedRect: aRect, xRadius: barRadius, yRadius: barRadius)
         backgroundGradient.draw(in: drawPath, angle: UIConstants.horizontalGradientDegrees)
         
         drawTicks(aRect)
         
         // Draw rect between knob and center, to show panning
         let knobCenter = knobRect(flipped: false).centerX
-        let barCenter = offsetRect.centerX
+        let barCenter = aRect.centerX
         let panRectX = min(knobCenter, barCenter)
         let panRectWidth = abs(knobCenter - barCenter)
         
         if panRectWidth > 0 {
             
-            let panRect = NSRect(x: panRectX, y: offsetRect.minY, width: panRectWidth, height: offsetRect.height)
+            let panRect = NSRect(x: panRectX, y: aRect.minY, width: panRectWidth, height: aRect.height)
             drawPath = NSBezierPath.init(roundedRect: panRect, xRadius: barRadius, yRadius: barRadius)
             
             if doubleValue > 0 {
