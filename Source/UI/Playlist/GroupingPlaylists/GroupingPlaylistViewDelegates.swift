@@ -63,7 +63,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
+            let imgView = cell.imageView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = track
@@ -89,7 +90,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             image = nil
         }
         
-        cell.imageView?.image = image?.applyingTint(Colors.Playlist.playingTrackIconColor)
+        imgView.image = image?.applyingTint(Colors.Playlist.playingTrackIconColor)
         
         return cell
     }
@@ -111,7 +112,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
     private func createGroupNameCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
+        let imgView = cell.imageView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = group
@@ -119,7 +121,16 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
             
         cell.updateText(Fonts.Playlist.groupNameFont, String(format: "%@ (%d)", group.name, group.size))
-        cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
+        imgView.image = AuralPlaylistOutlineView.cachedGroupIcon
+        
+        // Constraints
+        
+        // Remove any existing constraints on the text field's 'top' and 'centerY' attributes
+        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .bottom}.forEach {cell.deactivateAndRemoveConstraint($0)}
+
+        let imgViewBottomConstraint = NSLayoutConstraint(item: imgView, attribute: .bottom, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -5)
+        
+        cell.activateAndAddConstraint(imgViewBottomConstraint)
         
         return cell
     }

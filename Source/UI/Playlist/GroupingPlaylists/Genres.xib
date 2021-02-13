@@ -60,7 +60,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ygV-8w-DId"/>
                                                     </imageView>
                                                     <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="28" y="0.0" width="346" height="26"/>
+                                                        <rect key="frame" x="28" y="2" width="346" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="jCk-a9-VuK"/>
                                                         </constraints>
@@ -73,11 +73,11 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="lHY-xI-cje" firstAttribute="leading" secondItem="dUD-Jz-0Am" secondAttribute="leading" constant="8" id="43c-p7-TKZ"/>
-                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="top" secondItem="dUD-Jz-0Am" secondAttribute="top" id="6or-6V-acU"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Z03-PG-pvS" secondAttribute="bottom" id="Apk-10-2E1"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="top" secondItem="dUD-Jz-0Am" secondAttribute="top" constant="-2" id="6or-6V-acU"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="bottom" secondItem="dUD-Jz-0Am" secondAttribute="bottom" constant="-2" id="Apk-10-2E1"/>
                                                     <constraint firstAttribute="trailing" secondItem="Z03-PG-pvS" secondAttribute="trailing" id="E5c-ha-SJu"/>
                                                     <constraint firstItem="Z03-PG-pvS" firstAttribute="leading" secondItem="lHY-xI-cje" secondAttribute="trailing" constant="6" id="iQT-SR-0sr"/>
-                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="Z03-PG-pvS" secondAttribute="centerY" id="ozy-e0-OhD"/>
+                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="Z03-PG-pvS" secondAttribute="centerY" constant="2" id="ozy-e0-OhD"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="lHY-xI-cje" id="P2H-5I-XCL"/>
@@ -103,7 +103,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="0.0" width="84" height="26"/>
+                                                        <rect key="frame" x="-7" y="2" width="84" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="pbd-gC-tLi"/>
                                                         </constraints>
@@ -116,8 +116,8 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="dV1-Xh-Rhx" firstAttribute="leading" secondItem="FiJ-sX-1Lg" secondAttribute="leading" constant="-5" id="GeA-iM-JgK"/>
-                                                    <constraint firstAttribute="bottom" secondItem="dV1-Xh-Rhx" secondAttribute="bottom" id="KUd-GE-iDy"/>
-                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="top" secondItem="FiJ-sX-1Lg" secondAttribute="top" id="eRO-nL-Nbv"/>
+                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="bottom" secondItem="FiJ-sX-1Lg" secondAttribute="bottom" constant="-2" id="KUd-GE-iDy"/>
+                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="top" secondItem="FiJ-sX-1Lg" secondAttribute="top" constant="-2" id="eRO-nL-Nbv"/>
                                                     <constraint firstAttribute="trailing" secondItem="dV1-Xh-Rhx" secondAttribute="trailing" constant="5" id="k2E-tb-5zR"/>
                                                 </constraints>
                                                 <connections>

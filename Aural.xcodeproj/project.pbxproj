@@ -1256,10 +1256,10 @@
 		3E6C0F4D25CEB98600BF0D07 /* GroupingPlaylists */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F4E25CEB98600BF0D07 /* GroupingPlaylistViewController.swift */,
 				3E6C0F5025CEB98600BF0D07 /* Artists.xib */,
 				3E6C0F5425CEB98600BF0D07 /* Albums.xib */,
 				3E6C0F4F25CEB98600BF0D07 /* Genres.xib */,
+				3E6C0F4E25CEB98600BF0D07 /* GroupingPlaylistViewController.swift */,
 				3E6C0F5125CEB98600BF0D07 /* ArtistsPlaylistViewController.swift */,
 				3E6C0F5225CEB98600BF0D07 /* GroupingPlaylistDataSources.swift */,
 				3E6C0F5325CEB98600BF0D07 /* AlbumsPlaylistViewController.swift */,
