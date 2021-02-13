@@ -50,29 +50,29 @@
                                                 <rect key="frame" x="1" y="2" width="35" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-2" y="0.0" width="39" height="25"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index">
+                                                        <rect key="frame" x="-2" y="-1" width="39" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="5ML-sW-rcP"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Bac-3o-ROQ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Bac-3o-ROQ">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
                                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0ic-SL-nto">
-                                                        <rect key="frame" x="8" y="4" width="20" height="17"/>
+                                                        <rect key="frame" x="9" y="5" width="18" height="16"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="20" id="6tL-FQ-6nA"/>
-                                                            <constraint firstAttribute="height" constant="17" id="W0Q-PN-zAl"/>
+                                                            <constraint firstAttribute="width" constant="18" id="6tL-FQ-6nA"/>
+                                                            <constraint firstAttribute="height" constant="16" id="W0Q-PN-zAl"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="7P8-m8-6bn"/>
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="ghD-Os-Qiu" firstAttribute="leading" secondItem="Nr9-vb-v1E" secondAttribute="leading" id="6cv-6z-7MP"/>
-                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="8sz-Ch-eSf"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" constant="1" id="8sz-Ch-eSf"/>
                                                     <constraint firstItem="0ic-SL-nto" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="QS8-4M-uSS"/>
                                                     <constraint firstItem="0ic-SL-nto" firstAttribute="centerX" secondItem="ghD-Os-Qiu" secondAttribute="centerX" id="cNG-fu-StN"/>
                                                     <constraint firstItem="ghD-Os-Qiu" firstAttribute="trailing" secondItem="Nr9-vb-v1E" secondAttribute="trailing" id="xdd-Uo-hm5"/>
@@ -100,12 +100,12 @@
                                                 <rect key="frame" x="39" y="2" width="395" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-mo-oiW" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-2" y="0.0" width="399" height="25"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="DnL-mo-oiW" userLabel="Track Name">
+                                                        <rect key="frame" x="-2" y="-1" width="399" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="hPU-MU-gLg"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Te7-In-WEO" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Te7-In-WEO">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -114,8 +114,8 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="DnL-mo-oiW" secondAttribute="trailing" id="Bcj-rJ-Eyp"/>
-                                                    <constraint firstAttribute="bottom" secondItem="DnL-mo-oiW" secondAttribute="bottom" id="JJO-mI-tXg"/>
-                                                    <constraint firstItem="DnL-mo-oiW" firstAttribute="top" secondItem="Aqb-5g-rsj" secondAttribute="top" id="M30-q5-S6C"/>
+                                                    <constraint firstItem="DnL-mo-oiW" firstAttribute="bottom" secondItem="Aqb-5g-rsj" secondAttribute="bottom" constant="1" id="JJO-mI-tXg"/>
+                                                    <constraint firstItem="DnL-mo-oiW" firstAttribute="top" secondItem="Aqb-5g-rsj" secondAttribute="top" constant="1" id="M30-q5-S6C"/>
                                                     <constraint firstItem="DnL-mo-oiW" firstAttribute="leading" secondItem="Aqb-5g-rsj" secondAttribute="leading" id="mrx-d8-t7k"/>
                                                 </constraints>
                                                 <connections>
@@ -140,12 +140,12 @@
                                                 <rect key="frame" x="437" y="2" width="60" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pY7-8Q-lam" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="0.0" width="64" height="25"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="pY7-8Q-lam" userLabel="Duration">
+                                                        <rect key="frame" x="-7" y="-1" width="64" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="hjg-gf-GXP"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="yE2-pt-qsF" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="yE2-pt-qsF">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -153,10 +153,10 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="pY7-8Q-lam" firstAttribute="top" secondItem="Nxn-ZH-ZX3" secondAttribute="top" id="Ign-zW-5qR"/>
+                                                    <constraint firstItem="pY7-8Q-lam" firstAttribute="top" secondItem="Nxn-ZH-ZX3" secondAttribute="top" constant="1" id="Ign-zW-5qR"/>
                                                     <constraint firstAttribute="trailing" secondItem="pY7-8Q-lam" secondAttribute="trailing" constant="5" id="lwJ-Be-82Y"/>
                                                     <constraint firstItem="pY7-8Q-lam" firstAttribute="leading" secondItem="Nxn-ZH-ZX3" secondAttribute="leading" constant="-5" id="sJA-dS-TRw"/>
-                                                    <constraint firstAttribute="bottom" secondItem="pY7-8Q-lam" secondAttribute="bottom" id="zua-1D-2bg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="pY7-8Q-lam" secondAttribute="bottom" constant="-1" id="zua-1D-2bg"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="textField" destination="pY7-8Q-lam" id="opM-oZ-avF"/>

@@ -66,7 +66,7 @@ class GroupingPlaylistRowView: PlaylistRowView {
         disclosureButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-          disclosureButton.topAnchor.constraint(equalTo: topAnchor, constant: 13),
+          disclosureButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
           disclosureButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
         ])
       }
