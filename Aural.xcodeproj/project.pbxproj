@@ -1784,11 +1784,11 @@
 		3E6C104325CEB98600BF0D07 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C104825CEB98600BF0D07 /* PlayerControls.xib */,
 				3E6C104425CEB98600BF0D07 /* SeekSliderView.swift */,
 				3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */,
 				3E6C104625CEB98600BF0D07 /* PlaybackView.swift */,
 				3E6C104725CEB98600BF0D07 /* PlaybackViewController.swift */,
-				3E6C104825CEB98600BF0D07 /* PlayerControls.xib */,
 				3E6C104925CEB98600BF0D07 /* PlayerSequencingViewController.swift */,
 				3E6C104A25CEB98600BF0D07 /* PlayerAudioViewController.swift */,
 			);
