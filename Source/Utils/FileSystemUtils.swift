@@ -308,4 +308,18 @@ class SystemUtils {
     static var osVersion: OperatingSystemVersion {
         return ProcessInfo.processInfo.operatingSystemVersion
     }
+    
+    static var osMajorVersion: Int {
+        return osVersion.majorVersion
+    }
+    
+    static var osMinorVersion: Int {
+        return osVersion.minorVersion
+    }
+    
+    static var isBigSur: Bool {
+        
+        let os = osVersion
+        return os.majorVersion > 10 || os.minorVersion > 15
+    }
 }
