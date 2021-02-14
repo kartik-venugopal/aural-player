@@ -136,9 +136,9 @@ Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable
 
 (All screenshots [here](https://github.com/maculateConception/aural-player/wiki/Screenshots))
 
-### "Vertical full stack" window layout
+### Default window layout with customized color scheme
 
-![Vertical full stack window layout demo](/Documentation/Screenshots/Default.png?raw=true)
+![Vertical full stack window layout demo](/Documentation/Screenshots/FullStack.png?raw=true)
 
 ### Changing the color scheme
 
