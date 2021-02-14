@@ -130,8 +130,6 @@ Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable
       
 ## Screenshots
 
-(All screenshots [here](https://github.com/maculateConception/aural-player/wiki/Screenshots))
-
 ### Default window layout with customized color scheme
 
 ![Vertical full stack window layout demo](/Documentation/Screenshots/FullStack.png?raw=true)
