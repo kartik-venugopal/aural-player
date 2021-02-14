@@ -51,7 +51,7 @@ enum PlaylistViewStartupOptions: String {
 // Playlist view on startup preference
 class PlaylistViewOnStartup {
     
-    var option: PlaylistViewStartupOptions = .specific
+    var option: PlaylistViewStartupOptions = .rememberFromLastAppLaunch
     
     // This is used only if option == .specific
     var viewName: String = "Tracks"
