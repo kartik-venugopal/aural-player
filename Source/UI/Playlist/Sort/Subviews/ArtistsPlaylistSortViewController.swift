@@ -40,8 +40,6 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     }
     
     @IBAction func groupsSortToggleAction(_ sender: Any) {
-        
-        [sortGroups_byArtist, sortGroups_byDuration, sortGroups_ascending, sortGroups_descending].forEach({$0?.enableIf(sortGroups.isOn)})
     }
     
     @IBAction func groupsSortFieldAction(_ sender: Any) {}
@@ -49,8 +47,6 @@ class ArtistsPlaylistSortViewController: NSViewController, SortViewProtocol {
     @IBAction func groupsSortOrderAction(_ sender: Any) {}
     
     @IBAction func tracksSortToggleAction(_ sender: Any) {
-        
-        [sortTracks_allGroups, sortTracks_selectedGroups, sortTracks_byAlbum_andDiscTrack, sortTracks_byAlbum_andName, sortTracks_byName, sortTracks_byDuration, sortTracks_ascending, sortTracks_descending, useTrackNameIfNoMetadata].forEach({$0?.enableIf(sortTracks.isOn)})
     }
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}
