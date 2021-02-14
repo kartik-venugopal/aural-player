@@ -33,6 +33,10 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
 * To have a decent macOS alternative for Winamp.
 
+#### Limitations:
+* Does not play protected content (e.g. Apple's M4P or Audible's AAX).
+* Does not integrate with online services for streaming / scrobbling, etc.
+
 ## Documentation
 
 All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
