@@ -76,7 +76,7 @@ NOTE - v2.3.0 and newer versions circumvent this problem by storing app state in
 
 If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0) or later. No older app versions will run on macOS Big Sur.
 
-**Developer**: Swift 5 and XCode 12.
+**Developer**: Swift 5 and XCode 11.
 
 ### Enabling media keys support (optional)
 
