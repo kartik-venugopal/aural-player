@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E427F2D25D9065F00465569 /* Release Notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 3E427EFA25D9065F00465569 /* Release Notes.md */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
@@ -486,6 +487,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E427EFA25D9065F00465569 /* Release Notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -979,12 +981,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E427EC525D9065F00465569 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				3E427EFA25D9065F00465569 /* Release Notes.md */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
 		3E6C0EB625CEB3ED00BF0D07 = {
 			isa = PBXGroup;
 			children = (
 				3E6C0EC125CEB3ED00BF0D07 /* Source */,
 				3E6C114C25CEB9C100BF0D07 /* Resources */,
 				3E6C114825CEB9C100BF0D07 /* Fonts */,
+				3E427EC525D9065F00465569 /* Documentation */,
 				3E6C0EC025CEB3ED00BF0D07 /* Products */,
 				3E6C0EC925CEB3EE00BF0D07 /* Info.plist */,
 			);
@@ -2376,6 +2387,7 @@
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
 				3E6C12CB25CEBE6700BF0D07 /* Time.xib in Resources */,
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
+				3E427F2D25D9065F00465569 /* Release Notes.md in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
 				3E6C12C825CEBE6700BF0D07 /* Reverb.xib in Resources */,
 				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
