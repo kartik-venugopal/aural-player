@@ -1,5 +1,9 @@
 # Aural Player
 
+### Update (Feb 14, 2021)
+
+Version 2.3.0 released - first working release for macOS Big Sur ! Download from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0).
+
 ### Update (Feb 5, 2021)
 
 Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
