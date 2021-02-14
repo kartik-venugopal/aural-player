@@ -43,7 +43,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Sort groups by:" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="PLS-n3-6i9">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="Play-Regular"/>
+                                    <font key="font" size="12" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="groupsSortToggleAction:" target="-2" id="ZJE-wL-ahk"/>
@@ -76,7 +76,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="check" title="Sort tracks within groups:" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="GSI-PJ-ccb">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="Play-Regular"/>
+                                    <font key="font" size="12" name="Play-Regular"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="tracksSortToggleAction:" target="-2" id="g5f-YA-z8q"/>
@@ -160,7 +160,7 @@
                                 <rect key="frame" x="0.0" y="60" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="5Hp-x7-2OS">
-                                    <font key="font" size="11" name="Play-Regular"/>
+                                    <font key="font" size="12" name="Play-Regular"/>
                                     <color key="textColor" white="0.70290798610000005" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -201,7 +201,7 @@
                                 <rect key="frame" x="0.0" y="59" width="94" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="Dj2-jZ-1nE">
-                                    <font key="font" size="11" name="Play-Regular"/>
+                                    <font key="font" size="12" name="Play-Regular"/>
                                     <color key="textColor" white="0.70290798610000005" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>

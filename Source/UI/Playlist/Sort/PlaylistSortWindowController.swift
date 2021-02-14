@@ -26,6 +26,9 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
     override func windowDidLoad() {
         
         container.addSubviews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
+        
+        [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach {$0.resetFields()}
+        
         WindowManager.registerModalComponent(self)
     }
     
@@ -54,7 +57,6 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
 
         }
         
-        displayedSortView.resetFields()
         displayedSortView.sortView.show()
         
         UIUtils.showDialog(theWindow)
