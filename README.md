@@ -101,7 +101,7 @@ If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/macula
 
 * Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, APE, WMA, DSD & more)
 * Supports M3U / M3U8 playlists
-* **Playback:** Bookmarking, segment looping, 2 custom seek intervals, delayed playback, last position memory, timed gaps, autoplay
+* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
 * **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
 * **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
   * Built-in and custom effects presets, per-track effects settings memory
