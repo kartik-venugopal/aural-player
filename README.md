@@ -11,7 +11,7 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
   * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
-    + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-catalina-or-later-versions-for-aural-player-v220-or-older-only)
+    + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-catalina-or-later-versions-for-aural-player-v220-or-older)
     + [Compatibility](#compatibility)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
@@ -58,7 +58,7 @@ If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/macula
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
-### Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older only)
+### Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)
 
 ![Catalina security prompt screenshot](/Documentation/Screenshots/catalina-access-prompt.png?raw=true)
 
