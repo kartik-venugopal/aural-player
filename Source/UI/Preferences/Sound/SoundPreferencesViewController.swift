@@ -118,7 +118,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         // Per-track effects settings memory
         
         btnRememberSettingsForTrack.onIf(soundPrefs.rememberEffectsSettings)
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(soundPrefs.rememberEffectsSettings)})
         
         if soundPrefs.rememberEffectsSettingsOption == .individualTracks {
             btnRememberSettings_individualTracks.on()
@@ -209,7 +208,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
     
     @IBAction func rememberSettingsAction(_ sender: Any) {
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(btnRememberSettingsForTrack.isOn)})
     }
     
     @IBAction func rememberSettingsRadioButtonAction(_ sender: Any) {
