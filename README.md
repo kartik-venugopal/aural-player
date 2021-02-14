@@ -2,16 +2,6 @@
 
 ### Update (Feb 5, 2021)
 
-#### Note for macOS Big Sur
-
-Per my brief testing, the latest *release* version of Aural Player (v2.2.0) does not run at all on macOS Big Sur.
-
-But, I have a working development build that runs on Big Sur; please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this pre-release build has minor UI issues, but is generally functional. I will try to get a stable release out later this month or next month.
-
-PS - If someone is able to get the v2.2.0 app bundle working on Big Sur, I'd appreciate you letting me know !
-
-#### Version 3.0 release delayed
-
 Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
@@ -21,7 +11,7 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
   * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
-    + [Granting access on macOS Catalina](#granting-access-on-macos-1015-catalina)
+    + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-1015-catalina)
     + [Compatibility](#compatibility)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
@@ -49,11 +39,11 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ## Download
 
-### For macOS versions older than Big Sur
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
-### For macOS Big Sur
-No stable releases yet, but a working development build is available [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev). Stable release (hopefully) coming soon.
+### Note for macOS Big Sur
+
+If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0) or later versions. No older app versions will run on macOS Big Sur.
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
@@ -68,21 +58,23 @@ No stable releases yet, but a working development build is available [here](http
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
-### Granting access on macOS 10.15 Catalina
+### Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older only)
 
 ![Catalina security prompt screenshot](/Documentation/Screenshots/catalina-access-prompt.png?raw=true)
 
-Aural Player uses the **Documents** user folder to store persisted application state, logs, and transcoder output files. In other words, Aural Player needs access to the Documents directory to function.
+Aural Player v2.2.0 (and older versions) use the **Documents** user folder to store persisted application state, logs, and transcoder output files. In other words, Aural Player needs access to the Documents directory to function.
 
-Due to increased security on macOS Catalina, you will need to grant Aural.app access to your Documents folder. Please perform this step once by going to **System Preferences > Security & Privacy > Privacy > Files and Folders**, and adding Aural.app with permission to access your Documents folder.
+Due to increased security on macOS Catalina and later versions, you will need to grant Aural.app access to your Documents folder. Please perform this step once by going to **System Preferences > Security & Privacy > Privacy > Files and Folders**, and adding Aural.app with permission to access your Documents folder.
 
-NOTE - Future versions of Aural Player may make the app storage location configurable, to circumvent this security restriction, but for now, this step is necessary for the app to function on macOS Catalina.
+NOTE - v2.3.0 and newer versions circumvent this problem by storing app state in the **Music** user folder instead of **Documents**.
 
 ### Compatibility
 
-**User**: macOS 10.12 (Sierra) or later versions (read note for macOS Big Sur below).
+**User**: macOS 10.12 (Sierra) or later versions.
 
-NOTE - I don't have a release version ready for macOS Big Sur, but if you'd like to try out a working development build on Big Sur, please get it from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0_dev), noting that this release has minor UI issues, but is generally functional.
+#### Note for macOS Big Sur
+
+If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0) or later. No older app versions will run on macOS Big Sur.
 
 **Developer**: Swift 5 and XCode 12.
 
