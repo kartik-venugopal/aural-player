@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,7 +27,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="W7v-UI-tl4">
@@ -69,7 +69,7 @@
                                     </connections>
                                 </button>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="246" y="202" width="39" height="14"/>
+                                    <rect key="frame" x="238" y="201" width="54" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                     <userDefinedRuntimeAttributes>
@@ -517,7 +517,7 @@
         </customObject>
     </objects>
     <resources>
-        <image name="AppTitle" width="107" height="38"/>
+        <image name="AppTitle" width="78" height="24"/>
         <image name="Close" width="18" height="18"/>
         <image name="EffectsView-Off" width="25" height="25"/>
         <image name="EffectsView-On" width="25" height="25"/>
