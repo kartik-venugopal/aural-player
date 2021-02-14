@@ -584,7 +584,7 @@
                 <menuItem title="Transcode this track (in the background)" image="Transcode-Small" id="s9W-FB-XJa" userLabel="Transcode this track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="transcodeTrackAction:" target="TnB-Sk-yOp" id="Kx8-Oz-5BA"/>
+                        <action selector="transcodeTrackInBackgroundAction:" target="TnB-Sk-yOp" id="Jcq-VR-nbX"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="ytJ-NM-n08"/>
