@@ -11,7 +11,7 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
   * [Documentation](#documentation)
   * [Download](#download)
     + [Installation](#installation)
-    + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-1015-catalina)
+    + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-catalina-or-later-versions-for-aural-player-v220-or-older-only)
     + [Compatibility](#compatibility)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
