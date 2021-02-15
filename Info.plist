@@ -213,35 +213,12 @@
 			<array>
 				<string>dsf</string>
 				<string>dsd</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>DSD</string>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>dsd</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>DFF</string>
-			<key>CFBundleTypeExtensions</key>
-			<array>
 				<string>dff</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSTypeIsPackage</key>
-			<false/>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
@@ -389,17 +366,6 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>ra</string>
-			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-			<key>LSTypeIsPackage</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>RM</string>
-			<key>CFBundleTypeExtensions</key>
-			<array>
 				<string>rm</string>
 			</array>
 			<key>CFBundleTypeRole</key>
