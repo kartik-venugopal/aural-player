@@ -10,9 +10,9 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
   * [Overview](#overview)
   * [Documentation](#documentation)
   * [Download](#download)
+    + [Compatibility](#compatibility)
     + [Installation](#installation)
     + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-catalina-or-later-versions-for-aural-player-v220-or-older)
-    + [Compatibility](#compatibility)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Summary of features](#summary-of-features)
   * [Known issues](#known-issues)
@@ -43,6 +43,12 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ## Download
 
+### Compatibility
+
+**User**: macOS 10.12 (Sierra) or later versions.
+
+**Developer**: Swift 5 and XCode 11.
+
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 ### Note for macOS Big Sur
@@ -71,12 +77,6 @@ Aural Player v2.2.0 (and older versions) use the **Documents** user folder to st
 Due to increased security on macOS Catalina and later versions, you will need to grant Aural.app access to your Documents folder. Please perform this step once by going to **System Preferences > Security & Privacy > Privacy > Files and Folders**, and adding Aural.app with permission to access your Documents folder.
 
 NOTE - v2.3.0 and newer versions circumvent this problem by storing app state in the **Music** user folder instead of **Documents**.
-
-### Compatibility
-
-**User**: macOS 10.12 (Sierra) or later versions.
-
-**Developer**: Swift 5 and XCode 11.
 
 ### Enabling media keys support (optional)
 
