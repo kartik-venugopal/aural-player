@@ -27,9 +27,9 @@ struct AppConstants {
             return exts
         }()
         
-        static let nonNativeAudioContainerExtensions: [String] = ["mka", "ogg"]
+        static let nonNativeAudioContainerExtensions: [String] = ["mka", "ogg", "rm"]
         
-        private static let globallyNonNativeAudioExtensions: [String] = ["oga", "opus", "wma", "dsf", "mpc", "mp2", "ape", "wv", "dts"]
+        private static let globallyNonNativeAudioExtensions: [String] = ["oga", "opus", "wma", "dsf", "dsd", "dff", "mpc", "mp2", "ape", "wv", "dts", "tta", "tak", "ra"]
         
         static let nonNativeAudioExtensions: [String] = {
             
@@ -60,7 +60,7 @@ struct AppConstants {
             return formats
         }()
         
-        private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice", "dts"]
+        private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice", "dts", "tta", "tak", "cook", "ra_144", "ra_288", "ralf", "sipr"]
         
         static let nonNativeAudioFormats: [String] = {
             

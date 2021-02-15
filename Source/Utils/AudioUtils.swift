@@ -210,7 +210,7 @@ class AudioUtils {
                 
                 audioInfo.format = avInfo.fileFormatDescription
                 
-                if let codec = audioStream.formatDescription, codec != audioInfo.format {
+                if let codec = audioStream.formatDescription {
                     audioInfo.codec = codec
                 }
                 

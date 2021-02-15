@@ -35,6 +35,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
 
         switchView()
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.switchView, queue: .main)
+        Messenger.subscribeAsync(self, .transcoder_finished, self.transcodingFinished(_:), queue: .main)
     }
     
     // Depending on current player state, switch to one of the 3 views.
@@ -51,6 +52,17 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
             
             playingTrackView.hideView()
             transcodingTrackView.show()
+        }
+    }
+    
+    func transcodingFinished(_ notif: TranscodingFinishedNotification) {
+        
+        // Check if transcoding failed.
+        if !notif.success {
+            
+            // Hide the transcoding view.
+            transcodingTrackView.hide()
+            playingTrackView.showView()
         }
     }
 }
