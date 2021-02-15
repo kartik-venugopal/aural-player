@@ -15,6 +15,7 @@ class AudioUtils {
     
     private static let formatDescriptions: [String: String] = [
     
+        "mp2": "MPEG Audio Layer II (mp2)",
         "mp3": "MPEG Audio Layer III (mp3)",
         "m4a": "MPEG-4 Audio (m4a)",
         "m4b": "MPEG-4 Audio (m4b)",
