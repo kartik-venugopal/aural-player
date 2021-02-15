@@ -1,9 +1,5 @@
 # Aural Player
 
-### Update (Feb 14, 2021)
-
-Version 2.3.0 released - first working release for macOS Big Sur ! Download from [here](https://github.com/maculateConception/aural-player/releases/tag/2.3.0).
-
 ### Update (Feb 5, 2021)
 
 Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
@@ -51,7 +47,7 @@ Download the DMG image (containing the app bundle) from the latest release [here
 
 ### Note for macOS Big Sur
 
-If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0) or later versions. No older app versions will run on macOS Big Sur.
+If you're on macOS Big Sur, you must download v2.3.0 or later versions. No older app versions will run on macOS Big Sur.
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
@@ -79,10 +75,6 @@ NOTE - v2.3.0 and newer versions circumvent this problem by storing app state in
 ### Compatibility
 
 **User**: macOS 10.12 (Sierra) or later versions.
-
-#### Note for macOS Big Sur
-
-If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0) or later. No older app versions will run on macOS Big Sur.
 
 **Developer**: Swift 5 and XCode 11.
 
