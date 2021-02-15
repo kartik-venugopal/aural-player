@@ -62,6 +62,13 @@ class FormatMapper {
         var map = [
             
              "ape": "aiff",
+             "tta": "aiff",
+             "tak": "aiff",
+             "ra_144": "m4a",
+             "ra_288": "m4a",
+             "cook": "m4a",
+             "ralf": "aiff",
+             "sipr": "m4a",
              "dsd_lsbf": "aiff",
              "dsd_lsbf_planar": "aiff",
              "dsd_msbf": "aiff",
