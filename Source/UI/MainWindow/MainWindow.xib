@@ -69,7 +69,7 @@
                                     </connections>
                                 </button>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="238" y="201" width="54" height="15"/>
+                                    <rect key="frame" x="238" y="202" width="54" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="0JL-KA-nPB"/>
                                     <userDefinedRuntimeAttributes>
