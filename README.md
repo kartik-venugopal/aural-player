@@ -33,6 +33,10 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
 * To have a decent macOS alternative for Winamp.
 
+#### Limitations:
+* Does not play protected content (e.g. Apple's M4P or Audible's AAX).
+* Does not integrate with online services for streaming / scrobbling, etc.
+
 ## Documentation
 
 All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
@@ -101,7 +105,7 @@ If you're on macOS Big Sur, you must download [v2.3.0](https://github.com/macula
 
 * Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, APE, WMA, DSD & more)
 * Supports M3U / M3U8 playlists
-* **Playback:** Bookmarking, segment looping, 2 custom seek intervals, delayed playback, last position memory, timed gaps, autoplay
+* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
 * **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
 * **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
   * Built-in and custom effects presets, per-track effects settings memory
@@ -129,8 +133,6 @@ This should fix the problem. If not, try Fix# 2.
 Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable-aptx-aac-bluetooth-audio-codecs-macos/).
       
 ## Screenshots
-
-(All screenshots [here](https://github.com/maculateConception/aural-player/wiki/Screenshots))
 
 ### Default window layout with customized color scheme
 
