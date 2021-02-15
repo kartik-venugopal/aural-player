@@ -310,7 +310,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             
             let refreshIndexes = IndexSet(firstRemovedRow...lastPlaylistRowAfterRemove)
             playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexes)
         }
     }
     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,17 +22,17 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="500" height="230"/>
             <view key="contentView" misplaced="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="570" height="383"/>
+                <rect key="frame" x="0.0" y="0.0" width="570" height="380"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box appearanceType="darkAqua" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ksp-Uu-T5P" userLabel="Root Container">
-                        <rect key="frame" x="0.0" y="0.0" width="570" height="330"/>
+                        <rect key="frame" x="0.0" y="0.0" width="583" height="255"/>
                         <view key="contentView" id="R3F-5h-tZn">
-                            <rect key="frame" x="0.0" y="0.0" width="570" height="330"/>
+                            <rect key="frame" x="0.0" y="0.0" width="583" height="255"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-lG-aTa" userLabel="Window Title" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="206" y="323" width="159" height="29"/>
+                                    <rect key="frame" x="212" y="105" width="159" height="29"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="29" id="l6k-8f-81B"/>
                                         <constraint firstAttribute="width" constant="155" id="uL5-ar-yXz"/>
@@ -44,7 +44,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Of-xA-IUV" userLabel="Num Matches Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="415" y="290" width="104" height="23"/>
+                                    <rect key="frame" x="428" y="187" width="104" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="Am4-mI-hbN"/>
                                         <constraint firstAttribute="width" constant="100" id="z86-uq-dhe"/>
@@ -56,7 +56,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Hide the chapters list" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="14" y="332" width="10" height="10"/>
+                                    <rect key="frame" x="14" y="114" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="FQB-Oe-tVg"/>
                                         <constraint firstAttribute="height" constant="10" id="JdG-gw-JJa"/>
@@ -73,7 +73,7 @@
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ht-7fu" userLabel="Chapters summary" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="20" y="23" width="204" height="23"/>
+                                    <rect key="frame" x="20" y="-92" width="204" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="bPv-Zy-uK0"/>
                                         <constraint firstAttribute="width" constant="200" id="ofd-r1-DRf"/>
@@ -85,7 +85,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Previous chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="247" y="8" width="14" height="11"/>
+                                    <rect key="frame" x="254" y="-107" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="dEO-mN-5K5"/>
                                         <constraint firstAttribute="height" constant="11" id="h3x-Ht-Ek1"/>
@@ -102,7 +102,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Previous search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISr-Ro-Dis" userLabel="Previous Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="522" y="294" width="14" height="11"/>
+                                    <rect key="frame" x="535" y="76" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="11" id="EKB-Bw-bRp"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="NJI-GL-BSz"/>
@@ -121,7 +121,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="266" y="8" width="14" height="11"/>
+                                    <rect key="frame" x="273" y="-107" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="Zcc-HB-5qH"/>
                                         <constraint firstAttribute="height" constant="11" id="dbX-MT-yPB"/>
@@ -138,7 +138,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Toggle current chapter loop" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vD3-y2-J8L" userLabel="Loop Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="312" y="6" width="13" height="13"/>
+                                    <rect key="frame" x="319" y="6" width="13" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="9GP-DR-xzf"/>
                                         <constraint firstAttribute="width" constant="13" id="kyd-iY-5bD"/>
@@ -158,7 +158,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Replay current chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="290" y="5" width="16" height="16"/>
+                                    <rect key="frame" x="297" y="-110" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="16" id="Tmw-pA-lzr"/>
                                         <constraint firstAttribute="height" constant="16" id="tai-mK-py5"/>
@@ -175,7 +175,7 @@
                                     </connections>
                                 </button>
                                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-EF-Drz">
-                                    <rect key="frame" x="14" y="287" width="363" height="22"/>
+                                    <rect key="frame" x="14" y="69" width="376" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22" id="kBw-fO-9r2"/>
                                     </constraints>
@@ -189,7 +189,7 @@
                                     </connections>
                                 </searchField>
                                 <button toolTip="Case sensitive search (disabled)" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-3g-wVK" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="386" y="292" width="20" height="15"/>
+                                    <rect key="frame" x="399" y="189" width="20" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="EiF-Jn-i3E"/>
                                         <constraint firstAttribute="width" constant="20" id="l2K-IR-HRY"/>
@@ -209,7 +209,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CPE-oP-CME" userLabel="Next Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="540" y="294" width="14" height="11"/>
+                                    <rect key="frame" x="553" y="191" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="11" id="ERd-05-UW2"/>
                                         <constraint firstAttribute="width" constant="14" id="TK9-Do-n1j"/>
@@ -260,13 +260,13 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
-                        <rect key="frame" x="15" y="54" width="540" height="196"/>
+                        <rect key="frame" x="15" y="54" width="553" height="121"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ehf-3j-NsA">
-                            <rect key="frame" x="0.0" y="0.0" width="540" height="196"/>
+                            <rect key="frame" x="0.0" y="0.0" width="553" height="121"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="o7A-Nv-ijK" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="540" height="171"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="553" height="96"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -285,11 +285,11 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="gx7-Tt-VZI" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="11" y="2" width="30" height="25"/>
+                                                    <rect key="frame" x="1" y="2" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TjI-9S-ci4" userLabel="Index" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="-2" y="2" width="34" height="25"/>
+                                                            <rect key="frame" x="-2" y="2" width="29" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="AUB-H4-j7q"/>
                                                             </constraints>
@@ -300,7 +300,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3U6-3l-KFm">
-                                                            <rect key="frame" x="5" y="4" width="20" height="17"/>
+                                                            <rect key="frame" x="3" y="4" width="20" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="OWZ-GI-mji"/>
                                                                 <constraint firstAttribute="width" constant="20" id="hbJ-G0-0wt"/>
@@ -322,7 +322,7 @@
                                                 </tableCellView>
                                             </prototypeCellViews>
                                         </tableColumn>
-                                        <tableColumn identifier="cid_chapterTitle" width="328" minWidth="275" maxWidth="10000" id="Uah-kz-dKu" userLabel="Title">
+                                        <tableColumn identifier="cid_chapterTitle" width="370" minWidth="275" maxWidth="10000" id="Uah-kz-dKu" userLabel="Title">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Title">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -335,11 +335,11 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="pKV-cH-4Ub" userLabel="Title Cell View" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="44" y="2" width="328" height="25"/>
+                                                    <rect key="frame" x="29" y="2" width="370" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-Tg-iGF" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="-2" y="2" width="332" height="25"/>
+                                                            <rect key="frame" x="-2" y="2" width="374" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="Oo1-XD-8fy"/>
                                                             </constraints>
@@ -374,7 +374,7 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="liD-pB-9vw" userLabel="Start Time Cell View" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="375" y="2" width="75" height="25"/>
+                                                    <rect key="frame" x="402" y="2" width="75" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0Zu-Oe-N0S" userLabel="Start Time" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
@@ -413,11 +413,11 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="Bwv-8o-cAR" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="453" y="2" width="75" height="25"/>
+                                                    <rect key="frame" x="480" y="2" width="71" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KRJ-ef-icA" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="-7" y="2" width="79" height="25"/>
+                                                            <rect key="frame" x="-7" y="2" width="75" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="YYy-Og-b6x"/>
                                                             </constraints>
@@ -458,7 +458,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" wantsLayer="YES" id="o7A-Nv-ijK">
-                            <rect key="frame" x="0.0" y="0.0" width="540" height="25"/>
+                            <rect key="frame" x="0.0" y="0.0" width="553" height="25"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>

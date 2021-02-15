@@ -478,7 +478,7 @@
                         </connections>
                     </button>
                     <button toolTip="Scroll to bottom of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="B7I-KW-j8r" userLabel="Scroll To Bottom Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="516" y="65" width="10" height="10"/>
+                        <rect key="frame" x="516" y="53" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="D5c-aB-FSg"/>
                             <constraint firstAttribute="width" constant="10" id="c7G-uw-aSp"/>
@@ -495,7 +495,7 @@
                         </connections>
                     </button>
                     <button toolTip="Page down" translatesAutoresizingMaskIntoConstraints="NO" id="MyO-C3-Vvb" userLabel="Page Down Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="516" y="77" width="10" height="10"/>
+                        <rect key="frame" x="516" y="65" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Tf8-ZS-vnw"/>
                             <constraint firstAttribute="height" constant="10" id="wDg-8c-7OW"/>
@@ -522,7 +522,7 @@
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="leading" secondItem="MyO-C3-Vvb" secondAttribute="leading" id="99A-ST-JJ1"/>
                     <constraint firstItem="hbJ-4L-vUS" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" constant="50" id="AAS-dq-CZJ"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="15" id="Cbd-FA-MF9"/>
-                    <constraint firstAttribute="bottom" secondItem="B7I-KW-j8r" secondAttribute="bottom" constant="65" id="F9w-fj-3f1"/>
+                    <constraint firstAttribute="bottom" secondItem="B7I-KW-j8r" secondAttribute="bottom" constant="53" id="F9w-fj-3f1"/>
                     <constraint firstItem="4ZZ-7d-wdS" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="15" id="LNU-o8-puj"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="trailing" secondItem="MyO-C3-Vvb" secondAttribute="trailing" id="N8C-zk-zh9"/>
                     <constraint firstItem="2Bk-G6-skT" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" id="NBY-k6-E0H"/>

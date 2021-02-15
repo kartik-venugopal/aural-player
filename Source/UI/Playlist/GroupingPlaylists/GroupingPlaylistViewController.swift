@@ -467,9 +467,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         DispatchQueue.main.async {
         
             for track in Set([notification.beginTrack, notification.endTrack]).compactMap({$0}) {
-                
                 self.playlistView.reloadItem(track)
-                self.playlistView.noteHeightOfRows(withIndexesChanged: IndexSet(integer: self.playlistView.row(forItem: track)))
             }
         }
         
