@@ -16,7 +16,7 @@ struct AppConstants {
         
         // Supported audio file types/formats
         
-        private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", "mp3", "m4a", "m4b", "m4r", "snd", "au", "sd2", "wav"]
+        private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", "mp1", "mp2", "mp3", "m4a", "m4b", "m4r", "snd", "au", "sd2", "wav"]
         
         static let nativeAudioExtensions: [String] = {
             
@@ -29,7 +29,7 @@ struct AppConstants {
         
         static let nonNativeAudioContainerExtensions: [String] = ["mka", "ogg", "rm"]
         
-        private static let globallyNonNativeAudioExtensions: [String] = ["oga", "opus", "wma", "dsf", "dsd", "dff", "mpc", "mp2", "ape", "wv", "dts", "tta", "tak", "ra"]
+        private static let globallyNonNativeAudioExtensions: [String] = ["oga", "opus", "wma", "dsf", "dsd", "dff", "mpc", "ape", "wv", "dts", "tta", "tak", "ra"]
         
         static let nonNativeAudioExtensions: [String] = {
             
@@ -49,7 +49,7 @@ struct AppConstants {
             return all
         }()
         
-        private static let globallyNativeFormats: [String] = ["aac", "mp3", "ac-3", "ac3", "alac", "pcm_alaw", "pcm_s16le", "pcm_f32be", "pcm_f32le", "pcm_f64be", "pcm_f64le", "pcm_s16be", "pcm_u8", "pcm_mulaw", "pcm_s24be", "pcm_s24le", "pcm_s32be", "pcm_s32le", "pcm_s8", "pcm_u16be", "pcm_u16le", "pcm_u24be", "pcm_u24le", "pcm_u32be", "pcm_u32le", "adpcm_ima_wav", "gsm_ms"]
+        private static let globallyNativeFormats: [String] = ["aac", "mp1", "mp2", "mp3", "ac-3", "ac3", "alac", "pcm_alaw", "pcm_s16le", "pcm_f32be", "pcm_f32le", "pcm_f64be", "pcm_f64le", "pcm_s16be", "pcm_u8", "pcm_mulaw", "pcm_s24be", "pcm_s24le", "pcm_s32be", "pcm_s32le", "pcm_s8", "pcm_u16be", "pcm_u16le", "pcm_u24be", "pcm_u24le", "pcm_u32be", "pcm_u32le", "adpcm_ima_wav", "gsm_ms"]
         
         static let nativeAudioFormats: [String] = {
             
@@ -60,7 +60,7 @@ struct AppConstants {
             return formats
         }()
         
-        private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "mp2", "mp2_at", "mp2float", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice", "dts", "tta", "tak", "cook", "ra_144", "ra_288", "ralf", "sipr"]
+        private static let globallyNonNativeFormats: [String] = ["ape", "dsd_lsbf", "dsd_lsbf_planar", "dsd_msbf", "dsd_msbf_planar", "musepack", "musepack7", "musepack8", "mpc", "mpc7", "mpc8", "opus", "vorbis", "wavpack", "wmav1", "wmav2", "wmalossless", "wmapro", "wmavoice", "dts", "tta", "tak", "cook", "ra_144", "ra_288", "ralf", "sipr"]
         
         static let nonNativeAudioFormats: [String] = {
             

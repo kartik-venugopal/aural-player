@@ -86,9 +86,6 @@ class FormatMapper {
              "musepack": "m4a",
              "musepack7": "m4a",
              "musepack8": "m4a",
-             "mp2": "m4a",
-             "mp2_at": "m4a",
-             "mp2float": "m4a",
              "wavpack": "m4a",
              "dts": "ac3"
         ]
