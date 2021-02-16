@@ -23,7 +23,7 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
     
-    // Delegate that conveys all volume/pan adjustments to the audio graph
+    // Delegate representing the Time effects unit
     private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     // Delegate that conveys all playback requests to the player / playback sequencer

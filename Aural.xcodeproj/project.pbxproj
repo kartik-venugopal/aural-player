@@ -484,6 +484,12 @@
 		3E6C136325CEBF1000BF0D07 /* ID3Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10E425CEB98700BF0D07 /* ID3Parser.swift */; };
 		3E6C136425CEBF1000BF0D07 /* AlbumArtCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10EF25CEB98700BF0D07 /* AlbumArtCache.swift */; };
 		3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */; };
+		3E824A4325DB74850089F217 /* StatusBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E824A4125DB74840089F217 /* StatusBar.xib */; };
+		3E824A4425DB74850089F217 /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E824A4225DB74840089F217 /* StatusBarViewController.swift */; };
+		3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */; };
+		3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */; };
+		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
+		3E9E591025DB6B150064EB5F /* RegularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* RegularAppModeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -968,6 +974,12 @@
 		3E6C115125CEB9C100BF0D07 /* ffprobe */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffprobe; sourceTree = "<group>"; };
 		3E6C115225CEB9C100BF0D07 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E6C115325CEB9C100BF0D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3E824A4125DB74840089F217 /* StatusBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBar.xib; sourceTree = "<group>"; };
+		3E824A4225DB74840089F217 /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
+		3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
+		3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
+		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
+		3E9E590125DB6B150064EB5F /* RegularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularAppModeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1098,6 +1110,7 @@
 		3E6C0F1A25CEB98500BF0D07 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3E9E58FC25DB6B150064EB5F /* AppModes */,
 				3E6C0F1D25CEB98500BF0D07 /* MainWindow */,
 				3E6C101A25CEB98600BF0D07 /* Player */,
 				3E6C0F3B25CEB98600BF0D07 /* Playlist */,
@@ -1126,9 +1139,9 @@
 		3E6C0F1D25CEB98500BF0D07 /* MainWindow */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0F2025CEB98500BF0D07 /* MainWindow.xib */,
 				3E6C0F1E25CEB98500BF0D07 /* ColorSchemePopupMenuController.swift */,
 				3E6C0F1F25CEB98500BF0D07 /* MainWindowController.swift */,
-				3E6C0F2025CEB98500BF0D07 /* MainWindow.xib */,
 				3E6C0F2125CEB98500BF0D07 /* GestureHandler.swift */,
 				3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */,
 				3E6C0F2325CEB98500BF0D07 /* SettingsPopupMenuController.swift */,
@@ -2324,6 +2337,27 @@
 			path = ffmpeg;
 			sourceTree = "<group>";
 		};
+		3E9E58FC25DB6B150064EB5F /* AppModes */ = {
+			isa = PBXGroup;
+			children = (
+				3E9E590025DB6B150064EB5F /* AppModeManager.swift */,
+				3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */,
+				3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */,
+				3E9E590125DB6B150064EB5F /* RegularAppModeController.swift */,
+				3E9E590225DB6B150064EB5F /* MenuBarMode */,
+			);
+			path = AppModes;
+			sourceTree = "<group>";
+		};
+		3E9E590225DB6B150064EB5F /* MenuBarMode */ = {
+			isa = PBXGroup;
+			children = (
+				3E824A4125DB74840089F217 /* StatusBar.xib */,
+				3E824A4225DB74840089F217 /* StatusBarViewController.swift */,
+			);
+			path = MenuBarMode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2409,6 +2443,7 @@
 				3E6C121625CEBDE500BF0D07 /* Tracks.xib in Resources */,
 				3E6C126625CEBE0600BF0D07 /* DelayPresetsEditor.xib in Resources */,
 				3E6C126D25CEBE0600BF0D07 /* FavoritesEditor.xib in Resources */,
+				3E824A4325DB74850089F217 /* StatusBar.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */,
 				3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */,
 				3E6C115825CEB9C200BF0D07 /* build-ffmpeg.sh in Resources */,
@@ -2584,6 +2619,7 @@
 				3E6C122625CEBDE600BF0D07 /* GestureHandler.swift in Sources */,
 				3E6C125825CEBE0600BF0D07 /* LayoutsEditorViewController.swift in Sources */,
 				3E6C116B25CEBD6000BF0D07 /* PlaybackSequenceState.swift in Sources */,
+				3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */,
 				3E6C132C25CEBEA000BF0D07 /* FFT.swift in Sources */,
 				3E6C116525CEBD6000BF0D07 /* AppState.swift in Sources */,
 				3E6C127925CEBE1800BF0D07 /* Extensions.swift in Sources */,
@@ -2614,6 +2650,7 @@
 				3E6C119325CEBD6D00BF0D07 /* BookmarksProtocol.swift in Sources */,
 				3E6C126B25CEBE0600BF0D07 /* BookmarksEditorViewController.swift in Sources */,
 				3E6C124025CEBDF400BF0D07 /* FlatPlaylistTableViews.swift in Sources */,
+				3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */,
 				3E6C128825CEBE1800BF0D07 /* Fonts.swift in Sources */,
 				3E6C12E925CEBE8100BF0D07 /* PlayingTrackFunctionsViewController.swift in Sources */,
 				3E6C11EA25CEBDC400BF0D07 /* PlaybackChain.swift in Sources */,
@@ -2695,6 +2732,7 @@
 				3E6C11D125CEBDBE00BF0D07 /* TranscoderStore.swift in Sources */,
 				3E6C117B25CEBD6000BF0D07 /* SoundProfile.swift in Sources */,
 				3E6C125125CEBDF400BF0D07 /* PlaylistViewState.swift in Sources */,
+				3E9E591025DB6B150064EB5F /* RegularAppModeController.swift in Sources */,
 				3E6C132D25CEBEA000BF0D07 /* CommandExecutor.swift in Sources */,
 				3E6C12F625CEBE8F00BF0D07 /* InfoPopupViewController.swift in Sources */,
 				3E6C11DE25CEBDBE00BF0D07 /* StartPlaybackChain.swift in Sources */,
@@ -2856,11 +2894,13 @@
 				3E6C118125CEBD6D00BF0D07 /* ParametricEQNode.swift in Sources */,
 				3E6C116625CEBD6000BF0D07 /* TimePresets.swift in Sources */,
 				3E6C120D25CEBDD100BF0D07 /* Recorder.swift in Sources */,
+				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
 				3E6C132E25CEBEA000BF0D07 /* AudioUtils.swift in Sources */,
 				3E6C11F825CEBDD100BF0D07 /* RecordingFormat.swift in Sources */,
 				3E6C123225CEBDF400BF0D07 /* TracksPlaylistSortViewController.swift in Sources */,
 				3E6C12D625CEBE8100BF0D07 /* FilterViewController.swift in Sources */,
 				3E6C11EE25CEBDD100BF0D07 /* Sort.swift in Sources */,
+				3E824A4425DB74850089F217 /* StatusBarViewController.swift in Sources */,
 				3E6C11CF25CEBDBE00BF0D07 /* ApplyPlaybackProfileAction.swift in Sources */,
 				3E6C117A25CEBD6000BF0D07 /* AppStateProtocols.swift in Sources */,
 				3E6C132325CEBEA000BF0D07 /* UIUtils.swift in Sources */,
