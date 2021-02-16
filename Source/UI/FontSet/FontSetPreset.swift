@@ -12,7 +12,7 @@ enum FontSetPreset: String, CaseIterable {
     case programmer
 //
 //    // A dark scheme with a black background and aqua coloring of active sliders.
-//    case novelist
+    case novelist
 //
 //    // A semi-dark scheme with a gray background and lighter foreground elements.
     case gothic
@@ -32,6 +32,8 @@ enum FontSetPreset: String, CaseIterable {
             
         case FontSetPreset.programmer.name:    return .programmer
             
+        case FontSetPreset.novelist.name:    return .novelist
+            
         case FontSetPreset.gothic.name:    return .gothic
             
         default:    return nil
@@ -48,7 +50,7 @@ enum FontSetPreset: String, CaseIterable {
             
         case .programmer:  return "Programmer"
             
-//        case .novelist:    return "Black & aqua"
+        case .novelist:    return "Novelist"
             
         case .gothic:    return "Gothic"
             
@@ -80,7 +82,7 @@ enum FontSetPreset: String, CaseIterable {
             
         case .programmer:  return Fonts.Programmer.mainFont_11
             
-//        case .novelist:  return Colors.Constants.white50Percent
+        case .novelist:  return Fonts.Novelist.mainFont_11
             
         case .gothic:    return Fonts.Gothic.mainFont_13
             
@@ -93,9 +95,9 @@ enum FontSetPreset: String, CaseIterable {
             
         case .standard:  return Fonts.Standard.mainFont_16
             
-        case .programmer:  return Fonts.Programmer.mainFont_14
+        case .programmer:  return Fonts.Programmer.mainFont_13
             
-    //        case .novelist:  return Colors.Constants.white50Percent
+        case .novelist:  return Fonts.Novelist.mainFont_16
             
         case .gothic:    return Fonts.Gothic.mainFont_14
             
@@ -110,7 +112,7 @@ enum FontSetPreset: String, CaseIterable {
             
         case .programmer:  return Fonts.Programmer.mainFont_12
             
-    //        case .novelist:  return Colors.Constants.white50Percent
+        case .novelist:  return Fonts.Novelist.mainFont_14
             
         case .gothic:    return Fonts.Gothic.mainFont_12
             
@@ -125,9 +127,9 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.mainFont_11
                 
-        //        case .novelist:  return Colors.Constants.white50Percent
+            case .novelist:  return Fonts.Novelist.mainFont_13
                 
-            case .gothic:    return Fonts.Gothic.mainFont_13
+            case .gothic:    return Fonts.Gothic.mainFont_12
                 
         }
     }
@@ -140,7 +142,22 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.mainFont_12
                 
-        //        case .novelist:  return Colors.Constants.white50Percent
+            case .novelist:  return Fonts.Novelist.mainFont_13
+                
+            case .gothic:    return Fonts.Gothic.mainFont_12
+                
+        }
+    }
+    
+    var playlistSummaryFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_14
+                
+            case .programmer:  return Fonts.Programmer.mainFont_12
+                
+            case .novelist:  return Fonts.Novelist.mainFont_14
                 
             case .gothic:    return Fonts.Gothic.mainFont_12
                 
@@ -155,7 +172,7 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.captionFont_13
                 
-        //        case .novelist:  return Colors.Constants.white50Percent
+            case .novelist:  return Fonts.Novelist.captionFont_14
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
                 
@@ -170,7 +187,7 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.captionFont_15
                 
-        //        case .novelist:  return Colors.Constants.white50Percent
+            case .novelist:  return Fonts.Novelist.captionFont_17
                 
             case .gothic:    return Fonts.Gothic.captionFont_16
                 
@@ -185,7 +202,7 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.captionFont_11
                 
-        //        case .novelist:  return Colors.Constants.white50Percent
+            case .novelist:  return Fonts.Novelist.captionFont_14
                 
             case .gothic:    return Fonts.Gothic.captionFont_13
                 

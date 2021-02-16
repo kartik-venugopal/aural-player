@@ -370,8 +370,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     private func changeTextSize(_ textSize: TextSize) {
         
-        lblTracksSummary.font = Fonts.Playlist.summaryFont
-        lblDurationSummary.font = Fonts.Playlist.summaryFont
+        lblTracksSummary.font = FontSets.systemFontSet.playlist.summaryFont
+        lblDurationSummary.font = FontSets.systemFontSet.playlist.summaryFont
         
         redrawTabButtons()
         
