@@ -143,11 +143,13 @@ class MasterViewController: FXUnitViewController {
     
     override func changeTextSize(_ textSize: TextSize) {
         
-        lblCaption.font = Fonts.Effects.unitCaptionFont
+        lblCaption.font = FontSets.systemFontSet.effects.unitCaptionFont
         
-        functionLabels.forEach({
-            $0.font = $0 is EffectsUnitTriStateLabel ? Fonts.Effects.masterUnitFunctionFont : Fonts.Effects.unitFunctionFont
-        })
+        functionLabels.forEach {
+            
+            $0.font = $0 is EffectsUnitTriStateLabel ? FontSets.systemFontSet.effects.masterUnitFunctionFont :
+                FontSets.systemFontSet.effects.unitCaptionFont
+        }
         
         presetsMenu.font = Fonts.Effects.menuFont
     }

@@ -85,16 +85,18 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
             if let theArtist = artist, let theAlbum = album {
                 
                 fullLengthArtistAlbumStr = String(format: "%@ -- %@", theArtist, theAlbum)
-                truncatedArtistAlbumStr = truncateCompositeString(Fonts.Player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
+//                truncatedArtistAlbumStr = truncateCompositeString(Fonts.Player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
+                
+                truncatedArtistAlbumStr = truncateCompositeString(FontSets.systemFontSet.player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
                 
             } else if let theArtist = artist {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, Fonts.Player.infoBoxArtistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, FontSets.systemFontSet.player.infoBoxArtistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theArtist
                 
             } else if let theAlbum = album {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, Fonts.Player.infoBoxArtistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, FontSets.systemFontSet.player.infoBoxArtistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theAlbum
             }
             
@@ -104,12 +106,12 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
             let hasChapter: Bool = chapterStr != nil
             
             // Title (truncate only if artist, album, or chapter are displayed)
-            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, Fonts.Player.infoBoxTitleFont, lineWidth) : title
-            textView.textStorage?.append(attributedString(truncatedTitle, Fonts.Player.infoBoxTitleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
+            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, FontSets.systemFontSet.player.infoBoxTitleFont, lineWidth) : title
+            textView.textStorage?.append(attributedString(truncatedTitle, FontSets.systemFontSet.player.infoBoxTitleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
             if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
-                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, Fonts.Player.infoBoxArtistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, FontSets.systemFontSet.player.infoBoxArtistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
             // Chapter
