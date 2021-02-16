@@ -83,7 +83,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
         
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-        cell.updateText(Fonts.Playlist.indexFont, text)
+        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
         
         return cell
     }
@@ -103,7 +103,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         guard let cell = tableView.makeView(withIdentifier: .uid_trackName, owner: nil) as? TrackNameCellView else {return nil}
             
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-        cell.updateText(Fonts.Playlist.trackNameFont, text)
+        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
         
         return cell
     }
@@ -113,7 +113,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         guard let cell = tableView.makeView(withIdentifier: .uid_duration, owner: nil) as? DurationCellView else {return nil}
         
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-        cell.updateText(Fonts.Playlist.indexFont, text)
+        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
         
         return cell
     }

@@ -174,8 +174,8 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     
     func changeTextSize(_ size: TextSize) {
         
-        lblTimeElapsed.font = Fonts.Player.trackTimesFont
-        lblTimeRemaining.font = Fonts.Player.trackTimesFont
+        lblTimeElapsed.font = FontSets.systemFontSet.player.trackTimesFont
+        lblTimeRemaining.font = FontSets.systemFontSet.player.trackTimesFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

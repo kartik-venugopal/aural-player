@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E2ED4A525DBAD8400732E79 /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontSet.swift */; };
+		3E2ED4A725DBB24F00732E79 /* FontSetPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */; };
+		3E2ED4A925DBC50500732E79 /* FontSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSets.swift */; };
 		3E427F2D25D9065F00465569 /* Release Notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 3E427EFA25D9065F00465569 /* Release Notes.md */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
@@ -493,6 +496,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E2ED4A425DBAD8400732E79 /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
+		3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSetPreset.swift; sourceTree = "<group>"; };
+		3E2ED4A825DBC50500732E79 /* FontSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSets.swift; sourceTree = "<group>"; };
 		3E427EFA25D9065F00465569 /* Release Notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -993,6 +999,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E2ED4A325DBAD6200732E79 /* FontSet */ = {
+			isa = PBXGroup;
+			children = (
+				3E2ED4A425DBAD8400732E79 /* FontSet.swift */,
+				3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */,
+				3E2ED4A825DBC50500732E79 /* FontSets.swift */,
+			);
+			path = FontSet;
+			sourceTree = "<group>";
+		};
 		3E427EC525D9065F00465569 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1120,6 +1136,8 @@
 				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
 				3E6C104F25CEB98600BF0D07 /* WindowManagement */,
 				3E6C0F9925CEB98600BF0D07 /* ColorSchemes */,
+				3E2ED4A325DBAD6200732E79 /* FontSet */,
+				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
 				3E6C0FDD25CEB98600BF0D07 /* Menus */,
 				3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */,
@@ -1128,7 +1146,6 @@
 				3E6C0F9525CEB98600BF0D07 /* ViewFactory.swift */,
 				3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */,
 				3E6C0F9725CEB98600BF0D07 /* Extensions.swift */,
-				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
 				3E6C0FEB25CEB98600BF0D07 /* Images.swift */,
 				3E6C0FEC25CEB98600BF0D07 /* Colors.swift */,
 				3E6C101925CEB98600BF0D07 /* KeyCodeConstants.swift */,
@@ -2526,6 +2543,7 @@
 				3E6C118B25CEBD6D00BF0D07 /* EQMapping.swift in Sources */,
 				3E6C12A925CEBE2700BF0D07 /* FXUnitTriStateImageView.swift in Sources */,
 				3E6C130625CEBE8F00BF0D07 /* SeekSliderView.swift in Sources */,
+				3E2ED4A725DBB24F00732E79 /* FontSetPreset.swift in Sources */,
 				3E6C129825CEBE2700BF0D07 /* VAlignedTextField.swift in Sources */,
 				3E6C132725CEBEA000BF0D07 /* Timer.swift in Sources */,
 				3E6C11F225CEBDD100BF0D07 /* RecordingQuality.swift in Sources */,
@@ -2703,6 +2721,7 @@
 				3E6C121025CEBDD100BF0D07 /* CRUDOperationResults.swift in Sources */,
 				3E6C125C25CEBE0600BF0D07 /* FilterPresetsEditorViewController.swift in Sources */,
 				3E6C121E25CEBDE600BF0D07 /* ViewPreferencesViewController.swift in Sources */,
+				3E2ED4A925DBC50500732E79 /* FontSets.swift in Sources */,
 				3E6C127D25CEBE1800BF0D07 /* AutoHidingView.swift in Sources */,
 				3E6C12A025CEBE2700BF0D07 /* TintedImageView.swift in Sources */,
 				3E6C129125CEBE1800BF0D07 /* ColorSchemeHistory.swift in Sources */,
@@ -2831,6 +2850,7 @@
 				3E6C132B25CEBEA000BF0D07 /* ConcurrencyUtils.swift in Sources */,
 				3E6C116A25CEBD6000BF0D07 /* EQPresets.swift in Sources */,
 				3E6C117425CEBD6000BF0D07 /* AppDefaults.swift in Sources */,
+				3E2ED4A525DBAD8400732E79 /* FontSet.swift in Sources */,
 				3E6C12B925CEBE5800BF0D07 /* AuralMenuController.swift in Sources */,
 				3E6C119025CEBD6D00BF0D07 /* BookmarksDelegate.swift in Sources */,
 				3E6C127B25CEBE1800BF0D07 /* PlaylistColorSchemeViewController.swift in Sources */,
@@ -3048,14 +3068,14 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.0;
+				CURRENT_PROJECT_VERSION = 2.5.0;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -3070,14 +3090,14 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.0;
+				CURRENT_PROJECT_VERSION = 2.5.0;
 				INFOPLIST_FILE = Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.4.0;
+				MARKETING_VERSION = 2.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
