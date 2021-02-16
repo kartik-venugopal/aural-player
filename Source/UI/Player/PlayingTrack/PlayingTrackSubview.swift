@@ -110,6 +110,10 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
         textView.changeTextSize(size)
     }
     
+    func applyFontSet(_ fontSet: FontSet) {
+        textView.applyFontSet(fontSet)
+    }
+    
     func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)

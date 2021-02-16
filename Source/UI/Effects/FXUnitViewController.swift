@@ -79,6 +79,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         Messenger.subscribe(self, .fx_changeSliderColors, self.changeSliderColors)
         
+        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
@@ -130,6 +131,9 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         lblCaption.font = Fonts.Effects.unitCaptionFont
         functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
         presetsMenu.font = Fonts.Effects.menuFont
+    }
+    
+    func applyFontSet(_ fontSet: FontSet) {
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

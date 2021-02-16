@@ -149,6 +149,12 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         expandedArtView.changeTextSize(size)
     }
     
+    func applyFontSet(_ fontSet: FontSet) {
+        
+        defaultView.applyFontSet(fontSet)
+        expandedArtView.applyFontSet(fontSet)
+    }
+    
     func applyColorScheme(_ scheme: ColorScheme) {
         
         defaultView.applyColorScheme(scheme)

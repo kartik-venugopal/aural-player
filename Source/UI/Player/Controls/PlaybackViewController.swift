@@ -54,6 +54,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .player_changeTextSize, playbackView.changeTextSize(_:))
         
+        Messenger.subscribe(self, .applyFontSet, playbackView.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, playbackView.applyColorScheme(_:))
         Messenger.subscribe(self, .player_changeSliderColors, playbackView.changeSliderColors)
         Messenger.subscribe(self, .changeFunctionButtonColor, playbackView.changeFunctionButtonColor(_:))

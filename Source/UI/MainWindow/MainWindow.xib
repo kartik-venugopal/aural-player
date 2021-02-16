@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -297,6 +297,38 @@
                                                         </items>
                                                     </menu>
                                                 </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="LsC-ny-14p"/>
+                                                <menuItem title="Font set" id="pIS-mt-Im2" userLabel="Font set">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Font set" showsStateColumn="NO" id="jzT-Jm-871">
+                                                        <items>
+                                                            <menuItem title="Standard" indentationLevel="1" id="43j-ji-ycl">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="IPD-5W-P11"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Programmer" indentationLevel="1" id="wd9-v0-USI">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="EQC-nx-zTl"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Novelist" indentationLevel="1" id="rKV-Kl-mba">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="awr-zz-ItR"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Gothic" indentationLevel="1" id="pc7-RT-aH8">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="2j0-0o-u7c"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="kCi-Zk-hgw"/>
                                                 <menuItem title="Color scheme" id="i7L-so-Yi8" userLabel="Color scheme">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -506,6 +538,7 @@
             </connections>
         </customObject>
         <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="jyH-lC-gOA" customClass="FontSetPopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="df9-sN-idv" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="cqL-8W-DqF" customClass="TextSizeMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="bsC-mz-7dU" customClass="SettingsPopupMenuController" customModule="Aural" customModuleProvider="target">

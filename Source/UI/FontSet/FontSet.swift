@@ -55,6 +55,13 @@ class FontSet: StringKeyedItem {
         
         self.systemDefined = true
     }
+    
+    func applyFontSet(_ fontSet: FontSet) {
+        
+        player.applyFontSet(fontSet.player)
+        playlist.applyFontSet(fontSet.playlist)
+        effects.applyFontSet(fontSet.effects)
+    }
 }
 
 class PlayerFontSet {
@@ -131,6 +138,13 @@ class PlayerFontSet {
         self.infoBoxArtistAlbumFont_normal = preset.infoBoxArtistAlbumFont_normal
         self.trackTimesFont_normal = preset.trackTimesFont_normal
     }
+    
+    func applyFontSet(_ fontSet: PlayerFontSet) {
+        
+        self.infoBoxTitleFont_normal = fontSet.infoBoxTitleFont_normal
+        self.infoBoxArtistAlbumFont_normal = fontSet.infoBoxArtistAlbumFont_normal
+        self.trackTimesFont_normal = fontSet.trackTimesFont_normal
+    }
 }
 
 class PlaylistFontSet {
@@ -184,6 +198,13 @@ class PlaylistFontSet {
         self.tabButtonTextFont_normal = preset.playlistTabTextFont_normal
         self.summaryFont_normal = preset.playlistSummaryFont_normal
     }
+    
+    func applyFontSet(_ fontSet: PlaylistFontSet) {
+        
+        self.trackTextFont_normal = fontSet.trackTextFont_normal
+        self.tabButtonTextFont_normal = fontSet.tabButtonTextFont_normal
+        self.summaryFont_normal = fontSet.summaryFont_normal
+    }
 }
 
 //    var tabsFont_larger: NSFont
@@ -236,6 +257,12 @@ class EffectsFontSet {
         
         self.unitCaptionFont_normal = preset.effectsUnitCaptionFont_normal
         self.masterUnitFunctionFont_normal = preset.effectsMasterUnitFunctionFont_normal
+    }
+    
+    func applyFontSet(_ fontSet: EffectsFontSet) {
+        
+        self.unitCaptionFont_normal = fontSet.unitCaptionFont_normal
+        self.masterUnitFunctionFont_normal = fontSet.masterUnitFunctionFont_normal
     }
 //
 //    var unitFunctionFont_normal: NSFont

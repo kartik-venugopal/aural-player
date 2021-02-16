@@ -142,6 +142,14 @@ class MasterViewController: FXUnitViewController {
     }
     
     override func changeTextSize(_ textSize: TextSize) {
+        fontsChanged()
+    }
+    
+    override func applyFontSet(_ fontSet: FontSet) {
+        fontsChanged()
+    }
+    
+    private func fontsChanged() {
         
         lblCaption.font = FontSets.systemFontSet.effects.unitCaptionFont
         

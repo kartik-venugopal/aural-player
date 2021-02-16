@@ -7,4 +7,15 @@ class FontSets {
     
     // The current system color scheme. It is initialized with the default scheme.
     static var systemFontSet: FontSet = defaultFontSet
+    
+    static func applyFontSet(named name: String) -> FontSet? {
+        
+        if let fontSetPreset = FontSetPreset.presetByName(name) {
+            
+            systemFontSet.applyFontSet(FontSet("_throwaway_", fontSetPreset))
+            return systemFontSet
+        }
+        
+        return nil
+    }
 }

@@ -54,6 +54,10 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
         update()
     }
     
+    func applyFontSet(_ fontSet: FontSet) {
+        update()
+    }
+    
     // Responds to a change in user-defined color scheme
     func applyColorScheme(_ scheme: ColorScheme) {
         update()
