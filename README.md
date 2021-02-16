@@ -9,6 +9,7 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
 ## Table of Contents
   * [Overview](#overview)
   * [Documentation](#documentation)
+  * [Contact Info](#contact-info)
   * [Download](#download)
     + [Compatibility](#compatibility)
     + [Installation](#installation)
@@ -40,6 +41,14 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 [How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
 
 NOTE - The documentation is incomplete and is a work in progress.
+
+## Contact info
+
+Want to contact the developer ? Send an email to [aural.student@gmail.com](mailto:aural.student@gmail.com).
+
+Any feedback, questions, issues, suggestions, or other comments related to the project are welcome ... spam is not :)
+
+Of course, you may also file issues right here on GitHub as needed. I'm usually pretty good at responding to them, even if I'm not always able to fix them.
 
 ## Download
 
