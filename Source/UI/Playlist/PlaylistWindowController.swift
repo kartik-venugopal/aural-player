@@ -153,6 +153,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
         
+        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         
@@ -369,6 +370,14 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     private func changeTextSize(_ textSize: TextSize) {
+        fontsChanged()
+    }
+    
+    func applyFontSet(_ fontSet: FontSet) {
+        fontsChanged()
+    }
+    
+    private func fontsChanged() {
         
         lblTracksSummary.font = FontSets.systemFontSet.playlist.summaryFont
         lblDurationSummary.font = FontSets.systemFontSet.playlist.summaryFont

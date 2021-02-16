@@ -178,6 +178,12 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         lblTimeRemaining.font = FontSets.systemFontSet.player.trackTimesFont
     }
     
+    func applyFontSet(_ fontSet: FontSet) {
+        
+        lblTimeElapsed.font = FontSets.systemFontSet.player.trackTimesFont
+        lblTimeRemaining.font = FontSets.systemFontSet.player.trackTimesFont
+    }
+    
     func applyColorScheme(_ scheme: ColorScheme) {
         
         changeSliderValueTextColor(scheme.player.sliderValueTextColor)

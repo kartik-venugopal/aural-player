@@ -502,7 +502,13 @@ extension Notification.Name {
     // Commands all playlist UI components to change their text size to a specific preset.
     static let playlist_changeTextSize = Notification.Name("playlist_changeTextSize")
     
+    // ----------------------------------------------------------------------------------------
     
+    // MARK: Font set commands
+    
+    // Commands all UI components to apply a new specified color scheme.
+    static let applyFontSet = Notification.Name("applyFontSet")
+
     // ----------------------------------------------------------------------------------------
     
     // MARK: Color scheme commands

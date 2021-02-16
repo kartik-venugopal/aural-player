@@ -119,6 +119,10 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
         sliderView.changeTextSize(size)
     }
     
+    func applyFontSet(_ fontSet: FontSet) {
+        sliderView.applyFontSet(fontSet)
+    }
+    
     func applyColorScheme(_ scheme: ColorScheme) {
         
         // This call will also take care of toggle buttons
