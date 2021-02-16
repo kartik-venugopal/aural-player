@@ -118,6 +118,12 @@ class EQViewController: FXUnitViewController {
         eqView.changeTextSize()
     }
     
+    override func applyFontSet(_ fontSet: FontSet) {
+        
+        super.applyFontSet(fontSet)
+        eqView.applyFontSet(fontSet)
+    }
+    
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)

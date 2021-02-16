@@ -155,6 +155,12 @@ class PlaylistFontSet {
     var trackTextFont: NSFont {
         return trackTextFont_normal
     }
+    
+    var groupTextFont_normal: NSFont
+    
+    var groupTextFont: NSFont {
+        return groupTextFont_normal
+    }
 //
 //    var groupTextFont_normal: NSFont
 //    var groupTextFont_larger: NSFont
@@ -195,6 +201,7 @@ class PlaylistFontSet {
     init(preset: FontSetPreset) {
         
         self.trackTextFont_normal = preset.playlistTrackTextFont_normal
+        self.groupTextFont_normal = preset.playlistGroupTextFont_normal
         self.tabButtonTextFont_normal = preset.playlistTabTextFont_normal
         self.summaryFont_normal = preset.playlistSummaryFont_normal
     }
@@ -202,6 +209,7 @@ class PlaylistFontSet {
     func applyFontSet(_ fontSet: PlaylistFontSet) {
         
         self.trackTextFont_normal = fontSet.trackTextFont_normal
+        self.groupTextFont_normal = fontSet.groupTextFont_normal
         self.tabButtonTextFont_normal = fontSet.tabButtonTextFont_normal
         self.summaryFont_normal = fontSet.summaryFont_normal
     }
@@ -244,6 +252,12 @@ class EffectsFontSet {
     var unitCaptionFont: NSFont {
         return unitCaptionFont_normal
     }
+    
+    var unitFunctionFont_normal: NSFont
+    
+    var unitFunctionFont: NSFont {
+        return unitFunctionFont_normal
+    }
 
     var masterUnitFunctionFont_normal: NSFont
 //    var masterUnitFunctionFont_larger: NSFont
@@ -256,12 +270,14 @@ class EffectsFontSet {
     init(preset: FontSetPreset) {
         
         self.unitCaptionFont_normal = preset.effectsUnitCaptionFont_normal
+        self.unitFunctionFont_normal = preset.effectsUnitFunctionFont_normal
         self.masterUnitFunctionFont_normal = preset.effectsMasterUnitFunctionFont_normal
     }
     
     func applyFontSet(_ fontSet: EffectsFontSet) {
         
         self.unitCaptionFont_normal = fontSet.unitCaptionFont_normal
+        self.unitFunctionFont_normal = fontSet.unitFunctionFont_normal
         self.masterUnitFunctionFont_normal = fontSet.masterUnitFunctionFont_normal
     }
 //

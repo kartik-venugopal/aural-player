@@ -87,6 +87,12 @@ class EQView: NSView {
         btn15Band.redraw()
     }
     
+    func applyFontSet(_ fontSet: FontSet) {
+        
+        btn10Band.redraw()
+        btn15Band.redraw()
+    }
+    
     func changeActiveUnitStateColor(_ color: NSColor) {
         
         eq10BandView.changeActiveUnitStateColor(color)
