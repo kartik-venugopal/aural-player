@@ -170,11 +170,19 @@ class PlaylistFontSet {
         
         return tabButtonTextFont_normal
     }
+    
+    var summaryFont_normal: NSFont
+    
+    var summaryFont: NSFont {
+        return summaryFont_normal
+    }
+        
 
     init(preset: FontSetPreset) {
         
         self.trackTextFont_normal = preset.playlistTrackTextFont_normal
         self.tabButtonTextFont_normal = preset.playlistTabTextFont_normal
+        self.summaryFont_normal = preset.playlistSummaryFont_normal
     }
 }
 
