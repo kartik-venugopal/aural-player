@@ -104,7 +104,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = false
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
-        cell.updateText(Fonts.Playlist.indexFont, ValueFormatter.formatSecondsToHMS(track.duration))
+        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, ValueFormatter.formatSecondsToHMS(track.duration))
         
         return cell
     }
@@ -120,7 +120,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
             
-        cell.updateText(Fonts.Playlist.groupNameFont, String(format: "%@ (%d)", group.name, group.size))
+        cell.updateText(FontSets.systemFontSet.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
         imgView.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         // Constraints

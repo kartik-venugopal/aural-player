@@ -149,6 +149,21 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
+    var playlistGroupTextFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_14
+                
+            case .programmer:  return Fonts.Programmer.mainFont_13
+                
+            case .novelist:  return Fonts.Novelist.mainFont_14
+                
+            case .gothic:    return Fonts.Gothic.mainFont_13
+                
+        }
+    }
+    
     var playlistSummaryFont_normal: NSFont {
         
         switch self {
@@ -190,6 +205,21 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.captionFont_17
                 
             case .gothic:    return Fonts.Gothic.captionFont_16
+                
+        }
+    }
+    
+    var effectsUnitFunctionFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_11_5
+                
+            case .programmer:  return Fonts.Programmer.mainFont_11_5
+                
+            case .novelist:  return Fonts.Novelist.mainFont_11_5
+                
+            case .gothic:    return Fonts.Gothic.mainFont_11_5
                 
         }
     }
