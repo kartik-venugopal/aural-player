@@ -26,7 +26,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 25
+        return 30
     }
     
     // Returns a view for a single column
@@ -104,6 +104,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
         cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
+        
+        print("It is of type:", cell.textField?.cell?.className)
         
         return cell
     }

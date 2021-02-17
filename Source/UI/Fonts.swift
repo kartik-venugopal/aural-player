@@ -7,35 +7,35 @@ struct Fonts {
     
     struct Standard {
         
-        static let mainFont_8: NSFont = NSFont(name: "Play Regular", size: 8)!
+        static let mainFont_8: NSFont = NSFont(name: "Exo Medium", size: 8)!
         
-        static let mainFont_9: NSFont = NSFont(name: "Play Regular", size: 9)!
+        static let mainFont_9: NSFont = NSFont(name: "Exo Medium", size: 9)!
         
-        static let mainFont_10: NSFont = NSFont(name: "Play Regular", size: 10)!
+        static let mainFont_10: NSFont = NSFont(name: "Exo Medium", size: 10)!
         
-        static let mainFont_11: NSFont = NSFont(name: "Play Regular", size: 11)!
-        static let mainFont_11_5: NSFont = NSFont(name: "Play Regular", size: 11.5)!
+        static let mainFont_11: NSFont = NSFont(name: "Exo Medium", size: 11)!
+        static let mainFont_11_5: NSFont = NSFont(name: "Exo Medium", size: 11.5)!
         
-        static let mainFont_12: NSFont = NSFont(name: "Play Regular", size: 12)!
-        static let mainFont_12_5: NSFont = NSFont(name: "Play Regular", size: 12.5)!
+        static let mainFont_12: NSFont = NSFont(name: "Exo Medium", size: 12)!
+        static let mainFont_12_5: NSFont = NSFont(name: "Exo Medium", size: 12.5)!
         
-        static let mainFont_13: NSFont = NSFont(name: "Play Regular", size: 13)!
-        static let mainFont_13_5: NSFont = NSFont(name: "Play Regular", size: 13.5)!
+        static let mainFont_13: NSFont = NSFont(name: "Exo Medium", size: 13)!
+        static let mainFont_13_5: NSFont = NSFont(name: "Exo Medium", size: 13.5)!
         
-        static let mainFont_14: NSFont = NSFont(name: "Play Regular", size: 14)!
-        static let mainFont_14_5: NSFont = NSFont(name: "Play Regular", size: 14.5)!
+        static let mainFont_14: NSFont = NSFont(name: "Exo Medium", size: 14)!
+        static let mainFont_14_5: NSFont = NSFont(name: "Exo Medium", size: 14.5)!
         
-        static let mainFont_15: NSFont = NSFont(name: "Play Regular", size: 15)!
-        static let mainFont_15_5: NSFont = NSFont(name: "Play Regular", size: 15.5)!
+        static let mainFont_15: NSFont = NSFont(name: "Exo Medium", size: 15)!
+        static let mainFont_15_5: NSFont = NSFont(name: "Exo Medium", size: 15.5)!
         
-        static let mainFont_16: NSFont = NSFont(name: "Play Regular", size: 16)!
-        static let mainFont_16_5: NSFont = NSFont(name: "Play Regular", size: 16.5)!
+        static let mainFont_16: NSFont = NSFont(name: "Exo Medium", size: 16)!
+        static let mainFont_16_5: NSFont = NSFont(name: "Exo Medium", size: 16.5)!
         
-        static let mainFont_17: NSFont = NSFont(name: "Play Regular", size: 17)!
+        static let mainFont_17: NSFont = NSFont(name: "Exo Medium", size: 17)!
         
-        static let mainFont_18: NSFont = NSFont(name: "Play Regular", size: 18)!
+        static let mainFont_18: NSFont = NSFont(name: "Exo Medium", size: 18)!
         
-        static let mainFont_20: NSFont = NSFont(name: "Play Regular", size: 20)!
+        static let mainFont_20: NSFont = NSFont(name: "Exo Medium", size: 20)!
         
         static let captionFont_13: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 13)!
         static let captionFont_14: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 14)!

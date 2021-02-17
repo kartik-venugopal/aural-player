@@ -10,7 +10,6 @@
 		3E2ED4A525DBAD8400732E79 /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontSet.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSetPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */; };
 		3E2ED4A925DBC50500732E79 /* FontSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSets.swift */; };
-		3E427F2D25D9065F00465569 /* Release Notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 3E427EFA25D9065F00465569 /* Release Notes.md */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
@@ -983,6 +982,7 @@
 		3E6C115325CEB9C100BF0D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E824A4125DB74840089F217 /* StatusBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBar.xib; sourceTree = "<group>"; };
 		3E824A4225DB74840089F217 /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
+		3E836B5225DD3ABC00B9E303 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
 		3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
@@ -2332,6 +2332,7 @@
 				3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */,
 				3E6C114A25CEB9C100BF0D07 /* Play-Regular.ttf */,
 				3E6C114B25CEB9C100BF0D07 /* AlegreyaSansSC-Medium.ttf */,
+				3E836B5225DD3ABC00B9E303 /* monaco.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -2441,7 +2442,6 @@
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
 				3E6C12CB25CEBE6700BF0D07 /* Time.xib in Resources */,
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
-				3E427F2D25D9065F00465569 /* Release Notes.md in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
 				3E6C12C825CEBE6700BF0D07 /* Reverb.xib in Resources */,
 				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
