@@ -75,6 +75,7 @@ class ObjectGraph {
         preferencesDelegate = PreferencesDelegate(preferences)
         
         // Audio Graph (and delegate)
+//        audioGraph = MockAudioGraph(appState.audioGraph)
         audioGraph = AudioGraph(appState.audioGraph)
         
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
@@ -169,8 +170,9 @@ class ObjectGraph {
         WindowManager.initialize(appState.ui.windowLayout, preferences.viewPreferences)
         UIUtils.initialize(preferences.viewPreferences)
         
-        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
+        FontSets.initialize()
         ColorSchemes.initialize(appState.ui.colorSchemes)
+        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)

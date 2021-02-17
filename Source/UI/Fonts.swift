@@ -57,6 +57,7 @@ struct Fonts {
         static let mainFont_9: NSFont = NSFont(name: "Monaco", size: 9)!
         
         static let mainFont_10: NSFont = NSFont(name: "Monaco", size: 10)!
+        static let mainFont_10_5: NSFont = NSFont(name: "Monaco", size: 10.5)!
         
         static let mainFont_11: NSFont = NSFont(name: "Monaco", size: 11)!
         static let mainFont_11_5: NSFont = NSFont(name: "Monaco", size: 11.5)!
@@ -152,6 +153,7 @@ struct Fonts {
             static let mainFont_9: NSFont = NSFont(name: "Metamorphous", size: 9)!
             
             static let mainFont_10: NSFont = NSFont(name: "Metamorphous", size: 10)!
+            static let mainFont_10_5: NSFont = NSFont(name: "Metamorphous", size: 10.5)!
             
             static let mainFont_11: NSFont = NSFont(name: "Metamorphous", size: 11)!
             static let mainFont_11_5: NSFont = NSFont(name: "Metamorphous", size: 11.5)!

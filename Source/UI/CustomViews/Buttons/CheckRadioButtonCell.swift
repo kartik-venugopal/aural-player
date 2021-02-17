@@ -68,7 +68,7 @@ fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [Stri
 class FXFunctionCheckRadioButtonCell: CheckRadioButtonCell {
     
     override var textColor: NSColor {return Colors.Effects.functionCaptionTextColor}
-    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    override var textFont: NSFont {return FontSets.systemFontSet.effects.unitFunctionFont}
     
     override var yOffset: CGFloat {
         
