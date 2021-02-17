@@ -42,6 +42,51 @@ class VALabel: NSTextField {
     }
 }
 
+class VCenteredLabelCell: NSTextFieldCell {
+    
+    override func titleRect(forBounds rect: NSRect) -> NSRect {
+        
+        var newRect: NSRect = super.titleRect(forBounds: rect)
+        
+        let textHt: CGFloat = attributedStringValue.size().height
+        //        let heightDelta: CGFloat = newRect.size.height - textSize.height
+        newRect.size.height = textHt
+        //
+        newRect.origin.y = rect.origin.y + (rect.size.height - textHt) / 2.0
+//                print("NR:", newRect, "from:", rect)
+        
+//        if let fontName = self.font?.familyName, fontName.contains("Play") {
+//            newRect.origin.y -= 3
+//        }
+        //
+                return newRect
+    }
+    
+    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+        
+//            let rect: NSRect = self.titleRect(forBounds: cellFrame)
+//            NSColor.gray.setStroke()
+//            var drawPath = NSBezierPath.init(rect: rect)
+//            drawPath.stroke()
+//            
+//            let r2: NSRect = self.drawingRect(forBounds: cellFrame)
+//            drawPath = NSBezierPath.init(rect: r2)
+//            NSColor.red.setStroke()
+//        drawPath.stroke()
+            
+            
+//            NSColor.yellow.setStroke()
+//            drawPath.stroke()
+            
+//            let halfRect: NSRect = NSRect(x: rect.origin.x, y: rect.origin.y, width: rect.width, height: rect.height / 2)
+//            drawPath = NSBezierPath.init(rect: halfRect)
+//            NSColor.green.setStroke()
+//            drawPath.stroke()
+        
+        super.drawInterior(withFrame: self.titleRect(forBounds: cellFrame), in: controlView)
+    }
+}
+
 class VALabelCell: NSTextFieldCell {
     
     var debug: Bool = false
@@ -51,8 +96,8 @@ class VALabelCell: NSTextFieldCell {
     override func drawingRect(forBounds theRect: NSRect) -> NSRect {
         
         var newRect: NSRect = super.drawingRect(forBounds: theRect)
-        let textSize: NSSize = self.cellSize(forBounds: theRect)
         
+        let textSize: NSSize = self.cellSize(forBounds: theRect)
         let heightDelta: CGFloat = newRect.size.height - textSize.height
         
         if heightDelta > 0 {
@@ -69,10 +114,14 @@ class VALabelCell: NSTextFieldCell {
             
         }
         
+        if self.title.starts(with: "Blue Stone") {
+            print("NewRect:", newRect, textSize, heightDelta, title)
+        }
+        
         return newRect
     }
-
-//    NOTE - THIS FUNCTION IS FOR DEBUGGING ONLY
+    
+    //    NOTE - THIS FUNCTION IS FOR DEBUGGING ONLY
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         if debug {
@@ -94,7 +143,7 @@ class VALabelCell: NSTextFieldCell {
             NSColor.green.setStroke()
             drawPath.stroke()
         }
-
+        
         super.drawInterior(withFrame: cellFrame, in: controlView)
     }
 }
@@ -107,7 +156,7 @@ enum VAlignment: Int {
 }
 
 class TopTextLabel: VALabel {
-
+    
     override var vAlign: VAlignment {
         
         get {
@@ -147,13 +196,13 @@ class CenterTextLabel: VALabel {
 
 // Cell specifically for main caption text using the Alegraya SC font
 class FXUnitCaptionCell: VALabelCell {
-
+    
     override func drawingRect(forBounds theRect: NSRect) -> NSRect {
-
+        
         switch EffectsViewState.textSize {
-
+            
         case .normal:
-
+            
             return NSRect(origin: NSMakePoint(0, theRect.height - 23), size: NSMakeSize(theRect.width, 23))
             
         case .larger:

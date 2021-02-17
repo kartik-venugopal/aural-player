@@ -93,7 +93,7 @@ enum FontSetPreset: String, CaseIterable {
         
         switch self {
             
-        case .standard:  return Fonts.Standard.mainFont_16
+        case .standard:  return Fonts.Standard.mainFont_15
             
         case .programmer:  return Fonts.Programmer.mainFont_13
             
@@ -108,7 +108,7 @@ enum FontSetPreset: String, CaseIterable {
         
         switch self {
             
-        case .standard:  return Fonts.Standard.mainFont_14
+        case .standard:  return Fonts.Standard.mainFont_13
             
         case .programmer:  return Fonts.Programmer.mainFont_12
             
@@ -153,7 +153,7 @@ enum FontSetPreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return Fonts.Standard.mainFont_13
+            case .standard:  return Fonts.Standard.mainFont_12
                 
             case .programmer:  return Fonts.Programmer.mainFont_11
                 
@@ -168,7 +168,7 @@ enum FontSetPreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return Fonts.Standard.mainFont_14
+            case .standard:  return Fonts.Standard.mainFont_12_5
                 
             case .programmer:  return Fonts.Programmer.mainFont_12
                 
@@ -183,7 +183,7 @@ enum FontSetPreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return Fonts.Standard.mainFont_14
+            case .standard:  return Fonts.Standard.mainFont_13
                 
             case .programmer:  return Fonts.Programmer.mainFont_12
                 
