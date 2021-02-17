@@ -119,9 +119,9 @@ NOTE - v2.3.0 and newer versions circumvent this problem by storing app state in
 
 ## Known issues
 
-### Bad audio quality when plugging in Bluetooth headphones
+### Bad audio quality when connecting Bluetooth headphones
 
-If you notice poor audio quality when you first plug in Bluetooth headphones, try the following:
+If you notice poor audio quality when you first connect Bluetooth headphones, try the following:
 
 **Fix# 1 - Set your system's input device to the built-in device**
 
