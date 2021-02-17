@@ -99,7 +99,7 @@ enum FontSetPreset: String, CaseIterable {
             
         case .novelist:  return Fonts.Novelist.mainFont_16
             
-        case .gothic:    return Fonts.Gothic.mainFont_14
+        case .gothic:    return Fonts.Gothic.mainFont_13
             
         }
     }
@@ -114,7 +114,7 @@ enum FontSetPreset: String, CaseIterable {
             
         case .novelist:  return Fonts.Novelist.mainFont_14
             
-        case .gothic:    return Fonts.Gothic.mainFont_12
+        case .gothic:    return Fonts.Gothic.mainFont_11
             
         }
     }
@@ -155,11 +155,11 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_13
                 
-            case .programmer:  return Fonts.Programmer.mainFont_12
+            case .programmer:  return Fonts.Programmer.mainFont_11
                 
             case .novelist:  return Fonts.Novelist.mainFont_13
                 
-            case .gothic:    return Fonts.Gothic.mainFont_12
+            case .gothic:    return Fonts.Gothic.mainFont_11
                 
         }
     }
@@ -170,11 +170,11 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_14
                 
-            case .programmer:  return Fonts.Programmer.mainFont_13
+            case .programmer:  return Fonts.Programmer.mainFont_12
                 
             case .novelist:  return Fonts.Novelist.mainFont_14
                 
-            case .gothic:    return Fonts.Gothic.mainFont_13
+            case .gothic:    return Fonts.Gothic.mainFont_12
                 
         }
     }
