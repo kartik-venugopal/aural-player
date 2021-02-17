@@ -127,9 +127,24 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.mainFont_11
                 
-            case .novelist:  return Fonts.Novelist.mainFont_13
+            case .novelist:  return Fonts.Novelist.mainFont_12
                 
-            case .gothic:    return Fonts.Gothic.mainFont_12
+            case .gothic:    return Fonts.Gothic.mainFont_11
+                
+        }
+    }
+    
+    var feedbackFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_9
+                
+            case .programmer:  return Fonts.Programmer.mainFont_8
+                
+            case .novelist:  return Fonts.Novelist.mainFont_9
+                
+            case .gothic:    return Fonts.Gothic.mainFont_8
                 
         }
     }
