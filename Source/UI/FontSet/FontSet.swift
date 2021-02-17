@@ -124,6 +124,12 @@ class PlayerFontSet {
         return trackTimesFont_normal
     }
     
+    var feedbackFont_normal: NSFont
+    
+    var feedbackFont: NSFont {
+        return feedbackFont_normal
+    }
+    
 //    var feedbackFont_normal: NSFont
 //    var feedbackFont_larger: NSFont
 //    var feedbackFont_largest: NSFont
@@ -137,6 +143,7 @@ class PlayerFontSet {
         self.infoBoxTitleFont_normal = preset.infoBoxTitleFont_normal
         self.infoBoxArtistAlbumFont_normal = preset.infoBoxArtistAlbumFont_normal
         self.trackTimesFont_normal = preset.trackTimesFont_normal
+        self.feedbackFont_normal = preset.feedbackFont_normal
     }
     
     func applyFontSet(_ fontSet: PlayerFontSet) {
@@ -144,6 +151,7 @@ class PlayerFontSet {
         self.infoBoxTitleFont_normal = fontSet.infoBoxTitleFont_normal
         self.infoBoxArtistAlbumFont_normal = fontSet.infoBoxArtistAlbumFont_normal
         self.trackTimesFont_normal = fontSet.trackTimesFont_normal
+        self.feedbackFont_normal = fontSet.feedbackFont_normal
     }
 }
 
