@@ -180,16 +180,24 @@ class FilterBandViewController: NSViewController {
     }
     
     func changeTextSize() {
+        fontsChanged()
+    }
+    
+    func applyFontSet(_ fontSet: FontSet) {
+        fontsChanged()
+    }
+    
+    private func fontsChanged() {
         
         tabButton.redraw()
         
-        functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = FontSets.systemFontSet.effects.unitFunctionFont})
         
-        filterTypeMenu.font = Fonts.Effects.unitFunctionFont
+        filterTypeMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
         filterTypeMenu.redraw()
         
-        presetRangesMenu.font = Fonts.Effects.unitFunctionFont
-        lblFrequencies.font = Fonts.Effects.unitFunctionFont
+        presetRangesMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
+        lblFrequencies.font = FontSets.systemFontSet.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

@@ -215,11 +215,11 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_11_5
                 
-            case .programmer:  return Fonts.Programmer.mainFont_11_5
+            case .programmer:  return Fonts.Programmer.mainFont_10_5
                 
             case .novelist:  return Fonts.Novelist.mainFont_11_5
                 
-            case .gothic:    return Fonts.Gothic.mainFont_11_5
+            case .gothic:    return Fonts.Gothic.mainFont_10_5
                 
         }
     }
@@ -235,6 +235,21 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.captionFont_14
                 
             case .gothic:    return Fonts.Gothic.captionFont_13
+                
+        }
+    }
+    
+    var effectsFilterChartFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_9
+                
+            case .programmer:  return Fonts.Programmer.mainFont_9
+                
+            case .novelist:  return Fonts.Novelist.mainFont_9
+                
+            case .gothic:    return Fonts.Gothic.mainFont_9
                 
         }
     }

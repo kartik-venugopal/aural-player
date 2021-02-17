@@ -267,11 +267,18 @@ class EffectsFontSet {
         return masterUnitFunctionFont_normal
     }
     
+    var filterChartFont_normal: NSFont
+    
+    var filterChartFont: NSFont {
+        return filterChartFont_normal
+    }
+    
     init(preset: FontSetPreset) {
         
         self.unitCaptionFont_normal = preset.effectsUnitCaptionFont_normal
         self.unitFunctionFont_normal = preset.effectsUnitFunctionFont_normal
         self.masterUnitFunctionFont_normal = preset.effectsMasterUnitFunctionFont_normal
+        self.filterChartFont_normal = preset.effectsFilterChartFont_normal
     }
     
     func applyFontSet(_ fontSet: EffectsFontSet) {
@@ -279,8 +286,9 @@ class EffectsFontSet {
         self.unitCaptionFont_normal = fontSet.unitCaptionFont_normal
         self.unitFunctionFont_normal = fontSet.unitFunctionFont_normal
         self.masterUnitFunctionFont_normal = fontSet.masterUnitFunctionFont_normal
+        self.filterChartFont_normal = fontSet.filterChartFont_normal
     }
-//
+
 //    var unitFunctionFont_normal: NSFont
 //    var unitFunctionFont_larger: NSFont
 //    var unitFunctionFont_largest: NSFont
