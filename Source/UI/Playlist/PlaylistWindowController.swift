@@ -99,8 +99,12 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     // Initialize all the tab views (and select the one preferred by the user)
     private func setUpTabGroup() {
         
-        tabGroup.addViewsForTabs([tracksView, artistsView, albumsView, genresView])
+        let allViews = [tracksView, artistsView, albumsView, genresView]
+        
+        tabGroup.addViewsForTabs(allViews)
         [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
+        
+        allViews.forEach {$0.anchorToView($0.superview!)}
         
         if playlistPreferences.viewOnStartup.option == .specific {
             tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)

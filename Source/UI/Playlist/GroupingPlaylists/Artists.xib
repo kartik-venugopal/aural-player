@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,13 +22,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uqo-L2-Bcl" userLabel="Playlist Artists View">
-                    <rect key="frame" x="0.0" y="0.0" width="448" height="173"/>
+                    <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
                     <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="ne7-Sr-Ayw">
-                        <rect key="frame" x="0.0" y="0.0" width="448" height="173"/>
+                        <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="6lM-KQ-yk1" id="95a-mF-Eqq" userLabel="Playlist Artists View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="173"/>
+                                <rect key="frame" x="0.0" y="0.0" width="487" height="173"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
@@ -47,7 +47,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="SmH-XT-UUI" customClass="GroupedItemNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="372" height="26"/>
+                                                <rect key="frame" x="11" y="2" width="377" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dks-xg-67t" userLabel="Icon">
@@ -59,7 +59,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="YHr-RW-w8U"/>
                                                     </imageView>
                                                     <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="aJe-Bl-Fbk" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="28" y="2" width="346" height="26"/>
+                                                        <rect key="frame" x="28" y="2" width="351" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="zUk-G2-dv9"/>
                                                         </constraints>
@@ -97,11 +97,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="a1J-7t-rVr" customClass="GroupedItemDurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="376" y="2" width="80" height="26"/>
+                                                <rect key="frame" x="391" y="2" width="84" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="w6x-Ir-z8I" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="2" width="84" height="26"/>
+                                                        <rect key="frame" x="-7" y="2" width="88" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="Vaa-yG-bAf"/>
                                                         </constraints>
@@ -145,7 +145,7 @@
                 </scrollView>
             </subviews>
             <constraints>
-                <constraint firstItem="Uqo-L2-Bcl" firstAttribute="top" secondItem="2zt-uH-oXD" secondAttribute="top" id="EWf-D5-1tw"/>
+                <constraint firstItem="Uqo-L2-Bcl" firstAttribute="top" secondItem="2zt-uH-oXD" secondAttribute="top" constant="2" id="EWf-D5-1tw"/>
                 <constraint firstAttribute="trailing" secondItem="Uqo-L2-Bcl" secondAttribute="trailing" id="gDT-Nj-vy5"/>
                 <constraint firstItem="Uqo-L2-Bcl" firstAttribute="leading" secondItem="2zt-uH-oXD" secondAttribute="leading" id="hXq-XB-6jH"/>
                 <constraint firstAttribute="bottom" secondItem="Uqo-L2-Bcl" secondAttribute="bottom" id="tUj-P6-9lf"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,13 +23,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ht-SU-dHw" userLabel="Playlist Genres View">
-                    <rect key="frame" x="0.0" y="0.0" width="448" height="173"/>
+                    <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
                     <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="bf5-Po-lKe">
-                        <rect key="frame" x="0.0" y="0.0" width="448" height="173"/>
+                        <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="26" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wHR-aR-f7P" id="Qtd-u6-247" userLabel="Playlist Genres View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="173"/>
+                                <rect key="frame" x="0.0" y="0.0" width="487" height="173"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
@@ -48,7 +48,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="dUD-Jz-0Am" customClass="GroupedItemNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="372" height="26"/>
+                                                <rect key="frame" x="11" y="2" width="377" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-xI-cje" userLabel="Icon">
@@ -60,7 +60,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ygV-8w-DId"/>
                                                     </imageView>
                                                     <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="28" y="2" width="346" height="26"/>
+                                                        <rect key="frame" x="28" y="2" width="351" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="jCk-a9-VuK"/>
                                                         </constraints>
@@ -73,11 +73,10 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="lHY-xI-cje" firstAttribute="leading" secondItem="dUD-Jz-0Am" secondAttribute="leading" constant="8" id="43c-p7-TKZ"/>
-                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="top" secondItem="dUD-Jz-0Am" secondAttribute="top" constant="-2" id="6or-6V-acU"/>
                                                     <constraint firstItem="Z03-PG-pvS" firstAttribute="bottom" secondItem="dUD-Jz-0Am" secondAttribute="bottom" constant="-2" id="Apk-10-2E1"/>
                                                     <constraint firstAttribute="trailing" secondItem="Z03-PG-pvS" secondAttribute="trailing" id="E5c-ha-SJu"/>
                                                     <constraint firstItem="Z03-PG-pvS" firstAttribute="leading" secondItem="lHY-xI-cje" secondAttribute="trailing" constant="6" id="iQT-SR-0sr"/>
-                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="Z03-PG-pvS" secondAttribute="centerY" constant="2" id="ozy-e0-OhD"/>
+                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="dUD-Jz-0Am" secondAttribute="centerY" id="ozy-e0-OhD"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="lHY-xI-cje" id="P2H-5I-XCL"/>
@@ -99,11 +98,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="FiJ-sX-1Lg" customClass="GroupedItemDurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="376" y="2" width="80" height="26"/>
+                                                <rect key="frame" x="391" y="2" width="84" height="26"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="2" width="84" height="26"/>
+                                                        <rect key="frame" x="-7" y="2" width="88" height="26"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="26" id="pbd-gC-tLi"/>
                                                         </constraints>
@@ -149,7 +148,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="7Ht-SU-dHw" secondAttribute="bottom" id="7j2-rX-bUe"/>
                 <constraint firstItem="7Ht-SU-dHw" firstAttribute="leading" secondItem="ghI-Sf-LvB" secondAttribute="leading" id="D33-QB-OMD"/>
-                <constraint firstItem="7Ht-SU-dHw" firstAttribute="top" secondItem="ghI-Sf-LvB" secondAttribute="top" id="USO-KT-gos"/>
+                <constraint firstItem="7Ht-SU-dHw" firstAttribute="top" secondItem="ghI-Sf-LvB" secondAttribute="top" constant="2" id="USO-KT-gos"/>
                 <constraint firstAttribute="trailing" secondItem="7Ht-SU-dHw" secondAttribute="trailing" id="sy0-YI-94Z"/>
             </constraints>
             <point key="canvasLocation" x="140" y="155"/>
