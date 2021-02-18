@@ -89,7 +89,6 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
             if let theArtist = artist, let theAlbum = album {
                 
                 fullLengthArtistAlbumStr = String(format: "%@ -- %@", theArtist, theAlbum)
-//                truncatedArtistAlbumStr = truncateCompositeString(Fonts.Player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
                 
                 truncatedArtistAlbumStr = truncateCompositeString(FontSets.systemFontSet.player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
                 
@@ -121,8 +120,8 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
             // Chapter
             if let _chapterStr = chapterStr {
                 
-                let truncatedChapter: String = StringUtils.truncate(_chapterStr, Fonts.Player.infoBoxChapterFont, lineWidth)
-                textView.textStorage?.append(attributedString(truncatedChapter, Fonts.Player.infoBoxChapterFont, Colors.Player.trackInfoChapterTextColor))
+                let truncatedChapter: String = StringUtils.truncate(_chapterStr, FontSets.systemFontSet.player.infoBoxChapterFont, lineWidth)
+                textView.textStorage?.append(attributedString(truncatedChapter, FontSets.systemFontSet.player.infoBoxChapterFont, Colors.Player.trackInfoChapterTextColor))
             }
             
             // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)

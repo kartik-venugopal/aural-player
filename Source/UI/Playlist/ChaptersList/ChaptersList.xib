@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,13 +26,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box appearanceType="darkAqua" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Ksp-Uu-T5P" userLabel="Root Container">
-                        <rect key="frame" x="0.0" y="0.0" width="583" height="255"/>
+                        <rect key="frame" x="0.0" y="0.0" width="583" height="179"/>
                         <view key="contentView" id="R3F-5h-tZn">
-                            <rect key="frame" x="0.0" y="0.0" width="583" height="255"/>
+                            <rect key="frame" x="0.0" y="0.0" width="583" height="179"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5J6-lG-aTa" userLabel="Window Title" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="212" y="105" width="159" height="29"/>
+                                    <rect key="frame" x="212" y="172" width="159" height="29"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="29" id="l6k-8f-81B"/>
                                         <constraint firstAttribute="width" constant="155" id="uL5-ar-yXz"/>
@@ -44,7 +44,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Of-xA-IUV" userLabel="Num Matches Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="428" y="187" width="104" height="23"/>
+                                    <rect key="frame" x="428" y="139" width="104" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="Am4-mI-hbN"/>
                                         <constraint firstAttribute="width" constant="100" id="z86-uq-dhe"/>
@@ -56,7 +56,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Hide the chapters list" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bqb-2Y-Uw2" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="14" y="114" width="10" height="10"/>
+                                    <rect key="frame" x="14" y="181" width="10" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="10" id="FQB-Oe-tVg"/>
                                         <constraint firstAttribute="height" constant="10" id="JdG-gw-JJa"/>
@@ -73,7 +73,7 @@
                                     </connections>
                                 </button>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hh1-Ht-7fu" userLabel="Chapters summary" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="20" y="-92" width="204" height="23"/>
+                                    <rect key="frame" x="20" y="23" width="204" height="23"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="23" id="bPv-Zy-uK0"/>
                                         <constraint firstAttribute="width" constant="200" id="ofd-r1-DRf"/>
@@ -85,7 +85,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <button toolTip="Previous chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Axi-IH-THL" userLabel="Previous Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="254" y="-107" width="14" height="11"/>
+                                    <rect key="frame" x="254" y="8" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="dEO-mN-5K5"/>
                                         <constraint firstAttribute="height" constant="11" id="h3x-Ht-Ek1"/>
@@ -102,7 +102,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Previous search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ISr-Ro-Dis" userLabel="Previous Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="535" y="76" width="14" height="11"/>
+                                    <rect key="frame" x="535" y="143" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="11" id="EKB-Bw-bRp"/>
                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="NJI-GL-BSz"/>
@@ -121,7 +121,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iBr-vY-6sc" userLabel="Next Chapter Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="273" y="-107" width="14" height="11"/>
+                                    <rect key="frame" x="273" y="8" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="14" id="Zcc-HB-5qH"/>
                                         <constraint firstAttribute="height" constant="11" id="dbX-MT-yPB"/>
@@ -158,7 +158,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Replay current chapter" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tye-Wf-orr" userLabel="Replay Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="297" y="-110" width="16" height="16"/>
+                                    <rect key="frame" x="297" y="5" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="16" id="Tmw-pA-lzr"/>
                                         <constraint firstAttribute="height" constant="16" id="tai-mK-py5"/>
@@ -175,7 +175,7 @@
                                     </connections>
                                 </button>
                                 <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-EF-Drz">
-                                    <rect key="frame" x="14" y="69" width="376" height="22"/>
+                                    <rect key="frame" x="14" y="136" width="376" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="22" id="kBw-fO-9r2"/>
                                     </constraints>
@@ -189,7 +189,7 @@
                                     </connections>
                                 </searchField>
                                 <button toolTip="Case sensitive search (disabled)" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PhG-3g-wVK" userLabel="Case Sensitive" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="399" y="189" width="20" height="15"/>
+                                    <rect key="frame" x="399" y="141" width="20" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="15" id="EiF-Jn-i3E"/>
                                         <constraint firstAttribute="width" constant="20" id="l2K-IR-HRY"/>
@@ -209,7 +209,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next search result" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CPE-oP-CME" userLabel="Next Result" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="553" y="191" width="14" height="11"/>
+                                    <rect key="frame" x="553" y="143" width="14" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="11" id="ERd-05-UW2"/>
                                         <constraint firstAttribute="width" constant="14" id="TK9-Do-n1j"/>
@@ -259,14 +259,14 @@
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
-                    <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="29" horizontalPageScroll="10" verticalLineScroll="29" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
-                        <rect key="frame" x="15" y="54" width="553" height="121"/>
+                    <scrollView appearanceType="darkAqua" borderType="none" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-sK-75k" userLabel="Chapters View">
+                        <rect key="frame" x="15" y="54" width="553" height="45"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Ehf-3j-NsA">
-                            <rect key="frame" x="0.0" y="0.0" width="553" height="121"/>
+                            <rect key="frame" x="0.0" y="0.0" width="553" height="45"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="25" rowSizeStyle="automatic" headerView="o7A-Nv-ijK" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="553" height="96"/>
+                                <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" headerView="o7A-Nv-ijK" viewBased="YES" id="rlg-QY-3mV" userLabel="Chapters View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="553" height="34"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="4"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -285,22 +285,22 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="gx7-Tt-VZI" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="1" y="2" width="25" height="25"/>
+                                                    <rect key="frame" x="1" y="2" width="25" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TjI-9S-ci4" userLabel="Index" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="-2" y="2" width="29" height="25"/>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TjI-9S-ci4" userLabel="Index">
+                                                            <rect key="frame" x="-2" y="0.0" width="29" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="AUB-H4-j7q"/>
+                                                                <constraint firstAttribute="height" constant="30" id="AUB-H4-j7q"/>
                                                             </constraints>
-                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Kz6-mv-CCs" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Kz6-mv-CCs" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                                 <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3U6-3l-KFm">
-                                                            <rect key="frame" x="3" y="4" width="20" height="17"/>
+                                                            <rect key="frame" x="3" y="6" width="20" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="OWZ-GI-mji"/>
                                                                 <constraint firstAttribute="width" constant="20" id="hbJ-G0-0wt"/>
@@ -309,9 +309,9 @@
                                                         </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="3U6-3l-KFm" firstAttribute="centerY" secondItem="gx7-Tt-VZI" secondAttribute="centerY" id="BkO-ir-ydq"/>
+                                                        <constraint firstItem="3U6-3l-KFm" firstAttribute="centerY" secondItem="gx7-Tt-VZI" secondAttribute="centerY" constant="1" id="BkO-ir-ydq"/>
                                                         <constraint firstItem="TjI-9S-ci4" firstAttribute="trailing" secondItem="gx7-Tt-VZI" secondAttribute="trailing" id="EYU-HL-rsV"/>
-                                                        <constraint firstItem="TjI-9S-ci4" firstAttribute="top" secondItem="gx7-Tt-VZI" secondAttribute="top" constant="-2" id="QKz-fJ-mlX"/>
+                                                        <constraint firstItem="TjI-9S-ci4" firstAttribute="top" secondItem="gx7-Tt-VZI" secondAttribute="top" id="QKz-fJ-mlX"/>
                                                         <constraint firstItem="TjI-9S-ci4" firstAttribute="leading" secondItem="gx7-Tt-VZI" secondAttribute="leading" id="QSq-Qq-p1s"/>
                                                         <constraint firstItem="3U6-3l-KFm" firstAttribute="centerX" secondItem="TjI-9S-ci4" secondAttribute="centerX" id="faE-ap-pa8"/>
                                                     </constraints>
@@ -335,15 +335,15 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="pKV-cH-4Ub" userLabel="Title Cell View" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="29" y="2" width="370" height="25"/>
+                                                    <rect key="frame" x="29" y="2" width="370" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-Tg-iGF" userLabel="Title" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="-2" y="2" width="374" height="25"/>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vg1-Tg-iGF" userLabel="Title">
+                                                            <rect key="frame" x="-2" y="0.0" width="374" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="Oo1-XD-8fy"/>
+                                                                <constraint firstAttribute="height" constant="30" id="Oo1-XD-8fy"/>
                                                             </constraints>
-                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="cWg-lL-FDh" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="cWg-lL-FDh" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                                 <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -352,7 +352,7 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="vg1-Tg-iGF" firstAttribute="leading" secondItem="pKV-cH-4Ub" secondAttribute="leading" id="E0S-Iz-3Xh"/>
-                                                        <constraint firstItem="vg1-Tg-iGF" firstAttribute="top" secondItem="pKV-cH-4Ub" secondAttribute="top" constant="-2" id="NfF-la-ecZ"/>
+                                                        <constraint firstItem="vg1-Tg-iGF" firstAttribute="top" secondItem="pKV-cH-4Ub" secondAttribute="top" id="NfF-la-ecZ"/>
                                                         <constraint firstAttribute="trailing" secondItem="vg1-Tg-iGF" secondAttribute="trailing" id="ZG8-A9-oXg"/>
                                                     </constraints>
                                                     <connections>
@@ -374,15 +374,15 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="liD-pB-9vw" userLabel="Start Time Cell View" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="402" y="2" width="75" height="25"/>
+                                                    <rect key="frame" x="402" y="2" width="75" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0Zu-Oe-N0S" userLabel="Start Time" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="-7" y="2" width="79" height="25"/>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="0Zu-Oe-N0S" userLabel="Start Time">
+                                                            <rect key="frame" x="-7" y="0.0" width="79" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="yI1-YH-Fuj"/>
+                                                                <constraint firstAttribute="height" constant="30" id="yI1-YH-Fuj"/>
                                                             </constraints>
-                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="VaH-7r-hh9" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="VaH-7r-hh9" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                                 <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -390,7 +390,7 @@
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="0Zu-Oe-N0S" firstAttribute="top" secondItem="liD-pB-9vw" secondAttribute="top" constant="-2" id="8fK-8l-d4h"/>
+                                                        <constraint firstItem="0Zu-Oe-N0S" firstAttribute="top" secondItem="liD-pB-9vw" secondAttribute="top" id="8fK-8l-d4h"/>
                                                         <constraint firstItem="0Zu-Oe-N0S" firstAttribute="leading" secondItem="liD-pB-9vw" secondAttribute="leading" constant="-5" id="grj-9q-4F2"/>
                                                         <constraint firstAttribute="trailing" secondItem="0Zu-Oe-N0S" secondAttribute="trailing" constant="5" id="hQB-Is-hOn"/>
                                                     </constraints>
@@ -413,15 +413,15 @@
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                             <prototypeCellViews>
                                                 <tableCellView focusRingType="none" id="Bwv-8o-cAR" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                    <rect key="frame" x="480" y="2" width="71" height="25"/>
+                                                    <rect key="frame" x="480" y="2" width="71" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KRJ-ef-icA" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                            <rect key="frame" x="-7" y="2" width="75" height="25"/>
+                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KRJ-ef-icA" userLabel="Duration">
+                                                            <rect key="frame" x="-7" y="0.0" width="75" height="30"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="25" id="YYy-Og-b6x"/>
+                                                                <constraint firstAttribute="height" constant="30" id="YYy-Og-b6x"/>
                                                             </constraints>
-                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="nXN-gc-46s" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="nXN-gc-46s" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                                 <font key="font" size="13" name="Play-Regular"/>
                                                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -429,7 +429,7 @@
                                                         </textField>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="KRJ-ef-icA" firstAttribute="top" secondItem="Bwv-8o-cAR" secondAttribute="top" constant="-2" id="8Od-PE-fSK"/>
+                                                        <constraint firstItem="KRJ-ef-icA" firstAttribute="top" secondItem="Bwv-8o-cAR" secondAttribute="top" id="8Od-PE-fSK"/>
                                                         <constraint firstItem="KRJ-ef-icA" firstAttribute="leading" secondItem="Bwv-8o-cAR" secondAttribute="leading" constant="-5" id="ToC-nA-08D"/>
                                                         <constraint firstAttribute="trailing" secondItem="KRJ-ef-icA" secondAttribute="trailing" constant="5" id="Xe5-x2-lbH"/>
                                                     </constraints>

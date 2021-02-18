@@ -119,6 +119,21 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
+    var infoBoxChapterFont_normal: NSFont {
+        
+        switch self {
+            
+        case .standard:  return Fonts.Standard.mainFont_11
+            
+        case .programmer:  return Fonts.Programmer.mainFont_11
+            
+        case .novelist:  return Fonts.Novelist.mainFont_12
+            
+        case .gothic:    return Fonts.Gothic.mainFont_10
+            
+        }
+    }
+    
     var trackTimesFont_normal: NSFont {
         
         switch self {
@@ -205,6 +220,51 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.captionFont_14
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
+                
+        }
+    }
+    
+    var chaptersListHeaderFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_15
+                
+            case .programmer:  return Fonts.Programmer.captionFont_15
+                
+            case .novelist:  return Fonts.Novelist.captionFont_16
+                
+            case .gothic:    return Fonts.Gothic.captionFont_14
+                
+        }
+    }
+    
+    var chaptersListSearchFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_12
+                
+            case .programmer:  return Fonts.Programmer.mainFont_13
+                
+            case .novelist:  return Fonts.Novelist.mainFont_14
+                
+            case .gothic:    return Fonts.Gothic.mainFont_12
+                
+        }
+    }
+    
+    var chaptersListCaptionFont_normal: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_16
+                
+            case .programmer:  return Fonts.Programmer.captionFont_16
+                
+            case .novelist:  return Fonts.Novelist.captionFont_17
+                
+            case .gothic:    return Fonts.Gothic.captionFont_15
                 
         }
     }
