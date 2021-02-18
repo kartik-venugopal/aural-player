@@ -27,9 +27,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     // Determines the height of a single row
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        
-        // Track or group
-        return item is Track ? 26 : 28
+        30
     }
     
     // Returns a view for a single column
