@@ -1,8 +1,10 @@
 # Aural Player
 
-### Update (Feb 5, 2021)
+### Update (Feb 18, 2021)
 
-Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
+The very ambitious version 3.0 was in active development last year, but due to unforeseen personal circumstances, that part of the project has been put on hold since Oct 2020. The planned 3.0 release will be delayed.
+
+Instead, I have worked to get Aural Player up and running on macOS Big Sur, and have been making small refinements and enhancements to version 2.x.
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
