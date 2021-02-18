@@ -71,7 +71,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = false
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
-        cell.updateText(Fonts.Playlist.trackNameFont, playlist.displayNameForTrack(self.playlistType, track))
+        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
         
         var image: NSImage?
         
@@ -144,7 +144,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
         
-        cell.updateText(Fonts.Playlist.groupDurationFont, ValueFormatter.formatSecondsToHMS(group.duration))
+        cell.updateText(FontSets.systemFontSet.playlist.groupTextFont, ValueFormatter.formatSecondsToHMS(group.duration))
         
         return cell
     }

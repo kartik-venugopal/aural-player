@@ -384,7 +384,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         redrawTabButtons()
         
-        viewMenuButton.font = Fonts.Playlist.menuFont
+        viewMenuButton.font = Fonts.menuFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

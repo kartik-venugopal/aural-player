@@ -116,8 +116,8 @@ class TrackInfoPopoverTabButtonCell: TabGroupButtonCell {
     
     override var unselectedTextColor: NSColor {return Colors.Constants.white70Percent}
     
-    override var textFont: NSFont {return Fonts.Playlist.tabsFont_normal}
-    override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont_normal}
+    override var textFont: NSFont {return Fonts.largeTabButtonFont}
+    override var boldTextFont: NSFont {return Fonts.largeTabButtonFont}
     
     override var fillBeforeBorder: Bool {return false}
     override var borderRadius: CGFloat {return 4}

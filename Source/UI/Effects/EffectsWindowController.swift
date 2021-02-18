@@ -147,7 +147,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     }
     
     private func changeTextSize(_ textSize: TextSize) {
-        viewMenuButton.font = Fonts.Effects.menuFont
+        viewMenuButton.font = Fonts.menuFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
