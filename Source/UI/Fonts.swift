@@ -34,6 +34,7 @@ struct Fonts {
         static let mainFont_17: NSFont = NSFont(name: "Exo Medium", size: 17)!
         
         static let mainFont_18: NSFont = NSFont(name: "Exo Medium", size: 18)!
+        static let mainFont_19: NSFont = NSFont(name: "Exo Medium", size: 19)!
         
         static let mainFont_20: NSFont = NSFont(name: "Exo Medium", size: 20)!
         
@@ -97,6 +98,7 @@ struct Fonts {
             static let mainFont_9: NSFont = NSFont(name: "Handlee", size: 9)!
             
             static let mainFont_10: NSFont = NSFont(name: "Handlee", size: 10)!
+            static let mainFont_10_5: NSFont = NSFont(name: "Handlee", size: 10.5)!
             
             static let mainFont_11: NSFont = NSFont(name: "Handlee", size: 11)!
             static let mainFont_11_5: NSFont = NSFont(name: "Handlee", size: 11.5)!

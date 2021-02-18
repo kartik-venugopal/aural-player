@@ -48,39 +48,37 @@ class FontSet: StringKeyedItem {
 class PlayerFontSet {
     
     var infoBoxTitleFont_normal: NSFont
-//    var infoBoxTitleFont_larger: NSFont
-//    var infoBoxTitleFont_largest: NSFont
+    var infoBoxTitleFont_larger: NSFont
+    var infoBoxTitleFont_largest: NSFont
     
     var infoBoxTitleFont: NSFont {
         
-//        switch PlayerViewState.textSize {
-//
-//        case .normal: return infoBoxTitleFont_normal
-//
-//        case .larger: return infoBoxTitleFont_larger
-//
-//        case .largest: return infoBoxTitleFont_largest
-//
-//        }
-        return infoBoxTitleFont_normal
+        switch PlayerViewState.textSize {
+
+        case .normal: return infoBoxTitleFont_normal
+
+        case .larger: return infoBoxTitleFont_larger
+
+        case .largest: return infoBoxTitleFont_largest
+
+        }
     }
     
     var infoBoxArtistAlbumFont_normal: NSFont
-//    var infoBoxArtistAlbumFont_larger: NSFont
-//    var infoBoxArtistAlbumFont_largest: NSFont
+    var infoBoxArtistAlbumFont_larger: NSFont
+    var infoBoxArtistAlbumFont_largest: NSFont
     
     var infoBoxArtistAlbumFont: NSFont {
         
-//        switch PlayerViewState.textSize {
-//
-//        case .normal: return infoBoxArtistAlbumFont_normal
-//
-//        case .larger: return infoBoxArtistAlbumFont_larger
-//
-//        case .largest: return infoBoxArtistAlbumFont_largest
-//
-//        }
-        return infoBoxArtistAlbumFont_normal
+        switch PlayerViewState.textSize {
+
+        case .normal: return infoBoxArtistAlbumFont_normal
+
+        case .larger: return infoBoxArtistAlbumFont_larger
+
+        case .largest: return infoBoxArtistAlbumFont_largest
+
+        }
     }
     
     var infoBoxChapterFont_normal: NSFont
@@ -94,57 +92,81 @@ class PlayerFontSet {
 //    var infoBoxChapterFont_largest: NSFont
     
     var trackTimesFont_normal: NSFont
-//    var trackTimesFont_larger: NSFont
-//    var trackTimesFont_largest: NSFont
+    var trackTimesFont_larger: NSFont
+    var trackTimesFont_largest: NSFont
     
     var trackTimesFont: NSFont {
         
-//        switch PlayerViewState.textSize {
-//
-//        case .normal: return trackTimesFont_normal
-//
-//        case .larger: return trackTimesFont_larger
-//
-//        case .largest: return trackTimesFont_largest
-//
-//        }
-        return trackTimesFont_normal
+        switch PlayerViewState.textSize {
+
+        case .normal: return trackTimesFont_normal
+
+        case .larger: return trackTimesFont_larger
+
+        case .largest: return trackTimesFont_largest
+
+        }
     }
     
     var feedbackFont_normal: NSFont
+    var feedbackFont_larger: NSFont
+    var feedbackFont_largest: NSFont
     
     var feedbackFont: NSFont {
-        return feedbackFont_normal
+        
+        switch PlayerViewState.textSize {
+
+        case .normal: return feedbackFont_normal
+
+        case .larger: return feedbackFont_larger
+
+        case .largest: return feedbackFont_largest
+
+        }
     }
     
     //    var progressArcFont: NSFont
     
-//    var feedbackFont_normal: NSFont
-//    var feedbackFont_larger: NSFont
-//    var feedbackFont_largest: NSFont
-//
-//    var textButtonFont_normal: NSFont
-//    var textButtonFont_larger: NSFont
-//    var textButtonFont_largest: NSFont
-    
     init(preset: FontSetPreset) {
         
         self.infoBoxTitleFont_normal = preset.infoBoxTitleFont_normal
+        self.infoBoxTitleFont_larger = preset.infoBoxTitleFont_larger
+        self.infoBoxTitleFont_largest = preset.infoBoxTitleFont_largest
+        
         self.infoBoxArtistAlbumFont_normal = preset.infoBoxArtistAlbumFont_normal
+        self.infoBoxArtistAlbumFont_larger = preset.infoBoxArtistAlbumFont_larger
+        self.infoBoxArtistAlbumFont_largest = preset.infoBoxArtistAlbumFont_largest
+        
         self.infoBoxChapterFont_normal = preset.infoBoxChapterFont_normal
         
         self.trackTimesFont_normal = preset.trackTimesFont_normal
+        self.trackTimesFont_larger = preset.trackTimesFont_larger
+        self.trackTimesFont_largest = preset.trackTimesFont_largest
+        
         self.feedbackFont_normal = preset.feedbackFont_normal
+        self.feedbackFont_larger = preset.feedbackFont_larger
+        self.feedbackFont_largest = preset.feedbackFont_largest
     }
     
     func applyFontSet(_ fontSet: PlayerFontSet) {
         
         self.infoBoxTitleFont_normal = fontSet.infoBoxTitleFont_normal
+        self.infoBoxTitleFont_larger = fontSet.infoBoxTitleFont_larger
+        self.infoBoxTitleFont_largest = fontSet.infoBoxTitleFont_largest
+        
         self.infoBoxArtistAlbumFont_normal = fontSet.infoBoxArtistAlbumFont_normal
+        self.infoBoxArtistAlbumFont_larger = fontSet.infoBoxArtistAlbumFont_larger
+        self.infoBoxArtistAlbumFont_largest = fontSet.infoBoxArtistAlbumFont_largest
+        
         self.infoBoxChapterFont_normal = fontSet.infoBoxChapterFont_normal
         
         self.trackTimesFont_normal = fontSet.trackTimesFont_normal
+        self.trackTimesFont_larger = fontSet.trackTimesFont_larger
+        self.trackTimesFont_largest = fontSet.trackTimesFont_largest
+        
         self.feedbackFont_normal = fontSet.feedbackFont_normal
+        self.feedbackFont_larger = fontSet.feedbackFont_larger
+        self.feedbackFont_largest = fontSet.feedbackFont_largest
     }
 }
 
