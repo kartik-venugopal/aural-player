@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */; };
+		3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */; };
+		3E25558925DE49F100CD7938 /* Handlee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558125DE48AB00CD7938 /* Handlee-Regular.ttf */; };
+		3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */; };
+		3E25558D25DE49F600CD7938 /* PatrickHandSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558025DE48AB00CD7938 /* PatrickHandSC-Regular.ttf */; };
+		3E25558F25DE49F800CD7938 /* ZORGEOUS.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558325DE48AC00CD7938 /* ZORGEOUS.otf */; };
+		3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E836B5225DD3ABC00B9E303 /* monaco.ttf */; };
 		3E2ED4A525DBAD8400732E79 /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontSet.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSetPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */; };
 		3E2ED4A925DBC50500732E79 /* FontSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSets.swift */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
-		3E6C115525CEB9C200BF0D07 /* Play-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114A25CEB9C100BF0D07 /* Play-Regular.ttf */; };
-		3E6C115625CEB9C200BF0D07 /* AlegreyaSansSC-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114B25CEB9C100BF0D07 /* AlegreyaSansSC-Medium.ttf */; };
 		3E6C115725CEB9C200BF0D07 /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114E25CEB9C100BF0D07 /* ffmpeg */; };
-		3E6C115825CEB9C200BF0D07 /* build-ffmpeg.sh in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */; };
 		3E6C115A25CEB9C200BF0D07 /* ffprobe in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115125CEB9C100BF0D07 /* ffprobe */; };
-		3E6C115B25CEB9C200BF0D07 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115225CEB9C100BF0D07 /* README.txt */; };
 		3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115325CEB9C100BF0D07 /* Assets.xcassets */; };
 		3E6C116125CEBD6000BF0D07 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10FD25CEB98700BF0D07 /* Mapper.swift */; };
 		3E6C116225CEBD6000BF0D07 /* ColorSchemesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10F725CEB98700BF0D07 /* ColorSchemesState.swift */; };
@@ -496,6 +499,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo-Medium.ttf"; sourceTree = "<group>"; };
+		3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CarroisGothicSC-Regular.ttf"; sourceTree = "<group>"; };
+		3E25558025DE48AB00CD7938 /* PatrickHandSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PatrickHandSC-Regular.ttf"; sourceTree = "<group>"; };
+		3E25558125DE48AB00CD7938 /* Handlee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handlee-Regular.ttf"; sourceTree = "<group>"; };
+		3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metamorphous-Regular.ttf"; sourceTree = "<group>"; };
+		3E25558325DE48AC00CD7938 /* ZORGEOUS.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ZORGEOUS.otf; sourceTree = "<group>"; };
 		3E2ED4A425DBAD8400732E79 /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
 		3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSetPreset.swift; sourceTree = "<group>"; };
 		3E2ED4A825DBC50500732E79 /* FontSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSets.swift; sourceTree = "<group>"; };
@@ -972,8 +981,6 @@
 		3E6C114425CEB98700BF0D07 /* Spectrogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spectrogram.swift; sourceTree = "<group>"; };
 		3E6C114525CEB98700BF0D07 /* Visualizer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Visualizer.xib; sourceTree = "<group>"; };
 		3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlegreyaSansSC-Regular.ttf"; sourceTree = "<group>"; };
-		3E6C114A25CEB9C100BF0D07 /* Play-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Play-Regular.ttf"; sourceTree = "<group>"; };
-		3E6C114B25CEB9C100BF0D07 /* AlegreyaSansSC-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlegreyaSansSC-Medium.ttf"; sourceTree = "<group>"; };
 		3E6C114E25CEB9C100BF0D07 /* ffmpeg */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ffmpeg; sourceTree = "<group>"; };
 		3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-ffmpeg.sh"; sourceTree = "<group>"; };
 		3E6C115025CEB9C100BF0D07 /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-sourceCode.bz2"; sourceTree = "<group>"; };
@@ -2329,9 +2336,13 @@
 		3E6C114825CEB9C100BF0D07 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */,
+				3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */,
+				3E25558125DE48AB00CD7938 /* Handlee-Regular.ttf */,
+				3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */,
+				3E25558025DE48AB00CD7938 /* PatrickHandSC-Regular.ttf */,
+				3E25558325DE48AC00CD7938 /* ZORGEOUS.otf */,
 				3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */,
-				3E6C114A25CEB9C100BF0D07 /* Play-Regular.ttf */,
-				3E6C114B25CEB9C100BF0D07 /* AlegreyaSansSC-Medium.ttf */,
 				3E836B5225DD3ABC00B9E303 /* monaco.ttf */,
 			);
 			path = Fonts;
@@ -2436,6 +2447,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
+				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
+				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
+				3E25558D25DE49F600CD7938 /* PatrickHandSC-Regular.ttf in Resources */,
+				3E25558925DE49F100CD7938 /* Handlee-Regular.ttf in Resources */,
+				3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */,
+				3E25558F25DE49F800CD7938 /* ZORGEOUS.otf in Resources */,
+				3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */,
+				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
+				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
 				3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */,
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsEditor.xib in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQ.xib in Resources */,
@@ -2444,7 +2465,6 @@
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
 				3E6C12C825CEBE6700BF0D07 /* Reverb.xib in Resources */,
-				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
 				3E6C121D25CEBDE600BF0D07 /* Preferences.xib in Resources */,
 				3E6C130225CEBE8F00BF0D07 /* DetailedTrackInfo.xib in Resources */,
 				3E6C12EE25CEBE8100BF0D07 /* FilterBand.xib in Resources */,
@@ -2455,7 +2475,6 @@
 				3E6C126125CEBE0600BF0D07 /* LayoutsEditor.xib in Resources */,
 				3E6C123525CEBDF400BF0D07 /* ChaptersList.xib in Resources */,
 				3E6C125E25CEBE0600BF0D07 /* ReverbPresetsEditor.xib in Resources */,
-				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
 				3E6C126025CEBE0600BF0D07 /* EditorWindow.xib in Resources */,
 				3E6C12D925CEBE8100BF0D07 /* Filter.xib in Resources */,
@@ -2466,14 +2485,11 @@
 				3E824A4325DB74850089F217 /* StatusBar.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */,
 				3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */,
-				3E6C115825CEB9C200BF0D07 /* build-ffmpeg.sh in Resources */,
 				3E6C12F225CEBE8100BF0D07 /* PlayingTrack.xib in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
-				3E6C115625CEB9C200BF0D07 /* AlegreyaSansSC-Medium.ttf in Resources */,
 				3E6C127125CEBE0600BF0D07 /* FilterPresetsEditor.xib in Resources */,
 				3E6C125625CEBE0600BF0D07 /* EffectsPresetsEditor.xib in Resources */,
 				3E6C131D25CEBEA000BF0D07 /* Visualizer.xib in Resources */,
-				3E6C115A25CEB9C200BF0D07 /* ffprobe in Resources */,
 				3E6C126F25CEBE0600BF0D07 /* TimePresetsEditor.xib in Resources */,
 				3E6C130025CEBE8F00BF0D07 /* PlayerControls.xib in Resources */,
 				3E6C123425CEBDF400BF0D07 /* GenresPlaylistSort.xib in Resources */,
@@ -2491,7 +2507,6 @@
 				3E6C126825CEBE0600BF0D07 /* PitchPresetsEditor.xib in Resources */,
 				3E6C124625CEBDF400BF0D07 /* Playlist.xib in Resources */,
 				3E6C125925CEBE0600BF0D07 /* BookmarksEditor.xib in Resources */,
-				3E6C115525CEB9C200BF0D07 /* Play-Regular.ttf in Resources */,
 				3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */,
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
 				3E6C123D25CEBDF400BF0D07 /* Artists.xib in Resources */,
@@ -2500,12 +2515,11 @@
 				3E6C124A25CEBDF400BF0D07 /* AlbumsPlaylistSort.xib in Resources */,
 				3E6C123925CEBDF400BF0D07 /* PlaylistSearch.xib in Resources */,
 				3E6C121425CEBDE500BF0D07 /* MainWindow.xib in Resources */,
-				3E6C115B25CEB9C200BF0D07 /* README.txt in Resources */,
-				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
 				3E6C124325CEBDF400BF0D07 /* Albums.xib in Resources */,
-				3E6C115725CEB9C200BF0D07 /* ffmpeg in Resources */,
 				3E6C130825CEBE8F00BF0D07 /* TranscodingTrack.xib in Resources */,
 				3E6C12D225CEBE6700BF0D07 /* Pitch.xib in Resources */,
+				3E6C115725CEB9C200BF0D07 /* ffmpeg in Resources */,
+				3E6C115A25CEB9C200BF0D07 /* ffprobe in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
