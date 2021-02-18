@@ -11,6 +11,8 @@ Version 3.0 was in active development last year, but due to unforeseen personal 
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
+    + [Important note for macOS Big Sur](#important-note-for-macos-big-sur)
+    + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
     + [Installation](#installation)
     + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-catalina-or-later-versions-for-aural-player-v220-or-older)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
