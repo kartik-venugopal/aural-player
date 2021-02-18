@@ -13,6 +13,10 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         return PlaylistRowView()
     }
     
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+        return 30
+    }
+    
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
@@ -48,8 +52,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = Fonts.Playlist.indexFont
-        cell.selectedTextFont = Fonts.Playlist.indexFont
+        cell.textFont = FontSets.systemFontSet.playlist.trackTextFont
+        cell.selectedTextFont = FontSets.systemFontSet.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
@@ -69,8 +73,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = Fonts.Playlist.trackNameFont
-        cell.selectedTextFont = Fonts.Playlist.trackNameFont
+        cell.textFont = FontSets.systemFontSet.playlist.trackTextFont
+        cell.selectedTextFont = FontSets.systemFontSet.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.trackNameTextColor
         cell.selectedTextColor = Colors.Playlist.trackNameSelectedTextColor
@@ -87,8 +91,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = Fonts.Playlist.indexFont
-        cell.selectedTextFont = Fonts.Playlist.indexFont
+        cell.textFont = FontSets.systemFontSet.playlist.trackTextFont
+        cell.selectedTextFont = FontSets.systemFontSet.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor

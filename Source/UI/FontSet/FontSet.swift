@@ -102,6 +102,12 @@ class PlayerFontSet {
         return infoBoxArtistAlbumFont_normal
     }
     
+    var infoBoxChapterFont_normal: NSFont
+    
+    var infoBoxChapterFont: NSFont {
+        return infoBoxChapterFont_normal
+    }
+    
 //    var infoBoxChapterFont_normal: NSFont
 //    var infoBoxChapterFont_larger: NSFont
 //    var infoBoxChapterFont_largest: NSFont
@@ -142,6 +148,8 @@ class PlayerFontSet {
         
         self.infoBoxTitleFont_normal = preset.infoBoxTitleFont_normal
         self.infoBoxArtistAlbumFont_normal = preset.infoBoxArtistAlbumFont_normal
+        self.infoBoxChapterFont_normal = preset.infoBoxChapterFont_normal
+        
         self.trackTimesFont_normal = preset.trackTimesFont_normal
         self.feedbackFont_normal = preset.feedbackFont_normal
     }
@@ -150,6 +158,8 @@ class PlayerFontSet {
         
         self.infoBoxTitleFont_normal = fontSet.infoBoxTitleFont_normal
         self.infoBoxArtistAlbumFont_normal = fontSet.infoBoxArtistAlbumFont_normal
+        self.infoBoxChapterFont_normal = fontSet.infoBoxChapterFont_normal
+        
         self.trackTimesFont_normal = fontSet.trackTimesFont_normal
         self.feedbackFont_normal = fontSet.feedbackFont_normal
     }
@@ -204,7 +214,24 @@ class PlaylistFontSet {
     var summaryFont: NSFont {
         return summaryFont_normal
     }
-        
+    
+    var chaptersListHeaderFont_normal: NSFont
+     
+    var chaptersListHeaderFont: NSFont {
+        return chaptersListHeaderFont_normal
+    }
+    
+    var chaptersListSearchFont_normal: NSFont
+     
+    var chaptersListSearchFont: NSFont {
+        return chaptersListSearchFont_normal
+    }
+    
+    var chaptersListCaptionFont_normal: NSFont
+     
+    var chaptersListCaptionFont: NSFont {
+        return chaptersListCaptionFont_normal
+    }
 
     init(preset: FontSetPreset) {
         
@@ -212,6 +239,10 @@ class PlaylistFontSet {
         self.groupTextFont_normal = preset.playlistGroupTextFont_normal
         self.tabButtonTextFont_normal = preset.playlistTabTextFont_normal
         self.summaryFont_normal = preset.playlistSummaryFont_normal
+        
+        self.chaptersListHeaderFont_normal = preset.chaptersListHeaderFont_normal
+        self.chaptersListSearchFont_normal = preset.chaptersListSearchFont_normal
+        self.chaptersListCaptionFont_normal = preset.chaptersListCaptionFont_normal
     }
     
     func applyFontSet(_ fontSet: PlaylistFontSet) {
@@ -220,6 +251,10 @@ class PlaylistFontSet {
         self.groupTextFont_normal = fontSet.groupTextFont_normal
         self.tabButtonTextFont_normal = fontSet.tabButtonTextFont_normal
         self.summaryFont_normal = fontSet.summaryFont_normal
+        
+        self.chaptersListHeaderFont_normal = fontSet.chaptersListHeaderFont_normal
+        self.chaptersListSearchFont_normal = fontSet.chaptersListSearchFont_normal
+        self.chaptersListCaptionFont_normal = fontSet.chaptersListCaptionFont_normal
     }
 }
 
@@ -234,11 +269,9 @@ class PlaylistFontSet {
 //    var selectedTabFont_larger: NSFont
 //    var selectedTabFont_largest: NSFont
 //
-//    var chapterSearchFont_normal: NSFont
 //    var chapterSearchFont_larger: NSFont
 //    var chapterSearchFont_largest: NSFont
 //
-//    var chaptersListCaptionFont_normal: NSFont
 //    var chaptersListCaptionFont_larger: NSFont
 //    var chaptersListCaptionFont_largest: NSFont
 //}

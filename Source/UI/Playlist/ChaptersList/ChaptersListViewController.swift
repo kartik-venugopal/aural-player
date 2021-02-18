@@ -105,6 +105,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         
         Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
         
+        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
@@ -132,11 +133,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
-        lblWindowTitle.font = Fonts.Playlist.chaptersListCaptionFont
-        lblSummary.font = Fonts.Playlist.summaryFont
+        lblWindowTitle.font = FontSets.systemFontSet.playlist.chaptersListCaptionFont
+        lblSummary.font = FontSets.systemFontSet.playlist.summaryFont
         
-        txtSearch.font = Fonts.Playlist.chapterSearchFont
-        lblNumMatches.font = Fonts.Playlist.chapterSearchFont
+        txtSearch.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
+        lblNumMatches.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
         
         btnLoopChapter.onIf(player.chapterLoopExists)
         
@@ -366,6 +367,14 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     }
     
     private func changeTextSize(_ textSize: TextSize) {
+        fontsChanged()
+    }
+    
+    private func applyFontSet(_ fontSet: FontSet) {
+        fontsChanged()
+    }
+    
+    private func fontsChanged() {
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {
@@ -374,11 +383,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
             chaptersListView.reloadData()
             chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
             
-            lblWindowTitle.font = Fonts.Playlist.chaptersListCaptionFont
-            lblSummary.font = Fonts.Playlist.summaryFont
+            lblWindowTitle.font = FontSets.systemFontSet.playlist.chaptersListCaptionFont
+            lblSummary.font = FontSets.systemFontSet.playlist.summaryFont
             
-            txtSearch.font = Fonts.Playlist.chapterSearchFont
-            lblNumMatches.font = Fonts.Playlist.chapterSearchFont
+            txtSearch.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
+            lblNumMatches.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
         }
     }
     
