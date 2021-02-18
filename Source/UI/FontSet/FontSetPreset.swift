@@ -10,11 +10,11 @@ enum FontSetPreset: String, CaseIterable {
     
     // A light scheme with an off-white background and dark foreground elements.
     case programmer
-//
-//    // A dark scheme with a black background and aqua coloring of active sliders.
+
+    // A dark scheme with a black background and aqua coloring of active sliders.
     case novelist
-//
-//    // A semi-dark scheme with a gray background and lighter foreground elements.
+
+    // A semi-dark scheme with a gray background and lighter foreground elements.
     case gothic
     
     // The preset to be used as the default system scheme (eg. when a user loads the app for the very first time)
@@ -57,38 +57,6 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
-//    var menuFont_normal: NSFont
-//    var menuFont_larger: NSFont
-//    var menuFont_largest: NSFont
-//
-//    var stringInputPopoverFont_normal: NSFont
-//    var stringInputPopoverFont_larger: NSFont
-//    var stringInputPopoverFont_largest: NSFont
-//
-//    var stringInputPopoverErrorFont_normal: NSFont
-//    var stringInputPopoverErrorFont_larger: NSFont
-//    var stringInputPopoverErrorFont_largest: NSFont
-    
-//    var progressArcFont: NSFont
-    
-    // Font used by the popup menus
-//    var popupMenuFont: NSFont
-    
-    var menuFont_normal: NSFont {
-        
-        switch self {
-            
-        case .standard:  return Fonts.Standard.mainFont_11
-            
-        case .programmer:  return Fonts.Programmer.mainFont_11
-            
-        case .novelist:  return Fonts.Novelist.mainFont_11
-            
-        case .gothic:    return Fonts.Gothic.mainFont_13
-            
-        }
-    }
-    
     var infoBoxTitleFont_normal: NSFont {
         
         switch self {
@@ -104,6 +72,36 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
+    var infoBoxTitleFont_larger: NSFont {
+        
+        switch self {
+            
+        case .standard:  return Fonts.Standard.mainFont_17
+            
+        case .programmer:  return Fonts.Programmer.mainFont_15
+            
+        case .novelist:  return Fonts.Novelist.mainFont_18
+            
+        case .gothic:    return Fonts.Gothic.mainFont_15
+            
+        }
+    }
+    
+    var infoBoxTitleFont_largest: NSFont {
+        
+        switch self {
+            
+        case .standard:  return Fonts.Standard.mainFont_19
+            
+        case .programmer:  return Fonts.Programmer.mainFont_17
+            
+        case .novelist:  return Fonts.Novelist.mainFont_20
+            
+        case .gothic:    return Fonts.Gothic.mainFont_17
+            
+        }
+    }
+    
     var infoBoxArtistAlbumFont_normal: NSFont {
         
         switch self {
@@ -115,6 +113,36 @@ enum FontSetPreset: String, CaseIterable {
         case .novelist:  return Fonts.Novelist.mainFont_14
             
         case .gothic:    return Fonts.Gothic.mainFont_11
+            
+        }
+    }
+    
+    var infoBoxArtistAlbumFont_larger: NSFont {
+        
+        switch self {
+            
+        case .standard:  return Fonts.Standard.mainFont_15
+            
+        case .programmer:  return Fonts.Programmer.mainFont_14
+            
+        case .novelist:  return Fonts.Novelist.mainFont_16
+            
+        case .gothic:    return Fonts.Gothic.mainFont_13
+            
+        }
+    }
+    
+    var infoBoxArtistAlbumFont_largest: NSFont {
+        
+        switch self {
+            
+        case .standard:  return Fonts.Standard.mainFont_17
+            
+        case .programmer:  return Fonts.Programmer.mainFont_16
+            
+        case .novelist:  return Fonts.Novelist.mainFont_18
+            
+        case .gothic:    return Fonts.Gothic.mainFont_15
             
         }
     }
@@ -145,7 +173,34 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_12
                 
             case .gothic:    return Fonts.Gothic.mainFont_11
+        }
+    }
+    
+    var trackTimesFont_larger: NSFont {
+        
+        switch self {
                 
+            case .standard:  return Fonts.Standard.mainFont_12
+                
+            case .programmer:  return Fonts.Programmer.mainFont_12
+                
+            case .novelist:  return Fonts.Novelist.mainFont_13_5
+                
+            case .gothic:    return Fonts.Gothic.mainFont_12
+        }
+    }
+    
+    var trackTimesFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_13
+                
+            case .programmer:  return Fonts.Programmer.mainFont_13
+                
+            case .novelist:  return Fonts.Novelist.mainFont_15
+                
+            case .gothic:    return Fonts.Gothic.mainFont_13
         }
     }
     
@@ -160,7 +215,34 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_9
                 
             case .gothic:    return Fonts.Gothic.mainFont_8
+        }
+    }
+    
+    var feedbackFont_larger: NSFont {
+        
+        switch self {
                 
+            case .standard:  return Fonts.Standard.mainFont_10
+                
+            case .programmer:  return Fonts.Programmer.mainFont_9
+                
+            case .novelist:  return Fonts.Novelist.mainFont_10_5
+                
+            case .gothic:    return Fonts.Gothic.mainFont_9
+        }
+    }
+    
+    var feedbackFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_11
+                
+            case .programmer:  return Fonts.Programmer.mainFont_10
+                
+            case .novelist:  return Fonts.Novelist.mainFont_12
+                
+            case .gothic:    return Fonts.Gothic.mainFont_10
         }
     }
     
