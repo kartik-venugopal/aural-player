@@ -65,11 +65,11 @@ Download the DMG image (containing the app bundle) from the latest release [here
 
 **NOTE** - The ffmpeg source code (and build script / instructions) for each release can be found in the Source code archive (zip / tar) for the release, under **aural-player-x.y.z/Resources/ffmpeg** (when extracted).
 
-### Note for macOS Big Sur
+### Important note for macOS Big Sur
 
 If you're on macOS Big Sur, you must download v2.3.0 or later versions. No older app versions will run on macOS Big Sur.
 
-## Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
+### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
 In order to circumvent the hassle of macOS security restrictions, the location where the app stores its persisted state has changed from *~/Documents* to *~/Music*. This means that if you are upgrading from an older version of Aural Player (v2.2.0 or older), you need to move your app state directory from *~/Documents* to *~/Music* (exact steps listed below). Otherwise, note that you will lose all your previously saved app settings (playlist, sound settings, favorites, history, color schemes, window layouts, etc).
 
