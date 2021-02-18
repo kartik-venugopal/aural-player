@@ -1819,8 +1819,8 @@
 		3E6C103F25CEB98600BF0D07 /* TranscodingTrackInfo */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C104025CEB98600BF0D07 /* TranscoderViewController.swift */,
 				3E6C104125CEB98600BF0D07 /* TranscodingTrack.xib */,
+				3E6C104025CEB98600BF0D07 /* TranscoderViewController.swift */,
 			);
 			path = TranscodingTrackInfo;
 			sourceTree = "<group>";

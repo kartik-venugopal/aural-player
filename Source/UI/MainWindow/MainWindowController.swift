@@ -138,7 +138,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     }
     
     private func changeTextSize(_ textSize: TextSize) {
-        btnSettingsMenu.font = Fonts.Player.menuFont
+        btnSettingsMenu.font = Fonts.menuFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

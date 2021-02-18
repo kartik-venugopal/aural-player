@@ -22,25 +22,6 @@ class FontSet: StringKeyedItem {
     // False if defined by the user
     let systemDefined: Bool
     
-//    var captionFont_20: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 20)!
-    
-//    var menuFont_normal: NSFont
-//    var menuFont_larger: NSFont
-//    var menuFont_largest: NSFont
-//
-//    var stringInputPopoverFont_normal: NSFont
-//    var stringInputPopoverFont_larger: NSFont
-//    var stringInputPopoverFont_largest: NSFont
-//
-//    var stringInputPopoverErrorFont_normal: NSFont
-//    var stringInputPopoverErrorFont_larger: NSFont
-//    var stringInputPopoverErrorFont_largest: NSFont
-    
-//    var progressArcFont: NSFont
-    
-    // Font used by the popup menus
-//    var popupMenuFont: NSFont
-    
     var player: PlayerFontSet
     var playlist: PlaylistFontSet
     var effects: EffectsFontSet
@@ -135,6 +116,8 @@ class PlayerFontSet {
     var feedbackFont: NSFont {
         return feedbackFont_normal
     }
+    
+    //    var progressArcFont: NSFont
     
 //    var feedbackFont_normal: NSFont
 //    var feedbackFont_larger: NSFont

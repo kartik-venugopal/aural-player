@@ -123,21 +123,3 @@ class FXTextButtonCell: ColorAwareButtonCell {
         }
     }
 }
-
-class PlayerTextButtonCell: ColorAwareButtonCell {
-    
-    override var textFont: NSFont {return Fonts.Player.textButtonFont}
-    
-    override var yOffset: CGFloat {
-        
-        switch PlayerViewState.textSize {
-            
-        case .normal:   return -1
-            
-        case .larger:   return -1
-            
-        case .largest:  return -2
-            
-        }
-    }
-}

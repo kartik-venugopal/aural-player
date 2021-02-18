@@ -159,7 +159,7 @@ class MasterViewController: FXUnitViewController {
                 FontSets.systemFontSet.effects.unitCaptionFont
         }
         
-        presetsMenu.font = Fonts.Effects.menuFont
+        presetsMenu.font = Fonts.menuFont
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {

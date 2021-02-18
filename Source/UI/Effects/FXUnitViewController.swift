@@ -131,14 +131,14 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         lblCaption.font = FontSets.systemFontSet.effects.unitCaptionFont
         functionLabels.forEach({$0.font = FontSets.systemFontSet.effects.unitFunctionFont})
-        presetsMenu.font = Fonts.Effects.menuFont
+        presetsMenu.font = Fonts.menuFont
     }
     
     func applyFontSet(_ fontSet: FontSet) {
         
         lblCaption.font = FontSets.systemFontSet.effects.unitCaptionFont
         functionLabels.forEach({$0.font = FontSets.systemFontSet.effects.unitFunctionFont})
-        presetsMenu.font = Fonts.Effects.menuFont
+        presetsMenu.font = Fonts.menuFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
