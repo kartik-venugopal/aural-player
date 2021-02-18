@@ -79,7 +79,7 @@ Perform the following simple steps when upgrading from v2.2.0 or any older versi
 
 * Quit Aural Player v2.2.0 (or any older app version) if it is running.
 * Move the folder named ***aural*** in your user's *Documents* folder, to your user's *Music* folder.
-* Download/install Aural Player v2.3.0 (i.e. this build) and run it.
+* Download/install Aural Player v2.3.0 (or any newer app version) and run it.
 
 The contents of the "aural" folder should look like this:
 
