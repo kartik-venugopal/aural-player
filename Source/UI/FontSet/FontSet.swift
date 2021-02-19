@@ -239,24 +239,54 @@ class PlaylistFontSet {
     }
     
     var chaptersListHeaderFont_normal: NSFont
-    //    var chaptersListHeaderFont_larger: NSFont
-    //    var chaptersListHeaderFont_largest: NSFont
-    //
+    var chaptersListHeaderFont_larger: NSFont
+    var chaptersListHeaderFont_largest: NSFont
      
     var chaptersListHeaderFont: NSFont {
-        return chaptersListHeaderFont_normal
+        
+        switch PlaylistViewState.textSize {
+
+        case .normal: return chaptersListHeaderFont_normal
+
+        case .larger: return chaptersListHeaderFont_larger
+
+        case .largest: return chaptersListHeaderFont_largest
+
+        }
     }
     
     var chaptersListSearchFont_normal: NSFont
+    var chaptersListSearchFont_larger: NSFont
+    var chaptersListSearchFont_largest: NSFont
      
     var chaptersListSearchFont: NSFont {
-        return chaptersListSearchFont_normal
+        
+        switch PlaylistViewState.textSize {
+
+        case .normal: return chaptersListSearchFont_normal
+
+        case .larger: return chaptersListSearchFont_larger
+
+        case .largest: return chaptersListSearchFont_largest
+
+        }
     }
     
     var chaptersListCaptionFont_normal: NSFont
+    var chaptersListCaptionFont_larger: NSFont
+    var chaptersListCaptionFont_largest: NSFont
      
     var chaptersListCaptionFont: NSFont {
-        return chaptersListCaptionFont_normal
+        
+        switch PlaylistViewState.textSize {
+
+        case .normal: return chaptersListCaptionFont_normal
+
+        case .larger: return chaptersListCaptionFont_larger
+
+        case .largest: return chaptersListCaptionFont_largest
+
+        }
     }
 
     init(preset: FontSetPreset) {
@@ -278,8 +308,16 @@ class PlaylistFontSet {
         self.tabButtonTextFont_largest = preset.playlistTabButtonTextFont_largest
         
         self.chaptersListHeaderFont_normal = preset.chaptersListHeaderFont_normal
+        self.chaptersListHeaderFont_larger = preset.chaptersListHeaderFont_larger
+        self.chaptersListHeaderFont_largest = preset.chaptersListHeaderFont_largest
+        
         self.chaptersListSearchFont_normal = preset.chaptersListSearchFont_normal
+        self.chaptersListSearchFont_larger = preset.chaptersListSearchFont_larger
+        self.chaptersListSearchFont_largest = preset.chaptersListSearchFont_largest
+        
         self.chaptersListCaptionFont_normal = preset.chaptersListCaptionFont_normal
+        self.chaptersListCaptionFont_larger = preset.chaptersListCaptionFont_larger
+        self.chaptersListCaptionFont_largest = preset.chaptersListCaptionFont_largest
     }
     
     func applyFontSet(_ fontSet: PlaylistFontSet) {
@@ -301,8 +339,16 @@ class PlaylistFontSet {
         self.tabButtonTextFont_largest = fontSet.tabButtonTextFont_largest
         
         self.chaptersListHeaderFont_normal = fontSet.chaptersListHeaderFont_normal
+        self.chaptersListHeaderFont_larger = fontSet.chaptersListHeaderFont_larger
+        self.chaptersListHeaderFont_largest = fontSet.chaptersListHeaderFont_largest
+        
         self.chaptersListSearchFont_normal = fontSet.chaptersListSearchFont_normal
+        self.chaptersListSearchFont_larger = fontSet.chaptersListSearchFont_larger
+        self.chaptersListSearchFont_largest = fontSet.chaptersListSearchFont_largest
+        
         self.chaptersListCaptionFont_normal = fontSet.chaptersListCaptionFont_normal
+        self.chaptersListCaptionFont_larger = fontSet.chaptersListCaptionFont_larger
+        self.chaptersListCaptionFont_largest = fontSet.chaptersListCaptionFont_largest
     }
 }
 
