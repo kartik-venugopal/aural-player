@@ -1,23 +1,27 @@
 # Aural Player
 
-### Update (Feb 5, 2021)
+### Update (Feb 18, 2021)
 
-Version 3.0 was in active development last year, but due to unforeseen personal circumstances, I have not been able to work on this project since Oct 2020. The planned 3.0 release will be delayed.
+The very ambitious version 3.0 was in active development last year, but due to unforeseen personal circumstances, that part of the project has been put on hold since Oct 2020. The planned 3.0 release will be delayed.
+
+Instead, I have worked to get Aural Player up and running on macOS Big Sur, and have been making small refinements and enhancements to version 2.x.
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
 ## Table of Contents
   * [Overview](#overview)
-  * [Documentation](#documentation)
-  * [Contact Info](#contact-info)
+  * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
+    + [Important note for macOS Big Sur](#important-note-for-macos-big-sur)
+    + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
     + [Installation](#installation)
     + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-catalina-or-later-versions-for-aural-player-v220-or-older)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
-  * [Summary of features](#summary-of-features)
-  * [Known issues](#known-issues)
   * [Screenshots](#screenshots)
+  * [Known issues](#known-issues)
+  * [Documentation](#documentation)
+  * [Contact Info](#contact-info)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
 
@@ -34,21 +38,22 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * Does not play protected content (e.g. Apple's M4P or Audible's AAX).
 * Does not integrate with online services for streaming / scrobbling, etc.
 
-## Documentation
+## Summary of features
 
-All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
+(Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
 
-[How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
-
-NOTE - The documentation is incomplete and is a work in progress.
-
-## Contact info
-
-Want to contact the developer ? Send an email to [aural.student@gmail.com](mailto:aural.student@gmail.com).
-
-Any feedback, questions, issues, suggestions, or other comments related to the project are welcome ... spam is not :)
-
-Of course, you may also file issues right here on GitHub as needed. I'm usually pretty good at responding to them, even if I'm not always able to fix them.
+* Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, Monkey's Audio (APE), True Audio (TTA), DSD & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
+* Supports M3U / M3U8 playlists
+* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
+* **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
+* **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
+  * Built-in and custom effects presets, per-track effects settings memory
+  * Recording of clips with effects captured
+* **Playlist:** Grouping, searching, sorting, type selection
+* **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
+* **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
+* **UI:** Color schemes (built-in and custom), window layout presets (built-in and custom), window snapping, collapsible UI components, adjustable text size.
+* **Usability:** Configurable media keys support, swipe/scroll gesture recognition
 
 ## Download
 
@@ -60,13 +65,27 @@ Of course, you may also file issues right here on GitHub as needed. I'm usually 
 
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
-### Note for macOS Big Sur
-
-If you're on macOS Big Sur, you must download v2.3.0 or later versions. No older app versions will run on macOS Big Sur.
-
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
 **NOTE** - The ffmpeg source code (and build script / instructions) for each release can be found in the Source code archive (zip / tar) for the release, under **aural-player-x.y.z/Resources/ffmpeg** (when extracted).
+
+### Important note for macOS Big Sur
+
+If you're on macOS Big Sur, you must download v2.3.0 or later versions. No older app versions will run on macOS Big Sur.
+
+### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
+
+In order to circumvent the hassle of macOS security restrictions, the location where the app stores its persisted state has changed from *~/Documents* to *~/Music*. This means that if you are upgrading from an older version of Aural Player (v2.2.0 or older), you need to move your app state directory from *~/Documents* to *~/Music* (exact steps listed below). Otherwise, note that you will lose all your previously saved app settings (playlist, sound settings, favorites, history, color schemes, window layouts, etc).
+
+Perform the following simple steps when upgrading from v2.2.0 or any older version to v2.3.0 or any newer version.
+
+* Quit Aural Player v2.2.0 (or any older app version) if it is running.
+* Move the folder named ***aural*** in your user's *Documents* folder, to your user's *Music* folder.
+* Download/install Aural Player v2.3.0 (or any newer app version) and run it.
+
+The contents of the "aural" folder should look like this:
+
+![aural app state folder screenshot](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/auralDir2.png)
 
 ### Installation
 
@@ -99,40 +118,7 @@ NOTE - v2.3.0 and newer versions circumvent this problem by storing app state in
 **NOTE**
 * Media keys support is available from version 1.3.0 onwards.
 * You will have to repeat this simple process whenever you upgrade to a new version of the app, because the macOS Accessibility permissions are tied to a single instance of the app.
-
-## Summary of features
-
-(Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
-
-* Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, Monkey's Audio (APE), True Audio (TTA), DSD & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
-* Supports M3U / M3U8 playlists
-* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
-* **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
-* **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
-  * Built-in and custom effects presets, per-track effects settings memory
-  * Recording of clips with effects captured
-* **Playlist:** Grouping, searching, sorting, type selection
-* **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
-* **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
-* **UI:** Color schemes (built-in and custom), window layout presets (built-in and custom), window snapping, collapsible UI components, adjustable text size.
-* **Usability:** Configurable media keys support, swipe/scroll gesture recognition
-
-## Known issues
-
-### Bad audio quality when connecting Bluetooth headphones
-
-If you notice poor audio quality when you first connect Bluetooth headphones, try the following:
-
-**Fix# 1 - Set your system's input device to the built-in device**
-
-When you connect Bluetooth headphones to your Mac, if your headphones have a microphone, the OS will typically switch to using your Bluetooth microphone as its input device. Simply go to **System Preferences > Sound > Input**, and change the input device back to your Mac's built-in input device.
-
-This should fix the problem. If not, try Fix# 2.
-
-**Fix# 2 - Change your system's Bluetooth audio codec settings**
-
-Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable-aptx-aac-bluetooth-audio-codecs-macos/).
-      
+     
 ## Screenshots
 
 ### Default window layout with customized color scheme
@@ -170,6 +156,39 @@ Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable
 ### Chapters support
 
 ![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true)
+
+## Known issues
+
+### Bad audio quality when connecting Bluetooth headphones
+
+If you notice poor audio quality when you first connect Bluetooth headphones, try the following:
+
+**Fix# 1 - Set your system's input device to the built-in device**
+
+When you connect Bluetooth headphones to your Mac, if your headphones have a microphone, the OS will typically switch to using your Bluetooth microphone as its input device. Simply go to **System Preferences > Sound > Input**, and change the input device back to your Mac's built-in input device.
+
+This should fix the problem. If not, try Fix# 2.
+
+**Fix# 2 - Change your system's Bluetooth audio codec settings**
+
+Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable-aptx-aac-bluetooth-audio-codecs-macos/).
+
+## Documentation
+
+All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
+
+[How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
+
+NOTE - The documentation is incomplete and is a work in progress.
+
+## Contact info
+
+Want to contact the developer ? Send an email to [aural.student@gmail.com](mailto:aural.student@gmail.com).
+
+Any feedback, questions, issues, suggestions, or other comments related to the project are welcome ... spam is not :)
+
+Of course, you may also file issues right here on GitHub as needed. I'm usually pretty good at responding to them, even if I'm not always able to fix them.
+
 
 ## Third party code attributions
 
