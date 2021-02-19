@@ -261,6 +261,36 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
+    var playlistTrackTextFont_larger: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_13
+                
+            case .programmer:  return Fonts.Programmer.mainFont_12
+                
+            case .novelist:  return Fonts.Novelist.mainFont_14
+                
+            case .gothic:    return Fonts.Gothic.mainFont_12
+                
+        }
+    }
+    
+    var playlistTrackTextFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_14
+                
+            case .programmer:  return Fonts.Programmer.mainFont_13
+                
+            case .novelist:  return Fonts.Novelist.mainFont_15
+                
+            case .gothic:    return Fonts.Gothic.mainFont_13
+                
+        }
+    }
+    
     var playlistGroupTextFont_normal: NSFont {
         
         switch self {
@@ -272,6 +302,36 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_14
                 
             case .gothic:    return Fonts.Gothic.mainFont_12
+                
+        }
+    }
+    
+    var playlistGroupTextFont_larger: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_13_5
+                
+            case .programmer:  return Fonts.Programmer.mainFont_13
+                
+            case .novelist:  return Fonts.Novelist.mainFont_15
+                
+            case .gothic:    return Fonts.Gothic.mainFont_13
+                
+        }
+    }
+    
+    var playlistGroupTextFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_14_5
+                
+            case .programmer:  return Fonts.Programmer.mainFont_14
+                
+            case .novelist:  return Fonts.Novelist.mainFont_16
+                
+            case .gothic:    return Fonts.Gothic.mainFont_14
                 
         }
     }
@@ -291,7 +351,37 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
-    var playlistTabTextFont_normal: NSFont {
+    var playlistSummaryFont_larger: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_14
+                
+            case .programmer:  return Fonts.Programmer.mainFont_13
+                
+            case .novelist:  return Fonts.Novelist.mainFont_15
+                
+            case .gothic:    return Fonts.Gothic.mainFont_13
+                
+        }
+    }
+    
+    var playlistSummaryFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_15
+                
+            case .programmer:  return Fonts.Programmer.mainFont_14
+                
+            case .novelist:  return Fonts.Novelist.mainFont_16
+                
+            case .gothic:    return Fonts.Gothic.mainFont_14
+                
+        }
+    }
+    
+    var playlistTabButtonTextFont_normal: NSFont {
         
         switch self {
                 
@@ -302,6 +392,36 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.captionFont_14
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
+                
+        }
+    }
+    
+    var playlistTabButtonTextFont_larger: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_15
+                
+            case .programmer:  return Fonts.Programmer.captionFont_14
+                
+            case .novelist:  return Fonts.Novelist.captionFont_15
+                
+            case .gothic:    return Fonts.Gothic.captionFont_15
+                
+        }
+    }
+    
+    var playlistTabButtonTextFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_16
+                
+            case .programmer:  return Fonts.Programmer.captionFont_15
+                
+            case .novelist:  return Fonts.Novelist.captionFont_16
+                
+            case .gothic:    return Fonts.Gothic.captionFont_16
                 
         }
     }

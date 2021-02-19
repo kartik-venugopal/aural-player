@@ -124,9 +124,9 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         // Constraints
         
         // Remove any existing constraints on the text field's 'top' and 'centerY' attributes
-        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .bottom}.forEach {cell.deactivateAndRemoveConstraint($0)}
+        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {cell.deactivateAndRemoveConstraint($0)}
 
-        let imgViewBottomConstraint = NSLayoutConstraint(item: imgView, attribute: .bottom, relatedBy: .equal, toItem: cell, attribute: .bottom, multiplier: 1.0, constant: -5)
+        let imgViewBottomConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
         
         cell.activateAndAddConstraint(imgViewBottomConstraint)
         
