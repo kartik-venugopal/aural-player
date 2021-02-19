@@ -42,6 +42,7 @@ struct Fonts {
         static let captionFont_14: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 14)!
         static let captionFont_15: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 15)!
         static let captionFont_16: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 16)!
+        static let captionFont_17: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 17)!
         
         static let captionFont_18: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 18)!
         static let captionFont_20: NSFont = NSFont(name: "Alegreya Sans SC Regular", size: 20)!
@@ -86,6 +87,7 @@ struct Fonts {
         static let captionFont_14: NSFont = NSFont(name: "Carrois Gothic SC Regular", size: 14)!
         static let captionFont_15: NSFont = NSFont(name: "Carrois Gothic SC Regular", size: 15)!
         static let captionFont_16: NSFont = NSFont(name: "Carrois Gothic SC Regular", size: 16)!
+        static let captionFont_17: NSFont = NSFont(name: "Carrois Gothic SC Regular", size: 17)!
         
         static let captionFont_18: NSFont = NSFont(name: "Carrois Gothic SC Regular", size: 18)!
         static let captionFont_20: NSFont = NSFont(name: "Carrois Gothic SC Regular", size: 20)!
@@ -133,6 +135,7 @@ struct Fonts {
             static let captionFont_17: NSFont = NSFont(name: "Patrick Hand SC", size: 17)!
             
             static let captionFont_18: NSFont = NSFont(name: "Patrick Hand SC", size: 18)!
+            static let captionFont_19: NSFont = NSFont(name: "Patrick Hand SC", size: 19)!
             static let captionFont_20: NSFont = NSFont(name: "Patrick Hand SC", size: 20)!
         }
     
@@ -178,6 +181,7 @@ struct Fonts {
             static let captionFont_14: NSFont = NSFont(name: "ZORGEOUS", size: 14)!
             static let captionFont_15: NSFont = NSFont(name: "ZORGEOUS", size: 15)!
             static let captionFont_16: NSFont = NSFont(name: "ZORGEOUS", size: 16)!
+            static let captionFont_17: NSFont = NSFont(name: "ZORGEOUS", size: 17)!
             
             static let captionFont_18: NSFont = NSFont(name: "ZORGEOUS", size: 18)!
             static let captionFont_20: NSFont = NSFont(name: "ZORGEOUS", size: 20)!

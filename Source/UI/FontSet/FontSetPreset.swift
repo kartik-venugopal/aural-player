@@ -441,17 +441,77 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
+    var chaptersListHeaderFont_larger: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_16
+                
+            case .programmer:  return Fonts.Programmer.captionFont_16
+                
+            case .novelist:  return Fonts.Novelist.captionFont_17
+                
+            case .gothic:    return Fonts.Gothic.captionFont_15
+                
+        }
+    }
+    
+    var chaptersListHeaderFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_17
+                
+            case .programmer:  return Fonts.Programmer.captionFont_17
+                
+            case .novelist:  return Fonts.Novelist.captionFont_18
+                
+            case .gothic:    return Fonts.Gothic.captionFont_16
+                
+        }
+    }
+    
     var chaptersListSearchFont_normal: NSFont {
         
         switch self {
                 
             case .standard:  return Fonts.Standard.mainFont_12
                 
-            case .programmer:  return Fonts.Programmer.mainFont_13
+            case .programmer:  return Fonts.Programmer.mainFont_12
                 
             case .novelist:  return Fonts.Novelist.mainFont_14
                 
             case .gothic:    return Fonts.Gothic.mainFont_12
+                
+        }
+    }
+    
+    var chaptersListSearchFont_larger: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_13
+                
+            case .programmer:  return Fonts.Programmer.mainFont_13
+                
+            case .novelist:  return Fonts.Novelist.mainFont_15
+                
+            case .gothic:    return Fonts.Gothic.mainFont_13
+                
+        }
+    }
+    
+    var chaptersListSearchFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.mainFont_14
+                
+            case .programmer:  return Fonts.Programmer.mainFont_14
+                
+            case .novelist:  return Fonts.Novelist.mainFont_16
+                
+            case .gothic:    return Fonts.Gothic.mainFont_14
                 
         }
     }
@@ -464,9 +524,39 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.captionFont_16
                 
-            case .novelist:  return Fonts.Novelist.captionFont_17
+            case .novelist:  return Fonts.Novelist.captionFont_18
                 
             case .gothic:    return Fonts.Gothic.captionFont_15
+                
+        }
+    }
+    
+    var chaptersListCaptionFont_larger: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_17
+                
+            case .programmer:  return Fonts.Programmer.captionFont_17
+                
+            case .novelist:  return Fonts.Novelist.captionFont_19
+                
+            case .gothic:    return Fonts.Gothic.captionFont_16
+                
+        }
+    }
+    
+    var chaptersListCaptionFont_largest: NSFont {
+        
+        switch self {
+                
+            case .standard:  return Fonts.Standard.captionFont_18
+                
+            case .programmer:  return Fonts.Programmer.captionFont_18
+                
+            case .novelist:  return Fonts.Novelist.captionFont_20
+                
+            case .gothic:    return Fonts.Gothic.captionFont_17
                 
         }
     }
