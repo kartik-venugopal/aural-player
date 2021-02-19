@@ -137,6 +137,12 @@ class TimeViewController: FXUnitViewController {
         btnShiftPitch.redraw()
     }
     
+    override func applyFontSet(_ fontSet: FontSet) {
+        
+        super.applyFontSet(fontSet)
+        btnShiftPitch.redraw()
+    }
+    
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)

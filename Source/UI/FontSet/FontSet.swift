@@ -366,58 +366,108 @@ class PlaylistFontSet {
 class EffectsFontSet {
 
     var unitCaptionFont_normal: NSFont
-    //    var unitCaptionFont_larger: NSFont
-    //    var unitCaptionFont_largest: NSFont
+    var unitCaptionFont_larger: NSFont
+    var unitCaptionFont_largest: NSFont
     
     var unitCaptionFont: NSFont {
-        return unitCaptionFont_normal
+        
+        switch EffectsViewState.textSize {
+
+        case .normal: return unitCaptionFont_normal
+
+        case .larger: return unitCaptionFont_larger
+
+        case .largest: return unitCaptionFont_largest
+
+        }
     }
     
     var unitFunctionFont_normal: NSFont
+    var unitFunctionFont_larger: NSFont
+    var unitFunctionFont_largest: NSFont
     
     var unitFunctionFont: NSFont {
-        return unitFunctionFont_normal
+        
+        switch EffectsViewState.textSize {
+
+        case .normal: return unitFunctionFont_normal
+
+        case .larger: return unitFunctionFont_larger
+
+        case .largest: return unitFunctionFont_largest
+
+        }
     }
 
     var masterUnitFunctionFont_normal: NSFont
-//    var masterUnitFunctionFont_larger: NSFont
-//    var masterUnitFunctionFont_largest: NSFont
+    var masterUnitFunctionFont_larger: NSFont
+    var masterUnitFunctionFont_largest: NSFont
     
     var masterUnitFunctionFont: NSFont {
-        return masterUnitFunctionFont_normal
+        
+        switch EffectsViewState.textSize {
+
+        case .normal: return masterUnitFunctionFont_normal
+
+        case .larger: return masterUnitFunctionFont_larger
+
+        case .largest: return masterUnitFunctionFont_largest
+
+        }
     }
     
     var filterChartFont_normal: NSFont
+    var filterChartFont_larger: NSFont
+    var filterChartFont_largest: NSFont
     
     var filterChartFont: NSFont {
-        return filterChartFont_normal
+    
+        switch EffectsViewState.textSize {
+
+        case .normal: return filterChartFont_normal
+
+        case .larger: return filterChartFont_larger
+
+        case .largest: return filterChartFont_largest
+
+        }
     }
     
     init(preset: FontSetPreset) {
         
         self.unitCaptionFont_normal = preset.effectsUnitCaptionFont_normal
+        self.unitCaptionFont_larger = preset.effectsUnitCaptionFont_larger
+        self.unitCaptionFont_largest = preset.effectsUnitCaptionFont_largest
+        
         self.unitFunctionFont_normal = preset.effectsUnitFunctionFont_normal
+        self.unitFunctionFont_larger = preset.effectsUnitFunctionFont_larger
+        self.unitFunctionFont_largest = preset.effectsUnitFunctionFont_largest
+        
         self.masterUnitFunctionFont_normal = preset.effectsMasterUnitFunctionFont_normal
+        self.masterUnitFunctionFont_larger = preset.effectsMasterUnitFunctionFont_larger
+        self.masterUnitFunctionFont_largest = preset.effectsMasterUnitFunctionFont_largest
+        
         self.filterChartFont_normal = preset.effectsFilterChartFont_normal
+        self.filterChartFont_larger = preset.effectsFilterChartFont_larger
+        self.filterChartFont_largest = preset.effectsFilterChartFont_largest
     }
     
     func applyFontSet(_ fontSet: EffectsFontSet) {
         
         self.unitCaptionFont_normal = fontSet.unitCaptionFont_normal
+        self.unitCaptionFont_larger = fontSet.unitCaptionFont_larger
+        self.unitCaptionFont_largest = fontSet.unitCaptionFont_largest
+        
         self.unitFunctionFont_normal = fontSet.unitFunctionFont_normal
+        self.unitFunctionFont_larger = fontSet.unitFunctionFont_larger
+        self.unitFunctionFont_largest = fontSet.unitFunctionFont_largest
+        
         self.masterUnitFunctionFont_normal = fontSet.masterUnitFunctionFont_normal
+        self.masterUnitFunctionFont_larger = fontSet.masterUnitFunctionFont_larger
+        self.masterUnitFunctionFont_largest = fontSet.masterUnitFunctionFont_largest
+        
         self.filterChartFont_normal = fontSet.filterChartFont_normal
+        self.filterChartFont_larger = fontSet.filterChartFont_larger
+        self.filterChartFont_largest = fontSet.filterChartFont_largest
     }
-
-//    var unitFunctionFont_normal: NSFont
-//    var unitFunctionFont_larger: NSFont
-//    var unitFunctionFont_largest: NSFont
-//
-//    var unitFunctionBoldFont_normal: NSFont
-//    var unitFunctionBoldFont_larger: NSFont
-//    var unitFunctionBoldFont_largest: NSFont
-//
-//    var filterChartFont_normal: NSFont
-//    var filterChartFont_larger: NSFont
-//    var filterChartFont_largest: NSFont
 }

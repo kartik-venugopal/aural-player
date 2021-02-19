@@ -11,8 +11,6 @@
 		3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */; };
 		3E25558925DE49F100CD7938 /* Handlee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558125DE48AB00CD7938 /* Handlee-Regular.ttf */; };
 		3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */; };
-		3E25558D25DE49F600CD7938 /* PatrickHandSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558025DE48AB00CD7938 /* PatrickHandSC-Regular.ttf */; };
-		3E25558F25DE49F800CD7938 /* ZORGEOUS.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558325DE48AC00CD7938 /* ZORGEOUS.otf */; };
 		3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E836B5225DD3ABC00B9E303 /* monaco.ttf */; };
 		3E2ED4A525DBAD8400732E79 /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontSet.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSetPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */; };
@@ -496,16 +494,16 @@
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
 		3E9E591025DB6B150064EB5F /* RegularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* RegularAppModeController.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSetPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSetPopupMenuController.swift */; };
+		3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */; };
+		3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */; };
 		3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo-Medium.ttf"; sourceTree = "<group>"; };
 		3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CarroisGothicSC-Regular.ttf"; sourceTree = "<group>"; };
-		3E25558025DE48AB00CD7938 /* PatrickHandSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PatrickHandSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E25558125DE48AB00CD7938 /* Handlee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Handlee-Regular.ttf"; sourceTree = "<group>"; };
 		3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metamorphous-Regular.ttf"; sourceTree = "<group>"; };
-		3E25558325DE48AC00CD7938 /* ZORGEOUS.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ZORGEOUS.otf; sourceTree = "<group>"; };
 		3E2ED4A425DBAD8400732E79 /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
 		3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSetPreset.swift; sourceTree = "<group>"; };
 		3E2ED4A825DBC50500732E79 /* FontSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSets.swift; sourceTree = "<group>"; };
@@ -996,6 +994,8 @@
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3E9E590125DB6B150064EB5F /* RegularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularAppModeController.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSetPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSetPopupMenuController.swift; sourceTree = "<group>"; };
+		3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlmendraSC-Regular.ttf"; sourceTree = "<group>"; };
+		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
 		3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Play-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1677,9 +1677,9 @@
 		3E6C0FEE25CEB98600BF0D07 /* Pitch */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0FF125CEB98600BF0D07 /* Pitch.xib */,
 				3E6C0FEF25CEB98600BF0D07 /* PitchView.swift */,
 				3E6C0FF025CEB98600BF0D07 /* PitchViewController.swift */,
-				3E6C0FF125CEB98600BF0D07 /* Pitch.xib */,
 			);
 			path = Pitch;
 			sourceTree = "<group>";
@@ -2342,9 +2342,9 @@
 				3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */,
 				3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */,
 				3E25558125DE48AB00CD7938 /* Handlee-Regular.ttf */,
+				3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */,
+				3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */,
 				3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */,
-				3E25558025DE48AB00CD7938 /* PatrickHandSC-Regular.ttf */,
-				3E25558325DE48AC00CD7938 /* ZORGEOUS.otf */,
 				3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */,
 				3E836B5225DD3ABC00B9E303 /* monaco.ttf */,
 			);
@@ -2453,11 +2453,11 @@
 				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
 				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
-				3E25558D25DE49F600CD7938 /* PatrickHandSC-Regular.ttf in Resources */,
+				3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */,
 				3E25558925DE49F100CD7938 /* Handlee-Regular.ttf in Resources */,
+				3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */,
 				3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */,
 				3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */,
-				3E25558F25DE49F800CD7938 /* ZORGEOUS.otf in Resources */,
 				3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */,
 				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
 				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
