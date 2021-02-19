@@ -82,14 +82,21 @@ class PlayerFontSet {
     }
     
     var infoBoxChapterFont_normal: NSFont
+    var infoBoxChapterFont_larger: NSFont
+    var infoBoxChapterFont_largest: NSFont
     
     var infoBoxChapterFont: NSFont {
-        return infoBoxChapterFont_normal
+        
+        switch PlayerViewState.textSize {
+
+        case .normal: return infoBoxChapterFont_normal
+
+        case .larger: return infoBoxChapterFont_larger
+
+        case .largest: return infoBoxChapterFont_largest
+
+        }
     }
-    
-//    var infoBoxChapterFont_normal: NSFont
-//    var infoBoxChapterFont_larger: NSFont
-//    var infoBoxChapterFont_largest: NSFont
     
     var trackTimesFont_normal: NSFont
     var trackTimesFont_larger: NSFont
@@ -136,6 +143,8 @@ class PlayerFontSet {
         self.infoBoxArtistAlbumFont_largest = preset.infoBoxArtistAlbumFont_largest
         
         self.infoBoxChapterFont_normal = preset.infoBoxChapterFont_normal
+        self.infoBoxChapterFont_larger = preset.infoBoxChapterFont_larger
+        self.infoBoxChapterFont_largest = preset.infoBoxChapterFont_largest
         
         self.trackTimesFont_normal = preset.trackTimesFont_normal
         self.trackTimesFont_larger = preset.trackTimesFont_larger
@@ -157,6 +166,8 @@ class PlayerFontSet {
         self.infoBoxArtistAlbumFont_largest = fontSet.infoBoxArtistAlbumFont_largest
         
         self.infoBoxChapterFont_normal = fontSet.infoBoxChapterFont_normal
+        self.infoBoxChapterFont_larger = fontSet.infoBoxChapterFont_larger
+        self.infoBoxChapterFont_largest = fontSet.infoBoxChapterFont_largest
         
         self.trackTimesFont_normal = fontSet.trackTimesFont_normal
         self.trackTimesFont_larger = fontSet.trackTimesFont_larger
@@ -352,26 +363,8 @@ class PlaylistFontSet {
     }
 }
 
-//    var tabsFont_larger: NSFont
-//    var tabsFont_largest: NSFont
-//
-//    var chapterSearchFont_larger: NSFont
-//    var chapterSearchFont_largest: NSFont
-//
-//    var chaptersListCaptionFont_larger: NSFont
-//    var chaptersListCaptionFont_largest: NSFont
-//}
-//
 class EffectsFontSet {
 
-//    var tabFont_normal: NSFont
-//    var tabFont_larger: NSFont
-//    var tabFont_largest: NSFont
-//
-//    var selectedTabFont_normal: NSFont
-//    var selectedTabFont_larger: NSFont
-//    var selectedTabFont_largest: NSFont
-//
     var unitCaptionFont_normal: NSFont
     //    var unitCaptionFont_larger: NSFont
     //    var unitCaptionFont_largest: NSFont

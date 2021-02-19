@@ -162,6 +162,36 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
+    var infoBoxChapterFont_larger: NSFont {
+        
+        switch self {
+            
+        case .standard:  return Fonts.Standard.mainFont_12
+            
+        case .programmer:  return Fonts.Programmer.mainFont_12
+            
+        case .novelist:  return Fonts.Novelist.mainFont_13_5
+            
+        case .gothic:    return Fonts.Gothic.mainFont_11
+            
+        }
+    }
+    
+    var infoBoxChapterFont_largest: NSFont {
+        
+        switch self {
+            
+        case .standard:  return Fonts.Standard.mainFont_13
+            
+        case .programmer:  return Fonts.Programmer.mainFont_13
+            
+        case .novelist:  return Fonts.Novelist.mainFont_15
+            
+        case .gothic:    return Fonts.Gothic.mainFont_12
+            
+        }
+    }
+    
     var trackTimesFont_normal: NSFont {
         
         switch self {
