@@ -43,11 +43,17 @@ enum PlaybackGapType: String {
 extension PlaybackGap: Hashable {
     
     static func == (lhs: PlaybackGap, rhs: PlaybackGap) -> Bool {
-        return lhs.id == rhs.id
+        return (lhs.id == rhs.id)
     }
     
-    var hashValue: Int {
+    /**var hashValue: Int {
         return self.id
+    }**/
+    
+    func hash(into hasher: inout Hasher) {
+        // The file path of the track is the unique identifier
+        return hasher.combine(self.id)
+        
     }
 }
 

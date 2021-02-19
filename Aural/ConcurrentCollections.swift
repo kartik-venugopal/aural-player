@@ -15,42 +15,32 @@ class ConcurrentMap<T:Hashable, U:Any> {
     }
     
     func hasForKey(_ key: T) -> Bool {
-        
         var hasValue: Bool = false
-        
         syncQueue.sync(flags: .barrier) {
-            
             if map[key] != nil {
                 hasValue = true
             }
         }
-        
         return hasValue
     }
     
     func getForKey(_ key: T) -> U? {
-        
         var value: U? = nil
-        
         syncQueue.sync(flags: .barrier) {
-            
             if let v = map[key] {
                 value = v
             }
         }
-        
         return value
     }
     
-    func put(_ key: T, _ value: U) {
-        
+    func put(key: T, value: U) {
         syncQueue.sync(flags: .barrier) {
             map[key] = value
         }
     }
     
-    func remove(_ key: T) {
-        
+    func remove(key: T) {
         _ = syncQueue.sync(flags: .barrier) {
             map.removeValue(forKey: key)
         }

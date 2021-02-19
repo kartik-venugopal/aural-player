@@ -114,11 +114,18 @@ class SearchResult: Hashable  {
     var hasPrevious: Bool = false
     
     // Needed for Hashable conformance
-    public var hashValue: Int {
+    /**public var hashValue: Int {
         
         // The file path of the track is the unique identifier
         return location.track.file.path.hashValue
+    }**/
+    
+    func hash(into hasher: inout Hasher) {
+        // The file path of the track is the unique identifier
+        return hasher.combine(location.track.file.path)
+        
     }
+    
     
     
     init(location: SearchResultLocation, match: (fieldKey: String, fieldValue: String)) {
