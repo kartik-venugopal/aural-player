@@ -125,8 +125,6 @@ class PlayerFontSet {
         }
     }
     
-    //    var progressArcFont: NSFont
-    
     init(preset: FontSetPreset) {
         
         self.infoBoxTitleFont_normal = preset.infoBoxTitleFont_normal
@@ -173,54 +171,77 @@ class PlayerFontSet {
 class PlaylistFontSet {
 
     var trackTextFont_normal: NSFont
-//    var trackTextFont_larger: NSFont
-//    var trackTextFont_largest: NSFont
+    var trackTextFont_larger: NSFont
+    var trackTextFont_largest: NSFont
+    
     var trackTextFont: NSFont {
-        return trackTextFont_normal
+        
+        switch PlaylistViewState.textSize {
+        
+        case .normal: return trackTextFont_normal
+            
+        case .larger: return trackTextFont_larger
+            
+        case .largest: return trackTextFont_largest
+            
+        }
     }
     
     var groupTextFont_normal: NSFont
+    var groupTextFont_larger: NSFont
+    var groupTextFont_largest: NSFont
     
     var groupTextFont: NSFont {
-        return groupTextFont_normal
-    }
-//
-//    var groupTextFont_normal: NSFont
-//    var groupTextFont_larger: NSFont
-//    var groupTextFont_largest: NSFont
-//
-//    var summaryFont_normal: NSFont
-//    var summaryFont_larger: NSFont
-//    var summaryFont_largest: NSFont
-//
-//    var chaptersListHeaderFont_normal: NSFont
-//    var chaptersListHeaderFont_larger: NSFont
-//    var chaptersListHeaderFont_largest: NSFont
-//
-    var tabButtonTextFont_normal: NSFont
-
-    var tabButtonTextFont: NSFont {
         
-//        switch PlaylistViewState.textSize {
-//
-//        case .normal: return tabButtonTextFont_normal
-//
-//        case .larger: return tabButtonTextFont_larger
-//
-//        case .largest: return tabButtonTextFont_largest
-//
-//        }
+        switch PlaylistViewState.textSize {
         
-        return tabButtonTextFont_normal
+        case .normal: return groupTextFont_normal
+            
+        case .larger: return groupTextFont_larger
+            
+        case .largest: return groupTextFont_largest
+            
+        }
     }
     
     var summaryFont_normal: NSFont
+    var summaryFont_larger: NSFont
+    var summaryFont_largest: NSFont
     
     var summaryFont: NSFont {
-        return summaryFont_normal
+        
+        switch PlaylistViewState.textSize {
+        
+        case .normal: return summaryFont_normal
+            
+        case .larger: return summaryFont_larger
+            
+        case .largest: return summaryFont_largest
+            
+        }
+    }
+
+    var tabButtonTextFont_normal: NSFont
+    var tabButtonTextFont_larger: NSFont
+    var tabButtonTextFont_largest: NSFont
+
+    var tabButtonTextFont: NSFont {
+        
+        switch PlaylistViewState.textSize {
+
+        case .normal: return tabButtonTextFont_normal
+
+        case .larger: return tabButtonTextFont_larger
+
+        case .largest: return tabButtonTextFont_largest
+
+        }
     }
     
     var chaptersListHeaderFont_normal: NSFont
+    //    var chaptersListHeaderFont_larger: NSFont
+    //    var chaptersListHeaderFont_largest: NSFont
+    //
      
     var chaptersListHeaderFont: NSFont {
         return chaptersListHeaderFont_normal
@@ -241,9 +262,20 @@ class PlaylistFontSet {
     init(preset: FontSetPreset) {
         
         self.trackTextFont_normal = preset.playlistTrackTextFont_normal
+        self.trackTextFont_larger = preset.playlistTrackTextFont_larger
+        self.trackTextFont_largest = preset.playlistTrackTextFont_largest
+        
         self.groupTextFont_normal = preset.playlistGroupTextFont_normal
-        self.tabButtonTextFont_normal = preset.playlistTabTextFont_normal
+        self.groupTextFont_larger = preset.playlistGroupTextFont_larger
+        self.groupTextFont_largest = preset.playlistGroupTextFont_largest
+        
         self.summaryFont_normal = preset.playlistSummaryFont_normal
+        self.summaryFont_larger = preset.playlistSummaryFont_larger
+        self.summaryFont_largest = preset.playlistSummaryFont_largest
+        
+        self.tabButtonTextFont_normal = preset.playlistTabButtonTextFont_normal
+        self.tabButtonTextFont_larger = preset.playlistTabButtonTextFont_larger
+        self.tabButtonTextFont_largest = preset.playlistTabButtonTextFont_largest
         
         self.chaptersListHeaderFont_normal = preset.chaptersListHeaderFont_normal
         self.chaptersListSearchFont_normal = preset.chaptersListSearchFont_normal
@@ -253,9 +285,20 @@ class PlaylistFontSet {
     func applyFontSet(_ fontSet: PlaylistFontSet) {
         
         self.trackTextFont_normal = fontSet.trackTextFont_normal
+        self.trackTextFont_larger = fontSet.trackTextFont_larger
+        self.trackTextFont_largest = fontSet.trackTextFont_largest
+        
         self.groupTextFont_normal = fontSet.groupTextFont_normal
-        self.tabButtonTextFont_normal = fontSet.tabButtonTextFont_normal
+        self.groupTextFont_larger = fontSet.groupTextFont_larger
+        self.groupTextFont_largest = fontSet.groupTextFont_largest
+        
         self.summaryFont_normal = fontSet.summaryFont_normal
+        self.summaryFont_larger = fontSet.summaryFont_larger
+        self.summaryFont_largest = fontSet.summaryFont_largest
+        
+        self.tabButtonTextFont_normal = fontSet.tabButtonTextFont_normal
+        self.tabButtonTextFont_larger = fontSet.tabButtonTextFont_larger
+        self.tabButtonTextFont_largest = fontSet.tabButtonTextFont_largest
         
         self.chaptersListHeaderFont_normal = fontSet.chaptersListHeaderFont_normal
         self.chaptersListSearchFont_normal = fontSet.chaptersListSearchFont_normal
@@ -265,14 +308,6 @@ class PlaylistFontSet {
 
 //    var tabsFont_larger: NSFont
 //    var tabsFont_largest: NSFont
-//
-//    // Font used by the playlist tab view buttons
-//    var tabViewButtonFont: NSFont
-//    var tabViewButtonBoldFont: NSFont
-//
-//    var selectedTabFont_normal: NSFont
-//    var selectedTabFont_larger: NSFont
-//    var selectedTabFont_largest: NSFont
 //
 //    var chapterSearchFont_larger: NSFont
 //    var chapterSearchFont_largest: NSFont
