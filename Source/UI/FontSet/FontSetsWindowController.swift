@@ -9,7 +9,10 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBOutlet weak var btnSave: NSButton!
     
-    private lazy var generalView: GeneralFontSetViewController = GeneralFontSetViewController()
+    private lazy var generalView: FontSetsViewProtocol = GeneralFontSetViewController()
+    private lazy var playerView: FontSetsViewProtocol = PlayerFontSetViewController()
+    
+    private var subViews: [FontSetsViewProtocol] = []
     
     override var windowNibName: NSNib.Name? {return "FontSets"}
     
@@ -22,29 +25,12 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         self.window?.isMovableByWindowBackground = true
 
         // Add the subviews to the tab group
-//        subViews = [generalSchemeView, playerSchemeView, playlistSchemeView, effectsSchemeView]
-//        tabView.addViewsForTabs(subViews.map {$0.colorSchemeView})
-
-        tabView.addViewsForTabs([generalView.view, NSView(), NSView(), NSView()])
-
-//        // Register an observer that updates undo/redo button states whenever the history changes.
-//        history.changeListener = {
-//            self.updateButtonStates()
-//        }
-//
-//        // Set up an observer that responds whenever the clipboard color is changed (so that the UI can be updated accordingly)
-//        clipboard.colorChangeCallback = {
-//
-//            if let color = self.clipboard.color {
-//
-//                self.clipboardColorViewer.color = color
-//                [self.clipboardIcon, self.clipboardColorViewer].forEach({$0?.show()})
-//
-//            } else {
-//
-//                [self.clipboardIcon, self.clipboardColorViewer].forEach({$0?.hide()})
-//            }
-//        }
+        subViews = [generalView, playerView]
+        
+//        tabView.addViewsForTabs(subViews.map {$0.fontSetsView})
+        tabView.addViewsForTabs([generalView.fontSetsView, playerView.fontSetsView, NSView(), NSView()])
+        
+        subViews.forEach {$0.resetFields(FontSets.systemFontSet)}
 
         // Register self as a modal component
         WindowManager.registerModalComponent(self)
@@ -106,11 +92,11 @@ protocol FontSetsViewProtocol {
     
     // Reset all UI controls every time the dialog is shown or a new color scheme is applied.
     // NOTE - the history and clipboard are shared across all views
-    func resetFields(_ scheme: ColorScheme)
+    func resetFields(_ fontSet: FontSet)
     
     // If the last change was made to a control in this view, performs an undo operation and returns true. Otherwise, does nothing and returns false.
-    func undoChange(_ lastChange: ColorSchemeChange) -> Bool
-
-    // If the last undo was performed on a control in this view, performs a redo operation and returns true. Otherwise, does nothing and returns false.
-    func redoChange(_ lastChange: ColorSchemeChange) -> Bool
+//    func undoChange(_ lastChange: ColorSchemeChange) -> Bool
+//
+//    // If the last undo was performed on a control in this view, performs a redo operation and returns true. Otherwise, does nothing and returns false.
+//    func redoChange(_ lastChange: ColorSchemeChange) -> Bool
 }

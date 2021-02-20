@@ -33,6 +33,13 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     override var windowNibName: String? {return "MainWindow"}
     
+    // TODO: This is temporary. Remove prior to release v2.5.0
+    
+    private lazy var fontSetsDialog: ModalDialogDelegate = WindowFactory.fontSetsDialog
+    @IBAction func customizeFontSetAction(_ sender: AnyObject) {
+        _ = fontSetsDialog.showDialog()
+    }
+    
     // MARK: Setup
     
     // One-time setup

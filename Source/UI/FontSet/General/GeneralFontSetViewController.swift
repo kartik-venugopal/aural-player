@@ -1,15 +1,31 @@
 import Cocoa
 
-class GeneralFontSetViewController: NSViewController, NSMenuDelegate {
-
-    @IBOutlet weak var textFontMenu: NSPopUpButton!
+class GeneralFontSetViewController: NSViewController, FontSetsViewProtocol {
+    
+    @IBOutlet weak var textFontMenuButton: NSPopUpButton!
+    @IBOutlet weak var headingFontMenuButton: NSPopUpButton!
+    
+    private var textFontMenu: NSMenu {
+        textFontMenuButton.menu!
+    }
+    
+    private var headingFontMenu: NSMenu {
+        headingFontMenuButton.menu!
+    }
+    
     @IBOutlet weak var lblTextPreview: NSTextField!
+    @IBOutlet weak var lblHeadingPreview: NSTextField!
     
     override var nibName: NSNib.Name? {return "GeneralFontSet"}
     
-    func menuNeedsUpdate(_ menu: NSMenu) {
+    var fontSetsView: NSView {
+        self.view
+    }
+    
+    func resetFields(_ fontSet: FontSet) {
         
-        menu.removeAllItems()
+        textFontMenu.removeAllItems()
+        headingFontMenu.removeAllItems()
         
         for family in NSFontManager.shared.availableFontFamilies {
             
@@ -21,11 +37,13 @@ class GeneralFontSetViewController: NSViewController, NSMenuDelegate {
                         
                         let displayName = String(format: "%@ %@", family, weight)
                         
-                        let newItem = FontMenuItem(title: displayName, action: nil, keyEquivalent: "")
-                        newItem.fontName = fontName
+                        let newItem1 = FontMenuItem(title: displayName, action: nil, keyEquivalent: "")
+                        newItem1.fontName = fontName
+                        textFontMenu.addItem(newItem1)
                         
-                        menu.addItem(newItem)
-                        
+                        let newItem2 = FontMenuItem(title: displayName, action: nil, keyEquivalent: "")
+                        newItem2.fontName = fontName
+                        headingFontMenu.addItem(newItem2)
                     }
                 }
             }
@@ -34,10 +52,15 @@ class GeneralFontSetViewController: NSViewController, NSMenuDelegate {
     
     @IBAction func chooseTextFontAction(_ sender: Any) {
         
-        if let selItem = textFontMenu.selectedItem as? FontMenuItem, let font = NSFont(name: selItem.fontName, size: 14) {
-            
-            print("Chose font:", font)
+        if let selItem = textFontMenuButton.selectedItem as? FontMenuItem, let font = NSFont(name: selItem.fontName, size: 14) {
             lblTextPreview.font = font
+        }
+    }
+    
+    @IBAction func chooseHeadingFontAction(_ sender: Any) {
+        
+        if let selItem = headingFontMenuButton.selectedItem as? FontMenuItem, let font = NSFont(name: selItem.fontName, size: 18) {
+            lblHeadingPreview.font = font
         }
     }
 }

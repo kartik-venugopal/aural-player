@@ -15,6 +15,8 @@
 		3E2ED4A525DBAD8400732E79 /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontSet.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSetPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */; };
 		3E2ED4A925DBC50500732E79 /* FontSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSets.swift */; };
+		3E45C03325E1264C00C1519C /* PlayerFontSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E45C03225E1264C00C1519C /* PlayerFontSet.xib */; };
+		3E45C03625E1269500C1519C /* PlayerFontSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C03525E1269500C1519C /* PlayerFontSetViewController.swift */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
@@ -512,6 +514,8 @@
 		3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSetPreset.swift; sourceTree = "<group>"; };
 		3E2ED4A825DBC50500732E79 /* FontSets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSets.swift; sourceTree = "<group>"; };
 		3E427EFA25D9065F00465569 /* Release Notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
+		3E45C03225E1264C00C1519C /* PlayerFontSet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerFontSet.xib; sourceTree = "<group>"; };
+		3E45C03525E1269500C1519C /* PlayerFontSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFontSetViewController.swift; sourceTree = "<group>"; };
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1024,6 +1028,7 @@
 				3E91932325E0CE2500F30F81 /* FontSets.xib */,
 				3E91932E25E0DA9C00F30F81 /* FontSetsWindowController.swift */,
 				3E91932725E0CF4200F30F81 /* General */,
+				3E45C03025E1261800C1519C /* Player */,
 				3E2ED4A425DBAD8400732E79 /* FontSet.swift */,
 				3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */,
 				3E2ED4A825DBC50500732E79 /* FontSets.swift */,
@@ -1037,6 +1042,15 @@
 				3E427EFA25D9065F00465569 /* Release Notes.md */,
 			);
 			path = Documentation;
+			sourceTree = "<group>";
+		};
+		3E45C03025E1261800C1519C /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				3E45C03225E1264C00C1519C /* PlayerFontSet.xib */,
+				3E45C03525E1269500C1519C /* PlayerFontSetViewController.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		3E6C0EB625CEB3ED00BF0D07 = {
@@ -2536,6 +2550,7 @@
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
 				3E6C123D25CEBDF400BF0D07 /* Artists.xib in Resources */,
 				3E6C12AD25CEBE2700BF0D07 /* StringInputPopover.xib in Resources */,
+				3E45C03325E1264C00C1519C /* PlayerFontSet.xib in Resources */,
 				3E6C12A725CEBE2700BF0D07 /* Alerts.xib in Resources */,
 				3E6C124A25CEBDF400BF0D07 /* AlbumsPlaylistSort.xib in Resources */,
 				3E91932925E0CF5D00F30F81 /* GeneralFontSet.xib in Resources */,
@@ -2833,6 +2848,7 @@
 				3E6C12A825CEBE2700BF0D07 /* TriStateLabel.swift in Sources */,
 				3E6C125D25CEBE0600BF0D07 /* DelayPresetsEditorViewController.swift in Sources */,
 				3E6C11DF25CEBDBE00BF0D07 /* PlaybackScheduler.swift in Sources */,
+				3E45C03625E1269500C1519C /* PlayerFontSetViewController.swift in Sources */,
 				3E6C126425CEBE0600BF0D07 /* PitchPresetsEditorViewController.swift in Sources */,
 				3E6C12CE25CEBE6700BF0D07 /* ReverbView.swift in Sources */,
 				3E6C122525CEBDE600BF0D07 /* PlaybackPreferencesViewController.swift in Sources */,
