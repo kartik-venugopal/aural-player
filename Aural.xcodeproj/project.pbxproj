@@ -489,6 +489,10 @@
 		3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */; };
 		3E824A4325DB74850089F217 /* StatusBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E824A4125DB74840089F217 /* StatusBar.xib */; };
 		3E824A4425DB74850089F217 /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E824A4225DB74840089F217 /* StatusBarViewController.swift */; };
+		3E91932425E0CE2500F30F81 /* FontSets.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932325E0CE2500F30F81 /* FontSets.xib */; };
+		3E91932925E0CF5D00F30F81 /* GeneralFontSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* GeneralFontSet.xib */; };
+		3E91932C25E0D96A00F30F81 /* GeneralFontSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSetViewController.swift */; };
+		3E91932F25E0DA9C00F30F81 /* FontSetsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSetsWindowController.swift */; };
 		3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */; };
 		3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
@@ -989,6 +993,10 @@
 		3E824A4125DB74840089F217 /* StatusBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBar.xib; sourceTree = "<group>"; };
 		3E824A4225DB74840089F217 /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
 		3E836B5225DD3ABC00B9E303 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
+		3E91932325E0CE2500F30F81 /* FontSets.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSets.xib; sourceTree = "<group>"; };
+		3E91932825E0CF5D00F30F81 /* GeneralFontSet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralFontSet.xib; sourceTree = "<group>"; };
+		3E91932B25E0D96A00F30F81 /* GeneralFontSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFontSetViewController.swift; sourceTree = "<group>"; };
+		3E91932E25E0DA9C00F30F81 /* FontSetsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSetsWindowController.swift; sourceTree = "<group>"; };
 		3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
@@ -1013,6 +1021,9 @@
 		3E2ED4A325DBAD6200732E79 /* FontSet */ = {
 			isa = PBXGroup;
 			children = (
+				3E91932325E0CE2500F30F81 /* FontSets.xib */,
+				3E91932E25E0DA9C00F30F81 /* FontSetsWindowController.swift */,
+				3E91932725E0CF4200F30F81 /* General */,
 				3E2ED4A425DBAD8400732E79 /* FontSet.swift */,
 				3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */,
 				3E2ED4A825DBC50500732E79 /* FontSets.swift */,
@@ -2372,6 +2383,15 @@
 			path = ffmpeg;
 			sourceTree = "<group>";
 		};
+		3E91932725E0CF4200F30F81 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				3E91932825E0CF5D00F30F81 /* GeneralFontSet.xib */,
+				3E91932B25E0D96A00F30F81 /* GeneralFontSetViewController.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
 		3E9E58FC25DB6B150064EB5F /* AppModes */ = {
 			isa = PBXGroup;
 			children = (
@@ -2462,6 +2482,7 @@
 				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
 				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
 				3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */,
+				3E91932425E0CE2500F30F81 /* FontSets.xib in Resources */,
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsEditor.xib in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQ.xib in Resources */,
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
@@ -2517,6 +2538,7 @@
 				3E6C12AD25CEBE2700BF0D07 /* StringInputPopover.xib in Resources */,
 				3E6C12A725CEBE2700BF0D07 /* Alerts.xib in Resources */,
 				3E6C124A25CEBDF400BF0D07 /* AlbumsPlaylistSort.xib in Resources */,
+				3E91932925E0CF5D00F30F81 /* GeneralFontSet.xib in Resources */,
 				3E6C123925CEBDF400BF0D07 /* PlaylistSearch.xib in Resources */,
 				3E6C121425CEBDE500BF0D07 /* MainWindow.xib in Resources */,
 				3E6C124325CEBDF400BF0D07 /* Albums.xib in Resources */,
@@ -2579,6 +2601,7 @@
 				3E6C122125CEBDE600BF0D07 /* ColorSchemePopupMenuController.swift in Sources */,
 				3E6C12C925CEBE6700BF0D07 /* Colors.swift in Sources */,
 				3E6C127525CEBE1800BF0D07 /* ViewFactory.swift in Sources */,
+				3E91932F25E0DA9C00F30F81 /* FontSetsWindowController.swift in Sources */,
 				3E6C130B25CEBE8F00BF0D07 /* FileSystemDataSource.swift in Sources */,
 				3E6C123A25CEBDF400BF0D07 /* ChaptersListWindowController.swift in Sources */,
 				3E6C11F525CEBDD100BF0D07 /* SearchQuery.swift in Sources */,
@@ -2799,6 +2822,7 @@
 				3E6C118625CEBD6D00BF0D07 /* ReverbUnitDelegate.swift in Sources */,
 				3E6C133E25CEBEA700BF0D07 /* FFMpegReader.swift in Sources */,
 				3E6C119A25CEBD6D00BF0D07 /* TimeUnitDelegate.swift in Sources */,
+				3E91932C25E0D96A00F30F81 /* GeneralFontSetViewController.swift in Sources */,
 				3E6C116825CEBD6000BF0D07 /* HistoryState.swift in Sources */,
 				3E6C11FD25CEBDD100BF0D07 /* PlaylistItemArray.swift in Sources */,
 				3E6C11B525CEBDA900BF0D07 /* MKExtensions.swift in Sources */,

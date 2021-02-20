@@ -119,6 +119,18 @@ class PreferencesPopupMenuCell: PopupMenuCell {
     override var menuGradient: NSGradient {return Colors.popupMenuGradient}
 }
 
+class FontsPopupMenuCell: PopupMenuCell {
+    
+    override var cellInsetY: CGFloat {return 2}
+    override var rectRadius: CGFloat {return 2}
+    override var arrowXMargin: CGFloat {return 10}
+    override var arrowYMargin: CGFloat {return 3}
+    override var arrowHeight: CGFloat {return 8}
+    override var arrowColor: NSColor {return Colors.lightPopupMenuArrowColor}
+    
+    override var menuGradient: NSGradient {return Colors.popupMenuGradient}
+}
+
 // Cell for EQ presets popup menu
 class PresetsPopupMenuCell: PopupMenuCell {
     

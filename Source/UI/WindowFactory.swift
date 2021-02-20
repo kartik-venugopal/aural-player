@@ -25,6 +25,8 @@ class WindowFactory {
     
     private static var colorSchemesWindowController: ColorSchemesWindowController = ColorSchemesWindowController()
     
+    private static var fontSetsWindowController: FontSetsWindowController = FontSetsWindowController()
+    
     static var alertWindowController: AlertWindowController = AlertWindowController()
     
     // MARK: Accessor functions for the different windows/dialogs
@@ -71,5 +73,9 @@ class WindowFactory {
     
     static var colorSchemesDialog: ModalDialogDelegate {
         return colorSchemesWindowController
+    }
+    
+    static var fontSetsDialog: ModalDialogDelegate {
+        return fontSetsWindowController
     }
 }
