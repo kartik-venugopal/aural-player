@@ -77,7 +77,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
-        changeTextSize(PlayerViewState.textSize)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -97,8 +96,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     }
     
     private func initSubscriptions() {
-        
-        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
         
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeAppLogoColor, self.changeAppLogoColor(_:))
@@ -142,10 +139,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     // Minimizes the window (and any child windows)
     @IBAction func minimizeAction(_ sender: AnyObject) {
         theWindow.miniaturize(self)
-    }
-    
-    private func changeTextSize(_ textSize: TextSize) {
-        btnSettingsMenu.font = Fonts.menuFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

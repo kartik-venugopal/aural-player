@@ -18,7 +18,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBOutlet weak var controlButtonsSuperview: NSView!
     
     @IBOutlet weak var btnClose: TintedImageButton!
-    @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
     
     @IBOutlet weak var btnPageUp: TintedImageButton!
     @IBOutlet weak var btnPageDown: TintedImageButton!
@@ -42,8 +41,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     // Spinner that shows progress when tracks are being added to the playlist
     @IBOutlet weak var progressSpinner: NSProgressIndicator!
-    
-    @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
     // Search dialog
     private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.playlistSearchDialog
@@ -72,7 +69,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     override var windowNibName: String? {return "Playlist"}
     
     private var childContainerBoxes: [NSBox] = []
-    private var viewControlButtons: [Tintable] = []
     private var functionButtons: [TintedImageButton] = []
     private var tabButtons: [NSButton] = []
 
@@ -86,11 +82,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         setUpTabGroup()
         
         childContainerBoxes = [playlistContainerBox, tabButtonsBox, controlsBox]
-        viewControlButtons = [btnClose, viewMenuIconItem].compactMap {$0 as? Tintable}
         functionButtons = [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] + controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
         tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
 
-        changeTextSize(PlaylistViewState.textSize)
+        applyFontSet(FontSets.systemFontSet)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -154,8 +149,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         Messenger.subscribe(self, .playlist_nextView, self.nextView)
         
         Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
-        
-        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
         
         Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
@@ -373,10 +366,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
-    private func changeTextSize(_ textSize: TextSize) {
-        fontsChanged()
-    }
-    
     func applyFontSet(_ fontSet: FontSet) {
         fontsChanged()
     }
@@ -387,8 +376,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         lblDurationSummary.font = FontSets.systemFontSet.playlist.summaryFont
         
         redrawTabButtons()
-        
-        viewMenuButton.font = Fonts.menuFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -413,7 +400,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
-        viewControlButtons.forEach {$0.reTint()}
+        btnClose.reTint()
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {

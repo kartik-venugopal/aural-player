@@ -87,6 +87,7 @@ class VALabelCell: NSTextFieldCell {
             
         }
         
+        // TODO: Clean this up
         if self.title.starts(with: "Blue Stone") {
             print("NewRect:", newRect, textSize, heightDelta, title)
         }
@@ -164,27 +165,5 @@ class CenterTextLabel: VALabel {
         
         // Alignment should never change, so don't allow a setter
         set {}
-    }
-}
-
-// Cell specifically for main caption text using the Alegraya SC font
-class FXUnitCaptionCell: VALabelCell {
-    
-    override func drawingRect(forBounds theRect: NSRect) -> NSRect {
-        
-        switch EffectsViewState.textSize {
-            
-        case .normal:
-            
-            return NSRect(origin: NSMakePoint(0, theRect.height - 23), size: NSMakeSize(theRect.width, 23))
-            
-        case .larger:
-            
-            return NSRect(origin: NSMakePoint(0, theRect.height - 25 + 1), size: NSMakeSize(theRect.width, 25))
-            
-        case .largest:
-            
-            return NSRect(origin: NSMakePoint(0, theRect.height - 29 + 2), size: NSMakeSize(theRect.width, 29))
-        }
     }
 }

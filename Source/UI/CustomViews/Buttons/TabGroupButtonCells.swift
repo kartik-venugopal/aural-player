@@ -64,18 +64,7 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     
     override var borderInsetY: CGFloat {return 0}
     
-    override var yOffset: CGFloat {
-
-        switch PlaylistViewState.textSize {
-            
-        case .normal:   return 1
-            
-        case .larger:   return 0
-            
-        case .largest:  return -1
-            
-        }
-    }
+    override var yOffset: CGFloat {0}
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
@@ -144,19 +133,20 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     
     override var yOffset: CGFloat {
         
-        if isOff {
-            return -1
-        }
-        
-        switch EffectsViewState.textSize {
-            
-        case .normal:   return 1
-            
-        case .larger:   return 0
-            
-        case .largest:  return -1
-            
-        }
+//        if isOff {
+//            return -1
+//        }
+//
+//        switch EffectsViewState.textSize {
+//
+//        case .normal:   return 1
+//
+//        case .larger:   return 0
+//
+//        case .largest:  return -1
+//
+//        }
+        return 0
     }
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
@@ -186,19 +176,20 @@ class FilterBandsTabButtonCell: EQSelectorButtonCell {
     
     override var yOffset: CGFloat {
         
-        if isOff {
-            return -1
-        }
-        
-        switch EffectsViewState.textSize {
-            
-        case .normal:   return 1
-            
-        case .larger:   return 0
-            
-        case .largest:  return 0
-            
-        }
+//        if isOff {
+//            return -1
+//        }
+//
+//        switch EffectsViewState.textSize {
+//
+//        case .normal:   return 1
+//
+//        case .larger:   return 0
+//
+//        case .largest:  return 0
+//
+//        }
+        return 0
     }
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {

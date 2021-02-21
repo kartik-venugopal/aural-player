@@ -37,8 +37,6 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     private var fxTabViewButtons: [EffectsUnitTabButton]!
     
     @IBOutlet weak var btnClose: TintedImageButton!
-    @IBOutlet weak var viewMenuButton: NSPopUpButton!
-    @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
@@ -61,12 +59,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         theWindow.isMovableByWindowBackground = true
         theWindow.delegate = WindowManager.windowDelegate
 
-        EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
-        
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
-        
-        changeTextSize(EffectsViewState.textSize)
-        Messenger.publish(.fx_changeTextSize, payload: EffectsViewState.textSize)
         
         applyColorScheme(ColorSchemes.systemScheme)
         
@@ -117,8 +110,6 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         
         Messenger.subscribe(self, .fx_showFXUnitTab, self.showTab(_:))
         
-        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize)
-        
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
@@ -146,10 +137,6 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         Messenger.publish(.windowManager_toggleEffectsWindow)
     }
     
-    private func changeTextSize(_ textSize: TextSize) {
-        viewMenuButton.font = Fonts.menuFont
-    }
-    
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
@@ -171,10 +158,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
-        
-        [btnClose, viewMenuIconItem].forEach({
-            ($0 as? Tintable)?.reTint()
-        })
+        btnClose.reTint()
     }
     
     private func changeActiveUnitStateColor(_ color: NSColor) {

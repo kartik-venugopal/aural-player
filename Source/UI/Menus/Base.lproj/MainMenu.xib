@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -128,12 +128,10 @@
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="vgD-4T-WSG" id="aNt-Oa-CFX"/>
-                <outlet property="effectsViewMenuItem" destination="XdU-vv-wWn" id="NmF-KA-ZOR"/>
                 <outlet property="manageColorSchemesMenuItem" destination="3ie-xE-Lk9" id="qy9-2a-3ie"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
                 <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
                 <outlet property="playerViewMenuItem" destination="af4-4E-1QV" id="0dH-2v-B7l"/>
-                <outlet property="playlistViewMenuItem" destination="eaG-Cs-3CM" id="NTn-ZH-HCr"/>
                 <outlet property="saveColorSchemeMenuItem" destination="WVj-ng-OeL" id="3XH-d1-FXP"/>
                 <outlet property="toggleChaptersListMenuItem" destination="9Al-PA-rnK" id="0SK-l3-ET4"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
@@ -141,7 +139,6 @@
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
-        <customObject id="UTf-sF-lj2" customClass="TextSizeMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="lih-ya-6jC" customClass="FontSetPopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
@@ -160,9 +157,6 @@
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="mON-Fd-XUs" id="4VY-Qb-AZX"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="JiX-rw-gah" id="2cf-O0-zCm"/>
                 <outlet property="showTrackInfoMenuItem" destination="UzR-MM-ibF" id="jPu-nS-wrS"/>
-                <outlet property="textSizeLargerMenuItem" destination="gaS-ki-GLO" id="mFv-Zq-bIc"/>
-                <outlet property="textSizeLargestMenuItem" destination="MjJ-p4-Tva" id="400-jx-lcW"/>
-                <outlet property="textSizeNormalMenuItem" destination="cl4-6q-Fid" id="KYz-RM-33g"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="nsK-2D-RCp" id="DJW-7O-Smr"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="z7S-TB-1Mk" id="Rvh-jG-Yy7"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="jXi-ii-Jv1" id="NqT-Cd-LnJ"/>
@@ -173,20 +167,6 @@
                 <outlet property="timeRemainingMenuItem_hms" destination="NI1-7T-K0P" id="2Kp-5R-y3a"/>
                 <outlet property="timeRemainingMenuItem_percentage" destination="uZs-VF-KJX" id="aq6-UR-BqQ"/>
                 <outlet property="timeRemainingMenuItem_seconds" destination="dpf-Rp-xFl" id="OjR-xo-gMB"/>
-            </connections>
-        </customObject>
-        <customObject id="TVr-fw-yU3" customClass="PlaylistViewPopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="textSizeLargerMenuItem" destination="fdP-w5-f1I" id="xPI-9q-MJ0"/>
-                <outlet property="textSizeLargestMenuItem" destination="mNh-kR-wvy" id="Fn6-0n-Mc3"/>
-                <outlet property="textSizeNormalMenuItem" destination="G8v-bX-69u" id="se8-aj-hyS"/>
-            </connections>
-        </customObject>
-        <customObject id="REd-Fk-TGW" customClass="EffectsViewPopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="textSizeLargerMenuItem" destination="DZs-Y8-cOe" id="AxJ-MH-r3n"/>
-                <outlet property="textSizeLargestMenuItem" destination="uFu-L8-YPW" id="45h-Qp-uAA"/>
-                <outlet property="textSizeNormalMenuItem" destination="0ke-IH-7km" id="DvA-Yo-JHq"/>
             </connections>
         </customObject>
         <customObject id="bac-wa-rgm" customClass="HelpMenuController" customModule="Aural" customModuleProvider="target"/>
@@ -1022,32 +1002,6 @@ CA
                                                 <action selector="showOrHideTimeElapsedRemainingAction:" target="YVQ-JN-BbP" id="w4c-CF-lOI"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="5LP-yb-jlg"/>
-                                        <menuItem title="Text size" id="Az8-kp-Ux2">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Text size" id="lM5-OP-Yvx">
-                                                <items>
-                                                    <menuItem title="Normal" id="cl4-6q-Fid">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="McE-6I-e9Y"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Larger" tag="1" id="gaS-ki-GLO">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="ElA-O4-0Av"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Largest" tag="2" id="MjJ-p4-Tva">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="YVQ-JN-BbP" id="qUs-kb-lJw"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Yvf-AY-f2r"/>
                                         <menuItem title="Time elapsed display" id="nsK-2D-RCp">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -1118,103 +1072,7 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="  Playlist view" indentationLevel="1" id="eaG-Cs-3CM" userLabel="Playlist view">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Playlist view" autoenablesItems="NO" id="cfg-Bh-Hsz">
-                                    <items>
-                                        <menuItem title="Text size" id="X82-7g-ob1">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Text size" id="Yf2-Qx-L1C">
-                                                <items>
-                                                    <menuItem title="Normal" id="G8v-bX-69u">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="TVr-fw-yU3" id="SvQ-Gl-mIA"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Larger" tag="1" id="fdP-w5-f1I">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="TVr-fw-yU3" id="yPh-a7-wYe"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Largest" tag="2" id="mNh-kR-wvy">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="TVr-fw-yU3" id="fLL-Pg-EZN"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                    </items>
-                                    <connections>
-                                        <outlet property="delegate" destination="TVr-fw-yU3" id="BiG-tM-bto"/>
-                                    </connections>
-                                </menu>
-                            </menuItem>
-                            <menuItem title="  Effects view" indentationLevel="1" id="XdU-vv-wWn" userLabel="Effects view">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Effects view" autoenablesItems="NO" id="S79-Xf-wTS">
-                                    <items>
-                                        <menuItem title="Text size" id="Lpk-fB-Bmt">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Text size" id="lam-nd-zLz">
-                                                <items>
-                                                    <menuItem title="Normal" id="0ke-IH-7km">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="REd-Fk-TGW" id="FS1-AR-8mN"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Larger" tag="1" id="DZs-Y8-cOe">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="REd-Fk-TGW" id="FMM-iJ-iDn"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Largest" tag="2" id="uFu-L8-YPW">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="changeTextSizeAction:" target="REd-Fk-TGW" id="goP-4f-HHM"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                    </items>
-                                    <connections>
-                                        <outlet property="delegate" destination="REd-Fk-TGW" id="WoN-uv-Z9E"/>
-                                    </connections>
-                                </menu>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
-                            <menuItem title="  Text size" indentationLevel="1" id="RxC-T7-DYq">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Text size" id="z7n-Th-RcK">
-                                    <items>
-                                        <menuItem title="Normal" id="yCw-3F-WpY">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="changeTextSizeAction:" target="UTf-sF-lj2" id="fOM-hl-oaE"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Larger" tag="1" id="8D9-07-mTK">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="changeTextSizeAction:" target="UTf-sF-lj2" id="wzh-o4-kRy"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Largest" tag="2" id="eHe-17-56v">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="changeTextSizeAction:" target="UTf-sF-lj2" id="Jmf-35-1uf"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="2Ro-wF-enK"/>
                             <menuItem title="  Font set" indentationLevel="1" id="pXx-4E-0SU" userLabel="Font set">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Font set" showsStateColumn="NO" id="73g-wl-K4J">

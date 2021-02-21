@@ -81,8 +81,4 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
         let newScheme: ColorScheme = ColorScheme(string, false, ColorSchemes.systemScheme)
         ColorSchemes.addUserDefinedScheme(newScheme)
     }
-    
-    var inputFontSize: TextSize {
-        return .normal
-    }
 }

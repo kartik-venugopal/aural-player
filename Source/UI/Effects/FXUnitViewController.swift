@@ -73,8 +73,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         // Subscribe to notifications
         Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
         
-        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize(_:))
-        
         Messenger.subscribe(self, .fx_updateFXUnitView, {(EffectsUnit) in self.initControls()},
                             filter: {(unit: EffectsUnit) in unit == .master || (unit == self.unitType)})
         
@@ -125,13 +123,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     // Displays a popover to allow the user to name the new custom preset
     @IBAction func savePresetAction(_ sender: AnyObject) {
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
-    }
-    
-    func changeTextSize(_ textSize: TextSize) {
-        
-        lblCaption.font = FontSets.systemFontSet.effects.unitCaptionFont
-        functionLabels.forEach({$0.font = FontSets.systemFontSet.effects.unitFunctionFont})
-        presetsMenu.font = Fonts.menuFont
     }
     
     func applyFontSet(_ fontSet: FontSet) {
@@ -219,10 +210,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         fxUnit.savePreset(string)
-    }
-    
-    var inputFontSize: TextSize {
-        return EffectsViewState.textSize
     }
     
     // MARK: Menu delegate

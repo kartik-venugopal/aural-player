@@ -35,7 +35,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
         
         transcodingIcon.tintFunction = {return Colors.functionButtonColor}
         
-        changeTextSize(PlayerViewState.textSize)
+        applyFontSet(FontSets.systemFontSet)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -52,8 +52,6 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.transcodingStarted},
                                  queue: .main)
-        
-        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
         
         Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
@@ -114,12 +112,6 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
     }
 
     // MARK: Appearance
-    
-    private func changeTextSize(_ size: TextSize) {
-        
-        lblTrack.font = FontSets.systemFontSet.player.infoBoxTitleFont
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = FontSets.systemFontSet.player.trackTimesFont})
-    }
     
     private func applyFontSet(_ fontSet: FontSet) {
         

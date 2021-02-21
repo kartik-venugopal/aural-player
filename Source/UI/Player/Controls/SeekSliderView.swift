@@ -3,7 +3,7 @@ import Cocoa
 /*
    View that encapsulates the seek slider and seek time labels.
 */
-class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
+class SeekSliderView: NSView, ColorSchemeable {
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: VALabel!
@@ -41,7 +41,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         
         playbackRateChanged(timeUnit.effectiveRate, .noTrack)
         
-        changeTextSize(PlayerViewState.textSize)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -170,12 +169,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
             
             setSeekTimerState(playbackState == .playing)
         }
-    }
-    
-    func changeTextSize(_ size: TextSize) {
-        
-        lblTimeElapsed.font = FontSets.systemFontSet.player.trackTimesFont
-        lblTimeRemaining.font = FontSets.systemFontSet.player.trackTimesFont
     }
     
     func applyFontSet(_ fontSet: FontSet) {

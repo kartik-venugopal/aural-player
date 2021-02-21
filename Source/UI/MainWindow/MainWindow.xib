@@ -186,32 +186,6 @@
                                                             <menuItem title="Playback sequence info" hidden="YES" enabled="NO" id="4O6-OC-jAh">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                             </menuItem>
-                                                            <menuItem isSeparatorItem="YES" id="poS-7C-6hH"/>
-                                                            <menuItem title="Text size" id="hsK-cg-dLR">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <menu key="submenu" title="Text size" id="rmo-s9-GdZ">
-                                                                    <items>
-                                                                        <menuItem title="Normal" id="a2o-Wg-xuQ">
-                                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                                            <connections>
-                                                                                <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="0gr-zp-56b"/>
-                                                                            </connections>
-                                                                        </menuItem>
-                                                                        <menuItem title="Larger" tag="1" id="84J-XL-iOa">
-                                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                                            <connections>
-                                                                                <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="0S8-Ht-rTr"/>
-                                                                            </connections>
-                                                                        </menuItem>
-                                                                        <menuItem title="Largest" tag="2" id="erb-WD-JA0">
-                                                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                                                            <connections>
-                                                                                <action selector="changeTextSizeAction:" target="gF1-jg-yeJ" id="E1d-hQ-fVB"/>
-                                                                            </connections>
-                                                                        </menuItem>
-                                                                    </items>
-                                                                </menu>
-                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="QIK-XF-WQD"/>
                                                             <menuItem title="Time elapsed display" id="eFE-oQ-dY3">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -280,32 +254,6 @@
                                                         <connections>
                                                             <outlet property="delegate" destination="gF1-jg-yeJ" id="3ec-7U-iNP"/>
                                                         </connections>
-                                                    </menu>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="pv0-Qz-KaU"/>
-                                                <menuItem title="Text size" id="XvL-hA-H5l">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Text size" id="hPs-cs-2mQ">
-                                                        <items>
-                                                            <menuItem title="Normal" id="Fug-3L-jpt">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="Z0r-l4-bjY"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Larger" tag="1" id="SFc-2b-iH9">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="AmU-fg-q0u"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Largest" tag="2" id="xHt-uC-Uuy">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="cqL-8W-DqF" id="uMa-0W-lM7"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
                                                     </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="LsC-ny-14p"/>
@@ -540,9 +488,6 @@
                 <outlet property="showTimeElapsedRemainingMenuItem" destination="qVo-UC-jVo" id="Qd6-R2-zYB"/>
                 <outlet property="showTrackFunctionsMenuItem" destination="Yhs-qW-5Tg" id="9hA-X9-zhj"/>
                 <outlet property="showTrackInfoMenuItem" destination="fVd-mV-11I" id="963-7n-J5M"/>
-                <outlet property="textSizeLargerMenuItem" destination="84J-XL-iOa" id="JjS-Ob-tpe"/>
-                <outlet property="textSizeLargestMenuItem" destination="erb-WD-JA0" id="FuV-f6-TbG"/>
-                <outlet property="textSizeNormalMenuItem" destination="a2o-Wg-xuQ" id="kL8-KN-tci"/>
                 <outlet property="timeElapsedFormatMenuItem" destination="eFE-oQ-dY3" id="zwz-oU-17W"/>
                 <outlet property="timeElapsedMenuItem_hms" destination="eWc-7F-XQe" id="xuU-mo-QsP"/>
                 <outlet property="timeElapsedMenuItem_percentage" destination="U8Y-9v-cIm" id="QvX-Kw-ZUY"/>
@@ -558,7 +503,6 @@
         <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="jyH-lC-gOA" customClass="FontSetPopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="df9-sN-idv" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="cqL-8W-DqF" customClass="TextSizeMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="bsC-mz-7dU" customClass="SettingsPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="i7L-so-Yi8" id="9E8-JZ-anN"/>

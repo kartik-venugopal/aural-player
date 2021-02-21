@@ -300,10 +300,6 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         let newScheme: ColorScheme = ColorScheme(string, false, ColorSchemes.systemScheme)
         ColorSchemes.addUserDefinedScheme(newScheme)
     }
-    
-    var inputFontSize: TextSize {
-        return .normal
-    }
 }
 
 /*

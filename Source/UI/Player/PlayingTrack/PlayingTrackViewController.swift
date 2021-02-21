@@ -16,7 +16,7 @@ class PlayingTrackViewController: NSViewController, NotificationSubscriber {
         
         initSubscriptions()
         
-        infoView.changeTextSize(PlayerViewState.textSize)
+        infoView.applyFontSet(FontSets.systemFontSet)
         infoView.applyColorScheme(ColorSchemes.systemScheme)
     }
 
@@ -33,8 +33,6 @@ class PlayingTrackViewController: NSViewController, NotificationSubscriber {
                                  queue: .main)
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
-        
-        Messenger.subscribe(self, .player_changeTextSize, infoView.changeTextSize(_:))
         
         Messenger.subscribe(self, .player_changeView, infoView.switchView(_:))
         Messenger.subscribe(self, .player_showOrHideAlbumArt, infoView.showOrHideAlbumArt)

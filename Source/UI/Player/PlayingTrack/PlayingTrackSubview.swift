@@ -4,7 +4,7 @@ import Cocoa
     A base class for the 2 player views - Default and Expanded Art
  */
 @IBDesignable
-class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
+class PlayingTrackSubview: NSView, ColorSchemeable {
     
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var artView: NSImageView!
@@ -105,10 +105,6 @@ class PlayingTrackSubview: NSView, ColorSchemeable, TextSizeable {
     }
     
     // MARK: Appearance functions
-    
-    func changeTextSize(_ size: TextSize) {
-        textView.changeTextSize(size)
-    }
     
     func applyFontSet(_ fontSet: FontSet) {
         textView.applyFontSet(fontSet)

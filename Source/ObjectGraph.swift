@@ -176,7 +176,6 @@ class ObjectGraph {
         
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)
-        EffectsViewState.initialize(appState.ui.effects)
     }
     
     private static let tearDownOpQueue: OperationQueue = {
@@ -205,7 +204,6 @@ class ObjectGraph {
         appState.ui.colorSchemes = ColorSchemes.persistentState
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState
-        appState.ui.effects = EffectsViewState.persistentState
         
         appState.history = (historyDelegate as! HistoryDelegate).persistentState as! HistoryState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

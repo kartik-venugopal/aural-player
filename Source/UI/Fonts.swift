@@ -194,34 +194,16 @@ struct Fonts {
     private static let stringInputPopoverFont_larger: NSFont = Standard.mainFont_13
     private static let stringInputPopoverFont_largest: NSFont = Standard.mainFont_14
     
-    static func stringInputPopoverFont(_ size: TextSize) -> NSFont {
-        
-        switch size {
-            
-        case .normal: return stringInputPopoverFont_normal
-            
-        case .larger: return stringInputPopoverFont_larger
-            
-        case .largest: return stringInputPopoverFont_largest
-            
-        }
+    static var stringInputPopoverFont: NSFont {
+        return stringInputPopoverFont_larger
     }
     
     private static let stringInputPopoverErrorFont_normal: NSFont = Standard.mainFont_11
     private static let stringInputPopoverErrorFont_larger: NSFont = Standard.mainFont_12
     private static let stringInputPopoverErrorFont_largest: NSFont = Standard.mainFont_13
     
-    static func stringInputPopoverErrorFont(_ size: TextSize) -> NSFont {
-        
-        switch size {
-            
-        case .normal: return stringInputPopoverErrorFont_normal
-            
-        case .larger: return stringInputPopoverErrorFont_larger
-            
-        case .largest: return stringInputPopoverErrorFont_largest
-            
-        }
+    static var stringInputPopoverErrorFont: NSFont {
+        return stringInputPopoverErrorFont_larger
     }
     
     static let largeTabButtonFont: NSFont = Standard.captionFont_14

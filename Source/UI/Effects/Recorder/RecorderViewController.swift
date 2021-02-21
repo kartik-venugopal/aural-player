@@ -41,8 +41,6 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         // Subscribe to notifications
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
-        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize(_:))
-        
         Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
@@ -127,10 +125,6 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         recordingInfo = recorder.recordingInfo
         lblRecorderDuration.stringValue = ValueFormatter.formatSecondsToHMS(recordingInfo!.duration)
         lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
-    }
-    
-    private func changeTextSize(_ textSize: TextSize) {
-        fontsChanged()
     }
     
     func applyFontSet(_ fontSet: FontSet) {

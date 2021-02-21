@@ -5,7 +5,7 @@ import Cocoa
     Dynamically updates itself based on view settings to show either a single line or multiple
     lines of information.
  */
-class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
+class PlayingTrackTextView: NSView, ColorSchemeable {
     
     // The text view that displays all the track info
     @IBOutlet weak var textView: NSTextView!
@@ -47,11 +47,6 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
         // Set the line width to assist with truncation of title/artist/album/chapter strings,
         // with some padding to allow for slight discrepancies when truncating
         lineWidth = (textView?.frame.width ?? 300) - 10
-    }
-    
-    // Responds to a change in user-preferred text size
-    func changeTextSize(_ size: TextSize) {
-        update()
     }
     
     func applyFontSet(_ fontSet: FontSet) {
@@ -120,8 +115,8 @@ class PlayingTrackTextView: NSView, ColorSchemeable, TextSizeable {
             // Chapter
             if let _chapterStr = chapterStr {
                 
-                let truncatedChapter: String = StringUtils.truncate(_chapterStr, FontSets.systemFontSet.player.infoBoxChapterFont, lineWidth)
-                textView.textStorage?.append(attributedString(truncatedChapter, FontSets.systemFontSet.player.infoBoxChapterFont, Colors.Player.trackInfoChapterTextColor))
+                let truncatedChapter: String = StringUtils.truncate(_chapterStr, FontSets.systemFontSet.player.infoBoxChapterTitleFont, lineWidth)
+                textView.textStorage?.append(attributedString(truncatedChapter, FontSets.systemFontSet.player.infoBoxChapterTitleFont, Colors.Player.trackInfoChapterTextColor))
             }
             
             // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)

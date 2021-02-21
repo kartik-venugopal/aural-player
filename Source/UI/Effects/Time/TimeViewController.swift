@@ -131,12 +131,6 @@ class TimeViewController: FXUnitViewController {
         timeView.updatePitchShift(timeUnit.formattedPitch)
     }
     
-    override func changeTextSize(_ textSize: TextSize) {
-        
-        super.changeTextSize(textSize)
-        btnShiftPitch.redraw()
-    }
-    
     override func applyFontSet(_ fontSet: FontSet) {
         
         super.applyFontSet(fontSet)

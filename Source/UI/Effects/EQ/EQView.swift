@@ -81,12 +81,6 @@ class EQView: NSView {
         bandsUpdated(preset.bands, preset.globalGain)
     }
     
-    func changeTextSize() {
-        
-        btn10Band.redraw()
-        btn15Band.redraw()
-    }
-    
     func applyFontSet(_ fontSet: FontSet) {
         
         btn10Band.redraw()

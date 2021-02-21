@@ -77,8 +77,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedTrack()}, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
-        
         Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
@@ -396,13 +394,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             playlist.removeTracks(tracksToDelete)
             playlistView.reloadData()
         }
-    }
-    
-    private func changeTextSize(_ textSize: TextSize) {
-        
-        let selectedRows = self.selectedRows
-        playlistView.reloadData()
-        playlistView.selectRowIndexes(selectedRows, byExtendingSelection: false)
     }
     
     private func applyFontSet(_ fontSet: FontSet) {

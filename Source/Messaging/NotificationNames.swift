@@ -491,19 +491,6 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Text size commands
-    
-    // Commands all player UI components to change their text size to a specific preset.
-    static let player_changeTextSize = Notification.Name("player_changeTextSize")
-
-    // Commands all FX UI components to change their text size to a specific preset.
-    static let fx_changeTextSize = Notification.Name("fx_changeTextSize")
-
-    // Commands all playlist UI components to change their text size to a specific preset.
-    static let playlist_changeTextSize = Notification.Name("playlist_changeTextSize")
-    
-    // ----------------------------------------------------------------------------------------
-    
     // MARK: Font set commands
     
     // Commands all UI components to apply a new specified color scheme.

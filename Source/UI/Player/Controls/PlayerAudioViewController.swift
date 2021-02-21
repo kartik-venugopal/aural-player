@@ -42,7 +42,6 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         panSlider.floatValue = audioGraph.balance
         panChanged(audioGraph.balance, false)
         
-        changeTextSize(PlayerViewState.textSize)
         applyFontSet(FontSets.systemFontSet)
         applyColorScheme(ColorSchemes.systemScheme)
 
@@ -62,8 +61,6 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .player_panLeft, self.panLeft)
         Messenger.subscribe(self, .player_panRight, self.panRight)
-        
-        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
         
         Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
@@ -181,10 +178,6 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         if showFeedback {
             autoHidingPanLabel.showView()
         }
-    }
-    
-    private func changeTextSize(_ size: TextSize) {
-        [lblVolume, lblPan, lblPanCaption, lblPanCaption2].forEach {$0.font = FontSets.systemFontSet.player.feedbackFont}
     }
     
     private func applyFontSet(_ fontSet: FontSet) {

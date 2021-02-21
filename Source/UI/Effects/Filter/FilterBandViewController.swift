@@ -37,7 +37,6 @@ class FilterBandViewController: NSViewController {
         
         oneTimeSetup()
         resetFields()
-        changeTextSize()
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -179,15 +178,7 @@ class FilterBandViewController: NSViewController {
         cutoffSlider.updateState()
     }
     
-    func changeTextSize() {
-        fontsChanged()
-    }
-    
     func applyFontSet(_ fontSet: FontSet) {
-        fontsChanged()
-    }
-    
-    private func fontsChanged() {
         
         tabButton.redraw()
         

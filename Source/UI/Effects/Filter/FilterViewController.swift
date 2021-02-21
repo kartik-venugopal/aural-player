@@ -262,20 +262,6 @@ class FilterViewController: FXUnitViewController {
         }
     }
     
-    override func changeTextSize(_ textSize: TextSize) {
-
-        bandControllers.forEach({$0.changeTextSize()})
-        
-        // Redraw the add/remove band buttons
-        btnAdd.redraw()
-        btnRemove.redraw()
-        
-        // Redraw the frequency chart
-        filterView.changeTextSize()
-        
-        super.changeTextSize(textSize)
-    }
-    
     override func applyFontSet(_ fontSet: FontSet) {
         
         bandControllers.forEach {$0.applyFontSet(fontSet)}

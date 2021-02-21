@@ -48,12 +48,6 @@ class ReverbView: NSView {
         setAmount(preset.amount, ValueFormatter.formatReverbAmount(preset.amount))
     }
     
-    func changeTextSize() {
-        
-        reverbSpaceMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
-        reverbSpaceMenu.redraw()
-    }
-    
     func applyFontSet(_ fontSet: FontSet) {
         
         reverbSpaceMenu.font = FontSets.systemFontSet.effects.unitFunctionFont

@@ -55,10 +55,6 @@ class FilterView: NSView {
         bandsView.tabViewItems.forEach({bandsView.removeTabViewItem($0)})
     }
     
-    func changeTextSize() {
-        redrawChart()
-    }
-    
     func applyFontSet(_ fontSet: FontSet) {
         redrawChart()
     }

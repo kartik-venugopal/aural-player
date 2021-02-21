@@ -27,8 +27,6 @@
                 <outlet property="rootContainerBox" destination="2Bk-G6-skT" id="zcQ-Na-cgj"/>
                 <outlet property="tabButtonsBox" destination="rbs-L2-HsW" id="I69-WT-J3Y"/>
                 <outlet property="tabGroup" destination="WTT-JW-9R7" id="cOV-IK-RgA"/>
-                <outlet property="viewMenuButton" destination="Mzj-Ix-G6c" id="DLA-hz-SWS"/>
-                <outlet property="viewMenuIconItem" destination="RWd-cM-ppk" id="Ava-Pf-oOA"/>
                 <outlet property="window" destination="mIO-7n-iVB" id="3DX-9q-bwT"/>
             </connections>
         </customObject>
@@ -65,60 +63,7 @@
                                         <action selector="closeWindowAction:" target="-2" id="1Wc-kJ-i8h"/>
                                     </connections>
                                 </button>
-                                <popUpButton toolTip="Playlist View" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mzj-Ix-G6c" userLabel="Playlist View Menu">
-                                    <rect key="frame" x="495" y="249" width="29" height="15"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="15" id="A5M-Nx-1xC"/>
-                                        <constraint firstAttribute="width" constant="24" id="wmy-AV-iex"/>
-                                    </constraints>
-                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" imagePosition="left" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="9uL-zG-dgf">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="11" name="Play-Regular"/>
-                                        <menu key="menu" autoenablesItems="NO" id="NNt-P7-zna">
-                                            <items>
-                                                <menuItem image="Settings" hidden="YES" id="RWd-cM-ppk" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </menuItem>
-                                                <menuItem title="Text size" id="O7r-qv-G9t">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Text size" id="jSz-GN-QV5">
-                                                        <items>
-                                                            <menuItem title="Normal" id="m2K-Zl-YNW">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="DrH-nR-BdV"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Larger" tag="1" id="WHr-gt-cVC">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="sxU-Gl-Xdd"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Largest" tag="2" id="ehX-FT-LYF">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="cn2-8m-o6s"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                            </items>
-                                            <connections>
-                                                <outlet property="delegate" destination="BRL-5h-wH5" id="lay-OI-XLb"/>
-                                            </connections>
-                                        </menu>
-                                    </popUpButtonCell>
-                                </popUpButton>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="Mzj-Ix-G6c" firstAttribute="top" secondItem="ew4-md-MxP" secondAttribute="top" constant="13" id="QWU-KJ-exk"/>
-                                <constraint firstAttribute="trailing" secondItem="Mzj-Ix-G6c" secondAttribute="trailing" constant="6" id="qHw-hR-Qha"/>
-                            </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -572,13 +517,6 @@
                 <outlet property="viewChaptersMenuItem" destination="ciW-XS-CUy" id="83d-K0-IAW"/>
             </connections>
         </customObject>
-        <customObject id="BRL-5h-wH5" customClass="PlaylistViewPopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="textSizeLargerMenuItem" destination="WHr-gt-cVC" id="AJy-BM-viX"/>
-                <outlet property="textSizeLargestMenuItem" destination="ehX-FT-LYF" id="WcU-MX-e0Z"/>
-                <outlet property="textSizeNormalMenuItem" destination="m2K-Zl-YNW" id="0wC-3k-SQF"/>
-            </connections>
-        </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
             <items>
                 <menuItem title="Transcode this track (in the background)" image="Transcode-Small" id="s9W-FB-XJa" userLabel="Transcode this track">
@@ -716,7 +654,6 @@
         <image name="ScrollToBottom" width="23" height="25"/>
         <image name="ScrollToTop" width="23" height="25"/>
         <image name="Search" width="26" height="26"/>
-        <image name="Settings" width="12" height="12"/>
         <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
         <image name="ToggleChaptersList-Small" width="14" height="11"/>

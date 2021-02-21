@@ -49,9 +49,7 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
 }
 
 class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
-    
-    var textSize: TextSize = .normal
-    override var textFont: NSFont {return Fonts.stringInputPopoverFont(textSize)}
+    override var textFont: NSFont {return Fonts.stringInputPopoverFont}
 }
 
 // Cell for all response buttons (Save/Cancel, etc)
@@ -108,18 +106,20 @@ class FXTextButtonCell: ColorAwareButtonCell {
     
     override var yOffset: CGFloat {
         
-        if isOff {
-            return -1
-        }
+        return -1
         
-        switch EffectsViewState.textSize {
-            
-        case .normal:   return -1
-            
-        case .larger:   return -1
-            
-        case .largest:  return -2
-            
-        }
+//        if isOff {
+//            return -1
+//        }
+//
+//        switch EffectsViewState.textSize {
+//
+//        case .normal:   return -1
+//
+//        case .larger:   return -1
+//
+//        case .largest:  return -2
+//
+//        }
     }
 }

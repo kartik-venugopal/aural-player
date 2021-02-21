@@ -103,8 +103,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         
         Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
         
-        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
-        
         Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
@@ -364,10 +362,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     // When the player's segment loop has been changed externally (from the player), it invalidates the chapter loop if there is one
     func playbackLoopChanged() {
         btnLoopChapter.onIf(player.chapterLoopExists)
-    }
-    
-    private func changeTextSize(_ textSize: TextSize) {
-        fontsChanged()
     }
     
     private func applyFontSet(_ fontSet: FontSet) {

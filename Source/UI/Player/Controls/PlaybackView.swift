@@ -3,7 +3,7 @@ import Cocoa
 /*
     View that encapsulates all playback-related controls (play/pause, prev/next track, seeking, segment looping).
 */
-class PlaybackView: NSView, ColorSchemeable, TextSizeable {
+class PlaybackView: NSView, ColorSchemeable {
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var sliderView: SeekSliderView!
@@ -68,7 +68,7 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
 
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
         
-        changeTextSize(PlayerViewState.textSize)
+        applyFontSet(FontSets.systemFontSet)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -113,10 +113,6 @@ class PlaybackView: NSView, ColorSchemeable, TextSizeable {
 
     func showOrHideTimeElapsedRemaining() {
         sliderView.showOrHideTimeElapsedRemaining()
-    }
-    
-    func changeTextSize(_ size: TextSize) {
-        sliderView.changeTextSize(size)
     }
     
     func applyFontSet(_ fontSet: FontSet) {
