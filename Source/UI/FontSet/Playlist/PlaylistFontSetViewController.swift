@@ -74,7 +74,77 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
     }
     
     func resetFields(_ fontSet: FontSet) {
+        
         scrollToTop()
+        
+        trackTextNormalSizeStepper.floatValue = Float(fontSet.playlist.trackTextFont_normal.pointSize * 10)
+        txtTrackTextNormalSize.stringValue = String(format: "%.1f", trackTextNormalSizeStepper.floatValue / 10.0)
+        
+        trackTextLargerSizeStepper.floatValue = Float(fontSet.playlist.trackTextFont_larger.pointSize * 10)
+        txtTrackTextLargerSize.stringValue = String(format: "%.1f", trackTextLargerSizeStepper.floatValue / 10.0)
+        
+        trackTextLargestSizeStepper.floatValue = Float(fontSet.playlist.trackTextFont_largest.pointSize * 10)
+        txtTrackTextLargestSize.stringValue = String(format: "%.1f", trackTextLargestSizeStepper.floatValue / 10.0)
+        
+        
+        groupTextNormalSizeStepper.floatValue = Float(fontSet.playlist.groupTextFont_normal.pointSize * 10)
+        txtGroupTextNormalSize.stringValue = String(format: "%.1f", groupTextNormalSizeStepper.floatValue / 10.0)
+        
+        groupTextLargerSizeStepper.floatValue = Float(fontSet.playlist.groupTextFont_larger.pointSize * 10)
+        txtGroupTextLargerSize.stringValue = String(format: "%.1f", groupTextLargerSizeStepper.floatValue / 10.0)
+        
+        groupTextLargestSizeStepper.floatValue = Float(fontSet.playlist.groupTextFont_largest.pointSize * 10)
+        txtGroupTextLargestSize.stringValue = String(format: "%.1f", groupTextLargestSizeStepper.floatValue / 10.0)
+        
+        
+        summaryNormalSizeStepper.floatValue = Float(fontSet.playlist.summaryFont_normal.pointSize * 10)
+        txtSummaryNormalSize.stringValue = String(format: "%.1f", summaryNormalSizeStepper.floatValue / 10.0)
+        
+        summaryLargerSizeStepper.floatValue = Float(fontSet.playlist.summaryFont_larger.pointSize * 10)
+        txtSummaryLargerSize.stringValue = String(format: "%.1f", summaryLargerSizeStepper.floatValue / 10.0)
+        
+        summaryLargestSizeStepper.floatValue = Float(fontSet.playlist.summaryFont_largest.pointSize * 10)
+        txtSummaryLargestSize.stringValue = String(format: "%.1f", summaryLargestSizeStepper.floatValue / 10.0)
+        
+        
+        tabButtonTextNormalSizeStepper.floatValue = Float(fontSet.playlist.tabButtonTextFont_normal.pointSize * 10)
+        txtTabButtonTextNormalSize.stringValue = String(format: "%.1f", tabButtonTextNormalSizeStepper.floatValue / 10.0)
+        
+        tabButtonTextLargerSizeStepper.floatValue = Float(fontSet.playlist.tabButtonTextFont_larger.pointSize * 10)
+        txtTabButtonTextLargerSize.stringValue = String(format: "%.1f", tabButtonTextLargerSizeStepper.floatValue / 10.0)
+        
+        tabButtonTextLargestSizeStepper.floatValue = Float(fontSet.playlist.tabButtonTextFont_largest.pointSize * 10)
+        txtTabButtonTextLargestSize.stringValue = String(format: "%.1f", tabButtonTextLargestSizeStepper.floatValue / 10.0)
+        
+        
+        chaptersListHeadingNormalSizeStepper.floatValue = Float(fontSet.playlist.chaptersListCaptionFont_normal.pointSize * 10)
+        txtChaptersListHeadingNormalSize.stringValue = String(format: "%.1f", chaptersListHeadingNormalSizeStepper.floatValue / 10.0)
+        
+        chaptersListHeadingLargerSizeStepper.floatValue = Float(fontSet.playlist.chaptersListCaptionFont_larger.pointSize * 10)
+        txtChaptersListHeadingLargerSize.stringValue = String(format: "%.1f", chaptersListHeadingLargerSizeStepper.floatValue / 10.0)
+        
+        chaptersListHeadingLargestSizeStepper.floatValue = Float(fontSet.playlist.chaptersListCaptionFont_largest.pointSize * 10)
+        txtChaptersListHeadingLargestSize.stringValue = String(format: "%.1f", chaptersListHeadingLargestSizeStepper.floatValue / 10.0)
+        
+        
+        chaptersListHeaderNormalSizeStepper.floatValue = Float(fontSet.playlist.chaptersListHeaderFont_normal.pointSize * 10)
+        txtChaptersListHeaderNormalSize.stringValue = String(format: "%.1f", chaptersListHeaderNormalSizeStepper.floatValue / 10.0)
+        
+        chaptersListHeaderLargerSizeStepper.floatValue = Float(fontSet.playlist.chaptersListHeaderFont_larger.pointSize * 10)
+        txtChaptersListHeaderLargerSize.stringValue = String(format: "%.1f", chaptersListHeaderLargerSizeStepper.floatValue / 10.0)
+        
+        chaptersListHeaderLargestSizeStepper.floatValue = Float(fontSet.playlist.chaptersListHeaderFont_largest.pointSize * 10)
+        txtChaptersListHeaderLargestSize.stringValue = String(format: "%.1f", chaptersListHeaderLargestSizeStepper.floatValue / 10.0)
+        
+        
+        chaptersListSearchFieldNormalSizeStepper.floatValue = Float(fontSet.playlist.chaptersListSearchFont_normal.pointSize * 10)
+        txtChaptersListSearchFieldNormalSize.stringValue = String(format: "%.1f", chaptersListSearchFieldNormalSizeStepper.floatValue / 10.0)
+        
+        chaptersListSearchFieldLargerSizeStepper.floatValue = Float(fontSet.playlist.chaptersListSearchFont_larger.pointSize * 10)
+        txtChaptersListSearchFieldLargerSize.stringValue = String(format: "%.1f", chaptersListSearchFieldLargerSizeStepper.floatValue / 10.0)
+        
+        chaptersListSearchFieldLargestSizeStepper.floatValue = Float(fontSet.playlist.chaptersListSearchFont_largest.pointSize * 10)
+        txtChaptersListSearchFieldLargestSize.stringValue = String(format: "%.1f", chaptersListSearchFieldLargestSizeStepper.floatValue / 10.0)
     }
     
     @IBAction func trackTextNormalSizeStepperAction(_ sender: NSStepper) {

@@ -50,7 +50,47 @@ class EffectsFontSetViewController: NSViewController, FontSetsViewProtocol {
     }
     
     func resetFields(_ fontSet: FontSet) {
+        
         scrollToTop()
+        
+        unitCaptionNormalSizeStepper.floatValue = Float(fontSet.effects.unitCaptionFont_normal.pointSize * 10)
+        txtUnitCaptionNormalSize.stringValue = String(format: "%.1f", unitCaptionNormalSizeStepper.floatValue / 10.0)
+        
+        unitCaptionLargerSizeStepper.floatValue = Float(fontSet.effects.unitCaptionFont_larger.pointSize * 10)
+        txtUnitCaptionLargerSize.stringValue = String(format: "%.1f", unitCaptionLargerSizeStepper.floatValue / 10.0)
+        
+        unitCaptionLargestSizeStepper.floatValue = Float(fontSet.effects.unitCaptionFont_largest.pointSize * 10)
+        txtUnitCaptionLargestSize.stringValue = String(format: "%.1f", unitCaptionLargestSizeStepper.floatValue / 10.0)
+        
+        
+        unitFunctionNormalSizeStepper.floatValue = Float(fontSet.effects.unitFunctionFont_normal.pointSize * 10)
+        txtUnitFunctionNormalSize.stringValue = String(format: "%.1f", unitFunctionNormalSizeStepper.floatValue / 10.0)
+        
+        unitFunctionLargerSizeStepper.floatValue = Float(fontSet.effects.unitFunctionFont_larger.pointSize * 10)
+        txtUnitFunctionLargerSize.stringValue = String(format: "%.1f", unitFunctionLargerSizeStepper.floatValue / 10.0)
+        
+        unitFunctionLargestSizeStepper.floatValue = Float(fontSet.effects.unitFunctionFont_largest.pointSize * 10)
+        txtUnitFunctionLargestSize.stringValue = String(format: "%.1f", unitFunctionLargestSizeStepper.floatValue / 10.0)
+        
+        
+        masterUnitFunctionNormalSizeStepper.floatValue = Float(fontSet.effects.masterUnitFunctionFont_normal.pointSize * 10)
+        txtMasterUnitFunctionNormalSize.stringValue = String(format: "%.1f", masterUnitFunctionNormalSizeStepper.floatValue / 10.0)
+        
+        masterUnitFunctionLargerSizeStepper.floatValue = Float(fontSet.effects.masterUnitFunctionFont_larger.pointSize * 10)
+        txtMasterUnitFunctionLargerSize.stringValue = String(format: "%.1f", masterUnitFunctionLargerSizeStepper.floatValue / 10.0)
+        
+        masterUnitFunctionLargestSizeStepper.floatValue = Float(fontSet.effects.masterUnitFunctionFont_largest.pointSize * 10)
+        txtMasterUnitFunctionLargestSize.stringValue = String(format: "%.1f", masterUnitFunctionLargestSizeStepper.floatValue / 10.0)
+        
+        
+        filterChartNormalSizeStepper.floatValue = Float(fontSet.effects.filterChartFont_normal.pointSize * 10)
+        txtFilterChartNormalSize.stringValue = String(format: "%.1f", filterChartNormalSizeStepper.floatValue / 10.0)
+        
+        filterChartLargerSizeStepper.floatValue = Float(fontSet.effects.filterChartFont_larger.pointSize * 10)
+        txtFilterChartLargerSize.stringValue = String(format: "%.1f", filterChartLargerSizeStepper.floatValue / 10.0)
+        
+        filterChartLargestSizeStepper.floatValue = Float(fontSet.effects.filterChartFont_largest.pointSize * 10)
+        txtFilterChartLargestSize.stringValue = String(format: "%.1f", filterChartLargestSizeStepper.floatValue / 10.0)
     }
     
     @IBAction func unitCaptionNormalSizeStepperAction(_ sender: NSStepper) {

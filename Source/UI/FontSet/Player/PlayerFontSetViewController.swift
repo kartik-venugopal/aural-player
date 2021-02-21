@@ -77,8 +77,8 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
         artistAlbumLargerSizeStepper.floatValue = Float(fontSet.player.infoBoxArtistAlbumFont_larger.pointSize * 10)
         txtArtistAlbumLargerSize.stringValue = String(format: "%.1f", artistAlbumLargerSizeStepper.floatValue / 10.0)
         
-        artistAlbumLargerSizeStepper.floatValue = Float(fontSet.player.infoBoxArtistAlbumFont_largest.pointSize * 10)
-        txtArtistAlbumLargerSize.stringValue = String(format: "%.1f", artistAlbumNormalSizeStepper.floatValue / 10.0)
+        artistAlbumLargestSizeStepper.floatValue = Float(fontSet.player.infoBoxArtistAlbumFont_largest.pointSize * 10)
+        txtArtistAlbumLargestSize.stringValue = String(format: "%.1f", artistAlbumLargestSizeStepper.floatValue / 10.0)
         
         
         chapterTitleNormalSizeStepper.floatValue = Float(fontSet.player.infoBoxChapterTitleFont_normal.pointSize * 10)
