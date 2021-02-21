@@ -44,13 +44,13 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
     @IBOutlet weak var txtChaptersListHeadingLargerSize: NSTextField!
     @IBOutlet weak var txtChaptersListHeadingLargestSize: NSTextField!
     
-    @IBOutlet weak var chaptersListTableHeaderNormalSizeStepper: NSStepper!
-    @IBOutlet weak var chaptersListTableHeaderLargerSizeStepper: NSStepper!
-    @IBOutlet weak var chaptersListTableHeaderLargestSizeStepper: NSStepper!
+    @IBOutlet weak var chaptersListHeaderNormalSizeStepper: NSStepper!
+    @IBOutlet weak var chaptersListHeaderLargerSizeStepper: NSStepper!
+    @IBOutlet weak var chaptersListHeaderLargestSizeStepper: NSStepper!
     
-    @IBOutlet weak var txtChaptersListTableHeaderNormalSize: NSTextField!
-    @IBOutlet weak var txtChaptersListTableHeaderLargerSize: NSTextField!
-    @IBOutlet weak var txtChaptersListTableHeaderLargestSize: NSTextField!
+    @IBOutlet weak var txtChaptersListHeaderNormalSize: NSTextField!
+    @IBOutlet weak var txtChaptersListHeaderLargerSize: NSTextField!
+    @IBOutlet weak var txtChaptersListHeaderLargestSize: NSTextField!
     
     @IBOutlet weak var chaptersListSearchFieldNormalSizeStepper: NSStepper!
     @IBOutlet weak var chaptersListSearchFieldLargerSizeStepper: NSStepper!
@@ -147,16 +147,16 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
     
     
     
-    @IBAction func chaptersListTableHeaderNormalSizeStepperAction(_ sender: NSStepper) {
-        txtChaptersListTableHeaderNormalSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
+    @IBAction func chaptersListHeaderNormalSizeStepperAction(_ sender: NSStepper) {
+        txtChaptersListHeaderNormalSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
-    @IBAction func chaptersListTableHeaderLargerSizeStepperAction(_ sender: NSStepper) {
-        txtChaptersListTableHeaderLargerSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
+    @IBAction func chaptersListHeaderLargerSizeStepperAction(_ sender: NSStepper) {
+        txtChaptersListHeaderLargerSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
-    @IBAction func chaptersListTableHeaderLargestSizeStepperAction(_ sender: NSStepper) {
-        txtChaptersListTableHeaderLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
+    @IBAction func chaptersListHeaderLargestSizeStepperAction(_ sender: NSStepper) {
+        txtChaptersListHeaderLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
     
@@ -171,5 +171,39 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
     
     @IBAction func chaptersListSearchFieldLargestSizeStepperAction(_ sender: NSStepper) {
         txtChaptersListSearchFieldLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
+    }
+    
+    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet) {
+        
+        let textFontName = context.textFontName
+        let headingFontName = context.headingFontName
+        
+        fontSet.playlist.trackTextFont_normal = NSFont(name: textFontName, size: CGFloat(trackTextNormalSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.trackTextFont_larger = NSFont(name: textFontName, size: CGFloat(trackTextLargerSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.trackTextFont_largest = NSFont(name: textFontName, size: CGFloat(trackTextLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.playlist.groupTextFont_normal = NSFont(name: textFontName, size: CGFloat(groupTextNormalSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.groupTextFont_larger = NSFont(name: textFontName, size: CGFloat(groupTextLargerSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.groupTextFont_largest = NSFont(name: textFontName, size: CGFloat(groupTextLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.playlist.summaryFont_normal = NSFont(name: textFontName, size: CGFloat(summaryNormalSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.summaryFont_larger = NSFont(name: textFontName, size: CGFloat(summaryLargerSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.summaryFont_largest = NSFont(name: textFontName, size: CGFloat(summaryLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.playlist.tabButtonTextFont_normal = NSFont(name: headingFontName, size: CGFloat(tabButtonTextNormalSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.tabButtonTextFont_larger = NSFont(name: headingFontName, size: CGFloat(tabButtonTextLargerSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.tabButtonTextFont_largest = NSFont(name: headingFontName, size: CGFloat(tabButtonTextLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.playlist.chaptersListHeaderFont_normal = NSFont(name: headingFontName, size: CGFloat(chaptersListHeaderNormalSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.chaptersListHeaderFont_larger = NSFont(name: headingFontName, size: CGFloat(chaptersListHeaderLargerSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.chaptersListHeaderFont_largest = NSFont(name: headingFontName, size: CGFloat(chaptersListHeaderLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.playlist.chaptersListCaptionFont_normal = NSFont(name: headingFontName, size: CGFloat(chaptersListHeadingNormalSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.chaptersListCaptionFont_larger = NSFont(name: headingFontName, size: CGFloat(chaptersListHeadingLargerSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.chaptersListCaptionFont_largest = NSFont(name: headingFontName, size: CGFloat(chaptersListHeadingLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.playlist.chaptersListSearchFont_normal = NSFont(name: textFontName, size: CGFloat(chaptersListSearchFieldNormalSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.chaptersListSearchFont_larger = NSFont(name: textFontName, size: CGFloat(chaptersListSearchFieldLargerSizeStepper.floatValue / 10.0))!
+        fontSet.playlist.chaptersListSearchFont_largest = NSFont(name: textFontName, size: CGFloat(chaptersListSearchFieldLargestSizeStepper.floatValue / 10.0))!
     }
 }

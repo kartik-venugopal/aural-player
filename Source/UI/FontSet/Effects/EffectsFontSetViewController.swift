@@ -106,4 +106,26 @@ class EffectsFontSetViewController: NSViewController, FontSetsViewProtocol {
     @IBAction func filterChartLargestSizeStepperAction(_ sender: NSStepper) {
         txtFilterChartLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
+    
+    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet) {
+        
+        let textFontName = context.textFontName
+        let headingFontName = context.headingFontName
+        
+        fontSet.effects.unitCaptionFont_normal = NSFont(name: headingFontName, size: CGFloat(unitCaptionNormalSizeStepper.floatValue / 10.0))!
+        fontSet.effects.unitCaptionFont_larger = NSFont(name: headingFontName, size: CGFloat(unitCaptionLargerSizeStepper.floatValue / 10.0))!
+        fontSet.effects.unitCaptionFont_largest = NSFont(name: headingFontName, size: CGFloat(unitCaptionLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.effects.unitFunctionFont_normal = NSFont(name: textFontName, size: CGFloat(unitFunctionNormalSizeStepper.floatValue / 10.0))!
+        fontSet.effects.unitFunctionFont_larger = NSFont(name: textFontName, size: CGFloat(unitFunctionLargerSizeStepper.floatValue / 10.0))!
+        fontSet.effects.unitFunctionFont_largest = NSFont(name: textFontName, size: CGFloat(unitFunctionLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.effects.masterUnitFunctionFont_normal = NSFont(name: headingFontName, size: CGFloat(masterUnitFunctionNormalSizeStepper.floatValue / 10.0))!
+        fontSet.effects.masterUnitFunctionFont_larger = NSFont(name: headingFontName, size: CGFloat(masterUnitFunctionLargerSizeStepper.floatValue / 10.0))!
+        fontSet.effects.masterUnitFunctionFont_largest = NSFont(name: headingFontName, size: CGFloat(masterUnitFunctionLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.effects.filterChartFont_normal = NSFont(name: textFontName, size: CGFloat(filterChartNormalSizeStepper.floatValue / 10.0))!
+        fontSet.effects.filterChartFont_larger = NSFont(name: textFontName, size: CGFloat(filterChartLargerSizeStepper.floatValue / 10.0))!
+        fontSet.effects.filterChartFont_largest = NSFont(name: textFontName, size: CGFloat(filterChartLargestSizeStepper.floatValue / 10.0))!
+    }
 }

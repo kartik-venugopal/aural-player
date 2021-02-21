@@ -22,10 +22,22 @@ class GeneralFontSetViewController: NSViewController, FontSetsViewProtocol {
         self.view
     }
     
+    var textFontName: String {
+        (textFontMenuButton.selectedItem as! FontMenuItem).fontName
+    }
+    
+    var headingFontName: String {
+        (headingFontMenuButton.selectedItem as! FontMenuItem).fontName
+    }
+    
     func resetFields(_ fontSet: FontSet) {
+        
+//        print("Current font:", fontSet.player.infoBoxTitleFont_normal.familyName, fontSet.player.infoBoxTitleFont_normal.displayName, fontSet.player.infoBoxTitleFont_normal.fontName)
         
         textFontMenu.removeAllItems()
         headingFontMenu.removeAllItems()
+        
+        var fontNameToDisplayNameMap: [String: String] = [:]
         
         for family in NSFontManager.shared.availableFontFamilies {
             
@@ -36,6 +48,7 @@ class GeneralFontSetViewController: NSViewController, FontSetsViewProtocol {
                     if member.count >= 2, let fontName = member[0] as? String, let weight = member[1] as? String {
                         
                         let displayName = String(format: "%@ %@", family, weight)
+                        fontNameToDisplayNameMap[fontName] = displayName
                         
                         let newItem1 = FontMenuItem(title: displayName, action: nil, keyEquivalent: "")
                         newItem1.fontName = fontName
@@ -47,6 +60,18 @@ class GeneralFontSetViewController: NSViewController, FontSetsViewProtocol {
                     }
                 }
             }
+        }
+        
+        if let displayNameOfTextFont = fontNameToDisplayNameMap[fontSet.player.infoBoxTitleFont.fontName] {
+            
+            textFontMenuButton.selectItem(withTitle: displayNameOfTextFont)
+            lblTextPreview.font = NSFont(name: fontSet.player.infoBoxTitleFont.fontName, size: 14)
+        }
+        
+        if let displayNameOfHeadingFont = fontNameToDisplayNameMap[fontSet.playlist.tabButtonTextFont.fontName] {
+            
+            headingFontMenuButton.selectItem(withTitle: displayNameOfHeadingFont)
+            lblHeadingPreview.font = NSFont(name: fontSet.playlist.tabButtonTextFont.fontName, size: 18)
         }
     }
     
@@ -62,6 +87,12 @@ class GeneralFontSetViewController: NSViewController, FontSetsViewProtocol {
         if let selItem = headingFontMenuButton.selectedItem as? FontMenuItem, let font = NSFont(name: selItem.fontName, size: 18) {
             lblHeadingPreview.font = font
         }
+    }
+    
+    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet) {
+        
+        context.textFontName = textFontName
+        context.headingFontName = headingFontName
     }
 }
 

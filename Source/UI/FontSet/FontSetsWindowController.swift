@@ -44,11 +44,20 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         subViews.forEach {$0.resetFields(FontSets.systemFontSet)}
         
         // Reset the subviews according to the current system color scheme, and show the first tab
-        tabView.selectTabViewItem(at: 3)
+        tabView.selectTabViewItem(at: 0)
         
         UIUtils.showDialog(self.window!)
         
         return .ok
+    }
+    
+    @IBAction func applyChangesAction(_ sender: Any) {
+        
+        let context = FontSetChangeContext()
+        generalView.applyFontSet(context, to: FontSets.systemFontSet)
+        
+        [playerView, playlistView, effectsView].forEach {$0.applyFontSet(context, to: FontSets.systemFontSet)}
+        Messenger.publish(.applyFontSet, payload: FontSets.systemFontSet)
     }
     
     // Dismisses the panel when the user is done making changes
@@ -71,4 +80,6 @@ protocol FontSetsViewProtocol {
     // Reset all UI controls every time the dialog is shown or a new color scheme is applied.
     // NOTE - the history and clipboard are shared across all views
     func resetFields(_ fontSet: FontSet)
+    
+    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet)
 }

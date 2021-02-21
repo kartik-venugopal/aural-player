@@ -16,7 +16,7 @@ class FontSets {
         
         if let fontSetPreset = FontSetPreset.presetByName(name) {
             
-            systemFontSet.applyFontSet(FontSet("_throwaway_", fontSetPreset))
+            systemFontSet = FontSet("_system_", fontSetPreset)
             return systemFontSet
         }
         

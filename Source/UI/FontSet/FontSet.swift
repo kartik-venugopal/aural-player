@@ -29,19 +29,25 @@ class FontSet: StringKeyedItem {
     init(_ name: String, _ preset: FontSetPreset) {
         
         self.name = name
+        self.systemDefined = true
         
         self.player = PlayerFontSet(preset: preset)
         self.playlist = PlaylistFontSet(preset: preset)
         self.effects = EffectsFontSet(preset: preset)
-        
-        self.systemDefined = true
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    init(_ name: String, _ systemDefined: Bool, _ fontSet: FontSet) {
         
-        player.applyFontSet(fontSet.player)
-        playlist.applyFontSet(fontSet.playlist)
-        effects.applyFontSet(fontSet.effects)
+        self.name = name
+        self.systemDefined = systemDefined
+        
+        self.player = fontSet.player.clone()
+        self.playlist  = fontSet.playlist.clone()
+        self.effects = fontSet.effects.clone()
+    }
+    
+    func clone() -> FontSet {
+        return FontSet(self.name + "_clone", self.systemDefined, self)
     }
 }
 
@@ -81,19 +87,19 @@ class PlayerFontSet {
         }
     }
     
-    var infoBoxChapterFont_normal: NSFont
-    var infoBoxChapterFont_larger: NSFont
-    var infoBoxChapterFont_largest: NSFont
+    var infoBoxChapterTitleFont_normal: NSFont
+    var infoBoxChapterTitleFont_larger: NSFont
+    var infoBoxChapterTitleFont_largest: NSFont
     
     var infoBoxChapterFont: NSFont {
         
         switch PlayerViewState.textSize {
 
-        case .normal: return infoBoxChapterFont_normal
+        case .normal: return infoBoxChapterTitleFont_normal
 
-        case .larger: return infoBoxChapterFont_larger
+        case .larger: return infoBoxChapterTitleFont_larger
 
-        case .largest: return infoBoxChapterFont_largest
+        case .largest: return infoBoxChapterTitleFont_largest
 
         }
     }
@@ -142,9 +148,9 @@ class PlayerFontSet {
         self.infoBoxArtistAlbumFont_larger = preset.infoBoxArtistAlbumFont_larger
         self.infoBoxArtistAlbumFont_largest = preset.infoBoxArtistAlbumFont_largest
         
-        self.infoBoxChapterFont_normal = preset.infoBoxChapterFont_normal
-        self.infoBoxChapterFont_larger = preset.infoBoxChapterFont_larger
-        self.infoBoxChapterFont_largest = preset.infoBoxChapterFont_largest
+        self.infoBoxChapterTitleFont_normal = preset.infoBoxChapterTitleFont_normal
+        self.infoBoxChapterTitleFont_larger = preset.infoBoxChapterTitleFont_larger
+        self.infoBoxChapterTitleFont_largest = preset.infoBoxChapterTitleFont_largest
         
         self.trackTimesFont_normal = preset.trackTimesFont_normal
         self.trackTimesFont_larger = preset.trackTimesFont_larger
@@ -155,7 +161,7 @@ class PlayerFontSet {
         self.feedbackFont_largest = preset.feedbackFont_largest
     }
     
-    func applyFontSet(_ fontSet: PlayerFontSet) {
+    init(_ fontSet: PlayerFontSet) {
         
         self.infoBoxTitleFont_normal = fontSet.infoBoxTitleFont_normal
         self.infoBoxTitleFont_larger = fontSet.infoBoxTitleFont_larger
@@ -165,9 +171,9 @@ class PlayerFontSet {
         self.infoBoxArtistAlbumFont_larger = fontSet.infoBoxArtistAlbumFont_larger
         self.infoBoxArtistAlbumFont_largest = fontSet.infoBoxArtistAlbumFont_largest
         
-        self.infoBoxChapterFont_normal = fontSet.infoBoxChapterFont_normal
-        self.infoBoxChapterFont_larger = fontSet.infoBoxChapterFont_larger
-        self.infoBoxChapterFont_largest = fontSet.infoBoxChapterFont_largest
+        self.infoBoxChapterTitleFont_normal = fontSet.infoBoxChapterTitleFont_normal
+        self.infoBoxChapterTitleFont_larger = fontSet.infoBoxChapterTitleFont_larger
+        self.infoBoxChapterTitleFont_largest = fontSet.infoBoxChapterTitleFont_largest
         
         self.trackTimesFont_normal = fontSet.trackTimesFont_normal
         self.trackTimesFont_larger = fontSet.trackTimesFont_larger
@@ -176,6 +182,10 @@ class PlayerFontSet {
         self.feedbackFont_normal = fontSet.feedbackFont_normal
         self.feedbackFont_larger = fontSet.feedbackFont_larger
         self.feedbackFont_largest = fontSet.feedbackFont_largest
+    }
+    
+    func clone() -> PlayerFontSet {
+        return PlayerFontSet(self)
     }
 }
 
@@ -331,7 +341,7 @@ class PlaylistFontSet {
         self.chaptersListCaptionFont_largest = preset.chaptersListCaptionFont_largest
     }
     
-    func applyFontSet(_ fontSet: PlaylistFontSet) {
+    init(_ fontSet: PlaylistFontSet) {
         
         self.trackTextFont_normal = fontSet.trackTextFont_normal
         self.trackTextFont_larger = fontSet.trackTextFont_larger
@@ -360,6 +370,10 @@ class PlaylistFontSet {
         self.chaptersListCaptionFont_normal = fontSet.chaptersListCaptionFont_normal
         self.chaptersListCaptionFont_larger = fontSet.chaptersListCaptionFont_larger
         self.chaptersListCaptionFont_largest = fontSet.chaptersListCaptionFont_largest
+    }
+    
+    func clone() -> PlaylistFontSet {
+        return PlaylistFontSet(self)
     }
 }
 
@@ -452,7 +466,7 @@ class EffectsFontSet {
         self.filterChartFont_largest = preset.effectsFilterChartFont_largest
     }
     
-    func applyFontSet(_ fontSet: EffectsFontSet) {
+    init(_ fontSet: EffectsFontSet) {
         
         self.unitCaptionFont_normal = fontSet.unitCaptionFont_normal
         self.unitCaptionFont_larger = fontSet.unitCaptionFont_larger
@@ -469,5 +483,9 @@ class EffectsFontSet {
         self.filterChartFont_normal = fontSet.filterChartFont_normal
         self.filterChartFont_larger = fontSet.filterChartFont_larger
         self.filterChartFont_largest = fontSet.filterChartFont_largest
+    }
+    
+    func clone() -> EffectsFontSet {
+        return EffectsFontSet(self)
     }
 }

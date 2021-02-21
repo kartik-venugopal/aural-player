@@ -58,7 +58,57 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
     }
     
     func resetFields(_ fontSet: FontSet) {
+        
         scrollToTop()
+        
+        titleNormalSizeStepper.floatValue = Float(fontSet.player.infoBoxTitleFont_normal.pointSize * 10)
+        txtTitleNormalSize.stringValue = String(format: "%.1f", titleNormalSizeStepper.floatValue / 10.0)
+        
+        titleLargerSizeStepper.floatValue = Float(fontSet.player.infoBoxTitleFont_larger.pointSize * 10)
+        txtTitleLargerSize.stringValue = String(format: "%.1f", titleLargerSizeStepper.floatValue / 10.0)
+        
+        titleLargestSizeStepper.floatValue = Float(fontSet.player.infoBoxTitleFont_largest.pointSize * 10)
+        txtTitleLargestSize.stringValue = String(format: "%.1f", titleLargestSizeStepper.floatValue / 10.0)
+        
+        
+        artistAlbumNormalSizeStepper.floatValue = Float(fontSet.player.infoBoxArtistAlbumFont_normal.pointSize * 10)
+        txtArtistAlbumNormalSize.stringValue = String(format: "%.1f", artistAlbumNormalSizeStepper.floatValue / 10.0)
+        
+        artistAlbumLargerSizeStepper.floatValue = Float(fontSet.player.infoBoxArtistAlbumFont_larger.pointSize * 10)
+        txtArtistAlbumLargerSize.stringValue = String(format: "%.1f", artistAlbumLargerSizeStepper.floatValue / 10.0)
+        
+        artistAlbumLargerSizeStepper.floatValue = Float(fontSet.player.infoBoxArtistAlbumFont_largest.pointSize * 10)
+        txtArtistAlbumLargerSize.stringValue = String(format: "%.1f", artistAlbumNormalSizeStepper.floatValue / 10.0)
+        
+        
+        chapterTitleNormalSizeStepper.floatValue = Float(fontSet.player.infoBoxChapterTitleFont_normal.pointSize * 10)
+        txtChapterTitleNormalSize.stringValue = String(format: "%.1f", chapterTitleNormalSizeStepper.floatValue / 10.0)
+        
+        chapterTitleLargerSizeStepper.floatValue = Float(fontSet.player.infoBoxChapterTitleFont_larger.pointSize * 10)
+        txtChapterTitleLargerSize.stringValue = String(format: "%.1f", chapterTitleLargerSizeStepper.floatValue / 10.0)
+        
+        chapterTitleLargestSizeStepper.floatValue = Float(fontSet.player.infoBoxChapterTitleFont_largest.pointSize * 10)
+        txtChapterTitleLargestSize.stringValue = String(format: "%.1f", chapterTitleLargestSizeStepper.floatValue / 10.0)
+        
+        
+        seekPositionNormalSizeStepper.floatValue = Float(fontSet.player.trackTimesFont_normal.pointSize * 10)
+        txtSeekPositionNormalSize.stringValue = String(format: "%.1f", seekPositionNormalSizeStepper.floatValue / 10.0)
+        
+        seekPositionLargerSizeStepper.floatValue = Float(fontSet.player.trackTimesFont_larger.pointSize * 10)
+        txtSeekPositionLargerSize.stringValue = String(format: "%.1f", seekPositionLargerSizeStepper.floatValue / 10.0)
+        
+        seekPositionLargestSizeStepper.floatValue = Float(fontSet.player.trackTimesFont_largest.pointSize * 10)
+        txtSeekPositionLargestSize.stringValue = String(format: "%.1f", seekPositionLargestSizeStepper.floatValue / 10.0)
+        
+        
+        feedbackTextNormalSizeStepper.floatValue = Float(fontSet.player.feedbackFont_normal.pointSize * 10)
+        txtFeedbackTextNormalSize.stringValue = String(format: "%.1f", feedbackTextNormalSizeStepper.floatValue / 10.0)
+        
+        feedbackTextLargerSizeStepper.floatValue = Float(fontSet.player.feedbackFont_larger.pointSize * 10)
+        txtFeedbackTextLargerSize.stringValue = String(format: "%.1f", feedbackTextLargerSizeStepper.floatValue / 10.0)
+        
+        feedbackTextLargestSizeStepper.floatValue = Float(fontSet.player.feedbackFont_largest.pointSize * 10)
+        txtFeedbackTextLargestSize.stringValue = String(format: "%.1f", feedbackTextLargestSizeStepper.floatValue / 10.0)
     }
     
     @IBAction func titleNormalSizeStepperAction(_ sender: NSStepper) {
@@ -127,5 +177,30 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
     
     @IBAction func feedbackTextLargestSizeStepperAction(_ sender: NSStepper) {
         txtFeedbackTextLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
+    }
+    
+    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet) {
+        
+        let textFontName = context.textFontName
+        
+        fontSet.player.infoBoxTitleFont_normal = NSFont(name: textFontName, size: CGFloat(titleNormalSizeStepper.floatValue / 10.0))!
+        fontSet.player.infoBoxTitleFont_larger = NSFont(name: textFontName, size: CGFloat(titleLargerSizeStepper.floatValue / 10.0))!
+        fontSet.player.infoBoxTitleFont_largest = NSFont(name: textFontName, size: CGFloat(titleLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.player.infoBoxArtistAlbumFont_normal = NSFont(name: textFontName, size: CGFloat(artistAlbumNormalSizeStepper.floatValue / 10.0))!
+        fontSet.player.infoBoxArtistAlbumFont_larger = NSFont(name: textFontName, size: CGFloat(artistAlbumLargerSizeStepper.floatValue / 10.0))!
+        fontSet.player.infoBoxArtistAlbumFont_largest = NSFont(name: textFontName, size: CGFloat(artistAlbumLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.player.infoBoxChapterTitleFont_normal = NSFont(name: textFontName, size: CGFloat(chapterTitleNormalSizeStepper.floatValue / 10.0))!
+        fontSet.player.infoBoxChapterTitleFont_larger = NSFont(name: textFontName, size: CGFloat(chapterTitleLargerSizeStepper.floatValue / 10.0))!
+        fontSet.player.infoBoxChapterTitleFont_largest = NSFont(name: textFontName, size: CGFloat(chapterTitleLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.player.trackTimesFont_normal = NSFont(name: textFontName, size: CGFloat(seekPositionNormalSizeStepper.floatValue / 10.0))!
+        fontSet.player.trackTimesFont_larger = NSFont(name: textFontName, size: CGFloat(seekPositionLargerSizeStepper.floatValue / 10.0))!
+        fontSet.player.trackTimesFont_largest = NSFont(name: textFontName, size: CGFloat(seekPositionLargestSizeStepper.floatValue / 10.0))!
+        
+        fontSet.player.feedbackFont_normal = NSFont(name: textFontName, size: CGFloat(feedbackTextNormalSizeStepper.floatValue / 10.0))!
+        fontSet.player.feedbackFont_larger = NSFont(name: textFontName, size: CGFloat(feedbackTextLargerSizeStepper.floatValue / 10.0))!
+        fontSet.player.feedbackFont_largest = NSFont(name: textFontName, size: CGFloat(feedbackTextLargestSizeStepper.floatValue / 10.0))!
     }
 }

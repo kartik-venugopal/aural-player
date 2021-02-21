@@ -147,7 +147,7 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
-    var infoBoxChapterFont_normal: NSFont {
+    var infoBoxChapterTitleFont_normal: NSFont {
         
         switch self {
             
@@ -162,7 +162,7 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
-    var infoBoxChapterFont_larger: NSFont {
+    var infoBoxChapterTitleFont_larger: NSFont {
         
         switch self {
             
@@ -177,7 +177,7 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
-    var infoBoxChapterFont_largest: NSFont {
+    var infoBoxChapterTitleFont_largest: NSFont {
         
         switch self {
             

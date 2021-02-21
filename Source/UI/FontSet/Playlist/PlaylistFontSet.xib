@@ -8,15 +8,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PlaylistFontSetViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="chaptersListHeaderLargerSizeStepper" destination="vPH-xd-KOP" id="4ni-Nd-12Z"/>
+                <outlet property="chaptersListHeaderLargestSizeStepper" destination="nv1-GI-yOD" id="Hdk-dZ-uEg"/>
+                <outlet property="chaptersListHeaderNormalSizeStepper" destination="lje-cg-fX4" id="eYq-ll-4wR"/>
                 <outlet property="chaptersListHeadingLargerSizeStepper" destination="yAQ-HL-nk0" id="PPL-LT-C9Z"/>
                 <outlet property="chaptersListHeadingLargestSizeStepper" destination="e9x-tk-8MH" id="LBh-QA-AM8"/>
                 <outlet property="chaptersListHeadingNormalSizeStepper" destination="CoI-cD-EiE" id="F4Z-0Q-Pls"/>
                 <outlet property="chaptersListSearchFieldLargerSizeStepper" destination="jg2-an-SEc" id="512-FO-HCw"/>
                 <outlet property="chaptersListSearchFieldLargestSizeStepper" destination="zfl-WH-XSq" id="DAk-oJ-6a0"/>
                 <outlet property="chaptersListSearchFieldNormalSizeStepper" destination="nGH-h2-DYU" id="NOT-QW-cAR"/>
-                <outlet property="chaptersListTableHeaderLargerSizeStepper" destination="vPH-xd-KOP" id="4ni-Nd-12Z"/>
-                <outlet property="chaptersListTableHeaderLargestSizeStepper" destination="nv1-GI-yOD" id="Hdk-dZ-uEg"/>
-                <outlet property="chaptersListTableHeaderNormalSizeStepper" destination="lje-cg-fX4" id="eYq-ll-4wR"/>
                 <outlet property="groupTextLargerSizeStepper" destination="uBo-ZJ-fFF" id="h6i-cL-dgX"/>
                 <outlet property="groupTextLargestSizeStepper" destination="dFU-SE-V6T" id="MDG-sd-XVW"/>
                 <outlet property="groupTextNormalSizeStepper" destination="g1s-OB-4cr" id="Xbj-9k-F52"/>
@@ -30,15 +30,15 @@
                 <outlet property="trackTextLargerSizeStepper" destination="fh7-H9-viT" id="hoS-bs-svU"/>
                 <outlet property="trackTextLargestSizeStepper" destination="8yi-4Y-4eg" id="W4r-zX-u9K"/>
                 <outlet property="trackTextNormalSizeStepper" destination="7yJ-Il-lwa" id="sPc-yq-7t0"/>
+                <outlet property="txtChaptersListHeaderLargerSize" destination="gun-bH-yn8" id="BJD-Q3-EY4"/>
+                <outlet property="txtChaptersListHeaderLargestSize" destination="Edv-pV-yP3" id="wbO-4y-u7h"/>
+                <outlet property="txtChaptersListHeaderNormalSize" destination="qJs-PU-iQs" id="d7m-rx-nvN"/>
                 <outlet property="txtChaptersListHeadingLargerSize" destination="bV8-ta-TT0" id="DgO-kY-I4D"/>
                 <outlet property="txtChaptersListHeadingLargestSize" destination="Ftb-j7-HzT" id="pzO-Pq-CFf"/>
                 <outlet property="txtChaptersListHeadingNormalSize" destination="5Vs-3a-opm" id="ume-kw-7Le"/>
                 <outlet property="txtChaptersListSearchFieldLargerSize" destination="J5J-nc-mn3" id="dY1-Pg-jtl"/>
                 <outlet property="txtChaptersListSearchFieldLargestSize" destination="FsE-qY-9s5" id="2iV-HE-FyV"/>
                 <outlet property="txtChaptersListSearchFieldNormalSize" destination="Uq2-CY-g20" id="JV1-wA-RVz"/>
-                <outlet property="txtChaptersListTableHeaderLargerSize" destination="gun-bH-yn8" id="BJD-Q3-EY4"/>
-                <outlet property="txtChaptersListTableHeaderLargestSize" destination="Edv-pV-yP3" id="wbO-4y-u7h"/>
-                <outlet property="txtChaptersListTableHeaderNormalSize" destination="qJs-PU-iQs" id="d7m-rx-nvN"/>
                 <outlet property="txtGroupTextLargerSize" destination="UI3-PC-O55" id="E4J-6R-qEV"/>
                 <outlet property="txtGroupTextLargestSize" destination="ejo-jt-6t7" id="LKd-ug-34O"/>
                 <outlet property="txtGroupTextNormalSize" destination="IGJ-Ai-RS8" id="WBt-G1-wzD"/>
@@ -556,7 +556,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="hr3-Ra-Be2"/>
                                         <connections>
-                                            <action selector="chaptersListTableHeaderNormalSizeStepperAction:" target="-2" id="QkH-HA-IGb"/>
+                                            <action selector="chaptersListHeaderNormalSizeStepperAction:" target="-2" id="QkH-HA-IGb"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gun-bH-yn8" userLabel="Track title">
@@ -573,7 +573,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="eJC-m1-iss"/>
                                         <connections>
-                                            <action selector="chaptersListTableHeaderLargerSizeStepperAction:" target="-2" id="Q8B-Sk-yw2"/>
+                                            <action selector="chaptersListHeaderLargerSizeStepperAction:" target="-2" id="Q8B-Sk-yw2"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Edv-pV-yP3" userLabel="Track title">
@@ -590,7 +590,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="CvT-BO-u8u"/>
                                         <connections>
-                                            <action selector="chaptersListTableHeaderLargestSizeStepperAction:" target="-2" id="blB-sh-bJf"/>
+                                            <action selector="chaptersListHeaderLargestSizeStepperAction:" target="-2" id="blB-sh-bJf"/>
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mxR-pP-evQ" userLabel="Feedback text">
