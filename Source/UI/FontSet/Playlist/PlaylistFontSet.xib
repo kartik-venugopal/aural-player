@@ -68,7 +68,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fza-by-B6e">
-                                <rect key="frame" x="0.0" y="0.0" width="445" height="1000"/>
+                                <rect key="frame" x="0.0" y="0.0" width="445" height="1060"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HDE-ga-smq" userLabel="Track title">
@@ -680,6 +680,15 @@
                                             <action selector="chaptersListSearchFieldLargestSizeStepperAction:" target="-2" id="dgw-E5-iOe"/>
                                         </connections>
                                     </stepper>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="dJc-t6-beA" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="18" y="1009" width="392" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose font sizes (in points) for each of the 3 text size presets - Normal, Larger, and Largest" id="RIx-Eu-m1c" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.74587703250000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </view>
                         </subviews>

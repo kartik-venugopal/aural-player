@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jEX-6G-zke" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="18" y="179" width="81" height="23"/>
+                    <rect key="frame" x="18" y="177" width="81" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Text font" id="nP1-M3-itb" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -31,7 +31,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="mJM-7n-Bh2" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="18" y="224" width="392" height="23"/>
+                    <rect key="frame" x="18" y="229" width="392" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Choose font family / weight for text and headings" id="FmG-Ha-pHb" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="14" name="Play-Regular"/>
@@ -40,7 +40,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="KIM-Ha-5tP">
-                    <rect key="frame" x="128" y="114" width="297" height="35"/>
+                    <rect key="frame" x="128" y="112" width="297" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Blue Stone - Labyrinth of Dreams" id="QZn-eE-8EJ" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="Exo-Medium"/>
@@ -49,7 +49,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="z1r-m3-8Kn">
-                    <rect key="frame" x="128" y="14" width="183" height="35"/>
+                    <rect key="frame" x="128" y="12" width="183" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Tracks" id="yXn-mq-tnI" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="Exo-Medium"/>
@@ -58,7 +58,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="9eF-c0-4f7" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="128" y="148" width="121" height="19"/>
+                    <rect key="frame" x="128" y="146" width="121" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preview (size 14)" id="1Jz-p9-Ijq" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="Play-Regular"/>
@@ -67,7 +67,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="7cQ-Nq-lX8" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="128" y="48" width="135" height="19"/>
+                    <rect key="frame" x="128" y="46" width="135" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preview (size 18)" id="3G0-sg-52d" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="12" name="Play-Regular"/>
@@ -76,7 +76,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="m4j-jg-5y3" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="18" y="79" width="108" height="23"/>
+                    <rect key="frame" x="18" y="77" width="108" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Heading font" id="3GH-Pf-9Mc" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -85,7 +85,7 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZ1-BI-nVW" userLabel="Text Font menu">
-                    <rect key="frame" x="127" y="173" width="269" height="25"/>
+                    <rect key="frame" x="127" y="171" width="269" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="xZ8-hp-QrT" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -97,7 +97,7 @@
                     </connections>
                 </popUpButton>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-Vw-1KF" userLabel="Heading Font menu">
-                    <rect key="frame" x="127" y="73" width="269" height="25"/>
+                    <rect key="frame" x="127" y="71" width="269" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="na5-l9-aZ0" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>

@@ -12,6 +12,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
     private lazy var generalView: FontSetsViewProtocol = GeneralFontSetViewController()
     private lazy var playerView: FontSetsViewProtocol = PlayerFontSetViewController()
     private lazy var playlistView: FontSetsViewProtocol = PlaylistFontSetViewController()
+    private lazy var effectsView: FontSetsViewProtocol = EffectsFontSetViewController()
     
     private var subViews: [FontSetsViewProtocol] = []
     
@@ -26,12 +27,8 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         self.window?.isMovableByWindowBackground = true
 
         // Add the subviews to the tab group
-        subViews = [generalView, playerView, playlistView]
-        
-//        tabView.addViewsForTabs(subViews.map {$0.fontSetsView})
-        tabView.addViewsForTabs([generalView.fontSetsView, playerView.fontSetsView, playlistView.fontSetsView, NSView()])
-        
-        subViews.forEach {$0.resetFields(FontSets.systemFontSet)}
+        subViews = [generalView, playerView, playlistView, effectsView]
+        tabView.addViewsForTabs(subViews.map {$0.fontSetsView})
 
         // Register self as a modal component
         WindowManager.registerModalComponent(self)
@@ -44,12 +41,10 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
             _ = self.window!
         }
         
-        // Reset the subviews according to the current system color scheme, and show the first tab
-//        subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history, clipboard)})
-        tabView.selectTabViewItem(at: 2)
+        subViews.forEach {$0.resetFields(FontSets.systemFontSet)}
         
-        // Enable/disable function buttons
-//        updateButtonStates()
+        // Reset the subviews according to the current system color scheme, and show the first tab
+        tabView.selectTabViewItem(at: 3)
         
         UIUtils.showDialog(self.window!)
         
