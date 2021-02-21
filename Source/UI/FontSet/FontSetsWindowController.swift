@@ -11,6 +11,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
     
     private lazy var generalView: FontSetsViewProtocol = GeneralFontSetViewController()
     private lazy var playerView: FontSetsViewProtocol = PlayerFontSetViewController()
+    private lazy var playlistView: FontSetsViewProtocol = PlaylistFontSetViewController()
     
     private var subViews: [FontSetsViewProtocol] = []
     
@@ -25,10 +26,10 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         self.window?.isMovableByWindowBackground = true
 
         // Add the subviews to the tab group
-        subViews = [generalView, playerView]
+        subViews = [generalView, playerView, playlistView]
         
 //        tabView.addViewsForTabs(subViews.map {$0.fontSetsView})
-        tabView.addViewsForTabs([generalView.fontSetsView, playerView.fontSetsView, NSView(), NSView()])
+        tabView.addViewsForTabs([generalView.fontSetsView, playerView.fontSetsView, playlistView.fontSetsView, NSView()])
         
         subViews.forEach {$0.resetFields(FontSets.systemFontSet)}
 
@@ -45,7 +46,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         
         // Reset the subviews according to the current system color scheme, and show the first tab
 //        subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history, clipboard)})
-        tabView.selectTabViewItem(at: 0)
+        tabView.selectTabViewItem(at: 2)
         
         // Enable/disable function buttons
 //        updateButtonStates()
@@ -62,24 +63,6 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         NSColorPanel.shared.close()
         UIUtils.dismissDialog(self.window!)
     }
-    
-    func changeFont(_ sender: Any?) {
-            
-            // the sender is a font manager
-            guard let fontManager = sender as? NSFontManager else {
-                return
-            }
-            
-            // the newly selected font
-            /*
-                you can actually pass in any font into the .convert() function and it
-                will return the selected font from the panel, lol
-            */
-            
-    //        let newFont = fontManager.convert(NSFont.systemFont(ofSize: 13.0))
-        let selFont = fontManager.convert(Fonts.Standard.captionFont_13)
-        print("You selected the font:", selFont.displayName, selFont.fontName, selFont.familyName, selFont.pointSize)
-    }
 }
 
 /*
@@ -93,10 +76,4 @@ protocol FontSetsViewProtocol {
     // Reset all UI controls every time the dialog is shown or a new color scheme is applied.
     // NOTE - the history and clipboard are shared across all views
     func resetFields(_ fontSet: FontSet)
-    
-    // If the last change was made to a control in this view, performs an undo operation and returns true. Otherwise, does nothing and returns false.
-//    func undoChange(_ lastChange: ColorSchemeChange) -> Bool
-//
-//    // If the last undo was performed on a control in this view, performs a redo operation and returns true. Otherwise, does nothing and returns false.
-//    func redoChange(_ lastChange: ColorSchemeChange) -> Bool
 }

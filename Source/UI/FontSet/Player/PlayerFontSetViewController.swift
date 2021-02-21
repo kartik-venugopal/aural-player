@@ -73,6 +73,8 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
         txtTitleLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
+    
+    
     @IBAction func artistAlbumNormalSizeStepperAction(_ sender: NSStepper) {
         txtArtistAlbumNormalSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
@@ -84,6 +86,8 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
     @IBAction func artistAlbumLargestSizeStepperAction(_ sender: NSStepper) {
         txtArtistAlbumLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
+    
+    
     
     @IBAction func chapterTitleNormalSizeStepperAction(_ sender: NSStepper) {
         txtChapterTitleNormalSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
@@ -97,6 +101,8 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
         txtChapterTitleLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
+    
+    
     @IBAction func seekPositionNormalSizeStepperAction(_ sender: NSStepper) {
         txtSeekPositionNormalSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
@@ -108,6 +114,8 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
     @IBAction func seekPositionLargestSizeStepperAction(_ sender: NSStepper) {
         txtSeekPositionLargestSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
+    
+    
     
     @IBAction func feedbackTextNormalSizeStepperAction(_ sender: NSStepper) {
         txtFeedbackTextNormalSize.stringValue = String(format: "%.1f", sender.floatValue / 10.0)

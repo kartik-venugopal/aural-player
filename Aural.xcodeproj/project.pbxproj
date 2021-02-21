@@ -503,6 +503,8 @@
 		3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */; };
 		3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */; };
 		3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */; };
+		3EE7CB9525E21F9F0075F1DD /* PlaylistFontSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9425E21F9F0075F1DD /* PlaylistFontSet.xib */; };
+		3EE7CB9825E21FAE0075F1DD /* PlaylistFontSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9725E21FAE0075F1DD /* PlaylistFontSetViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1009,6 +1011,8 @@
 		3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlmendraSC-Regular.ttf"; sourceTree = "<group>"; };
 		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
 		3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Play-Regular.ttf"; sourceTree = "<group>"; };
+		3EE7CB9425E21F9F0075F1DD /* PlaylistFontSet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistFontSet.xib; sourceTree = "<group>"; };
+		3EE7CB9725E21FAE0075F1DD /* PlaylistFontSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFontSetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1029,6 +1033,7 @@
 				3E91932E25E0DA9C00F30F81 /* FontSetsWindowController.swift */,
 				3E91932725E0CF4200F30F81 /* General */,
 				3E45C03025E1261800C1519C /* Player */,
+				3EE7CB9325E21F890075F1DD /* Playlist */,
 				3E2ED4A425DBAD8400732E79 /* FontSet.swift */,
 				3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */,
 				3E2ED4A825DBC50500732E79 /* FontSets.swift */,
@@ -2427,6 +2432,15 @@
 			path = MenuBarMode;
 			sourceTree = "<group>";
 		};
+		3EE7CB9325E21F890075F1DD /* Playlist */ = {
+			isa = PBXGroup;
+			children = (
+				3EE7CB9425E21F9F0075F1DD /* PlaylistFontSet.xib */,
+				3EE7CB9725E21FAE0075F1DD /* PlaylistFontSetViewController.swift */,
+			);
+			path = Playlist;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2547,6 +2561,7 @@
 				3E6C124625CEBDF400BF0D07 /* Playlist.xib in Resources */,
 				3E6C125925CEBE0600BF0D07 /* BookmarksEditor.xib in Resources */,
 				3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */,
+				3EE7CB9525E21F9F0075F1DD /* PlaylistFontSet.xib in Resources */,
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
 				3E6C123D25CEBDF400BF0D07 /* Artists.xib in Resources */,
 				3E6C12AD25CEBE2700BF0D07 /* StringInputPopover.xib in Resources */,
@@ -2937,6 +2952,7 @@
 				3E6C117125CEBD6000BF0D07 /* TranscoderState.swift in Sources */,
 				3E6C119225CEBD6D00BF0D07 /* ReverbUnit.swift in Sources */,
 				3E6C11D325CEBDBE00BF0D07 /* PlaybackRequestContext.swift in Sources */,
+				3EE7CB9825E21FAE0075F1DD /* PlaylistFontSetViewController.swift in Sources */,
 				3E6C120925CEBDD100BF0D07 /* SortComparator.swift in Sources */,
 				3E6C11D025CEBDBE00BF0D07 /* PlaybackSchedulerProtocol.swift in Sources */,
 				3E6C11C625CEBDB400BF0D07 /* SequencerDelegate.swift in Sources */,
