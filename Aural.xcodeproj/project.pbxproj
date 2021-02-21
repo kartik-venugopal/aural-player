@@ -18,6 +18,8 @@
 		3E45C03325E1264C00C1519C /* PlayerFontSet.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E45C03225E1264C00C1519C /* PlayerFontSet.xib */; };
 		3E45C03625E1269500C1519C /* PlayerFontSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C03525E1269500C1519C /* PlayerFontSetViewController.swift */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
+		3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */; };
+		3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
 		3E6C115725CEB9C200BF0D07 /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114E25CEB9C100BF0D07 /* ffmpeg */; };
@@ -519,6 +521,8 @@
 		3E45C03225E1264C00C1519C /* PlayerFontSet.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerFontSet.xib; sourceTree = "<group>"; };
 		3E45C03525E1269500C1519C /* PlayerFontSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFontSetViewController.swift; sourceTree = "<group>"; };
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
+		3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neo-latina-demo-FFP.ttf"; sourceTree = "<group>"; };
+		3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-freak.regular.ttf"; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E6C0EC925CEB3EE00BF0D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2369,6 +2373,8 @@
 			children = (
 				3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */,
 				3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */,
+				3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */,
+				3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */,
 				3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */,
 				3E25558125DE48AB00CD7938 /* Handlee-Regular.ttf */,
 				3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */,
@@ -2510,6 +2516,8 @@
 				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
 				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */,
+				3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */,
+				3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */,
 				3E25558925DE49F100CD7938 /* Handlee-Regular.ttf in Resources */,
 				3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */,
 				3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */,

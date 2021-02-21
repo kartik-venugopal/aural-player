@@ -169,7 +169,7 @@
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="RSJ-nq-QIK" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="223" width="392" height="29"/>
+                                        <rect key="frame" x="18" y="223" width="392" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose font sizes (in points) for each of the UI elements" id="XkO-zL-L30" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                             <font key="font" size="14" name="Play-Regular"/>

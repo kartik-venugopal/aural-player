@@ -32,8 +32,6 @@ class GeneralFontSetViewController: NSViewController, FontSetsViewProtocol {
     
     func resetFields(_ fontSet: FontSet) {
         
-//        print("Current font:", fontSet.player.infoBoxTitleFont_normal.familyName, fontSet.player.infoBoxTitleFont_normal.displayName, fontSet.player.infoBoxTitleFont_normal.fontName)
-        
         textFontMenu.removeAllItems()
         headingFontMenu.removeAllItems()
         

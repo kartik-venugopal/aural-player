@@ -141,6 +141,55 @@ struct Fonts {
             static let captionFont_21: NSFont = NSFont(name: "WalterTurncoat", size: 21)!
         }
     
+    struct Futuristic {
+            
+            static let mainFont_8: NSFont = NSFont(name: "ControlFreak", size: 8)!
+            
+            static let mainFont_9: NSFont = NSFont(name: "ControlFreak", size: 9)!
+            
+            static let mainFont_10: NSFont = NSFont(name: "ControlFreak", size: 10)!
+            static let mainFont_10_5: NSFont = NSFont(name: "ControlFreak", size: 10.5)!
+            
+            static let mainFont_11: NSFont = NSFont(name: "ControlFreak", size: 11)!
+            static let mainFont_11_5: NSFont = NSFont(name: "ControlFreak", size: 11.5)!
+            
+            static let mainFont_12: NSFont = NSFont(name: "ControlFreak", size: 12)!
+            static let mainFont_12_5: NSFont = NSFont(name: "ControlFreak", size: 12.5)!
+            
+            static let mainFont_13: NSFont = NSFont(name: "ControlFreak", size: 13)!
+            static let mainFont_13_5: NSFont = NSFont(name: "ControlFreak", size: 13.5)!
+            
+            static let mainFont_14: NSFont = NSFont(name: "ControlFreak", size: 14)!
+            static let mainFont_14_5: NSFont = NSFont(name: "ControlFreak", size: 14.5)!
+            
+            static let mainFont_15: NSFont = NSFont(name: "ControlFreak", size: 15)!
+            static let mainFont_15_5: NSFont = NSFont(name: "ControlFreak", size: 15.5)!
+            
+            static let mainFont_16: NSFont = NSFont(name: "ControlFreak", size: 16)!
+            static let mainFont_16_5: NSFont = NSFont(name: "ControlFreak", size: 16.5)!
+            
+            static let mainFont_17: NSFont = NSFont(name: "ControlFreak", size: 17)!
+            
+            static let mainFont_18: NSFont = NSFont(name: "ControlFreak", size: 18)!
+            static let mainFont_19: NSFont = NSFont(name: "ControlFreak", size: 19)!
+            
+            static let mainFont_20: NSFont = NSFont(name: "ControlFreak", size: 20)!
+            
+            static let captionFont_11: NSFont = NSFont(name: "neo-latina", size: 11)!
+            static let captionFont_12: NSFont = NSFont(name: "neo-latina", size: 12)!
+            static let captionFont_13: NSFont = NSFont(name: "neo-latina", size: 13)!
+            static let captionFont_14: NSFont = NSFont(name: "neo-latina", size: 14)!
+            static let captionFont_14_5: NSFont = NSFont(name: "neo-latina", size: 14.5)!
+            static let captionFont_15: NSFont = NSFont(name: "neo-latina", size: 15)!
+            static let captionFont_16: NSFont = NSFont(name: "neo-latina", size: 16)!
+            static let captionFont_17: NSFont = NSFont(name: "neo-latina", size: 17)!
+            
+            static let captionFont_18: NSFont = NSFont(name: "neo-latina", size: 18)!
+            static let captionFont_19: NSFont = NSFont(name: "neo-latina", size: 19)!
+            static let captionFont_20: NSFont = NSFont(name: "neo-latina", size: 20)!
+            static let captionFont_21: NSFont = NSFont(name: "neo-latina", size: 21)!
+        }
+    
     struct Gothic {
             static let mainFont_8: NSFont = NSFont(name: "Metamorphous", size: 8)!
             

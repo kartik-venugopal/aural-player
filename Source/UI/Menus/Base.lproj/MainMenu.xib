@@ -1089,6 +1089,12 @@ CA
                                                 <action selector="applyFontSetAction:" target="lih-ya-6jC" id="7YO-CS-sdd"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Futuristic" indentationLevel="1" id="A4N-BE-5tb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applyFontSetAction:" target="lih-ya-6jC" id="RaH-Qz-fzn"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Novelist" indentationLevel="1" id="uDw-Rc-o8K">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1099,6 +1105,13 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applyFontSetAction:" target="lih-ya-6jC" id="lic-Ye-lR8"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="vWW-EI-BWf"/>
+                                        <menuItem title="Customize ..." indentationLevel="1" id="tVF-bO-F8U">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="customizeFontSetAction:" target="lih-ya-6jC" id="IrS-26-zdj"/>
                                             </connections>
                                         </menuItem>
                                     </items>

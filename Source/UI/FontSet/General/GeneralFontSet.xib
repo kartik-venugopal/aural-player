@@ -31,7 +31,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="mJM-7n-Bh2" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="18" y="229" width="392" height="23"/>
+                    <rect key="frame" x="18" y="223" width="392" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Choose font family / weight for text and headings" id="FmG-Ha-pHb" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="14" name="Play-Regular"/>

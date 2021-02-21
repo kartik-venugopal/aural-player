@@ -273,6 +273,12 @@
                                                                     <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="EQC-nx-zTl"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Futuristic" indentationLevel="1" id="zp0-54-BsY">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="8er-JT-d7B"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem title="Novelist" indentationLevel="1" id="rKV-Kl-mba">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
