@@ -69,7 +69,7 @@ class FontSetHistory {
     }
     
     // Removes (pops) and returns the first possible undo operation, if one is available.
-    func undoLastChange() -> FontSetChange? {
+    func undoLastChange() -> FontSet? {
         
         // Capture a snapshot of the system color scheme for a potential "Redo all" operation later.
         // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
@@ -81,7 +81,7 @@ class FontSetHistory {
         if let change = undoStack.pop() {
             
             redoStack.push(change)
-            return change
+            return change.undoValue
         }
         
         // Undo not possible.
@@ -107,13 +107,13 @@ class FontSetHistory {
     }
     
     // Removes (pops) and returns the first possible redo operation, if one is available.
-    func redoLastChange() -> FontSetChange? {
+    func redoLastChange() -> FontSet? {
         
         // Try popping the redo stack. If a change is available, transfer it onto the undo stack.
         if let change = redoStack.pop() {
             
             undoStack.push(change)
-            return change
+            return change.redoValue
         }
         
         // Redo not possible.

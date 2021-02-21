@@ -1040,6 +1040,7 @@
 				3E91932325E0CE2500F30F81 /* FontSets.xib */,
 				3E91932E25E0DA9C00F30F81 /* FontSetsWindowController.swift */,
 				3EA0102C25E28C4C00A80DAC /* FontSetChangeContext.swift */,
+				3EA0102825E2725900A80DAC /* FontSetHistory.swift */,
 				3E91932725E0CF4200F30F81 /* General */,
 				3E45C03025E1261800C1519C /* Player */,
 				3EE7CB9325E21F890075F1DD /* Playlist */,
@@ -1047,7 +1048,6 @@
 				3E2ED4A425DBAD8400732E79 /* FontSet.swift */,
 				3E2ED4A625DBB24F00732E79 /* FontSetPreset.swift */,
 				3E2ED4A825DBC50500732E79 /* FontSets.swift */,
-				3EA0102825E2725900A80DAC /* FontSetHistory.swift */,
 			);
 			path = FontSet;
 			sourceTree = "<group>";

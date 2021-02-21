@@ -22,4 +22,10 @@ class FontSets {
         
         return nil
     }
+    
+    static func applyFontSet(_ fontSet: FontSet) -> FontSet {
+
+        systemFontSet = fontSet.clone()
+        return systemFontSet
+    }
 }
