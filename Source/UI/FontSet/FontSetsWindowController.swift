@@ -59,6 +59,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         
         // Reset the change history (every time the dialog is shown)
         history.begin()
+        updateButtonStates()
         
         // Reset the subviews according to the current system color scheme, and show the first tab
         tabView.selectTabViewItem(at: 0)
