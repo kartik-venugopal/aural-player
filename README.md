@@ -148,6 +148,10 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ## Known issues
 
+### The text is too small on my high resolution Mac screen !!!
+
+The fix for this is easy. Go to the menu **View > Text Size**, and set the text size to ***Larger*** or ***Largest***, per your preference.
+
 ### Bad audio quality when connecting Bluetooth headphones
 
 If you notice poor audio quality when you first connect Bluetooth headphones, try the following:
