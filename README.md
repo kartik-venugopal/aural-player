@@ -16,7 +16,6 @@ Instead, I have worked to get Aural Player up and running on macOS Big Sur, and 
     + [Important note for macOS Big Sur](#important-note-for-macos-big-sur)
     + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
     + [Installation](#installation)
-    + [Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)](#granting-access-on-macos-catalina-or-later-versions-for-aural-player-v220-or-older)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
   * [Screenshots](#screenshots)
   * [Known issues](#known-issues)
@@ -27,7 +26,7 @@ Instead, I have worked to get Aural Player up and running on macOS Big Sur, and 
 
 ## Overview
 
-Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and customizable, with some sound tuning capabilities for audio enthusiasts.
+Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and customizable, with support for a wide variety of popular audio formats and some sound tuning capabilities for audio enthusiasts.
 
 #### Goals:
 * To have a simple drag-drop-play player for the music collection on your local drives, that requires no configuration out of the box, although plenty of customization/configuration is possible.
@@ -95,16 +94,6 @@ The contents of the "aural" folder should look like this:
 4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
-
-### Granting access on macOS Catalina or later versions (for Aural Player v2.2.0 or older)
-
-![Catalina security prompt screenshot](/Documentation/Screenshots/catalina-access-prompt.png?raw=true)
-
-Aural Player v2.2.0 (and older versions) use the **Documents** user folder to store persisted application state, logs, and transcoder output files. In other words, Aural Player needs access to the Documents directory to function.
-
-Due to increased security on macOS Catalina and later versions, you will need to grant Aural.app access to your Documents folder. Please perform this step once by going to **System Preferences > Security & Privacy > Privacy > Files and Folders**, and adding Aural.app with permission to access your Documents folder.
-
-NOTE - v2.3.0 and newer versions circumvent this problem by storing app state in the **Music** user folder instead of **Documents**.
 
 ### Enabling media keys support (optional)
 
