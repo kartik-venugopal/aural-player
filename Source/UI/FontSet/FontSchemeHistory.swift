@@ -28,7 +28,7 @@ class FontSchemeHistory {
         redoStack.clear()
         
         // Capture a snapshot of the system color scheme before any changes are made to it.
-        undoAllRestorePoint = FontSchemes.systemFontScheme.clone()
+        undoAllRestorePoint = FontSchemes.systemScheme.clone()
     }
     
     // Stores a record for a new change made to the system color scheme.
@@ -74,7 +74,7 @@ class FontSchemeHistory {
         // Capture a snapshot of the system color scheme for a potential "Redo all" operation later.
         // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
         if redoStack.isEmpty && !undoStack.isEmpty {
-            redoAllRestorePoint = FontSchemes.systemFontScheme.clone()
+            redoAllRestorePoint = FontSchemes.systemScheme.clone()
         }
         
         // Try popping the undo stack. If a change is available, transfer it onto the redo stack.
@@ -94,7 +94,7 @@ class FontSchemeHistory {
         // Capture a snapshot of the system color scheme for a potential "Redo all" operation later.
         // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
         if redoStack.isEmpty && !undoStack.isEmpty {
-            redoAllRestorePoint = FontSchemes.systemFontScheme.clone()
+            redoAllRestorePoint = FontSchemes.systemScheme.clone()
         }
         
         // Transfer all records to the redo stack.

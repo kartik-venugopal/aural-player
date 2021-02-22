@@ -69,8 +69,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = false
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
-        cell.updateText(FontSchemes.systemFontScheme.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
-        cell.realignText(yOffset: FontSchemes.systemFontScheme.playlist.trackTextYOffset)
+        cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
         var image: NSImage?
         
@@ -103,8 +103,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = false
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
-        cell.updateText(FontSchemes.systemFontScheme.playlist.trackTextFont, ValueFormatter.formatSecondsToHMS(track.duration))
-        cell.realignText(yOffset: FontSchemes.systemFontScheme.playlist.trackTextYOffset)
+        cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, ValueFormatter.formatSecondsToHMS(track.duration))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
         return cell
     }
@@ -120,8 +120,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
             
-        cell.updateText(FontSchemes.systemFontScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
-        cell.realignText(yOffset: FontSchemes.systemFontScheme.playlist.groupTextYOffset)
+        cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
         imgView.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         // Constraints
@@ -145,8 +145,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
         
-        cell.updateText(FontSchemes.systemFontScheme.playlist.groupTextFont, ValueFormatter.formatSecondsToHMS(group.duration))
-        cell.realignText(yOffset: FontSchemes.systemFontScheme.playlist.groupTextYOffset)
+        cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, ValueFormatter.formatSecondsToHMS(group.duration))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
         
         return cell
     }

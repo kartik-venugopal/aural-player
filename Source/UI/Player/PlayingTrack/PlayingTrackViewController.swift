@@ -16,7 +16,7 @@ class PlayingTrackViewController: NSViewController, NotificationSubscriber {
         
         initSubscriptions()
         
-        infoView.applyFontScheme(FontSchemes.systemFontScheme)
+        infoView.applyFontScheme(FontSchemes.systemScheme)
         infoView.applyColorScheme(ColorSchemes.systemScheme)
     }
 

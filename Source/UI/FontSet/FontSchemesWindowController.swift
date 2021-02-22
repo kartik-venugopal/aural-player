@@ -3,7 +3,7 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system color scheme to be edited.
  */
-class FontSchemesWindowController: NSWindowController, ModalDialogDelegate {
+class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -19,6 +19,9 @@ class FontSchemesWindowController: NSWindowController, ModalDialogDelegate {
     private lazy var playerView: FontSchemesViewProtocol = PlayerFontSchemeViewController()
     private lazy var playlistView: FontSchemesViewProtocol = PlaylistFontSchemeViewController()
     private lazy var effectsView: FontSchemesViewProtocol = EffectsFontSchemeViewController()
+    
+    // Popover to collect user input (i.e. color scheme name) when saving new color schemes
+    lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private var subViews: [FontSchemesViewProtocol] = []
     
@@ -55,7 +58,7 @@ class FontSchemesWindowController: NSWindowController, ModalDialogDelegate {
             _ = self.window!
         }
         
-        subViews.forEach {$0.resetFields(FontSchemes.systemFontScheme)}
+        subViews.forEach {$0.resetFields(FontSchemes.systemScheme)}
         
         // Reset the change history (every time the dialog is shown)
         history.begin()
@@ -71,16 +74,29 @@ class FontSchemesWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func applyChangesAction(_ sender: Any) {
         
-        let undoValue: FontScheme = FontSchemes.systemFontScheme.clone()
+        let undoValue: FontScheme = FontSchemes.systemScheme.clone()
         
         let context = FontSchemeChangeContext()
-        generalView.applyFontScheme(context, to: FontSchemes.systemFontScheme)
+        generalView.applyFontScheme(context, to: FontSchemes.systemScheme)
         
-        [playerView, playlistView, effectsView].forEach {$0.applyFontScheme(context, to: FontSchemes.systemFontScheme)}
-        Messenger.publish(.applyFontScheme, payload: FontSchemes.systemFontScheme)
+        [playerView, playlistView, effectsView].forEach {$0.applyFontScheme(context, to: FontSchemes.systemScheme)}
+        Messenger.publish(.applyFontScheme, payload: FontSchemes.systemScheme)
         
-        let redoValue: FontScheme = FontSchemes.systemFontScheme.clone()
+        let redoValue: FontScheme = FontSchemes.systemScheme.clone()
         history.noteChange(undoValue, redoValue)
+    }
+    
+    @IBAction func saveSchemeAction(_ sender: Any) {
+        
+        // Allows the user to type in a name and save a new color scheme
+        userSchemesPopover.show(btnSave, NSRectEdge.minY)
+    }
+    
+    @IBAction func loadSchemeAction(_ sender: NSMenuItem) {
+        
+        if let scheme = FontSchemes.schemeByName(sender.title) {
+            subViews.forEach {$0.loadFontScheme(scheme)}
+        }
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {
@@ -145,6 +161,65 @@ class FontSchemesWindowController: NSWindowController, ModalDialogDelegate {
         btnRedo.enableIf(history.canRedo)
         btnRedoAll.enableIf(history.canRedo)
     }
+    
+    // MARK - MenuDelegate functions
+    
+    // When the menu is about to open, recreate the menu with to the currently available color schemes.
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        // Remove all user-defined scheme items
+        while let item = menu.item(at: 1), !item.isSeparatorItem {
+            menu.removeItem(at: 1)
+        }
+        
+        // Recreate the user-defined scheme items
+        FontSchemes.userDefinedSchemes.forEach({
+            
+            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.loadSchemeAction(_:)), keyEquivalent: "")
+            item.target = self
+            item.indentationLevel = 1
+            
+            menu.insertItem(item, at: 1)
+        })
+    }
+    
+    // MARK - StringInputReceiver functions (for saving new color schemes)
+    // TODO: Refactor this into a common ColorSchemesStringInputReceiver class to avoid duplication
+    
+    var inputPrompt: String {
+        return "Enter a new font scheme name:"
+    }
+    
+    var defaultValue: String? {
+        return "<New font scheme>"
+    }
+    
+    // Validates the name given by the user for the new font scheme that is to be saved.
+    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
+        
+        // Name cannot match the name of an existing scheme.
+        if FontSchemes.schemeWithNameExists(string) {
+            
+            return (false, "Font scheme with this name already exists !")
+        }
+        // Name cannot be empty
+        else if string.trim().isEmpty {
+            
+            return (false, "Name must have at least 1 non-whitespace character.")
+        }
+        // Valid name
+        else {
+            return (true, nil)
+        }
+    }
+    
+    // Receives a new color scheme name and saves the new scheme
+    func acceptInput(_ string: String) {
+        
+        // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
+        let newScheme: FontScheme = FontScheme(string, false, FontSchemes.systemScheme)
+        FontSchemes.addUserDefinedScheme(newScheme)
+    }
 }
 
 /*
@@ -158,6 +233,9 @@ protocol FontSchemesViewProtocol {
     // Reset all UI controls every time the dialog is shown or a new color scheme is applied.
     // NOTE - the history and clipboard are shared across all views
     func resetFields(_ fontScheme: FontScheme)
+    
+    // Load values from a font scheme into the UI fields
+    func loadFontScheme(_ fontScheme: FontScheme)
     
     func applyFontScheme(_ context: FontSchemeChangeContext, to fontScheme: FontScheme)
 }

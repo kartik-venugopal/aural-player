@@ -50,7 +50,7 @@ class ReverbView: NSView {
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        reverbSpaceMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
+        reverbSpaceMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
         reverbSpaceMenu.redraw()
     }
     

@@ -1077,34 +1077,35 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="  Font scheme" showsStateColumn="NO" id="73g-wl-K4J">
                                     <items>
+                                        <menuItem isSeparatorItem="YES" id="l9c-2i-7En"/>
                                         <menuItem title="Standard" indentationLevel="1" id="twz-YP-Djm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="eVQ-gO-1gL"/>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="eVQ-gO-1gL"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Programmer" indentationLevel="1" id="4Cd-oX-tVe">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="7YO-CS-sdd"/>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="7YO-CS-sdd"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Futuristic" indentationLevel="1" id="A4N-BE-5tb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="RaH-Qz-fzn"/>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="RaH-Qz-fzn"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Novelist" indentationLevel="1" id="uDw-Rc-o8K">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="MTd-0c-uWQ"/>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="MTd-0c-uWQ"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Gothic" indentationLevel="1" id="4Vr-Mn-cro">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="lic-Ye-lR8"/>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="lic-Ye-lR8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vWW-EI-BWf"/>
@@ -1115,7 +1116,16 @@ CA
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="lih-ya-6jC" id="wPa-Ho-vki"/>
+                                    </connections>
                                 </menu>
+                            </menuItem>
+                            <menuItem title="  Save current scheme" indentationLevel="1" id="sSv-dJ-0AG" userLabel="Save current scheme">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="saveSchemeAction:" target="lih-ya-6jC" id="h6u-Ys-SU9"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="nRU-Ye-xW2"/>
                             <menuItem title="  Color scheme" indentationLevel="1" id="vgD-4T-WSG" userLabel="Color scheme">

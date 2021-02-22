@@ -38,7 +38,7 @@ class FilterBandViewController: NSViewController {
         oneTimeSetup()
         resetFields()
         
-        applyFontScheme(FontSchemes.systemFontScheme)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -184,13 +184,13 @@ class FilterBandViewController: NSViewController {
         
         tabButton.redraw()
         
-        functionLabels.forEach({$0.font = FontSchemes.systemFontScheme.effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
         
-        filterTypeMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
+        filterTypeMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
         filterTypeMenu.redraw()
         
-        presetRangesMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
-        lblFrequencies.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
+        presetRangesMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        lblFrequencies.font = FontSchemes.systemScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

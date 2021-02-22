@@ -261,34 +261,35 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Font scheme" showsStateColumn="NO" id="jzT-Jm-871">
                                                         <items>
+                                                            <menuItem isSeparatorItem="YES" id="tT9-b3-jEi"/>
                                                             <menuItem title="Standard" indentationLevel="1" id="43j-ji-ycl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="IPD-5W-P11"/>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="IPD-5W-P11"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Programmer" indentationLevel="1" id="wd9-v0-USI">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="EQC-nx-zTl"/>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="EQC-nx-zTl"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Futuristic" indentationLevel="1" id="zp0-54-BsY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="8er-JT-d7B"/>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="8er-JT-d7B"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Novelist" indentationLevel="1" id="rKV-Kl-mba">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="awr-zz-ItR"/>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="awr-zz-ItR"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Gothic" indentationLevel="1" id="pc7-RT-aH8">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="2j0-0o-u7c"/>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="2j0-0o-u7c"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="GxE-An-9JV"/>
@@ -299,7 +300,16 @@
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="jyH-lC-gOA" id="lNm-nH-KbK"/>
+                                                        </connections>
                                                     </menu>
+                                                </menuItem>
+                                                <menuItem title="Save current scheme" id="61k-O1-7w2" userLabel="Save current scheme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="saveSchemeAction:" target="jyH-lC-gOA" id="leJ-0g-kch"/>
+                                                    </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="kCi-Zk-hgw"/>
                                                 <menuItem title="Color scheme" id="i7L-so-Yi8" userLabel="Color scheme">
@@ -512,8 +522,10 @@
         <customObject id="bsC-mz-7dU" customClass="SettingsPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="i7L-so-Yi8" id="9E8-JZ-anN"/>
+                <outlet property="applyFontSchemeMenuItem" destination="pIS-mt-Im2" id="gyj-Vf-Ina"/>
                 <outlet property="playerViewMenuItem" destination="b3A-Wj-7Xz" id="5jm-pE-nLY"/>
                 <outlet property="saveColorSchemeMenuItem" destination="qvE-di-9Bh" id="CAv-1G-tZt"/>
+                <outlet property="saveFontSchemeMenuItem" destination="61k-O1-7w2" id="SqX-7F-Hqn"/>
             </connections>
         </customObject>
     </objects>

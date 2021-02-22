@@ -30,12 +30,14 @@ class GeneralFontSchemeViewController: NSViewController, FontSchemesViewProtocol
         (headingFontMenuButton.selectedItem as! FontMenuItem).fontName
     }
     
+    var fontNameToDisplayNameMap: [String: String] = [:]
+    
     func resetFields(_ fontScheme: FontScheme) {
         
         textFontMenu.removeAllItems()
         headingFontMenu.removeAllItems()
         
-        var fontNameToDisplayNameMap: [String: String] = [:]
+        fontNameToDisplayNameMap.removeAll()
         
         for family in NSFontManager.shared.availableFontFamilies {
             
@@ -59,6 +61,11 @@ class GeneralFontSchemeViewController: NSViewController, FontSchemesViewProtocol
                 }
             }
         }
+        
+        loadFontScheme(fontScheme)
+    }
+    
+    func loadFontScheme(_ fontScheme: FontScheme) {
         
         if let displayNameOfTextFont = fontNameToDisplayNameMap[fontScheme.player.infoBoxTitleFont.fontName] {
             

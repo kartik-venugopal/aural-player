@@ -32,6 +32,10 @@ class EffectsFontSchemeViewController: NSViewController, FontSchemesViewProtocol
     func resetFields(_ fontScheme: FontScheme) {
         
         scrollToTop()
+        loadFontScheme(fontScheme)
+    }
+        
+    func loadFontScheme(_ fontScheme: FontScheme) {
         
         unitCaptionStepper.floatValue = Float(fontScheme.effects.unitCaptionFont.pointSize * 10)
         txtUnitCaption.stringValue = String(format: "%.1f", unitCaptionStepper.floatValue / 10.0)

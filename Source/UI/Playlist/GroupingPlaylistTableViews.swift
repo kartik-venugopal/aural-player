@@ -125,7 +125,7 @@ class GroupedItemNameCellView: GroupedItemCellView {
                 isGroup ? Colors.Playlist.groupNameSelectedTextColor : Colors.Playlist.trackNameSelectedTextColor :
                 isGroup ? Colors.Playlist.groupNameTextColor : Colors.Playlist.trackNameTextColor
             
-            textField?.font = isGroup ? FontSchemes.systemFontScheme.playlist.groupTextFont : FontSchemes.systemFontScheme.playlist.trackTextFont
+            textField?.font = isGroup ? FontSchemes.systemScheme.playlist.groupTextFont : FontSchemes.systemScheme.playlist.trackTextFont
         }
     }
 }
@@ -143,7 +143,7 @@ class GroupedItemDurationCellView: GroupedItemCellView {
             let isSelectedRow = rowIsSelected
             
             textField?.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-            textField?.font = isGroup ? FontSchemes.systemFontScheme.playlist.groupTextFont : FontSchemes.systemFontScheme.playlist.trackTextFont
+            textField?.font = isGroup ? FontSchemes.systemScheme.playlist.groupTextFont : FontSchemes.systemScheme.playlist.trackTextFont
         }
     }
 }

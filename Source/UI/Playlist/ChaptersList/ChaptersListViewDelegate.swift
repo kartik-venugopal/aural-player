@@ -52,8 +52,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = FontSchemes.systemFontScheme.playlist.trackTextFont
-        cell.selectedTextFont = FontSchemes.systemFontScheme.playlist.trackTextFont
+        cell.textFont = FontSchemes.systemScheme.playlist.trackTextFont
+        cell.selectedTextFont = FontSchemes.systemScheme.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
@@ -73,8 +73,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = FontSchemes.systemFontScheme.playlist.trackTextFont
-        cell.selectedTextFont = FontSchemes.systemFontScheme.playlist.trackTextFont
+        cell.textFont = FontSchemes.systemScheme.playlist.trackTextFont
+        cell.selectedTextFont = FontSchemes.systemScheme.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.trackNameTextColor
         cell.selectedTextColor = Colors.Playlist.trackNameSelectedTextColor
@@ -91,8 +91,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = FontSchemes.systemFontScheme.playlist.trackTextFont
-        cell.selectedTextFont = FontSchemes.systemFontScheme.playlist.trackTextFont
+        cell.textFont = FontSchemes.systemScheme.playlist.trackTextFont
+        cell.selectedTextFont = FontSchemes.systemScheme.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor

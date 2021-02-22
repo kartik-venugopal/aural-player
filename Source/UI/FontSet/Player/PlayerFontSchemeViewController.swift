@@ -24,6 +24,10 @@ class PlayerFontSchemeViewController: NSViewController, FontSchemesViewProtocol 
     }
     
     func resetFields(_ fontScheme: FontScheme) {
+        loadFontScheme(fontScheme)
+    }
+    
+    func loadFontScheme(_ fontScheme: FontScheme) {
         
         titleStepper.floatValue = Float(fontScheme.player.infoBoxTitleFont.pointSize * 10)
         txtTitle.stringValue = String(format: "%.1f", titleStepper.floatValue / 10.0)

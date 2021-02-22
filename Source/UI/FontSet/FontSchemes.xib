@@ -10,7 +10,7 @@
             <connections>
                 <outlet property="btnRedo" destination="RvB-EK-G7s" id="daO-gD-2Ky"/>
                 <outlet property="btnRedoAll" destination="Bnq-VF-YrN" id="6On-g3-y7q"/>
-                <outlet property="btnSave" destination="aZM-ae-M26" id="ufw-hY-uZJ"/>
+                <outlet property="btnSave" destination="E6C-cz-otb" id="GPN-lZ-5R6"/>
                 <outlet property="btnUndo" destination="AcJ-Ef-rzh" id="cQv-a0-xUu"/>
                 <outlet property="btnUndoAll" destination="VTB-ee-Af7" id="fA3-U1-TXs"/>
                 <outlet property="tabView" destination="cGW-mN-fC8" id="pEH-kv-S6c"/>
@@ -81,10 +81,10 @@
                             <action selector="redoAllChangesAction:" target="-2" id="Jg5-lJ-0ma"/>
                         </connections>
                     </button>
-                    <popUpButton toolTip="Load color scheme" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p06-l7-o6M" userLabel="Presets Menu">
+                    <popUpButton toolTip="Load font scheme" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p06-l7-o6M" userLabel="Presets Menu">
                         <rect key="frame" x="5" y="35" width="35" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" selectedItem="eAq-Fa-l9q" id="vat-cX-Voo">
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="vat-cX-Voo">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="11" name="Play-Regular"/>
                             <menu key="menu" showsStateColumn="NO" id="70Y-fL-w2q">
@@ -93,29 +93,44 @@
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
                                     <menuItem isSeparatorItem="YES" id="iFF-Yu-WRp"/>
-                                    <menuItem title="Black attack (default)" indentationLevel="1" id="xcv-z3-3JB">
+                                    <menuItem title="Standard" indentationLevel="1" id="Mpw-lt-X90">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="loadSchemeAction:" target="-2" id="eVD-WB-qUb"/>
+                                        </connections>
                                     </menuItem>
-                                    <menuItem title="Black &amp; aqua" indentationLevel="1" id="WkH-OY-dvb">
+                                    <menuItem title="Programmer" indentationLevel="1" id="q4c-GE-acj">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="loadSchemeAction:" target="-2" id="JG2-mF-bQI"/>
+                                        </connections>
                                     </menuItem>
-                                    <menuItem title="White blight" indentationLevel="1" id="fRY-g0-JkB">
+                                    <menuItem title="Futuristic" indentationLevel="1" id="zxk-un-9CC">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="loadSchemeAction:" target="-2" id="iUw-ir-HFS"/>
+                                        </connections>
                                     </menuItem>
-                                    <menuItem title="Gloomy day" indentationLevel="1" id="CyH-vm-gll">
+                                    <menuItem title="Novelist" indentationLevel="1" id="YOj-hG-jAM">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="loadSchemeAction:" target="-2" id="H8b-uk-LoU"/>
+                                        </connections>
                                     </menuItem>
-                                    <menuItem title="Brownie" indentationLevel="1" id="l3t-XH-rJw">
+                                    <menuItem title="Gothic" indentationLevel="1" id="kMh-hm-uPy">
                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="loadSchemeAction:" target="-2" id="c4r-Va-WUk"/>
+                                        </connections>
                                     </menuItem>
-                                    <menuItem title="The blues" indentationLevel="1" id="rhk-ct-gMl">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem isSeparatorItem="YES" id="Mkg-R5-EIJ"/>
-                                    <menuItem title="Customize ..." indentationLevel="1" id="FzR-CM-xVX">
+                                    <menuItem isSeparatorItem="YES" id="KG3-tH-5Sj"/>
+                                    <menuItem title="Customize ..." indentationLevel="1" id="X83-5H-lmQ">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
                                 </items>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="P9A-fd-mQN"/>
+                                </connections>
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
@@ -240,13 +255,16 @@ Gw
                             </tabViewItem>
                         </tabViewItems>
                     </tabView>
-                    <button toolTip="Save color scheme" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6C-cz-otb" userLabel="Save">
+                    <button toolTip="Save font scheme" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6C-cz-otb" userLabel="Save">
                         <rect key="frame" x="46" y="36" width="18" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveScheme" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="oTF-I4-fvC">
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="saveSchemeAction:" target="-2" id="evM-wa-oAb"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

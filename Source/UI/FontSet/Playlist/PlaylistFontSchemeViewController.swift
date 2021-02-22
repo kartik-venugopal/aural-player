@@ -47,6 +47,10 @@ class PlaylistFontSchemeViewController: NSViewController, FontSchemesViewProtoco
     func resetFields(_ fontScheme: FontScheme) {
         
         scrollToTop()
+        loadFontScheme(fontScheme)
+    }
+    
+    func loadFontScheme(_ fontScheme: FontScheme) {
         
         trackTextStepper.floatValue = Float(fontScheme.playlist.trackTextFont.pointSize * 10)
         txtTrackText.stringValue = String(format: "%.1f", trackTextStepper.floatValue / 10.0)

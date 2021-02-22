@@ -35,7 +35,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
         
         transcodingIcon.tintFunction = {return Colors.functionButtonColor}
         
-        applyFontScheme(FontSchemes.systemFontScheme)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -115,8 +115,8 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
     
     private func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTrack.font = FontSchemes.systemFontScheme.player.infoBoxTitleFont
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = FontSchemes.systemFontScheme.player.trackTimesFont})
+        lblTrack.font = FontSchemes.systemScheme.player.infoBoxTitleFont
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = FontSchemes.systemScheme.player.trackTimesFont})
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

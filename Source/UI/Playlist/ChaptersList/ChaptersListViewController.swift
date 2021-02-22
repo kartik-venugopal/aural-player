@@ -131,11 +131,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
-        lblWindowTitle.font = FontSchemes.systemFontScheme.playlist.chaptersListCaptionFont
-        lblSummary.font = FontSchemes.systemFontScheme.playlist.summaryFont
+        lblWindowTitle.font = FontSchemes.systemScheme.playlist.chaptersListCaptionFont
+        lblSummary.font = FontSchemes.systemScheme.playlist.summaryFont
         
-        txtSearch.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
-        lblNumMatches.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
+        txtSearch.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
+        lblNumMatches.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
         
         btnLoopChapter.onIf(player.chapterLoopExists)
         
@@ -377,11 +377,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
             chaptersListView.reloadData()
             chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
             
-            lblWindowTitle.font = FontSchemes.systemFontScheme.playlist.chaptersListCaptionFont
-            lblSummary.font = FontSchemes.systemFontScheme.playlist.summaryFont
+            lblWindowTitle.font = FontSchemes.systemScheme.playlist.chaptersListCaptionFont
+            lblSummary.font = FontSchemes.systemScheme.playlist.summaryFont
             
-            txtSearch.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
-            lblNumMatches.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
+            txtSearch.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
+            lblNumMatches.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
         }
     }
     

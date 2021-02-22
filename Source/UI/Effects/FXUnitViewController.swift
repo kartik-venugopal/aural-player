@@ -33,7 +33,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         oneTimeSetup()
         initControls()
         
-        applyFontScheme(FontSchemes.systemFontScheme)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -127,8 +127,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = FontSchemes.systemFontScheme.effects.unitCaptionFont
-        functionLabels.forEach({$0.font = FontSchemes.systemFontScheme.effects.unitFunctionFont})
+        lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
+        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
         presetsMenu.font = Fonts.menuFont
     }
     

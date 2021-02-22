@@ -68,7 +68,7 @@ class PlaybackView: NSView, ColorSchemeable {
 
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
         
-        applyFontScheme(FontSchemes.systemFontScheme)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     

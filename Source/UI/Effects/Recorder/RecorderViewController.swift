@@ -35,7 +35,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
     override func viewDidLoad() {
         
         initControls()
-        applyFontScheme(FontSchemes.systemFontScheme)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to notifications
@@ -133,15 +133,15 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
     
     private func fontsChanged() {
         
-        lblCaption.font = FontSchemes.systemFontScheme.effects.unitCaptionFont
+        lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
         
-        functionLabels.forEach({$0.font = FontSchemes.systemFontScheme.effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
         
         formatMenu.redraw()
-        formatMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
+        formatMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
         
         qualityMenu.redraw()
-        qualityMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
+        qualityMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

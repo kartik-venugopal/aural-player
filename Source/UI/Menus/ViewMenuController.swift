@@ -15,8 +15,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
     
     @IBOutlet weak var playerViewMenuItem: NSMenuItem!
-    @IBOutlet weak var playlistViewMenuItem: NSMenuItem!
-    @IBOutlet weak var effectsViewMenuItem: NSMenuItem!
     
     @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
@@ -56,10 +54,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         togglePlaylistMenuItem.onIf(WindowManager.isShowingPlaylist)
         toggleEffectsMenuItem.onIf(WindowManager.isShowingEffects)
         toggleChaptersListMenuItem.onIf(WindowManager.isShowingChaptersList)
-        
-        
-        playlistViewMenuItem.showIf_elseHide(WindowManager.isShowingPlaylist)
-        effectsViewMenuItem.showIf_elseHide(WindowManager.isShowingEffects)
         
         // Recreate the custom layout items
         self.windowLayoutsMenu.items.forEach({
