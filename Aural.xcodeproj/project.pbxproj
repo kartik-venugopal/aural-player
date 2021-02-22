@@ -20,6 +20,7 @@
 		3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */; };
 		3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */; };
 		3E645A0A25E39337006C6981 /* coming-soon.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E645A0925E3932D006C6981 /* coming-soon.regular.ttf */; };
+		3E645A0E25E395D6006C6981 /* FontSchemesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E645A0D25E395D6006C6981 /* FontSchemesState.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
 		3E6C115725CEB9C200BF0D07 /* ffmpeg in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114E25CEB9C100BF0D07 /* ffmpeg */; };
@@ -523,6 +524,7 @@
 		3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neo-latina-demo-FFP.ttf"; sourceTree = "<group>"; };
 		3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-freak.regular.ttf"; sourceTree = "<group>"; };
 		3E645A0925E3932D006C6981 /* coming-soon.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "coming-soon.regular.ttf"; sourceTree = "<group>"; };
+		3E645A0D25E395D6006C6981 /* FontSchemesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesState.swift; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E6C0EC925CEB3EE00BF0D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2219,6 +2221,7 @@
 				3E6C10FC25CEB98700BF0D07 /* UIState.swift */,
 				3E6C10FD25CEB98700BF0D07 /* Mapper.swift */,
 				3E6C10FE25CEB98700BF0D07 /* PlaylistState.swift */,
+				3E645A0D25E395D6006C6981 /* FontSchemesState.swift */,
 			);
 			path = AppState;
 			sourceTree = "<group>";
@@ -2604,6 +2607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E6C133B25CEBEA700BF0D07 /* GraphicsUtils.swift in Sources */,
+				3E645A0E25E395D6006C6981 /* FontSchemesState.swift in Sources */,
 				3E6C127725CEBE1800BF0D07 /* ColorSchemes.swift in Sources */,
 				3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewDelegates.swift in Sources */,
 				3E6C119125CEBD6D00BF0D07 /* FXUnitProtocols.swift in Sources */,

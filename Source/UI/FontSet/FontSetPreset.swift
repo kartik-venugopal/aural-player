@@ -135,13 +135,13 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_9
                 
-            case .programmer:  return Fonts.Programmer.mainFont_8
+            case .programmer:  return Fonts.Programmer.mainFont_9
                 
-            case .futuristic:   return Fonts.Futuristic.mainFont_11_5
+            case .futuristic:   return Fonts.Futuristic.mainFont_11
                 
-            case .novelist:  return Fonts.Novelist.mainFont_10
+            case .novelist:  return Fonts.Novelist.mainFont_9
                 
-            case .gothic:    return Fonts.Gothic.mainFont_8
+            case .gothic:    return Fonts.Gothic.mainFont_9
         }
     }
     
