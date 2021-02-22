@@ -68,7 +68,7 @@ enum FontSetPreset: String, CaseIterable {
             
         case .standard:  return Fonts.Standard.mainFont_15
             
-        case .programmer:  return Fonts.Programmer.mainFont_13
+        case .programmer:  return Fonts.Programmer.mainFont_14
             
         case .futuristic:   return Fonts.Futuristic.mainFont_19
             
@@ -102,7 +102,7 @@ enum FontSetPreset: String, CaseIterable {
             
         case .standard:  return Fonts.Standard.mainFont_11
             
-        case .programmer:  return Fonts.Programmer.mainFont_11
+        case .programmer:  return Fonts.Programmer.mainFont_10
             
         case .futuristic:   return Fonts.Futuristic.mainFont_14_5
             
@@ -151,9 +151,9 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_12
                 
-            case .programmer:  return Fonts.Programmer.mainFont_11
+            case .programmer:  return Fonts.Programmer.mainFont_12
                 
-            case .futuristic:   return Fonts.Futuristic.mainFont_15_5
+            case .futuristic:   return Fonts.Futuristic.mainFont_15
                 
             case .novelist:  return Fonts.Novelist.mainFont_12_5
                 
@@ -168,7 +168,7 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return -1
                 
-            case .programmer:  return 0
+            case .programmer:  return -1
                 
             case .futuristic:   return -2
                 
@@ -185,9 +185,9 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_12_5
                 
-            case .programmer:  return Fonts.Programmer.mainFont_12
+            case .programmer:  return Fonts.Programmer.mainFont_12_5
                 
-            case .futuristic:   return Fonts.Futuristic.mainFont_16_5
+            case .futuristic:   return Fonts.Futuristic.mainFont_16
                 
             case .novelist:  return Fonts.Novelist.mainFont_13_5
                 
@@ -202,7 +202,7 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return -1
                 
-            case .programmer:  return 0
+            case .programmer:  return -1
                 
             case .futuristic:   return -1
                 
@@ -219,9 +219,9 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_12_5
                 
-            case .programmer:  return Fonts.Programmer.mainFont_12
+            case .programmer:  return Fonts.Programmer.mainFont_12_5
                 
-            case .futuristic:   return Fonts.Futuristic.mainFont_16_5
+            case .futuristic:   return Fonts.Futuristic.mainFont_16
                 
             case .novelist:  return Fonts.Novelist.mainFont_13_5
                 
@@ -302,9 +302,9 @@ enum FontSetPreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return Fonts.Standard.captionFont_16
+            case .standard:  return Fonts.Standard.captionFont_18
                 
-            case .programmer:  return Fonts.Programmer.captionFont_15
+            case .programmer:  return Fonts.Programmer.captionFont_16
                 
             case .futuristic:   return Fonts.Futuristic.captionFont_19
                 
@@ -321,7 +321,7 @@ enum FontSetPreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_11
                 
-            case .programmer:  return Fonts.Programmer.mainFont_10_5
+            case .programmer:  return Fonts.Programmer.mainFont_11
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_14
                 
@@ -336,11 +336,11 @@ enum FontSetPreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return Fonts.Standard.captionFont_13
+            case .standard:  return Fonts.Standard.captionFont_14
                 
-            case .programmer:  return Fonts.Programmer.captionFont_11
+            case .programmer:  return Fonts.Programmer.captionFont_13
                 
-            case .futuristic:   return Fonts.Futuristic.captionFont_14_5
+            case .futuristic:   return Fonts.Futuristic.captionFont_14
                 
             case .novelist:  return Fonts.Novelist.captionFont_12_5
                 
