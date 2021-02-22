@@ -74,7 +74,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wT1-yV-TXT" userLabel="Track title">
-                                        <rect key="frame" x="299" y="76" width="53" height="20"/>
+                                        <rect key="frame" x="369" y="76" width="53" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="iVR-zc-BQE">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -83,7 +83,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuZ-j2-J7q">
-                                        <rect key="frame" x="354" y="71" width="19" height="28"/>
+                                        <rect key="frame" x="424" y="71" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="ZM1-oa-qJa"/>
                                         <connections>
@@ -91,7 +91,7 @@
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sis-aW-oNq" userLabel="Track title">
-                                        <rect key="frame" x="299" y="181" width="53" height="20"/>
+                                        <rect key="frame" x="369" y="181" width="53" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="64T-n4-BKC">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -100,7 +100,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akU-oF-8Ow">
-                                        <rect key="frame" x="354" y="176" width="19" height="28"/>
+                                        <rect key="frame" x="424" y="176" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="HDT-yg-Ej3"/>
                                         <connections>
@@ -108,7 +108,7 @@
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S4o-EB-nmU" userLabel="Track title">
-                                        <rect key="frame" x="299" y="146" width="53" height="20"/>
+                                        <rect key="frame" x="369" y="146" width="53" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="8HX-jN-dDt">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -117,7 +117,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcD-wx-crP">
-                                        <rect key="frame" x="354" y="141" width="19" height="28"/>
+                                        <rect key="frame" x="424" y="141" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="rWb-mv-uhz"/>
                                         <connections>
@@ -125,7 +125,7 @@
                                         </connections>
                                     </stepper>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bdg-kb-929" userLabel="Track title">
-                                        <rect key="frame" x="299" y="111" width="53" height="20"/>
+                                        <rect key="frame" x="369" y="111" width="53" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="osY-Q0-V3Q">
                                             <font key="font" size="13" name="Play-Regular"/>
@@ -134,7 +134,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L0h-Du-7Tx">
-                                        <rect key="frame" x="354" y="106" width="19" height="28"/>
+                                        <rect key="frame" x="424" y="106" width="19" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="tGh-cC-tUA"/>
                                         <connections>

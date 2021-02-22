@@ -1112,6 +1112,12 @@ CA
                                                 <action selector="applySchemeAction:" target="lih-ya-6jC" id="lic-Ye-lR8"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Papyrus" indentationLevel="1" id="aih-Qp-pzg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="yHm-VO-jkT"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vWW-EI-BWf"/>
                                         <menuItem title="Customize ..." indentationLevel="1" id="tVF-bO-F8U">
                                             <modifierMask key="keyEquivalentModifierMask"/>

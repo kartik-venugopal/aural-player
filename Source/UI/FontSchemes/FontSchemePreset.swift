@@ -20,6 +20,9 @@ enum FontSchemePreset: String, CaseIterable {
     // A semi-dark scheme with a gray background and lighter foreground elements.
     case gothic
     
+    // A semi-dark scheme with a gray background and lighter foreground elements.
+    case papyrus
+    
     // The preset to be used as the default system scheme (eg. when a user loads the app for the very first time)
     // or when some color values in a scheme are missing.
     static var defaultSet: FontSchemePreset {standard}
@@ -38,6 +41,8 @@ enum FontSchemePreset: String, CaseIterable {
         case FontSchemePreset.novelist.name:    return .novelist
             
         case FontSchemePreset.gothic.name:    return .gothic
+            
+        case FontSchemePreset.papyrus.name:     return .papyrus
             
         default:    return nil
             
@@ -59,6 +64,8 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .gothic:    return "Gothic"
             
+        case .papyrus:   return "Papyrus"
+            
         }
     }
     
@@ -75,6 +82,8 @@ enum FontSchemePreset: String, CaseIterable {
         case .novelist:  return Fonts.Novelist.mainFont_15
             
         case .gothic:    return Fonts.Gothic.mainFont_14
+            
+        case .papyrus:      return Fonts.Papyrus.mainFont_17
             
         }
     }
@@ -93,6 +102,8 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .gothic:    return Fonts.Gothic.mainFont_12
             
+        case .papyrus:      return Fonts.Papyrus.mainFont_14
+            
         }
     }
     
@@ -110,6 +121,8 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .gothic:    return Fonts.Gothic.mainFont_10
             
+        case .papyrus:      return Fonts.Papyrus.mainFont_11
+            
         }
     }
    
@@ -126,6 +139,8 @@ enum FontSchemePreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_12
                 
             case .gothic:    return Fonts.Gothic.mainFont_11
+                
+            case .papyrus:      return Fonts.Papyrus.mainFont_13
         }
     }
     
@@ -142,6 +157,8 @@ enum FontSchemePreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_9
                 
             case .gothic:    return Fonts.Gothic.mainFont_9
+                
+            case .papyrus:      return Fonts.Papyrus.mainFont_11
         }
     }
     
@@ -158,6 +175,8 @@ enum FontSchemePreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_12_5
                 
             case .gothic:    return Fonts.Gothic.mainFont_11_5
+                
+            case .papyrus:      return Fonts.Papyrus.mainFont_13_5
                 
         }
     }
@@ -176,6 +195,8 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .gothic:    return -1
                 
+            case .papyrus:   return 0
+                
         }
     }
     
@@ -192,6 +213,8 @@ enum FontSchemePreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_13_5
                 
             case .gothic:    return Fonts.Gothic.mainFont_12_5
+                
+            case .papyrus:      return Fonts.Papyrus.mainFont_14_5
                 
         }
     }
@@ -210,6 +233,8 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .gothic:    return -2
                 
+            case .papyrus:   return -1
+                
         }
     }
     
@@ -227,6 +252,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .gothic:    return Fonts.Gothic.mainFont_12_5
                 
+            case .papyrus:      return Fonts.Papyrus.mainFont_14_5
         }
     }
     
@@ -243,6 +269,8 @@ enum FontSchemePreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.captionFont_14
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
+                
+            case .papyrus:      return Fonts.Papyrus.captionFont_11
                 
         }
     }
@@ -261,6 +289,8 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
                 
+            case .papyrus:      return Fonts.Papyrus.captionFont_10
+                
         }
     }
     
@@ -278,6 +308,8 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .gothic:    return Fonts.Gothic.mainFont_11_5
                 
+            case .papyrus:      return Fonts.Papyrus.mainFont_13_5
+                
         }
     }
     
@@ -293,7 +325,9 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .novelist:  return Fonts.Novelist.captionFont_18
                 
-            case .gothic:    return Fonts.Gothic.captionFont_15
+            case .gothic:    return Fonts.Gothic.captionFont_17
+                
+            case .papyrus:   return Fonts.Papyrus.captionFont_12
                 
         }
     }
@@ -312,6 +346,8 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .gothic:    return Fonts.Gothic.captionFont_17
                 
+            case .papyrus:      return Fonts.Papyrus.captionFont_12_5
+                
         }
     }
     
@@ -329,6 +365,8 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .gothic:    return Fonts.Gothic.mainFont_11
                 
+            case .papyrus:      return Fonts.Papyrus.mainFont_12
+                
         }
     }
     
@@ -345,6 +383,8 @@ enum FontSchemePreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.captionFont_12_5
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
+                
+            case .papyrus:      return Fonts.Papyrus.captionFont_10
         }
     }
     
@@ -361,6 +401,8 @@ enum FontSchemePreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_11
                 
             case .gothic:    return Fonts.Gothic.mainFont_9
+                
+            case .papyrus:      return Fonts.Papyrus.mainFont_9
         }
     }
 }

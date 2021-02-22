@@ -292,6 +292,12 @@
                                                                     <action selector="applySchemeAction:" target="jyH-lC-gOA" id="2j0-0o-u7c"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Papyrus" indentationLevel="1" id="gjG-cI-Cmn">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="h1I-fR-GqS"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="GxE-An-9JV"/>
                                                             <menuItem title="Customize ..." indentationLevel="1" id="BQn-Vj-Y0Y">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
