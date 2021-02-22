@@ -7,8 +7,14 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
     @IBOutlet weak var trackTextStepper: NSStepper!
     @IBOutlet weak var txtTrackText: NSTextField!
     
+    @IBOutlet weak var trackTextYOffsetStepper: NSStepper!
+    @IBOutlet weak var txtTrackTextYOffset: NSTextField!
+    
     @IBOutlet weak var groupTextStepper: NSStepper!
     @IBOutlet weak var txtGroupText: NSTextField!
+    
+    @IBOutlet weak var groupTextYOffsetStepper: NSStepper!
+    @IBOutlet weak var txtGroupTextYOffset: NSTextField!
     
     @IBOutlet weak var summaryStepper: NSStepper!
     @IBOutlet weak var txtSummary: NSTextField!
@@ -45,8 +51,14 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
         trackTextStepper.floatValue = Float(fontSet.playlist.trackTextFont.pointSize * 10)
         txtTrackText.stringValue = String(format: "%.1f", trackTextStepper.floatValue / 10.0)
         
+        trackTextYOffsetStepper.integerValue = roundedInt(fontSet.playlist.trackTextYOffset)
+        txtTrackTextYOffset.stringValue = String(format: "%d px", trackTextYOffsetStepper.integerValue)
+        
         groupTextStepper.floatValue = Float(fontSet.playlist.groupTextFont.pointSize * 10)
         txtGroupText.stringValue = String(format: "%.1f", groupTextStepper.floatValue / 10.0)
+        
+        groupTextYOffsetStepper.integerValue = roundedInt(fontSet.playlist.groupTextYOffset)
+        txtGroupTextYOffset.stringValue = String(format: "%d px", groupTextYOffsetStepper.integerValue)
       
         summaryStepper.floatValue = Float(fontSet.playlist.summaryFont.pointSize * 10)
         txtSummary.stringValue = String(format: "%.1f", summaryStepper.floatValue / 10.0)
@@ -68,8 +80,16 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
         txtTrackText.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
+    @IBAction func trackTextYOffsetStepperAction(_ sender: NSStepper) {
+        txtTrackTextYOffset.stringValue = String(format: "%d px", trackTextYOffsetStepper.integerValue)
+    }
+    
     @IBAction func groupTextStepperAction(_ sender: NSStepper) {
         txtGroupText.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
+    }
+    
+    @IBAction func groupTextYOffsetStepperAction(_ sender: NSStepper) {
+        txtGroupTextYOffset.stringValue = String(format: "%d px", groupTextYOffsetStepper.integerValue)
     }
     
     @IBAction func summaryStepperAction(_ sender: NSStepper) {
@@ -98,9 +118,14 @@ class PlaylistFontSetViewController: NSViewController, FontSetsViewProtocol {
         let headingFontName = context.headingFontName
         
         fontSet.playlist.trackTextFont = NSFont(name: textFontName, size: CGFloat(trackTextStepper.floatValue / 10.0))!
+        fontSet.playlist.trackTextYOffset = CGFloat(trackTextYOffsetStepper.integerValue)
+        
         fontSet.playlist.groupTextFont = NSFont(name: textFontName, size: CGFloat(groupTextStepper.floatValue / 10.0))!
+        fontSet.playlist.groupTextYOffset = CGFloat(groupTextYOffsetStepper.integerValue)
+        
         fontSet.playlist.summaryFont = NSFont(name: textFontName, size: CGFloat(summaryStepper.floatValue / 10.0))!
         fontSet.playlist.tabButtonTextFont = NSFont(name: headingFontName, size: CGFloat(tabButtonTextStepper.floatValue / 10.0))!
+        
         fontSet.playlist.chaptersListHeaderFont = NSFont(name: headingFontName, size: CGFloat(chaptersListHeaderStepper.floatValue / 10.0))!
         fontSet.playlist.chaptersListCaptionFont = NSFont(name: headingFontName, size: CGFloat(chaptersListHeadingStepper.floatValue / 10.0))!
         fontSet.playlist.chaptersListSearchFont = NSFont(name: textFontName, size: CGFloat(chaptersListSearchFieldStepper.floatValue / 10.0))!

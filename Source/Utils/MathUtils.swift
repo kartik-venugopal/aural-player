@@ -9,6 +9,10 @@ func roundedInt(_ floatVal: Float) -> Int {
     return lroundf(floatVal)
 }
 
+func roundedInt(_ cgFloatVal: CGFloat) -> Int {
+    return lroundf(Float(cgFloatVal))
+}
+
 // Rounds and converts a Double -> Int
 func roundedInt(_ doubleVal: Double) -> Int {
     return lround(doubleVal)

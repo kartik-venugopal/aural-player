@@ -87,11 +87,6 @@ class VALabelCell: NSTextFieldCell {
             
         }
         
-        // TODO: Clean this up
-        if self.title.starts(with: "Blue Stone") {
-            print("NewRect:", newRect, textSize, heightDelta, title)
-        }
-        
         return newRect
     }
     
