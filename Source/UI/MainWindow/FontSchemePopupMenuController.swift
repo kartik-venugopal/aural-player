@@ -5,9 +5,13 @@ import Cocoa
  */
 class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
+    @IBOutlet weak var manageSchemesMenuItem: NSMenuItem?
+    
     private lazy var fontSchemesDialog: ModalDialogDelegate = WindowFactory.fontSchemesDialog
     
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
+    
+    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -26,14 +30,13 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
             menu.insertItem(item, at: 0)
         }
         
-        // TODO
         // Schemes can only be managed if there is at least one user-defined scheme
-//        manageSchemesMenuItem?.enableIf(ColorSchemes.numberOfUserDefinedSchemes > 0)
+        manageSchemesMenuItem?.enableIf(FontSchemes.numberOfUserDefinedSchemes > 0)
     }
     
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
         
-        if let fontScheme = FontSchemes.applyFontScheme(named: sender.title) {
+        if let fontScheme = FontSchemes.applyScheme(named: sender.title) {
             Messenger.publish(.applyFontScheme, payload: fontScheme)
         }
     }
@@ -44,6 +47,10 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
     
     @IBAction func saveSchemeAction(_ sender: NSMenuItem) {
         userSchemesPopover.show(WindowManager.mainWindow.contentView!, NSRectEdge.maxX)
+    }
+    
+    @IBAction func manageSchemesAction(_ sender: NSMenuItem) {
+        editorWindowController.showFontSchemesEditor()
     }
     
     // MARK - StringInputReceiver functions (to receive the name of a new user-defined color scheme)

@@ -139,7 +139,11 @@
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
-        <customObject id="lih-ya-6jC" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="lih-ya-6jC" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="manageSchemesMenuItem" destination="PXA-nL-cxl" id="Mt9-7b-V26"/>
+            </connections>
+        </customObject>
         <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="manageSchemesMenuItem" destination="3ie-xE-Lk9" id="uvR-z9-sCl"/>
@@ -1125,6 +1129,12 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveSchemeAction:" target="lih-ya-6jC" id="h6u-Ys-SU9"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="  Manage font schemes" indentationLevel="1" id="PXA-nL-cxl" userLabel="Manage font schemes">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="manageSchemesAction:" target="lih-ya-6jC" id="M5V-h0-vF6"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="nRU-Ye-xW2"/>

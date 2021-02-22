@@ -14,7 +14,7 @@ class FontSchemes {
         systemScheme = FontScheme(appState.systemScheme, true)
     }
     
-    static func applyFontScheme(named name: String) -> FontScheme? {
+    static func applyScheme(named name: String) -> FontScheme? {
         
         if let fontSchemePreset = FontSchemePreset.presetByName(name) {
             
@@ -42,7 +42,7 @@ class FontSchemes {
         return nil
     }
     
-    static func applyFontScheme(_ fontScheme: FontScheme) -> FontScheme {
+    static func applyScheme(_ fontScheme: FontScheme) -> FontScheme {
 
         systemScheme = FontScheme("_system_", true, fontScheme)
         return systemScheme

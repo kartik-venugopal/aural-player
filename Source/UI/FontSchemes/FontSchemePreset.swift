@@ -153,7 +153,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .programmer:  return Fonts.Programmer.mainFont_12
                 
-            case .futuristic:   return Fonts.Futuristic.mainFont_15
+            case .futuristic:   return Fonts.Futuristic.mainFont_15_5
                 
             case .novelist:  return Fonts.Novelist.mainFont_12_5
                 

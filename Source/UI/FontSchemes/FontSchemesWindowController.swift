@@ -101,7 +101,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     
     private func applyFontScheme(_ fontScheme: FontScheme) {
         
-        let systemFontScheme = FontSchemes.applyFontScheme(fontScheme)
+        let systemFontScheme = FontSchemes.applyScheme(fontScheme)
         subViews.forEach {$0.resetFields(systemFontScheme)}
         Messenger.publish(.applyFontScheme, payload: systemFontScheme)
         

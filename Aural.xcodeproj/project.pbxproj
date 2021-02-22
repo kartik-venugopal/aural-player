@@ -500,6 +500,9 @@
 		3E9E591025DB6B150064EB5F /* RegularAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* RegularAppModeController.swift */; };
 		3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */; };
 		3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */; };
+		3EA3CE6725E3FD9E00BC7D07 /* FontSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */; };
+		3EA3CE6A25E3FDE000BC7D07 /* FontSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */; };
+		3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */; };
 		3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */; };
@@ -1011,6 +1014,9 @@
 		3E9E590125DB6B150064EB5F /* RegularAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularAppModeController.swift; sourceTree = "<group>"; };
 		3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeHistory.swift; sourceTree = "<group>"; };
 		3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeChangeContext.swift; sourceTree = "<group>"; };
+		3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemesEditor.xib; sourceTree = "<group>"; };
+		3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesEditorViewController.swift; sourceTree = "<group>"; };
+		3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreviewView.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlmendraSC-Regular.ttf"; sourceTree = "<group>"; };
 		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
@@ -1391,6 +1397,7 @@
 				3E6C0F8925CEB98600BF0D07 /* Bookmarks */,
 				3E6C0F8C25CEB98600BF0D07 /* Layouts */,
 				3E6C0F9025CEB98600BF0D07 /* ColorSchemes */,
+				3EA3CE6525E3FD5300BC7D07 /* FontSchemes */,
 				3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */,
 			);
 			path = Editors;
@@ -2440,6 +2447,16 @@
 			path = MenuBarMode;
 			sourceTree = "<group>";
 		};
+		3EA3CE6525E3FD5300BC7D07 /* FontSchemes */ = {
+			isa = PBXGroup;
+			children = (
+				3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */,
+				3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */,
+				3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */,
+			);
+			path = FontSchemes;
+			sourceTree = "<group>";
+		};
 		3EE7CB9325E21F890075F1DD /* Playlist */ = {
 			isa = PBXGroup;
 			children = (
@@ -2533,6 +2550,7 @@
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsEditor.xib in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQ.xib in Resources */,
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
+				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesEditor.xib in Resources */,
 				3E6C12CB25CEBE6700BF0D07 /* Time.xib in Resources */,
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
@@ -2779,6 +2797,7 @@
 				3E6C12C425CEBE6700BF0D07 /* EQView.swift in Sources */,
 				3E6C123C25CEBDF400BF0D07 /* ArtistsPlaylistSortViewController.swift in Sources */,
 				3E6C121B25CEBDE600BF0D07 /* Strings.swift in Sources */,
+				3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */,
 				3E6C126225CEBE0600BF0D07 /* EditorWindowController.swift in Sources */,
 				3E6C11F025CEBDD100BF0D07 /* SoundPreferences.swift in Sources */,
 				3E6C118F25CEBD6D00BF0D07 /* PitchUnit.swift in Sources */,
@@ -3021,6 +3040,7 @@
 				3E824A4425DB74850089F217 /* StatusBarViewController.swift in Sources */,
 				3E6C11CF25CEBDBE00BF0D07 /* ApplyPlaybackProfileAction.swift in Sources */,
 				3E6C117A25CEBD6000BF0D07 /* AppStateProtocols.swift in Sources */,
+				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesEditorViewController.swift in Sources */,
 				3E6C132325CEBEA000BF0D07 /* UIUtils.swift in Sources */,
 				3E6C136425CEBF1000BF0D07 /* AlbumArtCache.swift in Sources */,
 				3E6C12F125CEBE8100BF0D07 /* FilterView.swift in Sources */,
