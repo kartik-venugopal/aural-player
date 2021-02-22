@@ -55,8 +55,6 @@ class GeneralFontSchemeViewController: NSViewController, FontSchemesViewProtocol
                         let newItem2 = FontMenuItem(title: displayName, action: nil, keyEquivalent: "")
                         newItem2.fontName = fontName
                         headingFontMenu.addItem(newItem2)
-                        
-                        print(fontName, weight)
                     }
                 }
             }

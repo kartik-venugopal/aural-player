@@ -6,6 +6,7 @@ import Foundation
 class UIState: PersistentState {
     
     var windowLayout: WindowLayoutState = WindowLayoutState()
+    var fontSchemes: FontSchemesState = FontSchemesState()
     var colorSchemes: ColorSchemesState = ColorSchemesState()
     var player: PlayerUIState = PlayerUIState()
     var playlist: PlaylistUIState = PlaylistUIState()
@@ -16,6 +17,12 @@ class UIState: PersistentState {
         
         if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
             state.windowLayout = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
+        }
+        
+        if let fontSchemesMap = map["fontSchemes"] as? NSDictionary,
+            let fontSchemes = FontSchemesState.deserialize(fontSchemesMap) as? FontSchemesState {
+            
+            state.fontSchemes = fontSchemes
         }
         
         if let colorSchemesMap = map["colorSchemes"] as? NSDictionary,
