@@ -37,6 +37,8 @@ class FilterBandViewController: NSViewController {
         
         oneTimeSetup()
         resetFields()
+        
+        applyFontSet(FontSets.systemFontSet)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     

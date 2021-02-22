@@ -85,7 +85,11 @@ class PlayerFontSet {
 class PlaylistFontSet {
 
     var trackTextFont: NSFont
+    var trackTextYOffset: CGFloat
+    
     var groupTextFont: NSFont
+    var groupTextYOffset: CGFloat
+    
     var summaryFont: NSFont
     var tabButtonTextFont: NSFont
     var chaptersListHeaderFont: NSFont
@@ -95,7 +99,9 @@ class PlaylistFontSet {
     init(preset: FontSetPreset) {
         
         self.trackTextFont = preset.playlistTrackTextFont
+        self.trackTextYOffset = preset.playlistTrackTextYOffset
         self.groupTextFont = preset.playlistGroupTextFont
+        self.groupTextYOffset = preset.playlistGroupTextYOffset
         self.summaryFont = preset.playlistSummaryFont
         self.tabButtonTextFont = preset.playlistTabButtonTextFont
         self.chaptersListHeaderFont = preset.chaptersListHeaderFont
@@ -106,7 +112,9 @@ class PlaylistFontSet {
     init(_ fontSet: PlaylistFontSet) {
         
         self.trackTextFont = fontSet.trackTextFont
+        self.trackTextYOffset = fontSet.trackTextYOffset
         self.groupTextFont = fontSet.groupTextFont
+        self.groupTextYOffset = fontSet.groupTextYOffset
         self.summaryFont = fontSet.summaryFont
         self.tabButtonTextFont = fontSet.tabButtonTextFont
         self.chaptersListHeaderFont = fontSet.chaptersListHeaderFont

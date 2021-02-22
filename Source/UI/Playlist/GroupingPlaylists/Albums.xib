@@ -51,19 +51,19 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="15c-ix-5A0" userLabel="Icon">
-                                                        <rect key="frame" x="8" y="6" width="16" height="18"/>
+                                                        <rect key="frame" x="3" y="6" width="16" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="16" id="dul-QN-guv"/>
                                                             <constraint firstAttribute="height" constant="18" id="vXv-xp-v2f"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="885-tl-72K"/>
                                                     </imageView>
-                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GZi-f8-q8M" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="28" y="2" width="351" height="30"/>
+                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GZi-f8-q8M" userLabel="Track Name">
+                                                        <rect key="frame" x="28" y="0.0" width="351" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="KvR-EV-FDa"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Owf-of-tsI" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Owf-of-tsI" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -71,10 +71,10 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="GZi-f8-q8M" firstAttribute="bottom" secondItem="VOq-Bg-6l2" secondAttribute="bottom" constant="-2" id="Tsn-dh-svp"/>
-                                                    <constraint firstItem="GZi-f8-q8M" firstAttribute="leading" secondItem="15c-ix-5A0" secondAttribute="trailing" constant="6" id="gHP-mE-PVX"/>
+                                                    <constraint firstItem="GZi-f8-q8M" firstAttribute="bottom" secondItem="VOq-Bg-6l2" secondAttribute="bottom" id="Tsn-dh-svp"/>
+                                                    <constraint firstItem="GZi-f8-q8M" firstAttribute="leading" secondItem="15c-ix-5A0" secondAttribute="trailing" constant="11" id="gHP-mE-PVX"/>
                                                     <constraint firstItem="15c-ix-5A0" firstAttribute="centerY" secondItem="VOq-Bg-6l2" secondAttribute="centerY" id="mAH-AT-sht"/>
-                                                    <constraint firstItem="15c-ix-5A0" firstAttribute="leading" secondItem="VOq-Bg-6l2" secondAttribute="leading" constant="8" id="oKh-Dz-8b8"/>
+                                                    <constraint firstItem="15c-ix-5A0" firstAttribute="leading" secondItem="VOq-Bg-6l2" secondAttribute="leading" constant="3" id="oKh-Dz-8b8"/>
                                                     <constraint firstAttribute="trailing" secondItem="GZi-f8-q8M" secondAttribute="trailing" id="trT-h0-aeu"/>
                                                 </constraints>
                                                 <connections>
@@ -100,12 +100,12 @@
                                                 <rect key="frame" x="391" y="2" width="84" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nIb-9O-Jw2" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="2" width="88" height="30"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nIb-9O-Jw2" userLabel="Duration">
+                                                        <rect key="frame" x="-7" y="0.0" width="88" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="PU9-6j-ux6"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="qKW-d1-uAU" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="qKW-d1-uAU" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -113,9 +113,8 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="nIb-9O-Jw2" firstAttribute="top" secondItem="4CH-bK-zT1" secondAttribute="top" constant="-2" id="3fE-cc-SDB"/>
                                                     <constraint firstAttribute="trailing" secondItem="nIb-9O-Jw2" secondAttribute="trailing" constant="5" id="DGb-Dh-mFR"/>
-                                                    <constraint firstItem="nIb-9O-Jw2" firstAttribute="bottom" secondItem="4CH-bK-zT1" secondAttribute="bottom" constant="-2" id="Os9-HV-8pF"/>
+                                                    <constraint firstItem="nIb-9O-Jw2" firstAttribute="bottom" secondItem="4CH-bK-zT1" secondAttribute="bottom" id="Os9-HV-8pF"/>
                                                     <constraint firstItem="nIb-9O-Jw2" firstAttribute="leading" secondItem="4CH-bK-zT1" secondAttribute="leading" constant="-5" id="oEX-lO-z2m"/>
                                                 </constraints>
                                                 <connections>

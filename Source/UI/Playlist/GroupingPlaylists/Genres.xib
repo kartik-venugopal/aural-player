@@ -52,19 +52,19 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-xI-cje" userLabel="Icon">
-                                                        <rect key="frame" x="8" y="6" width="16" height="18"/>
+                                                        <rect key="frame" x="3" y="6" width="16" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="16" id="ZDA-23-orl"/>
                                                             <constraint firstAttribute="height" constant="18" id="mYE-Ln-0jB"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ygV-8w-DId"/>
                                                     </imageView>
-                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="28" y="2" width="351" height="30"/>
+                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name">
+                                                        <rect key="frame" x="28" y="0.0" width="351" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="jCk-a9-VuK"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Da3-Fs-d7J" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Da3-Fs-d7J" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -72,10 +72,10 @@
                                                     </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="leading" secondItem="dUD-Jz-0Am" secondAttribute="leading" constant="8" id="43c-p7-TKZ"/>
-                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="bottom" secondItem="dUD-Jz-0Am" secondAttribute="bottom" constant="-2" id="Apk-10-2E1"/>
+                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="leading" secondItem="dUD-Jz-0Am" secondAttribute="leading" constant="3" id="43c-p7-TKZ"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="bottom" secondItem="dUD-Jz-0Am" secondAttribute="bottom" id="Apk-10-2E1"/>
                                                     <constraint firstAttribute="trailing" secondItem="Z03-PG-pvS" secondAttribute="trailing" id="E5c-ha-SJu"/>
-                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="leading" secondItem="lHY-xI-cje" secondAttribute="trailing" constant="6" id="iQT-SR-0sr"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="leading" secondItem="lHY-xI-cje" secondAttribute="trailing" constant="11" id="iQT-SR-0sr"/>
                                                     <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="dUD-Jz-0Am" secondAttribute="centerY" id="ozy-e0-OhD"/>
                                                 </constraints>
                                                 <connections>
@@ -101,12 +101,12 @@
                                                 <rect key="frame" x="391" y="2" width="84" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="2" width="88" height="30"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration">
+                                                        <rect key="frame" x="-7" y="0.0" width="88" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="pbd-gC-tLi"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="9zq-Qy-Bke" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="9zq-Qy-Bke" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -115,8 +115,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="dV1-Xh-Rhx" firstAttribute="leading" secondItem="FiJ-sX-1Lg" secondAttribute="leading" constant="-5" id="GeA-iM-JgK"/>
-                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="bottom" secondItem="FiJ-sX-1Lg" secondAttribute="bottom" constant="-2" id="KUd-GE-iDy"/>
-                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="top" secondItem="FiJ-sX-1Lg" secondAttribute="top" constant="-2" id="eRO-nL-Nbv"/>
+                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="bottom" secondItem="FiJ-sX-1Lg" secondAttribute="bottom" id="KUd-GE-iDy"/>
                                                     <constraint firstAttribute="trailing" secondItem="dV1-Xh-Rhx" secondAttribute="trailing" constant="5" id="k2E-tb-5zR"/>
                                                 </constraints>
                                                 <connections>

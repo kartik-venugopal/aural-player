@@ -162,6 +162,23 @@ enum FontSetPreset: String, CaseIterable {
         }
     }
     
+    var playlistTrackTextYOffset: CGFloat {
+        
+        switch self {
+                
+            case .standard:  return -1
+                
+            case .programmer:  return 0
+                
+            case .futuristic:   return 0
+                
+            case .novelist:  return 0
+                
+            case .gothic:    return 0
+                
+        }
+    }
+    
     var playlistGroupTextFont: NSFont {
         
         switch self {
@@ -175,6 +192,23 @@ enum FontSetPreset: String, CaseIterable {
             case .novelist:  return Fonts.Novelist.mainFont_15
                 
             case .gothic:    return Fonts.Gothic.mainFont_12
+                
+        }
+    }
+    
+    var playlistGroupTextYOffset: CGFloat {
+        
+        switch self {
+                
+            case .standard:  return -1
+                
+            case .programmer:  return 0
+                
+            case .futuristic:   return 0
+                
+            case .novelist:  return 0
+                
+            case .gothic:    return 0
                 
         }
     }

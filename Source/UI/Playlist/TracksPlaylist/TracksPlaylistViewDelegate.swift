@@ -84,6 +84,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
         cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
+        cell.realignText(yOffset: FontSets.systemFontSet.playlist.trackTextYOffset)
         
         return cell
     }
@@ -104,6 +105,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
         cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
+        cell.realignText(yOffset: FontSets.systemFontSet.playlist.trackTextYOffset)
         
         return cell
     }
@@ -114,6 +116,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
         cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
+        cell.realignText(yOffset: FontSets.systemFontSet.playlist.trackTextYOffset)
         
         return cell
     }
