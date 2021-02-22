@@ -52,7 +52,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HwE-S8-0Xn" userLabel="Rate" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="28" y="67" width="53" height="24"/>
+                                <rect key="frame" x="28" y="67" width="50" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Rate" id="NLo-xJ-PCU">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -246,7 +246,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1P-0Z-tiS" userLabel="Master Desc">
-                    <rect key="frame" x="68" y="145" width="130" height="35"/>
+                    <rect key="frame" x="68" y="145" width="204" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Time  Stretch" id="I45-xC-CT9" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="16" name="AlegreyaSansSC-Regular"/>

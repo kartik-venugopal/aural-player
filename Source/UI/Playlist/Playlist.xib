@@ -332,7 +332,7 @@
                                     </tabViewItems>
                                 </tabView>
                                 <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="TgI-fO-gfa" userLabel="Spinner">
-                                    <rect key="frame" x="242" y="6" width="16" height="16"/>
+                                    <rect key="frame" x="242" y="5" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="I7h-EG-DwM"/>
                                         <constraint firstAttribute="width" constant="16" id="l6y-B3-mdy"/>
@@ -348,10 +348,10 @@
                                     </contentFilters>
                                 </progressIndicator>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="6" y="2" width="204" height="23"/>
+                                    <rect key="frame" x="6" y="0.0" width="214" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="200" id="nCr-fa-5NI"/>
-                                        <constraint firstAttribute="height" constant="23" id="wbx-Yh-AuW"/>
+                                        <constraint firstAttribute="width" constant="210" id="nCr-fa-5NI"/>
+                                        <constraint firstAttribute="height" constant="25" id="wbx-Yh-AuW"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="Y4c-xx-vs7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="Play-Regular"/>
@@ -360,10 +360,10 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="291" y="2" width="204" height="23"/>
+                                    <rect key="frame" x="291" y="0.0" width="204" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Dph-rN-D1k"/>
-                                        <constraint firstAttribute="height" constant="23" id="h0n-sa-1Fx"/>
+                                        <constraint firstAttribute="height" constant="25" id="h0n-sa-1Fx"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="s2h-am-6V7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="Play-Regular"/>
@@ -382,7 +382,7 @@
                                 <constraint firstItem="TgI-fO-gfa" firstAttribute="centerX" secondItem="11G-bl-tTJ" secondAttribute="centerX" id="hzF-Bd-2mE"/>
                                 <constraint firstAttribute="trailing" secondItem="WTT-JW-9R7" secondAttribute="trailing" id="jiN-dj-VPK"/>
                                 <constraint firstItem="WTT-JW-9R7" firstAttribute="top" secondItem="11G-bl-tTJ" secondAttribute="top" id="oRy-Do-F0n"/>
-                                <constraint firstAttribute="bottom" secondItem="QXQ-hF-zKn" secondAttribute="bottom" constant="2" id="wGz-5g-6Ps"/>
+                                <constraint firstItem="QXQ-hF-zKn" firstAttribute="bottom" secondItem="11G-bl-tTJ" secondAttribute="bottom" id="wGz-5g-6Ps"/>
                             </constraints>
                         </view>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
