@@ -81,7 +81,7 @@ class EQView: NSView {
         bandsUpdated(preset.bands, preset.globalGain)
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
         btn10Band.redraw()
         btn15Band.redraw()

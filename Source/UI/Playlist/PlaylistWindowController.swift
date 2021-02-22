@@ -85,7 +85,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         functionButtons = [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] + controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
         tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
 
-        applyFontSet(FontSets.systemFontSet)
+        applyFontScheme(FontSchemes.systemFontScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -150,7 +150,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
         
-        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         
@@ -366,14 +366,14 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         fontsChanged()
     }
     
     private func fontsChanged() {
         
-        lblTracksSummary.font = FontSets.systemFontSet.playlist.summaryFont
-        lblDurationSummary.font = FontSets.systemFontSet.playlist.summaryFont
+        lblTracksSummary.font = FontSchemes.systemFontScheme.playlist.summaryFont
+        lblDurationSummary.font = FontSchemes.systemFontScheme.playlist.summaryFont
         
         redrawTabButtons()
     }

@@ -48,9 +48,9 @@ class ReverbView: NSView {
         setAmount(preset.amount, ValueFormatter.formatReverbAmount(preset.amount))
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
-        reverbSpaceMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
+        reverbSpaceMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
         reverbSpaceMenu.redraw()
     }
     

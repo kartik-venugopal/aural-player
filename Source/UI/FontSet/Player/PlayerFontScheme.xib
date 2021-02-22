@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PlayerFontSetViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="PlayerFontSchemeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="artistAlbumStepper" destination="V37-W1-Svy" id="oOE-jG-edI"/>
                 <outlet property="chapterTitleStepper" destination="fXz-sU-RQa" id="MKb-qt-8uF"/>

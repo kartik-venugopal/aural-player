@@ -139,7 +139,7 @@
                 <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
-        <customObject id="lih-ya-6jC" customClass="FontSetPopupMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="lih-ya-6jC" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="manageSchemesMenuItem" destination="3ie-xE-Lk9" id="uvR-z9-sCl"/>
@@ -1073,45 +1073,45 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
-                            <menuItem title="  Font set" indentationLevel="1" id="pXx-4E-0SU" userLabel="Font set">
+                            <menuItem title="  Font scheme" indentationLevel="1" id="pXx-4E-0SU" userLabel="Font scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Font set" showsStateColumn="NO" id="73g-wl-K4J">
+                                <menu key="submenu" title="  Font scheme" showsStateColumn="NO" id="73g-wl-K4J">
                                     <items>
                                         <menuItem title="Standard" indentationLevel="1" id="twz-YP-Djm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSetAction:" target="lih-ya-6jC" id="eVQ-gO-1gL"/>
+                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="eVQ-gO-1gL"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Programmer" indentationLevel="1" id="4Cd-oX-tVe">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSetAction:" target="lih-ya-6jC" id="7YO-CS-sdd"/>
+                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="7YO-CS-sdd"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Futuristic" indentationLevel="1" id="A4N-BE-5tb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSetAction:" target="lih-ya-6jC" id="RaH-Qz-fzn"/>
+                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="RaH-Qz-fzn"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Novelist" indentationLevel="1" id="uDw-Rc-o8K">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSetAction:" target="lih-ya-6jC" id="MTd-0c-uWQ"/>
+                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="MTd-0c-uWQ"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Gothic" indentationLevel="1" id="4Vr-Mn-cro">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyFontSetAction:" target="lih-ya-6jC" id="lic-Ye-lR8"/>
+                                                <action selector="applyFontSchemeAction:" target="lih-ya-6jC" id="lic-Ye-lR8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vWW-EI-BWf"/>
                                         <menuItem title="Customize ..." indentationLevel="1" id="tVF-bO-F8U">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="customizeFontSetAction:" target="lih-ya-6jC" id="IrS-26-zdj"/>
+                                                <action selector="customizeFontSchemeAction:" target="lih-ya-6jC" id="kcK-JN-SmG"/>
                                             </connections>
                                         </menuItem>
                                     </items>

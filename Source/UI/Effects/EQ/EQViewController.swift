@@ -110,10 +110,10 @@ class EQViewController: FXUnitViewController {
         showThisTab()
     }
     
-    override func applyFontSet(_ fontSet: FontSet) {
+    override func applyFontScheme(_ fontScheme: FontScheme) {
         
-        super.applyFontSet(fontSet)
-        eqView.applyFontSet(fontSet)
+        super.applyFontScheme(fontScheme)
+        eqView.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {

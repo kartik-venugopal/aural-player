@@ -49,7 +49,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
         lineWidth = (textView?.frame.width ?? 300) - 10
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         update()
     }
     
@@ -85,16 +85,16 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
                 
                 fullLengthArtistAlbumStr = String(format: "%@ -- %@", theArtist, theAlbum)
                 
-                truncatedArtistAlbumStr = truncateCompositeString(FontSets.systemFontSet.player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
+                truncatedArtistAlbumStr = truncateCompositeString(FontSchemes.systemFontScheme.player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
                 
             } else if let theArtist = artist {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, FontSets.systemFontSet.player.infoBoxArtistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, FontSchemes.systemFontScheme.player.infoBoxArtistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theArtist
                 
             } else if let theAlbum = album {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, FontSets.systemFontSet.player.infoBoxArtistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, FontSchemes.systemFontScheme.player.infoBoxArtistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theAlbum
             }
             
@@ -104,19 +104,19 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
             let hasChapter: Bool = chapterStr != nil
             
             // Title (truncate only if artist, album, or chapter are displayed)
-            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, FontSets.systemFontSet.player.infoBoxTitleFont, lineWidth) : title
-            textView.textStorage?.append(attributedString(truncatedTitle, FontSets.systemFontSet.player.infoBoxTitleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
+            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, FontSchemes.systemFontScheme.player.infoBoxTitleFont, lineWidth) : title
+            textView.textStorage?.append(attributedString(truncatedTitle, FontSchemes.systemFontScheme.player.infoBoxTitleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
             if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
-                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, FontSets.systemFontSet.player.infoBoxArtistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, FontSchemes.systemFontScheme.player.infoBoxArtistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
             // Chapter
             if let _chapterStr = chapterStr {
                 
-                let truncatedChapter: String = StringUtils.truncate(_chapterStr, FontSets.systemFontSet.player.infoBoxChapterTitleFont, lineWidth)
-                textView.textStorage?.append(attributedString(truncatedChapter, FontSets.systemFontSet.player.infoBoxChapterTitleFont, Colors.Player.trackInfoChapterTextColor))
+                let truncatedChapter: String = StringUtils.truncate(_chapterStr, FontSchemes.systemFontScheme.player.infoBoxChapterTitleFont, lineWidth)
+                textView.textStorage?.append(attributedString(truncatedChapter, FontSchemes.systemFontScheme.player.infoBoxChapterTitleFont, Colors.Player.trackInfoChapterTextColor))
             }
             
             // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)

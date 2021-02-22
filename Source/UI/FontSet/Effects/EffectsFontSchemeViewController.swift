@@ -1,6 +1,6 @@
 import Cocoa
 
-class EffectsFontSetViewController: NSViewController, FontSetsViewProtocol {
+class EffectsFontSchemeViewController: NSViewController, FontSchemesViewProtocol {
     
     @IBOutlet weak var scrollView: NSScrollView!
     
@@ -16,9 +16,9 @@ class EffectsFontSetViewController: NSViewController, FontSetsViewProtocol {
     @IBOutlet weak var filterChartStepper: NSStepper!
     @IBOutlet weak var txtFilterChart: NSTextField!
     
-    override var nibName: NSNib.Name? {return "EffectsFontSet"}
+    override var nibName: NSNib.Name? {return "EffectsFontScheme"}
     
-    var fontSetsView: NSView {
+    var fontSchemesView: NSView {
         self.view
     }
     
@@ -29,20 +29,20 @@ class EffectsFontSetViewController: NSViewController, FontSetsViewProtocol {
         contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
     }
     
-    func resetFields(_ fontSet: FontSet) {
+    func resetFields(_ fontScheme: FontScheme) {
         
         scrollToTop()
         
-        unitCaptionStepper.floatValue = Float(fontSet.effects.unitCaptionFont.pointSize * 10)
+        unitCaptionStepper.floatValue = Float(fontScheme.effects.unitCaptionFont.pointSize * 10)
         txtUnitCaption.stringValue = String(format: "%.1f", unitCaptionStepper.floatValue / 10.0)
         
-        unitFunctionStepper.floatValue = Float(fontSet.effects.unitFunctionFont.pointSize * 10)
+        unitFunctionStepper.floatValue = Float(fontScheme.effects.unitFunctionFont.pointSize * 10)
         txtUnitFunction.stringValue = String(format: "%.1f", unitFunctionStepper.floatValue / 10.0)
         
-        masterUnitFunctionStepper.floatValue = Float(fontSet.effects.masterUnitFunctionFont.pointSize * 10)
+        masterUnitFunctionStepper.floatValue = Float(fontScheme.effects.masterUnitFunctionFont.pointSize * 10)
         txtMasterUnitFunction.stringValue = String(format: "%.1f", masterUnitFunctionStepper.floatValue / 10.0)
         
-        filterChartStepper.floatValue = Float(fontSet.effects.filterChartFont.pointSize * 10)
+        filterChartStepper.floatValue = Float(fontScheme.effects.filterChartFont.pointSize * 10)
         txtFilterChart.stringValue = String(format: "%.1f", filterChartStepper.floatValue / 10.0)
     }
     
@@ -62,14 +62,14 @@ class EffectsFontSetViewController: NSViewController, FontSetsViewProtocol {
         txtFilterChart.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
-    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet) {
+    func applyFontScheme(_ context: FontSchemeChangeContext, to fontScheme: FontScheme) {
         
         let textFontName = context.textFontName
         let headingFontName = context.headingFontName
         
-        fontSet.effects.unitCaptionFont = NSFont(name: headingFontName, size: CGFloat(unitCaptionStepper.floatValue / 10.0))!
-        fontSet.effects.unitFunctionFont = NSFont(name: textFontName, size: CGFloat(unitFunctionStepper.floatValue / 10.0))!
-        fontSet.effects.masterUnitFunctionFont = NSFont(name: headingFontName, size: CGFloat(masterUnitFunctionStepper.floatValue / 10.0))!
-        fontSet.effects.filterChartFont = NSFont(name: textFontName, size: CGFloat(filterChartStepper.floatValue / 10.0))!
+        fontScheme.effects.unitCaptionFont = NSFont(name: headingFontName, size: CGFloat(unitCaptionStepper.floatValue / 10.0))!
+        fontScheme.effects.unitFunctionFont = NSFont(name: textFontName, size: CGFloat(unitFunctionStepper.floatValue / 10.0))!
+        fontScheme.effects.masterUnitFunctionFont = NSFont(name: headingFontName, size: CGFloat(masterUnitFunctionStepper.floatValue / 10.0))!
+        fontScheme.effects.filterChartFont = NSFont(name: textFontName, size: CGFloat(filterChartStepper.floatValue / 10.0))!
     }
 }

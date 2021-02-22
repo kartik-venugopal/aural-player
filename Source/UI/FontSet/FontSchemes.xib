@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="FontSetsWindowController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="FontSchemesWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnRedo" destination="RvB-EK-G7s" id="daO-gD-2Ky"/>
                 <outlet property="btnRedoAll" destination="Bnq-VF-YrN" id="6On-g3-y7q"/>
@@ -147,10 +147,10 @@ Gw
                             <action selector="applyChangesAction:" target="-2" id="uwQ-IC-9B2"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1re-Ou-k02">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1re-Ou-k02" userLabel="Customize font scheme">
                         <rect key="frame" x="120" y="381" width="240" height="23"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Customize font set" id="Y8d-09-319">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Customize font scheme" id="Y8d-09-319">
                             <font key="font" size="13" name="Play-Regular"/>
                             <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

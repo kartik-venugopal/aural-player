@@ -171,10 +171,10 @@ class SeekSliderView: NSView, ColorSchemeable {
         }
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTimeElapsed.font = FontSets.systemFontSet.player.trackTimesFont
-        lblTimeRemaining.font = FontSets.systemFontSet.player.trackTimesFont
+        lblTimeElapsed.font = FontSchemes.systemFontScheme.player.trackTimesFont
+        lblTimeRemaining.font = FontSchemes.systemFontScheme.player.trackTimesFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

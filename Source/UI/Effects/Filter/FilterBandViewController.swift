@@ -38,7 +38,7 @@ class FilterBandViewController: NSViewController {
         oneTimeSetup()
         resetFields()
         
-        applyFontSet(FontSets.systemFontSet)
+        applyFontScheme(FontSchemes.systemFontScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -180,17 +180,17 @@ class FilterBandViewController: NSViewController {
         cutoffSlider.updateState()
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
         tabButton.redraw()
         
-        functionLabels.forEach({$0.font = FontSets.systemFontSet.effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = FontSchemes.systemFontScheme.effects.unitFunctionFont})
         
-        filterTypeMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
+        filterTypeMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
         filterTypeMenu.redraw()
         
-        presetRangesMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
-        lblFrequencies.font = FontSets.systemFontSet.effects.unitFunctionFont
+        presetRangesMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
+        lblFrequencies.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

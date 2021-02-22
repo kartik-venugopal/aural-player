@@ -83,8 +83,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
         
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
-        cell.realignText(yOffset: FontSets.systemFontSet.playlist.trackTextYOffset)
+        cell.updateText(FontSchemes.systemFontScheme.playlist.trackTextFont, text)
+        cell.realignText(yOffset: FontSchemes.systemFontScheme.playlist.trackTextYOffset)
         
         return cell
     }
@@ -104,8 +104,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         guard let cell = tableView.makeView(withIdentifier: .uid_trackName, owner: nil) as? TrackNameCellView else {return nil}
             
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
-        cell.realignText(yOffset: FontSets.systemFontSet.playlist.trackTextYOffset)
+        cell.updateText(FontSchemes.systemFontScheme.playlist.trackTextFont, text)
+        cell.realignText(yOffset: FontSchemes.systemFontScheme.playlist.trackTextYOffset)
         
         return cell
     }
@@ -115,8 +115,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         guard let cell = tableView.makeView(withIdentifier: .uid_duration, owner: nil) as? DurationCellView else {return nil}
         
         cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-        cell.updateText(FontSets.systemFontSet.playlist.trackTextFont, text)
-        cell.realignText(yOffset: FontSets.systemFontSet.playlist.trackTextYOffset)
+        cell.updateText(FontSchemes.systemFontScheme.playlist.trackTextFont, text)
+        cell.realignText(yOffset: FontSchemes.systemFontScheme.playlist.trackTextYOffset)
         
         return cell
     }

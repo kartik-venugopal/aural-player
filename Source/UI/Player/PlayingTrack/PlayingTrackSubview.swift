@@ -106,8 +106,8 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     
     // MARK: Appearance functions
     
-    func applyFontSet(_ fontSet: FontSet) {
-        textView.applyFontSet(fontSet)
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        textView.applyFontScheme(fontScheme)
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

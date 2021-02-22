@@ -103,7 +103,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         
         Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
         
-        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
@@ -131,11 +131,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
-        lblWindowTitle.font = FontSets.systemFontSet.playlist.chaptersListCaptionFont
-        lblSummary.font = FontSets.systemFontSet.playlist.summaryFont
+        lblWindowTitle.font = FontSchemes.systemFontScheme.playlist.chaptersListCaptionFont
+        lblSummary.font = FontSchemes.systemFontScheme.playlist.summaryFont
         
-        txtSearch.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
-        lblNumMatches.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
+        txtSearch.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
+        lblNumMatches.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
         
         btnLoopChapter.onIf(player.chapterLoopExists)
         
@@ -364,7 +364,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         btnLoopChapter.onIf(player.chapterLoopExists)
     }
     
-    private func applyFontSet(_ fontSet: FontSet) {
+    private func applyFontScheme(_ fontScheme: FontScheme) {
         fontsChanged()
     }
     
@@ -377,11 +377,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
             chaptersListView.reloadData()
             chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
             
-            lblWindowTitle.font = FontSets.systemFontSet.playlist.chaptersListCaptionFont
-            lblSummary.font = FontSets.systemFontSet.playlist.summaryFont
+            lblWindowTitle.font = FontSchemes.systemFontScheme.playlist.chaptersListCaptionFont
+            lblSummary.font = FontSchemes.systemFontScheme.playlist.summaryFont
             
-            txtSearch.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
-            lblNumMatches.font = FontSets.systemFontSet.playlist.chaptersListSearchFont
+            txtSearch.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
+            lblNumMatches.font = FontSchemes.systemFontScheme.playlist.chaptersListSearchFont
         }
     }
     

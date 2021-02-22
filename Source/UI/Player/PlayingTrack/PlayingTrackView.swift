@@ -143,10 +143,10 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
         }
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
-        defaultView.applyFontSet(fontSet)
-        expandedArtView.applyFontSet(fontSet)
+        defaultView.applyFontScheme(fontScheme)
+        expandedArtView.applyFontScheme(fontScheme)
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

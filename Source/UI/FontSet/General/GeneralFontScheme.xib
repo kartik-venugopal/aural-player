@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="GeneralFontSetViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralFontSchemeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="headingFontMenuButton" destination="sc1-Vw-1KF" id="YP9-GB-aUY"/>
                 <outlet property="lblHeadingPreview" destination="z1r-m3-8Kn" id="L0R-Gg-rWw"/>

@@ -35,9 +35,9 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     // TODO: This is temporary. Remove prior to release v2.5.0
     
-    private lazy var fontSetsDialog: ModalDialogDelegate = WindowFactory.fontSetsDialog
+    private lazy var fontSchemesDialog: ModalDialogDelegate = WindowFactory.fontSchemesDialog
     @IBAction func customizeFontSetAction(_ sender: AnyObject) {
-        _ = fontSetsDialog.showDialog()
+        _ = fontSchemesDialog.showDialog()
     }
     
     // MARK: Setup

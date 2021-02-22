@@ -58,10 +58,10 @@ class ReverbViewController: FXUnitViewController {
         reverbView.setAmount(reverbUnit.amount, reverbUnit.formattedAmount)
     }
     
-    override func applyFontSet(_ fontSet: FontSet) {
+    override func applyFontScheme(_ fontScheme: FontScheme) {
         
-        super.applyFontSet(fontSet)
-        reverbView.applyFontSet(fontSet)
+        super.applyFontScheme(fontScheme)
+        reverbView.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {

@@ -1,6 +1,6 @@
 import Cocoa
 
-class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
+class PlayerFontSchemeViewController: NSViewController, FontSchemesViewProtocol {
     
     @IBOutlet weak var titleStepper: NSStepper!
     @IBOutlet weak var txtTitle: NSTextField!
@@ -17,27 +17,27 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
     @IBOutlet weak var feedbackTextStepper: NSStepper!
     @IBOutlet weak var txtFeedbackText: NSTextField!
     
-    override var nibName: NSNib.Name? {return "PlayerFontSet"}
+    override var nibName: NSNib.Name? {return "PlayerFontScheme"}
     
-    var fontSetsView: NSView {
+    var fontSchemesView: NSView {
         self.view
     }
     
-    func resetFields(_ fontSet: FontSet) {
+    func resetFields(_ fontScheme: FontScheme) {
         
-        titleStepper.floatValue = Float(fontSet.player.infoBoxTitleFont.pointSize * 10)
+        titleStepper.floatValue = Float(fontScheme.player.infoBoxTitleFont.pointSize * 10)
         txtTitle.stringValue = String(format: "%.1f", titleStepper.floatValue / 10.0)
         
-        artistAlbumStepper.floatValue = Float(fontSet.player.infoBoxArtistAlbumFont.pointSize * 10)
+        artistAlbumStepper.floatValue = Float(fontScheme.player.infoBoxArtistAlbumFont.pointSize * 10)
         txtArtistAlbum.stringValue = String(format: "%.1f", artistAlbumStepper.floatValue / 10.0)
         
-        chapterTitleStepper.floatValue = Float(fontSet.player.infoBoxChapterTitleFont.pointSize * 10)
+        chapterTitleStepper.floatValue = Float(fontScheme.player.infoBoxChapterTitleFont.pointSize * 10)
         txtChapterTitle.stringValue = String(format: "%.1f", chapterTitleStepper.floatValue / 10.0)
         
-        seekPositionStepper.floatValue = Float(fontSet.player.trackTimesFont.pointSize * 10)
+        seekPositionStepper.floatValue = Float(fontScheme.player.trackTimesFont.pointSize * 10)
         txtSeekPosition.stringValue = String(format: "%.1f", seekPositionStepper.floatValue / 10.0)
         
-        feedbackTextStepper.floatValue = Float(fontSet.player.feedbackFont.pointSize * 10)
+        feedbackTextStepper.floatValue = Float(fontScheme.player.feedbackFont.pointSize * 10)
         txtFeedbackText.stringValue = String(format: "%.1f", feedbackTextStepper.floatValue / 10.0)
     }
     
@@ -61,14 +61,14 @@ class PlayerFontSetViewController: NSViewController, FontSetsViewProtocol {
         txtFeedbackText.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
-    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet) {
+    func applyFontScheme(_ context: FontSchemeChangeContext, to fontScheme: FontScheme) {
         
         let textFontName = context.textFontName
         
-        fontSet.player.infoBoxTitleFont = NSFont(name: textFontName, size: CGFloat(titleStepper.floatValue / 10.0))!
-        fontSet.player.infoBoxArtistAlbumFont = NSFont(name: textFontName, size: CGFloat(artistAlbumStepper.floatValue / 10.0))!
-        fontSet.player.infoBoxChapterTitleFont = NSFont(name: textFontName, size: CGFloat(chapterTitleStepper.floatValue / 10.0))!
-        fontSet.player.trackTimesFont = NSFont(name: textFontName, size: CGFloat(seekPositionStepper.floatValue / 10.0))!
-        fontSet.player.feedbackFont = NSFont(name: textFontName, size: CGFloat(feedbackTextStepper.floatValue / 10.0))!
+        fontScheme.player.infoBoxTitleFont = NSFont(name: textFontName, size: CGFloat(titleStepper.floatValue / 10.0))!
+        fontScheme.player.infoBoxArtistAlbumFont = NSFont(name: textFontName, size: CGFloat(artistAlbumStepper.floatValue / 10.0))!
+        fontScheme.player.infoBoxChapterTitleFont = NSFont(name: textFontName, size: CGFloat(chapterTitleStepper.floatValue / 10.0))!
+        fontScheme.player.trackTimesFont = NSFont(name: textFontName, size: CGFloat(seekPositionStepper.floatValue / 10.0))!
+        fontScheme.player.feedbackFont = NSFont(name: textFontName, size: CGFloat(feedbackTextStepper.floatValue / 10.0))!
     }
 }

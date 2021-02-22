@@ -491,10 +491,10 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Font set commands
+    // MARK: Font scheme commands
     
-    // Commands all UI components to apply a new specified color scheme.
-    static let applyFontSet = Notification.Name("applyFontSet")
+    // Commands all UI components to apply a new specified font scheme.
+    static let applyFontScheme = Notification.Name("applyFontScheme")
 
     // ----------------------------------------------------------------------------------------
     

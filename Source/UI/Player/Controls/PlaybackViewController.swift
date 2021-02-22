@@ -52,7 +52,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_setTimeElapsedDisplayFormat, playbackView.setTimeElapsedDisplayFormat(_:))
         Messenger.subscribe(self, .player_setTimeRemainingDisplayFormat, playbackView.setTimeRemainingDisplayFormat(_:))
         
-        Messenger.subscribe(self, .applyFontSet, playbackView.applyFontSet(_:))
+        Messenger.subscribe(self, .applyFontScheme, playbackView.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, playbackView.applyColorScheme(_:))
         Messenger.subscribe(self, .player_changeSliderColors, playbackView.changeSliderColors)
         Messenger.subscribe(self, .changeFunctionButtonColor, playbackView.changeFunctionButtonColor(_:))

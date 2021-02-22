@@ -3,7 +3,7 @@ import Cocoa
 /*
     Container for fonts used by the UI
  */
-class FontSet: StringKeyedItem {
+class FontScheme: StringKeyedItem {
     
     // Displayed name
     var name: String
@@ -22,36 +22,36 @@ class FontSet: StringKeyedItem {
     // False if defined by the user
     let systemDefined: Bool
     
-    var player: PlayerFontSet
-    var playlist: PlaylistFontSet
-    var effects: EffectsFontSet
+    var player: PlayerFontScheme
+    var playlist: PlaylistFontScheme
+    var effects: EffectsFontScheme
     
-    init(_ name: String, _ preset: FontSetPreset) {
+    init(_ name: String, _ preset: FontSchemePreset) {
         
         self.name = name
         self.systemDefined = true
         
-        self.player = PlayerFontSet(preset: preset)
-        self.playlist = PlaylistFontSet(preset: preset)
-        self.effects = EffectsFontSet(preset: preset)
+        self.player = PlayerFontScheme(preset: preset)
+        self.playlist = PlaylistFontScheme(preset: preset)
+        self.effects = EffectsFontScheme(preset: preset)
     }
     
-    init(_ name: String, _ systemDefined: Bool, _ fontSet: FontSet) {
+    init(_ name: String, _ systemDefined: Bool, _ fontScheme: FontScheme) {
         
         self.name = name
         self.systemDefined = systemDefined
         
-        self.player = fontSet.player.clone()
-        self.playlist  = fontSet.playlist.clone()
-        self.effects = fontSet.effects.clone()
+        self.player = fontScheme.player.clone()
+        self.playlist  = fontScheme.playlist.clone()
+        self.effects = fontScheme.effects.clone()
     }
     
-    func clone() -> FontSet {
-        return FontSet(self.name + "_clone", self.systemDefined, self)
+    func clone() -> FontScheme {
+        return FontScheme(self.name + "_clone", self.systemDefined, self)
     }
 }
 
-class PlayerFontSet {
+class PlayerFontScheme {
     
     var infoBoxTitleFont: NSFont
     var infoBoxArtistAlbumFont: NSFont
@@ -59,7 +59,7 @@ class PlayerFontSet {
     var trackTimesFont: NSFont
     var feedbackFont: NSFont
 
-    init(preset: FontSetPreset) {
+    init(preset: FontSchemePreset) {
         
         self.infoBoxTitleFont = preset.infoBoxTitleFont
         self.infoBoxArtistAlbumFont = preset.infoBoxArtistAlbumFont
@@ -68,21 +68,21 @@ class PlayerFontSet {
         self.feedbackFont = preset.feedbackFont
     }
     
-    init(_ fontSet: PlayerFontSet) {
+    init(_ fontScheme: PlayerFontScheme) {
         
-        self.infoBoxTitleFont = fontSet.infoBoxTitleFont
-        self.infoBoxArtistAlbumFont = fontSet.infoBoxArtistAlbumFont
-        self.infoBoxChapterTitleFont = fontSet.infoBoxChapterTitleFont
-        self.trackTimesFont = fontSet.trackTimesFont
-        self.feedbackFont = fontSet.feedbackFont
+        self.infoBoxTitleFont = fontScheme.infoBoxTitleFont
+        self.infoBoxArtistAlbumFont = fontScheme.infoBoxArtistAlbumFont
+        self.infoBoxChapterTitleFont = fontScheme.infoBoxChapterTitleFont
+        self.trackTimesFont = fontScheme.trackTimesFont
+        self.feedbackFont = fontScheme.feedbackFont
     }
     
-    func clone() -> PlayerFontSet {
-        return PlayerFontSet(self)
+    func clone() -> PlayerFontScheme {
+        return PlayerFontScheme(self)
     }
 }
 
-class PlaylistFontSet {
+class PlaylistFontScheme {
 
     var trackTextFont: NSFont
     var trackTextYOffset: CGFloat
@@ -96,7 +96,7 @@ class PlaylistFontSet {
     var chaptersListSearchFont: NSFont
     var chaptersListCaptionFont: NSFont
 
-    init(preset: FontSetPreset) {
+    init(preset: FontSchemePreset) {
         
         self.trackTextFont = preset.playlistTrackTextFont
         self.trackTextYOffset = preset.playlistTrackTextYOffset
@@ -109,32 +109,32 @@ class PlaylistFontSet {
         self.chaptersListCaptionFont = preset.chaptersListCaptionFont
     }
     
-    init(_ fontSet: PlaylistFontSet) {
+    init(_ fontScheme: PlaylistFontScheme) {
         
-        self.trackTextFont = fontSet.trackTextFont
-        self.trackTextYOffset = fontSet.trackTextYOffset
-        self.groupTextFont = fontSet.groupTextFont
-        self.groupTextYOffset = fontSet.groupTextYOffset
-        self.summaryFont = fontSet.summaryFont
-        self.tabButtonTextFont = fontSet.tabButtonTextFont
-        self.chaptersListHeaderFont = fontSet.chaptersListHeaderFont
-        self.chaptersListSearchFont = fontSet.chaptersListSearchFont
-        self.chaptersListCaptionFont = fontSet.chaptersListCaptionFont
+        self.trackTextFont = fontScheme.trackTextFont
+        self.trackTextYOffset = fontScheme.trackTextYOffset
+        self.groupTextFont = fontScheme.groupTextFont
+        self.groupTextYOffset = fontScheme.groupTextYOffset
+        self.summaryFont = fontScheme.summaryFont
+        self.tabButtonTextFont = fontScheme.tabButtonTextFont
+        self.chaptersListHeaderFont = fontScheme.chaptersListHeaderFont
+        self.chaptersListSearchFont = fontScheme.chaptersListSearchFont
+        self.chaptersListCaptionFont = fontScheme.chaptersListCaptionFont
     }
     
-    func clone() -> PlaylistFontSet {
-        return PlaylistFontSet(self)
+    func clone() -> PlaylistFontScheme {
+        return PlaylistFontScheme(self)
     }
 }
 
-class EffectsFontSet {
+class EffectsFontScheme {
 
     var unitCaptionFont: NSFont
     var unitFunctionFont: NSFont
     var masterUnitFunctionFont: NSFont
     var filterChartFont: NSFont
     
-    init(preset: FontSetPreset) {
+    init(preset: FontSchemePreset) {
         
         self.unitCaptionFont = preset.effectsUnitCaptionFont
         self.unitFunctionFont = preset.effectsUnitFunctionFont
@@ -142,15 +142,15 @@ class EffectsFontSet {
         self.filterChartFont = preset.effectsFilterChartFont
     }
     
-    init(_ fontSet: EffectsFontSet) {
+    init(_ fontScheme: EffectsFontScheme) {
         
-        self.unitCaptionFont = fontSet.unitCaptionFont
-        self.unitFunctionFont = fontSet.unitFunctionFont
-        self.masterUnitFunctionFont = fontSet.masterUnitFunctionFont
-        self.filterChartFont = fontSet.filterChartFont
+        self.unitCaptionFont = fontScheme.unitCaptionFont
+        self.unitFunctionFont = fontScheme.unitFunctionFont
+        self.masterUnitFunctionFont = fontScheme.masterUnitFunctionFont
+        self.filterChartFont = fontScheme.filterChartFont
     }
     
-    func clone() -> EffectsFontSet {
-        return EffectsFontSet(self)
+    func clone() -> EffectsFontScheme {
+        return EffectsFontScheme(self)
     }
 }

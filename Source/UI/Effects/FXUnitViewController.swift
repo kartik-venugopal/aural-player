@@ -33,7 +33,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         oneTimeSetup()
         initControls()
         
-        applyFontSet(FontSets.systemFontSet)
+        applyFontScheme(FontSchemes.systemFontScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -78,7 +78,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         Messenger.subscribe(self, .fx_changeSliderColors, self.changeSliderColors)
         
-        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
@@ -125,10 +125,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = FontSets.systemFontSet.effects.unitCaptionFont
-        functionLabels.forEach({$0.font = FontSets.systemFontSet.effects.unitFunctionFont})
+        lblCaption.font = FontSchemes.systemFontScheme.effects.unitCaptionFont
+        functionLabels.forEach({$0.font = FontSchemes.systemFontScheme.effects.unitFunctionFont})
         presetsMenu.font = Fonts.menuFont
     }
     

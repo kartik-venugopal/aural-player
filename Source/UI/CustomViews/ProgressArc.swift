@@ -22,7 +22,7 @@ class ProgressArc: NSView {
     var backgroundColor: NSColor {return Colors.Player.transcoderArcBackgroundColor}
     var foregroundColor: NSColor {return Colors.Player.sliderForegroundColor}
     
-    var textFont: NSFont {return FontSets.systemFontSet.player.infoBoxArtistAlbumFont}
+    var textFont: NSFont {return FontSchemes.systemFontScheme.player.infoBoxArtistAlbumFont}
     
     override func awakeFromNib() {
         radius = (self.width - (2 * lineWidth)) / 2

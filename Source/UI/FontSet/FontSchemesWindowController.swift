@@ -3,7 +3,7 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system color scheme to be edited.
  */
-class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
+class FontSchemesWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -15,17 +15,17 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
     @IBOutlet weak var btnRedo: NSButton!
     @IBOutlet weak var btnRedoAll: NSButton!
     
-    private lazy var generalView: FontSetsViewProtocol = GeneralFontSetViewController()
-    private lazy var playerView: FontSetsViewProtocol = PlayerFontSetViewController()
-    private lazy var playlistView: FontSetsViewProtocol = PlaylistFontSetViewController()
-    private lazy var effectsView: FontSetsViewProtocol = EffectsFontSetViewController()
+    private lazy var generalView: FontSchemesViewProtocol = GeneralFontSchemeViewController()
+    private lazy var playerView: FontSchemesViewProtocol = PlayerFontSchemeViewController()
+    private lazy var playlistView: FontSchemesViewProtocol = PlaylistFontSchemeViewController()
+    private lazy var effectsView: FontSchemesViewProtocol = EffectsFontSchemeViewController()
     
-    private var subViews: [FontSetsViewProtocol] = []
+    private var subViews: [FontSchemesViewProtocol] = []
     
     // Maintains a history of all changes made to the system color scheme since the dialog opened. Allows undo/redo.
-    private var history: FontSetHistory = FontSetHistory()
+    private var history: FontSchemeHistory = FontSchemeHistory()
     
-    override var windowNibName: NSNib.Name? {return "FontSets"}
+    override var windowNibName: NSNib.Name? {return "FontSchemes"}
     
     var isModal: Bool {
         return self.window?.isVisible ?? false
@@ -37,7 +37,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
 
         // Add the subviews to the tab group
         subViews = [generalView, playerView, playlistView, effectsView]
-        tabView.addViewsForTabs(subViews.map {$0.fontSetsView})
+        tabView.addViewsForTabs(subViews.map {$0.fontSchemesView})
         
         // Register an observer that updates undo/redo button states whenever the history changes.
         history.changeListener = {
@@ -55,7 +55,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
             _ = self.window!
         }
         
-        subViews.forEach {$0.resetFields(FontSets.systemFontSet)}
+        subViews.forEach {$0.resetFields(FontSchemes.systemFontScheme)}
         
         // Reset the change history (every time the dialog is shown)
         history.begin()
@@ -71,23 +71,23 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
     
     @IBAction func applyChangesAction(_ sender: Any) {
         
-        let undoValue: FontSet = FontSets.systemFontSet.clone()
+        let undoValue: FontScheme = FontSchemes.systemFontScheme.clone()
         
-        let context = FontSetChangeContext()
-        generalView.applyFontSet(context, to: FontSets.systemFontSet)
+        let context = FontSchemeChangeContext()
+        generalView.applyFontScheme(context, to: FontSchemes.systemFontScheme)
         
-        [playerView, playlistView, effectsView].forEach {$0.applyFontSet(context, to: FontSets.systemFontSet)}
-        Messenger.publish(.applyFontSet, payload: FontSets.systemFontSet)
+        [playerView, playlistView, effectsView].forEach {$0.applyFontScheme(context, to: FontSchemes.systemFontScheme)}
+        Messenger.publish(.applyFontScheme, payload: FontSchemes.systemFontScheme)
         
-        let redoValue: FontSet = FontSets.systemFontSet.clone()
+        let redoValue: FontScheme = FontSchemes.systemFontScheme.clone()
         history.noteChange(undoValue, redoValue)
     }
     
-    private func applyFontSet(_ fontSet: FontSet) {
+    private func applyFontScheme(_ fontScheme: FontScheme) {
         
-        let systemFontSet = FontSets.applyFontSet(fontSet)
-        subViews.forEach {$0.resetFields(systemFontSet)}
-        Messenger.publish(.applyFontSet, payload: systemFontSet)
+        let systemFontScheme = FontSchemes.applyFontScheme(fontScheme)
+        subViews.forEach {$0.resetFields(systemFontScheme)}
+        Messenger.publish(.applyFontScheme, payload: systemFontScheme)
         
         updateButtonStates()
     }
@@ -97,7 +97,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         
         // Get the snapshot (or restore point) from the history, and apply it to the system scheme
         if let restorePoint = history.undoAll() {
-            applyFontSet(restorePoint)
+            applyFontScheme(restorePoint)
         }
     }
 
@@ -106,7 +106,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         
         // Get the snapshot (or restore point) from the history, and apply it to the system scheme
         if let restorePoint = history.redoAll() {
-            applyFontSet(restorePoint)
+            applyFontScheme(restorePoint)
         }
     }
     
@@ -115,7 +115,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
         
         // Get details about the last change from the history.
         if let lastChange = history.undoLastChange() {
-            applyFontSet(lastChange)
+            applyFontScheme(lastChange)
         }
     }
     
@@ -123,7 +123,7 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
     @IBAction func redoLastChangeAction(_ sender: Any) {
         
         if let lastChange = history.redoLastChange() {
-            applyFontSet(lastChange)
+            applyFontScheme(lastChange)
         }
     }
     
@@ -150,14 +150,14 @@ class FontSetsWindowController: NSWindowController, ModalDialogDelegate {
 /*
     Contract for all subviews that alter the color scheme, to facilitate communication between the window controller and subviews.
  */
-protocol FontSetsViewProtocol {
+protocol FontSchemesViewProtocol {
     
     // The view containing the color editing UI components
-    var fontSetsView: NSView {get}
+    var fontSchemesView: NSView {get}
     
     // Reset all UI controls every time the dialog is shown or a new color scheme is applied.
     // NOTE - the history and clipboard are shared across all views
-    func resetFields(_ fontSet: FontSet)
+    func resetFields(_ fontScheme: FontScheme)
     
-    func applyFontSet(_ context: FontSetChangeContext, to fontSet: FontSet)
+    func applyFontScheme(_ context: FontSchemeChangeContext, to fontScheme: FontScheme)
 }

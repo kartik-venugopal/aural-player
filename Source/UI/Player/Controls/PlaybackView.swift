@@ -68,7 +68,7 @@ class PlaybackView: NSView, ColorSchemeable {
 
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
         
-        applyFontSet(FontSets.systemFontSet)
+        applyFontScheme(FontSchemes.systemFontScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -115,8 +115,8 @@ class PlaybackView: NSView, ColorSchemeable {
         sliderView.showOrHideTimeElapsedRemaining()
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
-        sliderView.applyFontSet(fontSet)
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        sliderView.applyFontScheme(fontScheme)
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

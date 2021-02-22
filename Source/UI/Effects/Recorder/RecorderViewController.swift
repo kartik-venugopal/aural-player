@@ -35,13 +35,13 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
     override func viewDidLoad() {
         
         initControls()
-        applyFontSet(FontSets.systemFontSet)
+        applyFontScheme(FontSchemes.systemFontScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to notifications
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
-        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
@@ -127,21 +127,21 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
     }
     
-    func applyFontSet(_ fontSet: FontSet) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         fontsChanged()
     }
     
     private func fontsChanged() {
         
-        lblCaption.font = FontSets.systemFontSet.effects.unitCaptionFont
+        lblCaption.font = FontSchemes.systemFontScheme.effects.unitCaptionFont
         
-        functionLabels.forEach({$0.font = FontSets.systemFontSet.effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = FontSchemes.systemFontScheme.effects.unitFunctionFont})
         
         formatMenu.redraw()
-        formatMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
+        formatMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
         
         qualityMenu.redraw()
-        qualityMenu.font = FontSets.systemFontSet.effects.unitFunctionFont
+        qualityMenu.font = FontSchemes.systemFontScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

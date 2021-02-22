@@ -1,9 +1,9 @@
 import Cocoa
 
 /*
-    Enumeration of all system-defined font sets.
+    Enumeration of all system-defined font schemes.
  */
-enum FontSetPreset: String, CaseIterable {
+enum FontSchemePreset: String, CaseIterable {
     
     // A dark scheme with a black background (the default scheme) and lighter foreground elements.
     case standard
@@ -22,22 +22,22 @@ enum FontSetPreset: String, CaseIterable {
     
     // The preset to be used as the default system scheme (eg. when a user loads the app for the very first time)
     // or when some color values in a scheme are missing.
-    static var defaultSet: FontSetPreset {standard}
+    static var defaultSet: FontSchemePreset {standard}
     
     // Maps a display name to a preset.
-    static func presetByName(_ name: String) -> FontSetPreset? {
+    static func presetByName(_ name: String) -> FontSchemePreset? {
         
         switch name {
             
-        case FontSetPreset.standard.name:    return .standard
+        case FontSchemePreset.standard.name:    return .standard
             
-        case FontSetPreset.programmer.name:    return .programmer
+        case FontSchemePreset.programmer.name:    return .programmer
             
-        case FontSetPreset.futuristic.name:    return .futuristic
+        case FontSchemePreset.futuristic.name:    return .futuristic
             
-        case FontSetPreset.novelist.name:    return .novelist
+        case FontSchemePreset.novelist.name:    return .novelist
             
-        case FontSetPreset.gothic.name:    return .gothic
+        case FontSchemePreset.gothic.name:    return .gothic
             
         default:    return nil
             

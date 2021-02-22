@@ -257,45 +257,45 @@
                                                     </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="LsC-ny-14p"/>
-                                                <menuItem title="Font set" id="pIS-mt-Im2" userLabel="Font set">
+                                                <menuItem title="Font scheme" id="pIS-mt-Im2">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Font set" showsStateColumn="NO" id="jzT-Jm-871">
+                                                    <menu key="submenu" title="Font scheme" showsStateColumn="NO" id="jzT-Jm-871">
                                                         <items>
                                                             <menuItem title="Standard" indentationLevel="1" id="43j-ji-ycl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="IPD-5W-P11"/>
+                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="IPD-5W-P11"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Programmer" indentationLevel="1" id="wd9-v0-USI">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="EQC-nx-zTl"/>
+                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="EQC-nx-zTl"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Futuristic" indentationLevel="1" id="zp0-54-BsY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="8er-JT-d7B"/>
+                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="8er-JT-d7B"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Novelist" indentationLevel="1" id="rKV-Kl-mba">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="awr-zz-ItR"/>
+                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="awr-zz-ItR"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Gothic" indentationLevel="1" id="pc7-RT-aH8">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyFontSetAction:" target="jyH-lC-gOA" id="2j0-0o-u7c"/>
+                                                                    <action selector="applyFontSchemeAction:" target="jyH-lC-gOA" id="2j0-0o-u7c"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="GxE-An-9JV"/>
                                                             <menuItem title="Customize ..." indentationLevel="1" id="BQn-Vj-Y0Y">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="customizeFontSetAction:" target="jyH-lC-gOA" id="j38-di-7DQ"/>
+                                                                    <action selector="customizeFontSchemeAction:" target="jyH-lC-gOA" id="y3U-Ve-IVj"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
@@ -507,7 +507,7 @@
             </connections>
         </customObject>
         <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="jyH-lC-gOA" customClass="FontSetPopupMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="jyH-lC-gOA" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="df9-sN-idv" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="bsC-mz-7dU" customClass="SettingsPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>

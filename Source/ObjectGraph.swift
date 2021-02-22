@@ -170,7 +170,7 @@ class ObjectGraph {
         WindowManager.initialize(appState.ui.windowLayout, preferences.viewPreferences)
         UIUtils.initialize(preferences.viewPreferences)
         
-        FontSets.initialize()
+        FontSchemes.initialize()
         ColorSchemes.initialize(appState.ui.colorSchemes)
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         

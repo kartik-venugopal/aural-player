@@ -35,7 +35,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
         
         transcodingIcon.tintFunction = {return Colors.functionButtonColor}
         
-        applyFontSet(FontSets.systemFontSet)
+        applyFontScheme(FontSchemes.systemFontScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -53,7 +53,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
                                  filter: {msg in msg.transcodingStarted},
                                  queue: .main)
         
-        Messenger.subscribe(self, .applyFontSet, self.applyFontSet(_:))
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
@@ -113,10 +113,10 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
 
     // MARK: Appearance
     
-    private func applyFontSet(_ fontSet: FontSet) {
+    private func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTrack.font = FontSets.systemFontSet.player.infoBoxTitleFont
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = FontSets.systemFontSet.player.trackTimesFont})
+        lblTrack.font = FontSchemes.systemFontScheme.player.infoBoxTitleFont
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = FontSchemes.systemFontScheme.player.trackTimesFont})
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
