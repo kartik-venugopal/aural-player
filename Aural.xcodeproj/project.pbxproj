@@ -1032,7 +1032,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3E2ED4A325DBAD6200732E79 /* FontSet */ = {
+		3E2ED4A325DBAD6200732E79 /* FontSchemes */ = {
 			isa = PBXGroup;
 			children = (
 				3E91932325E0CE2500F30F81 /* FontSchemes.xib */,
@@ -1047,7 +1047,7 @@
 				3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */,
 				3E2ED4A825DBC50500732E79 /* FontSchemes.swift */,
 			);
-			path = FontSet;
+			path = FontSchemes;
 			sourceTree = "<group>";
 		};
 		3E427EC525D9065F00465569 /* Documentation */ = {
@@ -1186,7 +1186,7 @@
 				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
 				3E6C104F25CEB98600BF0D07 /* WindowManagement */,
 				3E6C0F9925CEB98600BF0D07 /* ColorSchemes */,
-				3E2ED4A325DBAD6200732E79 /* FontSet */,
+				3E2ED4A325DBAD6200732E79 /* FontSchemes */,
 				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
 				3E6C0FDD25CEB98600BF0D07 /* Menus */,
