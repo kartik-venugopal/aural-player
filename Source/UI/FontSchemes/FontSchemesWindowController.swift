@@ -184,7 +184,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     }
     
     // MARK - StringInputReceiver functions (for saving new color schemes)
-    // TODO: Refactor this into a common ColorSchemesStringInputReceiver class to avoid duplication
+    // TODO: Refactor this into a common FontSchemesStringInputReceiver class to avoid duplication
     
     var inputPrompt: String {
         return "Enter a new font scheme name:"
