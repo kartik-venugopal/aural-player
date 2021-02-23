@@ -31,7 +31,7 @@ NOTE - Only the current system font scheme (i.e. the current scheme of the app U
 
 ### **Built-in font schemes**
 
-There are 6 built-in font schemes, one of which is the default scheme, "Standard", that is applied when the app is started up for the first time before altering the font scheme.
+There are 8 built-in font schemes, one of which is the default scheme, "Standard", that is applied when the app is started up for the first time before altering the font scheme.
 
 They can be accessed from the submenu under **View > Font Scheme** or from the settings popup menu at the top right corner of the main (player) window, under the **Font Scheme** submenu. They can also be applied from within the editor panel.
 

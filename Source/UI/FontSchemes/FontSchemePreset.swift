@@ -5,22 +5,21 @@ import Cocoa
  */
 enum FontSchemePreset: String, CaseIterable {
     
-    // A dark scheme with a black background (the default scheme) and lighter foreground elements.
     case standard
     
-    // A light scheme with an off-white background and dark foreground elements.
+    case rounded
+    
     case programmer
     
-    // A light scheme with an off-white background and dark foreground elements.
     case futuristic
 
-    // A dark scheme with a black background and aqua coloring of active sliders.
     case novelist
+    
+    // Chinese-style font
+    case soySauce
 
-    // A semi-dark scheme with a gray background and lighter foreground elements.
     case gothic
     
-    // A semi-dark scheme with a gray background and lighter foreground elements.
     case papyrus
     
     // The preset to be used as the default system scheme (eg. when a user loads the app for the very first time)
@@ -34,11 +33,15 @@ enum FontSchemePreset: String, CaseIterable {
             
         case FontSchemePreset.standard.name:    return .standard
             
+        case FontSchemePreset.rounded.name:     return .rounded
+            
         case FontSchemePreset.programmer.name:    return .programmer
             
         case FontSchemePreset.futuristic.name:    return .futuristic
             
         case FontSchemePreset.novelist.name:    return .novelist
+            
+        case FontSchemePreset.soySauce.name:    return .soySauce
             
         case FontSchemePreset.gothic.name:    return .gothic
             
@@ -56,11 +59,15 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .standard:  return "Standard"
             
+        case .rounded:  return "Rounded"
+            
         case .programmer:  return "Programmer"
             
         case .futuristic:   return "Futuristic"
             
         case .novelist:    return "Novelist"
+            
+        case .soySauce:     return "Soy Sauce"
             
         case .gothic:    return "Gothic"
             
@@ -75,11 +82,15 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .standard:  return Fonts.Standard.mainFont_15
             
+        case .rounded:  return Fonts.Rounded.mainFont_16
+            
         case .programmer:  return Fonts.Programmer.mainFont_14
             
         case .futuristic:   return Fonts.Futuristic.mainFont_19
             
         case .novelist:  return Fonts.Novelist.mainFont_15
+            
+        case .soySauce:     return Fonts.SoySauce.mainFont_25
             
         case .gothic:    return Fonts.Gothic.mainFont_14
             
@@ -94,11 +105,15 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .standard:  return Fonts.Standard.mainFont_13
             
+        case .rounded:  return Fonts.Rounded.mainFont_14
+            
         case .programmer:  return Fonts.Programmer.mainFont_12
             
         case .futuristic:   return Fonts.Futuristic.mainFont_16_5
             
         case .novelist:  return Fonts.Novelist.mainFont_13
+            
+        case .soySauce:     return Fonts.SoySauce.mainFont_22
             
         case .gothic:    return Fonts.Gothic.mainFont_12
             
@@ -113,11 +128,15 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .standard:  return Fonts.Standard.mainFont_11
             
+        case .rounded:  return Fonts.Rounded.mainFont_12
+            
         case .programmer:  return Fonts.Programmer.mainFont_10
             
         case .futuristic:   return Fonts.Futuristic.mainFont_14_5
             
         case .novelist:  return Fonts.Novelist.mainFont_11
+            
+        case .soySauce:     return Fonts.SoySauce.mainFont_18
             
         case .gothic:    return Fonts.Gothic.mainFont_10
             
@@ -132,11 +151,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_11
                 
+            case .rounded:  return Fonts.Rounded.mainFont_12
+                
             case .programmer:  return Fonts.Programmer.mainFont_11
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_13_5
                 
             case .novelist:  return Fonts.Novelist.mainFont_12
+                
+            case .soySauce:     return Fonts.SoySauce.mainFont_17
                 
             case .gothic:    return Fonts.Gothic.mainFont_11
                 
@@ -150,11 +173,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_9
                 
+            case .rounded:  return Fonts.Rounded.mainFont_10_5
+                
             case .programmer:  return Fonts.Programmer.mainFont_9
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_11
                 
             case .novelist:  return Fonts.Novelist.mainFont_9
+                
+            case .soySauce:     return Fonts.SoySauce.mainFont_14
                 
             case .gothic:    return Fonts.Gothic.mainFont_9
                 
@@ -168,11 +195,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_12
                 
+            case .rounded:  return Fonts.Rounded.mainFont_13
+                
             case .programmer:  return Fonts.Programmer.mainFont_12
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_15_5
                 
             case .novelist:  return Fonts.Novelist.mainFont_12_5
+                
+            case .soySauce:     return Fonts.SoySauce.mainFont_20
                 
             case .gothic:    return Fonts.Gothic.mainFont_11_5
                 
@@ -187,11 +218,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return -1
                 
+            case .rounded:     return -1
+                
             case .programmer:  return -1
                 
             case .futuristic:   return -2
                 
             case .novelist:  return -1
+                
+            case .soySauce:     return -2
                 
             case .gothic:    return -1
                 
@@ -206,11 +241,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_12_5
                 
+            case .rounded:  return Fonts.Rounded.mainFont_14
+                
             case .programmer:  return Fonts.Programmer.mainFont_12_5
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_16
                 
             case .novelist:  return Fonts.Novelist.mainFont_13_5
+                
+            case .soySauce:  return Fonts.SoySauce.mainFont_22
                 
             case .gothic:    return Fonts.Gothic.mainFont_12_5
                 
@@ -225,11 +264,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return -1
                 
+            case .rounded:  return -1
+                
             case .programmer:  return -1
                 
             case .futuristic:   return -1
                 
             case .novelist:  return -1
+                
+            case .soySauce:     return -2
                 
             case .gothic:    return -2
                 
@@ -244,11 +287,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_12_5
                 
+            case .rounded:  return Fonts.Rounded.mainFont_14
+                
             case .programmer:  return Fonts.Programmer.mainFont_12_5
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_16
                 
             case .novelist:  return Fonts.Novelist.mainFont_13_5
+                
+            case .soySauce:  return Fonts.SoySauce.mainFont_22
                 
             case .gothic:    return Fonts.Gothic.mainFont_12_5
                 
@@ -262,11 +309,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.captionFont_14
                 
+            case .rounded:  return Fonts.Rounded.captionFont_14
+                
             case .programmer:  return Fonts.Programmer.captionFont_13
                 
             case .futuristic:   return Fonts.Futuristic.captionFont_15
                 
             case .novelist:  return Fonts.Novelist.captionFont_14
+                
+            case .soySauce:  return Fonts.SoySauce.captionFont_15
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
                 
@@ -281,11 +332,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.captionFont_15
                 
+            case .rounded:  return Fonts.Rounded.captionFont_14
+                
             case .programmer:  return Fonts.Programmer.captionFont_15
                 
             case .futuristic:   return Fonts.Futuristic.captionFont_15
                 
             case .novelist:  return Fonts.Novelist.captionFont_14
+                
+            case .soySauce:  return Fonts.SoySauce.captionFont_15
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
                 
@@ -300,11 +355,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_12
                 
+            case .rounded:  return Fonts.Rounded.mainFont_13
+                
             case .programmer:  return Fonts.Programmer.mainFont_12
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_15_5
                 
             case .novelist:  return Fonts.Novelist.mainFont_12_5
+                
+            case .soySauce:  return Fonts.SoySauce.mainFont_20
                 
             case .gothic:    return Fonts.Gothic.mainFont_11_5
                 
@@ -319,11 +378,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.captionFont_16
                 
+            case .rounded:  return Fonts.Rounded.captionFont_15
+                
             case .programmer:  return Fonts.Programmer.captionFont_16
                 
             case .futuristic:   return Fonts.Futuristic.captionFont_18
                 
             case .novelist:  return Fonts.Novelist.captionFont_18
+                
+            case .soySauce:  return Fonts.SoySauce.captionFont_18
                 
             case .gothic:    return Fonts.Gothic.captionFont_17
                 
@@ -338,11 +401,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.captionFont_18
                 
+            case .rounded:  return Fonts.Rounded.captionFont_16
+                
             case .programmer:  return Fonts.Programmer.captionFont_16
                 
             case .futuristic:   return Fonts.Futuristic.captionFont_19
                 
             case .novelist:  return Fonts.Novelist.captionFont_15
+                
+            case .soySauce:  return Fonts.SoySauce.captionFont_19
                 
             case .gothic:    return Fonts.Gothic.captionFont_17
                 
@@ -357,11 +424,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_11
                 
+            case .rounded:  return Fonts.Rounded.mainFont_12_5
+                
             case .programmer:  return Fonts.Programmer.mainFont_11
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_14
                 
             case .novelist:  return Fonts.Novelist.mainFont_11_5
+                
+            case .soySauce:  return Fonts.SoySauce.mainFont_18
                 
             case .gothic:    return Fonts.Gothic.mainFont_11
                 
@@ -376,11 +447,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.captionFont_14
                 
+            case .rounded:  return Fonts.Rounded.captionFont_13_5
+                
             case .programmer:  return Fonts.Programmer.captionFont_13
                 
             case .futuristic:   return Fonts.Futuristic.captionFont_14
                 
             case .novelist:  return Fonts.Novelist.captionFont_12_5
+                
+            case .soySauce:  return Fonts.SoySauce.captionFont_14
                 
             case .gothic:    return Fonts.Gothic.captionFont_14
                 
@@ -394,11 +469,15 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .standard:  return Fonts.Standard.mainFont_9
                 
+            case .rounded:  return Fonts.Rounded.mainFont_10
+                
             case .programmer:  return Fonts.Programmer.mainFont_9
                 
             case .futuristic:   return Fonts.Futuristic.mainFont_12
                 
             case .novelist:  return Fonts.Novelist.mainFont_11
+                
+            case .soySauce:  return Fonts.SoySauce.mainFont_14
                 
             case .gothic:    return Fonts.Gothic.mainFont_9
                 

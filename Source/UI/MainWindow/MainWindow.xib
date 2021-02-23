@@ -257,6 +257,12 @@
                                                                     <action selector="applySchemeAction:" target="jyH-lC-gOA" id="IPD-5W-P11"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Rounded" indentationLevel="1" id="eQL-Ub-yN2">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="6Ty-I8-hG7"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem title="Programmer" indentationLevel="1" id="wd9-v0-USI">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
@@ -273,6 +279,12 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applySchemeAction:" target="jyH-lC-gOA" id="awr-zz-ItR"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Soy Sauce" indentationLevel="1" id="vch-4n-9oL">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="ZPW-L6-Ls6"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Gothic" indentationLevel="1" id="pc7-RT-aH8">

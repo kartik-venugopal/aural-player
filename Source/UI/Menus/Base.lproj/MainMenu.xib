@@ -1083,6 +1083,12 @@ CA
                                                 <action selector="applySchemeAction:" target="lih-ya-6jC" id="eVQ-gO-1gL"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Rounded" indentationLevel="1" id="Jup-rJ-a2C">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="Yc7-3p-LVy"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Programmer" indentationLevel="1" id="4Cd-oX-tVe">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1099,6 +1105,12 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applySchemeAction:" target="lih-ya-6jC" id="MTd-0c-uWQ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Soy Sauce" indentationLevel="1" id="MXv-5o-vp7">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="CKc-04-Sgi"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Gothic" indentationLevel="1" id="4Vr-Mn-cro">
