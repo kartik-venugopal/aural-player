@@ -114,6 +114,10 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![Vertical full stack window layout demo](/Documentation/Screenshots/FullStack.png?raw=true)
 
+### Changing the font scheme
+
+![Changing the font scheme demo](/Documentation/Demos/FontSchemes.gif?raw=true)
+
 ### Changing the color scheme
 
 ![Changing the color scheme demo](/Documentation/Demos/ChangingColorScheme.gif?raw=true)
