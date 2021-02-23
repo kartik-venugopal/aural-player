@@ -83,7 +83,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .gothic:    return Fonts.Gothic.mainFont_14
             
-        case .papyrus:      return Fonts.Papyrus.mainFont_17
+        case .papyrus:      return Fonts.Papyrus.mainFont_16_5
             
         }
     }
@@ -102,7 +102,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .gothic:    return Fonts.Gothic.mainFont_12
             
-        case .papyrus:      return Fonts.Papyrus.mainFont_14
+        case .papyrus:      return Fonts.Papyrus.mainFont_15
             
         }
     }
@@ -121,7 +121,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .gothic:    return Fonts.Gothic.mainFont_10
             
-        case .papyrus:      return Fonts.Papyrus.mainFont_11
+        case .papyrus:      return Fonts.Papyrus.mainFont_13
             
         }
     }

@@ -5,8 +5,6 @@ import Cocoa
  */
 class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-    @IBOutlet weak var manageSchemesMenuItem: NSMenuItem?
-    
     private lazy var fontSchemesDialog: ModalDialogDelegate = WindowFactory.fontSchemesDialog
     
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
@@ -29,9 +27,6 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
             
             menu.insertItem(item, at: 0)
         }
-        
-        // Schemes can only be managed if there is at least one user-defined scheme
-        manageSchemesMenuItem?.enableIf(FontSchemes.numberOfUserDefinedSchemes > 0)
     }
     
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {

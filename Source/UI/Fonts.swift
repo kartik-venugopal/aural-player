@@ -194,6 +194,7 @@ struct Fonts {
         }
     
     struct Gothic {
+        
             static let mainFont_8: NSFont = NSFont(name: "Metamorphous", size: 8)!
             
             static let mainFont_9: NSFont = NSFont(name: "Metamorphous", size: 9)!
@@ -290,22 +291,9 @@ struct Fonts {
         }
     
     static let menuFont: NSFont = Standard.mainFont_11
- 
-    private static let stringInputPopoverFont_normal: NSFont = Standard.mainFont_12
-    private static let stringInputPopoverFont_larger: NSFont = Standard.mainFont_13
-    private static let stringInputPopoverFont_largest: NSFont = Standard.mainFont_14
-    
-    static var stringInputPopoverFont: NSFont {
-        return stringInputPopoverFont_larger
-    }
-    
-    private static let stringInputPopoverErrorFont_normal: NSFont = Standard.mainFont_11
-    private static let stringInputPopoverErrorFont_larger: NSFont = Standard.mainFont_12
-    private static let stringInputPopoverErrorFont_largest: NSFont = Standard.mainFont_13
-    
-    static var stringInputPopoverErrorFont: NSFont {
-        return stringInputPopoverErrorFont_larger
-    }
+
+    static let stringInputPopoverFont: NSFont = Standard.mainFont_12_5
+    static let stringInputPopoverErrorFont: NSFont = Standard.mainFont_11_5
     
     static let largeTabButtonFont: NSFont = Standard.captionFont_14
     
@@ -318,12 +306,6 @@ struct Fonts {
     // Font used by the playlist tab view buttons
     static let tabViewButtonFont: NSFont = Standard.mainFont_12
     static let tabViewButtonBoldFont: NSFont = Standard.mainFont_12
-    
-    // FX tab view buttons
-    static let tabViewButtonFont_smallFont: NSFont = Standard.mainFont_11
-    static let tabViewButtonBoldFont_smallFont: NSFont = Standard.mainFont_11
-    
-    static let progressArcFont: NSFont = Standard.mainFont_14
     
     // Font used by modal dialog buttons
     static let modalDialogButtonFont: NSFont = Standard.mainFont_12
