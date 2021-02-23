@@ -152,11 +152,19 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ## Known issues
 
-### The text is too small on my high resolution Mac screen !!!
+### 1 - The text is too small on my high resolution Mac screen !!!
 
-The fix for this is easy. Go to the menu **View > Font scheme > Customize**, and increase the font sizes of the various UI textual elements, per your preference.
+The fix for this is easy. 
 
-### Bad audio quality when connecting Bluetooth headphones
+#### On v2.5.0 or newer versions: 
+
+Go to the menu **View > Font scheme > Customize**, and increase the font sizes of the various UI textual elements, per your preference.
+
+#### On v2.4.0 or older versions: 
+
+Go to the menu **View > Font scheme > Customize**, and choose the ***Larger*** or ***Largest*** text size preset, per your preference.
+
+### 2 - Bad audio quality when connecting Bluetooth headphones
 
 If you notice poor audio quality when you first connect Bluetooth headphones, try the following:
 
