@@ -3,7 +3,7 @@
 
 ## **Font schemes support**
 
-Aural Player now allows extensive customization of its fonts and comes with a few built-in font schemes you can choose from. A font scheme consists of 2 fonts - a text font and a headings font, along with point sizes that can be specified for the various textual elements acoss the UI.
+Aural Player now allows extensive customization of its fonts and comes with a few built-in font schemes you can choose from. A font scheme consists of 2 fonts - a text font and a headings font, along with point sizes that can be specified for the various textual elements acoss the UI. You can save your hand-tailored font schemes for future use.
 
 ### **Older text size adjustment feature removed**
 
