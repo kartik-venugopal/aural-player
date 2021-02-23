@@ -1,12 +1,12 @@
 # Aural Player
 
+![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
+
 ### Update (Feb 18, 2021)
 
 The very ambitious version 3.0 was in active development last year, but due to unforeseen personal circumstances, that part of the project has been put on hold since Oct 2020. The planned 3.0 release will be delayed.
 
 Instead, I have worked to get Aural Player up and running on macOS Big Sur, and have been making refinements and enhancements to version 2.x.
-
-![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
 ## Table of Contents
   * [Overview](#overview)
