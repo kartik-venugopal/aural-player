@@ -30,7 +30,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 #### Goals:
 * To have a simple drag-drop-play player for the music collection on your local drives, that recognizes a wide variety of audio formats.
-* To allow customization/configuration, but not to require it out of the box.
+* To *allow* customization/configuration, but not to *require* it out of the box.
 * To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
 * To have a decent macOS Winamp counterpart.
 
