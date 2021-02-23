@@ -36,6 +36,8 @@ struct Colors {
         static let green75Percent: NSColor = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
         
         static let aqua: NSColor = NSColor(red: 0, green: 0.5, blue: 1, alpha: 1)
+        
+        static let lava: NSColor = NSColor(red: 0.73, green: 0.294, blue: 0.153, alpha: 1)
     }
     
     static var windowBackgroundColor: NSColor {

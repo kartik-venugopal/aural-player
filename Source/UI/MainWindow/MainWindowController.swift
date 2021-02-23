@@ -33,13 +33,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     override var windowNibName: String? {return "MainWindow"}
     
-    // TODO: This is temporary. Remove prior to release v2.5.0
-    
-    private lazy var fontSchemesDialog: ModalDialogDelegate = WindowFactory.fontSchemesDialog
-    @IBAction func customizeFontSetAction(_ sender: AnyObject) {
-        _ = fontSchemesDialog.showDialog()
-    }
-    
     // MARK: Setup
     
     // One-time setup

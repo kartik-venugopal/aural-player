@@ -93,17 +93,6 @@
                                         <action selector="togglePlaylistAction:" target="-2" id="Oro-eR-EYP"/>
                                     </connections>
                                 </button>
-                                <button toolTip="Show/hide playlist" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7OC-bu-F7A" userLabel="Toggle Playlist Button">
-                                    <rect key="frame" x="414" y="204" width="14" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PlaylistView-On" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="F25-jU-GLd">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="customizeFontSetAction:" target="-2" id="05o-Pl-m2E"/>
-                                    </connections>
-                                </button>
                                 <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Settings Menu">
                                     <rect key="frame" x="495" y="201" width="24" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -335,6 +324,12 @@
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="Dr5-Uq-RIe"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Lava" indentationLevel="1" id="sNL-Wk-hye">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="0Jd-bc-TVE"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem title="White blight" indentationLevel="1" id="41Q-2F-UWV">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
@@ -543,7 +538,7 @@
         <image name="Hide" width="18" height="18"/>
         <image name="PlaylistView-Off" width="28" height="24"/>
         <image name="PlaylistView-On" width="28" height="24"/>
-        <image name="Settings" width="12" height="12"/>
+        <image name="Settings" width="10" height="7"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>

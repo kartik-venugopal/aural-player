@@ -143,11 +143,7 @@
             </connections>
         </customObject>
         <customObject id="lih-ya-6jC" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="manageSchemesMenuItem" destination="3ie-xE-Lk9" id="uvR-z9-sCl"/>
-            </connections>
-        </customObject>
+        <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="YVQ-JN-BbP" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
@@ -1158,6 +1154,12 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="Pjb-10-EVU"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Lava" indentationLevel="1" id="ZKD-bJ-9Hc">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="hDR-uD-Kk5"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="White blight" indentationLevel="1" id="34v-MD-ohm">
