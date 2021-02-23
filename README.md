@@ -160,7 +160,7 @@ The fix for this is easy.
 
 #### On v2.5.0 or newer versions: 
 
-Go to the menu **View > Font scheme > Customize**, and increase the font sizes of the various UI textual elements, per your preference.
+Go to the menu **View > Font scheme > Customize**, and either increase the font sizes of the various UI textual elements, and/or choose different font faces, per your preference.
 
 #### On v2.4.0 or older versions: 
 
