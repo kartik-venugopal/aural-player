@@ -154,7 +154,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ### The text is too small on my high resolution Mac screen !!!
 
-The fix for this is easy. Go to the menu **View > Text Size**, and set the text size to ***Larger*** or ***Largest***, per your preference.
+The fix for this is easy. Go to the menu **View > Font scheme > Customize**, and increase the font sizes of the various UI textual elements, per your preference.
 
 ### Bad audio quality when connecting Bluetooth headphones
 
