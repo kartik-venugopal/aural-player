@@ -4,7 +4,7 @@
 
 The very ambitious version 3.0 was in active development last year, but due to unforeseen personal circumstances, that part of the project has been put on hold since Oct 2020. The planned 3.0 release will be delayed.
 
-Instead, I have worked to get Aural Player up and running on macOS Big Sur, and have been making small refinements and enhancements to version 2.x.
+Instead, I have worked to get Aural Player up and running on macOS Big Sur, and have been making refinements and enhancements to version 2.x.
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
@@ -26,12 +26,13 @@ Instead, I have worked to get Aural Player up and running on macOS Big Sur, and 
 
 ## Overview
 
-Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be to-the-point, easy to use, and customizable, with support for a wide variety of popular audio formats and some sound tuning capabilities for audio enthusiasts.
+Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and some sound tuning capabilities for audio enthusiasts.
 
 #### Goals:
-* To have a simple drag-drop-play player for the music collection on your local drives, that requires no configuration out of the box, although plenty of customization/configuration is possible.
+* To have a simple drag-drop-play player for the music collection on your local drives, that recognizes a wide variety of audio formats.
+* To allow customization/configuration, but not to require it out of the box.
 * To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
-* To have a decent macOS counterpart of Winamp.
+* To have a decent macOS Winamp counterpart.
 
 #### Limitations:
 * Does not play protected content (e.g. Apple's M4P or Audible's AAX).
