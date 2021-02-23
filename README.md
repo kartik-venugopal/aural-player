@@ -82,6 +82,7 @@ Perform the following simple steps when upgrading from v2.2.0 or any older versi
 * Quit Aural Player v2.2.0 (or any older app version) if it is running.
 * Move the folder named ***aural*** in your user's *Documents* folder, to your user's *Music* folder.
 * Download/install Aural Player v2.3.0 (or any newer app version) and run it.
+* Verify that your previous app settings have been carried over to the new version - playlist tracks, window layouts, color schemes, history, favorites, bookmarks, etc. If not, please file an issue, and I will help you restore your previous app settings (this should not happen, but just in case).
 
 The contents of the "aural" folder should look like this:
 
