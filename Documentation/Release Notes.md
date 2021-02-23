@@ -47,6 +47,10 @@ Access the font schemes manager by going to **View > Manage font schemes**.
 
 NOTE - You cannot alter built-in font schemes ... only your own.
 
+## New "Lava" color scheme added
+
+A cool new color scheme named "Lava" has been added, to mimic the outflow of lava from active volcanoes like Kīlauea in Hawaii. It consists of a dark grey "volcanic rock" background, with a bright gradiented orange "lava" foreground color used for sliders. 
+
 ### Bug fixes
 
 * Fixed the popup menu auto-close bug that was introduced in v2.3.0.
@@ -57,6 +61,8 @@ NOTE - You cannot alter built-in font schemes ... only your own.
 * Text fields across the UI have better logic for vertical centering of text, and have been resized to accommodate a wide variety of font faces / sizes.
 * The alignment of text and images in the playlist table view, and summary fields, has been improved for better aesthetics.
 * Playlist rows are now more spaced out to accommodate a wider variety of font faces / sizes.
+* New stylish app logo
+* Updated the settings menu icon
 
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.5.0)

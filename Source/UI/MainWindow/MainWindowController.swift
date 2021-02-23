@@ -71,6 +71,15 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
         applyColorScheme(ColorSchemes.systemScheme)
+        
+        // Hackish fix to properly position settings menu button (hamburger icon) on older systems.
+        if !SystemUtils.isBigSur {
+            
+            var frame = btnSettingsMenu.frame
+            frame.origin.y += 1
+            
+            btnSettingsMenu.setFrameOrigin(frame.origin)
+        }
     }
     
     // Add the sub-views that make up the main window

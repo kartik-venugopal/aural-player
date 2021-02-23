@@ -94,7 +94,7 @@
                                     </connections>
                                 </button>
                                 <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-G6-T2s" userLabel="Settings Menu">
-                                    <rect key="frame" x="495" y="201" width="24" height="15"/>
+                                    <rect key="frame" x="496" y="201" width="24" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="QX7-Ug-p4q">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -531,7 +531,7 @@
         </customObject>
     </objects>
     <resources>
-        <image name="AppTitle" width="78" height="24"/>
+        <image name="AppTitle" width="117" height="32"/>
         <image name="Close" width="18" height="18"/>
         <image name="EffectsView-Off" width="25" height="25"/>
         <image name="EffectsView-On" width="25" height="25"/>
