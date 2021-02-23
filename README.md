@@ -162,7 +162,7 @@ Go to the menu **View > Font scheme > Customize**, and increase the font sizes o
 
 #### On v2.4.0 or older versions: 
 
-Go to the menu **View > Font scheme > Customize**, and choose the ***Larger*** or ***Largest*** text size preset, per your preference.
+Go to the menu **View > Text Size**, and choose the ***Larger*** or ***Largest*** text size preset, per your preference.
 
 ### 2 - Bad audio quality when connecting Bluetooth headphones
 
