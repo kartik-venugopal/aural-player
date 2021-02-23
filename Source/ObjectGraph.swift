@@ -75,7 +75,6 @@ class ObjectGraph {
         preferencesDelegate = PreferencesDelegate(preferences)
         
         // Audio Graph (and delegate)
-//        audioGraph = MockAudioGraph(appState.audioGraph)
         audioGraph = AudioGraph(appState.audioGraph)
         
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
