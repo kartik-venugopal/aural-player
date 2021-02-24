@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
     </dependencies>
     <objects>
@@ -933,7 +932,7 @@ CA
                             </menuItem>
                             <menuItem title="   Visualizer window" keyEquivalent="4" indentationLevel="1" id="ZcB-VH-qBr">
                                 <connections>
-                                    <action selector="toggleVizAction:" target="xzd-WN-BuR" id="XFm-Oe-S60"/>
+                                    <action selector="toggleVisualizerAction:" target="xzd-WN-BuR" id="XFm-Oe-S60"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="uLJ-xN-xtk"/>

@@ -128,19 +128,25 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
         }
         
         isPlaying = true
-//        show()
     }
     
     func dismissView() {
-        
         isPlaying = false
-//        hide()
     }
     
     func updateTextureCache() {
         
-        for level in 0...10 {
-            textureCache[level] = textureImage.tinting(startColor.interpolate(endColor, CGFloat(level) * 0.1))
+        if textureCache.isNonEmpty {
+            
+            for level in 0...10 {
+                textureCache[level] = textureImage.tinting(startColor.interpolate(endColor, CGFloat(level) * 0.1))
+            }
+            
+        } else {
+            
+            for level in 0...10 {
+                textureCache.append(textureImage.tinting(startColor.interpolate(endColor, CGFloat(level) * 0.1)))
+            }
         }
     }
     
@@ -207,7 +213,7 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
         self.startColor = startColor
         self.endColor = endColor
         
-        if self.isShown {
+        if self.scene != nil {
             updateTextureCache()
         }
     }

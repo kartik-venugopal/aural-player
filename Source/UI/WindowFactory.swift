@@ -13,8 +13,6 @@ class WindowFactory {
     
     private static let chaptersListWindowController: ChaptersListWindowController = ChaptersListWindowController()
     
-    private static var visualizerWindowController: VisualizerWindowController = VisualizerWindowController()
-    
     static var editorWindowController: EditorWindowController = EditorWindowController()
     
     private static var preferencesWindowController: PreferencesWindowController = PreferencesWindowController()
@@ -48,10 +46,6 @@ class WindowFactory {
     
     static var chaptersListWindow: NSWindow {
         return chaptersListWindowController.window!
-    }
-    
-    static var vizWindow: NSWindow {
-        return visualizerWindowController.window!
     }
     
     static var playlistContextMenu: NSMenu {

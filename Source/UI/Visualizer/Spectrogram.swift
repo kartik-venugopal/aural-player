@@ -68,7 +68,6 @@ class Spectrogram: SKView, VisualizerViewProtocol {
         }
 
         isPaused = false
-//        show()
     }
     
     func dismissView() {
@@ -77,7 +76,6 @@ class Spectrogram: SKView, VisualizerViewProtocol {
         bars.forEach {$0.removeAllActions()}
 
         isPaused = true
-//        hide()
     }
     
     func setColors(startColor: NSColor, endColor: NSColor) {

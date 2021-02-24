@@ -14,6 +14,7 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     @IBOutlet weak var supernova: Supernova!
     @IBOutlet weak var discoBall: DiscoBall!
     
+    @IBOutlet weak var typeMenuButton: NSPopUpButton!
     @IBOutlet weak var typeMenu: NSMenu!
     @IBOutlet weak var spectrogramMenuItem: NSMenuItem!
     @IBOutlet weak var supernovaMenuItem: NSMenuItem!
@@ -24,8 +25,8 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     @IBOutlet weak var startColorPicker: NSColorWell!
     @IBOutlet weak var endColorPicker: NSColorWell!
     
-    @IBOutlet weak var lblBands: NSTextField!
-    @IBOutlet weak var bandsMenu: NSPopUpButton!
+//    @IBOutlet weak var lblBands: NSTextField!
+//    @IBOutlet weak var bandsMenu: NSPopUpButton!
     
     var vizView: VisualizerViewProtocol!
     var allViews: [VisualizerViewProtocol] = []
@@ -46,12 +47,12 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         
         NotificationCenter.default.addObserver(forName: Notification.Name("showOptions"), object: nil, queue: nil, using: {_ in
             
-            if let theVizView = self.vizView, theVizView.type == .spectrogram {
-                NSView.showViews(self.lblBands, self.bandsMenu)
-                
-            } else {
-                NSView.hideViews(self.lblBands, self.bandsMenu)
-            }
+//            if let theVizView = self.vizView, theVizView.type == .spectrogram {
+//                NSView.showViews(self.lblBands, self.bandsMenu)
+//
+//            } else {
+//                NSView.hideViews(self.lblBands, self.bandsMenu)
+//            }
             
             self.optionsBox.show()
         })
@@ -71,9 +72,32 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate), bufferSize: audioGraph.outputDeviceBufferSize)
      
         containerBox.startTracking()
-        changeType(VisualizerViewState.type)
+        initUI(type: VisualizerViewState.type, lowAmplitudeColor: VisualizerViewState.options.lowAmplitudeColor, highAmplitudeColor: VisualizerViewState.options.highAmplitudeColor)
         
         audioGraph.registerRenderObserver(self)
+    }
+    
+    private func initUI(type: VisualizationType, lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
+        
+        changeType(type)
+        vizView.setColors(startColor: lowAmplitudeColor, endColor: highAmplitudeColor)
+        
+        for item in typeMenu.items {
+            
+            if let representedType = item.representedObject as? VisualizationType, representedType == type {
+                typeMenuButton.select(item)
+            }
+        }
+        
+        startColorPicker.color = lowAmplitudeColor
+        endColorPicker.color = highAmplitudeColor
+        
+        [spectrogram, supernova, discoBall].forEach {
+            
+            if $0 !== (vizView as! NSView) {
+                ($0 as? VisualizerViewProtocol)?.setColors(startColor: lowAmplitudeColor, endColor: highAmplitudeColor)
+            }
+        }
     }
     
     @IBAction func changeTypeAction(_ sender: NSPopUpButton) {
@@ -85,8 +109,8 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     
     func changeType(_ type: VisualizationType) {
         
+        vizView?.dismissView()
         vizView = nil
-        allViews.forEach {$0.dismissView()}
         
         VisualizerViewState.type = type
         
@@ -104,27 +128,6 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
                                 vizView = discoBall
                                 tabView.selectTabViewItem(at: 2)
         }
-        
-        
-    }
-    
-    @IBAction func closeWindowAction(_ sender: Any) {
-        close()
-    }
-    
-    override func close() {
-        
-        super.close()
-        
-        vizView = nil
-        
-        audioGraph.removeRenderObserver(self)
-        fft.deallocate()
-
-        containerBox.stopTracking()
-        optionsBox.hide()
-        
-        allViews.forEach {$0.dismissView()}
     }
     
     func rendered(timeStamp: AudioTimeStamp, frameCount: UInt32, audioBuffer: AudioBufferList) {
@@ -146,23 +149,42 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         }
     }
     
-    // TODO
-    func deviceSampleRateChanged(newSampleRate: Double) {
-        NSLog("**** Device SR changed: \(newSampleRate)")
-    }
-
     @IBAction func setColorsAction(_ sender: NSColorWell) {
         
-        vizView.setColors(startColor: self.startColorPicker.color, endColor: self.endColorPicker.color)
+        vizView.setColors(startColor: startColorPicker.color, endColor: endColorPicker.color)
         
         [spectrogram, supernova, discoBall].forEach {
             
             if $0 !== (vizView as! NSView) {
-                ($0 as? VisualizerViewProtocol)?.setColors(startColor: self.startColorPicker.color, endColor: self.endColorPicker.color)
+                ($0 as? VisualizerViewProtocol)?.setColors(startColor: startColorPicker.color, endColor: endColorPicker.color)
             }
         }
         
-        VisualizerViewState.options.setColors(lowAmplitudeColor: self.startColorPicker.color, highAmplitudeColor: self.endColorPicker.color)
+        VisualizerViewState.options.setColors(lowAmplitudeColor: startColorPicker.color, highAmplitudeColor: endColorPicker.color)
+    }
+    
+    @IBAction func closeWindowAction(_ sender: Any) {
+        close()
+    }
+    
+    override func close() {
+        
+        super.close()
+        
+        vizView = nil
+        
+        audioGraph.removeRenderObserver(self)
+        fft.deallocate()
+
+        containerBox.stopTracking()
+        optionsBox.hide()
+        
+        allViews.forEach {$0.dismissView()}
+    }
+    
+    // TODO
+    func deviceSampleRateChanged(newSampleRate: Double) {
+        NSLog("**** Device SR changed: \(newSampleRate)")
     }
     
     //    @IBAction func changeNumberOfBandsAction(_ sender: NSPopUpButton) {
@@ -196,6 +218,4 @@ class VisualizerViewState {
     
     static var type: VisualizationType = .spectrogram
     static var options: VisualizerViewOptions = VisualizerViewOptions()
-    
-    
 }

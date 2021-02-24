@@ -43,12 +43,8 @@ class Supernova: SKView, VisualizerViewProtocol {
             scene.addChild(star)
             presentScene(scene)
         }
-        else {
-            print("SCENE NOT NIL for Supernova. Didn't show view.")
-        }
         
         isPaused = false
-//        show()
     }
     
     func dismissView() {
@@ -57,7 +53,6 @@ class Supernova: SKView, VisualizerViewProtocol {
         star?.removeAllActions()
         
         isPaused = true
-//        hide()
     }
     
     var startColor: NSColor = .blue

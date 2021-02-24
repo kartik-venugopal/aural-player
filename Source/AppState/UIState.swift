@@ -10,6 +10,7 @@ class UIState: PersistentState {
     var colorSchemes: ColorSchemesState = ColorSchemesState()
     var player: PlayerUIState = PlayerUIState()
     var playlist: PlaylistUIState = PlaylistUIState()
+    var visualizer: VisualizerUIState = VisualizerUIState()
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -37,6 +38,10 @@ class UIState: PersistentState {
         
         if let playlistMap = map["playlist"] as? NSDictionary {
             state.playlist = PlaylistUIState.deserialize(playlistMap) as! PlaylistUIState
+        }
+        
+        if let visualizerMap = map["visualizer"] as? NSDictionary {
+            state.visualizer = VisualizerUIState.deserialize(visualizerMap) as! VisualizerUIState
         }
         
         return state
@@ -72,8 +77,7 @@ class VisualizerUIState: PersistentState {
             state.type = type
         }
         
-        if let optionsDict = map["lowAmplitudeColor"] as? NSDictionary, let options = VisualizerOptionsState.deserialize(optionsDict) as? VisualizerOptionsState {
-            
+        if let optionsDict = map["options"] as? NSDictionary, let options = VisualizerOptionsState.deserialize(optionsDict) as? VisualizerOptionsState {
             state.options = options
         }
         
@@ -292,7 +296,7 @@ extension VisualizerViewState {
     
     static func initialize(_ appState: VisualizerUIState) {
         
-        if let vizTypeString = appState.type?.lowercased() {
+        if let vizTypeString = appState.type {
             type = VisualizationType(rawValue: vizTypeString) ?? .spectrogram
         } else {
             type = .spectrogram

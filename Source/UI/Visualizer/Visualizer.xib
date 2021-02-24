@@ -22,6 +22,7 @@
                 <outlet property="supernovaMenuItem" destination="CQD-G1-6Uv" id="zha-YQ-fsL"/>
                 <outlet property="tabView" destination="jq4-Se-Giz" id="CGV-Lk-15r"/>
                 <outlet property="typeMenu" destination="BGG-tA-Gy9" id="fuV-DD-XrW"/>
+                <outlet property="typeMenuButton" destination="DM4-7i-v6q" id="Qop-0W-ThC"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="jNN-vL-uGq"/>
             </connections>
         </customObject>

@@ -177,6 +177,7 @@ class ObjectGraph {
         
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)
+        VisualizerViewState.initialize(appState.ui.visualizer)
         
         fft = FFT()
     }
@@ -208,6 +209,7 @@ class ObjectGraph {
         appState.ui.colorSchemes = ColorSchemes.persistentState
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState
+        appState.ui.visualizer = VisualizerViewState.persistentState
         
         appState.history = (historyDelegate as! HistoryDelegate).persistentState as! HistoryState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

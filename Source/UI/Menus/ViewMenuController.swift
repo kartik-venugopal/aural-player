@@ -101,8 +101,8 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         WindowManager.toggleChaptersList()
     }
     
-    @IBAction func toggleVizAction(_ sender: AnyObject) {
-        WindowManager.showViz()
+    @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
+        WindowManager.toggleVisualizer()
     }
     
     // TODO: Revisit this
