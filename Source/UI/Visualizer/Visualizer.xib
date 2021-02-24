@@ -101,13 +101,13 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <box hidden="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="XpW-Cc-cL9" userLabel="Options Box">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="170"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
                         <view key="contentView" id="eKB-lz-9pZ">
-                            <rect key="frame" x="0.0" y="0.0" width="450" height="170"/>
+                            <rect key="frame" x="0.0" y="0.0" width="450" height="150"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3u-HL-TMC">
-                                    <rect key="frame" x="32" y="133" width="126" height="22"/>
+                                    <rect key="frame" x="32" y="98" width="126" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Visualization Type:" id="PhG-lU-bnf">
                                         <font key="font" size="13" name="Play-Regular"/>
@@ -116,7 +116,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DM4-7i-v6q" userLabel="Visualization Type Menu">
-                                    <rect key="frame" x="185" y="129" width="220" height="25"/>
+                                    <rect key="frame" x="185" y="94" width="220" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="Spectrogram" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="FZm-qk-5i9" id="2CH-f3-3NP">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -139,15 +139,6 @@
                                         <action selector="changeTypeAction:" target="-2" id="agy-I8-n9z"/>
                                     </connections>
                                 </popUpButton>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XLp-Vx-Al0">
-                                    <rect key="frame" x="32" y="92" width="100" height="22"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" lineBreakMode="clipping" title="Options:" id="2u1-97-uer">
-                                        <font key="font" size="13" name="Play-Regular"/>
-                                        <color key="textColor" white="0.79605893484533652" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    </textFieldCell>
-                                </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pt9-a2-vyg">
                                     <rect key="frame" x="32" y="55" width="137" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -183,7 +174,7 @@
                                     </connections>
                                 </colorWell>
                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="83s-gi-Kn8">
-                                    <rect key="frame" x="32" y="-102" width="126" height="22"/>
+                                    <rect key="frame" x="32" y="-122" width="126" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" title="Number of Bands:" id="sBx-Bw-jLD">
                                         <font key="font" size="12" name="Play-Regular"/>
@@ -192,7 +183,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <popUpButton hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lIR-fL-W8P" userLabel="Bands Menu">
-                                    <rect key="frame" x="185" y="-106" width="220" height="25"/>
+                                    <rect key="frame" x="185" y="-126" width="220" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="push" title="10" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="10" imageScaling="proportionallyDown" inset="2" selectedItem="DNv-Tr-R4H" id="ayw-Tr-Ext">
                                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -208,21 +199,18 @@
                                             </items>
                                         </menu>
                                     </popUpButtonCell>
-                                    <connections>
-                                        <action selector="changeNumberOfBandsAction:" target="-2" id="y9d-Fk-ba5"/>
-                                    </connections>
                                 </popUpButton>
                             </subviews>
                         </view>
                         <constraints>
-                            <constraint firstAttribute="height" constant="170" id="zEU-UF-ZNG"/>
+                            <constraint firstAttribute="height" constant="150" id="zEU-UF-ZNG"/>
                         </constraints>
                         <color key="fillColor" white="0.0" alpha="0.80439319349315064" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </box>
-                    <button toolTip="Quit application" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6tC-45-CrB" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="6" y="284" width="8" height="8"/>
+                    <button toolTip="Quit application" wantsLayer="YES" id="qJC-vD-AZW" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="15" y="274" width="10" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="sFv-EX-egw">
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="me7-OR-ofa">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -230,21 +218,7 @@
                             <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Close"/>
                         </userDefinedRuntimeAttributes>
                         <connections>
-                            <action selector="closeWindowAction:" target="-2" id="ypM-Ri-uzL"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Quit application" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4gL-BM-6Qe" userLabel="Full Screen Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="19" y="284" width="9" height="9"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="FullScreen" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0kj-CG-J6U">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="FullScreen"/>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="fullScreenAction:" target="-2" id="0ds-yh-VHL"/>
+                            <action selector="closeWindowAction:" target="-2" id="uFl-RN-aFa"/>
                         </connections>
                     </button>
                 </subviews>
@@ -268,6 +242,5 @@
     </objects>
     <resources>
         <image name="Close" width="18" height="18"/>
-        <image name="FullScreen" width="15" height="15"/>
     </resources>
 </document>

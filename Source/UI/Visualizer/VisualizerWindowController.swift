@@ -40,9 +40,6 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         
         [spectrogram, supernova, discoBall].forEach {$0?.anchorToView($0!.superview!)}
         
-//        FrequencyData.numBands = 27
-//        spectrogram.numberOfBands = 27
-        
         spectrogramMenuItem.representedObject = VisualizationType.spectrogram
         supernovaMenuItem.representedObject = VisualizationType.supernova
         discoBallMenuItem.representedObject = VisualizationType.discoBall
@@ -64,7 +61,6 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         })
         
         allViews = [spectrogram, supernova, discoBall]
-//        allViews = [spectrogram, supernova]
     }
     
     override func showWindow(_ sender: Any?) {
@@ -75,7 +71,7 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate), bufferSize: audioGraph.outputDeviceBufferSize)
      
         containerBox.startTracking()
-        changeType(VisualizerUIState.type)
+        changeType(VisualizerViewState.type)
         
         audioGraph.registerRenderObserver(self)
     }
@@ -92,7 +88,7 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         vizView = nil
         allViews.forEach {$0.dismissView()}
         
-        VisualizerUIState.type = type
+        VisualizerViewState.type = type
         
         switch type {
 
@@ -108,15 +104,8 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
                                 vizView = discoBall
                                 tabView.selectTabViewItem(at: 2)
         }
-    }
-    
-    @IBAction func fullScreenAction(_ sender: Any) {
         
-        // TODO: Figure out which screen the window is on (more). And use that screen.
         
-        if let screenFrame = NSScreen.main?.visibleFrame {
-            window?.setFrame(screenFrame, display: true)
-        }
     }
     
     @IBAction func closeWindowAction(_ sender: Any) {
@@ -128,7 +117,6 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         super.close()
         
         vizView = nil
-        allViews.forEach {$0.dismissView()}
         
         audioGraph.removeRenderObserver(self)
         fft.deallocate()
@@ -162,16 +150,7 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     func deviceSampleRateChanged(newSampleRate: Double) {
         NSLog("**** Device SR changed: \(newSampleRate)")
     }
-    
-    @IBAction func changeNumberOfBandsAction(_ sender: NSPopUpButton) {
-        
-        let numBands = sender.selectedTag()
-        
-        if numBands > 0 {
-            spectrogram.numberOfBands = numBands
-        }
-    }
-    
+
     @IBAction func setColorsAction(_ sender: NSColorWell) {
         
         vizView.setColors(startColor: self.startColorPicker.color, endColor: self.endColorPicker.color)
@@ -182,53 +161,23 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
                 ($0 as? VisualizerViewProtocol)?.setColors(startColor: self.startColorPicker.color, endColor: self.endColorPicker.color)
             }
         }
+        
+        VisualizerViewState.options.setColors(lowAmplitudeColor: self.startColorPicker.color, highAmplitudeColor: self.endColorPicker.color)
     }
+    
+    //    @IBAction func changeNumberOfBandsAction(_ sender: NSPopUpButton) {
+    //
+    //        let numBands = sender.selectedTag()
+    //
+    //        if numBands > 0 {
+    //            spectrogram.numberOfBands = numBands
+    //        }
+    //    }
 }
 
-enum VisualizationType {
+enum VisualizationType: String, CaseIterable {
     
     case spectrogram, supernova, discoBall
-}
-
-class VisualizerContainer: NSBox {
-    
-    override func viewDidEndLiveResize() {
-        
-        super.viewDidEndLiveResize()
-        
-        self.removeAllTrackingAreas()
-        self.updateTrackingAreas()
-        
-        NotificationCenter.default.post(name: Notification.Name("hideOptions"), object: nil)
-    }
-    
-    // Signals the view to start tracking mouse movements.
-    func startTracking() {
-        
-        self.removeAllTrackingAreas()
-        self.updateTrackingAreas()
-    }
-    
-    // Signals the view to stop tracking mouse movements.
-    func stopTracking() {
-        self.removeAllTrackingAreas()
-    }
-    
-    override func updateTrackingAreas() {
-        
-        // Create a tracking area that covers the bounds of the view. It should respond whenever the mouse enters or exits.
-        addTrackingArea(NSTrackingArea(rect: self.bounds, options: [NSTrackingArea.Options.activeAlways, NSTrackingArea.Options.mouseEnteredAndExited], owner: self, userInfo: nil))
-        
-        super.updateTrackingAreas()
-    }
-    
-    override func mouseEntered(with event: NSEvent) {
-        NotificationCenter.default.post(name: Notification.Name("showOptions"), object: nil)
-    }
-    
-    override func mouseExited(with event: NSEvent) {
-        NotificationCenter.default.post(name: Notification.Name("hideOptions"), object: nil)
-    }
 }
 
 class VisualizerViewOptions {
@@ -236,22 +185,17 @@ class VisualizerViewOptions {
     var lowAmplitudeColor: NSColor = .blue
     var highAmplitudeColor: NSColor = .red
     
-    func setColors(startColor: NSColor, endColor: NSColor) {
+    func setColors(lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
         
+        self.lowAmplitudeColor = lowAmplitudeColor
+        self.highAmplitudeColor = highAmplitudeColor
     }
 }
 
-class SpectrogramOptions: VisualizerViewOptions {
-    
-    var numberOfBands: Int = 10
-}
-
-class SupernovaOptions: VisualizerViewOptions {}
-
-class DiscoBallOptions: VisualizerViewOptions {}
-
-class VisualizerUIState {
+class VisualizerViewState {
     
     static var type: VisualizationType = .spectrogram
-    static var options: VisualizerViewOptions = SpectrogramOptions()
+    static var options: VisualizerViewOptions = VisualizerViewOptions()
+    
+    
 }

@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 
 /*
  Encapsulates UI state
@@ -53,6 +53,51 @@ class PlaylistUIState: PersistentState {
         
         if let viewName = map["view"] as? String {
             state.view = viewName
+        }
+        
+        return state
+    }
+}
+
+class VisualizerUIState: PersistentState {
+    
+    var type: String?
+    var options: VisualizerOptionsState?
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = VisualizerUIState()
+        
+        if let type = map["type"] as? String {
+            state.type = type
+        }
+        
+        if let optionsDict = map["lowAmplitudeColor"] as? NSDictionary, let options = VisualizerOptionsState.deserialize(optionsDict) as? VisualizerOptionsState {
+            
+            state.options = options
+        }
+        
+        return state
+    }
+}
+
+class VisualizerOptionsState: PersistentState {
+    
+    var lowAmplitudeColor: ColorState?
+    var highAmplitudeColor: ColorState?
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = VisualizerOptionsState()
+        
+        if let colorDict = map["lowAmplitudeColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            
+            state.lowAmplitudeColor = color
+        }
+        
+        if let colorDict = map["highAmplitudeColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            
+            state.highAmplitudeColor = color
         }
         
         return state
@@ -238,6 +283,34 @@ extension PlaylistViewState {
         
         let state = PlaylistUIState()
         state.view = current.rawValue.capitalizingFirstLetter()
+        
+        return state
+    }
+}
+
+extension VisualizerViewState {
+    
+    static func initialize(_ appState: VisualizerUIState) {
+        
+        if let vizTypeString = appState.type?.lowercased() {
+            type = VisualizationType(rawValue: vizTypeString) ?? .spectrogram
+        } else {
+            type = .spectrogram
+        }
+        
+        options = VisualizerViewOptions()
+        options.setColors(lowAmplitudeColor: appState.options?.lowAmplitudeColor?.toColor() ?? NSColor.blue,
+                          highAmplitudeColor: appState.options?.highAmplitudeColor?.toColor() ?? NSColor.red)
+    }
+    
+    static var persistentState: VisualizerUIState {
+        
+        let state = VisualizerUIState()
+        
+        state.type = type.rawValue
+        state.options = VisualizerOptionsState()
+        state.options?.lowAmplitudeColor = ColorState.fromColor(options.lowAmplitudeColor)
+        state.options?.highAmplitudeColor = ColorState.fromColor(options.highAmplitudeColor)
         
         return state
     }
