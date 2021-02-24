@@ -19,6 +19,9 @@ class WindowManager {
     
     static var playlistWindow: NSWindow = WindowFactory.playlistWindow
     
+    static var visualizerWindowController: VisualizerWindowController = VisualizerWindowController()
+    static var vizWindow: NSWindow = visualizerWindowController.window!
+    
     // Helps with lazy loading of chapters list window
     private static var chaptersListWindowLoaded: Bool = false
     
@@ -218,6 +221,13 @@ class WindowManager {
         if chaptersListWindowLoaded {
             chaptersListWindow.setIsVisible(false)
         }
+    }
+    
+    static func showViz() {
+        
+        mainWindow.addChildWindow(vizWindow, ordered: NSWindow.OrderingMode.above)
+        visualizerWindowController.showWindow(self)
+        vizWindow.orderFront(self)
     }
     
     static func addChildWindow(_ window: NSWindow) {

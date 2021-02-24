@@ -101,6 +101,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         WindowManager.toggleChaptersList()
     }
     
+    @IBAction func toggleVizAction(_ sender: AnyObject) {
+        WindowManager.showViz()
+    }
+    
     // TODO: Revisit this
     @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
 //        WindowManager.toggleAlwaysOnTop()

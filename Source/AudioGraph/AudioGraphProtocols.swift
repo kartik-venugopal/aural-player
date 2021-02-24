@@ -6,9 +6,11 @@ import AVFoundation
  */
 protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
-    var availableDevices: [AudioDevice] {get}
+    var availableDevices: AudioDeviceList {get}
     var systemDevice: AudioDevice {get}
     var outputDevice: AudioDevice {get set}
+    var outputDeviceBufferSize: Int {get set}
+    var outputDeviceSampleRate: Double {get}
     
     var volume: Float {get set}
     var balance: Float {get set}
@@ -25,6 +27,9 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     var settingsAsMasterPreset: MasterPreset {get}
     
     var soundProfiles: SoundProfiles {get set}
+    
+    func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
+    func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     
     // Shuts down the audio graph, releasing all its resources
     func tearDown()
@@ -55,4 +60,13 @@ protocol RecorderGraphProtocol {
  
     // The audio graph node on which a recorder tap can be installed
     var nodeForRecorderTap: AVAudioNode {get}
+}
+
+protocol AudioGraphRenderObserverProtocol {
+    
+    func rendered(timeStamp: AudioTimeStamp, frameCount: UInt32, audioBuffer: AudioBufferList)
+    
+    func deviceChanged(newDeviceBufferSize: Int, newDeviceSampleRate: Double)
+    
+    func deviceSampleRateChanged(newSampleRate: Double)
 }

@@ -6,7 +6,7 @@ import AVFoundation
  */
 class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
-    var availableDevices: [AudioDevice] {
+    var availableDevices: AudioDeviceList {
         return deviceManager.allDevices
     }
     
@@ -23,8 +23,17 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         }
     }
     
+    var outputDeviceBufferSize: Int {
+        
+        get {deviceManager.outputDeviceBufferSize}
+        set {deviceManager.outputDeviceBufferSize = newValue}
+    }
+    
+    var outputDeviceSampleRate: Double {deviceManager.outputDeviceSampleRate}
+    
     private let audioEngine: AVAudioEngine
     
+    internal let outputNode: AVAudioOutputNode
     internal let playerNode: AuralPlayerNode
     internal let nodeForRecorderTap: AVAudioNode
     private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
@@ -51,6 +60,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     init(_ state: AudioGraphState) {
         
         audioEngine = AVAudioEngine()
+        outputNode = audioEngine.outputNode
         
         // If running on 10.12 Sierra or older, use the legacy AVAudioPlayerNode APIs
         if #available(OSX 10.13, *) {
@@ -62,7 +72,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         nodeForRecorderTap = audioEngine.mainMixerNode
         auxMixer = AVAudioMixerNode()
         
-        deviceManager = DeviceManager(audioEngine.outputNode.audioUnit!)
+        deviceManager = DeviceManager(outputAudioUnit: audioEngine.outputNode.audioUnit!,
+                                      preferredDeviceUID: true ? nil : state.outputDevice.uid)
+        
         audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         
         eqUnit = EQUnit(state)
@@ -95,10 +107,15 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         audioEngineHelper.addNodes(nodes)
         audioEngineHelper.connectNodes()
+        
+        deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
+        
         audioEngineHelper.prepareAndStart()
     }
     
     @objc func outputChanged() {
+        
+        deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
         
         // Send out a notification
         Messenger.publish(.audioGraph_outputDeviceChanged)
@@ -146,8 +163,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         let state: AudioGraphState = AudioGraphState()
         
-        state.outputDevice.name = outputDevice.name!
-        state.outputDevice.uid = outputDevice.uid!
+        state.outputDevice.name = outputDevice.name
+        state.outputDevice.uid = outputDevice.uid
         
         // Volume and pan (balance)
         state.volume = playerVolume

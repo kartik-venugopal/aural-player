@@ -137,15 +137,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         var selItem: NSMenuItem?
         
-        for device in audioGraph.availableDevices {
+        for device in audioGraph.availableDevices.allDevices {
 
-            preferredDevicesMenu.insertItem(withTitle: device.name!, at: 0)
+            preferredDevicesMenu.insertItem(withTitle: device.name, at: 0)
             
-            let repObject = PreferredDevice(device.name!, device.uid!)
+            let repObject = PreferredDevice(device.name, device.uid)
             preferredDevicesMenu.item(at: 0)!.representedObject = repObject
             
             // If this device matches the preferred device, make note of it
-            if (device.uid! == prefDeviceUID) {
+            if (device.uid == prefDeviceUID) {
                 prefDevice = repObject
                 selItem = preferredDevicesMenu.item(at: 0)!
             }

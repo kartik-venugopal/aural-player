@@ -284,7 +284,7 @@ class AudioUtils {
     }
 
     // Converts a four character media type code to a readable string
-    private static func codeToString(_ code: FourCharCode) -> String {
+    static func codeToString(_ code: FourCharCode) -> String {
 
         let numericCode = Int(code)
 

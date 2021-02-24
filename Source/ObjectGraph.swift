@@ -60,6 +60,8 @@ class ObjectGraph {
     
     static var mediaKeyHandler: MediaKeyHandler!
     
+    static var fft: FFT!
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -175,6 +177,8 @@ class ObjectGraph {
         
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)
+        
+        fft = FFT()
     }
     
     private static let tearDownOpQueue: OperationQueue = {

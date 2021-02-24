@@ -931,6 +931,11 @@ CA
                                     <action selector="toggleChaptersListAction:" target="xzd-WN-BuR" id="l0e-TW-mpy"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="   Visualizer window" keyEquivalent="4" indentationLevel="1" id="ZcB-VH-qBr">
+                                <connections>
+                                    <action selector="toggleVizAction:" target="xzd-WN-BuR" id="XFm-Oe-S60"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="uLJ-xN-xtk"/>
                             <menuItem title="  Player view" indentationLevel="1" id="af4-4E-1QV" userLabel="Player view">
                                 <modifierMask key="keyEquivalentModifierMask"/>
