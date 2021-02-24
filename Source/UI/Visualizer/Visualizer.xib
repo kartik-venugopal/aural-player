@@ -8,12 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VisualizerWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="bandsMenu" destination="lIR-fL-W8P" id="Loq-pf-LmZ"/>
                 <outlet property="containerBox" destination="j6R-ye-LTm" id="UYU-zJ-Q7c"/>
                 <outlet property="discoBall" destination="k23-1e-Yfu" id="V0d-ik-Gma"/>
                 <outlet property="discoBallMenuItem" destination="xv1-wM-0Hf" id="35M-Js-xgp"/>
                 <outlet property="endColorPicker" destination="yLw-yM-ZCG" id="RaF-Tb-SOG"/>
-                <outlet property="lblBands" destination="83s-gi-Kn8" id="dqK-TJ-kif"/>
                 <outlet property="optionsBox" destination="XpW-Cc-cL9" id="23h-tg-1MV"/>
                 <outlet property="spectrogram" destination="urw-iw-KjM" id="iSd-02-xel"/>
                 <outlet property="spectrogramMenuItem" destination="FZm-qk-5i9" id="DVf-Dw-XhD"/>
