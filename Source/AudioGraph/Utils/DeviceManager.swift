@@ -15,21 +15,11 @@ public class DeviceManager {
     
     let list: DeviceList
     
-    init(outputAudioUnit: AudioUnit, preferredDeviceUID: String?) {
+    init(outputAudioUnit: AudioUnit) {
         
         self.outputAudioUnit = outputAudioUnit
         self.list = DeviceList()
-        
-        if let thePreferredDeviceUID = preferredDeviceUID,
-            let foundDevice = list.deviceByUID(thePreferredDeviceUID) {
-            
-            // Try to remember the preferred output device
-            outputDeviceId = foundDevice.id
-            
-        } else {    // Default to the system device
-            
-            outputDeviceId = systemDeviceId
-        }
+        self.outputDeviceId = systemDeviceId
     }
     
     // A listing of all available audio output devices

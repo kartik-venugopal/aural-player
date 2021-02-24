@@ -72,8 +72,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         nodeForRecorderTap = audioEngine.mainMixerNode
         auxMixer = AVAudioMixerNode()
         
-        deviceManager = DeviceManager(outputAudioUnit: audioEngine.outputNode.audioUnit!,
-                                      preferredDeviceUID: true ? nil : state.outputDevice.uid)
+        deviceManager = DeviceManager(outputAudioUnit: audioEngine.outputNode.audioUnit!)
         
         audioEngineHelper = AudioEngineHelper(engine: audioEngine)
         

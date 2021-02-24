@@ -2383,9 +2383,9 @@
 			isa = PBXGroup;
 			children = (
 				3E6C112125CEB98700BF0D07 /* AudioGraphDelegateProtocol.swift */,
+				3E6C112425CEB98700BF0D07 /* AudioGraphDelegate.swift */,
 				3E6C112225CEB98700BF0D07 /* ReverbUnitDelegate.swift */,
 				3E6C112325CEB98700BF0D07 /* TimeUnitDelegate.swift */,
-				3E6C112425CEB98700BF0D07 /* AudioGraphDelegate.swift */,
 				3E6C112525CEB98700BF0D07 /* EQUnitDelegate.swift */,
 				3E6C112625CEB98700BF0D07 /* FilterUnitDelegate.swift */,
 				3E6C112725CEB98700BF0D07 /* MasterUnitDelegate.swift */,

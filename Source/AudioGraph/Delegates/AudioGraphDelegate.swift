@@ -64,24 +64,24 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         
         // Set output device based on user preference
         
-//        if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
-//
-//            let prefDevice: AudioDeviceState = graphState.outputDevice
-//
-//            // Check if remembered device is available (based on name and UID)
-//            if let foundDevice = graph.availableDevices.first(where: {$0.name! == prefDevice.name && $0.uid! == prefDevice.uid}) {
-//                self.graph.outputDevice = foundDevice
-//            }
-//
-//        } else if preferences.outputDeviceOnStartup.option == .specific,
-//            let prefDeviceName = preferences.outputDeviceOnStartup.preferredDeviceName,
-//            let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID {
-//
-//            // Check if preferred device is available (based on name and UID)
-//            if let foundDevice = graph.availableDevices.first(where: {$0.name! == prefDeviceName && $0.uid! == prefDeviceUID}) {
-//                self.graph.outputDevice = foundDevice
-//            }
-//        }
+        if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
+
+            let prefDevice: AudioDeviceState = graphState.outputDevice
+
+            // Check if remembered device is available (based on name and UID)
+            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDevice.name && $0.uid == prefDevice.uid}) {
+                self.graph.outputDevice = foundDevice
+            }
+
+        } else if preferences.outputDeviceOnStartup.option == .specific,
+            let prefDeviceName = preferences.outputDeviceOnStartup.preferredDeviceName,
+            let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID {
+
+            // Check if preferred device is available (based on name and UID)
+            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDeviceName && $0.uid == prefDeviceUID}) {
+                self.graph.outputDevice = foundDevice
+            }
+        }
         
         // Set volume and effects based on user preference
         
