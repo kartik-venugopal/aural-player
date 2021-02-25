@@ -117,6 +117,10 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ![Vertical full stack window layout demo](/Documentation/Screenshots/FullStack.png?raw=true)
 
+### Visualizer
+
+![Visualizer demo GIF](/Documentation/Demos/Visualizer.gif?raw=true)
+
 ### Changing the font scheme
 
 ![Changing the font scheme demo](/Documentation/Demos/FontSchemes.gif?raw=true)
@@ -124,10 +128,6 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 ### Changing the color scheme
 
 ![Changing the color scheme demo](/Documentation/Demos/ChangingColorScheme.gif?raw=true)
-
-### Visualizer
-
-![Visualizer demo GIF](/Documentation/Demos/Visualizer.gif?raw=true)
 
 ### Customizing the player view
 
