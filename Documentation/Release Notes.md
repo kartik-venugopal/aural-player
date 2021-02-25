@@ -13,6 +13,10 @@ You can open the Visualizer window by going to the menu **View > Visualizer wind
 
 The window is resizable by dragging from its lower right corner. The visualization type and options (colors) can be changed by hovering the mouse anywhere over the visualizer window, which will bring up the auto-hiding visualizer options menu.
 
+### Known issue - visualization gets stuck
+
+If the visualization rendering freezes or gets stuck (esp. when changing the visualization type), simply reselect it from the menu or close and reopen the visualizer window. This is a known issue that sometimes occurs, with no known fix yet.
+
 ### Increased CPU / GPU usage
 
 Note that rendering visualizations will cause CPU/GPU usage to rise (10 - 25 %) while the visualizer window is open. If you're running a laptop, please beware of the energy impact on your battery life.
