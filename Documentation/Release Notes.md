@@ -1,68 +1,31 @@
-#  What's New in Version 2.5.0
+#  What's New in Version 2.6.0
 
+## Visualizer
 
-## **Font schemes support**
+A new visualizer window displays colorful visualizations that dance to the beat of the music currently playing in Aural Player. 
 
-Aural Player now allows extensive customization of its fonts and comes with a few built-in font schemes you can choose from. A font scheme consists of 2 fonts - a text font and a headings font, along with point sizes that can be specified for the various textual elements acoss the UI. You can save your hand-tailored font schemes for future use.
+3 different visualization types are available, and the colors used to render the visualization can be customized:
+* Spectrogram - 10 bars that represent different frequency bands will resize and recolor depending on the current amplitude of sounds at those frequencies (responds to the entire audible spectrum)
+* Supernova - A glowing ring of "stellar material" that explodes or implodes as the bass frequencies get louder or softer (responds to the beat, i.e. low frequency sounds)
+* Disco Ball - A disco ball that expands or shrinks as the bass frequencies get louder or softer, with lights that flash when the bass loudness crosses a certain threshold (responds to the beat, i.e. low frequency sounds)
 
-### **Older text size adjustment feature removed**
+You can open the Visualizer window by going to the menu **View > Visualizer window** or its associated keyboard shortcut ⌘4.
 
-Note that the new font schemes feature set makes the previously offered text size adjustment feature (with 3 preset sizes) now obsolete, since font schemes offer far more functionality than mere text size adjustment. So, the text size adjustment feature has been removed.
+The window is resizable by dragging from its lower right corner. The visualization type and options (colors) can be changed by hovering the mouse anywhere over the visualizer window, which will bring up the auto-hiding visualizer options menu.
 
-### **Demo**
+### Note about older systems
 
-See a font schemes demo [here](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/FontSchemes.mp4)
+This feature may or may not work properly on older operating systems (particularly 10.12 Sierra and 10.13 High Sierra) and/or older Mac hardware. I have access to a very limited amount of hardware, so cannot state with confidence how well it will work across all available Mac hardware.
 
-### **Font scheme editor panel**
+### Note about system audio settings
 
-The new font scheme editor panel can be accessed either by going to **View > Font Scheme > Customize** under the main menu bar or from the settings popup menu at the top right corner of the main (player) window, by clicking **Font Scheme > Customize**.
+The visualizer relies on the output device's buffer size being set to a certain optimal number, and will attempt to set it to that number. If your output device is not able to support that buffer size, the visualizer may not work at all.
 
-* **Text font and headings font** - Choose 2 font faces which will be used for all the body text and headings respectively. Any font that is installed on your system can be used.
+Also, if you attempt to change the output device's sample rate and/or format while the app is running, the visualizer may crash or not work at all.
 
-* **16 different UI textual elements** whose font sizes can be customized, e.g. player track title, playlist row text, effects unit captions, etc.
+### Please report issues
 
-* **Playlist vertical text alignment**- You can also specify Y offsets in order to perfectly center playlist row text vertically. Since each font has different character dimensions, this is often necessary to achieve perfect vertical centering in playlist rows.
-
-* **Undo/redo functionality** - You can roll back/forward individual changes (or all at once) to different versions of your customized scheme (history is reset when the panel is closed).
-
-* **Apply/save preset schemes** - From the panel, you can load a preset font scheme as a starting point, modify a few properties, then save the new version as your own custom scheme, so you can create several variations of font schemes. You don't need to start from scratch everytime.
-
-NOTE - Only the current system font scheme (i.e. the current scheme of the app UI) will be altered by this panel. Any preset you have applied will remain unchanged (presets only serve as a starting point).
-
-### **Built-in font schemes**
-
-There are 8 built-in font schemes, one of which is the default scheme, "Standard", that is applied when the app is started up for the first time before altering the font scheme.
-
-They can be accessed from the submenu under **View > Font Scheme** or from the settings popup menu at the top right corner of the main (player) window, under the **Font Scheme** submenu. They can also be applied from within the editor panel.
-
-### **Font schemes manager**
-
-The new font schemes manager allows users to preview, rename, apply, and/or delete user-defined font schemes. This is useful if:
-
-* You want to give your schemes more meaningful or cooler names.
-* You've forgotten what one of your custom schemes looks like, and want to visually preview it.
-* You have duplicates or simply want to reduce clutter and delete old schemes no longer preferred or in use.
-
-Access the font schemes manager by going to **View > Manage font schemes**.
-
-NOTE - You cannot alter built-in font schemes ... only your own.
-
-## New "Lava" color scheme added
-
-A cool new color scheme named "Lava" has been added, to mimic the outflow of lava from active volcanoes like Kīlauea in Hawaii. It consists of a dark grey "volcanic rock" background, with a bright gradiented orange "lava" foreground color used for sliders. 
-
-### Bug fixes
-
-* Fixed the popup menu auto-close bug that was introduced in v2.3.0.
-* Fixed a typo in some help text in the preferences dialog.
-
-### Other UI refinements
-
-* Text fields across the UI have better logic for vertical centering of text, and have been resized to accommodate a wide variety of font faces / sizes.
-* The alignment of text and images in the playlist table view, and summary fields, has been improved for better aesthetics.
-* Playlist rows are now more spaced out to accommodate a wider variety of font faces / sizes.
-* New stylish app logo
-* Updated the settings menu icon
+I'd appreciate users filing issues for any problems they experience with this feature, since that helps me greatly.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.5.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.6.0)

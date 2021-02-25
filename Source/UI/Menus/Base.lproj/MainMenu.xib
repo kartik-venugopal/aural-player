@@ -932,15 +932,15 @@ CA
                                     <action selector="toggleChaptersListAction:" target="xzd-WN-BuR" id="l0e-TW-mpy"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="   Visualizer window" keyEquivalent="4" indentationLevel="1" id="ZcB-VH-qBr">
+                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="4" id="ZcB-VH-qBr">
                                 <connections>
                                     <action selector="toggleVisualizerAction:" target="xzd-WN-BuR" id="XFm-Oe-S60"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="uLJ-xN-xtk"/>
-                            <menuItem title="  Player view" indentationLevel="1" id="af4-4E-1QV" userLabel="Player view">
+                            <menuItem title="   Player view" indentationLevel="1" id="af4-4E-1QV" userLabel="Player view">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Player view" autoenablesItems="NO" id="y9u-HE-dXj">
+                                <menu key="submenu" title="   Player view" autoenablesItems="NO" id="y9u-HE-dXj">
                                     <items>
                                         <menuItem title="Default view" state="on" id="0Vx-5M-0eg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -1078,9 +1078,9 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
-                            <menuItem title="  Font scheme" indentationLevel="1" id="pXx-4E-0SU" userLabel="Font scheme">
+                            <menuItem title=" Font scheme" image="FontScheme" id="pXx-4E-0SU" userLabel="Font scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Font scheme" showsStateColumn="NO" id="73g-wl-K4J">
+                                <menu key="submenu" title=" Font scheme" showsStateColumn="NO" id="73g-wl-K4J">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="l9c-2i-7En"/>
                                         <menuItem title="Standard" indentationLevel="1" id="twz-YP-Djm">
@@ -1144,22 +1144,22 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="  Save current scheme" indentationLevel="1" id="sSv-dJ-0AG" userLabel="Save current scheme">
+                            <menuItem title="   Save current scheme" indentationLevel="1" id="sSv-dJ-0AG" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveSchemeAction:" target="lih-ya-6jC" id="h6u-Ys-SU9"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Manage font schemes" indentationLevel="1" id="PXA-nL-cxl" userLabel="Manage font schemes">
+                            <menuItem title="   Manage font schemes" indentationLevel="1" id="PXA-nL-cxl" userLabel="Manage font schemes">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageSchemesAction:" target="lih-ya-6jC" id="M5V-h0-vF6"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="nRU-Ye-xW2"/>
-                            <menuItem title="  Color scheme" indentationLevel="1" id="vgD-4T-WSG" userLabel="Color scheme">
+                            <menuItem title=" Color scheme" image="ColorScheme" id="vgD-4T-WSG" userLabel="Color scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Color scheme" showsStateColumn="NO" id="zD9-9p-FaJ">
+                                <menu key="submenu" title=" Color scheme" showsStateColumn="NO" id="zD9-9p-FaJ">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="bjn-Ld-orE"/>
                                         <menuItem title="Black attack (default)" indentationLevel="1" id="etT-lk-xKc">
@@ -1217,22 +1217,22 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="  Save current scheme" indentationLevel="1" id="WVj-ng-OeL" userLabel="Save current scheme">
+                            <menuItem title="   Save current scheme" indentationLevel="1" id="WVj-ng-OeL" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveSchemeAction:" target="ydk-fD-97w" id="VPb-bV-wWK"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Manage color schemes" indentationLevel="1" id="3ie-xE-Lk9" userLabel="Manage color schemes">
+                            <menuItem title="   Manage color schemes" indentationLevel="1" id="3ie-xE-Lk9" userLabel="Manage color schemes">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageSchemesAction:" target="ydk-fD-97w" id="waE-WY-aJ8"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
-                            <menuItem title="  Window Layout" indentationLevel="1" id="RWg-5h-jkO" userLabel="Window Layout">
+                            <menuItem title=" Window Layout" image="WindowLayout-Small" id="RWg-5h-jkO" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Window Layout" id="S2A-E2-dfO">
+                                <menu key="submenu" title=" Window Layout" id="S2A-E2-dfO">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="Xs7-ex-obP"/>
                                         <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="3ni-vP-4WM">
@@ -1286,13 +1286,13 @@ CA
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="  Save current layout" indentationLevel="1" id="dpu-pH-cKT" userLabel="Save current layout">
+                            <menuItem title="   Save current layout" indentationLevel="1" id="dpu-pH-cKT" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Manage layouts" indentationLevel="1" id="ly6-5K-P4A" userLabel="Manage layouts">
+                            <menuItem title="   Manage layouts" indentationLevel="1" id="ly6-5K-P4A" userLabel="Manage layouts">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
@@ -1472,6 +1472,7 @@ CA
         <image name="Bookmarks-Editor" width="15" height="15"/>
         <image name="Clear-Small" width="13" height="15"/>
         <image name="CollapseGroups" width="15" height="15"/>
+        <image name="ColorScheme" width="12" height="13"/>
         <image name="CropSelection-Small" width="14" height="14"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
@@ -1479,6 +1480,7 @@ CA
         <image name="ExpandGroups" width="15" height="15"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="15" height="15"/>
+        <image name="FontScheme" width="13" height="13"/>
         <image name="InvertSelection-Small" width="15" height="15"/>
         <image name="LoopOff-Small" width="15" height="13"/>
         <image name="MasterTab-Small" width="14" height="14"/>
@@ -1513,6 +1515,7 @@ CA
         <image name="ToggleChaptersList-Small" width="14" height="11"/>
         <image name="ToggleEffectsView-Small" width="14" height="14"/>
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
+        <image name="ToggleVisualizer-Small" width="14" height="14"/>
         <image name="Up-Small" width="10" height="14"/>
         <image name="UserGuide" width="16" height="14"/>
         <image name="VolumeHigh-Small" width="14" height="14"/>
@@ -1523,6 +1526,7 @@ CA
         <image name="WindowLayout-CompactCornered" width="30" height="20"/>
         <image name="WindowLayout-HorizontalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-HorizontalStack" width="30" height="20"/>
+        <image name="WindowLayout-Small" width="13" height="13"/>
         <image name="WindowLayout-VerticalPlayerAndPlaylist" width="30" height="20"/>
         <image name="WindowLayout-VerticalStack" width="30" height="20"/>
     </resources>
