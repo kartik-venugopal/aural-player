@@ -13,6 +13,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
+    @IBOutlet weak var toggleVisualizerMenuItem: NSMenuItem!
     
     @IBOutlet weak var playerViewMenuItem: NSMenuItem!
     
@@ -61,6 +62,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         togglePlaylistMenuItem.onIf(WindowManager.isShowingPlaylist)
         toggleEffectsMenuItem.onIf(WindowManager.isShowingEffects)
         toggleChaptersListMenuItem.onIf(WindowManager.isShowingChaptersList)
+        toggleVisualizerMenuItem.onIf(WindowManager.isShowingVisualizer)
         
         // Recreate the custom layout items
         self.windowLayoutsMenu.items.forEach({
