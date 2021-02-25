@@ -84,8 +84,6 @@ class Spectrogram: SKView, VisualizerViewProtocol {
     
     private let updateSemaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
     
-    // TODO: Test this with random mags (with a button to trigger an iteration)
-    
     func update(with fft: FFT) {
         
         data.update(with: fft)

@@ -25,13 +25,12 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     @IBOutlet weak var startColorPicker: NSColorWell!
     @IBOutlet weak var endColorPicker: NSColorWell!
     
-//    @IBOutlet weak var lblBands: NSTextField!
-//    @IBOutlet weak var bandsMenu: NSPopUpButton!
-    
     var vizView: VisualizerViewProtocol!
     var allViews: [VisualizerViewProtocol] = []
     private let fft: FFT = ObjectGraph.fft
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    
+    private var normalDeviceBufferSize: Int = 0
     
     override func awakeFromNib() {
         
@@ -46,14 +45,6 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         discoBallMenuItem.representedObject = VisualizationType.discoBall
         
         NotificationCenter.default.addObserver(forName: Notification.Name("showOptions"), object: nil, queue: nil, using: {_ in
-            
-//            if let theVizView = self.vizView, theVizView.type == .spectrogram {
-//                NSView.showViews(self.lblBands, self.bandsMenu)
-//
-//            } else {
-//                NSView.hideViews(self.lblBands, self.bandsMenu)
-//            }
-            
             self.optionsBox.show()
         })
         
@@ -68,7 +59,9 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         
         super.showWindow(sender)
         
+        normalDeviceBufferSize = audioGraph.outputDeviceBufferSize
         audioGraph.outputDeviceBufferSize = visualizationAnalysisBufferSize
+        
         fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate), bufferSize: audioGraph.outputDeviceBufferSize)
      
         containerBox.startTracking()
@@ -174,6 +167,8 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         vizView = nil
         
         audioGraph.removeRenderObserver(self)
+        audioGraph.outputDeviceBufferSize = normalDeviceBufferSize
+        
         fft.deallocate()
 
         containerBox.stopTracking()
@@ -184,17 +179,8 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     
     // TODO
     func deviceSampleRateChanged(newSampleRate: Double) {
-        NSLog("**** Device SR changed: \(newSampleRate)")
+//        NSLog("**** Device SR changed: \(newSampleRate)")
     }
-    
-    //    @IBAction func changeNumberOfBandsAction(_ sender: NSPopUpButton) {
-    //
-    //        let numBands = sender.selectedTag()
-    //
-    //        if numBands > 0 {
-    //            spectrogram.numberOfBands = numBands
-    //        }
-    //    }
 }
 
 enum VisualizationType: String, CaseIterable {
