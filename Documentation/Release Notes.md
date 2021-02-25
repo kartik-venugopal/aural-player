@@ -5,13 +5,17 @@
 A new visualizer window displays colorful visualizations that dance to the beat of the music currently playing in Aural Player. 
 
 3 different visualization types are available, and the colors used to render the visualization can be customized:
-* Spectrogram - 10 bars that represent different frequency bands will resize and recolor depending on the current amplitude of sounds at those frequencies (responds to the entire audible spectrum)
-* Supernova - A glowing ring of "stellar material" that explodes or implodes as the bass frequencies get louder or softer (responds to the beat, i.e. low frequency sounds)
-* Disco Ball - A disco ball that expands or shrinks as the bass frequencies get louder or softer, with lights that flash when the bass loudness crosses a certain threshold (responds to the beat, i.e. low frequency sounds)
+* Spectrogram - 10 bars that represent different frequency bands will resize and recolor depending on the current amplitude of sounds at those frequencies.
+* Supernova - A glowing ring of "stellar material" that rotates and explodes or implodes as the bass frequencies get louder or softer.
+* Disco Ball - A disco ball that rotates and expands or shrinks as the bass frequencies get louder or softer, with lights that flash when the bass loudness crosses a certain threshold.
 
 You can open the Visualizer window by going to the menu **View > Visualizer window** or its associated keyboard shortcut ⌘4.
 
 The window is resizable by dragging from its lower right corner. The visualization type and options (colors) can be changed by hovering the mouse anywhere over the visualizer window, which will bring up the auto-hiding visualizer options menu.
+
+### Increased CPU / GPU usage
+
+Note that rendering visualizations will cause CPU/GPU usage to rise (10 - 25 %) while the visualizer window is open. If you're running a laptop, please beware of the energy impact on your battery life.
 
 ### Note about older systems
 
