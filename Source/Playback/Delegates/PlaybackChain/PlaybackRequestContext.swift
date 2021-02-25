@@ -7,7 +7,7 @@ import Foundation
 class PlaybackRequestContext {
     
     // The state of the player prior to execution of this reqeust.
-    // Current state can change (if waiting or transcoding before playback)
+    // Current state can change (if transcoding before playback)
     var currentState: PlaybackState
     
     // The current player track, if any, prior to execution of this reqeust.
@@ -23,14 +23,6 @@ class PlaybackRequestContext {
     // Request params may change as the preparation chain executes.
     var requestParams: PlaybackParams
     
-    // Keeps track of all individual playback gaps that together determine the delay prior to playback.
-    var gaps: [PlaybackGap] = []
-    
-    // The requested delay before playback (computed as the sum of all playback gap durations)
-    var delay: Double? {
-        return gaps.count > 0 ? gaps.map {$0.duration}.reduce(0, +) : nil
-    }
-
     init(_ currentState: PlaybackState, _ currentTrack: Track?, _ currentSeekPosition: Double, _ requestedTrack: Track?, _ requestParams: PlaybackParams) {
         
         self.currentState = currentState
@@ -39,22 +31,6 @@ class PlaybackRequestContext {
         
         self.requestedTrack = requestedTrack
         self.requestParams = requestParams
-    }
-
-    // Adds a single playback gap
-    func addGap(_ gap: PlaybackGap) {
-        
-        gaps.append(gap)
-        
-        // If a non-implicit gap is defined, it invalidates any implicit gaps.
-        if gaps.contains(where: {$0.type != .implicit}) {
-            gaps.removeAll(where: {$0.type == .implicit})
-        }
-    }
-    
-    // Removes all defined playback gaps
-    func removeAllGaps() {
-        gaps.removeAll()
     }
     
     // TODO: Remove this func after testing

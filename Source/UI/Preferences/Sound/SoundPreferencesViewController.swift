@@ -118,7 +118,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         // Per-track effects settings memory
         
         btnRememberSettingsForTrack.onIf(soundPrefs.rememberEffectsSettings)
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(soundPrefs.rememberEffectsSettings)})
         
         if soundPrefs.rememberEffectsSettingsOption == .individualTracks {
             btnRememberSettings_individualTracks.on()
@@ -138,15 +137,15 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         var selItem: NSMenuItem?
         
-        for device in audioGraph.availableDevices {
+        for device in audioGraph.availableDevices.allDevices {
 
-            preferredDevicesMenu.insertItem(withTitle: device.name!, at: 0)
+            preferredDevicesMenu.insertItem(withTitle: device.name, at: 0)
             
-            let repObject = PreferredDevice(device.name!, device.uid!)
+            let repObject = PreferredDevice(device.name, device.uid)
             preferredDevicesMenu.item(at: 0)!.representedObject = repObject
             
             // If this device matches the preferred device, make note of it
-            if (device.uid! == prefDeviceUID) {
+            if (device.uid == prefDeviceUID) {
                 prefDevice = repObject
                 selItem = preferredDevicesMenu.item(at: 0)!
             }
@@ -209,7 +208,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     }
     
     @IBAction func rememberSettingsAction(_ sender: Any) {
-        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(btnRememberSettingsForTrack.isOn)})
     }
     
     @IBAction func rememberSettingsRadioButtonAction(_ sender: Any) {

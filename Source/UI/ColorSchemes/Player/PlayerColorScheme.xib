@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -45,7 +45,7 @@
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Apd-Ch-VYl">
                     <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="L53-64-mst">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="L53-64-mst">
                         <rect key="frame" x="0.0" y="0.0" width="445" height="260"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -219,7 +219,7 @@
                                     <button fixedFrame="YES" tag="212" translatesAutoresizingMaskIntoConstraints="NO" id="3SR-Yc-2r0">
                                         <rect key="frame" x="37" y="80" width="309" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Use same color as slider foreground" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="CGn-qU-FWX" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
+                                        <buttonCell key="cell" type="check" title="Use same color as slider foreground" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="CGn-qU-FWX">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" size="12" name="Play-Regular"/>
                                         </buttonCell>
@@ -282,7 +282,7 @@
                                         <rect key="frame" x="29" y="294" width="249" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xUy-pm-vJj">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xUy-pm-vJj" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="7" y="49" width="165" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="2mJ-3u-UQB" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
@@ -293,10 +293,10 @@
                                                     <action selector="enableSliderBackgroundGradientAction:" target="-2" id="HGu-34-9Jo"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80G-4h-kcj">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="80G-4h-kcj" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="26" width="202" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="jMR-ec-Wt0" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="jMR-ec-Wt0">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" size="11" name="Play-Regular"/>
                                                 </buttonCell>
@@ -304,10 +304,10 @@
                                                     <action selector="sliderBackgroundGradientBrightenOrDarkenAction:" target="-2" id="3Ke-J3-TjL"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjm-hI-Y4L">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sjm-hI-Y4L" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="5" width="137" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="TkC-yf-0gd" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="TkC-yf-0gd">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" size="11" name="Play-Regular"/>
                                                 </buttonCell>
@@ -331,10 +331,10 @@
                                         <rect key="frame" x="29" y="159" width="249" height="75"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <subviews>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2H-el-MIF">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T2H-el-MIF" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="7" y="49" width="165" height="22"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="1bS-Nk-VKS" customClass="ColorSchemesDialogCheckBoxCell" customModule="Aural" customModuleProvider="target">
+                                                <buttonCell key="cell" type="check" title="Apply gradient" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="1bS-Nk-VKS">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" size="12" name="Play-Regular"/>
                                                 </buttonCell>
@@ -342,10 +342,10 @@
                                                     <action selector="enableSliderForegroundGradientAction:" target="-2" id="GWd-ME-9yC"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8VJ-j2-h9F">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8VJ-j2-h9F" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="26" width="202" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Lx4-gm-mm5" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                <buttonCell key="cell" type="radio" title="Darken" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Lx4-gm-mm5">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" size="11" name="Play-Regular"/>
                                                 </buttonCell>
@@ -353,10 +353,10 @@
                                                     <action selector="sliderForegroundGradientBrightenOrDarkenAction:" target="-2" id="HsQ-9r-IYA"/>
                                                 </connections>
                                             </button>
-                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfa-JF-Lpo">
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfa-JF-Lpo" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="32" y="5" width="137" height="20"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="r4u-Uw-RYQ" customClass="ColorSchemesDialogRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                                <buttonCell key="cell" type="radio" title="Brighten" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="r4u-Uw-RYQ">
                                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                     <font key="font" size="11" name="Play-Regular"/>
                                                 </buttonCell>
@@ -385,7 +385,7 @@
                         <rect key="frame" x="-100" y="-100" width="438" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.62631578947368416" horizontal="NO" id="iKl-gY-KYj" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="iKl-gY-KYj" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="445" y="0.0" width="15" height="260"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>

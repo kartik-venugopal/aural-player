@@ -49,9 +49,7 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
 }
 
 class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
-    
-    var textSize: TextSize = .normal
-    override var textFont: NSFont {return Fonts.stringInputPopoverFont(textSize)}
+    override var textFont: NSFont {return Fonts.stringInputPopoverFont}
 }
 
 // Cell for all response buttons (Save/Cancel, etc)
@@ -69,7 +67,7 @@ class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
     override var cellInsetX: CGFloat {return 1}
     override var cellInsetY: CGFloat {return 0}
     
-    override var textFont: NSFont {return Fonts.Constants.mainFont_10}
+    override var textFont: NSFont {return Fonts.Standard.mainFont_10}
 }
 
 // Cell for search results navigation buttons (next/previous)
@@ -104,40 +102,24 @@ class ColorAwareButtonCell: ModalDialogButtonCell {
 
 class FXTextButtonCell: ColorAwareButtonCell {
     
-    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    override var textFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
     
     override var yOffset: CGFloat {
         
-        if isOff {
-            return -1
-        }
+        return -1
         
-        switch EffectsViewState.textSize {
-            
-        case .normal:   return -1
-            
-        case .larger:   return -1
-            
-        case .largest:  return -2
-            
-        }
-    }
-}
-
-class PlayerTextButtonCell: ColorAwareButtonCell {
-    
-    override var textFont: NSFont {return Fonts.Player.textButtonFont}
-    
-    override var yOffset: CGFloat {
-        
-        switch PlayerViewState.textSize {
-            
-        case .normal:   return -1
-            
-        case .larger:   return -1
-            
-        case .largest:  return -2
-            
-        }
+//        if isOff {
+//            return -1
+//        }
+//
+//        switch EffectsViewState.textSize {
+//
+//        case .normal:   return -1
+//
+//        case .larger:   return -1
+//
+//        case .largest:  return -2
+//
+//        }
     }
 }

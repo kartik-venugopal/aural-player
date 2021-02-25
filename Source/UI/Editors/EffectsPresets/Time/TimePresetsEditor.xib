@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,20 +23,19 @@
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfZ-Cm-WtB" userLabel="Time Presets Table">
                     <rect key="frame" x="0.0" y="0.0" width="230" height="280"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="Mo8-UA-tJL">
-                        <rect key="frame" x="0.0" y="0.0" width="230" height="280"/>
+                    <clipView key="contentView" copiesOnScroll="NO" id="Mo8-UA-tJL">
+                        <rect key="frame" x="0.0" y="0.0" width="230" height="265"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="5AF-Uq-T8E" userLabel="Time Presets Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="230" height="275"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="0.0" y="0.0" width="257" height="260"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" white="0.42990451390000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
                                     <tableColumn identifier="cid_TimePresetName" width="225" minWidth="225" maxWidth="225" id="fFY-7f-DV5">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -48,11 +47,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="93p-DH-46u" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="225" height="30"/>
+                                                <rect key="frame" x="11" y="1" width="234" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ez8-sG-B7d" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="0.0" width="220" height="25"/>
+                                                        <rect key="frame" x="5" y="0.0" width="229" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="b5H-qI-1ep">
                                                             <font key="font" metaFont="system"/>
@@ -78,8 +77,8 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </clipView>
                     <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="0.0"/>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="0.0097087378640776691" horizontal="YES" id="VBV-Fv-5dH">
-                        <rect key="frame" x="0.0" y="264" width="230" height="16"/>
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="VBV-Fv-5dH">
+                        <rect key="frame" x="0.0" y="265" width="230" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="hN4-ag-WF0">
@@ -90,7 +89,7 @@
                 <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="2" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="9TF-F8-zrP" userLabel="Preview Box">
                     <rect key="frame" x="233" y="0.0" width="442" height="280"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <view key="contentView" ambiguous="YES" id="gHl-pe-A7z">
+                    <view key="contentView" id="gHl-pe-A7z">
                         <rect key="frame" x="0.0" y="0.0" width="442" height="280"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -106,7 +105,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="iDM-hl-gve" userLabel="Controls Box">
                                 <rect key="frame" x="43" y="153" width="355" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" ambiguous="YES" id="tOK-Xi-xQr" customClass="TimeView" customModule="Aural" customModuleProvider="target">
+                                <view key="contentView" id="tOK-Xi-xQr" customClass="TimeView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="84"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -160,6 +159,15 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lMd-rA-qI4">
+                                            <rect key="frame" x="28" y="7" width="91" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Shift pitch" id="8kJ-1d-cF3">
+                                                <font key="font" size="11" name="Play-Regular"/>
+                                                <color key="textColor" white="0.70456271699999995" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                         <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yxn-Uj-7el" userLabel="Overlap Slider" customClass="EffectsUnitSlider" customModule="Aural" customModuleProvider="target">
                                             <rect key="frame" x="68" y="28" width="230" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -193,11 +201,11 @@
                                             </textFieldCell>
                                         </textField>
                                         <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fAb-B7-V4R" userLabel="Shift Pitch">
-                                            <rect key="frame" x="4" y="4" width="122" height="27"/>
+                                            <rect key="frame" x="7" y="3" width="124" height="29"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title=" Shift pitch" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" enabled="NO" state="on" inset="2" id="eWD-DA-VzS" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                                            <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="left" enabled="NO" state="on" inset="2" id="eWD-DA-VzS">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" size="11" name="Play-Regular"/>
+                                                <font key="font" metaFont="system"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uDs-4W-f2g" userLabel="Pitch shift value">

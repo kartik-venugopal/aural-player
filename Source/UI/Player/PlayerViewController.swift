@@ -7,8 +7,6 @@
             - Default view
             - Expanded Art view
  
-        - Waiting track info (when a track is waiting to play after a delay)
- 
         - Transcoder info (when a track is being transcoded)
  
         - Player controls (play/seek, next/previous track, repeat/shuffle, volume/balance)
@@ -20,7 +18,6 @@ import Cocoa
 class PlayerViewController: NSViewController, NotificationSubscriber {
     
     private var playingTrackView: PlayingTrackView = ViewFactory.playingTrackView as! PlayingTrackView
-    private var waitingTrackView: NSView = ViewFactory.waitingTrackView
     private var transcodingTrackView: NSView = ViewFactory.transcodingTrackView
     
     // Delegate that conveys all seek and playback info requests to the player
@@ -30,7 +27,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
     
     override func viewDidLoad() {
         
-        [playingTrackView, waitingTrackView, transcodingTrackView].forEach({
+        [playingTrackView, transcodingTrackView].forEach({
             
             self.view.addSubview($0)
             $0.setFrameOrigin(NSPoint.zero)
@@ -38,6 +35,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
 
         switchView()
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.switchView, queue: .main)
+        Messenger.subscribeAsync(self, .transcoder_finished, self.transcodingFinished(_:), queue: .main)
     }
     
     // Depending on current player state, switch to one of the 3 views.
@@ -47,22 +45,24 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
 
         case .noTrack, .playing, .paused:
             
-            NSView.hideViews(waitingTrackView, transcodingTrackView)
-            playingTrackView.showView()
-
-        case .waiting:
-            
-            playingTrackView.hideView()
             transcodingTrackView.hide()
-            
-            waitingTrackView.show()
+            playingTrackView.showView()
 
         case .transcoding:
             
             playingTrackView.hideView()
-            waitingTrackView.hide()
-            
             transcodingTrackView.show()
+        }
+    }
+    
+    func transcodingFinished(_ notif: TranscodingFinishedNotification) {
+        
+        // Check if transcoding failed.
+        if !notif.success {
+            
+            // Hide the transcoding view.
+            transcodingTrackView.hide()
+            playingTrackView.showView()
         }
     }
 }

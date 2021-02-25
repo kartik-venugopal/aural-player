@@ -110,12 +110,10 @@ class EQViewController: FXUnitViewController {
         showThisTab()
     }
     
-    override func changeTextSize(_ textSize: TextSize) {
-
-        super.changeTextSize(textSize)
+    override func applyFontScheme(_ fontScheme: FontScheme) {
         
-        // Resize selector button and sync button text
-        eqView.changeTextSize()
+        super.applyFontScheme(fontScheme)
+        eqView.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {

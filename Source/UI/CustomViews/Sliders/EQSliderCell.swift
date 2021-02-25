@@ -7,14 +7,12 @@ import Cocoa
 class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     
     let barRadius: CGFloat = 0.75
-    let barInsetX: CGFloat = 0.25
+    let barInsetX: CGFloat = 0
     let barInsetY: CGFloat = 0
     
     let knobHeight: CGFloat = 10
-    let knobInsetX: CGFloat = 1.5
-    let knobInsetY: CGFloat = 0
     let knobRadius: CGFloat = 1
-    let knobWidthOutsideBar: CGFloat = 2
+    let knobWidthOutsideBar: CGFloat = 1.5
     
     var unitState: EffectsUnitState = .bypassed
     
@@ -42,11 +40,16 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     // Force knobRect and barRect to NOT be flipped
     
     override func knobRect(flipped: Bool) -> NSRect {
-        return super.knobRect(flipped: false)
+        return super.knobRect(flipped: SystemUtils.isBigSur)
     }
     
     override func barRect(flipped: Bool) -> NSRect {
-        return super.barRect(flipped: false)
+        
+        if SystemUtils.isBigSur {
+            return NSRect(x: 10, y: 2, width: 4, height: super.barRect(flipped: false).height)
+        } else {
+            return super.barRect(flipped: false)
+        }
     }
     
     override internal func drawKnob(_ knobRect: NSRect) {

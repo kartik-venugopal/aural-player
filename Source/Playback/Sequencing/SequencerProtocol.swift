@@ -63,7 +63,7 @@ protocol SequencerProtocol: PlaylistChangeListenerProtocol {
      */
     func select(_ group: Group) -> Track?
     
-    // Returns the currently selected track (which could be playing / paused / waiting / transcoding)
+    // Returns the currently selected track (which could be playing / paused / transcoding)
     var currentTrack: Track? {get}
     
     // Toggles between repeat modes. Returns the new repeat and shuffle mode after performing the toggle operation.

@@ -35,7 +35,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
         
         transcodingIcon.tintFunction = {return Colors.functionButtonColor}
         
-        changeTextSize(PlayerViewState.textSize)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -43,7 +43,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
     
     private func initSubscriptions() {
         
-        // Only respond if the waiting track was updated
+        // Only respond if the transcoding track was updated
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.transcodingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.transcodingTrack &&
                                         msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
@@ -53,8 +53,7 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
                                  filter: {msg in msg.transcodingStarted},
                                  queue: .main)
         
-        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
-        
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
@@ -114,10 +113,10 @@ class TranscoderViewController: NSViewController, NotificationSubscriber {
 
     // MARK: Appearance
     
-    private func changeTextSize(_ size: TextSize) {
+    private func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTrack.font = Fonts.Player.infoBoxTitleFont
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = Fonts.Player.trackTimesFont})
+        lblTrack.font = FontSchemes.systemScheme.player.infoBoxTitleFont
+        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.font = FontSchemes.systemScheme.player.trackTimesFont})
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

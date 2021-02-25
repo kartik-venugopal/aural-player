@@ -12,11 +12,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var transcodeTrackMenuItem: NSMenuItem!
     @IBOutlet weak var playTrackMenuItem: NSMenuItem!
-    @IBOutlet weak var playTrackDelayedMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var insertGapsMenuItem: NSMenuItem!
-    @IBOutlet weak var editGapsMenuItem: NSMenuItem!
-    @IBOutlet weak var removeGapsMenuItem: NSMenuItem!
     
     @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
     @IBOutlet weak var detailedInfoMenuItem: NSMenuItem!
@@ -37,7 +32,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Group-specific menu items
     
     @IBOutlet weak var playGroupMenuItem: NSMenuItem!
-    @IBOutlet weak var playGroupDelayedMenuItem: NSMenuItem!
     
     @IBOutlet weak var removeGroupMenuItem: NSMenuItem!
     @IBOutlet weak var moveGroupUpMenuItem: NSMenuItem!
@@ -66,17 +60,14 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
-    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
-    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
-    
     // One-time setup
     override func awakeFromNib() {
         
         // Store all track-specific and group-specific menu items in separate arrays for convenient access when setting up the menu prior to display
         
-        trackMenuItems = [transcodeTrackMenuItem, playTrackMenuItem, playTrackDelayedMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, moveTrackToTopMenuItem, moveTrackToBottomMenuItem, showTrackInFinderMenuItem, insertGapsMenuItem, editGapsMenuItem, removeGapsMenuItem, viewChaptersMenuItem]
+        trackMenuItems = [transcodeTrackMenuItem, playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, moveTrackToTopMenuItem, moveTrackToBottomMenuItem, showTrackInFinderMenuItem,  viewChaptersMenuItem]
         
-        groupMenuItems = [playGroupMenuItem, playGroupDelayedMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem, moveGroupToTopMenuItem, moveGroupToBottomMenuItem]
+        groupMenuItems = [playGroupMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem, moveGroupToTopMenuItem, moveGroupToBottomMenuItem]
         
         // Set up the two possible captions for the favorites menu item
         
@@ -116,11 +107,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(theClickedTrack.file))
             
-            let gaps = playlist.getGapsAroundTrack(theClickedTrack)
-            insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
-            removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
-            editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
-            
             let isPlayingTrack: Bool = playbackInfo.playingTrack == theClickedTrack
             viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && theClickedTrack.hasChapters && !WindowManager.isShowingChaptersList)
             
@@ -152,67 +138,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-    }
-    
-    @IBAction func playSelectedItemAfterDelayAction(_ sender: NSMenuItem) {
-        
-        let delay = sender.tag
-        
-        if delay == 0 {
-            
-            // Custom delay ... show dialog
-            _ = delayedPlaybackEditor.showDialog()
-            
-        } else {
-            
-            Messenger.publish(DelayedPlaybackCommandNotification(delay: Double(delay),
-                                                                 viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
-        }
-    }
-    
-    @IBAction func insertGapsAction(_ sender: NSMenuItem) {
-        
-        guard !checkIfPlaylistIsBeingModified() else {return}
-        
-        // Sender's tag is gap duration in seconds
-        let tag = sender.tag
-        
-        if tag != 0 {
-         
-            // Negative tag value indicates .beforeTrack, positive value indicates .afterTrack
-            let gapPosn: PlaybackGapPosition = tag < 0 ? .beforeTrack: .afterTrack
-            let gap = PlaybackGap(Double(abs(tag)), gapPosn)
-            
-            let gapBefore = gapPosn == .beforeTrack ? gap : nil
-            let gapAfter = gapPosn == .afterTrack ? gap : nil
-            
-            Messenger.publish(InsertPlaybackGapsCommandNotification(gapBeforeTrack: gapBefore, gapAfterTrack: gapAfter,
-                                                                    viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
-            
-        } else {
-            
-            gapsEditor.setDataForKey("gaps", nil)
-            _ = gapsEditor.showDialog()
-        }
-    }
-    
-    @IBAction func editGapsAction(_ sender: NSMenuItem) {
-        
-        if !checkIfPlaylistIsBeingModified(), let theClickedTrack = clickedTrack {
-            
-            // Custom gap dialog
-            let gaps = playlist.getGapsAroundTrack(theClickedTrack)
-            
-            gapsEditor.setDataForKey("gaps", gaps)
-            _ = gapsEditor.showDialog()
-        }
-    }
-    
-    @IBAction func removeGapsAction(_ sender: NSMenuItem) {
-        
-        if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_removeGaps, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-        }
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list

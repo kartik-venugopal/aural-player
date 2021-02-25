@@ -18,7 +18,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBOutlet weak var controlButtonsSuperview: NSView!
     
     @IBOutlet weak var btnClose: TintedImageButton!
-    @IBOutlet weak var viewMenuIconItem: TintedIconMenuItem!
     
     @IBOutlet weak var btnPageUp: TintedImageButton!
     @IBOutlet weak var btnPageDown: TintedImageButton!
@@ -42,8 +41,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     // Spinner that shows progress when tracks are being added to the playlist
     @IBOutlet weak var progressSpinner: NSProgressIndicator!
-    
-    @IBOutlet weak var viewMenuButton: NSPopUpButton!
     
     // Search dialog
     private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.playlistSearchDialog
@@ -72,7 +69,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     override var windowNibName: String? {return "Playlist"}
     
     private var childContainerBoxes: [NSBox] = []
-    private var viewControlButtons: [Tintable] = []
     private var functionButtons: [TintedImageButton] = []
     private var tabButtons: [NSButton] = []
 
@@ -86,11 +82,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         setUpTabGroup()
         
         childContainerBoxes = [playlistContainerBox, tabButtonsBox, controlsBox]
-        viewControlButtons = [btnClose, viewMenuIconItem].compactMap {$0 as? Tintable}
         functionButtons = [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] + controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
         tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
 
-        changeTextSize(PlaylistViewState.textSize)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         initSubscriptions()
@@ -99,8 +94,12 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     // Initialize all the tab views (and select the one preferred by the user)
     private func setUpTabGroup() {
         
-        tabGroup.addViewsForTabs([tracksView, artistsView, albumsView, genresView])
+        let allViews = [tracksView, artistsView, albumsView, genresView]
+        
+        tabGroup.addViewsForTabs(allViews)
         [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
+        
+        allViews.forEach {$0.anchorToView($0.superview!)}
         
         if playlistPreferences.viewOnStartup.option == .specific {
             tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)
@@ -151,8 +150,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
         
-        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
-        
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         
@@ -368,14 +366,16 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
-    private func changeTextSize(_ textSize: TextSize) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        fontsChanged()
+    }
+    
+    private func fontsChanged() {
         
-        lblTracksSummary.font = Fonts.Playlist.summaryFont
-        lblDurationSummary.font = Fonts.Playlist.summaryFont
+        lblTracksSummary.font = FontSchemes.systemScheme.playlist.summaryFont
+        lblDurationSummary.font = FontSchemes.systemScheme.playlist.summaryFont
         
         redrawTabButtons()
-        
-        viewMenuButton.font = Fonts.Playlist.menuFont
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -400,7 +400,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
-        viewControlButtons.forEach {$0.reTint()}
+        btnClose.reTint()
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {

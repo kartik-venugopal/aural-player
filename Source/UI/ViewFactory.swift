@@ -11,8 +11,6 @@ struct ViewFactory {
         
         fileprivate static let playingTrackViewController: PlayingTrackViewController = PlayingTrackViewController()
         
-        fileprivate static let waitingTrackViewController: WaitingTrackViewController = WaitingTrackViewController()
-        
         fileprivate static let transcodingTrackViewController: TranscoderViewController = TranscoderViewController()
         
         fileprivate static let playingTrackFunctionsViewController: PlayingTrackFunctionsViewController = PlayingTrackFunctionsViewController()
@@ -92,6 +90,8 @@ struct ViewFactory {
         
         fileprivate static let layoutsEditorViewController: LayoutsEditorViewController = LayoutsEditorViewController()
         
+        fileprivate static let fontSchemesEditorViewController: FontSchemesEditorViewController = FontSchemesEditorViewController()
+        
         fileprivate static let colorSchemesEditorViewController: ColorSchemesEditorViewController = ColorSchemesEditorViewController()
         
         fileprivate static let effectsPresetsEditorViewController: EffectsPresetsEditorViewController = EffectsPresetsEditorViewController()
@@ -119,6 +119,10 @@ struct ViewFactory {
         fileprivate static let effectsColorSchemeViewController: EffectsColorSchemeViewController = EffectsColorSchemeViewController()
     }
     
+    static var statusBarViewController: StatusBarViewController = {
+        StatusBarViewController()
+    }()
+    
     // Returns the view that displays the player
     static var playerView: NSView {
         return PlayerViews.rootViewController.view
@@ -127,11 +131,6 @@ struct ViewFactory {
     // Returns the view that displays the player
     static var playingTrackView: NSView {
         return PlayerViews.playingTrackViewController.view
-    }
-    
-    // Returns the view that displays the player
-    static var waitingTrackView: NSView {
-        return PlayerViews.waitingTrackViewController.view
     }
     
     // Returns the view that displays the player
@@ -276,6 +275,10 @@ struct ViewFactory {
     
     static var layoutsEditorView: NSView {
         return EditorViews.layoutsEditorViewController.view
+    }
+    
+    static var fontSchemesEditorView: NSView {
+        return EditorViews.fontSchemesEditorViewController.view
     }
     
     static var colorSchemesEditorView: NSView {

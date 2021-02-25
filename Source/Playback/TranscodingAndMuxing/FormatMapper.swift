@@ -62,6 +62,13 @@ class FormatMapper {
         var map = [
             
              "ape": "aiff",
+             "tta": "aiff",
+             "tak": "aiff",
+             "ra_144": "m4a",
+             "ra_288": "m4a",
+             "cook": "m4a",
+             "ralf": "aiff",
+             "sipr": "m4a",
              "dsd_lsbf": "aiff",
              "dsd_lsbf_planar": "aiff",
              "dsd_msbf": "aiff",
@@ -79,9 +86,6 @@ class FormatMapper {
              "musepack": "m4a",
              "musepack7": "m4a",
              "musepack8": "m4a",
-             "mp2": "m4a",
-             "mp2_at": "m4a",
-             "mp2float": "m4a",
              "wavpack": "m4a",
              "dts": "ac3"
         ]

@@ -33,6 +33,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         oneTimeSetup()
         initControls()
         
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -72,13 +73,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         // Subscribe to notifications
         Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
         
-        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize(_:))
-        
         Messenger.subscribe(self, .fx_updateFXUnitView, {(EffectsUnit) in self.initControls()},
                             filter: {(unit: EffectsUnit) in unit == .master || (unit == self.unitType)})
         
         Messenger.subscribe(self, .fx_changeSliderColors, self.changeSliderColors)
         
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
@@ -125,11 +125,11 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
     }
     
-    func changeTextSize(_ textSize: TextSize) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = Fonts.Effects.unitCaptionFont
-        functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
-        presetsMenu.font = Fonts.Effects.menuFont
+        lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
+        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
+        presetsMenu.font = Fonts.menuFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
@@ -210,10 +210,6 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         fxUnit.savePreset(string)
-    }
-    
-    var inputFontSize: TextSize {
-        return EffectsViewState.textSize
     }
     
     // MARK: Menu delegate

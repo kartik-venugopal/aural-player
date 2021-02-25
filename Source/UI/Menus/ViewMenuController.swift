@@ -13,10 +13,13 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
+    @IBOutlet weak var toggleVisualizerMenuItem: NSMenuItem!
     
     @IBOutlet weak var playerViewMenuItem: NSMenuItem!
-    @IBOutlet weak var playlistViewMenuItem: NSMenuItem!
-    @IBOutlet weak var effectsViewMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var applyFontSchemeMenuItem: NSMenuItem!
+    @IBOutlet weak var saveFontSchemeMenuItem: NSMenuItem!
+    @IBOutlet weak var manageFontSchemesMenuItem: NSMenuItem!
     
     @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
@@ -42,10 +45,13 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         
         let showingModalComponent: Bool = WindowManager.isShowingModalComponent
         
+        [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
+        manageFontSchemesMenuItem.enableIf(!showingModalComponent && (FontSchemes.numberOfUserDefinedSchemes > 0))
+        
         [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
         manageColorSchemesMenuItem.enableIf(!showingModalComponent && (ColorSchemes.numberOfUserDefinedSchemes > 0))
         
-        playerViewMenuItem.enableIf(player.state != .waiting && player.state != .transcoding)
+        playerViewMenuItem.enableIf(player.state != .transcoding)
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -56,10 +62,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         togglePlaylistMenuItem.onIf(WindowManager.isShowingPlaylist)
         toggleEffectsMenuItem.onIf(WindowManager.isShowingEffects)
         toggleChaptersListMenuItem.onIf(WindowManager.isShowingChaptersList)
-        
-        
-        playlistViewMenuItem.showIf_elseHide(WindowManager.isShowingPlaylist)
-        effectsViewMenuItem.showIf_elseHide(WindowManager.isShowingEffects)
+        toggleVisualizerMenuItem.onIf(WindowManager.isShowingVisualizer)
         
         // Recreate the custom layout items
         self.windowLayoutsMenu.items.forEach({
@@ -98,6 +101,10 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     // Shows/hides the chapters list window
     @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
         WindowManager.toggleChaptersList()
+    }
+    
+    @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
+        WindowManager.toggleVisualizer()
     }
     
     // TODO: Revisit this
@@ -142,10 +149,6 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
         WindowLayouts.addUserDefinedLayout(string, WindowManager.currentWindowLayout)
-    }
-    
-    var inputFontSize: TextSize {
-        return .normal
     }
 }
 

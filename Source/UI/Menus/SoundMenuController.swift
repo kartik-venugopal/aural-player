@@ -101,12 +101,12 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
             devicesMenu.removeAllItems()
             
-            let outputDeviceName: String = graph.outputDevice.name!
+            let outputDeviceName: String = graph.outputDevice.name
             
             // Add menu items for each available device
-            for device in graph.availableDevices {
+            for device in graph.availableDevices.allDevices {
                 
-                let menuItem = NSMenuItem(title: device.name!, action: #selector(self.outputDeviceAction(_:)), keyEquivalent: "")
+                let menuItem = NSMenuItem(title: device.name, action: #selector(self.outputDeviceAction(_:)), keyEquivalent: "")
                 menuItem.representedObject = device
                 menuItem.target = self
                 

@@ -19,9 +19,6 @@ protocol PlayerProtocol {
     // Stops playback of the currently playing track
     func stop()
     
-    // Playback gap
-    func waiting()
-    
     func transcoding()
     
     // Returns the current playback state of the player. See PlaybackState for more details

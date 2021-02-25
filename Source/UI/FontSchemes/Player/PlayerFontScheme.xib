@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlayerFontSchemeViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="artistAlbumStepper" destination="V37-W1-Svy" id="oOE-jG-edI"/>
+                <outlet property="chapterTitleStepper" destination="fXz-sU-RQa" id="MKb-qt-8uF"/>
+                <outlet property="feedbackTextStepper" destination="f0z-dG-w8F" id="XWg-4b-3DE"/>
+                <outlet property="seekPositionStepper" destination="fFE-zc-mdF" id="hDJ-ax-LhO"/>
+                <outlet property="titleStepper" destination="sAa-s3-cuq" id="a9G-YA-VzS"/>
+                <outlet property="txtArtistAlbum" destination="R5j-cI-z46" id="Edb-xh-eoT"/>
+                <outlet property="txtChapterTitle" destination="iy0-An-iQH" id="g7u-gO-d8A"/>
+                <outlet property="txtFeedbackText" destination="Dy6-lk-xfK" id="d14-gw-UMQ"/>
+                <outlet property="txtSeekPosition" destination="xDb-08-kYE" id="zVl-74-uZP"/>
+                <outlet property="txtTitle" destination="uHM-Ht-fil" id="p7S-BT-fkg"/>
+                <outlet property="view" destination="c22-O7-iKe" id="BLm-lZ-38I"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" id="6nS-Xe-YX5">
+                    <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="G57-bg-rzK">
+                        <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jAz-bG-o82">
+                                <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eXG-0D-Z62" userLabel="Track title">
+                                        <rect key="frame" x="18" y="178" width="157" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Track title / filename" id="LM4-QY-bt2">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.60083391949847031" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xrF-gJ-hv2" userLabel="Artist / Album">
+                                        <rect key="frame" x="18" y="143" width="152" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Track artist / album" id="50f-oX-ytH">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.60083391949847031" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLb-vZ-Zpt">
+                                        <rect key="frame" x="18" y="108" width="121" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Chapter title" id="UbU-ki-SQB">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.60083391949847031" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yMz-RS-9nu" userLabel="Track times">
+                                        <rect key="frame" x="18" y="73" width="121" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Seek position" id="IQ4-Fh-pii">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.60083391949847031" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xDb-08-kYE" userLabel="Track title">
+                                        <rect key="frame" x="369" y="76" width="53" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="VJL-r2-NHx">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Tr-jl-o5j" userLabel="Feedback text">
+                                        <rect key="frame" x="18" y="38" width="151" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Volume / pan level " id="A0H-lM-O5b">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.60083391949847031" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fFE-zc-mdF">
+                                        <rect key="frame" x="424" y="71" width="19" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="VJX-Sf-DBf"/>
+                                        <connections>
+                                            <action selector="seekPositionStepperAction:" target="-2" id="TBD-dc-7qP"/>
+                                        </connections>
+                                    </stepper>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uHM-Ht-fil" userLabel="Track title">
+                                        <rect key="frame" x="369" y="181" width="53" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="JEr-vg-k4t">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAa-s3-cuq">
+                                        <rect key="frame" x="424" y="176" width="19" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="Zg8-kH-1pl"/>
+                                        <connections>
+                                            <action selector="titleStepperAction:" target="-2" id="b8x-jG-6R9"/>
+                                        </connections>
+                                    </stepper>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R5j-cI-z46" userLabel="Track title">
+                                        <rect key="frame" x="369" y="146" width="53" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="zYB-Ea-5jG">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V37-W1-Svy">
+                                        <rect key="frame" x="424" y="141" width="19" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="SqP-Ks-mOx"/>
+                                        <connections>
+                                            <action selector="artistAlbumStepperAction:" target="-2" id="NI1-mI-2Pi"/>
+                                        </connections>
+                                    </stepper>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iy0-An-iQH" userLabel="Track title">
+                                        <rect key="frame" x="369" y="111" width="53" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="iRU-OT-zBi">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fXz-sU-RQa">
+                                        <rect key="frame" x="424" y="106" width="19" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="HRr-JT-gY2"/>
+                                        <connections>
+                                            <action selector="chapterTitleStepperAction:" target="-2" id="gR8-1o-BH5"/>
+                                        </connections>
+                                    </stepper>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dy6-lk-xfK" userLabel="Track title">
+                                        <rect key="frame" x="369" y="41" width="53" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="12.0" id="hnM-Bi-Kaa">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f0z-dG-w8F">
+                                        <rect key="frame" x="424" y="36" width="19" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <stepperCell key="cell" continuous="YES" alignment="left" increment="5" minValue="50" maxValue="1000" doubleValue="120" id="Nva-6O-odM"/>
+                                        <connections>
+                                            <action selector="feedbackTextStepperAction:" target="-2" id="Uaq-IN-vRm"/>
+                                        </connections>
+                                    </stepper>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="RSJ-nq-QIK" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="18" y="223" width="392" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Choose font sizes (in points) for each of the UI elements" id="XkO-zL-L30" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.74587703250000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </subviews>
+                            </view>
+                        </subviews>
+                        <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="uk6-JJ-iMk">
+                        <rect key="frame" x="-100" y="-100" width="438" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="O6w-zP-KIa" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="445" y="0.0" width="15" height="260"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <point key="canvasLocation" x="38" y="154"/>
+        </customView>
+    </objects>
+</document>

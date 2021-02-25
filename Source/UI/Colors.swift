@@ -36,6 +36,8 @@ struct Colors {
         static let green75Percent: NSColor = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
         
         static let aqua: NSColor = NSColor(red: 0, green: 0.5, blue: 1, alpha: 1)
+        
+        static let lava: NSColor = NSColor(red: 0.73, green: 0.294, blue: 0.153, alpha: 1)
     }
     
     static var windowBackgroundColor: NSColor {
@@ -122,10 +124,6 @@ struct Colors {
         
         static var trackInfoChapterTextColor: NSColor {
             return ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor
-        }
-        
-        static var gapTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor
         }
         
         static var trackTimesTextColor: NSColor {
@@ -513,9 +511,6 @@ struct Colors {
     
     // Color of selected item text inside the playlist
     static let playlistGroupSelectedIndexTextColor: NSColor = Constants.white70Percent
-    
-    static let playlistGapTextColor: NSColor = Constants.white80Percent
-    static let playlistSelectedGapTextColor: NSColor = NSColor.white
     
     // Color for playlist grouped views
     static let playlistGroupNameTextColor: NSColor = Constants.white50Percent

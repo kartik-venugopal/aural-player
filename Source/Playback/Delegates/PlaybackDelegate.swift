@@ -76,13 +76,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
             
             pause()
             
-        case .waiting:
-            
-            // Skip gap and start playback
-            if let track = waitingTrack {
-                playImmediately(track)
-            }
-            
         case .transcoding:
             
             // Do nothing if transcoding
@@ -92,10 +85,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     private func beginPlayback() {
         doPlay({return sequencer.begin()}, PlaybackParams.defaultParams())
-    }
-    
-    private func playImmediately(_ track: Track) {
-        doPlay({return track}, PlaybackParams().withAllowDelay(false))
     }
     
     func previousTrack() {
@@ -337,10 +326,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var playingTrack: Track? {
         return state.isPlayingOrPaused ? sequencer.currentTrack : nil
-    }
-    
-    var waitingTrack: Track? {
-        return state == .waiting ? sequencer.currentTrack : nil
     }
     
     var transcodingTrack: Track? {

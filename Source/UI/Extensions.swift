@@ -74,6 +74,17 @@ extension NSView {
         }
     }
     
+    func anchorToView(_ otherView: NSView) {
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+        self.leadingAnchor.constraint(equalTo: otherView.leadingAnchor),
+        self.trailingAnchor.constraint(equalTo: otherView.trailingAnchor),
+        self.topAnchor.constraint(equalTo: otherView.topAnchor),
+        self.bottomAnchor.constraint(equalTo: otherView.bottomAnchor)])
+    }
+    
     // MARK - Static functions
     
     static func showViews(_ views: NSView...) {

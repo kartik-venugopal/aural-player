@@ -8,7 +8,7 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
         cellFrame.fill()
         
         let attrsDict: [NSAttributedString.Key: Any] = [
-            .font: Fonts.Playlist.chaptersListHeaderFont,
+            .font: FontSchemes.systemScheme.playlist.chaptersListHeaderFont,
             .foregroundColor: Colors.Playlist.summaryInfoColor]
         
         let size: CGSize = stringValue.size(withAttributes: attrsDict)

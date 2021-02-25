@@ -11,10 +11,6 @@ class BookmarkNameInputReceiver: StringInputReceiver {
         return "Enter a bookmark name:"
     }
     
-    var inputFontSize: TextSize {
-        return PlayerViewState.textSize
-    }
-    
     var defaultValue: String? {
         return BookmarkContext.defaultBookmarkName
     }

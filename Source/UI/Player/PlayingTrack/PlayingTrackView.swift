@@ -4,7 +4,7 @@ import Cocoa
     A container view for the 2 types of player views - Default / Expanded Art view.
     Switches between the 2 views, shows/hides individual UI components, and handles functions such as auto-hide.
  */
-class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
+class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     
     @IBOutlet weak var defaultView: PlayingTrackSubview!
     @IBOutlet weak var expandedArtView: PlayingTrackSubview!
@@ -37,7 +37,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         setUpMouseTracking()
     }
     
-    // This is required when the player view was hidden and is now shown (eg. after waiting or transcoding).
+    // This is required when the player view was hidden and is now shown (eg. after transcoding).
     func showView() {
         
         setUpMouseTracking()
@@ -46,7 +46,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         self.show()
     }
     
-    // This is required when the player view is hidden (eg. when waiting or transcoding).
+    // This is required when the player view is hidden (eg. when transcoding).
     func hideView() {
         
         self.hide()
@@ -143,10 +143,10 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable, TextSizeable {
         }
     }
     
-    func changeTextSize(_ size: TextSize) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
-        defaultView.changeTextSize(size)
-        expandedArtView.changeTextSize(size)
+        defaultView.applyFontScheme(fontScheme)
+        expandedArtView.applyFontScheme(fontScheme)
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

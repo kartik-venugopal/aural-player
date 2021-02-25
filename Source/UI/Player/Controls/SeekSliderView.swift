@@ -3,7 +3,7 @@ import Cocoa
 /*
    View that encapsulates the seek slider and seek time labels.
 */
-class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
+class SeekSliderView: NSView, ColorSchemeable {
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: VALabel!
@@ -23,7 +23,7 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
     
-    // Delegate that conveys all volume/pan adjustments to the audio graph
+    // Delegate representing the Time effects unit
     private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     // Delegate that conveys all playback requests to the player / playback sequencer
@@ -41,7 +41,6 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         
         playbackRateChanged(timeUnit.effectiveRate, .noTrack)
         
-        changeTextSize(PlayerViewState.textSize)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -147,7 +146,7 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         }
     }
     
-    func gapOrTranscodingStarted() {
+    func transcodingStarted() {
         NSView.hideViews(seekSlider, lblTimeElapsed, lblTimeRemaining)
     }
     
@@ -172,10 +171,10 @@ class SeekSliderView: NSView, ColorSchemeable, TextSizeable {
         }
     }
     
-    func changeTextSize(_ size: TextSize) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTimeElapsed.font = Fonts.Player.trackTimesFont
-        lblTimeRemaining.font = Fonts.Player.trackTimesFont
+        lblTimeElapsed.font = FontSchemes.systemScheme.player.trackTimesFont
+        lblTimeRemaining.font = FontSchemes.systemScheme.player.trackTimesFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

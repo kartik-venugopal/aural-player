@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,7 +29,7 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="503" height="238"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="503" height="238"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -46,7 +46,7 @@
                     <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="t8l-lj-tHY" userLabel="Container">
                         <rect key="frame" x="15" y="35" width="474" height="172"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <view key="contentView" ambiguous="YES" id="06q-Hd-4Ed">
+                        <view key="contentView" id="06q-Hd-4Ed">
                             <rect key="frame" x="0.0" y="0.0" width="474" height="172"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
@@ -71,15 +71,15 @@
                         </textFieldCell>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ax-Th-RzZ" userLabel="Seconds Stepper">
-                        <rect key="frame" x="417" y="80" width="15" height="22"/>
+                        <rect key="frame" x="464" y="79" width="19" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="0V2-EO-Z7f"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="0V2-EO-Z7f"/>
                         <connections>
                             <action selector="secondsStepperAction:" target="-2" id="KTz-NX-bMU"/>
                         </connections>
                     </stepper>
                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNY-Qz-qEX">
-                        <rect key="frame" x="339" y="81" width="79" height="22"/>
+                        <rect key="frame" x="384" y="81" width="79" height="22"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="gUh-FE-y7I">
                             <font key="font" size="11" name="Play-Regular"/>
@@ -91,15 +91,15 @@
                         </connections>
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4K-3J-0YE" userLabel="Percentage Stepper">
-                        <rect key="frame" x="417" y="50" width="15" height="22"/>
+                        <rect key="frame" x="464" y="49" width="19" height="28"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="100" id="66U-LH-t3m"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="66U-LH-t3m"/>
                         <connections>
                             <action selector="percentageStepperAction:" target="-2" id="QW4-Eq-FHJ"/>
                         </connections>
                     </stepper>
                     <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKl-ML-6tY" userLabel="Txt Percentage">
-                        <rect key="frame" x="339" y="51" width="79" height="22"/>
+                        <rect key="frame" x="384" y="51" width="79" height="22"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="yVC-us-AYd">
                             <font key="font" size="11" name="Play-Regular"/>
@@ -110,10 +110,10 @@
                             <outlet property="formatter" destination="Hhe-p9-9Po" id="lbk-U8-rT1"/>
                         </connections>
                     </textField>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIM-bh-nWy">
-                        <rect key="frame" x="30" y="114" width="282" height="20"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIM-bh-nWy" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="114" width="332" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Specify as hh : mm : ss" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="VVM-Lh-AVg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="radio" title="Specify as hh : mm : ss" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="VVM-Lh-AVg">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="11" name="Play-Regular"/>
                         </buttonCell>
@@ -122,10 +122,10 @@
                         </connections>
                     </button>
                     <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCD-rB-Irb" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="339" y="112" width="92" height="25"/>
+                        <rect key="frame" x="382" y="112" width="102" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="uIU-K7-56K">
-                            <font key="font" size="11" name="Play-Regular"/>
+                        <datePickerCell key="cell" borderStyle="bezel" focusRingType="none" alignment="left" id="uIU-K7-56K">
+                            <font key="font" metaFont="system"/>
                             <date key="date" timeIntervalSinceReferenceDate="-595929600">
                                 <!--1982-02-12 16:00:00 +0000-->
                             </date>
@@ -139,10 +139,10 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </datePicker>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tjh-U3-OZ0" userLabel="Btn Seconds">
-                        <rect key="frame" x="30" y="83" width="282" height="20"/>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tjh-U3-OZ0" userLabel="Btn Seconds" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="83" width="332" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Specify as seconds" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="d11-HD-X6l" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="radio" title="Specify as seconds" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="d11-HD-X6l">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="11" name="Play-Regular"/>
                         </buttonCell>
@@ -150,10 +150,10 @@
                             <action selector="radioButtonAction:" target="-2" id="IoP-tA-rWl"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfX-Kf-2CE" userLabel="Btn Percentage">
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfX-Kf-2CE" userLabel="Btn Percentage" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="30" y="52" width="302" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="radio" title="Specify as percentage of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Xgq-UO-7Vg" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <buttonCell key="cell" type="radio" title="Specify as percentage of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Xgq-UO-7Vg">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" size="11" name="Play-Regular"/>
                         </buttonCell>

@@ -6,9 +6,11 @@ import AVFoundation
 
 protocol AudioGraphDelegateProtocol {
     
-    var availableDevices: [AudioDevice] {get}
+    var availableDevices: AudioDeviceList {get}
     var systemDevice: AudioDevice {get}
     var outputDevice: AudioDevice {get set}
+    var outputDeviceBufferSize: Int {get set}
+    var outputDeviceSampleRate: Double {get}
     
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     var volume: Float {get set}
@@ -52,6 +54,9 @@ protocol AudioGraphDelegateProtocol {
     var filterUnit: FilterUnitDelegateProtocol {get set}
     
     var soundProfiles: SoundProfiles {get}
+    
+    func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
+    func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
 }
 
 protocol FXUnitDelegateProtocol {

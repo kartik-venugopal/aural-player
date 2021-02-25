@@ -17,9 +17,6 @@ protocol PlaybackInfoDelegateProtocol {
     // Returns the currently playing (or paused) track, if there is one
     var playingTrack: Track? {get}
     
-    // Returns the currently waiting (and pending playback) track, if there is one
-    var waitingTrack: Track? {get}
-    
     // Returns the currently transcoding (and pending playback) track, if there is one
     var transcodingTrack: Track? {get}
     

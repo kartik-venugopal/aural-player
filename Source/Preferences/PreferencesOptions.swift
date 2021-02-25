@@ -51,7 +51,7 @@ enum PlaylistViewStartupOptions: String {
 // Playlist view on startup preference
 class PlaylistViewOnStartup {
     
-    var option: PlaylistViewStartupOptions = .specific
+    var option: PlaylistViewStartupOptions = .rememberFromLastAppLaunch
     
     // This is used only if option == .specific
     var viewName: String = "Tracks"
@@ -92,7 +92,6 @@ enum WindowLayoutStartupOptions: String {
 // Window layout on startup preference
 class LayoutOnStartup {
     
-    // TODO: This should be set to remember by default, and WindowManager should load vertical stack the first time
     var option: WindowLayoutStartupOptions = .rememberFromLastAppLaunch
     
     // This is used only if option == .specific

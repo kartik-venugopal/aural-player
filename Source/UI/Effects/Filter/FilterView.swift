@@ -55,7 +55,7 @@ class FilterView: NSView {
         bandsView.tabViewItems.forEach({bandsView.removeTabViewItem($0)})
     }
     
-    func changeTextSize() {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         redrawChart()
     }
 }

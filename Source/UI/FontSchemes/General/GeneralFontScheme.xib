@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GeneralFontSchemeViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="headingFontMenuButton" destination="sc1-Vw-1KF" id="YP9-GB-aUY"/>
+                <outlet property="lblHeadingPreview" destination="z1r-m3-8Kn" id="L0R-Gg-rWw"/>
+                <outlet property="lblTextPreview" destination="KIM-Ha-5tP" id="dgi-ht-maV"/>
+                <outlet property="textFontMenuButton" destination="NZ1-BI-nVW" id="l8W-A8-tJp"/>
+                <outlet property="view" destination="XVf-fe-Kxw" id="sr9-aO-no3"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="XVf-fe-Kxw">
+            <rect key="frame" x="0.0" y="0.0" width="460" height="260"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jEX-6G-zke" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="18" y="177" width="81" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Text font" id="nP1-M3-itb" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.64518342985139865" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="mJM-7n-Bh2" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="18" y="223" width="392" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Choose font family / weight for text and headings" id="FmG-Ha-pHb" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="14" name="Play-Regular"/>
+                        <color key="textColor" white="0.74587703251338511" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="KIM-Ha-5tP">
+                    <rect key="frame" x="128" y="112" width="297" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Blue Stone - Labyrinth of Dreams" id="QZn-eE-8EJ" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="13" name="Exo-Medium"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="z1r-m3-8Kn">
+                    <rect key="frame" x="128" y="12" width="183" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Tracks" id="yXn-mq-tnI" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="13" name="Exo-Medium"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="9eF-c0-4f7" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="128" y="146" width="121" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preview (size 14)" id="1Jz-p9-Ijq" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="12" name="Play-Regular"/>
+                        <color key="textColor" white="0.52282864230496062" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="7cQ-Nq-lX8" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="128" y="46" width="135" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Preview (size 18)" id="3G0-sg-52d" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="12" name="Play-Regular"/>
+                        <color key="textColor" white="0.52282864230000003" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="m4j-jg-5y3" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="18" y="77" width="108" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Heading font" id="3GH-Pf-9Mc" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.64518342985139865" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </textFieldCell>
+                </textField>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZ1-BI-nVW" userLabel="Text Font menu">
+                    <rect key="frame" x="127" y="171" width="269" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="xZ8-hp-QrT" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="12" name="Play-Regular"/>
+                        <menu key="menu" id="ktF-2Q-d0z"/>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="chooseTextFontAction:" target="-2" id="PB3-mP-P5I"/>
+                    </connections>
+                </popUpButton>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-Vw-1KF" userLabel="Heading Font menu">
+                    <rect key="frame" x="127" y="71" width="269" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="na5-l9-aZ0" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="12" name="Play-Regular"/>
+                        <menu key="menu" id="iQC-MP-L5G"/>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="chooseHeadingFontAction:" target="-2" id="3up-j1-cP3"/>
+                    </connections>
+                </popUpButton>
+            </subviews>
+            <point key="canvasLocation" x="361" y="84"/>
+        </customView>
+    </objects>
+</document>

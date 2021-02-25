@@ -146,10 +146,6 @@ class Player: PlayerProtocol, NotificationSubscriber {
         state = .noTrack
     }
     
-    func waiting() {
-        state = .waiting
-    }
-    
     func transcoding() {
         state = .transcoding
     }
@@ -260,7 +256,6 @@ enum PlaybackState {
     case playing
     case paused
     case noTrack
-    case waiting
     case transcoding
     
     var isPlayingOrPaused: Bool {

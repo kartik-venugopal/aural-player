@@ -59,12 +59,6 @@ protocol PlaylistAccessorDelegateProtocol {
     
     // Returns the display name for a track within a specific playlist. For example, within the Artists playlist, the display name of a track will consist of just its title.
     func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String
-    
-    func getGapsAroundTrack(_ track: Track) -> (hasGaps: Bool, beforeTrack: PlaybackGap?, afterTrack: PlaybackGap?)
-    
-    func getGapBeforeTrack(_ track: Track) -> PlaybackGap?
-    
-    func getGapAfterTrack(_ track: Track) -> PlaybackGap?
 }
 
 /*
@@ -117,10 +111,6 @@ protocol PlaylistMutatorDelegateProtocol {
         NOTE - All playlist types will be affected by this operation. i.e. all playlist types will be cleared.
     */
     func clear()
-    
-    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?)
-    
-    func removeGapsForTrack(_ track: Track)
     
     /*
         Moves the tracks at the specified indexes, up one index, in the flat playlist, if they can be moved (they are not already at the top). Returns mappings of source indexes to destination indexes, for all the tracks (for tracks that didn't move, the new index will match the old index)

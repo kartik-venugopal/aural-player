@@ -100,7 +100,6 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 // Reload all source and destination rows, and all rows in between
                 let reloadIndices: IndexSet = IndexSet(allIndices.min()!...allIndices.max()!)
                 tableView.reloadData(forRowIndexes: reloadIndices, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-                tableView.noteHeightOfRows(withIndexesChanged: reloadIndices)
                 
                 // Select all the destination rows (the new locations of the moved tracks)
                 tableView.selectRowIndexes(IndexSet(destinationIndices), byExtendingSelection: false)

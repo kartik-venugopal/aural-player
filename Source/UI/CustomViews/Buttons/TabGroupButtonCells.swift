@@ -59,23 +59,12 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     override var borderRadius: CGFloat {return 3}
     override var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
-    override var textFont: NSFont {return Fonts.Playlist.tabsFont}
-    override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont}
+    override var textFont: NSFont {return FontSchemes.systemScheme.playlist.tabButtonTextFont}
+    override var boldTextFont: NSFont {return FontSchemes.systemScheme.playlist.tabButtonTextFont}
     
     override var borderInsetY: CGFloat {return 0}
     
-    override var yOffset: CGFloat {
-
-        switch PlaylistViewState.textSize {
-            
-        case .normal:   return 1
-            
-        case .larger:   return 0
-            
-        case .largest:  return -1
-            
-        }
-    }
+    override var yOffset: CGFloat {0}
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
@@ -116,8 +105,8 @@ class TrackInfoPopoverTabButtonCell: TabGroupButtonCell {
     
     override var unselectedTextColor: NSColor {return Colors.Constants.white70Percent}
     
-    override var textFont: NSFont {return Fonts.Playlist.tabsFont_normal}
-    override var boldTextFont: NSFont {return Fonts.Playlist.selectedTabFont_normal}
+    override var textFont: NSFont {return Fonts.largeTabButtonFont}
+    override var boldTextFont: NSFont {return Fonts.largeTabButtonFont}
     
     override var fillBeforeBorder: Bool {return false}
     override var borderRadius: CGFloat {return 4}
@@ -133,8 +122,8 @@ class PrefsNestedTabButtonCell: PrefsTabButtonCell {
 
 class EQSelectorButtonCell: TabGroupButtonCell {
     
-    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
-    override var boldTextFont: NSFont {return Fonts.Effects.unitFunctionBoldFont}
+    override var textFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
+    override var boldTextFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
     override var borderRadius: CGFloat {return 1}
     
     override var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
@@ -144,19 +133,20 @@ class EQSelectorButtonCell: TabGroupButtonCell {
     
     override var yOffset: CGFloat {
         
-        if isOff {
-            return -1
-        }
-        
-        switch EffectsViewState.textSize {
-            
-        case .normal:   return 1
-            
-        case .larger:   return 0
-            
-        case .largest:  return -1
-            
-        }
+//        if isOff {
+//            return -1
+//        }
+//
+//        switch EffectsViewState.textSize {
+//
+//        case .normal:   return 1
+//
+//        case .larger:   return 0
+//
+//        case .largest:  return -1
+//
+//        }
+        return 0
     }
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
@@ -186,19 +176,20 @@ class FilterBandsTabButtonCell: EQSelectorButtonCell {
     
     override var yOffset: CGFloat {
         
-        if isOff {
-            return -1
-        }
-        
-        switch EffectsViewState.textSize {
-            
-        case .normal:   return 1
-            
-        case .larger:   return 0
-            
-        case .largest:  return 0
-            
-        }
+//        if isOff {
+//            return -1
+//        }
+//
+//        switch EffectsViewState.textSize {
+//
+//        case .normal:   return 1
+//
+//        case .larger:   return 0
+//
+//        case .largest:  return 0
+//
+//        }
+        return 0
     }
     
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {

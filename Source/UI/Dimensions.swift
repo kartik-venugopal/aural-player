@@ -21,17 +21,3 @@ struct Dimensions {
     
     static let historyMenuItemImageSize: NSSize = NSSize(width: 22, height: 22)
 }
-
-enum TextSize: String {
-    
-    case normal
-    case larger
-    case largest
-}
-
-// A contract for any UI component whose text size can be altered.
-protocol TextSizeable {
-    
-    // Change the text font size of this component to the given size.
-    func changeTextSize(_ size: TextSize)
-}

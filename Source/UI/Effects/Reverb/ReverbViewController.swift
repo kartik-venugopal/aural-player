@@ -58,10 +58,10 @@ class ReverbViewController: FXUnitViewController {
         reverbView.setAmount(reverbUnit.amount, reverbUnit.formattedAmount)
     }
     
-    override func changeTextSize(_ textSize: TextSize) {
+    override func applyFontScheme(_ fontScheme: FontScheme) {
         
-        super.changeTextSize(textSize)
-        reverbView.changeTextSize()
+        super.applyFontScheme(fontScheme)
+        reverbView.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {

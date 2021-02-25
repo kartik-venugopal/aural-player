@@ -1,8 +1,8 @@
 {
   "images" : [
     {
+      "filename" : "hamburger copy 2.png",
       "idiom" : "universal",
-      "filename" : "settings copy 2.png",
       "scale" : "1x"
     },
     {
@@ -15,7 +15,7 @@
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

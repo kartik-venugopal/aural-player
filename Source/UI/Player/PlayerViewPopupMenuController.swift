@@ -33,11 +33,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var timeRemainingMenuItem_durationSeconds: NSMenuItem!
     private var timeRemainingDisplayFormats: [NSMenuItem] = []
     
-    @IBOutlet weak var textSizeNormalMenuItem: NSMenuItem!
-    @IBOutlet weak var textSizeLargerMenuItem: NSMenuItem!
-    @IBOutlet weak var textSizeLargestMenuItem: NSMenuItem!
-    private var textSizes: [NSMenuItem] = []
-    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     override func awakeFromNib() {
@@ -45,8 +40,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
         
         timeRemainingDisplayFormats = [timeRemainingMenuItem_hms, timeRemainingMenuItem_seconds, timeRemainingMenuItem_percentage, timeRemainingMenuItem_durationHMS, timeRemainingMenuItem_durationSeconds]
-        
-        textSizes = [textSizeNormalMenuItem, textSizeLargerMenuItem, textSizeLargestMenuItem]
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -124,20 +117,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             case .duration_seconds:     timeRemainingMenuItem_durationSeconds.on()
                 
             }
-        }
-        
-        textSizes.forEach({
-            $0.off()
-        })
-        
-        switch PlayerViewState.textSize {
-            
-        case .normal:   textSizeNormalMenuItem.on()
-            
-        case .larger:   textSizeLargerMenuItem.on()
-            
-        case .largest:  textSizeLargestMenuItem.on()
-            
         }
     }
    
@@ -249,14 +228,5 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         PlayerViewState.timeRemainingDisplayType = format
         Messenger.publish(.player_setTimeRemainingDisplayFormat, payload: format)
-    }
-    
-    @IBAction func changeTextSizeAction(_ sender: NSMenuItem) {
-        
-        if let size = TextSize(rawValue: sender.title.lowercased()), PlayerViewState.textSize != size {
-            
-            PlayerViewState.textSize = size
-            Messenger.publish(.player_changeTextSize, payload: size)
-        }
     }
 }

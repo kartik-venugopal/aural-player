@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -72,23 +72,23 @@
                         <action selector="gapStepperAction:" target="-2" id="a7r-8V-9r5"/>
                     </connections>
                 </stepper>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0OY-If-fJy" userLabel="Remember layout from last app launch">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0OY-If-fJy" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="415" width="257" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Remember layout from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="yVZ-3R-cMA" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Remember layout from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="yVZ-3R-cMA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="layoutOnStartupAction:" target="-2" id="nNC-a8-buR"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdt-N9-waq" userLabel="Start with layout Label">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdt-N9-waq" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="396" width="120" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Start with layout" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tmX-cu-lWD" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Start with layout" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tmX-cu-lWD">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="layoutOnStartupAction:" target="-2" id="18P-bW-te1"/>
@@ -131,10 +131,10 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DUF-2F-cuz">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DUF-2F-cuz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="38" y="330" width="239" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Snap app windows to each other" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zcX-Xj-qB5" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="check" title="Snap app windows to each other" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zcX-Xj-qB5">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -142,10 +142,10 @@
                         <action selector="snapToWindowsAction:" target="-2" id="7Cp-Kl-iCT"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-UP-XoA">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-UP-XoA" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="38" y="293" width="323" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Snap app windows to screen corners and edges" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9Tk-y7-Lp0" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="check" title="Snap app windows to screen corners and edges" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9Tk-y7-Lp0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>

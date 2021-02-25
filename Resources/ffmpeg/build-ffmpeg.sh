@@ -12,7 +12,7 @@ export binDir=".."
 export sourceArchiveName="ffmpeg-sourceCode.bz2"
 
 # The name of the FFmpeg source directory (once the archive has been uncompressed)
-export sourceDirectoryName="ffmpeg-4.1"
+export sourceDirectoryName="ffmpeg-4.3.1"
 
 # Extract source code from archive
 echo "\nExtracting FFmpeg sources from archive ..."
@@ -66,17 +66,17 @@ echo "Configuring FFmpeg ..."
 --disable-filters \
 --enable-filter=aresample \
 --disable-demuxers \
---enable-demuxer=aac,ape,asf,dsf,flac,mp3,mpc,mpc8,wv,dts,dtshd \
---enable-demuxer=ogg,matroska \
+--enable-demuxer=aac,ape,asf,dsf,flac,mpc,mpc8,wv,dts,dtshd,tta,tak \
+--enable-demuxer=ogg,matroska,rm \
 --enable-demuxer=mjpeg,mjpeg_2000,mpjpeg \
 --disable-decoders \
---enable-decoder=aac,ape,flac,mp1,mp1_at,mp1float,mp2,mp2_at,mp2float,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice,dca \
+--enable-decoder=aac,ape,flac,mpc7,mpc8,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,opus,cook,ra_144,ra_288,ralf,sipr,tta,tak,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice,dca \
 --enable-decoder=bmp,png,jpeg2000,jpegls,mjpeg,mjpegb \
 --disable-parsers \
---enable-parser=aac,flac,mpegaudio,opus,vorbis,dca,ac3 \
+--enable-parser=aac,flac,opus,vorbis,dca,ac3,tak,cook,sipr \
 --enable-parser=bmp,mjpeg,png \
 --disable-muxers \
---enable-muxer=aiff,ipod,ac3,caf,flac,wav,mp3 \
+--enable-muxer=aiff,ipod,ac3,caf,flac,wav \
 --enable-muxer=matroska_audio \
 --enable-muxer=image2,image2pipe \
 --disable-encoders \

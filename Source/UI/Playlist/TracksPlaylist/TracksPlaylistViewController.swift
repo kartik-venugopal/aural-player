@@ -48,8 +48,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribe(self, .playlist_playbackGapUpdated, self.gapUpdated(_:))
-        
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
         Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:),
@@ -79,18 +77,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedTrack()}, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_playSelectedItemWithDelay,
-                            {(notif: DelayedPlaybackCommandNotification) in self.playSelectedTrackWithDelay(notif.delay)},
-                            filter: {(notif: DelayedPlaybackCommandNotification) in notif.viewSelector.includes(.tracks)})
-        
-        Messenger.subscribe(self, .playlist_insertGaps,
-                            {(notif: InsertPlaybackGapsCommandNotification) in self.insertGaps(notif.gapBeforeTrack, notif.gapAfterTrack)},
-                            filter: {(notif: InsertPlaybackGapsCommandNotification) in notif.viewSelector.includes(.tracks)})
-        
-        Messenger.subscribe(self, .playlist_removeGaps, {(PlaylistViewSelector) in self.removeGaps()}, filter: viewSelectionFilter)
-        
-        Messenger.subscribe(self, .playlist_changeTextSize, self.changeTextSize(_:))
-        
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         
@@ -137,7 +124,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     func playSelectedTrackWithDelay(_ delay: Double? = nil) {
         
         if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
-            Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow, delay: delay))
+            Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow))
         }
     }
     
@@ -322,7 +309,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
             
             let refreshIndexes = IndexSet(firstRemovedRow...lastPlaylistRowAfterRemove)
             playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexes)
         }
     }
     
@@ -353,16 +339,11 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
 
         // If this is not done async, the row view could get garbled.
         // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
-        // Gaps may have been removed, so row heights need to be updated too
         DispatchQueue.main.async {
-            
             self.playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            self.playlistView.noteHeightOfRows(withIndexesChanged: refreshIndexes)
         }
     }
     
-    // TODO: Test with one-time gap before bad track (see if playlist updates properly after receiving this notif)
-    // If not, call this code from main.async()
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
         let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, notification.error.track].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
@@ -415,35 +396,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         }
     }
     
-    private func insertGaps(_ gapBefore: PlaybackGap?, _ gapAfter: PlaybackGap?) {
-        
-        if let track = playlist.trackAtIndex(playlistView.selectedRow) {
-            
-            playlist.setGapsForTrack(track, gapBefore, gapAfter)
-            Messenger.publish(.playlist_playbackGapUpdated, payload: track)
-        }
-    }
-    
-    private func removeGaps() {
-        
-        if let track = playlist.trackAtIndex(playlistView.selectedRow) {
-            
-            playlist.removeGapsForTrack(track)
-            Messenger.publish(.playlist_playbackGapUpdated, payload: track)
-        }
-    }
-    
-    func gapUpdated(_ updatedTrack: Track) {
-        
-        if let updatedRow = playlist.indexOfTrack(updatedTrack), updatedRow >= 0 {
-            
-            playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedRow), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
-            playlistView.noteHeightOfRows(withIndexesChanged: IndexSet(integer: updatedRow))
-            playlistView.scrollRowToVisible(updatedRow)
-        }
-    }
-    
-    private func changeTextSize(_ textSize: TextSize) {
+    private func applyFontScheme(_ fontScheme: FontScheme) {
         
         let selectedRows = self.selectedRows
         playlistView.reloadData()
@@ -459,8 +412,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         changeBackgroundColor(scheme.general.backgroundColor)
         
         if mustReloadRows {
-            
-            playlistViewDelegate.changeGapIndicatorColor(scheme.playlist.indexDurationSelectedTextColor)
             
             let selectedRows = self.selectedRows
             playlistView.reloadData()
@@ -482,8 +433,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     private var allRows: IndexSet {IndexSet(integersIn: 0..<rowCount)}
     
     private func changeTrackNameTextColor(_ color: NSColor) {
-        
-        playlistViewDelegate.changeGapIndicatorColor(color)
         playlistView.reloadData(forRowIndexes: allRows, columnIndexes: IndexSet(integer: 1))
     }
     

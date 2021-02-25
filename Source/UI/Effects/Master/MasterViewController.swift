@@ -141,15 +141,21 @@ class MasterViewController: FXUnitViewController {
         }
     }
     
-    override func changeTextSize(_ textSize: TextSize) {
+    override func applyFontScheme(_ fontScheme: FontScheme) {
+        fontsChanged()
+    }
+    
+    private func fontsChanged() {
         
-        lblCaption.font = Fonts.Effects.unitCaptionFont
+        lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
         
-        functionLabels.forEach({
-            $0.font = $0 is EffectsUnitTriStateLabel ? Fonts.Effects.masterUnitFunctionFont : Fonts.Effects.unitFunctionFont
-        })
+        functionLabels.forEach {
+            
+            $0.font = $0 is EffectsUnitTriStateLabel ? FontSchemes.systemScheme.effects.masterUnitFunctionFont :
+                FontSchemes.systemScheme.effects.unitCaptionFont
+        }
         
-        presetsMenu.font = Fonts.Effects.menuFont
+        presetsMenu.font = Fonts.menuFont
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {

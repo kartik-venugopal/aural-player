@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,14 +22,14 @@
             <rect key="frame" x="0.0" y="0.0" width="448" height="177"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="65" horizontalPageScroll="10" verticalLineScroll="65" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ht-SU-dHw" userLabel="Playlist Genres View">
-                    <rect key="frame" x="0.0" y="0.0" width="448" height="175"/>
+                <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ht-SU-dHw" userLabel="Playlist Genres View">
+                    <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
                     <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="bf5-Po-lKe">
-                        <rect key="frame" x="0.0" y="0.0" width="448" height="175"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wHR-aR-f7P" id="Qtd-u6-247" userLabel="Playlist Genres View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="175"/>
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wHR-aR-f7P" id="Qtd-u6-247" userLabel="Playlist Genres View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="487" height="173"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
@@ -47,37 +48,23 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="dUD-Jz-0Am" customClass="GroupedItemNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="372" height="61"/>
+                                                <rect key="frame" x="11" y="2" width="377" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-xI-cje" userLabel="Icon">
-                                                        <rect key="frame" x="3" y="22" width="16" height="18"/>
+                                                        <rect key="frame" x="3" y="6" width="16" height="18"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="16" id="ZDA-23-orl"/>
                                                             <constraint firstAttribute="height" constant="18" id="mYE-Ln-0jB"/>
                                                         </constraints>
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ygV-8w-DId"/>
                                                     </imageView>
-                                                    <imageView identifier="GapBefore" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="veU-YM-6VK" userLabel="Gap Before">
-                                                        <rect key="frame" x="25" y="43" width="347" height="18"/>
+                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name">
+                                                        <rect key="frame" x="28" y="0.0" width="351" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="eyT-DO-Eer"/>
+                                                            <constraint firstAttribute="height" constant="30" id="jCk-a9-VuK"/>
                                                         </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="i8r-F9-6nx"/>
-                                                    </imageView>
-                                                    <imageView identifier="GapAfter" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fdB-yu-kev" userLabel="Gap After">
-                                                        <rect key="frame" x="25" y="0.0" width="347" height="18"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="kQp-N8-SVp"/>
-                                                        </constraints>
-                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="VHk-6i-fkB"/>
-                                                    </imageView>
-                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="23" y="18" width="351" height="26"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="26" id="jCk-a9-VuK"/>
-                                                        </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Da3-Fs-d7J" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Da3-Fs-d7J" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -86,20 +73,12 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="lHY-xI-cje" firstAttribute="leading" secondItem="dUD-Jz-0Am" secondAttribute="leading" constant="3" id="43c-p7-TKZ"/>
-                                                    <constraint firstItem="fdB-yu-kev" firstAttribute="trailing" secondItem="Z03-PG-pvS" secondAttribute="trailing" id="6Pg-oo-KqA"/>
-                                                    <constraint firstItem="veU-YM-6VK" firstAttribute="top" secondItem="dUD-Jz-0Am" secondAttribute="top" id="9Ls-HH-QW9"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="bottom" secondItem="dUD-Jz-0Am" secondAttribute="bottom" id="Apk-10-2E1"/>
                                                     <constraint firstAttribute="trailing" secondItem="Z03-PG-pvS" secondAttribute="trailing" id="E5c-ha-SJu"/>
-                                                    <constraint firstItem="fdB-yu-kev" firstAttribute="bottom" secondItem="dUD-Jz-0Am" secondAttribute="bottom" id="a6i-mG-2er"/>
-                                                    <constraint firstItem="veU-YM-6VK" firstAttribute="leading" secondItem="Z03-PG-pvS" secondAttribute="leading" id="aPT-Ey-oDw"/>
-                                                    <constraint firstItem="fdB-yu-kev" firstAttribute="trailing" secondItem="veU-YM-6VK" secondAttribute="trailing" id="atz-DK-ONZ"/>
-                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="leading" secondItem="lHY-xI-cje" secondAttribute="trailing" constant="6" id="iQT-SR-0sr"/>
-                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="Z03-PG-pvS" secondAttribute="centerY" id="ozy-e0-OhD"/>
-                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="centerY" secondItem="dUD-Jz-0Am" secondAttribute="centerY" id="pv9-dd-YDn"/>
-                                                    <constraint firstItem="fdB-yu-kev" firstAttribute="leading" secondItem="Z03-PG-pvS" secondAttribute="leading" id="yip-cH-h8c"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="leading" secondItem="lHY-xI-cje" secondAttribute="trailing" constant="11" id="iQT-SR-0sr"/>
+                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="dUD-Jz-0Am" secondAttribute="centerY" id="ozy-e0-OhD"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="gapAfterImg" destination="fdB-yu-kev" id="MBC-g2-HQm"/>
-                                                    <outlet property="gapBeforeImg" destination="veU-YM-6VK" id="KXv-Jp-AMk"/>
                                                     <outlet property="imageView" destination="lHY-xI-cje" id="P2H-5I-XCL"/>
                                                     <outlet property="textField" destination="Z03-PG-pvS" id="CEA-SN-zEQ"/>
                                                 </connections>
@@ -119,57 +98,27 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="FiJ-sX-1Lg" customClass="GroupedItemDurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="376" y="2" width="80" height="61"/>
+                                                <rect key="frame" x="391" y="2" width="84" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hHK-ko-BBk" userLabel="Gap Before">
-                                                        <rect key="frame" x="-7" y="43" width="84" height="18"/>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration">
+                                                        <rect key="frame" x="-7" y="0.0" width="88" height="30"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="Ty2-PI-hI0"/>
+                                                            <constraint firstAttribute="height" constant="30" id="pbd-gC-tLi"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="Bog-gR-e7Z">
-                                                            <font key="font" metaFont="message"/>
-                                                            <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </textFieldCell>
-                                                    </textField>
-                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="-7" y="9" width="84" height="26"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="26" id="pbd-gC-tLi"/>
-                                                        </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="9zq-Qy-Bke" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="9zq-Qy-Bke" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         </textFieldCell>
                                                     </textField>
-                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tBD-Gd-29e" userLabel="Gap After">
-                                                        <rect key="frame" x="-7" y="-6" width="84" height="18"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="18" id="qI3-tK-qNC"/>
-                                                        </constraints>
-                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="Kec-xr-jwB">
-                                                            <font key="font" metaFont="message"/>
-                                                            <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </textFieldCell>
-                                                    </textField>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="tBD-Gd-29e" firstAttribute="top" secondItem="dV1-Xh-Rhx" secondAttribute="bottom" constant="-3" id="2OS-hW-Qge"/>
-                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="top" secondItem="hHK-ko-BBk" secondAttribute="bottom" constant="8" id="2QF-Jq-g1j"/>
-                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="leading" secondItem="hHK-ko-BBk" secondAttribute="leading" id="CtG-RQ-2Gv"/>
                                                     <constraint firstItem="dV1-Xh-Rhx" firstAttribute="leading" secondItem="FiJ-sX-1Lg" secondAttribute="leading" constant="-5" id="GeA-iM-JgK"/>
-                                                    <constraint firstItem="tBD-Gd-29e" firstAttribute="trailing" secondItem="hHK-ko-BBk" secondAttribute="trailing" id="iq0-Yc-MTW"/>
-                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="trailing" secondItem="hHK-ko-BBk" secondAttribute="trailing" id="jWr-lc-bVs"/>
-                                                    <constraint firstItem="hHK-ko-BBk" firstAttribute="top" secondItem="FiJ-sX-1Lg" secondAttribute="top" id="jkT-Av-ec6"/>
+                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="bottom" secondItem="FiJ-sX-1Lg" secondAttribute="bottom" id="KUd-GE-iDy"/>
                                                     <constraint firstAttribute="trailing" secondItem="dV1-Xh-Rhx" secondAttribute="trailing" constant="5" id="k2E-tb-5zR"/>
-                                                    <constraint firstItem="tBD-Gd-29e" firstAttribute="leading" secondItem="hHK-ko-BBk" secondAttribute="leading" id="mE7-hD-iJi"/>
                                                 </constraints>
                                                 <connections>
-                                                    <outlet property="gapAfterTextField" destination="tBD-Gd-29e" id="UPd-xY-uML"/>
-                                                    <outlet property="gapBeforeTextField" destination="hHK-ko-BBk" id="pdj-yU-jk3"/>
                                                     <outlet property="textField" destination="dV1-Xh-Rhx" id="OXz-8J-DdC"/>
                                                 </connections>
                                             </tableCellView>
@@ -198,7 +147,7 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="7Ht-SU-dHw" secondAttribute="bottom" id="7j2-rX-bUe"/>
                 <constraint firstItem="7Ht-SU-dHw" firstAttribute="leading" secondItem="ghI-Sf-LvB" secondAttribute="leading" id="D33-QB-OMD"/>
-                <constraint firstItem="7Ht-SU-dHw" firstAttribute="top" secondItem="ghI-Sf-LvB" secondAttribute="top" id="USO-KT-gos"/>
+                <constraint firstItem="7Ht-SU-dHw" firstAttribute="top" secondItem="ghI-Sf-LvB" secondAttribute="top" constant="2" id="USO-KT-gos"/>
                 <constraint firstAttribute="trailing" secondItem="7Ht-SU-dHw" secondAttribute="trailing" id="sy0-YI-94Z"/>
             </constraints>
             <point key="canvasLocation" x="140" y="155"/>
@@ -209,7 +158,4 @@
             </connections>
         </customObject>
     </objects>
-    <resources>
-        <image name="Gap" width="107" height="18"/>
-    </resources>
 </document>

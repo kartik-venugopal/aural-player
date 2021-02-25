@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,12 +23,10 @@
                 <outlet property="lblDurationSummary" destination="QXQ-hF-zKn" id="WZd-Es-pDr"/>
                 <outlet property="lblTracksSummary" destination="VLw-7p-b04" id="3rg-1b-OfJ"/>
                 <outlet property="playlistContainerBox" destination="Syt-ea-ETd" id="Vz1-0Q-UEr"/>
-                <outlet property="progressSpinner" destination="TgI-fO-gfa" id="8jx-XV-Zgn"/>
+                <outlet property="progressSpinner" destination="TgI-fO-gfa" id="aSy-nq-kDL"/>
                 <outlet property="rootContainerBox" destination="2Bk-G6-skT" id="zcQ-Na-cgj"/>
                 <outlet property="tabButtonsBox" destination="rbs-L2-HsW" id="I69-WT-J3Y"/>
                 <outlet property="tabGroup" destination="WTT-JW-9R7" id="cOV-IK-RgA"/>
-                <outlet property="viewMenuButton" destination="Mzj-Ix-G6c" id="DLA-hz-SWS"/>
-                <outlet property="viewMenuIconItem" destination="RWd-cM-ppk" id="Ava-Pf-oOA"/>
                 <outlet property="window" destination="mIO-7n-iVB" id="3DX-9q-bwT"/>
             </connections>
         </customObject>
@@ -38,8 +37,8 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="132" width="530" height="277"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
-            <value key="minSize" type="size" width="530" height="180"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <value key="minSize" type="size" width="530" height="210"/>
             <view key="contentView" id="eVi-5y-Ide">
                 <rect key="frame" x="0.0" y="0.0" width="530" height="277"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -64,60 +63,7 @@
                                         <action selector="closeWindowAction:" target="-2" id="1Wc-kJ-i8h"/>
                                     </connections>
                                 </button>
-                                <popUpButton toolTip="Playlist View" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Mzj-Ix-G6c" userLabel="Playlist View Menu">
-                                    <rect key="frame" x="496" y="249" width="24" height="15"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="15" id="A5M-Nx-1xC"/>
-                                        <constraint firstAttribute="width" constant="24" id="wmy-AV-iex"/>
-                                    </constraints>
-                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="9uL-zG-dgf">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="11" name="Play-Regular"/>
-                                        <menu key="menu" autoenablesItems="NO" id="NNt-P7-zna">
-                                            <items>
-                                                <menuItem image="Settings" hidden="YES" id="RWd-cM-ppk" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </menuItem>
-                                                <menuItem title="Text size" id="O7r-qv-G9t">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Text size" id="jSz-GN-QV5">
-                                                        <items>
-                                                            <menuItem title="Normal" id="m2K-Zl-YNW">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="DrH-nR-BdV"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Larger" tag="1" id="WHr-gt-cVC">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="sxU-Gl-Xdd"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Largest" tag="2" id="ehX-FT-LYF">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="BRL-5h-wH5" id="cn2-8m-o6s"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                            </items>
-                                            <connections>
-                                                <outlet property="delegate" destination="BRL-5h-wH5" id="lay-OI-XLb"/>
-                                            </connections>
-                                        </menu>
-                                    </popUpButtonCell>
-                                </popUpButton>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="Mzj-Ix-G6c" firstAttribute="top" secondItem="ew4-md-MxP" secondAttribute="top" constant="13" id="QWU-KJ-exk"/>
-                                <constraint firstAttribute="trailing" secondItem="Mzj-Ix-G6c" secondAttribute="trailing" constant="10" id="qHw-hR-Qha"/>
-                            </constraints>
                         </view>
                         <color key="borderColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -338,18 +284,18 @@
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </box>
                     <box focusRingType="none" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Syt-ea-ETd" userLabel="Playlist Box">
-                        <rect key="frame" x="15" y="23" width="500" height="215"/>
+                        <rect key="frame" x="15" y="23" width="500" height="208"/>
                         <view key="contentView" id="11G-bl-tTJ">
-                            <rect key="frame" x="0.0" y="0.0" width="500" height="215"/>
+                            <rect key="frame" x="0.0" y="0.0" width="500" height="208"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tabView wantsLayer="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-JW-9R7" userLabel="Playlist Views Tab Group" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="29" width="500" height="186"/>
+                                    <rect key="frame" x="0.0" y="29" width="500" height="179"/>
                                     <font key="font" metaFont="system"/>
                                     <tabViewItems>
                                         <tabViewItem label="Tracks" identifier="1" id="AVY-Y2-lG8" userLabel="Tracks Tab" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
                                             <view key="view" id="R3K-O5-tIq">
-                                                <rect key="frame" x="0.0" y="0.0" width="500" height="186"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="500" height="179"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             </view>
                                             <connections>
@@ -386,7 +332,7 @@
                                     </tabViewItems>
                                 </tabView>
                                 <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="TgI-fO-gfa" userLabel="Spinner">
-                                    <rect key="frame" x="242" y="6" width="16" height="16"/>
+                                    <rect key="frame" x="242" y="5" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="I7h-EG-DwM"/>
                                         <constraint firstAttribute="width" constant="16" id="l6y-B3-mdy"/>
@@ -402,10 +348,10 @@
                                     </contentFilters>
                                 </progressIndicator>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VLw-7p-b04" userLabel="Tracks summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="6" y="2" width="204" height="23"/>
+                                    <rect key="frame" x="6" y="0.0" width="214" height="25"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="200" id="nCr-fa-5NI"/>
-                                        <constraint firstAttribute="height" constant="23" id="wbx-Yh-AuW"/>
+                                        <constraint firstAttribute="width" constant="210" id="nCr-fa-5NI"/>
+                                        <constraint firstAttribute="height" constant="25" id="wbx-Yh-AuW"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="0 tracks" id="Y4c-xx-vs7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="Play-Regular"/>
@@ -414,10 +360,10 @@
                                     </textFieldCell>
                                 </textField>
                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QXQ-hF-zKn" userLabel="Duration summary" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="291" y="2" width="204" height="23"/>
+                                    <rect key="frame" x="291" y="0.0" width="204" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="200" id="Dph-rN-D1k"/>
-                                        <constraint firstAttribute="height" constant="23" id="h0n-sa-1Fx"/>
+                                        <constraint firstAttribute="height" constant="25" id="h0n-sa-1Fx"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0:00" id="s2h-am-6V7" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="13" name="Play-Regular"/>
@@ -436,7 +382,7 @@
                                 <constraint firstItem="TgI-fO-gfa" firstAttribute="centerX" secondItem="11G-bl-tTJ" secondAttribute="centerX" id="hzF-Bd-2mE"/>
                                 <constraint firstAttribute="trailing" secondItem="WTT-JW-9R7" secondAttribute="trailing" id="jiN-dj-VPK"/>
                                 <constraint firstItem="WTT-JW-9R7" firstAttribute="top" secondItem="11G-bl-tTJ" secondAttribute="top" id="oRy-Do-F0n"/>
-                                <constraint firstAttribute="bottom" secondItem="QXQ-hF-zKn" secondAttribute="bottom" constant="2" id="wGz-5g-6Ps"/>
+                                <constraint firstItem="QXQ-hF-zKn" firstAttribute="bottom" secondItem="11G-bl-tTJ" secondAttribute="bottom" id="wGz-5g-6Ps"/>
                             </constraints>
                         </view>
                         <color key="borderColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -477,7 +423,7 @@
                         </connections>
                     </button>
                     <button toolTip="Scroll to bottom of playlist" translatesAutoresizingMaskIntoConstraints="NO" id="B7I-KW-j8r" userLabel="Scroll To Bottom Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="516" y="65" width="10" height="10"/>
+                        <rect key="frame" x="516" y="53" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="10" id="D5c-aB-FSg"/>
                             <constraint firstAttribute="width" constant="10" id="c7G-uw-aSp"/>
@@ -494,7 +440,7 @@
                         </connections>
                     </button>
                     <button toolTip="Page down" translatesAutoresizingMaskIntoConstraints="NO" id="MyO-C3-Vvb" userLabel="Page Down Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="516" y="77" width="10" height="10"/>
+                        <rect key="frame" x="516" y="65" width="10" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="Tf8-ZS-vnw"/>
                             <constraint firstAttribute="height" constant="10" id="wDg-8c-7OW"/>
@@ -521,13 +467,13 @@
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="leading" secondItem="MyO-C3-Vvb" secondAttribute="leading" id="99A-ST-JJ1"/>
                     <constraint firstItem="hbJ-4L-vUS" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" constant="50" id="AAS-dq-CZJ"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="15" id="Cbd-FA-MF9"/>
-                    <constraint firstAttribute="bottom" secondItem="B7I-KW-j8r" secondAttribute="bottom" constant="65" id="F9w-fj-3f1"/>
+                    <constraint firstAttribute="bottom" secondItem="B7I-KW-j8r" secondAttribute="bottom" constant="53" id="F9w-fj-3f1"/>
                     <constraint firstItem="4ZZ-7d-wdS" firstAttribute="leading" secondItem="eVi-5y-Ide" secondAttribute="leading" constant="15" id="LNU-o8-puj"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="trailing" secondItem="MyO-C3-Vvb" secondAttribute="trailing" id="N8C-zk-zh9"/>
                     <constraint firstItem="2Bk-G6-skT" firstAttribute="top" secondItem="eVi-5y-Ide" secondAttribute="top" id="NBY-k6-E0H"/>
                     <constraint firstItem="B7I-KW-j8r" firstAttribute="top" secondItem="MyO-C3-Vvb" secondAttribute="bottom" constant="2" id="NLi-mu-Y8Q"/>
                     <constraint firstItem="aRU-Xs-Jom" firstAttribute="trailing" secondItem="hbJ-4L-vUS" secondAttribute="trailing" id="P9d-lw-xK4"/>
-                    <constraint firstItem="Syt-ea-ETd" firstAttribute="top" secondItem="rbs-L2-HsW" secondAttribute="bottom" constant="3" id="PZe-f0-XGl"/>
+                    <constraint firstItem="Syt-ea-ETd" firstAttribute="top" secondItem="rbs-L2-HsW" secondAttribute="bottom" constant="10" id="PZe-f0-XGl"/>
                     <constraint firstItem="4ZZ-7d-wdS" firstAttribute="centerX" secondItem="Syt-ea-ETd" secondAttribute="centerX" id="aLU-kZ-riw"/>
                     <constraint firstItem="Syt-ea-ETd" firstAttribute="trailing" secondItem="eVi-5y-Ide" secondAttribute="trailing" constant="-15" id="aax-dN-msO"/>
                     <constraint firstAttribute="trailing" secondItem="aRU-Xs-Jom" secondAttribute="trailing" constant="4" id="bnq-EE-MEM"/>
@@ -553,9 +499,7 @@
             <connections>
                 <outlet property="contextMenu" destination="5mK-N5-S6w" id="H1x-gZ-zII"/>
                 <outlet property="detailedInfoMenuItem" destination="ZQe-wb-b1B" id="F4Z-c5-f3b"/>
-                <outlet property="editGapsMenuItem" destination="Da8-AS-fHe" id="M8V-Zd-fq9"/>
                 <outlet property="favoritesMenuItem" destination="CHV-5l-G4d" id="YIy-BC-xYi"/>
-                <outlet property="insertGapsMenuItem" destination="Tte-BT-Pxq" id="ajO-OX-XeV"/>
                 <outlet property="moveGroupDownMenuItem" destination="cMs-Ll-SkZ" id="GNc-9J-QrK"/>
                 <outlet property="moveGroupToBottomMenuItem" destination="cM6-av-4Fm" id="vff-oI-INs"/>
                 <outlet property="moveGroupToTopMenuItem" destination="ZqA-YA-lUY" id="AHu-7m-BwF"/>
@@ -564,11 +508,8 @@
                 <outlet property="moveTrackToBottomMenuItem" destination="HDD-rc-j4w" id="bts-ta-Cik"/>
                 <outlet property="moveTrackToTopMenuItem" destination="QUe-xD-qff" id="ZtY-Ee-nCA"/>
                 <outlet property="moveTrackUpMenuItem" destination="uV5-jg-pxc" id="SUJ-an-HjZ"/>
-                <outlet property="playGroupDelayedMenuItem" destination="0Iq-rK-reF" id="oIb-GL-Umt"/>
                 <outlet property="playGroupMenuItem" destination="FsK-Wf-m1z" id="nWG-FT-vqB"/>
-                <outlet property="playTrackDelayedMenuItem" destination="gko-SZ-rGu" id="OVY-q5-eSP"/>
                 <outlet property="playTrackMenuItem" destination="SK1-ql-k4b" id="UfO-D4-mdg"/>
-                <outlet property="removeGapsMenuItem" destination="9i8-3l-G5u" id="8hZ-9U-qrK"/>
                 <outlet property="removeGroupMenuItem" destination="kVv-1O-nHY" id="LIn-q0-Xpf"/>
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
                 <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
@@ -576,19 +517,12 @@
                 <outlet property="viewChaptersMenuItem" destination="ciW-XS-CUy" id="83d-K0-IAW"/>
             </connections>
         </customObject>
-        <customObject id="BRL-5h-wH5" customClass="PlaylistViewPopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="textSizeLargerMenuItem" destination="WHr-gt-cVC" id="AJy-BM-viX"/>
-                <outlet property="textSizeLargestMenuItem" destination="ehX-FT-LYF" id="WcU-MX-e0Z"/>
-                <outlet property="textSizeNormalMenuItem" destination="m2K-Zl-YNW" id="0wC-3k-SQF"/>
-            </connections>
-        </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
             <items>
                 <menuItem title="Transcode this track (in the background)" image="Transcode-Small" id="s9W-FB-XJa" userLabel="Transcode this track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="transcodeTrackInBackgroundAction:" target="TnB-Sk-yOp" id="Kx8-Oz-5BA"/>
+                        <action selector="transcodeTrackInBackgroundAction:" target="TnB-Sk-yOp" id="Jcq-VR-nbX"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="ytJ-NM-n08"/>
@@ -608,212 +542,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="BOn-Ox-BlV"/>
-                    </connections>
-                </menuItem>
-                <menuItem title=" Play this track after timed delay" image="DelayedPlayback" id="gko-SZ-rGu" userLabel="Play track delayed">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title=" Play this track after timed delay" id="nja-RQ-A90">
-                        <items>
-                            <menuItem title="5 seconds" tag="5" id="O2h-a3-jfh">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="0VY-eO-1Dl"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="10 seconds" tag="10" id="Ahz-6K-LK0">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="k2K-fb-IJK"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="30 seconds" tag="30" id="Phm-Db-rUU">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="kk1-tX-aB2"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="1 minute" tag="60" id="kzW-Ot-KBb">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="gof-ts-7Fc"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="5 minutes" tag="300" id="qfB-Pm-0n8">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="P4E-UJ-mW1"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="10 minutes" tag="600" id="8lh-PQ-BXP">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="6Ql-3t-A2K"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="30 minutes" tag="1800" id="xyc-iz-cWW">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="gEj-IH-pnl"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="1 hour" tag="3600" id="d3o-xj-j2I">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="DJp-gz-1Sg"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="dXv-9O-pdj"/>
-                            <menuItem title="Custom" id="3xk-A9-ucY">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="Jf8-Yd-8Km"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                    <connections>
-                        <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="FKk-BG-jY3"/>
-                    </connections>
-                </menuItem>
-                <menuItem title=" Play this group after timed delay" image="DelayedPlayback" id="0Iq-rK-reF" userLabel="Play group delayed">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title=" Play this group after timed delay" id="mR1-5u-f5f">
-                        <items>
-                            <menuItem title="5 seconds" tag="5" id="0Kj-fz-SVm">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="buD-vn-z9C"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="10 seconds" tag="10" id="bfV-Qc-yOA">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="Tiy-vo-GHx"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="30 seconds" tag="30" id="ijf-Hb-haJ">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="UW9-9j-cMk"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="1 minute" tag="60" id="jce-16-zYg">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="tMy-KQ-I89"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="5 minutes" tag="300" id="ZmU-tV-qan">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="e6c-bn-Ubh"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="10 minutes" tag="600" id="AVF-4X-ARi">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="tkg-Ga-PmK"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="30 minutes" tag="1800" id="T9y-Vt-q33">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="dVC-KZ-KZm"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="1 hour" tag="3600" id="fk5-AH-59d">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="snV-z3-qcP"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="M4e-Lx-L75"/>
-                            <menuItem title="Custom" id="q7m-To-PWZ">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="playSelectedItemAfterDelayAction:" target="TnB-Sk-yOp" id="r7w-LO-AYs"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                    <connections>
-                        <action selector="playSelectedItemAction:" target="TnB-Sk-yOp" id="1dZ-hr-cIW"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="ptR-ch-WUH"/>
-                <menuItem title=" Insert silent gaps around track" image="Gap-Padded-Small" id="Tte-BT-Pxq" userLabel="Insert gaps">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title=" Insert silent gaps around track" id="czk-Mf-Hvj">
-                        <items>
-                            <menuItem title="5 seconds before track" tag="-5" id="uFW-hP-oFT">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="dX2-0g-TdR"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="10 seconds before track" tag="-10" id="jab-Rc-p9D">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="jZK-yx-kwN"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="30 seconds before track" tag="-30" id="rlm-ps-OYr">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="icn-WR-Gtd"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="60 seconds before track" tag="-60" id="ib5-lL-mNO">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="lLf-mj-7aR"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="qSk-rQ-dtJ"/>
-                            <menuItem title="5 seconds after track" tag="5" id="wp7-O7-4XP">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="2JG-Fq-s7k"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="10 seconds after track" tag="10" id="ioD-jD-FfO">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="iIO-NE-wB8"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="30 seconds after track" tag="30" id="Ehn-aU-khx">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="pg6-Bj-bP3"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="60 seconds after track" tag="60" id="1zK-Z2-vSL">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="NAY-b7-d6X"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="fLC-P8-yrP"/>
-                            <menuItem title="Custom" id="YL5-ac-I2C">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="insertGapsAction:" target="TnB-Sk-yOp" id="Hpf-Cg-rv7"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
-                <menuItem title=" Edit silent gaps around track" image="Gap-Padded-Small" id="Da8-AS-fHe" userLabel="Edit gaps">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="editGapsAction:" target="TnB-Sk-yOp" id="0o6-WN-54c"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="      Remove silent gaps around track" id="9i8-3l-G5u" userLabel="Remove gaps">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="removeGapsAction:" target="TnB-Sk-yOp" id="P7E-7E-Tks"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="6Fo-LX-Ia0"/>
@@ -913,11 +641,9 @@
         <image name="Add" width="25" height="25"/>
         <image name="Clear" width="26" height="30"/>
         <image name="Close" width="18" height="18"/>
-        <image name="DelayedPlayback" width="15" height="15"/>
         <image name="Down" width="25" height="35"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="Favorites" width="15" height="15"/>
-        <image name="Gap-Padded-Small" width="15" height="15"/>
         <image name="MoreInfo-Padded-Small" width="15" height="15"/>
         <image name="PageDown" width="28" height="17"/>
         <image name="PageUp" width="28" height="17"/>
@@ -928,7 +654,6 @@
         <image name="ScrollToBottom" width="23" height="25"/>
         <image name="ScrollToTop" width="23" height="25"/>
         <image name="Search" width="26" height="26"/>
-        <image name="Settings" width="12" height="12"/>
         <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
         <image name="ToggleChaptersList-Small" width="14" height="11"/>

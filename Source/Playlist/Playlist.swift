@@ -14,9 +14,6 @@ class Playlist: PlaylistCRUDProtocol {
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFile: [URL: Track] = [:]
     
-    var gapsBeforeTracks: [Track: PlaybackGap] = [:]
-    var gapsAfterTracks: [Track: PlaybackGap] = [:]
-    
     init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
         
         self.flatPlaylist = flatPlaylist
@@ -64,32 +61,6 @@ class Playlist: PlaylistCRUDProtocol {
         return TrackAddResult(track: track, flatPlaylistResult: index, groupingPlaylistResults: groupingResults)
     }
     
-    func setGapsForTrack(_ track: Track, _ gapBeforeTrack: PlaybackGap?, _ gapAfterTrack: PlaybackGap?) {
-        
-        gapsBeforeTracks[track] = gapBeforeTrack
-        gapsAfterTracks[track] = gapAfterTrack
-    }
-    
-    func removeGapsForTrack(_ track: Track) {
-        
-        gapsBeforeTracks.removeValue(forKey: track)
-        gapsAfterTracks.removeValue(forKey: track)
-    }
-    
-    func removeGapForTrack(_ track: Track, _ gapPosition: PlaybackGapPosition) {
-        _ = gapPosition == .beforeTrack ? gapsBeforeTracks.removeValue(forKey: track) : gapsAfterTracks.removeValue(forKey: track)
-    }
-    
-    func getGapBeforeTrack(_ track: Track) -> PlaybackGap? {
-        return gapsBeforeTracks[track]
-    }
-    
-    func getGapAfterTrack(_ track: Track) -> PlaybackGap? {
-        return gapsAfterTracks[track]
-    }
-    
-    private var allGaps: (gapsBeforeTracks: [Track: PlaybackGap], gapsAfterTracks: [Track: PlaybackGap]) {(gapsBeforeTracks, gapsAfterTracks)}
-    
     func clear() {
         
         // Clear each of the playlists
@@ -98,8 +69,6 @@ class Playlist: PlaylistCRUDProtocol {
         
         // Remove all the file path mappings
         tracksByFile.removeAll()
-        gapsBeforeTracks.removeAll()
-        gapsAfterTracks.removeAll()
     }
 
     // Smart search. Depending on query options, search either flat playlist or one of the grouping playlists. For ex, if searching by artist, it makes sense to search "Artists" playlist. Also, split up the search into multiple parts, send them to different playlists, and aggregate results together.
@@ -158,12 +127,9 @@ class Playlist: PlaylistCRUDProtocol {
         let removedTracks = flatPlaylist.removeTracks(indexes)
         
         // Remove secondary state associated with these tracks
-        removedTracks.forEach({
-            
+        removedTracks.forEach {
             tracksByFile.removeValue(forKey: $0.file)
-            gapsBeforeTracks.removeValue(forKey: $0)
-            gapsAfterTracks.removeValue(forKey: $0)
-        })
+        }
         
         // Remove tracks from all other playlists
         var groupingPlaylistResults = [GroupType: [GroupedItemRemovalResult]]()
@@ -250,12 +216,9 @@ class Playlist: PlaylistCRUDProtocol {
         let removedTracks: [Track] = Array(Set(tracks + groups.flatMap {$0.allTracks()}))
         
         // Remove secondary state associated with these tracks
-        removedTracks.forEach({
-            
+        removedTracks.forEach {
             tracksByFile.removeValue(forKey: $0.file)
-            gapsBeforeTracks.removeValue(forKey: $0)
-            gapsAfterTracks.removeValue(forKey: $0)
-        })
+        }
         
         var groupingPlaylistResults = [GroupType: [GroupedItemRemovalResult]]()
         

@@ -10,17 +10,12 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var theMenu: NSMenuItem!
     
     @IBOutlet weak var playSelectedItemMenuItem: NSMenuItem!
-    @IBOutlet weak var playSelectedItemDelayedMenuItem: NSMenuItem!
     
     @IBOutlet weak var moveItemsUpMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsToTopMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsDownMenuItem: NSMenuItem!
     @IBOutlet weak var moveItemsToBottomMenuItem: NSMenuItem!
     @IBOutlet weak var removeSelectedItemsMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var insertGapsMenuItem: NSMenuItem!
-    @IBOutlet weak var editGapsMenuItem: NSMenuItem!
-    @IBOutlet weak var removeGapsMenuItem: NSMenuItem!
     
     @IBOutlet weak var clearSelectionMenuItem: NSMenuItem!
     @IBOutlet weak var invertSelectionMenuItem: NSMenuItem!
@@ -49,9 +44,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    
-    private lazy var gapsEditor: ModalDialogDelegate = WindowFactory.gapsEditorDialog
-    private lazy var delayedPlaybackEditor: ModalDialogDelegate = WindowFactory.delayedPlaybackEditorDialog
     
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
@@ -98,7 +90,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         [previousViewMenuItem, nextViewMenuItem].forEach({$0?.enableIf(!showingModalComponent)})
         
         playSelectedItemMenuItem.enableIf(!showingModalComponent && numSelectedRows == 1)
-        playSelectedItemDelayedMenuItem.enableIf(numSelectedRows == 1)
         
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected
         
@@ -123,25 +114,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         if theMenu.isDisabled {return}
         
         let playlistNotEmpty = playlist.size > 0
-        let numSelectedRows = PlaylistViewState.selectedItemCount
-        
-        // Make sure it's a track, not a group, and that only one track is selected
-        if numSelectedRows == 1, let selectedItem = PlaylistViewState.selectedItem {
-            
-            if selectedItem.type != .group, let track = selectedTrack {
-                
-                let gaps = playlist.getGapsAroundTrack(track)
-                insertGapsMenuItem.hideIf_elseShow(gaps.hasGaps)
-                removeGapsMenuItem.showIf_elseHide(gaps.hasGaps)
-                editGapsMenuItem.showIf_elseHide(gaps.hasGaps)
-                
-            } else {
-                [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
-            }
-            
-        } else {
-            [insertGapsMenuItem, removeGapsMenuItem, editGapsMenuItem].forEach({$0?.hide()})
-        }
         
         expandSelectedGroupsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
         collapseSelectedItemsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
@@ -227,50 +199,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         }
     }
     
-    @IBAction func insertGapsAction(_ sender: NSMenuItem) {
-        
-        guard !checkIfPlaylistIsBeingModified() else {return}
-        
-        // Sender's tag is gap duration in seconds
-        let tag = sender.tag
-        
-        if tag != 0 {
-            
-            // Negative tag value indicates .beforeTrack, positive value indicates .afterTrack
-            let gapPosn: PlaybackGapPosition = tag < 0 ? .beforeTrack: .afterTrack
-            let gap = PlaybackGap(Double(abs(tag)), gapPosn)
-            
-            let gapBefore = gapPosn == .beforeTrack ? gap : nil
-            let gapAfter = gapPosn == .afterTrack ? gap : nil
-            
-            Messenger.publish(InsertPlaybackGapsCommandNotification(gapBeforeTrack: gapBefore, gapAfterTrack: gapAfter,
-                                                                    viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
-            
-        } else {
-            
-            gapsEditor.setDataForKey("gaps", nil)
-            _ = gapsEditor.showDialog()
-        }
-    }
-    
-    @IBAction func editGapsAction(_ sender: NSMenuItem) {
-        
-        if !checkIfPlaylistIsBeingModified(), let track = selectedTrack {
-        
-            let gaps = playlist.getGapsAroundTrack(track)
-            
-            gapsEditor.setDataForKey("gaps", gaps)
-            _ = gapsEditor.showDialog()
-        }
-    }
-    
-    @IBAction func removeGapsAction(_ sender: NSMenuItem) {
-        
-        if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_removeGaps, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-        }
-    }
-    
     // Presents the search modal dialog to allow the user to search for playlist tracks
     @IBAction func playlistSearchAction(_ sender: Any) {
         Messenger.publish(.playlist_search)
@@ -292,22 +220,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             
         } else {
             Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
-        }
-    }
-    
-    @IBAction func playSelectedItemAfterDelayAction(_ sender: NSMenuItem) {
-        
-        let delay = sender.tag
-        
-        if delay == 0 {
-            
-            // Custom delay ... show dialog
-            _ = delayedPlaybackEditor.showDialog()
-            
-        } else {
-            
-            Messenger.publish(DelayedPlaybackCommandNotification(delay: Double(delay),
-                                                                 viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
         }
     }
     

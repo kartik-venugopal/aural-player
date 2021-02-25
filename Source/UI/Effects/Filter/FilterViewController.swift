@@ -262,18 +262,18 @@ class FilterViewController: FXUnitViewController {
         }
     }
     
-    override func changeTextSize(_ textSize: TextSize) {
-
-        bandControllers.forEach({$0.changeTextSize()})
+    override func applyFontScheme(_ fontScheme: FontScheme) {
+        
+        bandControllers.forEach {$0.applyFontScheme(fontScheme)}
         
         // Redraw the add/remove band buttons
         btnAdd.redraw()
         btnRemove.redraw()
         
         // Redraw the frequency chart
-        filterView.changeTextSize()
+        filterView.applyFontScheme(fontScheme)
         
-        super.changeTextSize(textSize)
+        super.applyFontScheme(fontScheme)
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {

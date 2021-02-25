@@ -21,8 +21,6 @@ class PlayerViewState {
     
     static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
-    
-    static var textSize: TextSize = .normal
 }
 
 enum PlayerViewType: String {

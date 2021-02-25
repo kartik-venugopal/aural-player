@@ -23,9 +23,6 @@ struct PreferencesDefaults {
         static let rememberLastPosition: Bool = false
         static let rememberLastPositionOption: RememberSettingsForTrackOptions = .individualTracks
         
-        static let gapBetweenTracks: Bool = false
-        static let gapBetweenTracksDuration: Int = 5
-        
         struct Transcoding {
             
             static let persistenceOption: TranscoderPersistenceOptions = .save

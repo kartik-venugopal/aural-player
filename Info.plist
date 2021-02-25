@@ -2,75 +2,67 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleShortVersionString</key>
-	<string>2.3.0</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>ATSApplicationFontsPath</key>
-	<string>Fonts</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleVersion</key>
-	<string>2.3.0</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
+	<string>.</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>WMA</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.microsoft.windows-​media-wma</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>MP3</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.mp3</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>M4A</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.mpeg-4-audio</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>AIFC</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.aifc-audio</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -78,42 +70,42 @@
 				<string>aiff</string>
 				<string>aif</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>AIFF</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.aiff-audio</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>CAF</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.apple.coreaudio-​format</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
-		</dict>
-		<dict>
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
+		</dict>
+		<dict>
 			<key>CFBundleTypeName</key>
 			<string>WAV</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.microsoft.waveform-audio</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -121,24 +113,24 @@
 				<string>aac</string>
 				<string>adts</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>AAC</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>flac</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>FLAC</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -146,36 +138,36 @@
 				<string>m3u</string>
 				<string>m3u8</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>M3U</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
-		</dict>
-		<dict>
 			<key>LSTypeIsPackage</key>
 			<integer>0</integer>
+		</dict>
+		<dict>
 			<key>CFBundleTypeName</key>
 			<string>M4B</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.apple.protected-​mpeg-4-audio</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>m4r</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>M4R</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -183,12 +175,12 @@
 				<string>ogg</string>
 				<string>oga</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>Vorbis</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -197,85 +189,86 @@
 				<string>ogg</string>
 				<string>oga</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>Opus</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>dsf</string>
 				<string>dsd</string>
+				<string>dff</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>DSF</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>ape</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
-			<string>Monkey&apos;s Audio</string>
+			<string>Monkey's Audio</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>mpc</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>Musepack</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>dts</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>DTS</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>wv</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>Wavpack</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>mp2</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>MP2</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
@@ -284,71 +277,118 @@
 				<string>ulw</string>
 				<string>snd</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>AU</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.ulaw-audio</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>ac3</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>AC3</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array/>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>SD2</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.digidesign.sd2-audio</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>mka</string>
 			</array>
-			<key>LSTypeIsPackage</key>
-			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>MKA</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tta</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>TTA</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>tak</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>TAK</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>ra</string>
+				<string>rm</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>RA</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSTypeIsPackage</key>
+			<false/>
 		</dict>
 	</array>
-	<key>NSPrincipalClass</key>
-	<string>NSApplication</string>
-	<key>CFBundlePackageType</key>
-	<string>APPL</string>
-	<key>CFBundleSignature</key>
-	<string>????</string>
-	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
-	<key>LSMinimumSystemVersion</key>
-	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>None</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.music</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>None</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
 </dict>
 </plist>

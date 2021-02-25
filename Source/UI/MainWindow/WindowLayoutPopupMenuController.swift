@@ -55,8 +55,4 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
     func acceptInput(_ string: String) {
         WindowLayouts.addUserDefinedLayout(string, WindowManager.currentWindowLayout)
     }
-    
-    var inputFontSize: TextSize {
-        return .normal
-    }
 }

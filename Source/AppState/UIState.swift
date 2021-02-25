@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 
 /*
  Encapsulates UI state
@@ -6,10 +6,11 @@ import Foundation
 class UIState: PersistentState {
     
     var windowLayout: WindowLayoutState = WindowLayoutState()
+    var fontSchemes: FontSchemesState = FontSchemesState()
     var colorSchemes: ColorSchemesState = ColorSchemesState()
     var player: PlayerUIState = PlayerUIState()
     var playlist: PlaylistUIState = PlaylistUIState()
-    var effects: EffectsUIState = EffectsUIState()
+    var visualizer: VisualizerUIState = VisualizerUIState()
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
@@ -17,6 +18,12 @@ class UIState: PersistentState {
         
         if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
             state.windowLayout = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
+        }
+        
+        if let fontSchemesMap = map["fontSchemes"] as? NSDictionary,
+            let fontSchemes = FontSchemesState.deserialize(fontSchemesMap) as? FontSchemesState {
+            
+            state.fontSchemes = fontSchemes
         }
         
         if let colorSchemesMap = map["colorSchemes"] as? NSDictionary,
@@ -29,12 +36,12 @@ class UIState: PersistentState {
             state.player = PlayerUIState.deserialize(playerMap) as! PlayerUIState
         }
         
-        if let effectsMap = map["effects"] as? NSDictionary {
-            state.effects = EffectsUIState.deserialize(effectsMap) as! EffectsUIState
-        }
-        
         if let playlistMap = map["playlist"] as? NSDictionary {
             state.playlist = PlaylistUIState.deserialize(playlistMap) as! PlaylistUIState
+        }
+        
+        if let visualizerMap = map["visualizer"] as? NSDictionary {
+            state.visualizer = VisualizerUIState.deserialize(visualizerMap) as! VisualizerUIState
         }
         
         return state
@@ -43,13 +50,11 @@ class UIState: PersistentState {
 
 class PlaylistUIState: PersistentState {
     
-    var textSize: TextSize = .normal
     var view: String = "Tracks"
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlaylistUIState()
-        state.textSize = mapEnum(map, "textSize", TextSize.normal)
         
         if let viewName = map["view"] as? String {
             state.view = viewName
@@ -59,14 +64,45 @@ class PlaylistUIState: PersistentState {
     }
 }
 
-class EffectsUIState: PersistentState {
+class VisualizerUIState: PersistentState {
     
-    var textSize: TextSize = .normal
+    var type: String?
+    var options: VisualizerOptionsState?
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
-        let state = EffectsUIState()
-        state.textSize = mapEnum(map, "textSize", TextSize.normal)
+        let state = VisualizerUIState()
+        
+        if let type = map["type"] as? String {
+            state.type = type
+        }
+        
+        if let optionsDict = map["options"] as? NSDictionary, let options = VisualizerOptionsState.deserialize(optionsDict) as? VisualizerOptionsState {
+            state.options = options
+        }
+        
+        return state
+    }
+}
+
+class VisualizerOptionsState: PersistentState {
+    
+    var lowAmplitudeColor: ColorState?
+    var highAmplitudeColor: ColorState?
+    
+    static func deserialize(_ map: NSDictionary) -> PersistentState {
+        
+        let state = VisualizerOptionsState()
+        
+        if let colorDict = map["lowAmplitudeColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            
+            state.lowAmplitudeColor = color
+        }
+        
+        if let colorDict = map["highAmplitudeColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
+            
+            state.highAmplitudeColor = color
+        }
         
         return state
     }
@@ -91,8 +127,6 @@ class PlayerUIState: PersistentState {
     var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
-    var textSize: TextSize = .normal
-    
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlayerUIState()
@@ -113,8 +147,6 @@ class PlayerUIState: PersistentState {
         
         state.timeElapsedDisplayType = mapEnum(map, "timeElapsedDisplayType", TimeElapsedDisplayType.formatted)
         state.timeRemainingDisplayType = mapEnum(map, "timeRemainingDisplayType", TimeRemainingDisplayType.formatted)
-        
-        state.textSize = mapEnum(map, "textSize", TextSize.normal)
         
         return state
     }
@@ -218,8 +250,6 @@ extension PlayerViewState {
         
         timeElapsedDisplayType = appState.timeElapsedDisplayType
         timeRemainingDisplayType = appState.timeRemainingDisplayType
-        
-        textSize = appState.textSize
     }
     
     static var persistentState: PlayerUIState {
@@ -243,23 +273,6 @@ extension PlayerViewState {
         state.timeElapsedDisplayType = timeElapsedDisplayType
         state.timeRemainingDisplayType = timeRemainingDisplayType
         
-        state.textSize = textSize
-        
-        return state
-    }
-}
-
-extension EffectsViewState {
-    
-    static func initialize(_ appState: EffectsUIState) {
-        textSize = appState.textSize
-    }
-    
-    static var persistentState: EffectsUIState {
-        
-        let state = EffectsUIState()
-        state.textSize = textSize
-        
         return state
     }
 }
@@ -267,17 +280,41 @@ extension EffectsViewState {
 extension PlaylistViewState {
     
     static func initialize(_ appState: PlaylistUIState) {
-        
-        textSize = appState.textSize
         current = PlaylistType(rawValue: appState.view.lowercased()) ?? .tracks
     }
     
     static var persistentState: PlaylistUIState {
         
         let state = PlaylistUIState()
-        
-        state.textSize = textSize
         state.view = current.rawValue.capitalizingFirstLetter()
+        
+        return state
+    }
+}
+
+extension VisualizerViewState {
+    
+    static func initialize(_ appState: VisualizerUIState) {
+        
+        if let vizTypeString = appState.type {
+            type = VisualizationType(rawValue: vizTypeString) ?? .spectrogram
+        } else {
+            type = .spectrogram
+        }
+        
+        options = VisualizerViewOptions()
+        options.setColors(lowAmplitudeColor: appState.options?.lowAmplitudeColor?.toColor() ?? NSColor.blue,
+                          highAmplitudeColor: appState.options?.highAmplitudeColor?.toColor() ?? NSColor.red)
+    }
+    
+    static var persistentState: VisualizerUIState {
+        
+        let state = VisualizerUIState()
+        
+        state.type = type.rawValue
+        state.options = VisualizerOptionsState()
+        state.options?.lowAmplitudeColor = ColorState.fromColor(options.lowAmplitudeColor)
+        state.options?.highAmplitudeColor = ColorState.fromColor(options.highAmplitudeColor)
         
         return state
     }

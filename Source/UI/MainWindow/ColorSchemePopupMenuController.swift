@@ -5,8 +5,6 @@ import Cocoa
  */
 class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-    @IBOutlet weak var manageSchemesMenuItem: NSMenuItem?
-    
     private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
     
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
@@ -29,9 +27,6 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
             
             menu.insertItem(item, at: 0)
         })
-        
-        // Schemes can only be managed if there is at least one user-defined scheme
-        manageSchemesMenuItem?.enableIf(ColorSchemes.numberOfUserDefinedSchemes > 0)
     }
     
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
@@ -80,9 +75,5 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
         let newScheme: ColorScheme = ColorScheme(string, false, ColorSchemes.systemScheme)
         ColorSchemes.addUserDefinedScheme(newScheme)
-    }
-    
-    var inputFontSize: TextSize {
-        return .normal
     }
 }

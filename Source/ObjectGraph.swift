@@ -60,6 +60,8 @@ class ObjectGraph {
     
     static var mediaKeyHandler: MediaKeyHandler!
     
+    static var fft: FFT!
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -114,7 +116,7 @@ class ObjectGraph {
         
         let startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences.playbackPreferences)
         let stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences.playbackPreferences)
-        let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer, playlist, preferences.playbackPreferences)
+        let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer)
         
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(player, playlist, sequencer, profiles, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
@@ -169,12 +171,15 @@ class ObjectGraph {
         WindowManager.initialize(appState.ui.windowLayout, preferences.viewPreferences)
         UIUtils.initialize(preferences.viewPreferences)
         
-        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
+        FontSchemes.initialize(appState.ui.fontSchemes)
         ColorSchemes.initialize(appState.ui.colorSchemes)
+        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
         
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)
-        EffectsViewState.initialize(appState.ui.effects)
+        VisualizerViewState.initialize(appState.ui.visualizer)
+        
+        fft = FFT()
     }
     
     private static let tearDownOpQueue: OperationQueue = {
@@ -191,7 +196,7 @@ class ObjectGraph {
         
         // Gather all pieces of app state into the appState object
         
-        appState.audioGraph = (audioGraph as! AudioGraph).persistentState as! AudioGraphState
+        appState.audioGraph = (audioGraph as! PersistentModelObject).persistentState as! AudioGraphState
         appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
         appState.playbackSequence = (sequencer as! Sequencer).persistentState as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
@@ -200,10 +205,11 @@ class ObjectGraph {
         
         appState.ui = UIState()
         appState.ui.windowLayout = WindowManager.persistentState
+        appState.ui.fontSchemes = FontSchemes.persistentState
         appState.ui.colorSchemes = ColorSchemes.persistentState
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState
-        appState.ui.effects = EffectsViewState.persistentState
+        appState.ui.visualizer = VisualizerViewState.persistentState
         
         appState.history = (historyDelegate as! HistoryDelegate).persistentState as! HistoryState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

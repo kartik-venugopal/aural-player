@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -43,10 +43,10 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11g-RD-mFQ">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11g-RD-mFQ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="408" width="326" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Remember playlist from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Zct-47-a9y" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Remember playlist from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Zct-47-a9y">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -54,10 +54,10 @@
                         <action selector="startupPlaylistPrefAction:" target="-2" id="KSB-Jx-Ejw"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-XJ-Z4W">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-XJ-Z4W" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="383" width="173" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Start with empty playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1Ce-7p-oC9" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Start with empty playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1Ce-7p-oC9">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -65,10 +65,10 @@
                         <action selector="startupPlaylistPrefAction:" target="-2" id="Git-bs-9rv"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="358" width="162" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Load playlist from file:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="jeQ-w2-omU" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Load playlist from file:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="jeQ-w2-omU">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -107,10 +107,10 @@ DQ
                         <outlet property="delegate" destination="-2" id="9qD-58-eIf"/>
                     </connections>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ukb-oo-Yli">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ukb-oo-Yli" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="333" width="162" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Load tracks from folder:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="ds5-bi-2RV" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Load tracks from folder:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="ds5-bi-2RV">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -155,23 +155,23 @@ DQ
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHW-Fc-HiE" userLabel="Remember layout from last app launch">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHW-Fc-HiE" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="260" width="289" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Remember view from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="00R-q2-d2L" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Remember view from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="00R-q2-d2L">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="startupPlaylistViewPrefAction:" target="-2" id="3DC-9G-DSb"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2w-iX-ltq" userLabel="Start with layout Label">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2w-iX-ltq" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="30" y="236" width="128" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Start with view" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="a1O-Lq-CPe" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="radio" title="Start with view" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="a1O-Lq-CPe">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
+                        <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
                         <action selector="startupPlaylistViewPrefAction:" target="-2" id="tvC-pl-vYY"/>
@@ -201,10 +201,10 @@ DQ
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-Fk-tAG">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-Fk-tAG" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="29" y="147" width="366" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Show chapters list window (if track has chapters)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="03P-Ux-pSb" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="check" title="Show chapters list window (if track has chapters)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="03P-Ux-pSb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -218,10 +218,10 @@ DQ
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZPD-DH-Z3O">
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZPD-DH-Z3O" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="29" y="168" width="387" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Select and show it within the playlist (if playlist is visible)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="f6D-zw-2Xt" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="check" title="Select and show it within the playlist (if playlist is visible)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="f6D-zw-2Xt">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>

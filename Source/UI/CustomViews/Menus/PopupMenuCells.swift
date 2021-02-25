@@ -22,6 +22,9 @@ class PopupMenuCell: NSPopUpButtonCell {
     var arrowLineWidth: CGFloat {return 2}
     var arrowColor: NSColor {return Colors.popupMenuArrowColor}
     
+    var textOffsetX: CGFloat {0}
+    var textOffsetY: CGFloat {0}
+    
     override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY)
@@ -45,7 +48,7 @@ class PopupMenuCell: NSPopUpButtonCell {
             convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): textStyle
         ]
         
-        title.string.draw(in: withFrame, withAttributes: convertToOptionalNSAttributedStringKeyDictionary(textFontAttributes))
+        title.string.draw(in: withFrame.offsetBy(dx: textOffsetX, dy: textOffsetY), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(textFontAttributes))
         
         return withFrame
     }
@@ -75,7 +78,7 @@ class FXUnitPopupMenuCell: NicerPopupMenuCell {
     
     override var menuGradient: NSGradient {return Colors.textButtonMenuGradient}
     
-    override var titleFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    override var titleFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
     override var titleColor: NSColor {return Colors.buttonMenuTextColor}
     
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
@@ -117,6 +120,20 @@ class PreferencesPopupMenuCell: PopupMenuCell {
     override var arrowColor: NSColor {return Colors.lightPopupMenuArrowColor}
     
     override var menuGradient: NSGradient {return Colors.popupMenuGradient}
+}
+
+class FontsPopupMenuCell: PopupMenuCell {
+    
+    override var cellInsetY: CGFloat {return 2}
+    override var rectRadius: CGFloat {return 2}
+    override var arrowXMargin: CGFloat {return 10}
+    override var arrowYMargin: CGFloat {return 6}
+    override var arrowHeight: CGFloat {return 6}
+    override var arrowColor: NSColor {return Colors.lightPopupMenuArrowColor}
+    
+    override var menuGradient: NSGradient {return Colors.popupMenuGradient}
+    
+    override var textOffsetY: CGFloat {3}
 }
 
 // Cell for EQ presets popup menu

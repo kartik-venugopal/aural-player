@@ -3,13 +3,36 @@
  */
 import Cocoa
 
+private func attributedString(_ text: String, _ font: NSFont, _ color: NSColor) -> NSAttributedString {
+        
+        return NSAttributedString(string: text, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
+    }
+
+/*
+    Custom check box / radio button that can custom-color its title.
+ */
+class DialogCheckRadioButton: NSButton {
+    
+    override func awakeFromNib() {
+        titleUpdated()
+    }
+    
+    // Call this function whenever the title is updated
+    func titleUpdated() {
+        
+        self.attributedTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.boxTextColor)
+        self.attributedAlternateTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.playlistSelectedTextColor)
+    }
+}
+
 class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.checkRadioButtonFont}
     
     var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
     
-    var yOffset: CGFloat {return 0}
+    var xOffset: CGFloat {0}
+    var yOffset: CGFloat {0}
     
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
@@ -22,7 +45,7 @@ class CheckRadioButtonCell: NSButtonCell {
         let attrDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
         
         let size: CGSize = titleText.size(withAttributes: attrDict)
-        let sx = frame.minX
+        let sx = frame.minX + xOffset
         let sy = frame.minY + (frame.height - size.height) / 2 - yOffset
         
         let textRect = NSRect(x: sx, y: sy, width: size.width, height: size.height)
@@ -46,27 +69,18 @@ fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [Stri
 class FXFunctionCheckRadioButtonCell: CheckRadioButtonCell {
     
     override var textColor: NSColor {return Colors.Effects.functionCaptionTextColor}
-    override var textFont: NSFont {return Fonts.Effects.unitFunctionFont}
+    override var textFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
     
-    override var yOffset: CGFloat {
-        
-        switch EffectsViewState.textSize {
-            
-        case .normal, .larger:   return 1
-            
-        case .largest:  return 2
-            
-        }
-    }
+    override var xOffset: CGFloat {8}
 }
 
 class ColorSchemesDialogCheckBoxCell: CheckRadioButtonCell {
     
-    override var textFont: NSFont {return Fonts.Constants.mainFont_12}
+    override var textFont: NSFont {return Fonts.Standard.mainFont_12}
 }
 
 class ColorSchemesDialogRadioButtonCell: CheckRadioButtonCell {
     
-    override var textFont: NSFont {return Fonts.Constants.mainFont_12}
+    override var textFont: NSFont {return Fonts.Standard.mainFont_12}
     override var yOffset: CGFloat {return 2}
 }

@@ -15,6 +15,7 @@ class AudioUtils {
     
     private static let formatDescriptions: [String: String] = [
     
+        "mp2": "MPEG Audio Layer II (mp2)",
         "mp3": "MPEG Audio Layer III (mp3)",
         "m4a": "MPEG-4 Audio (m4a)",
         "m4b": "MPEG-4 Audio (m4b)",
@@ -210,7 +211,7 @@ class AudioUtils {
                 
                 audioInfo.format = avInfo.fileFormatDescription
                 
-                if let codec = audioStream.formatDescription, codec != audioInfo.format {
+                if let codec = audioStream.formatDescription {
                     audioInfo.codec = codec
                 }
                 
@@ -283,7 +284,7 @@ class AudioUtils {
     }
 
     // Converts a four character media type code to a readable string
-    private static func codeToString(_ code: FourCharCode) -> String {
+    static func codeToString(_ code: FourCharCode) -> String {
 
         let numericCode = Int(code)
 

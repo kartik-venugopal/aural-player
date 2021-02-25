@@ -8,7 +8,7 @@ class FilterBandViewController: NSViewController {
     
     @IBOutlet weak var freqRangeSlider: FilterBandSlider!
     @IBOutlet weak var cutoffSlider: CutoffFrequencySlider!
-    @IBOutlet weak var cutoffSliderCell: CutoffFrequencySliderCell!
+    @IBOutlet weak var cutoffSliderCell: FilterCutoffFrequencySliderCell!
     
     @IBOutlet weak var lblRangeCaption: NSTextField!
     @IBOutlet weak var presetRangesMenu: NSPopUpButton!
@@ -37,7 +37,8 @@ class FilterBandViewController: NSViewController {
         
         oneTimeSetup()
         resetFields()
-        changeTextSize()
+        
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -179,17 +180,17 @@ class FilterBandViewController: NSViewController {
         cutoffSlider.updateState()
     }
     
-    func changeTextSize() {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
         tabButton.redraw()
         
-        functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
         
-        filterTypeMenu.font = Fonts.Effects.unitFunctionFont
+        filterTypeMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
         filterTypeMenu.redraw()
         
-        presetRangesMenu.font = Fonts.Effects.unitFunctionFont
-        lblFrequencies.font = Fonts.Effects.unitFunctionFont
+        presetRangesMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        lblFrequencies.font = FontSchemes.systemScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

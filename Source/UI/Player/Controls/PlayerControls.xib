@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -59,7 +59,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SI4-ek-QA4" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="450" y="13" width="15" height="15"/>
+                    <rect key="frame" x="446" y="13" width="19" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="L" id="Di2-CV-xau">
                         <font key="font" size="9" name="Play-Regular"/>
@@ -68,7 +68,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A8i-Ik-XLC" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="507" y="13" width="15" height="15"/>
+                    <rect key="frame" x="507" y="13" width="19" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="R" id="Mj2-tU-wUw">
                         <font key="font" size="9" name="Play-Regular"/>
@@ -200,7 +200,7 @@ G1BhbiBTbGlkZXI
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u67-I0-Lir" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="12" y="15" width="110" height="23"/>
+                            <rect key="frame" x="12" y="12" width="134" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" placeholderString="" id="4Tb-Hc-PX9" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                 <font key="font" size="12" name="Play-Regular"/>
@@ -212,7 +212,7 @@ G1BhbiBTbGlkZXI
                             </textFieldCell>
                         </textField>
                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZO-U3-Zho" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="387" y="15" width="130" height="23"/>
+                            <rect key="frame" x="363" y="12" width="154" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="Hsh-D2-cmq" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                 <font key="font" size="11" name="Play-Regular"/>
@@ -233,7 +233,7 @@ G1BhbiBTbGlkZXI
                             </textFieldCell>
                         </textField>
                         <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FVU-Xu-qX6" userLabel="Seek Slider">
-                            <rect key="frame" x="14" y="0.0" width="503" height="15"/>
+                            <rect key="frame" x="14" y="-2" width="503" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="tre-8N-AMJ" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>

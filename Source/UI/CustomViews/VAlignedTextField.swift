@@ -42,6 +42,24 @@ class VALabel: NSTextField {
     }
 }
 
+class VCenteredLabelCell: NSTextFieldCell {
+    
+    override func titleRect(forBounds rect: NSRect) -> NSRect {
+        
+        var newRect: NSRect = super.titleRect(forBounds: rect)
+        
+        let textHt: CGFloat = attributedStringValue.size().height
+        newRect.size.height = textHt
+        newRect.origin.y = rect.origin.y + (rect.size.height - textHt) / 2.0
+        
+        return newRect
+    }
+    
+    override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+        super.drawInterior(withFrame: self.titleRect(forBounds: cellFrame), in: controlView)
+    }
+}
+
 class VALabelCell: NSTextFieldCell {
     
     var debug: Bool = false
@@ -51,8 +69,8 @@ class VALabelCell: NSTextFieldCell {
     override func drawingRect(forBounds theRect: NSRect) -> NSRect {
         
         var newRect: NSRect = super.drawingRect(forBounds: theRect)
-        let textSize: NSSize = self.cellSize(forBounds: theRect)
         
+        let textSize: NSSize = self.cellSize(forBounds: theRect)
         let heightDelta: CGFloat = newRect.size.height - textSize.height
         
         if heightDelta > 0 {
@@ -71,8 +89,8 @@ class VALabelCell: NSTextFieldCell {
         
         return newRect
     }
-
-//    NOTE - THIS FUNCTION IS FOR DEBUGGING ONLY
+    
+    //    NOTE - THIS FUNCTION IS FOR DEBUGGING ONLY
     override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         if debug {
@@ -94,7 +112,7 @@ class VALabelCell: NSTextFieldCell {
             NSColor.green.setStroke()
             drawPath.stroke()
         }
-
+        
         super.drawInterior(withFrame: cellFrame, in: controlView)
     }
 }
@@ -107,7 +125,7 @@ enum VAlignment: Int {
 }
 
 class TopTextLabel: VALabel {
-
+    
     override var vAlign: VAlignment {
         
         get {
@@ -142,27 +160,5 @@ class CenterTextLabel: VALabel {
         
         // Alignment should never change, so don't allow a setter
         set {}
-    }
-}
-
-// Cell specifically for main caption text using the Alegraya SC font
-class FXUnitCaptionCell: VALabelCell {
-
-    override func drawingRect(forBounds theRect: NSRect) -> NSRect {
-
-        switch EffectsViewState.textSize {
-
-        case .normal:
-
-            return NSRect(origin: NSMakePoint(0, theRect.height - 23), size: NSMakeSize(theRect.width, 23))
-            
-        case .larger:
-            
-            return NSRect(origin: NSMakePoint(0, theRect.height - 25 + 1), size: NSMakeSize(theRect.width, 25))
-            
-        case .largest:
-            
-            return NSRect(origin: NSMakePoint(0, theRect.height - 29 + 2), size: NSMakeSize(theRect.width, 29))
-        }
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,7 +32,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EVw-8f-3Id" userLabel="Format" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="103" width="60" height="20"/>
+                                <rect key="frame" x="0.0" y="103" width="69" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Format" id="8ot-0H-mnY">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -65,7 +65,7 @@
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c97-hF-xEa" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="73" width="60" height="20"/>
+                                <rect key="frame" x="0.0" y="73" width="69" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Quality" id="Tfv-ri-SdO">
                                     <font key="font" size="11" name="Play-Regular"/>
@@ -177,10 +177,10 @@
                     <color key="borderColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C0B-P4-MCp" userLabel="Reverb Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="68" y="152" width="150" height="26"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C0B-P4-MCp" userLabel="Reverb Desc">
+                    <rect key="frame" x="68" y="145" width="204" height="35"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Recorder" id="0sg-T8-xqW">
+                    <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Recorder" id="0sg-T8-xqW" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                         <font key="font" size="16" name="AlegreyaSansSC-Regular"/>
                         <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

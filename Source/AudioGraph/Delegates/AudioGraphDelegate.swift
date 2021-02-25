@@ -6,7 +6,7 @@ import AVFoundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
-    var availableDevices: [AudioDevice] {
+    var availableDevices: AudioDeviceList {
         return graph.availableDevices
     }
     
@@ -20,6 +20,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
             graph.outputDevice = newValue
         }
     }
+    
+    var outputDeviceBufferSize: Int {
+        
+        get {graph.outputDeviceBufferSize}
+        set {graph.outputDeviceBufferSize = newValue}
+    }
+    
+    var outputDeviceSampleRate: Double {graph.outputDeviceSampleRate}
     
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol
@@ -57,20 +65,20 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         // Set output device based on user preference
         
         if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
-            
+
             let prefDevice: AudioDeviceState = graphState.outputDevice
-            
+
             // Check if remembered device is available (based on name and UID)
-            if let foundDevice = graph.availableDevices.first(where: {$0.name! == prefDevice.name && $0.uid! == prefDevice.uid}) {
+            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDevice.name && $0.uid == prefDevice.uid}) {
                 self.graph.outputDevice = foundDevice
             }
-            
+
         } else if preferences.outputDeviceOnStartup.option == .specific,
             let prefDeviceName = preferences.outputDeviceOnStartup.preferredDeviceName,
             let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID {
-            
+
             // Check if preferred device is available (based on name and UID)
-            if let foundDevice = graph.availableDevices.first(where: {$0.name! == prefDeviceName && $0.uid! == prefDeviceUID}) {
+            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDeviceName && $0.uid == prefDeviceUID}) {
                 self.graph.outputDevice = foundDevice
             }
         }
@@ -91,7 +99,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged && (msg.gapStarted || msg.transcodingStarted) && self.preferences.rememberEffectsSettings},
+                                 filter: {msg in msg.trackChanged && msg.transcodingStarted && self.preferences.rememberEffectsSettings},
                                  queue: notificationQueue)
         
         Messenger.subscribe(self, .fx_saveSoundProfile, self.saveSoundProfile)
@@ -154,6 +162,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         graph.balance = graph.balance < 0 && newBalance > 0 ? 0 : newBalance
         
         return balance
+    }
+    
+    func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
+        graph.registerRenderObserver(observer)
+    }
+    
+    func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {
+        graph.removeRenderObserver(observer)
     }
     
     // MARK: Message handling

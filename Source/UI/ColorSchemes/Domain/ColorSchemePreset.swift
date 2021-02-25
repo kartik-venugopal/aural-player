@@ -14,6 +14,8 @@ enum ColorSchemePreset: String, CaseIterable {
     // A dark scheme with a black background and aqua coloring of active sliders.
     case blackAqua
     
+    case lava
+    
     // A semi-dark scheme with a gray background and lighter foreground elements.
     case gloomyDay
     
@@ -38,6 +40,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case ColorSchemePreset.blackAqua.name:    return .blackAqua
             
+        case ColorSchemePreset.lava.name:    return .lava
+            
         case ColorSchemePreset.whiteBlight.name:    return .whiteBlight
             
         case ColorSchemePreset.gloomyDay.name:      return .gloomyDay
@@ -60,6 +64,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:    return "Black & aqua"
             
+        case .lava:         return "Lava"
+            
         case .whiteBlight:  return "White blight"
             
         case .gloomyDay:    return "Gloomy day"
@@ -78,6 +84,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white50Percent
             
         case .blackAqua:  return Colors.Constants.white50Percent
+            
+        case .lava:     return Colors.Constants.white50Percent
             
         case .whiteBlight:  return NSColor.black
             
@@ -98,6 +106,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white8Percent
             
+        case .lava:     return NSColor(red: 0.144, green: 0.144, blue: 0.144, alpha: 1)
+            
         case .whiteBlight:  return Colors.Constants.white75Percent
             
         case .gloomyDay:    return Colors.Constants.white20Percent
@@ -116,6 +126,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white55Percent
             
         case .blackAqua:  return Colors.Constants.white55Percent
+            
+        case .lava:     return Colors.Constants.white55Percent
             
         case .whiteBlight:  return NSColor.black
             
@@ -136,6 +148,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white55Percent
             
+        case .lava:     return Colors.Constants.white55Percent
+            
         case .whiteBlight:  return NSColor.black
             
         case .gloomyDay:    return Colors.Constants.white55Percent
@@ -154,6 +168,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white22Percent
             
         case .blackAqua:  return Colors.Constants.white22Percent
+            
+        case .lava:     return Colors.Constants.white22Percent
             
         case .whiteBlight:  return Colors.Constants.white30Percent
             
@@ -174,6 +190,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white25Percent
             
+        case .lava:     return Colors.Constants.white25Percent
+            
         case .whiteBlight:  return Colors.Constants.white40Percent
             
         case .gloomyDay:    return Colors.Constants.white7Percent
@@ -192,6 +210,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white40Percent
             
         case .blackAqua:  return Colors.Constants.white40Percent
+            
+        case .lava:     return Colors.Constants.white40Percent
             
         case .whiteBlight:  return Colors.Constants.white30Percent
             
@@ -212,6 +232,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white75Percent
             
+        case .lava:     return Colors.Constants.white75Percent
+            
         case .whiteBlight:  return NSColor.white
             
         case .gloomyDay:    return Colors.Constants.white75Percent
@@ -230,6 +252,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white50Percent
             
         case .blackAqua:  return Colors.Constants.white50Percent
+            
+        case .lava:     return Colors.Constants.white50Percent
             
         case .whiteBlight:  return NSColor.black
             
@@ -250,6 +274,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white40Percent
             
+        case .lava:     return Colors.Constants.white40Percent
+            
         case .whiteBlight:  return Colors.Constants.white15Percent
             
         case .gloomyDay:    return Colors.Constants.white45Percent
@@ -268,6 +294,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white70Percent
             
         case .blackAqua:  return Colors.Constants.white70Percent
+            
+        case .lava:     return Colors.Constants.white70Percent
             
         case .whiteBlight:  return NSColor.black
             
@@ -290,6 +318,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white80Percent
             
+        case .lava:     return Colors.Constants.white80Percent
+            
         case .whiteBlight:  return NSColor.black
             
         case .gloomyDay:    return Colors.Constants.white80Percent
@@ -308,6 +338,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white65Percent
             
         case .blackAqua:  return Colors.Constants.white65Percent
+            
+        case .lava:     return Colors.Constants.white65Percent
             
         case .whiteBlight:  return Colors.Constants.white15Percent
             
@@ -328,6 +360,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white55Percent
             
+        case .lava:     return Colors.Constants.white55Percent
+            
         case .whiteBlight:  return Colors.Constants.white25Percent
             
         case .gloomyDay:    return Colors.Constants.white55Percent
@@ -346,6 +380,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white50Percent
             
         case .blackAqua:  return Colors.Constants.white50Percent
+            
+        case .lava:     return Colors.Constants.white50Percent
             
         case .whiteBlight:  return Colors.Constants.white20Percent
             
@@ -366,6 +402,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.aqua
             
+        case .lava:     return Colors.Constants.lava
+            
         case .whiteBlight:  return NSColor.black
             
         case .gloomyDay:    return Colors.Constants.white50Percent
@@ -384,6 +422,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return .darken
             
         case .blackAqua:  return .darken
+            
+        case .lava:     return .brighten
             
         case .whiteBlight:  return .none
             
@@ -404,6 +444,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return 60
             
+        case .lava:     return 60
+            
         case .whiteBlight:  return 20
             
         case .gloomyDay:    return 50
@@ -422,6 +464,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white20Percent
             
         case .blackAqua:  return Colors.Constants.white20Percent
+            
+        case .lava:     return NSColor(red: 0.326, green: 0.326, blue: 0.326, alpha: 1)
             
         case .whiteBlight:  return Colors.Constants.white60Percent
             
@@ -442,6 +486,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return .none
             
+        case .lava:     return .darken
+            
         case .whiteBlight:  return .none
             
         case .gloomyDay:    return .none
@@ -454,7 +500,14 @@ enum ColorSchemePreset: String, CaseIterable {
     }
     
     var playerSliderBackgroundGradientAmount: Int {
-        return 20
+        
+        switch self {
+        
+        case .lava:     return 36
+            
+        default:        return 20
+            
+        }
     }
     
     var playerSliderKnobColor: NSColor {
@@ -464,6 +517,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.green75Percent
             
         case .blackAqua:  return Colors.Constants.aqua
+            
+        case .lava:     return Colors.Constants.lava
             
         case .whiteBlight:  return NSColor.black
             
@@ -488,6 +543,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white60Percent
             
+        case .lava:     return Colors.Constants.white60Percent
+            
         case .whiteBlight:  return Colors.Constants.white40Percent
             
         case .gloomyDay:    return Colors.Constants.white60Percent
@@ -509,6 +566,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white50Percent
             
+        case .lava:  return Colors.Constants.white50Percent
+            
         case .whiteBlight:  return Colors.Constants.white20Percent
             
         case .gloomyDay:    return Colors.Constants.white55Percent
@@ -527,6 +586,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white40Percent
             
         case .blackAqua:  return Colors.Constants.white40Percent
+            
+        case .lava:  return Colors.Constants.white40Percent
             
         case .whiteBlight:  return Colors.Constants.white30Percent
             
@@ -547,6 +608,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white30Percent
             
+        case .lava:  return Colors.Constants.white30Percent
+            
         case .whiteBlight:  return Colors.Constants.white45Percent
             
         case .gloomyDay:    return Colors.Constants.white37Percent
@@ -565,6 +628,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white80Percent
             
         case .blackAqua:  return Colors.Constants.white80Percent
+            
+        case .lava:  return Colors.Constants.white80Percent
             
         case .whiteBlight:  return NSColor.black
             
@@ -585,6 +650,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white55Percent
             
+        case .lava:  return Colors.Constants.white55Percent
+            
         case .whiteBlight:  return Colors.Constants.white15Percent
             
         case .gloomyDay:    return Colors.Constants.white55Percent
@@ -603,6 +670,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white50Percent
             
         case .blackAqua:  return Colors.Constants.white50Percent
+            
+        case .lava:  return Colors.Constants.white50Percent
             
         case .whiteBlight:  return Colors.Constants.white20Percent
             
@@ -623,6 +692,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white35Percent
             
+        case .lava:  return Colors.Constants.white35Percent
+            
         case .whiteBlight:  return Colors.Constants.white30Percent
             
         case .gloomyDay:    return Colors.Constants.white40Percent
@@ -641,6 +712,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white60Percent
             
         case .blackAqua:  return Colors.Constants.white60Percent
+            
+        case .lava:  return Colors.Constants.white60Percent
             
         case .whiteBlight:  return Colors.Constants.white25Percent
             
@@ -661,6 +734,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white15Percent
             
+        case .lava:  return NSColor.black
+            
         case .whiteBlight:  return Colors.Constants.white60Percent
             
         case .gloomyDay:    return Colors.Constants.white10Percent
@@ -680,6 +755,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.aqua
             
+        case .lava:     return Colors.Constants.lava
+            
         case .whiteBlight:  return NSColor.black
             
         case .gloomyDay:    return Colors.Constants.aqua
@@ -698,6 +775,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white50Percent
             
         case .blackAqua:  return Colors.Constants.white50Percent
+            
+        case .lava:     return Colors.Constants.white50Percent
             
         case .whiteBlight:  return Colors.Constants.white25Percent
             
@@ -720,6 +799,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white45Percent
             
+        case .lava:  return Colors.Constants.white45Percent
+            
         case .whiteBlight:  return Colors.Constants.white25Percent
             
         case .gloomyDay:    return Colors.Constants.white45Percent
@@ -738,6 +819,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.white70Percent
             
         case .blackAqua:  return Colors.Constants.white70Percent
+            
+        case .lava:     return Colors.Constants.white70Percent
             
         case .whiteBlight:  return Colors.Constants.white10Percent
             
@@ -758,6 +841,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white15Percent
             
+        case .lava:     return NSColor(red: 0.326, green: 0.326, blue: 0.326, alpha: 1)
+            
         case .whiteBlight:  return Colors.Constants.white60Percent
             
         case .gloomyDay:    return Colors.Constants.white25Percent
@@ -776,6 +861,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return .brighten
             
         case .blackAqua:  return .brighten
+            
+        case .lava:  return .darken
             
         case .whiteBlight:  return .none
             
@@ -796,6 +883,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return 20
             
+        case .lava:     return 36
+            
         case .whiteBlight:  return 0
             
         case .gloomyDay:    return 15
@@ -814,6 +903,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.green75Percent
             
         case .blackAqua:  return Colors.Constants.aqua
+            
+        case .lava:     return Colors.Constants.lava
             
         case .whiteBlight:  return NSColor.black
             
@@ -838,6 +929,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return NSColor.black
             
+        case .lava:     return NSColor.black
+            
         case .whiteBlight:  return NSColor.white
             
         case .gloomyDay:    return NSColor.black
@@ -856,6 +949,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .blackAttack:  return Colors.Constants.green75Percent
             
         case .blackAqua:  return Colors.Constants.aqua
+            
+        case .lava:     return Colors.Constants.lava
             
         case .whiteBlight:  return NSColor.black
             
@@ -876,6 +971,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return Colors.Constants.white60Percent
             
+        case .lava:  return Colors.Constants.white60Percent
+            
         case .whiteBlight:  return Colors.Constants.white40Percent
             
         case .gloomyDay:    return Colors.Constants.white55Percent
@@ -895,6 +992,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAqua:  return NSColor(red: 0, green: 0.31, blue: 0.5, alpha: 1)
             
+        case .lava:  return NSColor(red: 0.5, green: 0.204, blue: 0.107, alpha: 1)
+            
         case .whiteBlight:  return Colors.Constants.white20Percent
             
         case .gloomyDay:    return NSColor(red: 0, green: 0.4, blue: 0.65, alpha: 1)
@@ -912,13 +1011,15 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return .darken
             
-        case .blackAqua:  return .darken
+        case .blackAqua:    return .darken
+            
+        case .lava:         return .brighten
             
         case .whiteBlight:  return .brighten
             
         case .gloomyDay:    return .darken
             
-        case .brownie:         return .darken
+        case .brownie:      return .darken
             
         case .theBlues:     return .darken
             
@@ -931,13 +1032,15 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .blackAttack:  return 60
             
-        case .blackAqua:  return 60
+        case .blackAqua:    return 60
+            
+        case .lava:         return 60
             
         case .whiteBlight:  return 30
             
         case .gloomyDay:    return 60
             
-        case .brownie:         return 50
+        case .brownie:      return 50
             
         case .theBlues:     return 45
             

@@ -35,13 +35,13 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
     override func viewDidLoad() {
         
         initControls()
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to notifications
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
-        Messenger.subscribe(self, .fx_changeTextSize, self.changeTextSize(_:))
-        
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
@@ -127,17 +127,21 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         lblRecorderFileSize.stringValue = recordingInfo!.fileSize.toString()
     }
     
-    private func changeTextSize(_ textSize: TextSize) {
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        fontsChanged()
+    }
+    
+    private func fontsChanged() {
         
-        lblCaption.font = Fonts.Effects.unitCaptionFont
+        lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
         
-        functionLabels.forEach({$0.font = Fonts.Effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
         
         formatMenu.redraw()
-        formatMenu.font = Fonts.Effects.unitFunctionFont
+        formatMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
         
         qualityMenu.redraw()
-        qualityMenu.font = Fonts.Effects.unitFunctionFont
+        qualityMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

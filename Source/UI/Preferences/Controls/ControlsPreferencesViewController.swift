@@ -75,9 +75,6 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     }
     
     @IBAction func mediaKeyResponseAction(_ sender: Any) {
-
-        // Enable/disable sub-controls
-        [btnHybrid, btnTrackChangesOnly, btnSeekingOnly, repeatSpeedMenu].forEach({$0?.enableIf(btnRespondToMediaKeys.isOn)})
     }
     
     @IBAction func skipKeyBehaviorAction(_ sender: Any) {

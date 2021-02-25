@@ -6,6 +6,8 @@ import AVFoundation
 */
 struct AppDefaults {
     
+    static var appMode: AppMode = .regular
+    
     static let repeatMode: RepeatMode = .off
     static let shuffleMode: ShuffleMode = .off
     
@@ -45,8 +47,4 @@ struct AppDefaults {
     static let filterBandMaxFreq: Float = AppConstants.Sound.subBass_max
     
     static let lastTrackPosition: Double = 0
-    
-    static let playbackGapDuration: Double = 5
-    static let playbackGapPosition: PlaybackGapPosition = .afterTrack
-    static let playbackGapType: PlaybackGapType = .persistent
 }

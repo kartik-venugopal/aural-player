@@ -22,31 +22,12 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     // Returns a view for a single row
     func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-        return PlaylistRowView()
+        return GroupingPlaylistRowView()
     }
     
     // Determines the height of a single row
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        
-        if let track = item as? Track {
-
-            let gapAfterTrack = playlist.getGapAfterTrack(track) != nil
-            let gapBeforeTrack = playlist.getGapBeforeTrack(track) != nil
-
-            if gapAfterTrack && gapBeforeTrack {
-                return 62
-                
-            } else if gapAfterTrack || gapBeforeTrack {
-                return 44
-            }
-
-            return 26
-
-        } else {
-
-            // Group
-            return 28
-        }
+        30
     }
     
     // Returns a view for a single column
@@ -80,14 +61,16 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     
     private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
+            let imgView = cell.imageView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = track
         cell.isGroup = false
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
-        cell.updateText(Fonts.Playlist.trackNameFont, playlist.displayNameForTrack(self.playlistType, track))
+        cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
         var image: NSImage?
         
@@ -96,10 +79,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         case .playing, .paused:
             
             image = track == playbackInfo.playingTrack ? Images.imgPlayingTrack : nil
-            
-        case .waiting:
-            
-            image = track == playbackInfo.waitingTrack ? Images.imgWaitingTrack : nil
             
         case .transcoding:
             
@@ -110,13 +89,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             image = nil
         }
         
-        cell.imageView?.image = image?.applyingTint(Colors.Playlist.playingTrackIconColor)
-        
-        let gapAfter = playlist.getGapAfterTrack(track)
-        let gapBefore = playlist.getGapBeforeTrack(track)
-        
-        cell.gapImage = AuralPlaylistOutlineView.cachedGapImage
-        cell.updateForGaps(gapBefore != nil, gapAfter != nil)
+        imgView.image = image?.applyingTint(Colors.Playlist.playingTrackIconColor)
         
         return cell
     }
@@ -130,12 +103,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = false
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
         
-        cell.updateText(Fonts.Playlist.indexFont, ValueFormatter.formatSecondsToHMS(track.duration))
-        
-        let gapAfter = playlist.getGapAfterTrack(track)
-        let gapBefore = playlist.getGapBeforeTrack(track)
-        
-        cell.updateForGaps(gapBefore != nil, gapAfter != nil, gapBefore?.duration, gapAfter?.duration)
+        cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, ValueFormatter.formatSecondsToHMS(track.duration))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
         return cell
     }
@@ -143,17 +112,26 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
     private func createGroupNameCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
+        let imgView = cell.imageView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = group
         cell.isGroup = true
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
             
-        cell.updateText(Fonts.Playlist.groupNameFont, String(format: "%@ (%d)", group.name, group.size))
-        cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
+        cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
+        imgView.image = AuralPlaylistOutlineView.cachedGroupIcon
         
-        cell.updateForGaps(false, false)
+        // Constraints
+        
+        // Remove any existing constraints on the text field's 'top' and 'centerY' attributes
+        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {cell.deactivateAndRemoveConstraint($0)}
+
+        let imgViewBottomConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
+        
+        cell.activateAndAddConstraint(imgViewBottomConstraint)
         
         return cell
     }
@@ -167,8 +145,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.isGroup = true
         cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
         
-        cell.updateText(Fonts.Playlist.groupDurationFont, ValueFormatter.formatSecondsToHMS(group.duration))
-        cell.updateForGaps(false, false)
+        cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, ValueFormatter.formatSecondsToHMS(group.duration))
+        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
         
         return cell
     }

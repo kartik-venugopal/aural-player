@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,8 +21,6 @@
                 <outlet property="rootContainerBox" destination="wnD-Di-RRh" id="5rA-wc-wsr"/>
                 <outlet property="tabButtonsBox" destination="Zhk-zz-laJ" id="ZQW-Ua-AU2"/>
                 <outlet property="timeTabViewButton" destination="ehI-IS-owi" id="6hD-IH-LtS"/>
-                <outlet property="viewMenuButton" destination="HsC-2z-eFh" id="dBU-y6-VHR"/>
-                <outlet property="viewMenuIconItem" destination="g9l-VG-eGh" id="iJQ-9t-cFf"/>
                 <outlet property="window" destination="V8B-S9-0F8" id="LUw-iX-Uk3"/>
             </connections>
         </customObject>
@@ -33,7 +31,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="225" y="78" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="AK5-1a-Nc7">
@@ -47,52 +45,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="530" height="230"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <popUpButton toolTip="Effects View" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsC-2z-eFh" userLabel="Playlist View Menu">
-                                    <rect key="frame" x="496" y="202" width="24" height="15"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" selectedItem="g9l-VG-eGh" id="wQk-S7-HzL">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" size="11" name="Play-Regular"/>
-                                        <menu key="menu" autoenablesItems="NO" id="sa9-1G-FgT">
-                                            <items>
-                                                <menuItem image="Settings" hidden="YES" id="g9l-VG-eGh" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings"/>
-                                                    </userDefinedRuntimeAttributes>
-                                                </menuItem>
-                                                <menuItem title="Text size" id="tm3-Xt-foa">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <menu key="submenu" title="Text size" id="DLF-Wt-2Oj">
-                                                        <items>
-                                                            <menuItem title="Normal" id="0ib-xQ-hyZ">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="7Tn-eo-O8X" id="I8n-tl-rZz"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Larger" tag="1" id="CdO-LF-kgA">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="7Tn-eo-O8X" id="qr1-6V-xQ6"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Largest" tag="2" id="ZVY-CZ-bqO">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="changeTextSizeAction:" target="7Tn-eo-O8X" id="E19-AT-2hg"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                        </items>
-                                                    </menu>
-                                                </menuItem>
-                                            </items>
-                                            <connections>
-                                                <outlet property="delegate" destination="7Tn-eo-O8X" id="6mF-al-qE4"/>
-                                            </connections>
-                                        </menu>
-                                    </popUpButtonCell>
-                                </popUpButton>
                                 <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Jtw-Y5-1IX" userLabel="Effects Box">
                                     <rect key="frame" x="12" y="0.0" width="518" height="195"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -348,13 +300,6 @@
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-99" y="342"/>
         </window>
-        <customObject id="7Tn-eo-O8X" customClass="EffectsViewPopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="textSizeLargerMenuItem" destination="CdO-LF-kgA" id="UIv-KH-oeZ"/>
-                <outlet property="textSizeLargestMenuItem" destination="ZVY-CZ-bqO" id="WCt-fc-NMv"/>
-                <outlet property="textSizeNormalMenuItem" destination="0ib-xQ-hyZ" id="SMO-8E-bre"/>
-            </connections>
-        </customObject>
     </objects>
     <resources>
         <image name="Close" width="18" height="18"/>
@@ -377,7 +322,6 @@
         <image name="ReverbTab" width="25" height="25"/>
         <image name="ReverbTab-Mixed" width="25" height="25"/>
         <image name="ReverbTab-On" width="25" height="25"/>
-        <image name="Settings" width="12" height="12"/>
         <image name="TimeTab" width="32" height="32"/>
         <image name="TimeTab-Mixed" width="32" height="32"/>
         <image name="TimeTab-On" width="32" height="32"/>

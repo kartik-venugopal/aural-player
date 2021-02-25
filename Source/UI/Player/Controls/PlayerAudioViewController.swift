@@ -42,7 +42,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         panSlider.floatValue = audioGraph.balance
         panChanged(audioGraph.balance, false)
         
-        changeTextSize(PlayerViewState.textSize)
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
 
         initSubscriptions()
@@ -62,8 +62,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_panLeft, self.panLeft)
         Messenger.subscribe(self, .player_panRight, self.panRight)
         
-        Messenger.subscribe(self, .player_changeTextSize, self.changeTextSize(_:))
-        
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
@@ -181,8 +180,8 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         }
     }
     
-    private func changeTextSize(_ size: TextSize) {
-        [lblVolume, lblPan, lblPanCaption, lblPanCaption2].forEach({$0.font = Fonts.Player.feedbackFont})
+    private func applyFontScheme(_ fontScheme: FontScheme) {
+        [lblVolume, lblPan, lblPanCaption, lblPanCaption2].forEach {$0.font = FontSchemes.systemScheme.player.feedbackFont}
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

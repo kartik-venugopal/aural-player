@@ -131,9 +131,9 @@ class TimeViewController: FXUnitViewController {
         timeView.updatePitchShift(timeUnit.formattedPitch)
     }
     
-    override func changeTextSize(_ textSize: TextSize) {
+    override func applyFontScheme(_ fontScheme: FontScheme) {
         
-        super.changeTextSize(textSize)
+        super.applyFontScheme(fontScheme)
         btnShiftPitch.redraw()
     }
     
@@ -141,6 +141,10 @@ class TimeViewController: FXUnitViewController {
         
         super.applyColorScheme(scheme)
         changeSliderColors()
+        
+        btnShiftPitch.attributedTitle = NSAttributedString(string: btnShiftPitch.title, attributes: [NSAttributedString.Key.foregroundColor: scheme.effects.functionCaptionTextColor])
+        
+        btnShiftPitch.attributedAlternateTitle = NSAttributedString(string: btnShiftPitch.title, attributes: [NSAttributedString.Key.foregroundColor: scheme.effects.functionCaptionTextColor])
     }
     
     override func changeSliderColors() {
