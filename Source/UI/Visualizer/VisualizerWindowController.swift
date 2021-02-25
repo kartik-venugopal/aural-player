@@ -142,6 +142,11 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         }
     }
     
+    // TODO
+    func deviceSampleRateChanged(newSampleRate: Double) {
+//        NSLog("**** Device SR changed: \(newSampleRate)")
+    }
+    
     @IBAction func setColorsAction(_ sender: NSColorWell) {
         
         vizView.setColors(startColor: startColorPicker.color, endColor: endColorPicker.color)
@@ -175,11 +180,6 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         optionsBox.hide()
         
         allViews.forEach {$0.dismissView()}
-    }
-    
-    // TODO
-    func deviceSampleRateChanged(newSampleRate: Double) {
-//        NSLog("**** Device SR changed: \(newSampleRate)")
     }
 }
 
