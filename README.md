@@ -68,8 +68,6 @@ Download the DMG image (containing the app bundle) from the latest release [here
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
-**NOTE** - The ffmpeg source code (and build script / instructions) for each release can be found in the Source code archive (zip / tar) for the release, under **aural-player-x.y.z/Resources/ffmpeg** (when extracted).
-
 ### Important note for macOS Big Sur
 
 If you're on macOS Big Sur, you must download v2.3.0 or later versions. No older app versions will run on macOS Big Sur.
