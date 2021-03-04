@@ -52,7 +52,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * **Playlist:** Grouping, searching, sorting, type selection
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
-* **Visualizations** 3 different visualizations that dance to the music, with customizable colors.
+* **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
 * **UI:** Fully customizable fonts and colors with built-in and custom schemes, window layouts (built-in and custom), window snapping, collapsible UI components.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition
 
@@ -67,8 +67,6 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
-
-**NOTE** - The ffmpeg source code (and build script / instructions) for each release can be found in the Source code archive (zip / tar) for the release, under **aural-player-x.y.z/Resources/ffmpeg** (when extracted).
 
 ### Important note for macOS Big Sur
 
