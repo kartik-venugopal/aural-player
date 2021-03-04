@@ -1,4 +1,4 @@
-<img width="323" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
+<img width="225" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
