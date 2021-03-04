@@ -2137,13 +2137,13 @@
 		3E6C103625CEB98600BF0D07 /* DetailedTrackInfo */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C103D25CEB98600BF0D07 /* DetailedTrackInfo.xib */,
 				3E6C103725CEB98600BF0D07 /* MetadataDataSource.swift */,
 				3E6C103825CEB98600BF0D07 /* PopoverContentView.swift */,
 				3E6C103925CEB98600BF0D07 /* DetailedTrackInfoRowView.swift */,
 				3E6C103A25CEB98600BF0D07 /* DetailedTrackInfoViewController.swift */,
 				3E6C103B25CEB98600BF0D07 /* FileSystemDataSource.swift */,
 				3E6C103C25CEB98600BF0D07 /* CoverArtDataSource.swift */,
-				3E6C103D25CEB98600BF0D07 /* DetailedTrackInfo.xib */,
 				3E6C103E25CEB98600BF0D07 /* AudioDataSource.swift */,
 			);
 			path = DetailedTrackInfo;

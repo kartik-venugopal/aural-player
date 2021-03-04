@@ -14,7 +14,6 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     private let controlsView: NSView = ViewFactory.controlsView
     
     @IBOutlet weak var functionsBox: NSBox!
-    private let functionsView: NSView = ViewFactory.playingTrackFunctionsView
     
     fileprivate var autoHideFields_showing: Bool = false
     
@@ -27,23 +26,23 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     
     func showView() {
         
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             
             if !self.controlsView.isDescendant(of: self.controlsBox) {
                 self.controlsBox.addSubview(self.controlsView)
                 self.controlsBox.bringToFront()
             }
 
-            if !self.functionsView.isDescendant(of: self.functionsBox) {
-                self.functionsBox.addSubview(self.functionsView)
-            }
-        }
+//            if !self.functionsView.isDescendant(of: self.functionsBox) {
+//                self.functionsBox.addSubview(self.functionsView)
+//            }
+//        }
         
-        show()
+//        show()
     }
     
     func hideView() {
-        hide()
+//        hide()
     }
     
     func update() {
@@ -156,11 +155,16 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
     
     override func awakeFromNib() {
     
-        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
-        
         artView.showIf(PlayerViewState.showAlbumArt)
         controlsBox.showIf(PlayerViewState.showControls)
+    }
+    
+    override func showView() {
+
+        super.showView()
+        
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
+        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -241,8 +245,14 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         
         infoBox.bringToFront()
         controlsBox.bringToFront()
+    }
+    
+    override func showView() {
+
+        super.showView()
         
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
+        moveInfoBoxTo(infoBoxDefaultPosition)
     }
     
     override func trackInfoSet() {

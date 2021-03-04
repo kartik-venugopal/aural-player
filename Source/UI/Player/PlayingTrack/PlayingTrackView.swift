@@ -6,8 +6,12 @@ import Cocoa
  */
 class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     
+    @IBOutlet weak var tabView: NSTabView!
+    
     @IBOutlet weak var defaultView: PlayingTrackSubview!
     @IBOutlet weak var expandedArtView: PlayingTrackSubview!
+    
+    @IBOutlet weak var functionsBox: NSBox!
  
     // The player view that is currently displayed
     private var activeView: PlayingTrackSubview {
@@ -29,16 +33,18 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
         }
     }
     
-    override func awakeFromNib() {
-        
-        self.addSubviews(defaultView, expandedArtView)
-        inactiveView.hideView()
-        
-        setUpMouseTracking()
-    }
+//    override func awakeFromNib() {
+//
+////        self.addSubviews(defaultView, expandedArtView)
+////        inactiveView.hideView()
+//        
+//        setUpMouseTracking()
+//    }
     
     // Sets up the view for display.
     func showView() {
+        
+        switchView(PlayerViewState.viewType)
         
         setUpMouseTracking()
         activeView.showView()
@@ -64,6 +70,8 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     
     // Switches between the 2 sub-views (Default and Expanded Art)
     func switchView(_ viewType: PlayerViewType) {
+        
+        tabView.selectTabViewItem(at: PlayerViewState.viewType == .defaultView ? 0 : 1)
         
         inactiveView.hideView()
         activeView.showView()
