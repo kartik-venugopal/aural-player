@@ -11,8 +11,6 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     @IBOutlet weak var defaultView: PlayingTrackSubview!
     @IBOutlet weak var expandedArtView: PlayingTrackSubview!
     
-    @IBOutlet weak var functionsBox: NSBox!
- 
     // The player view that is currently displayed
     private var activeView: PlayingTrackSubview {
         return PlayerViewState.viewType == .defaultView ? defaultView : expandedArtView
@@ -32,14 +30,6 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
             expandedArtView.trackInfo = trackInfo
         }
     }
-    
-//    override func awakeFromNib() {
-//
-////        self.addSubviews(defaultView, expandedArtView)
-////        inactiveView.hideView()
-//        
-//        setUpMouseTracking()
-//    }
     
     // Sets up the view for display.
     func showView() {

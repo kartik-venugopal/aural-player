@@ -11,8 +11,6 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     @IBOutlet weak var textView: PlayingTrackTextView!
     
     @IBOutlet weak var controlsBox: NSBox!
-    private let controlsView: NSView = ViewFactory.controlsView
-    
     @IBOutlet weak var functionsBox: NSBox!
     
     fileprivate var autoHideFields_showing: Bool = false
@@ -25,24 +23,9 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     }
     
     func showView() {
-        
-//        DispatchQueue.main.async {
-            
-            if !self.controlsView.isDescendant(of: self.controlsBox) {
-                self.controlsBox.addSubview(self.controlsView)
-                self.controlsBox.bringToFront()
-            }
-
-//            if !self.functionsView.isDescendant(of: self.functionsBox) {
-//                self.functionsBox.addSubview(self.functionsView)
-//            }
-//        }
-        
-//        show()
     }
     
     func hideView() {
-//        hide()
     }
     
     func update() {
@@ -153,18 +136,16 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
         return !PlayerViewState.showControls
     }
     
-    override func awakeFromNib() {
-    
-        artView.showIf(PlayerViewState.showAlbumArt)
-        controlsBox.showIf(PlayerViewState.showControls)
-    }
-    
     override func showView() {
 
         super.showView()
         
+        artView.showIf(PlayerViewState.showAlbumArt)
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
         moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
+
+        controlsBox.showIf(PlayerViewState.showControls)
+        controlsBox.bringToFront()
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -234,8 +215,10 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         return true
     }
     
-    override func awakeFromNib() {
+    override func showView() {
 
+        super.showView()
+        
         moveInfoBoxTo(infoBoxDefaultPosition)
 
         NSView.hideViews(controlsBox, overlayBox)
@@ -245,12 +228,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         
         infoBox.bringToFront()
         controlsBox.bringToFront()
-    }
-    
-    override func showView() {
 
-        super.showView()
-        
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
         moveInfoBoxTo(infoBoxDefaultPosition)
     }

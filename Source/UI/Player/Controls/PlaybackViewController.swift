@@ -13,8 +13,6 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
     
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
-    override var nibName: String? {return "PlayerControls"}
-    
     override func viewDidLoad() {
         
         // MARK: Notifications --------------------------------------------------------------

@@ -17,6 +17,9 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     // Button to bookmark current track and position
     @IBOutlet weak var btnBookmark: TintedImageButton!
     
+    @IBOutlet weak var sliderView: SeekSliderView!
+    @IBOutlet weak var seekPositionMarkerView: NSView!
+    
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: TintedImageButton!
     
     // Delegate that provides info about the playing track
@@ -33,8 +36,6 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     
     private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
-    
-    override var nibName: String? {return "PlayingTrackFunctions"}
     
     private var allButtons: [Tintable] = []
     
@@ -175,7 +176,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             
         } else {
             
-            let seekPositionMarkerView: NSView = ViewFactory.seekPositionMarkerView
+            sliderView.positionSeekPositionMarkerView()
             
             // Show popover relative to seek slider
             if seekPositionMarkerView.isVisible {

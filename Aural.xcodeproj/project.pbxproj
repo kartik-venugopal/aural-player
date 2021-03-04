@@ -413,7 +413,6 @@
 		3E6C12FD25CEBE8F00BF0D07 /* PlayerAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104A25CEB98600BF0D07 /* PlayerAudioViewController.swift */; };
 		3E6C12FE25CEBE8F00BF0D07 /* PlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104625CEB98600BF0D07 /* PlaybackView.swift */; };
 		3E6C12FF25CEBE8F00BF0D07 /* PlayerViewPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */; };
-		3E6C130025CEBE8F00BF0D07 /* PlayerControls.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C104825CEB98600BF0D07 /* PlayerControls.xib */; };
 		3E6C130125CEBE8F00BF0D07 /* JumpToTimeEditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104D25CEB98600BF0D07 /* JumpToTimeEditorWindowController.swift */; };
 		3E6C130225CEBE8F00BF0D07 /* DetailedTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C103D25CEB98600BF0D07 /* DetailedTrackInfo.xib */; };
 		3E6C130325CEBE8F00BF0D07 /* MetadataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103725CEB98600BF0D07 /* MetadataDataSource.swift */; };
@@ -866,7 +865,6 @@
 		3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekTimeFormats.swift; sourceTree = "<group>"; };
 		3E6C104625CEB98600BF0D07 /* PlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackView.swift; sourceTree = "<group>"; };
 		3E6C104725CEB98600BF0D07 /* PlaybackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackViewController.swift; sourceTree = "<group>"; };
-		3E6C104825CEB98600BF0D07 /* PlayerControls.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerControls.xib; sourceTree = "<group>"; };
 		3E6C104925CEB98600BF0D07 /* PlayerSequencingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSequencingViewController.swift; sourceTree = "<group>"; };
 		3E6C104A25CEB98600BF0D07 /* PlayerAudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAudioViewController.swift; sourceTree = "<group>"; };
 		3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewPopupMenuController.swift; sourceTree = "<group>"; };
@@ -2152,7 +2150,6 @@
 		3E6C104325CEB98600BF0D07 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C104825CEB98600BF0D07 /* PlayerControls.xib */,
 				3E6C104425CEB98600BF0D07 /* SeekSliderView.swift */,
 				3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */,
 				3E6C104625CEB98600BF0D07 /* PlaybackView.swift */,
@@ -3071,7 +3068,6 @@
 				3E6C125625CEBE0600BF0D07 /* EffectsPresetsEditor.xib in Resources */,
 				3E6C126F25CEBE0600BF0D07 /* TimePresetsEditor.xib in Resources */,
 				3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */,
-				3E6C130025CEBE8F00BF0D07 /* PlayerControls.xib in Resources */,
 				3E6C123425CEBDF400BF0D07 /* GenresPlaylistSort.xib in Resources */,
 				3E6C123B25CEBDF400BF0D07 /* Genres.xib in Resources */,
 				3E6C128225CEBE1800BF0D07 /* EffectsColorScheme.xib in Resources */,
