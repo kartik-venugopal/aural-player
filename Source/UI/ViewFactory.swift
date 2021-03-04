@@ -8,8 +8,6 @@ struct ViewFactory {
     fileprivate struct PlayerViews {
         
         fileprivate static let rootViewController: PlayerViewController = PlayerViewController()
-        
-        fileprivate static let playingTrackViewController: PlayingTrackViewController = PlayingTrackViewController()
     }
     
     // Sub-views for the different individual effects units displayed on the Effects panel
@@ -120,11 +118,6 @@ struct ViewFactory {
     // Returns the view that displays the player
     static var playerView: NSView {
         return PlayerViews.rootViewController.view
-    }
-    
-    // Returns the view that displays the player
-    static var playingTrackView: NSView {
-        return PlayerViews.playingTrackViewController.view
     }
     
     // Returns the view that displays the Equalizer effects unit

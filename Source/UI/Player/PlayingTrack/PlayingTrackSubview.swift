@@ -101,10 +101,9 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     func changeBackgroundColor(_ color: NSColor) {
 
         // Solid color
-        [infoBox, controlsBox, functionsBox].forEach({
+        [infoBox, controlsBox, functionsBox].forEach {
             $0?.fillColor = color
-            $0?.isTransparent = !color.isOpaque
-        })
+        }
         
         // The art view's shadow color will depend on the window background color (it needs to have contrast relative to it).
         artView.layer?.shadowColor = color.visibleShadowColor.cgColor
@@ -146,6 +145,7 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
 
         controlsBox.showIf(PlayerViewState.showControls)
         controlsBox.bringToFront()
+        controlsBox.makeOpaque()
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -228,6 +228,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         
         infoBox.bringToFront()
         controlsBox.bringToFront()
+        controlsBox.makeTransparent()
 
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
         moveInfoBoxTo(infoBoxDefaultPosition)
