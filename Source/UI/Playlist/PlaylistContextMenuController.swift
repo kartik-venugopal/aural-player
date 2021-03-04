@@ -10,7 +10,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     // Track-specific menu items
     
-    @IBOutlet weak var transcodeTrackMenuItem: NSMenuItem!
     @IBOutlet weak var playTrackMenuItem: NSMenuItem!
     
     @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
@@ -63,7 +62,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         // Store all track-specific and group-specific menu items in separate arrays for convenient access when setting up the menu prior to display
         
-        trackMenuItems = [transcodeTrackMenuItem, playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, moveTrackToTopMenuItem, moveTrackToBottomMenuItem, showTrackInFinderMenuItem,  viewChaptersMenuItem]
+        trackMenuItems = [playTrackMenuItem, favoritesMenuItem, detailedInfoMenuItem, removeTrackMenuItem, moveTrackUpMenuItem, moveTrackDownMenuItem, moveTrackToTopMenuItem, moveTrackToBottomMenuItem, showTrackInFinderMenuItem,  viewChaptersMenuItem]
         
         groupMenuItems = [playGroupMenuItem, removeGroupMenuItem, moveGroupUpMenuItem, moveGroupDownMenuItem, moveGroupToTopMenuItem, moveGroupToBottomMenuItem]
         

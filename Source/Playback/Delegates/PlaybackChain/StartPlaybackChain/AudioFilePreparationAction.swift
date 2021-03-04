@@ -2,9 +2,6 @@ import Foundation
 
 /*
     Prepares a track for playback:
-
-    - delay (if defined in the request)
-    - transcoding (if required)
     - reading audio metadata
  */
 class AudioFilePreparationAction: PlaybackChainAction {

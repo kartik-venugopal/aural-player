@@ -57,7 +57,7 @@ class TrackIO {
 //
 //        let lazyLoadInfo = track.lazyLoadingInfo
 //
-//        if !(lazyLoadInfo.preparedForPlayback || lazyLoadInfo.needsTranscoding) {
+//        if !(lazyLoadInfo.preparedForPlayback) {
 //
 //            // If track couldn't be prepared, mark it as not playable
 //            lazyLoadInfo.preparationFailed(TrackNotPlayableError(track))

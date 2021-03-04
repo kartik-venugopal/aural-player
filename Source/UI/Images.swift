@@ -8,7 +8,6 @@ struct Images {
     static let imgPlayingArt: NSImage = NSImage(named: "PlayingArt")!
     
     static let imgPlayingTrack: NSImage = NSImage(named: "PlayingTrack")!
-    static let imgTranscodingTrack: NSImage = NSImage(named: "TranscodingTrack")!
     
     static let imgVolumeZero: NSImage = NSImage(named: "VolumeZero")!
     static let imgVolumeLow: NSImage = NSImage(named: "VolumeLow")!

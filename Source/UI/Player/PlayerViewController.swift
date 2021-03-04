@@ -1,13 +1,11 @@
 /*
-    View controller that handles the assembly of the player view tree from its multiple pieces, and switches between high-level views depending on current player state (i.e. playing / transcoding / stopped, etc).
+    View controller that handles the assembly of the player view tree from its multiple pieces, and switches between high-level views depending on current player state (i.e. playing / stopped, etc).
  
     The player view tree consists of:
         
         - Playing track info (track info, art, etc)
             - Default view
             - Expanded Art view
- 
-        - Transcoder info (when a track is being transcoded)
  
         - Player controls (play/seek, next/previous track, repeat/shuffle, volume/balance)
  

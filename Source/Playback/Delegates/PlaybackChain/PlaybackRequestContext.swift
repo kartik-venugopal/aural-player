@@ -7,7 +7,6 @@ import Foundation
 class PlaybackRequestContext {
     
     // The state of the player prior to execution of this reqeust.
-    // Current state can change (if transcoding before playback)
     var currentState: PlaybackState
     
     // The current player track, if any, prior to execution of this reqeust.

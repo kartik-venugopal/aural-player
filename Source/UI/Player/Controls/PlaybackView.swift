@@ -102,15 +102,6 @@ class PlaybackView: NSView, ColorSchemeable {
         sliderView.trackChanged(loop, newTrack)
     }
     
-    func transcodingStarted() {
-
-        btnPlayPause.off()
-        btnLoop.switchState(LoopState.none)
-        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
-        
-        sliderView.transcodingStarted()
-    }
-
     func showOrHideTimeElapsedRemaining() {
         sliderView.showOrHideTimeElapsedRemaining()
     }

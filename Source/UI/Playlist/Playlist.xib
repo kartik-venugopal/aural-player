@@ -513,19 +513,11 @@
                 <outlet property="removeGroupMenuItem" destination="kVv-1O-nHY" id="LIn-q0-Xpf"/>
                 <outlet property="removeTrackMenuItem" destination="RCk-oA-gLU" id="aCt-Zm-jgZ"/>
                 <outlet property="showTrackInFinderMenuItem" destination="6Oh-bN-HCq" id="CK5-Py-mQU"/>
-                <outlet property="transcodeTrackMenuItem" destination="s9W-FB-XJa" id="NUb-CO-DAG"/>
                 <outlet property="viewChaptersMenuItem" destination="ciW-XS-CUy" id="83d-K0-IAW"/>
             </connections>
         </customObject>
         <menu autoenablesItems="NO" id="5mK-N5-S6w" userLabel="Playlist context menu">
             <items>
-                <menuItem title="Transcode this track (in the background)" image="Transcode-Small" id="s9W-FB-XJa" userLabel="Transcode this track">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="transcodeTrackInBackgroundAction:" target="TnB-Sk-yOp" id="Jcq-VR-nbX"/>
-                    </connections>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="ytJ-NM-n08"/>
                 <menuItem title=" Play this track" image="Play-Padded-Small" id="SK1-ql-k4b" userLabel="Play this track">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -657,7 +649,6 @@
         <image name="ShowInFinder" width="15" height="15"/>
         <image name="Sort" width="32" height="27"/>
         <image name="ToggleChaptersList-Small" width="14" height="11"/>
-        <image name="Transcode-Small" width="16" height="12"/>
         <image name="Up" width="25" height="35"/>
         <image name="Up-Small" width="10" height="14"/>
     </resources>

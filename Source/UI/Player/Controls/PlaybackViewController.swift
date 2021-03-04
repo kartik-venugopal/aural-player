@@ -21,7 +21,6 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
-        Messenger.subscribeAsync(self, .player_trackNotTranscoded, self.trackNotTranscoded(_:), queue: .main)
         
         Messenger.subscribe(self, .fx_playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
@@ -165,14 +164,6 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         } else {
             alertDialog.showAlert(.error, "Track not played", "", notification.error.message)
         }
-    }
-    
-    private func transcodingStarted() {
-        playbackView.transcodingStarted()
-    }
-    
-    func trackNotTranscoded(_ notification: TrackNotTranscodedNotification) {
-        alertDialog.showAlert(.error, "Track not transcoded", notification.track.defaultDisplayName, notification.error.message)
     }
     
     // MARK: Seeking actions/functions ------------------------------------------------------------

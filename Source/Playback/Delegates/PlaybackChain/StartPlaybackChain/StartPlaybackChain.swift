@@ -22,8 +22,6 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
         .withAction(ApplyPlaybackProfileAction(profiles, preferences))
         .withAction(AudioFilePreparationAction(player: player, trackReader: trackReader))
         .withAction(StartPlaybackAction(player))
-        
-//        Messenger.subscribeAsync(self, .transcoder_finished, self.transcodingFinished(_:), queue: .main)
     }
     
     // Halts playback and ends the playback sequence when an error is encountered.
@@ -36,25 +34,4 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
         Messenger.publish(TrackNotPlayedNotification(oldTrack: context.currentTrack, error: error))
         complete(context)
     }
-    
-    // Responds when transcoding for a track has finished.
-    // Either proceeds with playback, or terminates the chain, depending on
-    // transcoding success/failure.
-//    func transcodingFinished(_ notification: TranscodingFinishedNotification) {
-//
-//        // Match the transcoded track to that from the deferred (i.e. current) request context.
-//        if let currentContext = PlaybackRequestContext.currentContext, notification.track == currentContext.requestedTrack {
-//
-//            // Proceed with playback if transcoding was successful.
-//            if notification.success {
-//
-//                proceed(currentContext)
-//            }
-//
-////            } else if let error = notification.track.lazyLoadingInfo.preparationError {
-////
-////                terminate(currentContext, error)
-////            }
-//        }
-//    }
 }

@@ -9,8 +9,7 @@ protocol NotificationPayload {
 
 /*
     Signifies that a track transition has occurred, i.e. either the playback state, the current
-    track, or both, have changed. eg. when changing tracks or a track goes from transcoding
-    to playing, or when a playing track is stopped.
+    track, or both, have changed. eg. when changing tracks or when a playing track is stopped.
  
     Contains information required for UI elements to update themselves to reflect the new state.
  */
@@ -300,50 +299,6 @@ struct TrackNotPlayedNotification: NotificationPayload {
     
     // An error object containing detailed information such as the failed track's file and the root cause.
     let error: DisplayableError
-}
-
-// Signifies that an error was encountered while attempting to transcode a track.
-struct TrackNotTranscodedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .player_trackNotTranscoded
-    
-    // The track for which the failure occurred.
-    let track: Track
-    
-    // An error object containing detailed information such as the track file and the root cause.
-    let error: InvalidTrackError
-}
-
-/*
-    Encapsulates progress information for an ongoing transcoding task, that can be displayed in the UI.
- */
-struct TranscodingProgressNotification: NotificationPayload {
-
-    let notificationName: Notification.Name = .transcoder_progress
-    
-    // The track being transcoded.
-    let track: Track
-    
-    // Task percentage completed.
-    let percentageTranscoded: Double
-    
-    // Task time elapsed so far.
-    let timeElapsed: Double
-    
-    // Estimated task time remaining.
-    let timeRemaining: Double
-}
-
-// Signifies that a transcoding task has finished.
-struct TranscodingFinishedNotification: NotificationPayload {
-    
-    let notificationName: Notification.Name = .transcoder_finished
-    
-    // The track that was transcoded.
-    let track: Track
-    
-    // Whether or not the task succeeded.
-    let success: Bool
 }
 
 // A user input mode that determines how the user provided a certain input, which in turn
