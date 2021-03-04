@@ -342,8 +342,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // Save playback settings if the option either requires saving settings for all tracks, or if
         // the option has been set for this particular playing track.
-        if preferences.rememberLastPosition,
-            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
+        if preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
             
             // Remember the current playback settings the next time this track plays.
             // Update the profile with the latest settings for this track.

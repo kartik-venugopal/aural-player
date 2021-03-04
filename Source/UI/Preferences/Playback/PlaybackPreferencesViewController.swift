@@ -30,7 +30,6 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnAutoplayIfNotPlaying: NSButton!
     @IBOutlet weak var btnAutoplayAlways: NSButton!
     
-    @IBOutlet weak var btnRememberPosition: NSButton!
     @IBOutlet weak var btnRememberPosition_allTracks: NSButton!
     @IBOutlet weak var btnRememberPosition_individualTracks: NSButton!
     
@@ -103,8 +102,6 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Remember last track position
         
-        btnRememberPosition.onIf(prefs.rememberLastPosition)
-        
         if prefs.rememberLastPositionOption == .individualTracks {
             btnRememberPosition_individualTracks.on()
         } else {
@@ -148,10 +145,6 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         // Needed for radio button group
     }
     
-    @IBAction func rememberLastPositionAction(_ sender: Any) {
-        
-    }
-    
     @IBAction func rememberLastPositionRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
     }
@@ -192,15 +185,13 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         prefs.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.isOn
         prefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.isOn ? .ifNotPlaying : .always
         
-        prefs.rememberLastPosition = btnRememberPosition.isOn
-        
         let wasAllTracks: Bool = prefs.rememberLastPositionOption == .allTracks
         
         prefs.rememberLastPositionOption = btnRememberPosition_individualTracks.isOn ? .individualTracks : .allTracks
         
         let isNowIndividualTracks: Bool = prefs.rememberLastPositionOption == .individualTracks
         
-        if !prefs.rememberLastPosition || (wasAllTracks && isNowIndividualTracks) {
+        if wasAllTracks && isNowIndividualTracks {
             playbackProfiles.removeAll()
         }
     }

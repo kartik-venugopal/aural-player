@@ -23,7 +23,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     var autoplayAfterAddingTracks: Bool
     var autoplayAfterAddingOption: AutoplayAfterAddingOptions
     
-    var rememberLastPosition: Bool
     var rememberLastPositionOption: RememberSettingsForTrackOptions
     
     convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
@@ -61,8 +60,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
             autoplayAfterAddingOption = PreferencesDefaults.Playback.autoplayAfterAddingOption
         }
         
-        rememberLastPosition = defaultsDictionary["playback.rememberLastPosition"] as? Bool ?? PreferencesDefaults.Playback.rememberLastPosition
-        
         if let optionStr = defaultsDictionary["playback.rememberLastPosition.option"] as? String {
             rememberLastPositionOption = RememberSettingsForTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Playback.rememberLastPositionOption
         } else {
@@ -84,7 +81,6 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults.set(autoplayAfterAddingTracks, forKey: "playback.autoplayAfterAddingTracks")
         defaults.set(autoplayAfterAddingOption.rawValue, forKey: "playback.autoplayAfterAddingTracks.option")
         
-        defaults.set(rememberLastPosition, forKey: "playback.rememberLastPosition")
         defaults.set(rememberLastPositionOption.rawValue, forKey: "playback.rememberLastPosition.option")
     }
 }
