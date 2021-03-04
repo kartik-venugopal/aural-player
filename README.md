@@ -1,4 +1,4 @@
-# Aural Player
+<img width="375" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
