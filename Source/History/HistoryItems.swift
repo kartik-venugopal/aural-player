@@ -29,7 +29,7 @@ class HistoryItem: EquatableHistoryItem {
         get {
             
             if let track = self.track {
-                return track.conciseDisplayName
+                return track.defaultDisplayName
             }
             
             return _displayName
@@ -75,7 +75,7 @@ class AddedItem: HistoryItem {
     }
     
     init(_ track: Track, _ time: Date) {
-        super.init(track.file, track.conciseDisplayName, time)
+        super.init(track.file, track.defaultDisplayName, time)
         self.track = track
     }
     
@@ -117,7 +117,7 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
     
     init(_ track: Track, _ time: Date) {
         
-        super.init(track.file, track.conciseDisplayName, time)
+        super.init(track.file, track.defaultDisplayName, time)
         self.track = track
     }
     

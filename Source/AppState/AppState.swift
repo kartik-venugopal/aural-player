@@ -11,7 +11,6 @@ class AppState {
     var audioGraph: AudioGraphState = AudioGraphState()
     var playlist: PlaylistState = PlaylistState()
     var playbackSequence: PlaybackSequenceState = PlaybackSequenceState()
-    var transcoder: TranscoderState = TranscoderState()
     
     var history: HistoryState = HistoryState()
     var favorites: [(file: URL, name: String)] = [(file: URL, name: String)]()
@@ -39,10 +38,6 @@ class AppState {
         
         if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
             state.playlist = PlaylistState.deserialize(playlistDict) as! PlaylistState
-        }
-        
-        if let transcoderDict = (jsonObject["transcoder"] as? NSDictionary) {
-            state.transcoder = TranscoderState.deserialize(transcoderDict) as! TranscoderState
         }
         
         if let historyDict = (jsonObject["history"] as? NSDictionary) {

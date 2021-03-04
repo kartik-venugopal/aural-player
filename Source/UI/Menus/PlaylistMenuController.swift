@@ -93,7 +93,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected
         
-        if numSelectedRows == 1 && !onlyGroupsSelected && selectedTrack == playbackInfo.transcodingTrack {
+        if numSelectedRows == 1 && !onlyGroupsSelected {
             playSelectedItemMenuItem.disable()
         }
         

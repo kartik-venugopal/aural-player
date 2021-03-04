@@ -70,9 +70,9 @@ fileprivate func artForFile(_ _file: URL) -> NSImage? {
             
         } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
             
-            if let img = MetadataUtils.artForFile(file), let imgCopy = img.image.copy() as? NSImage {
-                return imgCopy
-            }
+//            if let img = MetadataUtils.artForFile(file), let imgCopy = img.image.copy() as? NSImage {
+//                return imgCopy
+//            }
         }
     }
     

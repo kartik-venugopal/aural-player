@@ -69,11 +69,11 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         switch self.typeOfGroups {
             
-        case .artist: return track.groupingInfo.artist ?? "<Unknown>"
+        case .artist: return track.artist ?? "<Unknown>"
             
-        case .album: return track.groupingInfo.album ?? "<Unknown>"
+        case .album: return track.album ?? "<Unknown>"
             
-        case .genre: return track.groupingInfo.genre ?? "<Unknown>"
+        case .genre: return track.genre ?? "<Unknown>"
             
         }
     }
@@ -93,7 +93,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     func displayNameForTrack(_ track: Track) -> String {
-        return self.typeOfGroups == .genre ? track.conciseDisplayName : (track.displayInfo.title ?? track.conciseDisplayName)
+        return self.typeOfGroups == .genre ? track.defaultDisplayName : (track.title ?? track.defaultDisplayName)
     }
     
     func search(_ query: SearchQuery) -> SearchResults {

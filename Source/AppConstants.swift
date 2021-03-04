@@ -14,6 +14,11 @@ struct AppConstants {
         static let m3u8: String = "m3u8"
         static let playlistExtensions: [String] = [m3u, m3u8]
         
+        ///
+        /// A list of extensions of files that represent raw audio streams that lack accurate duration information.
+        ///
+        static let rawAudioFileExtensions: [String] = ["aac", "adts", "ac3", "dts"]
+        
         // Supported audio file types/formats
         
         private static let globallyNativeAudioExtensions: [String] = ["aac", "adts", "ac3", "aif", "aiff", "aifc", "caf", "mp1", "mp2", "mp3", "m4a", "m4b", "m4r", "snd", "au", "sd2", "wav"]

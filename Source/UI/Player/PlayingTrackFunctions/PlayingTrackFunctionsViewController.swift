@@ -82,7 +82,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             } else {
                 
                 // TODO: This should be done through a delegate (TrackDelegate ???)
-                playingTrack.loadDetailedInfo()
+//                playingTrack.loadDetailedInfo()
                 
                 WindowManager.mainWindow.makeKeyAndOrderFront(self)
                 
@@ -151,12 +151,12 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         if let theEndTime = endTime {
             
             // Loop
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.conciseDisplayName, ValueFormatter.formatSecondsToHMS(startTime), ValueFormatter.formatSecondsToHMS(theEndTime))
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.defaultDisplayName, ValueFormatter.formatSecondsToHMS(startTime), ValueFormatter.formatSecondsToHMS(theEndTime))
             
         } else {
             
             // Single position
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.conciseDisplayName, ValueFormatter.formatSecondsToHMS(startTime))
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.defaultDisplayName, ValueFormatter.formatSecondsToHMS(startTime))
         }
         
         // Show popover
@@ -240,7 +240,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             
             if detailedInfoPopover.isShown {
                 
-                theNewTrack.loadDetailedInfo()
+//                theNewTrack.loadDetailedInfo()
                 detailedInfoPopover.refresh(theNewTrack)
             }
             

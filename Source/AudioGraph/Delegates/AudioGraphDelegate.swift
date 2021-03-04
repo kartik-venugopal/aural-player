@@ -98,9 +98,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged && msg.transcodingStarted && self.preferences.rememberEffectsSettings},
-                                 queue: notificationQueue)
+        // TODO: Do we need this ? PlaybackDelegate should take care of applying effects before track playback.
+        // This was required before due to the transcoding state
+        
+//        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+//                                 filter: {msg in msg.trackChanged && self.preferences.rememberEffectsSettings},
+//                                 queue: notificationQueue)
         
         Messenger.subscribe(self, .fx_saveSoundProfile, self.saveSoundProfile)
         Messenger.subscribe(self, .fx_deleteSoundProfile, self.deleteSoundProfile)

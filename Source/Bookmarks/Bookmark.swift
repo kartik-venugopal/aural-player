@@ -5,13 +5,13 @@ class Bookmark: StringKeyedItem {
     // A name or description (e.g. "2nd chapter of audiobook")
     private var _name: String
     
-    // Used by the UI (track.conciseDisplayName)
+    // Used by the UI (track.defaultDisplayName)
     var name: String {
         
         get {
             
             if let track = self.track {
-                return track.conciseDisplayName
+                return track.defaultDisplayName
             }
             
             return _name

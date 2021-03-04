@@ -18,7 +18,6 @@ import Cocoa
 class PlayerViewController: NSViewController, NotificationSubscriber {
     
     private var playingTrackView: PlayingTrackView = ViewFactory.playingTrackView as! PlayingTrackView
-    private var transcodingTrackView: NSView = ViewFactory.transcodingTrackView
     
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
@@ -27,42 +26,9 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
     
     override func viewDidLoad() {
         
-        [playingTrackView, transcodingTrackView].forEach({
-            
-            self.view.addSubview($0)
-            $0.setFrameOrigin(NSPoint.zero)
-        })
+        view.addSubview(playingTrackView)
+        playingTrackView.setFrameOrigin(NSPoint.zero)
 
-        switchView()
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.switchView, queue: .main)
-        Messenger.subscribeAsync(self, .transcoder_finished, self.transcodingFinished(_:), queue: .main)
-    }
-    
-    // Depending on current player state, switch to one of the 3 views.
-    func switchView() {
-        
-        switch player.state {
-
-        case .noTrack, .playing, .paused:
-            
-            transcodingTrackView.hide()
-            playingTrackView.showView()
-
-        case .transcoding:
-            
-            playingTrackView.hideView()
-            transcodingTrackView.show()
-        }
-    }
-    
-    func transcodingFinished(_ notif: TranscodingFinishedNotification) {
-        
-        // Check if transcoding failed.
-        if !notif.success {
-            
-            // Hide the transcoding view.
-            transcodingTrackView.hide()
-            playingTrackView.showView()
-        }
+        playingTrackView.showView()
     }
 }

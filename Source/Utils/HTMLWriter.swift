@@ -147,14 +147,13 @@ class HTMLWriter {
     }
 }
 
-class HTMLWriteError: Error, DisplayableError {
+class HTMLWriteError: DisplayableError {
     
-    var message: String
     var description: String
     
     init(description: String) {
         
         self.description = description
-        self.message = "Error writing HTML object to file"
+        super.init("Error writing HTML object to file")
     }
 }

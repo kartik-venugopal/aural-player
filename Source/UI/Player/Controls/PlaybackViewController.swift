@@ -160,8 +160,11 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         
         self.trackChanged(nil)
         
-        let error = notification.error
-        alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
+        if let invalidTrackError = notification.error as? InvalidTrackError {
+            alertDialog.showAlert(.error, "Track not played", invalidTrackError.file.lastPathComponent, notification.error.message)
+        } else {
+            alertDialog.showAlert(.error, "Track not played", "", notification.error.message)
+        }
     }
     
     private func transcodingStarted() {
@@ -169,7 +172,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
     }
     
     func trackNotTranscoded(_ notification: TrackNotTranscodedNotification) {
-        alertDialog.showAlert(.error, "Track not transcoded", notification.track.conciseDisplayName, notification.error.message)
+        alertDialog.showAlert(.error, "Track not transcoded", notification.track.defaultDisplayName, notification.error.message)
     }
     
     // MARK: Seeking actions/functions ------------------------------------------------------------
@@ -323,13 +326,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
     // MARK: Message handling ---------------------------------------------------------------------
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
-        
-        if notification.transcodingStarted {
-            transcodingStarted()
-            
-        } else {
-            trackChanged(notification.endTrack)
-        }
+        trackChanged(notification.endTrack)
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.

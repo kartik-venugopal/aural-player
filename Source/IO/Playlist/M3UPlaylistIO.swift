@@ -23,7 +23,7 @@ class M3UPlaylistIO: PlaylistIOProtocol {
         for track in playlist.tracks {
             
             // EXTINF line consists of the prefix, followed by duration and track name (without extension)
-            let extInfo = String(format: "%@%d,%@", infoPrefix, roundedInt(track.duration), track.conciseDisplayName)
+            let extInfo = String(format: "%@%d,%@", infoPrefix, roundedInt(track.duration), track.defaultDisplayName)
             contents.append(extInfo + "\n")
             
             // Compute a relative path for this track, relative to the playlist folder.

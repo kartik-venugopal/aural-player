@@ -29,7 +29,4 @@ protocol PlaybackSchedulerProtocol {
 
     // Clears any previously scheduled audio segments, and stops playback.
     func stop()
-    
-    // Retrieves the current seek position, in seconds
-    var seekPosition: Double {get}
 }

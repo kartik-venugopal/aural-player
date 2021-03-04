@@ -75,11 +75,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         case .playing:
             
             pause()
-            
-        case .transcoding:
-            
-            // Do nothing if transcoding
-            return
         }
     }
     
@@ -326,10 +321,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     
     var playingTrack: Track? {
         return state.isPlayingOrPaused ? sequencer.currentTrack : nil
-    }
-    
-    var transcodingTrack: Track? {
-        return state == .transcoding ? sequencer.currentTrack : nil
     }
     
     var playingTrackStartTime: TimeInterval? {

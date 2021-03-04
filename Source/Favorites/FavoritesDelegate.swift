@@ -21,7 +21,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     
     func addFavorite(_ track: Track) -> Favorite {
         
-        let fav = favorites.addFavorite(track.file, track.conciseDisplayName)
+        let fav = favorites.addFavorite(track.file, track.defaultDisplayName)
         Messenger.publish(.favoritesList_trackAdded, payload: track.file)
         
         return fav

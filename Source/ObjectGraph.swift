@@ -21,8 +21,11 @@ class ObjectGraph {
     static var audioGraphDelegate: AudioGraphDelegateProtocol!
     
     private static var player: PlayerProtocol!
-    private static var playbackScheduler: PlaybackSchedulerProtocol!
+    private static var avfScheduler: PlaybackSchedulerProtocol!
+    private static var ffmpegScheduler: PlaybackSchedulerProtocol!
     private static var sequencer: SequencerProtocol!
+    
+    static var sampleConverter: SampleConverterProtocol!
     
     static var sequencerDelegate: SequencerDelegateProtocol!
     static var sequencerInfoDelegate: SequencerInfoDelegateProtocol! {return sequencerDelegate}
@@ -42,21 +45,7 @@ class ObjectGraph {
     private static var bookmarks: Bookmarks!
     static var bookmarksDelegate: BookmarksDelegateProtocol!
     
-    static var transcoder: TranscoderProtocol!
-    static var muxer: MuxerProtocol!
-    
-    static var avAssetReader: AVAssetReader!
-    static var commonAVAssetParser: CommonAVAssetParser!
-    static var id3Parser: ID3Parser!
-    static var iTunesParser: ITunesParser!
-    static var audioToolboxParser: AudioToolboxParser!
-    
-    static var ffmpegReader: FFMpegReader!
-    static var commonFFMpegParser: CommonFFMpegMetadataParser!
-    static var wmParser: WMParser!
-    static var vorbisParser: VorbisCommentParser!
-    static var apeParser: ApeV2Parser!
-    static var defaultParser: DefaultFFMpegMetadataParser!
+    static var trackReader: TrackReader!
     
     static var mediaKeyHandler: MediaKeyHandler!
     
@@ -82,13 +71,16 @@ class ObjectGraph {
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
         // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.
         if #available(macOS 10.13, *) {
-            playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
+            avfScheduler = PlaybackScheduler(audioGraph.playerNode)
         } else {
-            playbackScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
+            avfScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
         }
         
+        sampleConverter = SampleConverter()
+        ffmpegScheduler = FFmpegScheduler(playerNode: audioGraph.playerNode, sampleConverter: sampleConverter)
+        
         // Player
-        player = Player(audioGraph, playbackScheduler)
+        player = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
         
         // Playlist
         let flatPlaylist = FlatPlaylist()
@@ -106,7 +98,7 @@ class ObjectGraph {
         sequencer = Sequencer(playlist, repeatMode, shuffleMode, playlistType)
         sequencerDelegate = SequencerDelegate(sequencer)
         
-        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, sequencerDelegate)
+        trackReader = TrackReader()
         
         let profiles = PlaybackProfiles()
         
@@ -114,8 +106,8 @@ class ObjectGraph {
             profiles.add(profile.file, profile)
         }
         
-        let startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences.playbackPreferences)
-        let stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences.playbackPreferences)
+        let startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, trackReader: trackReader, profiles, preferences.playbackPreferences)
+        let stopPlaybackChain = StopPlaybackChain(player, sequencer, profiles, preferences.playbackPreferences)
         let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer)
         
         // Playback Delegate
@@ -141,29 +133,10 @@ class ObjectGraph {
         favorites = Favorites()
         favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState!.favorites)
         
-        muxer = Muxer()
-        
-        commonAVAssetParser = CommonAVAssetParser()
-        id3Parser = ID3Parser()
-        iTunesParser = ITunesParser()
-        audioToolboxParser = AudioToolboxParser()
-        
-        avAssetReader = AVAssetReader(commonAVAssetParser, id3Parser, iTunesParser, audioToolboxParser, muxer)
-        
-        commonFFMpegParser = CommonFFMpegMetadataParser()
-        wmParser = WMParser()
-        vorbisParser = VorbisCommentParser()
-        apeParser = ApeV2Parser()
-        defaultParser = DefaultFFMpegMetadataParser()
-        
-        ffmpegReader = FFMpegReader(commonFFMpegParser, id3Parser, vorbisParser, apeParser, wmParser, defaultParser, muxer)
-
         mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
         
         // Initialize utility classes.
         
-        AudioUtils.initialize(transcoder)
-        MetadataUtils.initialize(playlistDelegate, avAssetReader, ffmpegReader)
         PlaylistIO.initialize(playlist)
         
         // UI-related utility classes
@@ -200,8 +173,6 @@ class ObjectGraph {
         appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
         appState.playbackSequence = (sequencer as! Sequencer).persistentState as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
-        
-        appState.transcoder = (transcoder as! Transcoder).persistentState as! TranscoderState
         
         appState.ui = UIState()
         appState.ui.windowLayout = WindowManager.persistentState

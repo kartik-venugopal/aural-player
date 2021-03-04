@@ -21,17 +21,17 @@ class FileSystemDataSource: TrackInfoDataSource {
         
         trackInfo.append((key: "Location", value: track.file.path))
         
-        if let kindOfFile = track.fileSystemInfo.kindOfFile {
-            trackInfo.append((key: "Kind", value: kindOfFile))
-        }
-        
-        trackInfo.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
-        trackInfo.append((key: "Created", value: dateFormatter.string(from: track.fileSystemInfo.creationDate!)))
-        trackInfo.append((key: "Last Modified", value: dateFormatter.string(from: track.fileSystemInfo.lastModified!)))
-        
-        if let openDate = track.fileSystemInfo.lastOpened {
-            trackInfo.append((key: "Last Opened", value: dateFormatter.string(from: openDate)))
-        }
+//        if let kindOfFile = track.fileSystemInfo.kindOfFile {
+//            trackInfo.append((key: "Kind", value: kindOfFile))
+//        }
+//        
+//        trackInfo.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
+//        trackInfo.append((key: "Created", value: dateFormatter.string(from: track.fileSystemInfo.creationDate!)))
+//        trackInfo.append((key: "Last Modified", value: dateFormatter.string(from: track.fileSystemInfo.lastModified!)))
+//        
+//        if let openDate = track.fileSystemInfo.lastOpened {
+//            trackInfo.append((key: "Last Opened", value: dateFormatter.string(from: openDate)))
+//        }
         
         return trackInfo
     }

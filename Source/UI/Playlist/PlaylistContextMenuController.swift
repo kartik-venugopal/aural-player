@@ -53,8 +53,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let transcoder: TranscoderProtocol = ObjectGraph.transcoder
-    
     // Delegate that provides access to History information
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
@@ -101,9 +99,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             
             guard let theClickedTrack = clickedTrack else {return}
             
-            transcodeTrackMenuItem.showIf_elseHide(transcoder.trackNeedsTranscoding(theClickedTrack))
-            playTrackMenuItem.hideIf_elseShow(playbackInfo.transcodingTrack == theClickedTrack)
-
             // Update the state of the favorites menu item (based on if the clicked track is already in the favorites list or not)
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(theClickedTrack.file))
             
@@ -115,23 +110,6 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             // Show all group-specific menu items, hide track-specific ones
             trackMenuItems.forEach({$0.hide()})
             groupMenuItems.forEach({$0.show()})
-        }
-    }
-    
-    @IBAction func transcodeTrackInBackgroundAction(_ sender: Any) {
-        
-        guard let track = clickedTrack else {return}
-        
-        transcoder.transcodeInBackground(track)
-        
-        if !track.lazyLoadingInfo.preparationFailed {
-            
-            WindowManager.playlistWindow.makeKeyAndOrderFront(self)
-            
-            infoPopup.showMessage("Transcoding track ...", playlistSelectedRowView, NSRectEdge.maxX)
-            
-            // If this isn't done, the app windows are hidden when the popover is displayed
-            WindowManager.mainWindow.orderFront(self)
         }
     }
     
@@ -169,7 +147,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         guard let theClickedTrack = clickedTrack else {return}
         
-        theClickedTrack.loadDetailedInfo()
+//        theClickedTrack.loadDetailedInfo()
         
         WindowManager.playlistWindow.makeKeyAndOrderFront(self)
         detailedInfoPopover.show(theClickedTrack, playlistSelectedRowView, NSRectEdge.maxY)   // Display the popover below the selected row

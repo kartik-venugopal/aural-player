@@ -20,7 +20,7 @@ class TranscodingPreferencesViewController: NSViewController, PreferencesViewPro
     @IBOutlet weak var maxTasksStepper: NSStepper!
     @IBOutlet weak var lblMaxRecommendedTasks: NSTextField!
     
-    private let transcoder: TranscoderProtocol = ObjectGraph.transcoder
+//    private let transcoder: TranscoderProtocol = ObjectGraph.transcoder
     
     override func viewDidLoad() {
         lblMaxRecommendedTasks.stringValue = String(format: "( Max. recommended value on this system:   %d )", ProcessInfo.processInfo.activeProcessorCount - 1)

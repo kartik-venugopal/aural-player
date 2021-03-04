@@ -65,17 +65,16 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         let playbackState = playbackInfo.state
         let isPlayingOrPaused = playbackState.isPlayingOrPaused
-        let isPlayingPausedOrTranscoding = isPlayingOrPaused || playbackState == .transcoding
         let noTrack = playbackState == .noTrack
         
         // Play/pause enabled if at least one track available
-        playOrPauseMenuItem.enableIf(playlist.size > 0 && playbackState != .transcoding)
+        playOrPauseMenuItem.enableIf(playlist.size > 0)
         
         stopMenuItem.enableIf(!noTrack)
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
         
         // Enabled only in regular mode if playing/paused
-        showInPlaylistMenuItem.enableIf(isPlayingPausedOrTranscoding && WindowManager.isShowingPlaylist)
+        showInPlaylistMenuItem.enableIf(isPlayingOrPaused && WindowManager.isShowingPlaylist)
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused)})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)

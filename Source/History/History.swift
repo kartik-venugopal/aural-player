@@ -41,7 +41,7 @@ class History: HistoryProtocol {
     }
     
     func addRecentlyPlayedItem(_ item: Track, _ time: Date) {
-        recentlyPlayedItems.add(PlayedItem(item.file, item.conciseDisplayName, time))
+        recentlyPlayedItems.add(PlayedItem(item.file, item.defaultDisplayName, time))
     }
     
     func addRecentlyPlayedItem(_ file: URL, _ name: String, _ time: Date) {

@@ -50,11 +50,6 @@ struct TrackTransitionNotification: NotificationPayload {
         return beginState != endState
     }
     
-    // Whether or not transcoding of a track has started as a result of this transition.
-    var transcodingStarted: Bool {
-        return endState == .transcoding
-    }
-    
     init(beginTrack: Track?, beginState: PlaybackState, endTrack: Track?, endState: PlaybackState) {
         
         self.beginTrack = beginTrack
@@ -304,7 +299,7 @@ struct TrackNotPlayedNotification: NotificationPayload {
     let oldTrack: Track?
     
     // An error object containing detailed information such as the failed track's file and the root cause.
-    let error: InvalidTrackError
+    let error: DisplayableError
 }
 
 // Signifies that an error was encountered while attempting to transcode a track.
