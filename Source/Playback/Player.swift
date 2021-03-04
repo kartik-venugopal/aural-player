@@ -27,7 +27,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
         self.avfScheduler = avfScheduler
         self.ffmpegScheduler = ffmpegScheduler
         
-        Messenger.subscribeAsync(self, .audioGraph_outputDeviceChanged, self.audioEngineRestarted, queue: .main)
+        Messenger.subscribeAsync(self, .audioGraph_outputDeviceChanged, self.audioOutputDeviceChanged, queue: .main)
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
@@ -246,9 +246,8 @@ class Player: PlayerProtocol, NotificationSubscriber {
     
     // MARK: Message handling
 
-    // When the audio engine is restarted, we need to resume playback from the previous seek position,
-    // if a track was playing before the event occurred.
-    func audioEngineRestarted() {
+    // When the audio output device changes, restart the audio engine and continue playback as before.
+    func audioOutputDeviceChanged() {
         
         // First, check if a track is playing.
         if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {

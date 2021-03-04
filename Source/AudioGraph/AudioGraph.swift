@@ -115,6 +115,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     @objc func outputChanged() {
         
         deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
+        audioEngineHelper.start()
         
         // Send out a notification
         Messenger.publish(.audioGraph_outputDeviceChanged)
