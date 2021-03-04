@@ -33,6 +33,7 @@ class AudioFilePreparationAction: PlaybackChainAction {
         
         do {
             
+            try trackReader.computePlaybackContext(for: track)
             try trackReader.prepareForPlayback(track: track)
 
             // Proceed if not waiting

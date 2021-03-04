@@ -92,9 +92,9 @@ class AVFFileReader: FileReaderProtocol {
         metadata.duration = meta.asset.duration.seconds
         metadata.durationIsAccurate = false
         
-//        if let art = parsers.firstNonNilMappedValue({$0.getArt(meta)}) {
-//            metadata.art = CoverArt(art)
-//        }
+        if let art = parsers.firstNonNilMappedValue({$0.getArt(meta)}) {
+            metadata.art = CoverArt(art)
+        }
         
         return metadata
     }

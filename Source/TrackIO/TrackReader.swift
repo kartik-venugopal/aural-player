@@ -54,7 +54,15 @@ class TrackReader {
     }
     
     func prepareForPlayback(track: Track) throws {
-        try track.playbackContext?.open()
+        
+        if let theContext = track.playbackContext {
+            try theContext.open()
+            
+        } else {
+            
+            try computePlaybackContext(for: track)
+            try track.playbackContext?.open()
+        }
     }
     
     func loadSecondaryMetadata(for track: Track) {

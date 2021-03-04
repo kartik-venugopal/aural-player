@@ -120,7 +120,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         if okToPlay, let newTrack = trackProducer() {
             
             let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, params)
-            
             startPlaybackChain.execute(requestContext)
         }
     }

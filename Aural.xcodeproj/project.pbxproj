@@ -525,8 +525,6 @@
 		3EDB340B25E8AEB8004DF7DE /* libavutil.56.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3EDB334B25E8AD89004DF7DE /* libavutil.56.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3EDB340C25E8AEBC004DF7DE /* libavcodec.58.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EDB334F25E8AD89004DF7DE /* libavcodec.58.dylib */; };
 		3EDB340D25E8AEBC004DF7DE /* libavcodec.58.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3EDB334F25E8AD89004DF7DE /* libavcodec.58.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		3EDB340E25E8AECD004DF7DE /* libspeex.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EDB334D25E8AD89004DF7DE /* libspeex.1.dylib */; };
-		3EDB340F25E8AECD004DF7DE /* libspeex.1.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 3EDB334D25E8AD89004DF7DE /* libspeex.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3EDB344925E8B75D004DF7DE /* ID3FFmpegParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB342825E8B75D004DF7DE /* ID3FFmpegParser.swift */; };
 		3EDB344A25E8B75D004DF7DE /* FFmpegMetadataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB342925E8B75D004DF7DE /* FFmpegMetadataParser.swift */; };
 		3EDB344B25E8B75D004DF7DE /* DefaultFFMpegMetadataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB342A25E8B75D004DF7DE /* DefaultFFMpegMetadataParser.swift */; };
@@ -583,7 +581,6 @@
 				3EDB340925E8AEB5004DF7DE /* libavformat.58.dylib in Embed Libraries */,
 				3EDB340625E8AEB3004DF7DE /* libswresample.3.dylib in Embed Libraries */,
 				3EDB340B25E8AEB8004DF7DE /* libavutil.56.dylib in Embed Libraries */,
-				3EDB340F25E8AECD004DF7DE /* libspeex.1.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1086,7 +1083,6 @@
 		3EDB334925E8AD89004DF7DE /* libswresample.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libswresample.3.dylib; sourceTree = "<group>"; };
 		3EDB334A25E8AD89004DF7DE /* libavformat.58.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libavformat.58.dylib; sourceTree = "<group>"; };
 		3EDB334B25E8AD89004DF7DE /* libavutil.56.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libavutil.56.dylib; sourceTree = "<group>"; };
-		3EDB334D25E8AD89004DF7DE /* libspeex.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libspeex.1.dylib; sourceTree = "<group>"; };
 		3EDB334F25E8AD89004DF7DE /* libavcodec.58.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libavcodec.58.dylib; sourceTree = "<group>"; };
 		3EDB335125E8ADBA004DF7DE /* Aural-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Aural-Bridging-Header.h"; sourceTree = "<group>"; };
 		3EDB335225E8ADBA004DF7DE /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ffmpeg.h; path = "../../Aural-richUI/Source/ffmpeg.h"; sourceTree = "<group>"; };
@@ -1284,7 +1280,6 @@
 				3EDB340825E8AEB5004DF7DE /* libavformat.58.dylib in Frameworks */,
 				3EDB340525E8AEB3004DF7DE /* libswresample.3.dylib in Frameworks */,
 				3EDB340A25E8AEB8004DF7DE /* libavutil.56.dylib in Frameworks */,
-				3EDB340E25E8AECD004DF7DE /* libspeex.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2699,7 +2694,6 @@
 				3EDB334925E8AD89004DF7DE /* libswresample.3.dylib */,
 				3EDB334A25E8AD89004DF7DE /* libavformat.58.dylib */,
 				3EDB334B25E8AD89004DF7DE /* libavutil.56.dylib */,
-				3EDB334D25E8AD89004DF7DE /* libspeex.1.dylib */,
 				3EDB334F25E8AD89004DF7DE /* libavcodec.58.dylib */,
 			);
 			path = Frameworks;
