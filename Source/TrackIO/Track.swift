@@ -29,6 +29,10 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     
     let defaultDisplayName: String
     
+    var displayName: String {
+        artistTitleString ?? defaultDisplayName
+    }
+    
     var duration: Double = 0
 
     var title: String?

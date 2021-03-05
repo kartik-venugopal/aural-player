@@ -79,7 +79,7 @@ class SortComparator {
             
         case .artistTitle:
             
-            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.artistTitleString ?? $0.defaultDisplayName}, ""))
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.displayName}, ""))
             
         case .name:
             

@@ -121,7 +121,7 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
 //        self.trackChanged(nil)
 //
 //        let error = notification.error
-//        alertDialog.showAlert(.error, "Track not played", error.track?.defaultDisplayName ?? "<Unknown>", error.message)
+//        alertDialog.showAlert(.error, "Track not played", error.track?.displayName ?? "<Unknown>", error.message)
 //    }
 //
     func dismiss() {

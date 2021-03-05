@@ -93,7 +93,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     func displayNameForTrack(_ track: Track) -> String {
-        return self.typeOfGroups == .genre ? track.defaultDisplayName : (track.title ?? track.defaultDisplayName)
+        return self.typeOfGroups == .genre ? track.displayName : (track.title ?? track.defaultDisplayName)
     }
     
     func search(_ query: SearchQuery) -> SearchResults {

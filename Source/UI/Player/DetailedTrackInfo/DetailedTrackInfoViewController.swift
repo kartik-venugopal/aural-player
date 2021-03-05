@@ -155,7 +155,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         if let track = DetailedTrackInfoViewController.shownTrack, let image = track.art?.image {
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.defaultDisplayName + "-coverArt", fileExtension)
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-coverArt", fileExtension)
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url,
                 let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: type, properties: [:]) {
@@ -194,7 +194,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             dict["audio"] = audioDict
             dict["fileSystem"] = fileSystemDict
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.defaultDisplayName + "-metadata", "json")
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-metadata", "json")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 
@@ -248,7 +248,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             let audioHTML = tableToHTML(audioTable)
             let fileSystemHTML = tableToHTML(fileSystemTable)
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.defaultDisplayName + "-metadata", "html")
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-metadata", "html")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 
@@ -256,8 +256,8 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     
                     let html = HTMLWriter()
                     
-                    html.addTitle(track.defaultDisplayName)
-                    html.addHeading(track.defaultDisplayName, 2, false)
+                    html.addTitle(track.displayName)
+                    html.addHeading(track.displayName, 2, false)
                     
                     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
                     let text = String(format: "Metadata exported by Aural Player v%@ on: %@", appVersion, dateFormatter.string(from: Date()))
@@ -267,7 +267,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     // Embed art in HTML
                     if withArt, let image = track.art?.image, let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: .jpeg, properties: [:]) {
                         
-                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.defaultDisplayName + "-coverArt.jpg")
+                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.displayName + "-coverArt.jpg")
                         try data.write(to: imgFile)
                         html.addImage(imgFile.lastPathComponent, "(Cover Art)")
                     }

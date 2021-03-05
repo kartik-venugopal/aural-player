@@ -22,7 +22,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the track name column is used for type selection
-        return tableColumn?.identifier == .uid_trackName ? playlist.trackAtIndex(row)?.defaultDisplayName : nil
+        return tableColumn?.identifier == .uid_trackName ? playlist.trackAtIndex(row)?.displayName : nil
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -63,7 +63,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
         case .uid_trackName:
             
-            return createTrackNameCell(tableView, track.artistTitleString ?? track.defaultDisplayName, row)
+            return createTrackNameCell(tableView, track.displayName, row)
             
         case .uid_duration:
             

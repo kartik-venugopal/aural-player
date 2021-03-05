@@ -152,12 +152,12 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         if let theEndTime = endTime {
             
             // Loop
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.defaultDisplayName, ValueFormatter.formatSecondsToHMS(startTime), ValueFormatter.formatSecondsToHMS(theEndTime))
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.displayName, ValueFormatter.formatSecondsToHMS(startTime), ValueFormatter.formatSecondsToHMS(theEndTime))
             
         } else {
             
             // Single position
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.defaultDisplayName, ValueFormatter.formatSecondsToHMS(startTime))
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.displayName, ValueFormatter.formatSecondsToHMS(startTime))
         }
         
         // Show popover

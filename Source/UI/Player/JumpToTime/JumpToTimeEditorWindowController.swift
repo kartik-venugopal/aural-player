@@ -92,7 +92,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         let formattedDuration = ValueFormatter.formatSecondsToHMS(roundedDuration)
         let durationInt = Int(roundedDuration)
         
-        lblTrackName.stringValue = String(format: "Track:   %@", playingTrack.defaultDisplayName)
+        lblTrackName.stringValue = String(format: "Track:   %@", playingTrack.displayName)
         lblTrackDuration.stringValue = String(format: "Duration:   %@", formattedDuration)
         
         btnHMS.on()
