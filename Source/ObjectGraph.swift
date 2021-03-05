@@ -45,6 +45,7 @@ class ObjectGraph {
     private static var bookmarks: Bookmarks!
     static var bookmarksDelegate: BookmarksDelegateProtocol!
     
+    static var fileReader: FileReader!
     static var trackReader: TrackReader!
     
     static var mediaKeyHandler: MediaKeyHandler!
@@ -98,7 +99,8 @@ class ObjectGraph {
         sequencer = Sequencer(playlist, repeatMode, shuffleMode, playlistType)
         sequencerDelegate = SequencerDelegate(sequencer)
         
-        trackReader = TrackReader()
+        fileReader = FileReader()
+        trackReader = TrackReader(fileReader)
         
         let profiles = PlaybackProfiles()
         

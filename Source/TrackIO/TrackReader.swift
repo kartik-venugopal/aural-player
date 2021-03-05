@@ -2,10 +2,11 @@ import Foundation
 
 class TrackReader {
     
-    private var fileReader: FileReader = FileReader()
+    private var fileReader: FileReader
     
-    let avfReader: AVFFileReader = AVFFileReader()
-    let ffmpegReader: FFmpegFileReader = FFmpegFileReader()
+    init(_ fileReader: FileReader) {
+        self.fileReader = fileReader
+    }
     
     func loadPlaylistMetadata(for track: Track) {
         
@@ -49,21 +50,13 @@ class TrackReader {
             // Load art async, and send out an update notification if art was found.
             DispatchQueue.global(qos: .userInteractive).async {
                 
-                if track.isNativelySupported {
-                    track.art = self.avfReader.getArt(for: track.file)
-                } else {
-                    track.art = self.ffmpegReader.getArt(for: track.file)
-                }
+                track.art = self.fileReader.getArt(for: track.file)
                 
                 if track.art != nil {
                     Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
                 }
             }
         }
-    }
-    
-    func loadChapters(for track: Track) {
-        
     }
     
     func loadSecondaryMetadata(for track: Track) {
