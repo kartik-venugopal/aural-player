@@ -25,6 +25,7 @@ class TrackReader {
     
     func computePlaybackContext(for track: Track) throws {
         track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
+        // TODO: If duration has changed as a result of precise computation, set it in the track and send out an update notification
     }
     
     func prepareForPlayback(track: Track) throws {

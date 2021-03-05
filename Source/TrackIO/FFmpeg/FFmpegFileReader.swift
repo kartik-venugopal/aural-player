@@ -105,6 +105,8 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.duration = meta.fileCtx.duration
         metadata.durationIsAccurate = metadata.duration > 0 && meta.fileCtx.estimatedDurationIsAccurate
         
+        metadata.chapters = fctx.chapters.map {Chapter($0)}
+        
         return metadata
         
         // TODO: Set some fields on track to indicate whether or not the duration provided is accurate.

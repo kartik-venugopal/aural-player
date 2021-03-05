@@ -181,6 +181,16 @@ class Chapter {
         self.duration = duration == nil ? max(endTime - startTime, 0) : duration!
     }
     
+    init(_ ffmpegChapter: FFmpegChapter) {
+        
+        self.title = ffmpegChapter.title
+        
+        self.startTime = ffmpegChapter.startTime
+        self.endTime = ffmpegChapter.endTime
+        
+        self.duration = max(endTime - startTime, 0)
+    }
+    
     // Convenience function to determine if a given track position lies within this chapter's time bounds
     func containsTimePosition(_ seconds: Double) -> Bool {
         return seconds >= startTime && seconds <= endTime
