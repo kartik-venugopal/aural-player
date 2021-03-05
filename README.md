@@ -111,7 +111,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ### Visualizer
 
-![Visualizer demo GIF](/Documentation/Demos/Visualizer.gif?raw=true)
+<img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
 
 ### Changing the font scheme
 
