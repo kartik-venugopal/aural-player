@@ -57,29 +57,17 @@ class AVFFileReader: FileReaderProtocol {
         }
         
         var metadata = PrimaryMetadata()
-//        metadata.audioFormat = avfFormatDescriptions[audioTrack.format] ?? audioTrack.format4CharString
-        
-//        let fileExtension = file.pathExtension.lowercased()
-        
-//        if let kindOfFile = kindOfFile(path: file.path, fileExt: fileExtension) {
-//            metadata.fileType = kindOfFile
-//        }
         
         let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
 
         metadata.title = cleanUp(parsers.firstNonNilMappedValue {$0.getTitle(meta)})
+        
         metadata.artist = cleanUp(parsers.firstNonNilMappedValue {$0.getArtist(meta)})
         metadata.albumArtist = cleanUp(parsers.firstNonNilMappedValue {$0.getAlbumArtist(meta)})
+        metadata.performer = cleanUp(parsers.firstNonNilMappedValue{$0.getPerformer(meta)})
+        
         metadata.album = cleanUp(parsers.firstNonNilMappedValue {$0.getAlbum(meta)})
         metadata.genre = cleanUp(parsers.firstNonNilMappedValue {$0.getGenre(meta)})
-        
-//        metadata.composer = cleanUp(parsers.firstNonNilMappedValue {$0.getComposer(meta)})
-//        metadata.conductor = cleanUp(parsers.firstNonNilMappedValue {$0.getConductor(meta)})
-//        metadata.performer = cleanUp(parsers.firstNonNilMappedValue{$0.getPerformer(meta)})
-//        metadata.lyricist = cleanUp(parsers.firstNonNilMappedValue {$0.getLyricist(meta)})
-        
-//        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(meta)}
-//        metadata.bpm = parsers.firstNonNilMappedValue {$0.getBPM(meta)}
         
         let trackNum: (number: Int?, total: Int?)? = parsers.firstNonNilMappedValue {$0.getTrackNumber(meta)}
         metadata.trackNumber = trackNum?.number
@@ -92,11 +80,39 @@ class AVFFileReader: FileReaderProtocol {
         metadata.duration = meta.asset.duration.seconds
         metadata.durationIsAccurate = false
         
-        if let art = parsers.firstNonNilMappedValue({$0.getArt(meta)}) {
-            metadata.art = CoverArt(art)
-        }
+        //        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(meta)}
+        //        metadata.bpm = parsers.firstNonNilMappedValue {$0.getBPM(meta)}
+        
+        //        metadata.composer = cleanUp(parsers.firstNonNilMappedValue {$0.getComposer(meta)})
+        //        metadata.conductor = cleanUp(parsers.firstNonNilMappedValue {$0.getConductor(meta)})
+        //        metadata.lyricist = cleanUp(parsers.firstNonNilMappedValue {$0.getLyricist(meta)})
+        
+//        if let art = parsers.firstNonNilMappedValue({$0.getArt(meta)}) {
+//            metadata.art = CoverArt(art)
+//        }
+        
+        //        metadata.audioFormat = avfFormatDescriptions[audioTrack.format] ?? audioTrack.format4CharString
+                
+        //        let fileExtension = file.pathExtension.lowercased()
+                
+        //        if let kindOfFile = kindOfFile(path: file.path, fileExt: fileExtension) {
+        //            metadata.fileType = kindOfFile
+        //        }
+
         
         return metadata
+    }
+    
+    func getArt(for file: URL) -> CoverArt? {
+        
+        let meta = AVFMetadata(file: file)
+        let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
+        
+        if let art = parsers.firstNonNilMappedValue({$0.getArt(meta)}) {
+            return CoverArt(art)
+        }
+        
+        return nil
     }
     
     func getSecondaryMetadata(for file: URL) -> SecondaryMetadata {
@@ -106,7 +122,7 @@ class AVFFileReader: FileReaderProtocol {
         return metadata
     }
     
-    func getPlaybackMetadata(file: URL) throws -> PlaybackContextProtocol {
+    func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
         return try AVFPlaybackContext(for: file)
     }
     

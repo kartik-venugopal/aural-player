@@ -17,19 +17,14 @@ enum MetadataType {
 
 struct PrimaryMetadata {
     
-    var fileType: String?
-    var audioFormat: String?
-    
     var title: String?
+    
     var artist: String?
     var albumArtist: String?
+    var performer: String?
+    
     var album: String?
     var genre: String?
-    
-    var composer: String?
-    var conductor: String?
-    var performer: String?
-    var lyricist: String?
     
     var trackNumber: Int?
     var totalTracks: Int?
@@ -37,19 +32,26 @@ struct PrimaryMetadata {
     var discNumber: Int?
     var totalDiscs: Int?
     
-    var year: Int?
-    
-    var bpm: Int?
-    
     var duration: Double = 0
     var durationIsAccurate: Bool = false
-    
-    var art: CoverArt?
     
     var isProtected: Bool?
 }
 
 struct SecondaryMetadata {
+    
+    var fileType: String?
+    var audioFormat: String?
+    
+    var composer: String?
+    var conductor: String?
+    var lyricist: String?
+    
+    var year: Int?
+    
+    var bpm: Int?
+    
+    var art: CoverArt?
     
     var lyrics: String?
     

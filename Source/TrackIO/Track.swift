@@ -103,9 +103,9 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         self.album = metadata.album
         self.genre = metadata.genre
         
-        self.composer = metadata.composer
-        self.conductor = metadata.conductor
-        self.lyricist = metadata.lyricist
+//        self.composer = metadata.composer
+//        self.conductor = metadata.conductor
+//        self.lyricist = metadata.lyricist
         self.performer = metadata.performer
         
         self.trackNumber = metadata.trackNumber
@@ -114,14 +114,14 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         self.discNumber = metadata.discNumber
         self.totalDiscs = metadata.totalDiscs
         
-        self.year = metadata.year
-        self.bpm = metadata.bpm
+//        self.year = metadata.year
+//        self.bpm = metadata.bpm
         
         self.duration = metadata.duration
         
-        self.art = metadata.art
+//        self.art = metadata.art
         
-        self.audioFormat = metadata.audioFormat
+//        self.audioFormat = metadata.audioFormat
     }
     
     func loadSecondaryMetadata() {

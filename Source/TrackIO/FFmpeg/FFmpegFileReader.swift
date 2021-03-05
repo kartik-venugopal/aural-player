@@ -50,14 +50,14 @@ class FFmpegFileReader: FileReaderProtocol {
         
         let fctx = try FFmpegFileContext(for: file)
         
-        guard let audioStream = fctx.bestAudioStream else {
+        guard fctx.bestAudioStream != nil else {
             throw NoAudioStreamError()
         }
         
         var metadata = PrimaryMetadata()
         
-        metadata.audioFormat = audioStream.codecLongName
-        metadata.fileType = fctx.formatLongName.capitalizingFirstLetter()
+//        metadata.audioFormat = audioStream.codecLongName
+//        metadata.fileType = fctx.formatLongName.capitalizingFirstLetter()
         
         let meta = FFmpegMappedMetadata(for: fctx)
         let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
@@ -66,16 +66,19 @@ class FFmpegFileReader: FileReaderProtocol {
         let relevantParsers = allParsers.filter {$0.hasMetadataForTrack(meta)}
         
         metadata.title = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getTitle(meta)})
+        
         metadata.artist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getArtist(meta)})
         metadata.albumArtist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbumArtist(meta)})
+        metadata.performer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getPerformer(meta)})
+        
         metadata.album = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbum(meta)})
         metadata.genre = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getGenre(meta)})
-        metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(meta)}
-        metadata.bpm = relevantParsers.firstNonNilMappedValue {$0.getBPM(meta)}
-        metadata.composer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getComposer(meta)})
-        metadata.conductor = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getConductor(meta)})
-        metadata.performer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getPerformer(meta)})
-        metadata.lyricist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyricist(meta)})
+
+        //        metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(meta)}
+        //        metadata.bpm = relevantParsers.firstNonNilMappedValue {$0.getBPM(meta)}
+        //        metadata.composer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getComposer(meta)})
+        //        metadata.conductor = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getConductor(meta)})
+//        metadata.lyricist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyricist(meta)})
         
         metadata.isProtected = relevantParsers.firstNonNilMappedValue {$0.isDRMProtected(meta)}
         
@@ -101,13 +104,6 @@ class FFmpegFileReader: FileReaderProtocol {
         
         metadata.duration = meta.fileCtx.duration
         metadata.durationIsAccurate = metadata.duration > 0 && meta.fileCtx.estimatedDurationIsAccurate
-        
-        if let imageStream = meta.imageStream,
-            let imageData = imageStream.attachedPic.data,
-            let image = NSImage(data: imageData) {
-            
-            metadata.art = CoverArt(image)
-        }
         
         return metadata
         
@@ -142,7 +138,28 @@ class FFmpegFileReader: FileReaderProtocol {
         return SecondaryMetadata()
     }
     
-    func getPlaybackMetadata(file: URL) throws -> PlaybackContextProtocol {
+    func getArt(for file: URL) -> CoverArt? {
+        
+        do {
+            
+            let fctx = try FFmpegFileContext(for: file)
+            let meta = FFmpegMappedMetadata(for: fctx)
+            
+            if let imageStream = meta.imageStream,
+               let imageData = imageStream.attachedPic.data,
+               let image = NSImage(data: imageData) {
+                
+                return CoverArt(image)
+            }
+            
+        } catch {
+            return nil
+        }
+        
+        return nil
+    }
+    
+    func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
         return try FFmpegPlaybackContext(for: file)
     }
     

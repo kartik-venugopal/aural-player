@@ -108,7 +108,7 @@ class TrackLoader {
                     
                 case .playback:
                 
-                    fileMetadata.playback = try self.fileReader.getPlaybackMetadata(file: file)
+                    fileMetadata.playback = try self.fileReader.getPlaybackMetadata(for: file)
                 }
                 
             } catch {

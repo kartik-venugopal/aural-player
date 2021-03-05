@@ -18,24 +18,27 @@ class TrackReader {
             }
 
             track.title = metadata.title
+            
             track.artist = metadata.artist
             track.albumArtist = metadata.albumArtist
+            track.performer = metadata.performer
+            
             track.album = metadata.album
             track.genre = metadata.genre
 
-            track.composer = metadata.composer
-            track.conductor = metadata.conductor
-            track.lyricist = metadata.lyricist
-            track.performer = metadata.performer
+//            track.composer = metadata.composer
+//            track.conductor = metadata.conductor
+//            track.lyricist = metadata.lyricist
             
-            track.year = metadata.year
-            track.bpm = metadata.bpm
+            
+//            track.year = metadata.year
+//            track.bpm = metadata.bpm
             
             track.duration = metadata.duration
             
-            track.art = metadata.art
-            
-            track.audioFormat = metadata.audioFormat
+//            track.art = metadata.art
+//
+//            track.audioFormat = metadata.audioFormat
             
         } catch {
             
@@ -47,9 +50,9 @@ class TrackReader {
     func computePlaybackContext(for track: Track) throws {
         
         if track.isNativelySupported {
-            track.playbackContext = try avfReader.getPlaybackMetadata(file: track.file)
+            track.playbackContext = try avfReader.getPlaybackMetadata(for: track.file)
         } else {
-            track.playbackContext = try ffmpegReader.getPlaybackMetadata(file: track.file)
+            track.playbackContext = try ffmpegReader.getPlaybackMetadata(for: track.file)
         }
     }
     
@@ -62,6 +65,20 @@ class TrackReader {
             
             try computePlaybackContext(for: track)
             try track.playbackContext?.open()
+            
+            // Load art async, and send out an update notification if art was found.
+            DispatchQueue.global(qos: .userInteractive).async {
+                
+                if track.isNativelySupported {
+                    track.art = self.avfReader.getArt(for: track.file)
+                } else {
+                    track.art = self.ffmpegReader.getArt(for: track.file)
+                }
+                
+                if track.art != nil {
+                    Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
+                }
+            }
         }
     }
     

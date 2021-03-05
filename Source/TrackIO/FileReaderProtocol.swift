@@ -6,7 +6,9 @@ protocol FileReaderProtocol {
     
     func getSecondaryMetadata(for file: URL) -> SecondaryMetadata
     
-    func getPlaybackMetadata(file: URL) throws -> PlaybackContextProtocol
+    func getArt(for file: URL) -> CoverArt?
+    
+    func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol
 }
 
 class FileReader: FileReaderProtocol {
@@ -30,15 +32,27 @@ class FileReader: FileReaderProtocol {
         return SecondaryMetadata()
     }
     
-    func getPlaybackMetadata(file: URL) throws -> PlaybackContextProtocol {
+    func getArt(for file: URL) -> CoverArt? {
         
         let fileExtension = file.pathExtension.lowercased()
         
         if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            return try avfReader.getPlaybackMetadata(file: file)
+            return avfReader.getArt(for: file)
             
         } else {
-            return try ffmpegReader.getPlaybackMetadata(file: file)
+            return ffmpegReader.getArt(for: file)
+        }
+    }
+    
+    func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
+        
+        let fileExtension = file.pathExtension.lowercased()
+        
+        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
+            return try avfReader.getPlaybackMetadata(for: file)
+            
+        } else {
+            return try ffmpegReader.getPlaybackMetadata(for: file)
         }
     }
 }
