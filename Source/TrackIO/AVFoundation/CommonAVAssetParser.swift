@@ -43,15 +43,15 @@ class CommonAVFMetadataParser: AVFMetadataParser {
         return nil
     }
         
-//    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
-//
-//        return items.first(where: {
-//
-//            $0.keySpace == .common && $0.commonKeyAsString == AVMetadataKey.commonKeyTitle.rawValue
-//
-//        })?.stringValue
-//    }
-//
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+
+        return items.first(where: {
+
+            $0.keySpace == .common && $0.commonKeyAsString == key_title
+
+        })?.stringValue
+    }
+
 //    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
 //
 //        var metadata: [String: MetadataEntry] = [:]

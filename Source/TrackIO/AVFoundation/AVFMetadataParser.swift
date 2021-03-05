@@ -41,7 +41,7 @@ protocol AVFMetadataParser {
 //
 //    // ----------- Chapter-related functions
 //
-//    func getChapterTitle(_ items: [AVMetadataItem]) -> String?
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String?
 }
 
 // Default function implementations
@@ -70,4 +70,6 @@ extension AVFMetadataParser {
     func getBPM(_ meta: AVFMetadata) -> Int? {nil}
     
     func getArt(_ meta: AVFMetadata) -> NSImage? {nil}
+    
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {nil}
 }

@@ -116,7 +116,7 @@ class ObjectGraph {
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
         
         // Playlist Delegate
-        playlistDelegate = PlaylistDelegate(playlist, appState.playlist, preferences,
+        playlistDelegate = PlaylistDelegate(playlist, trackReader, appState.playlist, preferences,
                                             [playbackDelegate as! PlaybackDelegate])
         
         // Recorder (and delegate)

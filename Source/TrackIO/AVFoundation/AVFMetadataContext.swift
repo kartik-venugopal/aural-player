@@ -37,8 +37,8 @@ class AVFMetadataContext {
 //        self.map = AVAssetReader.buildMap(for: asset)
     }
     
-    func loadPrimaryMetadata() {
-//        track.metadata.setPrimaryMetadata(AVAssetReader.getPrimaryMetadata(from: map))
+    func loadPlaylistMetadata() {
+//        track.metadata.setPlaylistMetadata(AVAssetReader.getPlaylistMetadata(from: map))
     }
     
     func loadSecondaryMetadata() {

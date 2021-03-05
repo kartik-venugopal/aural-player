@@ -2,7 +2,7 @@ import Foundation
 
 protocol FileReaderProtocol {
     
-    func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata
+    func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata
     
     func getSecondaryMetadata(for file: URL) -> SecondaryMetadata
     
@@ -16,15 +16,15 @@ class FileReader: FileReaderProtocol {
     let avfReader: AVFFileReader = AVFFileReader()
     let ffmpegReader: FFmpegFileReader = FFmpegFileReader()
     
-    func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata {
+    func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata {
         
         let fileExtension = file.pathExtension.lowercased()
         
         if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            return try avfReader.getPrimaryMetadata(for: file)
+            return try avfReader.getPlaylistMetadata(for: file)
             
         } else {
-            return try ffmpegReader.getPrimaryMetadata(for: file)
+            return try ffmpegReader.getPlaylistMetadata(for: file)
         }
     }
     

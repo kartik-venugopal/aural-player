@@ -185,11 +185,11 @@ class ITunesParser: AVFMetadataParser {
         
         return nil
     }
-//
-//    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
-//        return items.first(where: {$0.keySpace == .iTunes && $0.keyAsString == ITunesSpec.rawKey_title})?.stringValue
-//    }
-//    
+
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+        return items.first(where: {$0.keySpace == .iTunes && $0.keyAsString == ITunesSpec.key_title})?.stringValue
+    }
+    
 //    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
 //        
 //        var metadata: [String: MetadataEntry] = [:]

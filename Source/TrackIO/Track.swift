@@ -25,7 +25,7 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     var isPlayable: Bool = true
     var validationError: DisplayableError?
     
-    var hasPrimaryMetadata: Bool = false
+    var hasPlaylistMetadata: Bool = false
     
     let defaultDisplayName: String
     
@@ -86,16 +86,16 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         self.isNativelySupported = AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension)
         
         if let theFileMetadata = fileMetadata {
-            setPrimaryMetadata(from: theFileMetadata)
+            setPlaylistMetadata(from: theFileMetadata)
         }
     }
     
-    func setPrimaryMetadata(from allMetadata: FileMetadata) {
+    func setPlaylistMetadata(from allMetadata: FileMetadata) {
         
         self.isPlayable = allMetadata.isPlayable
         self.validationError = allMetadata.validationError
         
-        guard let metadata: PrimaryMetadata = allMetadata.primary else {return}
+        guard let metadata: PlaylistMetadata = allMetadata.playlist else {return}
         
         self.title = metadata.title
         self.artist = metadata.artist
@@ -119,6 +119,7 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         
         self.duration = metadata.duration
         
+        self.chapters = metadata.chapters
 //        self.art = metadata.art
         
 //        self.audioFormat = metadata.audioFormat

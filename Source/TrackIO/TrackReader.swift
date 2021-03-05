@@ -2,58 +2,29 @@ import Foundation
 
 class TrackReader {
     
+    private var fileReader: FileReader = FileReader()
+    
     let avfReader: AVFFileReader = AVFFileReader()
     let ffmpegReader: FFmpegFileReader = FFmpegFileReader()
     
-    func loadPrimaryMetadata(for track: Track) {
+    func loadPlaylistMetadata(for track: Track) {
+        
+        let fileMetadata = FileMetadata()
         
         do {
             
-            let metadata: PrimaryMetadata
-            
-            if track.isNativelySupported {
-                metadata = try avfReader.getPrimaryMetadata(for: track.file)
-            } else {
-                metadata = try ffmpegReader.getPrimaryMetadata(for: track.file)
-            }
-
-            track.title = metadata.title
-            
-            track.artist = metadata.artist
-            track.albumArtist = metadata.albumArtist
-            track.performer = metadata.performer
-            
-            track.album = metadata.album
-            track.genre = metadata.genre
-
-//            track.composer = metadata.composer
-//            track.conductor = metadata.conductor
-//            track.lyricist = metadata.lyricist
-            
-            
-//            track.year = metadata.year
-//            track.bpm = metadata.bpm
-            
-            track.duration = metadata.duration
-            
-//            track.art = metadata.art
-//
-//            track.audioFormat = metadata.audioFormat
+            fileMetadata.playlist = try fileReader.getPlaylistMetadata(for: track.file)
             
         } catch {
             
-            track.isPlayable = false
-            track.validationError = (error as? DisplayableError) ?? InvalidTrackError(track.file, "Track is not playable.")
+            fileMetadata.validationError = (error as? DisplayableError) ?? InvalidTrackError(track.file, "Track is not playable.")
         }
+        
+        track.setPlaylistMetadata(from: fileMetadata)
     }
     
     func computePlaybackContext(for track: Track) throws {
-        
-        if track.isNativelySupported {
-            track.playbackContext = try avfReader.getPlaybackMetadata(for: track.file)
-        } else {
-            track.playbackContext = try ffmpegReader.getPlaybackMetadata(for: track.file)
-        }
+        track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
     }
     
     func prepareForPlayback(track: Track) throws {
@@ -65,6 +36,14 @@ class TrackReader {
             
             try computePlaybackContext(for: track)
             try track.playbackContext?.open()
+            
+            loadArtAsync(for: track)
+        }
+    }
+    
+    func loadArtAsync(for track: Track) {
+        
+        if track.art == nil {
             
             // Load art async, and send out an update notification if art was found.
             DispatchQueue.global(qos: .userInteractive).async {
@@ -80,6 +59,10 @@ class TrackReader {
                 }
             }
         }
+    }
+    
+    func loadChapters(for track: Track) {
+        
     }
     
     func loadSecondaryMetadata(for track: Track) {

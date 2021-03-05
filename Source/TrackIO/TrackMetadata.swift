@@ -3,7 +3,7 @@ import AVFoundation
 
 class FileMetadata {
     
-    var primary: PrimaryMetadata?
+    var playlist: PlaylistMetadata?
     var playback: PlaybackContextProtocol?
     
     var isPlayable: Bool {validationError == nil}
@@ -12,10 +12,10 @@ class FileMetadata {
 
 enum MetadataType {
  
-    case primary, playback
+    case playlist, playback
 }
 
-struct PrimaryMetadata {
+struct PlaylistMetadata {
     
     var title: String?
     
@@ -36,6 +36,8 @@ struct PrimaryMetadata {
     var durationIsAccurate: Bool = false
     
     var isProtected: Bool?
+    
+    var chapters: [Chapter] = []
 }
 
 struct SecondaryMetadata {
@@ -56,8 +58,6 @@ struct SecondaryMetadata {
     var lyrics: String?
     
     var genericMetadata: OrderedMetadataMap = OrderedMetadataMap()
-    
-    var chapters: [Chapter] = []
 }
 
 class CoverArt {

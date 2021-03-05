@@ -102,9 +102,9 @@ class TrackLoader {
                 
                 switch metadataType {
                     
-                case .primary:
+                case .playlist:
                     
-                    fileMetadata.primary = try self.fileReader.getPrimaryMetadata(for: file)
+                    fileMetadata.playlist = try self.fileReader.getPlaylistMetadata(for: file)
                     
                 case .playback:
                 

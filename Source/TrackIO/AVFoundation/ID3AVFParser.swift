@@ -282,17 +282,9 @@ class ID3AVFParser: AVFMetadataParser {
 //        return nil
 //    }
 //    
-//    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
-//        
-//        for key in rawKeys_title {
-//            
-//            if let titleItem = items.first(where: {$0.keySpace == .id3 && $0.keyAsString == key}) {
-//                return titleItem.stringValue
-//            }
-//        }
-//        
-//        return nil
-//    }
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+        return items.first(where: {$0.keySpace == .id3 && keys_title.contains($0.keyAsString ?? "")})?.stringValue
+    }
 //    
 //    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
 //

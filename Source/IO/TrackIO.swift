@@ -10,12 +10,12 @@ class TrackIO {
     private static var fileReader: FileReader = FileReader()
     
     // Load display metadata (artist/title/art and all grouping info)
-    static func loadPrimaryInfo(_ track: Track) throws {
+    static func loadPlaylistMetadata(_ track: Track) throws {
 
         let fileMetadata = FileMetadata()
-        fileMetadata.primary = try fileReader.getPrimaryMetadata(for: track.file)
+        fileMetadata.playlist = try fileReader.getPlaylistMetadata(for: track.file)
         
-        track.setPrimaryMetadata(from: fileMetadata)
+        track.setPlaylistMetadata(from: fileMetadata)
     }
 //
 //    static func loadSecondaryInfo(_ track: Track) {

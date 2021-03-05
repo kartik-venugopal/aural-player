@@ -5,6 +5,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     // The actual playlist
     private let playlist: PlaylistCRUDProtocol
     
+    private let trackReader: TrackReader
+    
     // TODO - See if change listeners can be replaced with sync messages
     // A set of all observers/listeners that are interested in changes to the playlist
     private let changeListeners: [PlaylistChangeListenerProtocol]
@@ -30,9 +32,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     var duration: Double {playlist.duration}
     
-    init(_ playlist: PlaylistCRUDProtocol, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    init(_ playlist: PlaylistCRUDProtocol, _ trackReader: TrackReader, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
+        self.trackReader = trackReader
         
         self.playlistState = playlistState
         self.preferences = preferences
@@ -152,11 +155,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             }
             
             self.addSession = nil
-            
-            // ------------------ UPDATE --------------------
-            
-//            self.trackUpdateQueue.addOperations(results.map {result in BlockOperation {TrackIO.loadSecondaryInfo(result.track)}},
-//                                                waitUntilFinished: false)
         }
     }
     
@@ -250,10 +248,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         // Process all tracks in batch concurrently and wait until the entire batch finishes.
         trackAddQueue.addOperations(batch.map {index in BlockOperation {
-            
-            do {
-                try TrackIO.loadPrimaryInfo(self.addSession.tracks[index])
-            } catch {}
+
+            self.trackReader.loadPlaylistMetadata(for: self.addSession.tracks[index])
             
         }}, waitUntilFinished: true)
         
@@ -297,9 +293,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         // Load display info
         let track = Track(resolvedFile)
-        do {
-            try TrackIO.loadPrimaryInfo(track)
-        } catch {}
+        trackReader.loadPlaylistMetadata(for: track)
         
         // Non-nil result indicates success
         guard let result = self.playlist.addTrack(track) else {return nil}
@@ -310,8 +304,6 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         Messenger.publish(.history_itemsAdded, payload: [resolvedFile])
         
         self.changeListeners.forEach({$0.tracksAdded([result])})
-        
-//        TrackIO.loadSecondaryInfo(track)
         
         return track
     }

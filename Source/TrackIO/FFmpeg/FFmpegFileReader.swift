@@ -46,7 +46,7 @@ class FFmpegFileReader: FileReaderProtocol {
         return nil
     }
     
-    func getPrimaryMetadata(for file: URL) throws -> PrimaryMetadata {
+    func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata {
         
         let fctx = try FFmpegFileContext(for: file)
         
@@ -54,7 +54,7 @@ class FFmpegFileReader: FileReaderProtocol {
             throw NoAudioStreamError()
         }
         
-        var metadata = PrimaryMetadata()
+        var metadata = PlaylistMetadata()
         
 //        metadata.audioFormat = audioStream.codecLongName
 //        metadata.fileType = fctx.formatLongName.capitalizingFirstLetter()
