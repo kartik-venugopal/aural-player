@@ -59,7 +59,7 @@ class TrackReader {
         }
     }
     
-    func loadSecondaryMetadata(for track: Track) {
+    func loadAuxiliaryMetadata(for track: Track) {
         
     }
     

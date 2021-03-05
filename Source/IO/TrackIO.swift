@@ -20,7 +20,7 @@ class TrackIO {
 //
 //    static func loadSecondaryInfo(_ track: Track) {
 //
-//        MetadataUtils.loadSecondaryMetadata(track)
+//        MetadataUtils.loadAuxiliaryMetadata(track)
 //        track.lazyLoadingInfo.secondaryInfoLoaded = true
 //    }
 //

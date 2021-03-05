@@ -36,7 +36,12 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     var duration: Double = 0
 
     var title: String?
-    var artist: String?
+    
+    var theArtist: String?
+    
+    var artist: String? {
+        theArtist ?? albumArtist ?? performer
+    }
     
     var artistTitleString: String? {
         
@@ -98,7 +103,7 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         guard let metadata: PlaylistMetadata = allMetadata.playlist else {return}
         
         self.title = metadata.title
-        self.artist = metadata.artist
+        self.theArtist = metadata.artist
         self.albumArtist = metadata.albumArtist
         self.album = metadata.album
         self.genre = metadata.genre
@@ -125,8 +130,8 @@ class Track: Hashable, PlayableItem, PlaylistItem {
 //        self.audioFormat = metadata.audioFormat
     }
     
-    func loadSecondaryMetadata() {
-//        context?.loadSecondaryMetadata()
+    func loadAuxiliaryMetadata() {
+//        context?.loadAuxiliaryMetadata()
     }
     
     func loadAllMetadata() {

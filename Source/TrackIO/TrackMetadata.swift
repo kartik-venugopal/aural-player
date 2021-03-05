@@ -5,6 +5,7 @@ class FileMetadata {
     
     var playlist: PlaylistMetadata?
     var playback: PlaybackContextProtocol?
+    var auxiliary: AuxiliaryMetadata?
     
     var isPlayable: Bool {validationError == nil}
     var validationError: DisplayableError?
@@ -12,7 +13,7 @@ class FileMetadata {
 
 enum MetadataType {
  
-    case playlist, playback
+    case playlist, playback, auxiliary
 }
 
 struct PlaylistMetadata {
@@ -40,10 +41,7 @@ struct PlaylistMetadata {
     var chapters: [Chapter] = []
 }
 
-struct SecondaryMetadata {
-    
-    var fileType: String?
-    var audioFormat: String?
+struct AuxiliaryMetadata {
     
     var composer: String?
     var conductor: String?
@@ -52,8 +50,6 @@ struct SecondaryMetadata {
     var year: Int?
     
     var bpm: Int?
-    
-    var art: CoverArt?
     
     var lyrics: String?
     

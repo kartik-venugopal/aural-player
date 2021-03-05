@@ -85,26 +85,6 @@ class AVFFileReader: FileReaderProtocol {
         
         metadata.chapters = getChapters(for: file, from: meta.asset)
         
-        //        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(meta)}
-        //        metadata.bpm = parsers.firstNonNilMappedValue {$0.getBPM(meta)}
-        
-        //        metadata.composer = cleanUp(parsers.firstNonNilMappedValue {$0.getComposer(meta)})
-        //        metadata.conductor = cleanUp(parsers.firstNonNilMappedValue {$0.getConductor(meta)})
-        //        metadata.lyricist = cleanUp(parsers.firstNonNilMappedValue {$0.getLyricist(meta)})
-        
-//        if let art = parsers.firstNonNilMappedValue({$0.getArt(meta)}) {
-//            metadata.art = CoverArt(art)
-//        }
-        
-        //        metadata.audioFormat = avfFormatDescriptions[audioTrack.format] ?? audioTrack.format4CharString
-                
-        //        let fileExtension = file.pathExtension.lowercased()
-                
-        //        if let kindOfFile = kindOfFile(path: file.path, fileExt: fileExtension) {
-        //            metadata.fileType = kindOfFile
-        //        }
-
-        
         return metadata
     }
     
@@ -120,9 +100,22 @@ class AVFFileReader: FileReaderProtocol {
         return nil
     }
     
-    func getSecondaryMetadata(for file: URL) -> SecondaryMetadata {
+    func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata {
         
-        let metadata = SecondaryMetadata()
+        var metadata = AuxiliaryMetadata()
+        let meta = AVFMetadata(file: file)
+        let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
+        
+        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(meta)}
+        metadata.bpm = parsers.firstNonNilMappedValue {$0.getBPM(meta)}
+        
+        metadata.composer = cleanUp(parsers.firstNonNilMappedValue {$0.getComposer(meta)})
+        metadata.conductor = cleanUp(parsers.firstNonNilMappedValue {$0.getConductor(meta)})
+        metadata.lyricist = cleanUp(parsers.firstNonNilMappedValue {$0.getLyricist(meta)})
+        
+        metadata.lyrics = cleanUp(parsers.firstNonNilMappedValue {$0.getLyrics(meta)})
+        
+        // TODO: Generic key-value pairs
         
         return metadata
     }

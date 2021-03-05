@@ -56,9 +56,6 @@ class FFmpegFileReader: FileReaderProtocol {
         
         var metadata = PlaylistMetadata()
         
-//        metadata.audioFormat = audioStream.codecLongName
-//        metadata.fileType = fctx.formatLongName.capitalizingFirstLetter()
-        
         let meta = FFmpegMappedMetadata(for: fctx)
         let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
         allParsers.forEach {$0.mapTrack(meta)}
@@ -74,12 +71,6 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.album = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbum(meta)})
         metadata.genre = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getGenre(meta)})
 
-        //        metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(meta)}
-        //        metadata.bpm = relevantParsers.firstNonNilMappedValue {$0.getBPM(meta)}
-        //        metadata.composer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getComposer(meta)})
-        //        metadata.conductor = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getConductor(meta)})
-//        metadata.lyricist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyricist(meta)})
-        
         metadata.isProtected = relevantParsers.firstNonNilMappedValue {$0.isDRMProtected(meta)}
         
         var trackNumberAndTotal = relevantParsers.firstNonNilMappedValue {$0.getTrackNumber(meta)}
@@ -136,8 +127,35 @@ class FFmpegFileReader: FileReaderProtocol {
 //        }
     }
     
-    func getSecondaryMetadata(for file: URL) -> SecondaryMetadata {
-        return SecondaryMetadata()
+    func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata {
+        
+        var metadata = AuxiliaryMetadata()
+        
+        do {
+            
+            let fctx = try FFmpegFileContext(for: file)
+            
+            let meta = FFmpegMappedMetadata(for: fctx)
+            let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
+            allParsers.forEach {$0.mapTrack(meta)}
+            
+            let relevantParsers = allParsers.filter {$0.hasMetadataForTrack(meta)}
+            
+            metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(meta)}
+            metadata.bpm = relevantParsers.firstNonNilMappedValue {$0.getBPM(meta)}
+            metadata.composer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getComposer(meta)})
+            metadata.conductor = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getConductor(meta)})
+            metadata.lyricist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyricist(meta)})
+            
+            metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(meta)})
+            
+            // TODO: Generic key-value pairs
+            
+        } catch {
+            
+        }
+        
+        return metadata
     }
     
     func getArt(for file: URL) -> CoverArt? {
@@ -170,7 +188,7 @@ class FFmpegFileReader: FileReaderProtocol {
         
     }
     
-    func loadSecondaryMetadata(for track: Track) {
+    func loadAuxiliaryMetadata(for track: Track) {
         
         
     }
