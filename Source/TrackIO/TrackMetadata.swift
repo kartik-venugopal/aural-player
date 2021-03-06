@@ -57,6 +57,8 @@ struct AuxiliaryMetadata {
     
     var fileSystemInfo: FileSystemInfo?
     var audioInfo: AudioInfo?
+    
+    var art: CoverArt?
 }
 
 class CoverArt {

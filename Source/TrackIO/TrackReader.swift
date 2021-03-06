@@ -45,27 +45,35 @@ class TrackReader {
     
     func loadArtAsync(for track: Track) {
         
-        if track.art == nil {
+        if track.artLoaded {return}
+        
+        // Load art async, and send out an update notification if art was found.
+        DispatchQueue.global(qos: .userInteractive).async {
             
-            // Load art async, and send out an update notification if art was found.
-            DispatchQueue.global(qos: .userInteractive).async {
-                
-                track.art = self.fileReader.getArt(for: track.file)
-                
-                if track.art != nil {
-                    Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
-                }
+            track.art = self.fileReader.getArt(for: track.file)
+            
+            if track.art != nil {
+                Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
             }
+        }
+    }
+    
+    func loadArt(for track: Track) {
+        
+        if track.artLoaded {return}
+        
+        track.art = self.fileReader.getArt(for: track.file)
+        
+        if track.art != nil {
+            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
         }
     }
     
     func loadAuxiliaryMetadata(for track: Track) {
         
-        let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file, loadingAudioInfoFrom: track.playbackContext)
+        if track.auxMetadataLoaded {return}
+        
+        let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file, loadingAudioInfoFrom: track.playbackContext, loadArt: !track.artLoaded)
         track.setAuxiliaryMetadata(auxMetadata)
-    }
-    
-    func loadAllMetadata() {
-        // TODO
     }
 }

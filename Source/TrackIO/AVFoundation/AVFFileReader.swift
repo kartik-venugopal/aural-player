@@ -100,7 +100,7 @@ class AVFFileReader: FileReaderProtocol {
         return try AVFPlaybackContext(for: file)
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
         
         var metadata = AuxiliaryMetadata()
         let meta = AVFMetadata(file: file)
@@ -178,6 +178,10 @@ class AVFFileReader: FileReaderProtocol {
         }
         
         metadata.audioInfo = audioInfo
+        
+        if loadArt {
+            metadata.art = parsers.firstNonNilMappedValue {$0.getArt(meta)}
+        }
         
         return metadata
     }

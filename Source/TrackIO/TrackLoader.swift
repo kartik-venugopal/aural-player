@@ -112,7 +112,7 @@ class TrackLoader {
                     
                 case .auxiliary:
                     
-                    fileMetadata.auxiliary = self.fileReader.getAuxiliaryMetadata(for: file)
+                    fileMetadata.auxiliary = self.fileReader.getAuxiliaryMetadata(for: file, loadArt: false)
                 }
                 
             } catch {

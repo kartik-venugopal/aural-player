@@ -1,5 +1,6 @@
 import Cocoa
 
+// TODO: Figure out where and how this utility can be used for better performance.
 class AlbumArtCache {
     
     private static var cache: ConcurrentMap<URL, CoverArt> = ConcurrentMap<URL, CoverArt>("threadSafeAccess-artCache")

@@ -8,7 +8,7 @@ protocol FileReaderProtocol {
     
     func getArt(for file: URL) -> CoverArt?
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AuxiliaryMetadata
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?, loadArt: Bool) -> AuxiliaryMetadata
 }
 
 class FileReader: FileReaderProtocol {
@@ -42,6 +42,8 @@ class FileReader: FileReaderProtocol {
     
     func getArt(for file: URL) -> CoverArt? {
         
+        // TODO: Look in the art cache (AlbumArtCache) first. It may be there, because of the History/Favorites/Bookmarks menus.
+        
         let fileExtension = file.pathExtension.lowercased()
         
         if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
@@ -52,15 +54,15 @@ class FileReader: FileReaderProtocol {
         }
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
         
         let fileExtension = file.pathExtension.lowercased()
         var auxMetadata: AuxiliaryMetadata
         
         if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            auxMetadata = avfReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext)
+            auxMetadata = avfReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext, loadArt: loadArt)
         } else {
-            auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext)
+            auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext, loadArt: loadArt)
         }
         
         let fileSystemInfo = FileSystemInfo(file)

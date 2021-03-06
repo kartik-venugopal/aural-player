@@ -52,7 +52,9 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     var performer: String?
     var lyricist: String?
     
-    var art: CoverArt?
+    var art: CoverArt? {
+        didSet {artLoaded = true}
+    }
     
     var trackNumber: Int?
     var totalTracks: Int?
@@ -131,15 +133,16 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         
         self.fileSystemInfo = metadata.fileSystemInfo ?? self.fileSystemInfo
         self.audioInfo = metadata.audioInfo
+        
+        self.auxMetadataLoaded = true
+        
+        if !self.artLoaded {
+            self.art = metadata.art
+        }
     }
     
-    func loadAllMetadata() {
-//        context?.loadAllMetadata()
-    }
-    
-    func prepareForPlayback() throws {
-//        try context?.prepareForPlayback()
-    }
+    var artLoaded: Bool = false
+    var auxMetadataLoaded: Bool = false
     
     static func == (lhs: Track, rhs: Track) -> Bool {
         return lhs.file == rhs.file
@@ -150,30 +153,30 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     }
 }
 
-class LazyLoadingInfo {
-    
-    // Whether or not the track is ready for playback
-    var validated: Bool = false
-    var preparedForPlayback: Bool = false
-    
-    var primaryInfoLoaded: Bool = false
-    var secondaryInfoLoaded: Bool = false
-    
-    var artLoaded: Bool = false
-    
-    // Whether or not optional track metadata and audio/filesystem info has been loaded
-    var detailedInfoLoaded: Bool = false
-    
-    // Error info if track prep fails
-    var preparationFailed: Bool = false
-    var preparationError: InvalidTrackError?
-    
-    func preparationFailed(_ error: InvalidTrackError?) {
-        
-        preparationFailed = true
-        preparationError = error
-    }
-}
+//class LazyLoadingInfo {
+//
+//    // Whether or not the track is ready for playback
+//    var validated: Bool = false
+//    var preparedForPlayback: Bool = false
+//
+//    var primaryInfoLoaded: Bool = false
+//    var secondaryInfoLoaded: Bool = false
+//
+//    var artLoaded: Bool = false
+//
+//    // Whether or not optional track metadata and audio/filesystem info has been loaded
+//    var detailedInfoLoaded: Bool = false
+//
+//    // Error info if track prep fails
+//    var preparationFailed: Bool = false
+//    var preparationError: InvalidTrackError?
+//
+//    func preparationFailed(_ error: InvalidTrackError?) {
+//
+//        preparationFailed = true
+//        preparationError = error
+//    }
+//}
 
 // Wrapper around Track that includes its location within a group in a hierarchical playlist
 struct GroupedTrack {

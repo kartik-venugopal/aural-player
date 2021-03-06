@@ -127,15 +127,15 @@ class FFmpegFileReader: FileReaderProtocol {
 //        }
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
         
         var metadata = AuxiliaryMetadata()
         
         do {
             
             let fctx = try FFmpegFileContext(for: file)
-            
             let meta = FFmpegMappedMetadata(for: fctx)
+            
             let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
             allParsers.forEach {$0.mapTrack(meta)}
             
@@ -176,6 +176,17 @@ class FFmpegFileReader: FileReaderProtocol {
             }
             
             metadata.audioInfo = audioInfo
+            
+            if loadArt {
+                
+                if let imageStream = meta.imageStream,
+                   let imageData = imageStream.attachedPic.data,
+                   let image = NSImage(data: imageData) {
+                    
+                    let imgMetadata = ParserUtils.getImageMetadata(imageData as NSData)
+                    metadata.art = CoverArt(image, imgMetadata)
+                }
+            }
             
         } catch {}
         
