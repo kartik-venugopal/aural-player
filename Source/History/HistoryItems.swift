@@ -98,7 +98,7 @@ class AddedItem: HistoryItem {
         } else {
             
             // Single file - playlist or track
-            let fileExtension = file.pathExtension.lowercased()
+            let fileExtension = file.lowerCasedExtension
             
             if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
                 

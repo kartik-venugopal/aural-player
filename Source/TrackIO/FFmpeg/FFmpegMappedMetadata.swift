@@ -20,7 +20,7 @@ class FFmpegMappedMetadata {
     init(for fileCtx: FFmpegFileContext) {
         
         self.fileCtx = fileCtx
-        self.fileType = fileCtx.file.pathExtension.lowercased()
+        self.fileType = fileCtx.file.lowerCasedExtension
         
         self.audioStream = fileCtx.bestAudioStream
         self.imageStream = fileCtx.bestImageStream

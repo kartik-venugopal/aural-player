@@ -228,7 +228,7 @@ class FFmpegFileContext {
         
         // Compute the duration of the audio stream, trying various methods. See documentation of **duration**
         // for a detailed description.
-        self.isRawAudioFile = AppConstants.SupportedTypes.rawAudioFileExtensions.contains(file.pathExtension.lowercased())
+        self.isRawAudioFile = AppConstants.SupportedTypes.rawAudioFileExtensions.contains(file.lowerCasedExtension)
         self.bitRate = pointer.pointee.bit_rate
         
         self.duration = (isRawAudioFile ? bruteForceDuration : bestAudioStream?.duration ?? estimatedDuration) ?? 0

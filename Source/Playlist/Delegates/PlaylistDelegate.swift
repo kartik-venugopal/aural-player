@@ -189,7 +189,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             } else {
                 
                 // Single file - playlist or track
-                let fileExtension = resolvedFile.pathExtension.lowercased()
+                let fileExtension = resolvedFile.lowerCasedExtension
 
                 if AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension) {
 

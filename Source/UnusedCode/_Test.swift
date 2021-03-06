@@ -76,7 +76,7 @@
 //                                }
 //
 //                                // DRM check
-//                                if inputFile.pathExtension.lowercased().hasPrefix("wma"), let value = tags["asf_protection_type"], value == "DRM" {
+//                                if inputFile.lowerCasedExtension.hasPrefix("wma"), let value = tags["asf_protection_type"], value == "DRM" {
 //                                    drmProtected = true
 //                                }
 //                            }
@@ -101,7 +101,7 @@
 //                    }
 //
 //                    // DRM check
-//                    if inputFile.pathExtension.lowercased().hasPrefix("wma"), let value = tags["asf_protection_type"], value == "DRM" {
+//                    if inputFile.lowerCasedExtension.hasPrefix("wma"), let value = tags["asf_protection_type"], value == "DRM" {
 //                        drmProtected = true
 //                    }
 //                }

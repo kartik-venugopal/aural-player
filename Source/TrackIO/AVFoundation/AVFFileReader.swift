@@ -147,7 +147,7 @@ class AVFFileReader: FileReaderProtocol {
             audioInfo.frames = thePlaybackContext.frameCount
         }
         
-        let fileExtension = file.pathExtension.lowercased()
+        let fileExtension = file.lowerCasedExtension
         audioInfo.format = formatDescriptions[fileExtension]
         
         var estBitRate: Float = 0
@@ -253,7 +253,7 @@ class AVFFileReader: FileReaderProtocol {
 
         // On older systems (Sierra/HighSierra), the end times are not properly read by AVFoundation
         // So, use start times to compute end times / duration
-        let fileExtension = file.pathExtension.lowercased()
+        let fileExtension = file.lowerCasedExtension
         let useAlternativeComputation = SystemUtils.osVersion.minorVersion < 14 && !["m4a", "m4b"].contains(fileExtension)
 
         if useAlternativeComputation {

@@ -44,7 +44,7 @@ class AudioUtils {
         // Check sourceAsset.hasProtectedContent()
         // Test against a protected iTunes file
         
-//        let fileExtension = track.file.pathExtension.lowercased()
+//        let fileExtension = track.file.lowerCasedExtension
 //
 //        if !track.isNativelySupported || fileExtension == "flac" {
 //
@@ -182,7 +182,7 @@ class AudioUtils {
     // Loads detailed audio-specific info for the given track
     static func loadAudioInfo(_ track: Track) {
         
-//        let fileExtension = track.file.pathExtension.lowercased()
+//        let fileExtension = track.file.lowerCasedExtension
 //        
 //        // TODO: Make it like this ... (initialize AudioInfo with playbackInfo)
 ////        if let playbackInfo = track.playbackInfo {
@@ -287,9 +287,5 @@ class AudioUtils {
         codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
 
         return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
-    }
-    
-    static func isAudioFilePlaybackNativelySupported(_ file: URL) -> Bool {
-        return AppConstants.SupportedTypes.nativeAudioExtensions.contains(file.pathExtension.lowercased())
     }
 }

@@ -8,8 +8,13 @@ class AlbumArtCache {
     
     // TODO: Clean out albumArt store (filesystem folder)
     
-    static func forFile(_ file: URL) -> (fileHasNoArt: Bool, art: CoverArt?) {
-        return (filesWithNoArt.contains(file), cache[file])
+    static func forFile(_ file: URL) -> (fileHasNoArt: Bool, art: CoverArt?)? {
+        
+        if filesWithNoArt.contains(file) || cache.hasForKey(file) {
+            return (filesWithNoArt.contains(file), cache[file])
+        }
+        
+        return nil
     }
     
     static func addEntry(_ file: URL, _ art: CoverArt?) {

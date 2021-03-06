@@ -52,7 +52,7 @@ class AVFMetadata {
             keySpaces.append(.common)
         }
         
-        let fileExt = file.pathExtension.lowercased()
+        let fileExt = file.lowerCasedExtension
         
         switch fileExt {
             

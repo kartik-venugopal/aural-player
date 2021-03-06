@@ -17,52 +17,52 @@ class FileReader: FileReaderProtocol {
     let ffmpegReader: FFmpegFileReader = FFmpegFileReader()
     
     func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata {
-        
-        let fileExtension = file.pathExtension.lowercased()
-        
-        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            return try avfReader.getPlaylistMetadata(for: file)
-            
-        } else {
-            return try ffmpegReader.getPlaylistMetadata(for: file)
-        }
+        return file.isNativelySupported ? try avfReader.getPlaylistMetadata(for: file) : try ffmpegReader.getPlaylistMetadata(for: file)
     }
     
     func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
-        
-        let fileExtension = file.pathExtension.lowercased()
-        
-        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            return try avfReader.getPlaybackMetadata(for: file)
-            
-        } else {
-            return try ffmpegReader.getPlaybackMetadata(for: file)
-        }
+        return file.isNativelySupported ? try avfReader.getPlaybackMetadata(for: file) : try ffmpegReader.getPlaybackMetadata(for: file)
     }
     
     func getArt(for file: URL) -> CoverArt? {
         
-        // TODO: Look in the art cache (AlbumArtCache) first. It may be there, because of the History/Favorites/Bookmarks menus.
-        
-        let fileExtension = file.pathExtension.lowercased()
-        
-        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            return avfReader.getArt(for: file)
-            
-        } else {
-            return ffmpegReader.getArt(for: file)
+        if let cachedArt = AlbumArtCache.forFile(file) {
+            return cachedArt.art
         }
+        
+        let art: CoverArt? = file.isNativelySupported ? avfReader.getArt(for: file) : ffmpegReader.getArt(for: file)
+        AlbumArtCache.addEntry(file, art)
+        
+        return art
     }
     
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
         
-        let fileExtension = file.pathExtension.lowercased()
         var auxMetadata: AuxiliaryMetadata
         
-        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            auxMetadata = avfReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext, loadArt: loadArt)
+        var foundInCache: Bool = false
+        var artInCache: CoverArt? = nil
+        
+        // Check the cache for the art
+        if loadArt, let cachedArt = AlbumArtCache.forFile(file) {
+
+            foundInCache = true
+            artInCache = cachedArt.art
+        }
+        
+        if file.isNativelySupported {
+            auxMetadata = avfReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext, loadArt: loadArt && !foundInCache)
         } else {
-            auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext, loadArt: loadArt)
+            auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext, loadArt: loadArt && !foundInCache)
+        }
+        
+        if loadArt {
+            
+            if foundInCache {
+                auxMetadata.art = artInCache
+            } else {
+                AlbumArtCache.addEntry(file, auxMetadata.art)
+            }
         }
         
         let fileSystemInfo = FileSystemInfo(file)

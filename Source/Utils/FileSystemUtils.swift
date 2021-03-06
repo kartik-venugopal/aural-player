@@ -330,3 +330,14 @@ class SystemUtils {
         return os.majorVersion > 10 || os.minorVersion > 15
     }
 }
+
+extension URL {
+    
+    var lowerCasedExtension: String {
+        pathExtension.lowercased()
+    }
+    
+    var isNativelySupported: Bool {
+        AppConstants.SupportedTypes.nativeAudioExtensions.contains(lowerCasedExtension)
+    }
+}

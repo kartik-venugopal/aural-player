@@ -7,8 +7,6 @@ import AVFoundation
 class Track: Hashable, PlayableItem, PlaylistItem {
     
     let file: URL
-    let fileExtension: String
-    
     let isNativelySupported: Bool
     
     var playbackContext: PlaybackContextProtocol?
@@ -80,12 +78,11 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     init(_ file: URL, fileMetadata: FileMetadata? = nil) {
 
         self.file = file
-        self.fileExtension = file.pathExtension.lowercased()
         self.fileSystemInfo = FileSystemInfo(file)
         
         self.defaultDisplayName = file.deletingPathExtension().lastPathComponent
         
-        self.isNativelySupported = AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension)
+        self.isNativelySupported = file.isNativelySupported
         
         if let theFileMetadata = fileMetadata {
             setPlaylistMetadata(from: theFileMetadata)
