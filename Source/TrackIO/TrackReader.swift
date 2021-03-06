@@ -60,7 +60,7 @@ class TrackReader {
     }
     
     func loadAuxiliaryMetadata(for track: Track) {
-        
+        track.setAuxiliaryMetadata(fileReader.getAuxiliaryMetadata(for: track.file))
     }
     
     func loadAllMetadata() {

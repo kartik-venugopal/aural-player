@@ -115,7 +115,13 @@ class AVFFileReader: FileReaderProtocol {
         
         metadata.lyrics = cleanUp(parsers.firstNonNilMappedValue {$0.getLyrics(meta)})
         
-        // TODO: Generic key-value pairs
+        var genericMetadata: [String: MetadataEntry] = [:]
+        
+        for parser in allParsers {
+            
+            let parserMetadata = parser.getGenericMetadata(meta)
+            parserMetadata.forEach {(k,v) in genericMetadata[k] = v}
+        }
         
         return metadata
     }

@@ -71,23 +71,23 @@ class AudioToolboxParser: AVFMetadataParser {
         return nil
     }
     
-//    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
-//        return items.first(where: {$0.keySpace == .audioFile && $0.keyAsString == AudioToolboxParser.rawKey_title})?.stringValue
-//    }
-//    
-//    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
-//        
-//        var metadata: [String: MetadataEntry] = [:]
-//        
-//        for item in meta.genericItems.filter({item -> Bool in item.keySpace == .audioFile}) {
-//            
-//            if let key = item.keyAsString, let value = item.valueAsString {
-//                
-//                let rKey = AudioToolboxParser.readableKeys[key] ?? key.replacingOccurrences(of: "info-", with: "").capitalizingFirstLetter()
-//                metadata[key] = MetadataEntry(.audioToolbox, rKey, value)
-//            }
-//        }
-//        
-//        return metadata
-//    }
+    func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
+        return items.first(where: {$0.keySpace == .audioFile && $0.keyAsString == key_title})?.stringValue
+    }
+    
+    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for item in meta.audioToolbox.values {
+            
+            if let key = item.keyAsString, let value = item.valueAsString {
+                
+                let rKey = readableKeys[key] ?? key.replacingOccurrences(of: "info-", with: "").capitalizingFirstLetter()
+                metadata[key] = MetadataEntry(.audioToolbox, rKey, value)
+            }
+        }
+        
+        return metadata
+    }
 }

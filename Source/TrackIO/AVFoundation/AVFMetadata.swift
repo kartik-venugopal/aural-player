@@ -5,8 +5,6 @@ class AVFMetadata {
     let file: URL
     let asset: AVURLAsset
     
-    let items: [AVMetadataItem]
-    
     var common: [String: AVMetadataItem] = [:]
     var id3: [String: AVMetadataItem] = [:]
     var iTunes: [String: AVMetadataItem] = [:]
@@ -14,45 +12,38 @@ class AVFMetadata {
     
     var keySpaces: [AVMetadataKeySpace] = []
     
-    var genericMetadata: OrderedMetadataMap = OrderedMetadataMap()
-    
     init(file: URL) {
         
         self.file = file
         self.asset = AVURLAsset(url: file, options: nil)
-        self.items = asset.metadata
         
-        for item in items {
+        for item in asset.metadata {
             
-            if let keySpace = item.keySpace, let key = item.keyAsString {
+            guard let keySpace = item.keySpace, let key = item.keyAsString else {continue}
+            
+            switch keySpace {
+            
+            case .id3:
                 
-                switch keySpace {
-                    
-                case .id3:
-                    
-                    id3[key] = item
-                    
-                case .iTunes:
-                    
+                id3[key] = item
+                
+            case .iTunes:
+                
+                iTunes[key] = item
+                
+            case .common:
+                
+                common[key] = item
+                
+            default:
+                
+                // iTunes long format
+                
+                if keySpace.rawValue.lowercased() == ITunesSpec.longForm_keySpaceID {
                     iTunes[key] = item
                     
-                case .common:
-                    
-                    common[key] = item
-                    
-                default:
-                    
-                    // iTunes long format
-                    
-                    if keySpace.rawValue.lowercased() == ITunesSpec.longForm_keySpaceID {
-                        iTunes[key] = item
-                        
-                    } else if #available(OSX 10.13, *) {
-                        
-                        if keySpace == .audioFile {
-                            audioToolbox[key] = item
-                        }
-                    }
+                } else if #available(OSX 10.13, *), keySpace == .audioFile {
+                    audioToolbox[key] = item
                 }
             }
         }

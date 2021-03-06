@@ -152,7 +152,6 @@ class FFmpegFileReader: FileReaderProtocol {
             // TODO: Generic key-value pairs
             
         } catch {
-            
         }
         
         return metadata
@@ -181,15 +180,5 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
         return try FFmpegPlaybackContext(for: file)
-    }
-    
-    func loadPlaybackMetadata(for track: Track) {
-        
-        
-    }
-    
-    func loadAuxiliaryMetadata(for track: Track) {
-        
-        
     }
 }

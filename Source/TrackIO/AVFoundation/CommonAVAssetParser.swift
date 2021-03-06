@@ -42,7 +42,7 @@ class CommonAVFMetadataParser: AVFMetadataParser {
         
         return nil
     }
-        
+    
     func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
 
         return items.first(where: {
@@ -52,22 +52,22 @@ class CommonAVFMetadataParser: AVFMetadataParser {
         })?.stringValue
     }
 
-//    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
-//
-//        var metadata: [String: MetadataEntry] = [:]
-//
-//        for item in meta.genericItems.filter({item -> Bool in item.keySpace == .common}) {
-//
-//            if let key = item.commonKeyAsString, var value = item.valueAsString {
-//
-//                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
-//                    value = langName
-//                }
-//
-//                metadata[key] = MetadataEntry(.common, StringUtils.splitCamelCaseWord(key, true), value)
-//            }
-//        }
-//
-//        return metadata
-//    }
+    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
+
+        var metadata: [String: MetadataEntry] = [:]
+
+        for item in meta.common.values {
+
+            if let key = item.commonKeyAsString, var value = item.valueAsString {
+
+                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
+                    value = langName
+                }
+
+                metadata[key] = MetadataEntry(.common, StringUtils.splitCamelCaseWord(key, true), value)
+            }
+        }
+
+        return metadata
+    }
 }

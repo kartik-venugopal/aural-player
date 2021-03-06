@@ -149,4 +149,38 @@ class ID3FFmpegParser: FFmpegMetadataParser {
 
         return nil
     }
+    
+//    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+    //
+    //        var metadata: [String: MetadataEntry] = [:]
+    //
+    //        if let fields = meta.id3Metadata?.genericFields {
+    //
+    //            for (var key, var value) in fields {
+    //
+    //                // Special fields
+    //                if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {
+    //
+    //                    // TLAN
+    //                    value = langName
+    //
+    //                } else if keys_compilation.contains(key), let numVal = Int(value) {
+    //
+    //                    // Number to boolean
+    //                    value = numVal == 0 ? "No" : "Yes"
+    //
+    //                } else if keys_mediaType.contains(key) {
+    //
+    //                    value = ID3MediaTypes.mediaType(value)
+    //                }
+    //
+    //                key = StringUtils.cleanUpString(key)
+    //                value = StringUtils.cleanUpString(value)
+    //
+    //                metadata[key] = MetadataEntry(.id3, readableKey(key), value)
+    //            }
+    //        }
+    //
+    //        return metadata
+    //    }
 }

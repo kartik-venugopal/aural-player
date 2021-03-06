@@ -28,6 +28,8 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     // Delegate that provides access to History information
     private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
+    private lazy var trackReader: TrackReader = ObjectGraph.trackReader
+    
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
     
@@ -83,7 +85,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             } else {
                 
                 // TODO: This should be done through a delegate (TrackDelegate ???)
-//                playingTrack.loadDetailedInfo()
+                trackReader.loadAuxiliaryMetadata(for: playingTrack)
                 
                 WindowManager.mainWindow.makeKeyAndOrderFront(self)
                 
@@ -241,7 +243,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             
             if detailedInfoPopover.isShown {
                 
-//                theNewTrack.loadDetailedInfo()
+                trackReader.loadAuxiliaryMetadata(for: theNewTrack)
                 detailedInfoPopover.refresh(theNewTrack)
             }
             

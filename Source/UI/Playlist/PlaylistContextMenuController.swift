@@ -55,6 +55,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Delegate that provides access to History information
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
+    private lazy var trackReader: TrackReader = ObjectGraph.trackReader
+    
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
     // One-time setup
@@ -146,7 +148,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         guard let theClickedTrack = clickedTrack else {return}
         
-//        theClickedTrack.loadDetailedInfo()
+        trackReader.loadAuxiliaryMetadata(for: theClickedTrack)
         
         WindowManager.playlistWindow.makeKeyAndOrderFront(self)
         detailedInfoPopover.show(theClickedTrack, playlistSelectedRowView, NSRectEdge.maxY)   // Display the popover below the selected row

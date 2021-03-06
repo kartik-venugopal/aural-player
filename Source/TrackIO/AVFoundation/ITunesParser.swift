@@ -8,7 +8,7 @@ class ITunesParser: AVFMetadataParser {
     
     let keySpace: AVMetadataKeySpace = .iTunes
         
-    //    private let essentialFieldKeys: Set<String> = [ITunesSpec.key_title, ITunesSpec.key_artist, ITunesSpec.key_originalArtist, ITunesSpec.key_originalArtist2, ITunesSpec.key_album, ITunesSpec.key_originalAlbum, ITunesSpec.key_composer, ITunesSpec.key_conductor, ITunesSpec.key_conductor2, ITunesSpec.key_genre, ITunesSpec.key_predefGenre, ITunesSpec.key_genreID, ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2, ITunesSpec.key_trackNumber, ITunesSpec.key_releaseDate, ITunesSpec.key_releaseYear, ITunesSpec.key_lyrics, ITunesSpec.key_art]
+        private let essentialFieldKeys: Set<String> = [ITunesSpec.key_title, ITunesSpec.key_artist, ITunesSpec.key_originalArtist, ITunesSpec.key_originalArtist2, ITunesSpec.key_album, ITunesSpec.key_originalAlbum, ITunesSpec.key_composer, ITunesSpec.key_conductor, ITunesSpec.key_conductor2, ITunesSpec.key_genre, ITunesSpec.key_predefGenre, ITunesSpec.key_genreID, ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2, ITunesSpec.key_trackNumber, ITunesSpec.key_releaseDate, ITunesSpec.key_releaseYear, ITunesSpec.key_lyrics, ITunesSpec.key_art]
         
         private let keys_artist: [String] = [ITunesSpec.key_artist, ITunesSpec.key_originalArtist, ITunesSpec.key_originalArtist2]
         private let keys_album: [String] = [ITunesSpec.key_album, ITunesSpec.key_originalAlbum]
@@ -20,8 +20,8 @@ class ITunesParser: AVFMetadataParser {
         
         private let keys_year: [String] = [ITunesSpec.key_releaseDate, ITunesSpec.key_releaseYear]
         
-        // BUG TODO: Find out why ITunesNormalization tag is not being ignored in MP3 file
-    //    private let ignoredKeys: Set<String> = [ITunesSpec.key_normalization, ITunesSpec.key_soundCheck]
+        // BUG TODO: Find out why ITunesNormalization tag is not being ignored in MP3 files
+        private let ignoredKeys: Set<String> = [ITunesSpec.key_normalization, ITunesSpec.key_soundCheck]
     
 //    func mapTrack(_ meta: AVFMetadata) {
 //    
@@ -190,62 +190,61 @@ class ITunesParser: AVFMetadataParser {
         return items.first(where: {$0.keySpace == .iTunes && $0.keyAsString == ITunesSpec.key_title})?.stringValue
     }
     
-//    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
-//        
-//        var metadata: [String: MetadataEntry] = [:]
-//        
-//        for item in meta.genericItems.filter({item -> Bool in item.keySpace == .iTunes || item.keySpace?.rawValue == ITunesSpec.longForm_keySpaceID}) {
-//            
-//            if let key = item.keyAsString {
-//                
-//                var value: String = ""
-//                
-//                if key == ITunesSpec.key_language, let langName = LanguageMap.forCode(value.trim()) {
-//                    
-//                    value = langName
-//                    
-//                } else if key == ITunesSpec.key_compilation || key == ITunesSpec.key_isPodcast, let numVal = item.numberValue {
-//                    
-//                    // Number to boolean
-//                    value = numVal == 0 ? "No" : "Yes"
-//                    
-//                } else if ITunesSpec.keys_mediaType.contains(key) {
-//
-//                    if let mediaTypeCode = item.numberValue?.intValue, let mediaType = ITunesSpec.mediaTypes[mediaTypeCode] {
-//                        value = mediaType
-//                    } else {
-//                        continue
-//                    }
-//                    
-//                } else if key == ITunesSpec.key_contentRating {
-//                    
-//                    if let ratingCode = item.numberValue?.intValue, let rating = ITunesSpec.contentRating[ratingCode] {
-//                        value = rating
-//                    } else {
-//                        continue
-//                    }
-//                    
-//                } else if key == ITunesSpec.key_bpm {
-//                    
-//                    value = item.valueAsNumericalString
-//                    
-//                } else {
-//                    
-//                    if let strValue = item.valueAsString {
-//                        value = strValue
-//                    } else {
-//                        continue
-//                    }
-//                }
-//                
-//                let rKey = ITunesSpec.readableKey(StringUtils.cleanUpString(key))
-//                
-//                if !ignoredKeys.contains(rKey.lowercased()) {
-//                    metadata[key] = MetadataEntry(.iTunes, rKey, StringUtils.cleanUpString(value))
-//                }
-//            }
-//        }
-//        
-//        return metadata
-//    }
+    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for item in meta.iTunes.values {
+            
+            guard let key = item.keyAsString, !essentialFieldKeys.contains(key) else {continue}
+            
+            var value: String = ""
+            
+            if key == ITunesSpec.key_language, let langName = LanguageMap.forCode(value.trim()) {
+                
+                value = langName
+                
+            } else if key == ITunesSpec.key_compilation || key == ITunesSpec.key_isPodcast, let numVal = item.numberValue {
+                
+                // Number to boolean
+                value = numVal == 0 ? "No" : "Yes"
+                
+            } else if ITunesSpec.keys_mediaType.contains(key) {
+                
+                if let mediaTypeCode = item.numberValue?.intValue, let mediaType = ITunesSpec.mediaTypes[mediaTypeCode] {
+                    value = mediaType
+                } else {
+                    continue
+                }
+                
+            } else if key == ITunesSpec.key_contentRating {
+                
+                if let ratingCode = item.numberValue?.intValue, let rating = ITunesSpec.contentRating[ratingCode] {
+                    value = rating
+                } else {
+                    continue
+                }
+                
+            } else if key == ITunesSpec.key_bpm {
+                
+                value = item.valueAsNumericalString
+                
+            } else {
+                
+                if let strValue = item.valueAsString {
+                    value = strValue
+                } else {
+                    continue
+                }
+            }
+            
+            let rKey = ITunesSpec.readableKey(StringUtils.cleanUpString(key))
+            
+            if !ignoredKeys.contains(rKey.lowercased()) {
+                metadata[key] = MetadataEntry(.iTunes, rKey, StringUtils.cleanUpString(value))
+            }
+        }
+        
+        return metadata
+    }
 }

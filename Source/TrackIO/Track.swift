@@ -130,8 +130,17 @@ class Track: Hashable, PlayableItem, PlaylistItem {
 //        self.audioFormat = metadata.audioFormat
     }
     
-    func loadAuxiliaryMetadata() {
-//        context?.loadAuxiliaryMetadata()
+    func setAuxiliaryMetadata(_ metadata: AuxiliaryMetadata) {
+        
+        self.composer = metadata.composer
+        self.conductor = metadata.conductor
+        self.lyricist = metadata.lyricist
+        
+        self.bpm = metadata.bpm
+        self.year = metadata.year
+
+        self.lyrics = metadata.lyrics
+        self.genericMetadata = metadata.genericMetadata
     }
     
     func loadAllMetadata() {

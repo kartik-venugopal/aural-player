@@ -53,7 +53,7 @@ struct AuxiliaryMetadata {
     
     var lyrics: String?
     
-    var genericMetadata: OrderedMetadataMap = OrderedMetadataMap()
+    var genericMetadata: [String: MetadataEntry] = [:]
 }
 
 class CoverArt {

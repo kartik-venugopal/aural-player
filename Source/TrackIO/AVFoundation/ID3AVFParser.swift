@@ -170,153 +170,118 @@ class ID3AVFParser: AVFMetadataParser {
         return nil
     }
     
-//    
-//    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
-//        
-//        var metadata: [String: MetadataEntry] = [:]
-//        
-//        for item in meta.genericItems.filter({item -> Bool in item.keySpace == .id3}) {
-//
-//            if let key = item.keyAsString, let value = item.valueAsString {
-//
-//                var entryKey = key
-//                var entryValue = value
-//
-//                // Special fields
-//                if replaceableKeyFields.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
-//
-//                    // TXXX or COMM or WXXX
-//                    if let infoKey = mapReplaceableKeyField(attrs), !StringUtils.isStringEmpty(infoKey) {
-//                        entryKey = infoKey
-//                    }
-//
-//                } else if keys_GEOB.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
-//
-//                    // GEOB
-//                    let kv = mapGEOB(attrs)
-//                    if let infoKey = kv.key {
-//                        entryKey = infoKey
-//                    }
-//
-//                    if let objVal = kv.value {
-//                        entryValue = objVal
-//                    }
-//
-//                } else if keys_playCounter.contains(key) {
-//
-//                    // PCNT
-//                    entryValue = item.valueAsNumericalString
-//
-//                } else if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {
-//
-//                    // TLAN
-//                    entryValue = langName
-//                    
-//                } else if keys_compilation.contains(key), let numVal = item.numberValue {
-//                    
-//                    // Number to boolean
-//                    entryValue = numVal == 0 ? "No" : "Yes"
-//                    
-//                } else if key == ID3_V24Spec.key_UFID || key == ID3_V22Spec.key_UFI, let data = item.dataValue {
-//                    
-//                    if let str = String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\0", with: "\n") {
-//                        entryValue = str
-//                    }
-//                    
-//                } else if keys_mediaType.contains(key) {
-//                    
-//                    entryValue = ID3MediaTypes.mediaType(value)
-//                }
-//
-//                entryKey = StringUtils.cleanUpString(entryKey)
-//                entryValue = StringUtils.cleanUpString(entryValue)
-//
-//                metadata[entryKey] = MetadataEntry(.id3, readableKey(entryKey), entryValue)
-//            }
-//        }
-//        
-//        return metadata
-//    }
-//    
-//    private func mapGEOB(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> (key: String?, value: String?) {
-//        
-//        var info: String?
-//        var value: String = ""
-//        
-//        for (k, v) in attrs {
-//            
-//            let key = k.rawValue
-//            let aValue = String(describing: v)
-//            
-//            if key == "info" {
-//                info = aValue
-//            } else if !StringUtils.isStringEmpty(aValue) {
-//                value += String(format: "%@ = %@, ", key, aValue)
-//            }
-//        }
-//        
-//        if value.count > 2 {
-//            value = value.substring(range: 0..<(value.count - 2))
-//        }
-//        
-//        return (info?.capitalizingFirstLetter(), value.isEmpty ? nil : value)
-//    }
-//    
-//    private func mapReplaceableKeyField(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> String? {
-//        
-//        for (k, v) in attrs {
-//            
-//            let key = k.rawValue
-//            let aValue = String(describing: v)
-//            
-//            if key == "info" {
-//                
-//                if let rKey = infoKeys_TXXX[aValue.lowercased()] {
-//                    return rKey
-//                }
-//                
-//                return aValue.capitalizingFirstLetter()
-//            }
-//        }
-//        
-//        return nil
-//    }
-//    
+    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for item in meta.id3.values {
+            
+            guard let key = item.keyAsString, let value = item.valueAsString,
+                  !essentialFieldKeys.contains(key), !ignoredKeys.contains(key) else {continue}
+            
+            var entryKey = key
+            var entryValue = value
+            
+            // Special fields
+            if replaceableKeyFields.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
+                
+                // TXXX or COMM or WXXX
+                if let infoKey = mapReplaceableKeyField(attrs), !StringUtils.isStringEmpty(infoKey) {
+                    entryKey = infoKey
+                }
+                
+            } else if keys_GEOB.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
+                
+                // GEOB
+                let kv = mapGEOB(attrs)
+                if let infoKey = kv.key {
+                    entryKey = infoKey
+                }
+                
+                if let objVal = kv.value {
+                    entryValue = objVal
+                }
+                
+            } else if keys_playCounter.contains(key) {
+                
+                // PCNT
+                entryValue = item.valueAsNumericalString
+                
+            } else if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {
+                
+                // TLAN
+                entryValue = langName
+                
+            } else if keys_compilation.contains(key), let numVal = item.numberValue {
+                
+                // Number to boolean
+                entryValue = numVal == 0 ? "No" : "Yes"
+                
+            } else if key == ID3_V24Spec.key_UFID || key == ID3_V22Spec.key_UFI, let data = item.dataValue {
+                
+                if let str = String(data: data, encoding: .utf8)?.replacingOccurrences(of: "\0", with: "\n") {
+                    entryValue = str
+                }
+                
+            } else if keys_mediaType.contains(key) {
+                
+                entryValue = ID3MediaTypes.mediaType(value)
+            }
+            
+            entryKey = StringUtils.cleanUpString(entryKey)
+            entryValue = StringUtils.cleanUpString(entryValue)
+            
+            metadata[entryKey] = MetadataEntry(.id3, readableKey(entryKey), entryValue)
+        }
+        
+        return metadata
+    }
+    
+    private func mapGEOB(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> (key: String?, value: String?) {
+        
+        var info: String?
+        var value: String = ""
+        
+        for (k, v) in attrs {
+            
+            let key = k.rawValue
+            let aValue = String(describing: v)
+            
+            if key == "info" {
+                info = aValue
+            } else if !StringUtils.isStringEmpty(aValue) {
+                value += String(format: "%@ = %@, ", key, aValue)
+            }
+        }
+        
+        if value.count > 2 {
+            value = value.substring(range: 0..<(value.count - 2))
+        }
+        
+        return (info?.capitalizingFirstLetter(), value.isEmpty ? nil : value)
+    }
+    
+    private func mapReplaceableKeyField(_ attrs: [AVMetadataExtraAttributeKey : Any]) -> String? {
+        
+        for (k, v) in attrs {
+            
+            let key = k.rawValue
+            let aValue = String(describing: v)
+            
+            if key == "info" {
+                
+                if let rKey = infoKeys_TXXX[aValue.lowercased()] {
+                    return rKey
+                }
+                
+                return aValue.capitalizingFirstLetter()
+            }
+        }
+        
+        return nil
+    }
+    
     func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
         return items.first(where: {$0.keySpace == .id3 && keys_title.contains($0.keyAsString ?? "")})?.stringValue
     }
-//    
-//    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
-//
-//        var metadata: [String: MetadataEntry] = [:]
-//        
-//        if let fields = meta.id3Metadata?.genericFields {
-//            
-//            for (var key, var value) in fields {
-//                
-//                // Special fields
-//                if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {
-//                    
-//                    // TLAN
-//                    value = langName
-//                    
-//                } else if keys_compilation.contains(key), let numVal = Int(value) {
-//                    
-//                    // Number to boolean
-//                    value = numVal == 0 ? "No" : "Yes"
-//                    
-//                } else if keys_mediaType.contains(key) {
-//                    
-//                    value = ID3MediaTypes.mediaType(value)
-//                }
-//                
-//                key = StringUtils.cleanUpString(key)
-//                value = StringUtils.cleanUpString(value)
-//                
-//                metadata[key] = MetadataEntry(.id3, readableKey(key), value)
-//            }
-//        }
-//        
-//        return metadata
-//    }
 }
