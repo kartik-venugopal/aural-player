@@ -11,6 +11,10 @@ protocol PlaybackContextProtocol {
     
     var audioFormat: AVAudioFormat {get}
     
+    var sampleRate: Double {get}
+    
+    var frameCount: Int64 {get}
+    
     func open() throws
 
     func close()

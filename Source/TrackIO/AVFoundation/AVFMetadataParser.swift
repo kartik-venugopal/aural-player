@@ -31,16 +31,14 @@ protocol AVFMetadataParser {
     
     func getTrackNumber(_ meta: AVFMetadata) -> (number: Int?, total: Int?)?
     
-    func getArt(_ meta: AVFMetadata) -> NSImage?
+    func getArt(_ meta: AVFMetadata) -> CoverArt?
     
     func getYear(_ meta: AVFMetadata) -> Int?
     
     func getBPM(_ meta: AVFMetadata) -> Int?
 
     func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry]
-//
-//    // ----------- Chapter-related functions
-//
+
     func getChapterTitle(_ items: [AVMetadataItem]) -> String?
 }
 
@@ -69,7 +67,7 @@ extension AVFMetadataParser {
     
     func getBPM(_ meta: AVFMetadata) -> Int? {nil}
     
-    func getArt(_ meta: AVFMetadata) -> NSImage? {nil}
+    func getArt(_ meta: AVFMetadata) -> CoverArt? {nil}
     
     func getChapterTitle(_ items: [AVMetadataItem]) -> String? {nil}
     

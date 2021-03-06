@@ -34,10 +34,12 @@ class CommonAVFMetadataParser: AVFMetadataParser {
         meta.common[key_genre]?.stringValue
     }
     
-    func getArt(_ meta: AVFMetadata) -> NSImage? {
+    func getArt(_ meta: AVFMetadata) -> CoverArt? {
         
         if let imgData = meta.common[key_art]?.dataValue, let image = NSImage(data: imgData) {
-            return image
+            
+            let metadata = ParserUtils.getImageMetadata(imgData as NSData)
+            return CoverArt(image, metadata)
         }
         
         return nil

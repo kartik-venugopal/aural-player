@@ -93,11 +93,11 @@ class AVFFileReader: FileReaderProtocol {
         let meta = AVFMetadata(file: file)
         let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
         
-        if let art = parsers.firstNonNilMappedValue({$0.getArt(meta)}) {
-            return CoverArt(art)
-        }
-        
-        return nil
+        return parsers.firstNonNilMappedValue {$0.getArt(meta)}
+    }
+    
+    func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
+        return try AVFPlaybackContext(for: file)
     }
     
     func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata {
@@ -125,11 +125,90 @@ class AVFFileReader: FileReaderProtocol {
         
         metadata.genericMetadata = genericMetadata
         
+        metadata.audioInfo = getAudioInfo(for: file, from: meta.asset)
+        
         return metadata
     }
     
-    func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
-        return try AVFPlaybackContext(for: file)
+    private let formatDescriptions: [String: String] = [
+    
+        "mp3": "MPEG Audio Layer III (mp3)",
+        "m4a": "MPEG-4 Audio (m4a)",
+        "m4b": "MPEG-4 Audio (m4b)",
+        "m4r": "MPEG-4 Audio (m4r)",
+        "aac": "Advanced Audio Coding (aac)",
+        "alac": "Apple Lossless Audio Codec (alac)",
+        "caf": "Apple Core Audio Format (caf)",
+        "ac3": "Dolby Digital Audio Coding 3 (ac3)",
+        "ac-3": "Dolby Digital Audio Coding 3 (ac3)",
+        "wav": "Waveform Audio (wav / wave)",
+        "au": "NeXT/Sun Audio (au)",
+        "snd": "NeXT/Sun Audio (snd)",
+        "sd2": "Sound Designer II (sd2)",
+        "aiff": "Audio Interchange File Format (aiff)",
+        "aif": "Audio Interchange File Format (aiff)",
+        "aifc": "Audio Interchange File Format - Compressed (aiff-c)",
+        "adts": "Audio Data Transport Stream (adts)",
+        "lpcm": "Linear Pulse-Code Modulation (lpcm)",
+        "pcm": "Pulse-Code Modulation (pcm)"
+    ]
+    
+    private func getFormat(_ assetTrack: AVAssetTrack) -> String {
+
+        let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
+        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
+    }
+
+    // Converts a four character media type code to a readable string
+    private func codeToString(_ code: FourCharCode) -> String {
+
+        let numericCode = Int(code)
+
+        var codeString: String = String (describing: UnicodeScalar((numericCode >> 24) & 255)!)
+        codeString.append(String(describing: UnicodeScalar((numericCode >> 16) & 255)!))
+        codeString.append(String(describing: UnicodeScalar((numericCode >> 8) & 255)!))
+        codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
+
+        return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+    
+    private func getAudioInfo(for file: URL, from asset: AVURLAsset) -> AudioInfo {
+        
+        // TODO: If playback info is present, copy over the info. Otherwise, estimate frameCount.
+        
+        let fileExtension = file.pathExtension.lowercased()
+        let audioInfo = AudioInfo()
+        
+        audioInfo.format = formatDescriptions[fileExtension]
+        
+        var estBitRate: Float = 0
+        
+        if let audioTrack = asset.tracks.first {
+            
+            if let codec = formatDescriptions[getFormat(audioTrack)], codec != audioInfo.format {
+                audioInfo.codec = codec
+            } else {
+                audioInfo.codec = fileExtension.uppercased()
+            }
+            
+            estBitRate = audioTrack.estimatedDataRate
+        }
+        
+        if estBitRate > 0 {
+            
+            audioInfo.bitRate = Int(round(estBitRate)) / Int(Size.KB)
+            
+        } else if asset.duration.seconds == 0 {
+            
+            audioInfo.bitRate = 0
+            
+        } else {
+                
+            let fileSize = FileSystemUtils.sizeOfFile(path: file.path)
+            audioInfo.bitRate = roundedInt(Double(fileSize.sizeBytes) * 8 / (Double(asset.duration.seconds) * Double(Size.KB)))
+        }
+        
+        return audioInfo
     }
     
     // Reads all chapter metadata for a given track

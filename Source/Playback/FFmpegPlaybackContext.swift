@@ -36,6 +36,10 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
     ///
     var sampleCountForDeferredPlayback: Int32 = 0
     
+    var sampleRate: Double = 0
+    
+    var frameCount: Int64 = 0
+    
     init(for file: URL) throws {
         
         self.file = file
@@ -45,6 +49,12 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
         let codec = decoder.codec
         
         let sampleRate: Int32 = codec.sampleRate
+        self.sampleRate = Double(sampleRate)
+        
+        if let audioStream = fileContext.bestAudioStream {
+            self.frameCount = Int64(Double(audioStream.sampleRate) * fileContext.duration)
+        }
+        
         let channelLayout: AVAudioChannelLayout = FFmpegChannelLayoutsMapper.mapLayout(ffmpegLayout: Int(codec.channelLayout)) ?? .stereo
         self.audioFormat = AVAudioFormat(standardFormatWithSampleRate: Double(sampleRate), channelLayout: channelLayout)
 

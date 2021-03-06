@@ -160,9 +160,33 @@ class FFmpegFileReader: FileReaderProtocol {
             
             metadata.genericMetadata = genericMetadata
             
+            metadata.audioInfo = getAudioInfo(for: file, from: fctx)
+            
         } catch {}
         
         return metadata
+    }
+    
+    private func getAudioInfo(for file: URL, from fctx: FFmpegFileContext) -> AudioInfo {
+        
+        // TODO: If playback info is present, copy over the info. Otherwise, estimate frameCount.
+        
+        let audioInfo = AudioInfo()
+
+        audioInfo.format = fctx.formatLongName
+        audioInfo.codec = fctx.formatName
+        audioInfo.bitRate = Int(fctx.bitRate)
+        
+        if let audioStream = fctx.bestAudioStream {
+            
+            audioInfo.sampleRate = audioStream.sampleRate
+            audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
+            
+            audioInfo.numChannels = Int(audioStream.channelCount)
+            audioInfo.channelLayout = FFmpegChannelLayoutsMapper.readableString(for: Int64(audioStream.channelLayout), channelCount: audioStream.channelCount)
+        }
+        
+        return audioInfo
     }
     
     func getArt(for file: URL) -> CoverArt? {

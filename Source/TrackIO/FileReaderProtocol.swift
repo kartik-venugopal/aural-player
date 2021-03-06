@@ -53,6 +53,26 @@ class FileReader: FileReaderProtocol {
     }
     
     func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata {
-        return AuxiliaryMetadata()
+        
+        let fileExtension = file.pathExtension.lowercased()
+        var auxMetadata: AuxiliaryMetadata
+        
+        if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
+            auxMetadata = avfReader.getAuxiliaryMetadata(for: file)
+            
+        } else {
+            auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file)
+        }
+        
+        let attrs = FileSystemUtils.fileAttributes(path: file.path)
+        
+        // Filesystem info
+        auxMetadata.fileSystemInfo?.size = attrs.size
+        auxMetadata.fileSystemInfo?.creationDate = attrs.creationDate
+        auxMetadata.fileSystemInfo?.kindOfFile = attrs.kindOfFile
+        auxMetadata.fileSystemInfo?.lastModified = attrs.lastModified
+        auxMetadata.fileSystemInfo?.lastOpened = attrs.lastOpened
+        
+        return auxMetadata
     }
 }

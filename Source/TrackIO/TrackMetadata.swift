@@ -54,6 +54,9 @@ struct AuxiliaryMetadata {
     var lyrics: String?
     
     var genericMetadata: [String: MetadataEntry] = [:]
+    
+    var fileSystemInfo: FileSystemInfo?
+    var audioInfo: AudioInfo?
 }
 
 class CoverArt {
@@ -99,7 +102,7 @@ class AudioInfo {
     var frames: AVAudioFramePosition?
     
     // The sample rate of the track (in Hz)
-    var sampleRate: Double?
+    var sampleRate: Int32?
     
     // Number of audio channels
     var numChannels: Int?
@@ -122,6 +125,7 @@ class FileSystemInfo {
     let fileName: String
     
     init(_ file: URL) {
+        
         self.file = file
         self.fileName = file.deletingPathExtension().lastPathComponent
     }

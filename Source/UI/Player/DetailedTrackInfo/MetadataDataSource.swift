@@ -147,38 +147,37 @@ class MetadataDataSource: TrackInfoDataSource {
                 trackInfo.append((key: "Disc#", value: String(discNum)))
             }
         }
-//
-//        // TODO: Sort the metadata so that junk comes last (e.g. iTunesNORM and UPC's, etc)
-//
-//        var sortedArr = [(key: String, entry: MetadataEntry)]()
-//
-//        for (_, entry) in track.metadata {
-//            sortedArr.append((key: entry.key, entry: entry))
-//        }
-//
-//        sortedArr.sort(by: {e1, e2 -> Bool in
-//
-//            let t1 = e1.entry.type
-//            let t2 = e2.entry.type
-//
-//            // If both entries are of the same metadata type (e.g. both are iTunes), compare their formatted keys (ascending order)
-//            if t1 == t2 {
-//                // TODO: Format key only once
-//                return e1.entry.key < e2.entry.key
-//            }
-//
-//            // Entries have different metadata types, compare by their sort order
-//            return t1.sortOrder < t2.sortOrder
-//        })
-//
-//        for (_, entry) in sortedArr {
-//
-//            let fKey = entry.key.trim()
-//
-//            if !fKey.isEmpty {
-//                trackInfo.append((key: fKey, value: entry.value.trim()))
-//            }
-//        }
+
+        // TODO: Sort the metadata so that junk comes last (e.g. iTunesNORM and UPC's, etc)
+
+        var sortedArr = [(key: String, entry: MetadataEntry)]()
+
+        for (_, entry) in track.genericMetadata {
+            sortedArr.append((key: entry.key, entry: entry))
+        }
+
+        sortedArr.sort(by: {e1, e2 -> Bool in
+
+            let t1 = e1.entry.format
+            let t2 = e2.entry.format
+
+            // If both entries are of the same metadata type (e.g. both are iTunes), compare their formatted keys (ascending order)
+            if t1 == t2 {
+                return e1.entry.key < e2.entry.key
+            }
+
+            // Entries have different metadata types, compare by their sort order
+            return t1.sortOrder < t2.sortOrder
+        })
+
+        for (_, entry) in sortedArr {
+
+            let fKey = entry.key.trim()
+
+            if !fKey.isEmpty {
+                trackInfo.append((key: fKey, value: entry.value.trim()))
+            }
+        }
         
         return trackInfo
     }

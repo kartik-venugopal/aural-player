@@ -9,15 +9,6 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     let file: URL
     let fileExtension: String
     
-    var fileType: String
-    var audioFormat: String?
-    
-    var fileSize: Size?
-    
-    var fileLastModifiedDate: Date?
-    var fileCreationDate: Date?
-    var fileLastOpenedDate: Date?
-    
     let isNativelySupported: Bool
     
     var playbackContext: PlaybackContextProtocol?
@@ -81,11 +72,15 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     var chapters: [Chapter] = []
     var hasChapters: Bool {!chapters.isEmpty}
     
+    let fileSystemInfo: FileSystemInfo
+    var audioInfo: AudioInfo?
+    
     init(_ file: URL, fileMetadata: FileMetadata? = nil) {
 
         self.file = file
         self.fileExtension = file.pathExtension.lowercased()
-        self.fileType = file.pathExtension.uppercased()
+        self.fileSystemInfo = FileSystemInfo(file)
+        
         self.defaultDisplayName = file.deletingPathExtension().lastPathComponent
         
         self.isNativelySupported = AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension)
@@ -103,31 +98,23 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         guard let metadata: PlaylistMetadata = allMetadata.playlist else {return}
         
         self.title = metadata.title
+        
         self.theArtist = metadata.artist
         self.albumArtist = metadata.albumArtist
-        self.album = metadata.album
-        self.genre = metadata.genre
-        
-//        self.composer = metadata.composer
-//        self.conductor = metadata.conductor
-//        self.lyricist = metadata.lyricist
         self.performer = metadata.performer
         
+        self.album = metadata.album
+        self.genre = metadata.genre
+
         self.trackNumber = metadata.trackNumber
         self.totalTracks = metadata.totalTracks
         
         self.discNumber = metadata.discNumber
         self.totalDiscs = metadata.totalDiscs
         
-//        self.year = metadata.year
-//        self.bpm = metadata.bpm
-        
         self.duration = metadata.duration
         
         self.chapters = metadata.chapters
-//        self.art = metadata.art
-        
-//        self.audioFormat = metadata.audioFormat
     }
     
     func setAuxiliaryMetadata(_ metadata: AuxiliaryMetadata) {
@@ -141,6 +128,12 @@ class Track: Hashable, PlayableItem, PlaylistItem {
 
         self.lyrics = metadata.lyrics
         self.genericMetadata = metadata.genericMetadata
+        
+        self.fileSystemInfo.size = metadata.fileSystemInfo?.size
+        self.fileSystemInfo.creationDate = metadata.fileSystemInfo?.creationDate
+        self.fileSystemInfo.kindOfFile = metadata.fileSystemInfo?.kindOfFile
+        self.fileSystemInfo.lastModified = metadata.fileSystemInfo?.lastModified
+        self.fileSystemInfo.lastOpened = metadata.fileSystemInfo?.lastOpened
     }
     
     func loadAllMetadata() {
