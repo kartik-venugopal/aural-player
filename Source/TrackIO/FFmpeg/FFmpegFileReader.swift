@@ -200,7 +200,8 @@ class FFmpegFileReader: FileReaderProtocol {
                let imageData = imageStream.attachedPic.data,
                let image = NSImage(data: imageData) {
                 
-                return CoverArt(image)
+                let metadata = ParserUtils.getImageMetadata(imageData as NSData)
+                return CoverArt(image, metadata)
             }
             
         } catch {

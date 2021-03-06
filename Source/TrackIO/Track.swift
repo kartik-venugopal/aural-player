@@ -72,7 +72,7 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     var chapters: [Chapter] = []
     var hasChapters: Bool {!chapters.isEmpty}
     
-    let fileSystemInfo: FileSystemInfo
+    var fileSystemInfo: FileSystemInfo
     var audioInfo: AudioInfo?
     
     init(_ file: URL, fileMetadata: FileMetadata? = nil) {
@@ -129,11 +129,8 @@ class Track: Hashable, PlayableItem, PlaylistItem {
         self.lyrics = metadata.lyrics
         self.genericMetadata = metadata.genericMetadata
         
-        self.fileSystemInfo.size = metadata.fileSystemInfo?.size
-        self.fileSystemInfo.creationDate = metadata.fileSystemInfo?.creationDate
-        self.fileSystemInfo.kindOfFile = metadata.fileSystemInfo?.kindOfFile
-        self.fileSystemInfo.lastModified = metadata.fileSystemInfo?.lastModified
-        self.fileSystemInfo.lastOpened = metadata.fileSystemInfo?.lastOpened
+        self.fileSystemInfo = metadata.fileSystemInfo ?? self.fileSystemInfo
+        self.audioInfo = metadata.audioInfo
     }
     
     func loadAllMetadata() {

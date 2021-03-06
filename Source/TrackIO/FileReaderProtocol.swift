@@ -64,6 +64,7 @@ class FileReader: FileReaderProtocol {
             auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file)
         }
         
+        auxMetadata.fileSystemInfo = FileSystemInfo(file)
         let attrs = FileSystemUtils.fileAttributes(path: file.path)
         
         // Filesystem info

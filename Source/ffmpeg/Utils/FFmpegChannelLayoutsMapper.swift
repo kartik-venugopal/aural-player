@@ -146,7 +146,10 @@ struct FFmpegChannelLayoutsMapper {
         
         defer {layoutStringPointer.deallocate()}
         
-        return String(cString: layoutStringPointer).replacingOccurrences(of: "(", with: " (").capitalized
+        let str = String(cString: layoutStringPointer).replacingOccurrences(of: "(", with: " (").capitalized
+        print("\nCh Layout:", str, channelLayout, channelCount)
+        return str
+//        return String(cString: layoutStringPointer).replacingOccurrences(of: "(", with: " (").capitalized
     }
     
     // MARK: Debugging functions ------------------------------------------------------
