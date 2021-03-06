@@ -8,7 +8,7 @@ protocol FileReaderProtocol {
     
     func getArt(for file: URL) -> CoverArt?
     
-    func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AuxiliaryMetadata
 }
 
 class FileReader: FileReaderProtocol {
@@ -52,27 +52,28 @@ class FileReader: FileReaderProtocol {
         }
     }
     
-    func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
         
         let fileExtension = file.pathExtension.lowercased()
         var auxMetadata: AuxiliaryMetadata
         
         if AppConstants.SupportedTypes.nativeAudioExtensions.contains(fileExtension) {
-            auxMetadata = avfReader.getAuxiliaryMetadata(for: file)
-            
+            auxMetadata = avfReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext)
         } else {
-            auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file)
+            auxMetadata = ffmpegReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext)
         }
         
-        auxMetadata.fileSystemInfo = FileSystemInfo(file)
+        let fileSystemInfo = FileSystemInfo(file)
         let attrs = FileSystemUtils.fileAttributes(path: file.path)
         
         // Filesystem info
-        auxMetadata.fileSystemInfo?.size = attrs.size
-        auxMetadata.fileSystemInfo?.creationDate = attrs.creationDate
-        auxMetadata.fileSystemInfo?.kindOfFile = attrs.kindOfFile
-        auxMetadata.fileSystemInfo?.lastModified = attrs.lastModified
-        auxMetadata.fileSystemInfo?.lastOpened = attrs.lastOpened
+        fileSystemInfo.size = attrs.size
+        fileSystemInfo.creationDate = attrs.creationDate
+        fileSystemInfo.kindOfFile = attrs.kindOfFile
+        fileSystemInfo.lastModified = attrs.lastModified
+        fileSystemInfo.lastOpened = attrs.lastOpened
+        
+        auxMetadata.fileSystemInfo = fileSystemInfo
         
         return auxMetadata
     }

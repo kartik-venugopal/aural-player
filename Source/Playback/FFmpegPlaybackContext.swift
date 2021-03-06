@@ -7,6 +7,10 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
     var fileContext: FFmpegFileContext!
     var decoder: FFmpegDecoder!
     
+    var audioCodec: FFmpegAudioCodec {
+        decoder.codec
+    }
+    
     let audioFormat: AVAudioFormat
     
     ///

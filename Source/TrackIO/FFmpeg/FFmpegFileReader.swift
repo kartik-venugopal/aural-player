@@ -127,7 +127,7 @@ class FFmpegFileReader: FileReaderProtocol {
 //        }
     }
     
-    func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
         
         var metadata = AuxiliaryMetadata()
         
@@ -160,33 +160,26 @@ class FFmpegFileReader: FileReaderProtocol {
             
             metadata.genericMetadata = genericMetadata
             
-            metadata.audioInfo = getAudioInfo(for: file, from: fctx)
+            let audioInfo = AudioInfo()
+            
+            audioInfo.format = fctx.formatLongName
+            audioInfo.codec = (playbackContext as? FFmpegPlaybackContext)?.audioCodec.longName ?? fctx.formatName
+            audioInfo.bitRate = roundedInt(Double(fctx.bitRate) / Double(Size.KB))
+            
+            if let audioStream = fctx.bestAudioStream {
+                
+                audioInfo.sampleRate = audioStream.sampleRate
+                audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
+                
+                audioInfo.numChannels = Int(audioStream.channelCount)
+                audioInfo.channelLayout = FFmpegChannelLayoutsMapper.readableString(for: Int64(audioStream.channelLayout), channelCount: audioStream.channelCount)
+            }
+            
+            metadata.audioInfo = audioInfo
             
         } catch {}
         
         return metadata
-    }
-    
-    private func getAudioInfo(for file: URL, from fctx: FFmpegFileContext) -> AudioInfo {
-        
-        // TODO: If playback info is present, copy over the info. Otherwise, estimate frameCount.
-        
-        let audioInfo = AudioInfo()
-
-        audioInfo.format = fctx.formatLongName
-        audioInfo.codec = fctx.formatName
-        audioInfo.bitRate = Int(fctx.bitRate)
-        
-        if let audioStream = fctx.bestAudioStream {
-            
-            audioInfo.sampleRate = audioStream.sampleRate
-            audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
-            
-            audioInfo.numChannels = Int(audioStream.channelCount)
-            audioInfo.channelLayout = FFmpegChannelLayoutsMapper.readableString(for: Int64(audioStream.channelLayout), channelCount: audioStream.channelCount)
-        }
-        
-        return audioInfo
     }
     
     func getArt(for file: URL) -> CoverArt? {

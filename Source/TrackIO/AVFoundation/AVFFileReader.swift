@@ -100,7 +100,7 @@ class AVFFileReader: FileReaderProtocol {
         return try AVFPlaybackContext(for: file)
     }
     
-    func getAuxiliaryMetadata(for file: URL) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
         
         var metadata = AuxiliaryMetadata()
         let meta = AVFMetadata(file: file)
@@ -125,9 +125,80 @@ class AVFFileReader: FileReaderProtocol {
         
         metadata.genericMetadata = genericMetadata
         
-        metadata.audioInfo = getAudioInfo(for: file, from: meta.asset)
+        let audioInfo = AudioInfo()
+        
+        var optionalPlaybackContext: PlaybackContextProtocol? = playbackContext
+        
+        if optionalPlaybackContext == nil {
+            
+            do {
+                optionalPlaybackContext = try AVFPlaybackContext(for: file)
+            } catch {}
+        }
+        
+        // Transfer audio info from playback info, if available
+        if let thePlaybackContext = optionalPlaybackContext {
+            
+            let intChannelCount = Int(thePlaybackContext.audioFormat.channelCount)
+            audioInfo.numChannels = intChannelCount
+            audioInfo.channelLayout = channelLayout(intChannelCount)
+            
+            audioInfo.sampleRate = Int32(thePlaybackContext.sampleRate)
+            audioInfo.frames = thePlaybackContext.frameCount
+        }
+        
+        let fileExtension = file.pathExtension.lowercased()
+        audioInfo.format = formatDescriptions[fileExtension]
+        
+        var estBitRate: Float = 0
+        
+        if let audioTrack = meta.asset.tracks.first {
+            
+            if let codec = formatDescriptions[getFormat(audioTrack)], codec != audioInfo.format {
+                audioInfo.codec = codec
+            } else {
+                audioInfo.codec = fileExtension.uppercased()
+            }
+            
+            estBitRate = audioTrack.estimatedDataRate
+        }
+        
+        if estBitRate > 0 {
+            
+            audioInfo.bitRate = Int(round(estBitRate)) / Int(Size.KB)
+            
+        } else if meta.asset.duration.seconds == 0 {
+            
+            audioInfo.bitRate = 0
+            
+        } else {
+                
+            let fileSize = FileSystemUtils.sizeOfFile(path: file.path)
+            audioInfo.bitRate = roundedInt(Double(fileSize.sizeBytes) * 8 / (Double(meta.asset.duration.seconds) * Double(Size.KB)))
+        }
+        
+        metadata.audioInfo = audioInfo
         
         return metadata
+    }
+    
+    private func channelLayout(_ numChannels: Int) -> String {
+        
+        switch numChannels {
+            
+        case 1: return "Mono (1 ch)"
+            
+        case 2: return "Stereo (2 ch)"
+            
+        case 6: return "5.1 (6 ch)"
+            
+        case 8: return "7.1 (8 ch)"
+            
+        case 10: return "9.1 (10 ch)"
+            
+        default: return String(format: "%d channels", numChannels)
+            
+        }
     }
     
     private let formatDescriptions: [String: String] = [
@@ -170,45 +241,6 @@ class AVFFileReader: FileReaderProtocol {
         codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
 
         return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
-    }
-    
-    private func getAudioInfo(for file: URL, from asset: AVURLAsset) -> AudioInfo {
-        
-        // TODO: If playback info is present, copy over the info. Otherwise, estimate frameCount.
-        
-        let fileExtension = file.pathExtension.lowercased()
-        let audioInfo = AudioInfo()
-        
-        audioInfo.format = formatDescriptions[fileExtension]
-        
-        var estBitRate: Float = 0
-        
-        if let audioTrack = asset.tracks.first {
-            
-            if let codec = formatDescriptions[getFormat(audioTrack)], codec != audioInfo.format {
-                audioInfo.codec = codec
-            } else {
-                audioInfo.codec = fileExtension.uppercased()
-            }
-            
-            estBitRate = audioTrack.estimatedDataRate
-        }
-        
-        if estBitRate > 0 {
-            
-            audioInfo.bitRate = Int(round(estBitRate)) / Int(Size.KB)
-            
-        } else if asset.duration.seconds == 0 {
-            
-            audioInfo.bitRate = 0
-            
-        } else {
-                
-            let fileSize = FileSystemUtils.sizeOfFile(path: file.path)
-            audioInfo.bitRate = roundedInt(Double(fileSize.sizeBytes) * 8 / (Double(asset.duration.seconds) * Double(Size.KB)))
-        }
-        
-        return audioInfo
     }
     
     // Reads all chapter metadata for a given track
@@ -268,7 +300,6 @@ class AVFFileReader: FileReaderProtocol {
     // So, use start times to compute end times / duration
     private func getChapters_olderSystems(for file: URL, from asset: AVURLAsset) -> [Chapter] {
         
-        // TODO: BUG - This code assumes chapters are sorted by startTime.
         // First sort by startTime, then use start times to compute end times / durations.
         
         var chapters: [Chapter] = []

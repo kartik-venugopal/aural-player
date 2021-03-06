@@ -9,8 +9,6 @@ class AudioDataSource: TrackInfoDataSource {
     
     override func infoForTrack(_ track: Track) -> [(key: String, value: String)] {
         
-        // TODO: Should use track.audioInfo here ... not playbackInfo.
-        
         var trackInfo: [(key: String, value: String)] = []
         
         trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
@@ -19,7 +17,13 @@ class AudioDataSource: TrackInfoDataSource {
         trackInfo.append((key: "Track Duration", value: ValueFormatter.formatSecondsToHMS(track.duration)))
         
         if let bitRate = track.audioInfo?.bitRate {
-            trackInfo.append((key: "Bit Rate", value: String(format: "%d kbps", bitRate)))
+            
+            if bitRate < 1000 {
+                trackInfo.append((key: "Bit Rate", value: String(format: "%d kbps", bitRate)))
+            } else {
+                trackInfo.append((key: "Bit Rate", value: String(format: "%@ kbps", ValueFormatter.readableLongInteger(Int64(bitRate)))))
+            }
+            
         } else {
             trackInfo.append((key: "Bit Rate", value: value_unknown))
         }
