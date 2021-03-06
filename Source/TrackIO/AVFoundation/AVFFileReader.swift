@@ -106,12 +106,12 @@ class AVFFileReader: FileReaderProtocol {
         let meta = AVFMetadata(file: file)
         let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
         
-        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(meta)}
-        metadata.bpm = parsers.firstNonNilMappedValue {$0.getBPM(meta)}
-        
         metadata.composer = cleanUp(parsers.firstNonNilMappedValue {$0.getComposer(meta)})
         metadata.conductor = cleanUp(parsers.firstNonNilMappedValue {$0.getConductor(meta)})
         metadata.lyricist = cleanUp(parsers.firstNonNilMappedValue {$0.getLyricist(meta)})
+        
+        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(meta)}
+        metadata.bpm = parsers.firstNonNilMappedValue {$0.getBPM(meta)}
         
         metadata.lyrics = cleanUp(parsers.firstNonNilMappedValue {$0.getLyrics(meta)})
         
@@ -122,6 +122,8 @@ class AVFFileReader: FileReaderProtocol {
             let parserMetadata = parser.getGenericMetadata(meta)
             parserMetadata.forEach {(k,v) in genericMetadata[k] = v}
         }
+        
+        metadata.genericMetadata = genericMetadata
         
         return metadata
     }

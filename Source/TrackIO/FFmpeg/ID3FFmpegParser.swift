@@ -24,6 +24,10 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     private let keys_lyrics: [String] = [ID3_V24Spec.key_lyrics, ID3_V22Spec.key_lyrics, ID3_V24Spec.key_syncLyrics, ID3_V22Spec.key_syncLyrics].map {$0.lowercased()}
     private let keys_art: [String] = [ID3_V24Spec.key_art, ID3_V22Spec.key_art].map {$0.lowercased()}
     
+    private let keys_language: [String] = [ID3_V24Spec.key_language, ID3_V22Spec.key_language]
+    private let keys_compilation: [String] = [ID3_V24Spec.key_compilation, ID3_V22Spec.key_compilation]
+    private let keys_mediaType: [String] = [ID3_V24Spec.key_mediaType, ID3_V22Spec.key_mediaType]
+    
     private let essentialFieldKeys: Set<String> = {
         
         Set<String>().union(ID3_V1Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V22Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V24Spec.essentialFieldKeys.map {$0.lowercased()})
@@ -63,6 +67,10 @@ class ID3FFmpegParser: FFmpegMetadataParser {
                 meta.map.removeValue(forKey: key)
             }
         }
+    }
+    
+    private func readableKey(_ key: String) -> String {
+        return genericFields[key] ?? key.capitalizingFirstLetter()
     }
 
     func hasMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
@@ -150,37 +158,34 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         return nil
     }
     
-//    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
-    //
-    //        var metadata: [String: MetadataEntry] = [:]
-    //
-    //        if let fields = meta.id3Metadata?.genericFields {
-    //
-    //            for (var key, var value) in fields {
-    //
-    //                // Special fields
-    //                if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {
-    //
-    //                    // TLAN
-    //                    value = langName
-    //
-    //                } else if keys_compilation.contains(key), let numVal = Int(value) {
-    //
-    //                    // Number to boolean
-    //                    value = numVal == 0 ? "No" : "Yes"
-    //
-    //                } else if keys_mediaType.contains(key) {
-    //
-    //                    value = ID3MediaTypes.mediaType(value)
-    //                }
-    //
-    //                key = StringUtils.cleanUpString(key)
-    //                value = StringUtils.cleanUpString(value)
-    //
-    //                metadata[key] = MetadataEntry(.id3, readableKey(key), value)
-    //            }
-    //        }
-    //
-    //        return metadata
-    //    }
+    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for (var key, var value) in meta.id3Metadata.genericFields {
+            
+            // Special fields
+            if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {
+                
+                // TLAN
+                value = langName
+                
+            } else if keys_compilation.contains(key), let numVal = Int(value) {
+                
+                // Number to boolean
+                value = numVal == 0 ? "No" : "Yes"
+                
+            } else if keys_mediaType.contains(key) {
+                
+                value = ID3MediaTypes.mediaType(value)
+            }
+            
+            key = StringUtils.cleanUpString(key)
+            value = StringUtils.cleanUpString(value)
+            
+            metadata[key] = MetadataEntry(.id3, readableKey(key), value)
+        }
+        
+        return metadata
+    }
 }

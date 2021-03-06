@@ -141,18 +141,26 @@ class FFmpegFileReader: FileReaderProtocol {
             
             let relevantParsers = allParsers.filter {$0.hasMetadataForTrack(meta)}
             
-            metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(meta)}
-            metadata.bpm = relevantParsers.firstNonNilMappedValue {$0.getBPM(meta)}
             metadata.composer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getComposer(meta)})
             metadata.conductor = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getConductor(meta)})
             metadata.lyricist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyricist(meta)})
             
+            metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(meta)}
+            metadata.bpm = relevantParsers.firstNonNilMappedValue {$0.getBPM(meta)}
+            
             metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(meta)})
             
-            // TODO: Generic key-value pairs
+            var genericMetadata: [String: MetadataEntry] = [:]
             
-        } catch {
-        }
+            for parser in relevantParsers {
+                
+                let parserMetadata = parser.getGenericMetadata(meta)
+                parserMetadata.forEach {(k,v) in genericMetadata[k] = v}
+            }
+            
+            metadata.genericMetadata = genericMetadata
+            
+        } catch {}
         
         return metadata
     }

@@ -35,17 +35,14 @@ class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
         return fTokens.joined(separator: " ")
     }
     
-//    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
-//        
-//        var metadata: [String: MetadataEntry] = [:]
-//        
-//        if let fields = meta.otherMetadata?.genericFields {
-//            
-//            for (key, value) in fields {
-//                metadata[key] = MetadataEntry(.other, key, StringUtils.cleanUpString(value.trim()))
-//            }
-//        }
-//        
-//        return metadata
-//    }
+    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for (key, value) in meta.otherMetadata.genericFields {
+            metadata[key] = MetadataEntry(.other, key, StringUtils.cleanUpString(value.trim()))
+        }
+        
+        return metadata
+    }
 }

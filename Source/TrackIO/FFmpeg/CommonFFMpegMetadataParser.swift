@@ -118,28 +118,25 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
         return nil
     }
     
-    //    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
-    //
-    //        var metadata: [String: MetadataEntry] = [:]
-    //
-    //        if let fields = meta.commonMetadata?.genericFields {
-    //
-    //            for (key, var value) in fields {
-    //
-    //                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
-    //                    value = langName
-    //                }
-    //
-    //                value = StringUtils.cleanUpString(value)
-    //
-    //                metadata[key] = MetadataEntry(.common, readableKey(key), value)
-    //            }
-    //        }
-    //
-    //        return metadata
-    //    }
-    //
-    //    func readableKey(_ key: String) -> String {
-    //        return genericKeys[key] ?? key.capitalizingFirstLetter()
-    //    }
+    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for (key, var value) in meta.commonMetadata.genericFields {
+            
+            if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
+                value = langName
+            }
+            
+            value = StringUtils.cleanUpString(value)
+            
+            metadata[key] = MetadataEntry(.common, readableKey(key), value)
+        }
+        
+        return metadata
+    }
+    
+    func readableKey(_ key: String) -> String {
+        return genericKeys[key] ?? key.capitalizingFirstLetter()
+    }
 }

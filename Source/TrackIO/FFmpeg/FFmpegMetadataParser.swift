@@ -42,7 +42,7 @@ protocol FFmpegMetadataParser {
     
     func isDRMProtected(_ meta: FFmpegMappedMetadata) -> Bool?
     
-//    func getGenericMetadata(_ meta: FFmpegMetadataReaderContext) -> [String: String]
+    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String: MetadataEntry]
 }
 
 extension FFmpegMetadataParser {
@@ -82,4 +82,6 @@ extension FFmpegMetadataParser {
     func getDuration(_ meta: FFmpegMappedMetadata) -> Double? {nil}
     
     func isDRMProtected(_ meta: FFmpegMappedMetadata) -> Bool? {nil}
+    
+    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String: MetadataEntry] {[:]}
 }

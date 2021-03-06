@@ -370,30 +370,27 @@ class WMParser: FFmpegMetadataParser {
         return nil
     }
     
-//    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
-//        
-//        var metadata: [String: MetadataEntry] = [:]
-//        
-//        if let fields = meta.wmMetadata?.genericFields {
-//            
-//            for (key, var value) in fields {
-//                
-//                // Check special fields (TODO: Check special fields (e.g. encoding time))
-//                
-//                if key == key_isVBR || key == key_isCompilation, let boolVal = numericStringToBoolean(value) {
-//                    value = boolVal ? "Yes" : "No"
-//                } else if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
-//                    value = langName
-//                }
-//                
-//                value = StringUtils.cleanUpString(value)
-//                
-//                metadata[key] = MetadataEntry(.wma, readableKey(key), value)
-//            }
-//        }
-//        
-//        return metadata
-//    }
+    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for (key, var value) in meta.wmMetadata.genericFields {
+            
+            // TODO: Check special fields (e.g. encoding time)
+            
+            if key == key_isVBR || key == key_isCompilation, let boolVal = numericStringToBoolean(value) {
+                value = boolVal ? "Yes" : "No"
+            } else if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
+                value = langName
+            }
+            
+            value = StringUtils.cleanUpString(value)
+            
+            metadata[key] = MetadataEntry(.wma, readableKey(key), value)
+        }
+        
+        return metadata
+    }
 }
 
 // Used for parsing "Encoding time" field

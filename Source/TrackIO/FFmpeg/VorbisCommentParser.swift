@@ -393,28 +393,24 @@ class VorbisCommentParser: FFmpegMetadataParser {
         return nil
     }
     
-//    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
-//        
-//        var metadata: [String: MetadataEntry] = [:]
-//        
-//        if let fields = meta.vorbisMetadata?.genericFields {
-//            
-//            for (key, var value) in fields {
-//                
-//                // Check special fields
-//                if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
-//                    value = langName
-//                } else if key == key_compilation, let bVal = numericStringToBoolean(value) {
-//                    value = bVal ? "Yes" : "No"
-//                }
-//                
-//                value = StringUtils.cleanUpString(value)
-//                
-//                metadata[key] = MetadataEntry(.vorbis, readableKey(key), value)
-//            }
-//        }
-//        
-//        return metadata
-//    }
-    
+    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+        
+        var metadata: [String: MetadataEntry] = [:]
+        
+        for (key, var value) in meta.vorbisMetadata.genericFields {
+            
+            // Check special fields
+            if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
+                value = langName
+            } else if key == key_compilation, let bVal = numericStringToBoolean(value) {
+                value = bVal ? "Yes" : "No"
+            }
+            
+            value = StringUtils.cleanUpString(value)
+            
+            metadata[key] = MetadataEntry(.vorbis, readableKey(key), value)
+        }
+        
+        return metadata
+    }
 }
