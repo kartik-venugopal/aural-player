@@ -36,14 +36,6 @@ class HistoryMenuItem: NSMenuItem {
     var historyItem: HistoryItem!
 }
 
-// Creates a menu item that describes a time category like "Past hour". The item will have no action.
-fileprivate func createDescriptor(_ timeElapsed: TimeElapsed) -> NSMenuItem {
-    
-    let item = NSMenuItem(title: timeElapsed.rawValue, action: nil, keyEquivalent: "")
-    item.disable()  // Descriptor items cannot be clicked
-    return item
-}
-
 fileprivate let fileReader: FileReader = ObjectGraph.fileReader
 
 fileprivate func artForFile(_ _file: URL) -> NSImage? {
@@ -131,7 +123,7 @@ fileprivate func createChronologicalMenu(_ items: [HistoryItem], _ menu: NSMenu,
             
             // Add a descriptor menu item that describes the time category, between 2 separators
             menu.addItem(NSMenuItem.separator())
-            menu.addItem(createDescriptor(timeElapsed))
+            menu.addItem(NSMenuItem.createDescriptor(title: timeElapsed.rawValue))
             menu.addItem(NSMenuItem.separator())
         }
         
