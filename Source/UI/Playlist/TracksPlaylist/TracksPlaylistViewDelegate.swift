@@ -22,7 +22,13 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the track name column is used for type selection
-        return tableColumn?.identifier == .uid_trackName ? playlist.trackAtIndex(row)?.displayName : nil
+        guard tableColumn?.identifier == .uid_trackName, let displayName = playlist.trackAtIndex(row)?.displayName else {return nil}
+        
+        if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
+            return displayName
+        }
+        
+        return nil
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {

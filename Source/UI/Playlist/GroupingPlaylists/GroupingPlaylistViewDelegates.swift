@@ -30,6 +30,19 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         30
     }
     
+    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
+    func outlineView(_ outlineView: NSOutlineView, typeSelectStringFor tableColumn: NSTableColumn?, item: Any) -> String? {
+        
+        // Only the track name column is used for type selection
+        guard tableColumn?.identifier == .uid_trackName, let displayName = (item as? Track)?.displayName ?? (item as? Group)?.name else {return nil}
+        
+        if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
+            return displayName
+        }
+        
+        return nil
+    }
+    
     // Returns a view for a single column
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
