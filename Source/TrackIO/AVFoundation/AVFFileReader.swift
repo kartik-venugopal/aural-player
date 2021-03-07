@@ -53,7 +53,7 @@ class AVFFileReader: FileReaderProtocol {
     
     func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata {
         
-        let meta = AVFMetadata(file: file)
+        let meta = AVFMappedMetadata(file: file)
         
         guard meta.asset.tracks.first(where: {$0.mediaType == .audio}) != nil else {
             throw NoAudioTracksError(file)
@@ -90,7 +90,7 @@ class AVFFileReader: FileReaderProtocol {
     
     func getArt(for file: URL) -> CoverArt? {
         
-        let meta = AVFMetadata(file: file)
+        let meta = AVFMappedMetadata(file: file)
         let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
         
         return parsers.firstNonNilMappedValue {$0.getArt(meta)}
@@ -103,7 +103,7 @@ class AVFFileReader: FileReaderProtocol {
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
         
         var metadata = AuxiliaryMetadata()
-        let meta = AVFMetadata(file: file)
+        let meta = AVFMappedMetadata(file: file)
         let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
         
         metadata.composer = cleanUp(parsers.firstNonNilMappedValue {$0.getComposer(meta)})

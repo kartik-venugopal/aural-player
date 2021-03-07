@@ -33,7 +33,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         Set<String>().union(ID3_V1Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V22Spec.essentialFieldKeys.map {$0.lowercased()}).union(ID3_V24Spec.essentialFieldKeys.map {$0.lowercased()})
     }()
     
-    private let ignoredKeys: Set<String> = Set([ID3_V24Spec.key_private, ID3_V24Spec.key_tableOfContents, ID3_V24Spec.key_chapter].map {$0.lowercased()})
+    private let ignoredKeys: Set<String> = Set([ID3_V24Spec.key_private, ID3_V24Spec.key_tableOfContents, ID3_V24Spec.key_chapter, ID3_V24Spec.key_lyrics, ID3_V22Spec.key_lyrics, ID3_V24Spec.key_syncLyrics, ID3_V22Spec.key_syncLyrics].map {$0.lowercased()})
     
     private let genericFields: [String: String] = {
         

@@ -1,6 +1,6 @@
 import AVFoundation
 
-class AVFMetadata {
+class AVFMappedMetadata {
     
     let file: URL
     let asset: AVURLAsset

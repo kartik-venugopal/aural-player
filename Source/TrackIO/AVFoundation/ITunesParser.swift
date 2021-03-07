@@ -52,7 +52,7 @@ class ITunesParser: AVFMetadataParser {
 //        }
 //    }
 //    
-    func getDuration(_ meta: AVFMetadata) -> Double? {
+    func getDuration(_ meta: AVFMappedMetadata) -> Double? {
         
         if let item = meta.iTunes[ITunesSpec.key_duration], let durationStr = item.stringValue {
             return ParserUtils.parseDuration(durationStr)
@@ -61,39 +61,39 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    func getTitle(_ meta: AVFMetadata) -> String? {
+    func getTitle(_ meta: AVFMappedMetadata) -> String? {
         meta.iTunes[ITunesSpec.key_title]?.stringValue
     }
     
-    func getArtist(_ meta: AVFMetadata) -> String? {
+    func getArtist(_ meta: AVFMappedMetadata) -> String? {
         (keys_artist.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
     }
     
-    func getAlbumArtist(_ meta: AVFMetadata) -> String? {
+    func getAlbumArtist(_ meta: AVFMappedMetadata) -> String? {
         meta.iTunes[ITunesSpec.key_albumArtist]?.stringValue
     }
     
-    func getAlbum(_ meta: AVFMetadata) -> String? {
+    func getAlbum(_ meta: AVFMappedMetadata) -> String? {
         (keys_album.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
     }
     
-    func getComposer(_ meta: AVFMetadata) -> String? {
+    func getComposer(_ meta: AVFMappedMetadata) -> String? {
         meta.iTunes[ITunesSpec.key_composer]?.stringValue
     }
     
-    func getConductor(_ meta: AVFMetadata) -> String? {
+    func getConductor(_ meta: AVFMappedMetadata) -> String? {
         (keys_conductor.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
     }
     
-    func getPerformer(_ meta: AVFMetadata) -> String? {
+    func getPerformer(_ meta: AVFMappedMetadata) -> String? {
         meta.iTunes[ITunesSpec.key_performer]?.stringValue
     }
     
-    func getLyricist(_ meta: AVFMetadata) -> String? {
+    func getLyricist(_ meta: AVFMappedMetadata) -> String? {
         (keys_lyricist.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
     }
     
-    func getGenre(_ meta: AVFMetadata) -> String? {
+    func getGenre(_ meta: AVFMappedMetadata) -> String? {
         
         if let genreItem = keys_genre.firstNonNilMappedValue({meta.iTunes[$0]}) {
             return ParserUtils.getID3Genre(genreItem, -1)
@@ -132,7 +132,7 @@ class ITunesParser: AVFMetadataParser {
         return string
     }
     
-    func getTrackNumber(_ meta: AVFMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = meta.iTunes[ITunesSpec.key_trackNumber] {
             return ParserUtils.parseDiscOrTrackNumber(item)
@@ -141,7 +141,7 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    func getDiscNumber(_ meta: AVFMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
         if let item = keys_discNum.firstNonNilMappedValue({meta.iTunes[$0]}) {
             return ParserUtils.parseDiscOrTrackNumber(item)
@@ -150,7 +150,7 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    func getArt(_ meta: AVFMetadata) -> CoverArt? {
+    func getArt(_ meta: AVFMappedMetadata) -> CoverArt? {
         
         if let imgData = meta.iTunes[ITunesSpec.key_art]?.dataValue, let image = NSImage(data: imgData) {
             
@@ -161,7 +161,7 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    func getLyrics(_ meta: AVFMetadata) -> String? {
+    func getLyrics(_ meta: AVFMappedMetadata) -> String? {
         
         if let lyricsItem = meta.iTunes[ITunesSpec.key_lyrics] {
             return lyricsItem.stringValue
@@ -170,7 +170,7 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    func getYear(_ meta: AVFMetadata) -> Int? {
+    func getYear(_ meta: AVFMappedMetadata) -> Int? {
         
         if let item = keys_year.firstNonNilMappedValue({meta.iTunes[$0]}) {
             return ParserUtils.parseYear(item)
@@ -179,7 +179,7 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    func getBPM(_ meta: AVFMetadata) -> Int? {
+    func getBPM(_ meta: AVFMappedMetadata) -> Int? {
         
         if let item = meta.iTunes[ITunesSpec.key_bpm] {
             return ParserUtils.parseBPM(item)
@@ -192,7 +192,7 @@ class ITunesParser: AVFMetadataParser {
         return items.first(where: {$0.keySpace == .iTunes && $0.keyAsString == ITunesSpec.key_title})?.stringValue
     }
     
-    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
+    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         

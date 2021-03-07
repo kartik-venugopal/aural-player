@@ -12,29 +12,29 @@ fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey:
 
 fileprivate let key_language: String = AVMetadataKey.commonKeyLanguage.rawValue
 
-//fileprivate let essentialFieldKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_art]
+fileprivate let essentialFieldKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_art]
 
 class CommonAVFMetadataParser: AVFMetadataParser {
     
     let keySpace: AVMetadataKeySpace = .common
     
-    func getTitle(_ meta: AVFMetadata) -> String? {
+    func getTitle(_ meta: AVFMappedMetadata) -> String? {
         meta.common[key_title]?.stringValue
     }
     
-    func getArtist(_ meta: AVFMetadata) -> String? {
+    func getArtist(_ meta: AVFMappedMetadata) -> String? {
         meta.common[key_artist]?.stringValue
     }
     
-    func getAlbum(_ meta: AVFMetadata) -> String? {
+    func getAlbum(_ meta: AVFMappedMetadata) -> String? {
         meta.common[key_album]?.stringValue
     }
     
-    func getGenre(_ meta: AVFMetadata) -> String? {
+    func getGenre(_ meta: AVFMappedMetadata) -> String? {
         meta.common[key_genre]?.stringValue
     }
     
-    func getArt(_ meta: AVFMetadata) -> CoverArt? {
+    func getArt(_ meta: AVFMappedMetadata) -> CoverArt? {
         
         if let imgData = meta.common[key_art]?.dataValue, let image = NSImage(data: imgData) {
             
@@ -54,13 +54,13 @@ class CommonAVFMetadataParser: AVFMetadataParser {
         })?.stringValue
     }
 
-    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
+    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {
 
         var metadata: [String: MetadataEntry] = [:]
 
         for item in meta.common.values {
 
-            if let key = item.commonKeyAsString, var value = item.valueAsString {
+            if let key = item.commonKeyAsString, var value = item.valueAsString, !essentialFieldKeys.contains(key) {
 
                 if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                     value = langName

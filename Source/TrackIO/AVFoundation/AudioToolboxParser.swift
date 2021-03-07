@@ -28,23 +28,23 @@ class AudioToolboxParser: AVFMetadataParser {
         [key_title, key_artist, key_album, key_genre, key_duration, key_trackNumber, key_year]
     }()
 
-    func getTitle(_ meta: AVFMetadata) -> String? {
+    func getTitle(_ meta: AVFMappedMetadata) -> String? {
         meta.audioToolbox[key_title]?.stringValue
     }
     
-    func getArtist(_ meta: AVFMetadata) -> String? {
+    func getArtist(_ meta: AVFMappedMetadata) -> String? {
         meta.audioToolbox[key_artist]?.stringValue
     }
     
-    func getAlbum(_ meta: AVFMetadata) -> String? {
+    func getAlbum(_ meta: AVFMappedMetadata) -> String? {
         meta.audioToolbox[key_album]?.stringValue
     }
     
-    func getGenre(_ meta: AVFMetadata) -> String? {
+    func getGenre(_ meta: AVFMappedMetadata) -> String? {
         meta.audioToolbox[key_genre]?.stringValue
     }
     
-    func getTrackNumber(_ meta: AVFMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
         if let trackNumItem = meta.audioToolbox[key_trackNumber] {
             return ParserUtils.parseDiscOrTrackNumber(trackNumItem)
@@ -53,7 +53,7 @@ class AudioToolboxParser: AVFMetadataParser {
         return nil
     }
     
-    func getYear(_ meta: AVFMetadata) -> Int? {
+    func getYear(_ meta: AVFMappedMetadata) -> Int? {
         
         if let item = meta.audioToolbox[key_year] {
             return ParserUtils.parseYear(item)
@@ -62,7 +62,7 @@ class AudioToolboxParser: AVFMetadataParser {
         return nil
     }
     
-    func getDuration(_ meta: AVFMetadata) -> Double? {
+    func getDuration(_ meta: AVFMappedMetadata) -> Double? {
         
         if let item = meta.audioToolbox[key_duration], let durationStr = item.stringValue {
             return ParserUtils.parseDuration(durationStr)
@@ -75,13 +75,13 @@ class AudioToolboxParser: AVFMetadataParser {
         return items.first(where: {$0.keySpace == .audioFile && $0.keyAsString == key_title})?.stringValue
     }
     
-    func getGenericMetadata(_ meta: AVFMetadata) -> [String: MetadataEntry] {
+    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
         for item in meta.audioToolbox.values {
             
-            if let key = item.keyAsString, let value = item.valueAsString {
+            if let key = item.keyAsString, let value = item.valueAsString, !essentialFieldKeys.contains(key) {
                 
                 let rKey = readableKeys[key] ?? key.replacingOccurrences(of: "info-", with: "").capitalizingFirstLetter()
                 metadata[key] = MetadataEntry(.audioToolbox, rKey, value)
