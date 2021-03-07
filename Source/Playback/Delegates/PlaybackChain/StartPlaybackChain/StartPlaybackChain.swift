@@ -18,9 +18,8 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
         
         _ = self.withAction(SavePlaybackProfileAction(profiles, preferences))
         .withAction(HaltPlaybackAction(player))
-        .withAction(ValidateNewTrackAction())
-        .withAction(ApplyPlaybackProfileAction(profiles, preferences))
         .withAction(AudioFilePreparationAction(player: player, trackReader: trackReader))
+        .withAction(ApplyPlaybackProfileAction(profiles, preferences))
         .withAction(StartPlaybackAction(player))
     }
     

@@ -148,7 +148,6 @@
 		3E6C11D625CEBDBE00BF0D07 /* HaltPlaybackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C108025CEB98600BF0D07 /* HaltPlaybackAction.swift */; };
 		3E6C11D725CEBDBE00BF0D07 /* AuralPlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106A25CEB98600BF0D07 /* AuralPlayerNode.swift */; };
 		3E6C11D825CEBDBE00BF0D07 /* PlaybackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106925CEB98600BF0D07 /* PlaybackSegment.swift */; };
-		3E6C11DC25CEBDBE00BF0D07 /* ValidateNewTrackAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C108725CEB98600BF0D07 /* ValidateNewTrackAction.swift */; };
 		3E6C11DE25CEBDBE00BF0D07 /* StartPlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C108325CEB98600BF0D07 /* StartPlaybackChain.swift */; };
 		3E6C11DF25CEBDBE00BF0D07 /* PlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106625CEB98600BF0D07 /* PlaybackScheduler.swift */; };
 		3E6C11E125CEBDBE00BF0D07 /* LegacyPlaybackScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106825CEB98600BF0D07 /* LegacyPlaybackScheduler.swift */; };
@@ -896,7 +895,6 @@
 		3E6C108325CEB98600BF0D07 /* StartPlaybackChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPlaybackChain.swift; sourceTree = "<group>"; };
 		3E6C108525CEB98600BF0D07 /* StartPlaybackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPlaybackAction.swift; sourceTree = "<group>"; };
 		3E6C108625CEB98600BF0D07 /* AudioFilePreparationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFilePreparationAction.swift; sourceTree = "<group>"; };
-		3E6C108725CEB98600BF0D07 /* ValidateNewTrackAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNewTrackAction.swift; sourceTree = "<group>"; };
 		3E6C108A25CEB98600BF0D07 /* TrackPlaybackCompletedChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPlaybackCompletedChain.swift; sourceTree = "<group>"; };
 		3E6C108B25CEB98600BF0D07 /* PlaybackChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackChain.swift; sourceTree = "<group>"; };
 		3E6C108C25CEB98600BF0D07 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -2251,10 +2249,9 @@
 			isa = PBXGroup;
 			children = (
 				3E6C108325CEB98600BF0D07 /* StartPlaybackChain.swift */,
+				3E6C108625CEB98600BF0D07 /* AudioFilePreparationAction.swift */,
 				3E6C108225CEB98600BF0D07 /* ApplyPlaybackProfileAction.swift */,
 				3E6C108525CEB98600BF0D07 /* StartPlaybackAction.swift */,
-				3E6C108625CEB98600BF0D07 /* AudioFilePreparationAction.swift */,
-				3E6C108725CEB98600BF0D07 /* ValidateNewTrackAction.swift */,
 			);
 			path = StartPlaybackChain;
 			sourceTree = "<group>";
@@ -3169,7 +3166,6 @@
 				3E6C11E725CEBDC400BF0D07 /* TrackPlaybackCompletedChain.swift in Sources */,
 				3E6C128C25CEBE1800BF0D07 /* ColorClipboard.swift in Sources */,
 				3E6C12DC25CEBE8100BF0D07 /* FilterChart.swift in Sources */,
-				3E6C11DC25CEBDBE00BF0D07 /* ValidateNewTrackAction.swift in Sources */,
 				3E6C124D25CEBDF400BF0D07 /* PlaylistSearchWindowController.swift in Sources */,
 				3EE7CB9F25E22D6C0075F1DD /* EffectsFontSchemeViewController.swift in Sources */,
 				3E6C11E125CEBDBE00BF0D07 /* LegacyPlaybackScheduler.swift in Sources */,
@@ -3598,6 +3594,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -3653,6 +3651,8 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;

@@ -216,6 +216,23 @@ class FFmpegFileReader: FileReaderProtocol {
     }
     
     func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
-        return try FFmpegPlaybackContext(for: file)
+        
+        let plbkCtx = try FFmpegPlaybackContext(for: file)
+        
+        if let fileCtx = plbkCtx.fileContext {
+            
+            let meta = FFmpegMappedMetadata(for: fileCtx)
+            
+            let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
+            allParsers.forEach {$0.mapTrack(meta)}
+            
+            let relevantParsers = allParsers.filter {$0.hasMetadataForTrack(meta)}
+            
+            if relevantParsers.firstNonNilMappedValue({$0.isDRMProtected(meta)}) ?? false {
+                throw DRMProtectionError(file)
+            }
+        }
+        
+        return plbkCtx
     }
 }

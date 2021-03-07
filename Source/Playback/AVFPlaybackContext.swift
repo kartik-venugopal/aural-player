@@ -23,7 +23,33 @@ class AVFPlaybackContext: PlaybackContextProtocol {
         self.frameCount = audioFile.length
         self.computedDuration = Double(frameCount) / sampleRate
         
+        try validateFile(file)
+        
         self.audioFile = nil
+    }
+    
+    private func validateFile(_ file: URL) throws {
+        
+        // TODO: Test against a protected iTunes file
+        
+        let asset = AVURLAsset(url: file, options: nil)
+        
+        if asset.hasProtectedContent {
+            throw DRMProtectionError(file)
+        }
+        
+        let assetTracks = asset.tracks(withMediaType: .audio)
+        
+        // Check if the asset has any audio tracks
+        if assetTracks.isEmpty {
+            throw NoAudioTracksError(file)
+        }
+        
+        // Find out if track is playable
+        // TODO: What does isPlayable actually mean ?
+        if let assetTrack = assetTracks.first, !assetTrack.isPlayable {
+            throw TrackNotPlayableError(file)
+        }
     }
     
     // Called when preparing for playback

@@ -57,10 +57,11 @@ class TrackReader {
             
             track.preparationFailed = true
             
-            let prepError = TrackNotPlayableError(track.file)
-            track.preparationError = prepError
+            if let prepError = error as? DisplayableError {
+                track.preparationError = prepError
+            }
             
-            throw prepError
+            throw error
         }
     }
     
