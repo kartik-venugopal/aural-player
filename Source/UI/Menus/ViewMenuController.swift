@@ -5,9 +5,7 @@ import Cocoa
  
     NOTE - No actions are directly handled by this class. Command notifications are published to another app component that is responsible for these functions.
  */
-class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
-    
-    @IBOutlet weak var playerMenuItem: NSMenuItem!
+class ViewMenuController: NSObject, NSMenuDelegate {
     
     // Menu items whose states are toggled when they (or others) are clicked
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
@@ -25,15 +23,9 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var manageColorSchemesMenuItem: NSMenuItem!
     
-    @IBOutlet weak var windowLayoutsMenu: NSMenu!
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
     private let viewAppState = ObjectGraph.appState.ui.player
-    
-    // To save the name of a custom window layout
-    private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
-    
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
@@ -61,28 +53,7 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         toggleChaptersListMenuItem.onIf(WindowManager.isShowingChaptersList)
         toggleVisualizerMenuItem.onIf(WindowManager.isShowingVisualizer)
         
-        // Recreate the custom layout items
-        self.windowLayoutsMenu.items.forEach({
-            
-            if $0 is CustomLayoutMenuItem {
-                windowLayoutsMenu.removeItem($0)
-            }
-        })
-        
-        // Add custom window layouts
-        let customLayouts = WindowLayouts.userDefinedLayouts
-        customLayouts.forEach({
-            
-            // The action for the menu item will depend on whether it is a playable item
-            let action = #selector(self.windowLayoutAction(_:))
-            
-            let menuItem = CustomLayoutMenuItem(title: $0.name, action: action, keyEquivalent: "")
-            menuItem.target = self
-            
-            self.windowLayoutsMenu.insertItem(menuItem, at: 0)
-        })
-        
-        playerMenuItem.off()
+        playerViewMenuItem.off()
     }
  
     // Shows/hides the playlist window
@@ -108,45 +79,4 @@ class ViewMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
 //        WindowManager.toggleAlwaysOnTop()
     }
-    
-    @IBAction func windowLayoutAction(_ sender: NSMenuItem) {
-        WindowManager.layout(sender.title)
-    }
-    
-    @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
-        layoutNamePopover.show(WindowManager.mainWindow.contentView!, NSRectEdge.maxX)
-    }
-    
-    @IBAction func manageLayoutsAction(_ sender: Any) {
-        editorWindowController.showLayoutsEditor()
-    }
-    
-    // TODO: Separate these functions into a new WindowLayoutNameInputReceiver class
-    // MARK - StringInputReceiver functions
-    
-    var inputPrompt: String {
-        return "Enter a layout name:"
-    }
-    
-    var defaultValue: String? {
-        return "<My custom layout>"
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let valid = !WindowLayouts.layoutWithNameExists(string)
-
-        if (!valid) {
-            return (false, "A layout with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new EQ preset name and saves the new preset
-    func acceptInput(_ string: String) {
-        WindowLayouts.addUserDefinedLayout(string, WindowManager.currentWindowLayout)
-    }
 }
-
-fileprivate class CustomLayoutMenuItem: NSMenuItem {}

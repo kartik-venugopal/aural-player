@@ -132,7 +132,6 @@
                 <outlet property="manageColorSchemesMenuItem" destination="3ie-xE-Lk9" id="qy9-2a-3ie"/>
                 <outlet property="manageFontSchemesMenuItem" destination="PXA-nL-cxl" id="WqT-G9-BWH"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
-                <outlet property="playerMenuItem" destination="af4-4E-1QV" id="4gV-4y-eCR"/>
                 <outlet property="playerViewMenuItem" destination="af4-4E-1QV" id="0dH-2v-B7l"/>
                 <outlet property="saveColorSchemeMenuItem" destination="WVj-ng-OeL" id="3XH-d1-FXP"/>
                 <outlet property="saveFontSchemeMenuItem" destination="sSv-dJ-0AG" id="adm-Pm-OJp"/>
@@ -140,11 +139,23 @@
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="0PH-nx-xo9" id="60y-S3-b3m"/>
                 <outlet property="toggleVisualizerMenuItem" destination="ZcB-VH-qBr" id="yMC-gK-5wn"/>
-                <outlet property="windowLayoutsMenu" destination="S2A-E2-dfO" id="791-vR-GsR"/>
             </connections>
         </customObject>
-        <customObject id="lih-ya-6jC" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="lih-ya-6jC" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="73g-wl-K4J" id="KE3-nX-hRN"/>
+            </connections>
+        </customObject>
+        <customObject id="ydk-fD-97w" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="zD9-9p-FaJ" id="YGj-mv-VrC"/>
+            </connections>
+        </customObject>
+        <customObject id="Zuu-A7-pBT" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="S2A-E2-dfO" id="me6-uH-U5A"/>
+            </connections>
+        </customObject>
         <customObject id="YVQ-JN-BbP" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="0Vx-5M-0eg" id="dhw-Iz-9VE"/>
@@ -1238,64 +1249,67 @@ CA
                                         <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="3ni-vP-4WM">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="pF1-u2-cwb"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="7R8-EK-cgv"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Horizontal full stack" image="WindowLayout-HorizontalStack" id="5xt-05-361">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="wWK-b1-F3u"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="sjK-fU-ZRv"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Big bottom playlist" image="WindowLayout-BigBottomPlaylist" id="9HZ-X6-YIg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="QJr-Ao-Uw2"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="Fzz-gr-pdK"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Big right playlist" image="WindowLayout-BigRightPlaylist" id="ifi-YP-VSF">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="q23-PX-vyq"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="yJg-Wb-wWz"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Big left playlist" image="WindowLayout-BigLeftPlaylist" id="rCl-Tl-NEv">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="kGN-ai-AhP"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="fVT-v9-j1P"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Vertical player and playlist" image="WindowLayout-VerticalPlayerAndPlaylist" id="Awm-hh-oYW">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="ZZT-9X-fGG"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="9bf-Mt-4x9"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Horizontal player and playlist" image="WindowLayout-HorizontalPlayerAndPlaylist" id="ijY-bz-H83">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="pti-3J-Yex"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="xJd-6i-Jt8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="CKo-pZ-cY4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="windowLayoutAction:" target="xzd-WN-BuR" id="ucy-JE-xX9"/>
+                                                <action selector="applyLayoutAction:" target="Zuu-A7-pBT" id="HPA-vo-D2Z"/>
                                             </connections>
                                         </menuItem>
                                     </items>
+                                    <connections>
+                                        <outlet property="delegate" destination="Zuu-A7-pBT" id="NJW-Dp-P1D"/>
+                                    </connections>
                                 </menu>
                             </menuItem>
                             <menuItem title="   Save current layout" indentationLevel="1" id="dpu-pH-cKT" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="saveWindowLayoutAction:" target="xzd-WN-BuR" id="Sam-A3-AUW"/>
+                                    <action selector="saveWindowLayoutAction:" target="Zuu-A7-pBT" id="IJB-cN-7ZF"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="   Manage layouts" indentationLevel="1" id="ly6-5K-P4A" userLabel="Manage layouts">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="manageLayoutsAction:" target="xzd-WN-BuR" id="n1z-gf-sj8"/>
+                                    <action selector="manageLayoutsAction:" target="Zuu-A7-pBT" id="iU7-he-5Nh"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -1472,7 +1486,7 @@ CA
         <image name="Bookmarks-Editor" width="15" height="15"/>
         <image name="Clear-Small" width="13" height="15"/>
         <image name="CollapseGroups" width="15" height="15"/>
-        <image name="ColorScheme" width="12" height="13"/>
+        <image name="ColorScheme" width="13" height="14"/>
         <image name="CropSelection-Small" width="14" height="14"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
@@ -1480,7 +1494,7 @@ CA
         <image name="ExpandGroups" width="15" height="15"/>
         <image name="Favorites" width="15" height="15"/>
         <image name="Favorites-Editor" width="15" height="15"/>
-        <image name="FontScheme" width="13" height="13"/>
+        <image name="FontScheme" width="14" height="14"/>
         <image name="InvertSelection-Small" width="15" height="15"/>
         <image name="LoopOff-Small" width="15" height="13"/>
         <image name="MasterTab-Small" width="14" height="14"/>

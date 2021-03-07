@@ -1480,9 +1480,9 @@
 				3E6C0F2025CEB98500BF0D07 /* MainWindow.xib */,
 				3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */,
 				3E6C0F1E25CEB98500BF0D07 /* ColorSchemePopupMenuController.swift */,
+				3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */,
 				3E6C0F1F25CEB98500BF0D07 /* MainWindowController.swift */,
 				3E6C0F2125CEB98500BF0D07 /* GestureHandler.swift */,
-				3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */,
 				3E6C0F2325CEB98500BF0D07 /* SettingsPopupMenuController.swift */,
 			);
 			path = MainWindow;

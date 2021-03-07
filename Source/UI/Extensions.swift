@@ -242,6 +242,14 @@ extension NSMenuItem {
     func disableIf(_ condition: Bool) {
         self.isEnabled = !condition
     }
+    
+    // Creates a menu item that serves only to describe other items in the menu. The item will have no action.
+    static func createDescriptor(title: String) -> NSMenuItem {
+        
+        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+        item.disable()  // Descriptor items cannot be clicked
+        return item
+    }
 }
 
 extension NSControl {

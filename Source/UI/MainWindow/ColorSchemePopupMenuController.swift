@@ -11,11 +11,23 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
+    @IBOutlet weak var theMenu: NSMenu!
+    
+    override func awakeFromNib() {
+        
+        theMenu.insertItem(NSMenuItem.createDescriptor(title: "Built-in schemes"), at: 0)
+        theMenu.insertItem(NSMenuItem.separator(), at: 0)
+        
+        theMenu.insertItem(NSMenuItem.separator(), at: 0)
+        theMenu.insertItem(NSMenuItem.createDescriptor(title: "Custom schemes"), at: 0)
+        theMenu.insertItem(NSMenuItem.separator(), at: 0)
+    }
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // Remove all user-defined scheme items (i.e. all items before the first separator)
-        while let item = menu.item(at: 0), !item.isSeparatorItem {
-            menu.removeItem(at: 0)
+        while let item = menu.item(at: 3), !item.isSeparatorItem {
+            menu.removeItem(at: 3)
         }
         
         // Recreate the user-defined color scheme items
@@ -25,8 +37,12 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
             item.target = self
             item.indentationLevel = 1
             
-            menu.insertItem(item, at: 0)
+            menu.insertItem(item, at: 3)
         })
+        
+        for index in 0...2 {
+            menu.item(at: index)?.showIf_elseHide(ColorSchemes.numberOfUserDefinedSchemes > 0)
+        }
     }
     
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
