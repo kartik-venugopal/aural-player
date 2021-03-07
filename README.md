@@ -43,7 +43,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
   * Built-in and custom effects presets, per-track effects settings memory
   * Recording of clips with effects captured
-* **Playlist:** Grouping, searching, sorting, type selection
+* **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
