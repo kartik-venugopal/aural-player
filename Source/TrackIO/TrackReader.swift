@@ -25,21 +25,42 @@ class TrackReader {
     }
     
     func computePlaybackContext(for track: Track) throws {
+        
         track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
-        // TODO: If duration has changed as a result of precise computation, set it in the track and send out an update notification
+        
+        // If duration has changed as a result of precise computation, set it in the track and send out an update notification
+        if let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
+            
+            track.duration = playbackContext.duration
+            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
+        }
     }
     
     func prepareForPlayback(track: Track) throws {
         
-        if let theContext = track.playbackContext {
-            try theContext.open()
+        do {
             
-        } else {
-            
-            try computePlaybackContext(for: track)
-            try track.playbackContext?.open()
+            if let theContext = track.playbackContext {
+                try theContext.open()
+                
+            } else {
+                
+                try computePlaybackContext(for: track)
+                try track.playbackContext?.open()
+            }
             
             loadArtAsync(for: track)
+            
+        } catch {
+            
+            NSLog("Unable to prepare track \(track.displayName) for playback. Error: \(error)")
+            
+            track.preparationFailed = true
+            
+            let prepError = TrackNotPlayableError(track.file)
+            track.preparationError = prepError
+            
+            throw prepError
         }
     }
     

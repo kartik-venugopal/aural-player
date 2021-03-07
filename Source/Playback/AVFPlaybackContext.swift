@@ -11,6 +11,8 @@ class AVFPlaybackContext: PlaybackContextProtocol {
     let frameCount: AVAudioFramePosition
     let computedDuration: Double
     
+    var duration: Double {computedDuration}
+    
     init(for file: URL) throws {
 
         self.file = file

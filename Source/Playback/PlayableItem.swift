@@ -9,6 +9,8 @@ protocol PlaybackContextProtocol {
     
     var file: URL {get}
     
+    var duration: Double {get}
+    
     var audioFormat: AVAudioFormat {get}
     
     var sampleRate: Double {get}

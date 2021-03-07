@@ -14,6 +14,9 @@ class Track: Hashable, PlayableItem, PlaylistItem {
     var isPlayable: Bool = true
     var validationError: DisplayableError?
     
+    var preparationFailed: Bool = false
+    var preparationError: DisplayableError?
+    
     var hasPlaylistMetadata: Bool = false
     
     let defaultDisplayName: String

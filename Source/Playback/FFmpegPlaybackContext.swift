@@ -44,6 +44,8 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
     
     var frameCount: Int64 = 0
     
+    var duration: Double {fileContext.duration}
+    
     init(for file: URL) throws {
         
         self.file = file

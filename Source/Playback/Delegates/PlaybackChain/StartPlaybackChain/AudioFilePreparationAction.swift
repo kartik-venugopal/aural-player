@@ -40,7 +40,7 @@ class AudioFilePreparationAction: PlaybackChainAction {
             print("\nCouldn't prepare track \(track.file.lastPathComponent) for playback: \(error)")
             
             // Track preparation failed, terminate the chain.
-//            chain.terminate(context, preparationError)
+            chain.terminate(context, track.preparationError!)
         }
     }
 }
