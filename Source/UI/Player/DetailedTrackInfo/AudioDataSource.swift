@@ -12,7 +12,10 @@ class AudioDataSource: TrackInfoDataSource {
         var trackInfo: [(key: String, value: String)] = []
         
         trackInfo.append((key: "Format", value: track.audioInfo?.format?.capitalizingFirstLetter() ?? value_unknown))
-        trackInfo.append((key: "Codec", value: track.audioInfo?.codec ?? value_unknown))
+        
+        if let codec = track.audioInfo?.codec {
+            trackInfo.append((key: "Codec", value: codec))
+        }
         
         trackInfo.append((key: "Track Duration", value: ValueFormatter.formatSecondsToHMS(track.duration)))
         

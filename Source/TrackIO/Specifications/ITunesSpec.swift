@@ -71,7 +71,10 @@ class ITunesSpec {
     // Mappings of format-specific keys to readable keys
     static let keys: [String: String] = {
         
-        var map: [String: String] = [String: String]()
+        var map: [String: String] = [:]
+        
+        // @lyr
+        map[AVMetadataKey.iTunesMetadataKeyLyrics.rawValue] = "Lyrics"
         
         // @wrt
         map[AVMetadataKey.iTunesMetadataKeyComposer.rawValue] = "Composer"

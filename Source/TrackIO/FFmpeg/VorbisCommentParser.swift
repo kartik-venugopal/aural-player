@@ -130,7 +130,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
     
     func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = keys_year.firstNonNilMappedValue({meta.vorbisMetadata.essentialFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({meta.vorbisMetadata.genericFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -139,7 +139,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
     
     func getBPM(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = meta.vorbisMetadata.essentialFields[key_bpm] {
+        if let bpmString = meta.vorbisMetadata.genericFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
@@ -147,7 +147,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        return meta.vorbisMetadata.essentialFields[key_lyrics]
+        return meta.vorbisMetadata.genericFields[key_lyrics]
     }
     
     func getDuration(_ meta: FFmpegMappedMetadata) -> Double? {
@@ -163,6 +163,8 @@ class VorbisCommentParser: FFmpegMetadataParser {
         
         var map: [String: String] = [:]
         
+        map["lyrics"] = "Lyrics"
+        
         map["composer"] = "Composer"
         map["conductor"] = "Conductor"
         map["lyricist"] = "Lyricist"
@@ -172,7 +174,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
         map["date"] = "Date"
         map["originaldate"] = "Original Date"
         map["originalreleasedate"] = "Original Release Date"
-        ["originalyear", "original year", "original_year"].forEach {map[$0] = "Year"}
+        ["originalyear", "original year", "original_year"].forEach {map[$0] = "Original Year"}
 
         map["bpm"] = "BPM"
         

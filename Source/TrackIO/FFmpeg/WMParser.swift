@@ -157,7 +157,7 @@ class WMParser: FFmpegMetadataParser {
     
     func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = meta.wmMetadata.essentialFields[key_year] ?? meta.wmMetadata.essentialFields[key_originalYear] {
+        if let yearString = meta.wmMetadata.genericFields[key_year] ?? meta.wmMetadata.genericFields[key_originalYear] {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -166,7 +166,7 @@ class WMParser: FFmpegMetadataParser {
     
     func getBPM(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = meta.wmMetadata.essentialFields[key_bpm] {
+        if let bpmString = meta.wmMetadata.genericFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
@@ -174,15 +174,7 @@ class WMParser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        
-        for key in [key_lyrics, key_syncLyrics] {
-        
-            if let lyrics = meta.wmMetadata.essentialFields[key] {
-                return lyrics
-            }
-        }
-        
-        return nil
+        [key_lyrics, key_syncLyrics].firstNonNilMappedValue({meta.wmMetadata.genericFields[$0]})
     }
     
     func isDRMProtected(_ meta: FFmpegMappedMetadata) -> Bool? {
@@ -192,6 +184,9 @@ class WMParser: FFmpegMetadataParser {
     private let genericKeys: [String: String] = {
         
         var map: [String: String] = [:]
+        
+        map["lyrics"] = "Lyrics"
+        map["lyrics_synchronised"] = "Lyrics"
         
         map["year"] = "Year"
         map["originalreleaseyear"] = "Original Release Year"

@@ -8,7 +8,6 @@ fileprivate let key_artist = AVMetadataKey.commonKeyArtist.rawValue
 fileprivate let key_album = AVMetadataKey.commonKeyAlbumName.rawValue
 fileprivate let key_genre = AVMetadataKey.commonKeyType.rawValue
 fileprivate let key_art: String = AVMetadataKey.commonKeyArtwork.rawValue
-fileprivate let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.commonKeyArtwork.rawValue, keySpace: AVMetadataKeySpace.common)!
 
 fileprivate let key_language: String = AVMetadataKey.commonKeyLanguage.rawValue
 

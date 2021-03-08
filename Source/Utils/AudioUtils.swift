@@ -46,7 +46,7 @@ class AudioUtils {
     private static func getFormat(_ assetTrack: AVAssetTrack) -> String {
 
         let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
-        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
+        return avfFormatDescriptions[description] ?? codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
     }
 
     // Converts a four character media type code to a readable string

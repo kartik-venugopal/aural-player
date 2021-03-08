@@ -96,7 +96,7 @@ class ApeV2Parser: FFmpegMetadataParser {
     
     func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = keys_year.firstNonNilMappedValue({meta.apeMetadata.essentialFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({meta.apeMetadata.genericFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -105,7 +105,7 @@ class ApeV2Parser: FFmpegMetadataParser {
     
     func getBPM(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = meta.apeMetadata.essentialFields[key_bpm] {
+        if let bpmString = meta.apeMetadata.genericFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
@@ -113,17 +113,14 @@ class ApeV2Parser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        
-        if let lyrics = meta.apeMetadata.essentialFields[key_lyrics] {
-            return lyrics
-        }
-        
-        return nil
+        meta.apeMetadata.genericFields[key_lyrics]
     }
     
     private let genericKeys: [String: String] = {
         
         var map: [String: String] = [:]
+        
+        map["lyrics"] = "Lyrics"
         
         map["year"] = "Year"
         map["originaldate"] = "Original Date"

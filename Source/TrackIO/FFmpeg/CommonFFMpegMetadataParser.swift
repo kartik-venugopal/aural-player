@@ -37,7 +37,8 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
         key_encoder: "Encoder",
         key_language: "Language",
         key_comment: "Comment",
-        key_date: "Date"
+        key_date: "Date",
+        key_lyrics: "Lyrics"
     ]
     
     func mapTrack(_ meta: FFmpegMappedMetadata) {
@@ -87,7 +88,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.commonMetadata.essentialFields[key_lyrics]
+        meta.commonMetadata.genericFields[key_lyrics]
     }
     
     func getDiscNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
@@ -110,7 +111,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     
     func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = meta.commonMetadata.essentialFields[key_date] {
+        if let yearString = meta.commonMetadata.genericFields[key_date] {
             return ParserUtils.parseYear(yearString)
         }
         

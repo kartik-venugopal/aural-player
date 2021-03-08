@@ -37,6 +37,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         
         var map: [String: String] = [:]
         
+        ID3_V1Spec.genericFields.forEach({(k,v) in map[k.lowercased()] = v})
         ID3_V22Spec.genericFields.forEach({(k,v) in map[k.lowercased()] = v})
         ID3_V24Spec.genericFields.forEach({(k,v) in map[k.lowercased()] = v})
         
@@ -115,12 +116,12 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     }
 
     func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_lyrics.firstNonNilMappedValue {meta.id3Metadata.essentialFields[$0]}
+        keys_lyrics.firstNonNilMappedValue {meta.id3Metadata.genericFields[$0]}
     }
 
     func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
 
-        if let yearString = keys_year.firstNonNilMappedValue({meta.id3Metadata.essentialFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({meta.id3Metadata.genericFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
 
@@ -129,7 +130,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
 
     func getBPM(_ meta: FFmpegMappedMetadata) -> Int? {
 
-        if let bpmString = keys_bpm.firstNonNilMappedValue({meta.id3Metadata.essentialFields[$0]}) {
+        if let bpmString = keys_bpm.firstNonNilMappedValue({meta.id3Metadata.genericFields[$0]}) {
             return ParserUtils.parseBPM(bpmString)
         }
 

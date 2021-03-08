@@ -79,6 +79,9 @@ struct ID3_V22Spec {
          
          */
         
+        map["ULT"] = "Lyrics"
+        map["SLT"] = "Lyrics"
+        
         map["TCM"] = "Composer"
         map["TP3"] = "Conductor"
         map["TXT"] = "Lyricist"
@@ -225,6 +228,12 @@ struct ID3_V24Spec {
     static let genericFields: [String: String] = {
         
         var map: [String: String] = [:]
+        
+        // USLT
+        map[AVMetadataKey.id3MetadataKeyUnsynchronizedLyric.rawValue] = "Lyrics"
+        
+        // SYLT
+        map[AVMetadataKey.id3MetadataKeySynchronizedLyric.rawValue] = "Lyrics"
         
         // AENC
         map[AVMetadataKey.id3MetadataKeyAudioEncryption.rawValue] = "Audio Encryption"

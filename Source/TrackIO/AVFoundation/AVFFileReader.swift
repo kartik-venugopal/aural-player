@@ -136,25 +136,17 @@ class AVFFileReader: FileReaderProtocol {
             audioInfo.frames = thePlaybackContext.frameCount
         }
         
-        let fileExtension = file.lowerCasedExtension
-        audioInfo.format = formatDescriptions[fileExtension]
-        
         var estBitRate: Float = 0
         
         if let audioTrack = meta.asset.tracks.first {
             
-            if let codec = formatDescriptions[getFormat(audioTrack)], codec != audioInfo.format {
-                audioInfo.codec = codec
-            } else {
-                audioInfo.codec = fileExtension.uppercased()
-            }
-            
+            audioInfo.format = avfFormatDescriptions[audioTrack.format] ?? formatDescriptions[getFormat(audioTrack)]
             estBitRate = audioTrack.estimatedDataRate
         }
         
         if estBitRate > 0 {
             
-            audioInfo.bitRate = Int(round(estBitRate)) / Int(Size.KB)
+            audioInfo.bitRate = roundedInt(estBitRate / Float(Size.KB))
             
         } else if meta.asset.duration.seconds == 0 {
             
