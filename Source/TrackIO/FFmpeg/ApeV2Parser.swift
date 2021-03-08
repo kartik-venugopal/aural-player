@@ -8,19 +8,14 @@ fileprivate let key_artists = "artists"
 fileprivate let key_albumArtist = "albumartist"
 fileprivate let key_albumArtist2 = "album_artist"
 fileprivate let key_originalArtist = "original artist"
+fileprivate let key_performer = "performer"
 
-fileprivate let keys_artist: [String] = [key_artist, key_albumArtist, key_albumArtist2, key_originalArtist, key_artists]
+fileprivate let keys_artist: [String] = [key_artist, key_albumArtist, key_albumArtist2, key_originalArtist, key_artists, key_performer]
 
 fileprivate let key_album = "album"
 fileprivate let key_originalAlbum = "original album"
 
 fileprivate let key_genre = "genre"
-
-fileprivate let key_composer = "composer"
-fileprivate let key_conductor = "conductor"
-fileprivate let key_performer = "performer"
-fileprivate let key_lyricist = "lyricist"
-fileprivate let key_originalLyricist = "original lyricist"
 
 fileprivate let key_disc = "disc"
 fileprivate let key_track = "track"
@@ -32,9 +27,8 @@ fileprivate let key_bpm: String = "bpm"
 
 class ApeV2Parser: FFmpegMetadataParser {
 
-    private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_performer,
-                                                  key_lyricist, key_originalLyricist, key_disc, key_track, key_lyrics])
-                                                    .union(keys_artist).union(keys_year)
+    private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre,
+                                                  key_disc, key_track] + keys_artist)
 
     private let key_language = "language"
     private let key_compilation = "compilation"
@@ -58,8 +52,12 @@ class ApeV2Parser: FFmpegMetadataParser {
         }
     }
     
-    func hasMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
         !meta.apeMetadata.essentialFields.isEmpty
+    }
+    
+    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+        !meta.apeMetadata.genericFields.isEmpty
     }
     
     func getTitle(_ meta: FFmpegMappedMetadata) -> String? {
@@ -70,28 +68,8 @@ class ApeV2Parser: FFmpegMetadataParser {
         keys_artist.firstNonNilMappedValue({meta.apeMetadata.essentialFields[$0]})
     }
     
-    func getAlbumArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_albumArtist] ?? meta.apeMetadata.essentialFields[key_albumArtist2]
-    }
-    
     func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {
         meta.apeMetadata.essentialFields[key_album] ?? meta.apeMetadata.essentialFields[key_originalAlbum]
-    }
-    
-    func getComposer(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_composer]
-    }
-    
-    func getConductor(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_conductor]
-    }
-    
-    func getPerformer(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_performer]
-    }
-    
-    func getLyricist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_lyricist] ?? meta.apeMetadata.essentialFields[key_originalLyricist]
     }
     
     func getGenre(_ meta: FFmpegMappedMetadata) -> String? {
@@ -146,6 +124,18 @@ class ApeV2Parser: FFmpegMetadataParser {
     private let genericKeys: [String: String] = {
         
         var map: [String: String] = [:]
+        
+        map["year"] = "Year"
+        map["originaldate"] = "Original Date"
+        map["originalreleasedate"] = "Original Release Date"
+        ["originalyear", "original year", "original_year"].forEach {map[$0] = "Year"}
+
+        map["bpm"] = "BPM"
+        
+        map["composer"] = "Composer"
+        map["conductor"] = "Conductor"
+        map["lyricist"] = "Lyricist"
+        map["original lyricist"] = "Original Lyricist"
         
         map["subtitle"] = "Subtitle"
         map["debut album"] = "Debut Album"

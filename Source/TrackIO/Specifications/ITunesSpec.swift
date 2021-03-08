@@ -20,22 +20,12 @@ class ITunesSpec {
     static let key_originalArtist = AVMetadataKey.iTunesMetadataKeyOriginalArtist.rawValue
     static let key_originalArtist2 = "original artist"
     
-    // @alb
-    static let key_album = AVMetadataKey.iTunesMetadataKeyAlbum.rawValue
-    static let key_originalAlbum = "original album"
-    
-    // @wrt
-    static let key_composer = AVMetadataKey.iTunesMetadataKeyComposer.rawValue
-    
-    // @con
-    static let key_conductor = AVMetadataKey.iTunesMetadataKeyConductor.rawValue
-    static let key_conductor2 = "conductor"
-    
     // @prf
     static let key_performer = AVMetadataKey.iTunesMetadataKeyPerformer.rawValue
     
-    static let key_lyricist = "lyricist"
-    static let key_originalLyricist = "original lyricist"
+    // @alb
+    static let key_album = AVMetadataKey.iTunesMetadataKeyAlbum.rawValue
+    static let key_originalAlbum = "original album"
     
     // @gen
     static let key_genre = AVMetadataKey.iTunesMetadataKeyUserGenre.rawValue
@@ -82,6 +72,21 @@ class ITunesSpec {
     static let keys: [String: String] = {
         
         var map: [String: String] = [String: String]()
+        
+        // @wrt
+        map[AVMetadataKey.iTunesMetadataKeyComposer.rawValue] = "Composer"
+        
+        // @con
+        map[AVMetadataKey.iTunesMetadataKeyConductor.rawValue] = "Conductor"
+        map["conductor"] = "Conductor"
+        
+        map["lyricist"] = "Lyricist"
+        map["original lyricist"] = "Original Lyricist"
+        
+        // @day
+        map[AVMetadataKey.iTunesMetadataKeyReleaseDate.rawValue] = "Original Release Date"
+        
+        map["original year"] = "Year"
         
         // @cmt
         map[AVMetadataKey.iTunesMetadataKeyUserComment.rawValue] = "Comment"

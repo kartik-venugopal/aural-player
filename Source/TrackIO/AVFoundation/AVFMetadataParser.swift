@@ -11,17 +11,7 @@ protocol AVFMetadataParser {
     
     func getArtist(_ meta: AVFMappedMetadata) -> String?
     
-    func getAlbumArtist(_ meta: AVFMappedMetadata) -> String?
-    
     func getAlbum(_ meta: AVFMappedMetadata) -> String?
-    
-    func getComposer(_ meta: AVFMappedMetadata) -> String?
-    
-    func getConductor(_ meta: AVFMappedMetadata) -> String?
-    
-    func getPerformer(_ meta: AVFMappedMetadata) -> String?
-    
-    func getLyricist(_ meta: AVFMappedMetadata) -> String?
     
     func getGenre(_ meta: AVFMappedMetadata) -> String?
     
@@ -33,10 +23,6 @@ protocol AVFMetadataParser {
     
     func getArt(_ meta: AVFMappedMetadata) -> CoverArt?
     
-    func getYear(_ meta: AVFMappedMetadata) -> Int?
-    
-    func getBPM(_ meta: AVFMappedMetadata) -> Int?
-
     func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry]
 
     func getChapterTitle(_ items: [AVMetadataItem]) -> String?
@@ -45,7 +31,13 @@ protocol AVFMetadataParser {
 // Default function implementations
 extension AVFMetadataParser {
     
-    func getAlbumArtist(_ meta: AVFMappedMetadata) -> String? {nil}
+    func getTitle(_ meta: AVFMappedMetadata) -> String? {nil}
+    
+    func getArtist(_ meta: AVFMappedMetadata) -> String? {nil}
+    
+    func getAlbum(_ meta: AVFMappedMetadata) -> String? {nil}
+    
+    func getGenre(_ meta: AVFMappedMetadata) -> String? {nil}
     
     func getDuration(_ meta: AVFMappedMetadata) -> Double? {nil}
     
@@ -54,18 +46,6 @@ extension AVFMetadataParser {
     func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {nil}
     
     func getLyrics(_ meta: AVFMappedMetadata) -> String? {nil}
-    
-    func getComposer(_ meta: AVFMappedMetadata) -> String? {nil}
-    
-    func getConductor(_ meta: AVFMappedMetadata) -> String? {nil}
-    
-    func getPerformer(_ meta: AVFMappedMetadata) -> String? {nil}
-    
-    func getLyricist(_ meta: AVFMappedMetadata) -> String? {nil}
-    
-    func getYear(_ meta: AVFMappedMetadata) -> Int? {nil}
-    
-    func getBPM(_ meta: AVFMappedMetadata) -> Int? {nil}
     
     func getArt(_ meta: AVFMappedMetadata) -> CoverArt? {nil}
     

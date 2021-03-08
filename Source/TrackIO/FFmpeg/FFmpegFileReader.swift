@@ -60,14 +60,10 @@ class FFmpegFileReader: FileReaderProtocol {
         let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
         allParsers.forEach {$0.mapTrack(meta)}
         
-        let relevantParsers = allParsers.filter {$0.hasMetadataForTrack(meta)}
+        let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(meta)}
         
         metadata.title = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getTitle(meta)})
-        
         metadata.artist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getArtist(meta)})
-        metadata.albumArtist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbumArtist(meta)})
-        metadata.performer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getPerformer(meta)})
-        
         metadata.album = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbum(meta)})
         metadata.genre = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getGenre(meta)})
 
@@ -139,14 +135,7 @@ class FFmpegFileReader: FileReaderProtocol {
             let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
             allParsers.forEach {$0.mapTrack(meta)}
             
-            let relevantParsers = allParsers.filter {$0.hasMetadataForTrack(meta)}
-            
-            metadata.composer = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getComposer(meta)})
-            metadata.conductor = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getConductor(meta)})
-            metadata.lyricist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyricist(meta)})
-            
-            metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(meta)}
-            metadata.bpm = relevantParsers.firstNonNilMappedValue {$0.getBPM(meta)}
+            let relevantParsers = allParsers.filter {$0.hasGenericMetadataForTrack(meta)}
             
             metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(meta)})
             
@@ -226,7 +215,7 @@ class FFmpegFileReader: FileReaderProtocol {
             let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
             allParsers.forEach {$0.mapTrack(meta)}
             
-            let relevantParsers = allParsers.filter {$0.hasMetadataForTrack(meta)}
+            let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(meta)}
             
             if relevantParsers.firstNonNilMappedValue({$0.isDRMProtected(meta)}) ?? false {
                 throw DRMProtectionError(file)

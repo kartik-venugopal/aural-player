@@ -36,12 +36,10 @@ struct ID3_V22Spec {
     static let key_artist = "TP1"
     static let key_originalArtist = "TOA"
     static let key_albumArtist = "TP2"
+    
     static let key_album = "TAL"
     static let key_originalAlbum = "TOT"
-    static let key_composer = "TCM"
-    static let key_conductor = "TP3"
-    static let key_lyricist = "TXT"
-    static let key_originalLyricist = "TOL"
+    
     static let key_genre = "TCO"
     
     static let key_discNumber = "TPA"
@@ -66,7 +64,7 @@ struct ID3_V22Spec {
     static let key_UFI: String = "UFI"
     static let key_mediaType: String = "TMT"
     
-    static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_lyricist, key_originalLyricist, key_discNumber, key_trackNumber, key_year, key_originalReleaseYear, key_date, key_bpm, key_art]
+    static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre,  key_discNumber, key_trackNumber]
     
     static let genericFields: [String: String] = {
         
@@ -80,6 +78,15 @@ struct ID3_V22Spec {
          'PCS'    Podcast?    no
          
          */
+        
+        map["TCM"] = "Composer"
+        map["TP3"] = "Conductor"
+        map["TXT"] = "Lyricist"
+        map["TOL"] = "Original Lyricist"
+        map["TYE"] = "Year"
+        map["TOR"] = "Original Release Year"
+        map["TDA"] = "Date"
+        map["TBP"] = "BPM"
         
         map["BUF"] = "Recommended Buffer Size"
         map["CRA"] = "Audio Encryption"
@@ -159,18 +166,6 @@ struct ID3_V24Spec {
     // TOPE
     static let key_originalArtist = AVMetadataKey.id3MetadataKeyOriginalArtist.rawValue
     
-    // TCOM
-    static let key_composer = AVMetadataKey.id3MetadataKeyComposer.rawValue
-    
-    // TPE3
-    static let key_conductor = AVMetadataKey.id3MetadataKeyConductor.rawValue
-    
-    // TEXT
-    static let key_lyricist = AVMetadataKey.id3MetadataKeyLyricist.rawValue
-    
-    // TOLY
-    static let key_originalLyricist = AVMetadataKey.id3MetadataKeyOriginalLyricist.rawValue
-    
     // TALB
     static let key_album = AVMetadataKey.id3MetadataKeyAlbumTitle.rawValue
     
@@ -225,7 +220,7 @@ struct ID3_V24Spec {
     
     static let key_mediaType: String = "TMED"
     
-    static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_lyricist, key_originalLyricist, key_discNumber, key_trackNumber, key_year, key_originalReleaseYear, key_date, key_bpm, key_art]
+    static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_discNumber, key_trackNumber]
     
     static let genericFields: [String: String] = {
         
@@ -305,6 +300,30 @@ struct ID3_V24Spec {
         
         // SYTC
         map[AVMetadataKey.id3MetadataKeySynchronizedTempoCodes.rawValue] = "Synchronized Tempo Codes"
+        
+        // TCOM
+        map[AVMetadataKey.id3MetadataKeyComposer.rawValue] = "Composer"
+        
+        // TPE3
+        map[AVMetadataKey.id3MetadataKeyConductor.rawValue] = "Conductor"
+        
+        // TEXT
+        map[AVMetadataKey.id3MetadataKeyLyricist.rawValue] = "Lyricist"
+        
+        // TOLY
+        map[AVMetadataKey.id3MetadataKeyOriginalLyricist.rawValue] = "Original Lyricist"
+        
+        // TYER
+        map[AVMetadataKey.id3MetadataKeyYear.rawValue] = "Year"
+        
+        // TBPM
+        map[AVMetadataKey.id3MetadataKeyBeatsPerMinute.rawValue] = "BPM"
+        
+        // TORY
+        map[AVMetadataKey.id3MetadataKeyOriginalReleaseYear.rawValue] = "Original Release Year"
+        
+        // TDAT
+        map[AVMetadataKey.id3MetadataKeyDate.rawValue] = "Date"
         
         // TCOP
         map[AVMetadataKey.id3MetadataKeyCopyright.rawValue] = "Copyright"
@@ -587,4 +606,3 @@ struct ID3MediaTypes {
         
     }()
 }
-

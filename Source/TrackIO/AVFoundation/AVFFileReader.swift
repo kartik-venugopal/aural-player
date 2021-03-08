@@ -64,11 +64,7 @@ class AVFFileReader: FileReaderProtocol {
         let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
 
         metadata.title = cleanUp(parsers.firstNonNilMappedValue {$0.getTitle(meta)})
-        
         metadata.artist = cleanUp(parsers.firstNonNilMappedValue {$0.getArtist(meta)})
-        metadata.albumArtist = cleanUp(parsers.firstNonNilMappedValue {$0.getAlbumArtist(meta)})
-        metadata.performer = cleanUp(parsers.firstNonNilMappedValue{$0.getPerformer(meta)})
-        
         metadata.album = cleanUp(parsers.firstNonNilMappedValue {$0.getAlbum(meta)})
         metadata.genre = cleanUp(parsers.firstNonNilMappedValue {$0.getGenre(meta)})
         
@@ -105,13 +101,6 @@ class AVFFileReader: FileReaderProtocol {
         var metadata = AuxiliaryMetadata()
         let meta = AVFMappedMetadata(file: file)
         let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
-        
-        metadata.composer = cleanUp(parsers.firstNonNilMappedValue {$0.getComposer(meta)})
-        metadata.conductor = cleanUp(parsers.firstNonNilMappedValue {$0.getConductor(meta)})
-        metadata.lyricist = cleanUp(parsers.firstNonNilMappedValue {$0.getLyricist(meta)})
-        
-        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(meta)}
-        metadata.bpm = parsers.firstNonNilMappedValue {$0.getBPM(meta)}
         
         metadata.lyrics = cleanUp(parsers.firstNonNilMappedValue {$0.getLyrics(meta)})
         

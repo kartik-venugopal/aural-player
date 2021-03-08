@@ -1,7 +1,11 @@
 import Cocoa
 
 fileprivate let key_title = "title"
+
 fileprivate let key_artist = "artist"
+fileprivate let key_albumArtist = "album_artist"
+fileprivate let key_performer = "performer"
+
 fileprivate let key_album = "album"
 fileprivate let key_genre = "genre"
 
@@ -10,10 +14,8 @@ fileprivate let key_track = "track"
 
 fileprivate let key_lyrics = "lyrics"
 
-fileprivate let key_albumArtist = "album_artist"
 fileprivate let key_comment = "comment"
 fileprivate let key_composer = "composer"
-fileprivate let key_performer = "performer"
 fileprivate let key_publisher = "publisher"
 fileprivate let key_copyright = "copyright"
 
@@ -24,16 +26,18 @@ fileprivate let key_date = "date"
 
 class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     
-    private let essentialKeys: Set<String> = [key_title, key_artist, key_albumArtist, key_album, key_composer, key_performer, key_genre, key_disc, key_track, key_date, key_lyrics]
+    private let essentialKeys: Set<String> = [key_title, key_artist, key_albumArtist, key_album, key_performer, key_genre, key_disc, key_track]
     
     private let genericKeys: [String: String] = [
         
+        key_composer: "Composer",
         key_publisher: "Publisher",
         key_copyright: "Copyright",
         key_encodedBy: "Encoded By",
         key_encoder: "Encoder",
         key_language: "Language",
-        key_comment: "Comment"
+        key_comment: "Comment",
+        key_date: "Date"
     ]
     
     func mapTrack(_ meta: FFmpegMappedMetadata) {
@@ -55,8 +59,12 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
         }
     }
     
-    func hasMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
         !meta.commonMetadata.essentialFields.isEmpty
+    }
+    
+    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+        !meta.commonMetadata.genericFields.isEmpty
     }
     
     func getTitle(_ meta: FFmpegMappedMetadata) -> String? {
@@ -64,23 +72,14 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     }
     
     func getArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.commonMetadata.essentialFields[key_artist] ?? meta.commonMetadata.essentialFields[key_albumArtist]
-    }
-    
-    func getAlbumArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.commonMetadata.essentialFields[key_albumArtist]
+        
+        meta.commonMetadata.essentialFields[key_artist] ??
+            meta.commonMetadata.essentialFields[key_albumArtist] ??
+            meta.commonMetadata.essentialFields[key_performer]
     }
     
     func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {
         meta.commonMetadata.essentialFields[key_album]
-    }
-    
-    func getComposer(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.commonMetadata.essentialFields[key_composer]
-    }
-    
-    func getPerformer(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.commonMetadata.essentialFields[key_performer]
     }
     
     func getGenre(_ meta: FFmpegMappedMetadata) -> String? {

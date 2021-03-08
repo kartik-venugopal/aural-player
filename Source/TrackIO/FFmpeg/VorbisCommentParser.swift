@@ -7,19 +7,14 @@ fileprivate let key_albumArtist = "albumartist"
 fileprivate let key_albumArtist2 = "album_artist"
 fileprivate let key_originalArtist = "original artist"
 fileprivate let key_artists = "artists"
+fileprivate let key_performer = "performer"
 
-fileprivate let keys_artist: [String] = [key_artist, key_albumArtist, key_albumArtist2, key_originalArtist, key_artists]
+fileprivate let keys_artist: [String] = [key_artist, key_albumArtist, key_albumArtist2, key_originalArtist, key_artists, key_performer]
 
 fileprivate let key_album = "album"
 fileprivate let key_originalAlbum = "original album"
 
 fileprivate let key_genre = "genre"
-
-fileprivate let key_composer = "composer"
-fileprivate let key_conductor = "conductor"
-fileprivate let key_performer = "performer"
-fileprivate let key_lyricist = "lyricist"
-fileprivate let key_originalLyricist = "original lyricist"
 
 fileprivate let key_disc = "discnumber"
 fileprivate let key_discTotal = "disctotal"
@@ -47,8 +42,8 @@ class VorbisCommentParser: FFmpegMetadataParser {
     private let key_language = "language"
     private let key_compilation = "compilation"
     
-    private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre, key_composer, key_conductor, key_performer,
-    key_lyricist, key_originalLyricist, key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks, key_lyrics]).union(keys_artist).union(keys_year)
+    private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre, key_performer,
+    key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks] + keys_artist)
     
     func mapTrack(_ meta: FFmpegMappedMetadata) {
         
@@ -69,8 +64,12 @@ class VorbisCommentParser: FFmpegMetadataParser {
         }
     }
     
-    func hasMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
         !meta.vorbisMetadata.essentialFields.isEmpty
+    }
+    
+    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+        !meta.vorbisMetadata.genericFields.isEmpty
     }
     
     func getTitle(_ meta: FFmpegMappedMetadata) -> String? {
@@ -81,28 +80,8 @@ class VorbisCommentParser: FFmpegMetadataParser {
         keys_artist.firstNonNilMappedValue({meta.vorbisMetadata.essentialFields[$0]})
     }
     
-    func getAlbumArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_albumArtist] ?? meta.vorbisMetadata.essentialFields[key_albumArtist2]
-    }
-    
     func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {
         meta.vorbisMetadata.essentialFields[key_album] ?? meta.vorbisMetadata.essentialFields[key_originalAlbum]
-    }
-    
-    func getComposer(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_composer]
-    }
-    
-    func getConductor(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_conductor]
-    }
-    
-    func getPerformer(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_performer]
-    }
-    
-    func getLyricist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_lyricist] ?? meta.vorbisMetadata.essentialFields[key_originalLyricist]
     }
     
     func getGenre(_ meta: FFmpegMappedMetadata) -> String? {
@@ -183,6 +162,19 @@ class VorbisCommentParser: FFmpegMetadataParser {
     private let genericKeys: [String: String] = {
         
         var map: [String: String] = [:]
+        
+        map["composer"] = "Composer"
+        map["conductor"] = "Conductor"
+        map["lyricist"] = "Lyricist"
+        map["original lyricist"] = "Original Lyricist"
+        
+        map["year"] = "Year"
+        map["date"] = "Date"
+        map["originaldate"] = "Original Date"
+        map["originalreleasedate"] = "Original Release Date"
+        ["originalyear", "original year", "original_year"].forEach {map[$0] = "Year"}
+
+        map["bpm"] = "BPM"
         
         map["copyright"] = "Copyright"
         map["ean/upn"] = "EAN / UPN"

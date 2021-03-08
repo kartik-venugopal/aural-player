@@ -15,12 +15,6 @@ fileprivate let key_originalAlbum = "originalalbumtitle"
 fileprivate let key_genre = "genre"
 fileprivate let key_genreId = "genreid"
 
-fileprivate let key_composer = "composer"
-fileprivate let key_conductor = "conductor"
-
-fileprivate let key_lyricist = "originallyricist"
-fileprivate let key_writer = "writer"
-
 fileprivate let key_duration = "duration"
 fileprivate let key_totalDuration = "totalduration"
 
@@ -51,8 +45,8 @@ class WMParser: FFmpegMetadataParser {
     
     private let keyPrefix = "wm/"
     
-    private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_composer, key_conductor, key_lyricist, key_writer, key_genre, key_genreId,
-        key_disc, key_discTotal, key_track, key_track_zeroBased, key_trackTotal, key_year, key_originalYear, key_lyrics, key_asfProtectionType]).union(keys_artist)
+    private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre, key_genreId,
+        key_disc, key_discTotal, key_track, key_track_zeroBased, key_trackTotal, key_asfProtectionType] + keys_artist)
     
     private let ignoredKeys: Set<String> = ["wmfsdkneeded"]
     
@@ -81,8 +75,12 @@ class WMParser: FFmpegMetadataParser {
         }
     }
     
-    func hasMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
         !meta.wmMetadata.essentialFields.isEmpty
+    }
+    
+    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+        !meta.wmMetadata.genericFields.isEmpty
     }
     
     func getTitle(_ meta: FFmpegMappedMetadata) -> String? {
@@ -93,24 +91,8 @@ class WMParser: FFmpegMetadataParser {
         keys_artist.firstNonNilMappedValue({meta.wmMetadata.essentialFields[$0]})
     }
     
-    func getAlbumArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.wmMetadata.essentialFields[key_albumArtist]
-    }
-    
     func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {
         meta.wmMetadata.essentialFields[key_album] ?? meta.wmMetadata.essentialFields[key_originalAlbum]
-    }
-    
-    func getComposer(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.wmMetadata.essentialFields[key_composer]
-    }
-    
-    func getConductor(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.wmMetadata.essentialFields[key_conductor]
-    }
-    
-    func getLyricist(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.wmMetadata.essentialFields[key_lyricist] ?? meta.wmMetadata.essentialFields[key_writer]
     }
     
     func getGenre(_ meta: FFmpegMappedMetadata) -> String? {
@@ -175,7 +157,7 @@ class WMParser: FFmpegMetadataParser {
     
     func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = meta.wmMetadata.essentialFields[key_year] {
+        if let yearString = meta.wmMetadata.essentialFields[key_year] ?? meta.wmMetadata.essentialFields[key_originalYear] {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -210,6 +192,17 @@ class WMParser: FFmpegMetadataParser {
     private let genericKeys: [String: String] = {
         
         var map: [String: String] = [:]
+        
+        map["year"] = "Year"
+        map["originalreleaseyear"] = "Original Release Year"
+        
+        map["beatsperminute"] = "BPM"
+        
+        map["composer"] = "Composer"
+        map["conductor"] = "Conductor"
+
+        map["originallyricist"] = "Lyricist"
+        map["writer"] = "Writer"
         
         map["averagelevel"] = "Avg. Volume Level"
         

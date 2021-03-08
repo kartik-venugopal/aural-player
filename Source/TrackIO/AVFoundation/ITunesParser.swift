@@ -8,20 +8,18 @@ class ITunesParser: AVFMetadataParser {
     
     let keySpace: AVMetadataKeySpace = .iTunes
         
-        private let essentialFieldKeys: Set<String> = [ITunesSpec.key_title, ITunesSpec.key_artist, ITunesSpec.key_originalArtist, ITunesSpec.key_originalArtist2, ITunesSpec.key_album, ITunesSpec.key_originalAlbum, ITunesSpec.key_composer, ITunesSpec.key_conductor, ITunesSpec.key_conductor2, ITunesSpec.key_genre, ITunesSpec.key_predefGenre, ITunesSpec.key_genreID, ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2, ITunesSpec.key_trackNumber, ITunesSpec.key_releaseDate, ITunesSpec.key_releaseYear, ITunesSpec.key_lyrics, ITunesSpec.key_art]
+    private let essentialFieldKeys: Set<String> = [ITunesSpec.key_title, ITunesSpec.key_artist, ITunesSpec.key_originalArtist, ITunesSpec.key_originalArtist2, ITunesSpec.key_performer, ITunesSpec.key_album, ITunesSpec.key_originalAlbum, ITunesSpec.key_genre, ITunesSpec.key_predefGenre, ITunesSpec.key_genreID, ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2, ITunesSpec.key_trackNumber]
         
-        private let keys_artist: [String] = [ITunesSpec.key_artist, ITunesSpec.key_originalArtist, ITunesSpec.key_originalArtist2]
-        private let keys_album: [String] = [ITunesSpec.key_album, ITunesSpec.key_originalAlbum]
-        private let keys_conductor: [String] = [ITunesSpec.key_conductor, ITunesSpec.key_conductor2]
-        private let keys_lyricist: [String] = [ITunesSpec.key_lyricist, ITunesSpec.key_originalLyricist]
-        private let keys_genre: [String] = [ITunesSpec.key_genre, ITunesSpec.key_predefGenre]
-        
-        private let keys_discNum: [String] = [ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2]
-        
-        private let keys_year: [String] = [ITunesSpec.key_releaseDate, ITunesSpec.key_releaseYear]
-        
-        // BUG TODO: Find out why ITunesNormalization tag is not being ignored in MP3 files
-        private let ignoredKeys: Set<String> = [ITunesSpec.key_normalization, ITunesSpec.key_soundCheck]
+    private let keys_artist: [String] = [ITunesSpec.key_artist, ITunesSpec.key_originalArtist, ITunesSpec.key_originalArtist2, ITunesSpec.key_albumArtist, ITunesSpec.key_performer]
+    private let keys_album: [String] = [ITunesSpec.key_album, ITunesSpec.key_originalAlbum]
+    private let keys_genre: [String] = [ITunesSpec.key_genre, ITunesSpec.key_predefGenre]
+    
+    private let keys_discNum: [String] = [ITunesSpec.key_discNumber, ITunesSpec.key_discNumber2]
+    
+    private let keys_year: [String] = [ITunesSpec.key_releaseDate, ITunesSpec.key_releaseYear]
+    
+    // BUG TODO: Find out why ITunesNormalization tag is not being ignored in MP3 files
+    private let ignoredKeys: Set<String> = [ITunesSpec.key_normalization, ITunesSpec.key_soundCheck]
     
 //    func mapTrack(_ meta: AVFMetadata) {
 //    
@@ -69,28 +67,8 @@ class ITunesParser: AVFMetadataParser {
         (keys_artist.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
     }
     
-    func getAlbumArtist(_ meta: AVFMappedMetadata) -> String? {
-        meta.iTunes[ITunesSpec.key_albumArtist]?.stringValue
-    }
-    
     func getAlbum(_ meta: AVFMappedMetadata) -> String? {
         (keys_album.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
-    }
-    
-    func getComposer(_ meta: AVFMappedMetadata) -> String? {
-        meta.iTunes[ITunesSpec.key_composer]?.stringValue
-    }
-    
-    func getConductor(_ meta: AVFMappedMetadata) -> String? {
-        (keys_conductor.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
-    }
-    
-    func getPerformer(_ meta: AVFMappedMetadata) -> String? {
-        meta.iTunes[ITunesSpec.key_performer]?.stringValue
-    }
-    
-    func getLyricist(_ meta: AVFMappedMetadata) -> String? {
-        (keys_lyricist.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
     }
     
     func getGenre(_ meta: AVFMappedMetadata) -> String? {

@@ -21,7 +21,11 @@ class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
         }
     }
     
-    func hasMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
+        !meta.otherMetadata.essentialFields.isEmpty
+    }
+    
+    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
         !meta.otherMetadata.genericFields.isEmpty
     }
 
