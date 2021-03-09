@@ -24,7 +24,7 @@ class TrackReader {
         track.setPlaylistMetadata(from: fileMetadata)
     }
     
-    func computePlaybackContext(for track: Track) throws {
+    private func computePlaybackContext(for track: Track) throws {
         
         track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
         

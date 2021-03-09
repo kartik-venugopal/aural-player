@@ -24,8 +24,6 @@ class AVFPlaybackContext: PlaybackContextProtocol {
         self.computedDuration = Double(frameCount) / sampleRate
         
         try validateFile(file)
-        
-        self.audioFile = nil
     }
     
     private func validateFile(_ file: URL) throws {
@@ -63,5 +61,9 @@ class AVFPlaybackContext: PlaybackContextProtocol {
     // Called upon completion of playback
     func close() {
         audioFile = nil
+    }
+    
+    deinit {
+        close()
     }
 }

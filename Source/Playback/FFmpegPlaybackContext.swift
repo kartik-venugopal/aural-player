@@ -109,6 +109,10 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
         decoder = nil
         fileContext = nil
     }
+    
+    deinit {
+        close()
+    }
 }
 
 extension AVAudioChannelLayout {
