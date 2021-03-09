@@ -15,9 +15,6 @@ export sourceArchiveName="ffmpeg-sourceCode.bz2"
 # The name of the FFmpeg source directory (once the archive has been uncompressed)
 export sourceDirectoryName="ffmpeg-4.3.1"
 
-# Delete source directory
-rm -rf $sourceDirectoryName
-
 # Extract source code from archive
 echo "\nExtracting FFmpeg sources from archive ..."
 tar xjf $sourceArchiveName
@@ -56,9 +53,9 @@ echo "\nConfiguring FFmpeg ..."
 --disable-appkit \
 --enable-avfoundation \
 --enable-audiotoolbox \
---enable-libspeex \
---enable-libopencore_amrnb \
---enable-libopencore_amrwb \
+--disable-libspeex \
+--disable-libopencore_amrnb \
+--disable-libopencore_amrwb \
 --disable-coreimage \
 --disable-protocols \
 --disable-iconv \
@@ -108,17 +105,11 @@ echo "Fixing install names of shared libraries ..."
 install_name_tool -id @loader_path/../Frameworks/libavcodec.58.dylib libavcodec.58.dylib
 install_name_tool -change /usr/local/lib/libswresample.3.dylib @loader_path/../Frameworks/libswresample.3.dylib libavcodec.58.dylib
 install_name_tool -change /usr/local/lib/libavutil.56.dylib @loader_path/../Frameworks/libavutil.56.dylib libavcodec.58.dylib
-install_name_tool -change /usr/local/opt/opencore-amr/lib/libopencore-amrnb.0.dylib @loader_path/../Frameworks/libopencore-amrnb.0.dylib libavcodec.58.dylib
-install_name_tool -change /usr/local/opt/opencore-amr/lib/libopencore-amrwb.0.dylib @loader_path/../Frameworks/libopencore-amrwb.0.dylib libavcodec.58.dylib
-install_name_tool -change /usr/local/opt/speex/lib/libspeex.1.dylib @loader_path/../Frameworks/libspeex.1.dylib libavcodec.58.dylib
 
 install_name_tool -id @loader_path/../Frameworks/libavformat.58.dylib libavformat.58.dylib
 install_name_tool -change /usr/local/lib/libavcodec.58.dylib @loader_path/../Frameworks/libavcodec.58.dylib libavformat.58.dylib
 install_name_tool -change /usr/local/lib/libswresample.3.dylib @loader_path/../Frameworks/libswresample.3.dylib libavformat.58.dylib
 install_name_tool -change /usr/local/lib/libavutil.56.dylib @loader_path/../Frameworks/libavutil.56.dylib libavformat.58.dylib
-install_name_tool -change /usr/local/opt/opencore-amr/lib/libopencore-amrnb.0.dylib @loader_path/../Frameworks/libopencore-amrnb.0.dylib libavformat.58.dylib
-install_name_tool -change /usr/local/opt/opencore-amr/lib/libopencore-amrwb.0.dylib @loader_path/../Frameworks/libopencore-amrwb.0.dylib libavformat.58.dylib
-install_name_tool -change /usr/local/opt/speex/lib/libspeex.1.dylib @loader_path/../Frameworks/libspeex.1.dylib libavformat.58.dylib
 
 install_name_tool -id @loader_path/../Frameworks/libavutil.56.dylib libavutil.56.dylib
 
@@ -126,5 +117,13 @@ install_name_tool -id @loader_path/../Frameworks/libswresample.3.dylib libswresa
 install_name_tool -change /usr/local/lib/libavutil.56.dylib @loader_path/../Frameworks/libavutil.56.dylib libswresample.3.dylib
 
 echo "Done fixing install names of shared libraries.\n"
+
+cd ..
+
+# Delete source directory
+rm -rf $sourceDirectoryName
+
+rm ffmpeg
+rm ffprobe
 
 echo "All done !\n"
