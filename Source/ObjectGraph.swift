@@ -77,7 +77,7 @@ class ObjectGraph {
             avfScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
         }
         
-        sampleConverter = SampleConverter()
+        sampleConverter = FFmpegSampleConverter()
         ffmpegScheduler = FFmpegScheduler(playerNode: audioGraph.playerNode, sampleConverter: sampleConverter)
         
         // Player
