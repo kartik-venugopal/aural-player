@@ -3,15 +3,13 @@ import AVFoundation
 class FFmpegScheduler: PlaybackSchedulerProtocol {
     
     ///
-    /// The number of audio buffers currently scheduled for playback by the player.
+    /// The number of audio buffers currently scheduled for playback by the player, for a given session.
     ///
     /// Used to determine:
     /// 1. when playback has completed.
     /// 2. whether or not a scheduling task was successful and whether or not playback should begin.
     ///
-    var scheduledBufferCount: AtomicCounter<Int> = AtomicCounter<Int>()
-    
-    var scheduledBufferCountMap: [PlaybackSession: AtomicCounter<Int>] = [:]
+    var scheduledBufferCounts: [PlaybackSession: AtomicCounter<Int>] = [:]
     
     ///
     /// A flag indicating whether or not the decoder has reached the end of the currently playing file's audio stream, i.e. EOF..
@@ -65,7 +63,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     func playTrack(_ session: PlaybackSession, _ startPosition: Double) {
         
         stop()
-        scheduledBufferCountMap[session] = AtomicCounter<Int>()
+        scheduledBufferCounts[session] = AtomicCounter<Int>()
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext else {
 
@@ -78,11 +76,11 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         initiateDecodingAndScheduling(for: session, from: startPosition == 0 ? nil : startPosition)
         
         // Check that at least one audio buffer was successfully scheduled, before beginning playback.
-        if let bufferCount = scheduledBufferCountMap[session], bufferCount.isPositive {
+        if let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive {
             playerNode.play()
             
         } else {
-            NSLog("FFmpegScheduler.playTrack() - scheduledBufferCount = \(scheduledBufferCountMap[session]?.value), WARNING: No buffers scheduled for track \(session.track.displayName) ... cannot begin playback.")
+            NSLog("FFmpegScheduler.playTrack() - scheduledBufferCount = \(scheduledBufferCounts[session]?.value), WARNING: No buffers scheduled for track \(session.track.displayName) ... cannot begin playback.")
         }
     }
     
@@ -217,29 +215,29 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.bufferCompletionHandler(session), seekPosition, immediatePlayback)
 
             // Upon scheduling the buffer, increment the counter.
-            scheduledBufferCountMap[session]?.increment()
+            scheduledBufferCounts[session]?.increment()
             
-            NSLog("FFmpegScheduler.decodeAndScheduleOneBuffer() - scheduledBufferCount = \(scheduledBufferCountMap[session]?.value) for track \(session.track.displayName) ")
+            NSLog("FFmpegScheduler.decodeAndScheduleOneBuffer() - scheduledBufferCount = \(scheduledBufferCounts[session]?.value) for track \(session.track.displayName) ")
         }
     }
     
     func bufferCompleted(_ session: PlaybackSession) {
         
-        NSLog("FFmpegScheduler.bufferCompleted() - scheduledBufferCount = \(scheduledBufferCountMap[session]?.value) for track \(session.track.displayName) ")
+        NSLog("FFmpegScheduler.bufferCompleted() - scheduledBufferCount = \(scheduledBufferCounts[session]?.value) for track \(session.track.displayName) ")
         
         // If the buffer-associated session is not the same as the current session
         // (possible if stop() was called, eg. old buffers that complete when seeking), don't do anything.
         guard PlaybackSession.isCurrent(session) else {return}
         
         // Audio buffer has completed playback, so decrement the counter.
-        scheduledBufferCountMap[session]?.decrement()
+        scheduledBufferCounts[session]?.decrement()
         
         if !self.eof {
 
             // If EOF has not been reached, continue recursively decoding / scheduling.
             self.decodeAndScheduleOneBufferAsync(for: session, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
 
-        } else if let bufferCount = scheduledBufferCountMap[session], bufferCount.isZero {
+        } else if let bufferCount = scheduledBufferCounts[session], bufferCount.isZero {
             
             // EOF has been reached, and all buffers have completed playback.
             // Signal playback completion (on the main thread).
@@ -269,17 +267,17 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         playerNode.stop()
         decoder?.stop()
         
-        scheduledBufferCountMap.removeAll()
+        scheduledBufferCounts.removeAll()
     }
     
     func seekToTime(_ session: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool) {
         
         stop()
-        scheduledBufferCountMap[session] = AtomicCounter<Int>()
+        scheduledBufferCounts[session] = AtomicCounter<Int>()
         
         initiateDecodingAndScheduling(for: session, from: seconds)
         
-        if let bufferCount = scheduledBufferCountMap[session], bufferCount.isPositive, beginPlayback {
+        if let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive, beginPlayback {
             playerNode.play()
         }
     }

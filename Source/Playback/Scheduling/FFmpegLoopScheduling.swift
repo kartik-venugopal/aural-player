@@ -9,7 +9,7 @@ extension FFmpegScheduler {
     func playLoop(_ session: PlaybackSession, _ beginPlayback: Bool = true) {
         
         stop()
-        scheduledBufferCount.value = 0
+        scheduledBufferCounts[session] = AtomicCounter<Int>()
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
             let loop = session.loop, let loopEndTime = loop.endTime else {return}
@@ -21,7 +21,7 @@ extension FFmpegScheduler {
         initiateLoopDecodingAndScheduling(for: session, with: loop)
         
         // Check that at least one audio buffer was successfully scheduled, before beginning playback.
-        if beginPlayback && scheduledBufferCount.isPositive {
+        if beginPlayback, let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive {
             playerNode.play()
         }
     }
@@ -118,25 +118,25 @@ extension FFmpegScheduler {
             playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.loopBufferCompletionHandler(session), seekPosition, seekPosition != nil)
 
             // Upon scheduling the buffer, increment the counter.
-            scheduledBufferCount.increment()
+            scheduledBufferCounts[session]?.increment()
         }
     }
     
     func loopBufferCompleted(_ session: PlaybackSession) {
         
-        // Audio buffer has completed playback, so decrement the counter.
-        self.scheduledBufferCount.decrement()
-        
         // If the buffer-associated session is not the same as the current session
         // (possible if stop() was called, eg. old buffers that complete when seeking), don't do anything.
         guard PlaybackSession.isCurrent(session) else {return}
+        
+        // Audio buffer has completed playback, so decrement the counter.
+        scheduledBufferCounts[session]?.decrement()
         
         if !self.endOfLoop {
 
             // If EOF has not been reached, continue recursively decoding / scheduling.
             self.decodeAndScheduleOneLoopBufferAsync(for: session, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
 
-        } else if self.scheduledBufferCount.isZero {
+        } else if let bufferCount = scheduledBufferCounts[session], bufferCount.isZero {
             
             // EOF has been reached, and all buffers have completed playback.
             // Signal playback completion (on the main thread).
@@ -161,10 +161,11 @@ extension FFmpegScheduler {
         }
     }
     
+    // This function is for seeking within a complete segment loop
     func playLoop(_ session: PlaybackSession, _ playbackStartTime: Double, _ beginPlayback: Bool) {
         
         stop()
-        scheduledBufferCount.value = 0
+        scheduledBufferCounts[session] = AtomicCounter<Int>()
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
             let loop = session.loop, let loopEndTime = loop.endTime else {return}
@@ -176,7 +177,7 @@ extension FFmpegScheduler {
         initiateLoopDecodingAndScheduling(for: session, with: loop, startingAt: playbackStartTime)
         
         // Check that at least one audio buffer was successfully scheduled, before beginning playback.
-        if beginPlayback && scheduledBufferCount.isPositive {
+        if beginPlayback, let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive {
             playerNode.play()
         }
     }
