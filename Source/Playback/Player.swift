@@ -33,10 +33,12 @@ class Player: PlayerProtocol, NotificationSubscriber {
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
         
         guard let audioFormat = track.playbackContext?.audioFormat else {
+            
+            NSLog("Player.play() - Unable to play track \(track.displayName) because no audio format is set in its playback context.")
             return
         }
         
-        // Disconnect player and reconnect with the file's processing format
+        // Disconnect player from audio graph and reconnect with the file's processing format
         graph.reconnectPlayerNodeWithFormat(audioFormat)
 
         let session = PlaybackSession.start(track)

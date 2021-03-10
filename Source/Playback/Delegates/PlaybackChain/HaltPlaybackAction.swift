@@ -16,6 +16,8 @@ class HaltPlaybackAction: PlaybackChainAction {
         if context.currentState != .noTrack, let playingTrack = context.currentTrack {
             
             player.stop()
+            
+            // TODO: What if the requested track is the same as the current track ? Should we not close the context then ???
             playingTrack.playbackContext?.close()
         }
         
