@@ -46,8 +46,8 @@ echo "\nConfiguring FFmpeg ..."
 --disable-avdevice \
 --disable-sdl2 \
 --disable-ffplay \
---enable-ffmpeg \
---enable-ffprobe \
+--disable-ffmpeg \
+--disable-ffprobe \
 --disable-network \
 --disable-postproc \
 --disable-appkit \
@@ -122,8 +122,5 @@ cd ..
 
 # Delete source directory
 rm -rf $sourceDirectoryName
-
-rm ffmpeg
-rm ffprobe
 
 echo "All done !\n"
