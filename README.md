@@ -92,16 +92,7 @@ NOTE - Please ***don't*** run the app directly from within the image. It is a co
 
 ### Enabling media keys support (optional)
 
-![Enabling media keys support](/Documentation/Screenshots/EnablingMediaKeys.png?raw=true "Enabling media keys support")
-
-1. Quit Aural Player if it is running.
-2. Go to **System Preferences > Security & Privacy > Privacy**, and select **Accessibility** from the list of features.
-3. Click on the lock icon in the bottom left corner, if it is shown as locked. Enter your macOS password to authenticate.
-4. Click the + button and select **Aural.app** in the file browser that opens, to add Aural Player to the list of apps allowed to control your computer (See image above).
-
-**NOTE**
-* Media keys support is available from version 1.3.0 onwards.
-* You will have to repeat this simple process whenever you upgrade to a new version of the app, because the macOS Accessibility permissions are tied to a single instance of the app.
+Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support)
      
 ## Screenshots
 
