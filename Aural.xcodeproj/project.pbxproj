@@ -2166,11 +2166,11 @@
 		3E6C105A25CEB98600BF0D07 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C107325CEB98600BF0D07 /* Delegates */,
 				3E6C105B25CEB98600BF0D07 /* Sequencing */,
 				3E6C106525CEB98600BF0D07 /* Scheduling */,
 				3E6C106B25CEB98600BF0D07 /* PlaybackParams.swift */,
 				3E6C107225CEB98600BF0D07 /* PlayerProtocol.swift */,
-				3E6C107325CEB98600BF0D07 /* Delegates */,
 				3E6C108C25CEB98600BF0D07 /* Player.swift */,
 				3E6C108D25CEB98600BF0D07 /* PlaybackProfiles.swift */,
 				3E6C108E25CEB98600BF0D07 /* PlaybackLoop.swift */,
@@ -2178,8 +2178,6 @@
 				3EDB346B25E8BABC004DF7DE /* AVFPlaybackContext.swift */,
 				3EDB346A25E8BABC004DF7DE /* FFmpegPlaybackContext.swift */,
 				3EDB346825E8B880004DF7DE /* PlayableItem.swift */,
-				3EDB346E25E8BB00004DF7DE /* FFmpegDecoder.swift */,
-				3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */,
 			);
 			path = Playback;
 			sourceTree = "<group>";
@@ -2202,6 +2200,8 @@
 		3E6C106525CEB98600BF0D07 /* Scheduling */ = {
 			isa = PBXGroup;
 			children = (
+				3EDB346E25E8BB00004DF7DE /* FFmpegDecoder.swift */,
+				3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */,
 				3E6C106625CEB98600BF0D07 /* PlaybackScheduler.swift */,
 				3E6C106725CEB98600BF0D07 /* PlaybackSchedulerProtocol.swift */,
 				3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */,

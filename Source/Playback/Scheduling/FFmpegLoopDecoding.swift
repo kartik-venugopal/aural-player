@@ -4,6 +4,8 @@ extension FFmpegDecoder {
     
     func decodeLoop(maxSampleCount: Int32, loopEndTime: Double) -> FFmpegFrameBuffer {
         
+//        print("decodeLoop(): maxSampleCount = \(maxSampleCount), loopEndTime = \(loopEndTime)")
+        
         let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount,
                                                                channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
         
@@ -24,7 +26,11 @@ extension FFmpegDecoder {
                 let frameStartTime = Double(frame.pts) * stream.timeBase.ratio
                 let frameEndTime = frameStartTime + (Double(frame.sampleCount) / sampleRate)
                 
+//                print("frameStartTime = \(frameStartTime), frameEndTime = \(frameEndTime)")
+                
                 if loopEndTime < frameEndTime {
+                    
+//                    print("BREAK !!! loopEndTime = \(loopEndTime), frameEndTime = \(frameEndTime)")
                     
                     let truncatedSampleCount = Int32((loopEndTime - frameStartTime) * sampleRate)
                     

@@ -30,15 +30,25 @@ extension FFmpegScheduler {
         
         do {
             
+            let startTime = time ?? loop.startTime
+            
+//            print("BEFORE Seek", decoder.eof, decoder.endOfLoop)
+            
             // If a seek position was specified, ask the decoder to seek
             // within the stream.
-            try decoder.seek(to: time ?? loop.startTime)
+            try decoder.seek(to: startTime)
+            
+//            print("Seek completed", decoder.eof, decoder.endOfLoop)
             
             // Schedule one buffer for immediate playback
-            decodeAndScheduleOneLoopBuffer(for: session, from: loop.startTime, maxSampleCount: playbackCtx.sampleCountForImmediatePlayback)
+            decodeAndScheduleOneLoopBuffer(for: session, from: startTime, maxSampleCount: playbackCtx.sampleCountForImmediatePlayback)
+            
+//            print("B1 completed", scheduledBufferCounts[session]!.value, decoder.eof, decoder.endOfLoop)
             
             // Schedule a second buffer asynchronously, for later, to avoid a gap in playback.
             decodeAndScheduleOneLoopBufferAsync(for: session, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
+            
+//            print("B2 completed", scheduledBufferCounts[session]!.value, decoder.eof, decoder.endOfLoop)
             
         } catch {
             print("\nDecoder threw error: \(error)")
@@ -116,9 +126,13 @@ extension FFmpegScheduler {
             //      has not really completed playback but has been removed from the playback queue.
 
             playerNode.scheduleBuffer(playbackBuffer, for: session, completionHandler: self.loopBufferCompletionHandler(session), seekPosition, seekPosition != nil)
+            
+//            let playTime = frameBuffer.sampleCount / frameBuffer.frames[0].sampleRate
+//            print("\nScheduled one LOOP buffer with \(frameBuffer.sampleCount) samples equal to \(playTime) seconds")
 
             // Upon scheduling the buffer, increment the counter.
             scheduledBufferCounts[session]?.increment()
+//            print("\nScheduled buffer count now: \(scheduledBufferCounts[session]!.value)")
         }
     }
     
@@ -166,6 +180,9 @@ extension FFmpegScheduler {
         
         stop()
         scheduledBufferCounts[session] = AtomicCounter<Int>()
+        
+        // Reset all the loop state in the decoder
+        decoder.loopCompleted()
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
             let loop = session.loop, let loopEndTime = loop.endTime else {return}

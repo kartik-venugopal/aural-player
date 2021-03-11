@@ -272,6 +272,13 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     
     func seekToTime(_ session: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool) {
         
+        // Check if there's a complete loop defined. If so, defer to playLoop().
+        if let loop = session.loop, loop.isComplete {
+            
+            playLoop(session, seconds, beginPlayback)
+            return
+        }
+        
         stop()
         scheduledBufferCounts[session] = AtomicCounter<Int>()
         
