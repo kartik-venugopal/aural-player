@@ -16,7 +16,7 @@ protocol PlaybackSchedulerProtocol {
     
     // End scheduling and playback for the segment loop (specified by the given playback session). Resume normal playback till the end of the track.
     // The loopEndTime parameter specifies the start time for the new segment: [loopEndTime, trackDuration].
-    func endLoop(_ playbackSession: PlaybackSession, _ loopEndTime: Double)
+    func endLoop(_ session: PlaybackSession, _ loopEndTime: Double, _ beginPlayback: Bool)
     
     // Seeks to a certain position (seconds) within the currently playing track (specified by the given playback session). Begin playback if beginPlayback is true.
     func seekToTime(_ playbackSession: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool)

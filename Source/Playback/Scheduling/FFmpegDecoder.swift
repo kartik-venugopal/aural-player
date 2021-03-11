@@ -35,11 +35,9 @@ class FFmpegDecoder {
     /// A flag indicating whether or not the codec has reached the end of the currently playing file's audio stream, i.e. EOF..
     ///
     var eof: Bool = false
-    
-    // TODO: Make this an atomic Bool ???
-    var endOfLoop: Bool = false
-    
-    var terminalLoopFrame: FFmpegFrame?
+
+    // Indicates whether or not we have reached the end of the loop when scheduling buffers for the current loop (analogous to EOF for file scheduling).
+    var endOfLoop: AtomicBool = AtomicBool()
     
     ///
     /// A queue data structure used to temporarily hold buffered frames as they are decoded by the codec and before passing them off to a FrameBuffer.

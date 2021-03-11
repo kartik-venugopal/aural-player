@@ -5,7 +5,7 @@ import AVFoundation
     Manages audio scheduling, and playback. See PlaybackSchedulerProtocol for more details on all the functions provided.
  */
 class PlaybackScheduler: PlaybackSchedulerProtocol {
-
+    
     // Player node used for actual playback
     var playerNode: AuralPlayerNode
     
@@ -131,8 +131,8 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
             playerNode.play()
         }
     }
-
-    func endLoop(_ session: PlaybackSession, _ loopEndTime: Double) {
+    
+    func endLoop(_ session: PlaybackSession, _ loopEndTime: Double, _ beginPlayback: Bool) {
         
         var newSegmentStartFrame: AVAudioFramePosition? = nil
         

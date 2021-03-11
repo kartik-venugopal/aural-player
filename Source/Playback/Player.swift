@@ -235,7 +235,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
             
             // When a loop is removed, playback continues from the current position and a new playback session is started.
             if let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
-                scheduler.endLoop(newSession, loopEndTime)
+                scheduler.endLoop(newSession, loopEndTime, state == .playing)
             }
         }
     }

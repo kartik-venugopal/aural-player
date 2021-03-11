@@ -86,6 +86,10 @@ public final class AtomicBool {
         _value = initialValue
     }
     
+    func setValue(_ value: Bool) {
+        self.value = value
+    }
+    
     public var value: Bool {
         
         get {

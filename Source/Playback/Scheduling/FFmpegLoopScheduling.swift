@@ -4,12 +4,15 @@ extension FFmpegScheduler {
     
     // TODO: Test with loops that extend till EOF, very small loops, etc.
     
-    var endOfLoop: Bool {decoder.endOfLoop}
+    var endOfLoop: Bool {decoder.endOfLoop.value}
     
     func playLoop(_ session: PlaybackSession, _ beginPlayback: Bool = true) {
         
         stop()
         scheduledBufferCounts[session] = AtomicCounter<Int>()
+        
+        // Reset all the loop state in the decoder
+        decoder.loopCompleted()
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
             let loop = session.loop, let loopEndTime = loop.endTime else {return}
@@ -199,15 +202,18 @@ extension FFmpegScheduler {
         }
     }
     
-    func endLoop(_ session: PlaybackSession, _ loopEndTime: Double) {
+    func endLoop(_ session: PlaybackSession, _ loopEndTime: Double, _ beginPlayback: Bool) {
         
-        // TODO: Handle race conditions (if loop completes just before endLoop() is called)
-        // If loop completes after endLoop() is called, it's harmless as the PlaybackSession will no longer be current.
-        // TODO: Does PlaybackSession need to become thread-safe ???
-        decoder.endLoop()
+        // Mark the player's current seek position. We will resume playback from this position.
+        let seekPosition = playerNode.seekPosition
+        print("ENDED LOOP AT SEEK POSN:", seekPosition)
 
-        // Schedule a second buffer, for later, to avoid a gap in playback.
-        decodeAndScheduleOneBufferAsync(for: session, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
-        decodeAndScheduleOneBufferAsync(for: session, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
+        // There should be no loop scheduling going on at this point.
+        // Cancel pending tasks, wait, and reset all loop state, before proceeding.
+        stop()
+        decoder.loopCompleted()
+        
+        // Now, seek to the position marked earlier, to resume playback.
+        seekToTime(session, seekPosition, beginPlayback)
     }
 }

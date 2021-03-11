@@ -38,8 +38,7 @@ extension FFmpegDecoder {
                     frame.keepFirstNSamples(sampleCount: truncatedSampleCount)
                     buffer.appendTerminalFrames([frame])
                     
-                    self.endOfLoop = true
-                    self.terminalLoopFrame = frame
+                    self.endOfLoop.setValue(true)
                     
                     break
                 }
@@ -82,7 +81,7 @@ extension FFmpegDecoder {
         
         if eof {
             
-            self.endOfLoop = true
+            self.endOfLoop.setValue(true)
             
             var terminalFrames: [FFmpegFrame] = frameQueue.dequeueAll()
             
@@ -103,20 +102,6 @@ extension FFmpegDecoder {
     }
     
     func loopCompleted() {
-        
-        self.endOfLoop = false
-        self.terminalLoopFrame = nil
-    }
-    
-    func endLoop() {
-        
-        if self.endOfLoop, let terminalFrame = self.terminalLoopFrame, terminalFrame.actualSampleCount > terminalFrame.sampleCount {
-            
-            // Put rest of (truncated) terminal loop frame back on the queue.
-            terminalFrame.keepLastNSamples(sampleCount: terminalFrame.actualSampleCount - terminalFrame.sampleCount)
-            frameQueue.enqueue(terminalFrame)
-        }
-        
-        self.endOfLoop = false
+        self.endOfLoop.setValue(false)
     }
 }

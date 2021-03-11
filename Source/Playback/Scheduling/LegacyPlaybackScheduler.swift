@@ -48,10 +48,10 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
         destroyCompletionTimer()
     }
     
-    override func endLoop(_ session: PlaybackSession, _ loopEndTime: Double) {
+    override func endLoop(_ session: PlaybackSession, _ loopEndTime: Double, _ beginPlayback: Bool) {
         
         destroyCompletionTimer()
-        super.endLoop(session, loopEndTime)
+        super.endLoop(session, loopEndTime, beginPlayback)
     }
     
     // MARK: Completion handler functions -------------------------------------------------------

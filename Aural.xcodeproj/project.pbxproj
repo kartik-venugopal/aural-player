@@ -2203,10 +2203,10 @@
 				3EDB346E25E8BB00004DF7DE /* FFmpegDecoder.swift */,
 				3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */,
 				3E6C106625CEB98600BF0D07 /* PlaybackScheduler.swift */,
+				3E6C106825CEB98600BF0D07 /* LegacyPlaybackScheduler.swift */,
 				3E6C106725CEB98600BF0D07 /* PlaybackSchedulerProtocol.swift */,
 				3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */,
 				3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */,
-				3E6C106825CEB98600BF0D07 /* LegacyPlaybackScheduler.swift */,
 				3E6C106925CEB98600BF0D07 /* PlaybackSegment.swift */,
 				3E6C106A25CEB98600BF0D07 /* AuralPlayerNode.swift */,
 			);
