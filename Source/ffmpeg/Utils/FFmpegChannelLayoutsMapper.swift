@@ -141,7 +141,13 @@ struct FFmpegChannelLayoutsMapper {
     ///
     static func readableString(for channelLayout: Int64, channelCount: Int32) -> String {
         
-        if channelLayout == 0 {return defaultChannelLayoutString(channelCount)}
+        if channelLayout == 0 {return AVAudioChannelLayout.defaultDescription(channelCount: channelCount)}
+        
+        let avfLayout = mapLayout(ffmpegLayout: Int(channelLayout))
+        return avfLayout?.layout.pointee.description ?? readableFFmpegString(for: channelLayout, channelCount: channelCount)
+    }
+    
+    private static func readableFFmpegString(for channelLayout: Int64, channelCount: Int32) -> String {
         
         let layoutStringPointer = UnsafeMutablePointer<Int8>.allocate(capacity: 100)
         av_get_channel_layout_string(layoutStringPointer, 100, channelCount, UInt64(channelLayout))
@@ -149,25 +155,6 @@ struct FFmpegChannelLayoutsMapper {
         defer {layoutStringPointer.deallocate()}
         
         return String(cString: layoutStringPointer).replacingOccurrences(of: "(", with: " (").capitalized
-    }
-    
-    private static func defaultChannelLayoutString(_ numChannels: Int32) -> String {
-        
-        switch numChannels {
-            
-        case 1: return "Mono (1 ch)"
-            
-        case 2: return "Stereo (2 ch)"
-            
-        case 6: return "5.1 (6 ch)"
-            
-        case 8: return "7.1 (8 ch)"
-            
-        case 10: return "9.1 (10 ch)"
-            
-        default: return String(format: "%d channels", numChannels)
-            
-        }
     }
     
     // MARK: Debugging functions ------------------------------------------------------
