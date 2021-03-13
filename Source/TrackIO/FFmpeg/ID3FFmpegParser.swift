@@ -1,5 +1,8 @@
 import Cocoa
 
+///
+/// Parses metadata in the ID3 format / key space from non-native tracks (read by ffmpeg).
+///
 class ID3FFmpegParser: FFmpegMetadataParser {
     
     private let keys_duration: [String] = [ID3_V24Spec.key_duration, ID3_V22Spec.key_duration].map {$0.lowercased()}
@@ -44,11 +47,11 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         return map
     }()
     
-    func mapTrack(_ meta: FFmpegMappedMetadata) {
+    func mapMetadata(_ metadataMap: FFmpegMappedMetadata) {
 
-        let metadata = meta.id3Metadata
+        let metadata = metadataMap.id3Metadata
 
-        for key in meta.map.keys {
+        for key in metadataMap.map.keys {
 
             let lcKey = key.lowercased().trim()
 
@@ -56,15 +59,15 @@ class ID3FFmpegParser: FFmpegMetadataParser {
 
                 if essentialFieldKeys.contains(lcKey) {
 
-                    metadata.essentialFields[lcKey] = meta.map.removeValue(forKey: key)
+                    metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
 
                 } else if genericFields[lcKey] != nil {
 
-                    metadata.genericFields[lcKey] = meta.map.removeValue(forKey: key)
+                    metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 }
 
             } else {
-                meta.map.removeValue(forKey: key)
+                metadataMap.map.removeValue(forKey: key)
             }
         }
     }
@@ -73,84 +76,84 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         return genericFields[key] ?? key.capitalizingFirstLetter()
     }
 
-    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.id3Metadata.essentialFields.isEmpty
+    func hasEssentialMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.id3Metadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.id3Metadata.genericFields.isEmpty
+    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.id3Metadata.genericFields.isEmpty
     }
 
-    func getTitle(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_title.firstNonNilMappedValue {meta.id3Metadata.essentialFields[$0]}
+    func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        keys_title.firstNonNilMappedValue {metadataMap.id3Metadata.essentialFields[$0]}
     }
 
-    func getArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_artist.firstNonNilMappedValue {meta.id3Metadata.essentialFields[$0]}
+    func getArtist(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        keys_artist.firstNonNilMappedValue {metadataMap.id3Metadata.essentialFields[$0]}
     }
 
-    func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_album.firstNonNilMappedValue {meta.id3Metadata.essentialFields[$0]}
+    func getAlbum(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        keys_album.firstNonNilMappedValue {metadataMap.id3Metadata.essentialFields[$0]}
     }
 
-    func getGenre(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_genre.firstNonNilMappedValue {meta.id3Metadata.essentialFields[$0]}
+    func getGenre(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        keys_genre.firstNonNilMappedValue {metadataMap.id3Metadata.essentialFields[$0]}
     }
 
-    func getDiscNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
 
-        if let discNumStr = keys_discNumber.firstNonNilMappedValue({meta.id3Metadata.essentialFields[$0]}) {
+        if let discNumStr = keys_discNumber.firstNonNilMappedValue({metadataMap.id3Metadata.essentialFields[$0]}) {
             return ParserUtils.parseDiscOrTrackNumberString(discNumStr)
         }
 
         return nil
     }
 
-    func getTrackNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
 
-        if let trackNumStr = keys_trackNumber.firstNonNilMappedValue({meta.id3Metadata.essentialFields[$0]}) {
+        if let trackNumStr = keys_trackNumber.firstNonNilMappedValue({metadataMap.id3Metadata.essentialFields[$0]}) {
             return ParserUtils.parseDiscOrTrackNumberString(trackNumStr)
         }
 
         return nil
     }
 
-    func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_lyrics.firstNonNilMappedValue {meta.id3Metadata.genericFields[$0]}
+    func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        keys_lyrics.firstNonNilMappedValue {metadataMap.id3Metadata.genericFields[$0]}
     }
 
-    func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
 
-        if let yearString = keys_year.firstNonNilMappedValue({meta.id3Metadata.genericFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.id3Metadata.genericFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
 
         return nil
     }
 
-    func getBPM(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getBPM(_ metadataMap: FFmpegMappedMetadata) -> Int? {
 
-        if let bpmString = keys_bpm.firstNonNilMappedValue({meta.id3Metadata.genericFields[$0]}) {
+        if let bpmString = keys_bpm.firstNonNilMappedValue({metadataMap.id3Metadata.genericFields[$0]}) {
             return ParserUtils.parseBPM(bpmString)
         }
 
         return nil
     }
 
-    func getDuration(_ meta: FFmpegMappedMetadata) -> Double? {
+    func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double? {
 
-        if let durationStr = keys_duration.firstNonNilMappedValue({meta.id3Metadata.essentialFields[$0]}) {
+        if let durationStr = keys_duration.firstNonNilMappedValue({metadataMap.id3Metadata.essentialFields[$0]}) {
             return ParserUtils.parseDuration(durationStr)
         }
 
         return nil
     }
     
-    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String : MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (var key, var value) in meta.id3Metadata.genericFields {
+        for (var key, var value) in metadataMap.id3Metadata.genericFields {
             
             // Special fields
             if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {

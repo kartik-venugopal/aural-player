@@ -48,6 +48,13 @@ class TrackReader {
     ///
     func prepareForPlayback(track: Track) throws {
         
+        // Make sure track is valid before trying to prep it for playback.
+        if let validationError = track.validationError {
+            
+            track.preparationError = validationError
+            throw validationError
+        }
+        
         do {
             
             // If a playback context has been previously computed, just open it.

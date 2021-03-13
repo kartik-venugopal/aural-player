@@ -15,53 +15,53 @@ protocol AVFMetadataParser {
     ///
     /// Read track duration from the given metadata map. Returns nil if not present.
     ///
-    func getDuration(_ meta: AVFMappedMetadata) -> Double?
+    func getDuration(_ metadataMap: AVFMappedMetadata) -> Double?
     
     ///
     /// Read track title from the given metadata map. Returns nil if not present.
     ///
-    func getTitle(_ meta: AVFMappedMetadata) -> String?
+    func getTitle(_ metadataMap: AVFMappedMetadata) -> String?
     
     ///
     /// Read track artist from the given metadata map. Returns nil if not present.
     ///
-    func getArtist(_ meta: AVFMappedMetadata) -> String?
+    func getArtist(_ metadataMap: AVFMappedMetadata) -> String?
     
     ///
     /// Read track album from the given metadata map. Returns nil if not present.
     ///
-    func getAlbum(_ meta: AVFMappedMetadata) -> String?
+    func getAlbum(_ metadataMap: AVFMappedMetadata) -> String?
     
     ///
     /// Read track genre from the given metadata map. Returns nil if not present.
     ///
-    func getGenre(_ meta: AVFMappedMetadata) -> String?
+    func getGenre(_ metadataMap: AVFMappedMetadata) -> String?
     
     ///
     /// Read track lyrics from the given metadata map. Returns nil if not present.
     ///
-    func getLyrics(_ meta: AVFMappedMetadata) -> String?
+    func getLyrics(_ metadataMap: AVFMappedMetadata) -> String?
     
     ///
-    /// Read track disc number from the given metadata map. Returns nil if not present.
+    /// Read album disc number (disc number and total discs) from the given metadata map. Returns nil if not present.
     ///
-    func getDiscNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)?
+    func getDiscNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)?
     
     ///
-    /// Read track number from the given metadata map. Returns nil if not present.
+    /// Read album / disc track number (track number and total tracks) from the given metadata map. Returns nil if not present.
     ///
-    func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)?
+    func getTrackNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)?
     
     ///
     /// Read track cover art from the given metadata map. Returns nil if not present.
     ///
-    func getArt(_ meta: AVFMappedMetadata) -> CoverArt?
+    func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt?
     
     ///
     /// Read all auxiliary (non-essential) metadata from the given metadata map.
     /// Returns a map of key -> MetadataEntry.
     ///
-    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry]
+    func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry]
 
     ///
     /// Read a chapter's title from the given collection of metadata items. Returns nil if not present.
@@ -72,25 +72,25 @@ protocol AVFMetadataParser {
 // Default function implementations
 extension AVFMetadataParser {
     
-    func getTitle(_ meta: AVFMappedMetadata) -> String? {nil}
+    func getTitle(_ metadataMap: AVFMappedMetadata) -> String? {nil}
     
-    func getArtist(_ meta: AVFMappedMetadata) -> String? {nil}
+    func getArtist(_ metadataMap: AVFMappedMetadata) -> String? {nil}
     
-    func getAlbum(_ meta: AVFMappedMetadata) -> String? {nil}
+    func getAlbum(_ metadataMap: AVFMappedMetadata) -> String? {nil}
     
-    func getGenre(_ meta: AVFMappedMetadata) -> String? {nil}
+    func getGenre(_ metadataMap: AVFMappedMetadata) -> String? {nil}
     
-    func getDuration(_ meta: AVFMappedMetadata) -> Double? {nil}
+    func getDuration(_ metadataMap: AVFMappedMetadata) -> Double? {nil}
     
-    func getDiscNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {nil}
+    func getDiscNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {nil}
     
-    func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {nil}
+    func getTrackNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {nil}
     
-    func getLyrics(_ meta: AVFMappedMetadata) -> String? {nil}
+    func getLyrics(_ metadataMap: AVFMappedMetadata) -> String? {nil}
     
-    func getArt(_ meta: AVFMappedMetadata) -> CoverArt? {nil}
+    func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt? {nil}
     
     func getChapterTitle(_ items: [AVMetadataItem]) -> String? {nil}
     
-    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {[:]}
+    func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry] {[:]}
 }

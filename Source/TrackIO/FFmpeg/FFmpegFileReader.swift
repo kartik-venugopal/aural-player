@@ -1,8 +1,11 @@
 import Cocoa
 
+///
+/// Handles loading of track metadata from non-native tracks, using ffmpeg.
+///
 class FFmpegFileReader: FileReaderProtocol {
     
-    private let genericMetadata_ignoreKeys: [String] = ["title", "artist", "duration", "disc", "track", "album", "genre"]
+    // Parsers that recognize different metadata formats.
     
     let commonFFmpegParser = CommonFFmpegMetadataParser()
     let id3Parser = ID3FFmpegParser()
@@ -16,9 +19,18 @@ class FFmpegFileReader: FileReaderProtocol {
     private let vorbisFileParsers: [FFmpegMetadataParser]
     private let apeFileParsers: [FFmpegMetadataParser]
     
+    ///
+    /// A mapping of file extension to an ordered collection of metadata parsers that will examine tracks of that file type for metadata.
+    /// The order of parsers in the collection will determine the order in which metadata will be examined and parsed.
+    ///
     private var parsersByExt: [String: [FFmpegMetadataParser]] = [:]
     
     init() {
+        
+        // In each of these arrays, parsers are stored in descending order, by relevance for the track's
+        // file type. For example, for a Vorbis file, the Vorbis parser appears before other parsers. So the Vorbis
+        // parser will examine the Vorbis file's metadata before other parsers do. This is for the sake of efficiency.
+        // The common ffmpeg parser will always appear first because it is relevant to all file types.
         
         allParsers = [commonFFmpegParser, id3Parser, vorbisParser, apeParser, wmParser, defaultParser]
         wmFileParsers = [commonFFmpegParser, wmParser, id3Parser, vorbisParser, apeParser, defaultParser]
@@ -30,7 +42,10 @@ class FFmpegFileReader: FileReaderProtocol {
             "wma": wmFileParsers,
             "flac": vorbisFileParsers,
             "dsf": vorbisFileParsers,
+            "dsd": vorbisFileParsers,
+            "dff": vorbisFileParsers,
             "ogg": vorbisFileParsers,
+            "oga": vorbisFileParsers,
             "opus": vorbisFileParsers,
             "ape": apeFileParsers,
             "mpc": apeFileParsers
@@ -48,30 +63,37 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata {
         
+        // Construct an ffmpeg file context for this track.
+        // This will be the source of all track metadata.
         let fctx = try FFmpegFileContext(for: file)
         
-        guard fctx.bestAudioStream != nil else {
-            throw NoAudioStreamError()
-        }
+        // The file must have an audio stream, otherwise it's invalid.
+        guard fctx.bestAudioStream != nil else {throw NoAudioTracksError(file)}
         
         var metadata = PlaylistMetadata()
         
-        let meta = FFmpegMappedMetadata(for: fctx)
-        let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
-        allParsers.forEach {$0.mapTrack(meta)}
+        // Construct a metadata map for this track, using the file context.
+        let metadataMap = FFmpegMappedMetadata(for: fctx)
         
-        let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(meta)}
-        
-        metadata.title = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getTitle(meta)})
-        metadata.artist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getArtist(meta)})
-        metadata.album = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbum(meta)})
-        metadata.genre = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getGenre(meta)})
+        // Determine which parsers (and in what order) will examine the track's metadata.
+        let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
+        allParsers.forEach {$0.mapMetadata(metadataMap)}
+        let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
 
-        metadata.isProtected = relevantParsers.firstNonNilMappedValue {$0.isDRMProtected(meta)}
+        // Read all essential metadata fields.
         
-        var trackNumberAndTotal = relevantParsers.firstNonNilMappedValue {$0.getTrackNumber(meta)}
+        metadata.title = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getTitle(metadataMap)})
+        metadata.artist = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getArtist(metadataMap)})
+        metadata.album = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getAlbum(metadataMap)})
+        metadata.genre = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getGenre(metadataMap)})
+
+        metadata.isProtected = relevantParsers.firstNonNilMappedValue {$0.isDRMProtected(metadataMap)}
+        
+        if metadata.isProtected ?? false {throw DRMProtectionError(file)}
+        
+        var trackNumberAndTotal = relevantParsers.firstNonNilMappedValue {$0.getTrackNumber(metadataMap)}
         if let trackNum = trackNumberAndTotal?.number, trackNumberAndTotal?.total == nil,
-            let totalTracks = relevantParsers.firstNonNilMappedValue({$0.getTotalTracks(meta)}) {
+            let totalTracks = relevantParsers.firstNonNilMappedValue({$0.getTotalTracks(metadataMap)}) {
             
             trackNumberAndTotal = (trackNum, totalTracks)
         }
@@ -79,9 +101,9 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.trackNumber = trackNumberAndTotal?.number
         metadata.totalTracks = trackNumberAndTotal?.total
         
-        var discNumberAndTotal = relevantParsers.firstNonNilMappedValue {$0.getDiscNumber(meta)}
+        var discNumberAndTotal = relevantParsers.firstNonNilMappedValue {$0.getDiscNumber(metadataMap)}
         if let discNum = discNumberAndTotal?.number, discNumberAndTotal?.total == nil,
-            let totalDiscs = relevantParsers.firstNonNilMappedValue({$0.getTotalDiscs(meta)}) {
+            let totalDiscs = relevantParsers.firstNonNilMappedValue({$0.getTotalDiscs(metadataMap)}) {
             
             discNumberAndTotal = (discNum, totalDiscs)
         }
@@ -89,8 +111,8 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.discNumber = discNumberAndTotal?.number
         metadata.totalDiscs = discNumberAndTotal?.total
         
-        metadata.duration = meta.fileCtx.duration
-        metadata.durationIsAccurate = metadata.duration > 0 && meta.fileCtx.estimatedDurationIsAccurate
+        metadata.duration = metadataMap.fileCtx.duration
+        metadata.durationIsAccurate = metadata.duration > 0 && metadataMap.fileCtx.estimatedDurationIsAccurate
         
         metadata.chapters = fctx.chapters.map {Chapter($0)}
         
@@ -98,7 +120,7 @@ class FFmpegFileReader: FileReaderProtocol {
         
         // TODO: Set some fields on track to indicate whether or not the duration provided is accurate.
         
-//        if track.duration == 0 || meta.fileCtx.isRawAudioFile {
+//        if track.duration == 0 || metadataMap.fileCtx.isRawAudioFile {
 //
 //            if let durationFromMetadata = relevantParsers.firstNonNilMappedValue({$0.getDuration(meta)}), durationFromMetadata > 0 {
 //
@@ -109,7 +131,7 @@ class FFmpegFileReader: FileReaderProtocol {
 //                // Use brute force to compute duration
 //                DispatchQueue.global(qos: .userInitiated).async {
 //
-//                    if let duration = meta.fileCtx.bruteForceDuration {
+//                    if let duration = metadataMap.fileCtx.bruteForceDuration {
 //
 //                        track.duration = duration
 //
@@ -129,30 +151,36 @@ class FFmpegFileReader: FileReaderProtocol {
         
         do {
             
+            // Construct an ffmpeg file context for this track.
+            // This will be the source of all track metadata.
             let fctx = try FFmpegFileContext(for: file)
-            let meta = FFmpegMappedMetadata(for: fctx)
             
-            let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
-            allParsers.forEach {$0.mapTrack(meta)}
+            // Construct a metadata map for this track, using the file context.
+            let metadataMap = FFmpegMappedMetadata(for: fctx)
+
+            // Determine which parsers (and in what order) will examine the track's metadata.
+            let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
+            allParsers.forEach {$0.mapMetadata(metadataMap)}
+            let relevantParsers = allParsers.filter {$0.hasGenericMetadataForTrack(metadataMap)}
             
-            let relevantParsers = allParsers.filter {$0.hasGenericMetadataForTrack(meta)}
-            
-            metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(meta)})
+            metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
             
             var genericMetadata: [String: MetadataEntry] = [:]
             
             for parser in relevantParsers {
-                
-                let parserMetadata = parser.getGenericMetadata(meta)
-                parserMetadata.forEach {(k,v) in genericMetadata[k] = v}
+                parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in genericMetadata[k] = v}
             }
             
             metadata.genericMetadata = genericMetadata
             
+            // Load audio metadata.
+            
             let audioInfo = AudioInfo()
             
             audioInfo.format = fctx.formatLongName
+            
             audioInfo.codec = (playbackContext as? FFmpegPlaybackContext)?.audioCodec.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
+            
             audioInfo.bitRate = roundedInt(Double(fctx.bitRate) / Double(Size.KB))
             
             if let audioStream = fctx.bestAudioStream {
@@ -166,10 +194,11 @@ class FFmpegFileReader: FileReaderProtocol {
             
             metadata.audioInfo = audioInfo
             
+            // Load art if required (if not previously loaded).
+            
             if loadArt {
                 
-                if let imageStream = meta.imageStream,
-                   let imageData = imageStream.attachedPic.data,
+                if let imageData = fctx.bestImageStream?.attachedPic.data,
                    let image = NSImage(data: imageData) {
                     
                     let imgMetadata = ParserUtils.getImageMetadata(imageData as NSData)
@@ -186,42 +215,23 @@ class FFmpegFileReader: FileReaderProtocol {
         
         do {
             
+            // Construct an ffmpeg file context for this track.
+            // This will be used to read cover art.
             let fctx = try FFmpegFileContext(for: file)
-            let meta = FFmpegMappedMetadata(for: fctx)
             
-            if let imageStream = meta.imageStream,
-               let imageData = imageStream.attachedPic.data,
+            if let imageData = fctx.bestImageStream?.attachedPic.data,
                let image = NSImage(data: imageData) {
                 
                 let metadata = ParserUtils.getImageMetadata(imageData as NSData)
                 return CoverArt(image, metadata)
             }
             
-        } catch {
-            return nil
-        }
+        } catch {}
         
         return nil
     }
     
     func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
-        
-        let plbkCtx = try FFmpegPlaybackContext(for: file)
-        
-        if let fileCtx = plbkCtx.fileContext {
-            
-            let meta = FFmpegMappedMetadata(for: fileCtx)
-            
-            let allParsers = parsersByExt[meta.fileType] ?? self.allParsers
-            allParsers.forEach {$0.mapTrack(meta)}
-            
-            let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(meta)}
-            
-            if relevantParsers.firstNonNilMappedValue({$0.isDRMProtected(meta)}) ?? false {
-                throw DRMProtectionError(file)
-            }
-        }
-        
-        return plbkCtx
+        return try FFmpegPlaybackContext(for: file)
     }
 }

@@ -1,61 +1,113 @@
 import Foundation
 
+///
+/// A contract for a parser that reads metadata from a non-native track, i.e. a track that
+/// is read using ffmpeg.
+///
 protocol FFmpegMetadataParser {
     
-    func mapTrack(_ meta: FFmpegMappedMetadata)
+    ///
+    /// Separates out all metadata contained in the given track metadata map, that is recognized by this parser,
+    /// for efficient future lookups.
+    ///
+    func mapMetadata(_ metadataMap: FFmpegMappedMetadata)
     
-    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool
+    ///
+    /// Determines whether or not the given track metadata map contains any essential metadata that is recognized by this parser.
+    ///
+    func hasEssentialMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool
     
-    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool
+    ///
+    /// Determines whether or not the given track metadata map contains any non-essential metadata that is recognized by this parser.
+    ///
+    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool
     
-    func getTitle(_ meta: FFmpegMappedMetadata) -> String?
+    ///
+    /// Read track title from the given metadata map. Returns nil if not present.
+    ///
+    func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String?
     
-    func getArtist(_ meta: FFmpegMappedMetadata) -> String?
+    ///
+    /// Read track artist from the given metadata map. Returns nil if not present.
+    ///
+    func getArtist(_ metadataMap: FFmpegMappedMetadata) -> String?
     
-    func getAlbum(_ meta: FFmpegMappedMetadata) -> String?
+    ///
+    /// Read track album from the given metadata map. Returns nil if not present.
+    ///
+    func getAlbum(_ metadataMap: FFmpegMappedMetadata) -> String?
     
-    func getGenre(_ meta: FFmpegMappedMetadata) -> String?
+    ///
+    /// Read track genre from the given metadata map. Returns nil if not present.
+    ///
+    func getGenre(_ metadataMap: FFmpegMappedMetadata) -> String?
     
-    func getLyrics(_ meta: FFmpegMappedMetadata) -> String?
+    ///
+    /// Read track lyrics from the given metadata map. Returns nil if not present.
+    ///
+    func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String?
     
-    func getDiscNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)?
+    ///
+    /// Read album disc number (disc number and total discs) from the given metadata map. Returns nil if not present.
+    ///
+    func getDiscNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)?
     
-    func getTotalDiscs(_ meta: FFmpegMappedMetadata) -> Int?
+    ///
+    /// Read album total disc count from the given metadata map. Returns nil if not present.
+    ///
+    func getTotalDiscs(_ metadataMap: FFmpegMappedMetadata) -> Int?
     
-    func getTrackNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)?
+    ///
+    /// Read album / disc track number (track number and total tracks) from the given metadata map. Returns nil if not present.
+    ///
+    func getTrackNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)?
     
-    func getTotalTracks(_ meta: FFmpegMappedMetadata) -> Int?
+    ///
+    /// Read album / disc total track count from the given metadata map. Returns nil if not present.
+    ///
+    func getTotalTracks(_ metadataMap: FFmpegMappedMetadata) -> Int?
     
-    func getDuration(_ meta: FFmpegMappedMetadata) -> Double?
+    ///
+    /// Read track duration from the given metadata map. Returns nil if not present.
+    ///
+    func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double?
     
-    func isDRMProtected(_ meta: FFmpegMappedMetadata) -> Bool?
+    ///
+    /// Reads whether or not the track is protected by DRM, from the given metadata map. Returns nil if not present.
+    ///
+    func isDRMProtected(_ metadataMap: FFmpegMappedMetadata) -> Bool?
     
-    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String: MetadataEntry]
+    ///
+    /// Read all auxiliary (non-essential) metadata from the given metadata map.
+    /// Returns a map of key -> MetadataEntry.
+    ///
+    func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String: MetadataEntry]
 }
 
+// Default function implementations
 extension FFmpegMetadataParser {
     
-    func getTitle(_ meta: FFmpegMappedMetadata) -> String? {nil}
+    func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {nil}
     
-    func getArtist(_ meta: FFmpegMappedMetadata) -> String? {nil}
+    func getArtist(_ metadataMap: FFmpegMappedMetadata) -> String? {nil}
     
-    func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {nil}
+    func getAlbum(_ metadataMap: FFmpegMappedMetadata) -> String? {nil}
     
-    func getGenre(_ meta: FFmpegMappedMetadata) -> String? {nil}
+    func getGenre(_ metadataMap: FFmpegMappedMetadata) -> String? {nil}
     
-    func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {nil}
+    func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {nil}
     
-    func getDiscNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {nil}
+    func getDiscNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {nil}
     
-    func getTotalDiscs(_ meta: FFmpegMappedMetadata) -> Int? {nil}
+    func getTotalDiscs(_ metadataMap: FFmpegMappedMetadata) -> Int? {nil}
     
-    func getTrackNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {nil}
+    func getTrackNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {nil}
     
-    func getTotalTracks(_ meta: FFmpegMappedMetadata) -> Int? {nil}
+    func getTotalTracks(_ metadataMap: FFmpegMappedMetadata) -> Int? {nil}
  
-    func getDuration(_ meta: FFmpegMappedMetadata) -> Double? {nil}
+    func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double? {nil}
     
-    func isDRMProtected(_ meta: FFmpegMappedMetadata) -> Bool? {nil}
+    func isDRMProtected(_ metadataMap: FFmpegMappedMetadata) -> Bool? {nil}
     
-    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String: MetadataEntry] {[:]}
+    func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String: MetadataEntry] {[:]}
 }

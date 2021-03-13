@@ -1,14 +1,17 @@
 import Cocoa
 
+///
+/// Parses metadata from non-native tracks (read by ffmpeg), that was not recognized by other parsers.
+///
 class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
     
     private let ignoredKeys: [String] = ["priv.www.amazon.com"]
     
-    func mapTrack(_ meta: FFmpegMappedMetadata) {
+    func mapMetadata(_ metadataMap: FFmpegMappedMetadata) {
         
-        let metadata = meta.otherMetadata
+        let metadata = metadataMap.otherMetadata
         
-        for (key, value) in meta.map {
+        for (key, value) in metadataMap.map {
             
             for iKey in ignoredKeys {
                 
@@ -17,16 +20,16 @@ class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
                 }
             }
             
-            meta.map.removeValue(forKey: key)
+            metadataMap.map.removeValue(forKey: key)
         }
     }
     
-    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.otherMetadata.essentialFields.isEmpty
+    func hasEssentialMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.otherMetadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.otherMetadata.genericFields.isEmpty
+    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.otherMetadata.genericFields.isEmpty
     }
 
     private func formatKey(_ key: String) -> String {
@@ -39,11 +42,11 @@ class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
         return fTokens.joined(separator: " ")
     }
     
-    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String : MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (key, value) in meta.otherMetadata.genericFields {
+        for (key, value) in metadataMap.otherMetadata.genericFields {
             metadata[key] = MetadataEntry(.other, key, StringUtils.cleanUpString(value.trim()))
         }
         

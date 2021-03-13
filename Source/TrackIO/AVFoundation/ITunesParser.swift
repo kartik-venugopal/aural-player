@@ -22,34 +22,34 @@ class ITunesParser: AVFMetadataParser {
     // Is some other parser including it ??? ID3Parser ???
     private let ignoredKeys: Set<String> = [ITunesSpec.key_normalization, ITunesSpec.key_soundCheck]
     
-    func getDuration(_ meta: AVFMappedMetadata) -> Double? {
+    func getDuration(_ metadataMap: AVFMappedMetadata) -> Double? {
         
-        if let item = meta.iTunes[ITunesSpec.key_duration], let durationStr = item.stringValue {
+        if let item = metadataMap.iTunes[ITunesSpec.key_duration], let durationStr = item.stringValue {
             return ParserUtils.parseDuration(durationStr)
         }
         
         return nil
     }
     
-    func getTitle(_ meta: AVFMappedMetadata) -> String? {
-        meta.iTunes[ITunesSpec.key_title]?.stringValue
+    func getTitle(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.iTunes[ITunesSpec.key_title]?.stringValue
     }
     
-    func getArtist(_ meta: AVFMappedMetadata) -> String? {
-        (keys_artist.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
+    func getArtist(_ metadataMap: AVFMappedMetadata) -> String? {
+        (keys_artist.firstNonNilMappedValue {metadataMap.iTunes[$0]})?.stringValue
     }
     
-    func getAlbum(_ meta: AVFMappedMetadata) -> String? {
-        (keys_album.firstNonNilMappedValue {meta.iTunes[$0]})?.stringValue
+    func getAlbum(_ metadataMap: AVFMappedMetadata) -> String? {
+        (keys_album.firstNonNilMappedValue {metadataMap.iTunes[$0]})?.stringValue
     }
     
-    func getGenre(_ meta: AVFMappedMetadata) -> String? {
+    func getGenre(_ metadataMap: AVFMappedMetadata) -> String? {
         
-        if let genreItem = keys_genre.firstNonNilMappedValue({meta.iTunes[$0]}) {
+        if let genreItem = keys_genre.firstNonNilMappedValue({metadataMap.iTunes[$0]}) {
             return ParserUtils.getID3Genre(genreItem, -1)
         }
         
-        if let genreItem = meta.iTunes[ITunesSpec.key_genreID] {
+        if let genreItem = metadataMap.iTunes[ITunesSpec.key_genreID] {
             return getITunesGenre(genreItem)
         }
         
@@ -82,27 +82,27 @@ class ITunesParser: AVFMetadataParser {
         return string
     }
     
-    func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let item = meta.iTunes[ITunesSpec.key_trackNumber] {
+        if let item = metadataMap.iTunes[ITunesSpec.key_trackNumber] {
             return ParserUtils.parseDiscOrTrackNumber(item)
         }
         
         return nil
     }
     
-    func getDiscNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let item = keys_discNum.firstNonNilMappedValue({meta.iTunes[$0]}) {
+        if let item = keys_discNum.firstNonNilMappedValue({metadataMap.iTunes[$0]}) {
             return ParserUtils.parseDiscOrTrackNumber(item)
         }
         
         return nil
     }
     
-    func getArt(_ meta: AVFMappedMetadata) -> CoverArt? {
+    func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt? {
         
-        if let imgData = meta.iTunes[ITunesSpec.key_art]?.dataValue, let image = NSImage(data: imgData) {
+        if let imgData = metadataMap.iTunes[ITunesSpec.key_art]?.dataValue, let image = NSImage(data: imgData) {
             
             let metadata = ParserUtils.getImageMetadata(imgData as NSData)
             return CoverArt(image, metadata)
@@ -111,27 +111,27 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    func getLyrics(_ meta: AVFMappedMetadata) -> String? {
+    func getLyrics(_ metadataMap: AVFMappedMetadata) -> String? {
         
-        if let lyricsItem = meta.iTunes[ITunesSpec.key_lyrics] {
+        if let lyricsItem = metadataMap.iTunes[ITunesSpec.key_lyrics] {
             return lyricsItem.stringValue
         }
         
         return nil
     }
     
-    func getYear(_ meta: AVFMappedMetadata) -> Int? {
+    func getYear(_ metadataMap: AVFMappedMetadata) -> Int? {
         
-        if let item = keys_year.firstNonNilMappedValue({meta.iTunes[$0]}) {
+        if let item = keys_year.firstNonNilMappedValue({metadataMap.iTunes[$0]}) {
             return ParserUtils.parseYear(item)
         }
         
         return nil
     }
     
-    func getBPM(_ meta: AVFMappedMetadata) -> Int? {
+    func getBPM(_ metadataMap: AVFMappedMetadata) -> Int? {
         
-        if let item = meta.iTunes[ITunesSpec.key_bpm] {
+        if let item = metadataMap.iTunes[ITunesSpec.key_bpm] {
             return ParserUtils.parseBPM(item)
         }
         
@@ -142,11 +142,11 @@ class ITunesParser: AVFMetadataParser {
         return items.first(where: {$0.keySpace == .iTunes && $0.keyAsString == ITunesSpec.key_title})?.stringValue
     }
     
-    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for item in meta.iTunes.values {
+        for item in metadataMap.iTunes.values {
             
             guard let key = item.keyAsString, !essentialFieldKeys.contains(key) else {continue}
             

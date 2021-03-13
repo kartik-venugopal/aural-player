@@ -68,9 +68,9 @@ class ID3AVFParser: AVFMetadataParser {
         return genericFields[key] ?? key.capitalizingFirstLetter()
     }
     
-    func getDuration(_ meta: AVFMappedMetadata) -> Double? {
+    func getDuration(_ metadataMap: AVFMappedMetadata) -> Double? {
         
-        if let item = keys_duration.firstNonNilMappedValue({meta.id3[$0]}),
+        if let item = keys_duration.firstNonNilMappedValue({metadataMap.id3[$0]}),
             let durationStr = item.stringValue {
             
             return ParserUtils.parseDuration(durationStr)
@@ -79,48 +79,48 @@ class ID3AVFParser: AVFMetadataParser {
         return nil
     }
     
-    func getTitle(_ meta: AVFMappedMetadata) -> String? {
-        (keys_title.firstNonNilMappedValue {meta.id3[$0]})?.stringValue
+    func getTitle(_ metadataMap: AVFMappedMetadata) -> String? {
+        (keys_title.firstNonNilMappedValue {metadataMap.id3[$0]})?.stringValue
     }
     
-    func getArtist(_ meta: AVFMappedMetadata) -> String? {
-        (keys_artist.firstNonNilMappedValue {meta.id3[$0]})?.stringValue
+    func getArtist(_ metadataMap: AVFMappedMetadata) -> String? {
+        (keys_artist.firstNonNilMappedValue {metadataMap.id3[$0]})?.stringValue
     }
     
-    func getAlbum(_ meta: AVFMappedMetadata) -> String? {
-        (keys_album.firstNonNilMappedValue {meta.id3[$0]})?.stringValue
+    func getAlbum(_ metadataMap: AVFMappedMetadata) -> String? {
+        (keys_album.firstNonNilMappedValue {metadataMap.id3[$0]})?.stringValue
     }
     
-    func getGenre(_ meta: AVFMappedMetadata) -> String? {
+    func getGenre(_ metadataMap: AVFMappedMetadata) -> String? {
         
-        if let genreItem = keys_genre.firstNonNilMappedValue({meta.id3[$0]}) {
+        if let genreItem = keys_genre.firstNonNilMappedValue({metadataMap.id3[$0]}) {
             return ParserUtils.getID3Genre(genreItem)
         }
         
         return nil
     }
     
-    func getDiscNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let item = keys_discNumber.firstNonNilMappedValue({meta.id3[$0]}) {
+        if let item = keys_discNumber.firstNonNilMappedValue({metadataMap.id3[$0]}) {
             return ParserUtils.parseDiscOrTrackNumber(item)
         }
     
         return nil
     }
     
-    func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let item = keys_trackNumber.firstNonNilMappedValue({meta.id3[$0]}) {
+        if let item = keys_trackNumber.firstNonNilMappedValue({metadataMap.id3[$0]}) {
             return ParserUtils.parseDiscOrTrackNumber(item)
         }
         
         return nil
     }
 
-    func getArt(_ meta: AVFMappedMetadata) -> CoverArt? {
+    func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt? {
         
-        if let item = keys_art.firstNonNilMappedValue({meta.id3[$0]}),
+        if let item = keys_art.firstNonNilMappedValue({metadataMap.id3[$0]}),
             let imgData = item.dataValue, let image = NSImage(data: imgData) {
             
             let metadata = ParserUtils.getImageMetadata(imgData as NSData)
@@ -130,33 +130,33 @@ class ID3AVFParser: AVFMetadataParser {
         return nil
     }
     
-    func getLyrics(_ meta: AVFMappedMetadata) -> String? {
-        (keys_lyrics.firstNonNilMappedValue {meta.id3[$0]})?.stringValue
+    func getLyrics(_ metadataMap: AVFMappedMetadata) -> String? {
+        (keys_lyrics.firstNonNilMappedValue {metadataMap.id3[$0]})?.stringValue
     }
     
-    func getYear(_ meta: AVFMappedMetadata) -> Int? {
+    func getYear(_ metadataMap: AVFMappedMetadata) -> Int? {
         
-        if let item = keys_year.firstNonNilMappedValue({meta.id3[$0]}) {
+        if let item = keys_year.firstNonNilMappedValue({metadataMap.id3[$0]}) {
             return ParserUtils.parseYear(item)
         }
         
         return nil
     }
     
-    func getBPM(_ meta: AVFMappedMetadata) -> Int? {
+    func getBPM(_ metadataMap: AVFMappedMetadata) -> Int? {
         
-        if let item = keys_bpm.firstNonNilMappedValue({meta.id3[$0]}) {
+        if let item = keys_bpm.firstNonNilMappedValue({metadataMap.id3[$0]}) {
             return ParserUtils.parseBPM(item)
         }
         
         return nil
     }
     
-    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for item in meta.id3.values {
+        for item in metadataMap.id3.values {
             
             guard let key = item.keyAsString, let value = item.valueAsString,
                   !essentialFieldKeys.contains(key), !ignoredKeys.contains(key) else {continue}

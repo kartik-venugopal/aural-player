@@ -20,25 +20,25 @@ class CommonAVFMetadataParser: AVFMetadataParser {
     
     let keySpace: AVMetadataKeySpace = .common
     
-    func getTitle(_ meta: AVFMappedMetadata) -> String? {
-        meta.common[key_title]?.stringValue
+    func getTitle(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.common[key_title]?.stringValue
     }
     
-    func getArtist(_ meta: AVFMappedMetadata) -> String? {
-        meta.common[key_artist]?.stringValue
+    func getArtist(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.common[key_artist]?.stringValue
     }
     
-    func getAlbum(_ meta: AVFMappedMetadata) -> String? {
-        meta.common[key_album]?.stringValue
+    func getAlbum(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.common[key_album]?.stringValue
     }
     
-    func getGenre(_ meta: AVFMappedMetadata) -> String? {
-        meta.common[key_genre]?.stringValue
+    func getGenre(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.common[key_genre]?.stringValue
     }
     
-    func getArt(_ meta: AVFMappedMetadata) -> CoverArt? {
+    func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt? {
         
-        if let imgData = meta.common[key_art]?.dataValue, let image = NSImage(data: imgData) {
+        if let imgData = metadataMap.common[key_art]?.dataValue, let image = NSImage(data: imgData) {
             
             let metadata = ParserUtils.getImageMetadata(imgData as NSData)
             return CoverArt(image, metadata)
@@ -56,11 +56,11 @@ class CommonAVFMetadataParser: AVFMetadataParser {
         })?.stringValue
     }
 
-    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry] {
 
         var metadata: [String: MetadataEntry] = [:]
 
-        for item in meta.common.values {
+        for item in metadataMap.common.values {
 
             if let key = item.commonKeyAsString, var value = item.valueAsString, !essentialFieldKeys.contains(key) {
 

@@ -65,6 +65,13 @@ class AVFFileReader: FileReaderProtocol {
         // Make sure the file has at least one audio track.
         guard metadataMap.hasAudioTracks else {throw NoAudioTracksError(file)}
         
+        // Make sure track is not DRM protected.
+        guard !metadataMap.avAsset.hasProtectedContent else {throw DRMProtectionError(file)}
+        
+        // Make sure track is playable.
+        // TODO: What does isPlayable actually mean ?
+        guard metadataMap.audioTrack.isPlayable else {throw TrackNotPlayableError(file)}
+        
         var metadata = PlaylistMetadata()
         
         // Obtain the parsers relevant to this track, based on the metadata present.
@@ -122,7 +129,7 @@ class AVFFileReader: FileReaderProtocol {
         // genericMetadata dictionary.
         
         for parser in allParsers {
-            parser.getGenericMetadata(metadataMap).forEach {(k,v) in genericMetadata[k] = v}
+            parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in genericMetadata[k] = v}
         }
         
         metadata.genericMetadata = genericMetadata

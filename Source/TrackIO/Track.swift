@@ -17,8 +17,6 @@ class Track: Hashable, PlaylistItem {
     var preparationFailed: Bool = false
     var preparationError: DisplayableError?
     
-    var hasPlaylistMetadata: Bool = false
-    
     let defaultDisplayName: String
     
     var displayName: String {

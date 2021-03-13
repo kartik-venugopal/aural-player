@@ -45,61 +45,61 @@ class VorbisCommentParser: FFmpegMetadataParser {
     private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre, key_performer,
     key_disc, key_totalDiscs, key_discTotal, key_track, key_trackTotal, key_totalTracks] + keys_artist)
     
-    func mapTrack(_ meta: FFmpegMappedMetadata) {
+    func mapMetadata(_ metadataMap: FFmpegMappedMetadata) {
         
-        let metadata = meta.vorbisMetadata
+        let metadata = metadataMap.vorbisMetadata
         
-        for key in meta.map.keys {
+        for key in metadataMap.map.keys {
             
             let lcKey = key.lowercased().trim()
             
             if essentialKeys.contains(lcKey) {
                 
-                metadata.essentialFields[lcKey] = meta.map.removeValue(forKey: key)
+                metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 
             } else if genericKeys[lcKey] != nil {
                 
-                metadata.genericFields[lcKey] = meta.map.removeValue(forKey: key)
+                metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
             }
         }
     }
     
-    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.vorbisMetadata.essentialFields.isEmpty
+    func hasEssentialMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.vorbisMetadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.vorbisMetadata.genericFields.isEmpty
+    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.vorbisMetadata.genericFields.isEmpty
     }
     
-    func getTitle(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_title]
+    func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        metadataMap.vorbisMetadata.essentialFields[key_title]
     }
     
-    func getArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_artist.firstNonNilMappedValue({meta.vorbisMetadata.essentialFields[$0]})
+    func getArtist(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        keys_artist.firstNonNilMappedValue({metadataMap.vorbisMetadata.essentialFields[$0]})
     }
     
-    func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_album] ?? meta.vorbisMetadata.essentialFields[key_originalAlbum]
+    func getAlbum(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        metadataMap.vorbisMetadata.essentialFields[key_album] ?? metadataMap.vorbisMetadata.essentialFields[key_originalAlbum]
     }
     
-    func getGenre(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.vorbisMetadata.essentialFields[key_genre]
+    func getGenre(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        metadataMap.vorbisMetadata.essentialFields[key_genre]
     }
     
-    func getDiscNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let discNumStr = meta.vorbisMetadata.essentialFields[key_disc] {
+        if let discNumStr = metadataMap.vorbisMetadata.essentialFields[key_disc] {
             return ParserUtils.parseDiscOrTrackNumberString(discNumStr)
         }
         
         return nil
     }
     
-    func getTotalDiscs(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getTotalDiscs(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let totalDiscsStr = keys_totalDiscs.firstNonNilMappedValue({meta.vorbisMetadata.essentialFields[$0]?.trim()}),
+        if let totalDiscsStr = keys_totalDiscs.firstNonNilMappedValue({metadataMap.vorbisMetadata.essentialFields[$0]?.trim()}),
             let totalDiscs = Int(totalDiscsStr) {
             
             return totalDiscs
@@ -108,18 +108,18 @@ class VorbisCommentParser: FFmpegMetadataParser {
         return nil
     }
     
-    func getTrackNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let trackNumStr = meta.vorbisMetadata.essentialFields[key_track] {
+        if let trackNumStr = metadataMap.vorbisMetadata.essentialFields[key_track] {
             return ParserUtils.parseDiscOrTrackNumberString(trackNumStr)
         }
         
         return nil
     }
     
-    func getTotalTracks(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getTotalTracks(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let totalTracksStr = keys_totalTracks.firstNonNilMappedValue({meta.vorbisMetadata.essentialFields[$0]?.trim()}),
+        if let totalTracksStr = keys_totalTracks.firstNonNilMappedValue({metadataMap.vorbisMetadata.essentialFields[$0]?.trim()}),
             let totalTracks = Int(totalTracksStr) {
             
             return totalTracks
@@ -128,31 +128,31 @@ class VorbisCommentParser: FFmpegMetadataParser {
         return nil
     }
     
-    func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = keys_year.firstNonNilMappedValue({meta.vorbisMetadata.genericFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.vorbisMetadata.genericFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
         
         return nil
     }
     
-    func getBPM(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getBPM(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = meta.vorbisMetadata.genericFields[key_bpm] {
+        if let bpmString = metadataMap.vorbisMetadata.genericFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
         return nil
     }
     
-    func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        return meta.vorbisMetadata.genericFields[key_lyrics]
+    func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        return metadataMap.vorbisMetadata.genericFields[key_lyrics]
     }
     
-    func getDuration(_ meta: FFmpegMappedMetadata) -> Double? {
+    func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double? {
         
-        if let durationStr = meta.vorbisMetadata.essentialFields[key_duration] {
+        if let durationStr = metadataMap.vorbisMetadata.essentialFields[key_duration] {
             return ParserUtils.parseDuration(durationStr)
         }
         
@@ -387,11 +387,11 @@ class VorbisCommentParser: FFmpegMetadataParser {
         return nil
     }
     
-    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String : MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (key, var value) in meta.vorbisMetadata.genericFields {
+        for (key, var value) in metadataMap.vorbisMetadata.genericFields {
             
             // Check special fields
             if key == key_language, let langName = LanguageMap.forCode(value.trim()) {

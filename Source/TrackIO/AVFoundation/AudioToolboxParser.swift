@@ -32,43 +32,43 @@ class AudioToolboxParser: AVFMetadataParser {
         [key_title, key_artist, key_album, key_genre, key_duration, key_trackNumber, key_year]
     }()
 
-    func getTitle(_ meta: AVFMappedMetadata) -> String? {
-        meta.audioToolbox[key_title]?.stringValue
+    func getTitle(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.audioToolbox[key_title]?.stringValue
     }
     
-    func getArtist(_ meta: AVFMappedMetadata) -> String? {
-        meta.audioToolbox[key_artist]?.stringValue
+    func getArtist(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.audioToolbox[key_artist]?.stringValue
     }
     
-    func getAlbum(_ meta: AVFMappedMetadata) -> String? {
-        meta.audioToolbox[key_album]?.stringValue
+    func getAlbum(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.audioToolbox[key_album]?.stringValue
     }
     
-    func getGenre(_ meta: AVFMappedMetadata) -> String? {
-        meta.audioToolbox[key_genre]?.stringValue
+    func getGenre(_ metadataMap: AVFMappedMetadata) -> String? {
+        metadataMap.audioToolbox[key_genre]?.stringValue
     }
     
-    func getTrackNumber(_ meta: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let trackNumItem = meta.audioToolbox[key_trackNumber] {
+        if let trackNumItem = metadataMap.audioToolbox[key_trackNumber] {
             return ParserUtils.parseDiscOrTrackNumber(trackNumItem)
         }
         
         return nil
     }
     
-    func getYear(_ meta: AVFMappedMetadata) -> Int? {
+    func getYear(_ metadataMap: AVFMappedMetadata) -> Int? {
         
-        if let item = meta.audioToolbox[key_year] {
+        if let item = metadataMap.audioToolbox[key_year] {
             return ParserUtils.parseYear(item)
         }
         
         return nil
     }
     
-    func getDuration(_ meta: AVFMappedMetadata) -> Double? {
+    func getDuration(_ metadataMap: AVFMappedMetadata) -> Double? {
         
-        if let item = meta.audioToolbox[key_duration], let durationStr = item.stringValue {
+        if let item = metadataMap.audioToolbox[key_duration], let durationStr = item.stringValue {
             return ParserUtils.parseDuration(durationStr)
         }
         
@@ -79,11 +79,11 @@ class AudioToolboxParser: AVFMetadataParser {
         return items.first(where: {$0.keySpace == .audioFile && $0.keyAsString == key_title})?.stringValue
     }
     
-    func getGenericMetadata(_ meta: AVFMappedMetadata) -> [String: MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: AVFMappedMetadata) -> [String: MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for item in meta.audioToolbox.values {
+        for item in metadataMap.audioToolbox.values {
             
             if let key = item.keyAsString, let value = item.valueAsString, !essentialFieldKeys.contains(key) {
                 

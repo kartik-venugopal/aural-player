@@ -33,87 +33,87 @@ class ApeV2Parser: FFmpegMetadataParser {
     private let key_language = "language"
     private let key_compilation = "compilation"
     
-    func mapTrack(_ meta: FFmpegMappedMetadata) {
+    func mapMetadata(_ metadataMap: FFmpegMappedMetadata) {
         
-        let metadata = meta.apeMetadata
+        let metadata = metadataMap.apeMetadata
         
-        for key in meta.map.keys {
+        for key in metadataMap.map.keys {
             
             let lcKey = key.lowercased().trim()
             
             if essentialKeys.contains(lcKey) {
                 
-                metadata.essentialFields[lcKey] = meta.map.removeValue(forKey: key)
+                metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 
             } else if genericKeys[lcKey] != nil {
                 
-                metadata.genericFields[lcKey] = meta.map.removeValue(forKey: key)
+                metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
             }
         }
     }
     
-    func hasEssentialMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.apeMetadata.essentialFields.isEmpty
+    func hasEssentialMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.apeMetadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ meta: FFmpegMappedMetadata) -> Bool {
-        !meta.apeMetadata.genericFields.isEmpty
+    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+        !metadataMap.apeMetadata.genericFields.isEmpty
     }
     
-    func getTitle(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_title]
+    func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        metadataMap.apeMetadata.essentialFields[key_title]
     }
     
-    func getArtist(_ meta: FFmpegMappedMetadata) -> String? {
-        keys_artist.firstNonNilMappedValue({meta.apeMetadata.essentialFields[$0]})
+    func getArtist(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        keys_artist.firstNonNilMappedValue({metadataMap.apeMetadata.essentialFields[$0]})
     }
     
-    func getAlbum(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_album] ?? meta.apeMetadata.essentialFields[key_originalAlbum]
+    func getAlbum(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        metadataMap.apeMetadata.essentialFields[key_album] ?? metadataMap.apeMetadata.essentialFields[key_originalAlbum]
     }
     
-    func getGenre(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.essentialFields[key_genre]
+    func getGenre(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        metadataMap.apeMetadata.essentialFields[key_genre]
     }
     
-    func getDiscNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getDiscNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let discNumStr = meta.apeMetadata.essentialFields[key_disc] {
+        if let discNumStr = metadataMap.apeMetadata.essentialFields[key_disc] {
             return ParserUtils.parseDiscOrTrackNumberString(discNumStr)
         }
         
         return nil
     }
     
-    func getTrackNumber(_ meta: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
+    func getTrackNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
         
-        if let trackNumStr = meta.apeMetadata.essentialFields[key_track] {
+        if let trackNumStr = metadataMap.apeMetadata.essentialFields[key_track] {
             return ParserUtils.parseDiscOrTrackNumberString(trackNumStr)
         }
         
         return nil
     }
     
-    func getYear(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = keys_year.firstNonNilMappedValue({meta.apeMetadata.genericFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.apeMetadata.genericFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
         
         return nil
     }
     
-    func getBPM(_ meta: FFmpegMappedMetadata) -> Int? {
+    func getBPM(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = meta.apeMetadata.genericFields[key_bpm] {
+        if let bpmString = metadataMap.apeMetadata.genericFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
         return nil
     }
     
-    func getLyrics(_ meta: FFmpegMappedMetadata) -> String? {
-        meta.apeMetadata.genericFields[key_lyrics]
+    func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
+        metadataMap.apeMetadata.genericFields[key_lyrics]
     }
     
     private let genericKeys: [String: String] = {
@@ -224,11 +224,11 @@ class ApeV2Parser: FFmpegMetadataParser {
         return nil
     }
     
-    func getGenericMetadata(_ meta: FFmpegMappedMetadata) -> [String : MetadataEntry] {
+    func getAuxiliaryMetadata(_ metadataMap: FFmpegMappedMetadata) -> [String : MetadataEntry] {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (key, var value) in meta.apeMetadata.genericFields {
+        for (key, var value) in metadataMap.apeMetadata.genericFields {
             
             // Check special fields
             if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
