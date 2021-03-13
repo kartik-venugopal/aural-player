@@ -141,7 +141,7 @@ class AVFFileReader: FileReaderProtocol {
         // If the track has an associated playback context, use it, otherwise
         // construct a new one. Audio info will be extracted from this context.
         
-        var optionalPlaybackContext: PlaybackContextProtocol? = playbackContext
+        var optionalPlaybackContext: AVFPlaybackContext? = playbackContext as? AVFPlaybackContext
         
         if optionalPlaybackContext == nil {
             
@@ -156,7 +156,7 @@ class AVFFileReader: FileReaderProtocol {
             
             let intChannelCount = Int(thePlaybackContext.audioFormat.channelCount)
             audioInfo.numChannels = intChannelCount
-            audioInfo.channelLayout = channelLayout(intChannelCount)
+            audioInfo.channelLayout = thePlaybackContext.audioFile.channelLayoutString
             
             audioInfo.sampleRate = Int32(thePlaybackContext.sampleRate)
             audioInfo.frames = thePlaybackContext.frameCount
@@ -198,24 +198,6 @@ class AVFFileReader: FileReaderProtocol {
         return metadata
     }
     
-    private func channelLayout(_ numChannels: Int) -> String {
-        
-        switch numChannels {
-            
-        case 1: return "Mono (1 ch)"
-            
-        case 2: return "Stereo (2 ch)"
-            
-        case 6: return "5.1 (6 ch)"
-            
-        case 8: return "7.1 (8 ch)"
-            
-        case 10: return "9.1 (10 ch)"
-            
-        default: return String(format: "%d channels", numChannels)
-            
-        }
-    }
     
     private let formatDescriptions: [String: String] = [
     
@@ -370,5 +352,63 @@ class AVFFileReader: FileReaderProtocol {
     // Delegates to all parsers to try and find title metadata among the given items
     private func getChapterTitle(_ items: [AVMetadataItem]) -> String? {
         return allParsers.firstNonNilMappedValue {$0.getChapterTitle(items)}
+    }
+}
+
+extension AVAudioFile {
+    
+    var channelLayoutString: String {
+        
+        let fmt = processingFormat
+        
+        if #available(OSX 10.15, *) {
+            
+            guard let layoutTag = fmt.formatDescription.audioFormatList.map({$0.mChannelLayoutTag}).first else {return channelLayout(fmt.channelCount)}
+            
+            let layout = AVAudioChannelLayout(layoutTag: layoutTag)
+            
+            let aclPtr : UnsafePointer<AudioChannelLayout>? = layout?.layout
+            let aclSize : UInt32 = UInt32(MemoryLayout<AudioChannelLayout>.size)
+            
+            var nameSize : UInt32 = 0
+            var status = AudioFormatGetPropertyInfo(kAudioFormatProperty_ChannelLayoutName,
+                                           aclSize, aclPtr, &nameSize)
+            
+            if status != noErr {
+                return channelLayout(fmt.channelCount)
+            }
+            
+            var formatName: CFString = String() as CFString
+            status = AudioFormatGetProperty(kAudioFormatProperty_ChannelLayoutName,
+                                       aclSize, aclPtr, &nameSize, &formatName)
+            
+            if status != noErr {
+                return channelLayout(fmt.channelCount)
+            }
+            
+            return String(formatName as NSString)
+            
+        } else {
+            return channelLayout(fmt.channelCount)
+        }
+    }
+    
+    private func channelLayout(_ numChannels: UInt32) -> String {
+        
+        switch numChannels {
+            
+        case 1: return "Mono (1 ch)"
+            
+        case 2: return "Stereo (2 ch)"
+            
+        case 6: return "5.1 (6 ch)"
+            
+        case 8: return "7.1 (8 ch)"
+            
+        case 10: return "9.1 (10 ch)"
+            
+        default: return String(format: "%d channels", numChannels)
+            
+        }
     }
 }

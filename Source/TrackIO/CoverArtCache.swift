@@ -5,7 +5,7 @@ import Cocoa
 /// for the same cover art may occur (different parts of the UI require the same image), and this cache avoids redundant
 /// disk reads for cover art that has already been loaded from disk once.
 ///
-class AlbumArtCache {
+class CoverArtCache {
     
     private static var cache: ConcurrentMap<URL, CoverArt> = ConcurrentMap<URL, CoverArt>()
     private static var filesWithNoArt: ConcurrentSet<URL> = ConcurrentSet<URL>()

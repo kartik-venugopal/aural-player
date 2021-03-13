@@ -11,11 +11,6 @@ class FileMetadata {
     var validationError: DisplayableError?
 }
 
-enum MetadataType {
- 
-    case playlist, playback, auxiliary
-}
-
 struct PlaylistMetadata {
     
     var title: String?
@@ -228,44 +223,6 @@ class IndexedChapter: Equatable {
         hasher.combine(index)
     }
 }
-
-class OrderedMetadataMap {
-    
-    private var map: [String: String] = [:]
-    private var array: [(String, String)] = []
-    
-    subscript(_ key: String) -> String? {
-        
-        get {map[key]}
-        
-        set {
-            
-            if let theValue = newValue {
-                
-                let valueExistsForKey: Bool = map[key] != nil
-                
-                map[key] = theValue
-                
-                if valueExistsForKey {
-                    array.removeAll(where: {$0.0 == key})
-                }
-                
-                array.append((key, theValue))
-                
-            } else {
-                
-                // newValue is nil, implying that any existing value should be removed for this key.
-                _ = map.removeValue(forKey: key)
-                array.removeAll(where: {$0.0 == key})
-            }
-        }
-    }
-    
-    var keyValuePairs: [(key: String, value: String)] {
-        array
-    }
-}
-
 
 // Denotes the type (format) of a metadata entry
 enum MetadataFormat: String {

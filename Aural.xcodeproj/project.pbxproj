@@ -537,7 +537,7 @@
 		3EDB345F25E8B75D004DF7DE /* AVFMappedMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344025E8B75D004DF7DE /* AVFMappedMetadata.swift */; };
 		3EDB346025E8B75D004DF7DE /* CommonAVAssetParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344125E8B75D004DF7DE /* CommonAVAssetParser.swift */; };
 		3EDB346125E8B75D004DF7DE /* AVFFormatDescriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344225E8B75D004DF7DE /* AVFFormatDescriptions.swift */; };
-		3EDB346325E8B75D004DF7DE /* AlbumArtCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344425E8B75D004DF7DE /* AlbumArtCache.swift */; };
+		3EDB346325E8B75D004DF7DE /* CoverArtCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344425E8B75D004DF7DE /* CoverArtCache.swift */; };
 		3EDB346525E8B75D004DF7DE /* FileReaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344625E8B75D004DF7DE /* FileReaderProtocol.swift */; };
 		3EDB346625E8B75D004DF7DE /* ParserUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344725E8B75D004DF7DE /* ParserUtils.swift */; };
 		3EDB346725E8B75D004DF7DE /* TrackReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDB344825E8B75D004DF7DE /* TrackReader.swift */; };
@@ -1223,7 +1223,7 @@
 		3EDB344025E8B75D004DF7DE /* AVFMappedMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVFMappedMetadata.swift; sourceTree = "<group>"; };
 		3EDB344125E8B75D004DF7DE /* CommonAVAssetParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAVAssetParser.swift; sourceTree = "<group>"; };
 		3EDB344225E8B75D004DF7DE /* AVFFormatDescriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVFFormatDescriptions.swift; sourceTree = "<group>"; };
-		3EDB344425E8B75D004DF7DE /* AlbumArtCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumArtCache.swift; sourceTree = "<group>"; };
+		3EDB344425E8B75D004DF7DE /* CoverArtCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoverArtCache.swift; sourceTree = "<group>"; };
 		3EDB344625E8B75D004DF7DE /* FileReaderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileReaderProtocol.swift; sourceTree = "<group>"; };
 		3EDB344725E8B75D004DF7DE /* ParserUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserUtils.swift; sourceTree = "<group>"; };
 		3EDB344825E8B75D004DF7DE /* TrackReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackReader.swift; sourceTree = "<group>"; };
@@ -2838,13 +2838,13 @@
 		3EDB342625E8B75D004DF7DE /* TrackIO */ = {
 			isa = PBXGroup;
 			children = (
+				3EDB343A25E8B75D004DF7DE /* AVFoundation */,
 				3EDB342725E8B75D004DF7DE /* FFmpeg */,
+				3EDB343325E8B75D004DF7DE /* Specifications */,
 				3EDB343125E8B75D004DF7DE /* TrackMetadata.swift */,
 				3EDB343225E8B75D004DF7DE /* Track.swift */,
-				3EDB343325E8B75D004DF7DE /* Specifications */,
 				3EDB343925E8B75D004DF7DE /* TrackIOUtils.swift */,
-				3EDB343A25E8B75D004DF7DE /* AVFoundation */,
-				3EDB344425E8B75D004DF7DE /* AlbumArtCache.swift */,
+				3EDB344425E8B75D004DF7DE /* CoverArtCache.swift */,
 				3EDB344625E8B75D004DF7DE /* FileReaderProtocol.swift */,
 				3EDB344725E8B75D004DF7DE /* ParserUtils.swift */,
 				3EDB344825E8B75D004DF7DE /* TrackReader.swift */,
@@ -3120,7 +3120,7 @@
 				3E6C11F525CEBDD100BF0D07 /* SearchQuery.swift in Sources */,
 				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCells.swift in Sources */,
 				3E6C11AD25CEBDA200BF0D07 /* AppStateIO.swift in Sources */,
-				3EDB346325E8B75D004DF7DE /* AlbumArtCache.swift in Sources */,
+				3EDB346325E8B75D004DF7DE /* CoverArtCache.swift in Sources */,
 				3E6C118725CEBD6D00BF0D07 /* VariableRateNode.swift in Sources */,
 				3E6C127025CEBE0600BF0D07 /* FilterBandsViewDelegate.swift in Sources */,
 				3E6C129425CEBE1800BF0D07 /* PrettyScroller.swift in Sources */,
