@@ -1,5 +1,8 @@
 import AVFoundation
 
+///
+/// Provides information necessary for playback of a non-native track using FFmpeg.
+///
 class FFmpegPlaybackContext: PlaybackContextProtocol {
     
     let file: URL

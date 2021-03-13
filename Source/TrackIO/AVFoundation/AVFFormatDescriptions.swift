@@ -1,5 +1,10 @@
 import AVFoundation
 
+///
+/// A map that contains user-friendly (human readable) descriptions for each of the
+/// supported AVFoundation audio formats.
+///
+
 let avfFormatDescriptions: [FourCharCode: String] = [
     
     kAudioFormatLinearPCM: "Linear PCM",

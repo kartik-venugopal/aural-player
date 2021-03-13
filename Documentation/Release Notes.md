@@ -16,7 +16,7 @@ Now, metadata is read directly from the tracks on disk. This is much more effici
 
 Previously, Aural Player spawned an instance of ffmpeg as a child process, to transcode non-native tracks and read metadata from them, and parsed textual data from ffmpeg before those tracks could be loaded into the playlist and played back. This was slow, computationally expensive, somewhat unreliable (due to inter-process communication), and required extra storage (for temporary files). It was also much more complex from a development / testing / maintenance standpoint.
 
-Now, Aural Player makes direct calls to FFmpeg's libraries in-process, no longer needing to spawn an ffmpeg child process. 
+Now, Aural Player makes direct calls to FFmpeg's libraries in-process, no longer needing to spawn an ffmpeg child process.
 
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.7.0)

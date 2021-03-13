@@ -1,5 +1,8 @@
 import AVFoundation
 
+///
+/// Takes care of scheduling audio samples for playback of non-native tracks using FFmpeg to perform decoding.
+///
 class FFmpegScheduler: PlaybackSchedulerProtocol {
     
     ///

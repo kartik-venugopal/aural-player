@@ -1,6 +1,9 @@
 import Cocoa
 import AVFoundation
 
+///
+/// Handles loading of track metadata from natively supported tracks, using AVFoundation.
+///
 class AVFFileReader: FileReaderProtocol {
     
     let commonParser: CommonAVFMetadataParser = CommonAVFMetadataParser()
@@ -12,8 +15,11 @@ class AVFFileReader: FileReaderProtocol {
     
     init() {
         
+        // Audio Toolbox is only available starting with macOS 10.13.
         if #available(OSX 10.13, *) {
+            
             parsersMap = [.common: commonParser, .id3: id3Parser, .iTunes: iTunesParser, .audioFile: AudioToolboxParser()]
+            
         } else {
             parsersMap = [.common: commonParser, .id3: id3Parser, .iTunes: iTunesParser]
         }
@@ -42,7 +48,7 @@ class AVFFileReader: FileReaderProtocol {
         return nil
     }
     
-    private func cleanUp(_ string: String?) -> String? {
+    private func cleanUpString(_ string: String?) -> String? {
         
         if let theTrimmedString = string?.trim() {
             return theTrimmedString.isEmpty ? nil : theTrimmedString
@@ -53,43 +59,46 @@ class AVFFileReader: FileReaderProtocol {
     
     func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata {
         
-        let meta = AVFMappedMetadata(file: file)
+        // Construct a metadata map for this file.
+        let metadataMap = AVFMappedMetadata(file: file)
         
-        guard meta.asset.tracks.first(where: {$0.mediaType == .audio}) != nil else {
-            throw NoAudioTracksError(file)
-        }
+        // Make sure the file has at least one audio track.
+        guard metadataMap.hasAudioTracks else {throw NoAudioTracksError(file)}
         
         var metadata = PlaylistMetadata()
         
-        let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
+        // Obtain the parsers relevant to this track, based on the metadata present.
+        let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
 
-        metadata.title = cleanUp(parsers.firstNonNilMappedValue {$0.getTitle(meta)})
-        metadata.artist = cleanUp(parsers.firstNonNilMappedValue {$0.getArtist(meta)})
-        metadata.album = cleanUp(parsers.firstNonNilMappedValue {$0.getAlbum(meta)})
-        metadata.genre = cleanUp(parsers.firstNonNilMappedValue {$0.getGenre(meta)})
+        // Load the essential metadata fields from the parsers
         
-        let trackNum: (number: Int?, total: Int?)? = parsers.firstNonNilMappedValue {$0.getTrackNumber(meta)}
+        metadata.title = cleanUpString(parsers.firstNonNilMappedValue {$0.getTitle(metadataMap)})
+        metadata.artist = cleanUpString(parsers.firstNonNilMappedValue {$0.getArtist(metadataMap)})
+        metadata.album = cleanUpString(parsers.firstNonNilMappedValue {$0.getAlbum(metadataMap)})
+        metadata.genre = cleanUpString(parsers.firstNonNilMappedValue {$0.getGenre(metadataMap)})
+        
+        let trackNum: (number: Int?, total: Int?)? = parsers.firstNonNilMappedValue {$0.getTrackNumber(metadataMap)}
         metadata.trackNumber = trackNum?.number
         metadata.totalTracks = trackNum?.total
         
-        let discNum: (number: Int?, total: Int?)? = parsers.firstNonNilMappedValue {$0.getDiscNumber(meta)}
+        let discNum: (number: Int?, total: Int?)? = parsers.firstNonNilMappedValue {$0.getDiscNumber(metadataMap)}
         metadata.discNumber = discNum?.number
         metadata.totalDiscs = discNum?.total
         
-        metadata.duration = meta.asset.duration.seconds
+        metadata.duration = metadataMap.avAsset.duration.seconds
         metadata.durationIsAccurate = false
         
-        metadata.chapters = getChapters(for: file, from: meta.asset)
+        metadata.chapters = getChapters(for: file, from: metadataMap.avAsset)
         
         return metadata
     }
     
     func getArt(for file: URL) -> CoverArt? {
         
-        let meta = AVFMappedMetadata(file: file)
-        let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
+        let metadataMap = AVFMappedMetadata(file: file)
+        let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
         
-        return parsers.firstNonNilMappedValue {$0.getArt(meta)}
+        return parsers.firstNonNilMappedValue {$0.getArt(metadataMap)}
     }
     
     func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {
@@ -98,23 +107,32 @@ class AVFFileReader: FileReaderProtocol {
     
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
         
-        var metadata = AuxiliaryMetadata()
-        let meta = AVFMappedMetadata(file: file)
-        let parsers = meta.keySpaces.compactMap {parsersMap[$0]}
+        // Construct a metadata map for this file.
+        let metadataMap = AVFMappedMetadata(file: file)
         
-        metadata.lyrics = cleanUp(parsers.firstNonNilMappedValue {$0.getLyrics(meta)})
+        // Obtain the parsers relevant to this track, based on the metadata present.
+        let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
+        
+        var metadata = AuxiliaryMetadata()
+        metadata.lyrics = cleanUpString(parsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
         
         var genericMetadata: [String: MetadataEntry] = [:]
         
+        // Obtain auxiliary metadata from each of the parsers, and put it in the
+        // genericMetadata dictionary.
+        
         for parser in allParsers {
-            
-            let parserMetadata = parser.getGenericMetadata(meta)
-            parserMetadata.forEach {(k,v) in genericMetadata[k] = v}
+            parser.getGenericMetadata(metadataMap).forEach {(k,v) in genericMetadata[k] = v}
         }
         
         metadata.genericMetadata = genericMetadata
         
+        // Load audio info for the track.
+        
         let audioInfo = AudioInfo()
+        
+        // If the track has an associated playback context, use it, otherwise
+        // construct a new one. Audio info will be extracted from this context.
         
         var optionalPlaybackContext: PlaybackContextProtocol? = playbackContext
         
@@ -125,7 +143,8 @@ class AVFFileReader: FileReaderProtocol {
             } catch {}
         }
         
-        // Transfer audio info from playback info, if available
+        // Transfer audio info from the playback context, if available
+        
         if let thePlaybackContext = optionalPlaybackContext {
             
             let intChannelCount = Int(thePlaybackContext.audioFormat.channelCount)
@@ -136,32 +155,37 @@ class AVFFileReader: FileReaderProtocol {
             audioInfo.frames = thePlaybackContext.frameCount
         }
         
+        // Compute the bit rate in kilobits/sec (kbps).
+        
         var estBitRate: Float = 0
         
-        if let audioTrack = meta.asset.tracks.first {
+        let audioTrack = metadataMap.audioTrack
             
-            audioInfo.format = avfFormatDescriptions[audioTrack.format] ?? formatDescriptions[getFormat(audioTrack)]
-            estBitRate = audioTrack.estimatedDataRate
-        }
+        audioInfo.format = avfFormatDescriptions[audioTrack.format] ?? formatDescriptions[getFormat(audioTrack)]
+        estBitRate = audioTrack.estimatedDataRate
         
         if estBitRate > 0 {
             
+            // kbps = bps / 1024
             audioInfo.bitRate = roundedInt(estBitRate / Float(Size.KB))
             
-        } else if meta.asset.duration.seconds == 0 {
-            
+        } else if metadataMap.avAsset.duration.seconds == 0 {
+
+            // Default to 0 if duration is unknown
             audioInfo.bitRate = 0
             
         } else {
-                
+
+            // Bit rate = file size / duration in seconds
             let fileSize = FileSystemUtils.sizeOfFile(path: file.path)
-            audioInfo.bitRate = roundedInt(Double(fileSize.sizeBytes) * 8 / (Double(meta.asset.duration.seconds) * Double(Size.KB)))
+            audioInfo.bitRate = roundedInt(Double(fileSize.sizeBytes) * 8 / (Double(metadataMap.avAsset.duration.seconds) * Double(Size.KB)))
         }
         
         metadata.audioInfo = audioInfo
-        
+
+        // Load art if required (if not previously loaded).
         if loadArt {
-            metadata.art = parsers.firstNonNilMappedValue {$0.getArt(meta)}
+            metadata.art = parsers.firstNonNilMappedValue {$0.getArt(metadataMap)}
         }
         
         return metadata

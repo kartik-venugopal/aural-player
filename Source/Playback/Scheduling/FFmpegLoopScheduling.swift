@@ -1,5 +1,8 @@
 import AVFoundation
 
+///
+/// Handles scheduling of segment loops for non-native tracks.
+///
 extension FFmpegScheduler {
     
     // TODO: Test with loops that extend till EOF, very small loops, etc.

@@ -5,8 +5,6 @@ import Cocoa
  */
 protocol PlayerProtocol {
     
-    // TODO: Validation for play() startPosition/endPosition ???
-    
     // Plays a given track, starting from a given position (used for bookmarks)
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?)
     
