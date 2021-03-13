@@ -1,12 +1,16 @@
 import Cocoa
 
-// TODO: Figure out where and how this utility can be used for better performance.
+///
+/// A utility that serves as an in-memory cache for cover art retrieved from tracks. This is useful because multiple lookups
+/// for the same cover art may occur (different parts of the UI require the same image), and this cache avoids redundant
+/// disk reads for cover art that has already been loaded from disk once.
+///
 class AlbumArtCache {
     
-    private static var cache: ConcurrentMap<URL, CoverArt> = ConcurrentMap<URL, CoverArt>("threadSafeAccess-artCache")
-    private static var filesWithNoArt: ConcurrentSet<URL> = ConcurrentSet<URL>("threadSafeAccess-filesWithNoArt")
+    private static var cache: ConcurrentMap<URL, CoverArt> = ConcurrentMap<URL, CoverArt>()
+    private static var filesWithNoArt: ConcurrentSet<URL> = ConcurrentSet<URL>()
     
-    // TODO: Clean out albumArt store (filesystem folder)
+    // TODO: Clean out albumArt store (filesystem folder) in aural directory for newer app version users.
     
     static func forFile(_ file: URL) -> (fileHasNoArt: Bool, art: CoverArt?)? {
         

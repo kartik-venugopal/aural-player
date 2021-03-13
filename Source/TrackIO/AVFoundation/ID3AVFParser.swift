@@ -1,6 +1,9 @@
 import Cocoa
 import AVFoundation
 
+///
+/// Parses metadata in the ID3 format / key space from natively supported tracks (supported by AVFoundation).
+///
 class ID3AVFParser: AVFMetadataParser {
     
     let keySpace: AVMetadataKeySpace = .id3
@@ -49,8 +52,6 @@ class ID3AVFParser: AVFMetadataParser {
         
         return map
     }()
-    
-    private let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.id3MetadataKeyAttachedPicture.rawValue, keySpace: AVMetadataKeySpace.id3)!
     
     private let replaceableKeyFields: Set<String> = {
         
@@ -206,7 +207,7 @@ class ID3AVFParser: AVFMetadataParser {
                 
             } else if keys_mediaType.contains(key) {
                 
-                entryValue = ID3MediaTypes.mediaType(value)
+                entryValue = ID3MediaTypes.readableString(for: value)
             }
             
             entryKey = StringUtils.cleanUpString(entryKey)

@@ -1,13 +1,20 @@
 import Foundation
 
+///
+/// Handles loading of metadata for a track.
+///
 class TrackReader {
     
+    // The delegate object that this object defers all read operations to.
     private var fileReader: FileReader
     
     init(_ fileReader: FileReader) {
         self.fileReader = fileReader
     }
     
+    ///
+    /// Loads the essential metadata fields that are required for a track to be loaded into the playlist.
+    ///
     func loadPlaylistMetadata(for track: Track) {
         
         let fileMetadata = FileMetadata()
@@ -36,19 +43,26 @@ class TrackReader {
         }
     }
     
+    ///
+    /// Loads all metadata and resources that are required for track playback.
+    ///
     func prepareForPlayback(track: Track) throws {
         
         do {
             
+            // If a playback context has been previously computed, just open it.
             if let theContext = track.playbackContext {
                 try theContext.open()
                 
             } else {
                 
+                // No playback context was previously computed, so compute it and open it.
+                
                 try computePlaybackContext(for: track)
                 try track.playbackContext?.open()
             }
             
+            // Load cover art for display in the player.
             loadArtAsync(for: track)
             
         } catch {
@@ -65,37 +79,50 @@ class TrackReader {
         }
     }
     
+    ///
+    /// Loads cover art for a track, asynchronously. This is useful when
+    /// cover art is not required immediately, and a short delay is acceptable.
+    /// (eg. when preparing for playback)
+    ///
     func loadArtAsync(for track: Track) {
         
         if track.artLoaded {return}
         
-        // Load art async, and send out an update notification if art was found.
         DispatchQueue.global(qos: .userInteractive).async {
             
             track.art = self.fileReader.getArt(for: track.file)
-            
+
+            // Send out an update notification if art was found.
             if track.art != nil {
                 Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
             }
         }
     }
     
+    ///
+    /// Loads cover art for a track.
+    ///
     func loadArt(for track: Track) {
         
         if track.artLoaded {return}
         
         track.art = self.fileReader.getArt(for: track.file)
         
+        // Send out an update notification if art was found.
         if track.art != nil {
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
         }
     }
     
+    ///
+    /// Loads all non-essential ("auxiliary") metadata associated with a track, for display in the "Detailed track info" view.
+    ///
     func loadAuxiliaryMetadata(for track: Track) {
         
         if track.auxMetadataLoaded {return}
         
-        let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file, loadingAudioInfoFrom: track.playbackContext, loadArt: !track.artLoaded)
+        let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file,
+                                                          loadingAudioInfoFrom: track.playbackContext, loadArt: !track.artLoaded)
         track.setAuxiliaryMetadata(auxMetadata)
     }
 }

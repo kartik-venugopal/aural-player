@@ -13,6 +13,9 @@ fileprivate let key_language: String = AVMetadataKey.commonKeyLanguage.rawValue
 
 fileprivate let essentialFieldKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_art]
 
+///
+/// Parses metadata in the "common" format / key space from natively supported tracks (supported by AVFoundation).
+///
 class CommonAVFMetadataParser: AVFMetadataParser {
     
     let keySpace: AVMetadataKeySpace = .common

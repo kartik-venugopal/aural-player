@@ -3,6 +3,9 @@ import Foundation
 ///
 /// A contract for a class that handles loading of metadata for a track.
 ///
+/// NOTE - Since this class accepts files as input (as opposed to Track objects), it can be used to load
+/// metadata for files that are not present in the playlist as tracks. (e.g. files in the history or favorites menu)
+///
 protocol FileReaderProtocol {
     
     ///

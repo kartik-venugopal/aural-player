@@ -1,13 +1,16 @@
 import AVFoundation
 
+///
+/// Specification for the iTunes metadata format.
+///
 class ITunesSpec {
     
-    static let keySpace: String = AVMetadataKeySpace.iTunes.rawValue
     static let longForm_keySpaceID: String = "itlk"
     
     // TODO: Should there be a dot at the end of this prefix ???
     private static let iTunesPrefix: String = "com.apple.itunes"
-    
+
+    // @nam
     static let key_title = AVMetadataKey.iTunesMetadataKeySongName.rawValue
     
     // @ART
@@ -50,7 +53,6 @@ class ITunesSpec {
     
     static let key_lyrics = AVMetadataKey.iTunesMetadataKeyLyrics.rawValue
     static let key_art: String = AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue
-    static let id_art: AVMetadataIdentifier = AVMetadataItem.identifier(forKey: AVMetadataKey.iTunesMetadataKeyCoverArt.rawValue, keySpace: AVMetadataKeySpace.iTunes)!
 
     static let key_language = "language"
     static let key_compilation = AVMetadataKey.iTunesMetadataKeyDiscCompilation.rawValue

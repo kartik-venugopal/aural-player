@@ -1,5 +1,8 @@
 import Foundation
 
+///
+/// A mapping of language codes to user-friendly human-readable strings.
+///
 class LanguageMap {
     
     private init() {}

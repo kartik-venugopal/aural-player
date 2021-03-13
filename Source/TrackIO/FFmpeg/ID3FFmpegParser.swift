@@ -165,7 +165,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
                 
             } else if keys_mediaType.contains(key) {
                 
-                value = ID3MediaTypes.mediaType(value)
+                value = ID3MediaTypes.readableString(for: value)
             }
             
             key = StringUtils.cleanUpString(key)

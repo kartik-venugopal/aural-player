@@ -1,17 +1,14 @@
 import AVFoundation
 
-/*
- Specification for the ID3 metadata format. Versions 2.0 2.3 and 2.4 are supported.
- 
- TODO: V2: http://id3.org/id3v2-00
- 
- TODO: Table of contents and Chapter support (CTOC and CHAP)
- 
- See http://id3.org/id3v2.3.0 and http://id3.org/id3v2.4.0-frames
- */
+///
+/// Specification for the ID3 metadata format. Versions 1.0, 2.2, and 2.4 are supported.
+///
+/// See http://id3.org/id3v2.3.0 and http://id3.org/id3v2.4.0-frames
+///
 
-let id3KeySpace: String = AVMetadataKeySpace.id3.rawValue
-
+///
+/// ID3 version 1 spec.
+///
 struct ID3_V1Spec {
     
     static let key_title = "Title"
@@ -27,6 +24,9 @@ struct ID3_V1Spec {
     static let genericFields: [String: String] = ["Year": "Year", "Comment": "Comment"]
 }
 
+///
+/// ID3 version 2.2 spec.
+///
 struct ID3_V22Spec {
     
     static let key_duration: String = "TLE"
@@ -152,6 +152,9 @@ struct ID3_V22Spec {
     }()
 }
 
+///
+/// ID3 version 2.4 spec.
+///
 struct ID3_V24Spec {
     
     // TLEN
@@ -476,9 +479,15 @@ struct ID3_V24Spec {
     }()
 }
 
+///
+/// A mapping of ID3 media types to user-friendly human-readable strings.
+///
 struct ID3MediaTypes {
     
-    static func mediaType(_ codeString: String) -> String {
+    ///
+    /// Return a user-friendly human-readable string for a given media type code string.
+    ///
+    static func readableString(for codeString: String) -> String {
         
         let tokens = codeString.split(separator: "/")
         
@@ -512,6 +521,13 @@ struct ID3MediaTypes {
         return codeString
     }
     
+    ///
+    /// A mapping of ID3 media type codes to user-friendly human-readable strings.
+    ///
+    /// Code string -> (Readable media type category, [Mappings for all sub-types in the category])
+    /// Each code string is mapped to a corresponding readable media type category string and a collection of mappings for
+    /// all media sub-types in that category.
+    ///
     private static let mediaTypes: [String: (String, [String: String])] = {
         
         var map: [String: (String, [String: String])] = [:]
@@ -612,6 +628,5 @@ struct ID3MediaTypes {
             ])
         
         return map
-        
     }()
 }

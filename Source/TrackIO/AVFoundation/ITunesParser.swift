@@ -1,9 +1,9 @@
 import Cocoa
 import AVFoundation
 
-/*
-    Specification for the iTunes metadata format.
- */
+///
+/// Parses metadata in the iTunes format / key space from natively supported tracks (supported by AVFoundation).
+///
 class ITunesParser: AVFMetadataParser {
     
     let keySpace: AVMetadataKeySpace = .iTunes
@@ -19,37 +19,9 @@ class ITunesParser: AVFMetadataParser {
     private let keys_year: [String] = [ITunesSpec.key_releaseDate, ITunesSpec.key_releaseYear]
     
     // BUG TODO: Find out why ITunesNormalization tag is not being ignored in MP3 files
+    // Is some other parser including it ??? ID3Parser ???
     private let ignoredKeys: Set<String> = [ITunesSpec.key_normalization, ITunesSpec.key_soundCheck]
     
-//    func mapTrack(_ meta: AVFMetadata) {
-//    
-//        for item in meta.asset.metadata {
-//            
-//            if item.keySpace == .iTunes, let key = item.keyAsString {
-//                
-//                let mapKey = String(format: "%@/%@", ITunesSpec.keySpace, key)
-//                
-//                if essentialFieldKeys.contains(mapKey) {
-//                    meta.map[mapKey] = item
-//                } else {
-//                    // Generic field
-//                    meta.genericItems.append(item)
-//                }
-//                
-//            } else if item.keySpace?.rawValue == ITunesSpec.longForm_keySpaceID, let key = item.keyAsString { // Long form
-//                
-//                let mapKey = String(format: "%@/%@", ITunesSpec.keySpace, key)
-//                
-//                if essentialFieldKeys.contains(mapKey) {
-//                    meta.map[mapKey] = item
-//                } else {
-//                    // Generic field
-//                    meta.genericItems.append(item)
-//                }
-//            }
-//        }
-//    }
-//    
     func getDuration(_ meta: AVFMappedMetadata) -> Double? {
         
         if let item = meta.iTunes[ITunesSpec.key_duration], let durationStr = item.stringValue {

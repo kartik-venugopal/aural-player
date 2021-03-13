@@ -1,5 +1,9 @@
 import Foundation
 
+///
+/// A mapping of genre codes to user-friendly human-readable strings.
+/// Contains mappings for ID3 and iTunes genres.
+///
 class GenreMap {
     
     static func forID3Code(_ code: Int) -> String? {
