@@ -32,7 +32,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var btnApplyPresetOnStartup: NSButton!
     @IBOutlet weak var masterPresetsMenu: NSPopUpButton!
     
-    @IBOutlet weak var btnRememberSettingsForTrack: NSButton!
     @IBOutlet weak var btnRememberSettings_allTracks: NSButton!
     @IBOutlet weak var btnRememberSettings_individualTracks: NSButton!
     
@@ -116,8 +115,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         }
         
         // Per-track effects settings memory
-        
-        btnRememberSettingsForTrack.onIf(soundPrefs.rememberEffectsSettings)
         
         if soundPrefs.rememberEffectsSettingsOption == .individualTracks {
             btnRememberSettings_individualTracks.on()
@@ -207,9 +204,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         masterPresetsMenu.enableIf(btnApplyPresetOnStartup.isOn)
     }
     
-    @IBAction func rememberSettingsAction(_ sender: Any) {
-    }
-    
     @IBAction func rememberSettingsRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
     }
@@ -246,15 +240,13 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         soundPrefs.masterPresetOnStartup_name = masterPresetsMenu.titleOfSelectedItem ?? ""
         
-        soundPrefs.rememberEffectsSettings = btnRememberSettingsForTrack.isOn
-        
         let wasAllTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .allTracks
         
         soundPrefs.rememberEffectsSettingsOption = btnRememberSettings_individualTracks.isOn ? .individualTracks : .allTracks
         
         let isNowIndividualTracks: Bool = soundPrefs.rememberEffectsSettingsOption == .individualTracks
         
-        if !soundPrefs.rememberEffectsSettings || (wasAllTracks && isNowIndividualTracks) {
+        if wasAllTracks && isNowIndividualTracks {
             soundProfiles.removeAll()
         }
     }

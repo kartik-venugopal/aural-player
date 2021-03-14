@@ -212,7 +212,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
     private func trackChanged(_ newTrack: Track?) {
         
         // Apply sound profile if there is one for the new track and the preferences allow it
-        if soundPreferences.rememberEffectsSettings, let theNewTrack = newTrack, soundProfiles.hasFor(theNewTrack) {
+        if let theNewTrack = newTrack, soundProfiles.hasFor(theNewTrack) {
 
             volumeChanged(audioGraph.volume, audioGraph.muted)
             panChanged(audioGraph.balance)

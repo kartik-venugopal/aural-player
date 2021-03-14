@@ -41,7 +41,7 @@ class MasterViewController: FXUnitViewController {
         super.initSubscriptions()
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged(_:),
-                                 filter: {msg in msg.trackChanged && self.soundPreferences.rememberEffectsSettings},
+                                 filter: {msg in msg.trackChanged},
                                  queue: .main)
         
         Messenger.subscribe(self, .masterFXUnit_toggleEffects, self.toggleEffects)

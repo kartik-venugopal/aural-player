@@ -42,7 +42,6 @@ struct PreferencesDefaults {
         static let effectsSettingsOnStartupOption: EffectsSettingsStartupOptions = .rememberFromLastAppLaunch
         static let masterPresetOnStartup_name: String? = nil
         
-        static let rememberEffectsSettings: Bool = true
         static let rememberEffectsSettingsOption: RememberSettingsForTrackOptions = .individualTracks
     }
     

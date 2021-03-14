@@ -96,7 +96,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         }
         
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
-        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
+        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:))
         
         // TODO: Do we need this ? PlaybackDelegate should take care of applying effects before track playback.
         // This was required before due to the transcoding state
@@ -223,7 +223,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     func onAppExit(_ request: AppExitRequestNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if preferences.rememberEffectsSettings, let plTrack = player.currentTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
+        if let plTrack = player.currentTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting

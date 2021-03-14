@@ -198,7 +198,6 @@ class AVFFileReader: FileReaderProtocol {
         return metadata
     }
     
-    
     private let formatDescriptions: [String: String] = [
     
         "mp3": "MPEG Audio Layer III (mp3)",

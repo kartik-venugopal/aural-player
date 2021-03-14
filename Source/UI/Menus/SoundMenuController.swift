@@ -119,7 +119,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         } else {
             
             masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
-            rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
+            rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettingsOption == .individualTracks)
             
             if let playingTrack = player.currentTrack {
                 rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
