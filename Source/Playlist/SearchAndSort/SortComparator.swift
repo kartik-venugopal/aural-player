@@ -73,14 +73,6 @@ class SortComparator {
         
         switch field {
             
-        case .title:
-            
-            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.title}, ""))
-            
-        case .artistTitle:
-            
-            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.displayName}, ""))
-            
         case .name:
             
             return trackDisplayNameFunction(aTrack).compare(trackDisplayNameFunction(anotherTrack))
@@ -96,10 +88,6 @@ class SortComparator {
         case .album:
             
             return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.album}, ""))
-            
-        case .genre:
-            
-            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.genre}, ""))
             
         case .discNumberAndTrackNumber:
             

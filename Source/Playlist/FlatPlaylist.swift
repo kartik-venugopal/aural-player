@@ -41,10 +41,10 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         // Check both the filename and the display name
         if query.fields.name {
             
-//            let filename = track.fileName
-//            if query.compare(filename) {
-//                return SearchQueryMatch(track: track, matchedField: "filename", matchedFieldValue: filename)
-//            }
+            let filename = track.fileSystemInfo.fileName
+            if query.compare(filename) {
+                return SearchQueryMatch(track: track, matchedField: "filename", matchedFieldValue: filename)
+            }
             
             let displayName = track.displayName
             if query.compare(displayName) {

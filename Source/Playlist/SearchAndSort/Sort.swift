@@ -87,12 +87,9 @@ enum TracksSortOptions {
 enum SortField {
     
     case name
-    case title
     case duration
     case artist
-    case artistTitle
     case album
-    case genre
     case discNumberAndTrackNumber
 }
 
