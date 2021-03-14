@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD:Aural/Genres.xib
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+=======
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GenresPlaylistViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="clipView" destination="bf5-Po-lKe" id="OTb-f2-UyL"/>
+                <outlet property="playlistView" destination="Qtd-u6-247" id="1ae-ua-1ho"/>
+                <outlet property="playlistViewDelegate" destination="h4x-jt-yfz" id="IdZ-Q5-129"/>
+                <outlet property="scrollView" destination="7Ht-SU-dHw" id="r9K-ij-fD6"/>
+                <outlet property="view" destination="ghI-Sf-LvB" id="Q4B-cW-Tm8"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+<<<<<<< HEAD:Aural/Genres.xib
+        <customObject id="UpC-cd-CvY" userLabel="Data Source" customClass="GenresPlaylistDataSource" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playlistView" destination="Qtd-u6-247" id="vJ2-3a-hHy"/>
+            </connections>
+        </customObject>
+        <view translatesAutoresizingMaskIntoConstraints="NO" id="ghI-Sf-LvB">
+            <rect key="frame" x="0.0" y="0.0" width="599" height="228"/>
+            <subviews>
+                <scrollView appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="65" horizontalPageScroll="10" verticalLineScroll="65" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" id="7Ht-SU-dHw" userLabel="Playlist Genres View">
+                    <rect key="frame" x="0.0" y="-1" width="599" height="229"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" copiesOnScroll="NO" id="bf5-Po-lKe">
+                        <rect key="frame" x="0.0" y="0.0" width="599" height="229"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wHR-aR-f7P" id="Qtd-u6-247" userLabel="Playlist Genres View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="599" height="229"/>
+=======
+        <customObject id="UpC-cd-CvY" userLabel="Data Source" customClass="GenresPlaylistDataSource" customModule="Aural" customModuleProvider="target"/>
+        <view misplaced="YES" id="ghI-Sf-LvB">
+            <rect key="frame" x="0.0" y="0.0" width="448" height="177"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ht-SU-dHw" userLabel="Playlist Genres View">
+                    <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
+                    <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="bf5-Po-lKe">
+                        <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wHR-aR-f7P" id="Qtd-u6-247" userLabel="Playlist Genres View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="487" height="173"/>
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <size key="intercellSpacing" width="3" height="4"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
+                                <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                <tableColumns>
+                                    <tableColumn identifier="cid_Name" width="522" minWidth="322" maxWidth="10000" id="wHR-aR-f7P" userLabel="Genre">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+<<<<<<< HEAD:Aural/Genres.xib
+                                            <font key="font" metaFont="message" size="11"/>
+=======
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="9XT-3X-NeF">
+                                            <font key="font" metaFont="message"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+<<<<<<< HEAD:Aural/Genres.xib
+                                            <tableCellView focusRingType="none" id="dUD-Jz-0Am" customClass="GroupedTrackNameCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="1" y="2" width="522" height="61"/>
+=======
+                                            <tableCellView focusRingType="none" id="dUD-Jz-0Am" customClass="GroupedItemNameCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="11" y="2" width="377" height="30"/>
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-xI-cje" userLabel="Icon">
+                                                        <rect key="frame" x="3" y="6" width="16" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="16" id="ZDA-23-orl"/>
+                                                            <constraint firstAttribute="height" constant="18" id="mYE-Ln-0jB"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="ygV-8w-DId"/>
+                                                    </imageView>
+<<<<<<< HEAD:Aural/Genres.xib
+                                                    <imageView identifier="GapBefore" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="veU-YM-6VK" userLabel="Gap Before">
+                                                        <rect key="frame" x="25" y="43" width="497" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="eyT-DO-Eer"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="i8r-F9-6nx"/>
+                                                    </imageView>
+                                                    <imageView identifier="GapAfter" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fdB-yu-kev" userLabel="Gap After">
+                                                        <rect key="frame" x="25" y="0.0" width="497" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="kQp-N8-SVp"/>
+                                                        </constraints>
+                                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="left" imageScaling="axesIndependently" image="Gap" id="VHk-6i-fkB"/>
+                                                    </imageView>
+                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="23" y="18" width="501" height="25"/>
+=======
+                                                    <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Z03-PG-pvS" userLabel="Track Name">
+                                                        <rect key="frame" x="28" y="0.0" width="351" height="30"/>
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="jCk-a9-VuK"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Da3-Fs-d7J" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" size="13" name="Play-Regular"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="leading" secondItem="dUD-Jz-0Am" secondAttribute="leading" constant="3" id="43c-p7-TKZ"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="bottom" secondItem="dUD-Jz-0Am" secondAttribute="bottom" id="Apk-10-2E1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Z03-PG-pvS" secondAttribute="trailing" id="E5c-ha-SJu"/>
+                                                    <constraint firstItem="Z03-PG-pvS" firstAttribute="leading" secondItem="lHY-xI-cje" secondAttribute="trailing" constant="11" id="iQT-SR-0sr"/>
+                                                    <constraint firstItem="lHY-xI-cje" firstAttribute="centerY" secondItem="dUD-Jz-0Am" secondAttribute="centerY" id="ozy-e0-OhD"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="imageView" destination="lHY-xI-cje" id="P2H-5I-XCL"/>
+                                                    <outlet property="textField" destination="Z03-PG-pvS" id="CEA-SN-zEQ"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+<<<<<<< HEAD:Aural/Genres.xib
+                                    <tableColumn identifier="cid_Duration" width="71" minWidth="50" maxWidth="75" id="pD1-Fi-yU1" userLabel="Duration">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                            <font key="font" metaFont="message" size="11"/>
+=======
+                                    <tableColumn identifier="cid_Duration" width="80" minWidth="70" maxWidth="90" id="pD1-Fi-yU1" userLabel="Duration">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                        </tableHeaderCell>
+                                        <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="8zr-Cs-OEu">
+                                            <font key="font" metaFont="message"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                        <prototypeCellViews>
+<<<<<<< HEAD:Aural/Genres.xib
+                                            <tableCellView focusRingType="none" id="FiJ-sX-1Lg" customClass="GroupedTrackDurationCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="526" y="2" width="71" height="61"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hHK-ko-BBk" userLabel="Gap Before">
+                                                        <rect key="frame" x="-7" y="43" width="75" height="18"/>
+=======
+                                            <tableCellView focusRingType="none" id="FiJ-sX-1Lg" customClass="GroupedItemDurationCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="391" y="2" width="84" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration">
+                                                        <rect key="frame" x="-7" y="0.0" width="88" height="30"/>
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="pbd-gC-tLi"/>
+                                                        </constraints>
+<<<<<<< HEAD:Aural/Genres.xib
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="Bog-gR-e7Z">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </textFieldCell>
+                                                    </textField>
+                                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="dV1-Xh-Rhx" userLabel="Duration" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="-7" y="10" width="75" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="pbd-gC-tLi"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="9zq-Qy-Bke" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" size="13" name="GillSans-Light"/>
+=======
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" id="9zq-Qy-Bke" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
+                                                            <font key="font" size="13" name="Play-Regular"/>
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </textFieldCell>
+                                                    </textField>
+<<<<<<< HEAD:Aural/Genres.xib
+                                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tBD-Gd-29e" userLabel="Gap After">
+                                                        <rect key="frame" x="-7" y="-5" width="75" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="qI3-tK-qNC"/>
+                                                        </constraints>
+                                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" id="Kec-xr-jwB">
+                                                            <font key="font" metaFont="system"/>
+                                                            <color key="textColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </textFieldCell>
+                                                    </textField>
+=======
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="leading" secondItem="FiJ-sX-1Lg" secondAttribute="leading" constant="-5" id="GeA-iM-JgK"/>
+                                                    <constraint firstItem="dV1-Xh-Rhx" firstAttribute="bottom" secondItem="FiJ-sX-1Lg" secondAttribute="bottom" id="KUd-GE-iDy"/>
+                                                    <constraint firstAttribute="trailing" secondItem="dV1-Xh-Rhx" secondAttribute="trailing" constant="5" id="k2E-tb-5zR"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="textField" destination="dV1-Xh-Rhx" id="OXz-8J-DdC"/>
+                                                </connections>
+                                            </tableCellView>
+                                        </prototypeCellViews>
+                                    </tableColumn>
+                                </tableColumns>
+                                <connections>
+                                    <action trigger="doubleAction" selector="playSelectedItemAction:" target="-2" id="CNF-RW-OTu"/>
+                                    <outlet property="dataSource" destination="UpC-cd-CvY" id="PGI-8u-QhD"/>
+                                    <outlet property="delegate" destination="h4x-jt-yfz" id="N3X-by-kLy"/>
+                                </connections>
+                            </outlineView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="vFv-df-9Rf">
+                        <rect key="frame" x="-100" y="-100" width="383" height="16"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="uHX-6l-X8U">
+                        <rect key="frame" x="-100" y="-100" width="16" height="0.0"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="7Ht-SU-dHw" secondAttribute="bottom" id="7j2-rX-bUe"/>
+                <constraint firstItem="7Ht-SU-dHw" firstAttribute="leading" secondItem="ghI-Sf-LvB" secondAttribute="leading" id="D33-QB-OMD"/>
+                <constraint firstItem="7Ht-SU-dHw" firstAttribute="top" secondItem="ghI-Sf-LvB" secondAttribute="top" constant="2" id="USO-KT-gos"/>
+                <constraint firstAttribute="trailing" secondItem="7Ht-SU-dHw" secondAttribute="trailing" id="sy0-YI-94Z"/>
+            </constraints>
+<<<<<<< HEAD:Aural/Genres.xib
+            <point key="canvasLocation" x="214.5" y="106.5"/>
+=======
+            <point key="canvasLocation" x="140" y="155"/>
+>>>>>>> upstream/master:Source/UI/Playlist/GroupingPlaylists/Genres.xib
+        </view>
+        <customObject id="h4x-jt-yfz" userLabel="Delegate" customClass="GenresPlaylistViewDelegate" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playlistView" destination="Qtd-u6-247" id="psv-Wt-NCB"/>
+            </connections>
+        </customObject>
+    </objects>
+</document>

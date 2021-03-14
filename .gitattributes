@@ -1,0 +1,7 @@
+# used to remove files from deployment using `git archive`
+# git files
+.gitattributes export-ignore
+.gitignore export-ignore
+Documentation export-ignore
+Resources/ffmpeg/ffmpeg export-ignore
+Resources/ffmpeg/ffprobe export-ignore

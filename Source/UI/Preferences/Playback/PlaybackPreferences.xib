@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaybackPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnAutoplayAfterAddingTracks" destination="qSu-Gq-GD0" id="WFj-tj-Ui4"/>
+                <outlet property="btnAutoplayAlways" destination="WrV-9w-TDC" id="ISm-HO-4OZ"/>
+                <outlet property="btnAutoplayIfNotPlaying" destination="Oaz-io-4ja" id="Ugf-fh-bTf"/>
+                <outlet property="btnAutoplayOnStartup" destination="znf-vd-0EN" id="v3P-VH-2gM"/>
+                <outlet property="btnInfo_primarySeekLength" destination="L8I-p6-5ZK" id="7hv-qa-tZC"/>
+                <outlet property="btnInfo_secondarySeekLength" destination="pLg-Zx-z1o" id="O0L-tk-5qQ"/>
+                <outlet property="btnPrimarySeekLengthConstant" destination="tBj-Ko-4Pw" id="wRe-Nt-Gpe"/>
+                <outlet property="btnPrimarySeekLengthPerc" destination="hWC-Lh-o1C" id="f18-W9-R2J"/>
+                <outlet property="btnRememberPosition_allTracks" destination="8DU-OO-agi" id="KcV-xo-FjW"/>
+                <outlet property="btnRememberPosition_individualTracks" destination="FAF-So-sMu" id="jGE-ks-8r5"/>
+                <outlet property="btnSecondarySeekLengthConstant" destination="P1V-FV-Brv" id="uh5-70-86O"/>
+                <outlet property="btnSecondarySeekLengthPerc" destination="VRB-wu-9sz" id="h1c-mC-cB9"/>
+                <outlet property="lblPrimarySeekLength" destination="dO7-h4-3oX" id="Jvs-pc-UjN"/>
+                <outlet property="lblPrimarySeekLengthPerc" destination="QX4-pn-nlv" id="qW5-y5-JlQ"/>
+                <outlet property="lblSecondarySeekLength" destination="MNT-bC-HtP" id="bqk-HI-n2W"/>
+                <outlet property="lblSecondarySeekLengthPerc" destination="wsl-VD-iQq" id="pq7-Cs-PFK"/>
+                <outlet property="primarySeekLengthPercStepper" destination="Jri-6S-T38" id="mOO-VA-eFq"/>
+                <outlet property="primarySeekLengthPicker" destination="AcR-YB-Zle" id="juj-b9-PlZ"/>
+                <outlet property="secondarySeekLengthPercStepper" destination="CC1-0k-NBg" id="030-qW-lJl"/>
+                <outlet property="secondarySeekLengthPicker" destination="fst-3x-dVi" id="qm1-Vf-Jli"/>
+                <outlet property="view" destination="fBA-Aa-Qne" id="bEU-1Z-jc8"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="fBA-Aa-Qne">
+            <rect key="frame" x="0.0" y="0.0" width="660" height="470"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="OGn-2L-hpf">
+                    <rect key="frame" x="0.0" y="0.0" width="680" height="470"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="LZd-X6-c62">
+                        <rect key="frame" x="0.0" y="0.0" width="680" height="470"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </box>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="znf-vd-0EN" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="47" y="280" width="281" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="On app startup (if at least 1 track available)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="jXy-KE-2ZN">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MNT-bC-HtP" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="535" y="372" width="131" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="pVy-QD-nEZ">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="dSU-et-Kr6">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="300"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLg-Zx-z1o" userLabel="Info - Seek length primary">
+                    <rect key="frame" x="491" y="400" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="iXw-b2-VxL">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="seekLengthSecondary_infoAction:" target="-2" id="wkX-QY-qcw"/>
+                    </connections>
+                </button>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jri-6S-T38" userLabel="Primary Seek Stepper">
+                    <rect key="frame" x="208" y="345" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="95f-Rt-euV"/>
+                    <connections>
+                        <action selector="primarySeekLengthPercAction:" target="-2" id="FJV-ih-7ME"/>
+                    </connections>
+                </stepper>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qSu-Gq-GD0" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="47" y="261" width="281" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="After adding tracks, play first added track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="5Kd-qp-PiC">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterAddingAction:" target="-2" id="BJ7-8q-qYW"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9p2-IE-kkS" userLabel="Autoplay on startup">
+                    <rect key="frame" x="35" y="302" width="70" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Autoplay" id="aQU-mj-Wq1">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FAF-So-sMu" userLabel="For individual tracks" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="45" y="153" width="443" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Playback menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="hzV-ZU-muz">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="vw2-qW-dzS"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHg-WZ-fxu" userLabel="Seek Length Label">
+                    <rect key="frame" x="35" y="399" width="135" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (primary)" id="zEK-xV-hXD">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P1V-FV-Brv" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="355" y="372" width="76" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Constant" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="ugR-d0-Khh">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="secondarySeekLengthRadioButtonAction:" target="-2" id="mLg-Ad-g49"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DU-OO-agi" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="45" y="134" width="213" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Jw4-k0-1Eu">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="rememberLastPositionRadioButtonAction:" target="-2" id="raM-sC-lgC"/>
+                    </connections>
+                </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wsl-VD-iQq" userLabel="Secondary Seek % Label">
+                    <rect key="frame" x="478" y="345" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="szA-kN-ypc">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="jKy-FX-tJH">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="30"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WrV-9w-TDC" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="71" y="221" width="203" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Always" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="B13-O8-QKf">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="eg1-OH-HV7"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-Y1-Jc0">
+                    <rect key="frame" x="35" y="177" width="430" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Resume track playback from last playback position" id="bNf-Jp-q0R">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oaz-io-4ja" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="71" y="240" width="232" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="If no track is currently playing" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="fim-2o-tXZ">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="autoplayAfterAddingRadioButtonAction:" target="-2" id="50Q-NE-F1L"/>
+                    </connections>
+                </button>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CC1-0k-NBg" userLabel="Secondary Seek Stepper">
+                    <rect key="frame" x="518" y="344" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="mmo-uE-NkR"/>
+                    <connections>
+                        <action selector="secondarySeekLengthPercAction:" target="-2" id="PiA-SK-LvK"/>
+                    </connections>
+                </stepper>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QX4-pn-nlv" userLabel="Primary Seek % Label">
+                    <rect key="frame" x="168" y="346" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" id="RfY-8L-z41">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="6S3-JM-Uea">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="30"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eGX-lg-IJ4" userLabel="Seek Length Label">
+                    <rect key="frame" x="345" y="399" width="145" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Seek length (secondary)" id="8Oy-qJ-sGs">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcR-YB-Zle" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="123" y="373" width="100" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="5rv-FG-7hc">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <date key="date" timeIntervalSinceReferenceDate="636532364.05013704">
+                            <!--2021-03-04 06:32:44 +0000-->
+                        </date>
+                        <color key="backgroundColor" name="selectedMenuItemTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
+                    </datePickerCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
+                            <real key="value" value="86400"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="primarySeekLengthAction:" target="-2" id="ehQ-Af-lwi"/>
+                    </connections>
+                </datePicker>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VRB-wu-9sz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="355" y="347" width="127" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="BnS-LI-CQ0">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="secondarySeekLengthRadioButtonAction:" target="-2" id="bbh-IU-bTR"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tBj-Ko-4Pw" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="45" y="373" width="76" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Constant" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="J9V-g3-Kko">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="primarySeekLengthRadioButtonAction:" target="-2" id="TWY-Ai-UQ5"/>
+                    </connections>
+                </button>
+                <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fst-3x-dVi" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="433" y="372" width="100" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <datePickerCell key="cell" controlSize="small" borderStyle="bezel" focusRingType="none" alignment="left" id="Nfd-jW-tTh">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <date key="date" timeIntervalSinceReferenceDate="636532364.03853297">
+                            <!--2021-03-04 06:32:44 +0000-->
+                        </date>
+                        <color key="backgroundColor" name="selectedMenuItemTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
+                    </datePickerCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
+                            <real key="value" value="86400"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="secondarySeekLengthAction:" target="-2" id="G3M-rr-Olt"/>
+                    </connections>
+                </datePicker>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dO7-h4-3oX" userLabel="Lbl Duration 1" customClass="FormattedIntervalLabel" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="225" y="373" width="118" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="left" id="CgJ-N5-8QO">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="htd-sw-2aL">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="300"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="interval">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <button toolTip="What is this ?" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-p6-5ZK" userLabel="Info - Seek length primary">
+                    <rect key="frame" x="166" y="399" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WhatIsThis" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="QI3-6Y-8pI">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="seekLengthPrimary_infoAction:" target="-2" id="aQF-1O-nH6"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hWC-Lh-o1C" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="45" y="348" width="132" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="% of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="LeU-LN-XSF">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="primarySeekLengthRadioButtonAction:" target="-2" id="RTn-Dl-4G0"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="-41" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="WhatIsThis" width="26" height="26"/>
+    </resources>
+</document>

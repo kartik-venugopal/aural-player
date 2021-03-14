@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="JumpToTimeEditorWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnHMS" destination="CIM-bh-nWy" id="AQt-U2-3QZ"/>
+                <outlet property="btnPercentage" destination="yfX-Kf-2CE" id="B6C-h7-4wX"/>
+                <outlet property="btnSeconds" destination="tjh-U3-OZ0" id="FVt-05-ecr"/>
+                <outlet property="lblTrackDuration" destination="AJ4-yg-yPi" id="iYo-V4-chO"/>
+                <outlet property="lblTrackName" destination="lFq-4b-uNc" id="mG7-ve-AlA"/>
+                <outlet property="percentageFormatter" destination="Hhe-p9-9Po" id="w1F-rZ-oIr"/>
+                <outlet property="percentageStepper" destination="z4K-3J-0YE" id="nvE-bt-aiG"/>
+                <outlet property="secondsFormatter" destination="4cF-sk-vOX" id="kPW-lG-xly"/>
+                <outlet property="secondsStepper" destination="6ax-Th-RzZ" id="aN1-Bc-47q"/>
+                <outlet property="timePicker" destination="kCD-rB-Irb" id="WWT-2J-RaU"/>
+                <outlet property="txtPercentage" destination="bKl-ML-6tY" id="VIY-aY-ysO"/>
+                <outlet property="txtSeconds" destination="HNY-Qz-qEX" id="WJW-zX-hHS"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="uPa-rW-QS5"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" releasedWhenClosed="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="QvC-M9-y7g" customClass="NoTitleBarPanel" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="503" height="238"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="503" height="238"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ez-NN-0r7" userLabel="Title">
+                        <rect key="frame" x="167" y="210" width="170" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Jump to time" id="cWx-76-qvN">
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="t8l-lj-tHY" userLabel="Container">
+                        <rect key="frame" x="15" y="35" width="474" height="172"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="06q-Hd-4Ed">
+                            <rect key="frame" x="0.0" y="0.0" width="474" height="172"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lFq-4b-uNc" userLabel="Track name label">
+                        <rect key="frame" x="30" y="172" width="456" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Track: " id="idv-Rd-amp">
+                            <font key="font" size="13" name="Play-Regular"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AJ4-yg-yPi" userLabel="Track duration label">
+                        <rect key="frame" x="30" y="147" width="423" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Duration: " id="fEB-aC-MFE">
+                            <font key="font" size="13" name="Play-Regular"/>
+                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ax-Th-RzZ" userLabel="Seconds Stepper">
+                        <rect key="frame" x="464" y="79" width="19" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="0V2-EO-Z7f"/>
+                        <connections>
+                            <action selector="secondsStepperAction:" target="-2" id="KTz-NX-bMU"/>
+                        </connections>
+                    </stepper>
+                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNY-Qz-qEX">
+                        <rect key="frame" x="384" y="81" width="79" height="22"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="gUh-FE-y7I">
+                            <font key="font" size="11" name="Play-Regular"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.99837698063380287" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="formatter" destination="4cF-sk-vOX" id="m3v-1r-8ny"/>
+                        </connections>
+                    </textField>
+                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z4K-3J-0YE" userLabel="Percentage Stepper">
+                        <rect key="frame" x="464" y="49" width="19" height="28"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="66U-LH-t3m"/>
+                        <connections>
+                            <action selector="percentageStepperAction:" target="-2" id="QW4-Eq-FHJ"/>
+                        </connections>
+                    </stepper>
+                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bKl-ML-6tY" userLabel="Txt Percentage">
+                        <rect key="frame" x="384" y="51" width="79" height="22"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="yVC-us-AYd">
+                            <font key="font" size="11" name="Play-Regular"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.998872139084507" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="formatter" destination="Hhe-p9-9Po" id="lbk-U8-rT1"/>
+                        </connections>
+                    </textField>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CIM-bh-nWy" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="114" width="332" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Specify as hh : mm : ss" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="VVM-Lh-AVg">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="11" name="Play-Regular"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="radioButtonAction:" target="-2" id="bPs-ep-gsc"/>
+                        </connections>
+                    </button>
+                    <datePicker focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCD-rB-Irb" customClass="IntervalPicker" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="382" y="112" width="102" height="25"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <datePickerCell key="cell" borderStyle="bezel" focusRingType="none" alignment="left" id="uIU-K7-56K">
+                            <font key="font" metaFont="system"/>
+                            <date key="date" timeIntervalSinceReferenceDate="-595929600">
+                                <!--1982-02-12 16:00:00 +0000-->
+                            </date>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <datePickerElements key="datePickerElements" hour="YES" minute="YES" second="YES"/>
+                        </datePickerCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="maxInterval">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </datePicker>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tjh-U3-OZ0" userLabel="Btn Seconds" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="83" width="332" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Specify as seconds" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="d11-HD-X6l">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="11" name="Play-Regular"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="radioButtonAction:" target="-2" id="IoP-tA-rWl"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yfX-Kf-2CE" userLabel="Btn Percentage" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="52" width="302" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="Specify as percentage of track duration" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="Xgq-UO-7Vg">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" size="11" name="Play-Regular"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="radioButtonAction:" target="-2" id="wad-FP-MBq"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dAs-dP-ZEP" userLabel="Ok button">
+                        <rect key="frame" x="364" y="7" width="55" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Ok" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1yU-HB-dD3" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="okAction:" target="-2" id="lxq-59-2gn"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zy-QO-mYL" userLabel="Cancel button">
+                        <rect key="frame" x="426" y="7" width="63" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bHi-2R-R0B" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelAction:" target="-2" id="Feu-BH-a1t"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.15011160714285715" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="146.5" y="116"/>
+        </window>
+        <customFormatter id="4cF-sk-vOX" customClass="DoubleValueFormatter" customModule="Aural" customModuleProvider="target"/>
+        <customFormatter id="Hhe-p9-9Po" userLabel="Percentage Formatter" customClass="DoubleValueFormatter" customModule="Aural" customModuleProvider="target"/>
+    </objects>
+</document>

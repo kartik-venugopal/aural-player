@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ColorSchemesWindowController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnRedo" destination="63Z-HH-Hrj" id="utr-r7-ioo"/>
+                <outlet property="btnRedoAll" destination="GOE-V5-FTX" id="sUY-d1-hmb"/>
+                <outlet property="btnSave" destination="MUl-jB-2L2" id="Sxn-8P-aXB"/>
+                <outlet property="btnUndo" destination="wMK-VB-9mI" id="Vay-wV-r3E"/>
+                <outlet property="btnUndoAll" destination="c1x-IR-t1N" id="gjM-DS-WQw"/>
+                <outlet property="clipboardColorViewer" destination="Vbt-wD-yHi" id="dQ8-0g-Gia"/>
+                <outlet property="clipboardIcon" destination="fIx-Ln-dOF" id="XgV-Kl-RXo"/>
+                <outlet property="tabView" destination="RoW-as-iiX" id="Ojx-ql-h92"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="4TI-KA-rcz"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="QvC-M9-y7g" customClass="NoTitleBarPanel" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="480" height="412"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="412"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button toolTip="Redo last change" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="63Z-HH-Hrj" userLabel="Save">
+                        <rect key="frame" x="301" y="36" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Redo" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="OhN-CX-YqV">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">Z</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="redoLastChangeAction:" target="-2" id="Kwf-8Y-vRN"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Undo last change" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wMK-VB-9mI" userLabel="Save">
+                        <rect key="frame" x="269" y="36" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Undo" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="zA2-Uf-3q5">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">z</string>
+                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="undoLastChangeAction:" target="-2" id="l6H-vG-baf"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Undo all changes" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c1x-IR-t1N" userLabel="Save">
+                        <rect key="frame" x="237" y="36" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="UndoAll" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ysx-Ap-Vho">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">z</string>
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="undoAllChangesAction:" target="-2" id="OBu-f9-G2u"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Redo all changes" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOE-V5-FTX" userLabel="Save">
+                        <rect key="frame" x="332" y="36" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RedoAll" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="W0H-qy-Bfq">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent">Z</string>
+                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="redoAllChangesAction:" target="-2" id="65M-rJ-qj0"/>
+                        </connections>
+                    </button>
+                    <popUpButton toolTip="Load color scheme" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n3N-y5-Sxg" userLabel="Presets Menu">
+                        <rect key="frame" x="130" y="35" width="35" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="5lu-BT-xYZ">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="11" name="Play-Regular"/>
+                            <menu key="menu" showsStateColumn="NO" id="7Xj-qr-pKQ">
+                                <items>
+                                    <menuItem image="LoadScheme" hidden="YES" id="kg9-ic-jom">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="Cug-sQ-QPX"/>
+                                    <menuItem title="Black attack (default)" indentationLevel="1" id="xB0-xT-CB3">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="9uf-fH-zdN"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Black &amp; aqua" indentationLevel="1" id="o1p-ea-4Dw">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="gzT-Yd-2oi"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="White blight" indentationLevel="1" id="LSM-ny-IFJ">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="zXH-HU-Nnw"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Gloomy day" indentationLevel="1" id="Vpi-Xq-CLe">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="fsL-3V-jMm"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Brownie" indentationLevel="1" id="kdj-Tp-AWC">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="IBj-gS-eNk"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="The blues" indentationLevel="1" id="Dyg-PN-2k1">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="applySchemeAction:" target="-2" id="cVX-2a-l5k"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem isSeparatorItem="YES" id="xpY-pX-kmu"/>
+                                    <menuItem title="Customize ..." indentationLevel="1" id="EHM-Fz-uz3">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="-2" id="i6Z-97-nWg"/>
+                                </connections>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vto-5b-gSA" userLabel="Done button">
+                        <rect key="frame" x="410" y="6" width="60" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="roundRect" title="Done" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VIL-LC-wPz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="doneAction:" target="-2" id="uon-Uy-VqO"/>
+                        </connections>
+                    </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0D8-Jf-NSD">
+                        <rect key="frame" x="120" y="381" width="240" height="23"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Customize color scheme" id="GnX-0i-Gy9">
+                            <font key="font" size="13" name="Play-Regular"/>
+                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="3" translatesAutoresizingMaskIntoConstraints="NO" id="mNJ-4K-PMF" userLabel="Effects tab button">
+                        <rect key="frame" x="309" y="344" width="65" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Effects" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" tag="3" imageScaling="proportionallyDown" inset="2" id="HiP-xm-s2s" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="MIV-6O-bmK" userLabel="Playlist tab button">
+                        <rect key="frame" x="242" y="344" width="65" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Playlist" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="LFL-BA-Tvt" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="zU8-ra-LLn" userLabel="Player tab button">
+                        <rect key="frame" x="175" y="344" width="65" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="Player" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="aMp-Rh-psv" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZZ-k4-49W" userLabel="General tab button">
+                        <rect key="frame" x="108" y="344" width="65" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" title="General" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="TNs-3q-275" customClass="PrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="13" name="Play-Regular"/>
+                        </buttonCell>
+                    </button>
+                    <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="kkp-lu-gUh" userLabel="Black Box">
+                        <rect key="frame" x="10" y="67" width="460" height="270"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" ambiguous="YES" id="T5t-VL-aNf">
+                            <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <tabView fixedFrame="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="RoW-as-iiX" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="10" y="67" width="460" height="270"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <tabViewItems>
+                            <tabViewItem label="General" identifier="" id="eRy-ia-DBE" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" ambiguous="YES" id="iqw-TM-gAQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="ZZZ-k4-49W" id="Iwc-bg-WJR"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Player" identifier="" id="TTI-dm-IrN" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="wdV-d8-NcF">
+                                    <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="zU8-ra-LLn" id="U9O-Sd-0N0"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Playlist" identifier="" id="ma2-R0-se4" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="wus-KC-57s">
+                                    <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="MIV-6O-bmK" id="uDZ-xF-QKQ"/>
+                                </connections>
+                            </tabViewItem>
+                            <tabViewItem label="Effects" identifier="" id="4Wa-HM-K1I" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                                <view key="view" id="lgR-54-JSy">
+                                    <rect key="frame" x="0.0" y="0.0" width="460" height="270"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <connections>
+                                    <outlet property="tabButton" destination="mNJ-4K-PMF" id="Ad4-Av-3Uf"/>
+                                </connections>
+                            </tabViewItem>
+                        </tabViewItems>
+                    </tabView>
+                    <button toolTip="Save color scheme" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUl-jB-2L2" userLabel="Save">
+                        <rect key="frame" x="171" y="36" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SaveScheme" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="lXP-Ze-8b6">
+                            <behavior key="behavior" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="saveSchemeAction:" target="-2" id="LFk-po-ruN"/>
+                        </connections>
+                    </button>
+                    <imageView toolTip="Color clipboard" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fIx-Ln-dOF">
+                        <rect key="frame" x="10" y="36" width="16" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Clipboard" id="iMM-ga-hYe"/>
+                    </imageView>
+                    <colorWell fixedFrame="YES" bordered="NO" continuous="NO" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbt-wD-yHi">
+                        <rect key="frame" x="32" y="36" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <color key="color" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    </colorWell>
+                </subviews>
+            </view>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" red="0.20790155440414504" green="0.20790155440414504" blue="0.20790155440414504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="-368.5" y="-81"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="Clipboard" width="20" height="26"/>
+        <image name="LoadScheme" width="40" height="40"/>
+        <image name="Redo" width="28" height="26"/>
+        <image name="RedoAll" width="28" height="26"/>
+        <image name="SaveScheme" width="40" height="40"/>
+        <image name="Undo" width="28" height="26"/>
+        <image name="UndoAll" width="28" height="26"/>
+    </resources>
+</document>

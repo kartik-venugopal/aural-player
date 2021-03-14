@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD:Aural/ViewPreferences.xib
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+=======
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+>>>>>>> upstream/master:Source/UI/Preferences/View/ViewPreferences.xib
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ViewPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnRememberLayout" destination="0OY-If-fJy" id="8JR-ob-MFf"/>
+                <outlet property="btnSnapToScreen" destination="lLF-UP-XoA" id="GbA-xi-isP"/>
+                <outlet property="btnSnapToWindows" destination="DUF-2F-cuz" id="lRt-Qo-CT3"/>
+                <outlet property="btnStartWithLayout" destination="hdt-N9-waq" id="4Fs-Yd-HiW"/>
+                <outlet property="gapStepper" destination="JM6-3k-x8N" id="QeI-Qi-F1T"/>
+                <outlet property="layoutMenu" destination="wN2-oO-Gzv" id="FdY-cu-I8R"/>
+                <outlet property="lblWindowGap" destination="raN-A4-2KT" id="rJW-kh-qoM"/>
+                <outlet property="view" destination="YPU-Wt-2pN" id="oYL-9k-17W"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="YPU-Wt-2pN">
+            <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txW-fU-bK2">
+                    <rect key="frame" x="18" y="437" width="132" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+<<<<<<< HEAD:Aural/ViewPreferences.xib
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Layout on startup" id="5uG-hC-9lX">
+                        <font key="font" size="13" name="GillSans"/>
+=======
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window layout on startup" id="5uG-hC-9lX">
+                        <font key="font" size="13" name="Play-Regular"/>
+>>>>>>> upstream/master:Source/UI/Preferences/View/ViewPreferences.xib
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zby-SI-fNg">
+                    <rect key="frame" x="18" y="352" width="132" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window snapping" id="bBS-el-1Ja">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBM-JL-EGo">
+                    <rect key="frame" x="58" y="313" width="205" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gap between windows when snapped:" id="vBe-K4-yLt">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="raN-A4-2KT" userLabel="Window gap value">
+                    <rect key="frame" x="263" y="313" width="35" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="0px" id="SX5-qn-SOs">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hHp-xe-8z8">
+                            <real key="minimum" value="1"/>
+                            <real key="maximum" value="25"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JM6-3k-x8N" userLabel="Window gap Stepper">
+                    <rect key="frame" x="299" y="311" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="25" id="HkQ-J3-crQ"/>
+                    <connections>
+                        <action selector="gapStepperAction:" target="-2" id="a7r-8V-9r5"/>
+                    </connections>
+                </stepper>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0OY-If-fJy" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="415" width="257" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Remember layout from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="yVZ-3R-cMA">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="layoutOnStartupAction:" target="-2" id="nNC-a8-buR"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdt-N9-waq" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="396" width="120" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Start with layout" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tmX-cu-lWD">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="layoutOnStartupAction:" target="-2" id="18P-bW-te1"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wN2-oO-Gzv" userLabel="Layout menu">
+                    <rect key="frame" x="153" y="393" width="244" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Vertical full stack" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Lj0-KC-S5W" id="yjs-vf-m0v" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="Play-Regular"/>
+                        <menu key="menu" id="GnZ-Qv-mhw">
+                            <items>
+                                <menuItem isSeparatorItem="YES" id="S01-E3-jEi"/>
+                                <menuItem title="Vertical full stack" state="on" id="Lj0-KC-S5W">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Horizontal full stack" id="fd3-gj-oR7">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Big bottom playlist" id="UZ9-kw-ENY">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Big right playlist" id="bxa-FD-xdj">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Big left playlist" id="CT0-FJ-ipY">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Vertical player and playlist" id="Rmg-vW-RCF">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Horizontal player and playlist" id="ck3-0Y-msZ">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Compact cornered" id="H9U-RE-9QO">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DUF-2F-cuz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="38" y="330" width="239" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Snap app windows to each other" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zcX-Xj-qB5">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="snapToWindowsAction:" target="-2" id="7Cp-Kl-iCT"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-UP-XoA" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="38" y="293" width="323" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Snap app windows to screen corners and edges" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9Tk-y7-Lp0">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="139" y="168.5"/>
+        </view>
+    </objects>
+</document>

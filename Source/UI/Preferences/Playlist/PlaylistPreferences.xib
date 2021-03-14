@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD:Aural/PlaylistPreferences.xib
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+=======
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferences.xib
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlaylistPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBrowseFile" destination="VWX-kR-DXZ" id="dOI-LQ-gEO"/>
+                <outlet property="btnBrowseFolder" destination="HM3-o3-TvO" id="q9A-3G-ljB"/>
+                <outlet property="btnEmptyPlaylist" destination="9oU-XJ-Z4W" id="Ymp-E9-jNY"/>
+                <outlet property="btnLoadPlaylistFromFile" destination="Dce-Nd-jp7" id="mbr-tQ-mvR"/>
+                <outlet property="btnLoadTracksFromFolder" destination="ukb-oo-Yli" id="h0L-4L-rua"/>
+                <outlet property="btnRememberPlaylist" destination="11g-RD-mFQ" id="Jvo-mq-jSV"/>
+<<<<<<< HEAD:Aural/PlaylistPreferences.xib
+=======
+                <outlet property="btnRememberView" destination="DHW-Fc-HiE" id="hwQ-gQ-FVQ"/>
+                <outlet property="btnShowChaptersList" destination="rqK-Fk-tAG" id="gbN-4E-lgT"/>
+                <outlet property="btnShowNewTrack" destination="ZPD-DH-Z3O" id="dPa-C9-pPx"/>
+                <outlet property="btnStartWithView" destination="j2w-iX-ltq" id="TE7-yX-6Yv"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferences.xib
+                <outlet property="errorIcon_1" destination="1jP-hB-Fpl" id="RcR-o3-Uct"/>
+                <outlet property="errorIcon_2" destination="SBp-tz-E9v" id="I3V-8P-cQK"/>
+                <outlet property="lblFolder" destination="KwB-rp-fIz" id="rbu-rD-Gpd"/>
+                <outlet property="lblFolderCell" destination="sOq-4p-ng8" id="Xl9-Em-opt"/>
+                <outlet property="lblPlaylistFile" destination="8OE-My-Cyn" id="dsl-Y4-5sy"/>
+                <outlet property="lblPlaylistFileCell" destination="1T9-ny-RtV" id="b87-RR-nF1"/>
+                <outlet property="view" destination="zze-eD-Eei" id="ldu-Q2-8Jq"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="zze-eD-Eei">
+            <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZn-N7-le7">
+<<<<<<< HEAD:Aural/PlaylistPreferences.xib
+                    <rect key="frame" x="18" y="437" width="92" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="On app startup" id="4VF-3R-sOZ">
+                        <font key="font" size="13" name="GillSans"/>
+=======
+                    <rect key="frame" x="18" y="437" width="290" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist (tracks) loaded on app startup" id="4VF-3R-sOZ">
+                        <font key="font" size="13" name="Play-Regular"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferences.xib
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11g-RD-mFQ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="408" width="326" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Remember playlist from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Zct-47-a9y">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="startupPlaylistPrefAction:" target="-2" id="KSB-Jx-Ejw"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9oU-XJ-Z4W" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="383" width="173" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Start with empty playlist" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1Ce-7p-oC9">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="startupPlaylistPrefAction:" target="-2" id="Git-bs-9rv"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dce-Nd-jp7" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="358" width="162" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Load playlist from file:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="jeQ-w2-omU">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="startupPlaylistPrefAction:" target="-2" id="dyM-HN-Brs"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VWX-kR-DXZ" userLabel="Btn Browse">
+                    <rect key="frame" x="189" y="360" width="71" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Browse" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2nI-oE-df4" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="choosePlaylistFileAction:" target="-2" id="XDr-xW-QWD"/>
+                    </connections>
+                </button>
+                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1jP-hB-Fpl" userLabel="Error icon">
+                    <rect key="frame" x="620" y="362" width="14" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="VX8-Wb-T9Q"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8OE-My-Cyn">
+                    <rect key="frame" x="276" y="356" width="342" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="1T9-ny-RtV" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="12" name="Play-Regular"/>
+                        <color key="textColor" white="0.70315212673611116" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="9qD-58-eIf"/>
+                    </connections>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ukb-oo-Yli" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="333" width="162" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Load tracks from folder:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="ds5-bi-2RV">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="startupPlaylistPrefAction:" target="-2" id="ihJ-oe-WGK"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HM3-o3-TvO" userLabel="Btn Browse">
+                    <rect key="frame" x="189" y="333" width="71" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Browse" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jST-iR-KfV" customClass="ModalDialogSmallControlButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="chooseTracksFolderAction:" target="-2" id="FMy-Nu-fb1"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KwB-rp-fIz">
+                    <rect key="frame" x="276" y="331" width="342" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingHead" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" alignment="left" id="sOq-4p-ng8" customClass="ValidatedLabelCell" customModule="Aural" customModuleProvider="target">
+                        <font key="font" size="12" name="Play-Regular"/>
+                        <color key="textColor" white="0.70315212670000005" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SBp-tz-E9v" userLabel="Error icon">
+                    <rect key="frame" x="620" y="337" width="14" height="14"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="RNZ-pb-dOQ"/>
+                </imageView>
+<<<<<<< HEAD:Aural/PlaylistPreferences.xib
+=======
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70B-eh-HPI">
+                    <rect key="frame" x="18" y="287" width="203" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist view on app startup" id="tED-55-r9S">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHW-Fc-HiE" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="260" width="289" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Remember view from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="00R-q2-d2L">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="startupPlaylistViewPrefAction:" target="-2" id="3DC-9G-DSb"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2w-iX-ltq" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="236" width="128" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Start with view" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="a1O-Lq-CPe">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="startupPlaylistViewPrefAction:" target="-2" id="tvC-pl-vYY"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NTZ-F2-xeR" userLabel="Layout menu">
+                    <rect key="frame" x="148" y="233" width="126" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Tracks" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="QyX-vt-frc" id="tbo-4R-4mK" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="Play-Regular"/>
+                        <menu key="menu" id="3Dq-9F-FuL">
+                            <items>
+                                <menuItem title="Tracks" state="on" id="QyX-vt-frc">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Artists" id="zie-Yh-o6o">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Albums" id="T6b-xa-Gsj">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Genres" id="Ie8-lc-4Ly">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqK-Fk-tAG" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="29" y="147" width="366" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Show chapters list window (if track has chapters)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="03P-Ux-pSb">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoP-tM-ocT">
+                    <rect key="frame" x="18" y="192" width="186" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When a track begins playing" id="gaO-Wu-yJz">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZPD-DH-Z3O" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="29" y="168" width="387" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Select and show it within the playlist (if playlist is visible)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="f6D-zw-2Xt">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                </button>
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferences.xib
+            </subviews>
+            <point key="canvasLocation" x="139" y="168"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Error" width="77" height="77"/>
+    </resources>
+</document>

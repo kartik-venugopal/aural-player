@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="TracksPlaylistSortViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="sortAscending" destination="PXo-W8-kP4" id="ska-TL-ffn"/>
+                <outlet property="sortByAlbum_andDiscTrack" destination="1Nt-40-zDw" id="ajm-EV-JlQ"/>
+                <outlet property="sortByAlbum_andName" destination="nKk-OI-hzO" id="as6-Hq-RBI"/>
+                <outlet property="sortByArtist_andAlbum_andDiscTrack" destination="kPu-9B-wut" id="D7n-Md-Sp5"/>
+                <outlet property="sortByArtist_andAlbum_andName" destination="QyC-7M-Haa" id="f14-cD-5XN"/>
+                <outlet property="sortByArtist_andName" destination="prG-Ta-awt" id="Xdd-bd-p58"/>
+                <outlet property="sortByDuration" destination="5T7-HI-9IB" id="Dx5-tc-jeV"/>
+                <outlet property="sortByName" destination="4h7-9u-fEr" id="UrM-1v-ETY"/>
+                <outlet property="sortDescending" destination="frU-1J-3pO" id="wAz-CQ-ecg"/>
+                <outlet property="useTrackNameIfNoMetadata" destination="Nsu-zj-GeW" id="rHH-0A-Cwe"/>
+                <outlet property="view" destination="AOI-TI-lI5" id="Oo7-S5-R0a"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view wantsLayer="YES" id="AOI-TI-lI5" userLabel="Tracks Sort View">
+            <rect key="frame" x="0.0" y="0.0" width="500" height="330"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nsu-zj-GeW" userLabel="Duration field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="14" y="74" width="390" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Use track name for tracks without artist / album metadata" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="KIN-48-bN1">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="sortFieldsAction:" target="-2" id="FNr-nU-yY4"/>
+                    </connections>
+                </button>
+                <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1s6-6N-q5M" userLabel="Sort fields box">
+                    <rect key="frame" x="1" y="104" width="263" height="226"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="fyO-GN-oyJ">
+                        <rect key="frame" x="3" y="3" width="257" height="220"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6aB-VV-8jy">
+                                <rect key="frame" x="10" y="190" width="127" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sort tracks by:" id="CPv-Wm-SfH">
+                                    <font key="font" size="12" name="Play-Regular"/>
+                                    <color key="textColor" white="0.70290798610000005" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4h7-9u-fEr" userLabel="Name field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="20" y="163" width="90" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="k0M-nU-gQg">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortFieldsAction:" target="-2" id="Ote-ST-YA9"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="prG-Ta-awt" userLabel="Artist and track name" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="20" y="97" width="132" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Artist and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="2Kd-oc-wjw">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortFieldsAction:" target="-2" id="g3v-OC-Ypi"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kPu-9B-wut" userLabel="Artist, album, and disc/track" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="20" y="136" width="190" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Artist,  Album, and Disc# / Track#" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="2bp-xt-AWt">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortFieldsAction:" target="-2" id="8Ss-SZ-Khv"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QyC-7M-Haa" userLabel="Artist, album, and disc/track" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="20" y="116" width="190" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Artist,  Album, and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="ETR-Ws-5tg">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortFieldsAction:" target="-2" id="0GA-Yl-w0m"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nKk-OI-hzO" userLabel="Album and track name" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="20" y="45" width="132" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Album and Track name" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="aFX-15-9xS">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortFieldsAction:" target="-2" id="hOX-ZM-Wui"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Nt-40-zDw" userLabel="Album and disc/track" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="20" y="65" width="190" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Album and Disc# / Track#" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="SlU-o7-9J1">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortFieldsAction:" target="-2" id="2og-oE-WA0"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5T7-HI-9IB" userLabel="Duration field" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="20" y="14" width="90" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Duration" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="2kf-HL-wrI">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortFieldsAction:" target="-2" id="BGx-em-lL3"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                </box>
+                <box fixedFrame="YES" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jJP-Gy-sh0" userLabel="Sort order box">
+                    <rect key="frame" x="281" y="236" width="127" height="85"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="QfR-e9-mgF">
+                        <rect key="frame" x="3" y="3" width="121" height="79"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BC8-nh-xge" userLabel="Sort Order:">
+                                <rect key="frame" x="0.0" y="59" width="94" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Order:" id="fvD-FR-zOt">
+                                    <font key="font" size="12" name="Play-Regular"/>
+                                    <color key="textColor" white="0.70290798610000005" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PXo-W8-kP4" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="33" width="112" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Ascending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="0XI-WM-x4r">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortOrderAction:" target="-2" id="iux-Be-7eY"/>
+                                </connections>
+                            </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="frU-1J-3pO" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="10" y="14" width="112" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="Descending" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="IBa-Eu-CxB">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" size="11" name="Play-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="sortOrderAction:" target="-2" id="C3f-vw-Pia"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </view>
+                </box>
+            </subviews>
+            <point key="canvasLocation" x="167" y="190"/>
+        </view>
+    </objects>
+</document>
