@@ -1,2 +1,4 @@
 swift package init --type library
 swift package generate-xcodeproj
+swift build -v
+
