@@ -70,7 +70,8 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext else {
 
-            NSLog("FFmpegScheduler.playTrack() - Unable to play track \(session.track.displayName) because it has no playback context.")
+            // This should NEVER happen. If it does, it indicates a bug (track was not prepared for playback).
+            NSLog("Unable to play track \(session.track.displayName) because it has no playback context.")
             return
         }
         
@@ -83,7 +84,10 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             playerNode.play()
             
         } else {
-            NSLog("FFmpegScheduler.playTrack() - scheduledBufferCount = \(scheduledBufferCounts[session]?.value), WARNING: No buffers scheduled for track \(session.track.displayName) ... cannot begin playback.")
+            
+            // This should NEVER happen. If it does, it indicates a bug (some kind of race condition)
+            // or that something's wrong with the file.
+            NSLog("WARNING: No buffers scheduled for track \(session.track.displayName) ... cannot begin playback.")
         }
     }
     
@@ -132,7 +136,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             
         } catch {
             
-            NSLog("FFmpegScheduler.initiateDecodingAndScheduling() - Decoder threw error: \(error) while seeking to position \(seekPosition ?? 0) for track \(session.track.displayName) ... cannot initiate scheduling.")
+            NSLog("Decoder threw error: \(error) while seeking to position \(seekPosition ?? 0) for track \(session.track.displayName) ... cannot initiate scheduling.")
         }
     }
     
@@ -151,11 +155,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     func decodeAndScheduleOneBufferAsync(for session: PlaybackSession, maxSampleCount: Int32) {
         
-        if eof {
-            
-            NSLog("FFmpegScheduler.decodeAndScheduleOneBufferAsync() - Reached EOF while scheduling for track \(session.track.displayName) ... cannot continue scheduling.")
-            return
-        }
+        if eof {return}
         
         self.schedulingOpQueue.addOperation {
             self.decodeAndScheduleOneBuffer(for: session, immediatePlayback: false, maxSampleCount: maxSampleCount)
@@ -185,11 +185,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     func decodeAndScheduleOneBuffer(for session: PlaybackSession, from seekPosition: Double? = nil, immediatePlayback: Bool, maxSampleCount: Int32) {
         
-        if eof {
-            
-            NSLog("FFmpegScheduler.decodeAndScheduleOneBuffer() - Reached EOF while scheduling for track \(session.track.displayName) ... cannot continue scheduling.")
-            return
-        }
+        if eof {return}
         
         // Ask the decoder to decode up to the given number of samples.
         let frameBuffer: FFmpegFrameBuffer = decoder.decode(maxSampleCount: maxSampleCount)
@@ -219,14 +215,10 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
 
             // Upon scheduling the buffer, increment the counter.
             scheduledBufferCounts[session]?.increment()
-            
-            NSLog("FFmpegScheduler.decodeAndScheduleOneBuffer() - scheduledBufferCount = \(scheduledBufferCounts[session]?.value) for track \(session.track.displayName) ")
         }
     }
     
     func bufferCompleted(_ session: PlaybackSession) {
-        
-        NSLog("FFmpegScheduler.bufferCompleted() - scheduledBufferCount = \(scheduledBufferCounts[session]?.value) for track \(session.track.displayName) ")
         
         // If the buffer-associated session is not the same as the current session
         // (possible if stop() was called, eg. old buffers that complete when seeking), don't do anything.

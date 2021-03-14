@@ -156,11 +156,14 @@ class ObjectGraph {
         
         fft = FFT()
         
-        tearDownOpQueue.addOperation {
+        DispatchQueue.global(qos: .background).async {
             cleanUpTranscoderFolders()
         }
     }
     
+    ///
+    /// Clean up (delete) file system folders that were used by previous app versions that had the transcoder.
+    ///
     private static func cleanUpTranscoderFolders() {
         
         let transcoderDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("transcoderStore", isDirectory: true)

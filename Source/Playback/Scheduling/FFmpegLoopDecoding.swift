@@ -7,19 +7,20 @@ extension FFmpegDecoder {
     
     ///
     /// Decodes up to a given maximum number of samples, stopping at the loop end time if it is reached while decoding.
-    /// Returns a frame buffer containing the decoded samples.
+    ///
+    /// - Parameter maxSampleCount: Maximum number of samples to be decoded. When this limit is reached, decoding will end.
+    ///
+    /// - Parameter loopEndTime: The end time of the segment loop, in seconds. This is the terminal point (timestamp) at which decoding will end.
+    ///
+    /// - returns: a frame buffer containing the decoded samples, ready to be scheduled for playback.
     ///
     func decodeLoop(maxSampleCount: Int32, loopEndTime: Double) -> FFmpegFrameBuffer {
-        
-//        print("decodeLoop(): maxSampleCount = \(maxSampleCount), loopEndTime = \(loopEndTime)")
         
         let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount,
                                                                channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
         
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)
-        
-        let sampleRate = Double(codec.sampleRate)
         
         // Keep decoding as long as EOF is not reached.
         while !eof {
@@ -33,7 +34,7 @@ extension FFmpegDecoder {
                     
                     // Have reached the end of the loop, need to truncate this frame so that
                     // no samples after loopEndTime are scheduled.
-
+                    let sampleRate = Double(codec.sampleRate)
                     let truncatedSampleCount = Int32((loopEndTime - frame.startTimestampSeconds) * sampleRate)
                     
                     // Truncate frame, append it to the frame buffer, and break from loop
@@ -65,12 +66,12 @@ extension FFmpegDecoder {
                 self.eof = packetReadError.isEOF
                 
                 // If the error is something other than EOF, it either indicates a real problem or simply that there was one bad packet. Log the error.
-                if !eof {print("\nPacket read error:", packetReadError)}
+                if !eof {NSLog("Packet read error while reading track \(fileCtx.filePath) : \(packetReadError)")}
                 
             } catch {
                 
                 // This either indicates a real problem or simply that there was one bad packet. Log the error.
-                print("\nDecoder error:", error)
+                NSLog("Decoder error while reading track \(fileCtx.filePath) : \(error)")
             }
         }
         
@@ -93,7 +94,7 @@ extension FFmpegDecoder {
                 terminalFrames.append(contentsOf: drainFrames.frames)
                 
             } catch {
-                print("\nDecoder drain error:", error)
+                NSLog("Decoder drain error while reading track \(fileCtx.filePath): \(error)")
             }
             
             // Append these terminal frames to the frame buffer (the frame buffer cannot reject terminal frames).
