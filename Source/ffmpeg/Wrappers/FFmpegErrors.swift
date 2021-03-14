@@ -107,8 +107,3 @@ class CodecInitializationError: Error {
         self.description = description
     }
 }
-
-class NoAudioStreamError: Error {
-    
-    let description = "No audio stream found in file."
-}

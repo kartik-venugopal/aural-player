@@ -58,14 +58,14 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
         let codec = decoder.codec
         
         let sampleRate: Int32 = codec.sampleRate
-        self.sampleRate = Double(sampleRate)
-        
-        if let audioStream = fileContext.bestAudioStream {
-            self.frameCount = Int64(Double(audioStream.sampleRate) * fileContext.duration)
-        }
+        let sampleRateDouble: Double = Double(sampleRate)
+
+        self.sampleRate = sampleRateDouble
+        self.frameCount = Int64(sampleRateDouble * fileContext.duration)
         
         let channelLayout: AVAudioChannelLayout = FFmpegChannelLayoutsMapper.mapLayout(ffmpegLayout: Int(codec.channelLayout)) ?? .stereo
-        self.audioFormat = AVAudioFormat(standardFormatWithSampleRate: Double(sampleRate), channelLayout: channelLayout)
+        
+        self.audioFormat = AVAudioFormat(standardFormatWithSampleRate: sampleRateDouble, channelLayout: channelLayout)
 
         // The effective sample rate, which also takes into account the channel count, gives us a better idea
         // of the computational cost of decoding and resampling the given file, as opposed to just the

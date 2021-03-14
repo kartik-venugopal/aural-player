@@ -445,7 +445,6 @@
 		3E6C132925CEBEA000BF0D07 /* ConcurrentCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C225CEB98700BF0D07 /* ConcurrentCollections.swift */; };
 		3E6C132A25CEBEA000BF0D07 /* IndexSetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CD25CEB98700BF0D07 /* IndexSetExtensions.swift */; };
 		3E6C132B25CEBEA000BF0D07 /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D525CEB98700BF0D07 /* ConcurrencyUtils.swift */; };
-		3E6C132E25CEBEA000BF0D07 /* AudioUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C625CEB98700BF0D07 /* AudioUtils.swift */; };
 		3E6C133025CEBEA000BF0D07 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BE25CEB98700BF0D07 /* MathUtils.swift */; };
 		3E6C133325CEBEA000BF0D07 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C025CEB98700BF0D07 /* Stack.swift */; };
 		3E6C133425CEBEA000BF0D07 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C425CEB98700BF0D07 /* StateMachine.swift */; };
@@ -940,7 +939,6 @@
 		3E6C10C325CEB98700BF0D07 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		3E6C10C425CEB98700BF0D07 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		3E6C10C525CEB98700BF0D07 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
-		3E6C10C625CEB98700BF0D07 /* AudioUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUtils.swift; sourceTree = "<group>"; };
 		3E6C10C725CEB98700BF0D07 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
 		3E6C10CA25CEB98700BF0D07 /* AVAudioExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioExtensions.swift; sourceTree = "<group>"; };
@@ -2344,7 +2342,6 @@
 				3E6C10BF25CEB98700BF0D07 /* DataStructures */,
 				3E6C10C425CEB98700BF0D07 /* StateMachine.swift */,
 				3E6C10C525CEB98700BF0D07 /* StringUtils.swift */,
-				3E6C10C625CEB98700BF0D07 /* AudioUtils.swift */,
 				3E6C10C725CEB98700BF0D07 /* DateUtils.swift */,
 				3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */,
 				3E6C10C925CEB98700BF0D07 /* Extensions */,
@@ -3506,7 +3503,6 @@
 				3E6C116625CEBD6000BF0D07 /* TimePresets.swift in Sources */,
 				3E6C120D25CEBDD100BF0D07 /* Recorder.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
-				3E6C132E25CEBEA000BF0D07 /* AudioUtils.swift in Sources */,
 				3E6C11F825CEBDD100BF0D07 /* RecordingFormat.swift in Sources */,
 				3E6C123225CEBDF400BF0D07 /* TracksPlaylistSortViewController.swift in Sources */,
 				3E6C12D625CEBE8100BF0D07 /* FilterViewController.swift in Sources */,

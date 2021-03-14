@@ -1,7 +1,7 @@
 import Foundation
 
 ///
-/// A Codec that decodes (encoded) audio data packets into raw (PCM) frames.
+/// Encapsulates an ffmpeg audio codec that decodes audio data packets into raw (PCM) frames.
 ///
 class FFmpegAudioCodec: FFmpegCodec {
     

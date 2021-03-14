@@ -121,10 +121,7 @@ struct FFmpegChannelLayoutsMapper {
     static func mapLayout(ffmpegLayout: Int) -> AVAudioChannelLayout? {
         
         if let layoutTag = layoutsMap[ffmpegLayout] {
-         
-            // NOTE - It's safe to force unwrap the optional AVAudioChannelLayout
-            // because we are using only valid pre-defined channel layout tags.
-            return AVAudioChannelLayout(layoutTag: layoutTag)!
+            return AVAudioChannelLayout(layoutTag: layoutTag)
         }
         
         return nil

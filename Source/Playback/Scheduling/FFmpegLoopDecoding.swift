@@ -29,7 +29,7 @@ extension FFmpegDecoder {
                 // Try to obtain a single decoded frame.
                 let frame = try nextFrame()
                 
-                if loopEndTime < frame.endTimestampSeconds {
+                if frame.endTimestampSeconds > loopEndTime {
                     
                     // Have reached the end of the loop, need to truncate this frame so that
                     // no samples after loopEndTime are scheduled.
@@ -103,6 +103,9 @@ extension FFmpegDecoder {
         return buffer
     }
     
+    ///
+    /// Resets all loop-related state, in response to a loop either being completed or being removed.
+    ///
     func loopCompleted() {
         self.endOfLoop.setValue(false)
     }

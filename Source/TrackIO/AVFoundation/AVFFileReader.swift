@@ -223,22 +223,7 @@ class AVFFileReader: FileReaderProtocol {
     ]
     
     private func getFormat(_ assetTrack: AVAssetTrack) -> String {
-
-        let description = CMFormatDescriptionGetMediaSubType(assetTrack.formatDescriptions.first as! CMFormatDescription)
-        return codeToString(description).trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
-    }
-
-    // Converts a four character media type code to a readable string
-    private func codeToString(_ code: FourCharCode) -> String {
-
-        let numericCode = Int(code)
-
-        var codeString: String = String (describing: UnicodeScalar((numericCode >> 24) & 255)!)
-        codeString.append(String(describing: UnicodeScalar((numericCode >> 16) & 255)!))
-        codeString.append(String(describing: UnicodeScalar((numericCode >> 8) & 255)!))
-        codeString.append(String(describing: UnicodeScalar(numericCode & 255)!))
-
-        return codeString.trimmingCharacters(in: CharacterSet.whitespaces)
+        return assetTrack.format4CharString.trimmingCharacters(in: CharacterSet.init(charactersIn: "."))
     }
     
     // Reads all chapter metadata for a given track
