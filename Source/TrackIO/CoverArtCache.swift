@@ -10,8 +10,6 @@ class CoverArtCache {
     private static var cache: ConcurrentMap<URL, CoverArt> = ConcurrentMap<URL, CoverArt>()
     private static var filesWithNoArt: ConcurrentSet<URL> = ConcurrentSet<URL>()
     
-    // TODO: Clean out albumArt store (filesystem folder) in aural directory for newer app version users.
-    
     static func forFile(_ file: URL) -> (fileHasNoArt: Bool, art: CoverArt?)? {
         
         if filesWithNoArt.contains(file) || cache.hasForKey(file) {

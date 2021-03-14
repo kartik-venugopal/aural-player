@@ -42,8 +42,40 @@ class FileSystemUtils {
         }
     }
     
+    // Deletes a directory, after first deleting its contents.
+    static func deleteDir(_ dir: URL) {
+        
+        do {
+            
+            // Retrieve all files/subfolders within this directory.
+            let contents = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions())
+            
+            // Delete directory contents
+            for file in contents {
+                try fileManager.removeItem(atPath: file.path)
+            }
+            
+            // Delete the directory itself
+            try fileManager.removeItem(atPath: dir.path)
+            
+        } catch let error as NSError {
+            NSLog("Error deleting file '%@': %@", dir.path, error.description)
+        }
+    }
+    
+    // Deletes a file
+    static func deleteFile(_ file: URL) {
+        
+        do {
+            try fileManager.removeItem(atPath: file.path)
+        } catch let error as NSError {
+            NSLog("Error deleting file '%@': %@", file.path, error.description)
+        }
+    }
+    
     // Deletes a file
     static func deleteFile(_ path: String) {
+        
         do {
             try fileManager.removeItem(atPath: path)
         } catch let error as NSError {
@@ -55,6 +87,7 @@ class FileSystemUtils {
     static func deleteContentsOfDirectory(_ dir: URL) {
         
         do {
+            
             // Retrieve all files/subfolders within this folder
             let contents = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions())
             

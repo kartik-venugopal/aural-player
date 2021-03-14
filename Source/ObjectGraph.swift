@@ -155,6 +155,21 @@ class ObjectGraph {
         VisualizerViewState.initialize(appState.ui.visualizer)
         
         fft = FFT()
+        
+        tearDownOpQueue.addOperation {
+            cleanUpTranscoderFolders()
+        }
+    }
+    
+    private static func cleanUpTranscoderFolders() {
+        
+        let transcoderDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("transcoderStore", isDirectory: true)
+        
+        let artDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("albumArt", isDirectory: true)
+        
+        for folder in [transcoderDir, artDir].filter({FileSystemUtils.fileExists($0)}) {
+            FileSystemUtils.deleteDir(folder)
+        }
     }
     
     private static let tearDownOpQueue: OperationQueue = {
