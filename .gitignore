@@ -1,3 +1,4 @@
 .DS_Store
 Documentation/UserGuide.html.bak
 Documentation/UserGuide_pdf.html.bak
+*.xcuserstate
