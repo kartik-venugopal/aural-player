@@ -139,6 +139,30 @@ class FFmpegFrame {
     var pts: Int64 {avFrame.pts}
     
     ///
+    /// The frame's starting timestamp, in seconds.
+    ///
+    /// ```
+    /// This value is useful when scheduling segment loops, for example.
+    /// It can be directly compared to the loop's start/end time.
+    ///
+    /// It will be set by the decoder.
+    /// ```
+    ///
+    var startTimestampSeconds: Double = -1
+    
+    ///
+    /// The frame's ending timestamp, in seconds.
+    ///
+    /// ```
+    /// This value is useful when scheduling segment loops, for example.
+    /// It can be directly compared to the loop's start/end time.
+    ///
+    /// It will be set by the decoder.
+    /// ```
+    ///
+    var endTimestampSeconds: Double = -1
+    
+    ///
     /// Pointers to the raw data (unsigned bytes) constituting this frame's samples.
     ///
     var dataPointers: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>! {avFrame.extended_data}

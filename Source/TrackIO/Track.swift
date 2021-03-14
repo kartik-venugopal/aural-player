@@ -151,31 +151,6 @@ class Track: Hashable, PlaylistItem {
     }
 }
 
-//class LazyLoadingInfo {
-//
-//    // Whether or not the track is ready for playback
-//    var validated: Bool = false
-//    var preparedForPlayback: Bool = false
-//
-//    var primaryInfoLoaded: Bool = false
-//    var secondaryInfoLoaded: Bool = false
-//
-//    var artLoaded: Bool = false
-//
-//    // Whether or not optional track metadata and audio/filesystem info has been loaded
-//    var detailedInfoLoaded: Bool = false
-//
-//    // Error info if track prep fails
-//    var preparationFailed: Bool = false
-//    var preparationError: InvalidTrackError?
-//
-//    func preparationFailed(_ error: InvalidTrackError?) {
-//
-//        preparationFailed = true
-//        preparationError = error
-//    }
-//}
-
 // Wrapper around Track that includes its location within a group in a hierarchical playlist
 struct GroupedTrack {
     

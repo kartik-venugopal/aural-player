@@ -1,7 +1,14 @@
 import Foundation
 
+///
+/// Handles decoding for segment loop playback of non-native tracks.
+///
 extension FFmpegDecoder {
     
+    ///
+    /// Decodes up to a given maximum number of samples, stopping at the loop end time if it is reached while decoding.
+    /// Returns a frame buffer containing the decoded samples.
+    ///
     func decodeLoop(maxSampleCount: Int32, loopEndTime: Double) -> FFmpegFrameBuffer {
         
 //        print("decodeLoop(): maxSampleCount = \(maxSampleCount), loopEndTime = \(loopEndTime)")
@@ -22,17 +29,12 @@ extension FFmpegDecoder {
                 // Try to obtain a single decoded frame.
                 let frame = try nextFrame()
                 
-                // TODO: All frames won't have PTS (if packet has multiple frames, eg. APE)
-                let frameStartTime = Double(frame.pts) * stream.timeBase.ratio
-                let frameEndTime = frameStartTime + (Double(frame.sampleCount) / sampleRate)
-                
-//                print("frameStartTime = \(frameStartTime), frameEndTime = \(frameEndTime)")
-                
-                if loopEndTime < frameEndTime {
+                if loopEndTime < frame.endTimestampSeconds {
                     
-//                    print("BREAK !!! loopEndTime = \(loopEndTime), frameEndTime = \(frameEndTime)")
-                    
-                    let truncatedSampleCount = Int32((loopEndTime - frameStartTime) * sampleRate)
+                    // Have reached the end of the loop, need to truncate this frame so that
+                    // no samples after loopEndTime are scheduled.
+
+                    let truncatedSampleCount = Int32((loopEndTime - frame.startTimestampSeconds) * sampleRate)
                     
                     // Truncate frame, append it to the frame buffer, and break from loop
                     frame.keepFirstNSamples(sampleCount: truncatedSampleCount)

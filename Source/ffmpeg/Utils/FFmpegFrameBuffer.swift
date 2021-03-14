@@ -5,8 +5,6 @@ import Accelerate
 /// A temporary container that accumulates / buffers frames until the number of frames
 /// is deemed large enough to schedule for playback.
 ///
-/// Also assists in constructing AVAudioPCMBuffer objects that can be scheduled for playback.
-///
 class FFmpegFrameBuffer {
     
     ///

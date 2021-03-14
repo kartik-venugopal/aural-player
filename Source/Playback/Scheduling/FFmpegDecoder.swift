@@ -1,12 +1,8 @@
 import Foundation
 
 ///
-/// Encapsulates an ffmpeg AVFormatContext struct that represents an audio file's container format,
-/// and provides convenient Swift-style access to its functions and member variables.
-///
-/// - Demultiplexing: Reads all streams within the audio file.
-/// - Reads and provides audio stream data as encoded / compressed packets (which can be passed to the appropriate codec).
-/// - Performs seeking to arbitrary positions within the audio stream.
+/// Uses an ffmpeg codec to decode a non-native track. Used by the ffmpeg scheduler in regular intervals
+/// to decode small chunks of audio that can be scheduled for playback.
 ///
 class FFmpegDecoder {
     
@@ -18,7 +14,7 @@ class FFmpegDecoder {
     private static let seekPositionTolerance: Double = 0.01
 
     ///
-    /// The encapsulated AVFormatContext object.
+    /// FFmpeg context for the file that is to be decoded
     ///
     var fileCtx: FFmpegFileContext
     
@@ -27,8 +23,14 @@ class FFmpegDecoder {
     ///
     let stream: FFmpegAudioStream
     
+    ///
+    /// Audio codec chosen by ffmpeg to decode this file.
+    ///
     let codec: FFmpegAudioCodec
     
+    ///
+    /// Duration of the track being decoded.
+    ///
     var duration: Double {fileCtx.duration}
     
     ///
@@ -50,14 +52,14 @@ class FFmpegDecoder {
     var frameQueue: Queue<FFmpegFrame> = Queue<FFmpegFrame>()
     
     ///
-    /// Attempts to construct a FormatContext instance for the given file.
+    /// Given ffmpeg context for a file, initializes an appropriate codec to perform decoding.
     ///
-    /// - Parameter file: The audio file to be read / decoded by this context.
+    /// - Parameter fileContext: ffmpeg context for the audio file to be decoded by this decoder.
     ///
-    /// Fails (returns nil) if:
+    /// throws if:
     ///
-    /// - An error occurs while opening the file or reading (demuxing) its streams.
     /// - No audio stream is found in the file.
+    /// - Unable to initialize the required codec.
     ///
     init(for fileContext: FFmpegFileContext) throws {
         
@@ -224,7 +226,10 @@ class FFmpegDecoder {
                     var framesFromUsablePackets: [FFmpegPacketFrames] = []
                     
                     for packet in (firstUsablePacketIndex..<packetsRead.count).map({packetsRead[$0].packet}) {
-                        framesFromUsablePackets.append(try codec.decode(packet: packet))
+                        
+                        let packetFrames = try codec.decode(packet: packet)
+                        setTimestampsInFrames(packetFrames.frames)
+                        framesFromUsablePackets.append(packetFrames)
                     }
                     
                     // If the difference between the target time and the first usable packet's timestamp is greater
@@ -260,6 +265,41 @@ class FFmpegDecoder {
     }
     
     ///
+    /// Given all frames decoded from a single packet, sets each of their start / end timestamps, in seconds, for
+    /// later use, e.g. when scheduling segment loops.
+    ///
+    private func setTimestampsInFrames(_ frames: [FFmpegFrame]) {
+        
+        if frames.isEmpty {return}
+        
+        let sampleRate = codec.sampleRate
+        
+        // The timestamp of the first frame will serve as a base timestamp
+        let frame0PTS: Double = Double(frames[0].pts) * stream.timeBase.ratio
+        frames[0].startTimestampSeconds = frame0PTS
+        frames[0].endTimestampSeconds = frame0PTS + (Double(frames[0].actualSampleCount) / Double(sampleRate))
+        
+        // More than 1 frame in packet
+        if frames.count > 1 {
+
+            // Use sample count and sample rate to calculate timestamps
+            // for each of the subsequent (after the first) frames.
+            
+            var currentSampleCount: Int32 = frames[0].sampleCount
+            
+            for index in (1..<frames.count) {
+                
+                let frame = frames[index]
+                
+                frame.startTimestampSeconds = frames[index - 1].endTimestampSeconds
+                frame.endTimestampSeconds = frame.startTimestampSeconds + (Double(frame.actualSampleCount) / Double(sampleRate))
+                
+                currentSampleCount += frame.actualSampleCount
+            }
+        }
+    }
+    
+    ///
     /// Decodes the next available packet in the stream, if required, to produce a single frame.
     ///
     /// - returns:  A single frame containing PCM samples.
@@ -284,9 +324,9 @@ class FFmpegDecoder {
         
             if let packet = try fileCtx.readPacket(from: stream) {
                 
-                for frame in try codec.decode(packet: packet).frames {
-                    frameQueue.enqueue(frame)
-                }
+                let frames = try codec.decode(packet: packet).frames
+                setTimestampsInFrames(frames)
+                frames.forEach {frameQueue.enqueue($0)}
             }
         }
         
