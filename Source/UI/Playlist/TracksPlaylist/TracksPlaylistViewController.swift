@@ -346,15 +346,15 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
-//        let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, notification.error.track].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
-//
-//        if let errTrack = notification.error.track, let errTrackIndex = playlist.indexOfTrack(errTrack),
-//            PlaylistViewState.current == .tracks {
-//
-//            selectTrack(errTrackIndex)
-//        }
-//
-//        playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        let errTrack = notification.errorTrack
+        
+        let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, errTrack].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
+
+        if let errTrackIndex = playlist.indexOfTrack(errTrack), PlaylistViewState.current == .tracks {
+            selectTrack(errTrackIndex)
+        }
+
+        playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
     }
     
     // Selects an item within the playlist view, to show a single search result

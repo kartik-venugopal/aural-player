@@ -28,9 +28,13 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
 
         player.stop()
         sequencer.end()
-
-        // Notify observers of the error, and complete the request context.
-        Messenger.publish(TrackNotPlayedNotification(oldTrack: context.currentTrack, error: error))
+        
+        if let errorTrack = context.requestedTrack {
+            
+            // Notify observers of the error, and complete the request context.
+            Messenger.publish(TrackNotPlayedNotification(oldTrack: context.currentTrack, errorTrack: errorTrack, error: error))
+        }
+        
         complete(context)
     }
 }

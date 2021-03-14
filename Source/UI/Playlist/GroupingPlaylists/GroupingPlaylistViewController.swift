@@ -478,19 +478,19 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
-        // TODO: How to determine track ? The notif should contain this Track info.
+        let errTrack = notification.errorTrack
         
         // Reload the old/error track.
-//        for track in Set([notification.oldTrack, notification.error.track]).compactMap({$0}) {
-//            playlistView.reloadItem(track)
-//        }
-//
-//        // Only need to do this if this playlist view is shown
-//        if let errTrack = notification.error.track, PlaylistViewState.current.toGroupType() == self.groupType,
-//            let groupingInfo = playlist.groupingInfoForTrack(self.groupType, errTrack) {
-//
-//            selectTrack(groupingInfo)
-//        }
+        for track in Set([notification.oldTrack, errTrack]).compactMap({$0}) {
+            playlistView.reloadItem(track)
+        }
+
+        // Only need to do this if this playlist view is shown
+        if PlaylistViewState.current.toGroupType() == self.groupType,
+           let groupingInfo = playlist.groupingInfoForTrack(self.groupType, errTrack) {
+
+            selectTrack(groupingInfo)
+        }
     }
     
     // Selects an item within the playlist view, to show a single search result
