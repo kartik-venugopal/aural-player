@@ -79,7 +79,7 @@ class FFmpegPacket {
             
             // No need to log a message for EOF as it is considered harmless.
             if !isEOF(code: readResult) {
-                print("\nPacket.init(): Unable to read packet. Error: \(readResult) (\(readResult.errorDescription)))")
+                NSLog("Unable to read packet. Error: \(readResult) (\(readResult.errorDescription)))")
             }
             
             throw PacketReadError(readResult)

@@ -95,7 +95,7 @@ class FFmpegAudioCodec: FFmpegCodec {
         // If the packet send failed, log a message and throw an error.
         if resultCode.isNegative {
             
-            print("\nCodec.decode(): Failed to send packet. Error: \(resultCode) \(resultCode.errorDescription))")
+            NSLog("Codec failed to send packet. Error: \(resultCode) \(resultCode.errorDescription))")
             throw DecoderError(resultCode)
         }
         

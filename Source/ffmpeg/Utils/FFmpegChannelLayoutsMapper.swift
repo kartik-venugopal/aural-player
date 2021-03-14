@@ -153,47 +153,4 @@ struct FFmpegChannelLayoutsMapper {
         
         return String(cString: layoutStringPointer).replacingOccurrences(of: "(", with: " (").capitalized
     }
-    
-    // MARK: Debugging functions ------------------------------------------------------
-    
-    static func printLayouts() {
-        
-        for layout in layoutsMap.keys.sorted(by: {$0 < $1}).map({UInt64($0)}) {
-            printLayout(layout, av_get_channel_layout_nb_channels(layout))
-        }
-    }
-    
-    static func printLayout(_ layout: UInt64, _ channelCount: Int32) {
-        
-        let layoutString = UnsafeMutablePointer<Int8>.allocate(capacity: 100)
-        av_get_channel_layout_string(layoutString, 100, channelCount, layout)
-        
-        var channelNames: [String] = []
-        for index in 0..<channelCount {
-            channelNames.append(String(cString: av_get_channel_name(av_channel_layout_extract_channel(UInt64(layout), index))))
-        }
-        
-        let ls = String(cString: layoutString)
-        let ffLay = channelNames.joined(separator: " ")
-        let avfLay = AVFLayout(ffLay)
-        
-        print("\nLayout:", layout, ls, ffLay)
-        print("AVF Layout:", avfLay)
-    }
-    
-    static func AVFLayout(_ lyt: String) -> String {
-        
-        return lyt
-            .replacingOccurrences(of: "BL", with: "Rls")
-            .replacingOccurrences(of: "BR", with: "Rrs")
-            .replacingOccurrences(of: "BC", with: "Cs")
-            .replacingOccurrences(of: "SL", with: "Ls")
-            .replacingOccurrences(of: "SR", with: "Rs")
-            .replacingOccurrences(of: "FLC", with: "Lc")
-            .replacingOccurrences(of: "FRC", with: "Rc")
-            .replacingOccurrences(of: "FL", with: "L")
-            .replacingOccurrences(of: "FR", with: "R")
-            .replacingOccurrences(of: "FC", with: "C")
-        
-    }
 }

@@ -182,7 +182,7 @@ class FFmpegFrame {
         // Check if memory allocation was successful. Can't proceed otherwise.
         guard pointer != nil else {
             
-            print("\nFrame.init(): Unable to allocate memory for frame.")
+            NSLog("Unable to allocate memory for frame.")
             return nil
         }
         

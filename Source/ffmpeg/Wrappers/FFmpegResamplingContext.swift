@@ -32,7 +32,7 @@ class FFmpegResamplingContext {
         // Check if memory allocation was successful. Can't proceed otherwise.
         guard resampleCtx != nil else {
             
-            print("\nResamplingContext.init() Unable to allocate memory for resampling context.")
+            NSLog("Unable to allocate memory for resampling context.")
             return nil
         }
         

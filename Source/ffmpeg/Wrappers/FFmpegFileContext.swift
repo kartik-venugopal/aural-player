@@ -401,7 +401,7 @@ class FFmpegFileContext {
         // If the seek failed, log a message and throw an error.
         guard seekResult.isNonNegative else {
 
-            print("\nFormatContext.seek(): Unable to seek within stream \(stream.index). Error: \(seekResult) (\(seekResult.errorDescription)))")
+            NSLog("Unable to seek within stream \(stream.index) for track \(filePath). Error: \(seekResult) (\(seekResult.errorDescription)))")
             throw SeekError(seekResult)
         }
     }

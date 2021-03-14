@@ -96,7 +96,7 @@ class FFmpegCodec {
         let codecOpenResult: ResultCode = avcodec_open2(contextPointer, pointer, nil)
         if codecOpenResult.isNonZero {
             
-            print("\nCodec.open(): Failed to open codec '\(name)'. Error: \(codecOpenResult.errorDescription))")
+            NSLog("Failed to open codec '\(name)'. Error: \(codecOpenResult.errorDescription))")
             throw DecoderInitializationError(codecOpenResult)
         }
         
