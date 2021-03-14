@@ -149,7 +149,7 @@ class FFmpegAudioCodec: FFmpegCodec {
         
         if resultCode.isNonZero {
             
-            print("\nCodec.decode(): Failed to send packet. Error: \(resultCode) \(resultCode.errorDescription))")
+            NSLog("Codec failed to send packet while draining. Error: \(resultCode) \(resultCode.errorDescription))")
             throw DecoderError(resultCode)
         }
         
