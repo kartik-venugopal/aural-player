@@ -62,4 +62,8 @@ class PitchView: NSView {
         setPitchOverlap(preset.overlap, ValueFormatter.formatOverlap(preset.overlap))
         setUnitState(preset.state)
     }
+    
+    func changeColorScheme() {
+        sliders.forEach({$0.redraw()})
+    }
 }

@@ -37,6 +37,20 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         
         controlsView.initialize(audioGraph.volume, audioGraph.muted, audioGraph.balance, player.state, playbackRate, rsModes.repeatMode, rsModes.shuffleMode, seekPositionFunction: {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in return self.player.seekPosition })
         
+        changeColorScheme()
+        
+//        let newTrack = player.playingTrack
+//
+//        if (newTrack != nil) {
+//
+////            showNowPlayingInfo(newTrack!.track)
+//
+//        } else {
+//
+//            // No track playing, clear the info fields
+////            clearNowPlayingInfo()
+//        }
+        
         initSubscriptions()
     }
     
@@ -49,18 +63,18 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         // Subscribe to message notifications
         AsyncMessenger.subscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self, dispatchQueue: DispatchQueue.main)
         
-        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification, .sequenceChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeColorScheme], subscriber: self)
     }
     
     private func removeSubscriptions() {
         
         AsyncMessenger.unsubscribe([.trackNotPlayed, .trackNotTranscoded, .trackChanged, .gapStarted], subscriber: self)
         
-        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .chapterLoopCreatedNotification, .playbackRateChangedNotification], subscriber: self)
+        SyncMessenger.unsubscribe(messageTypes: [.playbackRequest, .playbackLoopChangedNotification, .playbackRateChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.muteOrUnmute, .increaseVolume, .decreaseVolume, .panLeft, .panRight, .playOrPause, .stop, .replayTrack, .toggleLoop, .previousTrack, .nextTrack, .seekBackward, .seekForward, .seekBackward_secondary, .seekForward_secondary, .jumpToTime, .repeatOff, .repeatOne, .repeatAll, .shuffleOff, .shuffleOn, .setTimeElapsedDisplayFormat, .setTimeRemainingDisplayFormat, .showOrHideTimeElapsedRemaining, .changePlayerTextSize, .changeColorScheme], subscriber: self)
     }
     
     private func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
@@ -171,7 +185,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
     // Toggles the state of the segment playback loop for the currently playing track
     @IBAction func toggleLoopAction(_ sender: AnyObject) {
         toggleLoop()
-        SyncMessenger.publishNotification(PlaybackLoopChangedNotification.instance)
     }
     
     private func toggleLoop() {
@@ -382,6 +395,11 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         controlsView.changeTextSize(textSize)
     }
     
+    func changeColorScheme() {
+        controlsView.changeColorScheme()
+        controlsView.setVolumeImage(audioGraph.volume, audioGraph.muted)
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -425,11 +443,6 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
             
         case .playbackLoopChangedNotification:
             
-            playbackLoopChanged()
-            
-            case .chapterLoopCreatedNotification:
-            
-                // TODO: This will not repaint the slider segment because the start point has already been set. Need to force-redraw the seek slider
             playbackLoopChanged()
             
         case .sequenceChangedNotification:
@@ -542,6 +555,10 @@ class PlaybackViewController: NSViewController, MessageSubscriber, ActionMessage
         case .changePlayerTextSize:
             
             changeTextSize((message as! TextSizeActionMessage).textSize)
+            
+        case .changeColorScheme:
+
+            changeColorScheme()
             
         default: return
             

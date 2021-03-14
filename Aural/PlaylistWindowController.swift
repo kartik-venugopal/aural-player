@@ -5,6 +5,90 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, AsyncMessageSubscriber, MessageSubscriber, NSTabViewDelegate, NSWindowDelegate {
     
+    @IBOutlet weak var btnClose: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnClose.imageMappings[.darkBackground_lightText] = NSImage(named: "Close")
+            btnClose.imageMappings[.lightBackground_darkText] = NSImage(named: "Close_1")
+        }
+    }
+    
+    @IBOutlet weak var rootContainer: NSBox!
+    
+    @IBOutlet weak var controlsBox: NSBox!
+    
+    @IBOutlet weak var btnAdd: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnAdd.imageMappings[.darkBackground_lightText] = NSImage(named: "Add")
+            btnAdd.imageMappings[.lightBackground_darkText] = NSImage(named: "Add_1")
+        }
+    }
+    
+    @IBOutlet weak var btnRemove: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnRemove.imageMappings[.darkBackground_lightText] = NSImage(named: "Remove")
+            btnRemove.imageMappings[.lightBackground_darkText] = NSImage(named: "Remove_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSave: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSave.imageMappings[.darkBackground_lightText] = NSImage(named: "Save")
+            btnSave.imageMappings[.lightBackground_darkText] = NSImage(named: "Save_1")
+        }
+    }
+    
+    @IBOutlet weak var btnClear: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnClear.imageMappings[.darkBackground_lightText] = NSImage(named: "Clear")
+            btnClear.imageMappings[.lightBackground_darkText] = NSImage(named: "Clear_1")
+        }
+    }
+    
+    @IBOutlet weak var btnUp: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnUp.imageMappings[.darkBackground_lightText] = NSImage(named: "Up")
+            btnUp.imageMappings[.lightBackground_darkText] = NSImage(named: "Up_1")
+        }
+    }
+    
+    @IBOutlet weak var btnDown: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnDown.imageMappings[.darkBackground_lightText] = NSImage(named: "Down")
+            btnDown.imageMappings[.lightBackground_darkText] = NSImage(named: "Down_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSearch: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSearch.imageMappings[.darkBackground_lightText] = NSImage(named: "Search")
+            btnSearch.imageMappings[.lightBackground_darkText] = NSImage(named: "Search_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSort: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSort.imageMappings[.darkBackground_lightText] = NSImage(named: "Sort")
+            btnSort.imageMappings[.lightBackground_darkText] = NSImage(named: "Sort_1")
+        }
+    }
+    
+    @IBOutlet weak var playlistBox: NSBox!
+    @IBOutlet weak var tabButtonsBox: NSBox!
+    
+    @IBOutlet weak var btnTracksTab: NSButton!
+    @IBOutlet weak var btnArtistsTab: NSButton!
+    @IBOutlet weak var btnAlbumsTab: NSButton!
+    @IBOutlet weak var btnGenresTab: NSButton!
+    
     // The different playlist views
     private lazy var tracksView: NSView = ViewFactory.getTracksView()
     private lazy var artistsView: NSView = ViewFactory.getArtistsView()
@@ -25,6 +109,13 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     @IBOutlet weak var playlistWorkSpinner: NSProgressIndicator!
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    @IBOutlet weak var viewMenuImageItem: ColorSensitiveMenuItem! {
+        
+        didSet {
+            viewMenuImageItem.imageMappings[.darkBackground_lightText] = NSImage(named: "Settings")
+            viewMenuImageItem.imageMappings[.lightBackground_darkText] = NSImage(named: "Settings_1")
+        }
+    }
     
     // Search dialog
     private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.getPlaylistSearchDialog()
@@ -43,8 +134,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let viewPreferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
-    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.getPreferences().playlistPreferences
+    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
     
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
@@ -54,8 +144,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     
     private lazy var effectsWindow: NSWindow = WindowFactory.getEffectsWindow()
     
-    private lazy var chaptersWindow: NSWindow = WindowFactory.chaptersWindow
-    
     override var windowNibName: String? {return "Playlist"}
 
     override func windowDidLoad() {
@@ -63,9 +151,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         WindowState.playlistWindow = theWindow
         theWindow.isMovableByWindowBackground = true
         
-        PlaylistViewState.initialize(ObjectGraph.appState.ui.playlist)
-        TextSizes.playlistScheme = ObjectGraph.appState.ui.playlist.textSize
         changeTextSize(PlayerViewState.textSize)
+        changeColorScheme()
         
         setUpTabGroup()
         initSubscriptions()
@@ -75,18 +162,8 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         tabGroup.addViewsForTabs([tracksView, artistsView, albumsView, genresView])
 
-        // Initialize all the tab views (and select the one preferred by the user)
+        // Initialize all the tab views (and select the first one to be shown)
         [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
-        
-        if (playlistPreferences.viewOnStartup.option == .specific) {
-            
-            tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)
-            
-        } else {
-            
-            // Remember
-            tabGroup.selectTabViewItem(at: PlaylistViewState.current.toIndex())
-        }
         
         tabGroup.delegate = self
     }
@@ -108,9 +185,9 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         AsyncMessenger.subscribe([.trackAdded, .trackGrouped, .trackInfoUpdated, .tracksRemoved, .tracksNotAdded, .startedAddingTracks, .doneAddingTracks], subscriber: self, dispatchQueue: DispatchQueue.main)
         
         // Register self as a subscriber to various synchronous message notifications
-        SyncMessenger.subscribe(messageTypes: [.trackChangedNotification, .removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
+        SyncMessenger.subscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeColorScheme], subscriber: self)
     }
     
     private func removeSubscriptions() {
@@ -126,7 +203,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         // Register self as a subscriber to various synchronous message notifications
         SyncMessenger.unsubscribe(messageTypes: [.removeTrackRequest, .playlistTypeChangedNotification], subscriber: self)
         
-        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.addTracks, .savePlaylist, .clearPlaylist, .search, .sort, .shiftTab, .nextPlaylistView, .previousPlaylistView, .changePlaylistTextSize, .changeColorScheme], subscriber: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -359,6 +436,11 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         SyncMessenger.publishActionMessage(PlaylistActionMessage(.showPlayingTrack, PlaylistViewState.current))
     }
     
+    // Cycles between playlist tab group tabs
+    private func shiftTab() {
+        nextPlaylistView()
+    }
+    
     private func nextPlaylistView() {
         PlaylistViewState.current == .genres ? tabGroup.selectTabViewItem(at: 0) : tabGroup.selectNextTabViewItem(self)
     }
@@ -416,22 +498,26 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         viewMenuButton.font = TextSizes.playlistMenuFont
     }
     
+    private func changeColorScheme() {
+        
+        btnClose.colorSchemeChanged()
+        viewMenuImageItem.colorSchemeChanged()
+        
+        [btnAdd, btnRemove, btnSave, btnClear, btnUp, btnDown, btnSearch, btnSort].forEach({$0?.colorSchemeChanged()})
+        
+        [rootContainer, tabButtonsBox, playlistBox, controlsBox].forEach({$0?.fillColor = Colors.windowBackgroundColor})
+        
+        [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab].forEach({$0?.redraw()})
+        
+        [lblTracksSummary, lblDurationSummary].forEach({
+            $0?.backgroundColor = Colors.windowBackgroundColor
+            $0?.textColor = Colors.boxTextColor
+        })
+    }
+    
     // Updates the summary in response to a change in the tab group selected tab
     private func playlistTypeChanged(_ notification: PlaylistTypeChangedNotification) {
         updatePlaylistSummary()
-    }
-    
-    private func trackChanged(_ newTrack: IndexedTrack?) {
-        
-        if let track = newTrack?.track, track.hasChapters {
-            
-            if (!chaptersWindow.isVisible) {
-                
-                theWindow.addChildWindow(chaptersWindow, ordered: NSWindow.OrderingMode.above)
-                chaptersWindow.setIsVisible(true)
-                chaptersWindow.orderFront(self)
-            }
-        }
     }
     
     var subscriberId: String {
@@ -480,10 +566,6 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
     func consumeNotification(_ message: NotificationMessage) {
         
         switch message.messageType {
-            
-        case .trackChangedNotification:
-            
-            trackChanged((message as! TrackChangedNotification).newTrack)
         
         case .playlistTypeChangedNotification:
         
@@ -524,11 +606,15 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
             
         case .sort: sortAction(self)
             
+        case .shiftTab: shiftTab()
+            
         case .nextPlaylistView: nextPlaylistView()
             
         case .previousPlaylistView: previousPlaylistView()
             
         case .changePlaylistTextSize: changeTextSize((message as! TextSizeActionMessage).textSize)
+            
+        case .changeColorScheme:    changeColorScheme()
             
         default: return
             
@@ -546,7 +632,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         
         var snapped = false
         
-        if viewPreferences.snapToWindows {
+        if preferences.snapToWindows {
             
             // First check if window can be snapped to another app window
             snapped = UIUtils.checkForSnapToWindow(theWindow, mainWindow)
@@ -557,7 +643,7 @@ class PlaylistWindowController: NSWindowController, ActionMessageSubscriber, Asy
         }
         
         // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-        if viewPreferences.snapToScreen && !snapped {
+        if preferences.snapToScreen && !snapped {
             UIUtils.checkForSnapToVisibleFrame(theWindow)
         }
     }
@@ -575,17 +661,13 @@ class PlaylistViewState {
     static var textSize: TextSizeScheme = .normal
     
     static func initialize(_ appState: PlaylistUIState) {
-        
         textSize = appState.textSize
-        current = PlaylistType(rawValue: appState.view.lowercased()) ?? .tracks
     }
     
     static func persistentState() -> PlaylistUIState {
         
         let state = PlaylistUIState()
-        
         state.textSize = textSize
-        state.view = current.rawValue.capitalizingFirstLetter()
         
         return state
     }
@@ -593,20 +675,18 @@ class PlaylistViewState {
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {
         
-        return current.toGroupType()
-        
-//        switch current {
-//
-//        case .albums: return GroupType.album
-//
-//        case .artists: return GroupType.artist
-//
-//        case .genres: return GroupType.genre
-//
-//        // Group type is not applicable to playlist type .tracks
-//        default: return nil
-//
-//        }
+        switch current {
+            
+        case .albums: return GroupType.album
+            
+        case .artists: return GroupType.artist
+            
+        case .genres: return GroupType.genre
+            
+        // Group type is not applicable to playlist type .tracks
+        default: return nil
+            
+        }
     }
     
     static var selectedItem: SelectedItem {

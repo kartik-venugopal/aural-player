@@ -51,16 +51,11 @@ class UIState: PersistentState {
 class PlaylistUIState: PersistentState {
     
     var textSize: TextSizeScheme = .normal
-    var view: String = "Tracks"
     
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let state = PlaylistUIState()
         state.textSize = mapEnum(map, "textSize", TextSizeScheme.normal)
-        
-        if let viewName = map["view"] as? String {
-            state.view = viewName
-        }
         
         return state
     }
@@ -608,35 +603,9 @@ fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
 }
 
 /*
-    Encapsulates an audio output device (remembered device)
- */
-class AudioDeviceState: PersistentState {
-    
-    var name: String = ""
-    var uid: String = ""
-    
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
-        
-        let state: AudioDeviceState = AudioDeviceState()
-        
-        if let name = (map["name"] as? String) {
-            state.name = name
-        }
-        
-        if let uid = (map["uid"] as? String) {
-            state.uid = uid
-        }
-        
-        return state
-    }
-}
-
-/*
     Encapsulates audio graph state
  */
 class AudioGraphState: PersistentState {
-    
-    var outputDevice: AudioDeviceState = AudioDeviceState()
     
     var volume: Float = AppDefaults.volume
     var muted: Bool = AppDefaults.muted
@@ -655,10 +624,6 @@ class AudioGraphState: PersistentState {
     static func deserialize(_ map: NSDictionary) -> PersistentState {
         
         let audioGraphState = AudioGraphState()
-        
-        if let outputDeviceDict = (map["outputDevice"] as? NSDictionary) {
-            audioGraphState.outputDevice = AudioDeviceState.deserialize(outputDeviceDict) as! AudioDeviceState
-        }
         
         audioGraphState.volume = mapNumeric(map, "volume", AppDefaults.volume)
         audioGraphState.muted = mapDirectly(map, "muted", AppDefaults.muted)

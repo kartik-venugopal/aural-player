@@ -49,7 +49,14 @@ class ReverbView: NSView {
     }
     
     func changeTextSize() {
+     
         reverbSpaceMenu.redraw()
         reverbSpaceMenu.font = TextSizes.fxUnitFunctionFont
+    }
+    
+    func changeColorScheme() {
+        
+        reverbSpaceMenu.redraw()
+        reverbAmountSlider.redraw()
     }
 }

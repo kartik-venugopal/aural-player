@@ -9,28 +9,63 @@ class MasterView: NSView {
     @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
     @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var imgEQBypass: EffectsUnitTriStateBypassImage!
-    @IBOutlet weak var imgPitchBypass: EffectsUnitTriStateBypassImage!
-    @IBOutlet weak var imgTimeBypass: EffectsUnitTriStateBypassImage!
-    @IBOutlet weak var imgReverbBypass: EffectsUnitTriStateBypassImage!
-    @IBOutlet weak var imgDelayBypass: EffectsUnitTriStateBypassImage!
-    @IBOutlet weak var imgFilterBypass: EffectsUnitTriStateBypassImage!
-    
-    @IBOutlet weak var lblEQ: EffectsUnitTriStateLabel!
-    @IBOutlet weak var lblPitch: EffectsUnitTriStateLabel!
-    @IBOutlet weak var lblTime: EffectsUnitTriStateLabel!
-    @IBOutlet weak var lblReverb: EffectsUnitTriStateLabel!
-    @IBOutlet weak var lblDelay: EffectsUnitTriStateLabel!
-    @IBOutlet weak var lblFilter: EffectsUnitTriStateLabel!
-    
     private var buttons: [EffectsUnitTriStateBypassButton] = []
-    private var images: [EffectsUnitTriStateBypassImage] = []
-    private var labels: [EffectsUnitTriStateLabel] = []
+    
+    @IBOutlet weak var imgEQ: ColorSensitiveImage! {
+        
+        didSet {
+            imgEQ.imageMappings[.darkBackground_lightText] = NSImage(named: "EQUnit")
+            imgEQ.imageMappings[.lightBackground_darkText] = NSImage(named: "EQUnit_1")
+        }
+    }
+    
+    @IBOutlet weak var imgPitch: ColorSensitiveImage! {
+        
+        didSet {
+            imgPitch.imageMappings[.darkBackground_lightText] = NSImage(named: "PitchUnit")
+            imgPitch.imageMappings[.lightBackground_darkText] = NSImage(named: "PitchUnit_1")
+        }
+    }
+    
+    @IBOutlet weak var imgTime: ColorSensitiveImage! {
+        
+        didSet {
+            imgTime.imageMappings[.darkBackground_lightText] = NSImage(named: "TimeUnit")
+            imgTime.imageMappings[.lightBackground_darkText] = NSImage(named: "TimeUnit_1")
+        }
+    }
+    
+    @IBOutlet weak var imgReverb: ColorSensitiveImage! {
+        
+        didSet {
+            imgReverb.imageMappings[.darkBackground_lightText] = NSImage(named: "ReverbUnit")
+            imgReverb.imageMappings[.lightBackground_darkText] = NSImage(named: "ReverbUnit_1")
+        }
+    }
+    
+    @IBOutlet weak var imgDelay: ColorSensitiveImage! {
+        
+        didSet {
+            imgDelay.imageMappings[.darkBackground_lightText] = NSImage(named: "DelayUnit")
+            imgDelay.imageMappings[.lightBackground_darkText] = NSImage(named: "DelayUnit_1")
+        }
+    }
+    
+    @IBOutlet weak var imgFilter: ColorSensitiveImage! {
+        
+        didSet {
+            imgFilter.imageMappings[.darkBackground_lightText] = NSImage(named: "FilterUnit")
+            imgFilter.imageMappings[.lightBackground_darkText] = NSImage(named: "FilterUnit_1")
+        }
+    }
+    
+    private var images: [ColorSensitiveImage] = []
     
     override func awakeFromNib() {
+        
         buttons = [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass]
-        images = [imgEQBypass, imgPitchBypass, imgTimeBypass, imgReverbBypass, imgDelayBypass, imgFilterBypass]
-        labels = [lblEQ, lblPitch, lblTime, lblReverb, lblDelay, lblFilter]
+        
+        images = [imgEQ, imgPitch, imgTime, imgReverb, imgDelay, imgFilter]
     }
     
     func initialize(_ eqStateFunction: @escaping EffectsUnitStateFunction, _ pitchStateFunction: @escaping EffectsUnitStateFunction, _ timeStateFunction: @escaping EffectsUnitStateFunction, _ reverbStateFunction: @escaping EffectsUnitStateFunction, _ delayStateFunction: @escaping EffectsUnitStateFunction, _ filterStateFunction: @escaping EffectsUnitStateFunction) {
@@ -42,29 +77,11 @@ class MasterView: NSView {
         btnDelayBypass.stateFunction = delayStateFunction
         btnFilterBypass.stateFunction = filterStateFunction
         
-        imgEQBypass.stateFunction = eqStateFunction
-        imgPitchBypass.stateFunction = pitchStateFunction
-        imgTimeBypass.stateFunction = timeStateFunction
-        imgReverbBypass.stateFunction = reverbStateFunction
-        imgDelayBypass.stateFunction = delayStateFunction
-        imgFilterBypass.stateFunction = filterStateFunction
-        
-        lblEQ.stateFunction = eqStateFunction
-        lblPitch.stateFunction = pitchStateFunction
-        lblTime.stateFunction = timeStateFunction
-        lblReverb.stateFunction = reverbStateFunction
-        lblDelay.stateFunction = delayStateFunction
-        lblFilter.stateFunction = filterStateFunction
-        
         buttons.forEach({$0.updateState()})
-        images.forEach({$0.updateState()})
-        labels.forEach({$0.updateState()})
     }
     
     func stateChanged() {
         buttons.forEach({$0.updateState()})
-        images.forEach({$0.updateState()})
-        labels.forEach({$0.updateState()})
     }
     
     func applyPreset(_ preset: MasterPreset) {
@@ -75,19 +92,10 @@ class MasterView: NSView {
         btnReverbBypass.onIf(preset.reverb.state == .active)
         btnDelayBypass.onIf(preset.delay.state == .active)
         btnFilterBypass.onIf(preset.filter.state == .active)
-        
-        imgEQBypass.onIf(preset.eq.state == .active)
-        imgPitchBypass.onIf(preset.pitch.state == .active)
-        imgTimeBypass.onIf(preset.time.state == .active)
-        imgReverbBypass.onIf(preset.reverb.state == .active)
-        imgDelayBypass.onIf(preset.delay.state == .active)
-        imgFilterBypass.onIf(preset.filter.state == .active)
-        
-        lblEQ.onIf(preset.eq.state == .active)
-        lblPitch.onIf(preset.pitch.state == .active)
-        lblTime.onIf(preset.time.state == .active)
-        lblReverb.onIf(preset.reverb.state == .active)
-        lblDelay.onIf(preset.delay.state == .active)
-        lblFilter.onIf(preset.filter.state == .active)
+    }
+    
+    func changeColorScheme() {
+        buttons.forEach({$0.colorSchemeChanged()})
+        images.forEach({$0.colorSchemeChanged()})
     }
 }

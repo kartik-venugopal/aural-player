@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,14 +27,14 @@
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="448" height="176"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn identifier="cid_Index" width="30" minWidth="25" maxWidth="40" id="utt-4E-Pwl" userLabel="Index">
-                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Index">
-                                            <font key="font" metaFont="smallSystem"/>
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
+                                            <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -52,7 +52,7 @@
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="-2" y="0.0" width="34" height="25"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="5ML-sW-rcP"/>
+                                                            <constraint firstAttribute="height" constant="25" id="BTp-Ug-Zr3"/>
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Table View Cell" id="Bac-3o-ROQ" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="GillSans"/>
@@ -70,11 +70,11 @@
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="leading" secondItem="Nr9-vb-v1E" secondAttribute="leading" id="6cv-6z-7MP"/>
-                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="8sz-Ch-eSf"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerY" secondItem="0ic-SL-nto" secondAttribute="centerY" id="2Ex-mt-mO6"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerX" secondItem="0ic-SL-nto" secondAttribute="centerX" id="HVw-e3-QpI"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerX" secondItem="Nr9-vb-v1E" secondAttribute="centerX" id="PAw-Jw-RcZ"/>
                                                     <constraint firstItem="0ic-SL-nto" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="QS8-4M-uSS"/>
-                                                    <constraint firstItem="0ic-SL-nto" firstAttribute="centerX" secondItem="ghD-Os-Qiu" secondAttribute="centerX" id="cNG-fu-StN"/>
-                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="trailing" secondItem="Nr9-vb-v1E" secondAttribute="trailing" id="xdd-Uo-hm5"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="leading" secondItem="Nr9-vb-v1E" secondAttribute="leading" id="cL6-DY-I2J"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="0ic-SL-nto" id="t7i-r3-bMb"/>
@@ -85,7 +85,7 @@
                                     </tableColumn>
                                     <tableColumn identifier="cid_Name" width="344" minWidth="304" maxWidth="10000" id="gqM-QF-bAT" userLabel="Track Name">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
-                                            <font key="font" metaFont="smallSystem"/>
+                                            <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -147,7 +147,7 @@
                                     </tableColumn>
                                     <tableColumn identifier="cid_Duration" width="65" minWidth="50" maxWidth="75" id="hrT-f9-0P7">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
-                                            <font key="font" metaFont="smallSystem"/>
+                                            <font key="font" metaFont="message" size="11"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>

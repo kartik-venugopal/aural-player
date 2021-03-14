@@ -35,14 +35,54 @@ class PlayerControlsView: NSView {
     private var autoHidingPanLabel: AutoHidingView!
     
     // Toggle buttons (their images change)
-    @IBOutlet weak var btnPlayPause: OnOffImageButton!
-    @IBOutlet weak var btnShuffle: MultiStateImageButton!
-    @IBOutlet weak var btnRepeat: MultiStateImageButton!
-    @IBOutlet weak var btnLoop: MultiStateImageButton!
+    @IBOutlet weak var btnPlayPause: ColorSensitiveOnOffImageButton! {
+        
+        didSet {
+            
+            btnPlayPause.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "Play")
+            btnPlayPause.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "Play_1")
+            
+            btnPlayPause.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "Pause")
+            btnPlayPause.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "Pause_1")
+        }
+    }
+    
+    @IBOutlet weak var btnRepeat: ColorSensitiveMultiStateImageButton!
+    @IBOutlet weak var btnShuffle: ColorSensitiveMultiStateImageButton!
+    @IBOutlet weak var btnLoop: ColorSensitiveMultiStateImageButton!
     
     // Buttons whose tool tips may change
-    @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
-    @IBOutlet weak var btnNextTrack: TrackPeekingButton!
+    @IBOutlet weak var btnPreviousTrack: TrackPeekingButton! {
+    
+        didSet {
+            btnPreviousTrack.imageMappings[.darkBackground_lightText] = NSImage(named: "PreviousTrack")
+            btnPreviousTrack.imageMappings[.lightBackground_darkText] = NSImage(named: "PreviousTrack_1")
+        }
+    }
+    
+    @IBOutlet weak var btnNextTrack: TrackPeekingButton! {
+        
+        didSet {
+            btnNextTrack.imageMappings[.darkBackground_lightText] = NSImage(named: "NextTrack")
+            btnNextTrack.imageMappings[.lightBackground_darkText] = NSImage(named: "NextTrack_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSeekBackward: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSeekBackward.imageMappings[.darkBackground_lightText] = NSImage(named: "SeekBackward")
+            btnSeekBackward.imageMappings[.lightBackground_darkText] = NSImage(named: "SeekBackward_1")
+        }
+    }
+    
+    @IBOutlet weak var btnSeekForward: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnSeekForward.imageMappings[.darkBackground_lightText] = NSImage(named: "SeekForward")
+            btnSeekForward.imageMappings[.lightBackground_darkText] = NSImage(named: "SeekForward_1")
+        }
+    }
     
     var seekPositionFunction: (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double)) = {() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) in
         return (0, 0, 0)
@@ -75,11 +115,11 @@ class PlayerControlsView: NSView {
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
 
-        btnRepeat.stateImageMappings = [(RepeatMode.off, Images.imgRepeatOff), (RepeatMode.one, Images.imgRepeatOne), (RepeatMode.all, Images.imgRepeatAll)]
+        btnRepeat.stateImageMappings = [(RepeatMode.off, {return Images.imgRepeatOff}), (RepeatMode.one, {return Images.imgRepeatOne}), (RepeatMode.all, {return Images.imgRepeatAll})]
+        
+        btnShuffle.stateImageMappings = [(ShuffleMode.off, {return Images.imgShuffleOff}), (ShuffleMode.on, {return Images.imgShuffleOn})]
 
-        btnLoop.stateImageMappings = [(LoopState.none, Images.imgLoopOff), (LoopState.started, Images.imgLoopStarted), (LoopState.complete, Images.imgLoopComplete)]
-
-        btnShuffle.stateImageMappings = [(ShuffleMode.off, Images.imgShuffleOff), (ShuffleMode.on, Images.imgShuffleOn)]
+        btnLoop.stateImageMappings = [(LoopState.none, {return Images.imgLoopOff}), (LoopState.started, {return Images.imgLoopStarted}), (LoopState.complete, {return Images.imgLoopComplete})]
         
         // TODO: BUG - When tracks are added/removed from the playlist, tool tip needs to be updated bcoz playback sequence might have changed
 
@@ -117,8 +157,7 @@ class PlayerControlsView: NSView {
         let remainingTimeGestureRecognizer: NSGestureRecognizer = NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction))
         lblTimeRemaining.addGestureRecognizer(remainingTimeGestureRecognizer)
         
-        TextSizes.playerScheme = appState.textSize
-        changeTextSize(appState.textSize)
+        changeTextSize(PlayerViewState.textSize)
     }
 
     func initialize(_ volume: Float, _ muted: Bool, _ pan: Float, _ playbackState: PlaybackState, _ playbackRate: Float, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, seekPositionFunction: @escaping (() -> (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double))) {
@@ -237,19 +276,17 @@ class PlayerControlsView: NSView {
 
             // Update loop button image
             btnLoop.switchState(loop.isComplete() ? LoopState.complete: LoopState.started)
-            
-            // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
-            if (seekSliderCell.loop == nil) {
-                
-                seekSliderClone.doubleValue = loop.startTime * 100 / trackDuration
-                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
-            }
 
             // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
             if (loop.isComplete()) {
-                
+
                 seekSliderClone.doubleValue = loop.endTime! * 100 / trackDuration
                 seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+
+            } else {
+
+                seekSliderClone.doubleValue = loop.startTime * 100 / trackDuration
+                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
             }
 
         } else {
@@ -313,7 +350,7 @@ class PlayerControlsView: NSView {
         autoHidingVolumeLabel.showView()
     }
 
-    private func setVolumeImage(_ volume: Float, _ muted: Bool) {
+    func setVolumeImage(_ volume: Float, _ muted: Bool) {
 
         if (muted) {
             btnVolume.image = Images.imgMute
@@ -413,6 +450,25 @@ class PlayerControlsView: NSView {
         lblVolume.font = TextSizes.feedbackFont
         lblPan.font = TextSizes.feedbackFont
         lblPanCaption.font = TextSizes.feedbackFont
+    }
+    
+    func changeColorScheme() {
+        
+        lblTimeElapsed.textColor = Colors.Player.trackTimesColor
+        lblTimeRemaining.textColor = Colors.Player.trackTimesColor
+        lblPanCaption.textColor = Colors.Player.trackTimesColor
+        lblPan.textColor = Colors.Player.trackTimesColor
+        lblVolume.textColor = Colors.Player.trackTimesColor
+        
+        btnPlayPause.colorSchemeChanged()
+        [btnPreviousTrack, btnNextTrack].forEach({$0?.colorSchemeChanged()})
+        [btnSeekBackward, btnSeekForward].forEach({$0?.colorSchemeChanged()})
+        
+        [btnRepeat, btnShuffle, btnLoop].forEach({$0?.colorSchemeChanged()})
+        
+        seekSlider.redraw()
+        volumeSlider.redraw()
+        panSlider.redraw()
     }
 }
 

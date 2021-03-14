@@ -44,11 +44,6 @@ class MetadataUtils {
         track.displayInfo.art = art
     }
     
-    static func loadChapters(_ track: Track) {
-        
-        track.chapters = track.metadataNativelySupported ? avAssetReader.getChapters(track) : ffMpegReader.getChapters(track)
-    }
-    
     // Loads all available metadata for a track
     static func loadAllMetadata(_ track: Track) {
         

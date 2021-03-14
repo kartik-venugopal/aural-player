@@ -244,21 +244,6 @@ enum PlaylistType: String {
             
         }
     }
-    
-    func toIndex() -> Int {
-        
-        switch self {
-            
-        case .tracks: return 0
-            
-        case .artists: return 1
-            
-        case .albums: return 2
-            
-        case .genres: return 3
-            
-        }
-    }
 }
 
 // Marker protocol indicating an item that belongs to a playlist (i.e. either a track or a group)

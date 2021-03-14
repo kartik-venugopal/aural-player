@@ -13,8 +13,8 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     let knobHeight: CGFloat = 10
     let knobInsetX: CGFloat = 1.5
     let knobInsetY: CGFloat = 0
-    let knobRadius: CGFloat = 1
-    let knobWidthOutsideBar: CGFloat = 1.5
+    let knobRadius: CGFloat = 2
+    let knobWidthOutsideBar: CGFloat = 3.5
     
     var unitState: EffectsUnitState = .bypassed
     
@@ -86,14 +86,14 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         Colors.sliderBarPlainGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
         
         // Draw one tick across the center of the bar (marking 0dB)
-        let tickMinX = drawRect.minX + 1.5
-        let tickMaxX = drawRect.maxX - 1.5
+        let tickMinX = drawRect.minX + 1
+        let tickMaxX = drawRect.maxX - 1
         
         let tickRect = rectOfTickMark(at: 0)
         let y = (tickRect.minY + tickRect.maxY) / 2
         
         // Tick
-        GraphicsUtils.drawLine(NSColor.black, pt1: NSMakePoint(tickMinX, y), pt2: NSMakePoint(tickMaxX, y), width: 2)
+        GraphicsUtils.drawLine(Colors.sliderNotchColor, pt1: NSMakePoint(tickMinX, y), pt2: NSMakePoint(tickMaxX, y), width: 2)
     }
     
     override func drawTickMarks() {

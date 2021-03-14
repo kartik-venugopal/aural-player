@@ -64,6 +64,9 @@ enum ActionType {
     // Show the selected track in Finder
     case showTrackInFinder
     
+    // Switch playlist tabs to switch between playlist views
+    case shiftTab
+    
     // Invoke the search dialog
     case search
     
@@ -312,6 +315,8 @@ enum ActionType {
     case changePlayerTextSize
     case changeEffectsTextSize
     case changePlaylistTextSize
+    
+    case changeColorScheme
 }
 
 enum ActionMode {
@@ -394,6 +399,16 @@ struct TextSizeActionMessage: ActionMessage {
         
         self.actionType = actionType
         self.textSize = textSize
+    }
+}
+
+struct ColorSchemeActionMessage: ActionMessage {
+    
+    let actionType: ActionType = .changeColorScheme
+    let scheme: ColorScheme
+    
+    init(_ scheme: ColorScheme) {
+        self.scheme = scheme
     }
 }
 

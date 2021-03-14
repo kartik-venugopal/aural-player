@@ -6,10 +6,6 @@ import AVFoundation
  */
 protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
-    var availableDevices: [AudioDevice] {get}
-    var systemDevice: AudioDevice {get}
-    var outputDevice: AudioDevice {get set}
-    
     var volume: Float {get set}
     var balance: Float {get set}
     var muted: Bool {get set}

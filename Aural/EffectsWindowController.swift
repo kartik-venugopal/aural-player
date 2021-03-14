@@ -5,6 +5,16 @@
 import Cocoa
 
 class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubscriber, ActionMessageSubscriber, ConstituentView {
+    
+    @IBOutlet weak var btnClose: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnClose.imageMappings[.darkBackground_lightText] = NSImage(named: "Close")
+            btnClose.imageMappings[.lightBackground_darkText] = NSImage(named: "Close_1")
+        }
+    }
+    
+    @IBOutlet weak var rootContainer: NSBox!
 
     // The constituent sub-views, one for each effects unit
 
@@ -21,18 +31,130 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
 
     @IBOutlet weak var fxTabView: NSTabView!
 
-    @IBOutlet weak var masterTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var eqTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var pitchTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var timeTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var reverbTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var delayTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var masterTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+    
+        didSet {
+            
+            masterTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "MasterTab")
+            masterTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "MasterTab_1")
+            
+            masterTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "MasterTab-On")
+            masterTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "MasterTab-On_1")
+        }
+    }
+    
+    @IBOutlet weak var eqTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+        
+        didSet {
+            
+            eqTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "EQTab")
+            eqTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "EQTab_1")
+            
+            eqTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "EQTab-On")
+            eqTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "EQTab-On_1")
+            
+            eqTabViewButton.mixedStateImageMappings[.darkBackground_lightText] = NSImage(named: "EQTab-Mixed")
+            eqTabViewButton.mixedStateImageMappings[.lightBackground_darkText] = NSImage(named: "EQTab-Mixed_1")
+        }
+    }
+    
+    @IBOutlet weak var pitchTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+        
+        didSet {
+            
+            pitchTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "PitchTab")
+            pitchTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "PitchTab_1")
+            
+            pitchTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "PitchTab-On")
+            pitchTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "PitchTab-On_1")
+            
+            pitchTabViewButton.mixedStateImageMappings[.darkBackground_lightText] = NSImage(named: "PitchTab-Mixed")
+            pitchTabViewButton.mixedStateImageMappings[.lightBackground_darkText] = NSImage(named: "PitchTab-Mixed_1")
+        }
+    }
+    
+    @IBOutlet weak var timeTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+        
+        didSet {
+            
+            timeTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "TimeTab")
+            timeTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "TimeTab_1")
+            
+            timeTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "TimeTab-On")
+            timeTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "TimeTab-On_1")
+            
+            timeTabViewButton.mixedStateImageMappings[.darkBackground_lightText] = NSImage(named: "TimeTab-Mixed")
+            timeTabViewButton.mixedStateImageMappings[.lightBackground_darkText] = NSImage(named: "TimeTab-Mixed_1")
+        }
+    }
+    
+    @IBOutlet weak var reverbTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+        
+        didSet {
+            
+            reverbTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "ReverbTab")
+            reverbTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "ReverbTab_1")
+            
+            reverbTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "ReverbTab-On")
+            reverbTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "ReverbTab-On_1")
+            
+            reverbTabViewButton.mixedStateImageMappings[.darkBackground_lightText] = NSImage(named: "ReverbTab-Mixed")
+            reverbTabViewButton.mixedStateImageMappings[.lightBackground_darkText] = NSImage(named: "ReverbTab-Mixed_1")
+        }
+    }
+    
+    @IBOutlet weak var delayTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+        
+        didSet {
+            
+            delayTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "DelayTab")
+            delayTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "DelayTab_1")
+            
+            delayTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "DelayTab-On")
+            delayTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "DelayTab-On_1")
+            
+            delayTabViewButton.mixedStateImageMappings[.darkBackground_lightText] = NSImage(named: "DelayTab-Mixed")
+            delayTabViewButton.mixedStateImageMappings[.lightBackground_darkText] = NSImage(named: "DelayTab-Mixed_1")
+        }
+    }
+    
+    @IBOutlet weak var filterTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+        
+        didSet {
+            
+            filterTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "FilterTab")
+            filterTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "FilterTab_1")
+            
+            filterTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "FilterTab-On")
+            filterTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "FilterTab-On_1")
+            
+            filterTabViewButton.mixedStateImageMappings[.darkBackground_lightText] = NSImage(named: "FilterTab-Mixed")
+            filterTabViewButton.mixedStateImageMappings[.lightBackground_darkText] = NSImage(named: "FilterTab-Mixed_1")
+        }
+    }
+    
+    @IBOutlet weak var recorderTabViewButton: ColorSensitiveEffectsUnitTabButton! {
+        
+        didSet {
+            
+            recorderTabViewButton.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "RecorderTab")
+            recorderTabViewButton.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "RecorderTab_1")
+            
+            recorderTabViewButton.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "RecorderTab-On")
+            recorderTabViewButton.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "RecorderTab-On_1")
+        }
+    }
 
-    private var fxTabViewButtons: [EffectsUnitTabButton]?
+    private var fxTabViewButtons: [ColorSensitiveEffectsUnitTabButton]?
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    @IBOutlet weak var viewMenuImageItem: ColorSensitiveMenuItem! {
+        
+        didSet {
+            viewMenuImageItem.imageMappings[.darkBackground_lightText] = NSImage(named: "Settings")
+            viewMenuImageItem.imageMappings[.lightBackground_darkText] = NSImage(named: "Settings_1")
+        }
+    }
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
@@ -61,11 +183,12 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         AppModeManager.registerConstituentView(.regular, self)
         theWindow.isMovableByWindowBackground = true
 
-        EffectsViewState.initialize(ObjectGraph.appState.ui.effects)
-        TextSizes.effectsScheme = EffectsViewState.textSize
-        
         changeTextSize()
         SyncMessenger.publishActionMessage(TextSizeActionMessage(.changeEffectsTextSize, EffectsViewState.textSize))
+        
+        changeColorScheme()
+//        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(EffectsViewState.colorScheme))
+        SyncMessenger.publishActionMessage(ColorSchemeActionMessage(.lightBackground_darkText))
     }
 
     private func addSubViews() {
@@ -116,13 +239,13 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func initSubscriptions() {
 
         SyncMessenger.subscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeColorScheme], subscriber: self)
     }
 
     private func removeSubscriptions() {
 
         SyncMessenger.unsubscribe(messageTypes: [.effectsUnitStateChangedNotification], subscriber: self)
-        SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize], subscriber: self)
+        SyncMessenger.unsubscribe(actionTypes: [.showEffectsUnitTab, .changeEffectsTextSize, .changeColorScheme], subscriber: self)
     }
 
     // Switches the tab group to a particular tab
@@ -145,6 +268,17 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
     private func changeTextSize() {
         EffectsViewState.textSize = TextSizes.effectsScheme
         viewMenuButton.font = TextSizes.effectsMenuFont
+    }
+    
+    private func changeColorScheme() {
+        
+        viewMenuImageItem.colorSchemeChanged()
+        [btnClose].forEach({$0.colorSchemeChanged()})
+        rootContainer.fillColor = Colors.windowBackgroundColor
+        fxTabViewButtons?.forEach({
+            $0.colorSchemeChanged()
+            $0.redraw()
+        })
     }
 
     var subscriberId: String {
@@ -205,6 +339,12 @@ class EffectsWindowController: NSWindowController, NSWindowDelegate, MessageSubs
         if message is TextSizeActionMessage {
             
             changeTextSize()
+            return
+        }
+        
+        if message is ColorSchemeActionMessage {
+            
+            changeColorScheme()
             return
         }
     }

@@ -93,4 +93,14 @@ class EQView: NSView {
         btn15Band.redraw()
         btnSync.redraw()
     }
+    
+    func changeColorScheme() {
+        
+        eq10BandView.changeColorScheme()
+        eq15BandView.changeColorScheme()
+        
+        btn10Band.redraw()
+        btn15Band.redraw()
+        btnSync.redraw()
+    }
 }

@@ -12,7 +12,6 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
     @IBOutlet weak var recordingInfoBox: NSBox!
     
     @IBOutlet weak var formatMenu: NSPopUpButton!
-    @IBOutlet weak var qualityMenu: NSPopUpButton!
     
     // Labels
     @IBOutlet weak var lblCaption: NSTextField!
@@ -34,7 +33,7 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         // Subscribe to message notifications
         SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
-        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeColorScheme], subscriber: self)
     }
     
     private func initControls() {
@@ -59,12 +58,9 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         formatMenu.disable()
         
-        let format = RecordingFormat.formatForDescription(formatMenu.selectedItem!.title)
-        let quality = RecordingQuality(rawValue: qualityMenu.selectedItem!.tag)!
+        let format = RecordingFormat.formatForDescription((formatMenu.selectedItem?.title)!)
         
-        print("Format:", format, "Quality:", quality)
-        
-        recorder.startRecording(RecordingParams(format, quality))
+        recorder.startRecording(format)
         
         // Start the recording
         btnRecord.on()
@@ -181,6 +177,14 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         return labels
     }
     
+    func changeColorScheme() {
+        
+        lblCaption.textColor = Colors.fxUnitCaptionColor
+        
+        let labels = findFunctionLabels(self.view)
+        labels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
+    }
+    
     // MARK: Message handling
     
     var subscriberId: String {
@@ -200,6 +204,10 @@ class RecorderViewController: NSViewController, MessageSubscriber, ActionMessage
         
         if message.actionType == .changeEffectsTextSize {
             changeTextSize()
+        }
+        
+        if message.actionType == .changeColorScheme {
+            changeColorScheme()
         }
     }
 }

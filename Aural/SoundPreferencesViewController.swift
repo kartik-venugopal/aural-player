@@ -2,11 +2,6 @@ import Cocoa
 
 class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var btnSystemDeviceOnStartup: NSButton!
-    @IBOutlet weak var btnRememberDeviceOnStartup: NSButton!
-    @IBOutlet weak var btnPreferredDeviceOnStartup: NSButton!
-    @IBOutlet weak var preferredDevicesMenu: NSPopUpButton!
-    
     @IBOutlet weak var volumeDeltaField: NSTextField!
     @IBOutlet weak var volumeDeltaStepper: NSStepper!
     
@@ -36,7 +31,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var btnRememberSettings_allTracks: NSButton!
     @IBOutlet weak var btnRememberSettings_individualTracks: NSButton!
     
-    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
@@ -49,23 +43,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     func resetFields(_ preferences: Preferences) {
         
         let soundPrefs = preferences.soundPreferences
-        
-        switch soundPrefs.outputDeviceOnStartup.option {
-            
-        case .system:                       btnSystemDeviceOnStartup.on()
-                                            break
-            
-        case .rememberFromLastAppLaunch:    btnRememberDeviceOnStartup.on()
-                                            break
-            
-        case .specific:                     btnPreferredDeviceOnStartup.on()
-                                            break
-        }
-        
-        updatePreferredDevicesMenu(soundPrefs)
-        preferredDevicesMenu.enableIf(btnPreferredDeviceOnStartup.isOn())
-        
-        // Volume increment / decrement
         
         let volumeDelta = Int(round(soundPrefs.volumeDelta * AppConstants.ValueConversions.volume_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
@@ -80,8 +57,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         lblStartupVolume.enableIf(btnSpecifyVolume.isOn())
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
-        
-        // Balance increment / decrement
         
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.ValueConversions.pan_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
@@ -99,8 +74,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         timeDeltaStepper.floatValue = timeDelta
         timeDeltaAction(self)
         
-        // Effects settings on startup
-        
         if soundPrefs.effectsSettingsOnStartupOption == .rememberFromLastAppLaunch {
             btnRememberEffectsOnStartup.on()
         } else {
@@ -115,8 +88,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
             masterPresetsMenu.selectItem(withTitle: masterPresetName)
         }
         
-        // Per-track effects settings memory
-        
         btnRememberSettingsForTrack.onIf(soundPrefs.rememberEffectsSettings)
         [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(soundPrefs.rememberEffectsSettings)})
         
@@ -127,53 +98,12 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         }
     }
     
-    private func updatePreferredDevicesMenu(_ prefs: SoundPreferences) {
-        
-        preferredDevicesMenu.removeAllItems()
-        
-        let prefDeviceName: String = prefs.outputDeviceOnStartup.preferredDeviceName ?? ""
-        let prefDeviceUID: String = prefs.outputDeviceOnStartup.preferredDeviceUID ?? ""
-        
-        var prefDevice: PreferredDevice?
-        
-        var selItem: NSMenuItem?
-        
-        for device in audioGraph.availableDevices {
-
-            preferredDevicesMenu.insertItem(withTitle: device.name!, at: 0)
-            
-            let repObject = PreferredDevice(device.name!, device.uid!)
-            preferredDevicesMenu.item(at: 0)!.representedObject = repObject
-            
-            // If this device matches the preferred device, make note of it
-            if (device.uid! == prefDeviceUID) {
-                prefDevice = repObject
-                selItem = preferredDevicesMenu.item(at: 0)!
-            }
-        }
-        
-        // If the preferred device is not any of the available devices, add it to the menu
-        if prefDevice == nil && prefDeviceUID != "" {
-            
-            preferredDevicesMenu.insertItem(withTitle: prefDeviceName + " (unavailable)", at: 0)
-            preferredDevicesMenu.item(at: 0)!.representedObject = PreferredDevice(prefDeviceName, prefDeviceUID)
-            selItem = preferredDevicesMenu.item(at: 0)!
-        }
-        
-        preferredDevicesMenu.select(selItem)
-    }
-    
     private func updateMasterPresetsMenu() {
         
         masterPresetsMenu.removeAllItems()
         
         // Initialize the menu with user-defined presets
         masterPresets.userDefinedPresets.forEach({masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)})
-    }
-    
-    @IBAction func outputDeviceRadioButtonAction(_ sender: Any) {
-        // Needed for radio button group
-        preferredDevicesMenu.enableIf(btnPreferredDeviceOnStartup.isOn())
     }
     
     @IBAction func volumeDeltaAction(_ sender: Any) {
@@ -220,19 +150,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
-        if (btnSystemDeviceOnStartup.isOn()) {
-            soundPrefs.outputDeviceOnStartup.option = .system
-        } else if (btnRememberDeviceOnStartup.isOn()) {
-            soundPrefs.outputDeviceOnStartup.option = .rememberFromLastAppLaunch
-        } else {
-            soundPrefs.outputDeviceOnStartup.option = .specific
-        }
-        
-        if let prefDevice: PreferredDevice = preferredDevicesMenu.selectedItem?.representedObject as? PreferredDevice {
-            soundPrefs.outputDeviceOnStartup.preferredDeviceName = prefDevice.name
-            soundPrefs.outputDeviceOnStartup.preferredDeviceUID = prefDevice.uid
-        }
-        
         soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.ValueConversions.volume_UIToAudioGraph
         
         soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn() ? .rememberFromLastAppLaunch : .specific
@@ -259,17 +176,5 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         if !soundPrefs.rememberEffectsSettings || (wasAllTracks && isNowIndividualTracks) {
             soundProfiles.removeAll()
         }
-    }
-}
-
-// Encapsulates a user-preferred audio output device
-public class PreferredDevice {
-    
-    var name: String
-    var uid: String
-    
-    init(_ name: String, _ uid: String) {
-        self.name = name
-        self.uid = uid
     }
 }

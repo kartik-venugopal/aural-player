@@ -38,6 +38,7 @@ class FilterBandViewController: NSViewController {
     override func viewDidLoad() {
         resetFields()
         changeTextSize()
+        changeColorScheme()
     }
     
     private func resetFields() {
@@ -177,6 +178,19 @@ class FilterBandViewController: NSViewController {
         filterTypeMenu.redraw()
         
         presetRangesMenu.font = TextSizes.fxUnitFunctionFont
+        presetCutoffsMenu.font = TextSizes.fxUnitFunctionFont
+    }
+    
+    func changeColorScheme() {
+        
+        tabButton.redraw()
+        
+        let labels = findFunctionLabels(self.view)
+        labels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
+        
+        // TODO: Redraw the sliders
+        cutoffSlider.redraw()
+        freqRangeSlider.redraw()
     }
     
     private func findFunctionLabels(_ view: NSView) -> [NSTextField] {

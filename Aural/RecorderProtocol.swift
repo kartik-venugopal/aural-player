@@ -7,7 +7,7 @@ import Cocoa
 protocol RecorderProtocol {
     
     // Starts a recording with the specified format
-    func startRecording(_ params: RecordingParams)
+    func startRecording(_ format: RecordingFormat)
     
     // Returns metadata for the active recording (if there is one)
     func getRecordingInfo() -> RecordingInfo?

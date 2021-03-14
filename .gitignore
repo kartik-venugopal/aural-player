@@ -1,8 +1,9 @@
 .DS_Store
-Aural.app/
-Icons/
 Documentation/UserGuide.html.bak
 Documentation/UserGuide_pdf.html.bak
+<<<<<<< HEAD
 chapters-TODO.rtf
 
+=======
+>>>>>>> master
 *.xcuserstate

@@ -10,16 +10,76 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         return self.window! as! SnappingWindow
     }
     
+    @IBOutlet weak var btnClose: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnClose.imageMappings[.darkBackground_lightText] = NSImage(named: "Close")
+            btnClose.imageMappings[.lightBackground_darkText] = NSImage(named: "Close_1")
+        }
+    }
+    
+    @IBOutlet weak var btnHide: ColorSensitiveImageButton! {
+        
+        didSet {
+            btnHide.imageMappings[.darkBackground_lightText] = NSImage(named: "Hide")
+            btnHide.imageMappings[.lightBackground_darkText] = NSImage(named: "Hide_1")
+        }
+    }
+    
+    @IBOutlet weak var rootContainer: NSBox!
+    
     // The box that encloses the Now Playing info section
     @IBOutlet weak var containerBox: NSBox!
     private lazy var playerView: NSView = ViewFactory.getPlayerView()
     
+    @IBOutlet weak var imgAppTitle: ColorSensitiveImage! {
+        
+        didSet {
+            imgAppTitle.imageMappings[.darkBackground_lightText] = NSImage(named: "AppTitle")
+            imgAppTitle.imageMappings[.lightBackground_darkText] = NSImage(named: "AppTitle_1")
+        }
+    }
+    
     // Buttons to toggle the playlist/effects views
-    @IBOutlet weak var btnToggleEffects: OnOffImageButton!
-    @IBOutlet weak var btnTogglePlaylist: OnOffImageButton!
+    @IBOutlet weak var btnToggleEffects: ColorSensitiveOnOffImageButton! {
+        
+        didSet {
+            btnToggleEffects.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "EffectsView-Off")!
+            btnToggleEffects.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "EffectsView-Off_1")!
+            
+            btnToggleEffects.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "EffectsView-On")!
+            btnToggleEffects.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "EffectsView-On_1")!
+        }
+    }
+    
+    @IBOutlet weak var btnTogglePlaylist: ColorSensitiveOnOffImageButton! {
+        
+        didSet {
+            btnTogglePlaylist.offStateImageMappings[.darkBackground_lightText] = NSImage(named: "PlaylistView-Off")!
+            btnTogglePlaylist.offStateImageMappings[.lightBackground_darkText] = NSImage(named: "PlaylistView-Off_1")!
+            
+            btnTogglePlaylist.onStateImageMappings[.darkBackground_lightText] = NSImage(named: "PlaylistView-On")!
+            btnTogglePlaylist.onStateImageMappings[.lightBackground_darkText] = NSImage(named: "PlaylistView-On_1")!
+        }
+    }
+    
     @IBOutlet weak var btnLayout: NSPopUpButton!
+    @IBOutlet weak var layoutMenuImageItem: ColorSensitiveMenuItem! {
+        
+        didSet {
+            layoutMenuImageItem.imageMappings[.darkBackground_lightText] = NSImage(named: "WindowLayout-Light")
+            layoutMenuImageItem.imageMappings[.lightBackground_darkText] = NSImage(named: "WindowLayout-Light_1")
+        }
+    }
     
     @IBOutlet weak var viewMenuButton: NSPopUpButton!
+    @IBOutlet weak var viewMenuImageItem: ColorSensitiveMenuItem! {
+        
+        didSet {
+            viewMenuImageItem.imageMappings[.darkBackground_lightText] = NSImage(named: "Settings")
+            viewMenuImageItem.imageMappings[.lightBackground_darkText] = NSImage(named: "Settings_1")
+        }
+    }
     
     private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.getPreferences().viewPreferences
     private lazy var layoutManager: LayoutManager = ObjectGraph.layoutManager
@@ -75,8 +135,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         btnToggleEffects.onIf(appState.showEffects)
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
-        TextSizes.playerScheme = ObjectGraph.appState.ui.player.textSize
         changeTextSize()
+        changeColorScheme()
     }
     
     // Add the sub-views that make up the main window
@@ -104,7 +164,7 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
     private func initSubscriptions() {
         
         // Subscribe to various messages
-        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.toggleEffects, .togglePlaylist, .changePlayerTextSize, .changeColorScheme], subscriber: self)
         SyncMessenger.subscribe(messageTypes: [.layoutChangedNotification], subscriber: self)
     }
     
@@ -194,6 +254,16 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         viewMenuButton.font = TextSizes.playerMenuFont
     }
     
+    private func changeColorScheme() {
+        
+        imgAppTitle.colorSchemeChanged()
+        rootContainer.fillColor = Colors.windowBackgroundColor
+        
+        [btnClose, btnHide].forEach({$0.colorSchemeChanged()})
+        [layoutMenuImageItem, viewMenuImageItem].forEach({$0.colorSchemeChanged()})
+        [btnToggleEffects, btnTogglePlaylist].forEach({$0.colorSchemeChanged()})
+    }
+    
     // MARK: Message handling
     
     func consumeNotification(_ notification: NotificationMessage) {
@@ -218,6 +288,8 @@ class MainWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate
         case .togglePlaylist: togglePlaylist()
             
         case .changePlayerTextSize: changeTextSize()
+            
+        case .changeColorScheme:    changeColorScheme()
             
         default: return
             

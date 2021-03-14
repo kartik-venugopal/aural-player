@@ -37,12 +37,6 @@ class Track: NSObject, PlaylistItem {
     
     var lyrics: String?
     
-    var chapters: [Chapter] = []
-    
-    var hasChapters: Bool {
-        return !chapters.isEmpty
-    }
-    
     init(_ file: URL) {
         
         self.playbackNativelySupported = AudioUtils.isAudioFilePlaybackNativelySupported(file)
@@ -115,60 +109,6 @@ class Track: NSObject, PlaylistItem {
     // Prepares this track for playback
     func prepareForPlayback() {
         TrackIO.prepareForPlayback(self)
-    }
-    
-    func loadChapters() {
-        TrackIO.loadChapters(self)
-        
-        for index in 0..<chapters.count - 1 {
-            
-            let chapter = chapters[index]
-            let nextChapter = chapters[index + 1]
-            
-            if (chapter.duration <= 0) {
-
-                // Assume that start time is available for all chapters
-                chapter.duration = max(nextChapter.startTime - chapter.startTime, 0)
-            }
-            
-            // End time may not be defined
-            if (chapter.endTime <= 0) {
-                
-                // Assume that start time is available for all chapters
-                chapter.endTime = nextChapter.startTime
-            }
-        }
-        
-        if let lastChapter = chapters.last, lastChapter.duration == 0 {
-            
-            // Last chapter duration = Track duration - chapter startTime
-            lastChapter.duration = self.duration - lastChapter.startTime
-        }
-    }
-    
-    func printChapters() {
-        
-        var ctr: Int = 0
-        for ch in chapters {
-            ctr += 1
-            print("Chapter", ctr, "Title:", ch.title, "StartTime:", ch.startTime)
-        }
-    }
-}
-
-class Chapter {
-    
-    let title: String
-    let startTime: Double
-    var endTime: Double
-    var duration: Double
-    
-    init(_ title: String, _ startTime: Double, _ endTime: Double) {
-        
-        self.title = title
-        self.startTime = startTime
-        self.endTime = endTime
-        self.duration = max(endTime - startTime, 0)
     }
 }
 

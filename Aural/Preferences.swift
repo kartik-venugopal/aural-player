@@ -222,8 +222,6 @@ class TranscodingPreferences {
 
 class SoundPreferences: PersistentPreferencesProtocol {
     
-    var outputDeviceOnStartup: OutputDeviceOnStartup
-    
     var volumeDelta: Float
     
     private let scrollSensitiveVolumeDeltas: [ScrollSensitivity: Float] = [.low: 0.025, .medium: 0.05, .high: 0.1]
@@ -256,22 +254,6 @@ class SoundPreferences: PersistentPreferencesProtocol {
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         let defaultsDictionary = Preferences.defaultsDict
-        
-        outputDeviceOnStartup = PreferencesDefaults.Sound.outputDeviceOnStartup
-        
-        if let outputDeviceOnStartupOptionStr = defaultsDictionary["sound.outputDeviceOnStartup.option"] as? String,
-            let option = OutputDeviceStartupOptions(rawValue: outputDeviceOnStartupOptionStr) {
-            
-            outputDeviceOnStartup.option = option
-        }
-        
-        if let deviceName = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceName"] as? String, deviceName.trim() != "" {
-            outputDeviceOnStartup.preferredDeviceName = deviceName
-        }
-        
-        if let deviceUID = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceUID"] as? String, deviceUID.trim() != "" {
-            outputDeviceOnStartup.preferredDeviceUID = deviceUID
-        }
         
         volumeDelta = defaultsDictionary["sound.volumeDelta"] as? Float ?? PreferencesDefaults.Sound.volumeDelta
         
@@ -313,10 +295,6 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     func persist(defaults: UserDefaults) {
         
-        defaults.set(outputDeviceOnStartup.option.rawValue, forKey: "sound.outputDeviceOnStartup.option")
-        defaults.set(outputDeviceOnStartup.preferredDeviceName, forKey: "sound.outputDeviceOnStartup.preferredDeviceName")
-        defaults.set(outputDeviceOnStartup.preferredDeviceUID, forKey: "sound.outputDeviceOnStartup.preferredDeviceUID")
-        
         defaults.set(volumeDelta, forKey: "sound.volumeDelta")
         
         defaults.set(volumeOnStartupOption.rawValue, forKey: "sound.volumeOnStartup.option")
@@ -346,19 +324,7 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     // This will be used only when playlistOnStartup == PlaylistStartupOptions.loadFolder
     var tracksFolder: URL?
     
-    var viewOnStartup: PlaylistViewOnStartup
-    
     internal required init(_ defaultsDictionary: [String: Any]) {
-        
-        viewOnStartup = PreferencesDefaults.Playlist.viewOnStartup
-        
-        if let viewOnStartupOptionStr = defaultsDictionary["playlist.viewOnStartup.option"] as? String {
-            viewOnStartup.option = PlaylistViewStartupOptions(rawValue: viewOnStartupOptionStr)!
-        }
-        
-        if let viewStr = defaultsDictionary["playlist.viewOnStartup.view"] as? String {
-            viewOnStartup.viewName = viewStr
-        }
         
         if let playlistOnStartupStr = defaultsDictionary["playlist.playlistOnStartup"] as? String {
             playlistOnStartup = PlaylistStartupOptions(rawValue: playlistOnStartupStr)!
@@ -398,9 +364,6 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         defaults.set(playlistOnStartup.rawValue, forKey: "playlist.playlistOnStartup")
         defaults.set(playlistFile?.path, forKey: "playlist.playlistOnStartup.playlistFile")
         defaults.set(tracksFolder?.path, forKey: "playlist.playlistOnStartup.tracksFolder")
-        
-        defaults.set(viewOnStartup.option.rawValue, forKey: "playlist.viewOnStartup.option")
-        defaults.set(viewOnStartup.viewName, forKey: "playlist.viewOnStartup.view")
     }
 }
 
@@ -421,7 +384,7 @@ class ViewPreferences: PersistentPreferencesProtocol {
         windowGap = PreferencesDefaults.View.windowGap
         
         if let layoutOnStartupOptionStr = defaultsDictionary["view.layoutOnStartup.option"] as? String {
-            layoutOnStartup.option = WindowLayoutStartupOptions(rawValue: layoutOnStartupOptionStr)!
+            layoutOnStartup.option = ViewStartupOptions(rawValue: layoutOnStartupOptionStr)!
         }
         
         if let layoutStr = defaultsDictionary["view.layoutOnStartup.layout"] as? String {
@@ -604,8 +567,6 @@ fileprivate struct PreferencesDefaults {
     
     struct Sound {
         
-        static let outputDeviceOnStartup: OutputDeviceOnStartup = OutputDeviceOnStartup.defaultInstance
-        
         static let volumeDelta: Float = 0.05
         
         static let volumeOnStartupOption: VolumeStartupOptions = .rememberFromLastAppLaunch
@@ -629,8 +590,6 @@ fileprivate struct PreferencesDefaults {
         static let playlistOnStartup: PlaylistStartupOptions = .rememberFromLastAppLaunch
         static let playlistFile: URL? = nil
         static let tracksFolder: URL? = nil
-        
-        static let viewOnStartup: PlaylistViewOnStartup = PlaylistViewOnStartup.defaultInstance
     }
     
     struct View {

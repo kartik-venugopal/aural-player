@@ -13,7 +13,6 @@
                 <outlet property="lblCaption" destination="0UX-B8-M5x" id="1PT-yc-t5D"/>
                 <outlet property="lblRecorderDuration" destination="nmg-jN-vJt" id="cX0-Lx-5WM"/>
                 <outlet property="lblRecorderFileSize" destination="FOY-Ai-hdi" id="m3n-6j-SUA"/>
-                <outlet property="qualityMenu" destination="Wuf-0D-YHR" id="maV-6T-Qkj"/>
                 <outlet property="recordingInfoBox" destination="Acc-ym-OC5" id="x3v-dE-HnK"/>
                 <outlet property="view" destination="YQh-RY-zvC" id="imb-Wq-AqJ"/>
             </connections>
@@ -21,11 +20,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <view id="YQh-RY-zvC">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="185"/>
+            <rect key="frame" x="0.0" y="0.0" width="530" height="190"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0UX-B8-M5x" userLabel="Recorder Desc" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="67" y="150" width="365" height="30"/>
+                    <rect key="frame" x="183" y="155" width="163" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="center" title="Recorder" id="zQO-oM-Xd9">
                         <font key="font" size="14" name="GillSans"/>
@@ -34,14 +33,14 @@
                     </textFieldCell>
                 </textField>
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Alf-cz-fUG" userLabel="Controls Box">
-                    <rect key="frame" x="58" y="20" width="384" height="136"/>
+                    <rect key="frame" x="73" y="48" width="384" height="84"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <view key="contentView" ambiguous="YES" id="xWN-nT-1rg">
-                        <rect key="frame" x="0.0" y="0.0" width="384" height="136"/>
+                        <rect key="frame" x="0.0" y="0.0" width="384" height="84"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EVw-8f-3Id" userLabel="Format" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="13" y="111" width="60" height="20"/>
+                                <rect key="frame" x="13" y="59" width="60" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Format" id="8ot-0H-mnY">
                                     <font key="font" size="11" name="GillSans"/>
@@ -50,7 +49,7 @@
                                 </textFieldCell>
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qaf-yf-lNI" userLabel="Format menu">
-                                <rect key="frame" x="82" y="107" width="255" height="22"/>
+                                <rect key="frame" x="82" y="55" width="255" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" title="Advanced Audio Codec (AAC)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="jhR-BW-tvM" id="lmd-sX-DNj" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -66,51 +65,12 @@
                                             <menuItem title="Audio Interchange File Format (AIFF)" id="mo2-uh-5LJ">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="Free Lossless Audio Codec (FLAC)" id="ZRW-ZB-3mq">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                        </items>
-                                    </menu>
-                                </popUpButtonCell>
-                            </popUpButton>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c97-hF-xEa" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="13" y="81" width="60" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Quality" id="Tfv-ri-SdO">
-                                    <font key="font" size="11" name="GillSans"/>
-                                    <color key="textColor" white="0.39998525219999997" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wuf-0D-YHR" userLabel="Quality menu">
-                                <rect key="frame" x="82" y="78" width="117" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="2" inset="2" altersStateOfSelectedItem="NO" selectedItem="btF-rD-zlK" id="DBf-ik-tT5" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="10" name="GillSans"/>
-                                    <menu key="menu" id="rZz-Qj-eR9">
-                                        <items>
-                                            <menuItem title="Minimum" id="JMo-py-frZ">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Low" tag="1" id="djm-Ry-bg1">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Medium" tag="2" id="btF-rD-zlK">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="High" tag="3" id="Ki2-gx-njp">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Maximum" tag="4" id="xyE-Zn-w9y">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ksR-cg-XYl" userLabel="Start/Stop" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="8" y="49" width="65" height="20"/>
+                                <rect key="frame" x="8" y="32" width="65" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Start/Stop" id="rMX-Sc-wak">
                                     <font key="font" size="11" name="GillSans"/>
@@ -119,7 +79,7 @@
                                 </textFieldCell>
                             </textField>
                             <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SeT-Td-HFB" userLabel="Record Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="80" y="47" width="20" height="20"/>
+                                <rect key="frame" x="80" y="30" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Record" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="xy8-DU-p88">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -136,7 +96,7 @@
                                 </connections>
                             </button>
                             <box hidden="YES" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Acc-ym-OC5" userLabel="Recording Info Box">
-                                <rect key="frame" x="0.0" y="19" width="350" height="25"/>
+                                <rect key="frame" x="0.0" y="2" width="350" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" ambiguous="YES" id="9HY-n5-qLY">
                                     <rect key="frame" x="0.0" y="0.0" width="350" height="25"/>
@@ -187,7 +147,7 @@
                     <color key="fillColor" white="0.19935257570000001" alpha="0.0" colorSpace="calibratedWhite"/>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="139" y="153.5"/>
+            <point key="canvasLocation" x="139" y="153"/>
         </view>
     </objects>
     <resources>

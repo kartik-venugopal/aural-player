@@ -124,6 +124,9 @@ class PresetsPopupMenuCell: PopupMenuCell {
     override var arrowXMargin: CGFloat {return 5.5}
     override var arrowYMargin: CGFloat {return 3}
     override var arrowHeight: CGFloat {return 3}
+    override var arrowLineWidth: CGFloat {return 1.75}
+    
+    override var menuGradient: NSGradient {return Colors.presetsPopupMenuGradient}
     
     override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
         

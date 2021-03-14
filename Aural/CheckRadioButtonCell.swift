@@ -7,7 +7,7 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.checkRadioButtonFont}
     
-    var textColor: NSColor {return isOff() ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
+    var textColor: NSColor {return isOff() ? ColorConstants.white70Percent : NSColor.white}
     
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         

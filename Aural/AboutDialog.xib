@@ -18,7 +18,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="255" height="144"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="255" height="144"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -63,9 +63,6 @@
                     </box>
                 </subviews>
             </view>
-            <connections>
-                <outlet property="delegate" destination="-2" id="a3u-3Z-Ocn"/>
-            </connections>
             <point key="canvasLocation" x="26.5" y="84"/>
         </window>
     </objects>

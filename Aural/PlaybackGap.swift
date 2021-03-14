@@ -48,12 +48,20 @@ extension PlaybackGap: Hashable {
     
     /**var hashValue: Int {
         return self.id
+<<<<<<< HEAD
     }**/
     
     func hash(into hasher: inout Hasher) {
         // The file path of the track is the unique identifier
         return hasher.combine(self.id)
         
+=======
+        
+    }
+    
+    func hash(into hasher: inout Hasher){
+        /// todo: Implement code here - see type hashable
+>>>>>>> master
     }
 }
 

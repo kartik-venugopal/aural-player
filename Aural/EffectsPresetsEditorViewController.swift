@@ -69,24 +69,6 @@ class EffectsPresetsEditorViewController: NSViewController, MessageSubscriber {
         fxPresetsTabView.selectTabViewItem(at: sender.tag)
     }
     
-    @IBAction func previousTabAction(_ sender: Any) {
-        
-        fxPresetsTabView.previousTab(self)
-        
-        fxPresetsTabViewButtons!.forEach({
-            $0.onIf($0.tag == fxPresetsTabView.selectedIndex)
-        })
-    }
-    
-    @IBAction func nextTabAction(_ sender: Any) {
-        
-        fxPresetsTabView.nextTab(self)
-        
-        fxPresetsTabViewButtons!.forEach({
-            $0.onIf($0.tag == fxPresetsTabView.selectedIndex)
-        })
-    }
-    
     @IBAction func renamePresetAction(_ sender: AnyObject) {
         SyncMessenger.publishActionMessage(EffectsPresetsEditorActionMessage(.renameEffectsPreset, effectsUnit()))
     }

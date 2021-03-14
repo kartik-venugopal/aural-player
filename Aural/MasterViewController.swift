@@ -33,7 +33,6 @@ class MasterViewController: FXUnitViewController {
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        
         masterView.initialize(eqStateFunction, pitchStateFunction, timeStateFunction, reverbStateFunction, delayStateFunction, filterStateFunction)
     }
     
@@ -129,12 +128,18 @@ class MasterViewController: FXUnitViewController {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
         if soundPreferences.rememberEffectsSettings, let newTrack = message.newTrack?.track, soundProfiles.hasFor(newTrack) {
-            
+
             updateButtons()
           //  _ = SyncMessenger.publishActionMessage(EffectsViewActionMessage(.updateEffectsView, .master))
         }
     }
     
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        masterView.changeColorScheme()
+    }
+   
     // MARK: Message handling
     
     override func consumeNotification(_ notification: NotificationMessage) {
@@ -144,7 +149,7 @@ class MasterViewController: FXUnitViewController {
         case .effectsUnitStateChangedNotification:
             
             updateButtons()
-            
+        
         case .trackChangedNotification:
             
             trackChanged(notification as! TrackChangedNotification)
@@ -162,10 +167,7 @@ class MasterViewController: FXUnitViewController {
             
         case .enableEffects, .disableEffects:
             bypassAction(self)
-            
-        case .changeEffectsTextSize:
-            changeTextSize()
-            
+       
         default: return
             
         }

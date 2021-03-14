@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,8 +14,6 @@
                 <outlet property="btnLoadPlaylistFromFile" destination="Dce-Nd-jp7" id="mbr-tQ-mvR"/>
                 <outlet property="btnLoadTracksFromFolder" destination="ukb-oo-Yli" id="h0L-4L-rua"/>
                 <outlet property="btnRememberPlaylist" destination="11g-RD-mFQ" id="Jvo-mq-jSV"/>
-                <outlet property="btnRememberView" destination="DHW-Fc-HiE" id="hwQ-gQ-FVQ"/>
-                <outlet property="btnStartWithView" destination="j2w-iX-ltq" id="TE7-yX-6Yv"/>
                 <outlet property="errorIcon_1" destination="1jP-hB-Fpl" id="RcR-o3-Uct"/>
                 <outlet property="errorIcon_2" destination="SBp-tz-E9v" id="I3V-8P-cQK"/>
                 <outlet property="lblFolder" destination="KwB-rp-fIz" id="rbu-rD-Gpd"/>
@@ -23,7 +21,6 @@
                 <outlet property="lblPlaylistFile" destination="8OE-My-Cyn" id="dsl-Y4-5sy"/>
                 <outlet property="lblPlaylistFileCell" destination="1T9-ny-RtV" id="b87-RR-nF1"/>
                 <outlet property="view" destination="zze-eD-Eei" id="ldu-Q2-8Jq"/>
-                <outlet property="viewMenu" destination="NTZ-F2-xeR" id="rGh-gh-yuf"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -33,9 +30,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bZn-N7-le7">
-                    <rect key="frame" x="18" y="437" width="268" height="20"/>
+                    <rect key="frame" x="18" y="437" width="92" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist (tracks) loaded on app startup" id="4VF-3R-sOZ">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="On app startup" id="4VF-3R-sOZ">
                         <font key="font" size="13" name="GillSans"/>
                         <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -144,61 +141,6 @@ DQ
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Error" id="RNZ-pb-dOQ"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70B-eh-HPI">
-                    <rect key="frame" x="18" y="287" width="203" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist view on app startup" id="tED-55-r9S">
-                        <font key="font" size="13" name="GillSans"/>
-                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DHW-Fc-HiE" userLabel="Remember layout from last app launch">
-                    <rect key="frame" x="30" y="260" width="246" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Remember view from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="00R-q2-d2L" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="startupPlaylistViewPrefAction:" target="-2" id="3DC-9G-DSb"/>
-                    </connections>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2w-iX-ltq" userLabel="Start with layout Label">
-                    <rect key="frame" x="30" y="236" width="108" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Start with view" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="a1O-Lq-CPe" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="smallSystem"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="startupPlaylistViewPrefAction:" target="-2" id="tvC-pl-vYY"/>
-                    </connections>
-                </button>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NTZ-F2-xeR" userLabel="Layout menu">
-                    <rect key="frame" x="138" y="233" width="126" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Tracks" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="QyX-vt-frc" id="tbo-4R-4mK" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="GillSans"/>
-                        <menu key="menu" id="3Dq-9F-FuL">
-                            <items>
-                                <menuItem title="Tracks" id="QyX-vt-frc">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Artists" id="zie-Yh-o6o">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Albums" id="T6b-xa-Gsj">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Genres" id="Ie8-lc-4Ly">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
             </subviews>
             <point key="canvasLocation" x="139" y="168"/>
         </view>

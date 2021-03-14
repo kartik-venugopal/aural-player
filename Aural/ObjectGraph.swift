@@ -75,6 +75,15 @@ class ObjectGraph {
         preferences = Preferences.instance()
         preferencesDelegate = PreferencesDelegate(preferences)
         
+        PlayerViewState.initialize(appState.ui.player)
+        TextSizes.playerScheme = appState.ui.player.textSize
+        
+        PlaylistViewState.initialize(appState.ui.playlist)
+        TextSizes.playlistScheme = appState.ui.playlist.textSize
+        
+        EffectsViewState.initialize(appState.ui.effects)
+        TextSizes.effectsScheme = appState.ui.effects.textSize
+        
         // Audio Graph (and delegate)
         audioGraph = AudioGraph(appState.audioGraph)
         
@@ -104,7 +113,7 @@ class ObjectGraph {
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(appState.playbackProfiles, player, playbackSequencer, playlist, transcoder, preferences.playbackPreferences)
         
-        audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
+        audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences)
         
         // Playlist Delegate
         let accessor = PlaylistAccessorDelegate(playlist)

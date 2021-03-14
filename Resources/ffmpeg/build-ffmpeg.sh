@@ -6,22 +6,39 @@
 # clang - C compiler (Run "xcode-select --install")
 
 # Binaries will be placed one level above the source folder (i.e. in the same location as this script)
+echo "Starting Build-Script for FFMpeg Build ...\n"
+echo "Setting local variables ...\n"
 export binDir=".."
 
-# The name of the FFmpeg source code archive (which will be expanded)
-export sourceArchiveName="ffmpeg-sourceCode.bz2"
+#echo "SourceArchivName = ffmpeg-sourceCode.bz2 \n"
+## The name of the FFmpeg source code archive (which will be expanded)
+#export sourceArchiveName="ffmpeg-sourceCode.bz2"
 
+echo "SourceArchivName = ffmpeg-4.2.2.tar.bz2 \n"
+# The name of the FFmpeg source code archive (which will be expanded)
+export sourceArchiveName="ffmpeg-4.2.2.tar.bz2"
+
+#echo "SourceDirectoryName = ffmpeg-4.1 \n"
+## The name of the FFmpeg source directory (once the archive has been uncompressed)
+#export sourceDirectoryName="ffmpeg-4.1"
+
+echo "SourceDirectoryName = ffmpeg-4.2.2 \n"
 # The name of the FFmpeg source directory (once the archive has been uncompressed)
-export sourceDirectoryName="ffmpeg-4.1"
+export sourceDirectoryName="ffmpeg-4.2.2"
+
+echo "Cleanup SourceDirectory from previous runs...\n"
+# Delete source directory to clenaup previous incomplete runs...
+rm -rf ../$sourceDirectoryName
 
 # Extract source code from archive
-echo "\nExtracting FFmpeg sources from archive ..."
+echo "Extracting FFmpeg sources from archive ...\n"
 tar xjf $sourceArchiveName
 echo "Done extracting FFmpeg sources from archive.\n"
 
 # CD to the source directory and configure FFmpeg
 cd $sourceDirectoryName
-echo "Configuring FFmpeg ..."
+
+echo "Configuring FFmpeg ... \n"
 
 ./configure \
 --cc=/usr/bin/clang \
@@ -86,9 +103,12 @@ echo "Configuring FFmpeg ..."
 echo "Done configuring FFmpeg.\n"
 
 # Build FFmpeg
-echo "Building FFmpeg ..."
+echo "Building FFmpeg ... \n"
 make && make install
-echo "Done building FFmpeg."
+echo "Done make and install FFmpeg.\n"
 
+echo "Remove Source Directory ...\n"
 # Delete source directory
 rm -rf ../$sourceDirectoryName
+
+echo "Done building FFmpeg and Cleanup.\n"
