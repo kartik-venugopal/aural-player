@@ -30,6 +30,10 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// A helper object that does the actual decoding.
     var decoder: FFmpegDecoder! {playbackCtx?.decoder}
     
+    // Indicates whether or not a track completed while the player was paused.
+    // This is required because, in rare cases, some file segments may complete when they've reached close to the end, even if the last frame has not played yet.
+    var trackCompletedWhilePaused: Bool = false
+    
     let sampleConverter: SampleConverterProtocol
     
     ///
@@ -124,7 +128,15 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
                 // and don't do any scheduling.
                 if eof {
                     
-                    trackCompleted(session)
+                    if playerNode.isPlaying {
+                        trackCompleted(session)
+                        
+                    } else {
+                        
+                        playerNode.seekToEndOfTrack(session)
+                        trackCompletedWhilePaused = true
+                    }
+                    
                     return
                 }
             }
@@ -254,7 +266,17 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     }
     
     func resume() {
-        playerNode.play()
+        
+        // Check if track completion occurred while paused.
+        if trackCompletedWhilePaused, let curSession = PlaybackSession.currentSession {
+            
+            // Reset the flag and signal completion.
+            trackCompletedWhilePaused = false
+            trackCompleted(curSession)
+            
+        } else {
+            playerNode.play()
+        }
     }
     
     func stop() {
@@ -264,6 +286,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         decoder?.stop()
         
         scheduledBufferCounts.removeAll()
+        trackCompletedWhilePaused = false
     }
     
     func seekToTime(_ session: PlaybackSession, _ seconds: Double, _ beginPlayback: Bool) {

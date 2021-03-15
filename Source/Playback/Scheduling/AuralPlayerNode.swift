@@ -109,6 +109,22 @@ class AuralPlayerNode: AVAudioPlayerNode {
         }
     }
     
+    ///
+    /// Marks the seek position as equal to the currently playing track's duration (i.e. the end of the track).
+    /// This is useful when we want the seek position to show as being at the end of the track but don't want
+    /// to schedule anything for playback, e.g. when defining a segment loop that extends to the very end of a track while
+    /// paused.
+    ///
+    func seekToEndOfTrack(_ session: PlaybackSession) {
+        
+        if let plbkCtx = session.track.playbackContext as? FFmpegPlaybackContext {
+            
+            // Advance the last seek position to the end of the track.
+            cachedSeekPosn = session.track.duration
+            startFrame = plbkCtx.frameCount
+        }
+    }
+    
     func scheduleBuffer(_ buffer: AVAudioPCMBuffer, for session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler, _ startTime: Double? = nil, _ immediatePlayback: Bool = false) {
         
         // The start frame and seek position should be reset only if this segment will be played immediately.

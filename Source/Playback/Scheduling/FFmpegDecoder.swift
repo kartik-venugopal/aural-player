@@ -288,8 +288,6 @@ class FFmpegDecoder {
     ///
     private func setTimestampsInFrames(_ frames: [FFmpegFrame]) {
         
-        print("\nsetTimestampsInFrames()")
-        
         if frames.isEmpty {return}
         
         let sampleRate = codec.sampleRate
