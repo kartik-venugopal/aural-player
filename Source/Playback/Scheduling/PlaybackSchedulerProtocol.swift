@@ -8,10 +8,10 @@ protocol PlaybackSchedulerProtocol {
     // Schedule and play the track (specified by the given playback session), starting at the given start position
     func playTrack(_ playbackSession: PlaybackSession, _ startPosition: Double)
     
-    // Schedule the track (specified by the given playback session), starting at the given start position. Begin playback if beginPlayback is true.
+    // Schedule playback of a segment loop (specified by the given playback session), starting at the loop's start time. Begin playback if beginPlayback is true.
     func playLoop(_ playbackSession: PlaybackSession, _ beginPlayback: Bool)
     
-    // Schedule playback of a segment loop (specified by the given playback session), at the given playback start time. Begin playback if beginPlayback is true.
+    // Schedule playback of a segment loop (specified by the given playback session), starting at the given playback start time. Begin playback if beginPlayback is true.
     func playLoop(_ playbackSession: PlaybackSession, _ playbackStartTime: Double, _ beginPlayback: Bool)
     
     // End scheduling and playback for the segment loop (specified by the given playback session). Resume normal playback till the end of the track.

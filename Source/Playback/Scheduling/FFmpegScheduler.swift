@@ -76,6 +76,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         }
         
         self.playbackCtx = thePlaybackCtx
+        decoder.framesNeedTimestamps.setValue(false)
         
         initiateDecodingAndScheduling(for: session, from: startPosition == 0 ? nil : startPosition)
         
@@ -276,6 +277,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         
         stop()
         scheduledBufferCounts[session] = AtomicCounter<Int>()
+        decoder.framesNeedTimestamps.setValue(false)
         
         initiateDecodingAndScheduling(for: session, from: seconds)
         

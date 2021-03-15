@@ -14,13 +14,14 @@ extension FFmpegScheduler {
         stop()
         scheduledBufferCounts[session] = AtomicCounter<Int>()
         
-        // Reset all the loop state in the decoder
-        decoder.loopCompleted()
-        
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
             let loop = session.loop else {return}
         
         self.playbackCtx = thePlaybackCtx
+        
+        // Reset all the loop state in the decoder
+        decoder.loopCompleted()
+        decoder.framesNeedTimestamps.setValue(true)
         
         initiateLoopDecodingAndScheduling(for: session, with: loop)
         
@@ -173,13 +174,14 @@ extension FFmpegScheduler {
         stop()
         scheduledBufferCounts[session] = AtomicCounter<Int>()
         
-        // Reset all the loop state in the decoder
-        decoder.loopCompleted()
-        
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
             let loop = session.loop else {return}
         
         self.playbackCtx = thePlaybackCtx
+        
+        // Reset all the loop state in the decoder
+        decoder.loopCompleted()
+        decoder.framesNeedTimestamps.setValue(true)
         
         initiateLoopDecodingAndScheduling(for: session, with: loop, startingAt: playbackStartTime)
         

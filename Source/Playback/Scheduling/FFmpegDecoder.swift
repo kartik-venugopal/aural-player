@@ -38,8 +38,15 @@ class FFmpegDecoder {
     ///
     var eof: Bool = false
 
-    // Indicates whether or not we have reached the end of the loop when scheduling buffers for the current loop (analogous to EOF for file scheduling).
+    ///
+    /// Indicates whether or not we have reached the end of the loop when scheduling buffers for the current loop (analogous to EOF for file scheduling).
+    ///
     var endOfLoop: AtomicBool = AtomicBool()
+    
+    ///
+    /// Indicates whether or not the frames that are decoded need to have timestamps on them (this is true when a segment loop is active, false when not).
+    ///
+    var framesNeedTimestamps: AtomicBool = AtomicBool()
     
     ///
     /// A queue data structure used to temporarily hold buffered frames as they are decoded by the codec and before passing them off to a FrameBuffer.
@@ -230,7 +237,11 @@ class FFmpegDecoder {
                     for packet in (firstUsablePacketIndex..<packetsRead.count).map({packetsRead[$0].packet}) {
                         
                         let packetFrames = try codec.decode(packet: packet)
-                        setTimestampsInFrames(packetFrames.frames)
+                        
+                        if framesNeedTimestamps.value {
+                            setTimestampsInFrames(packetFrames.frames)
+                        }
+                        
                         framesFromUsablePackets.append(packetFrames)
                     }
                     
@@ -276,6 +287,8 @@ class FFmpegDecoder {
     /// later use, e.g. when scheduling segment loops.
     ///
     private func setTimestampsInFrames(_ frames: [FFmpegFrame]) {
+        
+        print("\nsetTimestampsInFrames()")
         
         if frames.isEmpty {return}
         
@@ -332,7 +345,11 @@ class FFmpegDecoder {
             if let packet = try fileCtx.readPacket(from: stream) {
                 
                 let frames = try codec.decode(packet: packet).frames
-                setTimestampsInFrames(frames)
+                
+                if framesNeedTimestamps.value {
+                    setTimestampsInFrames(frames)
+                }
+                
                 frames.forEach {frameQueue.enqueue($0)}
             }
         }
