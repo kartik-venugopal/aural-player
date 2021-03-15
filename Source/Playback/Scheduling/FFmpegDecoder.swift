@@ -191,14 +191,6 @@ class FFmpegDecoder {
             
             try fileCtx.seek(within: stream, to: time)
             
-//            if fileCtx.isRawAudioFile {
-//
-//                // TODO: Need to truncate / discard frames before returning, if error exceeds tolerance ???
-//
-//                self.eof = false
-//                return
-//            }
-
             // Because ffmpeg's seeking is not always accurate, we need to check where the seek took us to, within the stream, and
             // we may need to skip some packets / samples.
             do {
@@ -276,7 +268,7 @@ class FFmpegDecoder {
             
             if !eof {
                 
-                NSLog("Error while skipping packets after seeking within track \(fileCtx.filePath) to time: \(time) seconds: \(seekError)")
+                NSLog("Error while skipping packets after seeking within track \(fileCtx.filePath) to time: \(time) seconds: \(seekError.code.errorDescription)")
                 throw DecoderError(seekError.code)
             }
         }

@@ -345,39 +345,23 @@ class FFmpegFileContext {
         // Describes the seeking mode to use (seek by frame, seek by byte, etc)
         var flags: Int32 = 0
         
-//        if let thePacketTable = packetTable {
-//
-//            // For raw audio files, we must use the packet table to determine
-//            // the byte position of our target packet, given the seek position
-//            // in seconds.
-//            timestamp = thePacketTable.closestPacketBytePosition(for: time)
-//
-//            // Validate the byte position (cannot be greater than the file size).
-//            if timestamp >= fileSize {throw SeekError(ERROR_EOF)}
-//
-//            // We need to seek by byte position.
-//            flags = AVSEEK_FLAG_BYTE
-//
-//        } else {
-            
-            // Validate the duration of the file (which is needed to compute the target frame).
-            if duration <= 0 {throw SeekError(-1)}
-            
-            // We need to determine a target frame, given the seek position in seconds,
-            // duration, and frame count.
-            timestamp = Int64(time * Double(stream.timeBaseDuration) / duration)
-            
-            // Validate the target frame (cannot exceed the total frame count)
-            if timestamp >= stream.timeBaseDuration {throw SeekError(ERROR_EOF)}
-            
-            // We need to seek by frame.
-            //
-            // NOTE - AVSEEK_FLAG_BACKWARD "indicates that you want to find closest keyframe
-            // having a smaller timestamp than the one you are seeking."
-            //
-            // Source - https://stackoverflow.com/questions/20734814/ffmpeg-av-seek-frame-with-avseek-flag-any-causes-grey-screen
-            flags = AVSEEK_FLAG_BACKWARD
-//        }
+        // Validate the duration of the file (which is needed to compute the target frame).
+        if duration <= 0 {throw SeekError(-1)}
+        
+        // We need to determine a target frame, given the seek position in seconds,
+        // duration, and frame count.
+        timestamp = Int64(time * Double(stream.timeBaseDuration) / duration)
+        
+        // Validate the target frame (cannot exceed the total frame count)
+        if timestamp >= stream.timeBaseDuration {throw SeekError(ERROR_EOF)}
+        
+        // We need to seek by frame.
+        //
+        // NOTE - AVSEEK_FLAG_BACKWARD "indicates that you want to find closest keyframe
+        // having a smaller timestamp than the one you are seeking."
+        //
+        // Source - https://stackoverflow.com/questions/20734814/ffmpeg-av-seek-frame-with-avseek-flag-any-causes-grey-screen
+        flags = AVSEEK_FLAG_BACKWARD
         
         // Attempt the seek and capture the result code.
         let seekResult: ResultCode = av_seek_frame(pointer, stream.index, timestamp, flags)

@@ -36,13 +36,13 @@ class TrackReader {
         
         if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
             
-            DispatchQueue.global(qos: .background).async {
+            DispatchQueue.global(qos: .userInitiated).async {
                 
                 if let duration = self.fileReader.computeAccurationDuration(for: track.file), duration > 0 {
                     
-                    NSLog("For track: \(track.displayName), \(track.duration) -> \(duration)")
-                    
                     track.duration = duration
+                    track.durationIsAccurate = true
+                    
                     Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
                 }
             }
@@ -54,7 +54,7 @@ class TrackReader {
         track.playbackContext = try fileReader.getPlaybackMetadata(for: track.file)
         
         // If duration has changed as a result of precise computation, set it in the track and send out an update notification
-        if let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
+        if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
             
             track.duration = playbackContext.duration
             Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))

@@ -24,6 +24,7 @@ class Track: Hashable, PlaylistItem {
     }
     
     var duration: Double = 0
+    var durationIsAccurate: Bool = false
 
     var title: String?
     
@@ -113,6 +114,7 @@ class Track: Hashable, PlaylistItem {
         self.totalDiscs = metadata.totalDiscs
         
         self.duration = metadata.duration
+        self.durationIsAccurate = metadata.durationIsAccurate
         
         self.chapters = metadata.chapters
     }
