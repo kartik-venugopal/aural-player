@@ -18,10 +18,14 @@ class TrackReader {
     func loadPlaylistMetadata(for track: Track) {
         
         let fileMetadata = FileMetadata()
+        var durationIsAccurate: Bool = true
         
         do {
             
-            fileMetadata.playlist = try fileReader.getPlaylistMetadata(for: track.file)
+            let playlistMetadata = try fileReader.getPlaylistMetadata(for: track.file)
+            fileMetadata.playlist = playlistMetadata
+            
+            durationIsAccurate = playlistMetadata.durationIsAccurate
             
         } catch {
             
@@ -29,6 +33,20 @@ class TrackReader {
         }
         
         track.setPlaylistMetadata(from: fileMetadata)
+        
+        if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
+            
+            DispatchQueue.global(qos: .background).async {
+                
+                if let duration = self.fileReader.computeAccurationDuration(for: track.file), duration > 0 {
+                    
+                    NSLog("For track: \(track.displayName), \(track.duration) -> \(duration)")
+                    
+                    track.duration = duration
+                    Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
+                }
+            }
+        }
     }
     
     private func computePlaybackContext(for track: Track) throws {

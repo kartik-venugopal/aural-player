@@ -88,20 +88,6 @@ class FFmpegFileContext {
     }()
     
     ///
-    /// Whether or not this file is a raw audio file. This simply means that
-    /// the file has not been muxed into a container and therefore does not
-    /// contain accurate duration information.
-    ///
-    /// e.g. dts, aac, ac3.
-    ///
-    /// ```
-    /// This is determined by simply checking the file's
-    /// extension.
-    /// ```
-    ///
-    let isRawAudioFile: Bool
-    
-    ///
     /// Duration of the audio stream in this file, in seconds.
     ///
     /// ```
@@ -125,7 +111,7 @@ class FFmpegFileContext {
     /// A duration estimated from **avContext**, if it has valid duration information. Nil otherwise.
     /// Specified in seconds.
     ///
-    private lazy var estimatedDuration: Double? = avContext.duration > 0 ? (Double(avContext.duration) / Double(AV_TIME_BASE)) : nil
+    lazy var estimatedDuration: Double? = avContext.duration > 0 ? (Double(avContext.duration) / Double(AV_TIME_BASE)) : nil
     
     var estimatedDurationIsAccurate: Bool {
         avContext.duration_estimation_method != AVFMT_DURATION_FROM_BITRATE
@@ -139,7 +125,7 @@ class FFmpegFileContext {
     ///
     /// This is an expensive and potentially lengthy computation.
     ///
-    private lazy var bruteForceDuration: Double? = packetTable?.duration
+    lazy var bruteForceDuration: Double? = packetTable?.duration
     
     ///
     /// A packet table that contains position and timestamp information
@@ -228,10 +214,9 @@ class FFmpegFileContext {
         
         // Compute the duration of the audio stream, trying various methods. See documentation of **duration**
         // for a detailed description.
-        self.isRawAudioFile = AppConstants.SupportedTypes.rawAudioFileExtensions.contains(file.lowerCasedExtension)
         self.bitRate = pointer.pointee.bit_rate
         
-        self.duration = (isRawAudioFile ? bruteForceDuration : bestAudioStream?.duration ?? estimatedDuration) ?? 0
+        self.duration = (bestAudioStream?.duration ?? estimatedDuration) ?? 0
         if self.bitRate == 0 {self.bitRate = duration == 0 ? 0 : Int64(round(Double(fileSize) / duration))}
     }
     
@@ -282,12 +267,11 @@ class FFmpegFileContext {
         // Compute the duration of the audio stream, trying various methods. See documentation of **duration**
         // for a detailed description.
         
-        self.isRawAudioFile = fileContext.isRawAudioFile
         self.bitRate = fileContext.bitRate
         self.duration = fileContext.duration
 
         self.bestAudioStream = fileContext.bestAudioStream
-        self.packetTable = isRawAudioFile ? fileContext.packetTable : nil
+        self.packetTable = fileContext.packetTable
     }
     
     func findBestStream(ofType mediaType: AVMediaType) -> FFmpegStreamProtocol? {
@@ -361,20 +345,20 @@ class FFmpegFileContext {
         // Describes the seeking mode to use (seek by frame, seek by byte, etc)
         var flags: Int32 = 0
         
-        if isRawAudioFile {
-            
-            // For raw audio files, we must use the packet table to determine
-            // the byte position of our target packet, given the seek position
-            // in seconds.
-            timestamp = packetTable?.closestPacketBytePosition(for: time) ?? 0
-            
-            // Validate the byte position (cannot be greater than the file size).
-            if timestamp >= fileSize {throw SeekError(ERROR_EOF)}
-            
-            // We need to seek by byte position.
-            flags = AVSEEK_FLAG_BYTE
-            
-        } else {
+//        if let thePacketTable = packetTable {
+//
+//            // For raw audio files, we must use the packet table to determine
+//            // the byte position of our target packet, given the seek position
+//            // in seconds.
+//            timestamp = thePacketTable.closestPacketBytePosition(for: time)
+//
+//            // Validate the byte position (cannot be greater than the file size).
+//            if timestamp >= fileSize {throw SeekError(ERROR_EOF)}
+//
+//            // We need to seek by byte position.
+//            flags = AVSEEK_FLAG_BYTE
+//
+//        } else {
             
             // Validate the duration of the file (which is needed to compute the target frame).
             if duration <= 0 {throw SeekError(-1)}
@@ -393,7 +377,7 @@ class FFmpegFileContext {
             //
             // Source - https://stackoverflow.com/questions/20734814/ffmpeg-av-seek-frame-with-avseek-flag-any-causes-grey-screen
             flags = AVSEEK_FLAG_BACKWARD
-        }
+//        }
         
         // Attempt the seek and capture the result code.
         let seekResult: ResultCode = av_seek_frame(pointer, stream.index, timestamp, flags)

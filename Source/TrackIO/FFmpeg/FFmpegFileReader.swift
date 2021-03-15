@@ -117,32 +117,20 @@ class FFmpegFileReader: FileReaderProtocol {
         metadata.chapters = fctx.chapters.map {Chapter($0)}
         
         return metadata
+    }
+    
+    func computeAccurationDuration(for file: URL) -> Double? {
         
-        // TODO: Set some fields on track to indicate whether or not the duration provided is accurate.
-        
-//        if track.duration == 0 || metadataMap.fileCtx.isRawAudioFile {
-//
-//            if let durationFromMetadata = relevantParsers.firstNonNilMappedValue({$0.getDuration(meta)}), durationFromMetadata > 0 {
-//
-//                track.duration = durationFromMetadata
-//
-//            } else {
-//
-//                // Use brute force to compute duration
-//                DispatchQueue.global(qos: .userInitiated).async {
-//
-//                    if let duration = metadataMap.fileCtx.bruteForceDuration {
-//
-//                        track.duration = duration
-//
-//                        var notif = Notification(name: Notification.Name("trackUpdated"))
-//                        notif.userInfo = ["track": track]
-//
-//                        NotificationCenter.default.post(notif)
-//                    }
-//                }
-//            }
-//        }
+        do {
+            
+            // Construct an ffmpeg file context for this track.
+            return try FFmpegFileContext(for: file).bruteForceDuration
+            
+        } catch {
+            
+            NSLog("Unable to compute accurate duration for track \(file.path). Error: \(error)")
+            return nil
+        }
     }
     
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {

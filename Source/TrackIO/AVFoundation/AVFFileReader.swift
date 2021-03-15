@@ -100,6 +100,10 @@ class AVFFileReader: FileReaderProtocol {
         return metadata
     }
     
+    func computeAccurationDuration(for file: URL) -> Double? {
+        return nil
+    }
+    
     func getArt(for file: URL) -> CoverArt? {
         
         let metadataMap = AVFMappedMetadata(file: file)
