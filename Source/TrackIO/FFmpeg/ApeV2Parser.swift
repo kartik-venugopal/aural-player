@@ -45,9 +45,9 @@ class ApeV2Parser: FFmpegMetadataParser {
                 
                 metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 
-            } else if genericKeys[lcKey] != nil {
+            } else if auxiliaryKeys[lcKey] != nil {
                 
-                metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
+                metadata.auxiliaryFields[lcKey] = metadataMap.map.removeValue(forKey: key)
             }
         }
     }
@@ -57,7 +57,7 @@ class ApeV2Parser: FFmpegMetadataParser {
     }
     
     func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
-        !metadataMap.apeMetadata.genericFields.isEmpty
+        !metadataMap.apeMetadata.auxiliaryFields.isEmpty
     }
     
     func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
@@ -96,7 +96,7 @@ class ApeV2Parser: FFmpegMetadataParser {
     
     func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.apeMetadata.genericFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.apeMetadata.auxiliaryFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -105,7 +105,7 @@ class ApeV2Parser: FFmpegMetadataParser {
     
     func getBPM(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = metadataMap.apeMetadata.genericFields[key_bpm] {
+        if let bpmString = metadataMap.apeMetadata.auxiliaryFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
@@ -113,10 +113,10 @@ class ApeV2Parser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
-        metadataMap.apeMetadata.genericFields[key_lyrics]
+        metadataMap.apeMetadata.auxiliaryFields[key_lyrics]
     }
     
-    private let genericKeys: [String: String] = {
+    private let auxiliaryKeys: [String: String] = {
         
         var map: [String: String] = [:]
         
@@ -203,7 +203,7 @@ class ApeV2Parser: FFmpegMetadataParser {
         let lcKey = key.lowercased()
         let trimmedKey = lcKey.trim()
         
-        if let rKey = genericKeys[trimmedKey] {
+        if let rKey = auxiliaryKeys[trimmedKey] {
             
             return rKey
             
@@ -228,7 +228,7 @@ class ApeV2Parser: FFmpegMetadataParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (key, var value) in metadataMap.apeMetadata.genericFields {
+        for (key, var value) in metadataMap.apeMetadata.auxiliaryFields {
             
             // Check special fields
             if key == key_language, let langName = LanguageMap.forCode(value.trim()) {

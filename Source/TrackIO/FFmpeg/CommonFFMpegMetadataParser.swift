@@ -31,7 +31,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     
     private let essentialKeys: Set<String> = [key_title, key_artist, key_albumArtist, key_album, key_performer, key_genre, key_disc, key_track]
     
-    private let genericKeys: [String: String] = [
+    private let auxiliaryKeys: [String: String] = [
         
         key_composer: "Composer",
         key_publisher: "Publisher",
@@ -56,9 +56,9 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
                 
                 metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 
-            } else if genericKeys[lcKey] != nil {
+            } else if auxiliaryKeys[lcKey] != nil {
                 
-                metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
+                metadata.auxiliaryFields[lcKey] = metadataMap.map.removeValue(forKey: key)
             }
         }
     }
@@ -68,7 +68,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     }
     
     func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
-        !metadataMap.commonMetadata.genericFields.isEmpty
+        !metadataMap.commonMetadata.auxiliaryFields.isEmpty
     }
     
     func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
@@ -91,7 +91,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
-        metadataMap.commonMetadata.genericFields[key_lyrics]
+        metadataMap.commonMetadata.auxiliaryFields[key_lyrics]
     }
     
     func getDiscNumber(_ metadataMap: FFmpegMappedMetadata) -> (number: Int?, total: Int?)? {
@@ -114,7 +114,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     
     func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = metadataMap.commonMetadata.genericFields[key_date] {
+        if let yearString = metadataMap.commonMetadata.auxiliaryFields[key_date] {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -125,7 +125,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (key, var value) in metadataMap.commonMetadata.genericFields {
+        for (key, var value) in metadataMap.commonMetadata.auxiliaryFields {
             
             if key == key_language, let langName = LanguageMap.forCode(value.trim()) {
                 value = langName
@@ -140,6 +140,6 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     }
     
     func readableKey(_ key: String) -> String {
-        return genericKeys[key] ?? key.capitalizingFirstLetter()
+        return auxiliaryKeys[key] ?? key.capitalizingFirstLetter()
     }
 }

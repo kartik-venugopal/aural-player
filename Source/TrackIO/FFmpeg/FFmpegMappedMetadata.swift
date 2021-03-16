@@ -80,5 +80,5 @@ class FFmpegParserMetadataMap {
     ///
     /// All key/value mappings for non-essential fields (eg. title, artist, etc)
     ///
-    var genericFields: [String: String] = [:]
+    var auxiliaryFields: [String: String] = [:]
 }

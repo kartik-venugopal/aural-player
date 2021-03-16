@@ -27,27 +27,6 @@ class AVFFileReader: FileReaderProtocol {
         allParsers = [id3Parser, iTunesParser, commonParser]
     }
     
-    // File extension -> Kind of file description string
-    private var kindOfFileCache: [String: String] = [:]
-    
-    private func kindOfFile(path: String, fileExt: String) -> String? {
-        
-        if let cachedValue = kindOfFileCache[fileExt] {
-            return cachedValue
-        }
-        
-        if let mditem = MDItemCreate(nil, path as CFString),
-            let mdnames = MDItemCopyAttributeNames(mditem),
-            let mdattrs = MDItemCopyAttributes(mditem, mdnames) as? [String: Any],
-            let value = mdattrs[kMDItemKind as String] as? String {
-            
-            kindOfFileCache[fileExt] = value
-            return value
-        }
-        
-        return nil
-    }
-    
     private func cleanUpString(_ string: String?) -> String? {
         
         if let theTrimmedString = string?.trim() {
@@ -127,16 +106,16 @@ class AVFFileReader: FileReaderProtocol {
         var metadata = AuxiliaryMetadata()
         metadata.lyrics = cleanUpString(parsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
         
-        var genericMetadata: [String: MetadataEntry] = [:]
+        var auxiliaryMetadata: [String: MetadataEntry] = [:]
         
         // Obtain auxiliary metadata from each of the parsers, and put it in the
-        // genericMetadata dictionary.
+        // auxiliaryMetadata dictionary.
         
         for parser in allParsers {
-            parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in genericMetadata[k] = v}
+            parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in auxiliaryMetadata[k] = v}
         }
         
-        metadata.genericMetadata = genericMetadata
+        metadata.auxiliaryMetadata = auxiliaryMetadata
         
         // Load audio info for the track.
         

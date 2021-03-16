@@ -64,9 +64,9 @@ class WMParser: FFmpegMetadataParser {
                     
                     metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                     
-                } else if genericKeys[lcKey] != nil {
+                } else if auxiliaryKeys[lcKey] != nil {
                     
-                    metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
+                    metadata.auxiliaryFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 }
                 
             } else {
@@ -80,7 +80,7 @@ class WMParser: FFmpegMetadataParser {
     }
     
     func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
-        !metadataMap.wmMetadata.genericFields.isEmpty
+        !metadataMap.wmMetadata.auxiliaryFields.isEmpty
     }
     
     func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
@@ -157,7 +157,7 @@ class WMParser: FFmpegMetadataParser {
     
     func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = metadataMap.wmMetadata.genericFields[key_year] ?? metadataMap.wmMetadata.genericFields[key_originalYear] {
+        if let yearString = metadataMap.wmMetadata.auxiliaryFields[key_year] ?? metadataMap.wmMetadata.auxiliaryFields[key_originalYear] {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -166,7 +166,7 @@ class WMParser: FFmpegMetadataParser {
     
     func getBPM(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = metadataMap.wmMetadata.genericFields[key_bpm] {
+        if let bpmString = metadataMap.wmMetadata.auxiliaryFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
@@ -174,14 +174,14 @@ class WMParser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
-        [key_lyrics, key_syncLyrics].firstNonNilMappedValue({metadataMap.wmMetadata.genericFields[$0]})
+        [key_lyrics, key_syncLyrics].firstNonNilMappedValue({metadataMap.wmMetadata.auxiliaryFields[$0]})
     }
     
     func isDRMProtected(_ metadataMap: FFmpegMappedMetadata) -> Bool? {
         metadataMap.wmMetadata.essentialFields[key_asfProtectionType] != nil
     }
     
-    private let genericKeys: [String: String] = {
+    private let auxiliaryKeys: [String: String] = {
         
         var map: [String: String] = [:]
         
@@ -337,7 +337,7 @@ class WMParser: FFmpegMetadataParser {
         let lcKey = key.lowercased()
         let trimmedKey = lcKey.replacingOccurrences(of: keyPrefix, with: "").trim()
         
-        if let rKey = genericKeys[trimmedKey] {
+        if let rKey = auxiliaryKeys[trimmedKey] {
             
             return rKey
             
@@ -362,7 +362,7 @@ class WMParser: FFmpegMetadataParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (key, var value) in metadataMap.wmMetadata.genericFields {
+        for (key, var value) in metadataMap.wmMetadata.auxiliaryFields {
             
             // TODO: Check special fields (e.g. encoding time)
             

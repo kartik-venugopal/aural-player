@@ -57,9 +57,9 @@ class VorbisCommentParser: FFmpegMetadataParser {
                 
                 metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 
-            } else if genericKeys[lcKey] != nil {
+            } else if auxiliaryKeys[lcKey] != nil {
                 
-                metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
+                metadata.auxiliaryFields[lcKey] = metadataMap.map.removeValue(forKey: key)
             }
         }
     }
@@ -69,7 +69,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
     }
     
     func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
-        !metadataMap.vorbisMetadata.genericFields.isEmpty
+        !metadataMap.vorbisMetadata.auxiliaryFields.isEmpty
     }
     
     func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
@@ -130,7 +130,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
     
     func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.vorbisMetadata.genericFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.vorbisMetadata.auxiliaryFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
         
@@ -139,7 +139,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
     
     func getBPM(_ metadataMap: FFmpegMappedMetadata) -> Int? {
         
-        if let bpmString = metadataMap.vorbisMetadata.genericFields[key_bpm] {
+        if let bpmString = metadataMap.vorbisMetadata.auxiliaryFields[key_bpm] {
             return ParserUtils.parseBPM(bpmString)
         }
         
@@ -147,7 +147,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
     }
     
     func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
-        return metadataMap.vorbisMetadata.genericFields[key_lyrics]
+        return metadataMap.vorbisMetadata.auxiliaryFields[key_lyrics]
     }
     
     func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double? {
@@ -159,7 +159,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
         return nil
     }
 
-    private let genericKeys: [String: String] = {
+    private let auxiliaryKeys: [String: String] = {
         
         var map: [String: String] = [:]
         
@@ -366,7 +366,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
         let lcKey = key.lowercased()
         let trimmedKey = lcKey.trim()
         
-        if let rKey = genericKeys[trimmedKey] {
+        if let rKey = auxiliaryKeys[trimmedKey] {
             
             return rKey
             
@@ -391,7 +391,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (key, var value) in metadataMap.vorbisMetadata.genericFields {
+        for (key, var value) in metadataMap.vorbisMetadata.auxiliaryFields {
             
             // Check special fields
             if key == key_language, let langName = LanguageMap.forCode(value.trim()) {

@@ -153,13 +153,13 @@ class FFmpegFileReader: FileReaderProtocol {
             
             metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
             
-            var genericMetadata: [String: MetadataEntry] = [:]
+            var auxiliaryMetadata: [String: MetadataEntry] = [:]
             
             for parser in relevantParsers {
-                parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in genericMetadata[k] = v}
+                parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in auxiliaryMetadata[k] = v}
             }
             
-            metadata.genericMetadata = genericMetadata
+            metadata.auxiliaryMetadata = auxiliaryMetadata
             
             // Load audio metadata.
             

@@ -48,7 +48,7 @@ struct AuxiliaryMetadata {
     
     var lyrics: String?
     
-    var genericMetadata: [String: MetadataEntry] = [:]
+    var auxiliaryMetadata: [String: MetadataEntry] = [:]
     
     var fileSystemInfo: FileSystemInfo?
     var audioInfo: AudioInfo?

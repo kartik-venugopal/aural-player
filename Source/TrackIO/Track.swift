@@ -69,7 +69,7 @@ class Track: Hashable, PlaylistItem {
     var lyrics: String?
     
     // Generic metadata
-    var genericMetadata: [String: MetadataEntry] = [:]
+    var auxiliaryMetadata: [String: MetadataEntry] = [:]
     
     var chapters: [Chapter] = []
     var hasChapters: Bool {!chapters.isEmpty}
@@ -129,7 +129,7 @@ class Track: Hashable, PlaylistItem {
         self.year = metadata.year
 
         self.lyrics = metadata.lyrics
-        self.genericMetadata = metadata.genericMetadata
+        self.auxiliaryMetadata = metadata.auxiliaryMetadata
         
         self.fileSystemInfo = metadata.fileSystemInfo ?? self.fileSystemInfo
         self.audioInfo = metadata.audioInfo

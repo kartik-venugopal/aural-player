@@ -36,13 +36,13 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     
     private let ignoredKeys: Set<String> = Set([ID3_V24Spec.key_private, ID3_V24Spec.key_tableOfContents, ID3_V24Spec.key_chapter, ID3_V24Spec.key_lyrics, ID3_V22Spec.key_lyrics, ID3_V24Spec.key_syncLyrics, ID3_V22Spec.key_syncLyrics].map {$0.lowercased()})
     
-    private let genericFields: [String: String] = {
+    private let auxiliaryFields: [String: String] = {
         
         var map: [String: String] = [:]
         
-        ID3_V1Spec.genericFields.forEach({(k,v) in map[k.lowercased()] = v})
-        ID3_V22Spec.genericFields.forEach({(k,v) in map[k.lowercased()] = v})
-        ID3_V24Spec.genericFields.forEach({(k,v) in map[k.lowercased()] = v})
+        ID3_V1Spec.auxiliaryFields.forEach({(k,v) in map[k.lowercased()] = v})
+        ID3_V22Spec.auxiliaryFields.forEach({(k,v) in map[k.lowercased()] = v})
+        ID3_V24Spec.auxiliaryFields.forEach({(k,v) in map[k.lowercased()] = v})
         
         return map
     }()
@@ -61,9 +61,9 @@ class ID3FFmpegParser: FFmpegMetadataParser {
 
                     metadata.essentialFields[lcKey] = metadataMap.map.removeValue(forKey: key)
 
-                } else if genericFields[lcKey] != nil {
+                } else if auxiliaryFields[lcKey] != nil {
 
-                    metadata.genericFields[lcKey] = metadataMap.map.removeValue(forKey: key)
+                    metadata.auxiliaryFields[lcKey] = metadataMap.map.removeValue(forKey: key)
                 }
 
             } else {
@@ -73,7 +73,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     }
     
     private func readableKey(_ key: String) -> String {
-        return genericFields[key] ?? key.capitalizingFirstLetter()
+        return auxiliaryFields[key] ?? key.capitalizingFirstLetter()
     }
 
     func hasEssentialMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
@@ -81,7 +81,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     }
     
     func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
-        !metadataMap.id3Metadata.genericFields.isEmpty
+        !metadataMap.id3Metadata.auxiliaryFields.isEmpty
     }
 
     func getTitle(_ metadataMap: FFmpegMappedMetadata) -> String? {
@@ -119,12 +119,12 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     }
 
     func getLyrics(_ metadataMap: FFmpegMappedMetadata) -> String? {
-        keys_lyrics.firstNonNilMappedValue {metadataMap.id3Metadata.genericFields[$0]}
+        keys_lyrics.firstNonNilMappedValue {metadataMap.id3Metadata.auxiliaryFields[$0]}
     }
 
     func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {
 
-        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.id3Metadata.genericFields[$0]}) {
+        if let yearString = keys_year.firstNonNilMappedValue({metadataMap.id3Metadata.auxiliaryFields[$0]}) {
             return ParserUtils.parseYear(yearString)
         }
 
@@ -133,7 +133,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
 
     func getBPM(_ metadataMap: FFmpegMappedMetadata) -> Int? {
 
-        if let bpmString = keys_bpm.firstNonNilMappedValue({metadataMap.id3Metadata.genericFields[$0]}) {
+        if let bpmString = keys_bpm.firstNonNilMappedValue({metadataMap.id3Metadata.auxiliaryFields[$0]}) {
             return ParserUtils.parseBPM(bpmString)
         }
 
@@ -153,7 +153,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         
         var metadata: [String: MetadataEntry] = [:]
         
-        for (var key, var value) in metadataMap.id3Metadata.genericFields {
+        for (var key, var value) in metadataMap.id3Metadata.auxiliaryFields {
             
             // Special fields
             if keys_language.contains(key), let langName = LanguageMap.forCode(value.trim()) {

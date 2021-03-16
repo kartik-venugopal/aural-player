@@ -44,11 +44,11 @@ class ID3AVFParser: AVFMetadataParser {
     
     private let ignoredKeys: Set<String> = [ID3_V24Spec.key_private, ID3_V24Spec.key_tableOfContents, ID3_V24Spec.key_chapter, ID3_V24Spec.key_lyrics, ID3_V22Spec.key_lyrics, ID3_V24Spec.key_syncLyrics, ID3_V22Spec.key_syncLyrics]
     
-    private let genericFields: [String: String] = {
+    private let auxiliaryFields: [String: String] = {
         
         var map: [String: String] = [:]
-        ID3_V22Spec.genericFields.forEach({(k,v) in map[k] = v})
-        ID3_V24Spec.genericFields.forEach({(k,v) in map[k] = v})
+        ID3_V22Spec.auxiliaryFields.forEach({(k,v) in map[k] = v})
+        ID3_V24Spec.auxiliaryFields.forEach({(k,v) in map[k] = v})
         
         return map
     }()
@@ -65,7 +65,7 @@ class ID3AVFParser: AVFMetadataParser {
     private let infoKeys_TXXX: [String: String] = ["albumartist": "Album Artist", "compatible_brands": "Compatible Brands", "gn_extdata": "Gracenote Data"]
     
     private func readableKey(_ key: String) -> String {
-        return genericFields[key] ?? key.capitalizingFirstLetter()
+        return auxiliaryFields[key] ?? key.capitalizingFirstLetter()
     }
     
     func getDuration(_ metadataMap: AVFMappedMetadata) -> Double? {

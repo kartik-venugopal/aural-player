@@ -21,7 +21,7 @@ struct ID3_V1Spec {
     
     static let essentialFieldKeys: [String] = [key_title, key_artist, key_album, key_genre, key_trackNumber]
     
-    static let genericFields: [String: String] = ["Year": "Year", "Comment": "Comment"]
+    static let auxiliaryFields: [String: String] = ["Year": "Year", "Comment": "Comment"]
 }
 
 ///
@@ -66,7 +66,7 @@ struct ID3_V22Spec {
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre,  key_discNumber, key_trackNumber]
     
-    static let genericFields: [String: String] = {
+    static let auxiliaryFields: [String: String] = {
         
         var map: [String: String] = [:]
         
@@ -228,7 +228,7 @@ struct ID3_V24Spec {
     
     static let essentialFieldKeys: [String] = [key_duration, key_title, key_artist, key_originalArtist, key_albumArtist, key_album, key_originalAlbum, key_genre, key_discNumber, key_trackNumber]
     
-    static let genericFields: [String: String] = {
+    static let auxiliaryFields: [String: String] = {
         
         var map: [String: String] = [:]
         

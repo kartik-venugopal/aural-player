@@ -152,7 +152,7 @@ class MetadataDataSource: TrackInfoDataSource {
 
         var sortedArr = [(key: String, entry: MetadataEntry)]()
 
-        for (_, entry) in track.genericMetadata {
+        for (_, entry) in track.auxiliaryMetadata {
             sortedArr.append((key: entry.key, entry: entry))
         }
 
