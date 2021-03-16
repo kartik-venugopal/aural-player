@@ -18,5 +18,9 @@ Previously, Aural Player spawned an instance of ffmpeg as a child process, to tr
 
 Now, Aural Player makes direct calls to FFmpeg's libraries in-process, no longer needing to spawn an ffmpeg child process.
 
+### Removed support for raw DTS files (.dts)
+
+### 
+
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.7.0)

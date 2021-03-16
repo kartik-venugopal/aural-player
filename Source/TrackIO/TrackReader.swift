@@ -34,6 +34,8 @@ class TrackReader {
         
         track.setPlaylistMetadata(from: fileMetadata)
         
+        // For non-native tracks that don't have accurate duration, compute duration async.
+        
         if !track.isNativelySupported, track.isPlayable, track.duration <= 0 || !durationIsAccurate {
             
             DispatchQueue.global(qos: .userInitiated).async {

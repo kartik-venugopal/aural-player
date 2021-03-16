@@ -45,11 +45,12 @@ class AVFFileReader: FileReaderProtocol {
         guard metadataMap.hasAudioTracks else {throw NoAudioTracksError(file)}
         
         // Make sure track is not DRM protected.
-        guard !metadataMap.avAsset.hasProtectedContent else {throw DRMProtectionError(file)}
+        // TODO: Test this with an actual protected track.
+//        guard !metadataMap.avAsset.hasProtectedContent else {throw DRMProtectionError(file)}
         
         // Make sure track is playable.
         // TODO: What does isPlayable actually mean ?
-        guard metadataMap.audioTrack.isPlayable else {throw TrackNotPlayableError(file)}
+//        guard metadataMap.audioTrack.isPlayable else {throw TrackNotPlayableError(file)}
         
         var metadata = PlaylistMetadata()
         
