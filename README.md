@@ -187,7 +187,7 @@ Of course, you may also file issues right here on GitHub as needed. I'm usually 
 
 ## Third party code attributions
 
-* [FFmpeg](https://www.ffmpeg.org/) (used to transcode from unsupported to supported audio formats)
+* [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
 * [MediaKeyTap](https://github.com/nhurden/MediaKeyTap) (used to respond to media keys)
 * [RangeSlider](https://github.com/matthewreagan/RangeSlider) (used in the Filter effects unit to specify frequency ranges)
 
