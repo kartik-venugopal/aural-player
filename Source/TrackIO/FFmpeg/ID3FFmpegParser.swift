@@ -80,7 +80,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
         !metadataMap.id3Metadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+    func hasAuxiliaryMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
         !metadataMap.id3Metadata.auxiliaryFields.isEmpty
     }
 

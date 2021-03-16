@@ -67,7 +67,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
         !metadataMap.commonMetadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+    func hasAuxiliaryMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
         !metadataMap.commonMetadata.auxiliaryFields.isEmpty
     }
     

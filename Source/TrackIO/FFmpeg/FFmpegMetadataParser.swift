@@ -20,7 +20,7 @@ protocol FFmpegMetadataParser {
     ///
     /// Determines whether or not the given track metadata map contains any non-essential metadata that is recognized by this parser.
     ///
-    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool
+    func hasAuxiliaryMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool
     
     ///
     /// Read track title from the given metadata map. Returns nil if not present.

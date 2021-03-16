@@ -149,7 +149,7 @@ class FFmpegFileReader: FileReaderProtocol {
             // Determine which parsers (and in what order) will examine the track's metadata.
             let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
             allParsers.forEach {$0.mapMetadata(metadataMap)}
-            let relevantParsers = allParsers.filter {$0.hasGenericMetadataForTrack(metadataMap)}
+            let relevantParsers = allParsers.filter {$0.hasAuxiliaryMetadataForTrack(metadataMap)}
             
             metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
             

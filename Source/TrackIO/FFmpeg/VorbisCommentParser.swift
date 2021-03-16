@@ -68,7 +68,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
         !metadataMap.vorbisMetadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+    func hasAuxiliaryMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
         !metadataMap.vorbisMetadata.auxiliaryFields.isEmpty
     }
     

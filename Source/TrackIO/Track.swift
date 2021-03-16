@@ -68,7 +68,7 @@ class Track: Hashable, PlaylistItem {
     
     var lyrics: String?
     
-    // Generic metadata
+    // Non-essential metadata
     var auxiliaryMetadata: [String: MetadataEntry] = [:]
     
     var chapters: [Chapter] = []

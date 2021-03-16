@@ -79,7 +79,7 @@ class WMParser: FFmpegMetadataParser {
         !metadataMap.wmMetadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+    func hasAuxiliaryMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
         !metadataMap.wmMetadata.auxiliaryFields.isEmpty
     }
     

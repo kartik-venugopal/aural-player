@@ -56,7 +56,7 @@ class ApeV2Parser: FFmpegMetadataParser {
         !metadataMap.apeMetadata.essentialFields.isEmpty
     }
     
-    func hasGenericMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
+    func hasAuxiliaryMetadataForTrack(_ metadataMap: FFmpegMappedMetadata) -> Bool {
         !metadataMap.apeMetadata.auxiliaryFields.isEmpty
     }
     
