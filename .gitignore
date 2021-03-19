@@ -1,4 +1,8 @@
 .DS_Store
+Documentation/UserGuide.html.bak
+Documentation/UserGuide_pdf.html.bak
+chapters-TODO.rtf
+*.xcuserstate
 _Ignored
 Icons/
 TODO.txt

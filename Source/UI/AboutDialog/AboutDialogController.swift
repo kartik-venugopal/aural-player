@@ -1,6 +1,10 @@
 import Cocoa
 
+<<<<<<< HEAD:Aural/AboutDialogController.swift
+class AboutDialogController: NSWindowController {
+=======
 class AboutDialogController: NSWindowController, ModalComponentProtocol {
+>>>>>>> upstream/master:Source/UI/AboutDialog/AboutDialogController.swift
     
     override var windowNibName: String? {return "AboutDialog"}
     
@@ -12,6 +16,8 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
             versionLabel.stringValue = appVersion
         }
     }
+<<<<<<< HEAD:Aural/AboutDialogController.swift
+=======
     
     override func windowDidLoad() {
         WindowManager.registerModalComponent(self)
@@ -20,4 +26,5 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
     var isModal: Bool {
         return self.window?.isVisible ?? false
     }
+>>>>>>> upstream/master:Source/UI/AboutDialog/AboutDialogController.swift
 }

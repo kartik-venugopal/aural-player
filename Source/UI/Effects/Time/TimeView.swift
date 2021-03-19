@@ -92,6 +92,16 @@ class TimeView: NSView {
         lblTimeOverlapValue.stringValue = ValueFormatter.formatOverlap(preset.overlap)
     }
     
+<<<<<<< HEAD:Aural/TimeView.swift
+    func changeTextSize() {
+        btnShiftPitch.redraw()
+    }
+    
+    func changeColorScheme() {
+        
+        btnShiftPitch.redraw()
+        sliders.forEach({$0.redraw()})
+=======
     func redrawSliders() {
         [timeSlider, timeOverlapSlider].forEach({$0?.redraw()})
     }
@@ -102,5 +112,6 @@ class TimeView: NSView {
         btnShiftPitch.alternateImage = btnShiftPitch.alternateImage?.applyingTint(Colors.Effects.functionCaptionTextColor)
         
         btnShiftPitch.redraw()
+>>>>>>> upstream/master:Source/UI/Effects/Time/TimeView.swift
     }
 }

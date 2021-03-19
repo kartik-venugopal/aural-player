@@ -81,19 +81,43 @@ class SearchResult: Hashable  {
     var match: (fieldKey: String, fieldValue: String)
     
     // Needed for Hashable conformance
+<<<<<<< HEAD:Aural/SearchResults.swift
+<<<<<<< HEAD
+    /**public var hashValue: Int {
+=======
+    public var hash: Int {
+>>>>>>> master
+        
+        // The file path of the track is the unique identifier
+        return location.track.file.path.hashValue
+    }**/
+    
+    func hash(into hasher: inout Hasher) {
+        // The file path of the track is the unique identifier
+        return hasher.combine(location.track.file.path)
+        
+=======
     func hash(into hasher: inout Hasher) {
         hasher.combine(location.track.file.path)
+>>>>>>> upstream/master:Source/Playlist/SearchAndSort/SearchResults.swift
     }
+    
+    
     
     init(location: SearchResultLocation, match: (fieldKey: String, fieldValue: String)) {
         
         self.location = location
         self.match = match
+        
     }
     
     // Two SearchResult objects are equal if their locations are equal (i.e. they point to the same track)
     public static func ==(lhs: SearchResult, rhs: SearchResult) -> Bool {
         return lhs.location == rhs.location
+    }
+    
+    func hash(into hasher: inout Hasher){
+        /// todo: Implement code here - see type hashable
     }
 }
 

@@ -1,0 +1,114 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl720\margr720\margb720\margt720\vieww24520\viewh14600\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 Chapter support (m4b audiobooks)\
+\
+Allow m4r and m4b (audiobooks) to be added to the playlist\
+\
+Support for XSPF playlists and CUE and WPL playlists\
+\
+Add a thread-safe Album Art store/manager/cache\
+\
+*** Add support for more file types ... using libavcodec\
+\
+Add more bands to Filter (sub-bass, low-mids, high-mids, etc)\
+\
+------------------------- Features: -------------------------\
+\
+Make Main window and FX window resizable (adjust layout manager code accordingly)\
+\
+Allow user to drag a picture into frame *\
+\
+Keyboard shortcut: Tab to switch between modal dialog or playlist tabs.\
+\
+Info tooltips for preferences and effects settings ? "Context-sensitive tool tip" ... show "i" button "What is this ?"\
+\
+"Preview track"  feature ? "Play first few seconds / last few seconds" ??? (maybe with ffplay ???)\
+\
+------------------------- Enhancements: -------------------------\
+\
+Revisit Recorder unit. Add more options: Start when track playback begins and end when playback ends. Don't allow recording of silence.\
+\
+Make the Playlist right-click context menu applicable to multiple item selections, not just single items\
+\
+Search option (only for grouping playlists) ... "Search in: 1 - All groups, OR 2 - Selected groups"\
+\
+- Show tooltips for playlist tracks (table cells) whose names have been truncated, when hovering over them \
+\
+Playlist function > Play "All Tracks" ... right-click menu for playlist tab buttons ??\
+\
+Right-click menu "Play from beginning" OR "Play from remembered last track position" (if playback profile for track exists)\
+\
+Revisit playlist control icons/tooltips (icon size)\
+\
+Show last modified and date created in more info\
+\
+Revisit support for media keys\
+\
+When loading a large playlist on app startup, the Now playing scope label shows 1/0 if autoplay is enabled. Because sequence is updated only after the add is complete. Can we improve this without causing concurrency problems in PlaybackSequencer.updateSequence() ?\
+\
+Add snapping for resize !!!\
+\
+*** When main window is moved, use bounding box (including FX and Playlist windows) as criteria for snapping, not just main window\
+\
+------------------------- Performance: -------------------------\
+\
+Profiling: Look at memory usage - ID3 metadata 150 MB for 419 tracks\
+\
+Look at warnings and runtime issues\
+\
+CPU usage ~ 12% ?!!! Why ??? Possibility - Look at seek label timers ... do they stay running often even when not required ?\
+\
+Revisit app performance\
+\
+------------------------- Validation: -------------------------\
+\
+How to deal with user removing/renaming tracks in History/Bookmarks lists ? Should show error when clicked "This bookmark/history item is no longer valid. File may have been moved or renamed."\
+\
+Catch-all exception handling of AppStateIO.readAppState() to prevent app crashes due to corrupt app state data\
+\
+** Revisit menu enabling/disabling\
+\
+****** Validation for items lists (history, favs, bookmarks, etc) ... if item not found, display an error ?? icon and show a message "This file may have been moved" and offer an option to delete the item\
+\
+*** Validation in general, across all layers of the app\
+******* MAKE APP STATE I/O MORE RELIABLE (fixed with crash bug fix) ************* Look for design guidelines\
+\
+BONUS\
+\
+- Create multiple playlists (add new tabs to playlist tab group)\
+*** Color schemes (light, dark, brown, etc)\
+******* Fix Banner label in Now Playing box !!! - gets stuck in the middle sometimes\
+*** Display favorites and bookmarks in playlist as separate tabs ? Favs and BMs as separate playlists ? Or in sep dockable windows ?\
+"Search the web for more info on this track" feature ? Opens browser with a Google search including the track name as the search query ???\
+??? Undo feature to undo track deletions ?\
+Stop and fade away\
+Visualization\
+\
+Usability >\
+\
+Update user guide\
+- Demos / Gallery\
+Improve developer readme file\
+Show context-sensitive tool tips for all controls (e.g. "Pitch value") on the FX sliders\
+\
+Cleanup>\
+\
+Can we write a framework to serialize objects using introspection ? Put annotations on class properties and let the framework read them ?\
+\
+Imports - do we need Import Cocoa everywhere ? Also, when AVFoundation is imported, Foundation is automatically imported. Remove redundant imports.\
+\
+*** Messaging *** Consolidate redundant classes/structs, clean up unnecessary types, etc. rethink sync/async\
+\
+*** ADD DEFAULT FUNCTION IMPLEMENTATIONS TO MESSAGE SUBSCRIBER PROTOCOLS AND CLEAN UP DUMMY IMPLEMENTATIONS IN SUBSCRIBER CLASSES *****\
+\
+*** Refactor ColoredCursorTextField (search field) to send notifications to an NSTextFieldDelegate.controlDidEndEditing() ***\
+\
+Icons and Assets\
+Dead code\
+\
+Colors, fonts, app constants}

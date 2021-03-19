@@ -6,12 +6,15 @@ import AVFoundation
  */
 protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
+<<<<<<< HEAD:Aural/AudioGraphProtocols.swift
+=======
     var availableDevices: AudioDeviceList {get}
     var systemDevice: AudioDevice {get}
     var outputDevice: AudioDevice {get set}
     var outputDeviceBufferSize: Int {get set}
     var outputDeviceSampleRate: Double {get}
     
+>>>>>>> upstream/master:Source/AudioGraph/AudioGraphProtocols.swift
     var volume: Float {get set}
     var balance: Float {get set}
     var muted: Bool {get set}

@@ -316,14 +316,6 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         return grid
     }
     
-    @IBAction func previousTabAction(_ sender: Any) {
-        tabView.previousTab()
-    }
-    
-    @IBAction func nextTabAction(_ sender: Any) {
-        tabView.nextTab()
-    }
-    
     @IBAction func closePopoverAction(_ sender: Any) {
         close()
     }

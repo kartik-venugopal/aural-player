@@ -7,8 +7,6 @@ import Cocoa
  */
 class SoundMenuController: NSObject, NSMenuDelegate {
     
-    @IBOutlet weak var devicesMenu: NSMenu!
-    
     // Menu items that are not always accessible
     @IBOutlet weak var panLeftMenuItem: NSMenuItem!
     @IBOutlet weak var panRightMenuItem: NSMenuItem!
@@ -47,7 +45,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
     
     // Delegate that alters the audio graph
-    private var graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
@@ -94,6 +92,16 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     func menuWillOpen(_ menu: NSMenu) {
         
+<<<<<<< HEAD:Aural/SoundMenuController.swift
+        masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
+        rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettings && preferences.rememberEffectsSettingsOption == .individualTracks)
+        
+        if let playingTrack = player.playingTrack?.track {
+            rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
+        }
+    }
+    
+=======
         // Audio output devices menu
         if (menu == devicesMenu) {
             
@@ -134,6 +142,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         }
     }
     
+>>>>>>> upstream/master:Source/UI/Menus/SoundMenuController.swift
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
         Messenger.publish(.player_muteOrUnmute)

@@ -58,4 +58,8 @@ class FilterView: NSView {
     func applyFontScheme(_ fontScheme: FontScheme) {
         redrawChart()
     }
+    
+    func changeColorScheme() {
+        redrawChart()
+    }
 }

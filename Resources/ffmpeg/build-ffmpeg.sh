@@ -7,22 +7,47 @@
 # 3 - clang - C compiler (Run "xcode-select --install")
 
 # Binaries will be placed one level above the source folder (i.e. in the same location as this script)
+echo "Starting Build-Script for FFMpeg Build ...\n"
+echo "Setting local variables ...\n"
 export binDir=".."
 
-# The name of the FFmpeg source code archive (which will be expanded)
-export sourceArchiveName="ffmpeg-sourceCode.bz2"
+#echo "SourceArchivName = ffmpeg-sourceCode.bz2 \n"
+## The name of the FFmpeg source code archive (which will be expanded)
+#export sourceArchiveName="ffmpeg-sourceCode.bz2"
 
+echo "SourceArchivName = ffmpeg-4.2.2.tar.bz2 \n"
+# The name of the FFmpeg source code archive (which will be expanded)
+export sourceArchiveName="ffmpeg-4.2.2.tar.bz2"
+
+#echo "SourceDirectoryName = ffmpeg-4.1 \n"
+## The name of the FFmpeg source directory (once the archive has been uncompressed)
+#export sourceDirectoryName="ffmpeg-4.1"
+
+echo "SourceDirectoryName = ffmpeg-4.2.2 \n"
 # The name of the FFmpeg source directory (once the archive has been uncompressed)
+<<<<<<< HEAD
+export sourceDirectoryName="ffmpeg-4.2.2"
+
+echo "Cleanup SourceDirectory from previous runs...\n"
+# Delete source directory to clenaup previous incomplete runs...
+rm -rf ../$sourceDirectoryName
+=======
 export sourceDirectoryName="ffmpeg-4.3.1"
+>>>>>>> upstream/master
 
 # Extract source code from archive
-echo "\nExtracting FFmpeg sources from archive ..."
+echo "Extracting FFmpeg sources from archive ...\n"
 tar xjf $sourceArchiveName
 echo "Done extracting FFmpeg sources from archive.\n"
 
 # CD to the source directory and configure FFmpeg
 cd $sourceDirectoryName
+<<<<<<< HEAD
+
+echo "Configuring FFmpeg ... \n"
+=======
 echo "\nConfiguring FFmpeg ..."
+>>>>>>> upstream/master
 
 ./configure \
 --cc=/usr/bin/clang \
@@ -82,6 +107,11 @@ echo "Done configuring FFmpeg.\n"
 #exit 0
 
 # Build FFmpeg
+<<<<<<< HEAD
+echo "Building FFmpeg ... \n"
+make && make install
+echo "Done make and install FFmpeg.\n"
+=======
 echo "\nBuilding FFmpeg ..."
 make && make install
 echo "Done building FFmpeg.\n"
@@ -119,8 +149,16 @@ install_name_tool -change /usr/local/lib/libavutil.56.dylib @loader_path/../Fram
 echo "Done fixing install names of shared libraries.\n"
 
 cd ..
+>>>>>>> upstream/master
 
+echo "Remove Source Directory ...\n"
 # Delete source directory
+<<<<<<< HEAD
+rm -rf ../$sourceDirectoryName
+
+echo "Done building FFmpeg and Cleanup.\n"
+=======
 rm -rf $sourceDirectoryName
 
 echo "All done !\n"
+>>>>>>> upstream/master

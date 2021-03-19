@@ -7,6 +7,9 @@ class PitchViewController: FXUnitViewController {
     
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
+<<<<<<< HEAD:Aural/PitchViewController.swift
+   
+=======
     
     @IBOutlet weak var lblPitch: VALabel!
     @IBOutlet weak var lblPitchMin: VALabel!
@@ -18,6 +21,7 @@ class PitchViewController: FXUnitViewController {
     @IBOutlet weak var lblOverlapMax: VALabel!
     @IBOutlet weak var lblPitchOverlapValue: VALabel!
     
+>>>>>>> upstream/master:Source/UI/Effects/Pitch/PitchViewController.swift
     override var nibName: String? {return "Pitch"}
     
     private var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
@@ -45,10 +49,14 @@ class PitchViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         
+<<<<<<< HEAD:Aural/PitchViewController.swift
+//        functionLabels = [lblPitch, lblOverlap, lblPresets, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
+=======
         // TODO: Move this to a generic view
         pitchView.initialize(self.unitStateFunction)
         
         functionLabels = [lblPitch, lblOverlap, lblPitchMin, lblPitchMax, lblPitchValue, lblOverlapMin, lblOverlapMax, lblPitchOverlapValue]
+>>>>>>> upstream/master:Source/UI/Effects/Pitch/PitchViewController.swift
     }
     
     override func initControls() {
@@ -120,11 +128,21 @@ class PitchViewController: FXUnitViewController {
         showThisTab()
     }
     
+<<<<<<< HEAD:Aural/PitchViewController.swift
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        pitchView.changeColorScheme()
+    }
+    
+    // MARK: Message handling
+=======
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
         changeSliderColors()
     }
+>>>>>>> upstream/master:Source/UI/Effects/Pitch/PitchViewController.swift
     
     override func changeSliderColors() {
         pitchView.redrawSliders()
@@ -146,6 +164,8 @@ class PitchViewController: FXUnitViewController {
         if pitchUnit.state == .bypassed {
             pitchView.redrawSliders()
         }
+<<<<<<< HEAD:Aural/PitchViewController.swift
+=======
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
@@ -155,5 +175,6 @@ class PitchViewController: FXUnitViewController {
         if pitchUnit.state == .suppressed {
             pitchView.redrawSliders()
         }
+>>>>>>> upstream/master:Source/UI/Effects/Pitch/PitchViewController.swift
     }
 }

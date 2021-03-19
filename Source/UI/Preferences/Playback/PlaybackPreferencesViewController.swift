@@ -164,8 +164,13 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
             NSAttributedString.Key.font.rawValue: Fonts.helpInfoTextFont
             ])
         
+<<<<<<< HEAD:Aural/GeneralPlaybackPreferencesViewController.swift
+        helpManager.setContextHelp(NSAttributedString(string: text, attributes: textFontAttributes), for: btnInfo_primarySeekLength as Any)
+        helpManager.showContextHelp(for: btnInfo_primarySeekLength as Any, locationHint: NSEvent.mouseLocation)
+=======
         helpManager.setContextHelp(NSAttributedString(string: text, attributes: textFontAttributes), for: btnInfo_primarySeekLength!)
         helpManager.showContextHelp(for: btnInfo_primarySeekLength!, locationHint: NSEvent.mouseLocation)
+>>>>>>> upstream/master:Source/UI/Preferences/Playback/PlaybackPreferencesViewController.swift
     }
     
     func save(_ preferences: Preferences) throws {

@@ -12,7 +12,6 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
     @IBOutlet weak var recordingInfoBox: NSBox!
     
     @IBOutlet weak var formatMenu: NSPopUpButton!
-    @IBOutlet weak var qualityMenu: NSPopUpButton!
     
     // Labels
     @IBOutlet weak var lblCaption: NSTextField!
@@ -41,6 +40,11 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         // Subscribe to notifications
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
+<<<<<<< HEAD:Aural/RecorderViewController.swift
+        // Subscribe to message notifications
+        SyncMessenger.subscribe(messageTypes: [.appExitRequest], subscriber: self)
+        SyncMessenger.subscribe(actionTypes: [.changeEffectsTextSize, .changeColorScheme], subscriber: self)
+=======
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
@@ -49,6 +53,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .fx_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
         Messenger.subscribe(self, .fx_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+>>>>>>> upstream/master:Source/UI/Effects/Recorder/RecorderViewController.swift
     }
     
     private func initControls() {
@@ -71,10 +76,13 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         
         formatMenu.disable()
         
-        let format = RecordingFormat.formatForDescription(formatMenu.selectedItem!.title)
-        let quality = RecordingQuality(rawValue: qualityMenu.selectedItem!.tag)!
+        let format = RecordingFormat.formatForDescription((formatMenu.selectedItem?.title)!)
         
+<<<<<<< HEAD:Aural/RecorderViewController.swift
+        recorder.startRecording(format)
+=======
         recorder.startRecording(RecordingParams(format, quality))
+>>>>>>> upstream/master:Source/UI/Effects/Recorder/RecorderViewController.swift
         
         // Start the recording
         btnRecord.on()
@@ -190,6 +198,14 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         }
     }
     
+    func changeColorScheme() {
+        
+        lblCaption.textColor = Colors.fxUnitCaptionColor
+        
+        let labels = findFunctionLabels(self.view)
+        labels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
+    }
+    
     // MARK: Message handling
     
     // This function is invoked when the user attempts to exit the app. It checks if there is an ongoing recording the user may have forgotten about, and prompts the user to save/discard the recording or to cancel the exit.
@@ -212,6 +228,10 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         } else {
             
             request.acceptResponse(okToExit: true)
+        }
+        
+        if message.actionType == .changeColorScheme {
+            changeColorScheme()
         }
     }
 }

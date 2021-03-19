@@ -29,10 +29,14 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.checkRadioButtonFont}
     
+<<<<<<< HEAD:Aural/CheckRadioButtonCell.swift
+    var textColor: NSColor {return isOff() ? ColorConstants.white70Percent : NSColor.white}
+=======
     var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
     
     var xOffset: CGFloat {0}
     var yOffset: CGFloat {0}
+>>>>>>> upstream/master:Source/UI/CustomViews/Buttons/CheckRadioButtonCell.swift
     
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         

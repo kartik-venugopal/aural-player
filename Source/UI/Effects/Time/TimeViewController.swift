@@ -7,6 +7,8 @@ class TimeViewController: FXUnitViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
+<<<<<<< HEAD:Aural/TimeViewController.swift
+=======
     @IBOutlet weak var lblRate: VALabel!
     @IBOutlet weak var lblRateMin: VALabel!
     @IBOutlet weak var lblRateMax: VALabel!
@@ -20,6 +22,7 @@ class TimeViewController: FXUnitViewController {
     @IBOutlet weak var lblPitchShiftValue: VALabel!
     @IBOutlet weak var btnShiftPitch: NSButton!
     
+>>>>>>> upstream/master:Source/UI/Effects/Time/TimeViewController.swift
     override var nibName: String? {return "Time"}
     
     var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
@@ -133,8 +136,19 @@ class TimeViewController: FXUnitViewController {
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
         
+<<<<<<< HEAD:Aural/TimeViewController.swift
+        super.changeTextSize()
+        timeView.changeTextSize()
+    }
+    
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        timeView.changeColorScheme()
+=======
         super.applyFontScheme(fontScheme)
         btnShiftPitch.redraw()
+>>>>>>> upstream/master:Source/UI/Effects/Time/TimeViewController.swift
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {
@@ -167,6 +181,8 @@ class TimeViewController: FXUnitViewController {
         if timeUnit.state == .bypassed {
             timeView.redrawSliders()
         }
+<<<<<<< HEAD:Aural/TimeViewController.swift
+=======
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
@@ -176,6 +192,7 @@ class TimeViewController: FXUnitViewController {
         if timeUnit.state == .suppressed {
             timeView.redrawSliders()
         }
+>>>>>>> upstream/master:Source/UI/Effects/Time/TimeViewController.swift
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {

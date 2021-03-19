@@ -110,12 +110,24 @@ class EQViewController: FXUnitViewController {
         showThisTab()
     }
     
+<<<<<<< HEAD:Aural/EQViewController.swift
+    override func changeTextSize() {
+
+        super.changeTextSize()
+=======
     override func applyFontScheme(_ fontScheme: FontScheme) {
+>>>>>>> upstream/master:Source/UI/Effects/EQ/EQViewController.swift
         
         super.applyFontScheme(fontScheme)
         eqView.applyFontScheme(fontScheme)
     }
     
+<<<<<<< HEAD:Aural/EQViewController.swift
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        eqView.changeColorScheme()
+=======
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
@@ -124,6 +136,7 @@ class EQViewController: FXUnitViewController {
         changeTabButtonTextColor(scheme.general.tabButtonTextColor)
         changeSelectedTabButtonTextColor(scheme.general.selectedTabButtonTextColor)
         changeSliderColors()
+>>>>>>> upstream/master:Source/UI/Effects/EQ/EQViewController.swift
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {
@@ -142,6 +155,8 @@ class EQViewController: FXUnitViewController {
         if eqUnit.state == .bypassed {
             eqView.changeBypassedUnitStateColor(color)
         }
+<<<<<<< HEAD:Aural/EQViewController.swift
+=======
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
@@ -151,6 +166,7 @@ class EQViewController: FXUnitViewController {
         if eqUnit.state == .suppressed {
             eqView.changeSuppressedUnitStateColor(color)
         }
+>>>>>>> upstream/master:Source/UI/Effects/EQ/EQViewController.swift
     }
     
     func changeSelectedTabButtonColor(_ color: NSColor) {

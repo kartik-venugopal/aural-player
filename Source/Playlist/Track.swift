@@ -37,6 +37,8 @@ class Track: Hashable, PlaylistItem {
     
     var lyrics: String?
     
+<<<<<<< HEAD:Aural/Track.swift
+=======
     // Chapter markings
     var chapters: [Chapter] = []
     
@@ -44,6 +46,7 @@ class Track: Hashable, PlaylistItem {
         return !chapters.isEmpty
     }
     
+>>>>>>> upstream/master:Source/Playlist/Track.swift
     init(_ file: URL) {
         
         self.playbackNativelySupported = AudioUtils.isAudioFilePlaybackNativelySupported(file)
@@ -113,6 +116,11 @@ class Track: Hashable, PlaylistItem {
         TrackIO.loadDetailedInfo(self)
     }
     
+<<<<<<< HEAD:Aural/Track.swift
+    // Prepares this track for playback
+    func prepareForPlayback() {
+        TrackIO.prepareForPlayback(self)
+=======
     func validateAudio() {
         
         if lazyLoadingInfo.validated {return}
@@ -183,6 +191,7 @@ class Chapter {
     // Convenience function to determine if a given track position lies within this chapter's time bounds
     func containsTimePosition(_ seconds: Double) -> Bool {
         return seconds >= startTime && seconds <= endTime
+>>>>>>> upstream/master:Source/Playlist/Track.swift
     }
 }
 

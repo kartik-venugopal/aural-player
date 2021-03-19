@@ -66,6 +66,12 @@ class DelayViewController: FXUnitViewController {
         delayView.setCutoff(delayUnit.lowPassCutoff, delayUnit.formattedLowPassCutoff)
     }
     
+<<<<<<< HEAD:Aural/DelayViewController.swift
+    override func changeColorScheme() {
+        
+        super.changeColorScheme()
+        delayView.changeColorScheme()
+=======
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
@@ -92,5 +98,6 @@ class DelayViewController: FXUnitViewController {
         
         super.changeSuppressedUnitStateColor(color)
         delayView.redrawSliders()
+>>>>>>> upstream/master:Source/UI/Effects/Delay/DelayViewController.swift
     }
 }

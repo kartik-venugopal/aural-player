@@ -93,6 +93,19 @@ class EffectsUnitTriStateLabel: OnOffLabel {
         self.textColor = mixedStateColor
     }
     
+<<<<<<< HEAD:Aural/TriStateLabel.swift
+    func colorSchemeChanged() {
+        
+        switch stateFunction!() {
+            
+        case .bypassed: off()
+            
+        case .active: on()
+            
+        case .suppressed: mixed()
+            
+        }
+=======
     func reTint() {
         updateState()
     }
@@ -110,5 +123,6 @@ class EffectsUnitTriStatePreviewLabel: EffectsUnitTriStateLabel {
     
     override var mixedStateColor: NSColor {
         return Colors.Effects.defaultSuppressedUnitColor
+>>>>>>> upstream/master:Source/UI/CustomViews/TriStateLabel.swift
     }
 }

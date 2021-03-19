@@ -101,7 +101,11 @@ class DelayView: NSView {
         sliders.forEach({$0.setUnitState(preset.state)})
     }
     
+<<<<<<< HEAD:Aural/DelayView.swift
+    func changeColorScheme() {
+=======
     func redrawSliders() {
+>>>>>>> upstream/master:Source/UI/Effects/Delay/DelayView.swift
         sliders.forEach({$0.redraw()})
     }
 }

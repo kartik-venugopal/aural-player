@@ -2,11 +2,6 @@ import Cocoa
 
 class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
-    @IBOutlet weak var btnSystemDeviceOnStartup: NSButton!
-    @IBOutlet weak var btnRememberDeviceOnStartup: NSButton!
-    @IBOutlet weak var btnPreferredDeviceOnStartup: NSButton!
-    @IBOutlet weak var preferredDevicesMenu: NSPopUpButton!
-    
     @IBOutlet weak var volumeDeltaField: NSTextField!
     @IBOutlet weak var volumeDeltaStepper: NSStepper!
     
@@ -35,7 +30,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     @IBOutlet weak var btnRememberSettings_allTracks: NSButton!
     @IBOutlet weak var btnRememberSettings_individualTracks: NSButton!
     
-    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
@@ -49,6 +43,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
+<<<<<<< HEAD:Aural/SoundPreferencesViewController.swift
+=======
         switch soundPrefs.outputDeviceOnStartup.option {
             
         case .system:                       btnSystemDeviceOnStartup.on()
@@ -66,6 +62,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         // Volume increment / decrement
         
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferencesViewController.swift
         let volumeDelta = Int(round(soundPrefs.volumeDelta * AppConstants.ValueConversions.volume_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
@@ -79,8 +76,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         lblStartupVolume.enableIf(btnSpecifyVolume.isOn)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
-        
-        // Balance increment / decrement
         
         let panDelta = Int(round(soundPrefs.panDelta * AppConstants.ValueConversions.pan_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
@@ -98,8 +93,6 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         timeDeltaStepper.floatValue = timeDelta
         timeDeltaAction(self)
         
-        // Effects settings on startup
-        
         if soundPrefs.effectsSettingsOnStartupOption == .rememberFromLastAppLaunch {
             btnRememberEffectsOnStartup.on()
         } else {
@@ -114,7 +107,12 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
             masterPresetsMenu.selectItem(withTitle: masterPresetName)
         }
         
+<<<<<<< HEAD:Aural/SoundPreferencesViewController.swift
+        btnRememberSettingsForTrack.onIf(soundPrefs.rememberEffectsSettings)
+        [btnRememberSettings_allTracks, btnRememberSettings_individualTracks].forEach({$0?.enableIf(soundPrefs.rememberEffectsSettings)})
+=======
         // Per-track effects settings memory
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferencesViewController.swift
         
         if soundPrefs.rememberEffectsSettingsOption == .individualTracks {
             btnRememberSettings_individualTracks.on()
@@ -123,6 +121,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         }
     }
     
+<<<<<<< HEAD:Aural/SoundPreferencesViewController.swift
+=======
     private func updatePreferredDevicesMenu(_ prefs: SoundPreferences) {
         
         preferredDevicesMenu.removeAllItems()
@@ -159,6 +159,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         preferredDevicesMenu.select(selItem)
     }
     
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferencesViewController.swift
     private func updateMasterPresetsMenu() {
         
         masterPresetsMenu.removeAllItems()
@@ -167,11 +168,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         masterPresets.userDefinedPresets.forEach({masterPresetsMenu.insertItem(withTitle: $0.name, at: 0)})
     }
     
+<<<<<<< HEAD:Aural/SoundPreferencesViewController.swift
+=======
     @IBAction func outputDeviceRadioButtonAction(_ sender: Any) {
         // Needed for radio button group
         preferredDevicesMenu.enableIf(btnPreferredDeviceOnStartup.isOn)
     }
     
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferencesViewController.swift
     @IBAction func volumeDeltaAction(_ sender: Any) {
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDeltaStepper.integerValue)
     }
@@ -212,6 +216,8 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         let soundPrefs = preferences.soundPreferences
         
+<<<<<<< HEAD:Aural/SoundPreferencesViewController.swift
+=======
         if (btnSystemDeviceOnStartup.isOn) {
             soundPrefs.outputDeviceOnStartup.option = .system
         } else if (btnRememberDeviceOnStartup.isOn) {
@@ -225,6 +231,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
             soundPrefs.outputDeviceOnStartup.preferredDeviceUID = prefDevice.uid
         }
         
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferencesViewController.swift
         soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.ValueConversions.volume_UIToAudioGraph
         
         soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn ? .rememberFromLastAppLaunch : .specific
@@ -249,17 +256,5 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         if wasAllTracks && isNowIndividualTracks {
             soundProfiles.removeAll()
         }
-    }
-}
-
-// Encapsulates a user-preferred audio output device
-public class PreferredDevice {
-    
-    var name: String
-    var uid: String
-    
-    init(_ name: String, _ uid: String) {
-        self.name = name
-        self.uid = uid
     }
 }

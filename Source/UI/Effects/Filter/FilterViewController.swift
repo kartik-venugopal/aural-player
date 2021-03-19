@@ -262,7 +262,14 @@ class FilterViewController: FXUnitViewController {
         }
     }
     
+<<<<<<< HEAD:Aural/FilterViewController.swift
+    override func changeTextSize() {
+
+        // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
+        functionLabels = findFunctionLabels(self.view)
+=======
     override func applyFontScheme(_ fontScheme: FontScheme) {
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterViewController.swift
         
         bandControllers.forEach {$0.applyFontScheme(fontScheme)}
         
@@ -306,6 +313,20 @@ class FilterViewController: FXUnitViewController {
         bandControllers.forEach({$0.redrawSliders()})
     }
     
+<<<<<<< HEAD:Aural/FilterViewController.swift
+    override func changeColorScheme() {
+        
+        // Need to recompute functionLabels because the view is dynamic (bands are added/removed)
+        functionLabels = findFunctionLabels(self.view)
+        super.changeColorScheme()
+
+        bandControllers.forEach({$0.changeColorScheme()})
+        
+        btnAdd.redraw()
+        btnRemove.redraw()
+        
+        filterView.changeColorScheme()
+=======
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
         super.changeActiveUnitStateColor(color)
@@ -375,5 +396,6 @@ class FilterViewController: FXUnitViewController {
         if selTab >= 0 && selTab < numTabs {
             tabButtons[selTab].redraw()
         }
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterViewController.swift
     }
 }

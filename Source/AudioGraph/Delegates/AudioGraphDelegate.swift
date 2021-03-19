@@ -2,10 +2,12 @@
  Concrete implementation of AudioGraphDelegateProtocol
  */
 
-import AVFoundation
+import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
+<<<<<<< HEAD:Aural/AudioGraphDelegate.swift
+=======
     var availableDevices: AudioDeviceList {
         return graph.availableDevices
     }
@@ -29,6 +31,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var outputDeviceSampleRate: Double {graph.outputDeviceSampleRate}
     
+>>>>>>> upstream/master:Source/AudioGraph/Delegates/AudioGraphDelegate.swift
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol
     var pitchUnit: PitchUnitDelegateProtocol
@@ -48,7 +51,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     private let notificationQueue: DispatchQueue = .global(qos: .userInteractive)
     
-    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState) {
+    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences) {
         
         self.graph = graph
         self.player = player
@@ -62,6 +65,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         delayUnit = DelayUnitDelegate(graph.delayUnit)
         filterUnit = FilterUnitDelegate(graph.filterUnit)
         
+<<<<<<< HEAD:Aural/AudioGraphDelegate.swift
+=======
         // Set output device based on user preference
         
         if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
@@ -85,6 +90,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         
         // Set volume and effects based on user preference
         
+>>>>>>> upstream/master:Source/AudioGraph/Delegates/AudioGraphDelegate.swift
         if (preferences.volumeOnStartupOption == .specific) {
             
             self.graph.volume = preferences.startupVolumeValue

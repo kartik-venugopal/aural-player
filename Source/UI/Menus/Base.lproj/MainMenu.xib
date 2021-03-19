@@ -54,11 +54,14 @@
                 <outlet property="moveItemsToBottomMenuItem" destination="07J-Mu-hRE" id="VEk-EP-txO"/>
                 <outlet property="moveItemsToTopMenuItem" destination="av2-sE-9MQ" id="DV5-5L-dmS"/>
                 <outlet property="moveItemsUpMenuItem" destination="f3c-TG-M9r" id="tFc-fV-deZ"/>
-                <outlet property="nextViewMenuItem" destination="C4n-hs-Fjm" id="c3E-gk-no6"/>
                 <outlet property="pageDownMenuItem" destination="aHg-LZ-M39" id="upm-yM-qtU"/>
                 <outlet property="pageUpMenuItem" destination="OVI-nb-hI6" id="wAC-Gl-qhP"/>
                 <outlet property="playSelectedItemMenuItem" destination="afl-Xm-nI9" id="RnQ-Qj-phc"/>
+<<<<<<< HEAD:Aural/Base.lproj/MainMenu.xib
+                <outlet property="removeGapsMenuItem" destination="iK1-11-rDP" id="Rvs-NL-PET"/>
+=======
                 <outlet property="previousViewMenuItem" destination="I5Z-AW-JY4" id="fL2-Sb-Q14"/>
+>>>>>>> upstream/master:Source/UI/Menus/Base.lproj/MainMenu.xib
                 <outlet property="removeSelectedItemsMenuItem" destination="20j-6Y-sbB" id="1Tx-Bh-Msu"/>
                 <outlet property="savePlaylistMenuItem" destination="Cvk-m8-oAg" id="G6F-eB-XFB"/>
                 <outlet property="scrollToBottomMenuItem" destination="c6s-9I-Btt" id="o2i-bn-R36"/>
@@ -97,7 +100,6 @@
         </customObject>
         <customObject id="YGo-hN-fxr" customClass="SoundMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="devicesMenu" destination="Gsu-W0-XjY" id="3uH-7o-o7q"/>
                 <outlet property="eqMenu" destination="9wV-eS-AMY" id="rmz-xV-44s"/>
                 <outlet property="halfOctaveAboveMenuItem" destination="oiI-Ft-yc5" id="2VO-d4-8QL"/>
                 <outlet property="halfOctaveBelowMenuItem" destination="Lm3-tW-hm0" id="Hx3-ya-ekH"/>
@@ -127,10 +129,17 @@
         </customObject>
         <customObject id="xzd-WN-BuR" customClass="ViewMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+<<<<<<< HEAD:Aural/Base.lproj/MainMenu.xib
+                <outlet property="colorSchemeDarkBackgroundMenuItem" destination="kEa-g0-q6E" id="re0-58-xHq"/>
+                <outlet property="colorSchemeLightBackgroundMenuItem" destination="5mD-jc-uwi" id="C8k-QM-VxH"/>
+                <outlet property="dockMiniBarMenu" destination="oKL-M2-XnE" id="2vw-Y1-mIc"/>
+                <outlet property="effectsViewMenuItem" destination="XdU-vv-wWn" id="NmF-KA-ZOR"/>
+=======
                 <outlet property="applyColorSchemeMenuItem" destination="vgD-4T-WSG" id="aNt-Oa-CFX"/>
                 <outlet property="applyFontSchemeMenuItem" destination="pXx-4E-0SU" id="c0W-eU-SJ0"/>
                 <outlet property="manageColorSchemesMenuItem" destination="3ie-xE-Lk9" id="qy9-2a-3ie"/>
                 <outlet property="manageFontSchemesMenuItem" destination="PXA-nL-cxl" id="WqT-G9-BWH"/>
+>>>>>>> upstream/master:Source/UI/Menus/Base.lproj/MainMenu.xib
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
                 <outlet property="playerViewMenuItem" destination="af4-4E-1QV" id="0dH-2v-B7l"/>
                 <outlet property="saveColorSchemeMenuItem" destination="WVj-ng-OeL" id="3XH-d1-FXP"/>
@@ -461,19 +470,6 @@ CA
                                     <action selector="pageDownAction:" target="sXT-Pr-clR" id="8di-V3-kIw"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="YfP-4x-5Xb"/>
-                            <menuItem title="     Toggle (previous) playlist view" keyEquivalent="[" id="I5Z-AW-JY4">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                <connections>
-                                    <action selector="previousPlaylistViewAction:" target="sXT-Pr-clR" id="q0s-dd-ahC"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="     Toggle (next) playlist view" keyEquivalent="]" id="C4n-hs-Fjm">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                <connections>
-                                    <action selector="nextPlaylistViewAction:" target="sXT-Pr-clR" id="C7n-av-U2z"/>
-                                </connections>
-                            </menuItem>
                         </items>
                         <connections>
                             <outlet property="delegate" destination="sXT-Pr-clR" id="f9A-Ji-QwQ"/>
@@ -656,15 +652,6 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Sound" autoenablesItems="NO" id="7VF-JM-uEm">
                         <items>
-                            <menuItem title="      Output Device" id="lwC-aC-eBs" userLabel="Output Device">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="      Output Device" id="Gsu-W0-XjY">
-                                    <connections>
-                                        <outlet property="delegate" destination="YGo-hN-fxr" id="hnW-9A-K07"/>
-                                    </connections>
-                                </menu>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="Ff9-GQ-qKb"/>
                             <menuItem title=" Mute / Unmute" image="Mute-Small" keyEquivalent="m" id="zih-cf-fPv" userLabel="Mute/Unmute">
                                 <connections>
                                     <action selector="muteOrUnmuteAction:" target="YGo-hN-fxr" id="fkK-Xo-nrT"/>
@@ -1155,6 +1142,11 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
+<<<<<<< HEAD:Aural/Base.lproj/MainMenu.xib
+                            <menuItem title="Visualizer" state="on" hidden="YES" enabled="NO" keyEquivalent="v" id="ZMB-r0-Kye" userLabel="Vis"/>
+                            <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
+                            <menuItem title="  Text size" indentationLevel="1" id="RxC-T7-DYq">
+=======
                             <menuItem title="   Save current scheme" indentationLevel="1" id="sSv-dJ-0AG" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
@@ -1162,6 +1154,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem title="   Manage font schemes" indentationLevel="1" id="PXA-nL-cxl" userLabel="Manage font schemes">
+>>>>>>> upstream/master:Source/UI/Menus/Base.lproj/MainMenu.xib
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageSchemesAction:" target="lih-ya-6jC" id="M5V-h0-vF6"/>
@@ -1191,6 +1184,36 @@ CA
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="hDR-uD-Kk5"/>
                                             </connections>
                                         </menuItem>
+<<<<<<< HEAD:Aural/Base.lproj/MainMenu.xib
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="  Color scheme" indentationLevel="1" id="skd-HF-42g">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Color scheme" id="eCg-rT-iVa">
+                                    <items>
+                                        <menuItem title="Dark background, light text" identifier="darkBackground_lightText" id="kEa-g0-q6E">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="changeColorSchemeAction:" target="xzd-WN-BuR" id="eGw-xn-a0N"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Light background, dark text" tag="1" identifier="lightBackground_darkText" id="5mD-jc-uwi">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="changeColorSchemeAction:" target="xzd-WN-BuR" id="oj4-KO-osT"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="IjT-DU-SUX"/>
+                            <menuItem title="  Dock Miniature Player" image="DockBottom-Small" hidden="YES" enabled="NO" id="oKL-M2-XnE" userLabel="Dock Miniature Player">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="  Dock Miniature Player" id="Uys-LW-fQW">
+                                    <items>
+                                        <menuItem title=" Top left corner" image="DockLeft-Small" enabled="NO" id="uSW-IR-fNF" userLabel="Top left corner">
+=======
                                         <menuItem title="White blight" indentationLevel="1" id="34v-MD-ohm">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1198,6 +1221,7 @@ CA
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Gloomy day" indentationLevel="1" id="PZZ-M5-60f">
+>>>>>>> upstream/master:Source/UI/Menus/Base.lproj/MainMenu.xib
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="rTM-7N-caI"/>

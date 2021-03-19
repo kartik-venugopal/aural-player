@@ -20,6 +20,8 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var lblFolder: NSTextField!
     @IBOutlet weak var lblFolderCell: ValidatedLabelCell!
     
+<<<<<<< HEAD:Aural/PlaylistPreferencesViewController.swift
+=======
     @IBOutlet weak var btnRememberView: NSButton!
     @IBOutlet weak var btnStartWithView: NSButton!
     @IBOutlet weak var viewMenu: NSPopUpButton!
@@ -27,6 +29,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnShowNewTrack: NSButton!
     @IBOutlet weak var btnShowChaptersList: NSButton!
     
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferencesViewController.swift
     override var nibName: String? {return "PlaylistPreferences"}
     
     var preferencesView: NSView {
@@ -35,9 +38,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     func resetFields(_ preferences: Preferences) {
         
-        let playlistPrefs = preferences.playlistPreferences
-        
-        switch playlistPrefs.playlistOnStartup {
+        switch preferences.playlistPreferences.playlistOnStartup {
             
         case .empty:
             btnEmptyPlaylist.on()
@@ -66,6 +67,8 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         lblPlaylistFile.stringValue = preferences.playlistPreferences.playlistFile?.path ?? ""
         lblFolder.stringValue = preferences.playlistPreferences.tracksFolder?.path ?? ""
+<<<<<<< HEAD:Aural/PlaylistPreferencesViewController.swift
+=======
         
         // View on startup
         
@@ -88,6 +91,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Show chapters list window
         btnShowChaptersList.onIf(playlistPrefs.showChaptersList)
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferencesViewController.swift
     }
     
     @IBAction func startupPlaylistPrefAction(_ sender: Any) {
@@ -119,11 +123,14 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
     }
     
+<<<<<<< HEAD:Aural/PlaylistPreferencesViewController.swift
+=======
     @IBAction func startupPlaylistViewPrefAction(_ sender: Any) {
         // Needed for radio button group
         viewMenu.enableIf(btnStartWithView.isOn)
     }
     
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferencesViewController.swift
     func save(_ preferences: Preferences) throws {
         
         let prefs: PlaylistPreferences = preferences.playlistPreferences
@@ -168,6 +175,8 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
                 throw PlaylistFileNotSpecifiedError("No tracks folder specified for loading tracks upon app startup")
             }
         }
+<<<<<<< HEAD:Aural/PlaylistPreferencesViewController.swift
+=======
         
         // View on startup
         prefs.viewOnStartup.option = btnStartWithView.isOn ? .specific : .rememberFromLastAppLaunch
@@ -178,6 +187,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         // Show chapters list window
         prefs.showChaptersList = btnShowChaptersList.isOn
+>>>>>>> upstream/master:Source/UI/Preferences/Playlist/PlaylistPreferencesViewController.swift
     }
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {
