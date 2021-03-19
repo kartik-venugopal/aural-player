@@ -24,8 +24,6 @@ class JSONMapper {
             return mapArray(child.value)
         }
         
-        // TODO: See which dictionaries are being persisted ... pring some debug statements.
-        
         // Dictionary
         if childMirror.displayStyle == .dictionary {
             return mapDictionary(child.value)
