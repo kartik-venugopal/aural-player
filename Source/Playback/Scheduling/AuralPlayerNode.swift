@@ -109,6 +109,41 @@ class AuralPlayerNode: AVAudioPlayerNode {
         }
     }
     
+    ///
+    /// Marks the seek position as equal to the currently playing track's duration (i.e. the end of the track).
+    /// This is useful when we want the seek position to show as being at the end of the track but don't want
+    /// to schedule anything for playback, e.g. when defining a segment loop that extends to the very end of a track while
+    /// paused.
+    ///
+    func seekToEndOfTrack(_ session: PlaybackSession) {
+        
+        if let plbkCtx = session.track.playbackContext as? FFmpegPlaybackContext {
+            
+            // Advance the last seek position to the end of the track.
+            cachedSeekPosn = session.track.duration
+            startFrame = plbkCtx.frameCount
+        }
+    }
+    
+    func scheduleBuffer(_ buffer: AVAudioPCMBuffer, for session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler, _ startTime: Double? = nil, _ immediatePlayback: Bool = false) {
+        
+        // The start frame and seek position should be reset only if this segment will be played immediately.
+        // If it is being scheduled for the future, doing this will cause inaccurate seek position values.
+        if immediatePlayback, let theStartTime = startTime {
+            
+            // Advance the last seek position to the new position
+            cachedSeekPosn = theStartTime
+            startFrame = AVAudioFramePosition(theStartTime * buffer.format.sampleRate)
+            
+            // Reset this flag for the new segment
+            correctionAppliedForSegment = false
+        }
+        
+        scheduleBuffer(buffer, completionHandler: {
+            self.completionCallbackQueue.async {completionHandler(session)}
+        })
+    }
+    
     private func areStartAndEndTimeValid(_ startTime: Double, _ endTime: Double?) -> Bool {
         
         if let theEndTime = endTime {
@@ -121,18 +156,19 @@ class AuralPlayerNode: AVAudioPlayerNode {
     // Computes an audio file segment. Given seek times, computes the corresponding audio frames.
     func computeSegment(_ session: PlaybackSession, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil) -> PlaybackSegment? {
         
-        guard let playbackInfo = session.track.playbackInfo, let playingFile: AVAudioFile = playbackInfo.audioFile,
-            areStartAndEndTimeValid(startTime, endTime) else {
+        guard let playbackCtx = session.track.playbackContext as? AVFPlaybackContext, areStartAndEndTimeValid(startTime, endTime) else {
             return nil
         }
+        
+        let playingFile: AVAudioFile = playbackCtx.audioFile
 
-        let sampleRate = playbackInfo.sampleRate
-        let lastFrameInFile: AVAudioFramePosition = playbackInfo.frames - 1
+        let sampleRate = playbackCtx.sampleRate
+        let lastFrameInFile: AVAudioFramePosition = playbackCtx.frameCount - 1
 
         // If an exact start frame is specified, use it.
         // Otherwise, multiply sample rate by the new seek time in seconds to obtain the start frame.
         var firstFrame: AVAudioFramePosition = startFrame ?? AVAudioFramePosition.fromTrackTime(startTime, sampleRate)
-        
+
         var lastFrame: AVAudioFramePosition
         var segmentEndTime: Double
 
@@ -149,21 +185,21 @@ class AuralPlayerNode: AVAudioPlayerNode {
             lastFrame = lastFrameInFile
             segmentEndTime = session.track.duration
         }
-        
+
         // NOTE - Assign to a signed Int value here to account for possible negative values
         var frameCount: Int64 = lastFrame - firstFrame + 1
 
         // If the frame count is less than the minimum required to continue playback,
         // schedule the minimum frame count for playback, to avoid crashes in the playerNode.
-        if frameCount < AuralPlayerNode.minFrames {
-            
-            frameCount = Int64(AuralPlayerNode.minFrames)
+        if frameCount < Self.minFrames {
+
+            frameCount = Int64(Self.minFrames)
             firstFrame = lastFrame - frameCount + 1
         }
-        
+
         // If startFrame is specified, use it to calculate a precise start time.
         let segmentStartTime: Double = startFrame == nil ? startTime : startFrame!.toTrackTime(sampleRate)
-        
+
         return PlaybackSegment(session, playingFile, firstFrame, lastFrame, AVAudioFrameCount(frameCount), segmentStartTime, segmentEndTime)
     }
 }

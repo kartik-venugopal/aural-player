@@ -21,8 +21,11 @@ class ObjectGraph {
     static var audioGraphDelegate: AudioGraphDelegateProtocol!
     
     private static var player: PlayerProtocol!
-    private static var playbackScheduler: PlaybackSchedulerProtocol!
+    private static var avfScheduler: PlaybackSchedulerProtocol!
+    private static var ffmpegScheduler: PlaybackSchedulerProtocol!
     private static var sequencer: SequencerProtocol!
+    
+    static var sampleConverter: SampleConverterProtocol!
     
     static var sequencerDelegate: SequencerDelegateProtocol!
     static var sequencerInfoDelegate: SequencerInfoDelegateProtocol! {return sequencerDelegate}
@@ -42,21 +45,8 @@ class ObjectGraph {
     private static var bookmarks: Bookmarks!
     static var bookmarksDelegate: BookmarksDelegateProtocol!
     
-    static var transcoder: TranscoderProtocol!
-    static var muxer: MuxerProtocol!
-    
-    static var avAssetReader: AVAssetReader!
-    static var commonAVAssetParser: CommonAVAssetParser!
-    static var id3Parser: ID3Parser!
-    static var iTunesParser: ITunesParser!
-    static var audioToolboxParser: AudioToolboxParser!
-    
-    static var ffmpegReader: FFMpegReader!
-    static var commonFFMpegParser: CommonFFMpegMetadataParser!
-    static var wmParser: WMParser!
-    static var vorbisParser: VorbisCommentParser!
-    static var apeParser: ApeV2Parser!
-    static var defaultParser: DefaultFFMpegMetadataParser!
+    static var fileReader: FileReader!
+    static var trackReader: TrackReader!
     
     static var mediaKeyHandler: MediaKeyHandler!
     
@@ -82,13 +72,16 @@ class ObjectGraph {
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
         // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.
         if #available(macOS 10.13, *) {
-            playbackScheduler = PlaybackScheduler(audioGraph.playerNode)
+            avfScheduler = PlaybackScheduler(audioGraph.playerNode)
         } else {
-            playbackScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
+            avfScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
         }
         
+        sampleConverter = FFmpegSampleConverter()
+        ffmpegScheduler = FFmpegScheduler(playerNode: audioGraph.playerNode, sampleConverter: sampleConverter)
+        
         // Player
-        player = Player(audioGraph, playbackScheduler)
+        player = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
         
         // Playlist
         let flatPlaylist = FlatPlaylist()
@@ -106,7 +99,8 @@ class ObjectGraph {
         sequencer = Sequencer(playlist, repeatMode, shuffleMode, playlistType)
         sequencerDelegate = SequencerDelegate(sequencer)
         
-        transcoder = Transcoder(appState.transcoder, preferences.playbackPreferences.transcodingPreferences, playlist, sequencerDelegate)
+        fileReader = FileReader()
+        trackReader = TrackReader(fileReader)
         
         let profiles = PlaybackProfiles()
         
@@ -114,8 +108,8 @@ class ObjectGraph {
             profiles.add(profile.file, profile)
         }
         
-        let startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, transcoder, profiles, preferences.playbackPreferences)
-        let stopPlaybackChain = StopPlaybackChain(player, sequencer, transcoder, profiles, preferences.playbackPreferences)
+        let startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, trackReader: trackReader, profiles, preferences.playbackPreferences)
+        let stopPlaybackChain = StopPlaybackChain(player, sequencer, profiles, preferences.playbackPreferences)
         let trackPlaybackCompletedChain = TrackPlaybackCompletedChain(startPlaybackChain, stopPlaybackChain, sequencer)
         
         // Playback Delegate
@@ -124,7 +118,7 @@ class ObjectGraph {
         audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
         
         // Playlist Delegate
-        playlistDelegate = PlaylistDelegate(playlist, appState.playlist, preferences,
+        playlistDelegate = PlaylistDelegate(playlist, trackReader, appState.playlist, preferences,
                                             [playbackDelegate as! PlaybackDelegate])
         
         // Recorder (and delegate)
@@ -141,29 +135,10 @@ class ObjectGraph {
         favorites = Favorites()
         favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState!.favorites)
         
-        muxer = Muxer()
-        
-        commonAVAssetParser = CommonAVAssetParser()
-        id3Parser = ID3Parser()
-        iTunesParser = ITunesParser()
-        audioToolboxParser = AudioToolboxParser()
-        
-        avAssetReader = AVAssetReader(commonAVAssetParser, id3Parser, iTunesParser, audioToolboxParser, muxer)
-        
-        commonFFMpegParser = CommonFFMpegMetadataParser()
-        wmParser = WMParser()
-        vorbisParser = VorbisCommentParser()
-        apeParser = ApeV2Parser()
-        defaultParser = DefaultFFMpegMetadataParser()
-        
-        ffmpegReader = FFMpegReader(commonFFMpegParser, id3Parser, vorbisParser, apeParser, wmParser, defaultParser, muxer)
-
         mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
         
         // Initialize utility classes.
         
-        AudioUtils.initialize(transcoder)
-        MetadataUtils.initialize(playlistDelegate, avAssetReader, ffmpegReader)
         PlaylistIO.initialize(playlist)
         
         // UI-related utility classes
@@ -180,6 +155,24 @@ class ObjectGraph {
         VisualizerViewState.initialize(appState.ui.visualizer)
         
         fft = FFT()
+        
+        DispatchQueue.global(qos: .background).async {
+            cleanUpTranscoderFolders()
+        }
+    }
+    
+    ///
+    /// Clean up (delete) file system folders that were used by previous app versions that had the transcoder.
+    ///
+    private static func cleanUpTranscoderFolders() {
+        
+        let transcoderDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("transcoderStore", isDirectory: true)
+        
+        let artDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("albumArt", isDirectory: true)
+        
+        for folder in [transcoderDir, artDir].filter({FileSystemUtils.fileExists($0)}) {
+            FileSystemUtils.deleteDir(folder)
+        }
     }
     
     private static let tearDownOpQueue: OperationQueue = {
@@ -196,12 +189,12 @@ class ObjectGraph {
         
         // Gather all pieces of app state into the appState object
         
+        appState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+        
         appState.audioGraph = (audioGraph as! PersistentModelObject).persistentState as! AudioGraphState
         appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
         appState.playbackSequence = (sequencer as! Sequencer).persistentState as! PlaybackSequenceState
         appState.playbackProfiles = playbackDelegate.profiles.all()
-        
-        appState.transcoder = (transcoder as! Transcoder).persistentState as! TranscoderState
         
         appState.ui = UIState()
         appState.ui.windowLayout = WindowManager.persistentState

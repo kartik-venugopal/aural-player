@@ -17,8 +17,6 @@ class StatusBarAppModeController: AppModeController {
         item1.view = statusBarViewController.view
         menu.addItem(item1)
         statusItem.menu = menu
-        
-        print("HERE:", statusBarViewController, statusBarViewController.view)
     }
     
     func dismissMode() {

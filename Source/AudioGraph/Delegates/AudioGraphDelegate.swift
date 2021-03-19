@@ -2,10 +2,12 @@
  Concrete implementation of AudioGraphDelegateProtocol
  */
 
-import AVFoundation
+import Foundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
+<<<<<<< HEAD:Aural/AudioGraphDelegate.swift
+=======
     var availableDevices: AudioDeviceList {
         return graph.availableDevices
     }
@@ -29,6 +31,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var outputDeviceSampleRate: Double {graph.outputDeviceSampleRate}
     
+>>>>>>> upstream/master:Source/AudioGraph/Delegates/AudioGraphDelegate.swift
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol
     var pitchUnit: PitchUnitDelegateProtocol
@@ -48,7 +51,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     private let notificationQueue: DispatchQueue = .global(qos: .userInteractive)
     
-    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState) {
+    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences) {
         
         self.graph = graph
         self.player = player
@@ -62,6 +65,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         delayUnit = DelayUnitDelegate(graph.delayUnit)
         filterUnit = FilterUnitDelegate(graph.filterUnit)
         
+<<<<<<< HEAD:Aural/AudioGraphDelegate.swift
+=======
         // Set output device based on user preference
         
         if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
@@ -85,6 +90,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         
         // Set volume and effects based on user preference
         
+>>>>>>> upstream/master:Source/AudioGraph/Delegates/AudioGraphDelegate.swift
         if (preferences.volumeOnStartupOption == .specific) {
             
             self.graph.volume = preferences.startupVolumeValue
@@ -96,11 +102,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         }
         
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
-        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:), filter: {msg in self.preferences.rememberEffectsSettings})
-        
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged && msg.transcodingStarted && self.preferences.rememberEffectsSettings},
-                                 queue: notificationQueue)
+        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:))
         
         Messenger.subscribe(self, .fx_saveSoundProfile, self.saveSoundProfile)
         Messenger.subscribe(self, .fx_deleteSoundProfile, self.deleteSoundProfile)
@@ -188,10 +190,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         }
     }
     
-    func trackTransitioned(_ notification: TrackTransitionNotification) {
-        trackChanged(notification.beginTrack, notification.endTrack)
-    }
-    
     func preTrackChange(_ notification: PreTrackChangeNotification) {
         trackChanged(notification.oldTrack, notification.newTrack)
     }
@@ -220,7 +218,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     func onAppExit(_ request: AppExitRequestNotification) {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
-        if preferences.rememberEffectsSettings, let plTrack = player.currentTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
+        if let plTrack = player.currentTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting

@@ -24,7 +24,7 @@ class SavePlaybackProfileAction: PlaybackChainAction {
         
         // Save playback profile if needed
         // Don't do this unless the preferences require it and the last track was actually playing/paused
-        if preferences.rememberLastPosition && isPlayingOrPaused, let currentTrack = context.currentTrack,
+        if isPlayingOrPaused, let currentTrack = context.currentTrack,
             preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(currentTrack) {
             
             // Update last position for current track

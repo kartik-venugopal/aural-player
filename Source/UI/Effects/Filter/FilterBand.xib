@@ -75,7 +75,11 @@
                     </textFieldCell>
                 </textField>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x6P-iJ-bBt" userLabel="Filter Type Menu">
+<<<<<<< HEAD:Aural/FilterBand.xib
+                    <rect key="frame" x="70" y="40" width="100" height="22"/>
+=======
                     <rect key="frame" x="75" y="40" width="125" height="22"/>
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBand.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Placeholder" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="yGu-Z6-y1b" id="52N-1P-0VZ" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -160,13 +164,23 @@
                                 <menuItem title="Audible range min (20Hz)" tag="20" id="nap-Iu-r8z" userLabel="Audible range min (20Hz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
+<<<<<<< HEAD:Aural/FilterBand.xib
+                                <menuItem isSeparatorItem="YES" id="J4E-ab-C6T"/>
+                                <menuItem title="Sub-bass range max (60Hz)" tag="60" id="nWq-Wv-XTn" userLabel="Sub-bass range max (60Hz)">
+=======
                                 <menuItem title="Sub-bass range max (60Hz)" tag="60" id="KD4-Ng-pHR" userLabel="Sub-bass range max (60Hz)">
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBand.xib
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="Bass range max (250Hz)" tag="250" id="vY4-9I-Qyc" userLabel="Bass range max (250Hz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
+<<<<<<< HEAD:Aural/FilterBand.xib
+                                <menuItem isSeparatorItem="YES" id="szh-Ig-0MB"/>
+                                <menuItem title="Low midrange max (500Hz)" tag="500" id="ggw-8L-elb" userLabel="Low midrange max (500Hz)">
+=======
                                 <menuItem title="Low midrange max (500Hz)" tag="500" id="4Hk-wG-LKj" userLabel="Low midrange max (500Hz)">
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBand.xib
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="Midrange max (2KHz)" tag="2000" id="CtO-Vt-bDt" userLabel="Midrange max (2KHz)">
@@ -175,7 +189,12 @@
                                 <menuItem title="Upper Midrange max (4KHz)" tag="4000" id="L07-lS-bPV" userLabel="Upper Midrange max (4KHz)">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
+<<<<<<< HEAD:Aural/FilterBand.xib
+                                <menuItem isSeparatorItem="YES" id="NKf-VQ-LcQ"/>
+                                <menuItem title="Presence (treble) max (6KHz)" tag="6000" id="2TU-Ry-PU0" userLabel="Presence (treble) max (6KHz)">
+=======
                                 <menuItem title="Presence (treble) max (6KHz)" tag="6000" id="1mb-WT-A9U" userLabel="Presence (treble) max (6KHz)">
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBand.xib
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="Audible range max (20KHz)" tag="20000" id="JfC-hS-2Hs" userLabel="Audible range max (20KHz)">
@@ -213,7 +232,12 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
+<<<<<<< HEAD:Aural/FilterBand.xib
+                                <menuItem isSeparatorItem="YES" id="pXn-XG-TX8"/>
+                                <menuItem title="Sub-bass range (20Hz - 60Hz)" tag="60" id="MoF-Rl-WrG" userLabel="Sub-bass range (20Hz - 60Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+=======
                                 <menuItem title="Sub-bass range (20Hz - 60Hz)" tag="60" id="Hfd-s4-mBV" userLabel="Sub-bass range (20Hz - 60Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBand.xib
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -246,7 +270,12 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
+<<<<<<< HEAD:Aural/FilterBand.xib
+                                <menuItem isSeparatorItem="YES" id="Jek-uh-td5"/>
+                                <menuItem title="Low Midrange (250Hz - 500Hz)" tag="2000" id="EIy-iu-gT6" userLabel="Low Midrange (250Hz - 500Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+=======
                                 <menuItem title="Low Midrange (250Hz - 500Hz)" tag="2000" id="Qay-dh-IIQ" userLabel="Low Midrange (250Hz - 500Hz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBand.xib
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">
@@ -290,7 +319,12 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </menuItem>
+<<<<<<< HEAD:Aural/FilterBand.xib
+                                <menuItem isSeparatorItem="YES" id="rs6-r4-U9W"/>
+                                <menuItem title="Presence (Treble) range (4KHz -6KHz)" tag="6000" id="6Ci-49-KNt" userLabel="Presence (Treble) range (4KHz -6KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+=======
                                 <menuItem title="Presence (Treble) range (4KHz -6KHz)" tag="6000" id="f2N-Zi-i7N" userLabel="Presence (Treble) range (4KHz -6KHz)" customClass="FrequencyRangeMenuItem" customModule="Aural" customModuleProvider="target">
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBand.xib
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="minFreq">

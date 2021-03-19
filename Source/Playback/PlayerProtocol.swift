@@ -5,8 +5,6 @@ import Cocoa
  */
 protocol PlayerProtocol {
     
-    // TODO: Validation for play() startPosition/endPosition ???
-    
     // Plays a given track, starting from a given position (used for bookmarks)
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double?)
     
@@ -19,8 +17,6 @@ protocol PlayerProtocol {
     // Stops playback of the currently playing track
     func stop()
     
-    func transcoding()
-    
     // Returns the current playback state of the player. See PlaybackState for more details
     var state: PlaybackState {get}
     
@@ -31,12 +27,15 @@ protocol PlayerProtocol {
     // NOTE - If a segment loop exists, it will be preserved
     func attemptSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
     
+<<<<<<< HEAD:Aural/PlayerProtocol.swift
+=======
     // Seeks to an exact time within the currently playing track.
     //
     // NOTE - If a segment loop exists, and the requested seek time is outside the
     // loop's time bounds, the loop will be removed.
     func forceSeekToTime(_ track: Track, _ time: Double) -> PlayerSeekResult
     
+>>>>>>> upstream/master:Source/Playback/PlayerProtocol.swift
     // Gets the playback position (in seconds) of the currently playing track
     var seekPosition: Double {get}
     

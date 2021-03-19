@@ -77,15 +77,11 @@ extension Notification.Name {
     static let player_preTrackChange = Notification.Name("player_preTrackChange")
     
     // Signifies that a track / playback state transition has occurred.
-    // eg. when changing tracks, stopping playback, or a track finishes transcoding.
-    // and is ready for playback.
+    // eg. when changing tracks or stopping playback
     static let player_trackTransitioned = Notification.Name("player_trackTransitioned")
     
     // Signifies that a track's info/metadata has been updated (eg. duration / album art)
     static let player_trackInfoUpdated = Notification.Name("player_trackInfoUpdated")
-    
-    // Signifies that a transcoding task failed.
-    static let player_trackNotTranscoded = Notification.Name("player_trackNotTranscoded")
     
     // Signifies that the playback loop for the currently playing track has changed.
     // Either a new loop point has been defined, or an existing loop has been removed.
@@ -115,16 +111,6 @@ extension Notification.Name {
     
     // Signifies that some tracks have been removed from the playlist.
     static let playlist_tracksRemoved = Notification.Name("playlist_tracksRemoved")
-    
-    // ----------------------------------------------------------------------------------------
-    
-    // MARK: Notifications published by the transcoder.
-    
-    // Provides a progress update for an ongoing transcoding task.
-    static let transcoder_progress = Notification.Name("transcoder_progress")
-    
-    // Signifies that a transcoding task has finished.
-    static let transcoder_finished = Notification.Name("transcoder_finished")
     
     // ----------------------------------------------------------------------------------------
     

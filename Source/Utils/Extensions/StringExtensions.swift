@@ -26,6 +26,10 @@ extension String {
         let stopIndex = self.index(self.startIndex, offsetBy: range.startIndex + range.count)
         return String(self[startIndex..<stopIndex])
     }
+    
+    var isAcronym: Bool {
+        !self.contains(where: {$0.isLowercase})
+    }
 }
 
 extension Substring.SubSequence {

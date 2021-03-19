@@ -62,6 +62,16 @@ class HorizontalSliderCell: NSSliderCell {
 // Cell for volume slider
 class VolumeSliderCell: HorizontalSliderCell {
     
+<<<<<<< HEAD:Aural/HorizontalSliderCells.swift
+    override var barRadius: CGFloat {return 2}
+    override var barInsetY: CGFloat {return 1.25}
+    override var knobWidth: CGFloat {return 7}
+    override var knobRadius: CGFloat {return 1.5}
+    override var knobHeightOutsideBar: CGFloat {return 4}
+    
+    override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
+    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
+=======
     override var barRadius: CGFloat {return 1}
     override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
     
@@ -82,6 +92,7 @@ class VolumeSliderCell: HorizontalSliderCell {
         
         return NSRect(x: newX, y: newY, width: knobWidth, height: knobHeightOutsideBar * 2 + bar.height)
     }
+>>>>>>> upstream/master:Source/UI/CustomViews/Sliders/HorizontalSliderCells.swift
 }
 
 // Defines the range (start and end points) used to render a track segment playback loop
@@ -97,11 +108,22 @@ struct PlaybackLoopRange {
 class SeekSliderCell: HorizontalSliderCell {
     
     override var barRadius: CGFloat {return 1}
+<<<<<<< HEAD:Aural/HorizontalSliderCells.swift
+    override var barInsetY: CGFloat {return 0.85}
+    
+    override var knobRadius: CGFloat {return 1}
+    override var knobWidth: CGFloat {return 6}
+    override var knobHeightOutsideBar: CGFloat {return 4}
+    
+    override var barPlainGradient: NSGradient {return Colors.seekBarPlainGradient}
+    override var barColoredGradient: NSGradient {return Colors.seekBarColoredGradient}
+=======
     override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
     
     override var knobRadius: CGFloat {return 1}
     override var knobWidth: CGFloat {return 10}
     override var knobHeightOutsideBar: CGFloat {return 2}
+>>>>>>> upstream/master:Source/UI/CustomViews/Sliders/HorizontalSliderCells.swift
     
     var loop: PlaybackLoopRange?
     
@@ -145,6 +167,27 @@ class SeekSliderCell: HorizontalSliderCell {
             
             // Loop bar
             let loopRect = NSRect(x: startX, y: aRect.minY, width: (endX - startX + 1), height: aRect.height)
+<<<<<<< HEAD:Aural/HorizontalSliderCells.swift
+            let drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
+            Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+            
+//            let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
+//            let markerHeight: CGFloat = aRect.height + knobHeightOutsideBar
+//            let markerRadius: CGFloat = 0
+            
+            // Loop start marker
+//            let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
+//            drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: markerRadius, yRadius: markerRadius)
+//            Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+//            
+//            // Loop end marker
+//            if (loop.end != nil) {
+//            
+//                let loopEndMarker = NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
+//                drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: markerRadius, yRadius: markerRadius)
+//                Colors.playbackLoopGradient.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+//            }
+=======
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
             Colors.Player.seekBarLoopColor.setFill()
             drawPath.fill()
@@ -166,6 +209,7 @@ class SeekSliderCell: HorizontalSliderCell {
                 Colors.Player.seekBarLoopColor.setFill()
                 drawPath.fill()
             }
+>>>>>>> upstream/master:Source/UI/CustomViews/Sliders/HorizontalSliderCells.swift
         }
     }
     
@@ -203,10 +247,19 @@ class PreferencesSliderCell: HorizontalSliderCell {
     override var barRadius: CGFloat {return 1.5}
     override var barInsetY: CGFloat {return 0.5}
     
+<<<<<<< HEAD:Aural/HorizontalSliderCells.swift
+    override var barRadius: CGFloat {return 1.5}
+    override var barInsetY: CGFloat {return 1}
+    
+    override var knobWidth: CGFloat {return 10}
+    override var knobRadius: CGFloat {return 1}
+    override var knobHeightOutsideBar: CGFloat {return 5}
+=======
     override var backgroundGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
     override var foregroundGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
     
     override var knobColor: NSColor {return Colors.Constants.white80Percent}
+>>>>>>> upstream/master:Source/UI/CustomViews/Sliders/HorizontalSliderCells.swift
 }
 
 extension NSRect {

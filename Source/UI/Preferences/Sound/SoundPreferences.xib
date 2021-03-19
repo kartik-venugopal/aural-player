@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
+=======
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SoundPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnApplyPresetOnStartup" destination="HfS-ug-1LJ" id="PV7-5b-gcS"/>
-                <outlet property="btnPreferredDeviceOnStartup" destination="pyp-Da-3o5" id="37C-6p-cFo"/>
-                <outlet property="btnRememberDeviceOnStartup" destination="Hiy-yg-h9M" id="rXS-4V-vQ3"/>
                 <outlet property="btnRememberEffectsOnStartup" destination="BC5-pf-jU7" id="lYA-If-oiq"/>
-                <outlet property="btnRememberSettingsForTrack" destination="jBe-ZM-Kwc" id="mu2-W0-oi0"/>
                 <outlet property="btnRememberSettings_allTracks" destination="SYJ-mY-wbQ" id="DxP-KH-sb6"/>
                 <outlet property="btnRememberSettings_individualTracks" destination="XVf-sh-3eM" id="dsD-nE-so2"/>
                 <outlet property="btnRememberVolume" destination="OPY-0e-flD" id="oeS-cC-KLi"/>
                 <outlet property="btnSpecifyVolume" destination="pac-bb-dRC" id="KPk-Qz-vuv"/>
-                <outlet property="btnSystemDeviceOnStartup" destination="9mN-NX-HGu" id="mkg-GZ-Dic"/>
                 <outlet property="eqDeltaStepper" destination="KNB-aq-OlW" id="fgH-Gh-Hsb"/>
                 <outlet property="lblEQDelta" destination="RmF-6a-wok" id="Tyg-6I-7g9"/>
                 <outlet property="lblPanDelta" destination="bbm-7J-t6p" id="gDl-DV-jDL"/>
@@ -27,7 +30,6 @@
                 <outlet property="masterPresetsMenu" destination="Lvv-S2-ojY" id="p29-5C-JPT"/>
                 <outlet property="panDeltaStepper" destination="3ff-Ne-aOf" id="gg8-Gy-SZb"/>
                 <outlet property="pitchDeltaStepper" destination="87x-lR-h9b" id="hGq-Kb-Muk"/>
-                <outlet property="preferredDevicesMenu" destination="sIy-Wy-H7p" id="ZZf-4H-KUv"/>
                 <outlet property="startupVolumeSlider" destination="HYw-Od-8K6" id="Wll-EM-xCr"/>
                 <outlet property="timeDeltaStepper" destination="w86-tN-oiq" id="xZm-0C-abo"/>
                 <outlet property="view" destination="ADk-4h-E7s" id="8AJ-pj-jzB"/>
@@ -41,9 +43,32 @@
             <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sIy-Wy-H7p" userLabel="Preferred devices menu">
-                    <rect key="frame" x="47" y="351" width="307" height="26"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wg8-OW-mzD" userLabel="Effects on startup">
+                    <rect key="frame" x="18" y="437" width="198" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Effects settings on app startup" id="MwW-Ww-cOV">
+                        <font key="font" size="13" name="GillSans"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BC5-pf-jU7">
+                    <rect key="frame" x="30" y="415" width="248" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Remember effects settings from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="PJh-13-Anb" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="effectsSettingsOnStartupRadioButtonAction:" target="-2" id="Noy-OL-bdW"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HfS-ug-1LJ">
+                    <rect key="frame" x="30" y="396" width="124" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Apply Master preset:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gdc-dg-UUG" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
+=======
                     <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="B0Q-KS-SEW" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="10" name="Play-Regular"/>
@@ -55,18 +80,36 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pyp-Da-3o5" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="377" width="195" height="20"/>
+                    <rect key="frame" x="30" y="377.5" width="195" height="19.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Use preferred device (if available)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="oSF-ky-UeX">
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
                     <connections>
-                        <action selector="outputDeviceRadioButtonAction:" target="-2" id="1sL-um-k7H"/>
+                        <action selector="effectsSettingsOnStartupRadioButtonAction:" target="-2" id="AxY-Hz-PpD"/>
                     </connections>
                 </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lvv-S2-ojY" userLabel="Master presets menu">
+                    <rect key="frame" x="152" y="389" width="187" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="W7E-Ga-iAh" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="GillSans"/>
+                        <menu key="menu" id="I4a-lB-pyR">
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="rZV-F3-AKl"/>
+                            </connections>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vZb-Xp-tul" userLabel="Volume Increment Label">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="18" y="169" width="198" height="20"/>
+=======
                     <rect key="frame" x="440" y="307" width="126" height="20"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Volume  +/-" id="a1w-xv-KVn">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -75,7 +118,11 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c8Y-mu-4NB" userLabel="Volume Increment Field">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="321" y="167" width="40" height="20"/>
+=======
                     <rect key="frame" x="613" y="305" width="40" height="18"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5%" id="Bos-7D-fxE">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="yaJ-bf-NOR">
@@ -88,7 +135,11 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fH7-I4-NvB" userLabel="Volume Increment Stepper">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="361" y="166" width="15" height="22"/>
+=======
                     <rect key="frame" x="653" y="303" width="15" height="22"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="5" id="9M5-do-Kcy"/>
                     <connections>
@@ -96,7 +147,11 @@
                     </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73W-yJ-QHa" userLabel="Volume on startup Label">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="18" y="249" width="144" height="20"/>
+=======
                     <rect key="frame" x="18" y="307" width="196" height="20"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Volume on app startup" id="9eu-6m-iQS">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -104,8 +159,13 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OPY-0e-flD">
+                    <rect key="frame" x="30" y="227" width="217" height="20"/>
+=======
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OPY-0e-flD" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="285" width="217" height="20"/>
+                    <rect key="frame" x="30" y="285.5" width="217" height="19.5"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember volume from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="Vhm-Zs-0G3">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -115,8 +175,13 @@
                         <action selector="startupVolumeButtonAction:" target="-2" id="Sns-aR-1vc"/>
                     </connections>
                 </button>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pac-bb-dRC">
+                    <rect key="frame" x="30" y="208" width="90" height="20"/>
+=======
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pac-bb-dRC" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="266" width="90" height="20"/>
+                    <rect key="frame" x="30" y="266.5" width="90" height="19.5"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Specify value" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="GTR-CG-it9">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -126,8 +191,20 @@
                         <action selector="startupVolumeButtonAction:" target="-2" id="5Ld-lL-697"/>
                     </connections>
                 </button>
+                <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HYw-Od-8K6" userLabel="Startup Volume Slider">
+                    <rect key="frame" x="122" y="209" width="177" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="below" sliderType="linear" id="kOJ-HF-zZy" customClass="PreferencesSliderCell" customModule="Aural" customModuleProvider="target"/>
+                    <connections>
+                        <action selector="startupVolumeSliderAction:" target="-2" id="s39-Hn-4tD"/>
+                    </connections>
+                </slider>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zd7-Jo-NAm" userLabel="Startup Volume Field">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="321" y="206" width="40" height="20"/>
+=======
                     <rect key="frame" x="313" y="263" width="40" height="18"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" state="on" alignment="right" title="50%" id="2bU-2S-WcG">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="pCw-0G-sGB">
@@ -140,7 +217,11 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ePJ-hk-8Nq" userLabel="Pan Delta label">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="18" y="137" width="187" height="20"/>
+=======
                     <rect key="frame" x="428" y="278" width="138" height="20"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Balance  +/-" id="RwB-be-llM">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -149,7 +230,11 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbm-7J-t6p" userLabel="Pan Delta Field">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="321" y="135" width="40" height="20"/>
+=======
                     <rect key="frame" x="613" y="276" width="40" height="18"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="10%" id="GcH-LX-E4h">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="dbE-da-bit">
@@ -162,7 +247,11 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3ff-Ne-aOf" userLabel="Pan Delta Stepper">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="361" y="134" width="15" height="22"/>
+=======
                     <rect key="frame" x="653" y="274" width="15" height="22"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="25" doubleValue="10" id="XvN-Mz-6h3"/>
                     <connections>
@@ -170,7 +259,11 @@
                     </connections>
                 </stepper>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cBh-5a-sGE" userLabel="Pan Delta Field">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="285" y="73" width="76" height="20"/>
+=======
                     <rect key="frame" x="577" y="173" width="76" height="18"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="100 cents" id="Ak5-LK-kXa">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="Xvz-O1-T1i">
@@ -183,7 +276,11 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="87x-lR-h9b" userLabel="Pan Delta Stepper">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="361" y="72" width="15" height="22"/>
+=======
                     <rect key="frame" x="653" y="171" width="15" height="22"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="5" minValue="5" maxValue="2400" doubleValue="100" id="4cU-Q8-O9g"/>
                     <connections>
@@ -191,38 +288,56 @@
                     </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vWy-Oi-wOV">
-                    <rect key="frame" x="18" y="108" width="186" height="20"/>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="18" y="355" width="186" height="20"/>
+=======
+                    <rect key="frame" x="18" y="108" width="604" height="20"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="When a track begins playing" id="tlK-JN-FTN">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Remember sound settings per track" id="tlK-JN-FTN">
                         <font key="font" size="13" name="Play-Regular"/>
                         <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBe-ZM-Kwc" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="29" y="86" width="371" height="18"/>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBe-ZM-Kwc">
+                    <rect key="frame" x="19" y="332" width="324" height="20"/>
+=======
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-mY-wbQ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="31" y="64.5" width="213" height="18.5"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Remember and apply all sound settings last used for the track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="e0v-Gn-fQK">
+                    <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="dK2-pD-7s0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                        <font key="font" size="11" name="GillSans"/>
                     </buttonCell>
                     <connections>
                         <action selector="rememberSettingsAction:" target="-2" id="T0Z-bA-S8r"/>
                     </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-mY-wbQ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="56" y="44" width="213" height="19"/>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYJ-mY-wbQ">
+                    <rect key="frame" x="46" y="290" width="213" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="dK2-pD-7s0">
+                    <buttonCell key="cell" type="radio" title="For all tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="dK2-pD-7s0" customClass="CheckRadioButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="GillSans"/>
+=======
                         <font key="font" size="11" name="Play-Regular"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     </buttonCell>
                     <connections>
                         <action selector="rememberSettingsRadioButtonAction:" target="-2" id="2So-2f-c2U"/>
                     </connections>
                 </button>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVf-sh-3eM" userLabel="For individual tracks">
+                    <rect key="frame" x="46" y="310" width="315" height="20"/>
+=======
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVf-sh-3eM" userLabel="For individual tracks" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="56" y="64" width="354" height="19"/>
+                    <rect key="frame" x="31" y="84.5" width="354" height="18.5"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="For individual tracks that I apply this option to (Sound menu)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="bEt-OS-mc6">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -233,7 +348,11 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jxR-jK-p05" userLabel="Volume Increment Label">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="18" y="75" width="198" height="20"/>
+=======
                     <rect key="frame" x="480" y="175" width="86" height="20"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Pitch  +/-" id="R34-xM-Eub">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -242,7 +361,11 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyn-wd-aSP" userLabel="Volume Increment Label">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="18" y="44" width="211" height="20"/>
+=======
                     <rect key="frame" x="460" y="144" width="106" height="20"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Rate  +/-" id="fCT-ag-LGh">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -251,7 +374,11 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Olr-u5-HZY" userLabel="Pan Delta Field">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="314" y="42" width="47" height="20"/>
+=======
                     <rect key="frame" x="606" y="142" width="47" height="18"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="0.05x" id="J2O-Tp-4as">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="aog-Ng-Kr1">
@@ -264,7 +391,11 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w86-tN-oiq" userLabel="Pan Delta Stepper">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="361" y="41" width="15" height="22"/>
+=======
                     <rect key="frame" x="653" y="140" width="15" height="22"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="0.01" minValue="0.01" maxValue="1" doubleValue="0.050000000000000003" id="VD6-El-Gyk"/>
                     <connections>
@@ -272,7 +403,11 @@
                     </connections>
                 </stepper>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CnY-2R-TCi" userLabel="Volume Increment Label">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="18" y="106" width="211" height="20"/>
+=======
                     <rect key="frame" x="460" y="206" width="106" height="20"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="EQ gain  +/-" id="Yiy-hL-J8g">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -281,7 +416,11 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RmF-6a-wok" userLabel="Pan Delta Field">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="297" y="104" width="64" height="20"/>
+=======
                     <rect key="frame" x="589" y="204" width="64" height="18"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="1 dB" id="7mt-G0-azH">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="T9s-uS-EAW">
@@ -294,13 +433,19 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KNB-aq-OlW" userLabel="Pan Delta Stepper">
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+                    <rect key="frame" x="361" y="103" width="15" height="22"/>
+=======
                     <rect key="frame" x="653" y="202" width="15" height="22"/>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" increment="0.10000000000000001" minValue="0.10000000000000001" maxValue="5" doubleValue="1" id="PXj-zO-9jj"/>
                     <connections>
                         <action selector="eqDeltaAction:" target="-2" id="DA0-lU-3bQ"/>
                     </connections>
                 </stepper>
+<<<<<<< HEAD:Aural/SoundPreferences.xib
+=======
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VGz-jn-6sd" userLabel="Effects on startup">
                     <rect key="frame" x="18" y="437" width="208" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -311,7 +456,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9mN-NX-HGu" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="416" width="248" height="19"/>
+                    <rect key="frame" x="30" y="416.5" width="248" height="18.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Use system device" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="wyL-s8-Y7J">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -322,7 +467,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hiy-yg-h9M" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="397" width="369" height="19"/>
+                    <rect key="frame" x="30" y="397.5" width="369" height="18.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember device from last app launch (if available)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="xMu-Pn-9ge">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -342,7 +487,7 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BC5-pf-jU7" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="185" width="304" height="19"/>
+                    <rect key="frame" x="30" y="185.5" width="304" height="18.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Remember effects settings from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="PJh-13-Anb">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -353,7 +498,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HfS-ug-1LJ" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="166" width="130" height="19"/>
+                    <rect key="frame" x="30" y="166.5" width="130" height="18.5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Apply Master preset:" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="gdc-dg-UUG">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -384,6 +529,7 @@
                         <action selector="startupVolumeSliderAction:" target="-2" id="s39-Hn-4tD"/>
                     </connections>
                 </slider>
+>>>>>>> upstream/master:Source/UI/Preferences/Sound/SoundPreferences.xib
             </subviews>
             <point key="canvasLocation" x="139" y="153"/>
         </view>

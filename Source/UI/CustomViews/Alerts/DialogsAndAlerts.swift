@@ -190,12 +190,7 @@ struct DialogsAndAlerts {
         let alert = errorAlert
         
         alert.window.title = "Track not played"
-        
-        if let track = error.track {
-            alert.messageText = String(format: "The track '%@' cannot be played back !", track.file.lastPathComponent)
-        } else {
-            alert.messageText = String(format: "The requested track cannot be played back !")
-        }
+        alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
         
         alert.informativeText = error.message
         
@@ -221,27 +216,6 @@ struct DialogsAndAlerts {
         
         alert.window.title = "Track not played"
         alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
-        alert.informativeText = error.message
-        
-        if let msg = actionMessage {
-            alert.buttons[0].title = msg
-        }
-        
-        return alert
-    }
-    
-    static func trackNotTranscodedAlertWithError(_ error: InvalidTrackError, _ actionMessage: String?) -> NSAlert {
-        
-        let alert = errorAlert
-        
-        alert.window.title = "Track not transcoded"
-        
-        if let track = error.track {
-            alert.messageText = String(format: "The track '%@' cannot be transcoded !", track.conciseDisplayName)
-        } else {
-            alert.messageText = String(format: "The requested track cannot be transcoded !")
-        }
-        
         alert.informativeText = error.message
         
         if let msg = actionMessage {

@@ -18,6 +18,15 @@ class Queue<T> {
         return nil
     }
     
+    func dequeueAll() -> [T] {
+        
+        let copy = array
+        array.removeAll()
+        return copy
+    }
+    
+    func peek() -> T? {array.first}
+    
     func clear() {
         array.removeAll()
     }
@@ -25,6 +34,8 @@ class Queue<T> {
     func size() -> Int {
         return array.count
     }
+    
+    var isEmpty: Bool {array.isEmpty}
     
     func toArray() -> [T] {
         let copy = array

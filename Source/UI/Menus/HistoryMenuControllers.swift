@@ -36,13 +36,7 @@ class HistoryMenuItem: NSMenuItem {
     var historyItem: HistoryItem!
 }
 
-// Creates a menu item that describes a time category like "Past hour". The item will have no action.
-fileprivate func createDescriptor(_ timeElapsed: TimeElapsed) -> NSMenuItem {
-    
-    let item = NSMenuItem(title: timeElapsed.rawValue, action: nil, keyEquivalent: "")
-    item.disable()  // Descriptor items cannot be clicked
-    return item
-}
+fileprivate let fileReader: FileReader = ObjectGraph.fileReader
 
 fileprivate func artForFile(_ _file: URL) -> NSImage? {
     
@@ -59,7 +53,7 @@ fileprivate func artForFile(_ _file: URL) -> NSImage? {
     } else {
         
         // Single file - playlist or track
-        let fileExtension = file.pathExtension.lowercased()
+        let fileExtension = file.lowerCasedExtension
         
         if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
             
@@ -70,7 +64,7 @@ fileprivate func artForFile(_ _file: URL) -> NSImage? {
             
         } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
             
-            if let img = MetadataUtils.artForFile(file), let imgCopy = img.image.copy() as? NSImage {
+            if let img = fileReader.getArt(for: file), let imgCopy = img.image.copy() as? NSImage {
                 return imgCopy
             }
         }
@@ -129,7 +123,7 @@ fileprivate func createChronologicalMenu(_ items: [HistoryItem], _ menu: NSMenu,
             
             // Add a descriptor menu item that describes the time category, between 2 separators
             menu.addItem(NSMenuItem.separator())
-            menu.addItem(createDescriptor(timeElapsed))
+            menu.addItem(NSMenuItem.createDescriptor(title: timeElapsed.rawValue))
             menu.addItem(NSMenuItem.separator())
         }
         

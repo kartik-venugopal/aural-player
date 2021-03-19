@@ -29,7 +29,7 @@ class HistoryItem: EquatableHistoryItem {
         get {
             
             if let track = self.track {
-                return track.conciseDisplayName
+                return track.displayName
             }
             
             return _displayName
@@ -75,7 +75,8 @@ class AddedItem: HistoryItem {
     }
     
     init(_ track: Track, _ time: Date) {
-        super.init(track.file, track.conciseDisplayName, time)
+        
+        super.init(track.file, track.displayName, time)
         self.track = track
     }
     
@@ -97,7 +98,7 @@ class AddedItem: HistoryItem {
         } else {
             
             // Single file - playlist or track
-            let fileExtension = file.pathExtension.lowercased()
+            let fileExtension = file.lowerCasedExtension
             
             if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
                 
@@ -117,7 +118,7 @@ class PlayedItem: HistoryItem, PlayableHistoryItem {
     
     init(_ track: Track, _ time: Date) {
         
-        super.init(track.file, track.conciseDisplayName, time)
+        super.init(track.file, track.displayName, time)
         self.track = track
     }
     

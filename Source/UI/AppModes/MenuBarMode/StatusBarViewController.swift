@@ -121,17 +121,9 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
 //        self.trackChanged(nil)
 //
 //        let error = notification.error
-//        alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
+//        alertDialog.showAlert(.error, "Track not played", error.track?.displayName ?? "<Unknown>", error.message)
 //    }
 //
-//    private func transcodingStarted() {
-//        playbackView.transcodingStarted()
-//    }
-//
-//    func trackNotTranscoded(_ notification: TrackNotTranscodedNotification) {
-//        alertDialog.showAlert(.error, "Track not transcoded", notification.track.conciseDisplayName, notification.error.message)
-//    }
-
     func dismiss() {
 
 //        close()

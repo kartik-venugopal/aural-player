@@ -33,6 +33,12 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     // All groups in this playlist
     var groups: [Group] = []
     
+    let unknownArtistStrings: Set<String> = ["unknown", "unknown artist", "artist"]
+    
+    let unknownAlbumStrings: Set<String> = ["unknown", "unknown album", "album"]
+    
+    let unknownGenreStrings: Set<String> = ["unknown", "unknown genre", "genre"]
+    
     // Mappings of groups by name, for quick and convenient searching of groups. GroupName -> Group
     private var groupsByName: [String: Group] = [String: Group]()
     
@@ -69,11 +75,40 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         switch self.typeOfGroups {
             
-        case .artist: return track.groupingInfo.artist ?? "<Unknown>"
+        case .artist:   if let trackArtist = track.artist {
+                            
+                            if unknownArtistStrings.contains(trackArtist.lowercased().trim()) {
+                                return "<Unknown>"
+                            } else {
+                                return trackArtist
+                            }
+                        }
             
-        case .album: return track.groupingInfo.album ?? "<Unknown>"
+                        return "<Unknown>"
             
-        case .genre: return track.groupingInfo.genre ?? "<Unknown>"
+        case .album:    if let trackAlbum = track.album {
+                            
+                            if unknownAlbumStrings.contains(trackAlbum.lowercased().trim()) {
+                                return "<Unknown>"
+                            } else {
+                                return trackAlbum
+                            }
+                        }
+
+                        return "<Unknown>"
+            
+        case .genre:    if let trackGenre = track.genre {
+            
+                            if unknownGenreStrings.contains(trackGenre.lowercased().trim()) {
+                                return "<Unknown>"
+                            } else if !trackGenre.isAcronym {
+                                return trackGenre.lowercased().capitalized
+                            } else {
+                                return trackGenre
+                            }
+                        }
+
+                        return "<Unknown>"
             
         }
     }
@@ -93,7 +128,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     func displayNameForTrack(_ track: Track) -> String {
-        return self.typeOfGroups == .genre ? track.conciseDisplayName : (track.displayInfo.title ?? track.conciseDisplayName)
+        return self.typeOfGroups == .genre ? track.displayName : (track.title ?? track.defaultDisplayName)
     }
     
     func search(_ query: SearchQuery) -> SearchResults {
@@ -260,5 +295,26 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         groups.removeAll()
         groupsByName.removeAll()
+    }
+    
+    func reOrder(accordingTo state: GroupingPlaylistState) {
+        
+        var insertionIndex: Int = 0
+        
+        for groupState in state.groups {
+            
+            let name = groupState.name
+            
+            if let group = groupsByName[name], let index = indexOfGroup(group) {
+                
+                if index != insertionIndex {
+                    groups.insert(groups.remove(at: index), at: insertionIndex)
+                }
+                
+                group.reOrder(accordingTo: groupState)
+                
+                insertionIndex += 1
+            }
+        }
     }
 }

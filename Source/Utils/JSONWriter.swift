@@ -54,15 +54,14 @@ class JSONWriter {
     }
 }
 
-class JSONWriteError: Error, DisplayableError {
+class JSONWriteError: DisplayableError {
     
-    var message: String
     var description: String
     
     init(description: String) {
         
         self.description = description
-        self.message = "Error writing JSON object to file"
+        super.init("Error writing JSON object to file")
     }
     
     static let invalidObject: JSONWriteError = JSONWriteError(description: "Invalid JSON object specified")

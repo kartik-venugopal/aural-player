@@ -187,6 +187,8 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
         - Only the specified type of grouping/hierarchical playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
      */
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults
+    
+    func reOrder(accordingTo state: PlaylistState)
 }
 
 /*
@@ -239,6 +241,8 @@ enum PlaylistType: String, CaseIterable {
             
         }
     }
+<<<<<<< HEAD:Aural/PlaylistProtocols.swift
+=======
     
     // Maps a playlist type to an optional scope type applicable if the playlist type is a grouping/hierarchical playlist, i.e. groups are its root elements.
     // So, the tracks playlist will not have a corresponding group scope, whereas the other playlists will.
@@ -288,6 +292,7 @@ enum PlaylistType: String, CaseIterable {
             
         }
     }
+>>>>>>> upstream/master:Source/Playlist/PlaylistProtocols.swift
 }
 
 // Marker protocol indicating an item that belongs to a playlist (i.e. either a track or a group)

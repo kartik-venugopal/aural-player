@@ -250,7 +250,7 @@
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Font scheme" showsStateColumn="NO" id="jzT-Jm-871">
                                                         <items>
-                                                            <menuItem isSeparatorItem="YES" id="tT9-b3-jEi"/>
+                                                            <menuItem isSeparatorItem="YES" id="QRO-W5-RsE"/>
                                                             <menuItem title="Standard" indentationLevel="1" id="43j-ji-ycl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
@@ -394,49 +394,49 @@
                                                             <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="KSu-L0-WGd">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="Crw-b8-o53"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="Crw-b8-o53"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Horizontal full stack" image="WindowLayout-HorizontalStack" id="ZAr-P0-9nl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="sbS-qO-lRS"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="sbS-qO-lRS"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Big bottom playlist" image="WindowLayout-BigBottomPlaylist" id="i2s-Ws-ntU">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="QvI-sg-eJR"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="QvI-sg-eJR"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Big right playlist" image="WindowLayout-BigRightPlaylist" id="e9A-2L-4GR">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="RVk-2p-8EK"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="RVk-2p-8EK"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Big left playlist" image="WindowLayout-BigLeftPlaylist" id="shG-Lq-iLv">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="VgW-bP-nhu"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="VgW-bP-nhu"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Vertical player and playlist" image="WindowLayout-VerticalPlayerAndPlaylist" id="xgu-nh-tCl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="zKk-cY-bL8"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="zKk-cY-bL8"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Horizontal player and playlist" image="WindowLayout-HorizontalPlayerAndPlaylist" id="YgY-RJ-vjG">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="7Xe-zC-dmd"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="7Xe-zC-dmd"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="npH-RD-Q2Y">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="btnLayoutAction:" target="lwq-x3-5V8" id="Xkg-zf-izy"/>
+                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="Xkg-zf-izy"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
@@ -529,14 +529,25 @@
                 <outlet property="timeRemainingMenuItem_seconds" destination="d1d-0T-WEH" id="Ta2-Co-OFZ"/>
             </connections>
         </customObject>
-        <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="jyH-lC-gOA" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="df9-sN-idv" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="yiL-Aw-PVn" id="c2M-BL-loH"/>
+            </connections>
+        </customObject>
+        <customObject id="jyH-lC-gOA" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="jzT-Jm-871" id="cF7-HP-Nlu"/>
+            </connections>
+        </customObject>
+        <customObject id="df9-sN-idv" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="7oK-Kd-rX4" id="pL1-8l-Wte"/>
+            </connections>
+        </customObject>
         <customObject id="bsC-mz-7dU" customClass="SettingsPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="i7L-so-Yi8" id="9E8-JZ-anN"/>
                 <outlet property="applyFontSchemeMenuItem" destination="pIS-mt-Im2" id="gyj-Vf-Ina"/>
-                <outlet property="playerViewMenuItem" destination="b3A-Wj-7Xz" id="5jm-pE-nLY"/>
                 <outlet property="saveColorSchemeMenuItem" destination="qvE-di-9Bh" id="CAv-1G-tZt"/>
                 <outlet property="saveFontSchemeMenuItem" destination="61k-O1-7w2" id="SqX-7F-Hqn"/>
             </connections>

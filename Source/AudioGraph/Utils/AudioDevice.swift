@@ -118,5 +118,5 @@ func getCodeProperty(deviceId: AudioDeviceID, addressPtr: UnsafePointer<AudioObj
     var size: UInt32 = sizeOfUInt32
     
     let result: OSStatus = AudioObjectGetPropertyData(deviceId, addressPtr, 0, nil, &size, &prop)
-    return result == noErr ? AudioUtils.codeToString(prop) : nil
+    return result == noErr ? (prop as FourCharCode).toString() : nil
 }

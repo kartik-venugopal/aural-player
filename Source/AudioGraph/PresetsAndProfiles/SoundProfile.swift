@@ -2,7 +2,10 @@ import Foundation
 
 class SoundProfiles: TrackKeyedMap<SoundProfile> {
     
+<<<<<<< HEAD:Aural/SoundProfile.swift
+=======
     // TODO: Remove this (circular) dependency !!!
+>>>>>>> upstream/master:Source/AudioGraph/PresetsAndProfiles/SoundProfile.swift
     var audioGraph: AudioGraphProtocol!
     
     func add(_ track: Track) {

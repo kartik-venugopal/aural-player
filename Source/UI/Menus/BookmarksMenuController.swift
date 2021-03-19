@@ -16,6 +16,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
+    private lazy var fileReader: FileReader = ObjectGraph.fileReader
+    
     fileprivate lazy var artLoadingQueue: OperationQueue = {
         
         let queue = OperationQueue()
@@ -68,7 +70,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         
         artLoadingQueue.addOperation {
             
-            if let img = MetadataUtils.artForFile(bookmark.file), let imgCopy = img.image.copy() as? NSImage {
+            if let img = self.fileReader.getArt(for: bookmark.file), let imgCopy = img.image.copy() as? NSImage {
                 
                 imgCopy.size = Dimensions.historyMenuItemImageSize
                 

@@ -14,8 +14,8 @@ class RecorderDelegate: RecorderDelegateProtocol {
         self.recorder = recorder
     }
     
-    func startRecording(_ params: RecordingParams) {
-        recorder.startRecording(params)
+    func startRecording(_ format: RecordingFormat) {
+        recorder.startRecording(format)
     }
     
     func stopRecording() {

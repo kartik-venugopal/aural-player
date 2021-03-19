@@ -144,6 +144,9 @@ class PresetsPopupMenuCell: PopupMenuCell {
     override var arrowXMargin: CGFloat {return 6.5}
     override var arrowYMargin: CGFloat {return 4}
     override var arrowHeight: CGFloat {return 3}
+    override var arrowLineWidth: CGFloat {return 1.75}
+    
+    override var menuGradient: NSGradient {return Colors.presetsPopupMenuGradient}
     
     override var menuGradient: NSGradient {return Colors.functionButtonGradient}
     override var arrowColor: NSColor {return Colors.buttonMenuTextColor}

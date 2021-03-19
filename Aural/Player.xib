@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PlayerViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="defaultView" destination="MHw-PR-9nt" id="onf-KS-q8w"/>
+                <outlet property="expandedArtView" destination="r7J-IJ-3Cp" id="tpC-9o-fXo"/>
+                <outlet property="playerView" destination="llO-Pe-2F3" id="S7w-x4-kVE"/>
+                <outlet property="transcoderView" destination="2kf-ao-Oha" id="bdm-ZJ-f1E"/>
+                <outlet property="view" destination="LIp-8K-VJD" id="f0L-7D-kJE"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customView id="LIp-8K-VJD" userLabel="Root View">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="-3186" y="-434"/>
+        </customView>
+        <customView id="llO-Pe-2F3" userLabel="Player View">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <point key="canvasLocation" x="-2836" y="-452"/>
+        </customView>
+        <view id="MHw-PR-9nt" userLabel="Default View" customClass="DefaultPlayerView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xdd-e8-qfH" userLabel="Art View">
+                    <rect key="frame" x="2" y="86" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="nDh-sM-DxS"/>
+                </imageView>
+                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="rbO-oI-Q0q" userLabel="Playing Track Info Box">
+                    <rect key="frame" x="80" y="86" width="365" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="OTb-xb-jQR" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="70"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bSm-uR-5kK" userLabel="Track Title" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="35" width="350" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="f3m-RO-I7c" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="16" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOQ-z9-Qgx" userLabel="Track Artist" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="7" width="350" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="xJF-rl-ZVU" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="316" translatesAutoresizingMaskIntoConstraints="NO" id="IeZ-j0-7DQ" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="350" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="YSL-Fe-EyW" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="16" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uEq-VT-e8Y" userLabel="Img Scope">
+                                <rect key="frame" x="0.0" y="-195" width="11" height="11"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="bRE-jy-cNP"/>
+                            </imageView>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ncw-1E-Ruw" userLabel="Lbl Playback Scope">
+                                <rect key="frame" x="13" y="-200" width="307" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="TsB-gT-Ka6">
+                                    <font key="font" size="10" name="GillSans"/>
+                                    <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <connections>
+                            <outlet property="imgScope" destination="uEq-VT-e8Y" id="5Q5-10-98b"/>
+                            <outlet property="lblArtist" destination="bOQ-z9-Qgx" id="AQ8-qy-SJU"/>
+                            <outlet property="lblName" destination="IeZ-j0-7DQ" id="Nqy-QL-aEi"/>
+                            <outlet property="lblScope" destination="Ncw-1E-Ruw" id="M2u-YF-msx"/>
+                            <outlet property="lblTitle" destination="bSm-uR-5kK" id="NEf-xs-5C7"/>
+                        </connections>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nxu-x0-KHZ" userLabel="Gap Info Box">
+                    <rect key="frame" x="90" y="86" width="365" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="uER-ZE-fk4" customClass="GapView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="70"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="316" translatesAutoresizingMaskIntoConstraints="NO" id="GFy-Pd-rl3" userLabel="Gap Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="30" width="320" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fnW-p4-Wxy" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.44582064874647881" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52i-lD-wrI" userLabel="Gap Time Remaining" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="85" y="7" width="150" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="a6I-UQ-NDt" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.44582064874647881" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <connections>
+                            <outlet property="lblTimeRemaining" destination="52i-lD-wrI" id="VV9-Kj-CKY"/>
+                            <outlet property="lblTrackName" destination="GFy-Pd-rl3" id="fA7-s3-Pee"/>
+                        </connections>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+            </subviews>
+            <connections>
+                <outlet property="artView" destination="xdd-e8-qfH" id="XgA-FR-n9l"/>
+                <outlet property="controlsBox" destination="IyJ-bL-zmI" id="Hsz-wC-BW6"/>
+                <outlet property="functionsBox" destination="RmC-sy-Ygh" id="9bD-ap-z0x"/>
+                <outlet property="gapBox" destination="nxu-x0-KHZ" id="Yg5-wL-4Bh"/>
+                <outlet property="gapView" destination="uER-ZE-fk4" id="TyS-8E-lQN"/>
+                <outlet property="infoBox" destination="rbO-oI-Q0q" id="6QW-Bm-wDg"/>
+                <outlet property="infoView" destination="OTb-xb-jQR" id="NPj-DN-XbW"/>
+            </connections>
+            <point key="canvasLocation" x="245" y="-83"/>
+        </view>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="r7J-IJ-3Cp" userLabel="Expanded Art View" customClass="ExpandedArtPlayerView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YCE-84-duq" userLabel="Art View">
+                    <rect key="frame" x="162" y="2" width="186" height="186"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="tVP-u8-QCd"/>
+                </imageView>
+                <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="BKw-xe-F4l" userLabel="Gap Info Box">
+                    <rect key="frame" x="0.0" y="62" width="470" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="3cE-X5-3xz" customClass="GapView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="470" height="70"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="436" translatesAutoresizingMaskIntoConstraints="NO" id="3kn-aW-0ra" userLabel="Gap Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="30" y="30" width="440" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Up next:" id="fmO-Gx-ihO" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.44711356247887318" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJU-tD-CPb" userLabel="Gap Time Remaining" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="175" y="7" width="150" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="00:00:00" placeholderString="" id="Ohn-p3-gsw" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.44711356247887318" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <connections>
+                            <outlet property="lblTimeRemaining" destination="SJU-tD-CPb" id="2n4-Th-yOO"/>
+                            <outlet property="lblTrackName" destination="3kn-aW-0ra" id="ELr-EO-95P"/>
+                        </connections>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="k6x-e4-14q" userLabel="Playing Track Info Box">
+                    <rect key="frame" x="0.0" y="68" width="470" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="LvL-VM-cc0" customClass="TrackInfoView" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="470" height="70"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pQ4-y8-MHZ" userLabel="Track Title" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="30" y="35" width="440" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="Lqi-PP-wRn" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="16" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.44942430191549293" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tg3-H8-fu1" userLabel="Track Artist" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="30" y="7" width="440" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" id="clD-ov-oHT" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="14" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.60179556071830986" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="436" translatesAutoresizingMaskIntoConstraints="NO" id="Jz2-jJ-DLn" userLabel="Track Name" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="30" y="0.0" width="440" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" id="WJD-TB-aZn" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                    <font key="font" size="16" name="GillSans-SemiBold"/>
+                                    <color key="textColor" white="0.44876409064788725" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67e-z1-ERL" userLabel="Img Scope">
+                                <rect key="frame" x="41" y="-182" width="11" height="11"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="QCm-FK-zGX"/>
+                            </imageView>
+                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-rC-QU4" userLabel="Lbl Playback Scope">
+                                <rect key="frame" x="54" y="-190" width="405" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" placeholderString="" id="OPG-tw-GpH">
+                                    <font key="font" size="10" name="GillSans"/>
+                                    <color key="textColor" white="0.70415581599999999" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <connections>
+                            <outlet property="imgScope" destination="67e-z1-ERL" id="kuq-lz-wQJ"/>
+                            <outlet property="lblArtist" destination="Tg3-H8-fu1" id="Idd-FH-eWX"/>
+                            <outlet property="lblName" destination="Jz2-jJ-DLn" id="obb-KZ-3UK"/>
+                            <outlet property="lblScope" destination="Amh-rC-QU4" id="y7a-KW-Hqu"/>
+                            <outlet property="lblTitle" destination="pQ4-y8-MHZ" id="w0n-ba-Oc4"/>
+                        </connections>
+                    </view>
+                    <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="fillColor" white="0.0" alpha="0.74614876760563376" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <box hidden="YES" wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="H2c-eI-RaT" userLabel="Overlay Box">
+                    <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="JTe-vm-DSB">
+                        <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
+                    <color key="fillColor" white="0.0" alpha="0.75129291373239437" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+            </subviews>
+            <connections>
+                <outlet property="artView" destination="YCE-84-duq" id="0jd-Ai-Y2q"/>
+                <outlet property="controlsBox" destination="IyJ-bL-zmI" id="UWx-sJ-Ei1"/>
+                <outlet property="functionsBox" destination="RmC-sy-Ygh" id="QpI-0l-T9y"/>
+                <outlet property="gapBox" destination="BKw-xe-F4l" id="J4r-Ed-Dx5"/>
+                <outlet property="gapView" destination="3cE-X5-3xz" id="V8K-Q6-9Dv"/>
+                <outlet property="infoBox" destination="k6x-e4-14q" id="aQP-Bg-wqf"/>
+                <outlet property="infoView" destination="LvL-VM-cc0" id="zTK-tC-B7m"/>
+                <outlet property="overlayBox" destination="H2c-eI-RaT" id="ANM-Hz-Eki"/>
+            </connections>
+            <point key="canvasLocation" x="245" y="168"/>
+        </customView>
+        <viewController id="RSE-vv-5aa" customClass="PlaybackViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="controlsView" destination="GnY-hT-0WI" id="p2n-ES-A5f"/>
+                <outlet property="view" destination="IyJ-bL-zmI" id="AhC-Vv-ooj"/>
+            </connections>
+        </viewController>
+        <viewController id="3Ey-pj-f5Y" userLabel="Track Info View Controller" customClass="TrackInfoViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="defaultView" destination="MHw-PR-9nt" id="2AS-eF-VIN"/>
+                <outlet property="expandedArtView" destination="r7J-IJ-3Cp" id="6aj-dD-aTe"/>
+                <outlet property="view" destination="LIp-8K-VJD" id="81g-lK-hiX"/>
+            </connections>
+        </viewController>
+        <viewController id="aD2-gv-PZo" customClass="TranscoderViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playerView" destination="llO-Pe-2F3" id="c8r-Bh-rJK"/>
+                <outlet property="theView" destination="2kf-ao-Oha" id="sYh-To-0ur"/>
+                <outlet property="view" destination="LIp-8K-VJD" id="DJ9-xQ-HrH"/>
+            </connections>
+        </viewController>
+        <viewController id="4Js-aK-bND" customClass="PlayingTrackFunctionsViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBookmark" destination="Jec-WW-pdJ" id="9Hc-MT-VTd"/>
+                <outlet property="btnFavorite" destination="yVw-vK-fRX" id="HeW-cd-tUr"/>
+                <outlet property="btnMoreInfo" destination="gad-us-Dhf" id="0DQ-1U-bmJ"/>
+                <outlet property="btnShowPlayingTrackInPlaylist" destination="AXZ-wh-jXs" id="pkX-ff-KI4"/>
+                <outlet property="seekPositionMarker" destination="hGa-vL-OD4" id="mP9-4y-2Gh"/>
+                <outlet property="seekSlider" destination="lQg-lW-5YM" id="kpQ-kG-rGn"/>
+                <outlet property="seekSliderCell" destination="gw1-uf-YzQ" id="jFb-t0-v5K"/>
+                <outlet property="view" destination="RmC-sy-Ygh" id="dan-Qq-feF"/>
+            </connections>
+        </viewController>
+        <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" titlePosition="noTitle" id="IyJ-bL-zmI" userLabel="Controls Box">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="GnY-hT-0WI" customClass="PlayerControlsView" customModule="Aural" customModuleProvider="target">
+                <rect key="frame" x="0.0" y="0.0" width="510" height="100"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <button toolTip="Mute / Unmute" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9X6-Lb-nc3" userLabel="Volume Button">
+                        <rect key="frame" x="362" y="14" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="sHl-Gw-UaE">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="muteOrUnmuteAction:" target="RSE-vv-5aa" id="aDm-Xr-fc1"/>
+                        </connections>
+                    </button>
+                    <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ua-z2-ISt" userLabel="Volume Slider">
+                        <rect key="frame" x="380" y="14" width="55" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="m5E-Il-Xaa" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <connections>
+                            <action selector="volumeAction:" target="RSE-vv-5aa" id="7dD-Iw-agO"/>
+                        </connections>
+                    </slider>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="odu-R8-BZH" userLabel="Volume Value Label" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="408" y="32" width="27" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="pyy-Qn-f7z" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                            <font key="font" size="8" name="GillSans-SemiBold"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJQ-nK-tc8" userLabel="Pan Value Label" customClass="TopTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="456" y="32" width="60" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="C" id="XBy-3g-7hS" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                            <font key="font" size="8" name="GillSans-SemiBold"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7f0-95-hvf" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="433" y="15" width="30" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="L/R" id="15s-BP-25k">
+                            <font key="font" size="8" name="GillSans-Bold"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textFieldCell>
+                    </textField>
+                    <slider toolTip="Pan / Balance" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pr5-YU-zRz">
+                        <rect key="frame" x="465" y="10" width="40" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" minValue="-100" maxValue="100" tickMarkPosition="below" numberOfTickMarks="3" sliderType="linear" id="YhG-qN-Kc9" customClass="PanTickedSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <string key="userLabel" base64-UTF8="YES">
+G1BhbiBTbGlkZXI
+</string>
+                        <connections>
+                            <action selector="panAction:" target="RSE-vv-5aa" id="aUY-C3-ip5"/>
+                        </connections>
+                    </slider>
+                    <button toolTip="Seek forward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Nh-bg-Acn" userLabel="Seek Fwd Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="299" y="16" width="16" height="11"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="HSy-Vh-bbx">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="seekForwardAction:" target="RSE-vv-5aa" id="K3u-ol-zty"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Next track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GVO-9r-Tpc" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="272" y="16" width="18" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="4TS-VJ-brC">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Next track"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="nextTrackAction:" target="RSE-vv-5aa" id="gV0-SU-uvl"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uxJ-NT-42D" customClass="ColorSensitiveOnOffImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="246" y="13" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="8yP-zO-EWc">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Play"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Pause"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="Play"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Pause"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="playPauseAction:" target="RSE-vv-5aa" id="V8y-im-WnA"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Previous track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gke-1K-1NZ" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="217" y="16" width="18" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PreviousTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="v1u-sF-YqM">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="defaultTooltip" value="Previous track"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="previousTrackAction:" target="RSE-vv-5aa" id="dwi-rh-ba1"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Seek backward" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KPa-om-rGW" userLabel="Seek Bwd Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="192" y="16" width="16" height="11"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="S9Q-Mu-S60">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="seekBackwardAction:" target="RSE-vv-5aa" id="Rtr-J7-Fi1"/>
+                        </connections>
+                    </button>
+                    <button toolTip="A-&gt;B Segment loop" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ldO-PD-wlT" userLabel="Loop Button" customClass="ColorSensitiveMultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="56" y="16" width="21" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="vrU-eq-4zx">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="toggleLoopAction:" target="RSE-vv-5aa" id="txD-gS-apo"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Shuffle" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fYX-r9-TO4" userLabel="Shuffle Button" customClass="ColorSensitiveMultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="30" y="14" width="21" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ULA-gc-b8Q">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="shuffleAction:" target="RSE-vv-5aa" id="5Mu-5f-S9A"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Repeat" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S6a-Cd-VG3" userLabel="Repeat Button" customClass="ColorSensitiveMultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="5" y="3" width="18" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Ax4-py-QPu">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="repeatAction:" target="RSE-vv-5aa" id="C5T-aY-emW"/>
+                        </connections>
+                    </button>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZjM-LM-vv4" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="70" width="90" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" placeholderString="" id="Z9y-gv-XAm" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                            <font key="font" size="11" name="GillSans-SemiBold"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <allowedInputSourceLocales>
+                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                            </allowedInputSourceLocales>
+                        </textFieldCell>
+                    </textField>
+                    <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byf-Gi-f6M" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="405" y="70" width="105" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="ijY-mG-R1p" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                            <font key="font" size="11" name="GillSans-SemiBold"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            <allowedInputSourceLocales>
+                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                            </allowedInputSourceLocales>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hGa-vL-OD4" userLabel="SeekPositionMarker">
+                        <rect key="frame" x="236" y="43" width="7" height="4"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" id="RLu-Bo-QvU">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lQg-lW-5YM" userLabel="Seek Slider">
+                        <rect key="frame" x="2" y="52" width="508" height="15"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <shadow key="shadow" blurRadius="1">
+                            <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </shadow>
+                        <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="gw1-uf-YzQ" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+                        <connections>
+                            <action selector="seekSliderAction:" target="RSE-vv-5aa" id="Jof-NE-TbY"/>
+                        </connections>
+                    </slider>
+                </subviews>
+                <connections>
+                    <outlet property="btnLoop" destination="ldO-PD-wlT" id="hC2-sA-5UN"/>
+                    <outlet property="btnNextTrack" destination="GVO-9r-Tpc" id="4dR-0F-CrA"/>
+                    <outlet property="btnPlayPause" destination="uxJ-NT-42D" id="r6C-JQ-FeY"/>
+                    <outlet property="btnPreviousTrack" destination="gke-1K-1NZ" id="Eeb-4R-3Nf"/>
+                    <outlet property="btnRepeat" destination="S6a-Cd-VG3" id="ks5-CN-UeI"/>
+                    <outlet property="btnSeekBackward" destination="KPa-om-rGW" id="der-pe-zHr"/>
+                    <outlet property="btnSeekForward" destination="3Nh-bg-Acn" id="25H-8g-JKg"/>
+                    <outlet property="btnShuffle" destination="fYX-r9-TO4" id="GHl-NM-5PD"/>
+                    <outlet property="btnVolume" destination="9X6-Lb-nc3" id="KPv-1r-nER"/>
+                    <outlet property="lblPan" destination="FJQ-nK-tc8" id="etg-lF-PQg"/>
+                    <outlet property="lblPanCaption" destination="7f0-95-hvf" id="KtW-ya-pZD"/>
+                    <outlet property="lblTimeElapsed" destination="ZjM-LM-vv4" id="cgV-rd-FbC"/>
+                    <outlet property="lblTimeRemaining" destination="Byf-Gi-f6M" id="bFg-jm-h2O"/>
+                    <outlet property="lblVolume" destination="odu-R8-BZH" id="hGR-hg-6zf"/>
+                    <outlet property="panSlider" destination="Pr5-YU-zRz" id="73X-Rg-olh"/>
+                    <outlet property="seekPositionMarker" destination="hGa-vL-OD4" id="sg9-9h-Att"/>
+                    <outlet property="seekSlider" destination="lQg-lW-5YM" id="xGk-xd-tiV"/>
+                    <outlet property="seekSliderCell" destination="gw1-uf-YzQ" id="DMd-Wl-dNk"/>
+                    <outlet property="seekSliderClone" destination="JK0-dx-fpr" id="So1-ct-ej7"/>
+                    <outlet property="seekSliderCloneCell" destination="e8S-Qc-bqn" id="zJD-cE-Mlw"/>
+                    <outlet property="volumeSlider" destination="2ua-z2-ISt" id="bR0-B1-e3H"/>
+                </connections>
+            </view>
+            <color key="borderColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.69668794014084512" alpha="1" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="-1873" y="62"/>
+        </box>
+        <box hidden="YES" wantsLayer="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" id="RmC-sy-Ygh" userLabel="Functions Box">
+            <rect key="frame" x="0.0" y="0.0" width="18" height="82"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" id="D9p-QH-LFO">
+                <rect key="frame" x="0.0" y="0.0" width="18" height="82"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <button toolTip="Detailed information about playing track" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gad-us-Dhf" userLabel="More Info Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="3" y="60" width="12" height="12"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MoreInfo" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="jhK-Bu-nwj">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="moreInfoAction:" target="4Js-aK-bND" id="o2g-SP-6OZ"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Show playing track within the playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AXZ-wh-jXs" userLabel="Show Playing Track Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="4" y="44" width="10" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShowPlayingTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Crd-ci-gL9">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="showPlayingTrackAction:" target="4Js-aK-bND" id="6cf-U1-uWY"/>
+                        </connections>
+                    </button>
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yVw-vK-fRX" userLabel="Favorites Button" customClass="ColorSensitiveOnOffImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="2" y="26" width="13" height="13"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Favorites-Off" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="kBJ-Lc-oYi">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="Favorites-Off"/>
+                            <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Favorites-On"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Remove playing track from Favorites"/>
+                            <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Add playing track to Favorites"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="favoriteAction:" target="4Js-aK-bND" id="U8x-vY-EDu"/>
+                        </connections>
+                    </button>
+                    <button toolTip="Bookmark this track position" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-WW-pdJ" userLabel="Bookmark Button" customClass="ColorSensitiveImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="3" y="11" width="11" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Bookmark" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="233-dG-Ebx">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="bookmarkAction:" target="4Js-aK-bND" id="VCp-Y5-tZq"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="fillColor" white="0.49598993046182982" alpha="0.90017055457746475" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="329" y="616"/>
+        </box>
+        <slider verticalHuggingPriority="750" id="JK0-dx-fpr" userLabel="Seek Slider Clone">
+            <rect key="frame" x="0.0" y="0.0" width="508" height="19"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <sliderCell key="cell" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="e8S-Qc-bqn" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+            <point key="canvasLocation" x="27" y="611"/>
+        </slider>
+        <view wantsLayer="YES" appearanceType="aqua" id="2kf-ao-Oha" userLabel="Transcoder View" customClass="TranscoderView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="510" height="190"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="bbe-dH-QQx" userLabel="Black Box">
+                    <rect key="frame" x="0.0" y="16" width="500" height="174"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" ambiguous="YES" id="YEq-j3-5Be">
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="174"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </box>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Syg-wk-aML" userLabel="Icon">
+                    <rect key="frame" x="15" y="138" width="35" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Transcoding" id="vfi-0U-Qup"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sJ-Si-KI6" userLabel="Caption 2">
+                    <rect key="frame" x="186" y="8" width="137" height="24"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Transcoding ..." id="kPq-wv-JLN">
+                        <font key="font" size="15" name="GillSans-SemiBold"/>
+                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JAC-MY-KsG" userLabel="Caption">
+                    <rect key="frame" x="57" y="126" width="394" height="28"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" id="D4N-lU-5RV">
+                        <font key="font" size="15" name="GillSans-SemiBold"/>
+                        <color key="textColor" white="0.44987896126760563" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TJW-bG-QKU" userLabel="Track time">
+                    <rect key="frame" x="16" y="87" width="188" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Track time:  " id="KFI-8U-lZU">
+                        <font key="font" size="14" name="GillSans"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyF-IK-H49" userLabel="Elapsed time">
+                    <rect key="frame" x="302" y="87" width="181" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time elapsed:   0:00" id="aM6-0m-Odv">
+                        <font key="font" size="14" name="GillSans"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ds0-c3-8eu" userLabel="Time rem">
+                    <rect key="frame" x="302" y="56" width="181" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Time remaining:   0:00" id="97E-tL-er4">
+                        <font key="font" size="14" name="GillSans"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2s7-8c-Aou" userLabel="Speed">
+                    <rect key="frame" x="16" y="56" width="188" height="20"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Speed:   0x" id="3yk-B4-Ikd">
+                        <font key="font" size="14" name="GillSans"/>
+                        <color key="textColor" white="0.70074231519999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tIG-CK-RWS" userLabel="White Line">
+                    <rect key="frame" x="17" y="95" width="192" height="1"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="WhiteLine" id="t9M-jV-TdU"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iZS-cB-ZUB" userLabel="White Line">
+                    <rect key="frame" x="291" y="95" width="192" height="1"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="WhiteLine" id="KT3-8f-cJG"/>
+                </imageView>
+                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pgN-FL-q7F" customClass="ProgressArc" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="215" y="61" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </customView>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qEk-Bg-D3b" userLabel="Cancel button">
+                    <rect key="frame" x="420" y="26" width="63" height="19"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="roundRect" title="Cancel" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qsy-rg-9Yz" customClass="ModalDialogResponseButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="cellTitle"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                    </buttonCell>
+                    <connections>
+                        <action selector="cancelAction:" target="aD2-gv-PZo" id="aWM-QL-OdR"/>
+                    </connections>
+                </button>
+            </subviews>
+            <connections>
+                <outlet property="lblSpeed" destination="2s7-8c-Aou" id="pHc-pO-NxQ"/>
+                <outlet property="lblTimeElapsed" destination="GyF-IK-H49" id="Dgb-pu-TWx"/>
+                <outlet property="lblTimeRemaining" destination="Ds0-c3-8eu" id="Xe9-gQ-OkG"/>
+                <outlet property="lblTrack" destination="JAC-MY-KsG" id="PgA-Da-Ypa"/>
+                <outlet property="lblTrackTime" destination="TJW-bG-QKU" id="ci2-T3-Olu"/>
+                <outlet property="progressView" destination="pgN-FL-q7F" id="DWB-sZ-Jbg"/>
+            </connections>
+            <point key="canvasLocation" x="-1896" y="431"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Bookmark" width="27" height="27"/>
+        <image name="Favorites-Off" width="26" height="26"/>
+        <image name="Favorites-On" width="26" height="26"/>
+        <image name="LoopOff" width="31" height="26"/>
+        <image name="MoreInfo" width="25" height="25"/>
+        <image name="NextTrack" width="36" height="23"/>
+        <image name="Pause" width="39" height="51"/>
+        <image name="Play" width="51" height="57"/>
+        <image name="PreviousTrack" width="36" height="23"/>
+        <image name="RepeatOff" width="43" height="71"/>
+        <image name="SeekBackward" width="36" height="23"/>
+        <image name="SeekForward" width="36" height="23"/>
+        <image name="ShowPlayingTrack" width="72" height="72"/>
+        <image name="ShuffleOff" width="26" height="26"/>
+        <image name="Transcoding" width="53" height="36"/>
+        <image name="VolumeMedium" width="26" height="26"/>
+        <image name="WhiteLine" width="192" height="1"/>
+    </resources>
+</document>

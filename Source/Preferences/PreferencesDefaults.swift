@@ -22,30 +22,6 @@ struct PreferencesDefaults {
         
         static let rememberLastPosition: Bool = false
         static let rememberLastPositionOption: RememberSettingsForTrackOptions = .individualTracks
-        
-        struct Transcoding {
-            
-            static let persistenceOption: TranscoderPersistenceOptions = .save
-            static let limitDiskSpaceUsage: Bool = false
-            static let maxDiskSpaceUsage: Int = 10000000
-            
-            //            static let limitDiskSpaceUsage: Bool = true
-            //            static let maxDiskSpaceUsage: Int = 1000
-            
-            static let eagerTranscodingEnabled: Bool = false
-            static let eagerTranscodingOption: EagerTranscodingOptions = .predictive
-            
-            //            static let eagerTranscodingEnabled: Bool = true
-            //            static let eagerTranscodingOption: EagerTranscodingOptions = .allFiles
-            
-            static let maxBackgroundTasks: Int = 2
-            
-            //            static let maxBackgroundTasks: Int = {
-            //
-            //                let processorCount = ProcessInfo.processInfo.activeProcessorCount
-            //                return processorCount > 2 ? (processorCount / 2) - 1 : 1
-            //            }()
-        }
     }
     
     struct Sound {
@@ -66,7 +42,6 @@ struct PreferencesDefaults {
         static let effectsSettingsOnStartupOption: EffectsSettingsStartupOptions = .rememberFromLastAppLaunch
         static let masterPresetOnStartup_name: String? = nil
         
-        static let rememberEffectsSettings: Bool = true
         static let rememberEffectsSettingsOption: RememberSettingsForTrackOptions = .individualTracks
     }
     

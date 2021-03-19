@@ -93,10 +93,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let onlyGroupsSelected: Bool = areOnlyGroupsSelected
         
-        if numSelectedRows == 1 && !onlyGroupsSelected && selectedTrack == playbackInfo.transcodingTrack {
-            playSelectedItemMenuItem.disable()
-        }
-        
         // These menu items require 1 - the playlist to be visible, and 2 - at least one track in the playlist
         [searchPlaylistMenuItem, sortPlaylistMenuItem, scrollToTopMenuItem, scrollToBottomMenuItem, pageUpMenuItem, pageDownMenuItem, savePlaylistMenuItem, clearPlaylistMenuItem, invertSelectionMenuItem].forEach({$0?.enableIf(playlistNotEmpty)})
         

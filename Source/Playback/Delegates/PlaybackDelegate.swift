@@ -75,11 +75,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         case .playing:
             
             pause()
-            
-        case .transcoding:
-            
-            // Do nothing if transcoding
-            return
         }
     }
     
@@ -125,7 +120,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         if okToPlay, let newTrack = trackProducer() {
             
             let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, newTrack, params)
-            
             startPlaybackChain.execute(requestContext)
         }
     }
@@ -328,10 +322,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return state.isPlayingOrPaused ? sequencer.currentTrack : nil
     }
     
-    var transcodingTrack: Track? {
-        return state == .transcoding ? sequencer.currentTrack : nil
-    }
-    
     var playingTrackStartTime: TimeInterval? {
         return player.playingTrackStartTime
     }
@@ -352,8 +342,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // Save playback settings if the option either requires saving settings for all tracks, or if
         // the option has been set for this particular playing track.
-        if preferences.rememberLastPosition,
-            preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
+        if preferences.rememberLastPositionOption == .allTracks || profiles.hasFor(track) {
             
             // Remember the current playback settings the next time this track plays.
             // Update the profile with the latest settings for this track.

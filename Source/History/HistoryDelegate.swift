@@ -125,7 +125,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
         if let newTrack = notification.endTrack {
         
             lastPlayedTrack = newTrack
-            history.addRecentlyPlayedItem(newTrack.file, newTrack.conciseDisplayName, Date())
+            history.addRecentlyPlayedItem(newTrack.file, newTrack.displayName, Date())
             Messenger.publish(.history_updated)
         }
     }

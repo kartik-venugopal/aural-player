@@ -7,7 +7,7 @@ import Cocoa
 protocol RecorderDelegateProtocol {
     
     // Starts a recording with the specified format
-    func startRecording(_ params: RecordingParams)
+    func startRecording(_ format: RecordingFormat)
     
     // Stops the current recording
     func stopRecording()

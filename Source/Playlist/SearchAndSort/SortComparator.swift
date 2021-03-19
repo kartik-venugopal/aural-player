@@ -83,15 +83,15 @@ class SortComparator {
             
         case .artist:
             
-            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.groupingInfo.artist}, ""))
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.artist}, ""))
             
         case .album:
             
-            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.groupingInfo.album}, ""))
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.album}, ""))
             
         case .discNumberAndTrackNumber:
             
-            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.groupingInfo.discNumber}, 0), ({$0.groupingInfo.trackNumber}, 0))
+            return compareOptionalFieldsForTracks(aTrack, anotherTrack, ({$0.discNumber}, 0), ({$0.trackNumber}, 0))
         }
     }
     

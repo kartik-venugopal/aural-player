@@ -9,45 +9,53 @@ class Player: PlayerProtocol, NotificationSubscriber {
     
     // The underlying audio graph used to perform playback
     private let graph: PlayerGraphProtocol
-    private let playerNode: AVAudioPlayerNode
+    private let playerNode: AuralPlayerNode
     
     // Helper used for actual scheduling and playback
-    private let scheduler: PlaybackSchedulerProtocol
+    private var scheduler: PlaybackSchedulerProtocol!
+    
+    private let avfScheduler: PlaybackSchedulerProtocol
+    private let ffmpegScheduler: PlaybackSchedulerProtocol
     
     private(set) var state: PlaybackState = .noTrack
     
-    init(_ graph: PlayerGraphProtocol, _ scheduler: PlaybackSchedulerProtocol) {
+    init(graph: PlayerGraphProtocol, avfScheduler: PlaybackSchedulerProtocol, ffmpegScheduler: PlaybackSchedulerProtocol) {
         
         self.graph = graph
         self.playerNode = graph.playerNode
-        self.scheduler = scheduler
+        
+        self.avfScheduler = avfScheduler
+        self.ffmpegScheduler = ffmpegScheduler
         
         Messenger.subscribeAsync(self, .audioGraph_outputDeviceChanged, self.audioOutputDeviceChanged, queue: .main)
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
         
-        guard let audioFormat = track.playbackInfo?.audioFile?.processingFormat else {
+        guard let audioFormat = track.playbackContext?.audioFormat else {
+            
+            NSLog("Player.play() - Unable to play track \(track.displayName) because no audio format is set in its playback context.")
             return
         }
         
-        // Disconnect player and reconnect with the file's processing format
+        // Disconnect player from audio graph and reconnect with the file's processing format
         graph.reconnectPlayerNodeWithFormat(audioFormat)
-        
+
         let session = PlaybackSession.start(track)
-        
+        self.scheduler = track.isNativelySupported ? avfScheduler : ffmpegScheduler
+
         if let end = endPosition {
-            
+
             // Segment loop is defined
             PlaybackSession.defineLoop(startPosition, end)
             scheduler.playLoop(session, true)
-            
+
         } else {
-            
+
             // No segment loop
             scheduler.playTrack(session, startPosition)
         }
-        
+
         state = .playing
     }
     
@@ -105,7 +113,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
         
         // Check if playback has completed (seek time has crossed the track duration)
         playbackCompleted = actualSeekTime >= track.duration && state == .playing
-        
+
         // Correct the seek time to within the track's time bounds
         actualSeekTime = max(0, min(actualSeekTime, track.duration))
         
@@ -118,7 +126,27 @@ class Player: PlayerProtocol, NotificationSubscriber {
     }
     
     var seekPosition: Double {
-        return state.isPlayingOrPaused ? scheduler.seekPosition : 0
+        
+        guard state.isPlayingOrPaused, let session = PlaybackSession.currentSession else {return 0}
+        
+        // Prevent seekPosition from overruning the track duration (or loop start/end times)
+        // to prevent weird incorrect UI displays of seek time
+            
+        // Check for a segment loop
+        if let loop = session.loop {
+            
+            if let loopEndTime = loop.endTime {
+                return min(max(loop.startTime, playerNode.seekPosition), loopEndTime)
+                
+            } else {
+                
+                // Incomplete loop (start time only)
+                return min(max(loop.startTime, playerNode.seekPosition), session.track.duration)
+            }
+            
+        } else {    // No loop
+            return min(max(0, playerNode.seekPosition), session.track.duration)
+        }
     }
     
     func pause() {
@@ -139,15 +167,11 @@ class Player: PlayerProtocol, NotificationSubscriber {
         
         _ = PlaybackSession.endCurrent()
         
-        scheduler.stop()
+        scheduler?.stop()
         playerNode.reset()
         graph.clearSoundTails()
         
         state = .noTrack
-    }
-    
-    func transcoding() {
-        state = .transcoding
     }
     
     // MARK: Looping functions and state
@@ -195,7 +219,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
         // Loop has a start time, but no end time ... mark its end time
         PlaybackSession.endLoop(seekPos)
         
-        // When the loop's end time is defined, playback jumps to the loop's start time, and a new playback session is started.
+        // When the loop's end time is defined, playback jumps back to the loop's start time, and a new playback session is started.
         if let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
             scheduler.playLoop(newSession, state == .playing)
         }
@@ -211,7 +235,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
             
             // When a loop is removed, playback continues from the current position and a new playback session is started.
             if let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
-                scheduler.endLoop(newSession, loopEndTime)
+                scheduler.endLoop(newSession, loopEndTime, state == .playing)
             }
         }
     }
@@ -233,15 +257,8 @@ class Player: PlayerProtocol, NotificationSubscriber {
             // Mark the current seek position
             let curSeekPos = seekPosition
             
-            graph.restartAudioEngine()
-            
             // Resume playback from the same seek position
             scheduler.seekToTime(curSession, curSeekPos, state == .playing)
-            
-        } else {
-            
-            // No track is playing, simply restart the audio engine.
-            graph.restartAudioEngine()
         }
     }
     
@@ -256,7 +273,6 @@ enum PlaybackState {
     case playing
     case paused
     case noTrack
-    case transcoding
     
     var isPlayingOrPaused: Bool {
         return self == .playing || self == .paused

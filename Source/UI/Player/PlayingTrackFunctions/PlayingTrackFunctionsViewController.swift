@@ -17,6 +17,9 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     // Button to bookmark current track and position
     @IBOutlet weak var btnBookmark: TintedImageButton!
     
+    @IBOutlet weak var sliderView: SeekSliderView!
+    @IBOutlet weak var seekPositionMarkerView: NSView!
+    
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: TintedImageButton!
     
     // Delegate that provides info about the playing track
@@ -24,6 +27,8 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     
     // Delegate that provides access to History information
     private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    
+    private lazy var trackReader: TrackReader = ObjectGraph.trackReader
     
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
@@ -33,8 +38,6 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     
     private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
-    
-    override var nibName: String? {return "PlayingTrackFunctions"}
     
     private var allButtons: [Tintable] = []
     
@@ -82,7 +85,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             } else {
                 
                 // TODO: This should be done through a delegate (TrackDelegate ???)
-                playingTrack.loadDetailedInfo()
+                trackReader.loadAuxiliaryMetadata(for: playingTrack)
                 
                 WindowManager.mainWindow.makeKeyAndOrderFront(self)
                 
@@ -151,12 +154,12 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         if let theEndTime = endTime {
             
             // Loop
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.conciseDisplayName, ValueFormatter.formatSecondsToHMS(startTime), ValueFormatter.formatSecondsToHMS(theEndTime))
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.displayName, ValueFormatter.formatSecondsToHMS(startTime), ValueFormatter.formatSecondsToHMS(theEndTime))
             
         } else {
             
             // Single position
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.conciseDisplayName, ValueFormatter.formatSecondsToHMS(startTime))
+            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.displayName, ValueFormatter.formatSecondsToHMS(startTime))
         }
         
         // Show popover
@@ -175,7 +178,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             
         } else {
             
-            let seekPositionMarkerView: NSView = ViewFactory.seekPositionMarkerView
+            sliderView.positionSeekPositionMarkerView()
             
             // Show popover relative to seek slider
             if seekPositionMarkerView.isVisible {
@@ -240,7 +243,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             
             if detailedInfoPopover.isShown {
                 
-                theNewTrack.loadDetailedInfo()
+                trackReader.loadAuxiliaryMetadata(for: theNewTrack)
                 detailedInfoPopover.refresh(theNewTrack)
             }
             

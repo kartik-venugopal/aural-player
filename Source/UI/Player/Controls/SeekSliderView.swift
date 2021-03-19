@@ -146,10 +146,6 @@ class SeekSliderView: NSView, ColorSchemeable {
         }
     }
     
-    func transcodingStarted() {
-        NSView.hideViews(seekSlider, lblTimeElapsed, lblTimeRemaining)
-    }
-    
     func showOrHideTimeElapsedRemaining() {
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
     }

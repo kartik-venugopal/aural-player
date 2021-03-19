@@ -122,4 +122,14 @@ class EQView: NSView {
         eq10BandView.changeSliderColor()
         eq15BandView.changeSliderColor()
     }
+    
+    func changeColorScheme() {
+        
+        eq10BandView.changeColorScheme()
+        eq15BandView.changeColorScheme()
+        
+        btn10Band.redraw()
+        btn15Band.redraw()
+        btnSync.redraw()
+    }
 }

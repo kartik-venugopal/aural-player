@@ -6,10 +6,7 @@ import Foundation
 protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     /*
-     Toggles
-     
-     var playingChapter: Int?
-     between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
+        Toggles between the play and pause states, as long as a file is available to play. Returns playback state information the UI can use to update itself following the operation.
     
         Throws an error if playback begins with a track that cannot be played back.
      */
@@ -42,8 +39,6 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     func replay()
     
     // Stops playback.
-    // If the track is being transcoded for playback, the transcoding will be cancelled,
-    // and no deferred playback will occur.
     func stop()
     
     // Plays (and returns) the next track, if there is one. Throws an error if the next track cannot be played back

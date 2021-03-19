@@ -61,15 +61,6 @@ class AuralTabView: NSTabView {
         curIndex = index
     }
     
-    func previousTab() {
-        
-        if curIndex >= 1 {
-            selectTabViewItem(at: curIndex - 1)
-        } else {
-            selectTabViewItem(at: items.count - 1)
-        }
-    }
-    
     func nextTab() {
         
         if curIndex < items.count - 1 {

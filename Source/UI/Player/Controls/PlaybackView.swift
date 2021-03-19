@@ -50,7 +50,7 @@ class PlaybackView: NSView, ColorSchemeable {
             () -> String? in
 
             if let prevTrack = self.sequencer.peekPrevious() {
-                return String(format: "Previous track: '%@'", prevTrack.conciseDisplayName)
+                return String(format: "Previous track: '%@'", prevTrack.displayName)
             }
 
             return nil
@@ -60,7 +60,7 @@ class PlaybackView: NSView, ColorSchemeable {
             () -> String? in
 
             if let nextTrack = self.sequencer.peekNext() {
-                return String(format: "Next track: '%@'", nextTrack.conciseDisplayName)
+                return String(format: "Next track: '%@'", nextTrack.displayName)
             }
 
             return nil
@@ -102,15 +102,6 @@ class PlaybackView: NSView, ColorSchemeable {
         sliderView.trackChanged(loop, newTrack)
     }
     
-    func transcodingStarted() {
-
-        btnPlayPause.off()
-        btnLoop.switchState(LoopState.none)
-        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
-        
-        sliderView.transcodingStarted()
-    }
-
     func showOrHideTimeElapsedRemaining() {
         sliderView.showOrHideTimeElapsedRemaining()
     }

@@ -16,7 +16,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func displayNameForTrack(_ track: Track) -> String {
-        return track.conciseDisplayName
+        return track.displayName
     }
     
     func trackAtIndex(_ index: Int) -> Track? {
@@ -46,14 +46,14 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
                 return SearchQueryMatch(track: track, matchedField: "filename", matchedFieldValue: filename)
             }
             
-            let displayName = track.conciseDisplayName
+            let displayName = track.displayName
             if query.compare(displayName) {
                 return SearchQueryMatch(track: track, matchedField: "name", matchedFieldValue: displayName)
             }
         }
         
         // Compare title field if included in search
-        if query.fields.title, let title = track.displayInfo.title, query.compare(title) {
+        if query.fields.title, let title = track.title, query.compare(title) {
             return SearchQueryMatch(track: track, matchedField: "title", matchedFieldValue: title)
         }
         

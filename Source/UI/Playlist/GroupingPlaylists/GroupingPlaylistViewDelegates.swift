@@ -30,6 +30,19 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         30
     }
     
+    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
+    func outlineView(_ outlineView: NSOutlineView, typeSelectStringFor tableColumn: NSTableColumn?, item: Any) -> String? {
+        
+        // Only the track name column is used for type selection
+        guard tableColumn?.identifier == .uid_trackName, let displayName = (item as? Track)?.displayName ?? (item as? Group)?.name else {return nil}
+        
+        if !(displayName.starts(with: "<") || displayName.starts(with: ">")) {
+            return displayName
+        }
+        
+        return nil
+    }
+    
     // Returns a view for a single column
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
@@ -80,10 +93,6 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
             image = track == playbackInfo.playingTrack ? Images.imgPlayingTrack : nil
             
-        case .transcoding:
-            
-            image = track == playbackInfo.transcodingTrack ? Images.imgTranscodingTrack : nil
-            
         case .noTrack:
             
             image = nil
@@ -113,7 +122,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     private func createGroupNameCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemNameCellView? {
         
         guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
-        let imgView = cell.imageView else {return nil}
+              let imgView = cell.imageView, let textField = cell.textField else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = group
@@ -128,10 +137,20 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         // Remove any existing constraints on the text field's 'top' and 'centerY' attributes
         cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {cell.deactivateAndRemoveConstraint($0)}
+        
+        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
+        
+        cell.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
 
         let imgViewBottomConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
         
+        let imgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal, toItem: cell, attribute: .leading, multiplier: 1.0, constant: 8)
+        
+        let textFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: 5)
+        
         cell.activateAndAddConstraint(imgViewBottomConstraint)
+        cell.activateAndAddConstraint(imgViewLeadingConstraint)
+        cell.activateAndAddConstraint(textFieldLeadingConstraint)
         
         return cell
     }

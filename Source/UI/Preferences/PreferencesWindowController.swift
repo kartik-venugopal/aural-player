@@ -66,11 +66,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
         subViews.forEach({$0.resetFields(preferences)})
     }
     
-    @IBAction func previousTabAction(_ sender: Any) {
-        tabView.previousTab()
-    }
-    
-    @IBAction func nextTabAction(_ sender: Any) {
+    @IBAction func shiftTabAction(_ sender: Any) {
         tabView.nextTab()
     }
     

@@ -23,12 +23,12 @@ class SoundPreferences: PersistentPreferencesProtocol {
     var effectsSettingsOnStartupOption: EffectsSettingsStartupOptions
     var masterPresetOnStartup_name: String?
     
-    var rememberEffectsSettings: Bool
     var rememberEffectsSettingsOption: RememberSettingsForTrackOptions
     
     private var controlsPreferences: ControlsPreferences!
     
     convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
+        
         self.init(defaultsDictionary)
         self.controlsPreferences = controlsPreferences
     }
@@ -75,10 +75,10 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         masterPresetOnStartup_name = defaultsDictionary["sound.effectsSettingsOnStartup.masterPreset"] as? String ?? PreferencesDefaults.Sound.masterPresetOnStartup_name
         
-        rememberEffectsSettings = defaultsDictionary["sound.rememberEffectsSettings"] as? Bool ?? PreferencesDefaults.Sound.rememberEffectsSettings
-        
         if let optionStr = defaultsDictionary["sound.rememberEffectsSettings.option"] as? String {
+            
             rememberEffectsSettingsOption = RememberSettingsForTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberEffectsSettingsOption
+            
         } else {
             rememberEffectsSettingsOption = PreferencesDefaults.Sound.rememberEffectsSettingsOption
         }
@@ -109,7 +109,6 @@ class SoundPreferences: PersistentPreferencesProtocol {
         defaults.set(effectsSettingsOnStartupOption.rawValue, forKey: "sound.effectsSettingsOnStartup.option")
         defaults.set(masterPresetOnStartup_name, forKey: "sound.effectsSettingsOnStartup.masterPreset")
         
-        defaults.set(rememberEffectsSettings, forKey: "sound.rememberEffectsSettings")
         defaults.set(rememberEffectsSettingsOption.rawValue, forKey: "sound.rememberEffectsSettings.option")
     }
 }

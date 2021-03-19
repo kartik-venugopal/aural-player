@@ -346,11 +346,11 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
-        let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, notification.error.track].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
+        let errTrack = notification.errorTrack
         
-        if let errTrack = notification.error.track, let errTrackIndex = playlist.indexOfTrack(errTrack),
-            PlaylistViewState.current == .tracks {
+        let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, errTrack].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
 
+        if let errTrackIndex = playlist.indexOfTrack(errTrack), PlaylistViewState.current == .tracks {
             selectTrack(errTrackIndex)
         }
 

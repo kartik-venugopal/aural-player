@@ -103,7 +103,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             $0?.scrollRowToVisible(0)
         })
         
-        artView?.image = track.displayInfo.art?.image
+        artView?.image = track.art?.image
         lblNoArt.showIf(artView?.image == nil)
         
         lyricsView?.string = track.lyrics ?? noLyricsText
@@ -137,7 +137,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     func menuWillOpen(_ menu: NSMenu) {
         
-        let hasImage: Bool = DetailedTrackInfoViewController.shownTrack?.displayInfo.art?.image != nil
+        let hasImage: Bool = DetailedTrackInfoViewController.shownTrack?.art?.image != nil
         
         exportArtMenuItem.showIf_elseHide(hasImage)
         exportHTMLWithArtMenuItem.showIf_elseHide(hasImage)
@@ -153,9 +153,9 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     private func doExportArt(_ type: NSBitmapImageRep.FileType, _ fileExtension: String) {
         
-        if let track = DetailedTrackInfoViewController.shownTrack, let image = track.displayInfo.art?.image {
+        if let track = DetailedTrackInfoViewController.shownTrack, let image = track.art?.image {
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-coverArt", fileExtension)
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-coverArt", fileExtension)
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url,
                 let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: type, properties: [:]) {
@@ -194,7 +194,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             dict["audio"] = audioDict
             dict["fileSystem"] = fileSystemDict
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-metadata", "json")
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-metadata", "json")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 
@@ -248,7 +248,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             let audioHTML = tableToHTML(audioTable)
             let fileSystemHTML = tableToHTML(fileSystemTable)
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.conciseDisplayName + "-metadata", "html")
+            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-metadata", "html")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 
@@ -256,8 +256,8 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     
                     let html = HTMLWriter()
                     
-                    html.addTitle(track.conciseDisplayName)
-                    html.addHeading(track.conciseDisplayName, 2, false)
+                    html.addTitle(track.displayName)
+                    html.addHeading(track.displayName, 2, false)
                     
                     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
                     let text = String(format: "Metadata exported by Aural Player v%@ on: %@", appVersion, dateFormatter.string(from: Date()))
@@ -265,9 +265,9 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     html.addParagraph(exportDate)
                     
                     // Embed art in HTML
-                    if withArt, let image = track.displayInfo.art?.image, let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: .jpeg, properties: [:]) {
+                    if withArt, let image = track.art?.image, let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: .jpeg, properties: [:]) {
                         
-                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.conciseDisplayName + "-coverArt.jpg")
+                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.displayName + "-coverArt.jpg")
                         try data.write(to: imgFile)
                         html.addImage(imgFile.lastPathComponent, "(Cover Art)")
                     }
@@ -316,21 +316,13 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         return grid
     }
     
-    @IBAction func previousTabAction(_ sender: Any) {
-        tabView.previousTab()
-    }
-    
-    @IBAction func nextTabAction(_ sender: Any) {
-        tabView.nextTab()
-    }
-    
     @IBAction func closePopoverAction(_ sender: Any) {
         close()
     }
     
     func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
     
-        artView?.image = notification.updatedTrack.displayInfo.art?.image
+        artView?.image = notification.updatedTrack.art?.image
         lblNoArt.showIf(artView?.image == nil)
         coverArtTable?.reloadData()
     }

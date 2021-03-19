@@ -13,15 +13,12 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
     
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
-    override var nibName: String? {return "PlayerControls"}
-    
     override func viewDidLoad() {
         
         // MARK: Notifications --------------------------------------------------------------
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
-        Messenger.subscribeAsync(self, .player_trackNotTranscoded, self.trackNotTranscoded(_:), queue: .main)
         
         Messenger.subscribe(self, .fx_playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
@@ -160,16 +157,11 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         
         self.trackChanged(nil)
         
-        let error = notification.error
-        alertDialog.showAlert(.error, "Track not played", error.track?.conciseDisplayName ?? "<Unknown>", error.message)
-    }
-    
-    private func transcodingStarted() {
-        playbackView.transcodingStarted()
-    }
-    
-    func trackNotTranscoded(_ notification: TrackNotTranscodedNotification) {
-        alertDialog.showAlert(.error, "Track not transcoded", notification.track.conciseDisplayName, notification.error.message)
+        if let invalidTrackError = notification.error as? InvalidTrackError {
+            alertDialog.showAlert(.error, "Track not played", invalidTrackError.file.lastPathComponent, notification.error.message)
+        } else {
+            alertDialog.showAlert(.error, "Track not played", "", notification.error.message)
+        }
     }
     
     // MARK: Seeking actions/functions ------------------------------------------------------------
@@ -323,13 +315,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
     // MARK: Message handling ---------------------------------------------------------------------
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
-        
-        if notification.transcodingStarted {
-            transcodingStarted()
-            
-        } else {
-            trackChanged(notification.endTrack)
-        }
+        trackChanged(notification.endTrack)
     }
     
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.

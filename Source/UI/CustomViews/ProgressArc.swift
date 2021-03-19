@@ -3,8 +3,6 @@ import Cocoa
 // TODO: Make this more reusable, clean it up
 /*
     Displays task progress as a circular arc, with progress percentage displayed inside the arc.
- 
-    Currently being used only by the transcoder view.
  */
 class ProgressArc: NSView {
     
@@ -19,7 +17,7 @@ class ProgressArc: NSView {
     
     var lineWidth: CGFloat = 4
     
-    var backgroundColor: NSColor {return Colors.Player.transcoderArcBackgroundColor}
+    var backgroundColor: NSColor {return Colors.Player.progressArcBackgroundColor}
     var foregroundColor: NSColor {return Colors.Player.sliderForegroundColor}
     
     var textFont: NSFont {return FontSchemes.systemScheme.player.infoBoxArtistAlbumFont}
@@ -91,7 +89,7 @@ class ProgressArc: NSView {
         
         let dict: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: textFont,
-            NSAttributedString.Key.foregroundColor: Colors.Player.transcoderArcProgressTextColor]
+            NSAttributedString.Key.foregroundColor: Colors.Player.progressArcTextColor]
         
         let size: CGSize = text.size(withAttributes: dict)
         

@@ -1,13 +1,9 @@
 import Foundation
 
 class ConcurrentMap<T: Hashable, U: Any> {
-    
-    private let syncQueue: DispatchQueue
+ 
+    private let lock = DispatchSemaphore(value: 1)
     private var map: [T: U] = [:]
-    
-    init(_ id: String) {
-        syncQueue = DispatchQueue(label: id, attributes: .concurrent)
-    }
     
     var kvPairs: [T: U] {
         
@@ -27,86 +23,73 @@ class ConcurrentMap<T: Hashable, U: Any> {
         
         get {
             
-            var value: U? = nil
+            lock.wait()
+            defer { lock.signal() }
             
-            syncQueue.sync(flags: .barrier) {
-                value = map[key]
-            }
-            
-            return value
+            return map[key]
         }
         
         set (newValue) {
             
+            lock.wait()
+            defer { lock.signal() }
+            
             if let theValue = newValue {
                 
                 // newValue is non-nil
-                syncQueue.sync(flags: .barrier) {
-                    map[key] = theValue
-                }
+                map[key] = theValue
                 
             } else {
                 
                 // newValue is nil, implying that any existing value should be removed for this key.
-                _ = remove(key)
+                _ = map.removeValue(forKey: key)
             }
         }
     }
     
     func hasForKey(_ key: T) -> Bool {
         
-        var hasValue: Bool = false
+        lock.wait()
+        defer { lock.signal() }
         
-        syncQueue.sync(flags: .barrier) {
-            hasValue = map[key] != nil
-        }
-        
-        return hasValue
+        return map[key] != nil
     }
     
     func remove(_ key: T) -> U? {
         
-        var removedValue: U? = nil
+        lock.wait()
+        defer { lock.signal() }
         
-        syncQueue.sync(flags: .barrier) {
-            removedValue = map.removeValue(forKey: key)
-        }
-        
-        return removedValue
+        return map.removeValue(forKey: key)
     }
     
     func removeAll() {
         
-        syncQueue.sync(flags: .barrier) {
-            map.removeAll()
-        }
+        lock.wait()
+        defer { lock.signal() }
+        
+        map.removeAll()
     }
 }
 
 class ConcurrentSet<T: Hashable> {
     
-    private let syncQueue: DispatchQueue
+    private let lock = DispatchSemaphore(value: 1)
     private(set) var set: Set<T> = Set<T>()
-    
-    init(_ id: String) {
-        syncQueue = DispatchQueue(label: id, attributes: .concurrent)
-    }
     
     func contains(_ value: T) -> Bool {
         
-        var hasValue: Bool = false
+        lock.wait()
+        defer { lock.signal() }
         
-        syncQueue.sync(flags: .barrier) {
-            hasValue = set.contains(value)
-        }
-        
-        return hasValue
+        return set.contains(value)
     }
     
     func insert(_ value: T) {
         
-        _ = syncQueue.sync(flags: .barrier) {
-            set.insert(value)
-        }
+        lock.wait()
+        defer { lock.signal() }
+        
+        set.insert(value)
     }
 }

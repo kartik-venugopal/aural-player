@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD:Aural/Tracks.xib
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+=======
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+>>>>>>> upstream/master:Source/UI/Playlist/TracksPlaylist/Tracks.xib
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,15 +34,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="493" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+<<<<<<< HEAD:Aural/Tracks.xib
+                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="61" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="448" height="176"/>
+=======
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnReordering="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="yfe-8c-y7Q" userLabel="Playlist Tracks View" customClass="AuralPlaylistTableView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="528" height="175"/>
+>>>>>>> upstream/master:Source/UI/Playlist/TracksPlaylist/Tracks.xib
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
+<<<<<<< HEAD:Aural/Tracks.xib
+                                    <tableColumn identifier="cid_Index" width="30" minWidth="25" maxWidth="40" id="utt-4E-Pwl" userLabel="Index">
+                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
+                                            <font key="font" metaFont="message" size="11"/>
+=======
                                     <tableColumn identifier="cid_Index" width="35" minWidth="35" maxWidth="50" id="utt-4E-Pwl" userLabel="Index">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Index">
+>>>>>>> upstream/master:Source/UI/Playlist/TracksPlaylist/Tracks.xib
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -53,7 +71,11 @@
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-Os-Qiu" userLabel="Index">
                                                         <rect key="frame" x="5" y="0.0" width="37" height="30"/>
                                                         <constraints>
+<<<<<<< HEAD:Aural/Tracks.xib
+                                                            <constraint firstAttribute="height" constant="25" id="BTp-Ug-Zr3"/>
+=======
                                                             <constraint firstAttribute="height" constant="30" id="5ML-sW-rcP"/>
+>>>>>>> upstream/master:Source/UI/Playlist/TracksPlaylist/Tracks.xib
                                                         </constraints>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" id="Bac-3o-ROQ" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                                             <font key="font" size="13" name="Play-Regular"/>
@@ -71,11 +93,19 @@
                                                     </imageView>
                                                 </subviews>
                                                 <constraints>
+<<<<<<< HEAD:Aural/Tracks.xib
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerY" secondItem="0ic-SL-nto" secondAttribute="centerY" id="2Ex-mt-mO6"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerX" secondItem="0ic-SL-nto" secondAttribute="centerX" id="HVw-e3-QpI"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="centerX" secondItem="Nr9-vb-v1E" secondAttribute="centerX" id="PAw-Jw-RcZ"/>
+                                                    <constraint firstItem="0ic-SL-nto" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="QS8-4M-uSS"/>
+                                                    <constraint firstItem="ghD-Os-Qiu" firstAttribute="leading" secondItem="Nr9-vb-v1E" secondAttribute="leading" id="cL6-DY-I2J"/>
+=======
                                                     <constraint firstItem="ghD-Os-Qiu" firstAttribute="bottom" secondItem="Nr9-vb-v1E" secondAttribute="bottom" id="3xV-Tk-De9"/>
                                                     <constraint firstItem="ghD-Os-Qiu" firstAttribute="leading" secondItem="Nr9-vb-v1E" secondAttribute="leading" constant="7" id="6cv-6z-7MP"/>
                                                     <constraint firstItem="0ic-SL-nto" firstAttribute="centerY" secondItem="Nr9-vb-v1E" secondAttribute="centerY" id="QS8-4M-uSS"/>
                                                     <constraint firstItem="0ic-SL-nto" firstAttribute="leading" secondItem="ghD-Os-Qiu" secondAttribute="leading" constant="-2" id="aMQ-ha-9Yd"/>
                                                     <constraint firstItem="ghD-Os-Qiu" firstAttribute="trailing" secondItem="Nr9-vb-v1E" secondAttribute="trailing" id="xdd-Uo-hm5"/>
+>>>>>>> upstream/master:Source/UI/Playlist/TracksPlaylist/Tracks.xib
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="0ic-SL-nto" id="t7i-r3-bMb"/>
@@ -86,6 +116,10 @@
                                     </tableColumn>
                                     <tableColumn identifier="cid_Name" width="395" minWidth="370" maxWidth="10000" id="gqM-QF-bAT" userLabel="Track Name">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Track">
+<<<<<<< HEAD:Aural/Tracks.xib
+                                            <font key="font" metaFont="message" size="11"/>
+=======
+>>>>>>> upstream/master:Source/UI/Playlist/TracksPlaylist/Tracks.xib
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -125,6 +159,10 @@
                                     </tableColumn>
                                     <tableColumn identifier="cid_Duration" width="60" minWidth="60" maxWidth="80" id="hrT-f9-0P7">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Duration">
+<<<<<<< HEAD:Aural/Tracks.xib
+                                            <font key="font" metaFont="message" size="11"/>
+=======
+>>>>>>> upstream/master:Source/UI/Playlist/TracksPlaylist/Tracks.xib
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>

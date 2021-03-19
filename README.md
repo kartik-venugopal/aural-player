@@ -1,22 +1,21 @@
-# Aural Player
+<img width="225" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/readmeLogo.png"/>
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
-
-### Update (Feb 18, 2021)
-
-The very ambitious version 3.0 was in active development last year, but due to unforeseen personal circumstances, that part of the project has been put on hold since Oct 2020. The planned 3.0 release will be delayed.
-
-Instead, I have worked to get Aural Player up and running on macOS Big Sur, and have been making refinements and enhancements to version 2.x.
 
 ## Table of Contents
   * [Overview](#overview)
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
+<<<<<<< HEAD
+  * [Features](#features)
+  * [Planned updates](#planned-updates)
+=======
     + [Important note for macOS Big Sur](#important-note-for-macos-big-sur)
     + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
+>>>>>>> upstream/master
   * [Screenshots](#screenshots)
   * [Known issues](#known-issues)
   * [Documentation](#documentation)
@@ -28,8 +27,13 @@ Instead, I have worked to get Aural Player up and running on macOS Big Sur, and 
 
 Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and some sound tuning capabilities for audio enthusiasts.
 
+<<<<<<< HEAD
+#### What it is:
+* A simple drag-drop-play player for the music collection on your local hard drive(s), that requires no configuration out of the box, although plenty of customization/configuration is possible
+* (I hope) A decent macOS alternative for Winamp (you be the judge).
+=======
 #### Goals:
-* To have a simple drag-drop-play player for the music collection on your local drives, that recognizes a wide variety of audio formats.
+* To have a simple drag-drop-play player for the music collection on your local drives, that is able to play a wide variety of audio formats.
 * To *allow* customization/configuration, but not to *require* it out of the box.
 * To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
 * To have a decent macOS Winamp counterpart.
@@ -37,6 +41,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 #### Limitations:
 * Does not play protected content (e.g. Apple's M4P or Audible's AAX).
 * Does not integrate with online services for streaming / scrobbling, etc.
+>>>>>>> upstream/master
 
 ## Summary of features
 
@@ -49,10 +54,10 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
   * Built-in and custom effects presets, per-track effects settings memory
   * Recording of clips with effects captured
-* **Playlist:** Grouping, searching, sorting, type selection
+* **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
-* **Visualizations** 3 different visualizations that dance to the music, with customizable colors.
+* **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
 * **UI:** Fully customizable fonts and colors with built-in and custom schemes, window layouts (built-in and custom), window snapping, collapsible UI components.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition
 
@@ -67,8 +72,6 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
-
-**NOTE** - The ffmpeg source code (and build script / instructions) for each release can be found in the Source code archive (zip / tar) for the release, under **aural-player-x.y.z/Resources/ffmpeg** (when extracted).
 
 ### Important note for macOS Big Sur
 
@@ -91,10 +94,17 @@ The contents of the "aural" folder should look like this:
 
 ### Installation
 
+<<<<<<< HEAD
+1. Mount the *AuralPlayer-x.y.z.dmg* image file
+2. Copy Aural.app to your local drive (e.g. Applications folder)
+3. Run the copied app. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
+4. Go to System Preferences > Security & Privacy > General > Open anyway, to allow Aural.app to open.
+=======
 1. Mount the **AuralPlayer-x.y.z.dmg** image file
 2. From within the mounted image, copy **Aural.app** to your local drive (e.g. Applications folder)
 3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
 4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
+>>>>>>> upstream/master
 
 NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
 
@@ -105,16 +115,7 @@ brew install --cask aural
 
 ### Enabling media keys support (optional)
 
-![Enabling media keys support](/Documentation/Screenshots/EnablingMediaKeys.png?raw=true "Enabling media keys support")
-
-1. Quit Aural Player if it is running.
-2. Go to **System Preferences > Security & Privacy > Privacy**, and select **Accessibility** from the list of features.
-3. Click on the lock icon in the bottom left corner, if it is shown as locked. Enter your macOS password to authenticate.
-4. Click the + button and select **Aural.app** in the file browser that opens, to add Aural Player to the list of apps allowed to control your computer (See image above).
-
-**NOTE**
-* Media keys support is available from version 1.3.0 onwards.
-* You will have to repeat this simple process whenever you upgrade to a new version of the app, because the macOS Accessibility permissions are tied to a single instance of the app.
+Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support)
      
 ## Screenshots
 
@@ -124,10 +125,103 @@ brew install --cask aural
 
 ### Visualizer
 
-![Visualizer demo GIF](/Documentation/Demos/Visualizer.gif?raw=true)
+<img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
 
 ### Changing the font scheme
 
+<<<<<<< HEAD
+## Features
+
+* **Supported file types:**
+   * Audio formats: 
+     * Supported natively - MP3, AAC, ALAC, FLAC<sup>*</sup>, AIFF/AIFC, AC3, WAV, CAF, and other Core Audio formats. See [entire list](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html).
+     * Supported via transcoding<sup>**</sup> - Vorbis (OGG/OGA), Opus (OPUS/OGG/OGA), Windows Media Audio (WMA), Monkey's Audio (APE), MP2, WavPack (WV), Musepack (MPC), DSD Streaming File (DSF), and Digital Theater Systems (DTS) **(New!)**
+   * Container formats: M4A (AAC/ALAC), OGG (Vorbis/Opus), Matroska Audio (MKA) for streams of any of the above audio formats
+   * Playlist files: M3U/M3U8
+   
+   <sup>*</sup> FLAC is natively supported on macOS High Sierra and later versions, and is supported via transcoding on macOS Sierra and older versions.
+   
+   <sup>**</sup> Aural Player will detect and automatically transcode (i.e. convert) the file, prior to playback, leaving the original file unmodified. Metadata, including cover art, will be read and displayed, if available. This whole process is seamless and effortless to the user.
+
+* **Playback:**
+  * Bookmarking - mark a single position or a segment loop between two track positions
+  * Track segment looping - define two loop points and loop between them indefinitely
+  * Specify 2 different custom seek lengths (fine-grained and coarse-grained seeking)
+  * Insert timed gaps of silence (up to 24 hours) before/after tracks ... either per track or for all tracks
+  * Delayed track playback, with up to a 24 hour delay
+  * Option to remember last playback position ... either per track or for all tracks
+  * "Jump to time" function - quickly skip to a specific track position
+  * Configurable autoplay (on app startup and/or when tracks are added)
+
+* **Effects:**
+   * Graphic equalizer - 10-band and 15-band
+   * Pitch shift - Range: -2 octaves to +2 octaves
+   * Time stretch (playback rate) - Range: 0.25x to 4x
+   * Reverb - space preset and amount
+   * Delay - time, amount, feedback, and low pass cutoff
+   * Filter (up to 31 bands: Band stop / Band pass / Low pass / High pass)
+   * Dynamic control coloring to indicate unit state
+   * Option to remember sound settings ... either per track or for all tracks
+   * Save effects settings as presets ... per effects unit or all effects as a whole
+   * Recording of clips in AAC/ALAC/AIFF formats - captures applied effects
+
+* **Information:**
+   * ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Option to export textual metadata as HTML/JSON.
+   * Cover art (when available). Option to export cover art as JPEG/PNG.
+   * Lyrics (when available)
+   * File system information and technical audio data
+
+* **Playlist:**
+   * Grouping of tracks by artist/album/genre for convenient browsing
+   * Searching and sorting by multiple criteria (e.g. artist/title/album/disc#/track#)
+   * Type selection: Type the name of a track to try to find it
+   * Functions to conveniently crop/invert track selection, reorder tracks, and scroll through the playlist
+   
+* **Track lists:**
+   * *Favorites* list 
+   * Chronologically ordered *recently added* and *recently played* lists for added convenience.
+
+* **View:**
+   * Several built-in window layout presets, window snapping with configurable spacing, collapsible views.
+   * Save your customized window layouts as presets so you can use them again at any time
+   * Hide individual UI components, such as album art or toolbars, per your preference, to get the UI looking more like you want it.
+   * Adjust UI text font size per your preference or to compensate for a high display resolution
+
+* **Usability:**
+   * Media keys support with configurable key behavior
+   * Gesture recognition for essential player/playlist controls (trackpad/MagicMouse). Examples:
+      * Two finger vertical scroll for volume control
+   	  * Two finger horizontal scroll for seeking 
+   	  * Three finger horizontal swipe to change tracks
+   	  * Three finger vertical swipe to scroll to top/bottom of playlist
+
+   * Keyboard shortcuts and menu items for quick and convenient access to functionality. Examples:
+      * < / > keys to quickly adjust playback rate (i.e. Time stretch effects unit)
+   	  * \+ / - keys to quickly adjust pitch (i.e. Pitch shift effects unit)
+   	  * Shift/Alt+1 to increase/decrease Equalizer bass
+
+* **Customization:**
+      
+  * Configure two independent seek lengths to your liking, used by two independent sets of seek controls … either as a constant value or a percentage of track duration. For instance, set one to a short interval and set the other to a longer interval to quickly skip through large audiobooks while also being able to perform more fine-grained seeking to get to exactly where you want within the track.
+  * Click on the track time labels around the seek bar to change the display format to either hh:mm:ss or number of seconds or percentage of track duration
+  * Configure how you want the app to look/behave on startup: Autoplay, volume and effects settings on startup, window layout on startup, remembered or default playlist on startup, etc.
+  * Configure the increment/decrement for volume/pan and effects unit adjustments
+  * Configure window snapping behavior, mouse sensitivity for gestures, and more …
+  * Editors to manage all your saved custom app state, such as effects presets, bookmarks, favorites, window layouts, etc, so you can edit your saved data and delete unwanted or old data to prevent clutter
+      
+## Planned updates
+
+* Support for more container formats - e.g. ASF, MP4, etc.
+* Better parsing of FLAC/Ogg/WMA metadata tags
+* Support for surround sound (AC3 and DTS)
+* Enhanced eager transcoding and more advanced control over transcoding behavior
+* A new status bar player mode
+* A new "floating" miniature player view that stays on top and can be used when working on other apps and Aural Player is intended to be kept in the background
+* A new parametric equalizer allowing specification of center frequency and bandwidth per band
+* New color schemes
+      
+## Screenshots
+=======
 ![Changing the font scheme demo](/Documentation/Demos/FontSchemes.gif?raw=true)
 
 ### Changing the color scheme
@@ -135,6 +229,7 @@ brew install --cask aural
 ![Changing the color scheme demo](/Documentation/Demos/ChangingColorScheme.gif?raw=true)
 
 ### Customizing the player view
+>>>>>>> upstream/master
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true)
 
@@ -209,7 +304,7 @@ Of course, you may also file issues right here on GitHub as needed. I'm usually 
 
 ## Third party code attributions
 
-* [FFmpeg](https://www.ffmpeg.org/) (used to transcode from unsupported to supported audio formats)
+* [FFmpeg](https://www.ffmpeg.org/) (used to decode audio formats not natively supported on macOS)
 * [MediaKeyTap](https://github.com/nhurden/MediaKeyTap) (used to respond to media keys)
 * [RangeSlider](https://github.com/matthewreagan/RangeSlider) (used in the Filter effects unit to specify frequency ranges)
 

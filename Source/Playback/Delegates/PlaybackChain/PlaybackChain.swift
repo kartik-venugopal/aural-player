@@ -47,7 +47,7 @@ class PlaybackChain {
     }
     
     // (Abruptly) terminates the chain, with an error.
-    func terminate(_ context: PlaybackRequestContext, _ error: InvalidTrackError) {
+    func terminate(_ context: PlaybackRequestContext, _ error: DisplayableError) {
         complete(context)
     }
     

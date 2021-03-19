@@ -42,8 +42,40 @@ class FileSystemUtils {
         }
     }
     
+    // Deletes a directory, after first deleting its contents.
+    static func deleteDir(_ dir: URL) {
+        
+        do {
+            
+            // Retrieve all files/subfolders within this directory.
+            let contents = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions())
+            
+            // Delete directory contents
+            for file in contents {
+                try fileManager.removeItem(atPath: file.path)
+            }
+            
+            // Delete the directory itself
+            try fileManager.removeItem(atPath: dir.path)
+            
+        } catch let error as NSError {
+            NSLog("Error deleting file '%@': %@", dir.path, error.description)
+        }
+    }
+    
+    // Deletes a file
+    static func deleteFile(_ file: URL) {
+        
+        do {
+            try fileManager.removeItem(atPath: file.path)
+        } catch let error as NSError {
+            NSLog("Error deleting file '%@': %@", file.path, error.description)
+        }
+    }
+    
     // Deletes a file
     static func deleteFile(_ path: String) {
+        
         do {
             try fileManager.removeItem(atPath: path)
         } catch let error as NSError {
@@ -55,6 +87,7 @@ class FileSystemUtils {
     static func deleteContentsOfDirectory(_ dir: URL) {
         
         do {
+            
             // Retrieve all files/subfolders within this folder
             let contents = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions())
             
@@ -305,6 +338,13 @@ class SystemUtils {
         return ProcessInfo.processInfo.activeProcessorCount
     }
     
+    static var numberOfPhysicalCores: Int {
+        
+        var cores: Int = 1
+        sysctlbyname("hw.physicalcpu", nil, &cores, nil, 0)
+        return max(cores, 1)
+    }
+    
     static var osVersion: OperatingSystemVersion {
         return ProcessInfo.processInfo.operatingSystemVersion
     }
@@ -321,5 +361,16 @@ class SystemUtils {
         
         let os = osVersion
         return os.majorVersion > 10 || os.minorVersion > 15
+    }
+}
+
+extension URL {
+    
+    var lowerCasedExtension: String {
+        pathExtension.lowercased()
+    }
+    
+    var isNativelySupported: Bool {
+        AppConstants.SupportedTypes.nativeAudioExtensions.contains(lowerCasedExtension)
     }
 }

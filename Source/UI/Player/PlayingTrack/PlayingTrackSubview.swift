@@ -11,10 +11,7 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     @IBOutlet weak var textView: PlayingTrackTextView!
     
     @IBOutlet weak var controlsBox: NSBox!
-    private let controlsView: NSView = ViewFactory.controlsView
-    
     @IBOutlet weak var functionsBox: NSBox!
-    private let functionsView: NSView = ViewFactory.playingTrackFunctionsView
     
     fileprivate var autoHideFields_showing: Bool = false
     
@@ -26,24 +23,9 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     }
     
     func showView() {
-        
-        DispatchQueue.main.async {
-            
-            if !self.controlsView.isDescendant(of: self.controlsBox) {
-                self.controlsBox.addSubview(self.controlsView)
-                self.controlsBox.bringToFront()
-            }
-
-            if !self.functionsView.isDescendant(of: self.functionsBox) {
-                self.functionsBox.addSubview(self.functionsView)
-            }
-        }
-        
-        show()
     }
     
     func hideView() {
-        hide()
     }
     
     func update() {
@@ -119,10 +101,9 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     func changeBackgroundColor(_ color: NSColor) {
 
         // Solid color
-        [infoBox, controlsBox, functionsBox].forEach({
+        [infoBox, controlsBox, functionsBox].forEach {
             $0?.fillColor = color
-            $0?.isTransparent = !color.isOpaque
-        })
+        }
         
         // The art view's shadow color will depend on the window background color (it needs to have contrast relative to it).
         artView.layer?.shadowColor = color.visibleShadowColor.cgColor
@@ -154,13 +135,17 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
         return !PlayerViewState.showControls
     }
     
-    override func awakeFromNib() {
-    
-        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
+    override func showView() {
+
+        super.showView()
         
         artView.showIf(PlayerViewState.showAlbumArt)
-        controlsBox.showIf(PlayerViewState.showControls)
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
+        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
+
+        controlsBox.showIf(PlayerViewState.showControls)
+        controlsBox.bringToFront()
+        controlsBox.makeOpaque()
     }
     
     override fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -230,8 +215,10 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         return true
     }
     
-    override func awakeFromNib() {
+    override func showView() {
 
+        super.showView()
+        
         moveInfoBoxTo(infoBoxDefaultPosition)
 
         NSView.hideViews(controlsBox, overlayBox)
@@ -241,8 +228,10 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         
         infoBox.bringToFront()
         controlsBox.bringToFront()
-        
+        controlsBox.makeTransparent()
+
         functionsBox.showIf(PlayerViewState.showPlayingTrackFunctions)
+        moveInfoBoxTo(infoBoxDefaultPosition)
     }
     
     override func trackInfoSet() {

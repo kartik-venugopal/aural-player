@@ -63,7 +63,12 @@ class PitchView: NSView {
         setUnitState(preset.state)
     }
     
+<<<<<<< HEAD:Aural/PitchView.swift
+    func changeColorScheme() {
+        sliders.forEach({$0.redraw()})
+=======
     func redrawSliders() {
         [pitchSlider, pitchOverlapSlider].forEach({$0?.redraw()})
+>>>>>>> upstream/master:Source/UI/Effects/Pitch/PitchView.swift
     }
 }

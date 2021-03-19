@@ -15,6 +15,8 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
     
+    private lazy var fileReader: FileReader = ObjectGraph.fileReader
+    
     fileprivate lazy var artLoadingQueue: OperationQueue = {
         
         let queue = OperationQueue()
@@ -74,7 +76,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         
         artLoadingQueue.addOperation {
             
-            if let img = MetadataUtils.artForFile(item.file), let imgCopy = img.image.copy() as? NSImage {
+            if let img = self.fileReader.getArt(for: item.file), let imgCopy = img.image.copy() as? NSImage {
                 
                 imgCopy.size = Dimensions.historyMenuItemImageSize
                 

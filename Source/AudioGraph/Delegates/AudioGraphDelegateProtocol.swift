@@ -2,16 +2,18 @@
     Contract for a middleman/delegate that relays all requests to alter the audio graph, i.e. to tune the sound output - volume, panning, equalizer (EQ), sound effects, etc
  */
 import Cocoa
-import AVFoundation
 
 protocol AudioGraphDelegateProtocol {
     
+<<<<<<< HEAD:Aural/AudioGraphDelegateProtocol.swift
+=======
     var availableDevices: AudioDeviceList {get}
     var systemDevice: AudioDevice {get}
     var outputDevice: AudioDevice {get set}
     var outputDeviceBufferSize: Int {get set}
     var outputDeviceSampleRate: Double {get}
     
+>>>>>>> upstream/master:Source/AudioGraph/Delegates/AudioGraphDelegateProtocol.swift
     // NOTE - All functions that return String values return user-friendly text representations of the value being get/set, for display in the UI. For instance, setDelayLowPassCutoff(64) might return a value like "64 Hz"
     var volume: Float {get set}
     

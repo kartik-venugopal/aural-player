@@ -45,6 +45,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribeAsync(self, .playlist_trackAdded, self.trackAdded(_:), queue: .main)
         Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_doneAddingTracks, self.doneAddingTracks(_:), filter: {(needToRefresh: Bool) in needToRefresh}, queue: .main)
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
@@ -417,6 +418,13 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         }
     }
     
+    func doneAddingTracks(_ needToRefresh: Bool) {
+        
+        DispatchQueue.main.async {
+            self.playlistView.reloadData()
+        }
+    }
+    
     // Refreshes the playlist view in response to a track being updated with new information (e.g. duration)
     private func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
         
@@ -478,15 +486,17 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
+        let errTrack = notification.errorTrack
+        
         // Reload the old/error track.
-        for track in Set([notification.oldTrack, notification.error.track]).compactMap({$0}) {
+        for track in Set([notification.oldTrack, errTrack]).compactMap({$0}) {
             playlistView.reloadItem(track)
         }
-        
+
         // Only need to do this if this playlist view is shown
-        if let errTrack = notification.error.track, PlaylistViewState.current.toGroupType() == self.groupType,
-            let groupingInfo = playlist.groupingInfoForTrack(self.groupType, errTrack) {
-            
+        if PlaylistViewState.current.toGroupType() == self.groupType,
+           let groupingInfo = playlist.groupingInfoForTrack(self.groupType, errTrack) {
+
             selectTrack(groupingInfo)
         }
     }

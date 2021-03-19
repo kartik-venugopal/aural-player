@@ -1,25 +1,5 @@
 import Foundation
 
-enum OutputDeviceStartupOptions: String {
-    
-    case rememberFromLastAppLaunch
-    case system
-    case specific
-}
-
-// Window layout on startup preference
-class OutputDeviceOnStartup {
-    
-    var option: OutputDeviceStartupOptions = .system
-    
-    // This is used only if option == .specific
-    var preferredDeviceName: String? = nil
-    var preferredDeviceUID: String? = nil
-    
-    // NOTE: This is mutable. Potentially unsafe (convert variable into factory method ???)
-    static let defaultInstance: OutputDeviceOnStartup = OutputDeviceOnStartup()
-}
-
 // All options for the volume at startup
 enum VolumeStartupOptions: String {
     
@@ -42,6 +22,8 @@ enum PlaylistStartupOptions: String {
     case loadFolder
 }
 
+<<<<<<< HEAD:Aural/PreferencesOptions.swift
+=======
 enum PlaylistViewStartupOptions: String {
     
     case specific
@@ -75,6 +57,7 @@ class PlaylistViewOnStartup {
     static let defaultInstance: PlaylistViewOnStartup = PlaylistViewOnStartup()
 }
 
+>>>>>>> upstream/master:Source/Preferences/PreferencesOptions.swift
 // Possible options for the "autoplay afer adding tracks" user preference
 enum AutoplayAfterAddingOptions: String {
     
@@ -83,16 +66,20 @@ enum AutoplayAfterAddingOptions: String {
 }
 
 // All options for the view at startup
-enum WindowLayoutStartupOptions: String {
+enum ViewStartupOptions: String {
     
     case specific
     case rememberFromLastAppLaunch
 }
 
-// Window layout on startup preference
+// View on startup preference
 class LayoutOnStartup {
     
+<<<<<<< HEAD:Aural/PreferencesOptions.swift
+    var option: ViewStartupOptions = .specific
+=======
     var option: WindowLayoutStartupOptions = .rememberFromLastAppLaunch
+>>>>>>> upstream/master:Source/Preferences/PreferencesOptions.swift
     
     // This is used only if option == .specific
     var layoutName: String = ""
@@ -132,16 +119,4 @@ enum SeekLengthOptions: String {
     
     case constant
     case percentage
-}
-
-enum TranscoderPersistenceOptions: String {
-    
-    case save
-    case delete
-}
-
-enum EagerTranscodingOptions: String {
-    
-    case allFiles
-    case predictive
 }

@@ -37,6 +37,10 @@ class FilterBandViewController: NSViewController {
         
         oneTimeSetup()
         resetFields()
+<<<<<<< HEAD:Aural/FilterBandViewController.swift
+        changeTextSize()
+        changeColorScheme()
+=======
         
         applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
@@ -52,6 +56,7 @@ class FilterBandViewController: NSViewController {
         
         presetRangesIconMenuItem.tintFunction = {return Colors.functionButtonColor}
         presetCutoffsIconMenuItem.tintFunction = {return Colors.functionButtonColor}
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBandViewController.swift
     }
     
     private func resetFields() {
@@ -189,6 +194,22 @@ class FilterBandViewController: NSViewController {
         filterTypeMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
         filterTypeMenu.redraw()
         
+<<<<<<< HEAD:Aural/FilterBandViewController.swift
+        presetRangesMenu.font = TextSizes.fxUnitFunctionFont
+        presetCutoffsMenu.font = TextSizes.fxUnitFunctionFont
+    }
+    
+    func changeColorScheme() {
+        
+        tabButton.redraw()
+        
+        let labels = findFunctionLabels(self.view)
+        labels.forEach({$0.textColor = Colors.fxUnitFunctionColor})
+        
+        // TODO: Redraw the sliders
+        cutoffSlider.redraw()
+        freqRangeSlider.redraw()
+=======
         presetRangesMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
         lblFrequencies.font = FontSchemes.systemScheme.effects.unitFunctionFont
     }
@@ -225,6 +246,7 @@ class FilterBandViewController: NSViewController {
     
     func redrawSliders() {
         [cutoffSlider, freqRangeSlider].forEach({$0?.redraw()})
+>>>>>>> upstream/master:Source/UI/Effects/Filter/FilterBandViewController.swift
     }
     
     private func findFunctionLabels(_ view: NSView) -> [NSTextField] {

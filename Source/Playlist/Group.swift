@@ -109,4 +109,25 @@ class Group: Hashable, PlaylistItem {
     func sort(_ strategy: (Track, Track) -> Bool) {
         tracks.sort(by: strategy)
     }
+    
+    func indexOfTrack(for file: URL) -> Int? {
+        return tracks.firstIndex(where: {$0.file == file})
+    }
+    
+    func reOrder(accordingTo state: GroupState) {
+        
+        var insertionIndex: Int = 0
+        
+        for file in state.tracks {
+            
+            if let index = indexOfTrack(for: file) {
+                
+                if index != insertionIndex {
+                    tracks.insert(tracks.remove(at: index), at: insertionIndex)
+                }
+                
+                insertionIndex += 1
+            }
+        }
+    }
 }
