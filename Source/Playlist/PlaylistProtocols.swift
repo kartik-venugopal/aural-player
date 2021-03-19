@@ -187,6 +187,8 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
         - Only the specified type of grouping/hierarchical playlist will be altered. The other playlist types will be unaffected by this operation. Each playlist type's sequence of tracks/groups is independent from that of all other playlist types.
      */
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults
+    
+    func reOrder(accordingTo state: PlaylistState)
 }
 
 /*

@@ -7,6 +7,7 @@ import Cocoa
  */
 class AppState {
     
+    var appVersion: String = ""
     var ui: UIState = UIState()
     var audioGraph: AudioGraphState = AudioGraphState()
     var playlist: PlaylistState = PlaylistState()

@@ -92,6 +92,8 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
+    
+    func reOrder(accordingTo: GroupingPlaylistState)
 }
 
 protocol GroupingPlaylistCRUDProtocol: GroupingPlaylistAccessorProtocol, GroupingPlaylistMutatorProtocol {}

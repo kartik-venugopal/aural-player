@@ -122,7 +122,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     }
     
     // Adds files to the playlist asynchronously, emitting event notifications as the work progresses
-    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions, _ userAction: Bool = true) {
+    private func addFiles_async(_ files: [URL], _ autoplayOptions: AutoplayOptions, userAction: Bool = true, reorderGroupingPlaylists: Bool = false) {
         
         addSession = TrackAddSession(files.count, autoplayOptions)
         
@@ -136,6 +136,15 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             self.collectTracks(files, false)
             self.addSessionTracks()
             
+            if reorderGroupingPlaylists {
+                
+                let time = measureExecutionTime {
+                    self.playlist.reOrder(accordingTo: self.playlistState)
+                }
+                
+                NSLog("Took \(time * 1000) msecs to reorder grouping playlists.")
+            }
+            
             // ------------------ NOTIFY ------------------
             
             let results = self.addSession.results
@@ -144,10 +153,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
                 Messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
             }
             
+            // TODO: Reordering will mean that results will not be in the correct order when this notification
+            // is sent out. But currently, it has no impact (Sequencer does not care about results order).
             // Notify change listeners
             self.changeListeners.forEach({$0.tracksAdded(results)})
             
-            Messenger.publish(.playlist_doneAddingTracks)
+            Messenger.publish(.playlist_doneAddingTracks, payload: reorderGroupingPlaylists)
             
             // If errors > 0, send AsyncMessage to UI
             if self.addSession.errors.isNonEmpty {
@@ -399,20 +410,20 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         if filesToOpen.isNonEmpty {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
-            addFiles_async(filesToOpen, AutoplayOptions(true), false)
+            addFiles_async(filesToOpen, AutoplayOptions(true), userAction: false)
             
         } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch {
             
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
+            addFiles_async(playlistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
             
         } else if preferences.playlistPreferences.playlistOnStartup == .loadFile, let playlistFile: URL = preferences.playlistPreferences.playlistFile {
             
-            addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
+            addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false)
             
         } else if preferences.playlistPreferences.playlistOnStartup == .loadFolder, let folder: URL = preferences.playlistPreferences.tracksFolder {
             
-            addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), false)
+            addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false)
         }
     }
     

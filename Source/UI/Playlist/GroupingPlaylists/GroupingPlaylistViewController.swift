@@ -45,6 +45,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribeAsync(self, .playlist_trackAdded, self.trackAdded(_:), queue: .main)
         Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved(_:), queue: .main)
+        Messenger.subscribeAsync(self, .playlist_doneAddingTracks, self.doneAddingTracks(_:), filter: {(needToRefresh: Bool) in needToRefresh}, queue: .main)
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
@@ -414,6 +415,13 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
                 self.playlistView.insertItems(at: IndexSet(integer: grouping.track.trackIndex), inParent: group, withAnimation: .effectGap)
                 self.playlistView.reloadItem(group)
             }
+        }
+    }
+    
+    func doneAddingTracks(_ needToRefresh: Bool) {
+        
+        DispatchQueue.main.async {
+            self.playlistView.reloadData()
         }
     }
     

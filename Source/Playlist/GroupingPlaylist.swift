@@ -261,4 +261,25 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         groups.removeAll()
         groupsByName.removeAll()
     }
+    
+    func reOrder(accordingTo state: GroupingPlaylistState) {
+        
+        var insertionIndex: Int = 0
+        
+        for groupState in state.groups {
+            
+            let name = groupState.name
+            
+            if let group = groupsByName[name], let index = indexOfGroup(group) {
+                
+                if index != insertionIndex {
+                    groups.insert(groups.remove(at: index), at: insertionIndex)
+                }
+                
+                group.reOrder(accordingTo: groupState)
+                
+                insertionIndex += 1
+            }
+        }
+    }
 }

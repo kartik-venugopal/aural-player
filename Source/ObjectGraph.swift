@@ -189,6 +189,8 @@ class ObjectGraph {
         
         // Gather all pieces of app state into the appState object
         
+        appState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+        
         appState.audioGraph = (audioGraph as! PersistentModelObject).persistentState as! AudioGraphState
         appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
         appState.playbackSequence = (sequencer as! Sequencer).persistentState as! PlaybackSequenceState

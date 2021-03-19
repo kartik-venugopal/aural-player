@@ -9,7 +9,7 @@ class Playlist: PlaylistCRUDProtocol {
     private var flatPlaylist: FlatPlaylistCRUDProtocol
     
     // Hierarchical/grouping playlists (mapped by playlist type)
-    private var groupingPlaylists: [PlaylistType: GroupingPlaylistCRUDProtocol] = [:]
+    var groupingPlaylists: [PlaylistType: GroupingPlaylistCRUDProtocol] = [:]
     
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFile: [URL: Track] = [:]
@@ -254,5 +254,15 @@ class Playlist: PlaylistCRUDProtocol {
     
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults {
         return groupingPlaylists[groupType.toPlaylistType()]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
+    }
+    
+    func reOrder(accordingTo state: PlaylistState) {
+        
+        for (type, playlist) in groupingPlaylists {
+            
+            if let playlistState = state.groupingPlaylists[type.rawValue] {
+                playlist.reOrder(accordingTo: playlistState)
+            }
+        }
     }
 }

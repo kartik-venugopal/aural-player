@@ -24,6 +24,8 @@ class JSONMapper {
             return mapArray(child.value)
         }
         
+        // TODO: See which dictionaries are being persisted ... pring some debug statements.
+        
         // Dictionary
         if childMirror.displayStyle == .dictionary {
             return mapDictionary(child.value)
@@ -82,8 +84,7 @@ class JSONMapper {
         
         var dict: [NSString: AnyObject] = [:]
         for (key, value) in obj as! NSDictionary {
-            // Assume primitive values
-            dict[mapToString(key) as NSString] = mapPrimitive(value)
+            dict[mapToString(key) as NSString] = mapObject(value)
         }
         
         return dict as NSDictionary
