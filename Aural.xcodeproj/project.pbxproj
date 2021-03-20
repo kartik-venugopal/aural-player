@@ -38,6 +38,7 @@
 		3E5F944025E5736F002DEF80 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F943F25E5736F002DEF80 /* DeviceList.swift */; };
 		3E5F944325E5738E002DEF80 /* AUExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F944225E5738E002DEF80 /* AUExtensions.swift */; };
 		3E62B8182605BAC00042CAAA /* ffmpeg.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E62B8162605BAC00042CAAA /* ffmpeg.c */; };
+		3E62B81A2605D6E00042CAAA /* PredictiveTrackPreparationAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E62B8192605D6E00042CAAA /* PredictiveTrackPreparationAction.swift */; };
 		3E645A0A25E39337006C6981 /* coming-soon.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E645A0925E3932D006C6981 /* coming-soon.regular.ttf */; };
 		3E645A0E25E395D6006C6981 /* FontSchemesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E645A0D25E395D6006C6981 /* FontSchemesState.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
@@ -603,6 +604,7 @@
 		3E5F944225E5738E002DEF80 /* AUExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AUExtensions.swift; sourceTree = "<group>"; };
 		3E62B8162605BAC00042CAAA /* ffmpeg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ffmpeg.c; sourceTree = "<group>"; };
 		3E62B8172605BAC00042CAAA /* ffmpeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffmpeg.h; sourceTree = "<group>"; };
+		3E62B8192605D6E00042CAAA /* PredictiveTrackPreparationAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictiveTrackPreparationAction.swift; sourceTree = "<group>"; };
 		3E645A0925E3932D006C6981 /* coming-soon.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "coming-soon.regular.ttf"; sourceTree = "<group>"; };
 		3E645A0D25E395D6006C6981 /* FontSchemesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesState.swift; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2244,6 +2246,7 @@
 				3E6C108625CEB98600BF0D07 /* AudioFilePreparationAction.swift */,
 				3E6C108225CEB98600BF0D07 /* ApplyPlaybackProfileAction.swift */,
 				3E6C108525CEB98600BF0D07 /* StartPlaybackAction.swift */,
+				3E62B8192605D6E00042CAAA /* PredictiveTrackPreparationAction.swift */,
 			);
 			path = StartPlaybackChain;
 			sourceTree = "<group>";
@@ -3464,6 +3467,7 @@
 				3E6C132825CEBEA000BF0D07 /* RepeatingTaskExecutor.swift in Sources */,
 				3EDB344F25E8B75D004DF7DE /* ApeV2Parser.swift in Sources */,
 				3E6C120525CEBDD100BF0D07 /* PlaylistDelegateProtocol.swift in Sources */,
+				3E62B81A2605D6E00042CAAA /* PredictiveTrackPreparationAction.swift in Sources */,
 				3E6C125725CEBE0600BF0D07 /* TimePresetsEditorViewController.swift in Sources */,
 				3E6C12AB25CEBE2700BF0D07 /* ValidatedLabelCell.swift in Sources */,
 				3E6C133825CEBEA700BF0D07 /* FileSystemUtils.swift in Sources */,
