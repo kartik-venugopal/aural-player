@@ -1,6 +1,3 @@
-#ifndef ffmpeg_h
-#define ffmpeg_h
-
 #import <libavcodec/avcodec.h>
 #import <libavformat/avformat.h>
 #import <libavutil/avutil.h>
@@ -46,5 +43,3 @@ long CH_LAYOUT_7POINT1_WIDE_BACK;
 long CH_LAYOUT_OCTAGONAL;
 long CH_LAYOUT_HEXADECAGONAL;
 long CH_LAYOUT_STEREO_DOWNMIX;
-
-#endif /* ffmpeg_h */
