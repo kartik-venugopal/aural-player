@@ -140,7 +140,7 @@ class AVFFileReader: FileReaderProtocol {
             
             let intChannelCount = Int(thePlaybackContext.audioFormat.channelCount)
             audioInfo.numChannels = intChannelCount
-            audioInfo.channelLayout = thePlaybackContext.audioFile.channelLayoutString
+            audioInfo.channelLayout = thePlaybackContext.audioFormat.channelLayoutString
             
             audioInfo.sampleRate = Int32(thePlaybackContext.sampleRate)
             audioInfo.frames = thePlaybackContext.frameCount

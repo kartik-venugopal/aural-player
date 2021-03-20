@@ -1,27 +1,16 @@
-#  What's New in Version 2.7.0
+#  What's New in Version 2.8.0
 
-## Real-time playback and faster loading of non-native tracks
+## Grouping playlists now remember sort order from last app launch
 
-The way that Aural Player reads tracks of non-native audio formats (e.g. Vorbis, APE, True Audio, WMA, etc) has completely changed (improved). This has resulted in an improved user experience. 
+The hierarchical (or "grouping") playlist views, i.e. Artists, Albums, and Genres, will now remember their sort order from the previous app launch and reorder their tracks accordingly upon app startup.
 
-### Real-time playback
+## Reduced gap between tracks during playback
 
-Aural Player is now able to decode and immediately play non-native tracks without any delay. So, the user experience is now identical to that for playback of natively supported tracks, and doesn't require a time / storage overhead for transcoding like before.
+When a track is playing, Aural Player will predict which track might play next and prepare that track for playback ahead of time (open the file for reading). This will, in the most common cases, reduce track preparation time when that track is selected for playback, thus slightly reducing the gap of audble silence between tracks.
 
-### Faster and more reliable loading of metadata
+## Bug fix - Crash caused by playlist track removal
 
-Now, metadata is read directly from the tracks on disk. This is much more efficient and reliable, and doesn't require storing temporary files on disk.
-
-### How ?
-
-Previously, Aural Player spawned an instance of ffmpeg as a child process, to transcode non-native tracks and read metadata from them, and parsed textual data from ffmpeg before those tracks could be loaded into the playlist and played back. This was slow, computationally expensive, somewhat unreliable (due to inter-process communication), and required extra storage (for temporary files). It was also much more complex from a development / testing / maintenance standpoint.
-
-Now, Aural Player makes direct calls to FFmpeg's libraries in-process, no longer needing to spawn an ffmpeg child process.
-
-### Other changes
-
-* Removed support for raw DTS files (.dts)
-* Bug fix: Tool tips for buttons in player view weren't being shown. 
+In some cases, removing tracks from the playlist caused a sudden crash. This issue has been fixed.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.7.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.8.0)

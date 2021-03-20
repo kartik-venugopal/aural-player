@@ -271,7 +271,11 @@ class Playlist: PlaylistCRUDProtocol {
         for (type, playlist) in groupingPlaylists {
             
             if let playlistState = state.groupingPlaylists[type.rawValue] {
-                
+
+                // The different grouping playlists can be reordered in parallel,
+                // because the reorder operations are independent of each other.
+                // In other words, reordering one grouping playlist does not
+                // affect any other grouping playlist.
                 reorderOpQueue.addOperation {
                     playlist.reOrder(accordingTo: playlistState)
                 }

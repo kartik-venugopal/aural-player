@@ -85,16 +85,15 @@ extension AudioChannelLayout {
     }
 }
 
-extension AVAudioFile {
+extension AVAudioFormat {
     
     var channelLayoutString: String {
         
-        let fmt = processingFormat
-        let channelCount: Int32 = Int32(fmt.channelCount)
+        let channelCount: Int32 = Int32(self.channelCount)
         
         if #available(OSX 10.15, *) {
             
-            guard let layoutTag = fmt.formatDescription.audioFormatList.map({$0.mChannelLayoutTag}).first else {return AVAudioChannelLayout.defaultDescription(channelCount: channelCount)}
+            guard let layoutTag = formatDescription.audioFormatList.map({$0.mChannelLayoutTag}).first else {return AVAudioChannelLayout.defaultDescription(channelCount: channelCount)}
             
             let layout = AVAudioChannelLayout(layoutTag: layoutTag)
             return layout?.layout.pointee.description ?? AVAudioChannelLayout.defaultDescription(channelCount: channelCount)
@@ -103,9 +102,10 @@ extension AVAudioFile {
             
             var aclSizeInt: Int = 0
             let aclPtr: UnsafePointer<AudioChannelLayout>? =
-                CMAudioFormatDescriptionGetChannelLayout(fmt.formatDescription, sizeOut: &aclSizeInt)
+                CMAudioFormatDescriptionGetChannelLayout(formatDescription, sizeOut: &aclSizeInt)
             
             return aclPtr?.pointee.description ?? AVAudioChannelLayout.defaultDescription(channelCount: channelCount)
         }
     }
+
 }

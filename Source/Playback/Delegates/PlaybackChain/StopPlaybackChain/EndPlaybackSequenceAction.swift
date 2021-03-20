@@ -20,7 +20,6 @@ class EndPlaybackSequenceAction: PlaybackChainAction {
         Messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
                                                       endTrack: nil, endState: .noTrack))
         
-        // Mark the playback chain as having completed execution.
-        chain.complete(context)
+        chain.proceed(context)
     }
 }

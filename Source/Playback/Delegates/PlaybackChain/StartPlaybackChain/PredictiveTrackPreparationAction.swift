@@ -13,6 +13,12 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
     private let sequencer: SequencerProtocol
     private let trackReader: TrackReader
     
+    ///
+    /// Keeps a record of all tracks that have been prepped for playback.
+    /// Is useful when closing files that no longer need to be open.
+    ///
+    private var preppedTracks: Set<Track> = Set()
+    
     init(sequencer: SequencerProtocol, trackReader: TrackReader) {
         
         self.sequencer = sequencer
@@ -24,7 +30,7 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
         // Perform this task async, since it is not required to complete immediately.
         // Since this task is not time-critical, it is okay to use the "utility" quality of service.
         DispatchQueue.global(qos: .utility).async {
-    
+            
             // The candidates for which track might play next consist of:
             //
             // 1 - The "subsequent" track in the playback sequence, i.e. the track that would play next automatically.
@@ -39,15 +45,27 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
             // Prepare each of the candidate tracks for playback.
             predictedNextTracks.forEach {
                 
-                NSLog("\nPreparing \($0.displayName) for playback ...")
-                
                 do {
                     try self.trackReader.prepareForPlayback(track: $0)
                 } catch {}
             }
+            
+            // Update the preppedTracks set and close files that no longer need to be open (i.e. not
+            // currently playing and not predicted to play next).
+            
+            let playingTrack: Track? = context.requestedTrack
+            let tracksToClose: [Track] = self.preppedTracks.filter {$0 != playingTrack && !predictedNextTracks.contains($0)}
+            
+            for track in tracksToClose {
+                
+                track.playbackContext?.close()
+                self.preppedTracks.remove(track)
+            }
+            
+            // Add the candidate tracks to the preppedTracks set.
+            self.preppedTracks = self.preppedTracks.union(predictedNextTracks)
         }
-        
-        // Mark the playback chain as having completed execution.
-        chain.complete(context)
+            
+        chain.proceed(context)
     }
 }

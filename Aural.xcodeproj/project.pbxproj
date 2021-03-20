@@ -474,6 +474,7 @@
 		3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */; };
 		3EA3CE7025E420DE00BC7D07 /* Papyrus.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6F25E4208500BC7D07 /* Papyrus.ttf */; };
 		3EA3CE7325E420EC00BC7D07 /* AnironRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE7225E420E700BC7D07 /* AnironRegular.ttf */; };
+		3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
 		3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E725E552A1002259C4 /* shufen.regular.ttf */; };
@@ -1047,6 +1048,7 @@
 		3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreviewView.swift; sourceTree = "<group>"; };
 		3EA3CE6F25E4208500BC7D07 /* Papyrus.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Papyrus.ttf; sourceTree = "<group>"; };
 		3EA3CE7225E420E700BC7D07 /* AnironRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnironRegular.ttf; sourceTree = "<group>"; };
+		3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseFileHandlesAction.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ragingredlotus-bb.regular.ttf"; sourceTree = "<group>"; };
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
@@ -2235,6 +2237,7 @@
 			children = (
 				3E6C107A25CEB98600BF0D07 /* StopPlaybackChain.swift */,
 				3E6C107B25CEB98600BF0D07 /* EndPlaybackSequenceAction.swift */,
+				3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */,
 			);
 			path = StopPlaybackChain;
 			sourceTree = "<group>";
@@ -3406,6 +3409,7 @@
 				3E6C132025CEBEA000BF0D07 /* StringKeyedCollection.swift in Sources */,
 				3E6C132525CEBEA000BF0D07 /* ValueFormatter.swift in Sources */,
 				3E6C132925CEBEA000BF0D07 /* ConcurrentCollections.swift in Sources */,
+				3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */,
 				3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */,
 				3E6C118425CEBD6D00BF0D07 /* TimeUnit.swift in Sources */,
 				3E6C124C25CEBDF400BF0D07 /* AlbumsPlaylistViewController.swift in Sources */,
