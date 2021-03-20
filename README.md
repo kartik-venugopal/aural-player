@@ -36,7 +36,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 (Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
 
-* Supports all Core Audio formats (inc. FLAC) and several non-native formats: (inc. Vorbis, Opus, Monkey's Audio (APE), True Audio (TTA), DSD & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
+* Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Opus, Monkey's Audio (APE), True Audio (TTA), DSD & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
 * Supports M3U / M3U8 playlists
 * **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
 * **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
