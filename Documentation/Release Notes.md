@@ -6,9 +6,9 @@ The hierarchical (or "grouping") playlist views, i.e. Artists, Albums, and Genre
 
 ## Other changes
 
-### Eliminated vulnerabilities in FFmpeg wrapper classes
+### Eliminated vulnerabilities in schedling logic for non-native tracks
 
-There were some vulnerabilities (potentially null references) in the wrapper classes that wrap FFmpeg's C structs, which were exposed by infrequently triggered race conditions ... these were introduced in v2.7.0. They have been eliminated.
+There were some vulnerabilities (potentially null references) in the code responsible for scheduling tracks decoded via ffmpeg, which were exposed by infrequently triggered race conditions ... these were introduced in v2.7.0. They have been eliminated.
 
 ### Reduced gap between tracks during playback
 
