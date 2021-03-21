@@ -81,7 +81,7 @@ class EQMapping {
                 break
             }
             
-            cur += 1
+            cur.increment()
         }
         
         if cur == srcFreqs.count {

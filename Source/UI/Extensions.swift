@@ -286,7 +286,7 @@ extension NSPopUpButton {
         var count: Int = 0
         
         for item in self.menu!.items {
-            if item.isSeparatorItem {count += 1}
+            if item.isSeparatorItem {count.increment()}
         }
         
         return count

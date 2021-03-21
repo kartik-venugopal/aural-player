@@ -137,12 +137,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             self.addSessionTracks()
             
             if reorderGroupingPlaylists {
-                
-                let time = measureExecutionTime {
-                    self.playlist.reOrder(accordingTo: self.playlistState)
-                }
-                
-                NSLog("Took \(time * 1000) msecs to reorder grouping playlists.")
+                self.playlist.reOrder(accordingTo: self.playlistState)
             }
             
             // ------------------ NOTIFY ------------------

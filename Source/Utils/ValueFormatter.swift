@@ -266,7 +266,7 @@ class ValueFormatter {
             if (c < numDigits && (numDigits - c) % 3 == 0) {
                 readableNumString.append(",")
             }
-            c += 1
+            c.increment()
         }
         
         return readableNumString
@@ -286,7 +286,7 @@ class ValueFormatter {
             if (c < numDigits && (numDigits - c) % 3 == 0) {
                 readableNumString.append(",")
             }
-            c += 1
+            c.increment()
         }
         
         return readableNumString

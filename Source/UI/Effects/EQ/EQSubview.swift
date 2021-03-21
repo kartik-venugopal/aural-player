@@ -80,7 +80,7 @@ class EQSubview: NSView {
         for (_, gain) in sortedBandsMap {
             
             sortedBands.append(gain)
-            index += 1
+            index.increment()
         }
         
         updateBands(sortedBands, globalGain)

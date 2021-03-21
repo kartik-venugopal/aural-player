@@ -93,6 +93,12 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
     
+    ///
+    /// Re-order the playlist (tracks and groups), upon app startup, according to the sort order of the playlist from the last app launch.
+    ///
+    /// - Parameter state:  Application state persisted from the last app launch, including playlist sort order.
+    ///                     This will determine how the playlist is reordered.
+    ///
     func reOrder(accordingTo: GroupingPlaylistState)
 }
 

@@ -243,7 +243,7 @@ class FileSystemUtils {
             if (sComps[cur] != tComps[cur]) {
                 pathMatch = false
             } else {
-                cur += 1
+                cur.increment()
             }
         }
         

@@ -268,6 +268,10 @@ class Playlist: PlaylistCRUDProtocol {
     
     func reOrder(accordingTo state: PlaylistState) {
         
+        // Re-order each of the grouping playlists.
+        // NOTE - The flat playlist does not need to be reordered,
+        // because it is already in the correct order.
+        
         for (type, playlist) in groupingPlaylists {
             
             if let playlistState = state.groupingPlaylists[type.rawValue] {
@@ -276,6 +280,7 @@ class Playlist: PlaylistCRUDProtocol {
                 // because the reorder operations are independent of each other.
                 // In other words, reordering one grouping playlist does not
                 // affect any other grouping playlist.
+                
                 reorderOpQueue.addOperation {
                     playlist.reOrder(accordingTo: playlistState)
                 }

@@ -301,19 +301,20 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         var insertionIndex: Int = 0
         
+        // Iterate through all groups, inserting each one at insertionIndex ... 0, 1, 2, and so on.
         for groupState in state.groups {
             
-            let name = groupState.name
-            
-            if let group = groupsByName[name], let index = indexOfGroup(group) {
+            if let group = groupsByName[groupState.name], let index = indexOfGroup(group) {
                 
+                // No need to reorder the group if it is already in the correct position.
                 if index != insertionIndex {
                     groups.insert(groups.remove(at: index), at: insertionIndex)
                 }
                 
+                // Tell the group to reorder its tracks.
                 group.reOrder(accordingTo: groupState)
                 
-                insertionIndex += 1
+                insertionIndex.increment()
             }
         }
     }

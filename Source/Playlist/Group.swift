@@ -114,19 +114,27 @@ class Group: Hashable, PlaylistItem {
         return tracks.firstIndex(where: {$0.file == file})
     }
     
+    ///
+    /// Re-order the group (tracks), upon app startup, according to the sort order of the playlist from the last app launch.
+    ///
+    /// - Parameter state:  Application state persisted from the last app launch, including group sort order.
+    ///                     This will determine how the group is reordered.
+    ///
     func reOrder(accordingTo state: GroupState) {
         
         var insertionIndex: Int = 0
         
+        // Iterate through all tracks, inserting each one at insertionIndex ... 0, 1, 2, and so on.
         for file in state.tracks {
             
             if let index = indexOfTrack(for: file) {
                 
+                // No need to reorder the track if it is already in the correct position.
                 if index != insertionIndex {
                     tracks.insert(tracks.remove(at: index), at: insertionIndex)
                 }
                 
-                insertionIndex += 1
+                insertionIndex.increment()
             }
         }
     }

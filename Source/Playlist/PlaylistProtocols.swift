@@ -188,6 +188,12 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
      */
     func dropTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType, _ dropParent: Group?, _ dropIndex: Int) -> ItemMoveResults
     
+    ///
+    /// Re-order the playlist (tracks and groups), upon app startup, according to the sort order of the playlist from the last app launch.
+    ///
+    /// - Parameter state:  Application state persisted from the last app launch, including playlist sort order.
+    ///                     This will determine how the playlist is reordered.
+    ///
     func reOrder(accordingTo state: PlaylistState)
 }
 
