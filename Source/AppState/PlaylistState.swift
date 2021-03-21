@@ -66,7 +66,7 @@ class GroupState: PersistentState {
     var name: String = ""
 
     // List of track files
-    var tracks: [URL] = [URL]()
+    var tracks: [URL] = []
     
     init() {}
     
