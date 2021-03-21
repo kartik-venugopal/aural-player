@@ -56,11 +56,13 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 **User**: macOS 10.12 (Sierra) or later versions.
 
-**Developer**: Swift 5 and XCode 11.
-
-Download the DMG image (containing the app bundle) from the latest release [here](https://github.com/maculateConception/aural-player/releases/latest).
+[Latest release](https://github.com/maculateConception/aural-player/releases/latest).
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
+
+**Developer**: Swift 5 and XCode 11.
+
+[Source code zip archive](https://github.com/maculateConception/aural-player/archive/refs/heads/master.zip)
 
 ### Important note for macOS Big Sur
 
