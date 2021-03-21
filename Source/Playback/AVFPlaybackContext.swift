@@ -6,7 +6,7 @@ import AVFoundation
 class AVFPlaybackContext: PlaybackContextProtocol {
     
     let file: URL
-    var audioFile: AVAudioFile!
+    var audioFile: AVAudioFile?
 
     let audioFormat: AVAudioFormat
     
@@ -21,9 +21,9 @@ class AVFPlaybackContext: PlaybackContextProtocol {
         self.file = file
         self.audioFile = try AVAudioFile(forReading: file)
 
-        self.audioFormat = audioFile.processingFormat
+        self.audioFormat = audioFile!.processingFormat
         self.sampleRate = audioFormat.sampleRate
-        self.frameCount = audioFile.length
+        self.frameCount = audioFile!.length
         self.computedDuration = Double(frameCount) / sampleRate
     }
     

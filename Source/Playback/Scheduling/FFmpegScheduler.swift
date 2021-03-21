@@ -14,21 +14,8 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     ///
     var scheduledBufferCounts: [PlaybackSession: AtomicCounter<Int>] = [:]
     
-    ///
-    /// A flag indicating whether or not the decoder has reached the end of the currently playing file's audio stream, i.e. EOF..
-    ///
-    /// This value is used to make decisions about whether or not to continue scheduling and / or to signal completion
-    /// of playback.
-    ///
-    var eof: Bool {decoder.eof}
-    
     // Player node used for actual playback
     let playerNode: AuralPlayerNode
-    
-    var playbackCtx: FFmpegPlaybackContext!
-    
-    /// A helper object that does the actual decoding.
-    var decoder: FFmpegDecoder! {playbackCtx?.decoder}
     
     // Indicates whether or not a track completed while the player was paused.
     // This is required because, in rare cases, some file segments may complete when they've reached close to the end, even if the last frame has not played yet.
@@ -69,20 +56,18 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     
     func playTrack(_ session: PlaybackSession, _ startPosition: Double) {
         
-        stop()
-        scheduledBufferCounts[session] = AtomicCounter<Int>()
-        
-        guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext else {
+        guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext, let decoder = thePlaybackCtx.decoder else {
 
             // This should NEVER happen. If it does, it indicates a bug (track was not prepared for playback).
             NSLog("Unable to play track \(session.track.displayName) because it has no playback context.")
             return
         }
         
-        self.playbackCtx = thePlaybackCtx
+        stop()
+        scheduledBufferCounts[session] = AtomicCounter<Int>()
         decoder.framesNeedTimestamps.setValue(false)
         
-        initiateDecodingAndScheduling(for: session, from: startPosition == 0 ? nil : startPosition)
+        initiateDecodingAndScheduling(for: session, context: thePlaybackCtx, decoder: decoder, from: startPosition == 0 ? nil : startPosition)
         
         // Check that at least one audio buffer was successfully scheduled, before beginning playback.
         if let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive {
@@ -114,7 +99,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// If the **seekPosition** parameter given is greater than the currently playing file's audio stream duration, this function
     /// will signal completion of playback for the file.
     ///
-    func initiateDecodingAndScheduling(for session: PlaybackSession, from seekPosition: Double? = nil) {
+    func initiateDecodingAndScheduling(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil) {
         
         do {
             
@@ -126,7 +111,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
                 
                 // If the seek took the decoder to EOF, signal completion of playback
                 // and don't do any scheduling.
-                if eof {
+                if decoder.eof {
                     
                     if playerNode.isPlaying {
                         trackCompleted(session)
@@ -142,10 +127,10 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             }
             
             // Schedule one buffer for immediate playback
-            decodeAndScheduleOneBuffer(for: session, from: seekPosition ?? 0, immediatePlayback: true, maxSampleCount: playbackCtx.sampleCountForImmediatePlayback)
+            decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, from: seekPosition ?? 0, immediatePlayback: true, maxSampleCount: context.sampleCountForImmediatePlayback)
             
             // Schedule a second buffer asynchronously, for later, to avoid a gap in playback.
-            decodeAndScheduleOneBufferAsync(for: session, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
+            decodeAndScheduleOneBufferAsync(for: session, context: context, decoder: decoder, maxSampleCount: context.sampleCountForDeferredPlayback)
             
         } catch {
             
@@ -166,12 +151,12 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// 2. Since the task is enqueued on an OperationQueue (whose underlying queue is the global DispatchQueue),
     /// this function will not block the caller, i.e. the main thread, while the task executes.
     ///
-    func decodeAndScheduleOneBufferAsync(for session: PlaybackSession, maxSampleCount: Int32) {
+    func decodeAndScheduleOneBufferAsync(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, maxSampleCount: Int32) {
         
-        if eof {return}
+        if decoder.eof {return}
         
         self.schedulingOpQueue.addOperation {
-            self.decodeAndScheduleOneBuffer(for: session, immediatePlayback: false, maxSampleCount: maxSampleCount)
+            self.decodeAndScheduleOneBuffer(for: session, context: context, decoder: decoder, immediatePlayback: false, maxSampleCount: maxSampleCount)
         }
     }
 
@@ -196,15 +181,15 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// number of samples may be slightly larger than the maximum, because upon reaching EOF, the decoder will drain the codec's
     /// internal buffers which may result in a few additional samples that will be allowed as this is the terminal buffer.
     ///
-    func decodeAndScheduleOneBuffer(for session: PlaybackSession, from seekPosition: Double? = nil, immediatePlayback: Bool, maxSampleCount: Int32) {
+    func decodeAndScheduleOneBuffer(for session: PlaybackSession, context: FFmpegPlaybackContext, decoder: FFmpegDecoder, from seekPosition: Double? = nil, immediatePlayback: Bool, maxSampleCount: Int32) {
         
-        if eof {return}
+        if decoder.eof {return}
         
         // Ask the decoder to decode up to the given number of samples.
         let frameBuffer: FFmpegFrameBuffer = decoder.decode(maxSampleCount: maxSampleCount)
 
         // Transfer the decoded samples into an audio buffer that the audio engine can schedule for playback.
-        if let playbackBuffer = AVAudioPCMBuffer(pcmFormat: playbackCtx.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) {
+        if let playbackBuffer = AVAudioPCMBuffer(pcmFormat: context.audioFormat, frameCapacity: AVAudioFrameCount(frameBuffer.sampleCount)) {
             
             if frameBuffer.needsFormatConversion {
                 sampleConverter.convert(samplesIn: frameBuffer, andCopyTo: playbackBuffer)
@@ -235,15 +220,16 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         
         // If the buffer-associated session is not the same as the current session
         // (possible if stop() was called, eg. old buffers that complete when seeking), don't do anything.
-        guard PlaybackSession.isCurrent(session) else {return}
+        guard PlaybackSession.isCurrent(session), let playbackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
+              let decoder = playbackCtx.decoder else {return}
         
         // Audio buffer has completed playback, so decrement the counter.
         scheduledBufferCounts[session]?.decrement()
         
-        if !self.eof {
+        if !decoder.eof {
 
             // If EOF has not been reached, continue recursively decoding / scheduling.
-            self.decodeAndScheduleOneBufferAsync(for: session, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
+            self.decodeAndScheduleOneBufferAsync(for: session, context: playbackCtx, decoder: decoder, maxSampleCount: playbackCtx.sampleCountForDeferredPlayback)
 
         } else if let bufferCount = scheduledBufferCounts[session], bufferCount.isZero {
             
@@ -283,7 +269,8 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         
         stopScheduling()
         playerNode.stop()
-        decoder?.stop()
+        
+        (PlaybackSession.currentSession?.track.playbackContext as? FFmpegPlaybackContext)?.decoder?.stop()
         
         scheduledBufferCounts.removeAll()
         trackCompletedWhilePaused = false
@@ -298,11 +285,19 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
             return
         }
         
+        guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext, let decoder = thePlaybackCtx.decoder else {
+
+            // This should NEVER happen. If it does, it indicates a bug (track was not prepared for playback).
+            NSLog("Unable to seek within track \(session.track.displayName) because it has no playback context.")
+            return
+        }
+        
         stop()
+        
         scheduledBufferCounts[session] = AtomicCounter<Int>()
         decoder.framesNeedTimestamps.setValue(false)
         
-        initiateDecodingAndScheduling(for: session, from: seconds)
+        initiateDecodingAndScheduling(for: session, context: thePlaybackCtx, decoder: decoder, from: seconds)
         
         if let bufferCount = scheduledBufferCounts[session], bufferCount.isPositive, beginPlayback {
             playerNode.play()

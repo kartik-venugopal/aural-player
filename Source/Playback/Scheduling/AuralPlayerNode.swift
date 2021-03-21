@@ -156,12 +156,12 @@ class AuralPlayerNode: AVAudioPlayerNode {
     // Computes an audio file segment. Given seek times, computes the corresponding audio frames.
     func computeSegment(_ session: PlaybackSession, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil) -> PlaybackSegment? {
         
-        guard let playbackCtx = session.track.playbackContext as? AVFPlaybackContext, areStartAndEndTimeValid(startTime, endTime) else {
+        guard let playbackCtx = session.track.playbackContext as? AVFPlaybackContext, areStartAndEndTimeValid(startTime, endTime),
+              let playingFile: AVAudioFile = playbackCtx.audioFile else {
+            
             return nil
         }
         
-        let playingFile: AVAudioFile = playbackCtx.audioFile
-
         let sampleRate = playbackCtx.sampleRate
         let lastFrameInFile: AVAudioFramePosition = playbackCtx.frameCount - 1
 

@@ -7,11 +7,11 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
     
     let file: URL
     
-    var fileContext: FFmpegFileContext!
-    var decoder: FFmpegDecoder!
+    var fileContext: FFmpegFileContext?
+    var decoder: FFmpegDecoder?
     
-    var audioCodec: FFmpegAudioCodec {
-        decoder.codec
+    var audioCodec: FFmpegAudioCodec? {
+        decoder?.codec
     }
     
     let audioFormat: AVAudioFormat
@@ -47,21 +47,21 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
     
     var frameCount: Int64 = 0
     
-    var duration: Double {fileContext.duration}
+    var duration: Double {fileContext?.duration ?? 0}
     
     init(for file: URL) throws {
         
         self.file = file
         self.fileContext = try FFmpegFileContext(for: file)
-        self.decoder = try FFmpegDecoder(for: fileContext)
+        self.decoder = try FFmpegDecoder(for: fileContext!)
         
-        let codec = decoder.codec
+        let codec = decoder!.codec
         
         let sampleRate: Int32 = codec.sampleRate
         let sampleRateDouble: Double = Double(sampleRate)
 
         self.sampleRate = sampleRateDouble
-        self.frameCount = Int64(sampleRateDouble * fileContext.duration)
+        self.frameCount = Int64(sampleRateDouble * fileContext!.duration)
         
         let channelLayout: AVAudioChannelLayout = FFmpegChannelLayoutsMapper.mapLayout(ffmpegLayout: Int(codec.channelLayout)) ?? .stereo
         
@@ -103,7 +103,7 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
         if fileContext == nil {
             
             fileContext = try FFmpegFileContext(for: file)
-            decoder = try FFmpegDecoder(for: fileContext)
+            decoder = try FFmpegDecoder(for: fileContext!)
         }
     }
     

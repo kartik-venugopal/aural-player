@@ -49,6 +49,9 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     // Temporary holder for the currently shown track
     static var shownTrack: Track?
     
+    // Whether or not this popover is currently displayed attached to the player (false if attached to playlist).
+    static var attachedToPlayer: Bool = true
+    
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
     

@@ -167,7 +167,7 @@ class FFmpegFileReader: FileReaderProtocol {
             
             audioInfo.format = fctx.formatLongName
             
-            audioInfo.codec = (playbackContext as? FFmpegPlaybackContext)?.audioCodec.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
+            audioInfo.codec = (playbackContext as? FFmpegPlaybackContext)?.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
             
             audioInfo.bitRate = roundedInt(Double(fctx.bitRate) / Double(Size.KB))
             

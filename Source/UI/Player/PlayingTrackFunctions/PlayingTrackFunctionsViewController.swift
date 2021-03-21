@@ -84,6 +84,8 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
                 
             } else {
                 
+                DetailedTrackInfoViewController.attachedToPlayer = true
+                
                 // TODO: This should be done through a delegate (TrackDelegate ???)
                 trackReader.loadAuxiliaryMetadata(for: playingTrack)
                 
@@ -241,7 +243,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             
             newTrackStarted(theNewTrack)
             
-            if detailedInfoPopover.isShown {
+            if detailedInfoPopover.isShown, DetailedTrackInfoViewController.attachedToPlayer {
                 
                 trackReader.loadAuxiliaryMetadata(for: theNewTrack)
                 detailedInfoPopover.refresh(theNewTrack)

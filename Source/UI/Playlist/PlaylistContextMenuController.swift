@@ -148,6 +148,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         guard let theClickedTrack = clickedTrack else {return}
         
+        DetailedTrackInfoViewController.attachedToPlayer = false
+        
         trackReader.loadAuxiliaryMetadata(for: theClickedTrack)
         
         WindowManager.playlistWindow.makeKeyAndOrderFront(self)
