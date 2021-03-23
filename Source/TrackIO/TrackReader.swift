@@ -8,8 +8,12 @@ class TrackReader {
     // The delegate object that this object defers all read operations to.
     private var fileReader: FileReader
     
-    init(_ fileReader: FileReader) {
+    private var musicBrainzClient: MusicBrainzRESTClient
+    
+    init(_ fileReader: FileReader, _ musicBrainzClient: MusicBrainzRESTClient) {
+        
         self.fileReader = fileReader
+        self.musicBrainzClient = musicBrainzClient
     }
     
     ///
@@ -116,15 +120,51 @@ class TrackReader {
     ///
     func loadArtAsync(for track: Track) {
         
-        if track.artLoaded {return}
+        NSLog("loadArtAsync() for \(track.displayName).")
+        
+        if track.artLoaded {
+//            NSLog("Art loaded for \(track.displayName). Returning ...")
+            return
+        }
         
         DispatchQueue.global(qos: .userInteractive).async {
             
             track.art = self.fileReader.getArt(for: track.file)
-
+            
             // Send out an update notification if art was found.
             if track.art != nil {
+                
                 Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
+                
+            } else {
+                
+                // MusicBrainz lookup, if allowed by user preference.
+                // Check if we have internet connection
+                print("Has internet ? \(SystemUtils.hasInternetConnectivity)")
+                
+                // if track has artist and album/title, do the lookup.
+                if let artist = track.artist, let releaseTitle = track.album ?? track.title {
+                    
+                    do {
+                        
+                        // Perform the search using the client object.
+                        if let coverArt = try self.musicBrainzClient.getCoverArt(forArtist: artist, andReleaseTitle: releaseTitle) {
+                            
+                            // TODO: Update the AlbumArtCache
+                            
+                            track.art = coverArt
+                            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
+                        }
+                        
+                    } catch {
+                        
+                        if let httpError = error as? HTTPError {
+                            NSLog("An HTTP error occurred while querying MusicBrainz: \(httpError.description) (code: \(httpError.code)")
+                        } else {
+                            NSLog("An error occurred while querying MusicBrainz: \(error)")
+                        }
+                    }
+                }
             }
         }
     }

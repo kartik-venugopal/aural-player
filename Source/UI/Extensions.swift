@@ -411,6 +411,15 @@ public extension NSBezierPath {
 
 extension NSImage {
     
+    func writeToFile(fileType: NSBitmapImageRep.FileType, file: URL) throws {
+        
+        if let bits = self.representations.first as? NSBitmapImageRep,
+           let data = bits.representation(using: fileType, properties: [:]) {
+            
+            try data.write(to: file)
+        }
+    }
+    
     // Returns a copy of this image tinted with a given color. Used by several UI components for system color scheme conformance.
     func applyingTint(_ color: NSColor) -> NSImage {
         

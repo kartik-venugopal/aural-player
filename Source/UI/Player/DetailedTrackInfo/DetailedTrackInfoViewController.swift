@@ -160,14 +160,12 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             
             let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-coverArt", fileExtension)
             
-            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url,
-                let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: type, properties: [:]) {
+            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                     
                 do {
+                    try image.writeToFile(fileType: type, file: outFile)
                     
-                    try data.write(to: outFile)
-                    
-                } catch let error {
+                } catch {
                     
                     _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("Image file not written", "Unable to export image", error.localizedDescription))
                 }

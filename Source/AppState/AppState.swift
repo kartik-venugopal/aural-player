@@ -17,6 +17,7 @@ class AppState {
     var favorites: [(file: URL, name: String)] = [(file: URL, name: String)]()
     var bookmarks: [BookmarkState] = []
     var playbackProfiles: [PlaybackProfile] = []
+    var musicBrainzCache: MusicBrainzCacheState = MusicBrainzCacheState()
     
     static let defaults: AppState = AppState()
     
@@ -66,6 +67,10 @@ class AppState {
                 state.playbackProfiles.append(profile)
             }
         })
+        
+        if let musicBrainzCacheDict = (jsonObject["musicBrainzCache"] as? NSDictionary) {
+            state.musicBrainzCache = MusicBrainzCacheState.deserialize(musicBrainzCacheDict) as! MusicBrainzCacheState
+        }
         
         return state
     }

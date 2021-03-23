@@ -50,6 +50,9 @@ class ObjectGraph {
     
     static var mediaKeyHandler: MediaKeyHandler!
     
+    static var musicBrainzClient: MusicBrainzRESTClient!
+    static var musicBrainzCache: MusicBrainzCache!
+    
     static var fft: FFT!
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
@@ -100,7 +103,11 @@ class ObjectGraph {
         sequencerDelegate = SequencerDelegate(sequencer)
         
         fileReader = FileReader()
-        trackReader = TrackReader(fileReader)
+        
+        musicBrainzCache = MusicBrainzCache(state: appState.musicBrainzCache)
+        musicBrainzClient = MusicBrainzRESTClient(musicBrainzCache)
+        
+        trackReader = TrackReader(fileReader, musicBrainzClient)
         
         let profiles = PlaybackProfiles()
         
@@ -207,6 +214,7 @@ class ObjectGraph {
         appState.history = (historyDelegate as! HistoryDelegate).persistentState as! HistoryState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
         appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
+        appState.musicBrainzCache = musicBrainzCache.persistentState as! MusicBrainzCacheState
         
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.
