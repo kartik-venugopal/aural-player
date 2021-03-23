@@ -159,7 +159,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         })
     }
     
-    var persistentState: PersistentState {
+    var persistentState: AudioGraphState {
         
         let state: AudioGraphState = AudioGraphState()
         

@@ -12,36 +12,32 @@ class UIState: PersistentState {
     var playlist: PlaylistUIState = PlaylistUIState()
     var visualizer: VisualizerUIState = VisualizerUIState()
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> UIState {
         
         let state = UIState()
         
         if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
-            state.windowLayout = WindowLayoutState.deserialize(windowLayoutMap) as! WindowLayoutState
+            state.windowLayout = WindowLayoutState.deserialize(windowLayoutMap)
         }
         
-        if let fontSchemesMap = map["fontSchemes"] as? NSDictionary,
-            let fontSchemes = FontSchemesState.deserialize(fontSchemesMap) as? FontSchemesState {
-            
-            state.fontSchemes = fontSchemes
+        if let fontSchemesMap = map["fontSchemes"] as? NSDictionary {
+            state.fontSchemes = FontSchemesState.deserialize(fontSchemesMap)
         }
         
-        if let colorSchemesMap = map["colorSchemes"] as? NSDictionary,
-            let colorSchemes = ColorSchemesState.deserialize(colorSchemesMap) as? ColorSchemesState {
-            
-            state.colorSchemes = colorSchemes
+        if let colorSchemesMap = map["colorSchemes"] as? NSDictionary {
+            state.colorSchemes = ColorSchemesState.deserialize(colorSchemesMap)
         }
         
         if let playerMap = map["player"] as? NSDictionary {
-            state.player = PlayerUIState.deserialize(playerMap) as! PlayerUIState
+            state.player = PlayerUIState.deserialize(playerMap)
         }
         
         if let playlistMap = map["playlist"] as? NSDictionary {
-            state.playlist = PlaylistUIState.deserialize(playlistMap) as! PlaylistUIState
+            state.playlist = PlaylistUIState.deserialize(playlistMap)
         }
         
         if let visualizerMap = map["visualizer"] as? NSDictionary {
-            state.visualizer = VisualizerUIState.deserialize(visualizerMap) as! VisualizerUIState
+            state.visualizer = VisualizerUIState.deserialize(visualizerMap)
         }
         
         return state
@@ -52,7 +48,7 @@ class PlaylistUIState: PersistentState {
     
     var view: String = "Tracks"
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlaylistUIState {
         
         let state = PlaylistUIState()
         
@@ -69,7 +65,7 @@ class VisualizerUIState: PersistentState {
     var type: String?
     var options: VisualizerOptionsState?
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> VisualizerUIState {
         
         let state = VisualizerUIState()
         
@@ -77,8 +73,8 @@ class VisualizerUIState: PersistentState {
             state.type = type
         }
         
-        if let optionsDict = map["options"] as? NSDictionary, let options = VisualizerOptionsState.deserialize(optionsDict) as? VisualizerOptionsState {
-            state.options = options
+        if let optionsDict = map["options"] as? NSDictionary {
+            state.options = VisualizerOptionsState.deserialize(optionsDict)
         }
         
         return state
@@ -90,18 +86,16 @@ class VisualizerOptionsState: PersistentState {
     var lowAmplitudeColor: ColorState?
     var highAmplitudeColor: ColorState?
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> VisualizerOptionsState {
         
         let state = VisualizerOptionsState()
         
-        if let colorDict = map["lowAmplitudeColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            
-            state.lowAmplitudeColor = color
+        if let colorDict = map["lowAmplitudeColor"] as? NSDictionary {
+            state.lowAmplitudeColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["highAmplitudeColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            
-            state.highAmplitudeColor = color
+        if let colorDict = map["highAmplitudeColor"] as? NSDictionary {
+            state.highAmplitudeColor = ColorState.deserialize(colorDict)
         }
         
         return state
@@ -127,7 +121,7 @@ class PlayerUIState: PersistentState {
     var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlayerUIState {
         
         let state = PlayerUIState()
         
@@ -163,7 +157,7 @@ class WindowLayoutState: PersistentState {
     
     var userLayouts: [WindowLayout] = [WindowLayout]()
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> WindowLayoutState {
         
         let state = WindowLayoutState()
         

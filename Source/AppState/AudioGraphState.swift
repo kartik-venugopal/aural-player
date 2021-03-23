@@ -8,7 +8,7 @@ class FXUnitState<T: EffectsUnitPreset> {
 
 class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> MasterUnitState {
         
         let masterState = MasterUnitState()
         
@@ -78,7 +78,7 @@ class EQUnitState: FXUnitState<EQPreset>, PersistentState {
     var globalGain: Float = AppDefaults.eqGlobalGain
     var bands: [Float] = [Float]() // Index -> Gain
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> EQUnitState {
         
         let eqState: EQUnitState = EQUnitState()
         
@@ -125,7 +125,7 @@ class PitchUnitState: FXUnitState<PitchPreset>, PersistentState {
     var pitch: Float = AppDefaults.pitch
     var overlap: Float = AppDefaults.pitchOverlap
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PitchUnitState {
         
         let state: PitchUnitState = PitchUnitState()
         
@@ -165,7 +165,7 @@ class TimeUnitState: FXUnitState<TimePreset>, PersistentState {
     var shiftPitch: Bool = AppDefaults.timeShiftPitch
     var overlap: Float = AppDefaults.timeOverlap
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> TimeUnitState {
         
         let timeState: TimeUnitState = TimeUnitState()
         
@@ -206,7 +206,7 @@ class ReverbUnitState: FXUnitState<ReverbPreset>, PersistentState {
     var space: ReverbSpaces = AppDefaults.reverbSpace
     var amount: Float = AppDefaults.reverbAmount
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> ReverbUnitState {
         
         let reverbState: ReverbUnitState = ReverbUnitState()
         
@@ -247,7 +247,7 @@ class DelayUnitState: FXUnitState<DelayPreset>, PersistentState {
     var feedback: Float = AppDefaults.delayFeedback
     var lowPassCutoff: Float = AppDefaults.delayLowPassCutoff
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> DelayUnitState {
         
         let delayState: DelayUnitState = DelayUnitState()
         
@@ -290,7 +290,7 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
     
     var bands: [FilterBand] = []
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> FilterUnitState {
         
         let filterState: FilterUnitState = FilterUnitState()
         
@@ -366,12 +366,12 @@ class AudioGraphState: PersistentState {
     
     var soundProfiles: [SoundProfile] = []
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> AudioGraphState {
         
         let audioGraphState = AudioGraphState()
         
         if let outputDeviceDict = (map["outputDevice"] as? NSDictionary) {
-            audioGraphState.outputDevice = AudioDeviceState.deserialize(outputDeviceDict) as! AudioDeviceState
+            audioGraphState.outputDevice = AudioDeviceState.deserialize(outputDeviceDict)
         }
         
         audioGraphState.volume = mapNumeric(map, "volume", AppDefaults.volume)
@@ -379,31 +379,31 @@ class AudioGraphState: PersistentState {
         audioGraphState.balance = mapNumeric(map, "balance", AppDefaults.balance)
         
         if let masterDict = (map["masterUnit"] as? NSDictionary) {
-            audioGraphState.masterUnit = MasterUnitState.deserialize(masterDict) as! MasterUnitState
+            audioGraphState.masterUnit = MasterUnitState.deserialize(masterDict)
         }
         
         if let eqDict = (map["eqUnit"] as? NSDictionary) {
-            audioGraphState.eqUnit = EQUnitState.deserialize(eqDict) as! EQUnitState
+            audioGraphState.eqUnit = EQUnitState.deserialize(eqDict)
         }
         
         if let pitchDict = (map["pitchUnit"] as? NSDictionary) {
-            audioGraphState.pitchUnit = PitchUnitState.deserialize(pitchDict) as! PitchUnitState
+            audioGraphState.pitchUnit = PitchUnitState.deserialize(pitchDict)
         }
         
         if let timeDict = (map["timeUnit"] as? NSDictionary) {
-            audioGraphState.timeUnit = TimeUnitState.deserialize(timeDict) as! TimeUnitState
+            audioGraphState.timeUnit = TimeUnitState.deserialize(timeDict)
         }
         
         if let reverbDict = (map["reverbUnit"] as? NSDictionary) {
-            audioGraphState.reverbUnit = ReverbUnitState.deserialize(reverbDict) as! ReverbUnitState
+            audioGraphState.reverbUnit = ReverbUnitState.deserialize(reverbDict)
         }
         
         if let delayDict = (map["delayUnit"] as? NSDictionary) {
-            audioGraphState.delayUnit = DelayUnitState.deserialize(delayDict) as! DelayUnitState
+            audioGraphState.delayUnit = DelayUnitState.deserialize(delayDict)
         }
         
         if let filterDict = (map["filterUnit"] as? NSDictionary) {
-            audioGraphState.filterUnit = FilterUnitState.deserialize(filterDict) as! FilterUnitState
+            audioGraphState.filterUnit = FilterUnitState.deserialize(filterDict)
         }
         
         if let profilesArr = map["soundProfiles"] as? [NSDictionary] {

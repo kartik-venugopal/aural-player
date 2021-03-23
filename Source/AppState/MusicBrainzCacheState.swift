@@ -4,7 +4,7 @@ class MusicBrainzCacheState: PersistentState {
     
     var entries: [MusicBrainzCacheEntryState] = []
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> MusicBrainzCacheState {
         
         let state =  MusicBrainzCacheState()
         
@@ -53,7 +53,7 @@ class MusicBrainzCacheEntryState {
 
 extension MusicBrainzCache: PersistentModelObject {
     
-    var persistentState: PersistentState {
+    var persistentState: MusicBrainzCacheState {
         
         let state = MusicBrainzCacheState()
         

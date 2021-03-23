@@ -198,9 +198,9 @@ class ObjectGraph {
         
         appState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
         
-        appState.audioGraph = (audioGraph as! PersistentModelObject).persistentState as! AudioGraphState
-        appState.playlist = (playlist as! Playlist).persistentState as! PlaylistState
-        appState.playbackSequence = (sequencer as! Sequencer).persistentState as! PlaybackSequenceState
+        appState.audioGraph = (audioGraph as! AudioGraph).persistentState
+        appState.playlist = (playlist as! Playlist).persistentState
+        appState.playbackSequence = (sequencer as! Sequencer).persistentState
         appState.playbackProfiles = playbackDelegate.profiles.all()
         
         appState.ui = UIState()
@@ -211,10 +211,10 @@ class ObjectGraph {
         appState.ui.playlist = PlaylistViewState.persistentState
         appState.ui.visualizer = VisualizerViewState.persistentState
         
-        appState.history = (historyDelegate as! HistoryDelegate).persistentState as! HistoryState
+        appState.history = (historyDelegate as! HistoryDelegate).persistentState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
         appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
-        appState.musicBrainzCache = musicBrainzCache.persistentState as! MusicBrainzCacheState
+        appState.musicBrainzCache = musicBrainzCache.persistentState
         
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.

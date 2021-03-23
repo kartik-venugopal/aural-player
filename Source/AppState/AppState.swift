@@ -27,23 +27,23 @@ class AppState {
         let state = AppState()
         
         if let uiDict = (jsonObject["ui"] as? NSDictionary) {
-            state.ui = UIState.deserialize(uiDict) as! UIState
+            state.ui = UIState.deserialize(uiDict)
         }
         
         if let map = (jsonObject["audioGraph"] as? NSDictionary) {
-            state.audioGraph = AudioGraphState.deserialize(map) as! AudioGraphState
+            state.audioGraph = AudioGraphState.deserialize(map)
         }
         
         if let playbackSequenceDict = (jsonObject["playbackSequence"] as? NSDictionary) {
-            state.playbackSequence = PlaybackSequenceState.deserialize(playbackSequenceDict) as! PlaybackSequenceState
+            state.playbackSequence = PlaybackSequenceState.deserialize(playbackSequenceDict)
         }
         
         if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
-            state.playlist = PlaylistState.deserialize(playlistDict) as! PlaylistState
+            state.playlist = PlaylistState.deserialize(playlistDict)
         }
         
         if let historyDict = (jsonObject["history"] as? NSDictionary) {
-            state.history = HistoryState.deserialize(historyDict) as! HistoryState
+            state.history = HistoryState.deserialize(historyDict)
         }
         
         if let favoritesArr = (jsonObject["favorites"] as? [NSDictionary]) {
@@ -69,7 +69,7 @@ class AppState {
         })
         
         if let musicBrainzCacheDict = (jsonObject["musicBrainzCache"] as? NSDictionary) {
-            state.musicBrainzCache = MusicBrainzCacheState.deserialize(musicBrainzCacheDict) as! MusicBrainzCacheState
+            state.musicBrainzCache = MusicBrainzCacheState.deserialize(musicBrainzCacheDict)
         }
         
         return state

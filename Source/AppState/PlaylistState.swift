@@ -11,7 +11,7 @@ class PlaylistState: PersistentState {
     
     init() {}
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlaylistState {
         
         let state = PlaylistState()
         
@@ -19,20 +19,23 @@ class PlaylistState: PersistentState {
         
         if let groupingPlaylistsMap = map["groupingPlaylists"] as? NSDictionary {
          
-            if let artistsPlaylistMap = groupingPlaylistsMap["artists"] as? NSDictionary, let artistsPlaylist = GroupingPlaylistState.deserialize(artistsPlaylistMap) as? GroupingPlaylistState {
+            if let artistsPlaylistMap = groupingPlaylistsMap["artists"] as? NSDictionary {
                 
+                let artistsPlaylist = GroupingPlaylistState.deserialize(artistsPlaylistMap)
                 artistsPlaylist._transient_type = "artists"
                 state.groupingPlaylists["artists"] = artistsPlaylist
             }
             
-            if let albumsPlaylistMap = groupingPlaylistsMap["albums"] as? NSDictionary, let albumsPlaylist = GroupingPlaylistState.deserialize(albumsPlaylistMap) as? GroupingPlaylistState {
+            if let albumsPlaylistMap = groupingPlaylistsMap["albums"] as? NSDictionary {
                 
+                let albumsPlaylist = GroupingPlaylistState.deserialize(albumsPlaylistMap)
                 albumsPlaylist._transient_type = "albums"
                 state.groupingPlaylists["albums"] = albumsPlaylist
             }
             
-            if let genresPlaylistMap = groupingPlaylistsMap["genres"] as? NSDictionary, let genresPlaylist = GroupingPlaylistState.deserialize(genresPlaylistMap) as? GroupingPlaylistState {
+            if let genresPlaylistMap = groupingPlaylistsMap["genres"] as? NSDictionary {
                 
+                let genresPlaylist = GroupingPlaylistState.deserialize(genresPlaylistMap)
                 genresPlaylist._transient_type = "genres"
                 state.groupingPlaylists["genres"] = genresPlaylist
             }
@@ -49,12 +52,12 @@ class GroupingPlaylistState: PersistentState {
     
     init() {}
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> GroupingPlaylistState {
         
         let state = GroupingPlaylistState()
         
         if let groupsArr = map["groups"] as? [NSDictionary] {
-            state.groups = groupsArr.compactMap {GroupState.deserialize($0) as? GroupState}
+            state.groups = groupsArr.compactMap {GroupState.deserialize($0)}
         }
         
         return state
@@ -70,7 +73,7 @@ class GroupState: PersistentState {
     
     init() {}
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> GroupState {
         
         let state = GroupState()
         
@@ -87,14 +90,14 @@ class GroupState: PersistentState {
 extension Playlist: PersistentModelObject {
     
     // Returns all state for this playlist that needs to be persisted to disk
-    var persistentState: PersistentState {
+    var persistentState: PlaylistState {
         
         let state = PlaylistState()
         
         state.tracks = tracks.map {$0.file}
         
         for (type, playlist) in self.groupingPlaylists {
-            state.groupingPlaylists[type.rawValue] = ((playlist as! GroupingPlaylist).persistentState as! GroupingPlaylistState)
+            state.groupingPlaylists[type.rawValue] = (playlist as! GroupingPlaylist).persistentState
         }
         
         return state
@@ -103,12 +106,12 @@ extension Playlist: PersistentModelObject {
 
 extension GroupingPlaylist: PersistentModelObject {
     
-    var persistentState: PersistentState {
+    var persistentState: GroupingPlaylistState {
         
         let state = GroupingPlaylistState()
         
         state._transient_type = self.playlistType.rawValue
-        state.groups = self.groups.compactMap {$0.persistentState as? GroupState}
+        state.groups = self.groups.compactMap {$0.persistentState}
         
         return state
     }
@@ -116,7 +119,7 @@ extension GroupingPlaylist: PersistentModelObject {
 
 extension Group: PersistentModelObject {
     
-    var persistentState: PersistentState {
+    var persistentState: GroupState {
         
         let state = GroupState()
         

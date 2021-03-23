@@ -5,7 +5,7 @@ class HistoryState: PersistentState {
     var recentlyAdded: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()
     var recentlyPlayed: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> HistoryState {
         
         let state = HistoryState()
         
@@ -32,7 +32,7 @@ class HistoryState: PersistentState {
 
 extension HistoryDelegate: PersistentModelObject {
     
-    var persistentState: PersistentState {
+    var persistentState: HistoryState {
         
         let state = HistoryState()
         

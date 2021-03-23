@@ -16,22 +16,16 @@ class FontSchemesState: PersistentState {
         self.userSchemes = userSchemes
     }
 
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> FontSchemesState {
 
         let state = FontSchemesState()
 
-        if let arr = map["userSchemes"] as? NSArray {
-
-            for dict in arr {
-
-                if let theDict = dict as? NSDictionary, let userScheme = FontSchemeState.deserialize(theDict) as? FontSchemeState {
-                    state.userSchemes.append(userScheme)
-                }
-            }
+        if let arr = map["userSchemes"] as? [NSDictionary] {
+            state.userSchemes = arr.map {FontSchemeState.deserialize($0)}
         }
 
-        if let dict = map["systemScheme"] as? NSDictionary, let scheme = FontSchemeState.deserialize(dict) as? FontSchemeState {
-            state.systemScheme = scheme
+        if let dict = map["systemScheme"] as? NSDictionary {
+            state.systemScheme = FontSchemeState.deserialize(dict)
         }
 
         return state
@@ -67,7 +61,7 @@ class FontSchemeState: PersistentState {
         self.effects = EffectsFontSchemeState(scheme.effects)
     }
 
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> FontSchemeState {
 
         let state = FontSchemeState()
 
@@ -78,16 +72,16 @@ class FontSchemeState: PersistentState {
         state.textFontName = map["textFontName"] as? String ?? ""
         state.headingFontName = map["headingFontName"] as? String ?? ""
 
-        if let dict = map["player"] as? NSDictionary, let playerState = PlayerFontSchemeState.deserialize(dict) as? PlayerFontSchemeState {
-            state.player = playerState
+        if let dict = map["player"] as? NSDictionary {
+            state.player = PlayerFontSchemeState.deserialize(dict)
         }
 
-        if let dict = map["playlist"] as? NSDictionary, let playlistState = PlaylistFontSchemeState.deserialize(dict) as? PlaylistFontSchemeState {
-            state.playlist = playlistState
+        if let dict = map["playlist"] as? NSDictionary {
+            state.playlist = PlaylistFontSchemeState.deserialize(dict)
         }
 
-        if let dict = map["effects"] as? NSDictionary, let effectsState = EffectsFontSchemeState.deserialize(dict) as? EffectsFontSchemeState {
-            state.effects = effectsState
+        if let dict = map["effects"] as? NSDictionary {
+            state.effects = EffectsFontSchemeState.deserialize(dict)
         }
 
         return state
@@ -116,7 +110,7 @@ class PlayerFontSchemeState: PersistentState {
         self.feedbackTextSize = scheme.feedbackFont.pointSize
     }
 
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlayerFontSchemeState {
 
         let state = PlayerFontSchemeState()
 
@@ -180,7 +174,7 @@ class PlaylistFontSchemeState: PersistentState {
         self.chaptersListSearchSize = scheme.chaptersListSearchFont.pointSize
     }
 
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlaylistFontSchemeState {
 
         let state = PlaylistFontSchemeState()
 
@@ -244,7 +238,7 @@ class EffectsFontSchemeState: PersistentState {
         self.filterChartSize = scheme.filterChartFont.pointSize
     }
 
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> EffectsFontSchemeState {
 
         let state = EffectsFontSchemeState()
 

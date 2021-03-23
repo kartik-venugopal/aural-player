@@ -16,22 +16,16 @@ class ColorSchemesState: PersistentState {
         self.userSchemes = userSchemes
     }
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> ColorSchemesState {
         
         let state = ColorSchemesState()
         
-        if let arr = map["userSchemes"] as? NSArray {
-            
-            for dict in arr {
-                
-                if let theDict = dict as? NSDictionary, let userScheme = ColorSchemeState.deserialize(theDict) as? ColorSchemeState {
-                    state.userSchemes.append(userScheme)
-                }
-            }
+        if let arr = map["userSchemes"] as? [NSDictionary] {
+            state.userSchemes = arr.map {ColorSchemeState.deserialize($0)}
         }
         
-        if let dict = map["systemScheme"] as? NSDictionary, let scheme = ColorSchemeState.deserialize(dict) as? ColorSchemeState {
-            state.systemScheme = scheme
+        if let dict = map["systemScheme"] as? NSDictionary {
+            state.systemScheme = ColorSchemeState.deserialize(dict)
         }
         
         return state
@@ -63,7 +57,7 @@ class ColorSchemeState: PersistentState {
         self.effects = EffectsColorSchemeState(scheme.effects)
     }
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> ColorSchemeState {
         
         let state = ColorSchemeState()
         
@@ -71,20 +65,20 @@ class ColorSchemeState: PersistentState {
             state.name = name
         }
         
-        if let dict = map["general"] as? NSDictionary, let generalState = GeneralColorSchemeState.deserialize(dict) as? GeneralColorSchemeState {
-            state.general = generalState
+        if let dict = map["general"] as? NSDictionary {
+            state.general = GeneralColorSchemeState.deserialize(dict)
         }
         
-        if let dict = map["player"] as? NSDictionary, let playerState = PlayerColorSchemeState.deserialize(dict) as? PlayerColorSchemeState {
-            state.player = playerState
+        if let dict = map["player"] as? NSDictionary {
+            state.player = PlayerColorSchemeState.deserialize(dict)
         }
         
-        if let dict = map["playlist"] as? NSDictionary, let playlistState = PlaylistColorSchemeState.deserialize(dict) as? PlaylistColorSchemeState {
-            state.playlist = playlistState
+        if let dict = map["playlist"] as? NSDictionary {
+            state.playlist = PlaylistColorSchemeState.deserialize(dict)
         }
         
-        if let dict = map["effects"] as? NSDictionary, let effectsState = EffectsColorSchemeState.deserialize(dict) as? EffectsColorSchemeState {
-            state.effects = effectsState
+        if let dict = map["effects"] as? NSDictionary {
+            state.effects = EffectsColorSchemeState.deserialize(dict)
         }
         
         return state
@@ -129,52 +123,52 @@ class GeneralColorSchemeState: PersistentState {
         self.buttonMenuTextColor = ColorState.fromColor(scheme.buttonMenuTextColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> GeneralColorSchemeState {
         
         let state = GeneralColorSchemeState()
         
-        if let colorDict = map["appLogoColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.appLogoColor = color
+        if let colorDict = map["appLogoColor"] as? NSDictionary {
+            state.appLogoColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["backgroundColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.backgroundColor = color
+        if let colorDict = map["backgroundColor"] as? NSDictionary {
+            state.backgroundColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["viewControlButtonColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.viewControlButtonColor = color
+        if let colorDict = map["viewControlButtonColor"] as? NSDictionary {
+            state.viewControlButtonColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["functionButtonColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.functionButtonColor = color
+        if let colorDict = map["functionButtonColor"] as? NSDictionary {
+            state.functionButtonColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["textButtonMenuColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.textButtonMenuColor = color
+        if let colorDict = map["textButtonMenuColor"] as? NSDictionary {
+            state.textButtonMenuColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["toggleButtonOffStateColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.toggleButtonOffStateColor = color
+        if let colorDict = map["toggleButtonOffStateColor"] as? NSDictionary {
+            state.toggleButtonOffStateColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["selectedTabButtonColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.selectedTabButtonColor = color
+        if let colorDict = map["selectedTabButtonColor"] as? NSDictionary {
+            state.selectedTabButtonColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["mainCaptionTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.mainCaptionTextColor = color
+        if let colorDict = map["mainCaptionTextColor"] as? NSDictionary {
+            state.mainCaptionTextColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["tabButtonTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.tabButtonTextColor = color
+        if let colorDict = map["tabButtonTextColor"] as? NSDictionary {
+            state.tabButtonTextColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["selectedTabButtonTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.selectedTabButtonTextColor = color
+        if let colorDict = map["selectedTabButtonTextColor"] as? NSDictionary {
+            state.selectedTabButtonTextColor =  ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["buttonMenuTextColor"] as? NSDictionary, let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.buttonMenuTextColor = color
+        if let colorDict = map["buttonMenuTextColor"] as? NSDictionary {
+            state.buttonMenuTextColor =  ColorState.deserialize(colorDict)
         }
         
         return state
@@ -226,33 +220,28 @@ class PlayerColorSchemeState: PersistentState {
         self.sliderLoopSegmentColor = ColorState.fromColor(scheme.sliderLoopSegmentColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlayerColorSchemeState {
         
         let state = PlayerColorSchemeState()
         
-        if let colorDict = map["trackInfoPrimaryTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.trackInfoPrimaryTextColor = color
+        if let colorDict = map["trackInfoPrimaryTextColor"] as? NSDictionary {
+            state.trackInfoPrimaryTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["trackInfoSecondaryTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.trackInfoSecondaryTextColor = color
+        if let colorDict = map["trackInfoSecondaryTextColor"] as? NSDictionary {
+            state.trackInfoSecondaryTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["trackInfoTertiaryTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.trackInfoTertiaryTextColor = color
+        if let colorDict = map["trackInfoTertiaryTextColor"] as? NSDictionary {
+            state.trackInfoTertiaryTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["sliderValueTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderValueTextColor = color
+        if let colorDict = map["sliderValueTextColor"] as? NSDictionary {
+            state.sliderValueTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["sliderBackgroundColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderBackgroundColor = color
+        if let colorDict = map["sliderBackgroundColor"] as? NSDictionary {
+            state.sliderBackgroundColor = ColorState.deserialize(colorDict)
         }
         
         if let gradientTypeStr = map["sliderBackgroundGradientType"] as? String,
@@ -265,9 +254,8 @@ class PlayerColorSchemeState: PersistentState {
             state.sliderBackgroundGradientAmount = amountNum.intValue
         }
         
-        if let colorDict = map["sliderForegroundColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderForegroundColor = color
+        if let colorDict = map["sliderForegroundColor"] as? NSDictionary {
+            state.sliderForegroundColor = ColorState.deserialize(colorDict)
         }
         
         if let gradientTypeStr = map["sliderForegroundGradientType"] as? String,
@@ -280,18 +268,16 @@ class PlayerColorSchemeState: PersistentState {
             state.sliderForegroundGradientAmount = amountNum.intValue
         }
         
-        if let colorDict = map["sliderKnobColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderKnobColor = color
+        if let colorDict = map["sliderKnobColor"] as? NSDictionary {
+            state.sliderKnobColor = ColorState.deserialize(colorDict)
         }
         
         if let useForegroundColor = map["sliderKnobColorSameAsForeground"] as? Bool {
             state.sliderKnobColorSameAsForeground = useForegroundColor
         }
         
-        if let colorDict = map["sliderLoopSegmentColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderLoopSegmentColor = color
+        if let colorDict = map["sliderLoopSegmentColor"] as? NSDictionary {
+            state.sliderLoopSegmentColor = ColorState.deserialize(colorDict)
         }
         
         return state
@@ -338,63 +324,52 @@ class PlaylistColorSchemeState: PersistentState {
         self.summaryInfoColor = ColorState.fromColor(scheme.summaryInfoColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlaylistColorSchemeState {
         
         let state = PlaylistColorSchemeState()
         
-        if let colorDict = map["trackNameTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.trackNameTextColor = color
+        if let colorDict = map["trackNameTextColor"] as? NSDictionary {
+            state.trackNameTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["groupNameTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.groupNameTextColor = color
+        if let colorDict = map["groupNameTextColor"] as? NSDictionary {
+            state.groupNameTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["indexDurationTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.indexDurationTextColor = color
+        if let colorDict = map["indexDurationTextColor"] as? NSDictionary {
+            state.indexDurationTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["trackNameSelectedTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.trackNameSelectedTextColor = color
+        if let colorDict = map["trackNameSelectedTextColor"] as? NSDictionary {
+            state.trackNameSelectedTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["groupNameSelectedTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.groupNameSelectedTextColor = color
+        if let colorDict = map["groupNameSelectedTextColor"] as? NSDictionary {
+            state.groupNameSelectedTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["indexDurationSelectedTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.indexDurationSelectedTextColor = color
+        if let colorDict = map["indexDurationSelectedTextColor"] as? NSDictionary {
+            state.indexDurationSelectedTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["groupIconColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.groupIconColor = color
+        if let colorDict = map["groupIconColor"] as? NSDictionary {
+            state.groupIconColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["groupDisclosureTriangleColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.groupDisclosureTriangleColor = color
+        if let colorDict = map["groupDisclosureTriangleColor"] as? NSDictionary {
+            state.groupDisclosureTriangleColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["selectionBoxColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.selectionBoxColor = color
+        if let colorDict = map["selectionBoxColor"] as? NSDictionary {
+            state.selectionBoxColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["playingTrackIconColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.playingTrackIconColor = color
+        if let colorDict = map["playingTrackIconColor"] as? NSDictionary {
+            state.playingTrackIconColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["summaryInfoColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.summaryInfoColor = color
+        if let colorDict = map["summaryInfoColor"] as? NSDictionary {
+            state.summaryInfoColor = ColorState.deserialize(colorDict)
         }
         
         return state
@@ -449,23 +424,20 @@ class EffectsColorSchemeState: PersistentState {
         self.suppressedUnitStateColor = ColorState.fromColor(scheme.suppressedUnitStateColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> EffectsColorSchemeState {
         
         let state = EffectsColorSchemeState()
         
-        if let colorDict = map["functionCaptionTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.functionCaptionTextColor = color
+        if let colorDict = map["functionCaptionTextColor"] as? NSDictionary {
+            state.functionCaptionTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["functionValueTextColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.functionValueTextColor = color
+        if let colorDict = map["functionValueTextColor"] as? NSDictionary {
+            state.functionValueTextColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["sliderBackgroundColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderBackgroundColor = color
+        if let colorDict = map["sliderBackgroundColor"] as? NSDictionary {
+            state.sliderBackgroundColor = ColorState.deserialize(colorDict)
         }
         
         if let gradientTypeStr = map["sliderBackgroundGradientType"] as? String,
@@ -488,33 +460,28 @@ class EffectsColorSchemeState: PersistentState {
             state.sliderForegroundGradientAmount = amountNum.intValue
         }
         
-        if let colorDict = map["sliderKnobColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderKnobColor = color
+        if let colorDict = map["sliderKnobColor"] as? NSDictionary {
+            state.sliderKnobColor = ColorState.deserialize(colorDict)
         }
         
         if let useForegroundColor = map["sliderKnobColorSameAsForeground"] as? Bool {
             state.sliderKnobColorSameAsForeground = useForegroundColor
         }
         
-        if let colorDict = map["sliderTickColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.sliderTickColor = color
+        if let colorDict = map["sliderTickColor"] as? NSDictionary {
+            state.sliderTickColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["activeUnitStateColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.activeUnitStateColor = color
+        if let colorDict = map["activeUnitStateColor"] as? NSDictionary {
+            state.activeUnitStateColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["bypassedUnitStateColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.bypassedUnitStateColor = color
+        if let colorDict = map["bypassedUnitStateColor"] as? NSDictionary {
+            state.bypassedUnitStateColor = ColorState.deserialize(colorDict)
         }
         
-        if let colorDict = map["suppressedUnitStateColor"] as? NSDictionary,
-            let color = ColorState.deserialize(colorDict) as? ColorState {
-            state.suppressedUnitStateColor = color
+        if let colorDict = map["suppressedUnitStateColor"] as? NSDictionary {
+            state.suppressedUnitStateColor = ColorState.deserialize(colorDict)
         }
         
         return state

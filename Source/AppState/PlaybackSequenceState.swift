@@ -8,7 +8,7 @@ class PlaybackSequenceState: PersistentState {
     var repeatMode: RepeatMode = AppDefaults.repeatMode
     var shuffleMode: ShuffleMode = AppDefaults.shuffleMode
     
-    static func deserialize(_ map: NSDictionary) -> PersistentState {
+    static func deserialize(_ map: NSDictionary) -> PlaybackSequenceState {
         
         let state = PlaybackSequenceState()
         
@@ -21,7 +21,7 @@ class PlaybackSequenceState: PersistentState {
 
 extension Sequencer: PersistentModelObject {
     
-    var persistentState: PersistentState {
+    var persistentState: PlaybackSequenceState {
         
         let state = PlaybackSequenceState()
         
