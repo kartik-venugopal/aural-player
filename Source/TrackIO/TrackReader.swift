@@ -133,10 +133,22 @@ class TrackReader {
                 
             } else {
                 
-                self.loadArtFromMusicBrainz(for: track)
+                self.musicBrainzLookupQueue.addOperation {
+                    self.loadArtFromMusicBrainz(for: track)
+                }
             }
         }
     }
+    
+    // Serial queue for MusicBrainz queries.
+    private let musicBrainzLookupQueue: OperationQueue = {
+
+        let queue = OperationQueue()
+        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
+        queue.maxConcurrentOperationCount = 1
+        
+        return queue
+    }()
     
     ///
     /// Loads all non-essential ("auxiliary") metadata associated with a track, for display in the "Detailed track info" view.
@@ -154,7 +166,7 @@ class TrackReader {
         
         if needToQueryMusicBrainz {
             
-            DispatchQueue.global(qos: .userInteractive).async {
+            musicBrainzLookupQueue.addOperation {
                 self.loadArtFromMusicBrainz(for: track)
             }
         }
@@ -171,6 +183,7 @@ class TrackReader {
                 
                 // Lookup by album is preferred, so check for album metadata.
                 // If not, can perform lookup by track title (if present).
+                var lookupByAlbumSuccess: Bool = false
                 
                 // Search by "release title", i.e. album
                 if let releaseTitle = track.album,
@@ -179,11 +192,12 @@ class TrackReader {
                     track.art = coverArt
                     Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
                     CoverArtCache.addEntry(track.file, coverArt)
-
-                } else
+                    
+                    lookupByAlbumSuccess = true
+                }
                 
                 // Search by "recording title", i.e. track title
-                if let recordingTitle = track.title,
+                if !lookupByAlbumSuccess, let recordingTitle = track.title,
                    let coverArt = try self.musicBrainzClient.getCoverArt(forArtist: artist, andRecordingTitle: recordingTitle) {
 
                     track.art = coverArt

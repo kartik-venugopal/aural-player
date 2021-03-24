@@ -151,6 +151,7 @@ enum MusicBrainzReleaseStatus: String {
     case official, other
 }
 
+/// Sort comparator for MusicBrainzRelease objects.
 class MusicBrainzReleaseSort {
  
     var artist: String?
@@ -161,6 +162,7 @@ class MusicBrainzReleaseSort {
         self.artist = artist.lowercased().trim()
     }
     
+    // Used to sort an array of releases such that the most preferred candidate is first in the array.
     func compareAscending(r1: MusicBrainzRelease, r2: MusicBrainzRelease) -> Bool {
         
         if self.artist != nil {
@@ -202,17 +204,22 @@ class MusicBrainzReleaseSort {
     
     private func artistMatchRank(for release: MusicBrainzRelease) -> Int {
         
+        // Compare the artist of the release with the artist used in the query.
+        
         let releaseArtist = release.artistName.lowercased().trim()
         let recordingArtist = self.artist ?? ""
         
+        // If the artist matches (and artist is non-empty), rank is the highest.
         if releaseArtist == recordingArtist && !releaseArtist.isEmpty {
             return 1
         }
         
+        // If the artist matches (and artist is empty), rank is the 2nd highest.
         if releaseArtist == recordingArtist && releaseArtist.isEmpty {
             return 2
         }
         
+        // Artist does not match
         return 3
     }
 }

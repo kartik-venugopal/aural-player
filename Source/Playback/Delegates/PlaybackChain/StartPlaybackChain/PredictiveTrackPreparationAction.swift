@@ -40,7 +40,7 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
             
             // Since some of the candidate tracks might be the same track (subsequent track might be the same as the next track), we need
             // to put them in a Set, and also eliminate nil values.
-            let predictedNextTracks: Set<Track> = Set(nillableTracksArray.compactMap{$0})
+            let predictedNextTracks: Set<Track> = Set(nillableTracksArray.compactMap{$0}.filter {$0 != context.requestedTrack})
             
             // Prepare each of the candidate tracks for playback.
             predictedNextTracks.forEach {

@@ -39,11 +39,6 @@ class MusicBrainzRESTClient {
     private let standardHeaders: [String: String] = ["User-Agent": "Aural Player/\(appVersion) ( \(appContact) )",
                                                              "Accept-Encoding": "gzip"]
     
-    ///
-    /// Limits the number of simultaneous requests made to MusicBrainz, in order to prevent blacklisting.
-    ///
-    private let semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
-    
     init(_ cache: MusicBrainzCache) {
         self.cache = cache
     }
@@ -54,9 +49,6 @@ class MusicBrainzRESTClient {
     /// - Returns an NSImage containing cover art, if found. nil if no cover art was found.
     ///
     func getCoverArt(forArtist artist: String, andReleaseTitle releaseTitle: String) throws -> CoverArt? {
-        
-        semaphore.wait()
-        defer {semaphore.signal()}
         
         let lcArtist = artist.lowercased().trim()
         let lcReleaseTitle = releaseTitle.lowercased().trim()
@@ -102,9 +94,6 @@ class MusicBrainzRESTClient {
     /// Tries to retrieve cover art, given the name of an artist and an associated recording (track) title.
     ///
     func getCoverArt(forArtist artist: String, andRecordingTitle recordingTitle: String) throws -> CoverArt? {
-        
-        semaphore.wait()
-        defer {semaphore.signal()}
         
         let lcArtist = artist.lowercased().trim()
         let lcRecordingTitle = recordingTitle.lowercased().trim()
