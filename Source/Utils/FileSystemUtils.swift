@@ -332,8 +332,6 @@ class FileSystemUtils {
     }
 }
 
-fileprivate let httpClient: HTTPClient =  HTTPClient()
-
 class SystemUtils {
     
     static var numberOfActiveCores: Int {
@@ -363,17 +361,6 @@ class SystemUtils {
         
         let os = osVersion
         return os.majorVersion > 10 || os.minorVersion > 15
-    }
-    
-    static var hasInternetConnectivity: Bool {
-        
-        do {
-            _ = try httpClient.performGET(toURL: URL(string: "https://google.com")!, withHeaders: [:])
-            return true
-            
-        } catch {
-            return false
-        }
     }
 }
 

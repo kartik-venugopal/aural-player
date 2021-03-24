@@ -5,7 +5,6 @@ import Cocoa
 ///
 class MusicBrainzRESTClient {
     
-    // TODO: Add caching !!!
     // For a given artist / release title combo, cache art for later use (other tracks from the same album).
     private let cache: MusicBrainzCache
     
@@ -27,12 +26,18 @@ class MusicBrainzRESTClient {
     
     ///
     /// The headers that will be present in every request sent to MusicBrainz.
+    ///
+    /// User-Agent:
     /// MusicBrainz requires a meaningful "User-Agent" header that identifies the application making the request.
     /// If this header is not present, MusicBrainz may deny the request or blacklist the source IP address.
-    ///
     /// Example: "User-Agent": "MusicBrainz-Swift/1.0.0 ( aural.student@gmail.com)"
     ///
-    private let standardHeaders: [String: String] = ["User-Agent": "Aural Player/\(appVersion) ( \(appContact) )"]
+    /// Accept-Encoding:
+    /// We should set this header to "gzip" to inform the server to compress the response payload using gzip.
+    /// Compression will reduce the transit time of the payload.
+    ///
+    private let standardHeaders: [String: String] = ["User-Agent": "Aural Player/\(appVersion) ( \(appContact) )",
+                                                             "Accept-Encoding": "gzip"]
     
     ///
     /// Limits the number of simultaneous requests made to MusicBrainz, in order to prevent blacklisting.
@@ -57,8 +62,7 @@ class MusicBrainzRESTClient {
         let lcReleaseTitle = releaseTitle.lowercased().trim()
         
         // Look for cover art in the cache first.
-        if let coverArt = cache.getFor(artist: lcArtist, releaseTitle: lcReleaseTitle) {
-            print("Cache HIT for \(artist) - \(releaseTitle) !!!")
+        if let coverArt = cache.getForRelease(artist: lcArtist, title: lcReleaseTitle) {
             return coverArt
         }
         
@@ -77,7 +81,7 @@ class MusicBrainzRESTClient {
                 if let coverArt = try getFrontCoverImage(release: releaseWithCoverArt) {
                     
                     // Add this entry to the cache.
-                    cache.putFor(artist: lcArtist, releaseTitle: lcReleaseTitle, coverArt: coverArt)
+                    cache.putForRelease(artist: lcArtist, title: lcReleaseTitle, coverArt: coverArt)
                     return coverArt
                 }
             }
@@ -106,7 +110,7 @@ class MusicBrainzRESTClient {
         let lcRecordingTitle = recordingTitle.lowercased().trim()
         
         // Look for cover art in the cache first.
-        if let coverArt = cache.getFor(artist: lcArtist, releaseTitle: lcRecordingTitle) {
+        if let coverArt = cache.getForRecording(artist: lcArtist, title: lcRecordingTitle) {
             return coverArt
         }
         
@@ -118,7 +122,7 @@ class MusicBrainzRESTClient {
                 if let coverArt = try getFrontCoverImage(release: releaseWithCoverArt) {
                     
                     // Add this entry to the cache.
-                    cache.putFor(artist: lcArtist, releaseTitle: lcRecordingTitle, coverArt: coverArt)
+                    cache.putForRecording(artist: lcArtist, title: lcRecordingTitle, coverArt: coverArt)
                     return coverArt
                 }
             }
@@ -141,7 +145,7 @@ class MusicBrainzRESTClient {
     /// - Returns an optional collection of releases matching the given artist and release title. nil if no matching releases were found.
     ///
     /// - throws any error that was thrown while making the request.
-    ///
+    ///Ø
     private func queryReleases(artist: String, releaseTitle: String) throws -> [MusicBrainzRelease]? {
         
         // Make sure to replace spaces and quotes in the query parameters with the appropriate escape characters (i.e. URL encoding).
@@ -149,13 +153,14 @@ class MusicBrainzRESTClient {
         let escapedArtistString = artist.contains(" ") ? "%22\(artist.replacingOccurrences(of: " ", with: "%20"))%22" : artist
         let escapedReleaseTitleString = releaseTitle.contains(" ") ? "%22\(releaseTitle.replacingOccurrences(of: " ", with: "%20"))%22" : releaseTitle
         
-        if let url = URL(string: "\(musicBrainzAPIBaseURL)/release?query=release:\(escapedReleaseTitleString)%20AND%20artistname:\(escapedArtistString)&fmt=json"),
+        if let url = URL(string: "\(musicBrainzAPIBaseURL)/release?query=release:\(escapedReleaseTitleString)%20AND%20artistname:\(escapedArtistString)%20AND%20status:official%20AND%20primarytype:album&fmt=json"),
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders),
            let releasesArr = mbDict["releases"] as? [NSDictionary] {
             
             // Map the NSDictionary array (the result of JSON deserialization)
-            // to an array of MusicBrainzRelease objects that we can work with.
+            // to an array of MBRelease objects that we can work with.
             return releasesArr.compactMap {MusicBrainzRelease($0)}
+                .sorted(by: MusicBrainzReleaseSort().compareAscending)
         }
         
         // No matching release found.
@@ -176,7 +181,7 @@ class MusicBrainzRESTClient {
         let escapedArtistString = artist.contains(" ") ? "%22\(artist.replacingOccurrences(of: " ", with: "%20"))%22" : artist
         let escapedRecordingTitleString = recordingTitle.contains(" ") ? "%22\(recordingTitle.replacingOccurrences(of: " ", with: "%20"))%22" : recordingTitle
         
-        if let url = URL(string: "\(musicBrainzAPIBaseURL)/recording?query=recording:\(escapedRecordingTitleString)%20AND%20artistname:\(escapedArtistString)&fmt=json"),
+        if let url = URL(string: "\(musicBrainzAPIBaseURL)/recording?query=recording:\(escapedRecordingTitleString)%20AND%20artistname:\(escapedArtistString)%20AND%20status:official%20AND%20(primarytype:album%20OR%20primarytype:single)&inc=releases&fmt=json"),
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders),
            let recordingsArr = mbDict["recordings"] as? [NSDictionary] {
             
@@ -185,7 +190,17 @@ class MusicBrainzRESTClient {
             //
             // Step 2 - For each recording that was found, collect all its associated releases,
             // and consolidate them into a single collection of releases.
-            return recordingsArr.compactMap {MusicBrainzRecording($0)}.flatMap {$0.releases}
+            //
+            // Step 3 - Only consider releases that have official status.
+            //
+            // Step 4 - Sort the candidate releases so that the most appropriate release
+            // is the most likely one to be used for the cover art query.
+            
+            let recordings = recordingsArr.compactMap {MusicBrainzRecording($0)}
+            let allReleases = recordings.flatMap {$0.releases}
+            let candidateReleases = allReleases.filter {$0.status == .official}
+            
+            return candidateReleases.sorted(by: MusicBrainzReleaseSort(artist).compareAscending)
         }
         
         // No matching release found.
@@ -242,8 +257,8 @@ class MusicBrainzRESTClient {
         
         if let url = URL(string: "\(coverArtAPIBaseURL)/release/\(release.id)/front") {
 
-            let data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders)
-
+            let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders)
+            
             // Construct an NSImage from the raw data.
             if let image = NSImage(data: data) {
                 

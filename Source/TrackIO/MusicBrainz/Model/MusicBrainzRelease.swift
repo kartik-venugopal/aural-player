@@ -21,6 +21,19 @@ class MusicBrainzRelease {
     ///
     var artistCredits: [MusicBrainzArtistCredit] = []
     
+    var artistName: String {artistCredits.first?.artist.name ?? ""}
+    
+    ///
+    /// When this release was released.
+    ///
+    var date: Date = Date()
+    
+    var countryType: MusicBrainzReleaseCountryType = .other
+    
+    var type: MusicBrainzReleaseType = .other
+    
+    var status: MusicBrainzReleaseStatus = .other
+    
     ///
     /// Conditionally initializes this object, given a dictionary containing key-value pairs corresponding to members of this object.
     ///
@@ -30,19 +43,176 @@ class MusicBrainzRelease {
         
         // Validate the dictionary (all fields must be present, and there must be at least one artist credit).
         guard let id = dict["id"] as? String,
-              let title = dict["title"] as? String,
-              let artistCredits = dict["artist-credit"] as? [NSDictionary],
-              !artistCredits.isEmpty else {return nil}
+              let title = dict["title"] as? String
+        else {return nil}
         
         self.id = id
         self.title = title
         
-        // Map the NSDictionary array to MBArtistCredit objects, eliminating nil values.
-        self.artistCredits = artistCredits.compactMap {MusicBrainzArtistCredit($0)}
+        // Map the NSDictionary array to MusicBrainzArtistCredit objects, eliminating nil values.
+        if let artistCredits = dict["artist-credit"] as? [NSDictionary] {
+            self.artistCredits = artistCredits.compactMap {MusicBrainzArtistCredit($0)}
+        }
         
-        // There must be at least one artist credit.
-        if self.artistCredits.isEmpty {
+        if let dateStr = dict["date"] as? String, let date = parseDateString(dateStr) {
+            self.date = date
+        }
+        
+        if let releaseGroupDict = dict["release-group"] as? NSDictionary,
+           let primaryTypeStr = releaseGroupDict["primary-type"] as? String,
+           let type = MusicBrainzReleaseType(rawValue: primaryTypeStr.lowercased()) {
+        
+            self.type = type
+        }
+        
+        if let country = dict["country"] as? String {
+            self.countryType = MusicBrainzReleaseCountryType.typeForCountry(country)
+        }
+        
+        if let status = dict["status"] as? String, let releaseStatus = MusicBrainzReleaseStatus(rawValue: status.lowercased()) {
+            self.status = releaseStatus
+        }
+    }
+    
+    private func parseDateString(_ dateStr: String) -> Date? {
+        
+        if dateStr.trim().isEmpty {
             return nil
         }
+        
+        let tokens = dateStr.split(separator: "-")
+        
+        if tokens.count == 1 {
+            
+            if let year = Int(tokens[0]) {
+                
+                var dateComponents = DateComponents()
+                dateComponents.year = year
+                dateComponents.month = 1
+                dateComponents.day = 1
+                
+                return Calendar(identifier: .gregorian).date(from: dateComponents)
+            }
+            
+        } else if tokens.count == 2 {
+            
+            if let year = Int(tokens[0]), let month = Int(tokens[1]) {
+                
+                var dateComponents = DateComponents()
+                dateComponents.year = year
+                dateComponents.month = month
+                dateComponents.day = 1
+                
+                return Calendar(identifier: .gregorian).date(from: dateComponents)
+            }
+            
+        } else if tokens.count == 3 {
+            
+            if let year = Int(tokens[0]), let month = Int(tokens[1]), let day = Int(tokens[2]) {
+                
+                var dateComponents = DateComponents()
+                dateComponents.year = year
+                dateComponents.month = month
+                dateComponents.day = day
+                
+                return Calendar(identifier: .gregorian).date(from: dateComponents)
+            }
+        }
+        
+        return nil
+    }
+}
+
+fileprivate let ranksForReleaseTypes: [MusicBrainzReleaseType: Int] = [.album: 1, .single: 2, .other: 3]
+
+enum MusicBrainzReleaseType: String {
+    
+    case album, single, other
+    
+    var rank: Int {ranksForReleaseTypes[self]!}
+}
+
+fileprivate let englishSpeakingCountries: Set<String> = ["US", "CA", "GB", "AU", "NZ"]
+fileprivate let ranksForCountryTypes: [MusicBrainzReleaseCountryType: Int] = [.englishSpeaking: 1, .other: 2]
+
+enum MusicBrainzReleaseCountryType {
+    
+    case englishSpeaking, other
+    
+    static func typeForCountry(_ country: String) -> MusicBrainzReleaseCountryType {
+        return englishSpeakingCountries.contains(country) ? .englishSpeaking : .other
+    }
+    
+    var rank: Int {ranksForCountryTypes[self]!}
+}
+
+enum MusicBrainzReleaseStatus: String {
+    
+    case official, other
+}
+
+class MusicBrainzReleaseSort {
+ 
+    var artist: String?
+    
+    init(){}
+    
+    init(_ artist: String) {
+        self.artist = artist.lowercased().trim()
+    }
+    
+    func compareAscending(r1: MusicBrainzRelease, r2: MusicBrainzRelease) -> Bool {
+        
+        if self.artist != nil {
+            
+            let artistMatchRank1 = artistMatchRank(for: r1)
+            let artistMatchRank2 = artistMatchRank(for: r2)
+            
+            if artistMatchRank1 < artistMatchRank2 {
+                return true
+            } else if artistMatchRank1 > artistMatchRank2 {
+                return false
+            }
+        }
+        
+        if r1.countryType.rank < r2.countryType.rank {
+            
+            return true
+            
+        } else if r1.countryType.rank > r2.countryType.rank {
+            
+            return false
+            
+        } else {
+            
+            if r1.date < r2.date {
+                
+                return true
+                
+            } else if r1.date > r2.date {
+                
+                return false
+                
+            } else {
+                
+                return r1.type.rank < r2.type.rank
+            }
+        }
+    }
+    
+    private func artistMatchRank(for release: MusicBrainzRelease) -> Int {
+        
+        let releaseArtist = release.artistName.lowercased().trim()
+        let recordingArtist = self.artist ?? ""
+        
+        if releaseArtist == recordingArtist && !releaseArtist.isEmpty {
+            return 1
+        }
+        
+        if releaseArtist == recordingArtist && releaseArtist.isEmpty {
+            return 2
+        }
+        
+        return 3
     }
 }
