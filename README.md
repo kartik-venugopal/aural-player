@@ -2,6 +2,12 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
+### Update (Mar 25, 2021)
+
+Aural Player is now on Twitter: https://twitter.com/AuralPlayer !
+
+Will be tweeting informal app-related updates and news on there, so if you're interested in the app, please follow me there.
+
 ## Table of Contents
   * [Overview](#overview)
   * [Summary of features](#summary-of-features)
@@ -14,7 +20,7 @@
   * [Screenshots](#screenshots)
   * [Known issues](#known-issues)
   * [Documentation](#documentation)
-  * [Contact Info](#contact-info)
+  * [Contact and conversation](#contact-and-conversation)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
 
@@ -178,14 +184,15 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 NOTE - The documentation is incomplete and is a work in progress.
 
-## Contact info
+## Contact and conversation
 
-Want to contact the developer ? Send an email to [aural.student@gmail.com](mailto:aural.student@gmail.com).
+Aural Player is now on Twitter: https://twitter.com/AuralPlayer ! Follow me there for informal updates or to provide feedback or start a conversation about features you'd like to see or bugs you've encountered (in addition to GitHub issues, of course).
+
+You can also contact me via email: [aural.student@gmail.com](mailto:aural.student@gmail.com).
 
 Any feedback, questions, issues, suggestions, or other comments related to the project are welcome ... spam is not :)
 
 Of course, you may also file issues right here on GitHub as needed. I'm usually pretty good at responding to them, even if I'm not always able to fix them.
-
 
 ## Third party code attributions
 
