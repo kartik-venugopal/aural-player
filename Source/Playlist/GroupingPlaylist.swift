@@ -299,22 +299,23 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     
     func reOrder(accordingTo state: GroupingPlaylistState) {
         
-        // An ordered array of groups.
-        var orderedGroups: [Group] = []
-    
-        // Iterate through all groups in app state.
+        var insertionIndex: Int = 0
+        
+        // Iterate through all groups, inserting each one at insertionIndex ... 0, 1, 2, and so on.
         for groupState in state.groups {
             
-            // Match the group name from app state with the corresponding group in this playlist.
-            if let group = groupsByName[groupState.name] {
+            if let group = groupsByName[groupState.name], let index = indexOfGroup(group) {
                 
-                // Append it to the orderedGroups array, and re-order tracks within the group.
-                orderedGroups.append(group)
+                // No need to reorder the group if it is already in the correct position.
+                if index != insertionIndex {
+                    groups.insert(groups.remove(at: index), at: insertionIndex)
+                }
+                
+                // Tell the group to reorder its tracks.
                 group.reOrder(accordingTo: groupState)
+                
+                insertionIndex.increment()
             }
         }
-        
-        // Replace the existing groups array with the newly ordered array.
-        self.groups = orderedGroups
     }
 }
