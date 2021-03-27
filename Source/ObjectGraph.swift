@@ -51,6 +51,7 @@ class ObjectGraph {
     static var mediaKeyHandler: MediaKeyHandler!
     
     static var coverArtReader: CoverArtReader!
+    static var fileCoverArtReader: FileCoverArtReader!
     static var musicBrainzCoverArtReader: MusicBrainzCoverArtReader!
     
     static var fft: FFT!
@@ -103,8 +104,11 @@ class ObjectGraph {
         sequencerDelegate = SequencerDelegate(sequencer)
         
         fileReader = FileReader()
+        fileCoverArtReader = FileCoverArtReader(fileReader)
         
         musicBrainzCoverArtReader = MusicBrainzCoverArtReader(appState.musicBrainzCache, preferences.metadataPreferences.musicBrainz)
+        
+        coverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
         
         trackReader = TrackReader(fileReader, coverArtReader)
         

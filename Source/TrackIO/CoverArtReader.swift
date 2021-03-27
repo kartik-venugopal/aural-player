@@ -7,9 +7,13 @@ protocol CoverArtReaderProtocol {
 
 class CoverArtReader: CoverArtReaderProtocol {
     
+    private let readers: [CoverArtReaderProtocol]
     
+    init(_ fileCoverArtReader: FileCoverArtReader, _ musicBrainzCoverArtReader: MusicBrainzCoverArtReader) {
+        self.readers = [fileCoverArtReader, musicBrainzCoverArtReader]
+    }
     
     func getCoverArt(forTrack track: Track) -> CoverArt? {
-        return nil
+        readers.firstNonNilMappedValue {$0.getCoverArt(forTrack: track)}
     }
 }
