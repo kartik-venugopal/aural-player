@@ -102,10 +102,8 @@ class ITunesParser: AVFMetadataParser {
     
     func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt? {
         
-        if let imgData = metadataMap.iTunes[ITunesSpec.key_art]?.dataValue, let image = NSImage(data: imgData) {
-            
-            let metadata = ParserUtils.getImageMetadata(imgData as NSData)
-            return CoverArt(image, metadata)
+        if let imgData = metadataMap.iTunes[ITunesSpec.key_art]?.dataValue {
+            return CoverArt(imageData: imgData)
         }
         
         return nil

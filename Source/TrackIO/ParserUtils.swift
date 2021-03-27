@@ -275,48 +275,46 @@ class ParserUtils {
     
     static func getImageMetadata(_ image: NSData) -> ImageMetadata? {
 
-        if let imageSourceRef = CGImageSourceCreateWithData(image, nil), let currentProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil) {
-
-            let dict = NSMutableDictionary(dictionary: currentProperties)
-
-            let imgMetadata = ImageMetadata()
-
-            if let colorModel = dict["ColorModel"] as? String {
-                imgMetadata.colorSpace = colorModel
-            }
-
-            if let colorProfile = dict["ProfileName"] as? String {
-                imgMetadata.colorProfile = colorProfile
-            }
-
-            for (key, value) in dict {
-
-                if let keyStr = key as? String, keyStr.hasPrefix("{") && keyStr.hasSuffix("}"), value is NSDictionary {
-                    imgMetadata.type = keyStr.replacingOccurrences(of: "{", with: "").replacingOccurrences(of: "}", with: "")
-                }
-            }
-
-            if let bitDepthNum = dict["Depth"] as? NSNumber {
-                imgMetadata.bitDepth = bitDepthNum.intValue
-            }
-
-            if let wd = dict["PixelWidth"] as? NSNumber, let ht = dict["PixelHeight"] as? NSNumber {
-                imgMetadata.dimensions = NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
-            }
-
-            if let xRes = dict["DPIWidth"] as? NSNumber, let yRes = dict["DPIHeight"] as? NSNumber {
-                imgMetadata.resolution = NSSize(width: CGFloat(xRes.floatValue), height: CGFloat(yRes.floatValue))
-            }
-
-            if let hasAlphaNum = dict["HasAlpha"] as? NSNumber {
-                imgMetadata.hasAlpha = hasAlphaNum.intValue == 0 ? false : true
-            }
-
-            return imgMetadata
-
+        guard let imageSourceRef = CGImageSourceCreateWithData(image, nil), let currentProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil) else {
+            return nil
         }
-
-        return nil
+        
+        let dict = NSMutableDictionary(dictionary: currentProperties)
+        
+        let imgMetadata = ImageMetadata()
+        
+        if let colorModel = dict["ColorModel"] as? String {
+            imgMetadata.colorSpace = colorModel
+        }
+        
+        if let colorProfile = dict["ProfileName"] as? String {
+            imgMetadata.colorProfile = colorProfile
+        }
+        
+        for (key, value) in dict {
+            
+            if let keyStr = key as? String, keyStr.hasPrefix("{") && keyStr.hasSuffix("}"), value is NSDictionary {
+                imgMetadata.type = keyStr.replacingOccurrences(of: "{", with: "").replacingOccurrences(of: "}", with: "")
+            }
+        }
+        
+        if let bitDepthNum = dict["Depth"] as? NSNumber {
+            imgMetadata.bitDepth = bitDepthNum.intValue
+        }
+        
+        if let wd = dict["PixelWidth"] as? NSNumber, let ht = dict["PixelHeight"] as? NSNumber {
+            imgMetadata.dimensions = NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
+        }
+        
+        if let xRes = dict["DPIWidth"] as? NSNumber, let yRes = dict["DPIHeight"] as? NSNumber {
+            imgMetadata.resolution = NSSize(width: CGFloat(xRes.floatValue), height: CGFloat(yRes.floatValue))
+        }
+        
+        if let hasAlphaNum = dict["HasAlpha"] as? NSNumber {
+            imgMetadata.hasAlpha = hasAlphaNum.intValue == 0 ? false : true
+        }
+        
+        return imgMetadata
     }
 }
 

@@ -2,6 +2,8 @@ import Cocoa
 
 class MusicBrainzCache: NotificationSubscriber {
     
+    let preferences: MusicBrainzPreferences
+    
     // For a given artist / release title combo, cache art for later use (other tracks from the same album).
     private var releasesCache: [String: [String: CoverArt]] = [:]
     private var recordingsCache: [String: [String: CoverArt]] = [:]
@@ -20,7 +22,14 @@ class MusicBrainzCache: NotificationSubscriber {
         return queue
     }()
     
-    init(state: MusicBrainzCacheState) {
+    init(_ state: MusicBrainzCacheState, _ preferences: MusicBrainzPreferences) {
+        
+        self.preferences = preferences
+        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
+        
+        if !(preferences.enableCoverArtSearch || preferences.enableOnDiskCoverArtCache) {
+            return
+        }
         
         // Initialize the cache with entries that were previously persisted to disk.
         // Do it async so as not to block the main thread and delay app startup.
@@ -31,69 +40,45 @@ class MusicBrainzCache: NotificationSubscriber {
             for entry in state.releases {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if FileSystemUtils.fileExists(entry.file), let image = NSImage(contentsOfFile: entry.file.path) {
+                if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
                     
-                    do {
-                        
-                        // Read the image file for image metadata.
-                        let imgData: Data = try Data(contentsOf: entry.file)
-                        let metadata = ParserUtils.getImageMetadata(imgData as NSData)
-                        
-                        // Now that the entry has been validated, add it to the cache.
-                        
-                        if self.releasesCache[entry.artist] == nil {
-                            self.releasesCache[entry.artist] = [:]
-                        }
-                        
-                        self.releasesCache[entry.artist]?[entry.title] = CoverArt(image, metadata)
-                        
-                        if self.onDiskReleasesCache[entry.artist] == nil {
-                            self.onDiskReleasesCache[entry.artist] = [:]
-                        }
-                        
-                        self.onDiskReleasesCache[entry.artist]?[entry.title] = entry.file
-                        
-                    } catch {
-                        
-                        NSLog("Warning - The MusicBrainz cache was unable to read data from the image file: \(entry.file.path)")
+                    // Now that the entry has been validated, add it to the cache.
+                    
+                    if self.releasesCache[entry.artist] == nil {
+                        self.releasesCache[entry.artist] = [:]
                     }
+                    
+                    self.releasesCache[entry.artist]?[entry.title] = coverArt
+                    
+                    if self.onDiskReleasesCache[entry.artist] == nil {
+                        self.onDiskReleasesCache[entry.artist] = [:]
+                    }
+                    
+                    self.onDiskReleasesCache[entry.artist]?[entry.title] = entry.file
                 }
             }
             
             for entry in state.recordings {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if FileSystemUtils.fileExists(entry.file), let image = NSImage(contentsOfFile: entry.file.path) {
+                if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
                     
-                    do {
-                        
-                        // Read the image file for image metadata.
-                        let imgData: Data = try Data(contentsOf: entry.file)
-                        let metadata = ParserUtils.getImageMetadata(imgData as NSData)
-                        
-                        // Now that the entry has been validated, add it to the cache.
-                        
-                        if self.recordingsCache[entry.artist] == nil {
-                            self.recordingsCache[entry.artist] = [:]
-                        }
-                        
-                        self.recordingsCache[entry.artist]?[entry.title] = CoverArt(image, metadata)
-                        
-                        if self.onDiskRecordingsCache[entry.artist] == nil {
-                            self.onDiskRecordingsCache[entry.artist] = [:]
-                        }
-                        
-                        self.onDiskRecordingsCache[entry.artist]?[entry.title] = entry.file
-                        
-                    } catch {
-                        
-                        NSLog("Warning - The MusicBrainz cache was unable to read data from the image file: \(entry.file.path)")
+                    // Now that the entry has been validated, add it to the cache.
+                    
+                    if self.recordingsCache[entry.artist] == nil {
+                        self.recordingsCache[entry.artist] = [:]
                     }
+                    
+                    self.recordingsCache[entry.artist]?[entry.title] = coverArt
+                    
+                    if self.onDiskRecordingsCache[entry.artist] == nil {
+                        self.onDiskRecordingsCache[entry.artist] = [:]
+                    }
+                    
+                    self.onDiskRecordingsCache[entry.artist]?[entry.title] = entry.file
                 }
             }
         }
-        
-        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
     }
     
     func getForRelease(artist: String, title: String) -> CoverArt? {
@@ -112,8 +97,9 @@ class MusicBrainzCache: NotificationSubscriber {
         
         releasesCache[artist]?[title] = coverArt
         
-        // Perhaps use an opQueue, and waitTillAllTasksCompleted() ???
-        // Write the file to disk
+        if !preferences.enableOnDiskCoverArtCache {return}
+        
+        // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
             
             let nowString = Date().serializableString_hms()
@@ -146,8 +132,9 @@ class MusicBrainzCache: NotificationSubscriber {
         
         recordingsCache[artist]?[title] = coverArt
         
-        // Perhaps use an opQueue, and waitTillAllTasksCompleted() ???
-        // Write the file to disk
+        if !preferences.enableOnDiskCoverArtCache {return}
+        
+        // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
             
             let nowString = Date().serializableString_hms()
@@ -177,6 +164,43 @@ class MusicBrainzCache: NotificationSubscriber {
     func onAppExit(_ request: AppExitRequestNotification) {
         
         diskIOOpQueue.waitUntilAllOperationsAreFinished()
+        
+        if !(preferences.enableCoverArtSearch || preferences.enableOnDiskCoverArtCache) {
+            
+            print("CACHE disabled, DELETING baseDir ...")
+//            FileSystemUtils.deleteDir(baseDir)
+            
+            onDiskReleasesCache.removeAll()
+            onDiskRecordingsCache.removeAll()
+            
+        } else {
+            
+            // Clean up files that are unmapped
+            
+            print("CACHE enabled, cleaning up unmapped files ...")
+            
+            if let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir) {
+                
+                var mappedFiles: Set<URL> = Set()
+                
+                for (_, artistCache) in onDiskReleasesCache {
+                    mappedFiles = mappedFiles.union(artistCache.values)
+                }
+                
+                for (_, artistCache) in onDiskRecordingsCache {
+                    mappedFiles = mappedFiles.union(artistCache.values)
+                }
+                
+                let unmappedFiles = allFiles.filter {!mappedFiles.contains($0)}
+                
+                // Delete unmapped files
+                for file in unmappedFiles {
+                    
+                    print("UNMAPPED FILE: \(file.path)")
+//                    FileSystemUtils.deleteFile(file.path)
+                }
+            }
+        }
         
         // Proceed with exit
         request.acceptResponse(okToExit: true)

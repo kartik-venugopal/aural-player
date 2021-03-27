@@ -50,8 +50,8 @@ class ObjectGraph {
     
     static var mediaKeyHandler: MediaKeyHandler!
     
-    static var musicBrainzClient: MusicBrainzRESTClient!
-    static var musicBrainzCache: MusicBrainzCache!
+    static var coverArtReader: CoverArtReader!
+    static var musicBrainzCoverArtReader: MusicBrainzCoverArtReader!
     
     static var fft: FFT!
     
@@ -104,10 +104,9 @@ class ObjectGraph {
         
         fileReader = FileReader()
         
-        musicBrainzCache = MusicBrainzCache(state: appState.musicBrainzCache)
-        musicBrainzClient = MusicBrainzRESTClient(musicBrainzCache)
+        musicBrainzCoverArtReader = MusicBrainzCoverArtReader(appState.musicBrainzCache, preferences.metadataPreferences.musicBrainz)
         
-        trackReader = TrackReader(fileReader, musicBrainzClient)
+        trackReader = TrackReader(fileReader, coverArtReader)
         
         let profiles = PlaybackProfiles()
         
@@ -214,7 +213,7 @@ class ObjectGraph {
         appState.history = (historyDelegate as! HistoryDelegate).persistentState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
         appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
-        appState.musicBrainzCache = musicBrainzCache.persistentState
+        appState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
         
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.

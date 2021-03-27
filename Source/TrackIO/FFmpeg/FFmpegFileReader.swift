@@ -133,7 +133,7 @@ class FFmpegFileReader: FileReaderProtocol {
         }
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
         
         var metadata = AuxiliaryMetadata()
         
@@ -182,18 +182,6 @@ class FFmpegFileReader: FileReaderProtocol {
             
             metadata.audioInfo = audioInfo
             
-            // Load art if required (if not previously loaded).
-            
-            if loadArt {
-                
-                if let imageData = fctx.bestImageStream?.attachedPic.data,
-                   let image = NSImage(data: imageData) {
-                    
-                    let imgMetadata = ParserUtils.getImageMetadata(imageData as NSData)
-                    metadata.art = CoverArt(image, imgMetadata)
-                }
-            }
-            
         } catch {}
         
         return metadata
@@ -207,11 +195,8 @@ class FFmpegFileReader: FileReaderProtocol {
             // This will be used to read cover art.
             let fctx = try FFmpegFileContext(for: file)
             
-            if let imageData = fctx.bestImageStream?.attachedPic.data,
-               let image = NSImage(data: imageData) {
-                
-                let metadata = ParserUtils.getImageMetadata(imageData as NSData)
-                return CoverArt(image, metadata)
+            if let imageData = fctx.bestImageStream?.attachedPic.data {
+                return CoverArt(imageData: imageData)
             }
             
         } catch {}

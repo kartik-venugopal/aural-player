@@ -27,6 +27,7 @@ class Preferences: PersistentPreferencesProtocol {
     var viewPreferences: ViewPreferences
     var historyPreferences: HistoryPreferences
     var controlsPreferences: ControlsPreferences
+    var metadataPreferences: MetadataPreferences
     
     private var allPreferences: [PersistentPreferencesProtocol] = []
     
@@ -35,10 +36,11 @@ class Preferences: PersistentPreferencesProtocol {
         controlsPreferences = ControlsPreferences(defaultsDictionary)
         playbackPreferences = PlaybackPreferences(defaultsDictionary, controlsPreferences)
         soundPreferences = SoundPreferences(defaultsDictionary, controlsPreferences)
-        
         playlistPreferences = PlaylistPreferences(defaultsDictionary)
+        
         viewPreferences = ViewPreferences(defaultsDictionary)
         historyPreferences = HistoryPreferences(defaultsDictionary)
+        metadataPreferences = MetadataPreferences(defaultsDictionary)
         
         allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences, historyPreferences, controlsPreferences]
     }

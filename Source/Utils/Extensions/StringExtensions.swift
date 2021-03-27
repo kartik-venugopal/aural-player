@@ -2,6 +2,8 @@ import Foundation
 
 extension String {
     
+    func lowerCasedAndTrimmed() -> String {self.lowercased().trim()}
+    
     func trim() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }

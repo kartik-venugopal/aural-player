@@ -5,9 +5,6 @@ import Cocoa
 ///
 class MusicBrainzRESTClient {
     
-    // For a given artist / release title combo, cache art for later use (other tracks from the same album).
-    private let cache: MusicBrainzCache
-    
     ///
     /// The base URL for accessing the MusicBrainz REST API.
     ///
@@ -39,24 +36,12 @@ class MusicBrainzRESTClient {
     private let standardHeaders: [String: String] = ["User-Agent": "Aural Player/\(appVersion) ( \(appContact) )",
                                                              "Accept-Encoding": "gzip"]
     
-    init(_ cache: MusicBrainzCache) {
-        self.cache = cache
-    }
-    
     ///
     /// Tries to retrieve cover art, given the name of an artist and an associated release (album / track title).
     ///
     /// - Returns an NSImage containing cover art, if found. nil if no cover art was found.
     ///
     func getCoverArt(forArtist artist: String, andReleaseTitle releaseTitle: String) throws -> CoverArt? {
-        
-        let lcArtist = artist.lowercased().trim()
-        let lcReleaseTitle = releaseTitle.lowercased().trim()
-        
-        // Look for cover art in the cache first.
-        if let coverArt = cache.getForRelease(artist: lcArtist, title: lcReleaseTitle) {
-            return coverArt
-        }
         
         do {
             
@@ -70,12 +55,7 @@ class MusicBrainzRESTClient {
             if let matchingReleases = try queryReleases(artist: artist, releaseTitle: releaseTitle),
                let releaseWithCoverArt = checkReleasesForCoverArt(matchingReleases) {
                 
-                if let coverArt = try getFrontCoverImage(release: releaseWithCoverArt) {
-                    
-                    // Add this entry to the cache.
-                    cache.putForRelease(artist: lcArtist, title: lcReleaseTitle, coverArt: coverArt)
-                    return coverArt
-                }
+                return try getFrontCoverImage(release: releaseWithCoverArt)
             }
             
         } catch let httpError as HTTPError {
@@ -95,25 +75,12 @@ class MusicBrainzRESTClient {
     ///
     func getCoverArt(forArtist artist: String, andRecordingTitle recordingTitle: String) throws -> CoverArt? {
         
-        let lcArtist = artist.lowercased().trim()
-        let lcRecordingTitle = recordingTitle.lowercased().trim()
-        
-        // Look for cover art in the cache first.
-        if let coverArt = cache.getForRecording(artist: lcArtist, title: lcRecordingTitle) {
-            return coverArt
-        }
-        
         do {
 
             if let matchingReleases = try queryRecordings(artist: artist, recordingTitle: recordingTitle),
                let releaseWithCoverArt = checkReleasesForCoverArt(matchingReleases) {
 
-                if let coverArt = try getFrontCoverImage(release: releaseWithCoverArt) {
-                    
-                    // Add this entry to the cache.
-                    cache.putForRecording(artist: lcArtist, title: lcRecordingTitle, coverArt: coverArt)
-                    return coverArt
-                }
+                return try getFrontCoverImage(release: releaseWithCoverArt)
             }
 
         } catch let httpError as HTTPError {
@@ -249,11 +216,7 @@ class MusicBrainzRESTClient {
             let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders)
             
             // Construct an NSImage from the raw data.
-            if let image = NSImage(data: data) {
-                
-                let metadata = ParserUtils.getImageMetadata(data as NSData)
-                return CoverArt(image, metadata)
-            }
+            return CoverArt(imageData: data)
         }
         
         // No image data found.

@@ -52,9 +52,7 @@ class Track: Hashable, PlaylistItem {
     var performer: String?
     var lyricist: String?
     
-    var art: CoverArt? {
-        didSet {artLoaded = true}
-    }
+    var art: CoverArt?
     
     var trackNumber: Int?
     var totalTracks: Int?
@@ -135,13 +133,8 @@ class Track: Hashable, PlaylistItem {
         self.audioInfo = metadata.audioInfo
         
         self.auxMetadataLoaded = true
-        
-        if !self.artLoaded {
-            self.art = metadata.art
-        }
     }
     
-    var artLoaded: Bool = false
     var auxMetadataLoaded: Bool = false
     
     static func == (lhs: Track, rhs: Track) -> Bool {

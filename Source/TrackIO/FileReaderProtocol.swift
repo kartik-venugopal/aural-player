@@ -28,7 +28,7 @@ protocol FileReaderProtocol {
     ///
     /// Loads all non-essential ("auxiliary") metadata associated with a track, for display in the "Detailed track info" view.
     ///
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?, loadArt: Bool) -> AuxiliaryMetadata
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AuxiliaryMetadata
 }
 
 ///
@@ -86,37 +86,12 @@ class FileReader: FileReaderProtocol {
         return art
     }
     
-    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, loadArt: Bool) -> AuxiliaryMetadata {
+    func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
         
-        var artWasFoundInCache: Bool = false
-        var artInCache: CoverArt? = nil
+        // Load aux metadata for the track.
         
-        // Check the cache for the art, if required.
-        if loadArt, let cachedArt = CoverArtCache.forFile(file) {
-
-            artWasFoundInCache = true
-            artInCache = cachedArt.art
-        }
-        
-        var auxMetadata: AuxiliaryMetadata
-        
-        // Load aux metadata for the track. Load art only if required and if it was not found in the cover art cache.
         let actualFileReader: FileReaderProtocol = file.isNativelySupported ? avfReader : ffmpegReader
-        auxMetadata = actualFileReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext, loadArt: loadArt && !artWasFoundInCache)
-        
-        if loadArt {
-            
-            if artWasFoundInCache {
-                
-                // Use the art found in the cache.
-                auxMetadata.art = artInCache
-                
-            } else {
-                
-                // Update the cover art cache with the newly found art.
-                CoverArtCache.addEntry(file, auxMetadata.art)
-            }
-        }
+        var auxMetadata: AuxiliaryMetadata = actualFileReader.getAuxiliaryMetadata(for: file, loadingAudioInfoFrom: playbackContext)
         
         // Load file system info for the track.
         

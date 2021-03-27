@@ -8,12 +8,12 @@ class TrackReader {
     // The delegate object that this object defers all read operations to.
     private var fileReader: FileReader
     
-    private var musicBrainzClient: MusicBrainzRESTClient
+    private var coverArtReader: CoverArtReader
     
-    init(_ fileReader: FileReader, _ musicBrainzClient: MusicBrainzRESTClient) {
+    init(_ fileReader: FileReader, _ coverArtReader: CoverArtReader) {
         
         self.fileReader = fileReader
-        self.musicBrainzClient = musicBrainzClient
+        self.coverArtReader = coverArtReader
     }
     
     ///
@@ -120,22 +120,14 @@ class TrackReader {
     ///
     func loadArtAsync(for track: Track) {
         
-        if track.artLoaded {return}
+        if track.art != nil {return}
         
         DispatchQueue.global(qos: .userInteractive).async {
             
-            track.art = self.fileReader.getArt(for: track.file)
-            
-            // Send out an update notification if art was found.
-            if track.art != nil {
+            if let art = self.coverArtReader.getCoverArt(forTrack: track) {
                 
+                track.art = art
                 Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
-                
-            } else {
-                
-                self.musicBrainzLookupQueue.addOperation {
-                    self.loadArtFromMusicBrainz(for: track)
-                }
             }
         }
     }
@@ -158,63 +150,8 @@ class TrackReader {
         if track.auxMetadataLoaded {return}
         
         let auxMetadata = fileReader.getAuxiliaryMetadata(for: track.file,
-                                                          loadingAudioInfoFrom: track.playbackContext, loadArt: !track.artLoaded)
-        
-        let needToQueryMusicBrainz: Bool = (!track.artLoaded) && (auxMetadata.art == nil)
-        
+                                                          loadingAudioInfoFrom: track.playbackContext)
         track.setAuxiliaryMetadata(auxMetadata)
-        
-        if needToQueryMusicBrainz {
-            
-            musicBrainzLookupQueue.addOperation {
-                self.loadArtFromMusicBrainz(for: track)
-            }
-        }
-    }
-    
-    private func loadArtFromMusicBrainz(for track: Track) {
-        
-        // MusicBrainz lookup
-        // Track must have artist metadata in order to perform the lookup.
-        
-        if let artist = track.artist {
-            
-            do {
-                
-                // Lookup by album is preferred, so check for album metadata.
-                // If not, can perform lookup by track title (if present).
-                var lookupByAlbumSuccess: Bool = false
-                
-                // Search by "release title", i.e. album
-                if let releaseTitle = track.album,
-                   let coverArt = try self.musicBrainzClient.getCoverArt(forArtist: artist, andReleaseTitle: releaseTitle) {
-
-                    track.art = coverArt
-                    Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
-                    CoverArtCache.addEntry(track.file, coverArt)
-                    
-                    lookupByAlbumSuccess = true
-                }
-                
-                // Search by "recording title", i.e. track title
-                if !lookupByAlbumSuccess, let recordingTitle = track.title,
-                   let coverArt = try self.musicBrainzClient.getCoverArt(forArtist: artist, andRecordingTitle: recordingTitle) {
-
-                    track.art = coverArt
-                    Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
-                    CoverArtCache.addEntry(track.file, coverArt)
-                }
-                
-            } catch {
-                
-                if let httpError = error as? HTTPError {
-                    
-                    NSLog("An HTTP error occurred while querying MusicBrainz: \(httpError.description) (code: \(httpError.code)")
-                } else {
-                    
-                    NSLog("An error occurred while querying MusicBrainz: \(error)")
-                }
-            }
-        }
+        loadArtAsync(for: track)
     }
 }

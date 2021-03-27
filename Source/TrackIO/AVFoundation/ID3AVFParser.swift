@@ -121,10 +121,9 @@ class ID3AVFParser: AVFMetadataParser {
     func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt? {
         
         if let item = keys_art.firstNonNilMappedValue({metadataMap.id3[$0]}),
-            let imgData = item.dataValue, let image = NSImage(data: imgData) {
+            let imgData = item.dataValue {
             
-            let metadata = ParserUtils.getImageMetadata(imgData as NSData)
-            return CoverArt(image, metadata)
+            return CoverArt(imageData: imgData)
         }
         
         return nil

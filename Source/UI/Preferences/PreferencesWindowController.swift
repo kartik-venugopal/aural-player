@@ -15,6 +15,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     private lazy var viewPrefsView: PreferencesViewProtocol = ViewFactory.viewPreferencesView
     private lazy var historyPrefsView: PreferencesViewProtocol = ViewFactory.historyPreferencesView
     private lazy var controlsPrefsView: PreferencesViewProtocol = ViewFactory.controlsPreferencesView
+    private lazy var metadataPrefsView: PreferencesViewProtocol = ViewFactory.metadataPreferencesView
     
     private var subViews: [PreferencesViewProtocol] = []
     
@@ -32,9 +33,9 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
         
         window?.isMovableByWindowBackground = true
         
-        subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView]
+        subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView, metadataPrefsView]
         
-        tabView.addViewsForTabs([playlistPrefsView.preferencesView, playbackPrefsView.preferencesView, soundPrefsView.preferencesView, viewPrefsView.preferencesView, historyPrefsView.preferencesView, controlsPrefsView.preferencesView])
+        tabView.addViewsForTabs([playlistPrefsView.preferencesView, playbackPrefsView.preferencesView, soundPrefsView.preferencesView, viewPrefsView.preferencesView, historyPrefsView.preferencesView, controlsPrefsView.preferencesView, metadataPrefsView.preferencesView])
         
         WindowManager.registerModalComponent(self)
         
@@ -104,6 +105,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
     }
     
     @IBAction func cancelPreferencesAction(_ sender: Any) {
+        
         modalDialogResponse = .cancel
         UIUtils.dismissDialog(self.window!)
     }

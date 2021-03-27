@@ -58,6 +58,8 @@ struct ViewFactory {
         fileprivate static let historyPreferencesViewController: HistoryPreferencesViewController = HistoryPreferencesViewController()
         
         fileprivate static let controlsPreferencesViewController: ControlsPreferencesViewController = ControlsPreferencesViewController()
+        
+        fileprivate static let metadataPreferencesViewController: MetadataPreferencesViewController = MetadataPreferencesViewController()
     }
     
     fileprivate struct PopoverViews {
@@ -214,6 +216,10 @@ struct ViewFactory {
     
     static var controlsPreferencesView: PreferencesViewProtocol {
         return PreferencesViews.controlsPreferencesViewController
+    }
+    
+    static var metadataPreferencesView: PreferencesViewProtocol {
+        return PreferencesViews.metadataPreferencesViewController
     }
     
     static var generalColorSchemeView: ColorSchemesViewProtocol {

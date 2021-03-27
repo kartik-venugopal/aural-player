@@ -52,8 +52,6 @@ struct AuxiliaryMetadata {
     
     var fileSystemInfo: FileSystemInfo?
     var audioInfo: AudioInfo?
-    
-    var art: CoverArt?
 }
 
 class CoverArt {
@@ -61,10 +59,28 @@ class CoverArt {
     var image: NSImage
     var metadata: ImageMetadata?
     
-    init(_ image: NSImage, _ metadata: ImageMetadata? = nil) {
+    init?(imageFile: URL) {
+        
+        guard let image = NSImage(contentsOfFile: imageFile.path) else {return nil}
+        self.image = image
+        
+        do {
+
+            // Read the image file for image metadata.
+            let imgData: Data = try Data(contentsOf: imageFile)
+            self.metadata = ParserUtils.getImageMetadata(imgData as NSData)
+            
+        } catch {
+            NSLog("Warning - Unable to read data from the image file: \(imageFile.path)")
+        }
+    }
+    
+    init?(imageData: Data) {
+        
+        guard let image = NSImage(data: imageData) else {return nil}
         
         self.image = image
-        self.metadata = metadata
+        self.metadata = ParserUtils.getImageMetadata(imageData as NSData)
     }
 }
 

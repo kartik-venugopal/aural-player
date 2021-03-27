@@ -87,4 +87,13 @@ struct PreferencesDefaults {
         static let volumeControlSensitivity: ScrollSensitivity = .medium
         static let seekSensitivity: ScrollSensitivity = .medium
     }
+    
+    struct Metadata {
+        
+        struct MusicBrainz {
+            
+            static let enableCoverArtSearch: Bool = true
+            static let enableOnDiskCoverArtCache: Bool = true
+        }
+    }
 }
