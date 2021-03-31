@@ -46,7 +46,7 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
             predictedNextTracks.forEach {
                 
                 do {
-                    try self.trackReader.prepareForPlayback(track: $0)
+                    try self.trackReader.prepareForPlayback(track: $0, immediate: false)
                 } catch {}
             }
             

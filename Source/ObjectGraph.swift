@@ -54,6 +54,8 @@ class ObjectGraph {
     static var fileCoverArtReader: FileCoverArtReader!
     static var musicBrainzCoverArtReader: MusicBrainzCoverArtReader!
     
+    static var musicBrainzCache: MusicBrainzCache!
+    
     static var fft: FFT!
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
@@ -106,7 +108,8 @@ class ObjectGraph {
         fileReader = FileReader()
         fileCoverArtReader = FileCoverArtReader(fileReader)
         
-        musicBrainzCoverArtReader = MusicBrainzCoverArtReader(appState.musicBrainzCache, preferences.metadataPreferences.musicBrainz)
+        musicBrainzCache = MusicBrainzCache(state: appState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz)
+        musicBrainzCoverArtReader = MusicBrainzCoverArtReader(state: appState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz, cache: musicBrainzCache)
         
         coverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
         

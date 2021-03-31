@@ -7,6 +7,10 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnEnableMusicBrainzOnDiskCoverArtCache: NSButton!
     @IBOutlet weak var btnDisableMusicBrainzOnDiskCoverArtCache: NSButton!
     
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let trackReader: TrackReader = ObjectGraph.trackReader
+    private let musicBrainzCache: MusicBrainzCache = ObjectGraph.musicBrainzCache
+    
     override var nibName: String? {return "MetadataPreferences"}
     
     var preferencesView: NSView {
@@ -19,8 +23,11 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
        
         btnEnableMusicBrainzCoverArtSearch.onIf(musicBrainzPrefs.enableCoverArtSearch)
         
-        btnEnableMusicBrainzOnDiskCoverArtCache.onIf(musicBrainzPrefs.enableOnDiskCoverArtCache)
-//        btnDisableMusicBrainzOnDiskCoverArtCache.onIf(!metadataPrefs.musicBrainz.enableOnDiskCoverArtCache)
+        if musicBrainzPrefs.enableOnDiskCoverArtCache {
+            btnEnableMusicBrainzOnDiskCoverArtCache.on()
+        } else {
+            btnDisableMusicBrainzOnDiskCoverArtCache.on()
+        }
     }
     
     // Needed for radio button group
@@ -30,7 +37,22 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let prefs: MusicBrainzPreferences = preferences.metadataPreferences.musicBrainz
         
+        let wasSearchDisabled: Bool = !prefs.enableCoverArtSearch
+        
         prefs.enableCoverArtSearch = btnEnableMusicBrainzCoverArtSearch.isOn
         prefs.enableOnDiskCoverArtCache = btnEnableMusicBrainzOnDiskCoverArtCache.isOn
+        
+        if wasSearchDisabled && prefs.enableCoverArtSearch, let playingTrack = playbackInfo.playingTrack {
+            trackReader.loadArtAsync(for: playingTrack, immediate: true)
+        }
+        
+        if prefs.enableCoverArtSearch && prefs.enableOnDiskCoverArtCache {
+            
+            musicBrainzCache.onDiskCachingEnabled()
+            
+        } else {
+            
+            musicBrainzCache.onDiskCachingDisabled()
+        }
     }
 }

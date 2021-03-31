@@ -42,7 +42,7 @@ class Preferences: PersistentPreferencesProtocol {
         historyPreferences = HistoryPreferences(defaultsDictionary)
         metadataPreferences = MetadataPreferences(defaultsDictionary)
         
-        allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences, historyPreferences, controlsPreferences]
+        allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences, historyPreferences, controlsPreferences, metadataPreferences]
     }
     
     func persist(defaults: UserDefaults) {

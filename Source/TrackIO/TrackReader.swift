@@ -70,7 +70,7 @@ class TrackReader {
     ///
     /// Loads all metadata and resources that are required for track playback.
     ///
-    func prepareForPlayback(track: Track) throws {
+    func prepareForPlayback(track: Track, immediate: Bool = true) throws {
         
         // Make sure track is valid before trying to prep it for playback.
         if let prepError = track.preparationError {
@@ -97,7 +97,7 @@ class TrackReader {
             }
             
             // Load cover art for display in the player.
-            loadArtAsync(for: track)
+            loadArtAsync(for: track, immediate: immediate)
             
         } catch {
             
@@ -118,11 +118,13 @@ class TrackReader {
     /// cover art is not required immediately, and a short delay is acceptable.
     /// (eg. when preparing for playback)
     ///
-    func loadArtAsync(for track: Track) {
+    func loadArtAsync(for track: Track, immediate: Bool = true) {
         
         if track.art != nil {return}
         
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
+            
+            NSLog("loadArtAsync() for \(track.displayName) ... \(immediate ? "NOW !" : "SLOW")")
             
             if let art = self.coverArtReader.getCoverArt(forTrack: track) {
                 
@@ -131,16 +133,6 @@ class TrackReader {
             }
         }
     }
-    
-    // Serial queue for MusicBrainz queries.
-    private let musicBrainzLookupQueue: OperationQueue = {
-
-        let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
-        queue.maxConcurrentOperationCount = 1
-        
-        return queue
-    }()
     
     ///
     /// Loads all non-essential ("auxiliary") metadata associated with a track, for display in the "Detailed track info" view.

@@ -45,6 +45,8 @@ class FileSystemUtils {
     // Deletes a directory, after first deleting its contents.
     static func deleteDir(_ dir: URL) {
         
+        guard fileExists(dir) else {return}
+        
         do {
             
             // Retrieve all files/subfolders within this directory.

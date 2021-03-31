@@ -17,23 +17,27 @@ class MusicBrainzCache: NotificationSubscriber {
 
         let queue = OperationQueue()
         queue.underlyingQueue = DispatchQueue.global(qos: .utility)
-        queue.maxConcurrentOperationCount = 2
+        queue.maxConcurrentOperationCount = SystemUtils.numberOfPhysicalCores
         
         return queue
     }()
     
-    init(_ state: MusicBrainzCacheState, _ preferences: MusicBrainzPreferences) {
+    init(state: MusicBrainzCacheState, preferences: MusicBrainzPreferences) {
         
         self.preferences = preferences
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
-        if !(preferences.enableCoverArtSearch || preferences.enableOnDiskCoverArtCache) {
+        guard preferences.enableCoverArtSearch && preferences.enableOnDiskCoverArtCache else {
+            
+            onDiskCachingDisabled()
             return
         }
         
         // Initialize the cache with entries that were previously persisted to disk.
         // Do it async so as not to block the main thread and delay app startup.
         DispatchQueue.global(qos: .utility).async {
+            
+            let time = measureExecutionTime {
             
             FileSystemUtils.createDirectory(self.baseDir)
             
@@ -78,6 +82,12 @@ class MusicBrainzCache: NotificationSubscriber {
                     self.onDiskRecordingsCache[entry.artist]?[entry.title] = entry.file
                 }
             }
+            
+            self.cleanUpUnmappedFiles()
+                
+            }
+            
+            NSLog("Cache INIT took \(time * 1000) msecs")
         }
     }
     
@@ -97,10 +107,17 @@ class MusicBrainzCache: NotificationSubscriber {
         
         releasesCache[artist]?[title] = coverArt
         
-        if !preferences.enableOnDiskCoverArtCache {return}
+        if preferences.enableOnDiskCoverArtCache {
+            persistForRelease(artist: artist, title: title, coverArt: coverArt)
+        }
+    }
+    
+    func persistForRelease(artist: String, title: String, coverArt: CoverArt) {
         
         // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
+            
+            FileSystemUtils.createDirectory(self.baseDir)
             
             let nowString = Date().serializableString_hms()
             let randomNum = Int.random(in: 0..<10000)
@@ -132,10 +149,17 @@ class MusicBrainzCache: NotificationSubscriber {
         
         recordingsCache[artist]?[title] = coverArt
         
-        if !preferences.enableOnDiskCoverArtCache {return}
+        if preferences.enableOnDiskCoverArtCache {
+            persistForRecording(artist: artist, title: title, coverArt: coverArt)
+        }
+    }
+    
+    func persistForRecording(artist: String, title: String, coverArt: CoverArt) {
         
         // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
+            
+            FileSystemUtils.createDirectory(self.baseDir)
             
             let nowString = Date().serializableString_hms()
             let randomNum = Int.random(in: 0..<10000)
@@ -159,48 +183,82 @@ class MusicBrainzCache: NotificationSubscriber {
         }
     }
     
-    // This function is invoked when the user attempts to exit the app. It checks if there
-    // is a track playing and if playback settings for the track need to be remembered.
-    func onAppExit(_ request: AppExitRequestNotification) {
+    func onDiskCachingEnabled() {
         
-        diskIOOpQueue.waitUntilAllOperationsAreFinished()
+        // Go through the in-memory cache. For all entries that have not been persisted to disk, persist them.
         
-        if !(preferences.enableCoverArtSearch || preferences.enableOnDiskCoverArtCache) {
+        for (artist, artistCache) in releasesCache {
             
-            print("CACHE disabled, DELETING baseDir ...")
-//            FileSystemUtils.deleteDir(baseDir)
+            for (releaseTitle, coverArt) in artistCache {
+                
+                if onDiskReleasesCache[artist]?[releaseTitle] == nil {
+                    persistForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
+                }
+            }
+        }
+        
+        for (artist, artistCache) in recordingsCache {
             
-            onDiskReleasesCache.removeAll()
-            onDiskRecordingsCache.removeAll()
+            for (recordingTitle, coverArt) in artistCache {
+                
+                if onDiskRecordingsCache[artist]?[recordingTitle] == nil {
+                    persistForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
+                }
+            }
+        }
+    }
+    
+    func onDiskCachingDisabled() {
+        
+        // Caching is disabled
+        
+        onDiskReleasesCache.removeAll()
+        onDiskRecordingsCache.removeAll()
+        
+        diskIOOpQueue.addOperation {
             
-        } else {
+            print("CACHE disabled, DELETING dir: \(self.baseDir.path) ...")
+            FileSystemUtils.deleteDir(self.baseDir)
+        }
+    }
+    
+    func cleanUpUnmappedFiles() {
+        
+        diskIOOpQueue.addOperation {
             
-            // Clean up files that are unmapped
+            // Clean up files that are unmapped.
             
             print("CACHE enabled, cleaning up unmapped files ...")
             
-            if let allFiles = FileSystemUtils.getContentsOfDirectory(baseDir) {
+            if let allFiles = FileSystemUtils.getContentsOfDirectory(self.baseDir) {
                 
                 var mappedFiles: Set<URL> = Set()
                 
-                for (_, artistCache) in onDiskReleasesCache {
+                for (_, artistCache) in self.onDiskReleasesCache {
                     mappedFiles = mappedFiles.union(artistCache.values)
                 }
                 
-                for (_, artistCache) in onDiskRecordingsCache {
+                for (_, artistCache) in self.onDiskRecordingsCache {
                     mappedFiles = mappedFiles.union(artistCache.values)
                 }
                 
                 let unmappedFiles = allFiles.filter {!mappedFiles.contains($0)}
                 
-                // Delete unmapped files
+                // Delete unmapped files.
                 for file in unmappedFiles {
                     
-                    print("UNMAPPED FILE: \(file.path)")
-//                    FileSystemUtils.deleteFile(file.path)
+                    print("Deleting UNMAPPED FILE: \(file.path) ...")
+                    FileSystemUtils.deleteFile(file.path)
                 }
             }
         }
+    }
+    
+    // This function is invoked when the user attempts to exit the app. It checks if there
+    // is a track playing and if playback settings for the track need to be remembered.
+    func onAppExit(_ request: AppExitRequestNotification) {
+        
+        diskIOOpQueue.waitUntilAllOperationsAreFinished()
         
         // Proceed with exit
         request.acceptResponse(okToExit: true)

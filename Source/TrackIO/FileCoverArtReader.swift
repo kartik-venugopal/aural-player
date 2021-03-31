@@ -4,13 +4,17 @@ class FileCoverArtReader: CoverArtReaderProtocol {
     
     private var fileReader: FileReaderProtocol
     
-    private var searchedTracks: Set<Track> = Set()
+    private var searchedTracks: ConcurrentSet<Track> = ConcurrentSet()
     
     init(_ fileReader: FileReaderProtocol) {
         self.fileReader = fileReader
     }
  
     func getCoverArt(forTrack track: Track) -> CoverArt? {
-        searchedTracks.contains(track) ? nil : fileReader.getArt(for: track.file)
+        
+        if searchedTracks.contains(track) {return nil}
+        
+        searchedTracks.insert(track)
+        return fileReader.getArt(for: track.file)
     }
 }
