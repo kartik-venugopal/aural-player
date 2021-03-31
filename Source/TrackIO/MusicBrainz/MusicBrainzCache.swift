@@ -5,8 +5,8 @@ class MusicBrainzCache: NotificationSubscriber {
     let preferences: MusicBrainzPreferences
     
     // For a given artist / release title combo, cache art for later use (other tracks from the same album).
-    private var releasesCache: [String: [String: CoverArt]] = [:]
-    private var recordingsCache: [String: [String: CoverArt]] = [:]
+    private var releasesCache: [String: [String: CachedCoverArtResult]] = [:]
+    private var recordingsCache: [String: [String: CachedCoverArtResult]] = [:]
     
     var onDiskReleasesCache: [String: [String: URL]] = [:]
     var onDiskRecordingsCache: [String: [String: URL]] = [:]
@@ -37,8 +37,6 @@ class MusicBrainzCache: NotificationSubscriber {
         // Do it async so as not to block the main thread and delay app startup.
         DispatchQueue.global(qos: .utility).async {
             
-            let time = measureExecutionTime {
-            
             FileSystemUtils.createDirectory(self.baseDir)
             
             for entry in state.releases {
@@ -52,7 +50,7 @@ class MusicBrainzCache: NotificationSubscriber {
                         self.releasesCache[entry.artist] = [:]
                     }
                     
-                    self.releasesCache[entry.artist]?[entry.title] = coverArt
+                    self.releasesCache[entry.artist]?[entry.title] = CachedCoverArtResult(art: coverArt)
                     
                     if self.onDiskReleasesCache[entry.artist] == nil {
                         self.onDiskReleasesCache[entry.artist] = [:]
@@ -73,7 +71,7 @@ class MusicBrainzCache: NotificationSubscriber {
                         self.recordingsCache[entry.artist] = [:]
                     }
                     
-                    self.recordingsCache[entry.artist]?[entry.title] = coverArt
+                    self.recordingsCache[entry.artist]?[entry.title] = CachedCoverArtResult(art: coverArt)
                     
                     if self.onDiskRecordingsCache[entry.artist] == nil {
                         self.onDiskRecordingsCache[entry.artist] = [:]
@@ -84,31 +82,27 @@ class MusicBrainzCache: NotificationSubscriber {
             }
             
             self.cleanUpUnmappedFiles()
-                
-            }
-            
-            NSLog("Cache INIT took \(time * 1000) msecs")
         }
     }
     
-    func getForRelease(artist: String, title: String) -> CoverArt? {
-        return releasesCache[artist]?[title]
+    func getForRelease(artist: String, title: String) -> CachedCoverArtResult? {
+        releasesCache[artist]?[title]
     }
     
-    func getForRecording(artist: String, title: String) -> CoverArt? {
-        return recordingsCache[artist]?[title]
+    func getForRecording(artist: String, title: String) -> CachedCoverArtResult? {
+        recordingsCache[artist]?[title]
     }
     
-    func putForRelease(artist: String, title: String, coverArt: CoverArt) {
+    func putForRelease(artist: String, title: String, coverArt: CoverArt?) {
         
         if releasesCache[artist] == nil {
             releasesCache[artist] = [:]
         }
         
-        releasesCache[artist]?[title] = coverArt
+        releasesCache[artist]?[title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
-        if preferences.enableOnDiskCoverArtCache {
-            persistForRelease(artist: artist, title: title, coverArt: coverArt)
+        if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
+            persistForRelease(artist: artist, title: title, coverArt: foundArt)
         }
     }
     
@@ -141,16 +135,16 @@ class MusicBrainzCache: NotificationSubscriber {
         }
     }
     
-    func putForRecording(artist: String, title: String, coverArt: CoverArt) {
+    func putForRecording(artist: String, title: String, coverArt: CoverArt?) {
         
         if recordingsCache[artist] == nil {
             recordingsCache[artist] = [:]
         }
         
-        recordingsCache[artist]?[title] = coverArt
+        recordingsCache[artist]?[title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
-        if preferences.enableOnDiskCoverArtCache {
-            persistForRecording(artist: artist, title: title, coverArt: coverArt)
+        if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
+            persistForRecording(artist: artist, title: title, coverArt: foundArt)
         }
     }
     
@@ -189,9 +183,9 @@ class MusicBrainzCache: NotificationSubscriber {
         
         for (artist, artistCache) in releasesCache {
             
-            for (releaseTitle, coverArt) in artistCache {
+            for (releaseTitle, coverArtResult) in artistCache {
                 
-                if onDiskReleasesCache[artist]?[releaseTitle] == nil {
+                if let coverArt = coverArtResult.art, onDiskReleasesCache[artist]?[releaseTitle] == nil {
                     persistForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
                 }
             }
@@ -199,9 +193,9 @@ class MusicBrainzCache: NotificationSubscriber {
         
         for (artist, artistCache) in recordingsCache {
             
-            for (recordingTitle, coverArt) in artistCache {
+            for (recordingTitle, coverArtResult) in artistCache {
                 
-                if onDiskRecordingsCache[artist]?[recordingTitle] == nil {
+                if let coverArt = coverArtResult.art, onDiskRecordingsCache[artist]?[recordingTitle] == nil {
                     persistForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
                 }
             }
@@ -216,8 +210,6 @@ class MusicBrainzCache: NotificationSubscriber {
         onDiskRecordingsCache.removeAll()
         
         diskIOOpQueue.addOperation {
-            
-            print("CACHE disabled, DELETING dir: \(self.baseDir.path) ...")
             FileSystemUtils.deleteDir(self.baseDir)
         }
     }
@@ -227,8 +219,6 @@ class MusicBrainzCache: NotificationSubscriber {
         diskIOOpQueue.addOperation {
             
             // Clean up files that are unmapped.
-            
-            print("CACHE enabled, cleaning up unmapped files ...")
             
             if let allFiles = FileSystemUtils.getContentsOfDirectory(self.baseDir) {
                 
@@ -246,8 +236,6 @@ class MusicBrainzCache: NotificationSubscriber {
                 
                 // Delete unmapped files.
                 for file in unmappedFiles {
-                    
-                    print("Deleting UNMAPPED FILE: \(file.path) ...")
                     FileSystemUtils.deleteFile(file.path)
                 }
             }
@@ -263,4 +251,12 @@ class MusicBrainzCache: NotificationSubscriber {
         // Proceed with exit
         request.acceptResponse(okToExit: true)
     }
+}
+
+struct CachedCoverArtResult {
+    
+    let art: CoverArt?
+    var hasArt: Bool {art != nil}
+    
+    static let noArt: CachedCoverArtResult = CachedCoverArtResult(art: nil)
 }

@@ -124,8 +124,6 @@ class TrackReader {
         
         DispatchQueue.global(qos: immediate ? .userInteractive : .utility).async {
             
-            NSLog("loadArtAsync() for \(track.displayName) ... \(immediate ? "NOW !" : "SLOW")")
-            
             if let art = self.coverArtReader.getCoverArt(forTrack: track) {
                 
                 track.art = art

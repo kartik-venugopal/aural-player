@@ -43,8 +43,6 @@ class MusicBrainzRESTClient {
     ///
     func getCoverArt(forArtist artist: String, andReleaseTitle releaseTitle: String) throws -> CoverArt? {
         
-        NSLog("MBRESTClient.artForRelease('\(artist)', '\(releaseTitle)')")
-        
         do {
             
             // Step 1 - Find all releases matching the given artist and release title.
@@ -57,11 +55,7 @@ class MusicBrainzRESTClient {
             if let matchingReleases = try queryReleases(artist: artist, releaseTitle: releaseTitle),
                let releaseWithCoverArt = checkReleasesForCoverArt(matchingReleases) {
                 
-                if let art = try getFrontCoverImage(release: releaseWithCoverArt) {
-                    
-                    NSLog("GOT IT MBRESTClient.artForRelease('\(artist)', '\(releaseTitle)')")
-                    return art
-                }
+                return try getFrontCoverImage(release: releaseWithCoverArt)
             }
             
         } catch let httpError as HTTPError {
@@ -81,18 +75,12 @@ class MusicBrainzRESTClient {
     ///
     func getCoverArt(forArtist artist: String, andRecordingTitle recordingTitle: String) throws -> CoverArt? {
         
-        NSLog("MBRESTClient.artForRecording('\(artist)', '\(recordingTitle)')")
-        
         do {
 
             if let matchingReleases = try queryRecordings(artist: artist, recordingTitle: recordingTitle),
                let releaseWithCoverArt = checkReleasesForCoverArt(matchingReleases) {
 
-                if let art = try getFrontCoverImage(release: releaseWithCoverArt) {
-                    
-                    NSLog("GOT IT MBRESTClient.artForRecording('\(artist)', '\(recordingTitle)')")
-                    return art
-                }
+                return try getFrontCoverImage(release: releaseWithCoverArt)
             }
 
         } catch let httpError as HTTPError {

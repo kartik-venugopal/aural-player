@@ -20,7 +20,6 @@ class HTTPClient {
         request.allHTTPHeaderFields = headers
         request.httpMethod = "GET"
         request.timeoutInterval = 5 // We don't want requests to take more than 5 seconds. Should we make this user-configurable ???
-        request.httpShouldHandleCookies = false
         
         var response: URLResponse?
         

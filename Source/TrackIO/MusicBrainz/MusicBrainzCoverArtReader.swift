@@ -51,20 +51,17 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     private func searchReleases(forArtist artist: String, andReleaseTitle releaseTitle: String) -> CoverArt? {
         
         // Look for cover art in the cache first.
-        if let coverArt = cache.getForRelease(artist: artist, title: releaseTitle) {
-            NSLog("PRE-CACHE HIT: MusicBrainzCoverArtReader.artForRelease('\(artist)', '\(releaseTitle)'")
-            return coverArt
+        if let coverArtResult = cache.getForRelease(artist: artist, title: releaseTitle) {
+            return coverArtResult.art
         }
         
-        NSLog("WAITING ... artForRelease('\(artist)', '\(releaseTitle)'")
         // Acquire the lock for the API call.
         apiCallsLock.wait()
         defer {apiCallsLock.signal()}
         
         // Look for cover art in the cache again (if we waited, another thread may have added cover art for the same release during the wait time).
-        if let coverArt = cache.getForRelease(artist: artist, title: releaseTitle) {
-            NSLog("POST-CACHE HIT: MusicBrainzCoverArtReader.artForRelease('\(artist)', '\(releaseTitle)'")
-            return coverArt
+        if let coverArtResult = cache.getForRelease(artist: artist, title: releaseTitle) {
+            return coverArtResult.art
         }
         
         do {
@@ -74,10 +71,12 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
                 // Add this entry to the cache.
                 cache.putForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
                 return coverArt
+                
+            } else {
+                cache.putForRelease(artist: artist, title: releaseTitle, coverArt: nil)
             }
             
         } catch {
-            
             NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: \(error)")
         }
         
@@ -87,20 +86,17 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     private func searchRecordings(forArtist artist: String, andRecordingTitle recordingTitle: String) -> CoverArt? {
         
         // Look for cover art in the cache first.
-        if let coverArt = cache.getForRecording(artist: artist, title: recordingTitle) {
-            NSLog("PRE-CACHE HIT: MusicBrainzCoverArtReader.artForRecording('\(artist)', '\(recordingTitle)'")
-            return coverArt
+        if let coverArtResult = cache.getForRecording(artist: artist, title: recordingTitle) {
+            return coverArtResult.art
         }
         
-        NSLog("WAITING ... artForRecording('\(artist)', '\(recordingTitle)'")
         // Acquire the lock for the API call.
         apiCallsLock.wait()
         defer {apiCallsLock.signal()}
         
         // Look for cover art in the cache again (if we waited, another thread may have added cover art for the same recording during the wait time).
-        if let coverArt = cache.getForRecording(artist: artist, title: recordingTitle) {
-            NSLog("POST-CACHE HIT: MusicBrainzCoverArtReader.artForRecording('\(artist)', '\(recordingTitle)'")
-            return coverArt
+        if let coverArtResult = cache.getForRecording(artist: artist, title: recordingTitle) {
+            return coverArtResult.art
         }
         
         do {
@@ -110,6 +106,9 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
                 // Add this entry to the cache.
                 cache.putForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
                 return coverArt
+                
+            } else {
+                cache.putForRecording(artist: artist, title: recordingTitle, coverArt: nil)
             }
             
         } catch {

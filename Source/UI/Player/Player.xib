@@ -184,7 +184,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="kNP-jx-l2H">
                                                                 <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <textView focusRingType="none" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="6eJ-hR-0r4">
                                                                         <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>

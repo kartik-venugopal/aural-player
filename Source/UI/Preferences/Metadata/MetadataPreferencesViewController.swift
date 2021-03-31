@@ -42,16 +42,14 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         prefs.enableCoverArtSearch = btnEnableMusicBrainzCoverArtSearch.isOn
         prefs.enableOnDiskCoverArtCache = btnEnableMusicBrainzOnDiskCoverArtCache.isOn
         
+        // If searching was disabled before but has been switched on, let's search for art for the playing track, if required.
         if wasSearchDisabled && prefs.enableCoverArtSearch, let playingTrack = playbackInfo.playingTrack {
             trackReader.loadArtAsync(for: playingTrack, immediate: true)
         }
         
         if prefs.enableCoverArtSearch && prefs.enableOnDiskCoverArtCache {
-            
             musicBrainzCache.onDiskCachingEnabled()
-            
         } else {
-            
             musicBrainzCache.onDiskCachingDisabled()
         }
     }
