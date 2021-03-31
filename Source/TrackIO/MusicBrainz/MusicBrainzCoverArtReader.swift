@@ -77,7 +77,14 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
             }
             
         } catch {
-            NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: \(error)")
+            
+            if let httpError = error as? HTTPError {
+                
+                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
+                
+            } else {
+                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: \(error)")
+            }
         }
         
         return nil
@@ -112,7 +119,14 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
             }
             
         } catch {
-            NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: \(error)")
+            
+            if let httpError = error as? HTTPError {
+                
+                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
+                
+            } else {
+                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: \(error)")
+            }
         }
         
         return nil
