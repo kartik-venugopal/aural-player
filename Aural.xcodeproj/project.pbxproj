@@ -478,6 +478,7 @@
 		3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */; };
 		3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */; };
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
+		3E9C88312614FE73003B10AD /* CompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */; };
 		3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */; };
 		3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
@@ -1068,6 +1069,7 @@
 		3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralFontScheme.xib; sourceTree = "<group>"; };
 		3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
+		3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeKeyMap.swift; sourceTree = "<group>"; };
 		3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
@@ -2421,6 +2423,7 @@
 				3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */,
 				3E6C10C225CEB98700BF0D07 /* ConcurrentCollections.swift */,
 				3E6C10C325CEB98700BF0D07 /* Queue.swift */,
+				3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */,
 			);
 			path = DataStructures;
 			sourceTree = "<group>";
@@ -3322,6 +3325,7 @@
 				3E61D148260EFC1000C86BB2 /* MusicBrainzCoverArtReader.swift in Sources */,
 				3EDB33EE25E8AE09004DF7DE /* FFmpegResamplingContext.swift in Sources */,
 				3E6C12E925CEBE8100BF0D07 /* PlayingTrackFunctionsViewController.swift in Sources */,
+				3E9C88312614FE73003B10AD /* CompositeKeyMap.swift in Sources */,
 				3E6C11EA25CEBDC400BF0D07 /* PlaybackChain.swift in Sources */,
 				3E6C11A225CEBD6D00BF0D07 /* FilterUnitDelegate.swift in Sources */,
 				3E6C118E25CEBD6D00BF0D07 /* FXUnit.swift in Sources */,

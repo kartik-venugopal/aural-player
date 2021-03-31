@@ -5,11 +5,11 @@ class MusicBrainzCache: NotificationSubscriber {
     let preferences: MusicBrainzPreferences
     
     // For a given artist / release title combo, cache art for later use (other tracks from the same album).
-    private var releasesCache: [String: [String: CachedCoverArtResult]] = [:]
-    private var recordingsCache: [String: [String: CachedCoverArtResult]] = [:]
+    private var releasesCache: CompositeKeyMap<String, CachedCoverArtResult> = CompositeKeyMap()
+    private var recordingsCache: CompositeKeyMap<String, CachedCoverArtResult> = CompositeKeyMap()
     
-    var onDiskReleasesCache: [String: [String: URL]] = [:]
-    var onDiskRecordingsCache: [String: [String: URL]] = [:]
+    var onDiskReleasesCache: CompositeKeyMap<String, URL> = CompositeKeyMap()
+    var onDiskRecordingsCache: CompositeKeyMap<String, URL> = CompositeKeyMap()
     
     private let baseDir: URL = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache", isDirectory: true)
     
@@ -45,18 +45,8 @@ class MusicBrainzCache: NotificationSubscriber {
                 if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
                     
                     // Now that the entry has been validated, add it to the cache.
-                    
-                    if self.releasesCache[entry.artist] == nil {
-                        self.releasesCache[entry.artist] = [:]
-                    }
-                    
-                    self.releasesCache[entry.artist]?[entry.title] = CachedCoverArtResult(art: coverArt)
-                    
-                    if self.onDiskReleasesCache[entry.artist] == nil {
-                        self.onDiskReleasesCache[entry.artist] = [:]
-                    }
-                    
-                    self.onDiskReleasesCache[entry.artist]?[entry.title] = entry.file
+                    self.releasesCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskReleasesCache[entry.artist, entry.title] = entry.file
                 }
             }
             
@@ -66,18 +56,8 @@ class MusicBrainzCache: NotificationSubscriber {
                 if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
                     
                     // Now that the entry has been validated, add it to the cache.
-                    
-                    if self.recordingsCache[entry.artist] == nil {
-                        self.recordingsCache[entry.artist] = [:]
-                    }
-                    
-                    self.recordingsCache[entry.artist]?[entry.title] = CachedCoverArtResult(art: coverArt)
-                    
-                    if self.onDiskRecordingsCache[entry.artist] == nil {
-                        self.onDiskRecordingsCache[entry.artist] = [:]
-                    }
-                    
-                    self.onDiskRecordingsCache[entry.artist]?[entry.title] = entry.file
+                    self.recordingsCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskRecordingsCache[entry.artist, entry.title] = entry.file
                 }
             }
             
@@ -86,20 +66,16 @@ class MusicBrainzCache: NotificationSubscriber {
     }
     
     func getForRelease(artist: String, title: String) -> CachedCoverArtResult? {
-        releasesCache[artist]?[title]
+        releasesCache[artist, title]
     }
     
     func getForRecording(artist: String, title: String) -> CachedCoverArtResult? {
-        recordingsCache[artist]?[title]
+        recordingsCache[artist, title]
     }
     
     func putForRelease(artist: String, title: String, coverArt: CoverArt?) {
         
-        if releasesCache[artist] == nil {
-            releasesCache[artist] = [:]
-        }
-        
-        releasesCache[artist]?[title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
+        releasesCache[artist, title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
         if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
             persistForRelease(artist: artist, title: title, coverArt: foundArt)
@@ -122,12 +98,7 @@ class MusicBrainzCache: NotificationSubscriber {
             do {
                 
                 try coverArt.image.writeToFile(fileType: .jpeg, file: file)
-                
-                if self.onDiskReleasesCache[artist] == nil {
-                    self.onDiskReleasesCache[artist] = [:]
-                }
-                
-                self.onDiskReleasesCache[artist]?[title] = file
+                self.onDiskReleasesCache[artist, title] = file
                 
             } catch {
                 NSLog("Error writing image file \(file.path) to the MusicBrainz on-disk cache: \(error)")
@@ -137,11 +108,7 @@ class MusicBrainzCache: NotificationSubscriber {
     
     func putForRecording(artist: String, title: String, coverArt: CoverArt?) {
         
-        if recordingsCache[artist] == nil {
-            recordingsCache[artist] = [:]
-        }
-        
-        recordingsCache[artist]?[title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
+        recordingsCache[artist, title] = coverArt != nil ? CachedCoverArtResult(art: coverArt) : .noArt
         
         if preferences.enableOnDiskCoverArtCache, let foundArt = coverArt {
             persistForRecording(artist: artist, title: title, coverArt: foundArt)
@@ -164,12 +131,7 @@ class MusicBrainzCache: NotificationSubscriber {
             do {
                 
                 try coverArt.image.writeToFile(fileType: .jpeg, file: file)
-                
-                if self.onDiskRecordingsCache[artist] == nil {
-                    self.onDiskRecordingsCache[artist] = [:]
-                }
-                
-                self.onDiskRecordingsCache[artist]?[title] = file
+                self.onDiskRecordingsCache[artist, title] = file
                 
             } catch {
                 NSLog("Error writing image file \(file.path) to the MusicBrainz on-disk cache: \(error)")
@@ -181,23 +143,17 @@ class MusicBrainzCache: NotificationSubscriber {
         
         // Go through the in-memory cache. For all entries that have not been persisted to disk, persist them.
         
-        for (artist, artistCache) in releasesCache {
-            
-            for (releaseTitle, coverArtResult) in artistCache {
+        for (artist, releaseTitle, coverArtResult) in releasesCache.entries {
                 
-                if let coverArt = coverArtResult.art, onDiskReleasesCache[artist]?[releaseTitle] == nil {
-                    persistForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
-                }
+            if let coverArt = coverArtResult.art, onDiskReleasesCache[artist, releaseTitle] == nil {
+                persistForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
             }
         }
         
-        for (artist, artistCache) in recordingsCache {
+        for (artist, recordingTitle, coverArtResult) in recordingsCache.entries {
             
-            for (recordingTitle, coverArtResult) in artistCache {
-                
-                if let coverArt = coverArtResult.art, onDiskRecordingsCache[artist]?[recordingTitle] == nil {
-                    persistForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
-                }
+            if let coverArt = coverArtResult.art, onDiskRecordingsCache[artist, recordingTitle] == nil {
+                persistForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
             }
         }
     }
@@ -222,15 +178,7 @@ class MusicBrainzCache: NotificationSubscriber {
             
             if let allFiles = FileSystemUtils.getContentsOfDirectory(self.baseDir) {
                 
-                var mappedFiles: Set<URL> = Set()
-                
-                for (_, artistCache) in self.onDiskReleasesCache {
-                    mappedFiles = mappedFiles.union(artistCache.values)
-                }
-                
-                for (_, artistCache) in self.onDiskRecordingsCache {
-                    mappedFiles = mappedFiles.union(artistCache.values)
-                }
+                let mappedFiles: Set<URL> = Set(self.onDiskReleasesCache.entries.map {$0.2} + self.onDiskRecordingsCache.entries.map {$0.2})
                 
                 let unmappedFiles = allFiles.filter {!mappedFiles.contains($0)}
                 
@@ -242,10 +190,11 @@ class MusicBrainzCache: NotificationSubscriber {
         }
     }
     
-    // This function is invoked when the user attempts to exit the app. It checks if there
-    // is a track playing and if playback settings for the track need to be remembered.
+    // This function is invoked when the user attempts to exit the app.
     func onAppExit(_ request: AppExitRequestNotification) {
         
+        // Wait till all disk I/O operations have completed, before allowing
+        // the app to exit.
         diskIOOpQueue.waitUntilAllOperationsAreFinished()
         
         // Proceed with exit

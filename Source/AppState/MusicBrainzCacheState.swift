@@ -56,18 +56,12 @@ extension MusicBrainzCache: PersistentModelObject {
         
         let state = MusicBrainzCacheState()
         
-        for (artist, artistCache) in self.onDiskReleasesCache {
-            
-            for (title, file) in artistCache {
-                state.releases.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
-            }
+        for (artist, title, file) in self.onDiskReleasesCache.entries {
+            state.releases.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
         }
         
-        for (artist, artistCache) in self.onDiskRecordingsCache {
-            
-            for (title, file) in artistCache {
-                state.recordings.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
-            }
+        for (artist, title, file) in self.onDiskRecordingsCache.entries {
+            state.recordings.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
         }
         
         return state
