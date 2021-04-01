@@ -43,6 +43,12 @@ class MusicBrainzRESTClient {
     ///
     private let thumbnailSizes: [String] = ["front-500", "front-250", "front", "front-1200"]
     
+    private let preferences: MusicBrainzPreferences
+    
+    init(preferences: MusicBrainzPreferences) {
+        self.preferences = preferences
+    }
+    
     ///
     /// Tries to retrieve cover art, given the name of an artist and an associated release (album / track title).
     ///
@@ -117,7 +123,7 @@ class MusicBrainzRESTClient {
         let escapedReleaseTitleString = releaseTitle.contains(" ") ? "%22\(releaseTitle.replacingOccurrences(of: " ", with: "%20"))%22" : releaseTitle
         
         if let url = URL(string: "\(musicBrainzAPIBaseURL)/release?query=release:\(escapedReleaseTitleString)%20AND%20artistname:\(escapedArtistString)%20AND%20status:official%20AND%20primarytype:album&fmt=json"),
-           let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders),
+           let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
            let releasesArr = mbDict["releases"] as? [NSDictionary] {
             
             // Map the NSDictionary array (the result of JSON deserialization)
@@ -145,7 +151,7 @@ class MusicBrainzRESTClient {
         let escapedRecordingTitleString = recordingTitle.contains(" ") ? "%22\(recordingTitle.replacingOccurrences(of: " ", with: "%20"))%22" : recordingTitle
         
         if let url = URL(string: "\(musicBrainzAPIBaseURL)/recording?query=recording:\(escapedRecordingTitleString)%20AND%20artistname:\(escapedArtistString)%20AND%20status:official%20AND%20(primarytype:album%20OR%20primarytype:single)&inc=releases&fmt=json"),
-           let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders),
+           let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
            let recordingsArr = mbDict["recordings"] as? [NSDictionary] {
             
             // Step 1 - Map the NSDictionary array (the result of JSON deserialization)
@@ -188,7 +194,7 @@ class MusicBrainzRESTClient {
                 //          We will only use "front cover" art.
                 
                 if let url = URL(string: "\(musicBrainzAPIBaseURL)/release/\(release.id)?fmt=json"),
-                   let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders),
+                   let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
                    let archiveDict = mbDict["cover-art-archive"] as? NSDictionary,
                    let archive = MusicBrainzCoverArtArchive(archiveDict),
                    archive.hasArt && archive.front {
@@ -224,7 +230,7 @@ class MusicBrainzRESTClient {
                 
                 do {
                     
-                    let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders)
+                    let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout)
                     
                     // Construct an NSImage from the raw data.
                     return CoverArt(imageData: data)

@@ -4,6 +4,9 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     @IBOutlet weak var btnEnableMusicBrainzCoverArtSearch: NSButton!
     
+    @IBOutlet weak var timeoutStepper: NSStepper!
+    @IBOutlet weak var lblTimeout: NSTextField!
+    
     @IBOutlet weak var btnEnableMusicBrainzOnDiskCoverArtCache: NSButton!
     @IBOutlet weak var btnDisableMusicBrainzOnDiskCoverArtCache: NSButton!
     
@@ -20,6 +23,9 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     func resetFields(_ preferences: Preferences) {
         
         let musicBrainzPrefs = preferences.metadataPreferences.musicBrainz
+        
+        timeoutStepper.integerValue = musicBrainzPrefs.httpTimeout
+        lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
        
         btnEnableMusicBrainzCoverArtSearch.onIf(musicBrainzPrefs.enableCoverArtSearch)
         
@@ -30,6 +36,10 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         }
     }
     
+    @IBAction func musicBrainzTimeoutStepperAction(_ sender: NSStepper) {
+        lblTimeout.stringValue = "\(timeoutStepper.integerValue) sec"
+    }
+    
     // Needed for radio button group
     @IBAction func musicBrainzOnDiskCacheCoverArtAction(_ sender: NSButton) {}
     
@@ -37,9 +47,11 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let prefs: MusicBrainzPreferences = preferences.metadataPreferences.musicBrainz
         
-        let wasSearchDisabled: Bool = !prefs.enableCoverArtSearch
+        prefs.httpTimeout = timeoutStepper.integerValue
         
+        let wasSearchDisabled: Bool = !prefs.enableCoverArtSearch
         prefs.enableCoverArtSearch = btnEnableMusicBrainzCoverArtSearch.isOn
+        
         prefs.enableOnDiskCoverArtCache = btnEnableMusicBrainzOnDiskCoverArtCache.isOn
         
         // If searching was disabled before but has been switched on, let's search for art for the playing track, if required.

@@ -19,7 +19,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     
     init(state: MusicBrainzCacheState, preferences: MusicBrainzPreferences, cache: MusicBrainzCache) {
 
-        self.restAPIClient = MusicBrainzRESTClient()
+        self.restAPIClient = MusicBrainzRESTClient(preferences: preferences)
         self.cache = cache
         self.preferences = preferences
     }

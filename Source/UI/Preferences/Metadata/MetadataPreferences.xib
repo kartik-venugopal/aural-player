@@ -11,6 +11,8 @@
                 <outlet property="btnDisableMusicBrainzOnDiskCoverArtCache" destination="tBL-iz-Oka" id="DsZ-Cy-YXM"/>
                 <outlet property="btnEnableMusicBrainzCoverArtSearch" destination="XQ9-wg-zZo" id="oOx-I3-ZcJ"/>
                 <outlet property="btnEnableMusicBrainzOnDiskCoverArtCache" destination="aoA-aw-TdP" id="H6P-dg-AnO"/>
+                <outlet property="lblTimeout" destination="emq-j8-af3" id="Nmu-Xv-eAJ"/>
+                <outlet property="timeoutStepper" destination="rb4-IS-LZr" id="aG5-ls-hyR"/>
                 <outlet property="view" destination="gM7-Rf-uEp" id="mH7-ZP-hDi"/>
             </connections>
         </customObject>
@@ -21,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rxZ-vh-pjm">
-                    <rect key="frame" x="47" y="397" width="283" height="20"/>
+                    <rect key="frame" x="47" y="372" width="283" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="MusicBrainz on-disk cache (for cover art)" id="VAI-8o-e4n">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -29,8 +31,17 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g9f-q8-9fD">
+                    <rect key="frame" x="47" y="402" width="220" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="HTTP request timeout (seconds)" id="HRY-pK-lDC">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aoA-aw-TdP" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="59" y="372" width="327" height="19"/>
+                    <rect key="frame" x="59" y="347" width="327" height="19"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Enable  (better user experience, some disk usage)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="iqx-Gc-G5S">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -41,7 +52,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tBL-iz-Oka" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="59" y="348" width="316" height="20"/>
+                    <rect key="frame" x="59" y="323" width="316" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="radio" title="Disable  (no disk usage, more frequent queries)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="4Yw-JO-Kke">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -59,6 +70,27 @@
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
                 </button>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="emq-j8-af3" userLabel="Timeout Label">
+                    <rect key="frame" x="283" y="398" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="5 sec" id="eVj-3h-MvH">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="NNY-RN-RaG">
+                            <real key="minimum" value="3"/>
+                            <real key="maximum" value="30"/>
+                        </numberFormatter>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rb4-IS-LZr" userLabel="Timeout Stepper">
+                    <rect key="frame" x="323" y="398" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" minValue="1" maxValue="60" doubleValue="5" id="ytY-VQ-Te0"/>
+                    <connections>
+                        <action selector="musicBrainzTimeoutStepperAction:" target="-2" id="O5X-Xu-fWu"/>
+                    </connections>
+                </stepper>
             </subviews>
             <point key="canvasLocation" x="139" y="168"/>
         </view>

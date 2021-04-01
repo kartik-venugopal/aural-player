@@ -92,6 +92,7 @@ struct PreferencesDefaults {
         
         struct MusicBrainz {
             
+            static let httpTimeout: Int = 5
             static let enableCoverArtSearch: Bool = true
             static let enableOnDiskCoverArtCache: Bool = true
         }

@@ -7,19 +7,19 @@ import Cocoa
 class HTTPClient {
     
     ///
-    /// Performs a HTTP GET request to the specified URL, with the given request headers.
+    /// Performs a HTTP GET request to the specified URL, with the given request headers and connection timeout interval (specified in seconds).
     ///
     /// - Returns the data obtained from the response body as raw bytes.
     ///
     /// - throws an error if one occurred while making the request.
     ///
-    func performGET(toURL url: URL, withHeaders headers: [String: String]) throws -> Data {
+    func performGET(toURL url: URL, withHeaders headers: [String: String], timeout: Int = 5) throws -> Data {
         
         // Construct a request object with the specified URL and headers.
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
         request.httpMethod = "GET"
-        request.timeoutInterval = 5 // We don't want requests to take more than 5 seconds. Should we make this user-configurable ???
+        request.timeoutInterval = TimeInterval(timeout)
         
         var response: URLResponse?
         
@@ -37,14 +37,15 @@ class HTTPClient {
     }
     
     ///
-    /// Performs a HTTP GET request to the specified URL, with the given request headers, and deserializes the response as JSON.
+    /// Performs a HTTP GET request to the specified URL, with the given request headers and connection timeout interval (specified in seconds),
+    /// and deserializes the response as JSON.
     ///
     /// - Returns an optional NSDictionary containing the response body (deserialized from JSON). nil if the response could not be deserialized as JSON.
     ///
     /// - throws an error if one occurred while making the request.
     ///
-    func performGETForJSON(toURL url: URL, withHeaders headers: [String: String]) throws -> NSDictionary? {
-        return try performGET(toURL: url, withHeaders: headers).toJSONObject()
+    func performGETForJSON(toURL url: URL, withHeaders headers: [String: String], timeout: Int = 5) throws -> NSDictionary? {
+        return try performGET(toURL: url, withHeaders: headers, timeout: timeout).toJSONObject()
     }
 }
 
