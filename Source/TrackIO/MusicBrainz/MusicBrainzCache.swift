@@ -29,40 +29,69 @@ class MusicBrainzCache: NotificationSubscriber {
         
         guard preferences.enableCoverArtSearch && preferences.enableOnDiskCoverArtCache else {
             
-            onDiskCachingDisabled()
+            FileSystemUtils.deleteDir(self.baseDir)
             return
         }
         
+        FileSystemUtils.createDirectory(self.baseDir)
+        
+        let cnt: Int = state.releases.count + state.recordings.count
+        
+        let time = measureExecutionTime {
+        
         // Initialize the cache with entries that were previously persisted to disk.
-        // Do it async so as not to block the main thread and delay app startup.
-        DispatchQueue.global(qos: .utility).async {
             
-            FileSystemUtils.createDirectory(self.baseDir)
+        let validReleasesEntries: ConcurrentMap<MusicBrainzCacheEntryState, CoverArt> = ConcurrentMap()
+        let validRecordingsEntries: ConcurrentMap<MusicBrainzCacheEntryState, CoverArt> = ConcurrentMap()
             
-            for entry in state.releases {
+        // First validate all the cache entries.
+            
+        for entry in state.releases {
+            
+            diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
                 if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
-                    
-                    // Now that the entry has been validated, add it to the cache.
-                    self.releasesCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskReleasesCache[entry.artist, entry.title] = entry.file
+                    validReleasesEntries[entry] = coverArt
                 }
             }
-            
-            for entry in state.recordings {
-                
-                // Ensure that the image file exists and that it contains a valid image.
-                if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
-                    
-                    // Now that the entry has been validated, add it to the cache.
-                    self.recordingsCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskRecordingsCache[entry.artist, entry.title] = entry.file
-                }
-            }
-            
-            self.cleanUpUnmappedFiles()
         }
+            
+        for entry in state.recordings {
+            
+            diskIOOpQueue.addOperation {
+                
+                // Ensure that the image file exists and that it contains a valid image.
+                if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
+                    validRecordingsEntries[entry] = coverArt
+                }
+            }
+        }
+        
+        // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
+        diskIOOpQueue.waitUntilAllOperationsAreFinished()
+            
+        // Enter all the valid entries into the cache.
+            
+        for (entry, coverArt) in validReleasesEntries.kvPairs {
+
+            self.releasesCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
+            self.onDiskReleasesCache[entry.artist, entry.title] = entry.file
+        }
+        
+        // Now that the entries have been validated, add them to the cache.
+        for (entry, coverArt) in validRecordingsEntries.kvPairs {
+            
+            self.recordingsCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
+            self.onDiskRecordingsCache[entry.artist, entry.title] = entry.file
+        }
+            
+        }
+        
+        print("\n")
+        NSLog("Took \(time * 1000) msecs to INIT MB Cache for \(cnt) entries.")
+            
+        self.cleanUpUnmappedFiles()
     }
     
     func getForRelease(artist: String, title: String) -> CachedCoverArtResult? {

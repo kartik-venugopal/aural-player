@@ -21,7 +21,7 @@ class MusicBrainzCacheState: PersistentState {
     }
 }
 
-class MusicBrainzCacheEntryState {
+class MusicBrainzCacheEntryState: Hashable {
     
     var artist: String
     var title: String
@@ -47,6 +47,17 @@ class MusicBrainzCacheEntryState {
         } else {
             return nil
         }
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        
+        hasher.combine(artist)
+        hasher.combine(title)
+        hasher.combine(file)
+    }
+    
+    static func == (lhs: MusicBrainzCacheEntryState, rhs: MusicBrainzCacheEntryState) -> Bool {
+        lhs.artist == rhs.artist && lhs.title == rhs.title && lhs.file == rhs.file
     }
 }
 

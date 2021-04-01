@@ -7,15 +7,26 @@ class ConcurrentMap<T: Hashable, U: Any> {
     
     var kvPairs: [T: U] {
         
+        lock.wait()
+        defer { lock.signal() }
+        
         let copy = map
         return copy
     }
     
     var keys: [T] {
+        
+        lock.wait()
+        defer { lock.signal() }
+        
         return Array(map.keys)
     }
     
     var values: [U] {
+        
+        lock.wait()
+        defer { lock.signal() }
+        
         return Array(map.values)
     }
     
@@ -93,3 +104,27 @@ class ConcurrentSet<T: Hashable> {
         set.insert(value)
     }
 }
+
+//class ConcurrentArray<T> {
+//
+//    private var array: [T] = []
+//    private let lock = DispatchSemaphore(value: 1)
+//
+//    func append(_ elm: T) {
+//
+//        lock.wait()
+//        defer { lock.signal() }
+//
+//        array.append(elm)
+//    }
+//
+//    func removeAll() {
+//
+//        lock.wait()
+//        defer { lock.signal() }
+//
+//        array.removeAll()
+//    }
+//
+//    var elements: [T] {array}
+//}

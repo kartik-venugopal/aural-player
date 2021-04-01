@@ -37,6 +37,13 @@ class MusicBrainzRESTClient {
                                                              "Accept-Encoding": "gzip"]
     
     ///
+    /// An ordered list of all possible thumbnail sizes for cover art images. The list is ordered in terms of preference,
+    /// i.e. we prefer 500x500px images, and if that is not found, we can fall back on other sizes. "front" is the default
+    /// image in its original size.
+    ///
+    private let thumbnailSizes: [String] = ["front-500", "front-250", "front", "front-1200"]
+    
+    ///
     /// Tries to retrieve cover art, given the name of an artist and an associated release (album / track title).
     ///
     /// - Returns an NSImage containing cover art, if found. nil if no cover art was found.
@@ -211,12 +218,19 @@ class MusicBrainzRESTClient {
     ///
     private func getFrontCoverImage(release: MusicBrainzRelease) throws -> CoverArt? {
         
-        if let url = URL(string: "\(coverArtAPIBaseURL)/release/\(release.id)/front") {
-
-            let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders)
+        for size in thumbnailSizes {
             
-            // Construct an NSImage from the raw data.
-            return CoverArt(imageData: data)
+            if let url = URL(string: "\(coverArtAPIBaseURL)/release/\(release.id)/\(size)") {
+                
+                do {
+                    
+                    let data: Data = try httpClient.performGET(toURL: url, withHeaders: standardHeaders)
+                    
+                    // Construct an NSImage from the raw data.
+                    return CoverArt(imageData: data)
+                    
+                } catch {continue}
+            }
         }
         
         // No image data found.
