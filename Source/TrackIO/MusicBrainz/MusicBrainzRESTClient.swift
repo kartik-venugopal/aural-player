@@ -126,8 +126,6 @@ class MusicBrainzRESTClient {
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
            let releasesArr = mbDict["releases"] as? [NSDictionary] {
             
-            NSLog("Releases query URL: \(url.absoluteString)")
-            
             // Map the NSDictionary array (the result of JSON deserialization)
             // to an array of MBRelease objects that we can work with.
             return releasesArr.compactMap {MusicBrainzRelease($0)}
@@ -155,8 +153,6 @@ class MusicBrainzRESTClient {
         if let url = URL(string: "\(musicBrainzAPIBaseURL)/recording?query=recording:%22\(encodedRecordingTitleString)%22%20AND%20artistname:%22\(encodedArtistString)%22%20AND%20status:official%20AND%20(primarytype:album%20OR%20primarytype:single)&inc=releases&fmt=json"),
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
            let recordingsArr = mbDict["recordings"] as? [NSDictionary] {
-            
-            NSLog("Recordings query URL: \(url.absoluteString)")
             
             // Step 1 - Map the NSDictionary array (the result of JSON deserialization)
             // to an array of MBRecording objects that we can work with.
