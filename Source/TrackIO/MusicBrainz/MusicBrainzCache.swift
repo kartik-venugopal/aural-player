@@ -5,11 +5,11 @@ class MusicBrainzCache: NotificationSubscriber {
     let preferences: MusicBrainzPreferences
     
     // For a given artist / release title combo, cache art for later use (other tracks from the same album).
-    private var releasesCache: CompositeKeyMap<String, CachedCoverArtResult> = CompositeKeyMap()
-    private var recordingsCache: CompositeKeyMap<String, CachedCoverArtResult> = CompositeKeyMap()
+    private var releasesCache: ConcurrentCompositeKeyMap<String, CachedCoverArtResult> = ConcurrentCompositeKeyMap()
+    private var recordingsCache: ConcurrentCompositeKeyMap<String, CachedCoverArtResult> = ConcurrentCompositeKeyMap()
     
-    var onDiskReleasesCache: CompositeKeyMap<String, URL> = CompositeKeyMap()
-    var onDiskRecordingsCache: CompositeKeyMap<String, URL> = CompositeKeyMap()
+    var onDiskReleasesCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
+    var onDiskRecordingsCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     
     private let baseDir: URL = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache", isDirectory: true)
     
@@ -41,18 +41,17 @@ class MusicBrainzCache: NotificationSubscriber {
         
         // Initialize the cache with entries that were previously persisted to disk.
             
-        let validReleasesEntries: ConcurrentMap<MusicBrainzCacheEntryState, CoverArt> = ConcurrentMap()
-        let validRecordingsEntries: ConcurrentMap<MusicBrainzCacheEntryState, CoverArt> = ConcurrentMap()
-            
-        // First validate all the cache entries.
-            
         for entry in state.releases {
             
             diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
                 if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
-                    validReleasesEntries[entry] = coverArt
+                    
+                    // Entry is valid, enter it into the cache.
+                    
+                    self.releasesCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskReleasesCache[entry.artist, entry.title] = entry.file
                 }
             }
         }
@@ -63,28 +62,17 @@ class MusicBrainzCache: NotificationSubscriber {
                 
                 // Ensure that the image file exists and that it contains a valid image.
                 if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
-                    validRecordingsEntries[entry] = coverArt
+                    
+                    // Entry is valid, enter it into the cache.
+                    
+                    self.recordingsCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskRecordingsCache[entry.artist, entry.title] = entry.file
                 }
             }
         }
         
         // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
         diskIOOpQueue.waitUntilAllOperationsAreFinished()
-            
-        // Enter all the valid entries into the cache.
-            
-        for (entry, coverArt) in validReleasesEntries.kvPairs {
-
-            self.releasesCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
-            self.onDiskReleasesCache[entry.artist, entry.title] = entry.file
-        }
-        
-        // Now that the entries have been validated, add them to the cache.
-        for (entry, coverArt) in validRecordingsEntries.kvPairs {
-            
-            self.recordingsCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
-            self.onDiskRecordingsCache[entry.artist, entry.title] = entry.file
-        }
             
         }
         

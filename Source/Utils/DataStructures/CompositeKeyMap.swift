@@ -38,7 +38,52 @@ class CompositeKeyMap<T: Hashable, U: Any> {
         return arr
     }
     
+    func removeValue(for key1: T, and key2: T) -> U? {
+        return map[key1]?.removeValue(forKey: key2)
+    }
+    
     func removeAll() {
+        map.removeAll()
+    }
+}
+
+class ConcurrentCompositeKeyMap<T: Hashable, U: Any> {
+    
+    private var map: CompositeKeyMap<T, U> = CompositeKeyMap()
+    private let lock = DispatchSemaphore(value: 1)
+    
+    subscript(_ key1: T, _ key2: T) -> U? {
+        
+        get {
+            
+            lock.wait()
+            defer { lock.signal() }
+            
+            return map[key1, key2]
+        }
+        
+        set {
+            
+            lock.wait()
+            defer { lock.signal() }
+            
+            map[key1, key2] = newValue
+        }
+    }
+    
+    var entries: [(T, T, U)] {
+        
+        lock.wait()
+        defer { lock.signal() }
+        
+        return map.entries
+    }
+    
+    func removeAll() {
+        
+        lock.wait()
+        defer { lock.signal() }
+        
         map.removeAll()
     }
 }
