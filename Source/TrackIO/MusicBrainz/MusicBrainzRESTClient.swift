@@ -114,17 +114,19 @@ class MusicBrainzRESTClient {
     /// - Returns an optional collection of releases matching the given artist and release title. nil if no matching releases were found.
     ///
     /// - throws any error that was thrown while making the request.
-    ///Ø
+    ///
     private func queryReleases(artist: String, releaseTitle: String) throws -> [MusicBrainzRelease]? {
         
         // Make sure to replace spaces and quotes in the query parameters with the appropriate escape characters (i.e. URL encoding).
         
-        let escapedArtistString = artist.contains(" ") ? "%22\(artist.replacingOccurrences(of: " ", with: "%20"))%22" : artist
-        let escapedReleaseTitleString = releaseTitle.contains(" ") ? "%22\(releaseTitle.replacingOccurrences(of: " ", with: "%20"))%22" : releaseTitle
+        let encodedArtistString = artist.encodedAsURLComponent()
+        let encodedReleaseTitleString = releaseTitle.encodedAsURLComponent()
         
-        if let url = URL(string: "\(musicBrainzAPIBaseURL)/release?query=release:\(escapedReleaseTitleString)%20AND%20artistname:\(escapedArtistString)%20AND%20status:official%20AND%20primarytype:album&fmt=json"),
+        if let url = URL(string: "\(musicBrainzAPIBaseURL)/release?query=release:%22\(encodedReleaseTitleString)%22%20AND%20artistname:%22\(encodedArtistString)%22%20AND%20status:official%20AND%20primarytype:album&fmt=json"),
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
            let releasesArr = mbDict["releases"] as? [NSDictionary] {
+            
+            NSLog("Releases query URL: \(url.absoluteString)")
             
             // Map the NSDictionary array (the result of JSON deserialization)
             // to an array of MBRelease objects that we can work with.
@@ -147,12 +149,14 @@ class MusicBrainzRESTClient {
         
         // Make sure to replace spaces and quotes in the query parameters with the appropriate escape characters (i.e. URL encoding).
         
-        let escapedArtistString = artist.contains(" ") ? "%22\(artist.replacingOccurrences(of: " ", with: "%20"))%22" : artist
-        let escapedRecordingTitleString = recordingTitle.contains(" ") ? "%22\(recordingTitle.replacingOccurrences(of: " ", with: "%20"))%22" : recordingTitle
+        let encodedArtistString = artist.encodedAsURLComponent()
+        let encodedRecordingTitleString = recordingTitle.encodedAsURLComponent()
         
-        if let url = URL(string: "\(musicBrainzAPIBaseURL)/recording?query=recording:\(escapedRecordingTitleString)%20AND%20artistname:\(escapedArtistString)%20AND%20status:official%20AND%20(primarytype:album%20OR%20primarytype:single)&inc=releases&fmt=json"),
+        if let url = URL(string: "\(musicBrainzAPIBaseURL)/recording?query=recording:%22\(encodedRecordingTitleString)%22%20AND%20artistname:%22\(encodedArtistString)%22%20AND%20status:official%20AND%20(primarytype:album%20OR%20primarytype:single)&inc=releases&fmt=json"),
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
            let recordingsArr = mbDict["recordings"] as? [NSDictionary] {
+            
+            NSLog("Recordings query URL: \(url.absoluteString)")
             
             // Step 1 - Map the NSDictionary array (the result of JSON deserialization)
             // to an array of MBRecording objects that we can work with.
