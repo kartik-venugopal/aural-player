@@ -167,7 +167,7 @@ class MusicBrainzRESTClient {
             
             let recordings = recordingsArr.compactMap {MusicBrainzRecording($0)}
             let allReleases = recordings.flatMap {$0.releases}
-            let candidateReleases = allReleases.filter {$0.status == .official}
+            let candidateReleases = allReleases.filter {$0.status == .official && ($0.type != .single || $0.title.lowercased().trim() == recordingTitle)}
             
             return candidateReleases.sorted(by: MusicBrainzReleaseSort(artist).compareAscending)
         }
