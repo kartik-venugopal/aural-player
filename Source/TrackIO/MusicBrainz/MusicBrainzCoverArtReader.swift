@@ -33,14 +33,17 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         guard let artist = track.artist else {return nil}
         let lcArtist = artist.lowerCasedAndTrimmed()
         
-        if let album = track.album,
-           let coverArt = searchReleases(forArtist: lcArtist, andReleaseTitle: album.lowerCasedAndTrimmed()) {
+        var lcTrackAlbum = track.album?.lowerCasedAndTrimmed()
+        if lcTrackAlbum == "album" {lcTrackAlbum = nil} // The word album means that album is unknown and should not be used in the search.
+        
+        if let album = lcTrackAlbum,
+           let coverArt = searchReleases(forArtist: lcArtist, andReleaseTitle: album) {
             
             return coverArt
         }
         
         if let title = track.title,
-           let coverArt = searchRecordings(forArtist: lcArtist, andRecordingTitle: title.lowerCasedAndTrimmed(), from: track.album?.lowerCasedAndTrimmed()) {
+           let coverArt = searchRecordings(forArtist: lcArtist, andRecordingTitle: title.lowerCasedAndTrimmed(), from: lcTrackAlbum) {
             
             return coverArt
         }
