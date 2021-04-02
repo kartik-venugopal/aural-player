@@ -48,7 +48,7 @@ class HTTPError: Error {
             
         case Self.error_serviceUnavailable:     return HTTPServiceUnavailableError(url: url)
             
-        default:    return HTTPError(code: code, description: "The request for resource: '\(url.absoluteString)' failed with error code \(code).", url: url)
+        default:    return HTTPError(code: code, description: "The request failed with error code \(code).", url: url)
             
         }
     }
@@ -60,7 +60,7 @@ class HTTPError: Error {
 class HTTPNotFoundError: HTTPError {
     
     init(url: URL) {
-        super.init(code: HTTPError.error_notFound, description: "The requested resource: '\(url.absoluteString)' was not found.", url: url)
+        super.init(code: HTTPError.error_notFound, description: "The requested resource was not found.", url: url)
     }
 }
 
@@ -70,7 +70,7 @@ class HTTPNotFoundError: HTTPError {
 class HTTPForbiddenError: HTTPError {
     
     init(url: URL) {
-        super.init(code: HTTPError.error_forbidden, description: "Access to the requested resource: '\(url.absoluteString)' is forbidden by the server.", url: url)
+        super.init(code: HTTPError.error_forbidden, description: "Access to the requested resource is forbidden by the server.", url: url)
     }
 }
 
@@ -80,7 +80,7 @@ class HTTPForbiddenError: HTTPError {
 class HTTPInternalServerError: HTTPError {
     
     init(url: URL) {
-        super.init(code: HTTPError.error_internalServerError, description: "The server encountered an error while accessing the requested resource: '\(url.absoluteString)'.", url: url)
+        super.init(code: HTTPError.error_internalServerError, description: "The server encountered an error while accessing the requested resource.", url: url)
     }
 }
 
@@ -90,6 +90,6 @@ class HTTPInternalServerError: HTTPError {
 class HTTPServiceUnavailableError: HTTPError {
     
     init(url: URL) {
-        super.init(code: HTTPError.error_serviceUnavailable, description: "The server is unavailable and cannot retrieve the requested resource: '\(url.absoluteString)'.", url: url)
+        super.init(code: HTTPError.error_serviceUnavailable, description: "The server is unavailable and cannot retrieve the requested resource.", url: url)
     }
 }
