@@ -35,10 +35,6 @@ class MusicBrainzCache: NotificationSubscriber {
         
         FileSystemUtils.createDirectory(self.baseDir)
         
-        let cnt: Int = state.releases.count + state.recordings.count
-        
-        let time = measureExecutionTime {
-        
         // Initialize the cache with entries that were previously persisted to disk.
             
         for entry in state.releases {
@@ -73,11 +69,6 @@ class MusicBrainzCache: NotificationSubscriber {
         
         // Read all the cached image files concurrently and wait till all the concurrent ops are finished.
         diskIOOpQueue.waitUntilAllOperationsAreFinished()
-            
-        }
-        
-        print("\n")
-        NSLog("Took \(time * 1000) msecs to INIT MB Cache for \(cnt) entries.")
             
         self.cleanUpUnmappedFiles()
     }

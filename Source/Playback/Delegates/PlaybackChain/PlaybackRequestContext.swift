@@ -32,11 +32,6 @@ class PlaybackRequestContext {
         self.requestParams = requestParams
     }
     
-    // TODO: Remove this func after testing
-    func toString() -> String {
-        return String(describing: JSONMapper.map(self))
-    }
-    
     // MARK: Static members to keep track of context instances
     
     // Keeps track of the currently executing request context, if any.
