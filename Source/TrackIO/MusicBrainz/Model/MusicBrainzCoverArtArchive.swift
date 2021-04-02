@@ -50,3 +50,32 @@ class MusicBrainzCoverArtArchive {
         self.count = count.intValue
     }
 }
+
+/// This class is currently unused.
+class MBCoverArtImage {
+    
+    var thumbnails: [String: String] = [:]
+    var image: String
+    var approved: Bool
+    var front: Bool
+    
+    init?(_ dict: NSDictionary) {
+
+        // Validate the dictionary (all fields must be present).
+        guard let image = dict["image"] as? String else {return nil}
+        self.image = image
+       
+        if let thumbnails = dict["thumbnails"] as? NSDictionary {
+            
+            for (size, url) in thumbnails {
+                
+                if let sizeStr = size as? String, let urlStr = url as? String {
+                    self.thumbnails[sizeStr] = urlStr
+                }
+            }
+        }
+        
+        self.approved = dict["approved"] as? Bool ?? false
+        self.front = dict["front"] as? Bool ?? false
+    }
+}

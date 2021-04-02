@@ -154,18 +154,19 @@ enum MusicBrainzReleaseStatus: String {
 /// Sort comparator for MusicBrainzRelease objects.
 class MusicBrainzReleaseSort {
  
-    var artist: String?
+    var queryArtist: String?
+    var queryTitle: String?
     
-    init(){}
-    
-    init(_ artist: String) {
-        self.artist = artist.lowercased().trim()
+    init(artist: String? = nil, title: String? = nil) {
+        
+        self.queryArtist = artist
+        self.queryTitle = title
     }
     
     // Used to sort an array of releases such that the most preferred candidate is first in the array.
     func compareAscending(r1: MusicBrainzRelease, r2: MusicBrainzRelease) -> Bool {
         
-        if self.artist != nil {
+        if self.queryArtist != nil {
             
             let artistMatchRank1 = artistMatchRank(for: r1)
             let artistMatchRank2 = artistMatchRank(for: r2)
@@ -173,6 +174,18 @@ class MusicBrainzReleaseSort {
             if artistMatchRank1 < artistMatchRank2 {
                 return true
             } else if artistMatchRank1 > artistMatchRank2 {
+                return false
+            }
+        }
+        
+        if self.queryTitle != nil {
+            
+            let titleMatchRank1 = titleMatchRank(for: r1)
+            let titleMatchRank2 = titleMatchRank(for: r2)
+            
+            if titleMatchRank1 < titleMatchRank2 {
+                return true
+            } else if titleMatchRank1 > titleMatchRank2 {
                 return false
             }
         }
@@ -207,19 +220,40 @@ class MusicBrainzReleaseSort {
         // Compare the artist of the release with the artist used in the query.
         
         let releaseArtist = release.artistName.lowercased().trim()
-        let recordingArtist = self.artist ?? ""
+        let queryArtist = self.queryArtist ?? ""
         
         // If the artist matches (and artist is non-empty), rank is the highest.
-        if releaseArtist == recordingArtist && !releaseArtist.isEmpty {
+        if releaseArtist == queryArtist && !releaseArtist.isEmpty {
             return 1
         }
         
         // If the artist matches (and artist is empty), rank is the 2nd highest.
-        if releaseArtist == recordingArtist && releaseArtist.isEmpty {
+        if releaseArtist == queryArtist && releaseArtist.isEmpty {
             return 2
         }
         
         // Artist does not match
+        return 3
+    }
+    
+    private func titleMatchRank(for release: MusicBrainzRelease) -> Int {
+        
+        // Compare the title of the release with the title used in the query.
+        
+        let releaseTitle = release.title.lowercased().trim()
+        let queryTitle = self.queryTitle ?? ""
+        
+        // If the title matches (and title is non-empty), rank is the highest.
+        if releaseTitle == queryTitle && !releaseTitle.isEmpty {
+            return 1
+        }
+        
+        // If the title matches (and title is empty), rank is the 2nd highest.
+        if releaseTitle == queryTitle && releaseTitle.isEmpty {
+            return 2
+        }
+        
+        // Title does not match
         return 3
     }
 }

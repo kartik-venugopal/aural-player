@@ -129,7 +129,7 @@ class MusicBrainzRESTClient {
             // Map the NSDictionary array (the result of JSON deserialization)
             // to an array of MBRelease objects that we can work with.
             return releasesArr.compactMap {MusicBrainzRelease($0)}
-                .sorted(by: MusicBrainzReleaseSort().compareAscending)
+                .sorted(by: MusicBrainzReleaseSort(title: releaseTitle).compareAscending)
         }
         
         // No matching release found.
@@ -169,7 +169,7 @@ class MusicBrainzRESTClient {
             let allReleases = recordings.flatMap {$0.releases}
             let candidateReleases = allReleases.filter {$0.status == .official && ($0.type != .single || $0.title.lowercased().trim() == recordingTitle)}
             
-            return candidateReleases.sorted(by: MusicBrainzReleaseSort(artist).compareAscending)
+            return candidateReleases.sorted(by: MusicBrainzReleaseSort(artist: artist, title: recordingTitle).compareAscending)
         }
         
         // No matching release found.
