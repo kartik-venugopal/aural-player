@@ -33,7 +33,13 @@ Note that the accuracy of cover art lookups or relevance of the chosen image to 
 * The relevance of the images uploaded to MusicBrainz (and they are not always the right images).
 * Selecting a cover art image from a range of available cover art images ... which is not an exact science, and uses several criteria, eg - artist name, album name, title, release date, etc to maximize relevance.
 
-Despite this, Aural Player may sometimes display false positives, i.e. art that is not accurate for the corresponding track. This is inevitable. 
+Despite this, Aural Player may sometimes display false positives, i.e. art that is not accurate for the corresponding track. This is inevitable.
+
+### Note about rate limiting of cover art lookups
+
+Note that MusicBrainz limits the rate at which clients can send requests, so under some rare circumstances, (eg. too many very frequent track changes), cover art lookups may fail due to the rate limiting. This simply means that no cover art will be displayed for the playing track.
+
+Again, this is very rare. Under most normal circumstances, this will not be an issue.
 
 ## Bug fix - Grouping Playlists
 
