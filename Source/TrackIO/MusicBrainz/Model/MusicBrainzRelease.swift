@@ -156,11 +156,13 @@ class MusicBrainzReleaseSort {
  
     var queryArtist: String?
     var queryTitle: String?
+    var album: String?
     
-    init(artist: String? = nil, title: String? = nil) {
+    init(artist: String? = nil, title: String? = nil, album: String? = nil) {
         
         self.queryArtist = artist
         self.queryTitle = title
+        self.album = album
     }
     
     // Used to sort an array of releases such that the most preferred candidate is first in the array.
@@ -178,10 +180,23 @@ class MusicBrainzReleaseSort {
             }
         }
         
-        if self.queryTitle != nil {
+        let r1Title = r1.title.lowerCasedAndTrimmed()
+        let r2Title = r2.title.lowerCasedAndTrimmed()
+        
+        if let album = self.album, let title = self.queryTitle {
             
-            let titleMatchRank1 = titleMatchRank(for: r1)
-            let titleMatchRank2 = titleMatchRank(for: r2)
+            // Album match has more weight (better rank) than title match.
+            let r1Score = (album.alphaNumericMatch(to: r1Title) ? 0 : 3) + (title.alphaNumericMatch(to: r1Title) ? 1 : 2)
+            let r2Score = (album.alphaNumericMatch(to: r2Title) ? 0 : 3) + (title.alphaNumericMatch(to: r2Title) ? 1 : 2)
+            
+            if r1Score != r2Score {
+                return r1Score < r2Score
+            }
+            
+        } else if let title = self.queryTitle {
+            
+            let titleMatchRank1 = title.similarityToString(other: r1Title)
+            let titleMatchRank2 = title.similarityToString(other: r2Title)
             
             if titleMatchRank1 < titleMatchRank2 {
                 return true
@@ -233,27 +248,6 @@ class MusicBrainzReleaseSort {
         }
         
         // Artist does not match
-        return 3
-    }
-    
-    private func titleMatchRank(for release: MusicBrainzRelease) -> Int {
-        
-        // Compare the title of the release with the title used in the query.
-        
-        let releaseTitle = release.title.lowercased().trim()
-        let queryTitle = self.queryTitle ?? ""
-        
-        // If the title matches (and title is non-empty), rank is the highest.
-        if releaseTitle == queryTitle && !releaseTitle.isEmpty {
-            return 1
-        }
-        
-        // If the title matches (and title is empty), rank is the 2nd highest.
-        if releaseTitle == queryTitle && releaseTitle.isEmpty {
-            return 2
-        }
-        
-        // Title does not match
         return 3
     }
 }

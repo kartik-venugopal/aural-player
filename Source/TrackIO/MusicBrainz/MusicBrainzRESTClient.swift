@@ -84,31 +84,6 @@ class MusicBrainzRESTClient {
     }
     
     ///
-    /// Tries to retrieve cover art, given the name of an artist and an associated recording (track) title.
-    ///
-    func getCoverArt(forArtist artist: String, andRecordingTitle recordingTitle: String) throws -> CoverArt? {
-        
-        do {
-
-            if let matchingReleases = try queryRecordings(artist: artist, recordingTitle: recordingTitle),
-               let releaseWithCoverArt = checkReleasesForCoverArt(matchingReleases) {
-
-                return try getFrontCoverImage(release: releaseWithCoverArt)
-            }
-
-        } catch let httpError as HTTPError {
-            
-            // This is a special case. If we got a 404 not found error, we simply return nil. It's not an error.
-            if httpError.code != HTTPError.error_notFound {
-                throw httpError
-            }
-        }
-        
-        // No cover art found.
-        return nil
-    }
-    
-    ///
     /// Finds all releases matching the given artist and release title.
     ///
     /// - Returns an optional collection of releases matching the given artist and release title. nil if no matching releases were found.
@@ -137,13 +112,38 @@ class MusicBrainzRESTClient {
     }
     
     ///
+    /// Tries to retrieve cover art, given the name of an artist and an associated recording (track) title.
+    ///
+    func getCoverArt(forArtist artist: String, andRecordingTitle recordingTitle: String, from album: String?) throws -> CoverArt? {
+        
+        do {
+
+            if let matchingReleases = try queryRecordings(artist: artist, recordingTitle: recordingTitle, from: album),
+               let releaseWithCoverArt = checkReleasesForCoverArt(matchingReleases) {
+                
+                return try getFrontCoverImage(release: releaseWithCoverArt)
+            }
+
+        } catch let httpError as HTTPError {
+            
+            // This is a special case. If we got a 404 not found error, we simply return nil. It's not an error.
+            if httpError.code != HTTPError.error_notFound {
+                throw httpError
+            }
+        }
+        
+        // No cover art found.
+        return nil
+    }
+    
+    ///
     /// Finds all releases matching the given artist and recording title.
     ///
     /// - Returns an optional collection of releases matching the given artist and recording title. nil if no matching releases were found.
     ///
     /// - throws any error that was thrown while making the request.
     ///
-    private func queryRecordings(artist: String, recordingTitle: String) throws -> [MusicBrainzRelease]? {
+    private func queryRecordings(artist: String, recordingTitle: String, from album: String?) throws -> [MusicBrainzRelease]? {
         
         // Make sure to replace spaces and quotes in the query parameters with the appropriate escape characters (i.e. URL encoding).
         
@@ -169,7 +169,7 @@ class MusicBrainzRESTClient {
             let allReleases = recordings.flatMap {$0.releases}
             let candidateReleases = allReleases.filter {$0.status == .official && ($0.type != .single || $0.title.lowercased().trim() == recordingTitle)}
             
-            return candidateReleases.sorted(by: MusicBrainzReleaseSort(artist: artist, title: recordingTitle).compareAscending)
+            return candidateReleases.sorted(by: MusicBrainzReleaseSort(artist: artist, title: recordingTitle, album: album).compareAscending)
         }
         
         // No matching release found.

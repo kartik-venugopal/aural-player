@@ -32,6 +32,62 @@ extension String {
     var isAcronym: Bool {
         !self.contains(where: {$0.isLowercase})
     }
+    
+    func alphaNumericMatch(to other: String) -> Bool {
+        
+        if self == other {return true}
+        
+        if count != other.count {return false}
+        
+        var characterMatch: Bool = false
+        
+        for index in 0..<count {
+            
+            let myChar = self[index]
+            let otherChar = other[index]
+            
+            if myChar.isAlphaNumeric && otherChar.isAlphaNumeric {
+                
+                if myChar != otherChar {
+                    return false
+                } else {
+                    characterMatch = true
+                }
+            }
+        }
+        
+        return characterMatch
+    }
+    
+    // The lower the number, the better the match. 0 means perfect match.
+    func similarityToString(other: String) -> Int {
+        
+        if self == other {return 0}
+        
+        let myLen = self.count
+        let otherLen = other.count
+        let matchLen = min(myLen, otherLen)
+        
+        var score: Int = 0
+        
+        for index in 0..<matchLen {
+            
+            if self[index] != other[index] {
+                score.increment()
+            }
+        }
+        
+        if myLen != otherLen {
+            score += abs(myLen - otherLen)
+        }
+        
+        return score
+    }
+}
+
+extension Character {
+    
+    var isAlphaNumeric: Bool {self.isLetter || self.isNumber}
 }
 
 extension Substring.SubSequence {

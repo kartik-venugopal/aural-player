@@ -35,8 +35,7 @@ class PredictiveTrackPreparationAction: PlaybackChainAction {
             //
             // 1 - The "subsequent" track in the playback sequence, i.e. the track that would play next automatically.
             // 2 - The "next" track which would play if the user triggered the "Next track" function.
-            // 3 - The "previous" track which would play if the user triggered the "Previous track" function.
-            let nillableTracksArray: [Track?] = [self.sequencer.peekSubsequent(), self.sequencer.peekNext(), self.sequencer.peekPrevious()]
+            let nillableTracksArray: [Track?] = [self.sequencer.peekSubsequent(), self.sequencer.peekNext()]
             
             // Since some of the candidate tracks might be the same track (subsequent track might be the same as the next track), we need
             // to put them in a Set, and also eliminate nil values.

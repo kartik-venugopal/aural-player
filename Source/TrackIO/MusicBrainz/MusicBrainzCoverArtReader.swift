@@ -40,7 +40,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         }
         
         if let title = track.title,
-           let coverArt = searchRecordings(forArtist: lcArtist, andRecordingTitle: title.lowerCasedAndTrimmed()) {
+           let coverArt = searchRecordings(forArtist: lcArtist, andRecordingTitle: title.lowerCasedAndTrimmed(), from: track.album?.lowerCasedAndTrimmed()) {
             
             return coverArt
         }
@@ -54,7 +54,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         if let coverArtResult = cache.getForRelease(artist: artist, title: releaseTitle) {
             return coverArtResult.art
         }
-        
+
         // Acquire the lock for the API call.
         apiCallsLock.wait()
         defer {apiCallsLock.signal()}
@@ -90,7 +90,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         return nil
     }
     
-    private func searchRecordings(forArtist artist: String, andRecordingTitle recordingTitle: String) -> CoverArt? {
+    private func searchRecordings(forArtist artist: String, andRecordingTitle recordingTitle: String, from album: String?) -> CoverArt? {
         
         // Look for cover art in the cache first.
         if let coverArtResult = cache.getForRecording(artist: artist, title: recordingTitle) {
@@ -108,7 +108,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         
         do {
             
-            if let coverArt = try restAPIClient.getCoverArt(forArtist: artist, andRecordingTitle: recordingTitle) {
+            if let coverArt = try restAPIClient.getCoverArt(forArtist: artist, andRecordingTitle: recordingTitle, from: album) {
                 
                 // Add this entry to the cache.
                 cache.putForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
