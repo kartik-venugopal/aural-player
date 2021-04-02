@@ -18,6 +18,8 @@ By default, MusicBrainz cover art lookups will be enabled.
 
 You can set a timeout interval (specified in seconds) for HTTP requests made to MusicBrainz. If you have a slow internet connection, this may be necessary, although the default timeout interval of 5 seconds should be sufficient for most scenarios.
 
+You can choose a timeout ranging from 1 second to 60 seconds. It is recommended to choose an interval that is the minimum required for your particular scenario.
+
 #### Enable / disable on-disk caching
 
 For a better user experience, Aural Player will cache, on disk, any cover art retrieved from MusicBrainz, for later reuse when loading cover art for the same album / track. This prevents unnecessary redundant online lookups for cover art that was already retrieved before. It also reduces internet usage and the number of requests sent to MusicBrainz. 
