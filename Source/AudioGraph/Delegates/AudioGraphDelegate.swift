@@ -36,6 +36,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     var reverbUnit: ReverbUnitDelegateProtocol
     var delayUnit: DelayUnitDelegateProtocol
     var filterUnit: FilterUnitDelegateProtocol
+    var audioUnits: [HostedAudioUnitDelegateProtocol]
     
     // The actual underlying audio graph
     private var graph: AudioGraphProtocol
@@ -61,6 +62,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
         delayUnit = DelayUnitDelegate(graph.delayUnit)
         filterUnit = FilterUnitDelegate(graph.filterUnit)
+        audioUnits = graph.audioUnits.map {HostedAudioUnitDelegate($0)}
         
         // Set output device based on user preference
         
@@ -158,6 +160,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         graph.balance = graph.balance < 0 && newBalance > 0 ? 0 : newBalance
         
         return balance
+    }
+    
+    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)? {
+        return graph.addAudioUnit(ofType: componentSubType)
+    }
+    
+    func removeAudioUnit(at index: Int) {
+        graph.removeAudioUnit(at: index)
     }
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {

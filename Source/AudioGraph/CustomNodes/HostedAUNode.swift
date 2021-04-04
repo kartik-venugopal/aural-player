@@ -11,8 +11,8 @@ class HostedAUNode: AVAudioUnitEffect {
     var paramsMap: [String: AUParameter] = [:]
     
     var viewController: NSViewController?
-    
-    fileprivate override init(audioComponentDescription: AudioComponentDescription) {
+
+    override init(audioComponentDescription: AudioComponentDescription) {
         
         super.init(audioComponentDescription: audioComponentDescription)
         
@@ -22,18 +22,6 @@ class HostedAUNode: AVAudioUnitEffect {
                 paramsMap[param.identifier] = param
             }
         }
-    }
-    
-    static func create(ofType type: OSType) -> HostedAUNode? {
-        
-        let desc = AudioComponentDescription(componentType: kAudioUnitType_Effect,
-                                             componentSubType: type,
-                                             componentManufacturer: 0,
-                                             componentFlags: 0,
-                                             componentFlagsMask: 0)
-
-        guard let component = AVAudioUnitComponentManager.shared().components(matching: desc).first else {return nil}
-        return HostedAUNode(audioComponentDescription: component.audioComponentDescription)
     }
     
     func setParams(_ params: [String: Float]) {

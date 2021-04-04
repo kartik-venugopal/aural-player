@@ -77,7 +77,7 @@ class ObjectGraph {
         audioUnitsManager = AudioUnitsManager()
         
         // Audio Graph (and delegate)
-        audioGraph = AudioGraph(appState.audioGraph)
+        audioGraph = AudioGraph(audioUnitsManager, appState.audioGraph)
         
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
         // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.

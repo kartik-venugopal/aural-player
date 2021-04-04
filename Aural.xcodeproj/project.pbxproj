@@ -485,6 +485,7 @@
 		3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */; };
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
 		3E9C88312614FE73003B10AD /* CompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */; };
+		3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */; };
 		3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */; };
 		3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
@@ -1086,6 +1087,7 @@
 		3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
 		3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeKeyMap.swift; sourceTree = "<group>"; };
+		3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitDelegate.swift; sourceTree = "<group>"; };
 		3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
@@ -2600,6 +2602,7 @@
 				3E6C112825CEB98700BF0D07 /* FXUnitDelegate.swift */,
 				3E6C112925CEB98700BF0D07 /* PitchUnitDelegate.swift */,
 				3E6C112A25CEB98700BF0D07 /* DelayUnitDelegate.swift */,
+				3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -3306,6 +3309,7 @@
 				3E6C117925CEBD6000BF0D07 /* BookmarkState.swift in Sources */,
 				3E6C118025CEBD6D00BF0D07 /* PitchUnitDelegate.swift in Sources */,
 				3E6C12B425CEBE5800BF0D07 /* PlaybackMenuController.swift in Sources */,
+				3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */,
 				3E6C11C125CEBDB400BF0D07 /* SequenceScope.swift in Sources */,
 				3E6C126725CEBE0600BF0D07 /* LayoutPreviewView.swift in Sources */,
 				3E6C120825CEBDD100BF0D07 /* GroupingPlaylistProtocols.swift in Sources */,

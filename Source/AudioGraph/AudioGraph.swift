@@ -38,6 +38,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     internal let nodeForRecorderTap: AVAudioNode
     private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     
+    private let audioUnitsManager: AudioUnitsManager
     private let deviceManager: DeviceManager
     private let audioEngineHelper: AudioEngineHelper
     
@@ -58,8 +59,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var soundProfiles: SoundProfiles
     
     // Sets up the audio engine
-    init(_ state: AudioGraphState) {
+    init(_ audioUnitsManager: AudioUnitsManager, _ state: AudioGraphState) {
         
+        self.audioUnitsManager = audioUnitsManager
         audioEngine = AVAudioEngine()
         outputNode = audioEngine.outputNode
         
@@ -83,7 +85,14 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         reverbUnit = ReverbUnit(state)
         delayUnit = DelayUnit(state)
         filterUnit = FilterUnit(state)
-        audioUnits = state.audioUnits.compactMap {HostedAudioUnit($0)}
+        
+        self.audioUnits = []
+        for auState in state.audioUnits {
+            
+            if let component = audioUnitsManager.component(ofType: OSType(auState.componentSubType)) {
+                audioUnits.append(HostedAudioUnit(withComponentDescription: component.audioComponentDescription))
+            }
+        }
         
         let slaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit] + audioUnits
         masterUnit = MasterUnit(state, slaveUnits)
@@ -141,6 +150,26 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var muted: Bool {
         didSet {playerNode.volume = muted ? 0 : playerVolume}
+    }
+    
+    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)? {
+        
+        if let auComponent = audioUnitsManager.component(ofType: componentSubType) {
+            
+            let newUnit: HostedAudioUnit = HostedAudioUnit(withComponentDescription: auComponent.audioComponentDescription)
+            audioUnits.append(newUnit)
+            
+            return (newUnit, audioUnits.lastIndex)
+        }
+        
+        return nil
+    }
+    
+    func removeAudioUnit(at index: Int) {
+        
+        if index < audioUnits.count {
+            audioUnits.remove(at: index)
+        }
     }
     
     var settingsAsMasterPreset: MasterPreset {

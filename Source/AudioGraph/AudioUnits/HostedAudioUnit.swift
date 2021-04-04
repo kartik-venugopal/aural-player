@@ -22,17 +22,15 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     override var avNodes: [AVAudioNode] {return [node]}
     
-    init?(_ componentSubType: OSType) {
+    init(withComponentDescription description: AudioComponentDescription) {
         
-        guard let node = HostedAUNode.create(ofType: componentSubType) else {return nil}
-        self.node = node
+        self.node = HostedAUNode(audioComponentDescription: description)
         super.init(.au, .active)
     }
     
-    init?(_ appState: AudioUnitState) {
+    init(withComponentDescription description: AudioComponentDescription, appState: AudioUnitState) {
         
-        guard let node = HostedAUNode.create(ofType: OSType(appState.componentSubType)) else {return nil}
-        self.node = node
+        self.node = HostedAUNode(audioComponentDescription: description)
         
         super.init(.au, appState.state)
         presets.addPresets(appState.userPresets)

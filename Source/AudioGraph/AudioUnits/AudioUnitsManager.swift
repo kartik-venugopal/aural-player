@@ -19,4 +19,8 @@ class AudioUnitsManager {
     
     var audioUnits: [AVAudioUnitComponent] {components}
     var numberOfAudioUnits: Int {components.count}
+    
+    func component(ofType componentSubType: OSType) -> AVAudioUnitComponent? {
+        return components.first(where: {$0.audioComponentDescription.componentSubType == componentSubType})
+    }
 }

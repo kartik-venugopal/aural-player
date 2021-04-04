@@ -55,6 +55,9 @@ protocol AudioGraphDelegateProtocol {
     
     var soundProfiles: SoundProfiles {get}
     
+    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)?
+    func removeAudioUnit(at index: Int)
+    
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
 }
@@ -135,6 +138,13 @@ protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
     func decreasePitch() -> (pitch: Float, pitchString: String)
     
     var presets: PitchPresets {get}
+}
+
+protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
+    
+    var params: [String: Float] {get}
+    
+    var presets: AudioUnitPresets {get}
 }
 
 protocol TimeUnitDelegateProtocol: FXUnitDelegateProtocol {
