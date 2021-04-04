@@ -56,6 +56,8 @@ class ObjectGraph {
     
     static var musicBrainzCache: MusicBrainzCache!
     
+    static var audioUnitsManager: AudioUnitsManager!
+    
     static var fft: FFT!
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
@@ -71,6 +73,8 @@ class ObjectGraph {
         // Preferences (and delegate)
         preferences = Preferences.instance
         preferencesDelegate = PreferencesDelegate(preferences)
+        
+        audioUnitsManager = AudioUnitsManager()
         
         // Audio Graph (and delegate)
         audioGraph = AudioGraph(appState.audioGraph)

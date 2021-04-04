@@ -24,6 +24,8 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     var delayUnit: DelayUnit {get}
     var filterUnit: FilterUnit {get}
     
+    var audioUnits: [HostedAudioUnit] {get}
+    
     var settingsAsMasterPreset: MasterPreset {get}
     
     var soundProfiles: SoundProfiles {get set}

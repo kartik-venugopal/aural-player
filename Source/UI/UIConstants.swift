@@ -34,6 +34,10 @@ struct UIConstants {
     static let filterBandsFreqColumnID: String = "cid_Frequencies"
     static let filterBandsTypeColumnID: String = "cid_Type"
     
+    static let audioUnitSwitchColumnID: String = "cid_AudioUnitSwitch"
+    static let audioUnitNameColumnID: String = "cid_AudioUnitName"
+    static let audioUnitEditColumnID: String = "cid_AudioUnitEdit"
+    
     static let bookmarkPromptLocatorViewID: String = "bookmarkPromptLocator"
     
     // Angles used to fill gradients

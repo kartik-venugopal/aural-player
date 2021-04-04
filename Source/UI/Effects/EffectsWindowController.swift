@@ -103,7 +103,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     private func initTabGroup() {
 
         // Select Master tab view by default
-        tabViewAction(masterTabViewButton)
+        tabViewAction(auTabViewButton)
     }
 
     private func initSubscriptions() {

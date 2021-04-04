@@ -50,6 +50,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var reverbUnit: ReverbUnit
     var delayUnit: DelayUnit
     var filterUnit: FilterUnit
+    var audioUnits: [HostedAudioUnit]
     
     // Sound setting value holders
     private var playerVolume: Float
@@ -82,8 +83,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         reverbUnit = ReverbUnit(state)
         delayUnit = DelayUnit(state)
         filterUnit = FilterUnit(state)
+        audioUnits = state.audioUnits.compactMap {HostedAudioUnit($0)}
         
-        let slaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit]
+        let slaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit] + audioUnits
         masterUnit = MasterUnit(state, slaveUnits)
 
         var nodes = [playerNode, auxMixer]
@@ -95,9 +97,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         playerNode.pan = state.balance
         
         soundProfiles = SoundProfiles()
-        state.soundProfiles.forEach({
+        state.soundProfiles.forEach {
             soundProfiles.add($0.file, $0)
-        })
+        }
         
         soundProfiles.audioGraph = self
         
@@ -178,6 +180,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.reverbUnit = reverbUnit.persistentState
         state.delayUnit = delayUnit.persistentState
         state.filterUnit = filterUnit.persistentState
+        state.audioUnits = audioUnits.map {$0.persistentState}
         
         state.soundProfiles.append(contentsOf: soundProfiles.all())
         

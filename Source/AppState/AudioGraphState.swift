@@ -69,7 +69,12 @@ fileprivate func deserializeMasterPreset(_ map: NSDictionary) -> MasterPreset {
         filterPreset = deserializeFilterPreset(filterDict)
     }
     
-    return MasterPreset(name, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
+    var auPresets: [AudioUnitPreset] = []
+    if let auPresetsArr = map["audioUnits"] as? [NSDictionary] {
+        auPresets = auPresetsArr.map {deserializeAUPreset($0)}
+    }
+    
+    return MasterPreset(name, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, auPresets, false)
 }
 
 class EQUnitState: FXUnitState<EQPreset>, PersistentState {
@@ -169,7 +174,7 @@ class TimeUnitState: FXUnitState<TimePreset>, PersistentState {
         
         let timeState: TimeUnitState = TimeUnitState()
         
-        timeState.state = mapEnum(map, "state", AppDefaults.pitchState)
+        timeState.state = mapEnum(map, "state", AppDefaults.timeState)
         timeState.rate = mapNumeric(map, "rate", AppDefaults.timeStretchRate)
         timeState.overlap = mapNumeric(map, "overlap", AppDefaults.timeOverlap)
         timeState.shiftPitch = mapDirectly(map, "shiftPitch", AppDefaults.timeShiftPitch)
@@ -276,7 +281,7 @@ class DelayUnitState: FXUnitState<DelayPreset>, PersistentState {
 fileprivate func deserializeDelayPreset(_ map: NSDictionary) -> DelayPreset {
     
     let name = map["name"] as? String ?? ""
-    let state = mapEnum(map, "state", AppDefaults.reverbState)
+    let state = mapEnum(map, "state", AppDefaults.delayState)
     
     let amount: Float = mapNumeric(map, "amount", AppDefaults.delayAmount)
     let time: Double = mapNumeric(map, "time", AppDefaults.delayTime)
@@ -324,10 +329,21 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
     }
 }
 
+class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
+    
+    var componentId: String = ""
+    var componentSubType: Int = 0
+    var params: [String: Float] = [:]
+    
+    static func deserialize(_ map: NSDictionary) -> AudioUnitState {
+        return AudioUnitState()
+    }
+}
+
 fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
     
     let name = map["name"] as? String ?? ""
-    let state = mapEnum(map, "state", AppDefaults.reverbState)
+    let state = mapEnum(map, "state", AppDefaults.filterState)
     
     var presetBands: [FilterBand] = []
     if let bands = map["bands"] as? [NSDictionary] {
@@ -343,6 +359,26 @@ fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
     }
     
     return FilterPreset(name, state, presetBands, false)
+}
+
+
+fileprivate func deserializeAUPreset(_ map: NSDictionary) -> AudioUnitPreset {
+    
+    let name = map["name"] as? String ?? ""
+    let state = mapEnum(map, "state", AppDefaults.reverbState)
+    
+    var params: [String: Float] = [:]
+    if let paramsMap = map["params"] as? NSDictionary {
+        
+        for (paramId, value) in paramsMap {
+            
+            if let paramIdStr = paramId as? String {
+                params[paramIdStr] = (value as? NSNumber)?.floatValue
+            }
+        }
+    }
+    
+    return AudioUnitPreset(name, state, false, params: params)
 }
 
 /*
@@ -363,6 +399,7 @@ class AudioGraphState: PersistentState {
     var reverbUnit: ReverbUnitState = ReverbUnitState()
     var delayUnit: DelayUnitState = DelayUnitState()
     var filterUnit: FilterUnitState = FilterUnitState()
+    var audioUnits: [AudioUnitState] = []
     
     var soundProfiles: [SoundProfile] = []
     
@@ -404,6 +441,10 @@ class AudioGraphState: PersistentState {
         
         if let filterDict = (map["filterUnit"] as? NSDictionary) {
             audioGraphState.filterUnit = FilterUnitState.deserialize(filterDict)
+        }
+        
+        if let auDictsArr = map["audioUnits"] as? [NSDictionary] {
+            audioGraphState.audioUnits = auDictsArr.map {AudioUnitState.deserialize($0)}
         }
         
         if let profilesArr = map["soundProfiles"] as? [NSDictionary] {

@@ -5,6 +5,7 @@ import Cocoa
 class HostedAUNode: AVAudioUnitEffect {
     
     var componentSubType: OSType {auAudioUnit.componentDescription.componentSubType}
+    var audioUnitName: String {auAudioUnit.audioUnitName!}
     
     // Identifier -> Parameter
     var paramsMap: [String: AUParameter] = [:]
@@ -33,6 +34,13 @@ class HostedAUNode: AVAudioUnitEffect {
 
         guard let component = AVAudioUnitComponentManager.shared().components(matching: desc).first else {return nil}
         return HostedAUNode(audioComponentDescription: component.audioComponentDescription)
+    }
+    
+    func setParams(_ params: [String: Float]) {
+        
+        for (paramId, value) in params {
+            paramsMap[paramId]?.value = value
+        }
     }
     
     func setParam(key: String, value: Float) {

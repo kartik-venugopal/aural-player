@@ -115,3 +115,8 @@ protocol FilterUnitProtocol: FXUnitProtocol {
     
     func removeAllBands()
 }
+
+protocol HostedAudioUnitProtocol: FXUnitProtocol {
+    
+    
+}
