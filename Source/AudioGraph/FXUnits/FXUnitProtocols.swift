@@ -121,4 +121,10 @@ protocol HostedAudioUnitProtocol: FXUnitProtocol {
     var name: String {get}
     var params: [String: Float] {get}
     var auAudioUnit: AUAudioUnit {get}
+    
+    var factoryPresets: [AudioUnitFactoryPreset] {get}
+    
+    func applyFactoryPreset(_ preset: AudioUnitFactoryPreset)
+    
+    func applyFactoryPreset(_ presetName: String)
 }

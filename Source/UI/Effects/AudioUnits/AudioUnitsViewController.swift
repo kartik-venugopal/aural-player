@@ -23,6 +23,15 @@ class AudioUnitsViewController: NSViewController, NotificationSubscriber {
         _ = audioUnitAddDialog.showDialog()
     }
     
+    @IBAction func removeAudioUnitsAction(_ sender: Any) {
+        
+        for row in tableView.selectedRowIndexes {
+            audioGraph.removeAudioUnit(at: row)
+        }
+        
+        
+    }
+    
     private func addAudioUnit(_ notif: AddAudioUnitCommandNotification) {
         
         if let result = audioGraph.addAudioUnit(ofType: notif.componentSubType) {

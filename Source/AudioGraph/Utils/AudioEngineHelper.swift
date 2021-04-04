@@ -17,6 +17,7 @@ class AudioEngineHelper {
     
     // Attach a single node to the engine
     func addNode(_ node: AVAudioNode) {
+        
         nodes.append(node)
         audioEngine.attach(node)
     }
@@ -56,14 +57,30 @@ class AudioEngineHelper {
         
         if let lastNode = nodes.last {
             
-            let connectionFormat = lastNode.outputFormat(forBus: 0)
             audioEngine.disconnectNodeOutput(lastNode)
             
             addNode(node)
             
-            audioEngine.connect(lastNode, to: node, format: connectionFormat)
+            audioEngine.connect(lastNode, to: node, format: nil)
             audioEngine.connect(node, to: audioEngine.mainMixerNode, format: nil)
         }
+    }
+    
+    func removeNode(_ index: Int) {
+        
+        let actualIndex = 8 + index
+        let auNode = nodes[actualIndex]
+        
+        let previousNode = nodes[actualIndex - 1]
+        let nextNode = actualIndex == nodes.lastIndex ? audioEngine.mainMixerNode : nodes[actualIndex + 1]
+        
+        audioEngine.disconnectNodeInput(auNode)
+        audioEngine.disconnectNodeOutput(auNode)
+        
+        audioEngine.detach(auNode)
+        nodes.remove(at: actualIndex)
+        
+        audioEngine.connect(previousNode, to: nextNode, format: nil)
     }
     
     // Reconnects two nodes with the given audio format (required when a track change occurs)

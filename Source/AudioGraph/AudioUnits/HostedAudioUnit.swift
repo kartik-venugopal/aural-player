@@ -10,6 +10,8 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     let presets: AudioUnitPresets = AudioUnitPresets()
     
+    let factoryPresets: [AudioUnitFactoryPreset]
+    
     var params: [String: Float] {
         
         var params: [String: Float] = [:]
@@ -27,6 +29,9 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     init(withComponentDescription description: AudioComponentDescription) {
         
         self.node = HostedAUNode(audioComponentDescription: description)
+        
+        self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
+        
         super.init(.au, .active)
     }
     
@@ -34,6 +39,8 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         
         self.node = HostedAUNode(audioComponentDescription: description)
         self.node.setParams(appState.params)
+        
+        self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
         super.init(.au, appState.state)
         presets.addPresets(appState.userPresets)
@@ -58,6 +65,24 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
 
     func applyPreset(_ preset: AudioUnitPreset) {
         node.setParams(preset.params)
+    }
+    
+    func applyFactoryPreset(_ preset: AudioUnitFactoryPreset) {
+        
+        if let auPresets = auAudioUnit.factoryPresets,
+           let thePreset = auPresets.first(where: {$0.number == preset.number}) {
+            
+            auAudioUnit.currentPreset = thePreset
+        }
+    }
+    
+    func applyFactoryPreset(_ presetName: String) {
+        
+        if let auPresets = auAudioUnit.factoryPresets,
+           let thePreset = auPresets.first(where: {$0.name == presetName}) {
+            
+            auAudioUnit.currentPreset = thePreset
+        }
     }
 
     var settingsAsPreset: AudioUnitPreset {

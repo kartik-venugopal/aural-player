@@ -171,11 +171,22 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         return nil
     }
     
-    func removeAudioUnit(at index: Int) {
+    func removeAudioUnits(at indices: IndexSet) {
         
-        if index < audioUnits.count {
-            audioUnits.remove(at: index)
+        playerNode.stop()
+        
+        let descendingIndices = indices.sorted(by: descendingIntComparator)
+        
+        for index in descendingIndices {
+            
+            if index < audioUnits.count {
+                
+                audioUnits.remove(at: index)
+                audioEngineHelper.removeNode(index)
+            }
         }
+        
+        Messenger.publish(.audioGraph_graphChanged)
     }
     
     var settingsAsMasterPreset: MasterPreset {

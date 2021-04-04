@@ -14,3 +14,9 @@ class AudioUnitPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
 }
+
+struct AudioUnitFactoryPreset {
+    
+    let name: String
+    let number: Int
+}

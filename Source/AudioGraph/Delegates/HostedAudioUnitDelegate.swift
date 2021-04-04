@@ -8,7 +8,17 @@ class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitD
     
     var presets: AudioUnitPresets {unit.presets}
     
+    var factoryPresets: [AudioUnitFactoryPreset] {unit.factoryPresets}
+    
     var viewController: NSViewController?
+    
+    func applyFactoryPreset(_ presetName: String) {
+        unit.applyFactoryPreset(presetName)
+    }
+    
+    func applyFactoryPreset(_ preset: AudioUnitFactoryPreset) {
+        unit.applyFactoryPreset(preset)
+    }
     
     func presentView(_ handler: @escaping (NSView) -> ()) {
         

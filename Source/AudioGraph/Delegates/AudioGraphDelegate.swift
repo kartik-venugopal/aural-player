@@ -177,7 +177,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     }
     
     func removeAudioUnit(at index: Int) {
+        
         graph.removeAudioUnit(at: index)
+        audioUnits.remove(at: index)
     }
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {

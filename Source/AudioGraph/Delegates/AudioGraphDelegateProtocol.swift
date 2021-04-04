@@ -57,7 +57,7 @@ protocol AudioGraphDelegateProtocol {
     var soundProfiles: SoundProfiles {get}
     
     func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnitDelegateProtocol, Int)?
-    func removeAudioUnit(at index: Int)
+    func removeAudioUnits(at indices: IndexSet)
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
@@ -147,6 +147,12 @@ protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     var params: [String: Float] {get}
     
     var presets: AudioUnitPresets {get}
+    
+    var factoryPresets: [AudioUnitFactoryPreset] {get}
+    
+    func applyFactoryPreset(_ preset: AudioUnitFactoryPreset)
+    
+    func applyFactoryPreset(_ presetName: String)
     
     func presentView(_ handler: @escaping (NSView) -> ())
 }
