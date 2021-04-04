@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="AudioUnitEditorDialogController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="lblTitle" destination="LAn-Sl-fSv" id="AML-EE-2ml"/>
+                <outlet property="viewContainer" destination="cer-qR-hth" id="EcQ-Lz-v4Q"/>
+                <outlet property="window" destination="Qil-RJ-vDn" id="QUv-DB-VyP"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="Qil-RJ-vDn" customClass="SnappingNonKeyWindow" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" resizable="YES" utility="YES" texturedBackground="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="500" height="350"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <value key="minSize" type="size" width="500" height="350"/>
+            <value key="maxSize" type="size" width="5000" height="3000"/>
+            <view key="contentView" wantsLayer="YES" id="yWQ-0G-xPL">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="350"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-Sl-fSv" userLabel="Title">
+                        <rect key="frame" x="46" y="319" width="439" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="brS-hb-IVm"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Editing Audio Unit:  " id="5Qg-En-hdT">
+                            <font key="font" size="12" name="Play-Regular"/>
+                            <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="cer-qR-hth" userLabel="Container">
+                        <rect key="frame" x="15" y="15" width="470" height="300"/>
+                        <view key="contentView" id="1ii-lT-xnk">
+                            <rect key="frame" x="0.0" y="0.0" width="470" height="300"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </box>
+                    <button toolTip="Quit application" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Q3-wo-olL" userLabel="Quit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="7" y="327" width="18" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="CPC-bv-6cS"/>
+                            <constraint firstAttribute="height" constant="10" id="wgX-3I-CBS"/>
+                        </constraints>
+                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tmq-9M-5aK">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Close"/>
+                        </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="closeAction:" target="-2" id="YzF-vv-v5q"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="LAn-Sl-fSv" secondAttribute="trailing" constant="17" id="2iB-F5-vZq"/>
+                    <constraint firstItem="LAn-Sl-fSv" firstAttribute="leading" secondItem="3Q3-wo-olL" secondAttribute="trailing" constant="23" id="31F-De-3JN"/>
+                    <constraint firstAttribute="trailing" secondItem="cer-qR-hth" secondAttribute="trailing" constant="15" id="Gzl-Mn-7il"/>
+                    <constraint firstItem="LAn-Sl-fSv" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="6" id="HIe-IZ-qfO"/>
+                    <constraint firstItem="3Q3-wo-olL" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="13" id="JTh-B7-gn0"/>
+                    <constraint firstItem="cer-qR-hth" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="15" id="Ous-cn-Cn2"/>
+                    <constraint firstAttribute="bottom" secondItem="cer-qR-hth" secondAttribute="bottom" constant="15" id="QCS-mf-oPA"/>
+                    <constraint firstItem="LAn-Sl-fSv" firstAttribute="leading" secondItem="3Q3-wo-olL" secondAttribute="trailing" constant="23" id="VBP-3p-8Qz"/>
+                    <constraint firstItem="3Q3-wo-olL" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="7" id="fVB-Fc-grk"/>
+                    <constraint firstItem="cer-qR-hth" firstAttribute="top" secondItem="LAn-Sl-fSv" secondAttribute="bottom" constant="4" id="zRY-bJ-mtZ"/>
+                </constraints>
+            </view>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.14862273956512237" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="146.5" y="116"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="Close" width="18" height="18"/>
+    </resources>
+</document>

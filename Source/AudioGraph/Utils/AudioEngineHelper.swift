@@ -37,7 +37,8 @@ class AudioEngineHelper {
         var input: AVAudioNode, output: AVAudioNode
         
         // At least 2 nodes required for this to work
-        if (nodes.count >= 2) {
+        if nodes.count >= 2 {
+            
             for i in 0...nodes.count - 2 {
                 
                 input = nodes[i]
@@ -49,13 +50,20 @@ class AudioEngineHelper {
         
         // Connect last node to main mixer
         audioEngine.connect(nodes.last!, to: audioEngine.mainMixerNode, format: nil)
+    }
+    
+    func insertNode(_ node: AVAudioNode) {
         
-        // TODO: Figure this out
-        
-//        // Connect the main mixer to the output node with the right format corresponding to the output hardware
-//        let outputNode = audioEngine.outputNode
-//        let outputFormat = outputNode.outputFormat(forBus: 0)
-//        audioEngine.connect(audioEngine.mainMixerNode, to: outputNode, format: outputFormat)
+        if let lastNode = nodes.last {
+            
+            let connectionFormat = lastNode.outputFormat(forBus: 0)
+            audioEngine.disconnectNodeOutput(lastNode)
+            
+            addNode(node)
+            
+            audioEngine.connect(lastNode, to: node, format: connectionFormat)
+            audioEngine.connect(node, to: audioEngine.mainMixerNode, format: nil)
+        }
     }
     
     // Reconnects two nodes with the given audio format (required when a track change occurs)

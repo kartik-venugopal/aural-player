@@ -486,6 +486,8 @@
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
 		3E9C88312614FE73003B10AD /* CompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */; };
 		3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */; };
+		3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */; };
+		3E9CA7F4261A2209006133B6 /* AudioUnitEditorDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */; };
 		3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */; };
 		3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
@@ -1088,6 +1090,8 @@
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
 		3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeKeyMap.swift; sourceTree = "<group>"; };
 		3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitDelegate.swift; sourceTree = "<group>"; };
+		3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitEditorDialog.xib; sourceTree = "<group>"; };
+		3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitEditorDialogController.swift; sourceTree = "<group>"; };
 		3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
@@ -2718,6 +2722,15 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		3E9CA7F0261A21BB006133B6 /* EditorDialog */ = {
+			isa = PBXGroup;
+			children = (
+				3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */,
+				3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */,
+			);
+			path = EditorDialog;
+			sourceTree = "<group>";
+		};
 		3E9E58FC25DB6B150064EB5F /* AppModes */ = {
 			isa = PBXGroup;
 			children = (
@@ -2756,6 +2769,7 @@
 				3ECBF3052619D58500AD5C30 /* AudioUnitsViewController.swift */,
 				3ECBF3092619DF7200AD5C30 /* AudioUnitsTableViewDelegate.swift */,
 				3E5623C12619ECC300D55E43 /* AddDialog */,
+				3E9CA7F0261A21BB006133B6 /* EditorDialog */,
 			);
 			path = AudioUnits;
 			sourceTree = "<group>";
@@ -3106,6 +3120,7 @@
 				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
+				3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */,
 				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */,
 				3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */,
@@ -3383,6 +3398,7 @@
 				3E6C119625CEBD6D00BF0D07 /* FavoritesDelegateProtocol.swift in Sources */,
 				3E6C119325CEBD6D00BF0D07 /* BookmarksProtocol.swift in Sources */,
 				3E6C126B25CEBE0600BF0D07 /* BookmarksEditorViewController.swift in Sources */,
+				3E9CA7F4261A2209006133B6 /* AudioUnitEditorDialogController.swift in Sources */,
 				3E6C124025CEBDF400BF0D07 /* FlatPlaylistTableViews.swift in Sources */,
 				3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */,
 				3E5F943025E571A6002DEF80 /* VisualizerViewProtocol.swift in Sources */,

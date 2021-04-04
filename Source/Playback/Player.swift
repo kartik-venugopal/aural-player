@@ -28,6 +28,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
         self.ffmpegScheduler = ffmpegScheduler
         
         Messenger.subscribeAsync(self, .audioGraph_outputDeviceChanged, self.audioOutputDeviceChanged, queue: .main)
+        Messenger.subscribeAsync(self, .audioGraph_graphChanged, self.audioGraphChanged, queue: .main)
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
@@ -250,6 +251,20 @@ class Player: PlayerProtocol, NotificationSubscriber {
 
     // When the audio output device changes, restart the audio engine and continue playback as before.
     func audioOutputDeviceChanged() {
+        
+        // First, check if a track is playing.
+        if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {
+            
+            // Mark the current seek position
+            let curSeekPos = seekPosition
+            
+            // Resume playback from the same seek position
+            scheduler.seekToTime(curSession, curSeekPos, state == .playing)
+        }
+    }
+    
+    // When the audio output device changes, restart the audio engine and continue playback as before.
+    func audioGraphChanged() {
         
         // First, check if a track is playing.
         if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {

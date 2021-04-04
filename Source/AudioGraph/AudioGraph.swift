@@ -90,15 +90,16 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         for auState in state.audioUnits {
             
             if let component = audioUnitsManager.component(ofType: OSType(auState.componentSubType)) {
-                audioUnits.append(HostedAudioUnit(withComponentDescription: component.audioComponentDescription))
+                
+                audioUnits.append(HostedAudioUnit(withComponentDescription: component.audioComponentDescription,
+                                                  appState: auState))
             }
         }
         
         let slaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit] + audioUnits
         masterUnit = MasterUnit(state, slaveUnits)
 
-        var nodes = [playerNode, auxMixer]
-        slaveUnits.forEach({nodes.append(contentsOf: $0.avNodes)})
+        let nodes = [playerNode, auxMixer] + slaveUnits.flatMap {$0.avNodes}
         
         playerVolume = state.volume
         muted = state.muted
@@ -158,6 +159,11 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             
             let newUnit: HostedAudioUnit = HostedAudioUnit(withComponentDescription: auComponent.audioComponentDescription)
             audioUnits.append(newUnit)
+            
+            playerNode.stop()
+            audioEngineHelper.insertNode(newUnit.avNodes[0])
+            
+            Messenger.publish(.audioGraph_graphChanged)
             
             return (newUnit, audioUnits.lastIndex)
         }

@@ -162,15 +162,18 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         return balance
     }
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)? {
+    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnitDelegateProtocol, Int)? {
         
-        let result = graph.addAudioUnit(ofType: componentSubType)
-        
-        if let audioUnit = result?.0 {
+        if let result = graph.addAudioUnit(ofType: componentSubType) {
+            
+            let audioUnit = result.0
+            let index = result.1
+            
             self.audioUnits.append(HostedAudioUnitDelegate(audioUnit))
+            return (self.audioUnits.last!, index)
         }
         
-        return result
+        return nil
     }
     
     func removeAudioUnit(at index: Int) {

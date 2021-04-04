@@ -158,6 +158,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="editAudioUnitAction:" target="-2" id="aoL-1D-Ukn"/>
                                     <outlet property="dataSource" destination="pml-Sk-YmX" id="jeo-CY-4lV"/>
                                     <outlet property="delegate" destination="pml-Sk-YmX" id="jly-tS-Dw1"/>
                                 </connections>

@@ -56,7 +56,7 @@ protocol AudioGraphDelegateProtocol {
     
     var soundProfiles: SoundProfiles {get}
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)?
+    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnitDelegateProtocol, Int)?
     func removeAudioUnit(at index: Int)
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)

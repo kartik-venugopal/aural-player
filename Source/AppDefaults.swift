@@ -46,5 +46,7 @@ struct AppDefaults {
     static let filterBandMinFreq: Float = AppConstants.Sound.audibleRangeMin
     static let filterBandMaxFreq: Float = AppConstants.Sound.subBass_max
     
+    static let auState: EffectsUnitState = .active
+    
     static let lastTrackPosition: Double = 0
 }

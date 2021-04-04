@@ -331,12 +331,40 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
 
 class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
     
-    var componentId: String = ""
     var componentSubType: Int = 0
     var params: [String: Float] = [:]
     
     static func deserialize(_ map: NSDictionary) -> AudioUnitState {
-        return AudioUnitState()
+        
+        let auState: AudioUnitState = AudioUnitState()
+        
+        auState.state = mapEnum(map, "state", AppDefaults.auState)
+        
+        auState.componentSubType = (map["componentSubType"] as? NSNumber)?.intValue ?? 0
+        
+        if let paramsDict = map["params"] as? NSDictionary {
+            
+            for (paramId, value) in paramsDict {
+                
+                if let paramIdStr = paramId as? String, let valueNum = value as? NSNumber {
+                    auState.params[paramIdStr] = valueNum.floatValue
+                }
+            }
+        }
+        
+        // Audio units user presets
+        if let userPresets = map["userPresets"] as? [NSDictionary] {
+            
+            for presetDict in userPresets {
+                
+                let preset = deserializeAUPreset(presetDict)
+                if !StringUtils.isStringEmpty(preset.name) {    // Preset must have a name
+                    auState.userPresets.append(preset)
+                }
+            }
+        }
+        
+        return auState
     }
 }
 

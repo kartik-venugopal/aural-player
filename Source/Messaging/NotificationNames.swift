@@ -121,6 +121,8 @@ extension Notification.Name {
     // a new set of speakers.
     static let audioGraph_outputDeviceChanged = Notification.Name("audioGraph_outputDeviceChanged")
     
+    static let audioGraph_graphChanged = Notification.Name("audioGraph_graphChanged")
+    
     // ----------------------------------------------------------------------------------------
     
     // MARK: Notifications published by the presets editor.

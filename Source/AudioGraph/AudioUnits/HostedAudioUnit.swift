@@ -33,6 +33,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     init(withComponentDescription description: AudioComponentDescription, appState: AudioUnitState) {
         
         self.node = HostedAUNode(audioComponentDescription: description)
+        self.node.setParams(appState.params)
         
         super.init(.au, appState.state)
         presets.addPresets(appState.userPresets)
@@ -68,7 +69,6 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         let unitState = AudioUnitState()
 
         unitState.state = state
-        unitState.componentId = self.name
         unitState.componentSubType = Int(self.node.componentSubType)
         unitState.params = self.params
         unitState.userPresets = presets.userDefinedPresets
