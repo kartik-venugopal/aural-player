@@ -10,6 +10,8 @@ class AudioUnitAddDialogController: NSWindowController, NotificationSubscriber, 
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
+    private let audioUnitsManager: AudioUnitsManager = ObjectGraph.audioUnitsManager
+    
     override func windowDidLoad() {
         WindowManager.registerModalComponent(self)
     }
@@ -33,12 +35,16 @@ class AudioUnitAddDialogController: NSWindowController, NotificationSubscriber, 
     }
     
     func resetFields() {
-    
+        tableView.selectRowIndexes(IndexSet([0]), byExtendingSelection: false)
     }
     
     @IBAction func okAction(_ sender: Any) {
-        
-//        Messenger.publish(.player_jumpToTime, payload: jumpToTime)
+
+        if tableView.selectedRow >= 0 {
+            
+            let componentSubType = audioUnitsManager.audioUnits[tableView.selectedRow].audioComponentDescription.componentSubType
+            Messenger.publish(AddAudioUnitCommandNotification(componentSubType: componentSubType))
+        }
         
         modalDialogResponse = .ok
         UIUtils.dismissDialog(self.window!)

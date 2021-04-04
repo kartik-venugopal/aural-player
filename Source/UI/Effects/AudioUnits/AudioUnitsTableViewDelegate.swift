@@ -3,10 +3,10 @@ import AVFoundation
 
 class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    private let audioUnitsManager: AudioUnitsManager = ObjectGraph.audioUnitsManager
+    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return audioUnitsManager.numberOfAudioUnits
+        return audioGraph.audioUnits.count
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -24,22 +24,27 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         
         case .uid_audioUnitSwitch:
             
-            return createCell(tableView, tableColumn!.identifier.rawValue, row, "\(row)")
+            return createNameCell(tableView, tableColumn!.identifier.rawValue, row, "\(row)")
             
         case .uid_audioUnitName:
             
-            return createCell(tableView, tableColumn!.identifier.rawValue, row, audioUnitsManager.audioUnits[row].name)
+            return createNameCell(tableView, tableColumn!.identifier.rawValue, row, audioGraph.audioUnits[row].name)
             
         case .uid_audioUnitEdit:
             
-            return createCell(tableView, tableColumn!.identifier.rawValue, row, "\(row)")
+            return createNameCell(tableView, tableColumn!.identifier.rawValue, row, "\(row)")
             
         default: return nil
             
         }
     }
     
-    private func createCell(_ tableView: NSTableView, _ id: String, _ row: Int, _ text: String) -> BasicTableCellView? {
+//    private func createSwitchCell(_ tableView: NSTableView, _ id: String, _ row: Int, _ state: EffectsUnitState) -> AudioUnitSwitchCellView? {
+//        
+//        
+//    }
+    
+    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int, _ text: String) -> BasicTableCellView? {
         
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             

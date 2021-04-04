@@ -163,7 +163,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     }
     
     func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)? {
-        return graph.addAudioUnit(ofType: componentSubType)
+        
+        let result = graph.addAudioUnit(ofType: componentSubType)
+        
+        if let audioUnit = result?.0 {
+            self.audioUnits.append(HostedAudioUnitDelegate(audioUnit))
+        }
+        
+        return result
     }
     
     func removeAudioUnit(at index: Int) {

@@ -52,6 +52,7 @@ protocol AudioGraphDelegateProtocol {
     var reverbUnit: ReverbUnitDelegateProtocol {get set}
     var delayUnit: DelayUnitDelegateProtocol {get set}
     var filterUnit: FilterUnitDelegateProtocol {get set}
+    var audioUnits: [HostedAudioUnitDelegateProtocol] {get}
     
     var soundProfiles: SoundProfiles {get}
     
@@ -142,9 +143,12 @@ protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
 
 protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     
+    var name: String {get}
     var params: [String: Float] {get}
     
     var presets: AudioUnitPresets {get}
+    
+    func presentView(_ handler: @escaping (NSView) -> ())
 }
 
 protocol TimeUnitDelegateProtocol: FXUnitDelegateProtocol {

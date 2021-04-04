@@ -6,6 +6,8 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     var name: String {node.audioUnitName}
     
+    var auAudioUnit: AUAudioUnit {node.auAudioUnit}
+    
     let presets: AudioUnitPresets = AudioUnitPresets()
     
     var params: [String: Float] {

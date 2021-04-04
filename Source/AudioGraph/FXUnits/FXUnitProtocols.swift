@@ -118,5 +118,7 @@ protocol FilterUnitProtocol: FXUnitProtocol {
 
 protocol HostedAudioUnitProtocol: FXUnitProtocol {
     
+    var name: String {get}
     var params: [String: Float] {get}
+    var auAudioUnit: AUAudioUnit {get}
 }

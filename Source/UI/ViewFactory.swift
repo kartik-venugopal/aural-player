@@ -27,7 +27,7 @@ struct ViewFactory {
         
         fileprivate static let filterViewController: FilterViewController = FilterViewController()
         
-        fileprivate static let auViewController: AUViewController = AUViewController()
+        fileprivate static let auViewController: AudioUnitsViewController = AudioUnitsViewController()
         
         fileprivate static let recorderViewController: RecorderViewController = RecorderViewController()
     }

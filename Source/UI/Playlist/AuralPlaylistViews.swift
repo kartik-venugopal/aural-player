@@ -140,6 +140,16 @@ class BasicTableCellView: NSTableCellView {
     }
 }
 
+class AudioUnitSwitchCellView: NSTableCellView {
+    
+    var btnSwitch: EffectsUnitTriStateBypassButton!
+}
+
+class AudioUnitEditCellView: NSTableCellView {
+    
+    var btnSwitch: EffectsUnitTriStateBypassButton!
+}
+
 extension NSUserInterfaceItemIdentifier {
     
     static let uid_index: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID)

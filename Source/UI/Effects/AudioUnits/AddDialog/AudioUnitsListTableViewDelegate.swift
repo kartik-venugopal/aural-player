@@ -3,21 +3,10 @@ import AVFoundation
 
 class AudioUnitsListTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    var components: [AVAudioUnitComponent] = []
-    let componentsBlackList: Set<String> = ["AUNewPitch", "AURoundTripAAC", "AUNetSend"]
+    private let audioUnitsManager: AudioUnitsManager = ObjectGraph.audioUnitsManager
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        
-        let desc = AudioComponentDescription(componentType: kAudioUnitType_Effect,
-                                             componentSubType: 0,
-                                             componentManufacturer: 0,
-                                             componentFlags: 0,
-                                             componentFlagsMask: 0)
-
-        self.components = AVAudioUnitComponentManager.shared().components(matching: desc)
-            .filter {$0.hasCustomView && !componentsBlackList.contains($0.name)}
-        
-        return components.count
+        return audioUnitsManager.numberOfAudioUnits
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
@@ -31,8 +20,8 @@ class AudioUnitsListTableViewDelegate: NSObject, NSTableViewDataSource, NSTableV
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if row < components.count {
-            return createCell(tableView, tableColumn!.identifier.rawValue, row, components[row].name)
+        if row < audioUnitsManager.numberOfAudioUnits {
+            return createCell(tableView, tableColumn!.identifier.rawValue, row, audioUnitsManager.audioUnits[row].name)
         }
         
         return nil
