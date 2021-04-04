@@ -27,6 +27,8 @@ struct ViewFactory {
         
         fileprivate static let filterViewController: FilterViewController = FilterViewController()
         
+        fileprivate static let auViewController: AUViewController = AUViewController()
+        
         fileprivate static let recorderViewController: RecorderViewController = RecorderViewController()
     }
     
@@ -155,6 +157,10 @@ struct ViewFactory {
     // Returns the view that displays the Filter effects unit
     static var filterView: NSView {
         return EffectsViews.filterViewController.view
+    }
+    
+    static var auView: NSView {
+        return EffectsViews.auViewController.view
     }
     
     // Returns the view that displays the Recorder unit

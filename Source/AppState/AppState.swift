@@ -46,12 +46,14 @@ class AppState {
             state.history = HistoryState.deserialize(historyDict)
         }
         
-        if let favoritesArr = (jsonObject["favorites"] as? [NSDictionary]) {
-            favoritesArr.forEach({
+        if let favoritesArr = jsonObject["favorites"] as? [NSDictionary] {
+            
+            favoritesArr.forEach {
+                
                 if let file = $0["file"] as? String, let name = $0["name"] as? String {
                     state.favorites.append((URL(fileURLWithPath: file), name))
                 }
-            })
+            }
         }
         
         (jsonObject["bookmarks"] as? NSArray)?.forEach({

@@ -19,6 +19,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     private let reverbView: NSView = ViewFactory.reverbView
     private let delayView: NSView = ViewFactory.delayView
     private let filterView: NSView = ViewFactory.filterView
+    private let auView: NSView = ViewFactory.auView
     private let recorderView: NSView = ViewFactory.recorderView
 
     // Tab view and its buttons
@@ -32,6 +33,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     @IBOutlet weak var reverbTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var delayTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
 
     private var fxTabViewButtons: [EffectsUnitTabButton]!
@@ -78,6 +80,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         fxTabView.tabViewItem(at: 5).view?.addSubview(delayView)
         fxTabView.tabViewItem(at: 6).view?.addSubview(filterView)
         fxTabView.tabViewItem(at: 7).view?.addSubview(recorderView)
+        fxTabView.tabViewItem(at: 8).view?.addSubview(recorderView)
 
         fxTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton]
         
@@ -219,6 +222,8 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         case .delay: tabViewAction(delayTabViewButton)
 
         case .filter: tabViewAction(filterTabViewButton)
+            
+        case .au: tabViewAction(auTabViewButton)
 
         case .recorder: tabViewAction(recorderTabViewButton)
             

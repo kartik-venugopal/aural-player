@@ -69,6 +69,7 @@ enum EffectsUnit {
     case reverb
     case delay
     case filter
+    case au
     case recorder
 }
 

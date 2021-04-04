@@ -496,6 +496,9 @@
 		3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E725E552A1002259C4 /* shufen.regular.ttf */; };
 		3ECB54EE25E559E5002259C4 /* futura light bt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54EC25E559DE002259C4 /* futura light bt.ttf */; };
 		3ECB54F025E559E7002259C4 /* roundornoncommercial.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54ED25E559DE002259C4 /* roundornoncommercial.regular.otf */; };
+		3ECBF3032619CD4500AD5C30 /* HostedAUNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBF3022619CD4500AD5C30 /* HostedAUNode.swift */; };
+		3ECBF3062619D58500AD5C30 /* AudioUnitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBF3052619D58500AD5C30 /* AudioUnitsViewController.swift */; };
+		3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3ECBF3072619D58E00AD5C30 /* AudioUnits.xib */; };
 		3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */; };
 		3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */; };
 		3ED4FE39260A274100C50609 /* MusicBrainzCacheState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4FE38260A274100C50609 /* MusicBrainzCacheState.swift */; };
@@ -1087,6 +1090,9 @@
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
 		3ECB54EC25E559DE002259C4 /* futura light bt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "futura light bt.ttf"; sourceTree = "<group>"; };
 		3ECB54ED25E559DE002259C4 /* roundornoncommercial.regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roundornoncommercial.regular.otf; sourceTree = "<group>"; };
+		3ECBF3022619CD4500AD5C30 /* HostedAUNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAUNode.swift; sourceTree = "<group>"; };
+		3ECBF3052619D58500AD5C30 /* AudioUnitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsViewController.swift; sourceTree = "<group>"; };
+		3ECBF3072619D58E00AD5C30 /* AudioUnits.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnits.xib; sourceTree = "<group>"; };
 		3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlmendraSC-Regular.ttf"; sourceTree = "<group>"; };
 		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
 		3ED4FE38260A274100C50609 /* MusicBrainzCacheState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCacheState.swift; sourceTree = "<group>"; };
@@ -2013,6 +2019,10 @@
 			isa = PBXGroup;
 			children = (
 				3E6C100925CEB98600BF0D07 /* Effects.xib */,
+				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
+				3E6C0FF525CEB98600BF0D07 /* FXUnitViewController.swift */,
+				3E6C0FF625CEB98600BF0D07 /* EffectsUnitView.swift */,
+				3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */,
 				3E6C100525CEB98600BF0D07 /* Master */,
 				3E6C0FF725CEB98600BF0D07 /* EQ */,
 				3E6C0FEE25CEB98600BF0D07 /* Pitch */,
@@ -2020,11 +2030,8 @@
 				3E6C0FFD25CEB98600BF0D07 /* Reverb */,
 				3E6C101525CEB98600BF0D07 /* Delay */,
 				3E6C100D25CEB98600BF0D07 /* Filter */,
+				3ECBF3042619D55F00AD5C30 /* AudioUnits */,
 				3E6C100A25CEB98600BF0D07 /* Recorder */,
-				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
-				3E6C0FF525CEB98600BF0D07 /* FXUnitViewController.swift */,
-				3E6C0FF625CEB98600BF0D07 /* EffectsUnitView.swift */,
-				3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -2524,6 +2531,7 @@
 				3E6C111325CEB98700BF0D07 /* VariableRateNode.swift */,
 				3E6C111425CEB98700BF0D07 /* FlexibleFilterNode.swift */,
 				3E6C111525CEB98700BF0D07 /* ParametricEQNode.swift */,
+				3ECBF3022619CD4500AD5C30 /* HostedAUNode.swift */,
 			);
 			path = CustomNodes;
 			sourceTree = "<group>";
@@ -2701,6 +2709,15 @@
 				3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */,
 			);
 			path = FontSchemes;
+			sourceTree = "<group>";
+		};
+		3ECBF3042619D55F00AD5C30 /* AudioUnits */ = {
+			isa = PBXGroup;
+			children = (
+				3ECBF3072619D58E00AD5C30 /* AudioUnits.xib */,
+				3ECBF3052619D58500AD5C30 /* AudioUnitsViewController.swift */,
+			);
+			path = AudioUnits;
 			sourceTree = "<group>";
 		};
 		3EDB334825E8AD89004DF7DE /* Frameworks */ = {
@@ -3090,6 +3107,7 @@
 				3E6C12D925CEBE8100BF0D07 /* Filter.xib in Resources */,
 				3E6C127A25CEBE1800BF0D07 /* ColorSchemes.xib in Resources */,
 				3E6C121625CEBDE500BF0D07 /* Tracks.xib in Resources */,
+				3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */,
 				3E6C126625CEBE0600BF0D07 /* DelayPresetsEditor.xib in Resources */,
 				3E5F943425E571A6002DEF80 /* Visualizer.xib in Resources */,
 				3E6C126D25CEBE0600BF0D07 /* FavoritesEditor.xib in Resources */,
@@ -3142,6 +3160,7 @@
 				3E6C133B25CEBEA700BF0D07 /* GraphicsUtils.swift in Sources */,
 				3E645A0E25E395D6006C6981 /* FontSchemesState.swift in Sources */,
 				3E6C127725CEBE1800BF0D07 /* ColorSchemes.swift in Sources */,
+				3ECBF3032619CD4500AD5C30 /* HostedAUNode.swift in Sources */,
 				3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewDelegates.swift in Sources */,
 				3E6C119125CEBD6D00BF0D07 /* FXUnitProtocols.swift in Sources */,
 				3E6C124125CEBDF400BF0D07 /* ArtistsPlaylistViewController.swift in Sources */,
@@ -3267,6 +3286,7 @@
 				3E6C121125CEBDD100BF0D07 /* HistoryPreferences.swift in Sources */,
 				3EDB345E25E8B75D004DF7DE /* AVFFileReader.swift in Sources */,
 				3E6C12AC25CEBE2700BF0D07 /* RangeSlider.swift in Sources */,
+				3ECBF3062619D58500AD5C30 /* AudioUnitsViewController.swift in Sources */,
 				3E6C128625CEBE1800BF0D07 /* TrackPeekingButton.swift in Sources */,
 				3E6C124825CEBDF400BF0D07 /* GenresPlaylistViewController.swift in Sources */,
 				3E6C126925CEBE0600BF0D07 /* MasterPresetsEditorViewController.swift in Sources */,
