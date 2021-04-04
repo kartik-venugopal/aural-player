@@ -36,7 +36,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 #### Limitations:
 * Does not play protected content (e.g. Apple's M4P or Audible's AAX).
-* Does not integrate with online services for streaming / scrobbling, etc.
+* No streaming / scrobbling, etc.
 
 ## Summary of features
 
@@ -50,10 +50,10 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
   * Built-in and custom effects presets, per-track effects settings memory
   * Recording of clips with effects captured
 * **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection
-* **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art, lyrics, file system and audio data. Option to export.
+* **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
-* **UI:** Fully customizable fonts and colors with built-in and custom schemes, window layouts (built-in and custom), window snapping, collapsible UI components.
+* **UI:** Winamp-like modular interface. Fully customizable fonts and colors with built-in and custom schemes, window layouts (built-in and custom), window snapping, collapsible UI components.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition
 
 ## Download
