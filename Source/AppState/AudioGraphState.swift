@@ -1,4 +1,5 @@
 import Foundation
+import AVFoundation
 
 class FXUnitState<T: EffectsUnitPreset> {
     
@@ -332,7 +333,7 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
 class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
     
     var componentSubType: Int = 0
-    var params: [String: Float] = [:]
+    var params: [AudioUnitParameterState] = []
     
     static func deserialize(_ map: NSDictionary) -> AudioUnitState {
         
@@ -342,14 +343,8 @@ class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
         
         auState.componentSubType = (map["componentSubType"] as? NSNumber)?.intValue ?? 0
         
-        if let paramsDict = map["params"] as? NSDictionary {
-            
-            for (paramId, value) in paramsDict {
-                
-                if let paramIdStr = paramId as? String, let valueNum = value as? NSNumber {
-                    auState.params[paramIdStr] = valueNum.floatValue
-                }
-            }
+        if let paramsArr = map["params"] as? [NSDictionary] {
+            auState.params = paramsArr.compactMap {AudioUnitParameterState.deserialize($0)}
         }
         
         // Audio units user presets
@@ -365,6 +360,22 @@ class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
         }
         
         return auState
+    }
+}
+
+class AudioUnitParameterState: PersistentState {
+    
+    var address: UInt64 = 0
+    var value: Float = 0
+    
+    static func deserialize(_ map: NSDictionary) -> AudioUnitParameterState {
+        
+        let state = AudioUnitParameterState()
+     
+        state.address = (map["address"] as? NSNumber)?.uint64Value ?? 0
+        state.value = (map["value"] as? NSNumber)?.floatValue ?? 0
+        
+        return state
     }
 }
 
@@ -389,19 +400,18 @@ fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
     return FilterPreset(name, state, presetBands, false)
 }
 
-
 fileprivate func deserializeAUPreset(_ map: NSDictionary) -> AudioUnitPreset {
     
     let name = map["name"] as? String ?? ""
     let state = mapEnum(map, "state", AppDefaults.reverbState)
     
-    var params: [String: Float] = [:]
+    var params: [AUParameterAddress: Float] = [:]
     if let paramsMap = map["params"] as? NSDictionary {
         
-        for (paramId, value) in paramsMap {
+        for (paramAddress, value) in paramsMap {
             
-            if let paramIdStr = paramId as? String {
-                params[paramIdStr] = (value as? NSNumber)?.floatValue
+            if let paramAddressNum = paramAddress as? NSNumber {
+                params[paramAddressNum.uint64Value] = (value as? NSNumber)?.floatValue
             }
         }
     }

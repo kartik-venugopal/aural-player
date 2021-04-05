@@ -1,10 +1,12 @@
 import Cocoa
+import AVFoundation
 
 class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitDelegateProtocol {
     
     var name: String {unit.name}
     
-    var params: [String: Float] {unit.params}
+    var params: [AUParameterAddress: Float] {unit.params}
+    func printParams() {unit.printParams()}
     
     var presets: AudioUnitPresets {unit.presets}
     

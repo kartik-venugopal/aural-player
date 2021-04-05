@@ -12,17 +12,13 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     let factoryPresets: [AudioUnitFactoryPreset]
     
-    var params: [String: Float] {
+    var params: [AUParameterAddress: Float] {
         
-        var params: [String: Float] = [:]
-        let paramsMap = node.paramsMap
-        
-        for (id, param) in paramsMap {
-            params[id] = param.value
-        }
-        
-        return params
+        get {node.params}
+        set(newParams) {node.params = newParams}
     }
+    
+    func printParams() {node.printParams()}
     
     override var avNodes: [AVAudioNode] {return [node]}
     
@@ -38,7 +34,12 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     init(withComponentDescription description: AudioComponentDescription, appState: AudioUnitState) {
         
         self.node = HostedAUNode(audioComponentDescription: description)
-        self.node.setParams(appState.params)
+        
+        var nodeParams: [AUParameterAddress: Float] = [:]
+        for param in appState.params {
+            nodeParams[param.address] = param.value
+        }
+        self.node.params = nodeParams
         
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
@@ -64,7 +65,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     }
 
     func applyPreset(_ preset: AudioUnitPreset) {
-        node.setParams(preset.params)
+        node.params = preset.params
     }
     
     func applyFactoryPreset(_ preset: AudioUnitFactoryPreset) {
@@ -95,7 +96,16 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
 
         unitState.state = state
         unitState.componentSubType = Int(self.node.componentSubType)
-        unitState.params = self.params
+        
+        for (address, value) in self.params {
+            
+            let paramState = AudioUnitParameterState()
+            paramState.address = address
+            paramState.value = value
+            
+            unitState.params.append(paramState)
+        }
+        
         unitState.userPresets = presets.userDefinedPresets
 
         return unitState

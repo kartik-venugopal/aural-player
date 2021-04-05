@@ -7,44 +7,43 @@ class HostedAUNode: AVAudioUnitEffect {
     var componentSubType: OSType {auAudioUnit.componentDescription.componentSubType}
     var audioUnitName: String {auAudioUnit.audioUnitName!}
     
-    // Identifier -> Parameter
-    var paramsMap: [String: AUParameter] = [:]
+    var paramsTree: AUParameterTree? {auAudioUnit.parameterTree}
     
     var viewController: NSViewController?
-
-    override init(audioComponentDescription: AudioComponentDescription) {
+    
+    var params: [AUParameterAddress: Float] {
         
-        super.init(audioComponentDescription: audioComponentDescription)
-        
-        if let params = self.auAudioUnit.parameterTree?.allParameters {
+        get {
             
-            for param in params {
-                paramsMap[param.identifier] = param
+            var dict: [AUParameterAddress: Float] = [:]
+            
+            for param in paramsTree?.allParameters ?? [] {
+                dict[param.address] = param.value
+            }
+            
+            return dict
+        }
+        
+        set(newParams) {
+            
+            for (address, value) in newParams {
+                paramsTree?.parameter(withAddress: address)?.value = value
             }
         }
     }
     
-    func setParams(_ params: [String: Float]) {
-        
-        for (paramId, value) in params {
-            paramsMap[paramId]?.value = value
-        }
-    }
-    
-    func setParam(key: String, value: Float) {
-        
-        if let param = paramsMap[key] {
-            param.value = value
-        }
-        
-        refresh()
-    }
-    
     func printParams() {
         
-        for param in paramsMap.values {
+        print("\n")
+//        for param in paramsMap.values {
+//            print("\(param.identifier):\(param.displayName)=\(param.value)")
+//        }
+        
+        for param in self.auAudioUnit.parameterTree?.allParameters ?? [] {
             print("\(param.identifier):\(param.displayName)=\(param.value)")
         }
+        
+        print("-------------------\n")
     }
     
     func refresh() {

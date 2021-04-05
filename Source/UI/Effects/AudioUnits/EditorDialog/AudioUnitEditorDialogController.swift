@@ -23,14 +23,19 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
             _ = self.window!
         }
         
+        currentlyDisplayedView?.hide()
+        
         self.audioUnit = audioUnit
         
         audioUnit.presentView {view in
             
-            self.viewContainer.addSubview(view)
-            view.anchorToView(view.superview!)
-            view.show()
+            if !self.viewContainer.subviews.contains(view) {
+                
+                self.viewContainer.addSubview(view)
+                view.anchorToView(view.superview!)
+            }
             
+            view.show()
             self.currentlyDisplayedView = view
         }
         
@@ -46,6 +51,8 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         
         UIUtils.dismissDialog(self.window!)
         currentlyDisplayedView?.hide()
+        
+        audioUnit?.printParams()
     }
     
     @IBAction func applyFactoryPresetAction(_ sender: Any) {

@@ -70,7 +70,7 @@ class AudioEngineHelper {
             // Find the node previous to the node to be removed.
             if index > 0 {
                 
-                for previousIndex in (index - 1)...0 {
+                for previousIndex in stride(from: index - 1, to: -1, by: -1) {
                     
                     if !descendingIndices.contains(previousIndex) {
                         

@@ -1,4 +1,5 @@
 import Foundation
+import AVFoundation
 
 class AudioUnitPresets: FXPresets<AudioUnitPreset> {
 }
@@ -6,9 +7,9 @@ class AudioUnitPresets: FXPresets<AudioUnitPreset> {
 class AudioUnitPreset: EffectsUnitPreset {
     
     // AUParameter identifier -> AUValue (aka Float)
-    var params: [String: Float]
+    var params: [AUParameterAddress: Float]
     
-    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool, params: [String: Float]) {
+    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool, params: [AUParameterAddress: Float]) {
         
         self.params = params
         super.init(name, state, systemDefined)
