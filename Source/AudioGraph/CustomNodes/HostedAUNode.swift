@@ -27,8 +27,39 @@ class HostedAUNode: AVAudioUnitEffect {
         set(newParams) {
             
             for (address, value) in newParams {
-                paramsTree?.parameter(withAddress: address)?.value = value
+                paramsTree?.parameter(withAddress: address)?.setValue(value, originator: nil)
             }
+        }
+    }
+    
+    func savePreset(_ presetName: String) -> AUAudioUnitPreset? {
+        
+        if #available(OSX 10.15, *), auAudioUnit.supportsUserPresets {
+            
+            let preset = AUAudioUnitPreset()
+            preset.name = presetName
+            preset.number = -1 * (auAudioUnit.userPresets.count + 1)
+            
+            do {
+                
+                try auAudioUnit.saveUserPreset(preset)
+                return preset
+                
+            } catch {
+                print("\nFailed to save user preset '\(presetName)': \(error)")
+            }
+            
+        } else {
+            print("\nUser presets not supported for audio unit: \(name)")
+        }
+        
+        return nil
+    }
+    
+    func applyPreset(_ number: Int) {
+        
+        if #available(OSX 10.15, *), let preset = auAudioUnit.userPresets.first(where: {$0.number == number}) {
+            auAudioUnit.currentPreset = preset
         }
     }
     
@@ -44,21 +75,5 @@ class HostedAUNode: AVAudioUnitEffect {
         }
         
         print("-------------------\n")
-    }
-    
-    func refresh() {
-        viewController?.view.setNeedsDisplay(viewController!.view.bounds)
-    }
-    
-    func presentView(_ handler: @escaping (NSView) -> ()) {
-        
-        auAudioUnit.requestViewController(completionHandler: {viewCon in
-            
-            if let theViewController = viewCon {
-                
-                self.viewController = theViewController
-                handler(theViewController.view)
-            }
-        })
     }
 }

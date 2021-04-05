@@ -405,18 +405,9 @@ fileprivate func deserializeAUPreset(_ map: NSDictionary) -> AudioUnitPreset {
     let name = map["name"] as? String ?? ""
     let state = mapEnum(map, "state", AppDefaults.reverbState)
     
-    var params: [AUParameterAddress: Float] = [:]
-    if let paramsMap = map["params"] as? NSDictionary {
-        
-        for (paramAddress, value) in paramsMap {
-            
-            if let paramAddressNum = paramAddress as? NSNumber {
-                params[paramAddressNum.uint64Value] = (value as? NSNumber)?.floatValue
-            }
-        }
-    }
+    let number: Int = (map["number"] as? NSNumber)?.intValue ?? 0
     
-    return AudioUnitPreset(name, state, false, params: params)
+    return AudioUnitPreset(name, state, false, number: number)
 }
 
 /*

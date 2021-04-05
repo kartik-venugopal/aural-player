@@ -6,12 +6,11 @@ class AudioUnitPresets: FXPresets<AudioUnitPreset> {
 
 class AudioUnitPreset: EffectsUnitPreset {
     
-    // AUParameter identifier -> AUValue (aka Float)
-    var params: [AUParameterAddress: Float]
+    var number: Int
     
-    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool, params: [AUParameterAddress: Float]) {
+    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool, number: Int) {
         
-        self.params = params
+        self.number = number
         super.init(name, state, systemDefined)
     }
 }

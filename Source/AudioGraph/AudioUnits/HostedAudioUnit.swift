@@ -54,7 +54,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     }
 
     override func savePreset(_ presetName: String) {
-        presets.addPreset(AudioUnitPreset(presetName, .active, false, params: params))
+        
+        if let preset = node.savePreset(presetName) {
+            presets.addPreset(AudioUnitPreset(presetName, .active, false, number: preset.number))
+        }
     }
 
     override func applyPreset(_ presetName: String) {
@@ -65,7 +68,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     }
 
     func applyPreset(_ preset: AudioUnitPreset) {
-        node.params = preset.params
+        node.applyPreset(preset.number)
     }
     
     func applyFactoryPreset(_ preset: AudioUnitFactoryPreset) {
@@ -86,8 +89,9 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         }
     }
 
+    // TODO: This is not meaningful
     var settingsAsPreset: AudioUnitPreset {
-        return AudioUnitPreset("au-\(name)-Settings", state, false, params: params)
+        return AudioUnitPreset("au-\(name)-Settings", state, false, number: 0)
     }
     
     var persistentState: AudioUnitState {

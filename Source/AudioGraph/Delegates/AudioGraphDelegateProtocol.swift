@@ -151,8 +151,6 @@ protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     var factoryPresets: [AudioUnitFactoryPreset] {get}
     
-    func applyFactoryPreset(_ preset: AudioUnitFactoryPreset)
-    
     func applyFactoryPreset(_ presetName: String)
     
     func presentView(_ handler: @escaping (NSView) -> ())

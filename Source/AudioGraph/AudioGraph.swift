@@ -224,6 +224,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.filterUnit = filterUnit.persistentState
         state.audioUnits = audioUnits.map {$0.persistentState}
         
+        audioUnits.forEach {$0.printParams()}
+        
         state.soundProfiles.append(contentsOf: soundProfiles.all())
         
         return state
