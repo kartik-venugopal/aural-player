@@ -21,16 +21,16 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="Qil-RJ-vDn" customClass="SnappingNonKeyWindow" customModule="Aural" customModuleProvider="target">
             <windowStyleMask key="styleMask" resizable="YES" utility="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="500" height="431"/>
+            <rect key="contentRect" x="196" y="240" width="630" height="580"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
-            <value key="minSize" type="size" width="500" height="350"/>
-            <value key="maxSize" type="size" width="5000" height="3000"/>
+            <value key="minSize" type="size" width="630" height="580"/>
+            <value key="maxSize" type="size" width="630" height="580"/>
             <view key="contentView" wantsLayer="YES" id="yWQ-0G-xPL">
-                <rect key="frame" x="0.0" y="0.0" width="500" height="431"/>
+                <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-Sl-fSv" userLabel="Title">
-                        <rect key="frame" x="46" y="400" width="439" height="25"/>
+                        <rect key="frame" x="46" y="549" width="569" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="brS-hb-IVm"/>
                         </constraints>
@@ -41,15 +41,19 @@
                         </textFieldCell>
                     </textField>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="cer-qR-hth" userLabel="Container">
-                        <rect key="frame" x="15" y="15" width="470" height="351"/>
+                        <rect key="frame" x="15" y="15" width="600" height="500"/>
                         <view key="contentView" id="1ii-lT-xnk">
-                            <rect key="frame" x="0.0" y="0.0" width="470" height="351"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="500" id="WTY-Fi-vKQ"/>
+                            <constraint firstAttribute="width" constant="600" id="cRV-RO-QKP"/>
+                        </constraints>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Close dialog" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Q3-wo-olL" userLabel="Quit Button">
-                        <rect key="frame" x="7" y="408" width="18" height="10"/>
+                        <rect key="frame" x="7" y="557" width="18" height="10"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="18" id="CPC-bv-6cS"/>
                             <constraint firstAttribute="height" constant="10" id="wgX-3I-CBS"/>
@@ -63,7 +67,7 @@
                         </connections>
                     </button>
                     <popUpButton toolTip="Load factory preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ycQ-s6-6PN" userLabel="Factory Presets Menu">
-                        <rect key="frame" x="118" y="377" width="27" height="15"/>
+                        <rect key="frame" x="118" y="526" width="27" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="jP6-1W-RK6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -87,7 +91,7 @@
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lF8-Ap-UiM" userLabel="Track duration label">
-                        <rect key="frame" x="15" y="376" width="109" height="20"/>
+                        <rect key="frame" x="15" y="525" width="109" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Factory Presets:" id="CeW-wh-nlf">
                             <font key="font" size="13" name="Play-Regular"/>
@@ -96,7 +100,7 @@
                         </textFieldCell>
                     </textField>
                     <popUpButton toolTip="Load user preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xoa-Kv-Cdv" userLabel="User Presets Menu">
-                        <rect key="frame" x="442" y="377" width="27" height="15"/>
+                        <rect key="frame" x="572" y="526" width="27" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="22" id="BwC-vJ-cgz"/>
                             <constraint firstAttribute="height" constant="15" id="tSd-wM-R1C"/>
@@ -123,7 +127,7 @@
                         </connections>
                     </popUpButton>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uYN-5k-nw5" userLabel="Track duration label">
-                        <rect key="frame" x="354" y="376" width="94" height="20"/>
+                        <rect key="frame" x="484" y="525" width="94" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Yjd-VZ-7ig"/>
                             <constraint firstAttribute="width" constant="90" id="sCF-kY-UBB"/>
@@ -135,7 +139,7 @@
                         </textFieldCell>
                     </textField>
                     <button toolTip="Save new preset" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AlZ-mk-WMx" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                        <rect key="frame" x="467" y="377" width="15" height="15"/>
+                        <rect key="frame" x="597" y="526" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="I0K-ha-gSJ"/>
                             <constraint firstAttribute="height" constant="15" id="z0O-2a-F6v"/>
