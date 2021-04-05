@@ -176,10 +176,14 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         return nil
     }
     
-    func removeAudioUnit(at index: Int) {
+    func removeAudioUnits(at indices: IndexSet) {
         
-        graph.removeAudioUnit(at: index)
-        audioUnits.remove(at: index)
+        graph.removeAudioUnits(at: indices)
+        
+        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: descendingIntComparator)
+        for index in descendingIndices {
+            audioUnits.remove(at: index)
+        }
     }
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {

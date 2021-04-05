@@ -45,6 +45,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="removeAudioUnitsAction:" target="-2" id="tL5-LD-bYP"/>
+                    </connections>
                 </button>
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8U-Uo-cLm">
                     <rect key="frame" x="70" y="5" width="306" height="135"/>

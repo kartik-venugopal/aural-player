@@ -77,8 +77,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         deviceManager = DeviceManager(outputAudioUnit: audioEngine.outputNode.audioUnit!)
         
-        audioEngineHelper = AudioEngineHelper(engine: audioEngine)
-        
         eqUnit = EQUnit(state)
         pitchUnit = PitchUnit(state)
         timeUnit = TimeUnit(state)
@@ -96,10 +94,13 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             }
         }
         
-        let slaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit] + audioUnits
-        masterUnit = MasterUnit(state, slaveUnits)
+        let nativeSlaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit]
+        masterUnit = MasterUnit(state, nativeSlaveUnits + audioUnits)
 
-        let nodes = [playerNode, auxMixer] + slaveUnits.flatMap {$0.avNodes}
+        let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
+        let removableNodes = audioUnits.flatMap {$0.avNodes}
+        
+        audioEngineHelper = AudioEngineHelper(engine: audioEngine, permanentNodes: permanentNodes, removableNodes: removableNodes)
         
         playerVolume = state.volume
         muted = state.muted
@@ -116,7 +117,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
         NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
         
-        audioEngineHelper.addNodes(nodes)
         audioEngineHelper.connectNodes()
         
         deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
@@ -173,18 +173,14 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     func removeAudioUnits(at indices: IndexSet) {
         
-        playerNode.stop()
-        
-        let descendingIndices = indices.sorted(by: descendingIntComparator)
+        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: descendingIntComparator)
         
         for index in descendingIndices {
-            
-            if index < audioUnits.count {
-                
-                audioUnits.remove(at: index)
-                audioEngineHelper.removeNode(index)
-            }
+            audioUnits.remove(at: index)
         }
+        
+        playerNode.stop()
+        audioEngineHelper.removeNodes(descendingIndices)
         
         Messenger.publish(.audioGraph_graphChanged)
     }

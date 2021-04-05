@@ -23,15 +23,6 @@ class AudioUnitsViewController: NSViewController, NotificationSubscriber {
         _ = audioUnitAddDialog.showDialog()
     }
     
-    @IBAction func removeAudioUnitsAction(_ sender: Any) {
-        
-        for row in tableView.selectedRowIndexes {
-            audioGraph.removeAudioUnit(at: row)
-        }
-        
-        
-    }
-    
     private func addAudioUnit(_ notif: AddAudioUnitCommandNotification) {
         
         if let result = audioGraph.addAudioUnit(ofType: notif.componentSubType) {
@@ -41,11 +32,7 @@ class AudioUnitsViewController: NSViewController, NotificationSubscriber {
             
             // Open the audio unit editor window with the new audio unit's custom view.
             DispatchQueue.main.async {
-                
-                let componentName = result.0.name
-                result.0.presentView {view in
-                    self.audioUnitEditorDialog.showDialog(withAudioUnitView: view, forComponentWithName: componentName)
-                }
+                self.audioUnitEditorDialog.showDialog(for: result.0)
             }
         }
     }
@@ -60,11 +47,19 @@ class AudioUnitsViewController: NSViewController, NotificationSubscriber {
             
             // Open the audio unit editor window with the new audio unit's custom view.
             DispatchQueue.main.async {
-                
-                audioUnit.presentView {view in
-                    self.audioUnitEditorDialog.showDialog(withAudioUnitView: view, forComponentWithName: audioUnit.name)
-                }
+                self.audioUnitEditorDialog.showDialog(for: audioUnit)
             }
+        }
+    }
+    
+    @IBAction func removeAudioUnitsAction(_ sender: Any) {
+        
+        let selRows = tableView.selectedRowIndexes
+        
+        if !selRows.isEmpty {
+            
+            audioGraph.removeAudioUnits(at: selRows)
+            tableView.reloadData()
         }
     }
 }
