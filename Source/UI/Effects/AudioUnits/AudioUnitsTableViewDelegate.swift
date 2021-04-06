@@ -3,6 +3,7 @@ import AVFoundation
 
 class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
+    private let audioUnitEditorDialog: AudioUnitEditorDialogController = WindowFactory.audioUnitEditorDialog
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -24,34 +25,70 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         
         case .uid_audioUnitSwitch:
             
-            return createNameCell(tableView, tableColumn!.identifier.rawValue, row, "\(row)")
+            return createSwitchCell(tableView, tableColumn!.identifier.rawValue, row)
             
         case .uid_audioUnitName:
             
-            return createNameCell(tableView, tableColumn!.identifier.rawValue, row, audioGraph.audioUnits[row].name)
+            return createNameCell(tableView, tableColumn!.identifier.rawValue, row)
             
         case .uid_audioUnitEdit:
             
-            return createNameCell(tableView, tableColumn!.identifier.rawValue, row, "\(row)")
+            return createEditCell(tableView, tableColumn!.identifier.rawValue, row)
             
         default: return nil
             
         }
     }
     
-//    private func createSwitchCell(_ tableView: NSTableView, _ id: String, _ row: Int, _ state: EffectsUnitState) -> AudioUnitSwitchCellView? {
-//        
-//        
-//    }
+    private func createSwitchCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitSwitchCellView? {
+     
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitSwitchCellView {
+            
+            let audioUnit = audioGraph.audioUnits[row]
+            
+            cell.btnSwitch.stateFunction = audioUnit.stateFunction
+            
+            cell.btnSwitch.offStateTooltip = "Activate this Audio Unit"
+            cell.btnSwitch.onStateTooltip = "Deactivate this Audio Unit"
+            
+            cell.btnSwitch.updateState()
+            
+            cell.action = {
+                
+                _ = audioUnit.toggleState()
+                cell.btnSwitch.updateState()
+            }
+            
+            return cell
+        }
+        
+        return nil
+    }
     
-    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int, _ text: String) -> BasicTableCellView? {
+    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> BasicTableCellView? {
         
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
             
-            cell.textField?.stringValue = text
+            cell.textField?.stringValue = audioGraph.audioUnits[row].name
             cell.textFont = FontSchemes.systemScheme.effects.unitFunctionFont
             cell.selectedTextFont = FontSchemes.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+            
+            return cell
+        }
+        
+        return nil
+    }
+    
+    private func createEditCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitEditCellView? {
+     
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitEditCellView {
+            
+            let audioUnit = audioGraph.audioUnits[row]
+            
+            cell.action = {
+                self.audioUnitEditorDialog.showDialog(for: audioUnit)
+            }
             
             return cell
         }

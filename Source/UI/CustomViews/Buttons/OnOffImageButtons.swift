@@ -150,32 +150,14 @@ class EffectsUnitBypassButton: OnOffImageButton {
         set {}
     }
     
-    override var offStateTooltip: String? {
-        
-        get {
-            return "Activate this effects unit"
-        }
-        
-        // Tool tip should never change, so don't allow a setter
-        set {}
-    }
-    
-    // The button's tooltip when the button is in an "On" state
-    override var onStateTooltip: String? {
-        
-        get {
-            return "Deactivate this effects unit"
-        }
-        
-        // Tool tip should never change, so don't allow a setter
-        set {}
-    }
-    
     override func awakeFromNib() {
         
         // Override the tint functions from OnOffImageButton
         offStateTintFunction = {return Colors.Effects.bypassedUnitStateColor}
         onStateTintFunction = {return Colors.Effects.activeUnitStateColor}
+        
+        offStateTooltip = offStateTooltip ?? "Activate this effects unit"
+        onStateTooltip = onStateTooltip ?? "Deactivate this effects unit"
     }
     
     // Bypass is the inverse of "On". If bypass is true, state is "Off".

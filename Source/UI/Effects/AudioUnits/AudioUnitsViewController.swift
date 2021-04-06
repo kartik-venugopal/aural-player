@@ -7,7 +7,7 @@ class AudioUnitsViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var tableView: NSTableView!
     
-    private let audioUnitEditorDialog: AudioUnitEditorDialogController = AudioUnitEditorDialogController()
+    private let audioUnitEditorDialog: AudioUnitEditorDialogController = WindowFactory.audioUnitEditorDialog
     
     private let audioUnitAddDialog: ModalDialogDelegate = WindowFactory.audioUnitAddDialog
     
@@ -46,9 +46,9 @@ class AudioUnitsViewController: NSViewController, NotificationSubscriber {
             let audioUnit = audioGraph.audioUnits[selectedRow]
             
             // Open the audio unit editor window with the new audio unit's custom view.
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 self.audioUnitEditorDialog.showDialog(for: audioUnit)
-            }
+//            }
         }
     }
     

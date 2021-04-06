@@ -75,22 +75,21 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="PkN-pY-SqV" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView id="PkN-pY-SqV" customClass="AudioUnitSwitchCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="11" y="0.0" width="30" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fNN-xh-Q5P">
-                                                        <rect key="frame" x="3" y="0.0" width="30" height="24"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="3oR-xK-rMS">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    <button wantsLayer="YES" id="uQG-Ce-H9z" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="8" width="12" height="12"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LOY-8z-ckX">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                    </button>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="textField" destination="fNN-xh-Q5P" id="ZyE-kT-Y9j"/>
+                                                    <outlet property="btnSwitch" destination="uQG-Ce-H9z" id="cTe-Bg-Tyc"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
@@ -112,7 +111,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-gX-HEt">
-                                                        <rect key="frame" x="0.0" y="0.0" width="250" height="24"/>
+                                                        <rect key="frame" x="3" y="0.0" width="244" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="js6-Ga-hhU">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -139,22 +138,24 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="r9Q-eF-PCd" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="295" y="0.0" width="30" height="17"/>
+                                            <tableCellView id="r9Q-eF-PCd" customClass="AudioUnitEditCellView" customModule="Aural" customModuleProvider="target">
+                                                <rect key="frame" x="295" y="0.0" width="30" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1i6-0y-pHq">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="24"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="hDM-0s-0uL">
-                                                            <font key="font" usesAppearanceFont="YES"/>
-                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                        </textFieldCell>
-                                                    </textField>
+                                                    <button toolTip="Audio Unit settings" wantsLayer="YES" id="jrf-Hh-PYN" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="6" width="12" height="12"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Edit" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="hgj-gj-LvP">
+                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Edit"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
                                                 </subviews>
                                                 <connections>
-                                                    <outlet property="textField" destination="1i6-0y-pHq" id="Opj-Cq-9L6"/>
+                                                    <outlet property="btnEdit" destination="jrf-Hh-PYN" id="unz-0t-jEp"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>
@@ -182,4 +183,7 @@
         </customView>
         <customObject id="pml-Sk-YmX" customClass="AudioUnitsTableViewDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
+    <resources>
+        <image name="Edit" width="21" height="21"/>
+    </resources>
 </document>
