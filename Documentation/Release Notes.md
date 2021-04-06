@@ -1,43 +1,34 @@
-#  What's New in Version 2.9.0
+#  What's New in Version 2.10.0
 
-## MusicBrainz cover art lookup
+## Audio Units (effects) support
 
-For tracks that don't have cover art but have artist and album / title metadata, Aural Player will try to retrieve cover art for the track, from the MusicBrainz online music metadata database.
+Aural Player can now host Audio Units (AU) effects plug-ins, either those provided by macOS or any 3rd party plug-ins installed on the user's system. This provides unlimited opportunities for sound tweaking, in addition to the effects units already built into Aural Player.
 
-### MusicBrainz lookups preferences
+NOTE - The Audio Unit plug-in must be an effects plug-in, i.e. its component type must be kAudioUnitType_Effect (type name must be AVAudioUnitTypeEffect). Instruments / synthesizers, mixers, etc. are not supported. Also, the Audio Unit must provide a custom user interface (hasCustomView == true).  
 
-The following preferences can be set by going to the **Metadata** tab of the preferences dialog that can be accessed from the menu **Aural > Preferences**.
+###  New Effects panel tab
 
-#### Enable / disable cover art lookups
+The Effects panel / window now has a new tab titled "AU", where you can add / import your Audio Units. The units you've added will be displayed in a table.
 
-If you do not want to incur any internet data usage, or do not have internet connectivity, or otherwise don't want MusicBrainz lookups, you can disable them completely.
+Each audio unit that you add will be inserted into Aural Player's signal processing chain. There is no limit to the number of units you can add. However, note that each unit will add a small amount of latency.
 
-By default, MusicBrainz cover art lookups will be enabled.
+### Bypass switch
 
-#### Set an HTTP timeout
+Each audio unit will have an associated bypass switch (similar to the effects units built into Aural Player) you can use to activate / deactive the unit as desired.
 
-You can set a timeout interval (specified in seconds) for HTTP requests made to MusicBrainz. If you have a slow internet connection, this may be necessary, although the default timeout interval of 5 seconds should be sufficient for most scenarios.
+NOTE - Just like with the effects units built into Aural Player, bypassing (deactivating) the Master effects unit will also bypass all your audio units.
 
-You can choose a timeout ranging from 1 second to 60 seconds. It is recommended to choose an interval that is the minimum required for your particular scenario.
+### Audio Unit editor dialog
 
-#### Enable / disable on-disk caching
+To change the settings of any of your audio units, click the settings icon in the table row for your audio unit, or double click the table row. This will bring up the audio unit editor dialog, where the audio unit's custom view will be displayed, allowing you to change the unit's parameters by manipulating  sliders and other controls.
 
-For a better user experience, Aural Player will cache, on disk, any cover art retrieved from MusicBrainz, for later reuse when loading cover art for the same album / track. This prevents unnecessary redundant online lookups for cover art that was already retrieved before. It also reduces internet usage and the number of requests sent to MusicBrainz. 
+#### Factory presets
 
-By default, on-disk caching of MusicBrainz cover art will be enabled.
+Some Audio Units come with factory presets. For those that do, the audio unit editor dialog will display a list of them, allowing you to apply them to the audio unit.
 
-### Note about accuracy of cover art lookups
+#### User presets
 
-Note that the accuracy of cover art lookups or relevance of the chosen image to the corresponding track depends on:
-
-* The relevance of the images uploaded to MusicBrainz (and they are not always the right images).
-* Selecting a cover art image from a range of available cover art images ... which is not an exact science, and uses several criteria, eg - artist name, album name, title, release date, etc to maximize relevance.
-
-Despite this, Aural Player may sometimes display false positives, i.e. art that is not accurate for the corresponding track. This is inevitable. 
-
-## Bug fix - Grouping Playlists
-
-In rare cases when a track's metadata (eg artist) changed between app launches, the grouping playlists would cause a crash on app startup.
+User presets for audio units are only supported on macOS 10.15 and newer systems. Also, they are not supported by all audio units. When an audio unit supports user presets, the audio unit editor dialog will display a list of them, allowing you to apply them to the audio unit.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.9.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.10.0)
