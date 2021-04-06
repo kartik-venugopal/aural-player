@@ -12,6 +12,7 @@ class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitD
     func printParams() {unit.printParams()}
     
     var presets: AudioUnitPresets {unit.presets}
+    var supportsUserPresets: Bool {unit.supportsUserPresets}
     
     var factoryPresets: [AudioUnitFactoryPreset] {unit.factoryPresets}
     
@@ -33,39 +34,9 @@ class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitD
             
             if let theViewController = viewCon as? AUViewController {
                 
-                print("Class for VC: \(theViewController.view.className)")
-                
-                let mir = Mirror(reflecting: theViewController)
-                for child in mir.children {
-                    print("Member: \(child.label!)")
-                }
-                
                 self.viewController = theViewController
                 handler(theViewController.view)
             }
         })
-    }
-    
-    override func applyPreset(_ presetName: String) {
-        
-        super.applyPreset(presetName)
-        refreshView()
-    }
-    
-    func refreshView() {
-        
-        if self.viewController != nil {
-            print("Refreshing view ...")
-        }
-        
-//        viewController?.view.hide()
-        let superView = viewController?.view.superview
-        viewController?.view.removeFromSuperview()
-        viewController!.view.needsDisplay = true
-        
-        sleep(3)
-//        viewController?.view.show()
-        superView?.addSubview(viewController!.view)
-        viewController!.view.anchorToView(superView!)
     }
 }

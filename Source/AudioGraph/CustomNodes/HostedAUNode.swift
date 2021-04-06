@@ -27,7 +27,7 @@ class HostedAUNode: AVAudioUnitEffect {
         set(newParams) {
             
             for (address, value) in newParams {
-                paramsTree?.parameter(withAddress: address)?.setValue(value, originator: nil)
+                paramsTree?.parameter(withAddress: address)?.value = value
             }
         }
     }

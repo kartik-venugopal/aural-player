@@ -375,9 +375,3 @@ class SelectSearchResultCommandNotification: PlaylistCommandNotification {
         super.init(notificationName: .playlist_selectSearchResult, viewSelector: viewSelector)
     }
 }
-
-struct AddAudioUnitCommandNotification: NotificationPayload {
-
-    let notificationName: Notification.Name = .auFXUnit_addAudioUnit
-    let componentSubType: OSType
-}

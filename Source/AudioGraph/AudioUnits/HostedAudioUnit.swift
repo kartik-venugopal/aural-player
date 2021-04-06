@@ -10,6 +10,15 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     let presets: AudioUnitPresets = AudioUnitPresets()
     
+    var supportsUserPresets: Bool {
+        
+        if #available(OSX 10.15, *) {
+            return auAudioUnit.supportsUserPresets
+        }
+        
+        return false
+    }
+    
     let factoryPresets: [AudioUnitFactoryPreset]
     
     var params: [AUParameterAddress: Float] {

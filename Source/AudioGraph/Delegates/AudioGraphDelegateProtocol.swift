@@ -149,6 +149,7 @@ protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     func printParams()
 
     var presets: AudioUnitPresets {get}
+    var supportsUserPresets: Bool {get}
     
     var factoryPresets: [AudioUnitFactoryPreset] {get}
     

@@ -5,10 +5,13 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     @IBOutlet weak var lblTitle: NSTextField!
     @IBOutlet weak var viewContainer: NSBox!
     
-    @IBOutlet weak var factoryPresetsMenu: NSPopUpButton!
-    @IBOutlet weak var userPresetsMenu: NSPopUpButton!
+    @IBOutlet weak var lblFactoryPresets: NSTextField!
+    @IBOutlet weak var btnFactoryPresets: NSPopUpButton!
     
+    @IBOutlet weak var lblUserPresets: NSTextField!
+    @IBOutlet weak var btnUserPresets: NSPopUpButton!
     @IBOutlet weak var btnSavePreset: TintedImageButton!
+    
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     override var windowNibName: String? {return "AudioUnitEditorDialog"}
@@ -24,7 +27,6 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         }
         
         currentlyDisplayedView?.hide()
-        
         self.audioUnit = audioUnit
         
         audioUnit.presentView {view in
@@ -41,12 +43,24 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         
         lblTitle.stringValue = "Editing Audio Unit:  \(audioUnit.name)"
         
+        initFactoryPresets()
+        initUserPresets()
+        
         UIUtils.showDialog(self.window!)
+    }
+    
+    private func initFactoryPresets() {
         
-        (factoryPresetsMenu.menu?.delegate as? AudioUnitFactoryPresetsMenuDelegate)?.audioUnit = audioUnit
-        (userPresetsMenu.menu?.delegate as? AudioUnitUserPresetsMenuDelegate)?.audioUnit = audioUnit
+        let shouldShowFactoryPresets: Bool = self.audioUnit?.factoryPresets.isNonEmpty ?? false
+        [lblFactoryPresets, btnFactoryPresets].forEach {$0?.showIf(shouldShowFactoryPresets)}
+        (btnFactoryPresets.menu?.delegate as? AudioUnitFactoryPresetsMenuDelegate)?.audioUnit = audioUnit
+    }
+    
+    private func initUserPresets() {
         
-        // TODO: Show / hide user / factory presets UI depending on state (.supportsUserPresets, hasFactoryPresets, etc)
+        let shouldShowUserPresets: Bool = self.audioUnit?.supportsUserPresets ?? false
+        [lblUserPresets, btnUserPresets, btnSavePreset].forEach {$0?.showIf(shouldShowUserPresets)}
+        (btnUserPresets.menu?.delegate as? AudioUnitUserPresetsMenuDelegate)?.audioUnit = audioUnit
     }
     
     @IBAction func closeAction(_ sender: Any) {
@@ -57,14 +71,14 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
     @IBAction func applyFactoryPresetAction(_ sender: Any) {
         
-        if let presetName = factoryPresetsMenu.titleOfSelectedItem {
+        if let presetName = btnFactoryPresets.titleOfSelectedItem {
             audioUnit?.applyFactoryPreset(presetName)
         }
     }
     
     @IBAction func applyUserPresetAction(_ sender: Any) {
         
-        if let presetName = userPresetsMenu.titleOfSelectedItem {
+        if let presetName = btnUserPresets.titleOfSelectedItem {
             audioUnit?.applyPreset(presetName)
         }
     }

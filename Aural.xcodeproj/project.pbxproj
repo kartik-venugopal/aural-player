@@ -24,9 +24,6 @@
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
 		3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */; };
 		3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */; };
-		3E5623C02619ECBD00D55E43 /* AudioUnitAddDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E5623BF2619ECBD00D55E43 /* AudioUnitAddDialog.xib */; };
-		3E5623C32619ECDD00D55E43 /* AudioUnitAddDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C22619ECDD00D55E43 /* AudioUnitAddDialogController.swift */; };
-		3E5623C52619EE6900D55E43 /* AudioUnitsListTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C42619EE6900D55E43 /* AudioUnitsListTableViewDelegate.swift */; };
 		3E5623C72619F8BA00D55E43 /* AudioUnitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */; };
 		3E5623CA2619FAD500D55E43 /* HostedAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C92619FAD500D55E43 /* HostedAudioUnit.swift */; };
 		3E5623CC2619FCB300D55E43 /* AudioUnitPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623CB2619FCB300D55E43 /* AudioUnitPresets.swift */; };
@@ -620,9 +617,6 @@
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
 		3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neo-latina-demo-FFP.ttf"; sourceTree = "<group>"; };
 		3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-freak.regular.ttf"; sourceTree = "<group>"; };
-		3E5623BF2619ECBD00D55E43 /* AudioUnitAddDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitAddDialog.xib; sourceTree = "<group>"; };
-		3E5623C22619ECDD00D55E43 /* AudioUnitAddDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitAddDialogController.swift; sourceTree = "<group>"; };
-		3E5623C42619EE6900D55E43 /* AudioUnitsListTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsListTableViewDelegate.swift; sourceTree = "<group>"; };
 		3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsManager.swift; sourceTree = "<group>"; };
 		3E5623C92619FAD500D55E43 /* HostedAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnit.swift; sourceTree = "<group>"; };
 		3E5623CB2619FCB300D55E43 /* AudioUnitPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitPresets.swift; sourceTree = "<group>"; };
@@ -1369,16 +1363,6 @@
 				3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */,
 			);
 			path = Player;
-			sourceTree = "<group>";
-		};
-		3E5623C12619ECC300D55E43 /* AddDialog */ = {
-			isa = PBXGroup;
-			children = (
-				3E5623BF2619ECBD00D55E43 /* AudioUnitAddDialog.xib */,
-				3E5623C22619ECDD00D55E43 /* AudioUnitAddDialogController.swift */,
-				3E5623C42619EE6900D55E43 /* AudioUnitsListTableViewDelegate.swift */,
-			);
-			path = AddDialog;
 			sourceTree = "<group>";
 		};
 		3E5623C82619FA8600D55E43 /* AudioUnits */ = {
@@ -2768,7 +2752,6 @@
 				3ECBF3072619D58E00AD5C30 /* AudioUnits.xib */,
 				3ECBF3052619D58500AD5C30 /* AudioUnitsViewController.swift */,
 				3ECBF3092619DF7200AD5C30 /* AudioUnitsTableViewDelegate.swift */,
-				3E5623C12619ECC300D55E43 /* AddDialog */,
 				3E9CA7F0261A21BB006133B6 /* EditorDialog */,
 			);
 			path = AudioUnits;
@@ -3160,7 +3143,6 @@
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
 				3E6C126025CEBE0600BF0D07 /* EditorWindow.xib in Resources */,
 				3E6C12D925CEBE8100BF0D07 /* Filter.xib in Resources */,
-				3E5623C02619ECBD00D55E43 /* AudioUnitAddDialog.xib in Resources */,
 				3E6C127A25CEBE1800BF0D07 /* ColorSchemes.xib in Resources */,
 				3E6C121625CEBDE500BF0D07 /* Tracks.xib in Resources */,
 				3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */,
@@ -3375,7 +3357,6 @@
 				3EDB344A25E8B75D004DF7DE /* FFmpegMetadataParser.swift in Sources */,
 				3E6C118525CEBD6D00BF0D07 /* FXUnitDelegate.swift in Sources */,
 				3E6C11CB25CEBDBE00BF0D07 /* PlaybackParams.swift in Sources */,
-				3E5623C32619ECDD00D55E43 /* AudioUnitAddDialogController.swift in Sources */,
 				3E6C116F25CEBD6000BF0D07 /* UIState.swift in Sources */,
 				3E6C12BA25CEBE5800BF0D07 /* HelpMenuController.swift in Sources */,
 				3E5F942C25E57190002DEF80 /* BassFFTData.swift in Sources */,
@@ -3459,7 +3440,6 @@
 				3E6C12B225CEBE5800BF0D07 /* DockMenuController.swift in Sources */,
 				3E6C117525CEBD6000BF0D07 /* EffectsUnitPreset.swift in Sources */,
 				3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */,
-				3E5623C52619EE6900D55E43 /* AudioUnitsListTableViewDelegate.swift in Sources */,
 				3E6C119E25CEBD6D00BF0D07 /* Bookmark.swift in Sources */,
 				3E6C11A025CEBD6D00BF0D07 /* EQUnit.swift in Sources */,
 				3E6C117825CEBD6000BF0D07 /* AudioDeviceState.swift in Sources */,

@@ -1,31 +1,27 @@
 import Cocoa
+import AVFoundation
 
 /*
     View controller for the Audio Units view.
  */
-class AudioUnitsViewController: NSViewController, NotificationSubscriber {
+class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSubscriber {
     
     @IBOutlet weak var tableView: NSTableView!
     
     private let audioUnitEditorDialog: AudioUnitEditorDialogController = WindowFactory.audioUnitEditorDialog
     
-    private let audioUnitAddDialog: ModalDialogDelegate = WindowFactory.audioUnitAddDialog
-    
     override var nibName: String? {return "AudioUnits"}
     
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    override func viewDidLoad() {
-        Messenger.subscribe(self, .auFXUnit_addAudioUnit, self.addAudioUnit(_:))
-    }
+    private let audioUnitsManager: AudioUnitsManager = ObjectGraph.audioUnitsManager
     
+    @IBOutlet weak var btnAudioUnitsMenu: NSPopUpButton!
+
     @IBAction func addAudioUnitAction(_ sender: Any) {
-        _ = audioUnitAddDialog.showDialog()
-    }
-    
-    private func addAudioUnit(_ notif: AddAudioUnitCommandNotification) {
         
-        if let result = audioGraph.addAudioUnit(ofType: notif.componentSubType) {
+        if let audioUnit = btnAudioUnitsMenu.selectedItem?.representedObject as? AVAudioUnitComponent,
+           let result = audioGraph.addAudioUnit(ofType: audioUnit.audioComponentDescription.componentSubType) {
             
             // Refresh the table view with the new row.
             tableView.noteNumberOfRowsChanged()
@@ -60,6 +56,25 @@ class AudioUnitsViewController: NSViewController, NotificationSubscriber {
             
             audioGraph.removeAudioUnits(at: selRows)
             tableView.reloadData()
+        }
+    }
+    
+    // MARK: Menu Delegate functions
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        // Remove all custom presets (all items before the first separator)
+        while menu.items.count > 1 {
+            menu.removeItem(at: 1)
+        }
+        
+        for unit in audioUnitsManager.audioUnits {
+
+            let item = NSMenuItem(title: unit.name, action: nil, keyEquivalent: "")
+            item.target = self
+            item.representedObject = unit
+            
+            menu.addItem(item)
         }
     }
 }

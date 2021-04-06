@@ -27,8 +27,6 @@ class WindowFactory {
     
     private static var fontSchemesWindowController: FontSchemesWindowController = FontSchemesWindowController()
     
-    private static var audioUnitAddDialogController: AudioUnitAddDialogController = AudioUnitAddDialogController()
-    
     static var audioUnitEditorDialog: AudioUnitEditorDialogController = AudioUnitEditorDialogController()
     
     static var alertWindowController: AlertWindowController = AlertWindowController()
@@ -81,9 +79,5 @@ class WindowFactory {
     
     static var fontSchemesDialog: ModalDialogDelegate {
         return fontSchemesWindowController
-    }
-    
-    static var audioUnitAddDialog: ModalDialogDelegate {
-        return audioUnitAddDialogController
     }
 }

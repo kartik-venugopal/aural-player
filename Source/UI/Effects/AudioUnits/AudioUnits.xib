@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="AudioUnitsViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnAudioUnitsMenu" destination="skz-J4-Bsf" id="ec1-IT-ner"/>
                 <outlet property="tableView" destination="IHZ-s3-hWQ" id="zg6-Dq-gHG"/>
                 <outlet property="view" destination="c22-O7-iKe" id="Lrt-jY-I0T"/>
             </connections>
@@ -27,37 +28,15 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sL9-bx-OwH" userLabel="Add button">
-                    <rect key="frame" x="412" y="83" width="85" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="+  Audio Unit" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FbW-Jy-OYd" customClass="FXTextButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="addAudioUnitAction:" target="-2" id="bWk-OR-GUP"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1c-zn-iRe" userLabel="Remove button">
-                    <rect key="frame" x="412" y="61" width="85" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="-  Audio Unit" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Kan-eG-xeL" customClass="FXTextButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="cellTitle"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="removeAudioUnitsAction:" target="-2" id="tL5-LD-bYP"/>
-                    </connections>
-                </button>
-                <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8U-Uo-cLm">
-                    <rect key="frame" x="70" y="5" width="306" height="135"/>
+                <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8U-Uo-cLm">
+                    <rect key="frame" x="70" y="22" width="421" height="118"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" id="Rf5-tM-f2s">
-                        <rect key="frame" x="0.0" y="0.0" width="306" height="135"/>
+                        <rect key="frame" x="1" y="1" width="419" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" id="IHZ-s3-hWQ">
-                                <rect key="frame" x="0.0" y="0.0" width="336" height="135"/>
+                                <rect key="frame" x="0.0" y="0.0" width="456" height="116"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="2" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -94,7 +73,7 @@
                                             </tableCellView>
                                         </prototypeCellViews>
                                     </tableColumn>
-                                    <tableColumn identifier="cid_AudioUnitName" width="250" minWidth="250" maxWidth="250" id="iTy-Mt-a4i">
+                                    <tableColumn identifier="cid_AudioUnitName" width="370" minWidth="370" maxWidth="370" id="iTy-Mt-a4i">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -107,11 +86,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="1jH-Wo-xoL" customClass="BasicTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="43" y="0.0" width="250" height="24"/>
+                                                <rect key="frame" x="43" y="0.0" width="370" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-gX-HEt">
-                                                        <rect key="frame" x="3" y="0.0" width="244" height="24"/>
+                                                        <rect key="frame" x="3" y="0.0" width="364" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="js6-Ga-hhU">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -139,7 +118,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="r9Q-eF-PCd" customClass="AudioUnitEditCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="295" y="0.0" width="30" height="24"/>
+                                                <rect key="frame" x="415" y="0.0" width="30" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Audio Unit settings" wantsLayer="YES" id="jrf-Hh-PYN" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -173,17 +152,57 @@
                         <rect key="frame" x="-100" y="-100" width="332" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="QMh-st-jUd">
-                        <rect key="frame" x="-100" y="-100" width="15" height="102"/>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="QMh-st-jUd" customClass="PrettyScroller" customModule="Aural" customModuleProvider="target">
+                        <rect key="frame" x="406" y="0.0" width="15" height="113"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <popUpButton toolTip="Load preset" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="skz-J4-Bsf" userLabel="Add Button">
+                    <rect key="frame" x="457" y="4" width="20" height="11"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" altersStateOfSelectedItem="NO" id="MtC-pC-BEV">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <menu key="menu" showsStateColumn="NO" id="V31-Fd-qBn">
+                            <items>
+                                <menuItem image="Add-AU" hidden="YES" id="Bcn-gB-UfW" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Add-AU"/>
+                                    </userDefinedRuntimeAttributes>
+                                </menuItem>
+                            </items>
+                            <connections>
+                                <outlet property="delegate" destination="-2" id="cYt-SY-6cB"/>
+                            </connections>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="addAudioUnitAction:" target="-2" id="YaV-Sa-Xz0"/>
+                    </connections>
+                </popUpButton>
+                <button toolTip="Remove selected tracks from playlist" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FZh-10-i3P" userLabel="Remove Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="480" y="5" width="10" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Remove" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tWh-Db-cIG">
+                        <behavior key="behavior" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Remove"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="removeAudioUnitsAction:" target="-2" id="EhM-Ab-2WS"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="-203" y="160.5"/>
         </customView>
         <customObject id="pml-Sk-YmX" customClass="AudioUnitsTableViewDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
+        <image name="Add-AU" width="12" height="12"/>
         <image name="Edit" width="12" height="12"/>
+        <image name="Remove" width="27" height="27"/>
     </resources>
 </document>
