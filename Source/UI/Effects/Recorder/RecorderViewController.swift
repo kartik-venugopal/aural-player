@@ -128,10 +128,6 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
-        fontsChanged()
-    }
-    
-    private func fontsChanged() {
         
         lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
         

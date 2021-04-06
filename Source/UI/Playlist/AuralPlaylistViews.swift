@@ -140,43 +140,6 @@ class BasicTableCellView: NSTableCellView {
     }
 }
 
-@IBDesignable
-class AudioUnitSwitchCellView: NSTableCellView {
-    
-    @IBOutlet weak var btnSwitch: EffectsUnitTriStateBypassButton!
-    
-    var action: (() -> ())! {
-        
-        didSet {
-            btnSwitch.action = #selector(self.toggleAudioUnitStateAction(_:))
-            btnSwitch.target = self
-        }
-    }
-    
-    @objc func toggleAudioUnitStateAction(_ sender: Any) {
-        self.action()
-    }
-}
-
-@IBDesignable
-class AudioUnitEditCellView: NSTableCellView {
-    
-    @IBOutlet weak var btnEdit: TintedImageButton!
-    
-    var action: (() -> ())! {
-        
-        didSet {
-            
-            btnEdit.action = #selector(self.editAudioUnitAction(_:))
-            btnEdit.target = self
-        }
-    }
-    
-    @objc func editAudioUnitAction(_ sender: Any) {
-        self.action()
-    }
-}
-
 extension NSUserInterfaceItemIdentifier {
     
     static let uid_index: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID)

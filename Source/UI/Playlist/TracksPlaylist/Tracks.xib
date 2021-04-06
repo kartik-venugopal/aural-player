@@ -23,7 +23,7 @@
             <subviews>
                 <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gzJ-2a-yOb" userLabel="Playlist Tracks View">
                     <rect key="frame" x="0.0" y="0.0" width="493" height="175"/>
-                    <clipView key="contentView" focusRingType="none" drawsBackground="NO" copiesOnScroll="NO" id="fxA-zZ-X3P">
+                    <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="fxA-zZ-X3P">
                         <rect key="frame" x="0.0" y="0.0" width="493" height="175"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

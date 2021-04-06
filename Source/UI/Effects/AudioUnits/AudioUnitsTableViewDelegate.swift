@@ -16,7 +16,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
+        return AudioUnitsTableRowView()
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -65,13 +65,12 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         return nil
     }
     
-    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> BasicTableCellView? {
+    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitNameTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitNameTableCellView {
             
             cell.textField?.stringValue = audioGraph.audioUnits[row].name
-            cell.textFont = FontSchemes.systemScheme.effects.unitFunctionFont
-            cell.selectedTextFont = FontSchemes.systemScheme.effects.unitFunctionFont
+            cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
             
             return cell
@@ -85,6 +84,8 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitEditCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
+            cell.btnEdit.tintFunction = {ColorSchemes.systemScheme.general.functionButtonColor}
+            cell.btnEdit.reTint()
             
             cell.action = {
                 self.audioUnitEditorDialog.showDialog(for: audioUnit)
@@ -94,6 +95,85 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         }
         
         return nil
+    }
+}
+
+/*
+    Custom view for a NSTableView row that displays a single Audio Unit. Customizes the selection look and feel.
+ */
+class AudioUnitsTableRowView: NSTableRowView {
+    
+    // Draws a fancy rounded rectangle around the selected track in the playlist view
+    override func drawSelection(in dirtyRect: NSRect) {
+        
+        if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
+            
+            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
+            let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
+            
+            ColorSchemes.systemScheme.playlist.selectionBoxColor.setFill()
+            selectionPath.fill()
+        }
+    }
+}
+
+class AudioUnitNameTableCellView: NSTableCellView {
+    
+    var rowSelectionStateFunction: () -> Bool = {false}
+    
+    var textColor: NSColor {Colors.Effects.functionCaptionTextColor}
+    var selectedTextColor: NSColor {Colors.Effects.functionValueTextColor}
+    
+    var rowIsSelected: Bool {rowSelectionStateFunction()}
+    
+    override var backgroundStyle: NSView.BackgroundStyle {
+        
+        didSet {
+            backgroundStyleChanged()
+        }
+    }
+    
+    func backgroundStyleChanged() {
+        
+        // Check if this row is selected, change color accordingly.
+        textField?.textColor = rowIsSelected ?  selectedTextColor : textColor
+    }
+}
+
+@IBDesignable
+class AudioUnitSwitchCellView: NSTableCellView {
+    
+    @IBOutlet weak var btnSwitch: EffectsUnitTriStateBypassButton!
+    
+    var action: (() -> ())! {
+        
+        didSet {
+            btnSwitch.action = #selector(self.toggleAudioUnitStateAction(_:))
+            btnSwitch.target = self
+        }
+    }
+    
+    @objc func toggleAudioUnitStateAction(_ sender: Any) {
+        self.action()
+    }
+}
+
+@IBDesignable
+class AudioUnitEditCellView: NSTableCellView {
+    
+    @IBOutlet weak var btnEdit: TintedImageButton!
+    
+    var action: (() -> ())! {
+        
+        didSet {
+            
+            btnEdit.action = #selector(self.editAudioUnitAction(_:))
+            btnEdit.target = self
+        }
+    }
+    
+    @objc func editAudioUnitAction(_ sender: Any) {
+        self.action()
     }
 }
 

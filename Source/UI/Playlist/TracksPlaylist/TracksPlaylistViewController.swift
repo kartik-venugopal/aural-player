@@ -422,12 +422,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     private func changeBackgroundColor(_ color: NSColor) {
         
         scrollView.backgroundColor = color
-        scrollView.drawsBackground = color.isOpaque
-        
         clipView.backgroundColor = color
-        clipView.drawsBackground = color.isOpaque
-        
-        playlistView.backgroundColor = color.isOpaque ? color : NSColor.clear
+        playlistView.backgroundColor = color
     }
     
     private var allRows: IndexSet {IndexSet(integersIn: 0..<rowCount)}
