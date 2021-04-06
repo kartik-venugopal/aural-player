@@ -91,7 +91,22 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         reverbTabViewButton.stateFunction = graph.reverbUnit.stateFunction
         delayTabViewButton.stateFunction = graph.delayUnit.stateFunction
         filterTabViewButton.stateFunction = graph.filterUnit.stateFunction
-        auTabViewButton.stateFunction = {.bypassed}
+        
+        auTabViewButton.stateFunction = {
+            
+            let unitStates = self.graph.audioUnits.map {$0.state}
+            
+            if unitStates.filter({$0 == .active}).isNonEmpty {
+                return .active
+            }
+            
+            if unitStates.filter({$0 == .suppressed}).isNonEmpty {
+                return .suppressed
+            }
+            
+            return .bypassed
+        }
+        
         recorderTabViewButton.stateFunction = {return self.recorder.isRecording ? .active : .bypassed}
     }
 
@@ -205,7 +220,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     func stateChanged() {
 
         // Update the tab button states
-        fxTabViewButtons.forEach({$0.updateState()})
+        fxTabViewButtons.forEach {$0.updateState()}
     }
     
     func showTab(_ fxUnit: EffectsUnit) {

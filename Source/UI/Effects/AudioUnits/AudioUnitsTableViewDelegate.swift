@@ -57,6 +57,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
                 
                 _ = audioUnit.toggleState()
                 cell.btnSwitch.updateState()
+                Messenger.publish(.fx_unitStateChanged)
             }
             
             return cell
