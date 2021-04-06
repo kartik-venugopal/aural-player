@@ -144,9 +144,10 @@ protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
 protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     var name: String {get}
+    
     var params: [AUParameterAddress: Float] {get}
     func printParams()
-    
+
     var presets: AudioUnitPresets {get}
     
     var factoryPresets: [AudioUnitFactoryPreset] {get}

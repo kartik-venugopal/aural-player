@@ -45,14 +45,14 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         
         (factoryPresetsMenu.menu?.delegate as? AudioUnitFactoryPresetsMenuDelegate)?.audioUnit = audioUnit
         (userPresetsMenu.menu?.delegate as? AudioUnitUserPresetsMenuDelegate)?.audioUnit = audioUnit
+        
+        // TODO: Show / hide user / factory presets UI depending on state (.supportsUserPresets, hasFactoryPresets, etc)
     }
     
     @IBAction func closeAction(_ sender: Any) {
         
         UIUtils.dismissDialog(self.window!)
         currentlyDisplayedView?.hide()
-        
-        audioUnit?.printParams()
     }
     
     @IBAction func applyFactoryPresetAction(_ sender: Any) {

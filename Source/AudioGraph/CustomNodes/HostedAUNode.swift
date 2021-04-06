@@ -66,9 +66,6 @@ class HostedAUNode: AVAudioUnitEffect {
     func printParams() {
         
         print("\n")
-//        for param in paramsMap.values {
-//            print("\(param.identifier):\(param.displayName)=\(param.value)")
-//        }
         
         for param in self.auAudioUnit.parameterTree?.allParameters ?? [] {
             print("\(param.identifier):\(param.displayName)=\(param.value)")

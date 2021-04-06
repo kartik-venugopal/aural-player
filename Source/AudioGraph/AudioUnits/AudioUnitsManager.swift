@@ -2,19 +2,19 @@ import AVFoundation
 
 class AudioUnitsManager {
     
+    private let componentManager: AVAudioUnitComponentManager = AVAudioUnitComponentManager.shared()
+    
     private var components: [AVAudioUnitComponent] = []
-    let componentsBlackList: Set<String> = ["AUNewPitch", "AURoundTripAAC", "AUNetSend"]
+    private let componentsBlackList: Set<String> = ["AURoundTripAAC", "AUNetSend"]
     
     init() {
         
-        let desc = AudioComponentDescription(componentType: kAudioUnitType_Effect,
-                                             componentSubType: 0,
-                                             componentManufacturer: 0,
-                                             componentFlags: 0,
-                                             componentFlagsMask: 0)
-
-        self.components = AVAudioUnitComponentManager.shared().components(matching: desc)
-            .filter {$0.hasCustomView && !componentsBlackList.contains($0.name)}
+        self.components = componentManager.components { component, _ in
+            
+            return component.typeName == AVAudioUnitTypeEffect &&
+                component.hasCustomView &&
+                !self.componentsBlackList.contains(component.name)
+        }
     }
     
     var audioUnits: [AVAudioUnitComponent] {components}
