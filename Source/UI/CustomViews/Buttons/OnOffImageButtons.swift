@@ -126,50 +126,9 @@ class OnOffImageButton: NSButton, Tintable {
 }
 
 /*
-    A special case On/Off image button used as a bypass switch for Effects units, with preset images
- */
-class EffectsUnitBypassButton: OnOffImageButton {
-    
-    override var offStateImage: NSImage? {
-        
-        get {
-            return Images.imgSwitchOff
-        }
-        
-        // Image should never change, so don't allow a setter
-        set {}
-    }
-    
-    override var onStateImage: NSImage? {
-        
-        get {
-            return Images.imgSwitchOn
-        }
-        
-        // Image should never change, so don't allow a setter
-        set {}
-    }
-    
-    override func awakeFromNib() {
-        
-        // Override the tint functions from OnOffImageButton
-        offStateTintFunction = {return Colors.Effects.bypassedUnitStateColor}
-        onStateTintFunction = {return Colors.Effects.activeUnitStateColor}
-        
-        offStateTooltip = offStateTooltip ?? "Activate this effects unit"
-        onStateTooltip = onStateTooltip ?? "Deactivate this effects unit"
-    }
-    
-    // Bypass is the inverse of "On". If bypass is true, state is "Off".
-    func setBypassState(_ bypass: Bool) {
-        bypass ? off() : on()
-    }
-}
-
-/*
  A special case On/Off image button used as a bypass switch for Effects units, with preset images
  */
-class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
+class EffectsUnitTriStateBypassButton: OnOffImageButton {
     
     var stateFunction: (() -> EffectsUnitState)?
     
@@ -177,25 +136,7 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
         return stateFunction?() ?? .bypassed
     }
     
-    var mixedStateImage: NSImage? {
-        
-        get {
-            return Images.imgSwitchMixed
-        }
-        
-        // Image should never change, so don't allow a setter
-        set {}
-    }
-    
-    var mixedStateTooltip: String? {
-        
-        get {
-            return offStateTooltip
-        }
-        
-        // Tool tip should never change, so don't allow a setter
-        set {}
-    }
+    var mixedStateTooltip: String?
     
     // Tint to be applied when the button is in a "mixed" state (eg. when an effects unit is suppressed).
     var mixedStateTintFunction: () -> NSColor = {return Colors.Effects.suppressedUnitStateColor} {
@@ -206,6 +147,24 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
                 reTint()
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        
+        self.image = Images.imgSwitch
+        
+        // Override the tint functions from OnOffImageButton
+        offStateTintFunction = {return Colors.Effects.bypassedUnitStateColor}
+        onStateTintFunction = {return Colors.Effects.activeUnitStateColor}
+        
+        offStateTooltip = offStateTooltip ?? "Activate this effects unit"
+        onStateTooltip = onStateTooltip ?? "Deactivate this effects unit"
+        mixedStateTooltip = offStateTooltip
+    }
+    
+    // Bypass is the inverse of "On". If bypass is true, state is "Off".
+    func setBypassState(_ bypass: Bool) {
+        bypass ? off() : on()
     }
     
     func updateState() {
@@ -234,10 +193,26 @@ class EffectsUnitTriStateBypassButton: EffectsUnitBypassButton {
         }
     }
     
+    // Sets the button state to be "Off"
+    override func off() {
+        
+        self.image = self.image?.applyingTint(offStateTintFunction())
+        self.toolTip = offStateTooltip
+        _isOn = false
+    }
+    
+    // Sets the button state to be "On"
+    override func on() {
+        
+        self.image = self.image?.applyingTint(onStateTintFunction())
+        self.toolTip = onStateTooltip
+        _isOn = true
+    }
+    
     func mixed() {
         
+        self.image = self.image?.applyingTint(mixedStateTintFunction())
         self.toolTip = mixedStateTooltip
-        self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
     }
     
     override func reTint() {
@@ -250,7 +225,6 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     var stateFunction: (() -> EffectsUnitState)?
     
-    @IBInspectable var mixedStateImage: NSImage?
     @IBInspectable var mixedStateTooltip: String?
     
     var mixedStateTintFunction: () -> NSColor = {return Colors.Effects.suppressedUnitStateColor} {
@@ -269,7 +243,9 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     override func off() {
         
-        super.off()
+        self.image = self.image?.applyingTint(offStateTintFunction())
+        self.toolTip = offStateTooltip
+        _isOn = false
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.unitState = .bypassed
@@ -279,7 +255,9 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     override func on() {
         
-        super.on()
+        self.image = self.image?.applyingTint(onStateTintFunction())
+        self.toolTip = onStateTooltip
+        _isOn = true
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.unitState = .active
@@ -289,7 +267,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     func mixed() {
         
-        self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
+        self.image = self.image?.applyingTint(mixedStateTintFunction())
         self.toolTip = mixedStateTooltip
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
@@ -302,11 +280,11 @@ class EffectsUnitTabButton: OnOffImageButton {
         
         switch unitState {
             
-        case .bypassed: self.image = offStateImage?.applyingTint(offStateTintFunction())
+        case .bypassed: self.image = self.image?.applyingTint(offStateTintFunction())
             
-        case .active: self.image = onStateImage?.applyingTint(onStateTintFunction())
+        case .active: self.image = self.image?.applyingTint(onStateTintFunction())
             
-        case .suppressed: self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
+        case .suppressed: self.image = self.image?.applyingTint(mixedStateTintFunction())
             
         }
         

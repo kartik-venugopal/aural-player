@@ -26,9 +26,7 @@ struct Images {
     static let imgLoopStarted: NSImage = NSImage(named: "LoopStarted")!
     static let imgLoopComplete: NSImage = NSImage(named: "LoopComplete")!
     
-    static let imgSwitchOff: NSImage = NSImage(named: "SwitchOff")!
-    static let imgSwitchOn: NSImage = NSImage(named: "SwitchOn")!
-    static let imgSwitchMixed: NSImage = NSImage(named: "SwitchMixed")!
+    static let imgSwitch: NSImage = NSImage(named: "Switch")!
     
     static let imgHistory_playlist_padded: NSImage = NSImage(named: "History_PaddedPlaylist")!
     

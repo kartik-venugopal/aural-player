@@ -6,12 +6,6 @@ import Cocoa
 @IBDesignable
 class EffectsUnitBypassImage: NSImageView, Tintable {
     
-    // The image displayed when the button is in an "Off" state
-    @IBInspectable var offStateImage: NSImage?
-    
-    // The image displayed when the button is in an "On" state
-    @IBInspectable var onStateImage: NSImage?
-    
     var offStateTintFunction: () -> NSColor = {return Colors.Effects.bypassedUnitStateColor} {
         
         didSet {
@@ -37,14 +31,14 @@ class EffectsUnitBypassImage: NSImageView, Tintable {
     // Sets the button state to be "Off"
     func off() {
         
-        self.image = offStateImage?.applyingTint(offStateTintFunction())
+        self.image = self.image?.applyingTint(offStateTintFunction())
         _isOn = false
     }
     
     // Sets the button state to be "On"
     func on() {
         
-        self.image = onStateImage?.applyingTint(onStateTintFunction())
+        self.image = self.image?.applyingTint(onStateTintFunction())
         _isOn = true
     }
     
@@ -71,9 +65,9 @@ class EffectsUnitBypassImage: NSImageView, Tintable {
     func reTint() {
         
         if _isOn {
-            self.image = onStateImage?.applyingTint(onStateTintFunction())
+            self.image = self.image?.applyingTint(onStateTintFunction())
         } else {
-            self.image = offStateImage?.applyingTint(offStateTintFunction())
+            self.image = self.image?.applyingTint(offStateTintFunction())
         }
     }
 }
@@ -88,8 +82,6 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     var unitState: EffectsUnitState {
         return stateFunction?() ?? .bypassed
     }
-    
-    @IBInspectable var mixedStateImage: NSImage?
     
     var mixedStateTintFunction: () -> NSColor = {return Colors.Effects.suppressedUnitStateColor} {
         
@@ -128,7 +120,7 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     }
     
     func mixed() {
-        self.image = mixedStateImage?.applyingTint(mixedStateTintFunction())
+        self.image = self.image?.applyingTint(mixedStateTintFunction())
     }
     
     override func reTint() {

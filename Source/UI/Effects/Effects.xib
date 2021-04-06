@@ -134,8 +134,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="MasterTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="MasterTab-On"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Master controls unit (Bypassed)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Master controls unit (Active)"/>
                                                 </userDefinedRuntimeAttributes>
@@ -151,9 +149,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EQTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EQTab-On"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="EQTab-Mixed"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Equalizer unit (Active)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Equalizer unit (Bypassed)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Equalizer unit (Bypassed by Master unit)"/>
@@ -170,9 +165,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PitchTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PitchTab-On"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="PitchTab-Mixed"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Pitch shift unit (Bypassed by Master unit)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Pitch shift unit (Bypassed)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Pitch shift unit (Active)"/>
@@ -189,9 +181,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="TimeTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="TimeTab-On"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="TimeTab-Mixed"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Time stretch unit (Bypassed)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Time stretch unit (Bypassed by Master unit)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Time stretch unit (Active)"/>
@@ -208,9 +197,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="ReverbTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="ReverbTab-On"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="ReverbTab-Mixed"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Reverb unit (Bypassed)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Reverb unit (Active)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Reverb unit (Bypassed by Master unit)"/>
@@ -227,9 +213,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DelayTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DelayTab-On"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="DelayTab-Mixed"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Delay unit (Bypassed by Master unit)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Delay unit (Bypassed)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Delay unit (Active)"/>
@@ -246,9 +229,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="FilterTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="FilterTab-On"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="FilterTab-Mixed"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Filter unit (Bypassed by Master unit)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Filter unit (Bypassed)"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Filter unit (Active)"/>
@@ -273,9 +253,6 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="AUTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="AUTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="AUTab"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="mixedStateTooltip" value="Audio Units"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Audio Units"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Audio Units"/>
@@ -292,8 +269,6 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="RecorderTab"/>
-                                                    <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="RecorderTab-On"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Recorder unit"/>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Recorder unit (Active)"/>
                                                 </userDefinedRuntimeAttributes>
@@ -339,26 +314,12 @@
         <image name="AUTab" width="32" height="19"/>
         <image name="Close" width="18" height="18"/>
         <image name="DelayTab" width="23" height="22"/>
-        <image name="DelayTab-Mixed" width="23" height="22"/>
-        <image name="DelayTab-On" width="23" height="22"/>
         <image name="EQTab" width="25" height="25"/>
-        <image name="EQTab-Mixed" width="25" height="25"/>
-        <image name="EQTab-On" width="25" height="25"/>
         <image name="FilterTab" width="26" height="26"/>
-        <image name="FilterTab-Mixed" width="26" height="26"/>
-        <image name="FilterTab-On" width="26" height="26"/>
         <image name="MasterTab" width="25" height="25"/>
-        <image name="MasterTab-On" width="25" height="25"/>
         <image name="PitchTab" width="32" height="26"/>
-        <image name="PitchTab-Mixed" width="32" height="26"/>
-        <image name="PitchTab-On" width="32" height="26"/>
         <image name="RecorderTab" width="26" height="26"/>
-        <image name="RecorderTab-On" width="26" height="26"/>
         <image name="ReverbTab" width="25" height="25"/>
-        <image name="ReverbTab-Mixed" width="25" height="25"/>
-        <image name="ReverbTab-On" width="25" height="25"/>
         <image name="TimeTab" width="32" height="32"/>
-        <image name="TimeTab-Mixed" width="32" height="32"/>
-        <image name="TimeTab-On" width="32" height="32"/>
     </resources>
 </document>

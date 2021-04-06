@@ -80,7 +80,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button wantsLayer="YES" id="uQG-Ce-H9z" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="8" width="12" height="12"/>
+                                                        <rect key="frame" x="5" y="7" width="12" height="12"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LOY-8z-ckX">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -184,6 +184,6 @@
         <customObject id="pml-Sk-YmX" customClass="AudioUnitsTableViewDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
-        <image name="Edit" width="21" height="21"/>
+        <image name="Edit" width="12" height="12"/>
     </resources>
 </document>
