@@ -61,7 +61,9 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             
             // Open the audio unit editor window with the new audio unit's custom view.
             DispatchQueue.main.async {
+                
                 self.audioUnitEditorDialog.showDialog(for: result.0)
+                Messenger.publish(.fx_unitStateChanged)
             }
         }
     }
@@ -86,6 +88,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             
             audioGraph.removeAudioUnits(at: selRows)
             tableView.reloadData()
+            Messenger.publish(.fx_unitStateChanged)
         }
     }
     
