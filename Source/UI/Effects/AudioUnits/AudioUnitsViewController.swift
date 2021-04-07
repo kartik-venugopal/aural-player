@@ -62,13 +62,13 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             // Refresh the table view with the new row.
             tableView.noteNumberOfRowsChanged()
             
-            let editorDialog = AudioUnitEditorDialogController(for: audioUnit)
-            editorDialogs[audioUnit.componentSubType] = editorDialog
+            // Create an editor dialog for the new audio unit.
+            editorDialogs[audioUnit.componentSubType] = AudioUnitEditorDialogController(for: audioUnit)
             
             // Open the audio unit editor window with the new audio unit's custom view.
             DispatchQueue.main.async {
 
-                editorDialog.showDialog()
+                self.doEditAudioUnit(audioUnit)
                 Messenger.publish(.fx_unitStateChanged)
             }
         }
@@ -81,8 +81,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         if selectedRow >= 0 {
 
             // Open the audio unit editor window with the new audio unit's custom view.
-            let audioUnit = audioGraph.audioUnits[selectedRow]
-            doEditAudioUnit(audioUnit)
+            doEditAudioUnit(audioGraph.audioUnits[selectedRow])
         }
     }
     
@@ -92,7 +91,11 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             editorDialogs[audioUnit.componentSubType] = AudioUnitEditorDialogController(for: audioUnit)
         }
         
-        editorDialogs[audioUnit.componentSubType]?.showDialog()
+        if let dialog = editorDialogs[audioUnit.componentSubType], let dialogWindow = dialog.window {
+            
+            WindowManager.addChildWindow(dialogWindow)
+            dialog.showDialog()
+        }
     }
     
     @IBAction func removeAudioUnitsAction(_ sender: Any) {
@@ -101,8 +104,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         
         if !selRows.isEmpty {
             
-            let removedUnits = audioGraph.removeAudioUnits(at: selRows)
-            for unit in removedUnits {
+            for unit in audioGraph.removeAudioUnits(at: selRows) {
                 editorDialogs.removeValue(forKey: unit.componentSubType)
             }
             
@@ -196,7 +198,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        // Remove all custom presets (all items before the first separator)
+        // Remove all dynamic items (all items after the first icon item).
         while menu.items.count > 1 {
             menu.removeItem(at: 1)
         }
