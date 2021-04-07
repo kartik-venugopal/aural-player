@@ -388,6 +388,13 @@ extension NSWindow {
     var remainingHeight: CGFloat {
         return (NSScreen.main!.visibleFrame.height - self.height)
     }
+    
+    func resizeTo(newWidth: CGFloat, newHeight: CGFloat) {
+        
+        var newFrame = self.frame
+        newFrame.size = NSSize(width: newWidth, height: newHeight)
+        setFrame(newFrame, display: true)
+    }
 }
 
 public extension NSBezierPath {

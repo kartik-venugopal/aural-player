@@ -19,7 +19,6 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     override var windowNibName: String? {return "AudioUnitEditorDialog"}
 
     var audioUnit: HostedAudioUnitDelegateProtocol!
-    var audioUnitView: NSView!
     
     var factoryPresetsMenuDelegate: AudioUnitFactoryPresetsMenuDelegate!
     var userPresetsMenuDelegate: AudioUnitUserPresetsMenuDelegate!
@@ -38,11 +37,20 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         window?.isMovableByWindowBackground = true
         rootContainer.anchorToSuperview()
         
-        audioUnit.presentView {view in
+        audioUnit.presentView {auView in
             
-            self.viewContainer.addSubview(view)
-            view.anchorToView(view.superview!)
-            self.audioUnitView = view
+            self.viewContainer.addSubview(auView)
+            auView.anchorToSuperview()
+            
+            // Resize the window to exactly contain the audio unit's view.
+            
+            let curWindowSize: NSSize = self.window!.frame.size
+            let viewContainerSize: NSSize = self.viewContainer.frame.size
+            
+            let widthDelta = viewContainerSize.width - auView.frame.width
+            let heightDelta = viewContainerSize.height - auView.frame.height
+            
+            self.window?.resizeTo(newWidth: curWindowSize.width - widthDelta, newHeight: curWindowSize.height - heightDelta)
         }
         
         lblTitle.stringValue = "Editing Audio Unit:  \(audioUnit.name)"
