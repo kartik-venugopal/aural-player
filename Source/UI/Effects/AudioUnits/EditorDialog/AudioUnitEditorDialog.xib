@@ -14,27 +14,37 @@
                 <outlet property="lblFactoryPresets" destination="lF8-Ap-UiM" id="xcg-Oj-rSC"/>
                 <outlet property="lblTitle" destination="LAn-Sl-fSv" id="AML-EE-2ml"/>
                 <outlet property="lblUserPresets" destination="uYN-5k-nw5" id="DU8-2M-Rd0"/>
+                <outlet property="rootContainer" destination="zM8-Mm-Hhs" id="xEO-6Q-XOQ"/>
                 <outlet property="viewContainer" destination="cer-qR-hth" id="EcQ-Lz-v4Q"/>
                 <outlet property="window" destination="Qil-RJ-vDn" id="QUv-DB-VyP"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="Qil-RJ-vDn" customClass="SnappingNonKeyWindow" customModule="Aural" customModuleProvider="target">
-            <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="Qil-RJ-vDn" customClass="SnappingWindow" customModule="Aural" customModuleProvider="target">
+            <windowStyleMask key="styleMask" resizable="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="630" height="580"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
-            <value key="minSize" type="size" width="630" height="580"/>
-            <value key="maxSize" type="size" width="630" height="580"/>
             <view key="contentView" wantsLayer="YES" id="yWQ-0G-xPL">
                 <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="6" titlePosition="noTitle" id="zM8-Mm-Hhs" userLabel="Root Container">
+                        <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <view key="contentView" id="16A-Bz-VXK">
+                            <rect key="frame" x="0.0" y="0.0" width="630" height="580"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </view>
+                        <color key="fillColor" white="0.20140029958911709" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-Sl-fSv" userLabel="Title">
-                        <rect key="frame" x="46" y="547" width="569" height="25"/>
+                        <rect key="frame" x="113" y="547" width="404" height="25"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="brS-hb-IVm"/>
+                            <constraint firstAttribute="width" constant="400" id="gJm-Bf-fKi"/>
                         </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Editing Audio Unit:  " id="5Qg-En-hdT">
                             <font key="font" size="12" name="Play-Regular"/>
@@ -48,10 +58,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="600" height="500"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="500" id="WTY-Fi-vKQ"/>
-                            <constraint firstAttribute="width" constant="600" id="cRV-RO-QKP"/>
-                        </constraints>
                         <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </box>
                     <button toolTip="Close dialog" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Q3-wo-olL" userLabel="Quit Button">
@@ -154,36 +160,45 @@ Gw
                             <action selector="saveUserPresetAction:" target="-2" id="Y2W-fT-nn8"/>
                         </connections>
                     </button>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A8R-cR-URx">
+                        <rect key="frame" x="613" y="1" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="Amm-IZ-hrG"/>
+                            <constraint firstAttribute="height" constant="16" id="kXr-LX-Xe8"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Resize" id="P2x-D6-3j6"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="uYN-5k-nw5" firstAttribute="top" secondItem="LAn-Sl-fSv" secondAttribute="bottom" constant="2" id="2Mc-LY-Mdt"/>
-                    <constraint firstAttribute="trailing" secondItem="LAn-Sl-fSv" secondAttribute="trailing" constant="17" id="2iB-F5-vZq"/>
-                    <constraint firstItem="LAn-Sl-fSv" firstAttribute="leading" secondItem="3Q3-wo-olL" secondAttribute="trailing" constant="23" id="31F-De-3JN"/>
                     <constraint firstAttribute="trailing" secondItem="xoa-Kv-Cdv" secondAttribute="trailing" constant="31" id="F72-bY-emg"/>
                     <constraint firstAttribute="trailing" secondItem="cer-qR-hth" secondAttribute="trailing" constant="15" id="Gzl-Mn-7il"/>
                     <constraint firstItem="LAn-Sl-fSv" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="8" id="HIe-IZ-qfO"/>
                     <constraint firstItem="3Q3-wo-olL" firstAttribute="top" secondItem="yWQ-0G-xPL" secondAttribute="top" constant="13" id="JTh-B7-gn0"/>
                     <constraint firstItem="cer-qR-hth" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="15" id="Ous-cn-Cn2"/>
                     <constraint firstAttribute="bottom" secondItem="cer-qR-hth" secondAttribute="bottom" constant="15" id="QCS-mf-oPA"/>
-                    <constraint firstItem="LAn-Sl-fSv" firstAttribute="leading" secondItem="3Q3-wo-olL" secondAttribute="trailing" constant="23" id="VBP-3p-8Qz"/>
+                    <constraint firstAttribute="trailing" secondItem="A8R-cR-URx" secondAttribute="trailing" constant="1" id="VoI-ma-rUC"/>
+                    <constraint firstItem="LAn-Sl-fSv" firstAttribute="centerX" secondItem="yWQ-0G-xPL" secondAttribute="centerX" id="dFg-fQ-9mg"/>
                     <constraint firstItem="3Q3-wo-olL" firstAttribute="leading" secondItem="yWQ-0G-xPL" secondAttribute="leading" constant="7" id="fVB-Fc-grk"/>
                     <constraint firstItem="xoa-Kv-Cdv" firstAttribute="leading" secondItem="uYN-5k-nw5" secondAttribute="trailing" constant="1" id="kCI-WH-bvS"/>
                     <constraint firstItem="xoa-Kv-Cdv" firstAttribute="top" secondItem="LAn-Sl-fSv" secondAttribute="bottom" constant="7" id="ozG-uc-Cac"/>
                     <constraint firstAttribute="trailing" secondItem="AlZ-mk-WMx" secondAttribute="trailing" constant="18" id="pcn-2Z-NZD"/>
                     <constraint firstItem="cer-qR-hth" firstAttribute="top" secondItem="uYN-5k-nw5" secondAttribute="bottom" constant="10" id="rVx-6F-zrA"/>
+                    <constraint firstAttribute="bottom" secondItem="A8R-cR-URx" secondAttribute="bottom" constant="1" id="rtW-qv-8Yr"/>
                     <constraint firstItem="AlZ-mk-WMx" firstAttribute="top" secondItem="xoa-Kv-Cdv" secondAttribute="top" id="zVn-ec-vH7"/>
                 </constraints>
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                    <color key="value" white="0.14862273956512237" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="146" y="156.5"/>
+            <point key="canvasLocation" x="146" y="156"/>
         </window>
     </objects>
     <resources>
         <image name="Close" width="18" height="18"/>
+        <image name="Resize" width="16" height="16"/>
         <image name="SaveEQPreset" width="15" height="15"/>
         <image name="menuItem:aKj-xg-HMj:image" width="15" height="15">
             <mutableData key="keyedArchiveRepresentation">

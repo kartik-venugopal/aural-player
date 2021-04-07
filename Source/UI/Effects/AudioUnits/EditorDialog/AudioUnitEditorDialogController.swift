@@ -2,6 +2,8 @@ import Cocoa
 
 class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
+    @IBOutlet weak var rootContainer: NSBox!
+    
     @IBOutlet weak var lblTitle: NSTextField!
     @IBOutlet weak var viewContainer: NSBox!
     
@@ -32,6 +34,9 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     }
     
     override func windowDidLoad() {
+        
+        window?.isMovableByWindowBackground = true
+        rootContainer.anchorToSuperview()
         
         audioUnit.presentView {view in
             

@@ -74,6 +74,13 @@ extension NSView {
         }
     }
     
+    func anchorToSuperview() {
+        
+        if let superView = self.superview {
+            anchorToView(superView)
+        }
+    }
+    
     func anchorToView(_ otherView: NSView) {
         
         self.translatesAutoresizingMaskIntoConstraints = false
