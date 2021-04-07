@@ -4,7 +4,7 @@
 
 Aural Player can now host Audio Units (AU) effects plug-ins, either those provided by macOS or any 3rd party plug-ins installed on the user's system. This provides unlimited opportunities for sound tweaking, in addition to the effects units already built into Aural Player.
 
-NOTE - The Audio Unit plug-in must be an effects plug-in, i.e. its component type must be kAudioUnitType_Effect (type name must be AVAudioUnitTypeEffect). Instruments / synthesizers, mixers, etc. are not supported. Also, the Audio Unit must provide a custom user interface (hasCustomView == true).  
+NOTE - The Audio Unit plug-in must be an ***effects*** plug-in, i.e. its component type must be kAudioUnitType_Effect (type name must be AVAudioUnitTypeEffect). Instruments / synthesizers, mixers, etc. are not supported. Also, the Audio Unit must provide a custom user interface (hasCustomView == true), for Aural Player to be able to host it.
 
 ###  New Effects panel tab
 
@@ -20,7 +20,7 @@ NOTE - Just like with the effects units built into Aural Player, bypassing (deac
 
 ### Audio Unit editor dialog
 
-To change the settings of any of your audio units, click the settings icon in the table row for your audio unit, or double click the table row. This will bring up the audio unit editor dialog, where the audio unit's custom view will be displayed, allowing you to change the unit's parameters by manipulating  sliders and other controls.
+To change the settings of any of your audio units, click the settings icon in the table row for your audio unit, or double-click the table row. This will bring up the audio unit editor dialog, where the audio unit's custom view will be displayed, allowing you to change the unit's parameters by manipulating  sliders and other controls.
 
 #### Factory presets
 
