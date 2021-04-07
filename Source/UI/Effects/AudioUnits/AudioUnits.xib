@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" id="IHZ-s3-hWQ">
-                                <rect key="frame" x="0.0" y="0.0" width="436" height="116"/>
+                                <rect key="frame" x="0.0" y="0.0" width="421" height="116"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="2" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -60,7 +60,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="PkN-pY-SqV" customClass="AudioUnitSwitchCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="0.0" width="30" height="24"/>
+                                                <rect key="frame" x="11" y="0.0" width="30" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button wantsLayer="YES" id="uQG-Ce-H9z" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
@@ -91,11 +91,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="1jH-Wo-xoL" customClass="AudioUnitNameTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="33" y="0.0" width="370" height="24"/>
+                                                <rect key="frame" x="43" y="0.0" width="355" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-gX-HEt">
-                                                        <rect key="frame" x="3" y="0.0" width="364" height="24"/>
+                                                        <rect key="frame" x="3" y="0.0" width="349" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="js6-Ga-hhU">
                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -123,7 +123,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="r9Q-eF-PCd" customClass="AudioUnitEditCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="405" y="0.0" width="30" height="24"/>
+                                                <rect key="frame" x="400" y="0.0" width="30" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Audio Unit settings" wantsLayer="YES" id="jrf-Hh-PYN" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">

@@ -4,8 +4,11 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     private let node: HostedAUNode
     
-    var name: String {node.audioUnitName}
+    var name: String {node.componentName}
+    var version: String {node.componentVersion}
+    var manufacturerName: String {node.componentManufacturerName}
     
+    var componentType: OSType {node.componentType}
     var componentSubType: OSType {node.componentSubType}
     
     var auAudioUnit: AUAudioUnit {node.auAudioUnit}
@@ -33,18 +36,18 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     override var avNodes: [AVAudioNode] {return [node]}
     
-    init(withComponentDescription description: AudioComponentDescription) {
+    init(forComponent component: AVAudioUnitComponent) {
         
-        self.node = HostedAUNode(audioComponentDescription: description)
+        self.node = HostedAUNode(forComponent: component)
         
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
         super.init(.au, .active)
     }
     
-    init(withComponentDescription description: AudioComponentDescription, appState: AudioUnitState) {
+    init(forComponent component: AVAudioUnitComponent, appState: AudioUnitState) {
         
-        self.node = HostedAUNode(audioComponentDescription: description)
+        self.node = HostedAUNode(forComponent: component)
         
         var nodeParams: [AUParameterAddress: Float] = [:]
         for param in appState.params {
@@ -67,7 +70,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     override func savePreset(_ presetName: String) {
         
         if let preset = node.savePreset(presetName) {
-            presets.addPreset(AudioUnitPreset(presetName, .active, false, number: preset.number))
+            presets.addPreset(AudioUnitPreset(presetName, .active, false, componentType: self.componentType, componentSubType: self.componentSubType, number: preset.number))
         }
     }
 
@@ -102,7 +105,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
 
     // TODO: This is not meaningful
     var settingsAsPreset: AudioUnitPreset {
-        return AudioUnitPreset("au-\(name)-Settings", state, false, number: 0)
+        return AudioUnitPreset("au-\(name)-Settings", state, false, componentType: self.componentType, componentSubType: self.componentSubType, number: 0)
     }
     
     var persistentState: AudioUnitState {
@@ -110,6 +113,8 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         let unitState = AudioUnitState()
 
         unitState.state = state
+        
+        unitState.componentType = Int(self.node.componentType)
         unitState.componentSubType = Int(self.node.componentSubType)
         
         for (address, value) in self.params {

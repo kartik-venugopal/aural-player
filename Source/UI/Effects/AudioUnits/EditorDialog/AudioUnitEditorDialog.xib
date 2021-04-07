@@ -46,7 +46,7 @@
                             <constraint firstAttribute="height" constant="25" id="brS-hb-IVm"/>
                             <constraint firstAttribute="width" constant="400" id="gJm-Bf-fKi"/>
                         </constraints>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Editing Audio Unit:  " id="5Qg-En-hdT">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="5Qg-En-hdT">
                             <font key="font" size="12" name="Play-Regular"/>
                             <color key="textColor" white="0.84602864580000003" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

@@ -55,7 +55,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         self.player = player
         self.preferences = preferences
         
-        masterUnit = MasterUnitDelegate(graph)
+        masterUnit = MasterUnitDelegate(graph.masterUnit)
         eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
         pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
         timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
@@ -162,9 +162,9 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         return balance
     }
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)? {
+    func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)? {
         
-        if let result = graph.addAudioUnit(ofType: componentSubType) {
+        if let result = graph.addAudioUnit(ofType: type, andSubType: subType) {
             
             let audioUnit = result.0
             let index = result.1

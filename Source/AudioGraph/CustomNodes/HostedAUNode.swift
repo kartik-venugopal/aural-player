@@ -4,12 +4,16 @@ import Cocoa
 
 class HostedAUNode: AVAudioUnitEffect {
     
+    private var avComponent: AVAudioUnitComponent!
+    
+    var componentType: OSType {auAudioUnit.componentDescription.componentType}
     var componentSubType: OSType {auAudioUnit.componentDescription.componentSubType}
-    var audioUnitName: String {auAudioUnit.audioUnitName!}
+    
+    var componentName: String {auAudioUnit.audioUnitName!}
+    var componentVersion: String {avComponent.versionString}
+    var componentManufacturerName: String {avComponent.manufacturerName}
     
     var paramsTree: AUParameterTree? {auAudioUnit.parameterTree}
-    
-    var viewController: NSViewController?
     
     var params: [AUParameterAddress: Float] {
         
@@ -30,6 +34,12 @@ class HostedAUNode: AVAudioUnitEffect {
                 paramsTree?.parameter(withAddress: address)?.value = value
             }
         }
+    }
+    
+    convenience init(forComponent component: AVAudioUnitComponent) {
+        
+        self.init(audioComponentDescription: component.audioComponentDescription)
+        self.avComponent = component
     }
     
     func savePreset(_ presetName: String) -> AUAudioUnitPreset? {

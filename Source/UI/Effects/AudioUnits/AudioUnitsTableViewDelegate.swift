@@ -69,7 +69,9 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitNameTableCellView {
             
-            cell.textField?.stringValue = audioGraph.audioUnits[row].name
+            let audioUnit = audioGraph.audioUnits[row]
+            
+            cell.textField?.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
             cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
             

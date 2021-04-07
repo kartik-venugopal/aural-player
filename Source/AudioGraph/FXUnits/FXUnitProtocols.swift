@@ -119,8 +119,12 @@ protocol FilterUnitProtocol: FXUnitProtocol {
 protocol HostedAudioUnitProtocol: FXUnitProtocol {
     
     var name: String {get}
+    
+    var componentType: OSType {get}
     var componentSubType: OSType {get}
+    
     var params: [AUParameterAddress: Float] {get}
+    
     var auAudioUnit: AUAudioUnit {get}
     
     var factoryPresets: [AudioUnitFactoryPreset] {get}

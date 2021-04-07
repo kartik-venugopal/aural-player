@@ -42,7 +42,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     private let deviceManager: DeviceManager
     private let audioEngineHelper: AudioEngineHelper
     
-    
     // FX units
     var masterUnit: MasterUnit
     var eqUnit: EQUnit
@@ -87,15 +86,14 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         self.audioUnits = []
         for auState in state.audioUnits {
             
-            if let component = audioUnitsManager.component(ofType: OSType(auState.componentSubType)) {
+            if let component = audioUnitsManager.component(ofType: OSType(auState.componentType), andSubType: OSType(auState.componentSubType)) {
                 
-                audioUnits.append(HostedAudioUnit(withComponentDescription: component.audioComponentDescription,
-                                                  appState: auState))
+                audioUnits.append(HostedAudioUnit(forComponent: component,appState: auState))
             }
         }
         
         let nativeSlaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit]
-        masterUnit = MasterUnit(state, nativeSlaveUnits + audioUnits)
+        masterUnit = MasterUnit(state, nativeSlaveUnits, audioUnits)
 
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
         let removableNodes = audioUnits.flatMap {$0.avNodes}
@@ -153,12 +151,13 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         didSet {playerNode.volume = muted ? 0 : playerVolume}
     }
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
+    func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
         
-        if let auComponent = audioUnitsManager.component(ofType: componentSubType) {
+        if let auComponent = audioUnitsManager.component(ofType: type, andSubType: subType) {
             
-            let newUnit: HostedAudioUnit = HostedAudioUnit(withComponentDescription: auComponent.audioComponentDescription)
+            let newUnit: HostedAudioUnit = HostedAudioUnit(forComponent: auComponent)
             audioUnits.append(newUnit)
+            masterUnit.addAudioUnit(newUnit)
             
             playerNode.stop()
             audioEngineHelper.insertNode(newUnit.avNodes[0])
@@ -178,6 +177,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         for index in descendingIndices {
             audioUnits.remove(at: index)
         }
+        
+        masterUnit.removeAudioUnits(descendingIndices)
         
         playerNode.stop()
         audioEngineHelper.removeNodes(descendingIndices)

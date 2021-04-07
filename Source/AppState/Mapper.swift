@@ -118,7 +118,7 @@ class JSONMapper {
     
     private static func isPrimitive(_ obj: Any) -> Bool {
         
-        return obj is Float || obj is CGFloat || obj is Int || obj is UInt64 || obj is Int64 || obj is Int32 || obj is UInt32 || obj is Double || obj is Bool || obj is String || obj is URL || obj is Date || mirrorFor(obj).displayStyle == .enum
+        return obj is Float || obj is CGFloat || obj is Int || obj is UInt64 || obj is Int64 || obj is Int32 || obj is OSType || obj is UInt32 || obj is Double || obj is Bool || obj is String || obj is URL || obj is Date || mirrorFor(obj).displayStyle == .enum
     }
     
     private static func mapToString(_ obj: Any) -> String {
@@ -138,7 +138,7 @@ class JSONMapper {
         let obj: Any = unwrapped.value!
         
         // Number
-        if obj is Float || obj is CGFloat || obj is Int || obj is UInt64 || obj is Int64 || obj is Int32 || obj is UInt32 || obj is Double {
+        if obj is Float || obj is CGFloat || obj is Int || obj is UInt64 || obj is Int64 || obj is Int32 || obj is OSType || obj is UInt32 || obj is Double {
             return obj as! NSNumber
         }
         

@@ -55,7 +55,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     @IBAction func addAudioUnitAction(_ sender: Any) {
         
         if let audioUnitComponent = btnAudioUnitsMenu.selectedItem?.representedObject as? AVAudioUnitComponent,
-           let result = audioGraph.addAudioUnit(ofType: audioUnitComponent.audioComponentDescription.componentSubType) {
+           let result = audioGraph.addAudioUnit(ofType: audioUnitComponent.audioComponentDescription.componentType,
+                                                andSubType: audioUnitComponent.audioComponentDescription.componentSubType) {
             
             let audioUnit = result.0
             
@@ -205,7 +206,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         
         for unit in audioUnitsManager.audioUnits {
 
-            let item = NSMenuItem(title: unit.name, action: nil, keyEquivalent: "")
+            let itemTitle = "\(unit.name) v\(unit.versionString) by \(unit.manufacturerName)"
+            let item = NSMenuItem(title: itemTitle, action: nil, keyEquivalent: "")
             item.target = self
             item.representedObject = unit
             

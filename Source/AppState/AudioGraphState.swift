@@ -70,12 +70,7 @@ fileprivate func deserializeMasterPreset(_ map: NSDictionary) -> MasterPreset {
         filterPreset = deserializeFilterPreset(filterDict)
     }
     
-    var auPresets: [AudioUnitPreset] = []
-    if let auPresetsArr = map["audioUnits"] as? [NSDictionary] {
-        auPresets = auPresetsArr.map {deserializeAUPreset($0)}
-    }
-    
-    return MasterPreset(name, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, auPresets, false)
+    return MasterPreset(name, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
 }
 
 class EQUnitState: FXUnitState<EQPreset>, PersistentState {
@@ -332,6 +327,7 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
 
 class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
     
+    var componentType: Int = 0
     var componentSubType: Int = 0
     var params: [AudioUnitParameterState] = []
     
@@ -341,6 +337,7 @@ class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
         
         auState.state = mapEnum(map, "state", AppDefaults.auState)
         
+        auState.componentType = (map["componentType"] as? NSNumber)?.intValue ?? 0
         auState.componentSubType = (map["componentSubType"] as? NSNumber)?.intValue ?? 0
         
         if let paramsArr = map["params"] as? [NSDictionary] {
@@ -405,9 +402,11 @@ fileprivate func deserializeAUPreset(_ map: NSDictionary) -> AudioUnitPreset {
     let name = map["name"] as? String ?? ""
     let state = mapEnum(map, "state", AppDefaults.reverbState)
     
+    let componentType: OSType = (map["componentType"] as? NSNumber)?.uint32Value ?? 0
+    let componentSubType: OSType = (map["componentSubType"] as? NSNumber)?.uint32Value ?? 0
     let number: Int = (map["number"] as? NSNumber)?.intValue ?? 0
     
-    return AudioUnitPreset(name, state, false, number: number)
+    return AudioUnitPreset(name, state, false, componentType: componentType, componentSubType: componentSubType, number: number)
 }
 
 /*

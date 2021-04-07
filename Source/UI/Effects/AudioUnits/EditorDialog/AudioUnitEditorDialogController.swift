@@ -53,7 +53,7 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
             self.window?.resizeTo(newWidth: curWindowSize.width - widthDelta, newHeight: curWindowSize.height - heightDelta)
         }
         
-        lblTitle.stringValue = "Editing Audio Unit:  \(audioUnit.name)"
+        lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
         
         initFactoryPresets()
         initUserPresets()

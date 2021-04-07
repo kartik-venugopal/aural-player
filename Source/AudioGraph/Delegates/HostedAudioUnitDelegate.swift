@@ -7,7 +7,10 @@ import CoreAudio
 class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitDelegateProtocol {
     
     var name: String {unit.name}
+    var version: String {unit.version}
+    var manufacturerName: String {unit.manufacturerName}
     
+    var componentType: OSType {unit.componentType}
     var componentSubType: OSType {unit.componentSubType}
     
     var params: [AUParameterAddress: Float] {unit.params}
