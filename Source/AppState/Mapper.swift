@@ -108,26 +108,12 @@ class JSONMapper {
         
         let obj: Any = unwrapped.value!
         
-        let mirror = mirrorFor(obj)
-        print("\nDict mirror: \(mirror.description)")
-        
-        let keys = (obj as! NSDictionary).allKeys
-        if keys.isNonEmpty {
-            
-            let key = keys[0]
-            if key is UInt64 {
-                print("It is UInt64: \(key)")
-                
-                var dict: [NSString: AnyObject] = [:]
-                for (key, value) in obj as! NSDictionary {
-                    dict[String(describing: key) as NSString] = mapAny(value)
-                }
-                
-                return dict as NSDictionary
-            }
+        var dict: [NSString: AnyObject] = [:]
+        for (key, value) in obj as! NSDictionary {
+            dict[mapToString(key) as NSString] = mapAny(value)
         }
         
-        return [:]
+        return dict as NSDictionary
     }
     
     private static func isPrimitive(_ obj: Any) -> Bool {

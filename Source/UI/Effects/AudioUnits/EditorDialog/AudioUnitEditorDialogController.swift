@@ -16,35 +16,42 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
     override var windowNibName: String? {return "AudioUnitEditorDialog"}
 
-    var currentlyDisplayedView: NSView?
-    var audioUnit: HostedAudioUnitDelegateProtocol?
+    var audioUnit: HostedAudioUnitDelegateProtocol!
+    var audioUnitView: NSView!
     
-    func showDialog(for audioUnit: HostedAudioUnitDelegateProtocol) {
+    var factoryPresetsMenuDelegate: AudioUnitFactoryPresetsMenuDelegate!
+    var userPresetsMenuDelegate: AudioUnitUserPresetsMenuDelegate!
+    
+    convenience init(for audioUnit: HostedAudioUnitDelegateProtocol) {
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {
-            _ = self.window!
-        }
-        
-        currentlyDisplayedView?.hide()
+        self.init()
         self.audioUnit = audioUnit
+        
+        self.factoryPresetsMenuDelegate = AudioUnitFactoryPresetsMenuDelegate(for: audioUnit)
+        self.userPresetsMenuDelegate = AudioUnitUserPresetsMenuDelegate(for: audioUnit)
+    }
+    
+    override func windowDidLoad() {
         
         audioUnit.presentView {view in
             
-            if !self.viewContainer.subviews.contains(view) {
-                
-                self.viewContainer.addSubview(view)
-                view.anchorToView(view.superview!)
-            }
-            
-            view.show()
-            self.currentlyDisplayedView = view
+            self.viewContainer.addSubview(view)
+            view.anchorToView(view.superview!)
+            self.audioUnitView = view
         }
         
         lblTitle.stringValue = "Editing Audio Unit:  \(audioUnit.name)"
         
         initFactoryPresets()
         initUserPresets()
+    }
+    
+    func showDialog() {
+        
+        // Force loading of the window if it hasn't been loaded yet (only once)
+        if !self.isWindowLoaded {
+            _ = self.window!
+        }
         
         UIUtils.showDialog(self.window!)
     }
@@ -53,33 +60,31 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         
         let shouldShowFactoryPresets: Bool = self.audioUnit?.factoryPresets.isNonEmpty ?? false
         [lblFactoryPresets, btnFactoryPresets].forEach {$0?.showIf(shouldShowFactoryPresets)}
-        (btnFactoryPresets.menu?.delegate as? AudioUnitFactoryPresetsMenuDelegate)?.audioUnit = audioUnit
+        btnFactoryPresets.menu?.delegate = self.factoryPresetsMenuDelegate
     }
     
     private func initUserPresets() {
         
         let shouldShowUserPresets: Bool = self.audioUnit?.supportsUserPresets ?? false
         [lblUserPresets, btnUserPresets, btnSavePreset].forEach {$0?.showIf(shouldShowUserPresets)}
-        (btnUserPresets.menu?.delegate as? AudioUnitUserPresetsMenuDelegate)?.audioUnit = audioUnit
+        btnUserPresets.menu?.delegate = self.userPresetsMenuDelegate
     }
     
     @IBAction func closeAction(_ sender: Any) {
-        
         UIUtils.dismissDialog(self.window!)
-        currentlyDisplayedView?.hide()
     }
     
     @IBAction func applyFactoryPresetAction(_ sender: Any) {
         
         if let presetName = btnFactoryPresets.titleOfSelectedItem {
-            audioUnit?.applyFactoryPreset(presetName)
+            audioUnit.applyFactoryPreset(presetName)
         }
     }
     
     @IBAction func applyUserPresetAction(_ sender: Any) {
         
         if let presetName = btnUserPresets.titleOfSelectedItem {
-            audioUnit?.applyPreset(presetName)
+            audioUnit.applyPreset(presetName)
         }
     }
     
@@ -95,12 +100,14 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     }
     
     var defaultValue: String? {
-        return "<New \(audioUnit?.name ?? "") preset>"
+        return "<New \(audioUnit.name) preset>"
     }
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if let presets = audioUnit?.presets, presets.presetWithNameExists(string) {
+        let presets = audioUnit.presets
+        
+        if presets.presetWithNameExists(string) {
             return (false, "Preset with this name already exists !")
         } else {
             return (true, nil)
@@ -109,13 +116,19 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        audioUnit?.savePreset(string)
+        audioUnit.savePreset(string)
     }
 }
 
 class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
     
-    var audioUnit: HostedAudioUnitDelegateProtocol?
+    var audioUnit: HostedAudioUnitDelegateProtocol!
+    
+    convenience init(for audioUnit: HostedAudioUnitDelegateProtocol) {
+
+        self.init()
+        self.audioUnit = audioUnit
+    }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -134,7 +147,13 @@ class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
 
 class AudioUnitFactoryPresetsMenuDelegate: NSObject, NSMenuDelegate {
     
-    var audioUnit: HostedAudioUnitDelegateProtocol?
+    var audioUnit: HostedAudioUnitDelegateProtocol!
+    
+    convenience init(for audioUnit: HostedAudioUnitDelegateProtocol) {
+
+        self.init()
+        self.audioUnit = audioUnit
+    }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
 

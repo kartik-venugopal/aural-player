@@ -162,7 +162,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         return balance
     }
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnitDelegateProtocol, Int)? {
+    func addAudioUnit(ofType componentSubType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)? {
         
         if let result = graph.addAudioUnit(ofType: componentSubType) {
             
@@ -170,20 +170,18 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
             let index = result.1
             
             self.audioUnits.append(HostedAudioUnitDelegate(audioUnit))
-            return (self.audioUnits.last!, index)
+            return (audioUnit: self.audioUnits.last!, index: index)
         }
         
         return nil
     }
     
-    func removeAudioUnits(at indices: IndexSet) {
+    func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitDelegateProtocol] {
         
         graph.removeAudioUnits(at: indices)
         
         let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: descendingIntComparator)
-        for index in descendingIndices {
-            audioUnits.remove(at: index)
-        }
+        return descendingIndices.map {audioUnits.remove(at: $0)}
     }
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol) {

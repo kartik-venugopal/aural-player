@@ -153,7 +153,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         didSet {playerNode.volume = muted ? 0 : playerVolume}
     }
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)? {
+    func addAudioUnit(ofType componentSubType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
         
         if let auComponent = audioUnitsManager.component(ofType: componentSubType) {
             
@@ -165,7 +165,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             
             Messenger.publish(.audioGraph_graphChanged)
             
-            return (newUnit, audioUnits.lastIndex)
+            return (audioUnit: newUnit, index: audioUnits.lastIndex)
         }
         
         return nil

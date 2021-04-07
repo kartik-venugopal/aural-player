@@ -12,7 +12,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     @IBOutlet weak var tableScrollView: NSScrollView!
     @IBOutlet weak var tableClipView: NSClipView!
     
-    private let audioUnitEditorDialog: AudioUnitEditorDialogController = WindowFactory.audioUnitEditorDialog
+    private var editorDialogs: [OSType: AudioUnitEditorDialogController] = [:]
     
     override var nibName: String? {return "AudioUnits"}
     
@@ -34,6 +34,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         
         // Subscribe to notifications
         Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
+        Messenger.subscribe(self, .auFXUnit_showEditor, {(notif: ShowAudioUnitEditorCommandNotification) in self.doEditAudioUnit(notif.audioUnit)})
         
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
@@ -53,16 +54,21 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
 
     @IBAction func addAudioUnitAction(_ sender: Any) {
         
-        if let audioUnit = btnAudioUnitsMenu.selectedItem?.representedObject as? AVAudioUnitComponent,
-           let result = audioGraph.addAudioUnit(ofType: audioUnit.audioComponentDescription.componentSubType) {
+        if let audioUnitComponent = btnAudioUnitsMenu.selectedItem?.representedObject as? AVAudioUnitComponent,
+           let result = audioGraph.addAudioUnit(ofType: audioUnitComponent.audioComponentDescription.componentSubType) {
+            
+            let audioUnit = result.0
             
             // Refresh the table view with the new row.
             tableView.noteNumberOfRowsChanged()
             
+            let editorDialog = AudioUnitEditorDialogController(for: audioUnit)
+            editorDialogs[audioUnit.componentSubType] = editorDialog
+            
             // Open the audio unit editor window with the new audio unit's custom view.
             DispatchQueue.main.async {
-                
-                self.audioUnitEditorDialog.showDialog(for: result.0)
+
+                editorDialog.showDialog()
                 Messenger.publish(.fx_unitStateChanged)
             }
         }
@@ -76,8 +82,17 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
 
             // Open the audio unit editor window with the new audio unit's custom view.
             let audioUnit = audioGraph.audioUnits[selectedRow]
-            self.audioUnitEditorDialog.showDialog(for: audioUnit)
+            doEditAudioUnit(audioUnit)
         }
+    }
+    
+    private func doEditAudioUnit(_ audioUnit: HostedAudioUnitDelegateProtocol) {
+        
+        if editorDialogs[audioUnit.componentSubType] == nil {
+            editorDialogs[audioUnit.componentSubType] = AudioUnitEditorDialogController(for: audioUnit)
+        }
+        
+        editorDialogs[audioUnit.componentSubType]?.showDialog()
     }
     
     @IBAction func removeAudioUnitsAction(_ sender: Any) {
@@ -86,7 +101,11 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         
         if !selRows.isEmpty {
             
-            audioGraph.removeAudioUnits(at: selRows)
+            let removedUnits = audioGraph.removeAudioUnits(at: selRows)
+            for unit in removedUnits {
+                editorDialogs.removeValue(forKey: unit.componentSubType)
+            }
+            
             tableView.reloadData()
             Messenger.publish(.fx_unitStateChanged)
         }

@@ -3,7 +3,6 @@ import AVFoundation
 
 class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    private let audioUnitEditorDialog: AudioUnitEditorDialogController = WindowFactory.audioUnitEditorDialog
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -85,11 +84,12 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitEditCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
+            
             cell.btnEdit.tintFunction = {ColorSchemes.systemScheme.general.functionButtonColor}
             cell.btnEdit.reTint()
             
             cell.action = {
-                self.audioUnitEditorDialog.showDialog(for: audioUnit)
+                Messenger.publish(ShowAudioUnitEditorCommandNotification(audioUnit: audioUnit))
             }
             
             return cell

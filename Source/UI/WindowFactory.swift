@@ -27,8 +27,6 @@ class WindowFactory {
     
     private static var fontSchemesWindowController: FontSchemesWindowController = FontSchemesWindowController()
     
-    static var audioUnitEditorDialog: AudioUnitEditorDialogController = AudioUnitEditorDialogController()
-    
     static var alertWindowController: AlertWindowController = AlertWindowController()
     
     // MARK: Accessor functions for the different windows/dialogs

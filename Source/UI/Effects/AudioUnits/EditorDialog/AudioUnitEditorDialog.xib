@@ -21,7 +21,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hasShadow="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titleVisibility="hidden" id="Qil-RJ-vDn" customClass="SnappingNonKeyWindow" customModule="Aural" customModuleProvider="target">
-            <windowStyleMask key="styleMask" resizable="YES" utility="YES" texturedBackground="YES"/>
+            <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="630" height="580"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
@@ -86,9 +86,6 @@ Gw
                                         </userDefinedRuntimeAttributes>
                                     </menuItem>
                                 </items>
-                                <connections>
-                                    <outlet property="delegate" destination="gMF-5r-D0o" id="5NJ-tH-9sX"/>
-                                </connections>
                             </menu>
                         </popUpButtonCell>
                         <connections>
@@ -122,9 +119,6 @@ Gw
                                         </userDefinedRuntimeAttributes>
                                     </menuItem>
                                 </items>
-                                <connections>
-                                    <outlet property="delegate" destination="R8H-1R-4lG" id="pRX-tp-PKU"/>
-                                </connections>
                             </menu>
                         </popUpButtonCell>
                         <connections>
@@ -187,8 +181,6 @@ Gw
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="146" y="156.5"/>
         </window>
-        <customObject id="R8H-1R-4lG" customClass="AudioUnitUserPresetsMenuDelegate" customModule="Aural" customModuleProvider="target"/>
-        <customObject id="gMF-5r-D0o" customClass="AudioUnitFactoryPresetsMenuDelegate" customModule="Aural" customModuleProvider="target"/>
     </objects>
     <resources>
         <image name="Close" width="18" height="18"/>

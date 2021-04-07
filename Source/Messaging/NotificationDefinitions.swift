@@ -375,3 +375,12 @@ class SelectSearchResultCommandNotification: PlaylistCommandNotification {
         super.init(notificationName: .playlist_selectSearchResult, viewSelector: viewSelector)
     }
 }
+
+// Command from the playlist search dialog to the playlist, to show (i.e. select) a specific search result within the playlist.
+struct ShowAudioUnitEditorCommandNotification: NotificationPayload {
+    
+    let notificationName: Notification.Name = .auFXUnit_showEditor
+
+    // The audio unit that is to be edited.
+    let audioUnit: HostedAudioUnitDelegateProtocol
+}

@@ -56,8 +56,8 @@ protocol AudioGraphDelegateProtocol {
     
     var soundProfiles: SoundProfiles {get}
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnitDelegateProtocol, Int)?
-    func removeAudioUnits(at indices: IndexSet)
+    func addAudioUnit(ofType componentSubType: OSType) -> (audioUnit: HostedAudioUnitDelegateProtocol, index: Int)?
+    func removeAudioUnits(at indices: IndexSet) -> [HostedAudioUnitDelegateProtocol]
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
@@ -144,6 +144,7 @@ protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
 protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     
     var name: String {get}
+    var componentSubType: OSType {get}
     
     var params: [AUParameterAddress: Float] {get}
     func printParams()

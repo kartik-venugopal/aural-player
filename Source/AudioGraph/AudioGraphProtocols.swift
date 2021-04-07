@@ -26,7 +26,7 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
     var audioUnits: [HostedAudioUnit] {get}
     
-    func addAudioUnit(ofType componentSubType: OSType) -> (HostedAudioUnit, Int)?
+    func addAudioUnit(ofType componentSubType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)?
     func removeAudioUnits(at indices: IndexSet)
     
     var settingsAsMasterPreset: MasterPreset {get}

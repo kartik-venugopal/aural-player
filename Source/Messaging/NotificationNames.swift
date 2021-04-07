@@ -453,6 +453,12 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
+    // MARK: Audio Units FX unit commands
+    
+    static let auFXUnit_showEditor = Notification.Name("auFXUnit_showEditor")
+    
+    // ----------------------------------------------------------------------------------------
+    
     // MARK: Window layout commands
     
     // Commands the window manager to show/hide the playlist window
