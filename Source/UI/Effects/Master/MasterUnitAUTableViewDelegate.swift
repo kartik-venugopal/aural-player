@@ -69,7 +69,7 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             
             let audioUnit = audioGraph.audioUnits[row]
             
-            cell.textField?.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
+            cell.textField?.stringValue = audioUnit.name
             cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
             
