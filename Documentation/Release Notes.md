@@ -2,7 +2,7 @@
 
 ## Audio Units support for effects / analysis
 
-Aural Player can now host Audio Units (AU) effects plug-ins, either those provided by macOS or any 3rd party plug-ins installed on the user's system. This provides unlimited opportunities for sound tweaking and monitoring / analysis, in addition to the effects units already built into Aural Player.
+Aural Player can now host Audio Units (AU) effects plug-ins, either those provided by macOS or any 3rd party plug-ins installed on the user's system. This provides unlimited opportunities for advanced sound tweaking and monitoring / analysis, in addition to the effects units already built into Aural Player.
 
 ### What kinds of Audio Units are supported ?
 
@@ -14,7 +14,7 @@ In order to be hosted by Aural Player, the Audio Unit must meet 2 requirements:
 - kAudioUnitType_MusicEffect
 - kAudioUnitType_Panner
 
-Note that some sound monitoring and/or analyis plug-ins (eg. spectrum analyzers) have one of these component types, so they are able to be hosted by Aural Player, even though they do not alter the audio signal. Note that instruments such as synthesizers or tone generators usually have a different component type (kAudioUnitType_Generator), so will likely not be supported. 
+Note that some sound monitoring and/or analyis plug-ins (eg. spectrum analyzers) will have one of these component types, so they are able to be hosted by Aural Player, even though they do not alter the audio signal. Note that instruments such as synthesizers or tone generators usually have a different component type (kAudioUnitType_Generator), so will likely not be supported.
 
 2 - Also, the Audio Unit must provide a custom user interface (hasCustomView == true), because the custom view is how the user will interact with and manipulate the Audio Unit.
 

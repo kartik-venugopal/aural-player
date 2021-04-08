@@ -4,6 +4,8 @@ class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
     
+    @IBOutlet weak var lblAudioUnitsCaption: NSTextField!
+    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
@@ -142,20 +144,21 @@ class MasterViewController: FXUnitViewController {
     }
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
-        fontsChanged()
-    }
-    
-    private func fontsChanged() {
         
         lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
+        lblAudioUnitsCaption.font = FontSchemes.systemScheme.effects.masterUnitFunctionFont
         
-        functionLabels.forEach {
-            
-            $0.font = $0 is EffectsUnitTriStateLabel ? FontSchemes.systemScheme.effects.masterUnitFunctionFont :
-                FontSchemes.systemScheme.effects.unitCaptionFont
+        functionLabels.filter {$0 is EffectsUnitTriStateLabel}.forEach {
+            $0.font = FontSchemes.systemScheme.effects.unitFunctionFont
         }
         
         presetsMenu.font = Fonts.menuFont
+    }
+    
+    override func changeMainCaptionTextColor(_ color: NSColor) {
+        
+        super.changeMainCaptionTextColor(color)
+        lblAudioUnitsCaption.textColor = color
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {

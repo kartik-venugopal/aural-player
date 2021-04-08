@@ -37,6 +37,7 @@ struct UIConstants {
     static let audioUnitSwitchColumnID: String = "cid_AudioUnitSwitch"
     static let audioUnitNameColumnID: String = "cid_AudioUnitName"
     static let audioUnitEditColumnID: String = "cid_AudioUnitEdit"
+    static let audioUnitIconColumnID: String = "cid_AudioUnitIcon"
     
     static let bookmarkPromptLocatorViewID: String = "bookmarkPromptLocator"
     

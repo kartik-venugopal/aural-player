@@ -21,7 +21,9 @@
 		3E43FB7125F9321100D4A597 /* FFmpegLoopDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */; };
 		3E45C03325E1264C00C1519C /* PlayerFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E45C03225E1264C00C1519C /* PlayerFontScheme.xib */; };
 		3E45C03625E1269500C1519C /* PlayerFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */; };
+		3E4CC362261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
+		3E525C01261E3330001D9186 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3E525C00261E3330001D9186 /* README.md */; };
 		3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */; };
 		3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */; };
 		3E5623C72619F8BA00D55E43 /* AudioUnitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */; };
@@ -614,7 +616,9 @@
 		3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegLoopDecoding.swift; sourceTree = "<group>"; };
 		3E45C03225E1264C00C1519C /* PlayerFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerFontScheme.xib; sourceTree = "<group>"; };
 		3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFontSchemeViewController.swift; sourceTree = "<group>"; };
+		3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterUnitAUTableViewDelegate.swift; sourceTree = "<group>"; };
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
+		3E525C00261E3330001D9186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neo-latina-demo-FFP.ttf"; sourceTree = "<group>"; };
 		3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-freak.regular.ttf"; sourceTree = "<group>"; };
 		3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsManager.swift; sourceTree = "<group>"; };
@@ -1351,6 +1355,7 @@
 		3E427EC525D9065F00465569 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				3E525C00261E3330001D9186 /* README.md */,
 				3E427EFA25D9065F00465569 /* Release Notes.md */,
 			);
 			path = Documentation;
@@ -2104,8 +2109,9 @@
 			isa = PBXGroup;
 			children = (
 				3E6C100625CEB98600BF0D07 /* Master.xib */,
-				3E6C100725CEB98600BF0D07 /* MasterView.swift */,
 				3E6C100825CEB98600BF0D07 /* MasterViewController.swift */,
+				3E6C100725CEB98600BF0D07 /* MasterView.swift */,
+				3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */,
 			);
 			path = Master;
 			sourceTree = "<group>";
@@ -3166,6 +3172,7 @@
 				3E6C125425CEBE0600BF0D07 /* ColorSchemesEditor.xib in Resources */,
 				3E6C122E25CEBDE600BF0D07 /* PlaybackPreferences.xib in Resources */,
 				3E6C121A25CEBDE600BF0D07 /* PlaylistPreferences.xib in Resources */,
+				3E525C01261E3330001D9186 /* README.md in Resources */,
 				3E6C12E525CEBE8100BF0D07 /* Effects.xib in Resources */,
 				3E6C126E25CEBE0600BF0D07 /* MasterPresetsEditor.xib in Resources */,
 				3E6C129025CEBE1800BF0D07 /* PlaylistColorScheme.xib in Resources */,
@@ -3290,6 +3297,7 @@
 				3E6C130E25CEBE8F00BF0D07 /* PopoverContentView.swift in Sources */,
 				3EDB345925E8B75D004DF7DE /* TrackIOUtils.swift in Sources */,
 				3E6C11BC25CEBDB000BF0D07 /* Messenger.swift in Sources */,
+				3E4CC362261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift in Sources */,
 				3E6C12CA25CEBE6700BF0D07 /* EffectsWindowController.swift in Sources */,
 				3EDB33F125E8AE09004DF7DE /* FFmpegImageStream.swift in Sources */,
 				3E6C130125CEBE8F00BF0D07 /* JumpToTimeEditorWindowController.swift in Sources */,

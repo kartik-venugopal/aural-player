@@ -65,9 +65,9 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         return nil
     }
     
-    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitNameTableCellView? {
+    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitNameCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitNameTableCellView {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitNameCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
             
@@ -120,7 +120,7 @@ class AudioUnitsTableRowView: NSTableRowView {
     }
 }
 
-class AudioUnitNameTableCellView: NSTableCellView {
+class AudioUnitNameCellView: NSTableCellView {
     
     var rowSelectionStateFunction: () -> Bool = {false}
     
