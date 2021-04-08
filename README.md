@@ -2,11 +2,9 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
-### Update (Mar 25, 2021)
+### Update (Apr 8, 2021): Audio Units (AU) support coming soon !
 
-Aural Player is now on Twitter: https://twitter.com/AuralPlayer !
-
-Will be tweeting informal app-related updates and news on there, so if you're interested in the app, please follow me there.
+Working on a release that will allow Aural Player to host Audio Units (AU) plug-ins, for unlimited sound tweaking / analysis possibilities. Coming soon ... stay tuned !
 
 ## Table of Contents
   * [Overview](#overview)
