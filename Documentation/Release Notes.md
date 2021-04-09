@@ -1,22 +1,22 @@
 #  What's New in Version 2.10.0
 
-## Audio Units support for effects / analysis
+## Audio Units (AU) plug-ins support
 
-Aural Player can now host Audio Units (AU) effects plug-ins, either those provided by macOS or any 3rd party plug-ins installed on the user's system. This provides unlimited opportunities for advanced sound tweaking and monitoring / analysis, in addition to the effects units already built into Aural Player.
+Aural Player can now host Audio Units (AU) effects and analysis plug-ins, either those provided by macOS or any 3rd party plug-ins installed on the user's system. This provides unlimited possibilities for advanced sound tweaking and monitoring / analysis, in addition to the effects units and visualizations already built into Aural Player.
 
-### What kinds of Audio Units are supported ?
+### What kinds of Audio Units plug-ins are supported ?
 
-In order to be hosted by Aural Player, the Audio Unit must meet 2 requirements:
+In order to be hosted by Aural Player, the AU plug-in must meet 2 requirements:
 
-1 - The Audio Unit plug-in must be a real-time audio processing unit with a component type that is one of the following:
+1 - The plug-in must be a **real-time** audio processing unit with a component type that is one of the following:
 
 - kAudioUnitType_Effect
 - kAudioUnitType_MusicEffect
 - kAudioUnitType_Panner
 
-Note that some sound monitoring and/or analyis plug-ins (eg. spectrum analyzers) will have one of these component types, so they are able to be hosted by Aural Player, even though they do not alter the audio signal. Note that instruments such as synthesizers or tone generators usually have a different component type (kAudioUnitType_Generator), so will likely not be supported.
+Note that some sound monitoring and/or analyis plug-ins (eg. spectrum analyzers and level meters) will have one of these component types, so they are able to be hosted by Aural Player, even though they do not alter the audio signal. Note that instruments such as synthesizers or tone generators usually have a different component type (kAudioUnitType_Generator), so will likely not be supported.
 
-2 - Also, the Audio Unit must provide a custom user interface (hasCustomView == true), because the custom view is how the user will interact with and manipulate the Audio Unit.
+2 - Also, the plug-in must provide a custom user interface (hasCustomView == true), because the custom view is how the user will interact with and manipulate the Audio Unit.
 
 ###  New Effects panel tab
 
@@ -46,7 +46,7 @@ Some Audio Units come with factory presets. For those that do, the audio unit ed
 
 #### User presets
 
-User presets for audio units are only supported on macOS 10.15 and newer systems. Also, they are not supported by all audio units. When an audio unit supports user presets, the audio unit editor dialog will display a list of them, allowing you to apply them to the audio unit.
+User presets for audio units are only supported on macOS 10.15 and newer systems. Also, they are not supported by all audio units. When an audio unit supports user presets, the audio unit editor dialog will display a list of them, allowing you to save new ones or apply existing ones to the audio unit.
 
 ### Where can I find free Audio Units to try out with Aural Player ?
 

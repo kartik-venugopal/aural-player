@@ -39,10 +39,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     init(forComponent component: AVAudioUnitComponent) {
         
         self.node = HostedAUNode(forComponent: component)
-        
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
         super.init(.au, .active)
+        self.node.addBypassStateObserver(self)
     }
     
     init(forComponent component: AVAudioUnitComponent, appState: AudioUnitState) {
@@ -58,13 +58,38 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
         super.init(.au, appState.state)
+        self.node.addBypassStateObserver(self)
+        
         presets.addPresets(appState.userPresets)
     }
+    
+    func nodeBypassStateChanged(_ nodeIsBypassed: Bool) {
+        
+        // This will be true if and only if the state change occurred as a result of the user
+        // using a bypass switch on an AU's custom view (i.e. not through Aural's UI).
+        if (nodeIsBypassed && self.state == .active) || ((!nodeIsBypassed) && self.state != .active) {
+            
+            shouldUpdateNodeBypassState = false
+            self.state = nodeIsBypassed ? .bypassed : .active
+            shouldUpdateNodeBypassState = true
+            
+            Messenger.publish(.fx_unitStateChanged)
+        }
+    }
+    
+    // A flag indicating whether or not the node's bypass state should be updated
+    // as a result of unit state being changed. This will always be true, unless
+    // the node itself initiated the state change (eg. the user bypassing
+    // the node directly from the AU's custom view).
+    private var shouldUpdateNodeBypassState: Bool = true
     
     override func stateChanged() {
 
         super.stateChanged()
-        node.bypass = !isActive
+        
+        if shouldUpdateNodeBypassState {
+            node.bypass = !isActive
+        }
     }
 
     override func savePreset(_ presetName: String) {

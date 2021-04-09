@@ -45,11 +45,17 @@ class FXUnit {
     }
     
     func suppress() {
-        state = state == .active ? .suppressed : state
+        
+        if state == .active {
+            state = .suppressed
+        }
     }
     
     func unsuppress() {
-        state = state == .suppressed ? .active : state
+        
+        if state == .suppressed {
+            state = .active
+        }
     }
     
     func reset() {}

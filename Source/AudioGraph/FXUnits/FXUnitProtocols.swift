@@ -116,7 +116,7 @@ protocol FilterUnitProtocol: FXUnitProtocol {
     func removeAllBands()
 }
 
-protocol HostedAudioUnitProtocol: FXUnitProtocol {
+protocol HostedAudioUnitProtocol: FXUnitProtocol, AUNodeBypassStateObserver {
     
     var name: String {get}
     

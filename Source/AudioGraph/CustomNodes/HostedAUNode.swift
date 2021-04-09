@@ -14,6 +14,7 @@ class HostedAUNode: AVAudioUnitEffect {
     var componentManufacturerName: String {avComponent.manufacturerName}
     
     var paramsTree: AUParameterTree? {auAudioUnit.parameterTree}
+    private var bypassStateObservers: [AUNodeBypassStateObserver] = []
     
     var params: [AUParameterAddress: Float] {
         
@@ -40,6 +41,19 @@ class HostedAUNode: AVAudioUnitEffect {
         
         self.init(audioComponentDescription: component.audioComponentDescription)
         self.avComponent = component
+
+        auAudioUnit.addObserver(self, forKeyPath: "shouldBypassEffect", options: .init(), context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if keyPath == "shouldBypassEffect" {
+            bypassStateObservers.forEach {$0.nodeBypassStateChanged(auAudioUnit.shouldBypassEffect)}
+        }
+    }
+    
+    func addBypassStateObserver(_ observer: AUNodeBypassStateObserver) {
+        bypassStateObservers.append(observer)
     }
     
     func savePreset(_ presetName: String) -> AUAudioUnitPreset? {
@@ -83,4 +97,9 @@ class HostedAUNode: AVAudioUnitEffect {
         
         print("-------------------\n")
     }
+}
+
+protocol AUNodeBypassStateObserver {
+    
+    func nodeBypassStateChanged(_ nodeIsBypassed: Bool)
 }
