@@ -80,6 +80,12 @@ class PlaybackSession: Hashable {
         return currentSession!
     }
     
+    static func duplicateSessionAndMakeCurrent(_ session: PlaybackSession) -> PlaybackSession {
+        
+        currentSession = session.createCopy()
+        return currentSession!
+    }
+    
     // Start a new session, creating a copy of the current one (if one is defined), implicitly invalidating the old one (if there was one), and returns it. This function should be called when continuing playback of a track (i.e. seeking or toggling a loop).
     //
     // NOTE - If there is no session currently defined, this function will not create one ... it will return nil. So, this function is also an indirect way to check if a track is currently playing.

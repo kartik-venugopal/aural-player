@@ -28,7 +28,9 @@ class Player: PlayerProtocol, NotificationSubscriber {
         self.ffmpegScheduler = ffmpegScheduler
         
         Messenger.subscribeAsync(self, .audioGraph_outputDeviceChanged, self.audioOutputDeviceChanged, queue: .main)
-        Messenger.subscribeAsync(self, .audioGraph_graphChanged, self.audioGraphChanged, queue: .main)
+        
+        Messenger.subscribeAsync(self, .audioGraph_preGraphChange, self.preAudioGraphChange(_:), queue: .main)
+        Messenger.subscribeAsync(self, .audioGraph_graphChanged, self.audioGraphChanged(_:), queue: .main)
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
@@ -126,7 +128,11 @@ class Player: PlayerProtocol, NotificationSubscriber {
         return PlayerSeekResult(actualSeekPosition: actualSeekTime, loopRemoved: loopRemoved, trackPlaybackCompleted: playbackCompleted)
     }
     
+    var cachedSeekPosition: Double?
+    
     var seekPosition: Double {
+        
+        if let seekPos = cachedSeekPosition {return seekPos}
         
         guard state.isPlayingOrPaused, let session = PlaybackSession.currentSession else {return 0}
         
@@ -263,17 +269,32 @@ class Player: PlayerProtocol, NotificationSubscriber {
         }
     }
     
+    func preAudioGraphChange(_ notif: PreAudioGraphChangeNotification) {
+        
+        if let currentSession = PlaybackSession.currentSession {
+            
+            notif.context.playbackSession = currentSession
+            notif.context.isPlaying = state == .playing
+            
+            notif.context.seekPosition = seekPosition
+            cachedSeekPosition = notif.context.seekPosition
+            
+            _ = PlaybackSession.endCurrent()
+            scheduler?.stop()
+        }
+    }
+    
     // When the audio output device changes, restart the audio engine and continue playback as before.
-    func audioGraphChanged() {
+    func audioGraphChanged(_ notif: AudioGraphChangedNotification) {
         
         // First, check if a track is playing.
-        if let curSession = PlaybackSession.startNewSessionForPlayingTrack() {
+        if let endedSession = notif.context.playbackSession, let seekPosition = notif.context.seekPosition {
             
-            // Mark the current seek position
-            let curSeekPos = seekPosition
+            let newSession = PlaybackSession.duplicateSessionAndMakeCurrent(endedSession)
             
             // Resume playback from the same seek position
-            scheduler.seekToTime(curSession, curSeekPos, state == .playing)
+            scheduler.seekToTime(newSession, seekPosition, notif.context.isPlaying)
+            cachedSeekPosition = nil
         }
     }
     

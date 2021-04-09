@@ -12,6 +12,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     @IBOutlet weak var tableScrollView: NSScrollView!
     @IBOutlet weak var tableClipView: NSClipView!
     
+    // TODO: This is NOT specific enough !!! 2 dialogs  of tthe  same component typee !!!
+    // Use an ID.
     private var editorDialogs: [OSType: AudioUnitEditorDialogController] = [:]
     
     override var nibName: String? {return "AudioUnits"}
@@ -106,6 +108,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         if !selRows.isEmpty {
             
             for unit in audioGraph.removeAudioUnits(at: selRows) {
+                
+                if let dialog = editorDialogs[]
                 editorDialogs.removeValue(forKey: unit.componentSubType)
             }
             

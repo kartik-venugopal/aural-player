@@ -159,10 +159,12 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             audioUnits.append(newUnit)
             masterUnit.addAudioUnit(newUnit)
             
-            playerNode.pause()
+            let context = AudioGraphChangeContext()
+            Messenger.publish(PreAudioGraphChangeNotification(context: context))
+            
             audioEngineHelper.insertNode(newUnit.avNodes[0])
             
-            Messenger.publish(.audioGraph_graphChanged)
+            Messenger.publish(AudioGraphChangedNotification(context: context))
             
             return (audioUnit: newUnit, index: audioUnits.lastIndex)
         }
@@ -180,10 +182,12 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         masterUnit.removeAudioUnits(descendingIndices)
         
-        playerNode.pause()
+        let context = AudioGraphChangeContext()
+        Messenger.publish(PreAudioGraphChangeNotification(context: context))
+        
         audioEngineHelper.removeNodes(descendingIndices)
         
-        Messenger.publish(.audioGraph_graphChanged)
+        Messenger.publish(AudioGraphChangedNotification(context: context))
     }
     
     var settingsAsMasterPreset: MasterPreset {
