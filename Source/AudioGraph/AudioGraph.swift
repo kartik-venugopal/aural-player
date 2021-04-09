@@ -159,7 +159,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             audioUnits.append(newUnit)
             masterUnit.addAudioUnit(newUnit)
             
-            playerNode.stop()
+            playerNode.pause()
             audioEngineHelper.insertNode(newUnit.avNodes[0])
             
             Messenger.publish(.audioGraph_graphChanged)
@@ -180,7 +180,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         masterUnit.removeAudioUnits(descendingIndices)
         
-        playerNode.stop()
+        playerNode.pause()
         audioEngineHelper.removeNodes(descendingIndices)
         
         Messenger.publish(.audioGraph_graphChanged)
