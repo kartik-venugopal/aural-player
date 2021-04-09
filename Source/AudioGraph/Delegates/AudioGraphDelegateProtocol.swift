@@ -143,6 +143,8 @@ protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
 
 protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     
+    var id: String {get}
+    
     var name: String {get}
     var version: String {get}
     var manufacturerName: String {get}

@@ -6,17 +6,16 @@ import AVFoundation
  */
 class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSubscriber {
     
+    override var nibName: String? {return "AudioUnits"}
+    
     @IBOutlet weak var lblCaption: NSTextField!
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var tableScrollView: NSScrollView!
     @IBOutlet weak var tableClipView: NSClipView!
-    
-    // TODO: This is NOT specific enough !!! 2 dialogs  of tthe  same component typee !!!
-    // Use an ID.
-    private var editorDialogs: [OSType: AudioUnitEditorDialogController] = [:]
-    
-    override var nibName: String? {return "AudioUnits"}
+
+    // Audio Unit ID -> Dialog
+    private var editorDialogs: [String: AudioUnitEditorDialogController] = [:]
     
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
@@ -66,7 +65,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             tableView.noteNumberOfRowsChanged()
             
             // Create an editor dialog for the new audio unit.
-            editorDialogs[audioUnit.componentSubType] = AudioUnitEditorDialogController(for: audioUnit)
+            editorDialogs[audioUnit.id] = AudioUnitEditorDialogController(for: audioUnit)
             
             // Open the audio unit editor window with the new audio unit's custom view.
             DispatchQueue.main.async {
@@ -90,11 +89,11 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     
     private func doEditAudioUnit(_ audioUnit: HostedAudioUnitDelegateProtocol) {
         
-        if editorDialogs[audioUnit.componentSubType] == nil {
-            editorDialogs[audioUnit.componentSubType] = AudioUnitEditorDialogController(for: audioUnit)
+        if editorDialogs[audioUnit.id] == nil {
+            editorDialogs[audioUnit.id] = AudioUnitEditorDialogController(for: audioUnit)
         }
         
-        if let dialog = editorDialogs[audioUnit.componentSubType], let dialogWindow = dialog.window {
+        if let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window {
             
             WindowManager.addChildWindow(dialogWindow)
             dialog.showDialog()
@@ -109,8 +108,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             
             for unit in audioGraph.removeAudioUnits(at: selRows) {
                 
-                if let dialog = editorDialogs[]
-                editorDialogs.removeValue(forKey: unit.componentSubType)
+                editorDialogs[unit.id]?.close()
+                editorDialogs.removeValue(forKey: unit.id)
             }
             
             tableView.reloadData()

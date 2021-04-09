@@ -6,6 +6,8 @@ import CoreAudio
 
 class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitDelegateProtocol {
     
+    var id: String
+    
     var name: String {unit.name}
     var version: String {unit.version}
     var manufacturerName: String {unit.manufacturerName}
@@ -22,6 +24,12 @@ class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitD
     var factoryPresets: [AudioUnitFactoryPreset] {unit.factoryPresets}
     
     var viewController: AUViewController?
+    
+    override init(_ unit: HostedAudioUnit) {
+        
+        self.id = UUID().uuidString
+        super.init(unit)
+    }
     
     func applyFactoryPreset(_ presetName: String) {
         unit.applyFactoryPreset(presetName)
