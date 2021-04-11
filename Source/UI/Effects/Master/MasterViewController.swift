@@ -4,7 +4,9 @@ class MasterViewController: FXUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
     
-    @IBOutlet weak var lblAudioUnitsCaption: NSTextField!
+    @IBOutlet weak var audioUnitsScrollView: NSScrollView!
+    @IBOutlet weak var audioUnitsClipView: NSClipView!
+    @IBOutlet weak var audioUnitsTable: NSTableView!
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
@@ -146,19 +148,23 @@ class MasterViewController: FXUnitViewController {
     override func applyFontScheme(_ fontScheme: FontScheme) {
         
         lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
-        lblAudioUnitsCaption.font = FontSchemes.systemScheme.effects.masterUnitFunctionFont
         
-        functionLabels.filter {$0 is EffectsUnitTriStateLabel}.forEach {
-            $0.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        functionLabels.forEach {
+            
+            $0.font = $0 is EffectsUnitTriStateLabel ? FontSchemes.systemScheme.effects.masterUnitFunctionFont :
+                FontSchemes.systemScheme.effects.unitCaptionFont
         }
         
         presetsMenu.font = Fonts.menuFont
     }
     
-    override func changeMainCaptionTextColor(_ color: NSColor) {
+    override func applyColorScheme(_ scheme: ColorScheme) {
         
-        super.changeMainCaptionTextColor(color)
-        lblAudioUnitsCaption.textColor = color
+        super.applyColorScheme(scheme)
+        
+        audioUnitsScrollView.backgroundColor = scheme.general.backgroundColor
+        audioUnitsClipView.backgroundColor = scheme.general.backgroundColor
+        audioUnitsTable.backgroundColor = scheme.general.backgroundColor
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
@@ -188,3 +194,28 @@ class MasterViewController: FXUnitViewController {
         updateButtons()
     }
 }
+
+//class AudioUnitsMenuDelegate: NSObject, NSMenuDelegate {
+//
+//    let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+//
+//    func menuNeedsUpdate(_ menu: NSMenu) {
+//
+//        // Remove all custom presets (all items before the first separator)
+//        while menu.items.count > 1 && !menu.item(at: 1)!.isSeparatorItem {
+//            menu.removeItem(at: 1)
+//        }
+//
+//        for unit in audioGraph.audioUnits.sorted(by: {$0.name < $1.name}) {
+//
+//            let item = NSMenuItem()
+//
+//            let itemView: AudioUnitMenuItemView = AudioUnitMenuItemViewController().view as! AudioUnitMenuItemView
+//            itemView.unitName = "\(unit.name) v\(unit.version) by \(unit.manufacturerName)"
+//
+//            item.view = itemView
+//
+//            menu.addItem(item)
+//        }
+//    }
+//}
