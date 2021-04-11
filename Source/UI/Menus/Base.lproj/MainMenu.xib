@@ -1215,6 +1215,12 @@ CA
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="a3U-o8-YRB"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Poolside FM" indentationLevel="1" id="ov8-to-LK8" userLabel="Poolside.fm">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="NSX-Gy-ZgB"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ijs-eS-Wfh"/>
                                         <menuItem title="Customize ..." indentationLevel="1" id="dRW-vp-94E">
                                             <modifierMask key="keyEquivalentModifierMask"/>
