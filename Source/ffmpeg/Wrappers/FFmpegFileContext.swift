@@ -67,7 +67,7 @@ class FFmpegFileContext {
     ///
     lazy var bestImageStream: FFmpegImageStream? = findBestStream(ofType: AVMEDIA_TYPE_VIDEO) as? FFmpegImageStream
     
-    lazy var metadata: [String: String] = FFmpegMetadataDictionary(readingFrom: avContext.metadata).dictionary
+    lazy var metadata: [String: String] = FFmpegMetadataReader.read(from: avContext.metadata)
     
     ///
     /// All chapter markings available in this file's header.

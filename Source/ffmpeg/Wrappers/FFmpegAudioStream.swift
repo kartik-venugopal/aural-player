@@ -76,7 +76,7 @@ class FFmpegAudioStream: FFmpegStreamProtocol {
     ///
     /// All metadata key / value pairs available for this stream.
     ///
-    lazy var metadata: [String: String] = FFmpegMetadataDictionary(readingFrom: avStream.metadata).dictionary
+    lazy var metadata: [String: String] = FFmpegMetadataReader.read(from: avStream.metadata)
     
     ///
     /// Instantiates this stream object and its associated codec and codec context.

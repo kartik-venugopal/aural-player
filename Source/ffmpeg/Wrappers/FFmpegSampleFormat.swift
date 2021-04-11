@@ -58,6 +58,8 @@ struct FFmpegSampleFormat {
     ///
     let needsFormatConversion: Bool
     
+    static let integralFormats: Set<AVSampleFormat> = [AV_SAMPLE_FMT_U8, AV_SAMPLE_FMT_U8P, AV_SAMPLE_FMT_S16, AV_SAMPLE_FMT_S16P, AV_SAMPLE_FMT_S32, AV_SAMPLE_FMT_S32P, AV_SAMPLE_FMT_S64, AV_SAMPLE_FMT_S64P]
+    
     ///
     /// Instantiates a SampleFormat from an AVSampleFormat.
     ///
@@ -81,10 +83,9 @@ struct FFmpegSampleFormat {
         
         self.isInterleaved = !isPlanar
         
-        self.isIntegral = [AV_SAMPLE_FMT_U8, AV_SAMPLE_FMT_U8P, AV_SAMPLE_FMT_S16, AV_SAMPLE_FMT_S16P,
-        AV_SAMPLE_FMT_S32, AV_SAMPLE_FMT_S32P, AV_SAMPLE_FMT_S64, AV_SAMPLE_FMT_S64P].contains(avFormat)
+        self.isIntegral = Self.integralFormats.contains(avFormat)
         
-        // Apparently, AVAudioEngine can only play 32-bit non-interleaved floating point samples.
+        // Apparently, AVAudioEngine can only play 32-bit non-interleaved (planar) floating point samples.
         self.needsFormatConversion = avFormat != AV_SAMPLE_FMT_FLTP
     }
     
@@ -122,5 +123,14 @@ struct FFmpegSampleFormat {
         default:                      return "<Unknown Sample Format>"
             
         }
+    }
+}
+
+extension AVSampleFormat: Hashable {
+    
+    public var hashValue: Int {rawValue.hashValue}
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawValue)
     }
 }
