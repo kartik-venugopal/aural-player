@@ -327,52 +327,84 @@ struct Fonts {
     
     struct Papyrus {
         
-            static let mainFont_8: NSFont = NSFont(name: "Papyrus", size: 8)!
-            
-            static let mainFont_9: NSFont = NSFont(name: "Papyrus", size: 9)!
-            
-            static let mainFont_10: NSFont = NSFont(name: "Papyrus", size: 10)!
-            static let mainFont_10_5: NSFont = NSFont(name: "Papyrus", size: 10.5)!
-            
-            static let mainFont_11: NSFont = NSFont(name: "Papyrus", size: 11)!
-            static let mainFont_11_5: NSFont = NSFont(name: "Papyrus", size: 11.5)!
-            
-            static let mainFont_12: NSFont = NSFont(name: "Papyrus", size: 12)!
-            static let mainFont_12_5: NSFont = NSFont(name: "Papyrus", size: 12.5)!
-            
-            static let mainFont_13: NSFont = NSFont(name: "Papyrus", size: 13)!
-            static let mainFont_13_5: NSFont = NSFont(name: "Papyrus", size: 13.5)!
-            
-            static let mainFont_14: NSFont = NSFont(name: "Papyrus", size: 14)!
-            static let mainFont_14_5: NSFont = NSFont(name: "Papyrus", size: 14.5)!
-            
-            static let mainFont_15: NSFont = NSFont(name: "Papyrus", size: 15)!
-            static let mainFont_15_5: NSFont = NSFont(name: "Papyrus", size: 15.5)!
-            
-            static let mainFont_16: NSFont = NSFont(name: "Papyrus", size: 16)!
-            static let mainFont_16_5: NSFont = NSFont(name: "Papyrus", size: 16.5)!
-            
-            static let mainFont_17: NSFont = NSFont(name: "Papyrus", size: 17)!
-            
-            static let mainFont_18: NSFont = NSFont(name: "Papyrus", size: 18)!
-            
-            static let mainFont_20: NSFont = NSFont(name: "Papyrus", size: 20)!
-            
-            static let captionFont_8: NSFont = NSFont(name: "Aniron", size: 8)!
-            static let captionFont_9: NSFont = NSFont(name: "Aniron", size: 9)!
-            static let captionFont_10: NSFont = NSFont(name: "Aniron", size: 10)!
-            static let captionFont_11: NSFont = NSFont(name: "Aniron", size: 11)!
-            static let captionFont_12: NSFont = NSFont(name: "Aniron", size: 12)!
-            static let captionFont_12_5: NSFont = NSFont(name: "Aniron", size: 12.5)!
-            static let captionFont_13: NSFont = NSFont(name: "Aniron", size: 13)!
-            static let captionFont_14: NSFont = NSFont(name: "Aniron", size: 14)!
-            static let captionFont_15: NSFont = NSFont(name: "Aniron", size: 15)!
-            static let captionFont_16: NSFont = NSFont(name: "Aniron", size: 16)!
-            static let captionFont_17: NSFont = NSFont(name: "Aniron", size: 17)!
-            
-            static let captionFont_18: NSFont = NSFont(name: "Aniron", size: 18)!
-            static let captionFont_20: NSFont = NSFont(name: "Aniron", size: 20)!
-        }
+        static let mainFont_8: NSFont = NSFont(name: "Papyrus", size: 8)!
+        
+        static let mainFont_9: NSFont = NSFont(name: "Papyrus", size: 9)!
+        
+        static let mainFont_10: NSFont = NSFont(name: "Papyrus", size: 10)!
+        static let mainFont_10_5: NSFont = NSFont(name: "Papyrus", size: 10.5)!
+        
+        static let mainFont_11: NSFont = NSFont(name: "Papyrus", size: 11)!
+        static let mainFont_11_5: NSFont = NSFont(name: "Papyrus", size: 11.5)!
+        
+        static let mainFont_12: NSFont = NSFont(name: "Papyrus", size: 12)!
+        static let mainFont_12_5: NSFont = NSFont(name: "Papyrus", size: 12.5)!
+        
+        static let mainFont_13: NSFont = NSFont(name: "Papyrus", size: 13)!
+        static let mainFont_13_5: NSFont = NSFont(name: "Papyrus", size: 13.5)!
+        
+        static let mainFont_14: NSFont = NSFont(name: "Papyrus", size: 14)!
+        static let mainFont_14_5: NSFont = NSFont(name: "Papyrus", size: 14.5)!
+        
+        static let mainFont_15: NSFont = NSFont(name: "Papyrus", size: 15)!
+        static let mainFont_15_5: NSFont = NSFont(name: "Papyrus", size: 15.5)!
+        
+        static let mainFont_16: NSFont = NSFont(name: "Papyrus", size: 16)!
+        static let mainFont_16_5: NSFont = NSFont(name: "Papyrus", size: 16.5)!
+        
+        static let mainFont_17: NSFont = NSFont(name: "Papyrus", size: 17)!
+        
+        static let mainFont_18: NSFont = NSFont(name: "Papyrus", size: 18)!
+        
+        static let mainFont_20: NSFont = NSFont(name: "Papyrus", size: 20)!
+        
+        static let captionFont_8: NSFont = NSFont(name: "Aniron", size: 8)!
+        static let captionFont_9: NSFont = NSFont(name: "Aniron", size: 9)!
+        static let captionFont_10: NSFont = NSFont(name: "Aniron", size: 10)!
+        static let captionFont_11: NSFont = NSFont(name: "Aniron", size: 11)!
+        static let captionFont_12: NSFont = NSFont(name: "Aniron", size: 12)!
+        static let captionFont_12_5: NSFont = NSFont(name: "Aniron", size: 12.5)!
+        static let captionFont_13: NSFont = NSFont(name: "Aniron", size: 13)!
+        static let captionFont_14: NSFont = NSFont(name: "Aniron", size: 14)!
+        static let captionFont_15: NSFont = NSFont(name: "Aniron", size: 15)!
+        static let captionFont_16: NSFont = NSFont(name: "Aniron", size: 16)!
+        static let captionFont_17: NSFont = NSFont(name: "Aniron", size: 17)!
+        
+        static let captionFont_18: NSFont = NSFont(name: "Aniron", size: 18)!
+        static let captionFont_20: NSFont = NSFont(name: "Aniron", size: 20)!
+    }
+    
+    struct PoolsideFM {
+        
+        static let mainFont_8: NSFont = NSFont(name: "ChicagoFLF", size: 8)!
+        
+        static let mainFont_9: NSFont = NSFont(name: "ChicagoFLF", size: 9)!
+        
+        static let mainFont_10: NSFont = NSFont(name: "ChicagoFLF", size: 10)!
+        static let mainFont_10_5: NSFont = NSFont(name: "ChicagoFLF", size: 10.5)!
+        
+        static let mainFont_11: NSFont = NSFont(name: "ChicagoFLF", size: 11)!
+        static let mainFont_11_5: NSFont = NSFont(name: "ChicagoFLF", size: 11.5)!
+        
+        static let mainFont_12: NSFont = NSFont(name: "ChicagoFLF", size: 12)!
+        static let mainFont_12_5: NSFont = NSFont(name: "ChicagoFLF", size: 12.5)!
+        
+        static let mainFont_13: NSFont = NSFont(name: "ChicagoFLF", size: 13)!
+        static let mainFont_13_5: NSFont = NSFont(name: "ChicagoFLF", size: 13.5)!
+        
+        static let mainFont_14: NSFont = NSFont(name: "ChicagoFLF", size: 14)!
+        static let mainFont_14_5: NSFont = NSFont(name: "ChicagoFLF", size: 14.5)!
+        
+        static let mainFont_15: NSFont = NSFont(name: "ChicagoFLF", size: 15)!
+        static let mainFont_15_5: NSFont = NSFont(name: "ChicagoFLF", size: 15.5)!
+        
+        static let mainFont_16: NSFont = NSFont(name: "ChicagoFLF", size: 16)!
+        
+        static let captionFont_13: NSFont = mainFont_13
+        static let captionFont_14: NSFont = mainFont_14
+        static let captionFont_15: NSFont = mainFont_15
+        static let captionFont_16: NSFont = mainFont_16
+    }
     
     static let menuFont: NSFont = Standard.mainFont_11
 

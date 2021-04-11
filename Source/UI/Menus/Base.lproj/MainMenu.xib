@@ -1142,6 +1142,12 @@ CA
                                                 <action selector="applySchemeAction:" target="lih-ya-6jC" id="yHm-VO-jkT"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Poolside FM" indentationLevel="1" id="loI-FS-KsJ">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="Wel-C0-PYy"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vWW-EI-BWf"/>
                                         <menuItem title="Customize ..." indentationLevel="1" id="tVF-bO-F8U">
                                             <modifierMask key="keyEquivalentModifierMask"/>
