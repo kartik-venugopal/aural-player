@@ -393,7 +393,13 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     private func showPlayingTrack() {
         
         if let playingTrack = playbackInfo.currentTrack, let groupingInfo = playlist.groupingInfoForTrack(self.groupType, playingTrack) {
-            selectTrack(groupingInfo)
+            
+            DispatchQueue.main.async {
+                
+                // Clearing the current selection is required for proper redrawing of the playing track row.
+                self.clearSelection()
+                self.selectTrack(groupingInfo)
+            }
         }
     }
  
