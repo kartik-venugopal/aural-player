@@ -617,6 +617,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     }
     
     private func changeGroupIconColor(_ color: NSColor) {
-        allGroups.forEach({playlistView.reloadItem($0)})
+        allGroups.forEach {playlistView.reloadItem($0)}
     }
 }

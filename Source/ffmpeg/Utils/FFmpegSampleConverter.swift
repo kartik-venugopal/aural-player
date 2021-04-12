@@ -161,7 +161,7 @@ class FFmpegSampleConverter: SampleConverterProtocol {
             deallocate()
             
             // Allocate space.
-            av_samples_alloc(outputData, nil, channelCount, sampleCount, AV_SAMPLE_FMT_FLTP, 0)
+            av_samples_alloc(outputData, nil, channelCount, sampleCount, Self.standardSampleFormat, 0)
             
             // Update these variables to keep track of allocated space.
             self.allocatedChannelCount = channelCount

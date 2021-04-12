@@ -370,10 +370,15 @@ class PlaylistColorScheme {
     var summaryInfoColor: NSColor
     
     var playingTrackIconColor: NSColor
+    var playingTrackIconSelectedRowsColor: NSColor
+    
     var selectionBoxColor: NSColor
     
     var groupIconColor: NSColor
+    var groupIconSelectedRowsColor: NSColor
+    
     var groupDisclosureTriangleColor: NSColor
+    var groupDisclosureTriangleSelectedRowsColor: NSColor
     
     init(_ appState: PlaylistColorSchemeState?) {
         
@@ -390,10 +395,18 @@ class PlaylistColorScheme {
         self.summaryInfoColor = appState?.summaryInfoColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.summaryInfoColor
         
         self.selectionBoxColor = appState?.selectionBoxColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.selectionBoxColor
+        
         self.playingTrackIconColor = appState?.playingTrackIconColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.playingTrackIconColor
         
+        self.playingTrackIconSelectedRowsColor = appState?.playingTrackIconSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.playingTrackIconSelectedRowsColor
+        
         self.groupIconColor = appState?.groupIconColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupIconColor
+        
+        self.groupIconSelectedRowsColor = appState?.groupIconSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupIconSelectedRowsColor
+        
         self.groupDisclosureTriangleColor = appState?.groupDisclosureTriangleColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupDisclosureTriangleColor
+        
+        self.groupDisclosureTriangleSelectedRowsColor = appState?.groupDisclosureTriangleSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupDisclosureTriangleSelectedRowsColor
     }
     
     init(_ scheme: PlaylistColorScheme) {
@@ -410,9 +423,13 @@ class PlaylistColorScheme {
         
         self.selectionBoxColor = scheme.selectionBoxColor
         self.playingTrackIconColor = scheme.playingTrackIconColor
+        self.playingTrackIconSelectedRowsColor = scheme.playingTrackIconSelectedRowsColor
         
         self.groupIconColor = scheme.groupIconColor
+        self.groupIconSelectedRowsColor = scheme.groupIconSelectedRowsColor
+        
         self.groupDisclosureTriangleColor = scheme.groupDisclosureTriangleColor
+        self.groupDisclosureTriangleSelectedRowsColor = scheme.groupDisclosureTriangleSelectedRowsColor
     }
     
     init(_ preset: ColorSchemePreset) {
@@ -429,9 +446,13 @@ class PlaylistColorScheme {
         
         self.selectionBoxColor = preset.playlistSelectionBoxColor
         self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
+        self.playingTrackIconSelectedRowsColor = preset.playlistPlayingTrackIconSelectedRowsColor
         
         self.groupIconColor = preset.playlistGroupIconColor
+        self.groupIconSelectedRowsColor = preset.playlistGroupIconSelectedRowsColor
+        
         self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
+        self.groupDisclosureTriangleSelectedRowsColor = preset.playlistGroupDisclosureTriangleSelectedRowsColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {

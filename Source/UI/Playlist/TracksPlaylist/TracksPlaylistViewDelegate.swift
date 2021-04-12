@@ -122,4 +122,25 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         return cell
     }
+    
+    // TODO: The following 2 functions will be used to change the disclosure triangle and group icon images when row selecttion changes.
+    
+//    func tableView(_ tableView: NSTableView, selectionIndexesForProposedSelection proposedSelectionIndexes: IndexSet) -> IndexSet {
+//
+//        print("\n")
+//        let selRows = playlistView.selectedRowIndexes.toArray()
+//        NSLog("TV IS changing ... \(selRows)")
+//        unselRows = selRows
+//
+//        return proposedSelectionIndexes
+//    }
+//
+//    private var unselRows: [Int] = []
+//
+//    func tableViewSelectionDidChange(_ notification: Notification) {
+//
+//        print("\n")
+//        let selRows = playlistView.selectedRowIndexes.toArray()
+//        NSLog("TV DID change ... \(selRows)")
+//    }
 }

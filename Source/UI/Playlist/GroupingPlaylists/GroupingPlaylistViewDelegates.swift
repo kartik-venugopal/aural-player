@@ -5,7 +5,7 @@ import Cocoa
  */
 class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
  
-    @IBOutlet weak var playlistView: NSOutlineView!
+    @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     
     // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
@@ -85,6 +85,15 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
+        if playbackInfo.state.isPlayingOrPaused, track == playbackInfo.playingTrack {
+            
+            if cell.rowSelectionStateFunction() {
+                cell.imageView?.image = AuralPlaylistOutlineView.cachedPlayingTrackIconSelectedRows
+            } else {
+                cell.imageView?.image = AuralPlaylistOutlineView.cachedPlayingTrackIcon
+            }
+        }
+        
         var image: NSImage?
         
         switch playbackInfo.state {
@@ -131,7 +140,23 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
         cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
-        imgView.image = AuralPlaylistOutlineView.cachedGroupIcon
+        
+        if cell.rowSelectionStateFunction() {
+            
+            imgView.image = AuralPlaylistOutlineView.cachedGroupIconSelectedRows
+            
+            playlistView.disclosureTriangleForRow(outlineView.row(forItem: group))?.image = AuralPlaylistOutlineView.cachedDisclosureIconSelectedRows_collapsed
+            
+            playlistView.disclosureTriangleForRow(outlineView.row(forItem: group))?.alternateImage = AuralPlaylistOutlineView.cachedDisclosureIconSelectedRows_expanded
+            
+        } else {
+            
+            imgView.image = AuralPlaylistOutlineView.cachedGroupIcon
+            
+            playlistView.disclosureTriangleForRow(outlineView.row(forItem: group))?.image = AuralPlaylistOutlineView.cachedDisclosureIcon_collapsed
+            
+            playlistView.disclosureTriangleForRow(outlineView.row(forItem: group))?.alternateImage = AuralPlaylistOutlineView.cachedDisclosureIcon_expanded
+        }
         
         // Constraints
         
@@ -168,6 +193,75 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
         
         return cell
+    }
+    
+    // TODO: The following 2 functions will be used to change the disclosure triangle and group icon images when row selecttion changes.
+    
+    func outlineView(_ outlineView: NSOutlineView, selectionIndexesForProposedSelection proposedSelectionIndexes: IndexSet) -> IndexSet {
+
+        print("\n")
+        let selRows = playlistView.selectedRowIndexes.toArray()
+        NSLog("OV IS changing ... \(selRows)")
+        unselItems = selRows.map {playlistView.item(atRow: $0)}
+
+        return proposedSelectionIndexes
+    }
+
+    private var unselItems: [Any] = []
+
+    func outlineViewSelectionDidChange(_ notification: Notification) {
+
+        print("\n")
+        let selRows = playlistView.selectedRowIndexes.toArray()
+        NSLog("OV DID change ... \(selRows)")
+        
+        if let playingTrack = playbackInfo.playingTrack {
+            
+            let playingTrackRow: Int = playlistView.row(forItem: playingTrack)
+            
+            print("Playing track row: \(playingTrackRow)")
+            
+            if playingTrackRow >= 0, let icon = playlistView.iconForRow(playingTrackRow) {
+                
+                DispatchQueue.main.async {
+                    
+                    if selRows.contains(playingTrackRow) {
+                        icon.image = AuralPlaylistOutlineView.cachedPlayingTrackIconSelectedRows
+                    } else {
+                        icon.image = AuralPlaylistOutlineView.cachedPlayingTrackIcon
+                    }
+                }
+            }
+        }
+        
+
+        for row in selRows {
+            
+            if playlistView.item(atRow: row) is Group {
+                
+                playlistView.disclosureTriangleForRow(row)?.image = AuralPlaylistOutlineView.cachedDisclosureIconSelectedRows_collapsed
+                
+                playlistView.disclosureTriangleForRow(row)?.alternateImage = AuralPlaylistOutlineView.cachedDisclosureIconSelectedRows_expanded
+                
+                playlistView.iconForRow(row)?.image = AuralPlaylistOutlineView.cachedGroupIconSelectedRows
+            }
+        }
+
+        // TODO: This doesn't work when double-clicking a group for playback, because the row indices change.
+        
+        for row in unselItems.map({playlistView.row(forItem: $0)}) {
+            
+            if playlistView.item(atRow: row) is Group, !selRows.contains(row) {
+                
+                playlistView.disclosureTriangleForRow(row)?.image = AuralPlaylistOutlineView.cachedDisclosureIcon_collapsed
+                
+                playlistView.disclosureTriangleForRow(row)?.alternateImage = AuralPlaylistOutlineView.cachedDisclosureIcon_expanded
+                
+                playlistView.iconForRow(row)?.image = AuralPlaylistOutlineView.cachedGroupIcon
+            }
+        }
+        
+        unselItems = selRows.compactMap {playlistView.item(atRow: $0)}
     }
 }
 

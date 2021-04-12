@@ -300,10 +300,15 @@ class PlaylistColorSchemeState: PersistentState {
     var summaryInfoColor: ColorState?
     
     var playingTrackIconColor: ColorState?
+    var playingTrackIconSelectedRowsColor: ColorState?
+    
     var selectionBoxColor: ColorState?
     
     var groupIconColor: ColorState?
+    var groupIconSelectedRowsColor: ColorState?
+    
     var groupDisclosureTriangleColor: ColorState?
+    var groupDisclosureTriangleSelectedRowsColor: ColorState?
     
     init() {}
     
@@ -318,9 +323,16 @@ class PlaylistColorSchemeState: PersistentState {
         self.indexDurationSelectedTextColor = ColorState.fromColor(scheme.indexDurationSelectedTextColor)
         
         self.groupIconColor = ColorState.fromColor(scheme.groupIconColor)
+        self.groupIconSelectedRowsColor = ColorState.fromColor(scheme.groupIconSelectedRowsColor)
+        
         self.groupDisclosureTriangleColor = ColorState.fromColor(scheme.groupDisclosureTriangleColor)
+        self.groupDisclosureTriangleSelectedRowsColor = ColorState.fromColor(scheme.groupDisclosureTriangleSelectedRowsColor)
+        
         self.selectionBoxColor = ColorState.fromColor(scheme.selectionBoxColor)
+        
         self.playingTrackIconColor = ColorState.fromColor(scheme.playingTrackIconColor)
+        self.playingTrackIconSelectedRowsColor = ColorState.fromColor(scheme.playingTrackIconSelectedRowsColor)
+        
         self.summaryInfoColor = ColorState.fromColor(scheme.summaryInfoColor)
     }
     
@@ -356,8 +368,16 @@ class PlaylistColorSchemeState: PersistentState {
             state.groupIconColor = ColorState.deserialize(colorDict)
         }
         
+        if let colorDict = map["groupIconSelectedRowsColor"] as? NSDictionary {
+            state.groupIconSelectedRowsColor = ColorState.deserialize(colorDict)
+        }
+        
         if let colorDict = map["groupDisclosureTriangleColor"] as? NSDictionary {
             state.groupDisclosureTriangleColor = ColorState.deserialize(colorDict)
+        }
+        
+        if let colorDict = map["groupDisclosureTriangleSelectedRowsColor"] as? NSDictionary {
+            state.groupDisclosureTriangleSelectedRowsColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["selectionBoxColor"] as? NSDictionary {
@@ -366,6 +386,10 @@ class PlaylistColorSchemeState: PersistentState {
         
         if let colorDict = map["playingTrackIconColor"] as? NSDictionary {
             state.playingTrackIconColor = ColorState.deserialize(colorDict)
+        }
+        
+        if let colorDict = map["playingTrackIconSelectedRowsColor"] as? NSDictionary {
+            state.playingTrackIconSelectedRowsColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["summaryInfoColor"] as? NSDictionary {

@@ -578,9 +578,15 @@ extension Notification.Name {
 
     // Commands all playlist views to change the color of their group icons.
     static let playlist_changeGroupIconColor = Notification.Name("playlist_changeGroupIconColor")
+    
+    // Commands all playlist views to change the color of their group icons.
+    static let playlist_changeGroupIconSelectedRowsColor = Notification.Name("playlist_changeGroupIconSelectedRowsColor")
 
     // Commands all playlist views to change the color of their group disclosure triangles.
     static let playlist_changeGroupDisclosureTriangleColor = Notification.Name("playlist_changeGroupDisclosureTriangleColor")
+    
+    // Commands all playlist views to change the color of their group disclosure triangles.
+    static let playlist_changeGroupDisclosureTriangleSelectedRowsColor = Notification.Name("playlist_changeGroupDisclosureTriangleSelectedRowsColor")
 
     // Commands all playlist views to change the color of their selection boxes.
     static let playlist_changeSelectionBoxColor = Notification.Name("playlist_changeSelectionBoxColor")
@@ -588,7 +594,8 @@ extension Notification.Name {
     // Commands all playlist views to change the color of their playing track marker icons.
     static let playlist_changePlayingTrackIconColor = Notification.Name("playlist_changePlayingTrackIconColor")
     
-    
+    // Commands all playlist views to change the color of their playing track marker icons.
+    static let playlist_changePlayingTrackIconSelectedRowsColor = Notification.Name("playlist_changePlayingTrackIconSelectedRowsColor")
     
     // MARK: Color scheme commands sent to the FX UI
     
