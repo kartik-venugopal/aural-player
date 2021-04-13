@@ -497,10 +497,6 @@ struct Colors {
         static let defaultTickColor: NSColor = NSColor.black
     }
     
-    static let fxFunctionTextColor: NSColor = Constants.white40Percent
-    
-    static let fxFunctionPopupMenuTextColor: NSColor = Constants.white60Percent
-    
     static var filterChartTextColor: NSColor {
         return Effects.functionValueTextColor
     }
@@ -512,24 +508,6 @@ struct Colors {
     
     // Color of selected item text inside the playlist
     static let playlistSelectedTextColor: NSColor = NSColor.white
-    
-    // Color of text inside the playlist (non-selected items)
-    static let playlistIndexTextColor: NSColor = Constants.white30Percent
-    
-    // Color of selected item text inside the playlist
-    static let playlistSelectedIndexTextColor: NSColor = Constants.white60Percent
-    
-    static let playlistGroupIndexTextColor: NSColor = Constants.white45Percent
-    
-    // Color of selected item text inside the playlist
-    static let playlistGroupSelectedIndexTextColor: NSColor = Constants.white70Percent
-    
-    // Color for playlist grouped views
-    static let playlistGroupNameTextColor: NSColor = Constants.white50Percent
-    static let playlistGroupNameSelectedTextColor: NSColor = Constants.white80Percent
-    
-    static let playlistGroupItemTextColor: NSColor = Constants.white60Percent
-    static let playlistGroupItemSelectedTextColor: NSColor = NSColor.white
     
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = Constants.white15Percent
@@ -556,94 +534,26 @@ struct Colors {
     // A lighter version of popupMenuArrowColor
     static let lightPopupMenuArrowColor: NSColor = Constants.white80Percent
     
-    // A lighter version of popupMenuArrowColor
-    static let fxUnitPopupMenuArrowColor: NSColor = Constants.white40Percent
-    
     static let sliderBarGradient: NSGradient = {
-        
+
         let backgroundStart = Constants.white70Percent
         let backgroundEnd =  Constants.white20Percent
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
+
         return barBackgroundGradient!
     }()
-    
+
     static let popupMenuGradient: NSGradient = {
-        
+
         let backgroundStart = Constants.white35Percent
         let backgroundEnd =  Constants.white10Percent
         let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
+
         return barBackgroundGradient!
     }()
-    
-    // Gradient used to fill slider bars
-    static let sliderBarPlainGradient: NSGradient = {
-        
-        let backgroundStart = Constants.white40Percent
-        let backgroundEnd =  Constants.white10Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
+
     static let scrollerKnobColor: NSColor = Constants.white40Percent
     static let scrollerBarColor: NSColor = Constants.white25Percent
-    
-    static let activeSliderBarColoredGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(red: 0, green: 0.625, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0, green: 0.2, blue: 0, alpha: 1)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let bypassedSliderBarColoredGradient: NSGradient = {
-        
-        let backgroundStart = Constants.white60Percent
-        let backgroundEnd =  Constants.white30Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let suppressedSliderBarColoredGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0.27, green: 0.2, blue: 0, alpha: 1)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let bandStopGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(red: 0.75, green: 0, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0.2, green: 0, blue: 0, alpha: 1)
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let playbackLoopGradient: NSGradient = {
-        
-        let backgroundStart = NSColor(red: 1, green: 0, blue: 0, alpha: 1)
-        let backgroundEnd =  NSColor(red: 0.5, green: 0, blue: 0, alpha: 1)
-        
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let progressBarColoredGradient: NSGradient = {
-        
-        let backgroundStart = Constants.white70Percent
-        let backgroundEnd =  Constants.white40Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
     
     static let seekBarColoredGradient: NSGradient = Colors.Effects.defaultSliderBackgroundGradient
     
@@ -669,29 +579,8 @@ struct Colors {
         return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
     }()
     
-    static let fxUnitButtonGradient: NSGradient = {
-        
-        let backgroundStart = Constants.white35Percent
-        let backgroundEnd =  Constants.white10Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
-    static let fxUnitButtonGradient_disabled: NSGradient = {
-        
-        let backgroundStart = NSColor(white: 0.175, alpha: 1)
-        let backgroundEnd =  Constants.white10Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-        
-        return barBackgroundGradient!
-    }()
-    
     // Text color of modal dialog buttons
     static let modalDialogButtonTextColor_disabled: NSColor = Constants.white50Percent
-    
-    // Text color of modal dialog buttons
-    static let fxUnitButtonTextColor_disabled: NSColor = Constants.white45Percent
     
     static let modalDialogButtonGradient_disabled: NSGradient = {
         
