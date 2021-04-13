@@ -7,80 +7,43 @@ struct Fonts {
     
     struct Standard {
         
-        static let mainFont_8: NSFont = NSFont(name: "Exo-Medium", size: 8)!
-        
         static let mainFont_9: NSFont = NSFont(name: "Exo-Medium", size: 9)!
-        
+
         static let mainFont_10: NSFont = NSFont(name: "Exo-Medium", size: 10)!
-        
+
         static let mainFont_11: NSFont = NSFont(name: "Exo-Medium", size: 11)!
         static let mainFont_11_5: NSFont = NSFont(name: "Exo-Medium", size: 11.5)!
-        
+
         static let mainFont_12: NSFont = NSFont(name: "Exo-Medium", size: 12)!
         static let mainFont_12_5: NSFont = NSFont(name: "Exo-Medium", size: 12.5)!
-        
+
         static let mainFont_13: NSFont = NSFont(name: "Exo-Medium", size: 13)!
-        static let mainFont_13_5: NSFont = NSFont(name: "Exo-Medium", size: 13.5)!
-        
+
         static let mainFont_14: NSFont = NSFont(name: "Exo-Medium", size: 14)!
-        static let mainFont_14_5: NSFont = NSFont(name: "Exo-Medium", size: 14.5)!
-        
+
         static let mainFont_15: NSFont = NSFont(name: "Exo-Medium", size: 15)!
-        static let mainFont_15_5: NSFont = NSFont(name: "Exo-Medium", size: 15.5)!
-        
-        static let mainFont_16: NSFont = NSFont(name: "Exo-Medium", size: 16)!
-        static let mainFont_16_5: NSFont = NSFont(name: "Exo-Medium", size: 16.5)!
-        
-        static let mainFont_17: NSFont = NSFont(name: "Exo-Medium", size: 17)!
-        
-        static let mainFont_18: NSFont = NSFont(name: "Exo-Medium", size: 18)!
-        static let mainFont_19: NSFont = NSFont(name: "Exo-Medium", size: 19)!
-        
-        static let mainFont_20: NSFont = NSFont(name: "Exo-Medium", size: 20)!
-        
+
         static let captionFont_13: NSFont = NSFont(name: "AlegreyaSansSC-Regular", size: 13)!
         static let captionFont_14: NSFont = NSFont(name: "AlegreyaSansSC-Regular", size: 14)!
         static let captionFont_15: NSFont = NSFont(name: "AlegreyaSansSC-Regular", size: 15)!
         static let captionFont_16: NSFont = NSFont(name: "AlegreyaSansSC-Regular", size: 16)!
-        static let captionFont_17: NSFont = NSFont(name: "AlegreyaSansSC-Regular", size: 17)!
-        
+
         static let captionFont_18: NSFont = NSFont(name: "AlegreyaSansSC-Regular", size: 18)!
-        static let captionFont_20: NSFont = NSFont(name: "AlegreyaSansSC-Regular", size: 20)!
     }
     
     struct Rounded {
         
-        static let mainFont_8: NSFont = NSFont(name: "FuturaBT-Light", size: 8)!
-        
-        static let mainFont_9: NSFont = NSFont(name: "FuturaBT-Light", size: 9)!
-        
         static let mainFont_10: NSFont = NSFont(name: "FuturaBT-Light", size: 10)!
         static let mainFont_10_5: NSFont = NSFont(name: "FuturaBT-Light", size: 10.5)!
-        
-        static let mainFont_11: NSFont = NSFont(name: "FuturaBT-Light", size: 11)!
-        static let mainFont_11_5: NSFont = NSFont(name: "FuturaBT-Light", size: 11.5)!
         
         static let mainFont_12: NSFont = NSFont(name: "FuturaBT-Light", size: 12)!
         static let mainFont_12_5: NSFont = NSFont(name: "FuturaBT-Light", size: 12.5)!
         
         static let mainFont_13: NSFont = NSFont(name: "FuturaBT-Light", size: 13)!
-        static let mainFont_13_5: NSFont = NSFont(name: "FuturaBT-Light", size: 13.5)!
         
         static let mainFont_14: NSFont = NSFont(name: "FuturaBT-Light", size: 14)!
-        static let mainFont_14_5: NSFont = NSFont(name: "FuturaBT-Light", size: 14.5)!
-        
-        static let mainFont_15: NSFont = NSFont(name: "FuturaBT-Light", size: 15)!
-        static let mainFont_15_5: NSFont = NSFont(name: "FuturaBT-Light", size: 15.5)!
         
         static let mainFont_16: NSFont = NSFont(name: "FuturaBT-Light", size: 16)!
-        static let mainFont_16_5: NSFont = NSFont(name: "FuturaBT-Light", size: 16.5)!
-        
-        static let mainFont_17: NSFont = NSFont(name: "FuturaBT-Light", size: 17)!
-        
-        static let mainFont_18: NSFont = NSFont(name: "FuturaBT-Light", size: 18)!
-        static let mainFont_19: NSFont = NSFont(name: "FuturaBT-Light", size: 19)!
-        
-        static let mainFont_20: NSFont = NSFont(name: "FuturaBT-Light", size: 20)!
         
         static let captionFont_13: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 13)!
         static let captionFont_13_5: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 13.5)!
@@ -88,66 +51,29 @@ struct Fonts {
         static let captionFont_14: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 14)!
         static let captionFont_15: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 15)!
         static let captionFont_16: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 16)!
-        static let captionFont_17: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 17)!
-        
-        static let captionFont_18: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 18)!
-        static let captionFont_20: NSFont = NSFont(name: "RoundorNonCommercialRegular", size: 20)!
     }
     
     struct Programmer {
         
-        static let mainFont_8: NSFont = NSFont(name: "Monaco", size: 8)!
-        
         static let mainFont_9: NSFont = NSFont(name: "Monaco", size: 9)!
         
         static let mainFont_10: NSFont = NSFont(name: "Monaco", size: 10)!
-        static let mainFont_10_5: NSFont = NSFont(name: "Monaco", size: 10.5)!
         
         static let mainFont_11: NSFont = NSFont(name: "Monaco", size: 11)!
-        static let mainFont_11_5: NSFont = NSFont(name: "Monaco", size: 11.5)!
         
         static let mainFont_12: NSFont = NSFont(name: "Monaco", size: 12)!
         static let mainFont_12_5: NSFont = NSFont(name: "Monaco", size: 12.5)!
         
-        static let mainFont_13: NSFont = NSFont(name: "Monaco", size: 13)!
-        static let mainFont_13_5: NSFont = NSFont(name: "Monaco", size: 13.5)!
-        
         static let mainFont_14: NSFont = NSFont(name: "Monaco", size: 14)!
-        static let mainFont_14_5: NSFont = NSFont(name: "Monaco", size: 14.5)!
         
-        static let mainFont_15: NSFont = NSFont(name: "Monaco", size: 15)!
-        static let mainFont_15_5: NSFont = NSFont(name: "Monaco", size: 15.5)!
-        
-        static let mainFont_16: NSFont = NSFont(name: "Monaco", size: 16)!
-        static let mainFont_16_5: NSFont = NSFont(name: "Monaco", size: 16.5)!
-        
-        static let mainFont_17: NSFont = NSFont(name: "Monaco", size: 17)!
-        
-        static let mainFont_18: NSFont = NSFont(name: "Monaco", size: 18)!
-        
-        static let mainFont_20: NSFont = NSFont(name: "Monaco", size: 20)!
-        
-        static let captionFont_11: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 11)!
-        static let captionFont_12: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 12)!
         static let captionFont_13: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 13)!
-        static let captionFont_14: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 14)!
         static let captionFont_15: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 15)!
         static let captionFont_16: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 16)!
-        static let captionFont_17: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 17)!
-        
-        static let captionFont_18: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 18)!
-        static let captionFont_19: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 19)!
-        static let captionFont_20: NSFont = NSFont(name: "CarroisGothicSC-Regular", size: 20)!
     }
     
     struct Novelist {
             
-            static let mainFont_8: NSFont = NSFont(name: "ComingSoon", size: 8)!
-            
             static let mainFont_9: NSFont = NSFont(name: "ComingSoon", size: 9)!
-            
-            static let mainFont_10: NSFont = NSFont(name: "ComingSoon", size: 10)!
-            static let mainFont_10_5: NSFont = NSFont(name: "ComingSoon", size: 10.5)!
             
             static let mainFont_11: NSFont = NSFont(name: "ComingSoon", size: 11)!
             static let mainFont_11_5: NSFont = NSFont(name: "ComingSoon", size: 11.5)!
@@ -158,90 +84,42 @@ struct Fonts {
             static let mainFont_13: NSFont = NSFont(name: "ComingSoon", size: 13)!
             static let mainFont_13_5: NSFont = NSFont(name: "ComingSoon", size: 13.5)!
             
-            static let mainFont_14: NSFont = NSFont(name: "ComingSoon", size: 14)!
-            static let mainFont_14_5: NSFont = NSFont(name: "ComingSoon", size: 14.5)!
-            
             static let mainFont_15: NSFont = NSFont(name: "ComingSoon", size: 15)!
-            static let mainFont_15_5: NSFont = NSFont(name: "ComingSoon", size: 15.5)!
             
-            static let mainFont_16: NSFont = NSFont(name: "ComingSoon", size: 16)!
-            static let mainFont_16_5: NSFont = NSFont(name: "ComingSoon", size: 16.5)!
-            
-            static let mainFont_17: NSFont = NSFont(name: "ComingSoon", size: 17)!
-            
-            static let mainFont_18: NSFont = NSFont(name: "ComingSoon", size: 18)!
-            
-            static let mainFont_20: NSFont = NSFont(name: "ComingSoon", size: 20)!
-            
-            static let captionFont_11: NSFont = NSFont(name: "WalterTurncoat", size: 11)!
-        
             static let captionFont_12: NSFont = NSFont(name: "WalterTurncoat", size: 12)!
             static let captionFont_12_5: NSFont = NSFont(name: "WalterTurncoat", size: 12.5)!
         
-            static let captionFont_13: NSFont = NSFont(name: "WalterTurncoat", size: 13)!
             static let captionFont_14: NSFont = NSFont(name: "WalterTurncoat", size: 14)!
             static let captionFont_15: NSFont = NSFont(name: "WalterTurncoat", size: 15)!
-            static let captionFont_16: NSFont = NSFont(name: "WalterTurncoat", size: 16)!
-            static let captionFont_17: NSFont = NSFont(name: "WalterTurncoat", size: 17)!
             
             static let captionFont_18: NSFont = NSFont(name: "WalterTurncoat", size: 18)!
-            static let captionFont_19: NSFont = NSFont(name: "WalterTurncoat", size: 19)!
-            static let captionFont_20: NSFont = NSFont(name: "WalterTurncoat", size: 20)!
-            static let captionFont_21: NSFont = NSFont(name: "WalterTurncoat", size: 21)!
         }
     
     struct SoySauce {
             
             static let mainFont_14: NSFont = NSFont(name: "RagingRedLotusBB", size: 14)!
-            static let mainFont_14_5: NSFont = NSFont(name: "RagingRedLotusBB", size: 14.5)!
-            
-            static let mainFont_15: NSFont = NSFont(name: "RagingRedLotusBB", size: 15)!
-            static let mainFont_15_5: NSFont = NSFont(name: "RagingRedLotusBB", size: 15.5)!
-            
-            static let mainFont_16: NSFont = NSFont(name: "RagingRedLotusBB", size: 16)!
-            static let mainFont_16_5: NSFont = NSFont(name: "RagingRedLotusBB", size: 16.5)!
             
             static let mainFont_17: NSFont = NSFont(name: "RagingRedLotusBB", size: 17)!
             
             static let mainFont_18: NSFont = NSFont(name: "RagingRedLotusBB", size: 18)!
             
             static let mainFont_20: NSFont = NSFont(name: "RagingRedLotusBB", size: 20)!
-            static let mainFont_21: NSFont = NSFont(name: "RagingRedLotusBB", size: 21)!
             static let mainFont_22: NSFont = NSFont(name: "RagingRedLotusBB", size: 22)!
         
             static let mainFont_25: NSFont = NSFont(name: "RagingRedLotusBB", size: 25)!
             
-            static let captionFont_11: NSFont = NSFont(name: "Shufen", size: 11)!
-        
-            static let captionFont_12: NSFont = NSFont(name: "Shufen", size: 12)!
-            static let captionFont_12_5: NSFont = NSFont(name: "Shufen", size: 12.5)!
-        
-            static let captionFont_13: NSFont = NSFont(name: "Shufen", size: 13)!
             static let captionFont_14: NSFont = NSFont(name: "Shufen", size: 14)!
             static let captionFont_15: NSFont = NSFont(name: "Shufen", size: 15)!
-            static let captionFont_16: NSFont = NSFont(name: "Shufen", size: 16)!
-            static let captionFont_17: NSFont = NSFont(name: "Shufen", size: 17)!
             
             static let captionFont_18: NSFont = NSFont(name: "Shufen", size: 18)!
             static let captionFont_19: NSFont = NSFont(name: "Shufen", size: 19)!
-            static let captionFont_20: NSFont = NSFont(name: "Shufen", size: 20)!
-            static let captionFont_21: NSFont = NSFont(name: "Shufen", size: 21)!
         }
     
     struct Futuristic {
             
-            static let mainFont_8: NSFont = NSFont(name: "ControlFreak", size: 8)!
-            
-            static let mainFont_9: NSFont = NSFont(name: "ControlFreak", size: 9)!
-            
-            static let mainFont_10: NSFont = NSFont(name: "ControlFreak", size: 10)!
-            static let mainFont_10_5: NSFont = NSFont(name: "ControlFreak", size: 10.5)!
-            
             static let mainFont_11: NSFont = NSFont(name: "ControlFreak", size: 11)!
-            static let mainFont_11_5: NSFont = NSFont(name: "ControlFreak", size: 11.5)!
             
             static let mainFont_12: NSFont = NSFont(name: "ControlFreak", size: 12)!
-            static let mainFont_12_5: NSFont = NSFont(name: "ControlFreak", size: 12.5)!
             
             static let mainFont_13: NSFont = NSFont(name: "ControlFreak", size: 13)!
             static let mainFont_13_5: NSFont = NSFont(name: "ControlFreak", size: 13.5)!
@@ -255,36 +133,20 @@ struct Fonts {
             static let mainFont_16: NSFont = NSFont(name: "ControlFreak", size: 16)!
             static let mainFont_16_5: NSFont = NSFont(name: "ControlFreak", size: 16.5)!
             
-            static let mainFont_17: NSFont = NSFont(name: "ControlFreak", size: 17)!
-            
-            static let mainFont_18: NSFont = NSFont(name: "ControlFreak", size: 18)!
             static let mainFont_19: NSFont = NSFont(name: "ControlFreak", size: 19)!
             
-            static let mainFont_20: NSFont = NSFont(name: "ControlFreak", size: 20)!
-            
-            static let captionFont_11: NSFont = NSFont(name: "neo-latina", size: 11)!
-            static let captionFont_12: NSFont = NSFont(name: "neo-latina", size: 12)!
-            static let captionFont_13: NSFont = NSFont(name: "neo-latina", size: 13)!
             static let captionFont_14: NSFont = NSFont(name: "neo-latina", size: 14)!
-            static let captionFont_14_5: NSFont = NSFont(name: "neo-latina", size: 14.5)!
             static let captionFont_15: NSFont = NSFont(name: "neo-latina", size: 15)!
-            static let captionFont_16: NSFont = NSFont(name: "neo-latina", size: 16)!
-            static let captionFont_17: NSFont = NSFont(name: "neo-latina", size: 17)!
             
             static let captionFont_18: NSFont = NSFont(name: "neo-latina", size: 18)!
             static let captionFont_19: NSFont = NSFont(name: "neo-latina", size: 19)!
-            static let captionFont_20: NSFont = NSFont(name: "neo-latina", size: 20)!
-            static let captionFont_21: NSFont = NSFont(name: "neo-latina", size: 21)!
         }
     
     struct Gothic {
         
-            static let mainFont_8: NSFont = NSFont(name: "Metamorphous", size: 8)!
-            
             static let mainFont_9: NSFont = NSFont(name: "Metamorphous", size: 9)!
             
             static let mainFont_10: NSFont = NSFont(name: "Metamorphous", size: 10)!
-            static let mainFont_10_5: NSFont = NSFont(name: "Metamorphous", size: 10.5)!
             
             static let mainFont_11: NSFont = NSFont(name: "Metamorphous", size: 11)!
             static let mainFont_11_5: NSFont = NSFont(name: "Metamorphous", size: 11.5)!
@@ -292,53 +154,19 @@ struct Fonts {
             static let mainFont_12: NSFont = NSFont(name: "Metamorphous", size: 12)!
             static let mainFont_12_5: NSFont = NSFont(name: "Metamorphous", size: 12.5)!
             
-            static let mainFont_13: NSFont = NSFont(name: "Metamorphous", size: 13)!
-            static let mainFont_13_5: NSFont = NSFont(name: "Metamorphous", size: 13.5)!
-            
             static let mainFont_14: NSFont = NSFont(name: "Metamorphous", size: 14)!
-            static let mainFont_14_5: NSFont = NSFont(name: "Metamorphous", size: 14.5)!
             
-            static let mainFont_15: NSFont = NSFont(name: "Metamorphous", size: 15)!
-            static let mainFont_15_5: NSFont = NSFont(name: "Metamorphous", size: 15.5)!
-            
-            static let mainFont_16: NSFont = NSFont(name: "Metamorphous", size: 16)!
-            static let mainFont_16_5: NSFont = NSFont(name: "Metamorphous", size: 16.5)!
-            
-            static let mainFont_17: NSFont = NSFont(name: "Metamorphous", size: 17)!
-            
-            static let mainFont_18: NSFont = NSFont(name: "Metamorphous", size: 18)!
-            
-            static let mainFont_20: NSFont = NSFont(name: "Metamorphous", size: 20)!
-            
-            static let captionFont_8: NSFont = NSFont(name: "AlmendraSC-Regular", size: 8)!
-            static let captionFont_9: NSFont = NSFont(name: "AlmendraSC-Regular", size: 9)!
-            static let captionFont_10: NSFont = NSFont(name: "AlmendraSC-Regular", size: 10)!
-            static let captionFont_11: NSFont = NSFont(name: "AlmendraSC-Regular", size: 11)!
-            static let captionFont_12: NSFont = NSFont(name: "AlmendraSC-Regular", size: 12)!
-            static let captionFont_13: NSFont = NSFont(name: "AlmendraSC-Regular", size: 13)!
             static let captionFont_14: NSFont = NSFont(name: "AlmendraSC-Regular", size: 14)!
-            static let captionFont_15: NSFont = NSFont(name: "AlmendraSC-Regular", size: 15)!
-            static let captionFont_16: NSFont = NSFont(name: "AlmendraSC-Regular", size: 16)!
             static let captionFont_17: NSFont = NSFont(name: "AlmendraSC-Regular", size: 17)!
-            
-            static let captionFont_18: NSFont = NSFont(name: "AlmendraSC-Regular", size: 18)!
-            static let captionFont_20: NSFont = NSFont(name: "AlmendraSC-Regular", size: 20)!
         }
     
     struct Papyrus {
         
-        static let mainFont_8: NSFont = NSFont(name: "Papyrus", size: 8)!
-        
         static let mainFont_9: NSFont = NSFont(name: "Papyrus", size: 9)!
         
-        static let mainFont_10: NSFont = NSFont(name: "Papyrus", size: 10)!
-        static let mainFont_10_5: NSFont = NSFont(name: "Papyrus", size: 10.5)!
-        
         static let mainFont_11: NSFont = NSFont(name: "Papyrus", size: 11)!
-        static let mainFont_11_5: NSFont = NSFont(name: "Papyrus", size: 11.5)!
         
         static let mainFont_12: NSFont = NSFont(name: "Papyrus", size: 12)!
-        static let mainFont_12_5: NSFont = NSFont(name: "Papyrus", size: 12.5)!
         
         static let mainFont_13: NSFont = NSFont(name: "Papyrus", size: 13)!
         static let mainFont_13_5: NSFont = NSFont(name: "Papyrus", size: 13.5)!
@@ -347,63 +175,32 @@ struct Fonts {
         static let mainFont_14_5: NSFont = NSFont(name: "Papyrus", size: 14.5)!
         
         static let mainFont_15: NSFont = NSFont(name: "Papyrus", size: 15)!
-        static let mainFont_15_5: NSFont = NSFont(name: "Papyrus", size: 15.5)!
         
         static let mainFont_16: NSFont = NSFont(name: "Papyrus", size: 16)!
         static let mainFont_16_5: NSFont = NSFont(name: "Papyrus", size: 16.5)!
         
-        static let mainFont_17: NSFont = NSFont(name: "Papyrus", size: 17)!
-        
-        static let mainFont_18: NSFont = NSFont(name: "Papyrus", size: 18)!
-        
-        static let mainFont_20: NSFont = NSFont(name: "Papyrus", size: 20)!
-        
-        static let captionFont_8: NSFont = NSFont(name: "Aniron", size: 8)!
-        static let captionFont_9: NSFont = NSFont(name: "Aniron", size: 9)!
         static let captionFont_10: NSFont = NSFont(name: "Aniron", size: 10)!
         static let captionFont_11: NSFont = NSFont(name: "Aniron", size: 11)!
         static let captionFont_12: NSFont = NSFont(name: "Aniron", size: 12)!
         static let captionFont_12_5: NSFont = NSFont(name: "Aniron", size: 12.5)!
-        static let captionFont_13: NSFont = NSFont(name: "Aniron", size: 13)!
-        static let captionFont_14: NSFont = NSFont(name: "Aniron", size: 14)!
-        static let captionFont_15: NSFont = NSFont(name: "Aniron", size: 15)!
-        static let captionFont_16: NSFont = NSFont(name: "Aniron", size: 16)!
-        static let captionFont_17: NSFont = NSFont(name: "Aniron", size: 17)!
-        
-        static let captionFont_18: NSFont = NSFont(name: "Aniron", size: 18)!
-        static let captionFont_20: NSFont = NSFont(name: "Aniron", size: 20)!
     }
     
     struct PoolsideFM {
         
-        static let mainFont_8: NSFont = NSFont(name: "ChicagoFLF", size: 8)!
-        
         static let mainFont_9: NSFont = NSFont(name: "ChicagoFLF", size: 9)!
         
         static let mainFont_10: NSFont = NSFont(name: "ChicagoFLF", size: 10)!
-        static let mainFont_10_5: NSFont = NSFont(name: "ChicagoFLF", size: 10.5)!
         
         static let mainFont_11: NSFont = NSFont(name: "ChicagoFLF", size: 11)!
-        static let mainFont_11_5: NSFont = NSFont(name: "ChicagoFLF", size: 11.5)!
         
         static let mainFont_12: NSFont = NSFont(name: "ChicagoFLF", size: 12)!
         static let mainFont_12_5: NSFont = NSFont(name: "ChicagoFLF", size: 12.5)!
         
-        static let mainFont_13: NSFont = NSFont(name: "ChicagoFLF", size: 13)!
-        static let mainFont_13_5: NSFont = NSFont(name: "ChicagoFLF", size: 13.5)!
-        
         static let mainFont_14: NSFont = NSFont(name: "ChicagoFLF", size: 14)!
-        static let mainFont_14_5: NSFont = NSFont(name: "ChicagoFLF", size: 14.5)!
         
-        static let mainFont_15: NSFont = NSFont(name: "ChicagoFLF", size: 15)!
-        static let mainFont_15_5: NSFont = NSFont(name: "ChicagoFLF", size: 15.5)!
-        
-        static let mainFont_16: NSFont = NSFont(name: "ChicagoFLF", size: 16)!
-        
-        static let captionFont_13: NSFont = mainFont_13
-        static let captionFont_14: NSFont = mainFont_14
-        static let captionFont_15: NSFont = mainFont_15
-        static let captionFont_16: NSFont = mainFont_16
+        static let captionFont_13: NSFont = NSFont(name: "ChicagoFLF", size: 13)!
+        static let captionFont_15: NSFont = NSFont(name: "ChicagoFLF", size: 15)!
+        static let captionFont_16: NSFont = NSFont(name: "ChicagoFLF", size: 16)!
     }
     
     static let menuFont: NSFont = Standard.mainFont_11

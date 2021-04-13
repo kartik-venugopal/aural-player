@@ -5,6 +5,6 @@ import Foundation
  */
 class FontSchemeChangeContext {
     
-    var textFontName: String = Fonts.Standard.mainFont_8.fontName
+    var textFontName: String = Fonts.Standard.mainFont_10.fontName
     var headingFontName: String = Fonts.Standard.captionFont_13.fontName
 }
