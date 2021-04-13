@@ -174,6 +174,9 @@ class FFmpegFileReader: FileReaderProtocol {
             if let audioStream = fctx.bestAudioStream {
                 
                 audioInfo.sampleRate = audioStream.sampleRate
+                
+                audioInfo.sampleFormat = FFmpegSampleFormat(encapsulating: AVSampleFormat(rawValue: audioStream.codecParams.format)).description
+                
                 audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
                 
                 audioInfo.numChannels = Int(audioStream.channelCount)

@@ -16,8 +16,7 @@ extension FFmpegDecoder {
     ///
     func decodeLoop(maxSampleCount: Int32, loopEndTime: Double) -> FFmpegFrameBuffer {
         
-        let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount,
-                                                               channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
+        let audioFormat: FFmpegAudioFormat = FFmpegAudioFormat(sampleRate: codec.sampleRate, channelCount: codec.channelCount, channelLayout: codec.channelLayout, sampleFormat: codec.sampleFormat)
         
         // Create a frame buffer with the specified maximum sample count and the codec's sample format for this file.
         let buffer: FFmpegFrameBuffer = FFmpegFrameBuffer(audioFormat: audioFormat, maxSampleCount: maxSampleCount)

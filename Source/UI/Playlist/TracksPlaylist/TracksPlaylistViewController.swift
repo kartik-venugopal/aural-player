@@ -114,14 +114,10 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
     @IBAction func playSelectedTrackAction(_ sender: AnyObject) {
-        playSelectedTrackWithDelay()
+        playSelectedTrack()
     }
     
     func playSelectedTrack() {
-        playSelectedTrackWithDelay()
-    }
-    
-    func playSelectedTrackWithDelay(_ delay: Double? = nil) {
         
         if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
             Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow))

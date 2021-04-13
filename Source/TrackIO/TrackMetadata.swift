@@ -117,6 +117,9 @@ class AudioInfo {
     // The sample rate of the track (in Hz)
     var sampleRate: Int32?
     
+    // eg. 32-bit Floating point planar or Signed 16-bit Integer interleaved.
+    var sampleFormat: String?
+    
     // Number of audio channels
     var numChannels: Int?
     

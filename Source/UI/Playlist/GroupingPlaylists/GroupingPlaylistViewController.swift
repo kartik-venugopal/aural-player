@@ -131,14 +131,10 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     // Plays the track/group selected within the playlist, if there is one. If multiple items are selected, the first one will be chosen.
     @IBAction func playSelectedItemAction(_ sender: AnyObject) {
-        playSelectedItemWithDelay()
+        playSelectedItem()
     }
     
     func playSelectedItem() {
-        playSelectedItemWithDelay()
-    }
-    
-    func playSelectedItemWithDelay(_ delay: Double? = nil) {
         
         if let firstSelectedRow = selectedRows.min() {
             

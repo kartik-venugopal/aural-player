@@ -37,6 +37,10 @@ class AudioDataSource: TrackInfoDataSource {
             trackInfo.append((key: "Sample Rate", value: value_unknown))
         }
         
+        if let sampleFormat = track.audioInfo?.sampleFormat {
+            trackInfo.append((key: "Sample Format", value: sampleFormat))
+        }
+        
         if let layout = track.audioInfo?.channelLayout {
             trackInfo.append((key: "Channel Layout", value: layout.capitalized))
         } else {
