@@ -42,9 +42,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
-    // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -118,21 +115,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     }
     
     private var areOnlyGroupsSelected: Bool {!PlaylistViewState.selectedItems.contains(where: {$0.type != .group})}
-    
-    // Assumes only one item selected, and that it's a track
-    private var selectedTrack: Track? {
-        
-        if let selItem = PlaylistViewState.selectedItem {
-            
-            if selItem.type == .index, let index = selItem.index {
-                return playlist.trackAtIndex(index)
-            }
-            
-            return selItem.track
-        }
-        
-        return nil
-    }
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addFilesAction(_ sender: Any) {

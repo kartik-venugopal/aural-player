@@ -11,9 +11,7 @@ struct Colors {
         static let white7Percent: NSColor = NSColor(white: 0.07, alpha: 1)
         static let white8Percent: NSColor = NSColor(white: 0.08, alpha: 1)
         static let white10Percent: NSColor = NSColor(white: 0.1, alpha: 1)
-        static let white13_5Percent: NSColor = NSColor(white: 0.135, alpha: 1)
         static let white15Percent: NSColor = NSColor(white: 0.15, alpha: 1)
-        static let white17Percent: NSColor = NSColor(white: 0.17, alpha: 1)
         static let white20Percent: NSColor = NSColor(white: 0.2, alpha: 1)
         static let white22Percent: NSColor = NSColor(white: 0.22, alpha: 1)
         static let white25Percent: NSColor = NSColor(white: 0.25, alpha: 1)
@@ -32,7 +30,6 @@ struct Colors {
         static let white85Percent: NSColor = NSColor(white: 0.85, alpha: 1)
         static let white90Percent: NSColor = NSColor(white: 0.9, alpha: 1)
         
-        static let green60Percent: NSColor = NSColor(red: 0, green: 0.6, blue: 0, alpha: 1)
         static let green75Percent: NSColor = NSColor(red: 0, green: 0.75, blue: 0, alpha: 1)
         
         static let aqua: NSColor = NSColor(red: 0, green: 0.5, blue: 1, alpha: 1)
@@ -74,12 +71,6 @@ struct Colors {
         return NSGradient(starting: color, ending: color.darkened(40))!
     }
     
-    static var textButtonMenuGradient_disabled: NSGradient {
-        
-        let color = ColorSchemes.systemScheme.general.textButtonMenuColor
-        return NSGradient(starting: color, ending: color.darkened(50))!
-    }
-    
     static var toggleButtonOffStateColor: NSColor {
         return ColorSchemes.systemScheme.general.toggleButtonOffStateColor
     }
@@ -108,10 +99,6 @@ struct Colors {
         return ColorSchemes.systemScheme.general.buttonMenuTextColor.darkened(70)
     }
     
-    static var tabViewButtonSelectionBoxColor: NSColor {
-        return ColorSchemes.systemScheme.general.selectedTabButtonColor
-    }
-    
     struct Player {
         
         static var trackInfoTitleTextColor: NSColor {
@@ -136,10 +123,6 @@ struct Colors {
         
         static var progressArcTextColor: NSColor {
             return ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor
-        }
-        
-        static var progressArcForegroundColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderForegroundColor
         }
         
         static var progressArcBackgroundColor: NSColor {
@@ -512,16 +495,6 @@ struct Colors {
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = Constants.white15Percent
     
-    static let editorSelectionBoxColor: NSColor = NSColor(white: 0.55, alpha: 1)
-    
-    // Outline color of buttons on modal dialogs
-    static let modalDialogButtonOutlineColor: NSColor = NSColor(white: 0.575, alpha: 1)
-    
-    // Color used to fill tab view buttons
-    static let tabViewButtonBackgroundColor: NSColor = NSColor.black
-    
-    static let transparentColor: NSColor = NSColor.white
-    
     // Color used to outline tab view buttons
     static let tabViewButtonOutlineColor: NSColor = NSColor(white: 0.65, alpha: 1)
     
@@ -555,22 +528,14 @@ struct Colors {
     static let scrollerKnobColor: NSColor = Constants.white40Percent
     static let scrollerBarColor: NSColor = Constants.white25Percent
     
-    static let seekBarColoredGradient: NSGradient = Colors.Effects.defaultSliderBackgroundGradient
-    
     // Color of the ticks/notches on sliders
     static let sliderNotchColor: NSColor = NSColor.black
-    
-    // Pop up menu (reverb/EQ/recorder) color
-    static let popupMenuColor: NSColor = Constants.white60Percent
     
     // Fill color of box drawn around selected tab view item
     static let tabViewSelectionBoxColor: NSColor = NSColor(white: 0.125, alpha: 1)
     
     // Text color of modal dialog buttons
     static let modalDialogButtonTextColor: NSColor = Constants.white90Percent
-    
-    // Text color of modal dialog buttons
-    static let fxUnitButtonTextColor: NSColor = Constants.white60Percent
     
     static let modalDialogButtonGradient: NSGradient = {
         
@@ -588,9 +553,6 @@ struct Colors {
         let backgroundEnd =  Constants.white10Percent
         return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
     }()
-    
-    // Fill color of modal dialog navigation buttons (search)
-    static let modalDialogNavButtonColor: NSColor = Constants.white45Percent
     
     // Fill color of text in modal dialog navigation buttons (search)
     static let modalDialogNavButtonTextColor: NSColor = Constants.white90Percent

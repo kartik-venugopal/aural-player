@@ -21,7 +21,6 @@ struct UIConstants {
     
     // Index set used to reload specific playlist rows
     static let flatPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1, 2])
-    static let groupingPlaylistViewColumnIndexes: IndexSet = IndexSet([0, 1])
     
     static let bookmarkNameColumnID: String = "cid_BookmarkName"
     static let bookmarkTrackColumnID: String = "cid_BookmarkTrack"
@@ -29,7 +28,6 @@ struct UIConstants {
     static let bookmarkEndPositionColumnID: String = "cid_BookmarkEndPosition"
     
     static let favoriteNameColumnID: String = "cid_FavoriteName"
-    static let favoriteTrackColumnID: String = "cid_FavoriteTrack"
     
     static let filterBandsFreqColumnID: String = "cid_Frequencies"
     static let filterBandsTypeColumnID: String = "cid_Type"
@@ -37,16 +35,10 @@ struct UIConstants {
     static let audioUnitSwitchColumnID: String = "cid_AudioUnitSwitch"
     static let audioUnitNameColumnID: String = "cid_AudioUnitName"
     static let audioUnitEditColumnID: String = "cid_AudioUnitEdit"
-    static let audioUnitIconColumnID: String = "cid_AudioUnitIcon"
-    
-    static let bookmarkPromptLocatorViewID: String = "bookmarkPromptLocator"
     
     // Angles used to fill gradients
     static let verticalGradientDegrees: CGFloat = -90.0
     static let horizontalGradientDegrees: CGFloat = -180.0
-    
-    // Default seek timer interval (milliseconds)
-    static let seekTimerIntervalMillis: Int = 500
     
     // Recorder timer interval (milliseconds)
     static let recorderTimerIntervalMillis: Int = 500

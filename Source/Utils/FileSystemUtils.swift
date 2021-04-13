@@ -85,23 +85,6 @@ class FileSystemUtils {
         }
     }
     
-    // Deletes all contents of a directory
-    static func deleteContentsOfDirectory(_ dir: URL) {
-        
-        do {
-            
-            // Retrieve all files/subfolders within this folder
-            let contents = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions())
-            
-            for file in contents {
-                try fileManager.removeItem(atPath: file.path)
-            }
-            
-        } catch let error as NSError {
-            NSLog("Error retrieving/deleting contents of directory '%@': %@", dir.path, error.description)
-        }
-    }
-    
     // Retrieves the contents of a directory
     static func getContentsOfDirectory(_ dir: URL) -> [URL]? {
         

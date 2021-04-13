@@ -296,7 +296,6 @@ class ValueFormatter {
 
         // Units for different effects parameters
         
-        static let eqGainDB: String = "dB"
         static let pitchOctaves: String = "8ve"
         static let timeStretchRate: String = "x"
         static let reverbWetAmount: String = "wet"
@@ -304,7 +303,6 @@ class ValueFormatter {
         static let delayTimeSecs: String = "s"
         static let delayFeedbackPerc: String = "%"
         static let frequencyHz: String = "Hz"
-        static let frequencyKHz: String = "KHz"
         static let screenRealEstatePixel: String = "px"
     }
 }

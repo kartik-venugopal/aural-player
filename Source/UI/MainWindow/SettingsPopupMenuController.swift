@@ -11,8 +11,6 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
     
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // These items should be enabled only if there is no modal component currently shown.

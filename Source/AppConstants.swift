@@ -49,9 +49,6 @@ struct AppConstants {
         
         static let mid_min: Float = bass_max
         static let mid_max: Float = 4000
-        
-        static let treble_min: Float = mid_max
-        static let treble_max: Float = audibleRangeMax
     }
     
     struct ValueConversions {

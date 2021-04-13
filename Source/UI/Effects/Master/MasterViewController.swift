@@ -8,7 +8,6 @@ class MasterViewController: FXUnitViewController {
     @IBOutlet weak var audioUnitsClipView: NSClipView!
     @IBOutlet weak var audioUnitsTable: NSTableView!
     
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     private let soundPreferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
     private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
     

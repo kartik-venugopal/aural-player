@@ -8,7 +8,6 @@ import AVFoundation
 class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
     
     static let bandStopGain: Float = -30
-    static let minBandwidth: Float = 0.05
     
     var numberOfBands: Int {return bandInfos.count}
     

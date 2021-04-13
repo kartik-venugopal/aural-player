@@ -286,20 +286,6 @@ extension NSControl {
     }
 }
 
-extension NSPopUpButton {
-    
-    var separatorCount: Int {
-        
-        var count: Int = 0
-        
-        for item in self.menu!.items {
-            if item.isSeparatorItem {count.increment()}
-        }
-        
-        return count
-    }
-}
-
 class NoTitleBarWindow: NSWindow {
     
     override func awakeFromNib() {
@@ -377,16 +363,6 @@ extension NSWindow {
     
     var maxY: CGFloat {
         return self.frame.maxY
-    }
-    
-    // Screen (visible) width - this window's width
-    var remainingWidth: CGFloat {
-        return (NSScreen.main!.visibleFrame.width - self.width)
-    }
-    
-    // Screen (visible) height - this window's height
-    var remainingHeight: CGFloat {
-        return (NSScreen.main!.visibleFrame.height - self.height)
     }
     
     func resizeTo(newWidth: CGFloat, newHeight: CGFloat) {
@@ -531,19 +507,6 @@ extension NSColor {
         let newBrightness = curBrightness + (percentage * range / 100)
         
         return NSColor(hue: rgbSelf.hueComponent, saturation: rgbSelf.saturationComponent, brightness: min(max(0, newBrightness), 1), alpha: rgbSelf.alphaComponent)
-    }
-    
-    // Used for debugging purposes ... prints a JSON-style string with the different component values of this color.
-//    func toString() -> String {
-//        return String(describing: JSONMapper.map(ColorState.fromColor(self)))
-//    }
-    
-    // Used for debugging purposes ... prints a JSON-style string with the different component values of this color represented as HSB.
-    func hsbString() -> String {
-        
-        let rgb = self.toRGB()
-        
-        return String(format: "Hue: %.3f\nSat: %.3f\nBrightness: %.3f", rgb.hueComponent, rgb.saturationComponent, rgb.brightnessComponent)
     }
 }
 

@@ -5,7 +5,7 @@ import Cocoa
  */
 class HelpMenuController: NSObject {
     
-    private lazy var workspace: NSWorkspace = NSWorkspace.shared
+//    private lazy var workspace: NSWorkspace = NSWorkspace.shared
     
     // Opens the online (HTML) user guide
     @IBAction func onlineUserGuideAction(_ sender: Any) {

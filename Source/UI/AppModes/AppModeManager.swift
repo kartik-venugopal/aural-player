@@ -4,7 +4,7 @@ class AppModeManager: NotificationSubscriber {
     
     let subscriberId: String = "AppModeManager"
     
-    private static let subscriber: AppModeManager = AppModeManager()
+//    private static let subscriber: AppModeManager = AppModeManager()
     
     static var mode: AppMode = AppDefaults.appMode
     

@@ -47,8 +47,6 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var soundProfiles: SoundProfiles {return graph.soundProfiles}
     
-    private let notificationQueue: DispatchQueue = .global(qos: .userInteractive)
-    
     init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState) {
         
         self.graph = graph

@@ -23,7 +23,6 @@ class ID3FFmpegParser: FFmpegMetadataParser {
     private let keys_bpm: [String] = [ID3_V24Spec.key_bpm, ID3_V22Spec.key_bpm].map {$0.lowercased()}
     
     private let keys_lyrics: [String] = [ID3_V24Spec.key_lyrics, ID3_V22Spec.key_lyrics, ID3_V24Spec.key_syncLyrics, ID3_V22Spec.key_syncLyrics].map {$0.lowercased()}
-    private let keys_art: [String] = [ID3_V24Spec.key_art, ID3_V22Spec.key_art].map {$0.lowercased()}
     
     private let keys_language: [String] = [ID3_V24Spec.key_language, ID3_V22Spec.key_language]
     private let keys_compilation: [String] = [ID3_V24Spec.key_compilation, ID3_V22Spec.key_compilation]

@@ -18,8 +18,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
-    
     private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
     
     // Intended to be overriden by subclasses
@@ -119,12 +117,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private var selectedRows: IndexSet {playlistView.selectedRowIndexes}
     
-    private var selectedRowsArr: [Int] {playlistView.selectedRowIndexes.toArray()}
-    
-    private var selectedRowCount: Int {playlistView.selectedRowIndexes.count}
-    
-    private var rowCount: Int {playlistView.numberOfRows}
-    
     private var atLeastOneRow: Bool {playlistView.numberOfRows > 0}
     
     private var lastRow: Int {playlistView.numberOfRows - 1}
@@ -147,12 +139,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
                 Messenger.publish(TrackPlaybackCommandNotification(group: group))
             }
         }
-    }
-    
-    private func clearPlaylist() {
-        
-        playlist.clear()
-        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.allViews)
     }
     
     // Helper function that gathers all selected playlist items as tracks and groups

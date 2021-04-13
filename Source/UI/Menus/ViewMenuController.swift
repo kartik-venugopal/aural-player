@@ -25,8 +25,6 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
-    private let viewAppState = ObjectGraph.appState.ui.player
-    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     func menuNeedsUpdate(_ menu: NSMenu) {

@@ -8,9 +8,6 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
 
     var statusItem: NSStatusItem!
 
-    // Popover positioning parameters
-    private let positioningRect = NSZeroRect
-
     override var nibName: String? {return "StatusBar"}
 
     private var globalMouseClickMonitor: GlobalMouseClickMonitor!

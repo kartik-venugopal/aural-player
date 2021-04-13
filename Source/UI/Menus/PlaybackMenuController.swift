@@ -48,9 +48,6 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
     
-    // Delegate that provides access to History information
-    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
-    
     private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
     
     private let jumpToTimeDialog: ModalDialogDelegate = WindowFactory.jumpToTimeEditorDialog

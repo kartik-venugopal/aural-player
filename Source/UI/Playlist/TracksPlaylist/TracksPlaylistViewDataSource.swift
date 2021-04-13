@@ -8,9 +8,6 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Delegate that relays accessor operations to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
-    // Used to determine if a track is currently playing
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     

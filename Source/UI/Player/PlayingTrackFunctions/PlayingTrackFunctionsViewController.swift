@@ -36,7 +36,6 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
     
-    private lazy var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
     
     private var allButtons: [Tintable] = []

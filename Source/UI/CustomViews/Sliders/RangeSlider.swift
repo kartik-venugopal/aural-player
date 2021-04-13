@@ -30,7 +30,6 @@ enum DraggedSlider {
     case end
 }
 
-fileprivate let bandStopColor: NSColor = NSColor(red: 0.45, green: 0, blue: 0, alpha: 1)
 fileprivate let bandPassColor: NSColor = NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
 fileprivate let bypassedColor: NSColor = Colors.Constants.white35Percent
 fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
@@ -70,9 +69,7 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
         }
     }
     
-    private let verticalShadowPadding: CGFloat = 4.0
     private let barTrailingMargin: CGFloat = 1.0
-    private let disabledControlDimmingRatio: CGFloat = 0.65
     
     var shouldTriggerHandler: Bool = true
     

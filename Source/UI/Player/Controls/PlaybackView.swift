@@ -22,9 +22,6 @@ class PlaybackView: NSView, ColorSchemeable {
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let sequencer: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
     
-    // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
-    
     var seekSliderValue: Double {
         return sliderView.seekSliderValue
     }

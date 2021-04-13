@@ -78,9 +78,3 @@ class ColorSchemesDialogCheckBoxCell: CheckRadioButtonCell {
     
     override var textFont: NSFont {return Fonts.Standard.mainFont_12}
 }
-
-class ColorSchemesDialogRadioButtonCell: CheckRadioButtonCell {
-    
-    override var textFont: NSFont {return Fonts.Standard.mainFont_12}
-    override var yOffset: CGFloat {return 2}
-}

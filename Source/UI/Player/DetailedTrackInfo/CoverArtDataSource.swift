@@ -67,23 +67,4 @@ class CoverArtDataSource: TrackInfoDataSource {
         
         return trackInfo
     }
-    
-    private func channelLayout(_ numChannels: Int) -> String {
-        
-        switch numChannels {
-            
-        case 1: return "Mono (1 ch)"
-            
-        case 2: return "Stereo (2 ch)"
-            
-        case 6: return "5.1 (6 ch)"
-            
-        case 8: return "7.1 (8 ch)"
-            
-        case 10: return "9.1 (10 ch)"
-            
-        default: return String(format: "%d channels", numChannels)
-            
-        }
-    }
 }

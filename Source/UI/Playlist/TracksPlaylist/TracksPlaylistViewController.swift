@@ -18,8 +18,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
-    
     private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
     override var nibName: String? {return "Tracks"}
@@ -93,8 +91,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     private var selectedRows: IndexSet {playlistView.selectedRowIndexes}
     
-    private var selectedRowsArr: [Int] {playlistView.selectedRowIndexes.toArray()}
-    
     private var selectedRowCount: Int {playlistView.numberOfSelectedRows}
     
     private var rowCount: Int {playlistView.numberOfRows}
@@ -122,12 +118,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
             Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow))
         }
-    }
-    
-    private func clearPlaylist() {
-        
-        playlist.clear()
-        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.allViews)
     }
     
     private func removeTracks() {

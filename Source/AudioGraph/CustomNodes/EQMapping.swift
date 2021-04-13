@@ -118,10 +118,6 @@ fileprivate func attenuationBetween(_ centerFreq: Float, _ targetFreq: Float, _ 
     return 6 * octavesBetweenFreqs(targetFreq, centerFreq) / bandwidth
 }
 
-fileprivate func hasSameSign(_ f1: Float, _ f2: Float) -> Bool {
-    return (f1 == f2) || (f1 > 0 && f2 > 0) || (f1 < 0 && f2 < 0)
-}
-
 fileprivate func octavesBetweenFreqs(_ f1: Float, _ f2: Float) -> Float {
     return fabsf(log2(f2 / f1))
 }

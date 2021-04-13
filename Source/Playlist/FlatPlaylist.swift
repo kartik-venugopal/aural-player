@@ -71,14 +71,6 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
         tracks.removeAll()
     }
  
-    private func removeTrackAtIndex(_ index: Int) -> Track? {
-        return tracks.removeItem(index)
-    }
-    
-    private func removeTrack(_ track: Track) -> Int? {
-        return tracks.removeItem(track)
-    }
-    
     func removeTracks(_ removedTracks: [Track]) -> IndexSet {
         return tracks.removeItems(removedTracks)
     }

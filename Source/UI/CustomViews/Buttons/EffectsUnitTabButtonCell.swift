@@ -3,10 +3,6 @@ import Cocoa
 @IBDesignable
 class EffectsUnitTabButtonCell: NSButtonCell {
     
-    private let borderInsetX: CGFloat = 0
-    private let borderInsetY: CGFloat = 2
-    private let borderRadius: CGFloat = 3
-    
     private var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
     var unitState: EffectsUnitState = .bypassed

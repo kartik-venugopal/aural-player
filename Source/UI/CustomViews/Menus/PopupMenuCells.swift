@@ -136,37 +136,6 @@ class FontsPopupMenuCell: PopupMenuCell {
     override var textOffsetY: CGFloat {3}
 }
 
-// Cell for EQ presets popup menu
-class PresetsPopupMenuCell: PopupMenuCell {
-    
-    override var cellInsetX: CGFloat {return 10.5}
-    override var cellInsetY: CGFloat {return 4}
-    override var arrowXMargin: CGFloat {return 6.5}
-    override var arrowYMargin: CGFloat {return 4}
-    override var arrowHeight: CGFloat {return 3}
-    
-    override var menuGradient: NSGradient {return Colors.functionButtonGradient}
-    override var arrowColor: NSColor {return Colors.buttonMenuTextColor}
-    
-    override internal func drawBorderAndBackground(withFrame cellFrame: NSRect, in controlView: NSView) {
-        
-        let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY).offsetBy(dx: 0, dy: 0.5)
-        let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: rectRadius, yRadius: rectRadius)
-        
-        menuGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
-        
-        // Draw arrow
-        let x = drawRect.maxX - arrowXMargin, y = drawRect.maxY - arrowYMargin
-        GraphicsUtils.drawArrow(arrowColor, origin: NSMakePoint(x, y), dx: arrowWidth, dy: arrowHeight, lineWidth: arrowLineWidth)
-    }
-    
-    override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
-        
-        // Don't draw the title (we don't need it)
-        return withFrame
-    }
-}
-
 class FXPreviewPopupMenuCell: NicerPopupMenuCell {
     
     override var menuGradient: NSGradient {return Colors.Effects.defaultPopupMenuGradient}

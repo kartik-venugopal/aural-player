@@ -383,7 +383,6 @@
 		3E6C12C925CEBE6700BF0D07 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FEC25CEB98600BF0D07 /* Colors.swift */; };
 		3E6C12CA25CEBE6700BF0D07 /* EffectsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */; };
 		3E6C12CB25CEBE6700BF0D07 /* Time.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100225CEB98600BF0D07 /* Time.xib */; };
-		3E6C12CD25CEBE6700BF0D07 /* EffectsUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF625CEB98600BF0D07 /* EffectsUnitView.swift */; };
 		3E6C12CE25CEBE6700BF0D07 /* ReverbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFF25CEB98600BF0D07 /* ReverbView.swift */; };
 		3E6C12CF25CEBE6700BF0D07 /* FXUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FF525CEB98600BF0D07 /* FXUnitViewController.swift */; };
 		3E6C12D125CEBE6700BF0D07 /* TimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100425CEB98600BF0D07 /* TimeViewController.swift */; };
@@ -846,7 +845,6 @@
 		3E6C0FF125CEB98600BF0D07 /* Pitch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Pitch.xib; sourceTree = "<group>"; };
 		3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsWindowController.swift; sourceTree = "<group>"; };
 		3E6C0FF525CEB98600BF0D07 /* FXUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitViewController.swift; sourceTree = "<group>"; };
-		3E6C0FF625CEB98600BF0D07 /* EffectsUnitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitView.swift; sourceTree = "<group>"; };
 		3E6C0FF825CEB98600BF0D07 /* EQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQViewController.swift; sourceTree = "<group>"; };
 		3E6C0FF925CEB98600BF0D07 /* EQView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQView.swift; sourceTree = "<group>"; };
 		3E6C0FFA25CEB98600BF0D07 /* EQ.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQ.xib; sourceTree = "<group>"; };
@@ -1124,6 +1122,7 @@
 		3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlmendraSC-Regular.ttf"; sourceTree = "<group>"; };
 		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
 		3ED4FE38260A274100C50609 /* MusicBrainzCacheState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCacheState.swift; sourceTree = "<group>"; };
+		3ED983F626260AF700E3A936 /* unused.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = unused.rb; sourceTree = "<group>"; };
 		3EDB334925E8AD89004DF7DE /* libswresample.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libswresample.3.dylib; sourceTree = "<group>"; };
 		3EDB334A25E8AD89004DF7DE /* libavformat.58.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libavformat.58.dylib; sourceTree = "<group>"; };
 		3EDB334B25E8AD89004DF7DE /* libavutil.56.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libavutil.56.dylib; sourceTree = "<group>"; };
@@ -1434,6 +1433,7 @@
 				3EDB334825E8AD89004DF7DE /* Frameworks */,
 				3E427EC525D9065F00465569 /* Documentation */,
 				3E6C0EC025CEB3ED00BF0D07 /* Products */,
+				3ED983F626260AF700E3A936 /* unused.rb */,
 				3E6C0EC925CEB3EE00BF0D07 /* Info.plist */,
 			);
 			sourceTree = "<group>";
@@ -1467,6 +1467,7 @@
 				3E6C109425CEB98700BF0D07 /* Preferences */,
 				3E6C113525CEB98700BF0D07 /* Recorder */,
 				3E5F93F625E57081002DEF80 /* FFT */,
+				3ED983F72626157700E3A936 /* UnusedCode */,
 				3E6C0F1A25CEB98500BF0D07 /* UI */,
 				3E6C10B725CEB98700BF0D07 /* Utils */,
 				3EDB335625E8AE08004DF7DE /* ffmpeg */,
@@ -1954,7 +1955,6 @@
 				3E6C0FB525CEB98600BF0D07 /* Buttons */,
 				3E6C0FBE25CEB98600BF0D07 /* TintedImageView.swift */,
 				3E6C0FBF25CEB98600BF0D07 /* VAlignedTextField.swift */,
-				3E6C0FC025CEB98600BF0D07 /* ProgressArc.swift */,
 				3E6C0FC125CEB98600BF0D07 /* StringInputPopover */,
 				3E6C0FC525CEB98600BF0D07 /* ColoredCursorTextField.swift */,
 				3E6C0FC625CEB98600BF0D07 /* Alerts */,
@@ -1964,7 +1964,6 @@
 				3E6C0FD025CEB98600BF0D07 /* TriStateLabel.swift */,
 				3E6C0FD125CEB98600BF0D07 /* AuralTabView.swift */,
 				3E6C0FD225CEB98600BF0D07 /* Sliders */,
-				3E6C0FD825CEB98600BF0D07 /* BannerLabel.swift */,
 				3E6C0FD925CEB98600BF0D07 /* ValidatedLabelCell.swift */,
 			);
 			path = CustomViews;
@@ -2060,7 +2059,6 @@
 				3E6C100925CEB98600BF0D07 /* Effects.xib */,
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
 				3E6C0FF525CEB98600BF0D07 /* FXUnitViewController.swift */,
-				3E6C0FF625CEB98600BF0D07 /* EffectsUnitView.swift */,
 				3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */,
 				3E6C100525CEB98600BF0D07 /* Master */,
 				3E6C0FF725CEB98600BF0D07 /* EQ */,
@@ -2786,6 +2784,15 @@
 			path = AudioUnits;
 			sourceTree = "<group>";
 		};
+		3ED983F72626157700E3A936 /* UnusedCode */ = {
+			isa = PBXGroup;
+			children = (
+				3E6C0FD825CEB98600BF0D07 /* BannerLabel.swift */,
+				3E6C0FC025CEB98600BF0D07 /* ProgressArc.swift */,
+			);
+			path = UnusedCode;
+			sourceTree = "<group>";
+		};
 		3EDB334825E8AD89004DF7DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3081,6 +3088,7 @@
 				3E6C0EBC25CEB3ED00BF0D07 /* Frameworks */,
 				3E6C0EBD25CEB3ED00BF0D07 /* Resources */,
 				3EDB340725E8AEB3004DF7DE /* Embed Libraries */,
+				3ED983F526260ACC00E3A936 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3220,6 +3228,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3ED983F526260ACC00E3A936 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "file=\"unused.rb\"\n\nif [ -f \"$file\" ]\n\nthen\n\necho \"$file found.\"ruby unused.rb xcode\n\nelse\n\necho \"unused.rb doesn't exist\"\n\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E6C0EBB25CEB3ED00BF0D07 /* Sources */ = {
@@ -3369,7 +3397,6 @@
 				3E6C127225CEBE0600BF0D07 /* EQPresetsEditorViewController.swift in Sources */,
 				3E6C11EB25CEBDC400BF0D07 /* PlaybackSession.swift in Sources */,
 				3E6C12AE25CEBE2700BF0D07 /* DialogsAndAlerts.swift in Sources */,
-				3E6C12CD25CEBE6700BF0D07 /* EffectsUnitView.swift in Sources */,
 				3E6C12E225CEBE8100BF0D07 /* PlayingTrackSubview.swift in Sources */,
 				3E6C120325CEBDD100BF0D07 /* ControlsPreferences.swift in Sources */,
 				3E7572F42609E83B00CA3F85 /* MusicBrainzArtistCredit.swift in Sources */,
