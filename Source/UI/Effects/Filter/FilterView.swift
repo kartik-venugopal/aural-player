@@ -23,14 +23,6 @@ class FilterView: NSView {
         redrawChart()
     }
     
-    func bandsRemoved() {
-        redrawChart()
-    }
-    
-    func bandEdited() {
-        redrawChart()
-    }
-    
     func addBandView(_ view: NSView) {
         
         let numItems = bandsView.numberOfTabViewItems

@@ -44,10 +44,6 @@ extension NSView {
         return true
     }
     
-    func coLocate(_ other: NSView) {
-        self.frame.origin = other.frame.origin
-    }
-    
     func redraw() {
         self.setNeedsDisplay(self.bounds)
     }

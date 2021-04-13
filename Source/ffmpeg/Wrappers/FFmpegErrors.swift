@@ -78,11 +78,6 @@ class SeekError: CodedError {}
 class DecoderInitializationError: CodedError {}
 
 ///
-/// Represents an error encountered while initializing a player.
-///
-class PlayerInitializationError: Error {}
-
-///
 /// Helper function to check if the given result code indicates end of file (EOF).
 ///
 func isEOF(code: ResultCode) -> Bool {

@@ -38,15 +38,6 @@ class FFmpegFileContext {
         String(cString: avContext.iformat.pointee.long_name)
     }
     
-    var formatExtensions: String {
-        
-        if let extensions = avContext.iformat.pointee.extensions {
-            return String(cString: extensions)
-        }
-        
-        return ""
-    }
-    
     let avStreamPointers: [UnsafeMutablePointer<AVStream>]
     
     var streamCount: Int {Int(avContext.nb_streams)}
@@ -288,30 +279,6 @@ class FFmpegFileContext {
         default: return nil
             
         }
-    }
-    
-    func findStream(at index: Int, ofType mediaType: AVMediaType) -> FFmpegStreamProtocol? {
-        
-        if index < streamCount {
-            
-            let avStream = avStreamPointers[index].pointee
-            let streamMediaType = avStream.codecpar.pointee.codec_type
-            
-            if streamMediaType == mediaType {
-                
-                switch mediaType {
-                
-                case AVMEDIA_TYPE_AUDIO: return FFmpegAudioStream(encapsulating: avStreamPointers[index])
-                
-                case AVMEDIA_TYPE_VIDEO: return FFmpegImageStream(encapsulating: avStreamPointers[index])
-                
-                default: return nil
-                    
-                }
-            }
-        }
-        
-        return nil
     }
     
     ///

@@ -95,7 +95,6 @@
 		3E6C118825CEBD6D00BF0D07 /* AudioGraphDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112125CEB98700BF0D07 /* AudioGraphDelegateProtocol.swift */; };
 		3E6C118925CEBD6D00BF0D07 /* AudioGraphDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112425CEB98700BF0D07 /* AudioGraphDelegate.swift */; };
 		3E6C118A25CEBD6D00BF0D07 /* EQUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112525CEB98700BF0D07 /* EQUnitDelegate.swift */; };
-		3E6C118B25CEBD6D00BF0D07 /* EQMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C111225CEB98700BF0D07 /* EQMapping.swift */; };
 		3E6C118C25CEBD6D00BF0D07 /* DelayUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112A25CEB98700BF0D07 /* DelayUnitDelegate.swift */; };
 		3E6C118D25CEBD6D00BF0D07 /* Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10B225CEB98700BF0D07 /* Bookmarks.swift */; };
 		3E6C118E25CEBD6D00BF0D07 /* FXUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C111F25CEB98700BF0D07 /* FXUnit.swift */; };
@@ -403,7 +402,6 @@
 		3E6C12E525CEBE8100BF0D07 /* Effects.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C100925CEB98600BF0D07 /* Effects.xib */; };
 		3E6C12E625CEBE8100BF0D07 /* FilterBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100E25CEB98600BF0D07 /* FilterBandViewController.swift */; };
 		3E6C12E925CEBE8100BF0D07 /* PlayingTrackFunctionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101E25CEB98600BF0D07 /* PlayingTrackFunctionsViewController.swift */; };
-		3E6C12EA25CEBE8100BF0D07 /* KeyCodeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101925CEB98600BF0D07 /* KeyCodeConstants.swift */; };
 		3E6C12EB25CEBE8100BF0D07 /* BookmarkNameInputReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101C25CEB98600BF0D07 /* BookmarkNameInputReceiver.swift */; };
 		3E6C12EC25CEBE8100BF0D07 /* PlayingTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C102825CEB98600BF0D07 /* PlayingTrackView.swift */; };
 		3E6C12ED25CEBE8100BF0D07 /* Delay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C101625CEB98600BF0D07 /* Delay.xib */; };
@@ -439,7 +437,6 @@
 		3E6C131225CEBE8F00BF0D07 /* DetailedTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103A25CEB98600BF0D07 /* DetailedTrackInfoViewController.swift */; };
 		3E6C131325CEBE8F00BF0D07 /* WindowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105125CEB98600BF0D07 /* WindowLayout.swift */; };
 		3E6C131425CEBE8F00BF0D07 /* AudioDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103E25CEB98600BF0D07 /* AudioDataSource.swift */; };
-		3E6C131525CEBE8F00BF0D07 /* WindowManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105425CEB98600BF0D07 /* WindowManagerProtocol.swift */; };
 		3E6C131825CEBEA000BF0D07 /* SizeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */; };
 		3E6C131925CEBEA000BF0D07 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CF25CEB98700BF0D07 /* Size.swift */; };
 		3E6C131B25CEBEA000BF0D07 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C325CEB98700BF0D07 /* Queue.swift */; };
@@ -458,7 +455,6 @@
 		3E6C132B25CEBEA000BF0D07 /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D525CEB98700BF0D07 /* ConcurrencyUtils.swift */; };
 		3E6C133025CEBEA000BF0D07 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BE25CEB98700BF0D07 /* MathUtils.swift */; };
 		3E6C133325CEBEA000BF0D07 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C025CEB98700BF0D07 /* Stack.swift */; };
-		3E6C133425CEBEA000BF0D07 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C425CEB98700BF0D07 /* StateMachine.swift */; };
 		3E6C133625CEBEA700BF0D07 /* HTMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */; };
 		3E6C133825CEBEA700BF0D07 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D725CEB98700BF0D07 /* FileSystemUtils.swift */; };
 		3E6C133B25CEBEA700BF0D07 /* GraphicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */; };
@@ -872,7 +868,6 @@
 		3E6C101625CEB98600BF0D07 /* Delay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Delay.xib; sourceTree = "<group>"; };
 		3E6C101725CEB98600BF0D07 /* DelayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayViewController.swift; sourceTree = "<group>"; };
 		3E6C101825CEB98600BF0D07 /* DelayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayView.swift; sourceTree = "<group>"; };
-		3E6C101925CEB98600BF0D07 /* KeyCodeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCodeConstants.swift; sourceTree = "<group>"; };
 		3E6C101C25CEB98600BF0D07 /* BookmarkNameInputReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNameInputReceiver.swift; sourceTree = "<group>"; };
 		3E6C101E25CEB98600BF0D07 /* PlayingTrackFunctionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackFunctionsViewController.swift; sourceTree = "<group>"; };
 		3E6C101F25CEB98600BF0D07 /* PlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewState.swift; sourceTree = "<group>"; };
@@ -907,7 +902,6 @@
 		3E6C105125CEB98600BF0D07 /* WindowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayout.swift; sourceTree = "<group>"; };
 		3E6C105225CEB98600BF0D07 /* ModalComponentProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalComponentProtocols.swift; sourceTree = "<group>"; };
 		3E6C105325CEB98600BF0D07 /* WindowLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayouts.swift; sourceTree = "<group>"; };
-		3E6C105425CEB98600BF0D07 /* WindowManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManagerProtocol.swift; sourceTree = "<group>"; };
 		3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPresets.swift; sourceTree = "<group>"; };
 		3E6C105625CEB98600BF0D07 /* WindowFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFactory.swift; sourceTree = "<group>"; };
 		3E6C105725CEB98600BF0D07 /* ObjectGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
@@ -984,7 +978,6 @@
 		3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringKeyedCollection.swift; sourceTree = "<group>"; };
 		3E6C10C225CEB98700BF0D07 /* ConcurrentCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentCollections.swift; sourceTree = "<group>"; };
 		3E6C10C325CEB98700BF0D07 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		3E6C10C425CEB98700BF0D07 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		3E6C10C525CEB98700BF0D07 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		3E6C10C725CEB98700BF0D07 /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
@@ -1028,7 +1021,6 @@
 		3E6C110E25CEB98700BF0D07 /* AudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
 		3E6C110F25CEB98700BF0D07 /* AudioEngineHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineHelper.swift; sourceTree = "<group>"; };
 		3E6C111025CEB98700BF0D07 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
-		3E6C111225CEB98700BF0D07 /* EQMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQMapping.swift; sourceTree = "<group>"; };
 		3E6C111325CEB98700BF0D07 /* VariableRateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableRateNode.swift; sourceTree = "<group>"; };
 		3E6C111425CEB98700BF0D07 /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
 		3E6C111525CEB98700BF0D07 /* ParametricEQNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametricEQNode.swift; sourceTree = "<group>"; };
@@ -1564,7 +1556,6 @@
 				3E6C0F9725CEB98600BF0D07 /* Extensions.swift */,
 				3E6C0FEB25CEB98600BF0D07 /* Images.swift */,
 				3E6C0FEC25CEB98600BF0D07 /* Colors.swift */,
-				3E6C101925CEB98600BF0D07 /* KeyCodeConstants.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2252,7 +2243,6 @@
 				3E6C105125CEB98600BF0D07 /* WindowLayout.swift */,
 				3E6C105225CEB98600BF0D07 /* ModalComponentProtocols.swift */,
 				3E6C105325CEB98600BF0D07 /* WindowLayouts.swift */,
-				3E6C105425CEB98600BF0D07 /* WindowManagerProtocol.swift */,
 				3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */,
 			);
 			path = WindowManagement;
@@ -2446,7 +2436,6 @@
 				3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */,
 				3E6C10BE25CEB98700BF0D07 /* MathUtils.swift */,
 				3E6C10BF25CEB98700BF0D07 /* DataStructures */,
-				3E6C10C425CEB98700BF0D07 /* StateMachine.swift */,
 				3E6C10C525CEB98700BF0D07 /* StringUtils.swift */,
 				3E6C10C725CEB98700BF0D07 /* DateUtils.swift */,
 				3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */,
@@ -2569,7 +2558,6 @@
 		3E6C111125CEB98700BF0D07 /* CustomNodes */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C111225CEB98700BF0D07 /* EQMapping.swift */,
 				3E6C111325CEB98700BF0D07 /* VariableRateNode.swift */,
 				3E6C111425CEB98700BF0D07 /* FlexibleFilterNode.swift */,
 				3E6C111525CEB98700BF0D07 /* ParametricEQNode.swift */,
@@ -3269,7 +3257,6 @@
 				3E6C118825CEBD6D00BF0D07 /* AudioGraphDelegateProtocol.swift in Sources */,
 				3E6C11C425CEBDB400BF0D07 /* ShuffleSequence.swift in Sources */,
 				3E6C116425CEBD6000BF0D07 /* AudioGraph.swift in Sources */,
-				3E6C12EA25CEBE8100BF0D07 /* KeyCodeConstants.swift in Sources */,
 				3EDB33E825E8AE09004DF7DE /* FFmpegAudioStream.swift in Sources */,
 				3E5F942E25E57190002DEF80 /* FFT.swift in Sources */,
 				3E6C126C25CEBE0600BF0D07 /* CustomEditorViews.swift in Sources */,
@@ -3286,7 +3273,6 @@
 				3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */,
 				3E6C12B725CEBE5800BF0D07 /* PlaylistMenuController.swift in Sources */,
 				3E6C11F125CEBDD100BF0D07 /* Preferences.swift in Sources */,
-				3E6C118B25CEBD6D00BF0D07 /* EQMapping.swift in Sources */,
 				3E6C12A925CEBE2700BF0D07 /* FXUnitTriStateImageView.swift in Sources */,
 				3E6C130625CEBE8F00BF0D07 /* SeekSliderView.swift in Sources */,
 				3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */,
@@ -3478,7 +3464,6 @@
 				3E6C119F25CEBD6D00BF0D07 /* AudioGraphProtocols.swift in Sources */,
 				3EDB33EC25E8AE09004DF7DE /* FFmpegFrame.swift in Sources */,
 				3E6C11C725CEBDB400BF0D07 /* Sequencer.swift in Sources */,
-				3E6C133425CEBEA000BF0D07 /* StateMachine.swift in Sources */,
 				3E6C117725CEBD6000BF0D07 /* MasterPresets.swift in Sources */,
 				3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */,
 				3E6C12E425CEBE8100BF0D07 /* CutoffFrequencySlider.swift in Sources */,
@@ -3652,7 +3637,6 @@
 				3E6C12C625CEBE6700BF0D07 /* PitchView.swift in Sources */,
 				3E5623CC2619FCB300D55E43 /* AudioUnitPresets.swift in Sources */,
 				3E6C118225CEBD6D00BF0D07 /* DelayUnit.swift in Sources */,
-				3E6C131525CEBE8F00BF0D07 /* WindowManagerProtocol.swift in Sources */,
 				3E6C12C025CEBE6700BF0D07 /* PresetsWrapper.swift in Sources */,
 				3E6C131425CEBE8F00BF0D07 /* AudioDataSource.swift in Sources */,
 				3E6C12F825CEBE8F00BF0D07 /* DetailedTrackInfoRowView.swift in Sources */,

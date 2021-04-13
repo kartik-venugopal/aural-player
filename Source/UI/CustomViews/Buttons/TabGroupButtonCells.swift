@@ -16,7 +16,6 @@ class TabGroupButtonCell: NSButtonCell {
     var borderInsetY: CGFloat {return 1}
     var borderRadius: CGFloat {return 1}
     var borderLineWidth: CGFloat {return 2}
-    var borderStrokeColor: NSColor {return Colors.tabViewButtonOutlineColor}
     var selectionBoxColor: NSColor {return Colors.tabViewSelectionBoxColor}
     
     var unselectedTextColor: NSColor {return Colors.tabViewButtonTextColor}

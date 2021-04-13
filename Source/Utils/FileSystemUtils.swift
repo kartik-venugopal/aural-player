@@ -100,27 +100,6 @@ class FileSystemUtils {
             return nil
         }
     }
-    
-    static func sizeOfDirectory(_ dir: URL) -> UInt64 {
-        
-        var size: UInt64 = 0
-        
-        do {
-            // Retrieve all files/subfolders within this folder
-            let contents = try fileManager.contentsOfDirectory(at: dir, includingPropertiesForKeys: [], options: FileManager.DirectoryEnumerationOptions())
-            
-            for file in contents {
-                
-                let attr = try fileManager.attributesOfItem(atPath: file.path)
-                size += attr[FileAttributeKey.size] as! UInt64
-            }
-            
-        } catch let error as NSError {
-            NSLog("Error retrieving contents of directory '%@': %@", dir.path, error.description)
-        }
-        
-        return size
-    }
  
     // Determines whether or not a file (must be resolved) is a directory
     static func isDirectory(_ url: URL) -> Bool {
@@ -132,25 +111,6 @@ class FileSystemUtils {
         } catch let error as NSError {
             NSLog("Error getting type of file at url '%@': %@", url.path, error.description)
             return false
-        }
-    }
-    
-    static func compareFileModificationDates(_ file1: URL, _ file2: URL) -> ComparisonResult {
-        
-        do {
-            
-            let attrs1 = try fileManager.attributesOfItem(atPath: file1.path)
-            let date1 = attrs1[FileAttributeKey.modificationDate] as! Date
-            
-            let attrs2 = try fileManager.attributesOfItem(atPath: file2.path)
-            let date2 = attrs2[FileAttributeKey.modificationDate] as! Date
-            
-            return date1.compare(date2)
-            
-        } catch let error as NSError {
-            
-            NSLog("Error getting creation dates of files at urls '%@' and '%@': %@", file1.path, file2.path, error.description)
-            return .orderedSame
         }
     }
     
@@ -332,14 +292,6 @@ class SystemUtils {
     
     static var osVersion: OperatingSystemVersion {
         return ProcessInfo.processInfo.operatingSystemVersion
-    }
-    
-    static var osMajorVersion: Int {
-        return osVersion.majorVersion
-    }
-    
-    static var osMinorVersion: Int {
-        return osVersion.minorVersion
     }
     
     static var isBigSur: Bool {

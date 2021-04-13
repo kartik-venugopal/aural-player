@@ -63,12 +63,4 @@ class DeviceList {
         
         return devicesMap[id]
     }
-    
-    func deviceByUID(_ uid: String) -> AudioDevice? {
-        
-        semaphore.wait()
-        defer {semaphore.signal()}
-        
-        return devices.first(where: {$0.uid == uid})
-    }
 }

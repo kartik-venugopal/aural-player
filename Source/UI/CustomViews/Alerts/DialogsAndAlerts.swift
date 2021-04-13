@@ -197,17 +197,6 @@ struct DialogsAndAlerts {
         return alert
     }
     
-    static func cannotRemoveTracksAlertWithError() -> NSAlert {
-        
-        let alert = errorAlert
-        
-        alert.window.title = "Tracks not removed"
-        alert.messageText = "Playlist tracks/groups cannot be removed while tracks are being added to the playlist ! Please wait until tracks have been added."
-        alert.informativeText = ""
-        
-        return alert
-    }
-    
     static func trackNotPlayedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
         
         // TODO: Check center alignment in track name label.

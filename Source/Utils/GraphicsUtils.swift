@@ -33,23 +33,6 @@ class GraphicsUtils {
         drawLine(color, pt1: origin, pt2: NSMakePoint(origin.x + dx, origin.y - dy), width: lineWidth)
     }
     
-    // Draws an arrow, from a given point (origin), and fills it
-    static func drawAndFillArrow(_ strokeColor: NSColor, _ fillColor: NSColor, origin: NSPoint, dx: CGFloat, dy: CGFloat) {
-        
-        let arrow = NSBezierPath()
-        arrow.move(to: origin)
-        arrow.line(to: NSMakePoint(origin.x - dx, origin.y + dy))
-        arrow.line(to: NSMakePoint(origin.x + dx, origin.y + dy))
-        arrow.close()
-        
-        strokeColor.setStroke()
-        fillColor.setFill()
-        
-        arrow.lineWidth = 1
-        arrow.fill()
-        arrow.stroke()
-    }
-    
     // Draws text, centered, within an NSRect, with a certain font and color
     static func drawCenteredTextInRect(_ rect: NSRect, _ text: String, _ textColor: NSColor, _ font: NSFont, _ offset: CGFloat = 0) {
         

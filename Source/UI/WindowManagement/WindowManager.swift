@@ -252,18 +252,6 @@ class WindowManager {
     //        mainWindow.level = NSWindow.Level(Int(CGWindowLevelForKey(onTop ? .floatingWindow : .normalWindow)))
     //    }
     
-    // Adjusts both window frames to the given location and size (specified as co-ordinates)
-    private static func setWindowFrames(_ mainWindowX: CGFloat, _ mainWindowY: CGFloat, _ playlistX: CGFloat, _ playlistY: CGFloat, _ width: CGFloat, _ height: CGFloat) {
-        
-        mainWindow.setFrameOrigin(NSPoint(x: mainWindowX, y: mainWindowY))
-        
-        var playlistFrame = playlistWindow.frame
-        
-        playlistFrame.origin = NSPoint(x: playlistX, y: playlistY)
-        playlistFrame.size = NSSize(width: width, height: height)
-        playlistWindow.setFrame(playlistFrame, display: true)
-    }
-    
     // MARK ----------- Message handling ----------------------------------------------------
     
     static var persistentState: WindowLayoutState {

@@ -83,10 +83,6 @@ class HTMLWriter {
         return htmlString
     }
     
-    func addLineBreak() {
-        data.append("\t<br>\n")
-    }
-    
     func addTable(_ heading: String, _ headingSize: Int, _ columnHeaders: [String]?, _ rows: [[HTMLText]], _ horizPadding: Int = 0, _ vertPadding: Int = 0) {
 
         // Table heading

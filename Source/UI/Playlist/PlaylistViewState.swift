@@ -17,9 +17,6 @@ class PlaylistViewState {
     // The playlist item that was clicked. Will be nil initially.
     private static var _clickedItem: SelectedPlaylistItem?
     
-    // Exposed to outside callers (should never be nil). Should only be accessed subsequent to calling noteViewClicked().
-    static var clickedView: NSTableView? {_clickedView}
-    
     static var selectedRowView: NSView? {
         
         if let theClickedView = _clickedView {
@@ -33,10 +30,6 @@ class PlaylistViewState {
     static var clickedItem: SelectedPlaylistItem? {_clickedItem}
     
     static var hasSelectedChapter: Bool {chaptersListView.selectedRow >= 0}
-    
-    static var selectedChapter: SelectedPlaylistItem? {
-        chaptersListView.selectedRow >= 0 ? SelectedPlaylistItem(index: chaptersListView.selectedRow) : nil
-    }
     
     // The group type corresponding to the current playlist view type
     static var groupType: GroupType? {current.toGroupType()}

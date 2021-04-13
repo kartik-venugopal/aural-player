@@ -37,10 +37,6 @@ class DateUtils {
         
         return .pastHour
     }
-    
-    static func timeUntil(_ date: Date) -> Double {
-        return ceil(date.timeIntervalSince(Date()))
-    }
 }
 
 // Enumerates time categories that can be used to group historical data, describing when an event occurred, based on its timestamp. For example, an item that was played 10 minutes ago falls into the category "Past hour".

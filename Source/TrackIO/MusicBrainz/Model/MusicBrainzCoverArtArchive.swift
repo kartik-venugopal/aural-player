@@ -52,7 +52,7 @@ class MusicBrainzCoverArtArchive {
 }
 
 /// This class is currently unused.
-class MBCoverArtImage {
+class MusicBrainzCoverArtImage {
     
     var thumbnails: [String: String] = [:]
     var image: String

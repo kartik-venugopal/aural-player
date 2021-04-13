@@ -100,20 +100,9 @@ class FFmpegFrame {
     var firstSampleIndex: Int32
     
     ///
-    /// Whether or not this frame has any samples.
-    ///
-    var hasSamples: Bool {avFrame.nb_samples.isPositive}
-    
-    ///
     /// Sample rate of the decoded data (i.e. number of samples per second or Hz).
     ///
     var sampleRate: Int32 {avFrame.sample_rate}
-    
-    ///
-    /// For interleaved (packed) samples, this value will equal the size in bytes of data for all channels.
-    /// For non-interleaved (planar) samples, this value will equal the size in bytes of data for a single channel.
-    ///
-    var lineSize: Int {Int(avFrame.linesize.0)}
     
     ///
     /// A timestamp indicating this frame's position (order) within the parent audio stream,

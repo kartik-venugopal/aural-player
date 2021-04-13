@@ -1,6 +1,6 @@
 import Foundation
 
-class MasterUnit: FXUnit, NotificationSubscriber {
+class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
     
     let presets: MasterPresets = MasterPresets()
     

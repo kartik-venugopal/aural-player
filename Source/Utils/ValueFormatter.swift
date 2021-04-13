@@ -99,15 +99,6 @@ class ValueFormatter {
     }
     
     // Formats a duration (time interval) from seconds to a displayable string showing minutes, and seconds. For example, 500 seconds becomes "8 min 20 sec", 120 seconds becomes "2 min", and 36 seconds becomes "36 sec"
-    static func formatSecondsToHMS_minSec(_ duration: Int) -> String {
-        
-        let secs = duration % oneMin
-        let mins = duration / oneMin
-        
-        return mins > 0 ? (secs > 0 ? String(format: "%d min %d sec", mins, secs) : String(format: "%d min", mins)) : String(format: "%d sec", secs)
-    }
-    
-    // Formats a duration (time interval) from seconds to a displayable string showing minutes, and seconds. For example, 500 seconds becomes "8 min 20 sec", 120 seconds becomes "2 min", and 36 seconds becomes "36 sec"
     static func formatSecondsToHMS_hrMinSec(_ duration: Int) -> String {
         
         let hrs = duration / oneHour

@@ -24,10 +24,6 @@ enum FontSchemePreset: String, CaseIterable {
     
     case poolsideFM
     
-    // The preset to be used as the default system scheme (eg. when a user loads the app for the very first time)
-    // or when some color values in a scheme are missing.
-    static var defaultSet: FontSchemePreset {standard}
-    
     // Maps a display name to a preset.
     static func presetByName(_ name: String) -> FontSchemePreset? {
         

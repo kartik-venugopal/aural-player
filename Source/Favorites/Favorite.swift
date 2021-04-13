@@ -44,8 +44,4 @@ class Favorite: StringKeyedItem {
         self.file = file
         self._name = name
     }
-    
-    func validateFile() -> Bool {
-        return FileSystemUtils.fileExists(file)
-    }
 }

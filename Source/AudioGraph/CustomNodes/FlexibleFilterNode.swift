@@ -11,8 +11,6 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
     
     var numberOfBands: Int {return bandInfos.count}
     
-    var maxBands: Int {return bands.count}
-    
     var inactiveBands: [AVAudioUnitEQFilterParameters] = []
     
     var bandInfos: [FilterBand] = []
@@ -139,16 +137,6 @@ class FlexibleFilterNode: AVAudioUnitEQ, FilterNodeProtocol {
     func getBand(_ index: Int) -> FilterBand {
         return bandInfos[index]
     }
-    
-    // Calculates the min and max of a frequency range, given the center and bandwidth (inverse of the calculation in setBand())
-    private func calcMinMaxForCenterFrequency(freqC: Float, bandwidth: Float) -> (min: Float, max: Float) {
-        
-        let twoPowerBandwidth = pow(2, bandwidth)
-        let min = sqrt((freqC * freqC) / twoPowerBandwidth)
-        let max = min * twoPowerBandwidth
-        
-        return (min, max)
-    }
 }
 
 class FilterBand {
@@ -191,14 +179,6 @@ class FilterBand {
     
     static func bandStopBand(_ minFreq: Float, _ maxFreq: Float) -> FilterBand {
         return FilterBand(.bandStop, minFreq, maxFreq)
-    }
-    
-    static func lowPassBand(_ maxFreq: Float) -> FilterBand {
-        return FilterBand(.lowPass).withMaxFreq(maxFreq)
-    }
-    
-    static func highPassBand(_ minFreq: Float) -> FilterBand {
-        return FilterBand(.highPass).withMinFreq(minFreq)
     }
 }
 

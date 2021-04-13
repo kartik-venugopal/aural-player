@@ -16,17 +16,6 @@ extension Int {
         }
     }
     
-    func clampedTo(range: ClosedRange<Int>) -> Int {
-        
-        if range.contains(self) {return self}
-        
-        if self < range.lowerBound {
-            return range.lowerBound
-        }
-        
-        return range.upperBound
-    }
-    
     mutating func clamp(minValue: Self) {
         
         if self < minValue {

@@ -41,24 +41,25 @@ extension AudioFormatFlags {
     }
 }
 
-extension AudioStreamBasicDescription {
-    
-    var pcmFormatDescription: String {
-        
-        var formatStr: String = "PCM "
-        
-        let bitDepth: UInt32 = mBitsPerChannel
-        let isFloat: Bool = mFormatFlags <> kAudioFormatFlagIsFloat
-        let isSignedInt: Bool = mFormatFlags <> kAudioFormatFlagIsSignedInteger
-        let isBigEndian: Bool = mFormatFlags <> kAudioFormatFlagIsBigEndian
-        
-        formatStr += isFloat ? "\(bitDepth)-bit float " : (isSignedInt ? "signed \(bitDepth)-bit " : "unsigned \(bitDepth)-bit ")
-        
-        formatStr += isBigEndian ? "(big-endian)" : "(little-endian)"
-        
-        return formatStr
-    }
-}
+// Unused code
+//extension AudioStreamBasicDescription {
+//
+//    var pcmFormatDescription: String {
+//
+//        var formatStr: String = "PCM "
+//
+//        let bitDepth: UInt32 = mBitsPerChannel
+//        let isFloat: Bool = mFormatFlags <> kAudioFormatFlagIsFloat
+//        let isSignedInt: Bool = mFormatFlags <> kAudioFormatFlagIsSignedInteger
+//        let isBigEndian: Bool = mFormatFlags <> kAudioFormatFlagIsBigEndian
+//
+//        formatStr += isFloat ? "\(bitDepth)-bit float " : (isSignedInt ? "signed \(bitDepth)-bit " : "unsigned \(bitDepth)-bit ")
+//
+//        formatStr += isBigEndian ? "(big-endian)" : "(little-endian)"
+//
+//        return formatStr
+//    }
+//}
 
 extension Data {
     

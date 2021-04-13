@@ -63,14 +63,6 @@ class TrackNotPlayableError: InvalidTrackError {
     }
 }
 
-// Denotes a file that has an unsupported audio format (e.g. WMA)
-class UnsupportedFormatError: InvalidTrackError {
-    
-    init(_ file: URL, format: String) {
-        super.init(file, String(format: "Track format '%@' is not supported.", format))
-    }
-}
-
 class DRMProtectionError: InvalidTrackError {
     
     init(_ file: URL) {

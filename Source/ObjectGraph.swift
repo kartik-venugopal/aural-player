@@ -12,7 +12,6 @@ class ObjectGraph {
     static var preferencesDelegate: PreferencesDelegate!
     
     private static var playlist: PlaylistCRUDProtocol!
-    static var playlistAccessor: PlaylistAccessorProtocol! {return playlist}
     
     static var playlistDelegate: PlaylistDelegateProtocol!
     static var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol! {return playlistDelegate}

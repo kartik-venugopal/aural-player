@@ -30,11 +30,6 @@ struct LRUArray<T: EquatableHistoryItem> {
         }
     }
     
-    // Adds a set of new elements to the array. If the array is already filled to capacity, the least recently added item will be removed to make room for each new element.
-    mutating func addAll(_ newElements: [T]) {
-        newElements.forEach({add($0)})
-    }
-    
     // Removes a single element from the array, if it exists
     mutating func remove(_ element: T) {
        

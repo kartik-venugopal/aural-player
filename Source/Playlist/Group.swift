@@ -48,18 +48,9 @@ class Group: Hashable, PlaylistItem {
         return tracks.itemAtIndex(index)
     }
     
-    func insertTrackAtIndex(_ track: Track, _ index: Int) {
-        tracks.insert(track, at: index)
-    }
-    
     // Adds a track and returns the index of the new track
     func addTrack(_ track: Track) -> Int {
         return tracks.addItem(track)
-    }
-    
-    // Removes a track at the given index, and returns the removed track
-    func removeTrackAtIndex(_ index: Int) -> Track? {
-        return tracks.removeItem(index)
     }
     
     func removeTracks(_ removedTracks: [Track]) -> IndexSet {

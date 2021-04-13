@@ -115,9 +115,9 @@ struct ViewFactory {
         fileprivate static let effectsColorSchemeViewController: EffectsColorSchemeViewController = EffectsColorSchemeViewController()
     }
     
-    static var statusBarViewController: StatusBarViewController = {
-        StatusBarViewController()
-    }()
+//    static var statusBarViewController: StatusBarViewController = {
+//        StatusBarViewController()
+//    }()
     
     // Returns the view that displays the player
     static var playerView: NSView {

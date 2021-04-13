@@ -127,8 +127,3 @@ class FFmpegCodec {
         destroy()
     }
 }
-
-///
-/// A Codec that reads image data (i.e. cover art).
-///
-class ImageCodec: FFmpegCodec {}

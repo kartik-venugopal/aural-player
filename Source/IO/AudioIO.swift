@@ -4,22 +4,6 @@ import AVFoundation
     Performs I/O of audio data.
  */
 class AudioIO {
-   
-    // Utility method for creating an AVAudioFile from a URL, for reading
-    static func createAudioFileForReading(_ url: URL) -> AVAudioFile? {
-        
-        var audioFile: AVAudioFile? = nil
-        do {
-            
-            audioFile = try AVAudioFile(forReading: url)
-            return audioFile
-            
-        } catch let error as NSError {
-            
-            NSLog("Error creating audio file '%@' for reading: %@", url.path, error.description)
-            return nil
-        }
-    }
     
     // Utility method for creating an AVAudioFile from a URL, for writing
     static func createAudioFileForWriting(_ url: URL, _ settings: [String: Any]) -> AVAudioFile? {

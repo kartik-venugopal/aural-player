@@ -53,18 +53,6 @@ struct Colors {
         return ColorSchemes.systemScheme.general.functionButtonColor
     }
     
-    static var functionButtonGradient: NSGradient {
-        
-        let color = ColorSchemes.systemScheme.general.functionButtonColor
-        return NSGradient(starting: color, ending: color.darkened(40))!
-    }
-    
-    static var functionButtonGradient_disabled: NSGradient {
-        
-        let color = ColorSchemes.systemScheme.general.functionButtonColor.darkened(50)
-        return NSGradient(starting: color, ending: color.darkened(50))!
-    }
-    
     static var textButtonMenuGradient: NSGradient {
         
         let color = ColorSchemes.systemScheme.general.textButtonMenuColor
@@ -95,10 +83,6 @@ struct Colors {
         return ColorSchemes.systemScheme.general.buttonMenuTextColor
     }
     
-    static var disabledFunctionButtonTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.buttonMenuTextColor.darkened(70)
-    }
-    
     struct Player {
         
         static var trackInfoTitleTextColor: NSColor {
@@ -119,14 +103,6 @@ struct Colors {
         
         static var feedbackTextColor: NSColor {
             return ColorSchemes.systemScheme.player.sliderValueTextColor
-        }
-        
-        static var progressArcTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor
-        }
-        
-        static var progressArcBackgroundColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderBackgroundColor
         }
         
         // Updates the cached NSGradient objects used by the player's seek slider
