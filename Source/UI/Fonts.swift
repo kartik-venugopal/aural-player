@@ -7,6 +7,8 @@ struct Fonts {
     
     struct Standard {
         
+        static let mainFont_8: NSFont = NSFont(name: "Exo-Medium", size: 8)!
+        
         static let mainFont_9: NSFont = NSFont(name: "Exo-Medium", size: 9)!
 
         static let mainFont_10: NSFont = NSFont(name: "Exo-Medium", size: 10)!

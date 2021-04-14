@@ -20,6 +20,18 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
         }
     }
     
+    var titleFont: NSFont {
+        FontSchemes.systemScheme.player.infoBoxTitleFont
+    }
+    
+    var artistAlbumFont: NSFont {
+        FontSchemes.systemScheme.player.infoBoxArtistAlbumFont
+    }
+    
+    var chapterTitleFont: NSFont {
+        FontSchemes.systemScheme.player.infoBoxChapterTitleFont
+    }
+    
     // The displayed track title
     private var title: String? {
         return trackInfo?.displayName
@@ -68,7 +80,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     }
     
     // Constructs the formatted "rich" text to be displayed in the text view
-    private func update() {
+    func update() {
         
         // First, clear the view to remove any old text
         textView.string = ""
@@ -104,19 +116,20 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
             let hasChapter: Bool = chapterStr != nil
             
             // Title (truncate only if artist, album, or chapter are displayed)
-            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, FontSchemes.systemScheme.player.infoBoxTitleFont, lineWidth) : title
-            textView.textStorage?.append(attributedString(truncatedTitle, FontSchemes.systemScheme.player.infoBoxTitleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
+            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, titleFont, lineWidth) : title
+            
+            textView.textStorage?.append(attributedString(truncatedTitle, titleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
             if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
-                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, FontSchemes.systemScheme.player.infoBoxArtistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, artistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
             }
             
             // Chapter
             if let _chapterStr = chapterStr {
                 
-                let truncatedChapter: String = StringUtils.truncate(_chapterStr, FontSchemes.systemScheme.player.infoBoxChapterTitleFont, lineWidth)
-                textView.textStorage?.append(attributedString(truncatedChapter, FontSchemes.systemScheme.player.infoBoxChapterTitleFont, Colors.Player.trackInfoChapterTextColor))
+                let truncatedChapter: String = StringUtils.truncate(_chapterStr, chapterTitleFont, lineWidth)
+                textView.textStorage?.append(attributedString(truncatedChapter, chapterTitleFont, Colors.Player.trackInfoChapterTextColor))
             }
             
             // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)
@@ -224,4 +237,19 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 //
 //        update()
 //    }
+}
+
+class StatusBarPlayingTrackTextView: PlayingTrackTextView {
+    
+    override var titleFont: NSFont {
+        Fonts.Standard.mainFont_12
+    }
+    
+    override var artistAlbumFont: NSFont {
+        Fonts.Standard.mainFont_11
+    }
+    
+    override var chapterTitleFont: NSFont {
+        Fonts.Standard.mainFont_10
+    }
 }
