@@ -21,10 +21,15 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
     
     // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
     @IBOutlet weak var seekSlider: NSSlider!
+    @IBOutlet weak var seekSliderCell: SeekSliderCell!
     
     var seekSliderValue: Double {
         return seekSlider.doubleValue
     }
+    
+    // A clone of the seek slider, used to render the segment playback loop
+    @IBOutlet weak var seekSliderClone: NSSlider!
+    @IBOutlet weak var seekSliderCloneCell: SeekSliderCell!
     
     // Timer that periodically updates the seek position slider and label
     private var seekTimer: RepeatingTaskExecutor?
@@ -105,12 +110,6 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
         }
 
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
-    }
-    
-    private func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {
-
-        btnShuffle.switchState(modes.shuffleMode)
-        btnRepeat.switchState(modes.repeatMode)
     }
     
     override func viewDidLoad() {
@@ -241,6 +240,61 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
     // Toggles the shuffle mode
     @IBAction func shuffleAction(_ sender: AnyObject) {
         updateRepeatAndShuffleControls(sequencer.toggleShuffleMode())
+    }
+    
+    private func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {
+
+        btnShuffle.switchState(modes.shuffleMode)
+        btnRepeat.switchState(modes.repeatMode)
+    }
+    
+    // Toggles the state of the segment playback loop for the currently playing track
+    @IBAction func toggleLoopAction(_ sender: AnyObject) {
+        toggleLoop()
+    }
+    
+    func toggleLoop() {
+        
+        if player.state.isPlayingOrPaused {
+            
+            _ = player.toggleLoop()
+            playbackLoopChanged()
+            
+            Messenger.publish(.player_playbackLoopChanged)
+        }
+    }
+    
+    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
+    func playbackLoopChanged() {
+        
+        if let playingTrack = player.playingTrack {
+            
+            // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
+            if let loop = player.playbackLoop {
+                
+                btnLoop.switchState(loop.isComplete ? LoopState.complete: LoopState.started)
+                
+                // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
+                
+                seekSliderClone.doubleValue = loop.startTime * 100 / playingTrack.duration
+                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
+                
+                // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
+                if let loopEndTime = loop.endTime {
+                    
+                    seekSliderClone.doubleValue = loopEndTime * 100 / playingTrack.duration
+                    seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
+                }
+                
+            } else {
+                
+                btnLoop.switchState(LoopState.none)
+                seekSliderCell.removeLoop()
+            }
+        }
+        
+        seekSlider.redraw()
+        updateSeekPosition()
     }
     
     @IBAction func volumeAction(_ sender: AnyObject) {

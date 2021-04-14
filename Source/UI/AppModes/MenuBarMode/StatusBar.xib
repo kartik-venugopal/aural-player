@@ -20,6 +20,9 @@
                 <outlet property="lblTimeRemaining" destination="BtG-bF-G2B" id="j97-zp-2Y1"/>
                 <outlet property="lblVolume" destination="Qw4-Vh-DfB" id="ZSe-GB-x6g"/>
                 <outlet property="seekSlider" destination="1G2-xD-g0j" id="etu-bX-yn3"/>
+                <outlet property="seekSliderCell" destination="Pkn-fF-8q2" id="QU0-ig-2dK"/>
+                <outlet property="seekSliderClone" destination="1Kq-UT-L4a" id="lJy-Lc-qXo"/>
+                <outlet property="seekSliderCloneCell" destination="zPk-jS-dUE" id="wXa-Q7-uNK"/>
                 <outlet property="trackInfoView" destination="xoy-o2-E7E" id="Uq1-qH-TVf"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="7Tk-vw-vqd"/>
                 <outlet property="volumeSlider" destination="xvj-Nq-m6L" id="rGD-7J-hKT"/>
@@ -121,6 +124,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="toggleLoopAction:" target="-2" id="eut-if-h60"/>
+                                </connections>
                             </button>
                             <button toolTip="Mute / Unmute" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zON-Eg-m5V" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="234" y="13" width="13" height="13"/>
@@ -304,6 +310,12 @@
             </subviews>
             <point key="canvasLocation" x="49" y="48"/>
         </view>
+        <slider verticalHuggingPriority="750" id="1Kq-UT-L4a" userLabel="Seek Slider Clone">
+            <rect key="frame" x="0.0" y="0.0" width="282" height="15"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="zPk-jS-dUE" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+            <point key="canvasLocation" x="-2884" y="682"/>
+        </slider>
     </objects>
     <resources>
         <image name="AppTitle" width="117" height="32"/>
