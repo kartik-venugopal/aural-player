@@ -49,6 +49,8 @@ class MasterViewController: FXUnitViewController {
         
         Messenger.subscribe(self, .masterFXUnit_toggleEffects, self.toggleEffects)
         Messenger.subscribe(self, .auFXUnit_audioUnitsAddedOrRemoved, self.refreshAUTable)
+        
+        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
     }
     
     override func initControls() {
@@ -64,8 +66,7 @@ class MasterViewController: FXUnitViewController {
         updateButtons()
         broadcastStateChangeNotification()
         
-        let allRows: [Int] = Array(0..<audioUnitsTable.numberOfRows)
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(allRows), columnIndexes: IndexSet([0]))
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet((0..<audioUnitsTable.numberOfRows)), columnIndexes: IndexSet([0]))
     }
     
     private func toggleEffects() {
@@ -159,15 +160,23 @@ class MasterViewController: FXUnitViewController {
         }
         
         presetsMenu.font = Fonts.menuFont
+        
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet((0..<audioUnitsTable.numberOfRows)), columnIndexes: [1])
     }
     
     override func applyColorScheme(_ scheme: ColorScheme) {
         
         super.applyColorScheme(scheme)
         
-        audioUnitsScrollView.backgroundColor = scheme.general.backgroundColor
-        audioUnitsClipView.backgroundColor = scheme.general.backgroundColor
-        audioUnitsTable.backgroundColor = scheme.general.backgroundColor
+        changeBackgroundColor(scheme.general.backgroundColor)
+        audioUnitsTable.reloadData()
+    }
+    
+    func changeBackgroundColor(_ color: NSColor) {
+        
+        audioUnitsScrollView.backgroundColor = color
+        audioUnitsClipView.backgroundColor = color
+        audioUnitsTable.backgroundColor = color
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
@@ -177,18 +186,27 @@ class MasterViewController: FXUnitViewController {
         
         super.changeActiveUnitStateColor(color)
         masterView.changeActiveUnitStateColor(color)
+        
+        let rowsForActiveUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .active}
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForActiveUnits), columnIndexes: [0])
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
         
         super.changeBypassedUnitStateColor(color)
         masterView.changeBypassedUnitStateColor(color)
+        
+        let rowsForBypassedUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .bypassed}
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForBypassedUnits), columnIndexes: [0])
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
         
         // Master unit can never be suppressed, but update other unit state buttons
         masterView.changeSuppressedUnitStateColor(color)
+        
+        let rowsForSuppressedUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .suppressed}
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForSuppressedUnits), columnIndexes: [0])
     }
     
     // MARK: Message handling
@@ -196,9 +214,7 @@ class MasterViewController: FXUnitViewController {
     override func stateChanged() {
         
         updateButtons()
-        
-        let allRows: [Int] = Array(0..<audioUnitsTable.numberOfRows)
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(allRows), columnIndexes: IndexSet([0]))
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet((0..<audioUnitsTable.numberOfRows)), columnIndexes: IndexSet([0]))
     }
     
     private func refreshAUTable() {
