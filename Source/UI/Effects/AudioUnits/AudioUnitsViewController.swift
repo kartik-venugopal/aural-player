@@ -71,6 +71,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             DispatchQueue.main.async {
 
                 self.doEditAudioUnit(audioUnit)
+                Messenger.publish(.auFXUnit_audioUnitsAddedOrRemoved)
                 Messenger.publish(.fx_unitStateChanged)
             }
         }
@@ -113,6 +114,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             }
             
             tableView.reloadData()
+            Messenger.publish(.auFXUnit_audioUnitsAddedOrRemoved)
             Messenger.publish(.fx_unitStateChanged)
         }
     }

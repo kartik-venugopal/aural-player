@@ -10,7 +10,7 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 22
+        return 24
     }
     
     func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {false}
@@ -32,10 +32,6 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             
             return createNameCell(tableView, tableColumn!.identifier.rawValue, row)
             
-        case .uid_audioUnitIcon:
-            
-            return createIconCell(tableView, tableColumn!.identifier.rawValue, row)
-            
         default: return nil
             
         }
@@ -53,7 +49,6 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             cell.action = {
                 
                 _ = audioUnit.toggleState()
-                cell.btnSwitch.updateState()
                 Messenger.publish(.fx_unitStateChanged)
             }
             
@@ -78,30 +73,4 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
         
         return nil
     }
-    
-    private func createIconCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitIconCellView? {
-        
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitIconCellView {
-            
-            let audioUnit = audioGraph.audioUnits[row]
-            
-            cell.imgIcon.stateFunction = audioUnit.stateFunction
-            cell.imgIcon.updateState()
-            
-            return cell
-        }
-        
-        return nil
-    }
-}
-
-@IBDesignable
-class AudioUnitIconCellView: NSTableCellView {
-    
-    @IBOutlet weak var imgIcon: EffectsUnitTriStateBypassImage!
-}
-
-extension NSUserInterfaceItemIdentifier {
-    
-    static let uid_audioUnitIcon: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.audioUnitEditColumnID)
 }

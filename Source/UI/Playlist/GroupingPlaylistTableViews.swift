@@ -24,8 +24,6 @@ class AuralPlaylistOutlineView: NSOutlineView {
         cachedPlayingTrackIcon = Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor)
         cachedPlayingTrackIconSelectedRows = Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconSelectedRowsColor)
         
-        print("Pl Tr Icon color: \(Colors.Playlist.playingTrackIconSelectedRowsColor == NSColor.white)")
-        
         cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
         cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
         

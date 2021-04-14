@@ -62,6 +62,12 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
+    // MARK: Notifications published by the Audio Units FX unit.
+    
+    static let auFXUnit_audioUnitsAddedOrRemoved = Notification.Name("auFXUnit_audioUnitsAddedOrRemoved")
+    
+    // ----------------------------------------------------------------------------------------
+    
     // MARK: Notifications published by the player.
     
     // Signifies that the currently playing track chapter has changed.

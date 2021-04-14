@@ -48,6 +48,7 @@ class MasterViewController: FXUnitViewController {
                                  queue: .main)
         
         Messenger.subscribe(self, .masterFXUnit_toggleEffects, self.toggleEffects)
+        Messenger.subscribe(self, .auFXUnit_audioUnitsAddedOrRemoved, self.refreshAUTable)
     }
     
     override func initControls() {
@@ -62,6 +63,9 @@ class MasterViewController: FXUnitViewController {
         super.bypassAction(sender)
         updateButtons()
         broadcastStateChangeNotification()
+        
+        let allRows: [Int] = Array(0..<audioUnitsTable.numberOfRows)
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(allRows), columnIndexes: IndexSet([0]))
     }
     
     private func toggleEffects() {
@@ -190,7 +194,15 @@ class MasterViewController: FXUnitViewController {
     // MARK: Message handling
     
     override func stateChanged() {
+        
         updateButtons()
+        
+        let allRows: [Int] = Array(0..<audioUnitsTable.numberOfRows)
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(allRows), columnIndexes: IndexSet([0]))
+    }
+    
+    private func refreshAUTable() {
+        audioUnitsTable.reloadData()
     }
 }
 
