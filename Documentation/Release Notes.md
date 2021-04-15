@@ -16,15 +16,15 @@ In order to be hosted by Aural Player, the AU plug-in must meet 2 requirements:
 
 Note that some sound monitoring and/or analyis plug-ins (eg. spectrum analyzers and level meters) will have one of these component types, so they are able to be hosted by Aural Player, even though they do not alter the audio signal. Note that instruments such as synthesizers or tone generators usually have a different component type (kAudioUnitType_Generator), so will likely not be supported.
 
-2 - Also, the plug-in must provide a custom user interface (hasCustomView == true), because the custom view is how the user will interact with and manipulate the Audio Unit.
+2 - Also, the plug-in must provide a custom user interface (hasCustomView == true), because the custom view is how the user will interact with and manipulate the audio unit. Aural Player does not provide its own user interface for AU plug-ins.
 
 ###  New Effects panel tab
 
-The Effects panel / window now has a new tab titled "AU", where you can add / import your Audio Units. The units you've added will be displayed in a table.
+The Effects panel / window now has a new tab titled "AU", where you can add / import your audio units. The units you've added will be displayed in a table.
 
-#### Adding Audio Units
+#### Adding audio units
 
-When you click the "+" button below the Audio Units table, a menu will be displayed listing all Audio Units available on your system, and will include the name, version number, and manufacturer name of each Audio Unit. Click one of these to add a corresponding Audio Unit.
+When you click the "+" button below the Audio Units table, a menu will be displayed listing all audio units available on your system, and will include the name, version number, and manufacturer name of each audio unit. Click one of these to add the corresponding audio unit.
 
 Each audio unit that you add will be inserted into Aural Player's signal processing chain. There is no limit to the number of units you can add. 
 
@@ -42,19 +42,23 @@ To change the settings of any of your audio units, click the settings icon in th
 
 #### Factory presets
 
-Some Audio Units come with factory presets. For those that do, the audio unit editor dialog will display a list of them, allowing you to apply them to the audio unit.
+Some audio units come with factory presets. For those that do, the audio unit editor dialog will display a list of them, allowing you to apply them to the audio unit.
 
 #### User presets
 
 User presets for audio units are only supported on macOS 10.15 and newer systems. Also, they are not supported by all audio units. When an audio unit supports user presets, the audio unit editor dialog will display a list of them, allowing you to save new ones or apply existing ones to the audio unit.
 
-### Where can I find free Audio Units to try out with Aural Player ?
+### Note about macOS Sierra
 
-[Here is one page that lists many available (free) Audio Units.](https://www.kvraudio.com/plugins/effects/macosx/audio-units/free/most-popular)
+This feature may or may not work reliably on macOS Sierra. Crashes may occur at random times, or audio unit custom interfaces may not always respond properly to mouse clicks.
 
-#### Some free Audio Units supported by Aural Player
+### Where can I find free audio units to try out with Aural Player ?
 
-The following are examples of Audio Units that have been tested and are known to work with Aural Player, and are available for download, free of cost:
+[Here is one page that lists many available (free) audio units.](https://www.kvraudio.com/plugins/effects/macosx/audio-units/free/most-popular)
+
+#### Some free audio units supported by Aural Player
+
+The following are examples of audio units that have been tested and are known to work with Aural Player, and are available for download, free of cost:
 
 - TDR Nova Equalizer [Download from here](https://www.kvraudio.com/product/tdr-nova-by-tokyo-dawn-labs)
 - FreqAnalyst spectrum analyzer [Download from here](https://www.kvraudio.com/product/freqanalyst-by-blue-cat-audio)
