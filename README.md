@@ -2,10 +2,6 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
-### Update (Apr 8, 2021): Audio Units (AU) support coming soon !
-
-Working on a release that will allow Aural Player to host Audio Units (AU) plug-ins, for unlimited sound tweaking / analysis possibilities. Coming soon ... stay tuned !
-
 ## Table of Contents
   * [Overview](#overview)
   * [Summary of features](#summary-of-features)
@@ -24,7 +20,7 @@ Working on a release that will allow Aural Player to host Audio Units (AU) plug-
 
 ## Overview
 
-Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and some sound tuning capabilities for audio enthusiasts.
+Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and powerful sound tuning capabilities for audio enthusiasts.
 
 #### Goals:
 * To have a simple drag-drop-play player for the music collection on your local drives, that is able to play a wide variety of audio formats.
@@ -44,7 +40,9 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * Supports M3U / M3U8 playlists
 * **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
 * **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
-* **Effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
+* **Effects:** 
+  * **Built-in effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
+  * Hosts Audio Units (AU) plug-ins for unlimited sound tweaking / analysis possibilities.
   * Built-in and custom effects presets, per-track effects settings memory
   * Recording of clips with effects captured
 * **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection
@@ -105,6 +103,10 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 ### "Lava" color scheme, "Futuristic" font scheme, default window layout
 
 ![Vertical full stack window layout demo](/Documentation/Screenshots/FullStack.png?raw=true)
+
+### Hosting Audio Units (AU) plug-in "TDR Nova" by Tokyo Dawn Labs
+
+![Audio Units demo GIF](/Documentation/Demos/AU-Demo.gif?raw=true)
 
 ### Visualizer
 
