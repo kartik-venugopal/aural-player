@@ -87,9 +87,6 @@ Gw
                                 <items>
                                     <menuItem image="menuItem:aKj-xg-HMj:image" hidden="YES" id="aKj-xg-HMj">
                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="menuItem:aKj-xg-HMj:image"/>
-                                        </userDefinedRuntimeAttributes>
                                     </menuItem>
                                 </items>
                             </menu>
@@ -120,9 +117,6 @@ Gw
                                 <items>
                                     <menuItem image="menuItem:aKj-xg-HMj:image" hidden="YES" id="aL9-pv-KEL">
                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="menuItem:aKj-xg-HMj:image"/>
-                                        </userDefinedRuntimeAttributes>
                                     </menuItem>
                                 </items>
                             </menu>
@@ -153,9 +147,6 @@ Gw
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SaveEQPreset"/>
-                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="saveUserPresetAction:" target="-2" id="Y2W-fT-nn8"/>
                         </connections>

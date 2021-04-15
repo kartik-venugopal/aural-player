@@ -32,8 +32,6 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         set(newParams) {node.params = newParams}
     }
     
-    func printParams() {node.printParams()}
-    
     override var avNodes: [AVAudioNode] {return [node]}
     
     init(forComponent component: AVAudioUnitComponent) {

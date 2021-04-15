@@ -83,8 +83,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         
         ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
         Messenger.publish(.changeBackgroundColor, payload: backgroundColorPicker.color)
-        
-        print("\nBkgr ccolor: \(backgroundColorPicker.color)")
     }
     
     @IBAction func viewControlButtonColorAction(_ sender: Any) {

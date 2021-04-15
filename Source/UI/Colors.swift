@@ -244,9 +244,9 @@ struct Colors {
             return ColorSchemes.systemScheme.playlist.playingTrackIconColor
         }
         
-        static var playingTrackIconSelectedRowsColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.playingTrackIconSelectedRowsColor
-        }
+//        static var playingTrackIconSelectedRowsColor: NSColor {
+//            return ColorSchemes.systemScheme.playlist.playingTrackIconSelectedRowsColor
+//        }
         
         static var selectionBoxColor: NSColor {
             return ColorSchemes.systemScheme.playlist.selectionBoxColor
@@ -256,17 +256,17 @@ struct Colors {
             return ColorSchemes.systemScheme.playlist.groupIconColor
         }
         
-        static var groupIconSelectedRowsColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.groupIconSelectedRowsColor
-        }
+//        static var groupIconSelectedRowsColor: NSColor {
+//            return ColorSchemes.systemScheme.playlist.groupIconSelectedRowsColor
+//        }
         
         static var groupDisclosureTriangleColor: NSColor {
             return ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor
         }
         
-        static var groupDisclosureTriangleSelectedRowsColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.groupDisclosureTriangleSelectedRowsColor
-        }
+//        static var groupDisclosureTriangleSelectedRowsColor: NSColor {
+//            return ColorSchemes.systemScheme.playlist.groupDisclosureTriangleSelectedRowsColor
+//        }
         
         static var summaryInfoColor: NSColor {
             return ColorSchemes.systemScheme.playlist.summaryInfoColor

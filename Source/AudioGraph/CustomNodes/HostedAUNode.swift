@@ -70,11 +70,11 @@ class HostedAUNode: AVAudioUnitEffect {
                 return preset
                 
             } catch {
-                print("\nFailed to save user preset '\(presetName)': \(error)")
+                NSLog("Failed to save user preset '\(presetName)'. Error: \(error)")
             }
             
         } else {
-            print("\nUser presets not supported for audio unit: \(name)")
+            NSLog("User presets not supported for audio unit: \(name)")
         }
         
         return nil
@@ -85,17 +85,6 @@ class HostedAUNode: AVAudioUnitEffect {
         if #available(OSX 10.15, *), let preset = auAudioUnit.userPresets.first(where: {$0.number == number}) {
             auAudioUnit.currentPreset = preset
         }
-    }
-    
-    func printParams() {
-        
-        print("\n")
-        
-        for param in self.auAudioUnit.parameterTree?.allParameters ?? [] {
-            print("\(param.identifier):\(param.displayName)=\(param.value)")
-        }
-        
-        print("-------------------\n")
     }
 }
 

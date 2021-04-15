@@ -153,7 +153,6 @@ protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     var componentSubType: OSType {get}
     
     var params: [AUParameterAddress: Float] {get}
-    func printParams()
 
     var presets: AudioUnitPresets {get}
     var supportsUserPresets: Bool {get}

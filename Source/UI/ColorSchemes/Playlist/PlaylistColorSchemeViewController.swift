@@ -16,15 +16,10 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var summaryInfoColorPicker: AuralColorPicker!
 
     @IBOutlet weak var groupIconColorPicker: AuralColorPicker!
-    @IBOutlet weak var groupIconSelectedRowsColorPicker: AuralColorPicker!
-    
     @IBOutlet weak var groupDisclosureTriangleColorPicker: AuralColorPicker!
-    @IBOutlet weak var groupDisclosureTriangleSelectedRowsColorPicker: AuralColorPicker!
     
     @IBOutlet weak var selectionBoxColorPicker: AuralColorPicker!
-    
     @IBOutlet weak var playingTrackIconColorPicker: AuralColorPicker!
-    @IBOutlet weak var playingTrackIconSelectedRowsColorPicker: AuralColorPicker!
     
     override var nibName: NSNib.Name? {return "PlaylistColorScheme"}
     
@@ -45,14 +40,9 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         actionsMap[summaryInfoColorPicker.tag] = self.changeSummaryInfoColor
         
         actionsMap[groupIconColorPicker.tag] = self.changeGroupIconColor
-        actionsMap[groupIconSelectedRowsColorPicker.tag] = self.changeGroupIconSelectedRowsColor
-        
         actionsMap[groupDisclosureTriangleColorPicker.tag] = self.changeGroupDisclosureTriangleColor
-        actionsMap[groupDisclosureTriangleSelectedRowsColorPicker.tag] = self.changeGroupDisclosureTriangleSelectedRowsColor
         
         actionsMap[playingTrackIconColorPicker.tag] = self.changePlayingTrackIconColor
-        actionsMap[playingTrackIconSelectedRowsColorPicker.tag] = self.changePlayingTrackIconSelectedRowsColor
-        
         actionsMap[selectionBoxColorPicker.tag] = self.changeSelectionBoxColor
     }
     
@@ -165,20 +155,6 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         Messenger.publish(.playlist_changeGroupIconColor, payload: groupIconColorPicker.color)
     }
     
-    @IBAction func groupIconColorSelectedRowsAction(_ sender: Any) {
-        
-        history.noteChange(groupIconSelectedRowsColorPicker.tag, ColorSchemes.systemScheme.playlist.groupIconSelectedRowsColor, groupIconSelectedRowsColorPicker.color, .changeColor)
-        changeGroupIconSelectedRowsColor()
-    }
-    
-    private func changeGroupIconSelectedRowsColor() {
-        
-        ColorSchemes.systemScheme.playlist.groupIconSelectedRowsColor = groupIconSelectedRowsColorPicker.color
-        AuralPlaylistOutlineView.changeGroupIconSelectedRowsColor(groupIconSelectedRowsColorPicker.color)
-        
-        Messenger.publish(.playlist_changeGroupIconSelectedRowsColor, payload: groupIconSelectedRowsColorPicker.color)
-    }
-    
     @IBAction func groupDisclosureTriangleColorAction(_ sender: Any) {
         
         history.noteChange(groupDisclosureTriangleColorPicker.tag, ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor, groupDisclosureTriangleColorPicker.color, .changeColor)
@@ -191,20 +167,6 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         AuralPlaylistOutlineView.changeDisclosureTriangleColor(groupDisclosureTriangleColorPicker.color)
         
         Messenger.publish(.playlist_changeGroupDisclosureTriangleColor, payload: groupDisclosureTriangleColorPicker.color)
-    }
-    
-    @IBAction func groupDisclosureTriangleSelectedRowsColorAction(_ sender: Any) {
-        
-        history.noteChange(groupDisclosureTriangleSelectedRowsColorPicker.tag, ColorSchemes.systemScheme.playlist.groupDisclosureTriangleSelectedRowsColor, groupDisclosureTriangleSelectedRowsColorPicker.color, .changeColor)
-        changeGroupDisclosureTriangleSelectedRowsColor()
-    }
-    
-    private func changeGroupDisclosureTriangleSelectedRowsColor() {
-        
-        ColorSchemes.systemScheme.playlist.groupDisclosureTriangleSelectedRowsColor = groupDisclosureTriangleSelectedRowsColorPicker.color
-        AuralPlaylistOutlineView.changeDisclosureTriangleSelectedRowsColor(groupDisclosureTriangleSelectedRowsColorPicker.color)
-        
-        Messenger.publish(.playlist_changeGroupDisclosureTriangleSelectedRowsColor, payload: groupDisclosureTriangleSelectedRowsColorPicker.color)
     }
     
     @IBAction func selectionBoxColorAction(_ sender: Any) {
@@ -229,18 +191,6 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         
         ColorSchemes.systemScheme.playlist.playingTrackIconColor = playingTrackIconColorPicker.color
         Messenger.publish(.playlist_changePlayingTrackIconColor, payload: playingTrackIconColorPicker.color)
-    }
-    
-    @IBAction func playingTrackIconSelectedRowsColorAction(_ sender: Any) {
-        
-        history.noteChange(playingTrackIconSelectedRowsColorPicker.tag, ColorSchemes.systemScheme.playlist.playingTrackIconSelectedRowsColor, playingTrackIconSelectedRowsColorPicker.color, .changeColor)
-        changePlayingTrackIconSelectedRowsColor()
-    }
-    
-    private func changePlayingTrackIconSelectedRowsColor() {
-        
-        ColorSchemes.systemScheme.playlist.playingTrackIconSelectedRowsColor = playingTrackIconSelectedRowsColorPicker.color
-        Messenger.publish(.playlist_changePlayingTrackIconSelectedRowsColor, payload: playingTrackIconSelectedRowsColorPicker.color)
     }
     
     @IBAction func summaryInfoColorAction(_ sender: Any) {

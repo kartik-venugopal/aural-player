@@ -16,7 +16,6 @@ class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitD
     var componentSubType: OSType {unit.componentSubType}
     
     var params: [AUParameterAddress: Float] {unit.params}
-    func printParams() {unit.printParams()}
     
     var presets: AudioUnitPresets {unit.presets}
     var supportsUserPresets: Bool {unit.supportsUserPresets}

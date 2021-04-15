@@ -471,8 +471,6 @@
 		3E7572F72609E84C00CA3F85 /* MusicBrainzRESTClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572F62609E84C00CA3F85 /* MusicBrainzRESTClient.swift */; };
 		3E7572FB2609E8A400CA3F85 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572F92609E8A400CA3F85 /* HTTPErrors.swift */; };
 		3E7572FC2609E8A400CA3F85 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572FA2609E8A400CA3F85 /* HTTPClient.swift */; };
-		3E7A6EEC262319F800AE68C5 /* AudioUnitMenuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7A6EEB262319F800AE68C5 /* AudioUnitMenuItem.xib */; };
-		3E7A6EEE26231A2500AE68C5 /* AudioUnitMenuItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7A6EED26231A2500AE68C5 /* AudioUnitMenuItemViewController.swift */; };
 		3E803E23260A228200B705AA /* MusicBrainzCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E803E22260A228200B705AA /* MusicBrainzCache.swift */; };
 		3E824A4325DB74850089F217 /* StatusBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E824A4125DB74840089F217 /* StatusBar.xib */; };
 		3E824A4425DB74850089F217 /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E824A4225DB74840089F217 /* StatusBarViewController.swift */; };
@@ -1073,8 +1071,6 @@
 		3E7572F62609E84C00CA3F85 /* MusicBrainzRESTClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzRESTClient.swift; sourceTree = "<group>"; };
 		3E7572F92609E8A400CA3F85 /* HTTPErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
 		3E7572FA2609E8A400CA3F85 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
-		3E7A6EEB262319F800AE68C5 /* AudioUnitMenuItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitMenuItem.xib; sourceTree = "<group>"; };
-		3E7A6EED26231A2500AE68C5 /* AudioUnitMenuItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitMenuItemViewController.swift; sourceTree = "<group>"; };
 		3E803E22260A228200B705AA /* MusicBrainzCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCache.swift; sourceTree = "<group>"; };
 		3E824A4125DB74840089F217 /* StatusBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBar.xib; sourceTree = "<group>"; };
 		3E824A4225DB74840089F217 /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
@@ -2111,8 +2107,6 @@
 				3E6C100625CEB98600BF0D07 /* Master.xib */,
 				3E6C100825CEB98600BF0D07 /* MasterViewController.swift */,
 				3E6C100725CEB98600BF0D07 /* MasterView.swift */,
-				3E7A6EEB262319F800AE68C5 /* AudioUnitMenuItem.xib */,
-				3E7A6EED26231A2500AE68C5 /* AudioUnitMenuItemViewController.swift */,
 				3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */,
 			);
 			path = Master;
@@ -3206,7 +3200,6 @@
 				3E45C03325E1264C00C1519C /* PlayerFontScheme.xib in Resources */,
 				3E6C12A725CEBE2700BF0D07 /* Alerts.xib in Resources */,
 				3E6C124A25CEBDF400BF0D07 /* AlbumsPlaylistSort.xib in Resources */,
-				3E7A6EEC262319F800AE68C5 /* AudioUnitMenuItem.xib in Resources */,
 				3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */,
 				3E6C123925CEBDF400BF0D07 /* PlaylistSearch.xib in Resources */,
 				3E6C121425CEBDE500BF0D07 /* MainWindow.xib in Resources */,
@@ -3312,7 +3305,6 @@
 				3E6C127625CEBE1800BF0D07 /* EffectsColorSchemeViewController.swift in Sources */,
 				3E6C11A625CEBD9E00BF0D07 /* HistoryProtocol.swift in Sources */,
 				3E6C11B725CEBDA900BF0D07 /* MediaApplicationWatcher.swift in Sources */,
-				3E7A6EEE26231A2500AE68C5 /* AudioUnitMenuItemViewController.swift in Sources */,
 				3E6C117E25CEBD6D00BF0D07 /* Favorites.swift in Sources */,
 				3E6C12A525CEBE2700BF0D07 /* EffectsUnitSliderCellProtocol.swift in Sources */,
 				3E6C126525CEBE0600BF0D07 /* FXPresetsEditorGenericViewController.swift in Sources */,

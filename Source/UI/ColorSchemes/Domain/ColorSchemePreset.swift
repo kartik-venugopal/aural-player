@@ -749,28 +749,28 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playlistGroupIconSelectedRowsColor: NSColor {
-        
-        switch self {
-            
-        case .blackAttack:  return Colors.Constants.white35Percent
-            
-        case .blackAqua:  return Colors.Constants.white35Percent
-            
-        case .lava:  return Colors.Constants.white35Percent
-            
-        case .whiteBlight:  return Colors.Constants.white30Percent
-            
-        case .gloomyDay:    return Colors.Constants.white40Percent
-            
-        case .brownie:    return NSColor(red: 0.5, green: 0.332, blue: 0.271, alpha: 1)
-            
-        case .theBlues:     return NSColor(red: 0.37, green: 0.431, blue: 0.534, alpha: 1)
-            
-        //case .poolsideFM:   return .white
-            
-        }
-    }
+//    var playlistGroupIconSelectedRowsColor: NSColor {
+//
+//        switch self {
+//
+//        case .blackAttack:  return Colors.Constants.white35Percent
+//
+//        case .blackAqua:  return Colors.Constants.white35Percent
+//
+//        case .lava:  return Colors.Constants.white35Percent
+//
+//        case .whiteBlight:  return Colors.Constants.white30Percent
+//
+//        case .gloomyDay:    return Colors.Constants.white40Percent
+//
+//        case .brownie:    return NSColor(red: 0.5, green: 0.332, blue: 0.271, alpha: 1)
+//
+//        case .theBlues:     return NSColor(red: 0.37, green: 0.431, blue: 0.534, alpha: 1)
+//
+//        //case .poolsideFM:   return .white
+//
+//        }
+//    }
     
     var playlistGroupDisclosureTriangleColor: NSColor {
         
@@ -795,28 +795,28 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playlistGroupDisclosureTriangleSelectedRowsColor: NSColor {
-        
-        switch self {
-            
-        case .blackAttack:  return Colors.Constants.white60Percent
-            
-        case .blackAqua:  return Colors.Constants.white60Percent
-            
-        case .lava:  return Colors.Constants.white60Percent
-            
-        case .whiteBlight:  return Colors.Constants.white25Percent
-            
-        case .gloomyDay:    return Colors.Constants.white60Percent
-            
-        case .brownie:    return NSColor(red: 0.608, green: 0.403, blue: 0.329, alpha: 1)
-            
-        case .theBlues:     return NSColor(red: 0.429, green: 0.5, blue: 0.618, alpha: 1)
-            
-        //case .poolsideFM::  return .white
-            
-        }
-    }
+//    var playlistGroupDisclosureTriangleSelectedRowsColor: NSColor {
+//
+//        switch self {
+//
+//        case .blackAttack:  return Colors.Constants.white60Percent
+//
+//        case .blackAqua:  return Colors.Constants.white60Percent
+//
+//        case .lava:  return Colors.Constants.white60Percent
+//
+//        case .whiteBlight:  return Colors.Constants.white25Percent
+//
+//        case .gloomyDay:    return Colors.Constants.white60Percent
+//
+//        case .brownie:    return NSColor(red: 0.608, green: 0.403, blue: 0.329, alpha: 1)
+//
+//        case .theBlues:     return NSColor(red: 0.429, green: 0.5, blue: 0.618, alpha: 1)
+//
+//        //case .poolsideFM::  return .white
+//
+//        }
+//    }
     
     var playlistSelectionBoxColor: NSColor {
         
@@ -862,28 +862,28 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playlistPlayingTrackIconSelectedRowsColor: NSColor {
-        
-        switch self {
-            
-        case .blackAttack:  return Colors.Constants.green75Percent
-            
-        case .blackAqua:  return Colors.Constants.aqua
-            
-        case .lava:     return Colors.Constants.lava
-            
-        case .whiteBlight:  return .black
-            
-        case .gloomyDay:    return Colors.Constants.aqua
-            
-        case .brownie:    return NSColor(red: 0.856, green: 0.346, blue: 0.286, alpha: 1)
-            
-        case .theBlues:     return NSColor(red: 0.313, green: 0.548, blue: 0.756, alpha: 1)
-            
-        //case .poolsideFM:   return .white
-            
-        }
-    }
+//    var playlistPlayingTrackIconSelectedRowsColor: NSColor {
+//        
+//        switch self {
+//            
+//        case .blackAttack:  return Colors.Constants.green75Percent
+//            
+//        case .blackAqua:  return Colors.Constants.aqua
+//            
+//        case .lava:     return Colors.Constants.lava
+//            
+//        case .whiteBlight:  return .black
+//            
+//        case .gloomyDay:    return Colors.Constants.aqua
+//            
+//        case .brownie:    return NSColor(red: 0.856, green: 0.346, blue: 0.286, alpha: 1)
+//            
+//        case .theBlues:     return NSColor(red: 0.313, green: 0.548, blue: 0.756, alpha: 1)
+//            
+//        //case .poolsideFM:   return .white
+//            
+//        }
+//    }
     
     var playlistSummaryInfoColor: NSColor {
         
