@@ -187,23 +187,23 @@ struct Fonts {
         static let captionFont_12_5: NSFont = NSFont(name: "Aniron", size: 12.5)!
     }
     
-    struct PoolsideFM {
-        
-        static let mainFont_9: NSFont = NSFont(name: "ChicagoFLF", size: 9)!
-        
-        static let mainFont_10: NSFont = NSFont(name: "ChicagoFLF", size: 10)!
-        
-        static let mainFont_11: NSFont = NSFont(name: "ChicagoFLF", size: 11)!
-        
-        static let mainFont_12: NSFont = NSFont(name: "ChicagoFLF", size: 12)!
-        static let mainFont_12_5: NSFont = NSFont(name: "ChicagoFLF", size: 12.5)!
-        
-        static let mainFont_14: NSFont = NSFont(name: "ChicagoFLF", size: 14)!
-        
-        static let captionFont_13: NSFont = NSFont(name: "ChicagoFLF", size: 13)!
-        static let captionFont_15: NSFont = NSFont(name: "ChicagoFLF", size: 15)!
-        static let captionFont_16: NSFont = NSFont(name: "ChicagoFLF", size: 16)!
-    }
+//    struct PoolsideFM {
+//
+//        static let mainFont_9: NSFont = NSFont(name: "ChicagoFLF", size: 9)!
+//
+//        static let mainFont_10: NSFont = NSFont(name: "ChicagoFLF", size: 10)!
+//
+//        static let mainFont_11: NSFont = NSFont(name: "ChicagoFLF", size: 11)!
+//
+//        static let mainFont_12: NSFont = NSFont(name: "ChicagoFLF", size: 12)!
+//        static let mainFont_12_5: NSFont = NSFont(name: "ChicagoFLF", size: 12.5)!
+//
+//        static let mainFont_14: NSFont = NSFont(name: "ChicagoFLF", size: 14)!
+//
+//        static let captionFont_13: NSFont = NSFont(name: "ChicagoFLF", size: 13)!
+//        static let captionFont_15: NSFont = NSFont(name: "ChicagoFLF", size: 15)!
+//        static let captionFont_16: NSFont = NSFont(name: "ChicagoFLF", size: 16)!
+//    }
     
     static let menuFont: NSFont = Standard.mainFont_11
 

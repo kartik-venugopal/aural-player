@@ -27,7 +27,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="W7v-UI-tl4">
@@ -299,12 +299,6 @@
                                                                     <action selector="applySchemeAction:" target="jyH-lC-gOA" id="h1I-fR-GqS"/>
                                                                 </connections>
                                                             </menuItem>
-                                                            <menuItem title="Poolside FM" indentationLevel="1" id="qpn-LJ-Ixf">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="a6K-pz-zrp"/>
-                                                                </connections>
-                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="GxE-An-9JV"/>
                                                             <menuItem title="Customize ..." indentationLevel="1" id="BQn-Vj-Y0Y">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -370,12 +364,6 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="DIM-ba-iGi"/>
-                                                                </connections>
-                                                            </menuItem>
-                                                            <menuItem title="Poolside FM" indentationLevel="1" id="mNa-Rp-7zx" userLabel="Poolside.fm">
-                                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                                                <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="Spg-bD-NHY"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>
