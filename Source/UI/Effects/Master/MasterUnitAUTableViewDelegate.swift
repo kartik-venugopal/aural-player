@@ -44,6 +44,10 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             let audioUnit = audioGraph.audioUnits[row]
             
             cell.btnSwitch.stateFunction = audioUnit.stateFunction
+            
+            cell.btnSwitch.offStateTooltip = "Activate this Audio Unit"
+            cell.btnSwitch.onStateTooltip = "Deactivate this Audio Unit"
+            
             cell.btnSwitch.updateState()
             
             cell.action = {
@@ -67,6 +71,7 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             cell.textField?.stringValue = audioUnit.name
             cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+            cell.realignText(yOffset: FontSchemes.systemScheme.effects.auRowTextYOffset)
             
             return cell
         }

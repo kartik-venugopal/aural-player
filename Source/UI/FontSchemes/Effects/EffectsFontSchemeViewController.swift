@@ -16,6 +16,9 @@ class EffectsFontSchemeViewController: NSViewController, FontSchemesViewProtocol
     @IBOutlet weak var filterChartStepper: NSStepper!
     @IBOutlet weak var txtFilterChart: NSTextField!
     
+    @IBOutlet weak var auTableRowYOffsetStepper: NSStepper!
+    @IBOutlet weak var txtAUTableRowYOffset: NSTextField!
+    
     override var nibName: NSNib.Name? {return "EffectsFontScheme"}
     
     var fontSchemesView: NSView {
@@ -48,6 +51,9 @@ class EffectsFontSchemeViewController: NSViewController, FontSchemesViewProtocol
         
         filterChartStepper.floatValue = Float(fontScheme.effects.filterChartFont.pointSize * 10)
         txtFilterChart.stringValue = String(format: "%.1f", filterChartStepper.floatValue / 10.0)
+        
+        auTableRowYOffsetStepper.integerValue = roundedInt(fontScheme.effects.auRowTextYOffset)
+        txtAUTableRowYOffset.stringValue = String(format: "%d px", auTableRowYOffsetStepper.integerValue)
     }
     
     @IBAction func unitCaptionStepperAction(_ sender: NSStepper) {
@@ -66,6 +72,10 @@ class EffectsFontSchemeViewController: NSViewController, FontSchemesViewProtocol
         txtFilterChart.stringValue = String(format: "%.1f", sender.floatValue / 10.0)
     }
     
+    @IBAction func auTableRowYOffsetStepperAction(_ sender: NSStepper) {
+        txtAUTableRowYOffset.stringValue = String(format: "%d px", auTableRowYOffsetStepper.integerValue)
+    }
+    
     func applyFontScheme(_ context: FontSchemeChangeContext, to fontScheme: FontScheme) {
         
         let textFontName = context.textFontName
@@ -75,5 +85,6 @@ class EffectsFontSchemeViewController: NSViewController, FontSchemesViewProtocol
         fontScheme.effects.unitFunctionFont = NSFont(name: textFontName, size: CGFloat(unitFunctionStepper.floatValue / 10.0))!
         fontScheme.effects.masterUnitFunctionFont = NSFont(name: headingFontName, size: CGFloat(masterUnitFunctionStepper.floatValue / 10.0))!
         fontScheme.effects.filterChartFont = NSFont(name: textFontName, size: CGFloat(filterChartStepper.floatValue / 10.0))!
+        fontScheme.effects.auRowTextYOffset = CGFloat(auTableRowYOffsetStepper.integerValue)
     }
 }

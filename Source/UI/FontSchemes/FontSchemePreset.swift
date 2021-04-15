@@ -513,4 +513,28 @@ enum FontSchemePreset: String, CaseIterable {
             case .poolsideFM:   return Fonts.PoolsideFM.mainFont_9
         }
     }
+    
+    var effectsAURowTextYOffset: CGFloat {
+        
+        switch self {
+                
+            case .standard:  return 1
+                
+            case .rounded:     return 0
+                
+            case .programmer:  return 4
+                
+            case .futuristic:   return 1
+                
+            case .novelist:  return -1
+                
+            case .soySauce:     return -1
+                
+            case .gothic:    return 2
+                
+            case .papyrus:   return 1
+                
+            case .poolsideFM:   return 5
+        }
+    }
 }

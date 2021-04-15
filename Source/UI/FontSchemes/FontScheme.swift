@@ -239,6 +239,7 @@ class EffectsFontScheme {
     var unitFunctionFont: NSFont
     var masterUnitFunctionFont: NSFont
     var filterChartFont: NSFont
+    var auRowTextYOffset: CGFloat
     
     init(_ appState: FontSchemeState?) {
         
@@ -246,6 +247,7 @@ class EffectsFontScheme {
         self.unitFunctionFont = FontSchemePreset.standard.effectsUnitFunctionFont
         self.masterUnitFunctionFont = FontSchemePreset.standard.effectsMasterUnitFunctionFont
         self.filterChartFont = FontSchemePreset.standard.effectsFilterChartFont
+        self.auRowTextYOffset = FontSchemePreset.standard.effectsAURowTextYOffset
         
         guard let textFontName = appState?.textFontName, let headingFontName = appState?.headingFontName else {
             return
@@ -268,6 +270,10 @@ class EffectsFontScheme {
         if let filterChartSize = appState?.effects?.filterChartSize, let filterChartFont = NSFont(name: textFontName, size: filterChartSize) {
             self.filterChartFont = filterChartFont
         }
+        
+        if let auRowTextYOffset = appState?.effects?.auRowTextYOffset {
+            self.auRowTextYOffset = auRowTextYOffset
+        }
     }
     
     init(preset: FontSchemePreset) {
@@ -276,6 +282,7 @@ class EffectsFontScheme {
         self.unitFunctionFont = preset.effectsUnitFunctionFont
         self.masterUnitFunctionFont = preset.effectsMasterUnitFunctionFont
         self.filterChartFont = preset.effectsFilterChartFont
+        self.auRowTextYOffset = preset.effectsAURowTextYOffset
     }
     
     init(_ fontScheme: EffectsFontScheme) {
@@ -284,6 +291,7 @@ class EffectsFontScheme {
         self.unitFunctionFont = fontScheme.unitFunctionFont
         self.masterUnitFunctionFont = fontScheme.masterUnitFunctionFont
         self.filterChartFont = fontScheme.filterChartFont
+        self.auRowTextYOffset = fontScheme.auRowTextYOffset
     }
     
     func clone() -> EffectsFontScheme {

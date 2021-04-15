@@ -55,7 +55,6 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             cell.action = {
                 
                 _ = audioUnit.toggleState()
-                cell.btnSwitch.updateState()
                 Messenger.publish(.fx_unitStateChanged)
             }
             
@@ -74,6 +73,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             cell.textField?.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
             cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+            cell.realignText(yOffset: FontSchemes.systemScheme.effects.auRowTextYOffset)
             
             return cell
         }
@@ -140,6 +140,19 @@ class AudioUnitNameCellView: NSTableCellView {
         
         // Check if this row is selected, change color accordingly.
         textField?.textColor = rowIsSelected ?  selectedTextColor : textColor
+    }
+    
+    // Constraints
+    func realignText(yOffset: CGFloat) {
+        
+        guard let textField = self.textField else {return}
+        
+        // Remove any existing constraints on the text field's 'bottom' attribute
+        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {self.deactivateAndRemoveConstraint($0)}
+
+        let textFieldBottomConstraint = NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: yOffset)
+        
+        self.activateAndAddConstraint(textFieldBottomConstraint)
     }
 }
 

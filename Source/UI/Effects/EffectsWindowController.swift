@@ -94,14 +94,15 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         
         auTabViewButton.stateFunction = {
             
-            let unitStates = self.graph.audioUnits.map {$0.state}
+            for unit in self.graph.audioUnits {
             
-            if unitStates.filter({$0 == .active}).isNonEmpty {
-                return .active
-            }
-            
-            if unitStates.filter({$0 == .suppressed}).isNonEmpty {
-                return .suppressed
+                if unit.state == .active {
+                    return .active
+                }
+                
+                if unit.state == .suppressed {
+                    return .suppressed
+                }
             }
             
             return .bypassed

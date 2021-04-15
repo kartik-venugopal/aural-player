@@ -227,6 +227,7 @@ class EffectsFontSchemeState: PersistentState {
     var unitFunctionSize: CGFloat = 12
     var masterUnitFunctionSize: CGFloat = 12
     var filterChartSize: CGFloat = 12
+    var auRowTextYOffset: CGFloat = 0
 
     init() {}
 
@@ -236,6 +237,7 @@ class EffectsFontSchemeState: PersistentState {
         self.unitFunctionSize = scheme.unitFunctionFont.pointSize
         self.masterUnitFunctionSize = scheme.masterUnitFunctionFont.pointSize
         self.filterChartSize = scheme.filterChartFont.pointSize
+        self.auRowTextYOffset = scheme.auRowTextYOffset
     }
 
     static func deserialize(_ map: NSDictionary) -> EffectsFontSchemeState {
@@ -256,6 +258,10 @@ class EffectsFontSchemeState: PersistentState {
         
         if let filterChartSize = map["filterChartSize"] as? NSNumber {
             state.filterChartSize = CGFloat(filterChartSize.floatValue)
+        }
+        
+        if let auRowTextYOffset = map["auRowTextYOffset"] as? NSNumber {
+            state.auRowTextYOffset = CGFloat(auRowTextYOffset.floatValue)
         }
 
         return state

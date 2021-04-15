@@ -8,9 +8,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="EffectsFontSchemeViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="auTableRowYOffsetStepper" destination="e2u-O5-VhB" id="rXy-9C-qn3"/>
                 <outlet property="filterChartStepper" destination="JuZ-j2-J7q" id="9nK-RH-lIt"/>
                 <outlet property="masterUnitFunctionStepper" destination="L0h-Du-7Tx" id="12Q-lk-Y8o"/>
                 <outlet property="scrollView" destination="qaa-Ff-HBa" id="dbv-QW-uBc"/>
+                <outlet property="txtAUTableRowYOffset" destination="pss-L9-pgC" id="dXh-LF-yqi"/>
                 <outlet property="txtFilterChart" destination="wT1-yV-TXT" id="Ida-kA-9ji"/>
                 <outlet property="txtMasterUnitFunction" destination="bdg-kb-929" id="MTE-5x-Ag6"/>
                 <outlet property="txtUnitCaption" destination="sis-aW-oNq" id="vkE-oU-y0p"/>
@@ -150,6 +152,32 @@
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </textFieldCell>
                                     </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNA-GN-dop" userLabel="Track title">
+                                        <rect key="frame" x="18" y="0.0" width="243" height="61"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Audio Units table row text Y offset (adjust to vertically center text in rows. negative values move text up)" id="ec6-Vz-xpo">
+                                            <font key="font" size="14" name="Play-Regular"/>
+                                            <color key="textColor" white="0.60083391949999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pss-L9-pgC" userLabel="Track title">
+                                        <rect key="frame" x="369" y="41" width="53" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="0 px" id="y7b-Mj-U25">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e2u-O5-VhB">
+                                        <rect key="frame" x="424" y="36" width="19" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <stepperCell key="cell" continuous="YES" alignment="left" minValue="-15" maxValue="15" id="EIN-Q3-Rug"/>
+                                        <connections>
+                                            <action selector="auTableRowYOffsetStepperAction:" target="-2" id="sGo-hO-kaQ"/>
+                                        </connections>
+                                    </stepper>
                                 </subviews>
                             </view>
                         </subviews>

@@ -15,6 +15,7 @@ class MasterView: NSView {
     @IBOutlet weak var imgReverbBypass: EffectsUnitTriStateBypassImage!
     @IBOutlet weak var imgDelayBypass: EffectsUnitTriStateBypassImage!
     @IBOutlet weak var imgFilterBypass: EffectsUnitTriStateBypassImage!
+    @IBOutlet weak var imgAUBypass: EffectsUnitTriStateBypassImage!
     
     @IBOutlet weak var lblEQ: EffectsUnitTriStateLabel!
     @IBOutlet weak var lblPitch: EffectsUnitTriStateLabel!
@@ -31,11 +32,11 @@ class MasterView: NSView {
     
     override func awakeFromNib() {
         buttons = [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass]
-        images = [imgEQBypass, imgPitchBypass, imgTimeBypass, imgReverbBypass, imgDelayBypass, imgFilterBypass]
+        images = [imgEQBypass, imgPitchBypass, imgTimeBypass, imgReverbBypass, imgDelayBypass, imgFilterBypass, imgAUBypass]
         labels = [lblEQ, lblPitch, lblTime, lblReverb, lblDelay, lblFilter, lblAudioUnits]
     }
     
-    func initialize(_ eqStateFunction: @escaping EffectsUnitStateFunction, _ pitchStateFunction: @escaping EffectsUnitStateFunction, _ timeStateFunction: @escaping EffectsUnitStateFunction, _ reverbStateFunction: @escaping EffectsUnitStateFunction, _ delayStateFunction: @escaping EffectsUnitStateFunction, _ filterStateFunction: @escaping EffectsUnitStateFunction) {
+    func initialize(_ eqStateFunction: @escaping EffectsUnitStateFunction, _ pitchStateFunction: @escaping EffectsUnitStateFunction, _ timeStateFunction: @escaping EffectsUnitStateFunction, _ reverbStateFunction: @escaping EffectsUnitStateFunction, _ delayStateFunction: @escaping EffectsUnitStateFunction, _ filterStateFunction: @escaping EffectsUnitStateFunction, _ auStateFunction: @escaping EffectsUnitStateFunction) {
         
         btnEQBypass.stateFunction = eqStateFunction
         btnPitchBypass.stateFunction = pitchStateFunction
@@ -50,6 +51,7 @@ class MasterView: NSView {
         imgReverbBypass.stateFunction = reverbStateFunction
         imgDelayBypass.stateFunction = delayStateFunction
         imgFilterBypass.stateFunction = filterStateFunction
+        imgAUBypass.stateFunction = auStateFunction
         
         lblEQ.stateFunction = eqStateFunction
         lblPitch.stateFunction = pitchStateFunction
@@ -57,8 +59,7 @@ class MasterView: NSView {
         lblReverb.stateFunction = reverbStateFunction
         lblDelay.stateFunction = delayStateFunction
         lblFilter.stateFunction = filterStateFunction
-        
-        lblAudioUnits.stateFunction = {.bypassed}
+        lblAudioUnits.stateFunction = auStateFunction
         
         buttons.forEach({$0.updateState()})
         images.forEach({$0.updateState()})

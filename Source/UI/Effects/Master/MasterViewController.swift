@@ -36,7 +36,23 @@ class MasterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         
-        masterView.initialize(graph.eqUnit.stateFunction, graph.pitchUnit.stateFunction, graph.timeUnit.stateFunction, graph.reverbUnit.stateFunction, graph.delayUnit.stateFunction, graph.filterUnit.stateFunction)
+        let auStateFunction: EffectsUnitStateFunction = {
+            
+            for unit in self.graph.audioUnits {
+            
+                if unit.state == .active {
+                    return .active
+                }
+                
+                if unit.state == .suppressed {
+                    return .suppressed
+                }
+            }
+            
+            return .bypassed
+        }
+        
+        masterView.initialize(graph.eqUnit.stateFunction, graph.pitchUnit.stateFunction, graph.timeUnit.stateFunction, graph.reverbUnit.stateFunction, graph.delayUnit.stateFunction, graph.filterUnit.stateFunction, auStateFunction)
     }
     
     override func initSubscriptions() {
