@@ -85,7 +85,7 @@ Gw
                             <font key="font" size="11" name="Play-Regular"/>
                             <menu key="menu" showsStateColumn="NO" id="4mc-3n-qws">
                                 <items>
-                                    <menuItem image="menuItem:aKj-xg-HMj:image" hidden="YES" id="aKj-xg-HMj" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <menuItem image="menuItem:aKj-xg-HMj:image" hidden="YES" id="aKj-xg-HMj">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="menuItem:aKj-xg-HMj:image"/>
@@ -118,7 +118,7 @@ Gw
                             <font key="font" size="11" name="Play-Regular"/>
                             <menu key="menu" showsStateColumn="NO" id="bb8-d9-OFk">
                                 <items>
-                                    <menuItem image="menuItem:aKj-xg-HMj:image" hidden="YES" id="aL9-pv-KEL" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                    <menuItem image="menuItem:aKj-xg-HMj:image" hidden="YES" id="aL9-pv-KEL">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="menuItem:aKj-xg-HMj:image"/>
@@ -143,7 +143,7 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button toolTip="Save new preset" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AlZ-mk-WMx" userLabel="Save" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                    <button toolTip="Save new preset" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AlZ-mk-WMx" userLabel="Save">
                         <rect key="frame" x="597" y="525" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="I0K-ha-gSJ"/>
