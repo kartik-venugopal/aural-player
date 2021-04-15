@@ -104,7 +104,7 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ![Vertical full stack window layout demo](/Documentation/Screenshots/FullStack.png?raw=true)
 
-### Hosting Audio Units (AU) plug-in "TDR Nova" by Tokyo Dawn Labs
+### Hosting Audio Units (AU) plug-in "TDR Nova" Equalizer by Tokyo Dawn Labs
 
 ![Audio Units demo GIF](/Documentation/Demos/AU-Demo.gif?raw=true)
 
