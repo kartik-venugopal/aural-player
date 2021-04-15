@@ -82,7 +82,7 @@ class MasterViewController: FXUnitViewController {
         updateButtons()
         broadcastStateChangeNotification()
         
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet((0..<audioUnitsTable.numberOfRows)), columnIndexes: IndexSet([0]))
+        audioUnitsTable.reloadData()
     }
     
     private func toggleEffects() {
@@ -204,7 +204,7 @@ class MasterViewController: FXUnitViewController {
         masterView.changeActiveUnitStateColor(color)
         
         let rowsForActiveUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .active}
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForActiveUnits), columnIndexes: [0])
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForActiveUnits), columnIndexes: [0, 1])
     }
     
     override func changeBypassedUnitStateColor(_ color: NSColor) {
@@ -213,7 +213,7 @@ class MasterViewController: FXUnitViewController {
         masterView.changeBypassedUnitStateColor(color)
         
         let rowsForBypassedUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .bypassed}
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForBypassedUnits), columnIndexes: [0])
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForBypassedUnits), columnIndexes: [0, 1])
     }
     
     override func changeSuppressedUnitStateColor(_ color: NSColor) {
@@ -222,7 +222,7 @@ class MasterViewController: FXUnitViewController {
         masterView.changeSuppressedUnitStateColor(color)
         
         let rowsForSuppressedUnits: [Int] = (0..<audioUnitsTable.numberOfRows).filter {graph.audioUnits[$0].state == .suppressed}
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForSuppressedUnits), columnIndexes: [0])
+        audioUnitsTable.reloadData(forRowIndexes: IndexSet(rowsForSuppressedUnits), columnIndexes: [0, 1])
     }
     
     // MARK: Message handling
@@ -230,7 +230,7 @@ class MasterViewController: FXUnitViewController {
     override func stateChanged() {
         
         updateButtons()
-        audioUnitsTable.reloadData(forRowIndexes: IndexSet((0..<audioUnitsTable.numberOfRows)), columnIndexes: IndexSet([0]))
+        audioUnitsTable.reloadData()
     }
     
     private func refreshAUTable() {

@@ -62,20 +62,50 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
         return nil
     }
     
-    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitNameCellView? {
+    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> MasterUnitAUTableNameCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitNameCellView {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? MasterUnitAUTableNameCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
             
             cell.textField?.stringValue = audioUnit.name
             cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
-            cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
             cell.realignText(yOffset: FontSchemes.systemScheme.effects.auRowTextYOffset)
+
+            switch audioUnit.state {
+            
+            case .active:
+                
+                cell.textField?.textColor = ColorSchemes.systemScheme.effects.activeUnitStateColor
+                
+            case .bypassed:
+                
+                cell.textField?.textColor = ColorSchemes.systemScheme.effects.bypassedUnitStateColor
+                
+            case .suppressed:
+                
+                cell.textField?.textColor = ColorSchemes.systemScheme.effects.suppressedUnitStateColor
+            }
             
             return cell
         }
         
         return nil
+    }
+}
+
+class MasterUnitAUTableNameCellView: NSTableCellView {
+    
+    // Constraints
+    func realignText(yOffset: CGFloat) {
+        
+        guard let textField = self.textField else {return}
+        
+        // Remove any existing constraints on the text field's 'bottom' attribute
+        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {self.deactivateAndRemoveConstraint($0)}
+
+        let textFieldBottomConstraint = NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: yOffset)
+        
+        self.activateAndAddConstraint(textFieldBottomConstraint)
     }
 }

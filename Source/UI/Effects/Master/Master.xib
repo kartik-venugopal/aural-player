@@ -306,7 +306,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="xP4-kQ-8j1" customClass="AudioUnitNameCellView" customModule="Aural" customModuleProvider="target">
+                                            <tableCellView id="xP4-kQ-8j1" customClass="MasterUnitAUTableNameCellView" customModule="Aural" customModuleProvider="target">
                                                 <rect key="frame" x="38" y="0.0" width="190" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
@@ -316,7 +316,7 @@
                                                             <constraint firstAttribute="width" constant="180" id="Egw-AW-kD0"/>
                                                             <constraint firstAttribute="height" constant="24" id="Ye8-kh-EtO"/>
                                                         </constraints>
-                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="2pS-7Q-et5">
+                                                        <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" id="2pS-7Q-et5">
                                                             <font key="font" usesAppearanceFont="YES"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
