@@ -48,9 +48,9 @@ Some audio units come with factory presets. For those that do, the audio unit ed
 
 User presets for audio units are only supported on macOS 10.15 and newer systems. Also, they are not supported by all audio units. When an audio unit supports user presets, the audio unit editor dialog will display a list of them, allowing you to save new ones or apply existing ones to the audio unit.
 
-### Note about macOS Sierra
+### Note about macOS Sierra / High Sierra
 
-This feature may or may not work reliably on macOS Sierra. Crashes may occur at random times, or audio unit custom interfaces may not always respond properly to mouse clicks.
+This feature (or certain audio units) may or may not work reliably on macOS Sierra / High Sierra. Crashes may occur at random times, or audio unit custom interfaces may not always respond properly to user input.
 
 ### Where can I find free audio units to try out with Aural Player ?
 
