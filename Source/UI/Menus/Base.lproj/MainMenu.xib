@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -129,6 +130,8 @@
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="vgD-4T-WSG" id="aNt-Oa-CFX"/>
                 <outlet property="applyFontSchemeMenuItem" destination="pXx-4E-0SU" id="c0W-eU-SJ0"/>
+                <outlet property="cornerRadiusStepper" destination="2rX-63-LrB" id="ht8-2C-8Ze"/>
+                <outlet property="lblCornerRadius" destination="nk7-Vp-sgm" id="PfF-oM-eKn"/>
                 <outlet property="manageColorSchemesMenuItem" destination="3ie-xE-Lk9" id="qy9-2a-3ie"/>
                 <outlet property="manageFontSchemesMenuItem" destination="PXA-nL-cxl" id="WqT-G9-BWH"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
@@ -1253,6 +1256,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="eo4-eB-OpN"/>
+                            <menuItem title="Window corner radius" id="QCA-xf-hh0">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <outlet property="view" destination="sDr-Io-tYU" id="Q6u-6w-RJa"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="bct-RL-oPA"/>
                             <menuItem title=" Window Layout" image="WindowLayout-Small" id="RWg-5h-jkO" userLabel="Window Layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title=" Window Layout" id="S2A-E2-dfO">
@@ -1491,6 +1501,43 @@ CA
             </connections>
             <point key="canvasLocation" x="169" y="822"/>
         </menu>
+        <customView id="sDr-Io-tYU" userLabel="Window corner radius editor view" customClass="WindowCornerRadiusMenuItemView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="260" height="28"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kja-Bm-IBY">
+                    <rect key="frame" x="46" y="2" width="156" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="4ec-KW-cX4">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nk7-Vp-sgm">
+                    <rect key="frame" x="188" y="2" width="39" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="Egv-n0-XE8">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2rX-63-LrB" userLabel="Radius Stepper">
+                    <rect key="frame" x="230" y="2" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="25" doubleValue="3" id="LuI-uw-Mkg"/>
+                    <connections>
+                        <action selector="cornerRadiusStepperAction:" target="sDr-Io-tYU" id="NRF-ao-cnK"/>
+                    </connections>
+                </stepper>
+            </subviews>
+            <connections>
+                <outlet property="cornerRadiusStepper" destination="2rX-63-LrB" id="4B2-Nv-KHf"/>
+                <outlet property="lblCornerRadius" destination="nk7-Vp-sgm" id="jdQ-s8-uny"/>
+            </connections>
+            <point key="canvasLocation" x="17" y="181.5"/>
+        </customView>
     </objects>
     <resources>
         <image name="Add-Small" width="12" height="12"/>

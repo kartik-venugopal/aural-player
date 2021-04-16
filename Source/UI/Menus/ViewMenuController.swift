@@ -25,6 +25,9 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var manageLayoutsMenuItem: NSMenuItem!
     
+    @IBOutlet weak var cornerRadiusStepper: NSStepper!
+    @IBOutlet weak var lblCornerRadius: NSTextField!
+    
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -52,6 +55,9 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         toggleVisualizerMenuItem.onIf(WindowManager.isShowingVisualizer)
         
         playerViewMenuItem.off()
+        
+        cornerRadiusStepper.integerValue = roundedInt(WindowAppearanceState.cornerRadius)
+        lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
     }
  
     // Shows/hides the playlist window

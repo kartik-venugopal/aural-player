@@ -11,9 +11,15 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var applyColorSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var saveColorSchemeMenuItem: NSMenuItem!
     
+    @IBOutlet weak var cornerRadiusStepper: NSStepper!
+    @IBOutlet weak var lblCornerRadius: NSTextField!
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // These items should be enabled only if there is no modal component currently shown.
         [applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!WindowManager.isShowingModalComponent)}
+        
+        cornerRadiusStepper.integerValue = roundedInt(WindowAppearanceState.cornerRadius)
+        lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
     }
 }

@@ -568,6 +568,8 @@
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="i7L-so-Yi8" id="9E8-JZ-anN"/>
                 <outlet property="applyFontSchemeMenuItem" destination="pIS-mt-Im2" id="gyj-Vf-Ina"/>
+                <outlet property="cornerRadiusStepper" destination="qpG-S8-CX4" id="pM2-SH-mGf"/>
+                <outlet property="lblCornerRadius" destination="Ycf-6F-230" id="O4q-3u-2eg"/>
                 <outlet property="saveColorSchemeMenuItem" destination="qvE-di-9Bh" id="CAv-1G-tZt"/>
                 <outlet property="saveFontSchemeMenuItem" destination="61k-O1-7w2" id="SqX-7F-Hqn"/>
             </connections>
