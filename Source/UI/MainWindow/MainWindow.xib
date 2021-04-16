@@ -386,6 +386,14 @@
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="2kB-OR-pRg"/>
+                                                <menuItem title="Window corner radius" id="Fm1-z9-ixG">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="saveSchemeAction:" target="df9-sN-idv" id="1n7-qh-FOE"/>
+                                                        <outlet property="view" destination="f8G-sv-wa9" id="GYP-R7-AEw"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="Ewp-V1-dKh"/>
                                                 <menuItem title="Window layout" id="tGm-Ku-PMk">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Window layout" id="yiL-Aw-PVn">
@@ -475,7 +483,7 @@
                                         <action selector="toggleEffectsAction:" target="-2" id="maE-Ym-EeP"/>
                                     </connections>
                                 </button>
-                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Player Container Box">
+                                <box autoresizesSubviews="NO" fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="5" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPg-iX-tXz" userLabel="Player Container Box">
                                     <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <view key="contentView" id="DYU-Up-NX9">
@@ -503,7 +511,7 @@
                     <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
-            <point key="canvasLocation" x="156" y="-61"/>
+            <point key="canvasLocation" x="155" y="-58"/>
         </window>
         <customObject id="gF1-jg-yeJ" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
@@ -552,6 +560,43 @@
                 <outlet property="saveFontSchemeMenuItem" destination="61k-O1-7w2" id="SqX-7F-Hqn"/>
             </connections>
         </customObject>
+        <customView id="f8G-sv-wa9" userLabel="Window corner radius editor view" customClass="WindowCornerRadiusMenuItemView" customModule="Aural" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u6t-rx-7Nq">
+                    <rect key="frame" x="9" y="5" width="156" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="Al9-jB-rjO">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ycf-6F-230">
+                    <rect key="frame" x="151" y="5" width="39" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="LUv-IU-Zr7">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qpG-S8-CX4" userLabel="Radius Stepper">
+                    <rect key="frame" x="193" y="0.0" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="25" doubleValue="3" id="n03-mo-5Zv"/>
+                    <connections>
+                        <action selector="cornerRadiusStepperAction:" target="f8G-sv-wa9" id="a0V-Yx-Ifq"/>
+                    </connections>
+                </stepper>
+            </subviews>
+            <connections>
+                <outlet property="cornerRadiusStepper" destination="qpG-S8-CX4" id="W9f-zn-srU"/>
+                <outlet property="lblCornerRadius" destination="Ycf-6F-230" id="4Ve-i1-s1F"/>
+            </connections>
+            <point key="canvasLocation" x="17" y="181.5"/>
+        </customView>
     </objects>
     <resources>
         <image name="AppTitle" width="117" height="32"/>

@@ -169,6 +169,7 @@ class ObjectGraph {
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)
         VisualizerViewState.initialize(appState.ui.visualizer)
+        WindowAppearance.initialize(appState.ui.windowAppearance)
         
         fft = FFT()
         
@@ -203,7 +204,7 @@ class ObjectGraph {
     // Called when app exits
     static func tearDown() {
         
-        // Gather all pieces of app state into the appState object
+        // Gather all pieces of persistent state into the appState object
         
         appState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
         
@@ -219,6 +220,7 @@ class ObjectGraph {
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState
         appState.ui.visualizer = VisualizerViewState.persistentState
+        appState.ui.windowAppearance = WindowAppearance.persistentState
         
         appState.history = (historyDelegate as! HistoryDelegate).persistentState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

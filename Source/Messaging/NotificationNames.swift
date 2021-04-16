@@ -622,4 +622,8 @@ extension Notification.Name {
 
     // Commands FX views corresponding to "suppressed" FX units, to redraw all their controls.
     static let fx_changeSuppressedUnitStateColor = Notification.Name("fx_changeSuppressedUnitStateColor")
+    
+    // MARK: Window appearance commands sent to all app windows
+    
+    static let windowAppearance_changeCornerRadius = Notification.Name("windowAppearance_changeCornerRadius")
 }

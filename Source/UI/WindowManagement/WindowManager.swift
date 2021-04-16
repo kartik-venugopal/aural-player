@@ -324,3 +324,10 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
         WindowManager.windowDidMove(notification)
     }
 }
+
+// Convenient accessor for information about the current playlist view
+class WindowAppearance {
+    
+    // The current playlist view type displayed within the playlist tab group
+    static var cornerRadius: CGFloat = AppDefaults.windowCornerRadius
+}

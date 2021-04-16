@@ -49,4 +49,6 @@ struct AppDefaults {
     static let auState: EffectsUnitState = .active
     
     static let lastTrackPosition: Double = 0
+    
+    static let windowCornerRadius: CGFloat = 3
 }

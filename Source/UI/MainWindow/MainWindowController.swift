@@ -71,6 +71,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
         applyColorScheme(ColorSchemes.systemScheme)
+        rootContainerBox.cornerRadius = WindowAppearance.cornerRadius
         
         // Hackish fix to properly position settings menu button (hamburger icon) on older systems.
         if !SystemUtils.isBigSur {
@@ -109,6 +110,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         Messenger.subscribe(self, .windowManager_toggleEffectsWindow, self.toggleEffectsWindow)
         
         Messenger.subscribe(self, .windowManager_layoutChanged, self.windowLayoutChanged(_:))
+        
+        Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
     }
     
     // Shows/hides the playlist window (by delegating)
@@ -152,11 +155,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
-        
         rootContainerBox.fillColor = color
-
-        containerBox.fillColor = color
-        containerBox.isTransparent = !color.isOpaque
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
@@ -184,5 +183,9 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         
         btnToggleEffects.onIf(notification.showingEffectsWindow)
         btnTogglePlaylist.onIf(notification.showingPlaylistWindow)
+    }
+    
+    func changeWindowCornerRadius(_ radius: CGFloat) {
+        rootContainerBox.cornerRadius = radius
     }
 }

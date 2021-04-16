@@ -11,6 +11,7 @@ class UIState: PersistentState {
     var player: PlayerUIState = PlayerUIState()
     var playlist: PlaylistUIState = PlaylistUIState()
     var visualizer: VisualizerUIState = VisualizerUIState()
+    var windowAppearance: WindowUIState = WindowUIState()
     
     static func deserialize(_ map: NSDictionary) -> UIState {
         
@@ -38,6 +39,10 @@ class UIState: PersistentState {
         
         if let visualizerMap = map["visualizer"] as? NSDictionary {
             state.visualizer = VisualizerUIState.deserialize(visualizerMap)
+        }
+        
+        if let windowAppearanceMap = map["windowAppearance"] as? NSDictionary {
+            state.windowAppearance = WindowUIState.deserialize(windowAppearanceMap)
         }
         
         return state
@@ -219,6 +224,37 @@ class WindowLayoutState: PersistentState {
                 }
             }
         }
+        
+        return state
+    }
+}
+
+class WindowUIState: PersistentState {
+    
+    var cornerRadius: Float = Float(AppDefaults.windowCornerRadius)
+    
+    static func deserialize(_ map: NSDictionary) -> WindowUIState {
+        
+        let state = WindowUIState()
+        
+        if let cornerRadius = (map["cornerRadius"] as? NSNumber)?.floatValue {
+            state.cornerRadius = cornerRadius
+        }
+        
+        return state
+    }
+}
+
+extension WindowAppearance {
+    
+    static func initialize(_ appState: WindowUIState) {
+        cornerRadius = CGFloat(appState.cornerRadius)
+    }
+    
+    static var persistentState: WindowUIState {
+        
+        let state = WindowUIState()
+        state.cornerRadius = Float(cornerRadius)
         
         return state
     }

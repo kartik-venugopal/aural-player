@@ -87,6 +87,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
 
         applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
+        rootContainerBox.cornerRadius = WindowAppearance.cornerRadius
         
         initSubscriptions()
     }
@@ -153,6 +154,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
         
         Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
@@ -429,6 +431,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     private func redrawSelectedTabButton() {
         (tabGroup.selectedTabViewItem as? AuralTabViewItem)?.tabButton.redraw()
+    }
+    
+    func changeWindowCornerRadius(_ radius: CGFloat) {
+        rootContainerBox.cornerRadius = radius
     }
     
     func trackChanged() {

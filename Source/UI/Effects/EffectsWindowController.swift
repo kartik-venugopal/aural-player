@@ -64,6 +64,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
         applyColorScheme(ColorSchemes.systemScheme)
+        rootContainerBox.cornerRadius = WindowAppearance.cornerRadius
         
         initUnits()
         initTabGroup()
@@ -113,7 +114,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
 
     private func initUnits() {
 
-        [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton].forEach({$0?.updateState()})
+        [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton].forEach {$0?.updateState()}
     }
 
     private func initTabGroup() {
@@ -134,6 +135,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
         Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
+        Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
         
         Messenger.subscribe(self, .fx_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
         Messenger.subscribe(self, .fx_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
@@ -146,7 +148,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         // Set sender button state, reset all other button states
         
         // TODO: Add a field "isSelected" to the tab button control to distinguish between "state" (on/off) and "selected"
-        fxTabViewButtons!.forEach({$0.state = convertToNSControlStateValue(0)})
+        fxTabViewButtons!.forEach {$0.state = convertToNSControlStateValue(0)}
         sender.state = convertToNSControlStateValue(1)
 
         // Button tag is the tab index
@@ -168,11 +170,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     private func changeBackgroundColor(_ color: NSColor) {
         
         rootContainerBox.fillColor = color
-        
-        [effectsContainerBox, tabButtonsBox].forEach({
-            $0!.fillColor = color
-            $0!.isTransparent = !color.isOpaque
-        })
+        tabButtonsBox.fillColor = color
         
         fxTabViewButtons.forEach({$0.redraw()})
     }
@@ -213,6 +211,10 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     
     private func changeSelectedTabButtonColor(_ color: NSColor) {
         fxTabViewButtons[fxTabView.selectedIndex].redraw()
+    }
+    
+    func changeWindowCornerRadius(_ radius: CGFloat) {
+        rootContainerBox.cornerRadius = radius
     }
 
     // MARK: Message handling
