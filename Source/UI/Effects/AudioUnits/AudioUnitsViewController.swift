@@ -44,13 +44,14 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .fx_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
         
         Messenger.subscribe(self, .fx_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
         Messenger.subscribe(self, .fx_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
         Messenger.subscribe(self, .fx_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
         
         Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
+        Messenger.subscribe(self, .playlist_changeTrackNameTextColor, self.changeAURowTextColor(_:))
+        Messenger.subscribe(self, .playlist_changeTrackNameSelectedTextColor, self.changeAURowSelectedTextColor(_:))
     }
 
     @IBAction func addAudioUnitAction(_ sender: Any) {
@@ -154,8 +155,12 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         lblCaption.textColor = color
     }
     
-    func changeFunctionCaptionTextColor(_ color: NSColor) {
+    func changeAURowTextColor(_ color: NSColor) {
         tableView.reloadData(forRowIndexes: IndexSet((0..<tableView.numberOfRows)), columnIndexes: [1])
+    }
+    
+    func changeAURowSelectedTextColor(_ color: NSColor) {
+        tableView.reloadData(forRowIndexes: tableView.selectedRowIndexes, columnIndexes: [1])
     }
     
     func changeActiveUnitStateColor(_ color: NSColor) {
