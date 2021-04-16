@@ -151,6 +151,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
@@ -368,11 +369,13 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
     }
     
-    func applyFontScheme(_ fontScheme: FontScheme) {
-        fontsChanged()
+    private func applyTheme() {
+        
+        applyColorScheme(ColorSchemes.systemScheme)
+        changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }
     
-    private func fontsChanged() {
+    func applyFontScheme(_ fontScheme: FontScheme) {
         
         lblTracksSummary.font = FontSchemes.systemScheme.playlist.summaryFont
         lblDurationSummary.font = FontSchemes.systemScheme.playlist.summaryFont

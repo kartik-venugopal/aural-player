@@ -131,6 +131,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         
         Messenger.subscribe(self, .fx_showFXUnitTab, self.showTab(_:))
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
@@ -157,6 +158,12 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         Messenger.publish(.windowManager_toggleEffectsWindow)
+    }
+    
+    private func applyTheme() {
+        
+        applyColorScheme(ColorSchemes.systemScheme)
+        changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

@@ -60,6 +60,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         Messenger.subscribe(self, .player_bookmarkPosition, self.bookmarkPosition)
         Messenger.subscribe(self, .player_bookmarkLoop, self.bookmarkLoop)
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
@@ -255,6 +256,10 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         }
         
         self.view.showIf(newTrack != nil)
+    }
+    
+    private func applyTheme() {
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

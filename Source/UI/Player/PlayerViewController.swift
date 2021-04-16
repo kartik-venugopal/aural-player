@@ -54,6 +54,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_showOrHidePlayingTrackInfo, infoView.showOrHidePlayingTrackInfo)
         Messenger.subscribe(self, .player_showOrHidePlayingTrackFunctions, infoView.showOrHidePlayingTrackFunctions)
         
+        Messenger.subscribe(self, .applyTheme, infoView.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, infoView.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, infoView.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, infoView.changeBackgroundColor(_:))

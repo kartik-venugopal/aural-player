@@ -103,6 +103,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         
         Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
@@ -364,11 +365,13 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         btnLoopChapter.onIf(player.chapterLoopExists)
     }
     
-    private func applyFontScheme(_ fontScheme: FontScheme) {
-        fontsChanged()
+    private func applyTheme() {
+        
+        applyFontScheme(FontSchemes.systemScheme)
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
-    private func fontsChanged() {
+    private func applyFontScheme(_ fontScheme: FontScheme) {
         
         // Don't need to do this if the window is not visible
         if let _window = view.window, _window.isVisible {

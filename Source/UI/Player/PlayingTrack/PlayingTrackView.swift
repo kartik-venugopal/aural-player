@@ -141,6 +141,12 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
         }
     }
     
+    func applyTheme() {
+        
+        applyFontScheme(FontSchemes.systemScheme)
+        applyColorScheme(ColorSchemes.systemScheme)
+    }
+    
     func applyFontScheme(_ fontScheme: FontScheme) {
         
         defaultView.applyFontScheme(fontScheme)

@@ -246,6 +246,30 @@
                                                     </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="LsC-ny-14p"/>
+                                                <menuItem title="Theme" id="ILu-DU-P5Z" userLabel="Theme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Theme" showsStateColumn="NO" id="Uo3-IE-YSc">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="end-21-kUh"/>
+                                                            <menuItem title="Poolside.fm" state="mixed" indentationLevel="1" id="7ET-rc-9Yr">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyThemeAction:" target="iBX-Gc-cxj" id="jhd-MK-jIL"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="iBX-Gc-cxj" id="c3R-Oi-hvH"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="Save current theme" id="bGz-9b-srD" userLabel="Save current theme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="saveThemeAction:" target="iBX-Gc-cxj" id="86g-5U-ANo"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="bz6-jn-bpS"/>
                                                 <menuItem title="Font scheme" id="pIS-mt-Im2">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Font scheme" showsStateColumn="NO" id="jzT-Jm-871">
@@ -552,6 +576,11 @@
         <customObject id="lwq-x3-5V8" customClass="WindowLayoutPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="theMenu" destination="yiL-Aw-PVn" id="c2M-BL-loH"/>
+            </connections>
+        </customObject>
+        <customObject id="iBX-Gc-cxj" customClass="ThemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="Uo3-IE-YSc" id="xVj-3b-t8Z"/>
             </connections>
         </customObject>
         <customObject id="jyH-lC-gOA" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">

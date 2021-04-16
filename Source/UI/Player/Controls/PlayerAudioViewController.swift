@@ -62,6 +62,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_panLeft, self.panLeft)
         Messenger.subscribe(self, .player_panRight, self.panRight)
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
@@ -178,6 +179,12 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         if showFeedback {
             autoHidingPanLabel.showView()
         }
+    }
+    
+    private func applyTheme() {
+        
+        applyFontScheme(FontSchemes.systemScheme)
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {

@@ -87,6 +87,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedItem()}, filter: viewSelectionFilter)
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
@@ -509,6 +510,12 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         if let selTrack = selectedItem as? Track {
             FileSystemUtils.showFileInFinder(selTrack.file)
         }
+    }
+    
+    private func applyTheme() {
+        
+        applyFontScheme(FontSchemes.systemScheme)
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {

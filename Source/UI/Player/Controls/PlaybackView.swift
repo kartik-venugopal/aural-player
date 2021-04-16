@@ -103,6 +103,12 @@ class PlaybackView: NSView, ColorSchemeable {
         sliderView.showOrHideTimeElapsedRemaining()
     }
     
+    func applyTheme() {
+        
+        applyFontScheme(FontSchemes.systemScheme)
+        applyColorScheme(ColorSchemes.systemScheme)
+    }
+    
     func applyFontScheme(_ fontScheme: FontScheme) {
         sliderView.applyFontScheme(fontScheme)
     }

@@ -78,6 +78,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         
         Messenger.subscribe(self, .fx_changeSliderColors, self.changeSliderColors)
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
@@ -123,6 +124,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     // Displays a popover to allow the user to name the new custom preset
     @IBAction func savePresetAction(_ sender: AnyObject) {
         userPresetsPopover.show(btnSavePreset, NSRectEdge.minY)
+    }
+    
+    private func applyTheme() {
+        
+        applyFontScheme(FontSchemes.systemScheme)
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

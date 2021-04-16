@@ -100,6 +100,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     private func initSubscriptions() {
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeAppLogoColor, self.changeAppLogoColor(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
@@ -144,6 +145,12 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     // Minimizes the window (and any child windows)
     @IBAction func minimizeAction(_ sender: AnyObject) {
         theWindow.miniaturize(self)
+    }
+    
+    private func applyTheme() {
+        
+        applyColorScheme(ColorSchemes.systemScheme)
+        changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

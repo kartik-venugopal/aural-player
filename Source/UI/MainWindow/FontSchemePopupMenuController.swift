@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    Controller for the popup menu that lists the available color schemes and opens the color scheme editor panel.
+    Controller for the popup menu that lists the available font schemes and opens the font scheme editor panel.
  */
 class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
@@ -30,7 +30,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
             menu.removeItem(at: 3)
         }
         
-        // Recreate the user-defined color scheme items
+        // Recreate the user-defined font scheme items
         FontSchemes.userDefinedSchemes.forEach {
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
@@ -64,7 +64,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
         editorWindowController.showFontSchemesEditor()
     }
     
-    // MARK - StringInputReceiver functions (to receive the name of a new user-defined color scheme)
+    // MARK - StringInputReceiver functions (to receive the name of a new user-defined font scheme)
     
     var inputPrompt: String {
         return "Enter a new font scheme name:"
@@ -85,7 +85,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
         }
     }
     
-    // Receives a new color scheme name and saves the new scheme
+    // Receives a new font scheme name and saves the new scheme
     func acceptInput(_ string: String) {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name

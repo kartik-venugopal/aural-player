@@ -37,6 +37,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
         Messenger.subscribe(self, .auFXUnit_showEditor, {(notif: ShowAudioUnitEditorCommandNotification) in self.doEditAudioUnit(notif.audioUnit)})
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         
@@ -118,6 +119,12 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             Messenger.publish(.auFXUnit_audioUnitsAddedOrRemoved)
             Messenger.publish(.fx_unitStateChanged)
         }
+    }
+    
+    private func applyTheme() {
+        
+        applyFontScheme(FontSchemes.systemScheme)
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

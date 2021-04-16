@@ -617,4 +617,6 @@ extension Notification.Name {
     // MARK: Window appearance commands sent to all app windows
     
     static let windowAppearance_changeCornerRadius = Notification.Name("windowAppearance_changeCornerRadius")
+    
+    static let applyTheme = Notification.Name("applyTheme")
 }

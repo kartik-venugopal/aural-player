@@ -17,6 +17,7 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
         changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
         Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
@@ -24,6 +25,10 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
         WindowManager.hideChaptersList()
+    }
+    
+    private func applyTheme() {
+        applyColorScheme(ColorSchemes.systemScheme)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
