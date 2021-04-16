@@ -124,8 +124,8 @@ class AudioUnitNameCellView: NSTableCellView {
     
     var rowSelectionStateFunction: () -> Bool = {false}
     
-    var textColor: NSColor {Colors.Effects.functionCaptionTextColor}
-    var selectedTextColor: NSColor {Colors.Effects.functionValueTextColor}
+    var textColor: NSColor {Colors.Playlist.trackNameTextColor}
+    var selectedTextColor: NSColor {Colors.Playlist.trackNameSelectedTextColor}
     
     var rowIsSelected: Bool {rowSelectionStateFunction()}
     

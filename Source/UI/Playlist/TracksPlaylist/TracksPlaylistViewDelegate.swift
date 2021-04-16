@@ -44,15 +44,13 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
         case .uid_index:
             
-            let indexText: String = String(row + 1)
-            
             // Check if there is a track currently playing, and if this row matches that track.
             if track == playbackInfo.playingTrack {
                 return createIndexImageCell(tableView, row, Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
             }
             
             // Otherwise, create a text cell with the track index
-            return createIndexTextCell(tableView, indexText, row)
+            return createIndexTextCell(tableView, String(row + 1), row)
             
         case .uid_trackName:
             
