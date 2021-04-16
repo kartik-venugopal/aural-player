@@ -64,7 +64,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
         applyColorScheme(ColorSchemes.systemScheme)
-        rootContainerBox.cornerRadius = WindowAppearance.cornerRadius
+        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         initUnits()
         initTabGroup()

@@ -245,7 +245,7 @@ class WindowUIState: PersistentState {
     }
 }
 
-extension WindowAppearance {
+extension WindowAppearanceState {
     
     static func initialize(_ appState: WindowUIState) {
         cornerRadius = CGFloat(appState.cornerRadius)

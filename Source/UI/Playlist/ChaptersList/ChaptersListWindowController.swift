@@ -15,7 +15,7 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
         self.window?.delegate = WindowManager.windowDelegate
         
         changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
-        rootContainerBox.cornerRadius = WindowAppearance.cornerRadius
+        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))

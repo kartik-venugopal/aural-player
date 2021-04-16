@@ -7,15 +7,15 @@ class WindowCornerRadiusMenuItemView: NSView {
     
     override func awakeFromNib() {
         
-        cornerRadiusStepper.integerValue = roundedInt(WindowAppearance.cornerRadius)
+        cornerRadiusStepper.integerValue = roundedInt(WindowAppearanceState.cornerRadius)
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
     }
     
     @IBAction func cornerRadiusStepperAction(_ sender: NSStepper) {
         
-        WindowAppearance.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
+        WindowAppearanceState.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
         
-        Messenger.publish(.windowAppearance_changeCornerRadius, payload: WindowAppearance.cornerRadius)
+        Messenger.publish(.windowAppearance_changeCornerRadius, payload: WindowAppearanceState.cornerRadius)
     }
 }

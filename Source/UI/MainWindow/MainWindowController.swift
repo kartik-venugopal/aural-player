@@ -71,7 +71,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         btnTogglePlaylist.onIf(appState.showPlaylist)
         
         applyColorScheme(ColorSchemes.systemScheme)
-        rootContainerBox.cornerRadius = WindowAppearance.cornerRadius
+        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         // Hackish fix to properly position settings menu button (hamburger icon) on older systems.
         if !SystemUtils.isBigSur {

@@ -325,9 +325,12 @@ class SnappingWindowDelegate: NSObject, NSWindowDelegate {
     }
 }
 
-// Convenient accessor for information about the current playlist view
-class WindowAppearance {
-    
-    // The current playlist view type displayed within the playlist tab group
+// Convenient accessor for information about the current appearance settings for the app's main windows.
+class WindowAppearanceState {
     static var cornerRadius: CGFloat = AppDefaults.windowCornerRadius
+}
+
+// A snapshot of WindowAppearanceState
+struct WindowAppearance {
+    let cornerRadius: CGFloat
 }

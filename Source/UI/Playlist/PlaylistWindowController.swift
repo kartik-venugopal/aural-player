@@ -87,7 +87,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
 
         applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
-        rootContainerBox.cornerRadius = WindowAppearance.cornerRadius
+        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         initSubscriptions()
     }

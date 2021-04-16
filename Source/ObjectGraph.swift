@@ -169,7 +169,7 @@ class ObjectGraph {
         PlayerViewState.initialize(appState.ui.player)
         PlaylistViewState.initialize(appState.ui.playlist)
         VisualizerViewState.initialize(appState.ui.visualizer)
-        WindowAppearance.initialize(appState.ui.windowAppearance)
+        WindowAppearanceState.initialize(appState.ui.windowAppearance)
         
         fft = FFT()
         
@@ -220,7 +220,7 @@ class ObjectGraph {
         appState.ui.player = PlayerViewState.persistentState
         appState.ui.playlist = PlaylistViewState.persistentState
         appState.ui.visualizer = VisualizerViewState.persistentState
-        appState.ui.windowAppearance = WindowAppearance.persistentState
+        appState.ui.windowAppearance = WindowAppearanceState.persistentState
         
         appState.history = (historyDelegate as! HistoryDelegate).persistentState
         appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
