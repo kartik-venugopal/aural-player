@@ -25,7 +25,7 @@ enum ColorSchemePreset: String, CaseIterable {
     // A moderately dark scheme with a blue-ish background and lighter blue-ish foreground elements.
     case theBlues
     
-//    case poolsideFM
+    case poolsideFM
     
     // The preset to be used as the default system scheme (eg. when a user loads the app for the very first time)
     // or when some color values in a scheme are missing.
@@ -52,7 +52,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case ColorSchemePreset.theBlues.name:   return .theBlues
             
-//        case ColorSchemePreset.poolsideFM.name:   return .poolsideFM
+        case ColorSchemePreset.poolsideFM.name:   return .poolsideFM
             
         default:    return nil
             
@@ -78,7 +78,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return "The blues"
             
-//        case .poolsideFM:     return "Poolside FM"
+        case .poolsideFM:     return "Poolside.fm"
             
         }
     }
@@ -101,7 +101,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.468, green: 0.572, blue: 0.569, alpha: 1)
             
-//        case .poolsideFM:  return .black
+        case .poolsideFM:  return .black
             
         }
     }
@@ -124,7 +124,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.191, green: 0.274, blue: 0.361, alpha: 1)
             
-//        case .poolsideFM:   return NSColor(red: 1, green: 0.78823530673980713, blue: 0.78823530673980713, alpha: 1)
+        case .poolsideFM:   return NSColor(red: 1, green: 0.78823530673980713, blue: 0.78823530673980713, alpha: 1)
             
         }
     }
@@ -147,7 +147,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.423, green: 0.501, blue: 0.549, alpha: 1)
             
-        //        case .poolsideFM:  return .black
+        case .poolsideFM:  return .black
         
         }
     }
@@ -170,6 +170,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.423, green: 0.501, blue: 0.549, alpha: 1)
             
+        case .poolsideFM:   return .black
+            
         }
     }
     
@@ -191,7 +193,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.17, green: 0.182, blue: 0.246, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
         
         }
     }
@@ -214,7 +216,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(white: 0.07, alpha: 1)
             
-//        case .poolsideFM:   return NSColor(red: 0.67058825492858887, green: 0.46666666865348816, blue: 0.47450980544090271, alpha: 1)
+        case .poolsideFM:   return NSColor(red: 0.671, green: 0.467, blue: 0.475, alpha: 1)
             
         }
     }
@@ -237,7 +239,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.429, green: 0.486, blue: 0.518, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -260,6 +262,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.617, green: 0.7, blue: 0.746, alpha: 1)
             
+        case .poolsideFM:   return .white
+            
         }
     }
     
@@ -280,6 +284,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .brownie:    return NSColor(red: 0.701, green: 0.465, blue: 0.38, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.505, green: 0.596, blue: 0.654, alpha: 1)
+            
+        case .poolsideFM:   return .black
             
         }
     }
@@ -302,7 +308,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.429, green: 0.486, blue: 0.518, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -324,6 +330,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .brownie:    return NSColor(red: 0.701, green: 0.465, blue: 0.38, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0.564, green: 0.64, blue: 0.682, alpha: 1)
+            
+        case .poolsideFM:   return .black
             
         }
     }
@@ -348,6 +356,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.693, green: 0.787, blue: 0.837, alpha: 1)
             
+        case .poolsideFM:   return .black
+            
         }
     }
     
@@ -369,7 +379,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.568, green: 0.646, blue: 0.687, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -392,7 +402,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.508, green: 0.576, blue: 0.614, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -415,7 +425,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.553, green: 0.627, blue: 0.668, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
         
         }
     }
@@ -438,6 +448,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.313, green: 0.548, blue: 0.756, alpha: 1)
             
+        case .poolsideFM:   return .black
+            
         }
     }
     
@@ -458,6 +470,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .brownie:    return .darken
             
         case .theBlues:     return .darken
+            
+        case .poolsideFM:   return .none
             
         }
     }
@@ -480,6 +494,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return 40
             
+        case .poolsideFM:   return 20
+            
         }
     }
     
@@ -501,7 +517,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return Colors.Constants.white8Percent
             
-//        case .poolsideFM:   return NSColor(red: 0.67058825492858887, green: 0.46666666865348816, blue: 0.47450980544090271, alpha: 1)
+        case .poolsideFM:   return NSColor(red: 0.671, green: 0.467, blue: 0.475, alpha: 1)
             
         }
     }
@@ -523,6 +539,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .brownie:         return .none
             
         case .theBlues:     return .none
+            
+        case .poolsideFM:   return .none
             
         }
     }
@@ -556,6 +574,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.313, green: 0.548, blue: 0.756, alpha: 1)
             
+        case .poolsideFM:   return .black
+            
         }
     }
     
@@ -581,7 +601,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.381, green: 0.667, blue: 0.924, alpha: 1)
             
-//        case .poolsideFM:   return .white
+        case .poolsideFM:   return .white
             
         }
     }
@@ -606,7 +626,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.524, green: 0.595, blue: 0.634, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -629,7 +649,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.473, green: 0.536, blue: 0.572, alpha: 1)
             
-//        case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -652,7 +672,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.429, green: 0.486, blue: 0.518, alpha: 1)
             
-        //case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -675,7 +695,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.597, green: 0.715, blue: 0.829, alpha: 1)
             
-        //case .poolsideFM:   return .white
+        case .poolsideFM:   return .white
             
         }
     }
@@ -698,7 +718,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.508, green: 0.608, blue: 0.705, alpha: 1)
             
-        //case .poolsideFM:   return .white
+        case .poolsideFM:   return .white
             
         }
     }
@@ -721,7 +741,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.424, green: 0.508, blue: 0.59, alpha: 1)
             
-        //case .poolsideFM:   return .white
+        case .poolsideFM:   return .white
             
         }
     }
@@ -744,33 +764,10 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.37, green: 0.431, blue: 0.534, alpha: 1)
             
-        //case .poolsideFM:   return .black
+        case .poolsideFM:   return NSColor(red: 0.671, green: 0.467, blue: 0.475, alpha: 1)
             
         }
     }
-    
-//    var playlistGroupIconSelectedRowsColor: NSColor {
-//
-//        switch self {
-//
-//        case .blackAttack:  return Colors.Constants.white35Percent
-//
-//        case .blackAqua:  return Colors.Constants.white35Percent
-//
-//        case .lava:  return Colors.Constants.white35Percent
-//
-//        case .whiteBlight:  return Colors.Constants.white30Percent
-//
-//        case .gloomyDay:    return Colors.Constants.white40Percent
-//
-//        case .brownie:    return NSColor(red: 0.5, green: 0.332, blue: 0.271, alpha: 1)
-//
-//        case .theBlues:     return NSColor(red: 0.37, green: 0.431, blue: 0.534, alpha: 1)
-//
-//        //case .poolsideFM:   return .white
-//
-//        }
-//    }
     
     var playlistGroupDisclosureTriangleColor: NSColor {
         
@@ -790,33 +787,10 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.429, green: 0.5, blue: 0.618, alpha: 1)
             
-        //case .poolsideFM::  return .black
+        case .poolsideFM:  return NSColor(red: 0.671, green: 0.467, blue: 0.475, alpha: 1)
             
         }
     }
-    
-//    var playlistGroupDisclosureTriangleSelectedRowsColor: NSColor {
-//
-//        switch self {
-//
-//        case .blackAttack:  return Colors.Constants.white60Percent
-//
-//        case .blackAqua:  return Colors.Constants.white60Percent
-//
-//        case .lava:  return Colors.Constants.white60Percent
-//
-//        case .whiteBlight:  return Colors.Constants.white25Percent
-//
-//        case .gloomyDay:    return Colors.Constants.white60Percent
-//
-//        case .brownie:    return NSColor(red: 0.608, green: 0.403, blue: 0.329, alpha: 1)
-//
-//        case .theBlues:     return NSColor(red: 0.429, green: 0.5, blue: 0.618, alpha: 1)
-//
-//        //case .poolsideFM::  return .white
-//
-//        }
-//    }
     
     var playlistSelectionBoxColor: NSColor {
         
@@ -836,7 +810,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.079, green: 0.139, blue: 0.192, alpha: 1)
             
-        //case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -859,31 +833,10 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.313, green: 0.548, blue: 0.756, alpha: 1)
             
+        case .poolsideFM:   return NSColor(red: 0.671, green: 0.467, blue: 0.475, alpha: 1)
+            
         }
     }
-    
-//    var playlistPlayingTrackIconSelectedRowsColor: NSColor {
-//        
-//        switch self {
-//            
-//        case .blackAttack:  return Colors.Constants.green75Percent
-//            
-//        case .blackAqua:  return Colors.Constants.aqua
-//            
-//        case .lava:     return Colors.Constants.lava
-//            
-//        case .whiteBlight:  return .black
-//            
-//        case .gloomyDay:    return Colors.Constants.aqua
-//            
-//        case .brownie:    return NSColor(red: 0.856, green: 0.346, blue: 0.286, alpha: 1)
-//            
-//        case .theBlues:     return NSColor(red: 0.313, green: 0.548, blue: 0.756, alpha: 1)
-//            
-//        //case .poolsideFM:   return .white
-//            
-//        }
-//    }
     
     var playlistSummaryInfoColor: NSColor {
         
@@ -903,7 +856,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.477, green: 0.541, blue: 0.576, alpha: 1)
             
-        //case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -928,7 +881,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.491, green: 0.557, blue: 0.593, alpha: 1)
             
-        //case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -951,7 +904,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.617, green: 0.7, blue: 0.746, alpha: 1)
             
-        //case .poolsideFM:   return .black
+        case .poolsideFM:   return .black
             
         }
     }
@@ -974,7 +927,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.395, green: 0.416, blue: 0.416, alpha: 1)
             
-        //case .poolsideFM:   return NSColor(red: 0.67058825492858887, green: 0.46666666865348816, blue: 0.47450980544090271, alpha: 1)
+        case .poolsideFM:   return NSColor(red: 0.671, green: 0.467, blue: 0.475, alpha: 1)
             
         }
     }
@@ -997,6 +950,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return .darken
             
+        case .poolsideFM:   return .none
+            
         }
     }
     
@@ -1018,6 +973,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return 40
             
+        case .poolsideFM:   return 0
+            
         }
     }
     
@@ -1038,6 +995,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .brownie:    return NSColor(red: 0.8, green: 0.329, blue: 0.293, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.568, blue: 0.756, alpha: 1)
+            
+        case .poolsideFM:   return .black
             
         }
     }
@@ -1064,6 +1023,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return .black
             
+        case .poolsideFM:   return .white
+            
         }
     }
     
@@ -1084,6 +1045,8 @@ enum ColorSchemePreset: String, CaseIterable {
         case .brownie:    return NSColor(red: 0.8, green: 0.329, blue: 0.293, alpha: 1)
             
         case .theBlues:     return NSColor(red: 0, green: 0.568, blue: 0.756, alpha: 1)
+            
+        case .poolsideFM:   return .black
             
         }
     }
@@ -1106,7 +1069,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0.446, green: 0.505, blue: 0.539, alpha: 1)
             
-        //case .poolsideFM:   return Colors.Constants.white25Percent
+        case .poolsideFM:   return Colors.Constants.white50Percent
             
         }
     }
@@ -1129,6 +1092,8 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return NSColor(red: 0, green: 0.4, blue: 0.65, alpha: 1)
             
+        case .poolsideFM:   return Colors.Constants.white25Percent
+            
         }
     }
     
@@ -1150,7 +1115,7 @@ enum ColorSchemePreset: String, CaseIterable {
             
         case .theBlues:     return .darken
             
-        //case .poolsideFM:   return .none
+        case .poolsideFM:   return .none
             
         }
     }
@@ -1173,7 +1138,7 @@ enum ColorSchemePreset: String, CaseIterable {
         
         case .theBlues:     return 45
             
-        //case .poolsideFM:   return 0
+        case .poolsideFM:   return 0
             
         }
     }

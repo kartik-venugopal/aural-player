@@ -1142,6 +1142,12 @@ CA
                                                 <action selector="applySchemeAction:" target="lih-ya-6jC" id="yHm-VO-jkT"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Poolside.fm" indentationLevel="1" id="RoW-Aj-0Q9">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="lih-ya-6jC" id="S2h-mh-5MI"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="vWW-EI-BWf"/>
                                         <menuItem title="Customize ..." indentationLevel="1" id="tVF-bO-F8U">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -1213,6 +1219,12 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="applySchemeAction:" target="ydk-fD-97w" id="a3U-o8-YRB"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Poolside.fm" indentationLevel="1" id="2Ud-EG-mcY">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="applySchemeAction:" target="ydk-fD-97w" id="Gwc-ji-P2i"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ijs-eS-Wfh"/>

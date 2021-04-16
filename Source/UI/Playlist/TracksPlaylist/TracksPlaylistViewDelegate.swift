@@ -47,21 +47,8 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             let indexText: String = String(row + 1)
             
             // Check if there is a track currently playing, and if this row matches that track.
-            if let currentTrack = playbackInfo.currentTrack, currentTrack == track {
-                
-                var image: NSImage!
-                
-                switch playbackInfo.state {
-                    
-                case .playing, .paused:
-                    
-                    image = Images.imgPlayingTrack
-                    
-                default: return nil // Impossible
-                
-                }
-                
-                return createIndexImageCell(tableView, row, image.applyingTint(Colors.Playlist.playingTrackIconColor))
+            if track == playbackInfo.playingTrack {
+                return createIndexImageCell(tableView, row, Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
             }
             
             // Otherwise, create a text cell with the track index
@@ -122,25 +109,4 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         return cell
     }
-    
-    // TODO: The following 2 functions will be used to change the disclosure triangle and group icon images when row selecttion changes.
-    
-//    func tableView(_ tableView: NSTableView, selectionIndexesForProposedSelection proposedSelectionIndexes: IndexSet) -> IndexSet {
-//
-//        print("\n")
-//        let selRows = playlistView.selectedRowIndexes.toArray()
-//        NSLog("TV IS changing ... \(selRows)")
-//        unselRows = selRows
-//
-//        return proposedSelectionIndexes
-//    }
-//
-//    private var unselRows: [Int] = []
-//
-//    func tableViewSelectionDidChange(_ notification: Notification) {
-//
-//        print("\n")
-//        let selRows = playlistView.selectedRowIndexes.toArray()
-//        NSLog("TV DID change ... \(selRows)")
-//    }
 }

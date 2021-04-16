@@ -111,7 +111,7 @@ class AudioUnitsTableRowView: NSTableRowView {
         
         if self.selectionHighlightStyle != NSTableView.SelectionHighlightStyle.none {
             
-            let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
+            let selectionRect = self.bounds.insetBy(dx: 30, dy: 0).offsetBy(dx: -5, dy: 0)
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
             
             ColorSchemes.systemScheme.playlist.selectionBoxColor.setFill()

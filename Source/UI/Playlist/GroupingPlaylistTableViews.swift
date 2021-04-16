@@ -5,43 +5,20 @@ import Cocoa
  */
 class AuralPlaylistOutlineView: NSOutlineView {
     
-//    static var cachedPlayingTrackIcon: NSImage!
-//    static var cachedPlayingTrackIconSelectedRows: NSImage!
-    
     static var cachedDisclosureIcon_collapsed: NSImage!
     static var cachedDisclosureIcon_expanded: NSImage!
     
-//    static var cachedDisclosureIconSelectedRows_collapsed: NSImage!
-//    static var cachedDisclosureIconSelectedRows_expanded: NSImage!
-    
     static var cachedGroupIcon: NSImage!
-//    static var cachedGroupIconSelectedRows: NSImage!
     
     static var disclosureButtons: [NSButton] = []
     
     static func updateCachedImages() {
         
-//        cachedPlayingTrackIcon = Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor)
-//        cachedPlayingTrackIconSelectedRows = Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconSelectedRowsColor)
-        
         cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
         cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
         
-//        cachedDisclosureIconSelectedRows_collapsed = Images.imgDisclosure_collapsed.applyingTint(Colors.Playlist.groupDisclosureTriangleSelectedRowsColor)
-//
-//        cachedDisclosureIconSelectedRows_expanded = Images.imgDisclosure_expanded.applyingTint(Colors.Playlist.groupDisclosureTriangleSelectedRowsColor)
-        
         cachedGroupIcon = Images.imgGroup.applyingTint(Colors.Playlist.groupIconColor)
-//        cachedGroupIconSelectedRows = Images.imgGroup.applyingTint(Colors.Playlist.groupIconSelectedRowsColor)
     }
-    
-//    static func changePlayingTrackIconColor(_ color: NSColor) {
-//        cachedPlayingTrackIcon = Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor)
-//    }
-//
-//    static func changePlayingTrackIconSelectedRowsColor(_ color: NSColor) {
-//        cachedPlayingTrackIconSelectedRows = Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconSelectedRowsColor)
-//    }
     
     static func changeDisclosureTriangleColor(_ color: NSColor) {
         
@@ -55,28 +32,9 @@ class AuralPlaylistOutlineView: NSOutlineView {
         }
     }
     
-//    func disclosureTriangleForRow(_ row: Int) -> NSButton? {
-//        
-//        self.rowView(atRow: row, makeIfNecessary: false)?.subviews.compactMap{$0 as? NSButton}.filter{$0.identifier == NSOutlineView.disclosureButtonIdentifier}.first
-//    }
-//    
-//    func iconForRow(_ row: Int) -> NSImageView? {
-//        (self.view(atColumn: 0, row: row, makeIfNecessary: false) as? NSTableCellView)?.imageView
-//    }
-    
-//    static func changeDisclosureTriangleSelectedRowsColor(_ color: NSColor) {
-//
-//        cachedDisclosureIconSelectedRows_collapsed = Images.imgDisclosure_collapsed.applyingTint(color)
-//        cachedDisclosureIconSelectedRows_expanded = Images.imgDisclosure_expanded.applyingTint(color)
-//    }
-    
     static func changeGroupIconColor(_ color: NSColor) {
         cachedGroupIcon = Images.imgGroup.applyingTint(color)
     }
-    
-//    static func changeGroupIconSelectedRowsColor(_ color: NSColor) {
-//        cachedGroupIconSelectedRows = Images.imgGroup.applyingTint(color)
-//    }
     
     override func menu(for event: NSEvent) -> NSMenu? {
         return menuHandler(for: event)

@@ -299,6 +299,12 @@
                                                                     <action selector="applySchemeAction:" target="jyH-lC-gOA" id="h1I-fR-GqS"/>
                                                                 </connections>
                                                             </menuItem>
+                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="laX-wc-TQz">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="Bug-pg-EeG"/>
+                                                                </connections>
+                                                            </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="GxE-An-9JV"/>
                                                             <menuItem title="Customize ..." indentationLevel="1" id="BQn-Vj-Y0Y">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -364,6 +370,12 @@
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
                                                                     <action selector="applySchemeAction:" target="df9-sN-idv" id="DIM-ba-iGi"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="n7e-jY-Srs">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="ugZ-UR-QgO"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>

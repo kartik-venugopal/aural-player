@@ -22,7 +22,7 @@ enum FontSchemePreset: String, CaseIterable {
     
     case papyrus
     
-//    case poolsideFM
+    case poolsideFM
     
     // Maps a display name to a preset.
     static func presetByName(_ name: String) -> FontSchemePreset? {
@@ -45,7 +45,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case FontSchemePreset.papyrus.name:     return .papyrus
             
-//        case FontSchemePreset.poolsideFM.name:     return .poolsideFM
+        case FontSchemePreset.poolsideFM.name:     return .poolsideFM
             
         default:    return nil
             
@@ -73,7 +73,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .papyrus:   return "Papyrus"
             
-//        case .poolsideFM:   return "Poolside FM"
+        case .poolsideFM:   return "Poolside.fm"
             
         }
     }
@@ -98,7 +98,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .papyrus:      return Fonts.Papyrus.mainFont_16_5
             
-//        case .poolsideFM:   return Fonts.PoolsideFM.mainFont_14
+        case .poolsideFM:   return Fonts.PoolsideFM.mainFont_14
             
         }
     }
@@ -123,7 +123,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .papyrus:      return Fonts.Papyrus.mainFont_15
             
-//        case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12
+        case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12
             
         }
     }
@@ -148,7 +148,7 @@ enum FontSchemePreset: String, CaseIterable {
             
         case .papyrus:      return Fonts.Papyrus.mainFont_13
             
-//        case .poolsideFM:   return Fonts.PoolsideFM.mainFont_10
+        case .poolsideFM:   return Fonts.PoolsideFM.mainFont_10
             
         }
     }
@@ -173,7 +173,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_13
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_11
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_11
         }
     }
     
@@ -197,7 +197,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_11
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_9
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_9
         }
     }
     
@@ -221,7 +221,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_13_5
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12
         }
     }
     
@@ -245,7 +245,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:   return 0
                 
-//            case .poolsideFM:   return -1
+            case .poolsideFM:   return -1
         }
     }
     
@@ -269,7 +269,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_14_5
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12_5
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12_5
                 
         }
     }
@@ -294,7 +294,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:   return -1
                 
-//            case .poolsideFM:   return -1
+            case .poolsideFM:   return 0
         }
     }
     
@@ -318,7 +318,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_14_5
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12_5
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12_5
         }
     }
     
@@ -342,7 +342,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.captionFont_11
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_13
+            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_13
         }
     }
     
@@ -366,7 +366,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.captionFont_10
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_15
+            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_15
         }
     }
     
@@ -390,7 +390,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_13_5
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_12
         }
     }
     
@@ -414,7 +414,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:   return Fonts.Papyrus.captionFont_12
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_16
+            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_16
         }
     }
     
@@ -438,7 +438,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.captionFont_12_5
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_16
+            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_16
         }
     }
     
@@ -462,7 +462,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_12
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_11
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_11
         }
     }
     
@@ -486,7 +486,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.captionFont_10
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_13
+            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_13
         }
     }
     
@@ -510,7 +510,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.mainFont_9
                 
-//            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_9
+            case .poolsideFM:   return Fonts.PoolsideFM.mainFont_9
         }
     }
     
@@ -534,7 +534,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:   return 1
                 
-//            case .poolsideFM:   return 5
+            case .poolsideFM:   return 5
         }
     }
 }
