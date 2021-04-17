@@ -34,12 +34,9 @@ class FontSchemes {
         
         if let fontSchemePreset = FontSchemePreset.presetByName(name) {
             return FontScheme(name, fontSchemePreset)
-            
-        } else if let scheme = userDefinedSchemesByName.itemWithKey(name) {
-            return scheme
         }
         
-        return nil
+        return userDefinedSchemesByName.itemWithKey(name)
     }
     
     static func applyScheme(_ fontScheme: FontScheme) -> FontScheme {

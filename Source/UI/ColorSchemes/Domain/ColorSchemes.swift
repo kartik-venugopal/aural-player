@@ -81,12 +81,9 @@ class ColorSchemes {
         
         if let colorSchemePreset = ColorSchemePreset.presetByName(name) {
             return ColorScheme(name, colorSchemePreset)
-            
-        } else if let scheme = userDefinedSchemesByName.itemWithKey(name) {
-            return scheme
         }
         
-        return nil
+        return userDefinedSchemesByName.itemWithKey(name)
     }
     
     // Looks up a user-defined color scheme by name, returning the default scheme if not found and if so specified by the 2nd parameter.

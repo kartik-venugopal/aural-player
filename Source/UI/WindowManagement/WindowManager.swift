@@ -309,7 +309,7 @@ class WindowManager {
         } else if movedWindow === effectsWindow {
             return [mainWindow, playlistWindow]
             
-        } else if movedWindow === chaptersListWindow {
+        } else if isShowingChaptersList && movedWindow === chaptersListWindow {
             return [playlistWindow, mainWindow, effectsWindow]
         }
         
