@@ -587,6 +587,7 @@
 		3EF0C3E3262A93740042C720 /* VisualizerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */; };
 		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
 		3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */; };
+		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
 		3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */; };
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
 		3EFB1C6025EFCFAC00EF7F0F /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */; };
@@ -1311,6 +1312,7 @@
 		3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerUIState.swift; sourceTree = "<group>"; };
 		3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTheme.xib; sourceTree = "<group>"; };
 		3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeDialogController.swift; sourceTree = "<group>"; };
+		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
 		3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegScheduler.swift; sourceTree = "<group>"; };
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
 		3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
@@ -1838,6 +1840,7 @@
 			children = (
 				3E6C0F7E25CEB98600BF0D07 /* MasterPresetsEditorViewController.swift */,
 				3E6C0F7F25CEB98600BF0D07 /* MasterPresetsEditor.xib */,
+				3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */,
 			);
 			path = Master;
 			sourceTree = "<group>";
@@ -3466,6 +3469,7 @@
 				3E6C11A225CEBD6D00BF0D07 /* FilterUnitDelegate.swift in Sources */,
 				3E6C118E25CEBD6D00BF0D07 /* FXUnit.swift in Sources */,
 				3E6C11AF25CEBDA200BF0D07 /* CueSheetIO.swift in Sources */,
+				3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */,
 				3E6C11F425CEBDD100BF0D07 /* RecorderDelegateProtocol.swift in Sources */,
 				3E6C128F25CEBE1800BF0D07 /* CheckRadioButtonCell.swift in Sources */,
 				3E6C120E25CEBDD100BF0D07 /* PlaybackPreferences.swift in Sources */,

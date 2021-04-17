@@ -26,9 +26,9 @@ class MasterView: NSView {
     
     @IBOutlet weak var lblAudioUnits: EffectsUnitTriStateLabel!
     
-    private var buttons: [EffectsUnitTriStateBypassButton] = []
-    private var images: [EffectsUnitTriStateBypassImage] = []
-    private var labels: [EffectsUnitTriStateLabel] = []
+    var buttons: [EffectsUnitTriStateBypassButton] = []
+    var images: [EffectsUnitTriStateBypassImage] = []
+    var labels: [EffectsUnitTriStateLabel] = []
     
     override func awakeFromNib() {
         buttons = [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass]

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -34,20 +34,19 @@
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="32" horizontalPageScroll="10" verticalLineScroll="32" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovp-Cz-2ID" userLabel="Schemes Table">
                     <rect key="frame" x="15" y="49" width="260" height="305"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="k8Z-2i-F74">
-                        <rect key="frame" x="0.0" y="0.0" width="260" height="305"/>
+                    <clipView key="contentView" copiesOnScroll="NO" id="k8Z-2i-F74">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="290"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" id="xaM-J6-SUQ" userLabel="Schemes Table View">
-                                <rect key="frame" x="0.0" y="0.0" width="260" height="300"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="0.0" y="0.0" width="282" height="285"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" white="0.42990451390000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_SchemeName" width="257" minWidth="250" maxWidth="400" id="7Ox-yb-Cym">
+                                    <tableColumn identifier="cid_SchemeName" width="250" minWidth="250" maxWidth="400" id="7Ox-yb-Cym">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -59,11 +58,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="3zR-ji-7Su" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="257" height="30"/>
+                                                <rect key="frame" x="11" y="1" width="259" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5el-E1-Gxe" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="5" width="252" height="25"/>
+                                                        <rect key="frame" x="5" y="5" width="254" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="GxZ-nX-nZ0">
                                                             <font key="font" metaFont="system"/>
@@ -89,7 +88,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </clipView>
                     <edgeInsets key="contentInsets" left="0.0" right="0.0" top="5" bottom="0.0"/>
-                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="gh0-NC-RRh">
+                    <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="gh0-NC-RRh">
                         <rect key="frame" x="0.0" y="290" width="260" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
@@ -105,7 +104,7 @@
                         <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="nJf-hh-Fui" userLabel="Player Preview">
                             <rect key="frame" x="0.0" y="125" width="198" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <view key="contentView" ambiguous="YES" id="4kO-I9-bbB">
+                            <view key="contentView" id="4kO-I9-bbB">
                                 <rect key="frame" x="0.0" y="0.0" width="198" height="100"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -163,7 +162,7 @@
                         <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-9t-spg" userLabel="Effects Preview">
                             <rect key="frame" x="202" y="125" width="198" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <view key="contentView" ambiguous="YES" id="aQ6-PB-cA7">
+                            <view key="contentView" id="aQ6-PB-cA7">
                                 <rect key="frame" x="0.0" y="0.0" width="198" height="100"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -195,7 +194,7 @@
                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AIv-h1-iuL" userLabel="Master Desc">
                                         <rect key="frame" x="36" y="70" width="113" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Equalizer" id="7tQ-b8-2KZ" customClass="FXUnitCaptionCell" customModule="Aural" customModuleProvider="target">
+                                        <textFieldCell key="cell" controlSize="mini" sendsActionOnEndEditing="YES" alignment="left" title="Equalizer" id="7tQ-b8-2KZ">
                                             <font key="font" size="14" name="AlegreyaSansSC-Regular"/>
                                             <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -204,9 +203,9 @@
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOi-6t-n9G" userLabel="Playing Track Icon" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
                                         <rect key="frame" x="14" y="75" width="13" height="13"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SwitchOff" id="XNw-4d-AUG"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Switch" id="XNw-4d-AUG"/>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SwitchOff"/>
+                                            <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Switch"/>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
@@ -216,14 +215,14 @@
                         <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="W1v-Xq-Kx2" userLabel="Playlist Preview">
                             <rect key="frame" x="0.0" y="2" width="400" height="120"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <view key="contentView" ambiguous="YES" id="7jd-4a-Bi2">
+                            <view key="contentView" id="7jd-4a-Bi2">
                                 <rect key="frame" x="0.0" y="0.0" width="400" height="120"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="2" title="Box" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Sfl-4K-y1a" userLabel="Selection Box">
                                         <rect key="frame" x="2" y="29" width="396" height="26"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <view key="contentView" ambiguous="YES" id="cLZ-Gf-VBF">
+                                        <view key="contentView" id="cLZ-Gf-VBF">
                                             <rect key="frame" x="0.0" y="0.0" width="396" height="26"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
@@ -438,6 +437,7 @@ CA
                     </textFieldCell>
                 </textField>
             </subviews>
+            <point key="canvasLocation" x="-46" y="154"/>
         </customView>
     </objects>
     <resources>
@@ -445,6 +445,6 @@ CA
         <image name="Play" width="31" height="35"/>
         <image name="PlayingTrack" width="32" height="32"/>
         <image name="PreviousTrack" width="31" height="35"/>
-        <image name="SwitchOff" width="140" height="152"/>
+        <image name="Switch" width="21" height="23"/>
     </resources>
 </document>

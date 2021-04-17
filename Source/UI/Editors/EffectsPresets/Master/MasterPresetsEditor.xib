@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -163,7 +163,7 @@
             </subviews>
             <point key="canvasLocation" x="394" y="331"/>
         </customView>
-        <view id="wYT-Ux-qZh" userLabel="Master Sub Preview" customClass="MasterView" customModule="Aural" customModuleProvider="target">
+        <view id="wYT-Ux-qZh" userLabel="Master Sub Preview" customClass="MasterPresetView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="442" height="236"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -179,51 +179,26 @@
                     <rect key="frame" x="122" y="167" width="14" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PitchTab" id="875-mJ-nSd"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="PitchTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="PitchTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="PitchTab-On"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xen-bh-Wlg" userLabel="Reverb img" customClass="EffectsUnitTriStateBypassPreviewImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="263" y="200" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="ReverbTab" id="dIN-x7-yzv"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="ReverbTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="ReverbTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="ReverbTab-On"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SOP-3s-8Lh" userLabel="Reverb img" customClass="EffectsUnitTriStateBypassPreviewImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="263" y="168" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="DelayTab" id="r9S-UK-f1p"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="DelayTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="DelayTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="DelayTab-On"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W44-xT-g2g" userLabel="Filter Img" customClass="EffectsUnitTriStateBypassPreviewImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="263" y="138" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="FilterTab" id="gLg-GB-WQu"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="FilterTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="FilterTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="FilterTab-On"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jr5-7n-cdB" userLabel="Time img" customClass="EffectsUnitTriStateBypassPreviewImage" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="123" y="138" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="TimeTab" id="7Fh-n0-Eir"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="TimeTab-Mixed"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="TimeTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="TimeTab-On"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SJM-an-KP9" userLabel="Pitch bypass" customClass="EffectsUnitTriStateBypassPreviewButton" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="104" y="169" width="12" height="12"/>
@@ -269,11 +244,6 @@
                     <rect key="frame" x="123" y="200" width="12" height="12"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="EQTab" id="5YV-VY-IBq"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EQTab"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EQTab-On"/>
-                        <userDefinedRuntimeAttribute type="image" keyPath="mixedStateImage" value="EQTab-Mixed"/>
-                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tel-vy-LQI" customClass="EffectsUnitTriStatePreviewLabel" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="142" y="194" width="86" height="25"/>
@@ -1296,22 +1266,10 @@
     </objects>
     <resources>
         <image name="DelayTab" width="23" height="22"/>
-        <image name="DelayTab-Mixed" width="23" height="22"/>
-        <image name="DelayTab-On" width="23" height="22"/>
         <image name="EQTab" width="25" height="25"/>
-        <image name="EQTab-Mixed" width="25" height="25"/>
-        <image name="EQTab-On" width="25" height="25"/>
         <image name="FilterTab" width="26" height="26"/>
-        <image name="FilterTab-Mixed" width="26" height="26"/>
-        <image name="FilterTab-On" width="26" height="26"/>
         <image name="PitchTab" width="32" height="26"/>
-        <image name="PitchTab-Mixed" width="32" height="26"/>
-        <image name="PitchTab-On" width="32" height="26"/>
         <image name="ReverbTab" width="25" height="25"/>
-        <image name="ReverbTab-Mixed" width="25" height="25"/>
-        <image name="ReverbTab-On" width="25" height="25"/>
         <image name="TimeTab" width="32" height="32"/>
-        <image name="TimeTab-Mixed" width="32" height="32"/>
-        <image name="TimeTab-On" width="32" height="32"/>
     </resources>
 </document>
