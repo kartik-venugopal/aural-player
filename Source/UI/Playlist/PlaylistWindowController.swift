@@ -371,6 +371,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     private func applyTheme() {
         
+        applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }

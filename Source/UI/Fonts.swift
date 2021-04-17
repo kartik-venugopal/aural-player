@@ -201,6 +201,8 @@ struct Fonts {
         static let mainFont_14: NSFont = NSFont(name: "ChicagoFLF", size: 14)!
 
         static let captionFont_13: NSFont = NSFont(name: "ChicagoFLF", size: 13)!
+        static let captionFont_13_5: NSFont = NSFont(name: "ChicagoFLF", size: 13.5)!
+        
         static let captionFont_15: NSFont = NSFont(name: "ChicagoFLF", size: 15)!
         static let captionFont_16: NSFont = NSFont(name: "ChicagoFLF", size: 16)!
     }

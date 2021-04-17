@@ -366,7 +366,7 @@ enum FontSchemePreset: String, CaseIterable {
                 
             case .papyrus:      return Fonts.Papyrus.captionFont_10
                 
-            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_15
+            case .poolsideFM:   return Fonts.PoolsideFM.captionFont_13_5
         }
     }
     
