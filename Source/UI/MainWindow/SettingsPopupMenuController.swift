@@ -5,6 +5,10 @@ import Cocoa
  */
 class SettingsPopupMenuController: NSObject, NSMenuDelegate {
     
+    @IBOutlet weak var applyThemeMenuItem: NSMenuItem!
+    @IBOutlet weak var saveThemeMenuItem: NSMenuItem!
+    @IBOutlet weak var createThemeMenuItem: NSMenuItem!
+    
     @IBOutlet weak var applyFontSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var saveFontSchemeMenuItem: NSMenuItem!
     
@@ -17,7 +21,7 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // These items should be enabled only if there is no modal component currently shown.
-        [applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!WindowManager.isShowingModalComponent)}
+        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem, applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!WindowManager.isShowingModalComponent)}
         
         cornerRadiusStepper.integerValue = roundedInt(WindowAppearanceState.cornerRadius)
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"

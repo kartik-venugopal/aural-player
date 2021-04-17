@@ -86,6 +86,8 @@ struct ViewFactory {
         
         fileprivate static let layoutsEditorViewController: LayoutsEditorViewController = LayoutsEditorViewController()
         
+        fileprivate static let themesEditorViewController: ThemesEditorViewController = ThemesEditorViewController()
+        
         fileprivate static let fontSchemesEditorViewController: FontSchemesEditorViewController = FontSchemesEditorViewController()
         
         fileprivate static let colorSchemesEditorViewController: ColorSchemesEditorViewController = ColorSchemesEditorViewController()
@@ -254,6 +256,10 @@ struct ViewFactory {
     
     static var layoutsEditorView: NSView {
         return EditorViews.layoutsEditorViewController.view
+    }
+    
+    static var themesEditorView: NSView {
+        return EditorViews.themesEditorViewController.view
     }
     
     static var fontSchemesEditorView: NSView {

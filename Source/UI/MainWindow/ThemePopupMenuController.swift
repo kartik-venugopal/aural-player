@@ -5,8 +5,7 @@ import Cocoa
  */
 class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-    private lazy var createThemeDialog: ModalDialogDelegate = CreateThemeDialogController()
-    
+    private lazy var createThemeDialog: ModalDialogDelegate = WindowFactory.createThemeDialog
     private lazy var userThemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
@@ -61,7 +60,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     }
     
     @IBAction func manageThemesAction(_ sender: NSMenuItem) {
-//        editorWindowController.showFontSchemesEditor()
+        editorWindowController.showThemesEditor()
     }
     
     // MARK - StringInputReceiver functions (to receive the name of a new user-defined color scheme)

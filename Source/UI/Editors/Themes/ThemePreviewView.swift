@@ -1,9 +1,9 @@
 import Cocoa
 
 /*
-    View that gives the user a visual preview of what the UI would look like if a particular color scheme is applied to it.
+    View that gives the user a visual preview of what the UI would look like if a particular theme is applied to it.
  */
-class ColorSchemePreviewView: NSView {
+class ThemePreviewView: NSView {
     
     @IBOutlet weak var playerBox: NSBox!
     @IBOutlet weak var playlistBox: NSBox!
@@ -64,7 +64,7 @@ class ColorSchemePreviewView: NSView {
     override func awakeFromNib() {
         
         playerFunctionButtons = [btnPlay, btnPreviousTrack, btnNextTrack]
-        playerFunctionButtons.forEach({$0.tintFunction = {return self.scheme?.general.functionButtonColor ?? NSColor.white}})
+        playerFunctionButtons.forEach({$0.tintFunction = {return self.theme?.colorScheme.general.functionButtonColor ?? NSColor.white}})
         
         playlistIndexDurationLabels = [lblPlaylistIndex_1, lblPlaylistIndex_3, lblPlaylistDuration_1, lblPlaylistDuration_3]
         playlistTrackTitleLabels = [lblPlaylistTitle_1, lblPlaylistTitle_3]
@@ -79,40 +79,40 @@ class ColorSchemePreviewView: NSView {
     
     // When any of the following fields is set, update the corresponding fields.
     
-    var scheme: ColorScheme? {
+    var theme: Theme? {
         
         didSet {
             
-            if let theScheme = scheme {
+            if let colorScheme = theme?.colorScheme, let fontScheme = theme?.fontScheme {
                 
-                backgroundColor = theScheme.general.backgroundColor
+                backgroundColor = colorScheme.general.backgroundColor
                 
-                playerTitleColor = theScheme.player.trackInfoPrimaryTextColor
-                playerArtistAlbumColor = theScheme.player.trackInfoSecondaryTextColor
+                playerTitleColor = colorScheme.player.trackInfoPrimaryTextColor
+                playerArtistAlbumColor = colorScheme.player.trackInfoSecondaryTextColor
                 
-                seekSliderCell.foregroundStartColor = theScheme.player.sliderForegroundColor
+                seekSliderCell.foregroundStartColor = colorScheme.player.sliderForegroundColor
                 
-                switch theScheme.player.sliderForegroundGradientType {
+                switch colorScheme.player.sliderForegroundGradientType {
                     
                 case .none:
                     
-                    seekSliderCell.foregroundEndColor = theScheme.player.sliderForegroundColor
+                    seekSliderCell.foregroundEndColor = colorScheme.player.sliderForegroundColor
                     
                 case .darken:
                     
-                    let amount = theScheme.player.sliderForegroundGradientAmount
+                    let amount = colorScheme.player.sliderForegroundGradientAmount
                     seekSliderCell.foregroundEndColor = seekSliderCell.foregroundStartColor.darkened(CGFloat(amount))
                     
                 case .brighten:
                     
-                    let amount = theScheme.player.sliderForegroundGradientAmount
+                    let amount = colorScheme.player.sliderForegroundGradientAmount
                     seekSliderCell.foregroundEndColor = seekSliderCell.foregroundStartColor.brightened(CGFloat(amount))
                 }
                 
-                let endColor = theScheme.player.sliderBackgroundColor
+                let endColor = colorScheme.player.sliderBackgroundColor
                 seekSliderCell.backgroundEndColor = endColor
                 
-                switch theScheme.player.sliderBackgroundGradientType {
+                switch colorScheme.player.sliderBackgroundGradientType {
                     
                 case .none:
                     
@@ -120,45 +120,45 @@ class ColorSchemePreviewView: NSView {
                     
                 case .darken:
                     
-                    let amount = theScheme.player.sliderBackgroundGradientAmount
+                    let amount = colorScheme.player.sliderBackgroundGradientAmount
                     seekSliderCell.backgroundStartColor = endColor.darkened(CGFloat(amount))
                     
                 case .brighten:
                     
-                    let amount = theScheme.player.sliderBackgroundGradientAmount
+                    let amount = colorScheme.player.sliderBackgroundGradientAmount
                     seekSliderCell.backgroundStartColor = endColor.brightened(CGFloat(amount))
                 }
                 
-                seekSliderCell._knobColor = theScheme.player.sliderKnobColorSameAsForeground ? theScheme.player.sliderForegroundColor : theScheme.player.sliderKnobColor
+                seekSliderCell._knobColor = colorScheme.player.sliderKnobColorSameAsForeground ? colorScheme.player.sliderForegroundColor : colorScheme.player.sliderKnobColor
                 
                 seekSlider.redraw()
                 playerFunctionButtons.forEach({$0.reTint()})
                 
                 eqSliderCells.forEach({
                     
-                    $0.foregroundStartColor = theScheme.effects.activeUnitStateColor
+                    $0.foregroundStartColor = colorScheme.effects.activeUnitStateColor
                     
-                    switch theScheme.effects.sliderForegroundGradientType {
+                    switch colorScheme.effects.sliderForegroundGradientType {
                         
                     case .none:
                         
-                        $0.foregroundEndColor = theScheme.effects.activeUnitStateColor
+                        $0.foregroundEndColor = colorScheme.effects.activeUnitStateColor
                         
                     case .darken:
                         
-                        let amount = theScheme.effects.sliderForegroundGradientAmount
+                        let amount = colorScheme.effects.sliderForegroundGradientAmount
                         $0.foregroundEndColor = $0.foregroundStartColor.darkened(CGFloat(amount))
                         
                     case .brighten:
                         
-                        let amount = theScheme.effects.sliderForegroundGradientAmount
+                        let amount = colorScheme.effects.sliderForegroundGradientAmount
                         $0.foregroundEndColor = $0.foregroundStartColor.brightened(CGFloat(amount))
                     }
                     
-                    let endColor = theScheme.effects.sliderBackgroundColor
+                    let endColor = colorScheme.effects.sliderBackgroundColor
                     $0.backgroundEndColor = endColor
                     
-                    switch theScheme.effects.sliderBackgroundGradientType {
+                    switch colorScheme.effects.sliderBackgroundGradientType {
                         
                     case .none:
                         
@@ -166,38 +166,57 @@ class ColorSchemePreviewView: NSView {
                         
                     case .darken:
                         
-                        let amount = theScheme.effects.sliderBackgroundGradientAmount
+                        let amount = colorScheme.effects.sliderBackgroundGradientAmount
                         $0.backgroundStartColor = endColor.darkened(CGFloat(amount))
                         
                     case .brighten:
                         
-                        let amount = theScheme.effects.sliderBackgroundGradientAmount
+                        let amount = colorScheme.effects.sliderBackgroundGradientAmount
                         $0.backgroundStartColor = endColor.brightened(CGFloat(amount))
                     }
                     
-                    $0._knobColor = theScheme.effects.sliderKnobColorSameAsForeground ? theScheme.effects.activeUnitStateColor : theScheme.effects.sliderKnobColor
+                    $0._knobColor = colorScheme.effects.sliderKnobColorSameAsForeground ? colorScheme.effects.activeUnitStateColor : colorScheme.effects.sliderKnobColor
                 })
                 
                 eqSliders.forEach({$0.redraw()})
                 
-                activeUnitColor = theScheme.effects.activeUnitStateColor
-                fxCaptionColor = theScheme.general.mainCaptionTextColor
+                activeUnitColor = colorScheme.effects.activeUnitStateColor
+                fxCaptionColor = colorScheme.general.mainCaptionTextColor
                 
-                playlistTrackTitleColor = theScheme.playlist.trackNameTextColor
-                playlistTrackIndexDurationColor = theScheme.playlist.indexDurationTextColor
-                playlistSelectedTrackTitleColor = theScheme.playlist.trackNameSelectedTextColor
-                playlistSelectedDurationColor = theScheme.playlist.indexDurationSelectedTextColor
-                playlistSelectionBoxColor = theScheme.playlist.selectionBoxColor
-                playingTrackIconColor = theScheme.playlist.playingTrackIconColor
+                playlistTrackTitleColor = colorScheme.playlist.trackNameTextColor
+                playlistTrackIndexDurationColor = colorScheme.playlist.indexDurationTextColor
+                playlistSelectedTrackTitleColor = colorScheme.playlist.trackNameSelectedTextColor
+                playlistSelectedDurationColor = colorScheme.playlist.indexDurationSelectedTextColor
+                playlistSelectionBoxColor = colorScheme.playlist.selectionBoxColor
+                playingTrackIconColor = colorScheme.playlist.playingTrackIconColor
                 
-                playlistSelectedTabButtonCell._selectionBoxColor = theScheme.general.selectedTabButtonColor
-                playlistSelectedTabButtonCell.selectedTabButtonTextColor = theScheme.general.selectedTabButtonTextColor
+                playlistSelectedTabButtonCell._selectionBoxColor = colorScheme.general.selectedTabButtonColor
+                playlistSelectedTabButtonCell.selectedTabButtonTextColor = colorScheme.general.selectedTabButtonTextColor
                 
-                playlistTabButtonCell.tabButtonTextColor = theScheme.general.tabButtonTextColor
+                playlistTabButtonCell.tabButtonTextColor = colorScheme.general.tabButtonTextColor
                 
                 [playlistTabButton, playlistSelectedTabButton].forEach({$0?.redraw()})
                 
                 [playlistBox, playerBox, effectsBox].forEach({$0.show()})
+                
+                // MARK: Set fonts
+                
+                lblPlayerTrackTitle.font = fontScheme.player.infoBoxTitleFont
+                lblPlayerArtistAlbum.font = fontScheme.player.infoBoxArtistAlbumFont
+                
+                playlistTabButtonCell._textFont = fontScheme.playlist.tabButtonTextFont
+                playlistSelectedTabButtonCell._boldTextFont = fontScheme.playlist.tabButtonTextFont
+                
+                (playlistIndexDurationLabels + playlistTrackTitleLabels + [lblPlaylistSelectedDuration, lblPlaylistSelectedTitle]).forEach {$0.font = fontScheme.playlist.trackTextFont}
+                
+                lblFxCaption.font = fontScheme.effects.unitCaptionFont
+            }
+            
+            if let windowAppearance = theme?.windowAppearance {
+                
+                [playerBox, playlistBox, effectsBox].forEach {
+                    $0.cornerRadius = windowAppearance.cornerRadius
+                }
             }
         }
     }
@@ -281,95 +300,5 @@ class ColorSchemePreviewView: NSView {
     
     func clear() {
         [playlistBox, playerBox, effectsBox].forEach({$0.hide()})
-    }
-}
-
-class SeekSliderPreviewCell: SeekSliderCell {
-    
-    var foregroundStartColor: NSColor = NSColor.white
-    var foregroundEndColor: NSColor = NSColor.white
-    
-    var backgroundStartColor: NSColor = NSColor.gray
-    var backgroundEndColor: NSColor = NSColor.gray
-    
-    var _knobColor: NSColor = NSColor.white
-    
-    override var backgroundGradient: NSGradient {return NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!}
-    override var foregroundGradient: NSGradient {return NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!}
-    override var knobColor: NSColor {return _knobColor}
-}
-
-class EQSliderPreviewCell: EQSliderCell {
-    
-    var foregroundStartColor: NSColor = NSColor.white
-    var foregroundEndColor: NSColor = NSColor.white
-    
-    var backgroundStartColor: NSColor = NSColor.gray
-    var backgroundEndColor: NSColor = NSColor.gray
-    
-    var _knobColor: NSColor = NSColor.white
-    
-    override var foregroundGradient: NSGradient {
-        return NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!
-    }
-    
-    override var backgroundGradient: NSGradient {
-        return NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!
-    }
-    
-    override var knobColor: NSColor {return _knobColor}
-}
-
-class EQSliderConstantColorPreviewCell: EQSliderCell {
-    
-    override var foregroundGradient: NSGradient {
-        
-        switch self.unitState {
-            
-        case .active:   return Colors.Effects.defaultActiveSliderGradient
-            
-        case .bypassed: return Colors.Effects.defaultBypassedSliderGradient
-            
-        case .suppressed:   return Colors.Effects.defaultSuppressedSliderGradient
-            
-        }
-    }
-    
-    override var backgroundGradient: NSGradient {
-        return Colors.Effects.defaultSliderBackgroundGradient
-    }
-    
-    override var knobColor: NSColor {
-        
-        switch self.unitState {
-            
-        case .active:   return Colors.Effects.defaultActiveUnitColor
-            
-        case .bypassed: return Colors.Effects.defaultBypassedUnitColor
-            
-        case .suppressed:   return Colors.Effects.defaultSuppressedUnitColor
-            
-        }
-    }
-}
-
-class PlaylistPreviewTabButtonCell: PlaylistViewsButtonCell {
-    
-    var tabButtonTextColor: NSColor = NSColor.white
-    var selectedTabButtonTextColor: NSColor = NSColor.white
-    var _selectionBoxColor: NSColor = Colors.Constants.white15Percent
-    
-    override var unselectedTextColor: NSColor {return tabButtonTextColor}
-    override var selectedTextColor: NSColor {return selectedTabButtonTextColor}
-    override var selectionBoxColor: NSColor {return _selectionBoxColor}
-    
-    override var textFont: NSFont {return _textFont}
-    var _textFont: NSFont = Fonts.largeTabButtonFont
-    
-    override var boldTextFont: NSFont {return _boldTextFont}
-    var _boldTextFont: NSFont = Fonts.largeTabButtonFont
-    
-    override var yOffset: CGFloat {
-        return 1
     }
 }

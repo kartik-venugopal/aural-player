@@ -15,6 +15,11 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var playerViewMenuItem: NSMenuItem!
     
+    @IBOutlet weak var applyThemeMenuItem: NSMenuItem!
+    @IBOutlet weak var saveThemeMenuItem: NSMenuItem!
+    @IBOutlet weak var createThemeMenuItem: NSMenuItem!
+    @IBOutlet weak var manageThemesMenuItem: NSMenuItem!
+    
     @IBOutlet weak var applyFontSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var saveFontSchemeMenuItem: NSMenuItem!
     @IBOutlet weak var manageFontSchemesMenuItem: NSMenuItem!
@@ -36,6 +41,9 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
         
         let showingModalComponent: Bool = WindowManager.isShowingModalComponent
+        
+        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
+        manageThemesMenuItem.enableIf(!showingModalComponent && (Themes.numberOfUserDefinedThemes > 0))
         
         [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
         manageFontSchemesMenuItem.enableIf(!showingModalComponent && (FontSchemes.numberOfUserDefinedSchemes > 0))

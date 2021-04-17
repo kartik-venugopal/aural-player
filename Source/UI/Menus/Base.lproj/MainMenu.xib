@@ -130,14 +130,18 @@
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="vgD-4T-WSG" id="aNt-Oa-CFX"/>
                 <outlet property="applyFontSchemeMenuItem" destination="pXx-4E-0SU" id="c0W-eU-SJ0"/>
+                <outlet property="applyThemeMenuItem" destination="dM3-28-1cu" id="gh8-bP-T1X"/>
                 <outlet property="cornerRadiusStepper" destination="2rX-63-LrB" id="ht8-2C-8Ze"/>
+                <outlet property="createThemeMenuItem" destination="wdy-pC-aSd" id="nuW-qt-HvQ"/>
                 <outlet property="lblCornerRadius" destination="nk7-Vp-sgm" id="PfF-oM-eKn"/>
                 <outlet property="manageColorSchemesMenuItem" destination="3ie-xE-Lk9" id="qy9-2a-3ie"/>
                 <outlet property="manageFontSchemesMenuItem" destination="PXA-nL-cxl" id="WqT-G9-BWH"/>
                 <outlet property="manageLayoutsMenuItem" destination="ly6-5K-P4A" id="Sjk-TY-Kfh"/>
+                <outlet property="manageThemesMenuItem" destination="5Td-P7-0Rz" id="ujA-t5-jyX"/>
                 <outlet property="playerViewMenuItem" destination="af4-4E-1QV" id="0dH-2v-B7l"/>
                 <outlet property="saveColorSchemeMenuItem" destination="WVj-ng-OeL" id="3XH-d1-FXP"/>
                 <outlet property="saveFontSchemeMenuItem" destination="sSv-dJ-0AG" id="adm-Pm-OJp"/>
+                <outlet property="saveThemeMenuItem" destination="Wrr-q3-Rxe" id="pV9-FZ-NEH"/>
                 <outlet property="toggleChaptersListMenuItem" destination="9Al-PA-rnK" id="0SK-l3-ET4"/>
                 <outlet property="toggleEffectsMenuItem" destination="fK8-7g-oqx" id="xo8-0f-yDo"/>
                 <outlet property="togglePlaylistMenuItem" destination="0PH-nx-xo9" id="60y-S3-b3m"/>
@@ -1097,9 +1101,9 @@ CA
                                 </menu>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="sUj-gu-cOk"/>
-                            <menuItem title="  Theme" indentationLevel="1" id="dM3-28-1cu" userLabel="Theme">
+                            <menuItem title="   Theme" indentationLevel="1" id="dM3-28-1cu" userLabel="Theme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="  Theme" showsStateColumn="NO" id="00Q-Xr-AxH">
+                                <menu key="submenu" title="   Theme" showsStateColumn="NO" id="00Q-Xr-AxH">
                                     <items>
                                         <menuItem isSeparatorItem="YES" id="hLr-Xa-uku"/>
                                         <menuItem title="Poolside.fm" state="mixed" indentationLevel="1" id="1ci-pL-cVl">
@@ -1114,19 +1118,19 @@ CA
                                     </connections>
                                 </menu>
                             </menuItem>
-                            <menuItem title="  Save current theme" indentationLevel="1" id="Wrr-q3-Rxe" userLabel="Save current theme">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="saveThemeAction:" target="adg-ZH-dsT" id="Q1G-fm-fr6"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="  Create new theme" indentationLevel="1" id="wdy-pC-aSd" userLabel="Create new theme">
+                            <menuItem title="   Create new theme" indentationLevel="1" id="wdy-pC-aSd" userLabel="Create new theme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="createThemeAction:" target="adg-ZH-dsT" id="rOy-1I-9UR"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="  Manage themes" indentationLevel="1" id="5Td-P7-0Rz" userLabel="Manage themes">
+                            <menuItem title="   Save current theme" indentationLevel="1" id="Wrr-q3-Rxe" userLabel="Save current theme">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="saveThemeAction:" target="adg-ZH-dsT" id="Q1G-fm-fr6"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="   Manage themes" indentationLevel="1" id="5Td-P7-0Rz" userLabel="Manage themes">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="manageThemesAction:" target="adg-ZH-dsT" id="Jun-vi-rag"/>

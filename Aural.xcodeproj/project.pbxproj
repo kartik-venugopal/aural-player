@@ -24,6 +24,9 @@
 		3E45C03625E1269500C1519C /* PlayerFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */; };
 		3E4CC362261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
+		3E51F346262AFDCA0048452F /* ThemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F345262AFDCA0048452F /* ThemesEditor.xib */; };
+		3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F347262AFDF80048452F /* ThemePreviewView.swift */; };
+		3E51F34A262AFF310048452F /* ThemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F349262AFF300048452F /* ThemesEditorViewController.swift */; };
 		3E525C01261E3330001D9186 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3E525C00261E3330001D9186 /* README.md */; };
 		3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */; };
 		3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */; };
@@ -628,6 +631,9 @@
 		3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterUnitAUTableViewDelegate.swift; sourceTree = "<group>"; };
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
+		3E51F345262AFDCA0048452F /* ThemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemesEditor.xib; sourceTree = "<group>"; };
+		3E51F347262AFDF80048452F /* ThemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreviewView.swift; sourceTree = "<group>"; };
+		3E51F349262AFF300048452F /* ThemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesEditorViewController.swift; sourceTree = "<group>"; };
 		3E525C00261E3330001D9186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neo-latina-demo-FFP.ttf"; sourceTree = "<group>"; };
 		3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-freak.regular.ttf"; sourceTree = "<group>"; };
@@ -1389,6 +1395,16 @@
 			path = Player;
 			sourceTree = "<group>";
 		};
+		3E51F344262AFDAF0048452F /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				3E51F345262AFDCA0048452F /* ThemesEditor.xib */,
+				3E51F349262AFF300048452F /* ThemesEditorViewController.swift */,
+				3E51F347262AFDF80048452F /* ThemePreviewView.swift */,
+			);
+			path = Themes;
+			sourceTree = "<group>";
+		};
 		3E5623C82619FA8600D55E43 /* AudioUnits */ = {
 			isa = PBXGroup;
 			children = (
@@ -1766,6 +1782,7 @@
 				3E6C0F8825CEB98600BF0D07 /* CustomEditorViews.swift */,
 				3E6C0F8925CEB98600BF0D07 /* Bookmarks */,
 				3E6C0F8C25CEB98600BF0D07 /* Layouts */,
+				3E51F344262AFDAF0048452F /* Themes */,
 				3E6C0F9025CEB98600BF0D07 /* ColorSchemes */,
 				3EA3CE6525E3FD5300BC7D07 /* FontSchemes */,
 				3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */,
@@ -3214,6 +3231,7 @@
 				3E6C123B25CEBDF400BF0D07 /* Genres.xib in Resources */,
 				3E6C128225CEBE1800BF0D07 /* EffectsColorScheme.xib in Resources */,
 				3E6C12ED25CEBE8100BF0D07 /* Delay.xib in Resources */,
+				3E51F346262AFDCA0048452F /* ThemesEditor.xib in Resources */,
 				3E6C124225CEBDF400BF0D07 /* ArtistsPlaylistSort.xib in Resources */,
 				3E6C127825CEBE1800BF0D07 /* PlayerColorScheme.xib in Resources */,
 				3E6C125425CEBE0600BF0D07 /* ColorSchemesEditor.xib in Resources */,
@@ -3331,6 +3349,7 @@
 				3EDB346325E8B75D004DF7DE /* CoverArtCache.swift in Sources */,
 				3E6C118725CEBD6D00BF0D07 /* VariableRateNode.swift in Sources */,
 				3E6C127025CEBE0600BF0D07 /* FilterBandsViewDelegate.swift in Sources */,
+				3E51F34A262AFF310048452F /* ThemesEditorViewController.swift in Sources */,
 				3E6C129425CEBE1800BF0D07 /* PrettyScroller.swift in Sources */,
 				3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */,
 				3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */,
@@ -3356,6 +3375,7 @@
 				3EDB33F725E8AE09004DF7DE /* FFmpegCodec.swift in Sources */,
 				3E6C124E25CEBDF400BF0D07 /* PlaylistContextMenuController.swift in Sources */,
 				3E6C11C925CEBDBE00BF0D07 /* PlaybackDelegate.swift in Sources */,
+				3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */,
 				3E6C119B25CEBD6D00BF0D07 /* DeviceManager.swift in Sources */,
 				3E6C11CE25CEBDBE00BF0D07 /* SavePlaybackProfileAction.swift in Sources */,
 				3E6C126325CEBE0600BF0D07 /* FavoritesEditorViewController.swift in Sources */,

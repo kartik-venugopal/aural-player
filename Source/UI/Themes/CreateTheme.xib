@@ -107,12 +107,12 @@ Gw
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dEJ-8O-qbR" userLabel="Font schemes menu">
                         <rect key="frame" x="205" y="151" width="269" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="2Os-5g-RAk" id="Zyi-SJ-BZr" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="2Os-5g-RAk" id="Zyi-SJ-BZr" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Play-Regular"/>
                             <menu key="menu" autoenablesItems="NO" id="1Z5-t9-tRA">
                                 <items>
-                                    <menuItem isSeparatorItem="YES" id="2Os-5g-RAk"/>
+                                    <menuItem isSeparatorItem="YES" state="on" id="2Os-5g-RAk"/>
                                     <menuItem title="Standard" indentationLevel="1" id="iF5-aP-5Ck">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
@@ -147,12 +147,12 @@ Gw
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iKU-0P-kpV" userLabel="Color Schemes menu">
                         <rect key="frame" x="205" y="106" width="269" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="Vgo-EI-h6D" id="WPq-yq-tEZ" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" selectedItem="Vgo-EI-h6D" id="WPq-yq-tEZ" userLabel="Menu" customClass="FontsPopupMenuCell" customModule="Aural" customModuleProvider="target">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" size="12" name="Play-Regular"/>
                             <menu key="menu" autoenablesItems="NO" id="iup-Lk-k2e">
                                 <items>
-                                    <menuItem isSeparatorItem="YES" id="Vgo-EI-h6D"/>
+                                    <menuItem isSeparatorItem="YES" state="on" id="Vgo-EI-h6D"/>
                                     <menuItem title="Black attack (default)" indentationLevel="1" id="Tc8-9P-xZC">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
@@ -235,6 +235,11 @@ Gw
                     </box>
                 </subviews>
             </view>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                    <color key="value" white="0.19972965267154721" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="215" y="248"/>
         </window>
     </objects>

@@ -263,6 +263,12 @@
                                                         </connections>
                                                     </menu>
                                                 </menuItem>
+                                                <menuItem title="Create new theme" id="krp-IO-daS" userLabel="Create new theme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="createThemeAction:" target="iBX-Gc-cxj" id="bj4-Fb-1fT"/>
+                                                    </connections>
+                                                </menuItem>
                                                 <menuItem title="Save current theme" id="bGz-9b-srD" userLabel="Save current theme">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
@@ -597,10 +603,13 @@
             <connections>
                 <outlet property="applyColorSchemeMenuItem" destination="i7L-so-Yi8" id="9E8-JZ-anN"/>
                 <outlet property="applyFontSchemeMenuItem" destination="pIS-mt-Im2" id="gyj-Vf-Ina"/>
+                <outlet property="applyThemeMenuItem" destination="ILu-DU-P5Z" id="Nbi-8c-odl"/>
                 <outlet property="cornerRadiusStepper" destination="qpG-S8-CX4" id="pM2-SH-mGf"/>
+                <outlet property="createThemeMenuItem" destination="krp-IO-daS" id="Q9r-k9-u72"/>
                 <outlet property="lblCornerRadius" destination="Ycf-6F-230" id="O4q-3u-2eg"/>
                 <outlet property="saveColorSchemeMenuItem" destination="qvE-di-9Bh" id="CAv-1G-tZt"/>
                 <outlet property="saveFontSchemeMenuItem" destination="61k-O1-7w2" id="SqX-7F-Hqn"/>
+                <outlet property="saveThemeMenuItem" destination="bGz-9b-srD" id="sH0-kt-MhM"/>
             </connections>
         </customObject>
         <customView id="f8G-sv-wa9" userLabel="Window corner radius editor view" customClass="WindowCornerRadiusMenuItemView" customModule="Aural" customModuleProvider="target">
