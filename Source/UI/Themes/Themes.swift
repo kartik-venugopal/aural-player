@@ -6,9 +6,10 @@ import Cocoa
 class Themes {
 
     // Loads the user-defined schemes and current system theme from persistent state on app startup.
-//    static func initialize(_ themesState: ThemesState) {
-//        loadUserDefinedSchemes(themesState.userSchemes.map {Theme($0, false)})
-//    }
+    static func initialize(_ themesState: ThemesState) {
+        
+        loadUserDefinedThemes(themesState.userThemes.map {Theme(name: $0.name, fontScheme: FontScheme($0.fontScheme, false), colorScheme: ColorScheme($0.colorScheme, false), windowAppearance: WindowAppearance(cornerRadius: CGFloat($0.windowAppearance.cornerRadius)))})
+    }
     
     // Mapping of user-defined themes by display name.
     private static var userDefinedThemesByName: StringKeyedCollection<Theme> = StringKeyedCollection()
@@ -92,7 +93,7 @@ class Themes {
     }
     
     // State to be persisted to disk.
-//    static var persistentState: ThemesState {
-//        return ThemesState(ColorSchemeState(systemScheme), userDefinedThemesByName.map {ThemeState($0)})
-//    }
+    static var persistentState: ThemesState {
+        return ThemesState(userDefinedThemes.map {ThemeState($0)})
+    }
 }

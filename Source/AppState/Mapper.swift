@@ -245,21 +245,3 @@ func mapNumeric<T: Any>(_ map: NSDictionary, _ key: String) -> T? {
     
     return nil
 }
-
-func mapNSPoint(_ map: NSDictionary) -> NSPoint? {
-    
-    if let px = map["x"] as? NSNumber, let py = map["y"] as? NSNumber {
-        return NSPoint(x: CGFloat(px.floatValue), y: CGFloat(py.floatValue))
-    }
-    
-    return nil
-}
-
-func mapNSSize(_ map: NSDictionary) -> NSSize? {
-    
-    if let wd = map["width"] as? NSNumber, let ht = map["height"] as? NSNumber {
-        return NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
-    }
-    
-    return nil
-}

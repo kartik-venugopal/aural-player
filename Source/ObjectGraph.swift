@@ -162,6 +162,7 @@ class ObjectGraph {
         WindowManager.initialize(appState.ui.windowLayout, preferences.viewPreferences)
         UIUtils.initialize(preferences.viewPreferences)
         
+        Themes.initialize(appState.ui.themes)
         FontSchemes.initialize(appState.ui.fontSchemes)
         ColorSchemes.initialize(appState.ui.colorSchemes)
         WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
@@ -215,6 +216,7 @@ class ObjectGraph {
         
         appState.ui = UIState()
         appState.ui.windowLayout = WindowManager.persistentState
+        appState.ui.themes = Themes.persistentState
         appState.ui.fontSchemes = FontSchemes.persistentState
         appState.ui.colorSchemes = ColorSchemes.persistentState
         appState.ui.player = PlayerViewState.persistentState
