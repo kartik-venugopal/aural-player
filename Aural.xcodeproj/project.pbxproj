@@ -33,6 +33,7 @@
 		3E5623C72619F8BA00D55E43 /* AudioUnitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */; };
 		3E5623CA2619FAD500D55E43 /* HostedAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C92619FAD500D55E43 /* HostedAudioUnit.swift */; };
 		3E5623CC2619FCB300D55E43 /* AudioUnitPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623CB2619FCB300D55E43 /* AudioUnitPresets.swift */; };
+		3E57AF8C262B2C8100678C16 /* ChicagoFLF.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */; };
 		3E5F942025E570A9002DEF80 /* Spectrogram3DBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941725E570A9002DEF80 /* Spectrogram3DBar.swift */; };
 		3E5F942125E570A9002DEF80 /* Spectrogram3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941825E570A9002DEF80 /* Spectrogram3D.swift */; };
 		3E5F942C25E57190002DEF80 /* BassFFTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F93F925E57081002DEF80 /* BassFFTData.swift */; };
@@ -640,6 +641,7 @@
 		3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsManager.swift; sourceTree = "<group>"; };
 		3E5623C92619FAD500D55E43 /* HostedAudioUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnit.swift; sourceTree = "<group>"; };
 		3E5623CB2619FCB300D55E43 /* AudioUnitPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitPresets.swift; sourceTree = "<group>"; };
+		3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChicagoFLF.ttf; sourceTree = "<group>"; };
 		3E5F93F725E57081002DEF80 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		3E5F93F825E57081002DEF80 /* SpectrogramFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrogramFFTData.swift; sourceTree = "<group>"; };
 		3E5F93F925E57081002DEF80 /* BassFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BassFFTData.swift; sourceTree = "<group>"; };
@@ -2689,6 +2691,7 @@
 				3ECB54E725E552A1002259C4 /* shufen.regular.ttf */,
 				3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */,
 				3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */,
+				3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */,
 				3E645A0925E3932D006C6981 /* coming-soon.regular.ttf */,
 				3ECB54EC25E559DE002259C4 /* futura light bt.ttf */,
 				3ECB54ED25E559DE002259C4 /* roundornoncommercial.regular.otf */,
@@ -3170,9 +3173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
-				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
-				3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */,
 				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */,
 				3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */,
@@ -3180,6 +3181,7 @@
 				3E645A0A25E39337006C6981 /* coming-soon.regular.ttf in Resources */,
 				3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */,
 				3ECB54EE25E559E5002259C4 /* futura light bt.ttf in Resources */,
+				3E57AF8C262B2C8100678C16 /* ChicagoFLF.ttf in Resources */,
 				3ECB54F025E559E7002259C4 /* roundornoncommercial.regular.otf in Resources */,
 				3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */,
 				3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */,
@@ -3190,6 +3192,8 @@
 				3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */,
 				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
 				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
+				3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */,
+				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */,
 				3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */,
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsEditor.xib in Resources */,
