@@ -585,6 +585,8 @@
 		3EF0C3DF262A92AB0042C720 /* WindowLayoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3DE262A92AB0042C720 /* WindowLayoutState.swift */; };
 		3EF0C3E1262A93520042C720 /* WindowUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E0262A93520042C720 /* WindowUIState.swift */; };
 		3EF0C3E3262A93740042C720 /* VisualizerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */; };
+		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
+		3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */; };
 		3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */; };
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
 		3EFB1C6025EFCFAC00EF7F0F /* AtomicCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */; };
@@ -1307,6 +1309,8 @@
 		3EF0C3DE262A92AB0042C720 /* WindowLayoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutState.swift; sourceTree = "<group>"; };
 		3EF0C3E0262A93520042C720 /* WindowUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowUIState.swift; sourceTree = "<group>"; };
 		3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerUIState.swift; sourceTree = "<group>"; };
+		3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTheme.xib; sourceTree = "<group>"; };
+		3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeDialogController.swift; sourceTree = "<group>"; };
 		3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegScheduler.swift; sourceTree = "<group>"; };
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
 		3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AtomicCounter.swift; sourceTree = "<group>"; };
@@ -2735,6 +2739,8 @@
 				3E9C12102622208F00D90EA4 /* Theme.swift */,
 				3E9C12122622216500D90EA4 /* Themes.swift */,
 				3E9C12142622259500D90EA4 /* ThemePreset.swift */,
+				3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */,
+				3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */,
 			);
 			path = Themes;
 			sourceTree = "<group>";
@@ -3182,6 +3188,7 @@
 				3E6C121525CEBDE500BF0D07 /* ViewPreferences.xib in Resources */,
 				3E6C126125CEBE0600BF0D07 /* LayoutsEditor.xib in Resources */,
 				3E6C123525CEBDF400BF0D07 /* ChaptersList.xib in Resources */,
+				3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */,
 				3E6C125E25CEBE0600BF0D07 /* ReverbPresetsEditor.xib in Resources */,
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
 				3E6C126025CEBE0600BF0D07 /* EditorWindow.xib in Resources */,
@@ -3376,6 +3383,7 @@
 				3E6C11C125CEBDB400BF0D07 /* SequenceScope.swift in Sources */,
 				3E6C126725CEBE0600BF0D07 /* LayoutPreviewView.swift in Sources */,
 				3E6C120825CEBDD100BF0D07 /* GroupingPlaylistProtocols.swift in Sources */,
+				3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */,
 				3E6C122725CEBDE600BF0D07 /* ControlsPreferencesViewController.swift in Sources */,
 				3E6C116E25CEBD6000BF0D07 /* AudioGraphState.swift in Sources */,
 				3E6C11BB25CEBDB000BF0D07 /* NotificationNames.swift in Sources */,

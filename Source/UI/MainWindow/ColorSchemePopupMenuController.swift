@@ -79,7 +79,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
         if ColorSchemes.schemeWithNameExists(string) {
             return (false, "Color scheme with this name already exists !")
         } else if string.trim().isEmpty {
-            return (false, "Name must have at least 1 non-whitespace character.")
+            return (false, "Name must have at least 1 character.")
         } else {
             return (true, nil)
         }

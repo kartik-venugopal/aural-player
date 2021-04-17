@@ -5,7 +5,7 @@ import Cocoa
  */
 class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-//    private lazy var fontSchemesDialog: ModalDialogDelegate = WindowFactory.fontSchemesDialog
+    private lazy var createThemeDialog: ModalDialogDelegate = CreateThemeDialogController()
     
     private lazy var userThemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -57,6 +57,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     }
     
     @IBAction func createThemeAction(_ sender: NSMenuItem) {
+        _ = createThemeDialog.showDialog()
     }
     
     @IBAction func manageThemesAction(_ sender: NSMenuItem) {
@@ -78,7 +79,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         if Themes.themeWithNameExists(string) {
             return (false, "Theme with this name already exists !")
         } else if string.trim().isEmpty {
-            return (false, "Name must have at least 1 non-whitespace character.")
+            return (false, "Name must have at least 1 character.")
         } else {
             return (true, nil)
         }
