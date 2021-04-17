@@ -17,6 +17,15 @@ extension NSView {
         self.addConstraint(constraint)
     }
     
+    func deactivateAndRemoveConstraints(_ constraints: NSLayoutConstraint...) {
+        
+        for constraint in constraints {
+            
+            constraint.isActive = false
+            self.removeConstraint(constraint)
+        }
+    }
+    
     func deactivateAndRemoveConstraint(_ constraint: NSLayoutConstraint) {
         
         constraint.isActive = false

@@ -115,6 +115,10 @@ class GroupedItemCellView: NSTableCellView {
 @IBDesignable
 class GroupedItemNameCellView: GroupedItemCellView {
     
+    @IBOutlet weak var imgViewCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imgViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textFieldLeadingConstraint: NSLayoutConstraint!
+    
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
     override var backgroundStyle: NSView.BackgroundStyle {
         
@@ -127,6 +131,35 @@ class GroupedItemNameCellView: GroupedItemCellView {
             
             textField?.font = isGroup ? FontSchemes.systemScheme.playlist.groupTextFont : FontSchemes.systemScheme.playlist.trackTextFont
         }
+    }
+    
+    func reActivateConstraints(imgViewCenterY: CGFloat, imgViewLeading: CGFloat, textFieldLeading: CGFloat) {
+        
+        guard let imgView = self.imageView, let textField = self.textField else {return}
+        
+        if let c1 = imgViewCenterYConstraint, let c2 = imgViewLeadingConstraint, let c3 = textFieldLeadingConstraint {
+            
+            self.deactivateAndRemoveConstraints(c1, c2, c3)
+            
+        } else {
+            
+            self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {self.deactivateAndRemoveConstraint($0)}
+            
+            self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {self.deactivateAndRemoveConstraint($0)}
+            
+            self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {self.deactivateAndRemoveConstraint($0)}
+        }
+        
+        let newImgViewCenterYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal,
+                                                          toItem: self, attribute: .centerY, multiplier: 1.0, constant: imgViewCenterY)
+        
+        let newImgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal,
+                                                          toItem: self, attribute: .leading, multiplier: 1.0, constant: imgViewLeading)
+        
+        let newTextFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal,
+                                                            toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: textFieldLeading)
+        
+        self.activateAndAddConstraints(newImgViewCenterYConstraint, newImgViewLeadingConstraint, newTextFieldLeadingConstraint)
     }
 }
 

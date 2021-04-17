@@ -75,7 +75,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemNameCellView? {
         
         guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
-            let imgView = cell.imageView, let textField = cell.textField else {return nil}
+            let imgView = cell.imageView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = track
@@ -92,24 +92,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         }
         
         // Constraints
-        
-        // Remove any existing constraints on the text field's 'top' and 'centerY' attributes
-        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {cell.deactivateAndRemoveConstraint($0)}
-        
-        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
-        
-        cell.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
-
-        let imgViewCenterYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal,
-                                                          toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
-        
-        let imgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal,
-                                                          toItem: cell, attribute: .leading, multiplier: 1.0, constant: 3)
-        
-        let textFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal,
-                                                            toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: 11)
-        
-        cell.activateAndAddConstraints(imgViewCenterYConstraint, imgViewLeadingConstraint, textFieldLeadingConstraint)
+        cell.reActivateConstraints(imgViewCenterY: 0, imgViewLeading: 3, textFieldLeading: 11)
         
         return cell
     }
@@ -132,8 +115,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Creates a cell view containing text and an image. If the row containing the cell represents the playing track, the image will be the playing track animation.
     private func createGroupNameCell(_ outlineView: NSOutlineView, _ group: Group) -> GroupedItemNameCellView? {
         
-        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
-              let imgView = cell.imageView, let textField = cell.textField else {return nil}
+        guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = group
@@ -142,27 +124,10 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
         cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
-        imgView.image = AuralPlaylistOutlineView.cachedGroupIcon
+        cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         // Constraints
-        
-        // Remove any existing constraints on the text field's 'top' and 'centerY' attributes
-        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {cell.deactivateAndRemoveConstraint($0)}
-        
-        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
-        
-        cell.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
-
-        let imgViewCenterYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal,
-                                                          toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
-        
-        let imgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal,
-                                                          toItem: cell, attribute: .leading, multiplier: 1.0, constant: 8)
-        
-        let textFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal,
-                                                            toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: 5)
-        
-        cell.activateAndAddConstraints(imgViewCenterYConstraint, imgViewLeadingConstraint, textFieldLeadingConstraint)
+        cell.reActivateConstraints(imgViewCenterY: -1, imgViewLeading: 8, textFieldLeading: 5)
         
         return cell
     }
