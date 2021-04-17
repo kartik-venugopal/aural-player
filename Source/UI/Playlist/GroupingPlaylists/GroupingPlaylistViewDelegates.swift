@@ -75,7 +75,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     private func createTrackNameCell(_ outlineView: NSOutlineView, _ track: Track) -> GroupedItemNameCellView? {
         
         guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView,
-            let imgView = cell.imageView else {return nil}
+            let imgView = cell.imageView, let textField = cell.textField else {return nil}
         
         cell.playlistType = self.playlistType
         cell.item = track
@@ -90,6 +90,26 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         } else {
             imgView.image = nil
         }
+        
+        // Constraints
+        
+        // Remove any existing constraints on the text field's 'top' and 'centerY' attributes
+        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {cell.deactivateAndRemoveConstraint($0)}
+        
+        cell.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
+        
+        cell.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
+
+        let imgViewCenterYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal,
+                                                          toItem: cell, attribute: .centerY, multiplier: 1.0, constant: 0)
+        
+        let imgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal,
+                                                          toItem: cell, attribute: .leading, multiplier: 1.0, constant: 3)
+        
+        let textFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal,
+                                                            toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: 11)
+        
+        cell.activateAndAddConstraints(imgViewCenterYConstraint, imgViewLeadingConstraint, textFieldLeadingConstraint)
         
         return cell
     }
@@ -133,15 +153,16 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         
         cell.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {cell.deactivateAndRemoveConstraint($0)}
 
-        let imgViewBottomConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal, toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
+        let imgViewCenterYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal,
+                                                          toItem: cell, attribute: .centerY, multiplier: 1.0, constant: -1)
         
-        let imgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal, toItem: cell, attribute: .leading, multiplier: 1.0, constant: 8)
+        let imgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal,
+                                                          toItem: cell, attribute: .leading, multiplier: 1.0, constant: 8)
         
-        let textFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: 5)
+        let textFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal,
+                                                            toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: 5)
         
-        cell.activateAndAddConstraint(imgViewBottomConstraint)
-        cell.activateAndAddConstraint(imgViewLeadingConstraint)
-        cell.activateAndAddConstraint(textFieldLeadingConstraint)
+        cell.activateAndAddConstraints(imgViewCenterYConstraint, imgViewLeadingConstraint, textFieldLeadingConstraint)
         
         return cell
     }

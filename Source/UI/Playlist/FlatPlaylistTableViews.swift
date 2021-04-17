@@ -2,6 +2,15 @@ import Cocoa
 
 extension NSView {
     
+    func activateAndAddConstraints(_ constraints: NSLayoutConstraint...) {
+        
+        for constraint in constraints {
+            
+            constraint.isActive = true
+            self.addConstraint(constraint)
+        }
+    }
+    
     func activateAndAddConstraint(_ constraint: NSLayoutConstraint) {
         
         constraint.isActive = true
