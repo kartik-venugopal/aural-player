@@ -112,6 +112,8 @@ extension WindowLayoutState {
         
         let uiState = WindowLayoutPersistentState()
         
+        // TODO: Use WindowLayoutState here, and in WindowManager, transfer info to WindowLayoutState before destroy()
+        
         uiState.showEffects = WindowManager.instance.isShowingEffects
         uiState.showPlaylist = WindowManager.instance.isShowingPlaylist
 

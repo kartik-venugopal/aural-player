@@ -11,6 +11,7 @@
                 <outlet property="btnMinimize" destination="L4p-3A-TgZ" id="gVO-Qi-bKj"/>
                 <outlet property="btnQuit" destination="zFi-Se-R21" id="qaB-7L-gbg"/>
                 <outlet property="btnSettingsMenu" destination="hiE-G6-T2s" id="4bk-VK-3Q3"/>
+                <outlet property="btnStatusBarMode" destination="TuI-sH-f9K" id="byh-7S-Eqt"/>
                 <outlet property="btnToggleEffects" destination="W1Y-N5-RBQ" id="U8N-rP-qpZ"/>
                 <outlet property="btnTogglePlaylist" destination="Br1-bp-Vzd" id="Cye-Wt-34K"/>
                 <outlet property="containerBox" destination="hPg-iX-tXz" id="5Gt-cO-ZjA"/>
@@ -66,6 +67,20 @@
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="minimizeAction:" target="-2" id="67L-qB-Vyv"/>
+                                    </connections>
+                                </button>
+                                <button toolTip="Switch to status bar mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuI-sH-f9K" userLabel="Minimize Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="43" y="203" width="12" height="12"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="StatusBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KFK-iW-kM5">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="StatusBarMode"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="statusBarModeAction:" target="-2" id="YuQ-CY-KEJ"/>
                                     </connections>
                                 </button>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
@@ -659,6 +674,7 @@
         <image name="PlaylistView-Off" width="28" height="24"/>
         <image name="PlaylistView-On" width="28" height="24"/>
         <image name="Settings" width="10" height="7"/>
+        <image name="StatusBarMode" width="51" height="51"/>
         <image name="WindowLayout-BigBottomPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigLeftPlaylist" width="30" height="20"/>
         <image name="WindowLayout-BigRightPlaylist" width="30" height="20"/>

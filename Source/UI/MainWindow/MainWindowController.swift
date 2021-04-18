@@ -19,6 +19,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
+    @IBOutlet weak var btnStatusBarMode: TintedImageButton!
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
@@ -58,7 +59,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         
         let persistentState = ObjectGraph.persistentState.ui.windowLayout
         
-        [btnQuit, btnMinimize].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
+        [btnQuit, btnMinimize, btnStatusBarMode].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
         
         [btnToggleEffects, btnTogglePlaylist].forEach({
             $0?.onStateTintFunction = {return Colors.viewControlButtonColor}
@@ -147,6 +148,10 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         theWindow.miniaturize(self)
     }
     
+    @IBAction func statusBarModeAction(_ sender: AnyObject) {
+        AppModeManager.presentMode(.statusBar)
+    }
+    
     private func applyTheme() {
         
         applyColorScheme(ColorSchemes.systemScheme)
@@ -167,7 +172,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     private func changeViewControlButtonColor(_ color: NSColor) {
         
-        [btnQuit, btnMinimize, btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach({
+        [btnQuit, btnMinimize, btnStatusBarMode, btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }

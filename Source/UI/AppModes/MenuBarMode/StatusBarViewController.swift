@@ -433,13 +433,22 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     // MARK: Message handling
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
+        
         updateTrackInfo()
+        
+        if let newTrack = notification.endTrack {
+            
+            let userNotification = NSUserNotification()
+            userNotification.informativeText = newTrack.displayName
+            userNotification.contentImage = newTrack.art?.image
+            userNotification.soundName = .none
+            
+            NSUserNotificationCenter.default.deliver(userNotification)
+        }
     }
     
     // When track info for the playing track changes, display fields need to be updated
     func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
-        
-        print("Updated track \(notification.updatedTrack.displayName) fields: \(notification.updatedFields)")
         
         if notification.updatedTrack == player.playingTrack {
             updateTrackInfo()
