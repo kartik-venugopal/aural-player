@@ -588,7 +588,7 @@
 		3EF0C3D9262A91DB0042C720 /* ThemesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3D8262A91DB0042C720 /* ThemesState.swift */; };
 		3EF0C3DB262A92450042C720 /* PlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3DA262A92450042C720 /* PlayerUIState.swift */; };
 		3EF0C3DD262A92810042C720 /* PlaylistUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3DC262A92810042C720 /* PlaylistUIState.swift */; };
-		3EF0C3DF262A92AB0042C720 /* WindowLayoutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3DE262A92AB0042C720 /* WindowLayoutState.swift */; };
+		3EF0C3DF262A92AB0042C720 /* WindowLayoutPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3DE262A92AB0042C720 /* WindowLayoutPersistentState.swift */; };
 		3EF0C3E1262A93520042C720 /* WindowUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E0262A93520042C720 /* WindowUIState.swift */; };
 		3EF0C3E3262A93740042C720 /* VisualizerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */; };
 		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
@@ -1319,7 +1319,7 @@
 		3EF0C3D8262A91DB0042C720 /* ThemesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesState.swift; sourceTree = "<group>"; };
 		3EF0C3DA262A92450042C720 /* PlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUIState.swift; sourceTree = "<group>"; };
 		3EF0C3DC262A92810042C720 /* PlaylistUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistUIState.swift; sourceTree = "<group>"; };
-		3EF0C3DE262A92AB0042C720 /* WindowLayoutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutState.swift; sourceTree = "<group>"; };
+		3EF0C3DE262A92AB0042C720 /* WindowLayoutPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPersistentState.swift; sourceTree = "<group>"; };
 		3EF0C3E0262A93520042C720 /* WindowUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowUIState.swift; sourceTree = "<group>"; };
 		3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerUIState.swift; sourceTree = "<group>"; };
 		3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTheme.xib; sourceTree = "<group>"; };
@@ -2548,7 +2548,7 @@
 				3EF0C3D8262A91DB0042C720 /* ThemesState.swift */,
 				3EF0C3DA262A92450042C720 /* PlayerUIState.swift */,
 				3EF0C3DC262A92810042C720 /* PlaylistUIState.swift */,
-				3EF0C3DE262A92AB0042C720 /* WindowLayoutState.swift */,
+				3EF0C3DE262A92AB0042C720 /* WindowLayoutPersistentState.swift */,
 				3EF0C3E0262A93520042C720 /* WindowUIState.swift */,
 				3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */,
 				3EBABCBF262C2CA80015A73A /* StatusBarPlayerUIState.swift */,
@@ -3742,7 +3742,7 @@
 				3E6C11D225CEBDBE00BF0D07 /* PlaybackDelegateProtocol.swift in Sources */,
 				3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */,
 				3E6C12F025CEBE8100BF0D07 /* DelayViewController.swift in Sources */,
-				3EF0C3DF262A92AB0042C720 /* WindowLayoutState.swift in Sources */,
+				3EF0C3DF262A92AB0042C720 /* WindowLayoutPersistentState.swift in Sources */,
 				3E6C130425CEBE8F00BF0D07 /* PlaybackViewController.swift in Sources */,
 				3E6C124F25CEBDF400BF0D07 /* AlbumsPlaylistSortViewController.swift in Sources */,
 				3E6C132825CEBEA000BF0D07 /* RepeatingTaskExecutor.swift in Sources */,

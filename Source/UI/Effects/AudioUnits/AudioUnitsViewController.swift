@@ -98,7 +98,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         
         if let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window {
             
-            WindowManager.addChildWindow(dialogWindow)
+            WindowManager.instance.addChildWindow(dialogWindow)
             dialog.showDialog()
         }
     }

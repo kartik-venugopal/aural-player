@@ -57,7 +57,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
     }
     
     @IBAction func saveSchemeAction(_ sender: NSMenuItem) {
-        userSchemesPopover.show(WindowManager.mainWindow.contentView!, NSRectEdge.maxX)
+        userSchemesPopover.show(WindowManager.instance.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     @IBAction func manageSchemesAction(_ sender: NSMenuItem) {

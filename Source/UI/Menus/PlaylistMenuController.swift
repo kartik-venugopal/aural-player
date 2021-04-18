@@ -46,9 +46,9 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     func menuNeedsUpdate(_ menu: NSMenu) {
 
-        let showingModalComponent = WindowManager.isShowingModalComponent
+        let showingModalComponent = WindowManager.instance.isShowingModalComponent
         
-        if WindowManager.isChaptersListWindowKey {
+        if WindowManager.instance.isChaptersListWindowKey {
             
             // If the chapters list window is key, most playlist menu items need to be disabled
             menu.items.forEach({$0.disable()})
@@ -68,7 +68,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             menu.items.forEach({$0.enable()})
         }
         
-        theMenu.enableIf(WindowManager.isShowingPlaylist)
+        theMenu.enableIf(WindowManager.instance.isShowingPlaylist)
         if theMenu.isDisabled {return}
         
         // TODO: Revisit the below item enabling code (esp. the ones relying on no modal window). How to display modal windows so as to avoid
@@ -193,7 +193,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         
-        if WindowManager.isChaptersListWindowKey {
+        if WindowManager.instance.isChaptersListWindowKey {
             Messenger.publish(.chaptersList_playSelectedChapter)
             
         } else {

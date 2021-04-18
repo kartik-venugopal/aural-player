@@ -46,7 +46,7 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
     }
     
     private func registerAsModalComponent() {
-        WindowManager.registerModalComponent(self)
+        WindowManager.instance.registerModalComponent(self)
     }
     
     var isModal: Bool {

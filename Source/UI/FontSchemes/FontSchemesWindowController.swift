@@ -48,7 +48,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         }
 
         // Register self as a modal component
-        WindowManager.registerModalComponent(self)
+        WindowManager.instance.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {

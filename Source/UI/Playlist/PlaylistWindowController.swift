@@ -75,7 +75,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     override func windowDidLoad() {
         
         theWindow.isMovableByWindowBackground = true
-        theWindow.delegate = WindowManager.windowDelegate
         
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
@@ -90,6 +89,12 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         initSubscriptions()
+    }
+    
+    func destroy() {
+        
+        self.window?.isReleasedWhenClosed = true
+        self.window?.close()
     }
     
     // Initialize all the tab views (and select the one preferred by the user)
@@ -445,7 +450,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         // New track has no chapters, or there is no new track
         if playbackInfo.chapterCount == 0 {
-            WindowManager.hideChaptersList()
+            WindowManager.instance.hideChaptersList()
             
         } // Only show chapters list if preferred by user
         else if playlistPreferences.showChaptersList {
@@ -454,7 +459,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     private func viewChaptersList() {
-        WindowManager.showChaptersList()
+        WindowManager.instance.showChaptersList()
     }
     
     // MARK: Message handling

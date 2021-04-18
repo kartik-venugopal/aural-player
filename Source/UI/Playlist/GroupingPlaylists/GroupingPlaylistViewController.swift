@@ -10,7 +10,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     @IBOutlet weak var playlistViewDelegate: GroupingPlaylistViewDelegate!
     
-    private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
+    var contextMenu: NSMenu!
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate

@@ -374,6 +374,14 @@ extension NSWindow {
         newFrame.size = NSSize(width: newWidth, height: newHeight)
         setFrame(newFrame, display: true)
     }
+    
+    func show() {
+        setIsVisible(true)
+    }
+    
+    func hide() {
+        setIsVisible(false)
+    }
 }
 
 public extension NSBezierPath {

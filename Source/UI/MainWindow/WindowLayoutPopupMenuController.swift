@@ -42,11 +42,11 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
     }
 
     @IBAction func applyLayoutAction(_ sender: NSMenuItem) {
-        WindowManager.layout(sender.title)
+        WindowManager.instance.layout(sender.title)
     }
     
     @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
-        layoutNamePopover.show(WindowManager.mainWindow.contentView!, NSRectEdge.maxX)
+        layoutNamePopover.show(WindowManager.instance.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     @IBAction func manageLayoutsAction(_ sender: Any) {
@@ -76,6 +76,6 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        WindowLayouts.addUserDefinedLayout(string, WindowManager.currentWindowLayout)
+        WindowLayouts.addUserDefinedLayout(string, WindowManager.instance.currentWindowLayout)
     }
 }

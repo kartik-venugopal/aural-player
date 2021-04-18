@@ -41,7 +41,7 @@ class GestureHandler {
         
         // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
         // Send the space key event to the main window unless a modal component is currently displayed
-        if event.charactersIgnoringModifiers == " " && !WindowManager.isShowingModalComponent {
+        if event.charactersIgnoringModifiers == " " && !WindowManager.instance.isShowingModalComponent {
             
             self.window?.keyDown(with: event)
             return true
@@ -56,7 +56,7 @@ class GestureHandler {
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
         
-        if event.window === self.window && !WindowManager.isShowingModalComponent, let swipeDirection = UIUtils.determineSwipeDirection(event), swipeDirection.isHorizontal {
+        if event.window === self.window && !WindowManager.instance.isShowingModalComponent, let swipeDirection = UIUtils.determineSwipeDirection(event), swipeDirection.isHorizontal {
 
             handleTrackChange(swipeDirection)
         }
@@ -78,7 +78,7 @@ class GestureHandler {
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
         
         // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
-        if event.window === self.window && !WindowManager.isShowingModalComponent, let scrollVector = UIUtils.determineScrollVector(event) {
+        if event.window === self.window && !WindowManager.instance.isShowingModalComponent, let scrollVector = UIUtils.determineScrollVector(event) {
             
             // Vertical scroll = volume control, horizontal scroll = seeking
             scrollVector.direction.isVertical ? handleVolumeControl(event, scrollVector.direction) : handleSeek(event, scrollVector.direction)

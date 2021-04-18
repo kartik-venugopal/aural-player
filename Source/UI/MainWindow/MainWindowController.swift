@@ -42,7 +42,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         initWindow()
         theWindow.setIsVisible(false)
         
-        theWindow.delegate = WindowManager.windowDelegate
+//        theWindow.delegate = WindowManager.instance.windowDelegate
         
         activateGestureHandler()
         initSubscriptions()
@@ -122,7 +122,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     private func togglePlaylistWindow() {
 
-        WindowManager.togglePlaylist()
+        WindowManager.instance.togglePlaylist()
         btnTogglePlaylist.toggle()
     }
     
@@ -133,7 +133,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
     
     private func toggleEffectsWindow() {
         
-        WindowManager.toggleEffects()
+        WindowManager.instance.toggleEffects()
         btnToggleEffects.toggle()
     }
     

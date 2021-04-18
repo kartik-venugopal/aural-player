@@ -4,23 +4,25 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 
     var mode: AppMode {return .statusBar}
 
-    private lazy var statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+    private var statusItem: NSStatusItem?
     private lazy var statusBarViewController: StatusBarViewController = ViewFactory.statusBarViewController
     
     func presentMode() {
         
         NSApp.setActivationPolicy(.accessory)
-
-        statusItem.button?.image = NSImage(named: "AppIcon-StatusBar")
+        
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        statusItem?.button?.image = NSImage(named: "AppIcon-StatusBar")
+        
         let menu = NSMenu()
         
-        let item1 = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-        item1.view = statusBarViewController.view
+        let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        menuItem.view = statusBarViewController.view
         
-        menu.addItem(item1)
+        menu.addItem(menuItem)
         menu.delegate = self
         
-        statusItem.menu = menu
+        statusItem?.menu = menu
     }
     
     func menuDidClose(_ menu: NSMenu) {
@@ -32,7 +34,15 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
     }
     
     func dismissMode() {
-        statusBarViewController.dismiss()
+     
+        if let statusItem = self.statusItem {
+            
+            statusItem.menu?.cancelTracking()
+            statusItem.menu = nil
+            
+            NSStatusBar.system.removeStatusItem(statusItem)
+            self.statusItem = nil
+        }
     }
     
     func registerConstituentView(_ view: ConstituentView) {

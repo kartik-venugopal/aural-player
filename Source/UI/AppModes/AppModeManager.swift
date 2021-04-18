@@ -20,6 +20,14 @@ class AppModeManager: NotificationSubscriber {
     
     static func presentMode(_ newMode: AppMode) {
         
+        switch mode {
+            
+        case .regular:  regularMode.dismissMode()
+            
+        case .statusBar: statusBarMode.dismissMode()
+            
+        }
+        
         mode = newMode
         
         switch mode {

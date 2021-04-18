@@ -52,7 +52,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     }
     
     @IBAction func saveThemeAction(_ sender: NSMenuItem) {
-        userThemesPopover.show(WindowManager.mainWindow.contentView!, NSRectEdge.maxX)
+        userThemesPopover.show(WindowManager.instance.mainWindow.contentView!, NSRectEdge.maxX)
     }
     
     @IBAction func createThemeAction(_ sender: NSMenuItem) {

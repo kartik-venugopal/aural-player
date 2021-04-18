@@ -1,6 +1,6 @@
 import Foundation
 
-class WindowLayoutState: PersistentStateProtocol {
+class WindowLayoutPersistentState: PersistentStateProtocol {
     
     var showEffects: Bool = true
     var showPlaylist: Bool = true
@@ -11,9 +11,9 @@ class WindowLayoutState: PersistentStateProtocol {
     
     var userLayouts: [WindowLayout] = [WindowLayout]()
     
-    static func deserialize(_ map: NSDictionary) -> WindowLayoutState {
+    static func deserialize(_ map: NSDictionary) -> WindowLayoutPersistentState {
         
-        let state = WindowLayoutState()
+        let state = WindowLayoutPersistentState()
         
         state.showPlaylist = mapDirectly(map, "showPlaylist", true)
         state.showEffects = mapDirectly(map, "showEffects", true)
@@ -94,4 +94,39 @@ fileprivate func mapNSSize(_ map: NSDictionary) -> NSSize? {
     }
     
     return nil
+}
+
+extension WindowLayoutState {
+    
+    static func initialize(_ persistentState: WindowLayoutPersistentState) {
+        
+        Self.showPlaylist = persistentState.showPlaylist
+        Self.showEffects = persistentState.showEffects
+        
+        Self.mainWindowOrigin = persistentState.mainWindowOrigin
+        Self.playlistWindowFrame = persistentState.playlistWindowFrame
+        Self.effectsWindowOrigin = persistentState.effectsWindowOrigin
+    }
+    
+    static var persistentState: WindowLayoutPersistentState {
+        
+        let uiState = WindowLayoutPersistentState()
+        
+        uiState.showEffects = WindowManager.instance.isShowingEffects
+        uiState.showPlaylist = WindowManager.instance.isShowingPlaylist
+
+        uiState.mainWindowOrigin = WindowManager.instance.mainWindow.origin
+
+        if uiState.showEffects, let effectsWindow = WindowManager.instance.effectsWindow {
+            uiState.effectsWindowOrigin = effectsWindow.origin
+        }
+        
+        if uiState.showPlaylist, let playlistWindow = WindowManager.instance.playlistWindow {
+            uiState.playlistWindowFrame = playlistWindow.frame
+        }
+        
+        uiState.userLayouts = WindowLayouts.userDefinedLayouts
+        
+        return uiState
+    }
 }

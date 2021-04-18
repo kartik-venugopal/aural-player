@@ -5,7 +5,7 @@ import Cocoa
  */
 class UIState: PersistentStateProtocol {
     
-    var windowLayout: WindowLayoutState = WindowLayoutState()
+    var windowLayout: WindowLayoutPersistentState = WindowLayoutPersistentState()
     var themes: ThemesState = ThemesState()
     var fontSchemes: FontSchemesState = FontSchemesState()
     var colorSchemes: ColorSchemesState = ColorSchemesState()
@@ -21,7 +21,7 @@ class UIState: PersistentStateProtocol {
         let state = UIState()
         
         if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
-            state.windowLayout = WindowLayoutState.deserialize(windowLayoutMap)
+            state.windowLayout = WindowLayoutPersistentState.deserialize(windowLayoutMap)
         }
         
         if let themesMap = map["themes"] as? NSDictionary {

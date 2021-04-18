@@ -407,22 +407,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         settingsBox.hideIfShown()
     }
     
-    func statusBarMenuOpened() {
-        print("\nMenu Opened !!!")
-    }
-    
-//    // Replays the currently playing track, from the beginning, if there is one
-//    func replayTrack() {
-//
-//        let wasPaused: Bool = player.state == .paused
-//
-//        player.replay()
-//        playbackView.updateSeekPosition()
-//
-//        if wasPaused {
-//            playbackView.playbackStateChanged(player.state)
-//        }
-//    }
+    func statusBarMenuOpened() {}
     
     // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
 //    private func trackChanged(_ newTrack: Track?) {
@@ -443,18 +428,9 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
 //        let error = notification.error
 //        alertDialog.showAlert(.error, "Track not played", error.track?.displayName ?? "<Unknown>", error.message)
 //    }
-//
-    func dismiss() {
-
-//        close()
-//        NSStatusBar.system.removeStatusItem(statusItem)
-    }
-
+    
     @IBAction func regularModeAction(_ sender: AnyObject) {
-
-        globalMouseClickMonitor.stop()
-
-//        SyncMessenger.publishActionMessage(AppModeActionMessage(.regularAppMode))
+        AppModeManager.presentMode(.regular)
     }
 
     @IBAction func quitAction(_ sender: AnyObject) {

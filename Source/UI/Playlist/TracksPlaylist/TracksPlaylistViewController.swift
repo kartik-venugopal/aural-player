@@ -7,7 +7,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
-    private lazy var contextMenu: NSMenu! = WindowFactory.playlistContextMenu
+    var contextMenu: NSMenu!
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!

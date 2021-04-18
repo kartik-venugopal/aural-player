@@ -40,7 +40,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         manageLayoutsMenuItem.enableIf(!WindowLayouts.userDefinedLayouts.isEmpty)
         toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
         
-        let showingModalComponent: Bool = WindowManager.isShowingModalComponent
+        let showingModalComponent: Bool = WindowManager.instance.isShowingModalComponent
         
         [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
         manageThemesMenuItem.enableIf(!showingModalComponent && (Themes.numberOfUserDefinedThemes > 0))
@@ -57,10 +57,10 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.show()})
         
-        togglePlaylistMenuItem.onIf(WindowManager.isShowingPlaylist)
-        toggleEffectsMenuItem.onIf(WindowManager.isShowingEffects)
-        toggleChaptersListMenuItem.onIf(WindowManager.isShowingChaptersList)
-        toggleVisualizerMenuItem.onIf(WindowManager.isShowingVisualizer)
+        togglePlaylistMenuItem.onIf(WindowManager.instance.isShowingPlaylist)
+        toggleEffectsMenuItem.onIf(WindowManager.instance.isShowingEffects)
+        toggleChaptersListMenuItem.onIf(WindowManager.instance.isShowingChaptersList)
+        toggleVisualizerMenuItem.onIf(WindowManager.instance.isShowingVisualizer)
         
         playerViewMenuItem.off()
         
@@ -80,15 +80,15 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     // Shows/hides the chapters list window
     @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
-        WindowManager.toggleChaptersList()
+        WindowManager.instance.toggleChaptersList()
     }
     
     @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
-        WindowManager.toggleVisualizer()
+        WindowManager.instance.toggleVisualizer()
     }
     
     // TODO: Revisit this
     @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
-//        WindowManager.toggleAlwaysOnTop()
+//        WindowManager.instance.toggleAlwaysOnTop()
     }
 }

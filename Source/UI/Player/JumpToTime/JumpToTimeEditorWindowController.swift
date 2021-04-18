@@ -58,7 +58,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in self.window?.isVisible ?? false},
                                  queue: .main)
-        WindowManager.registerModalComponent(self)
+        WindowManager.instance.registerModalComponent(self)
     }
     
     var isModal: Bool {

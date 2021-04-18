@@ -59,7 +59,6 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         addSubViews()
 
         theWindow.isMovableByWindowBackground = true
-        theWindow.delegate = WindowManager.windowDelegate
 
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         

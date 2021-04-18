@@ -87,7 +87,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     }
     
     @IBAction func applySelectedLayoutAction(_ sender: AnyObject) {
-        WindowManager.layout(selectedLayoutNames[0])
+        WindowManager.instance.layout(selectedLayoutNames[0])
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {

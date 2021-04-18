@@ -61,7 +61,7 @@ class UIUtils {
     
     // Centers a dialog with respect to the main window
     static func centerDialogWRTMainWindow(_ dialog: NSWindow) {
-        centerDialogWRTWindow(dialog, WindowManager.mainWindow)
+        centerDialogWRTWindow(dialog, WindowManager.instance.mainWindow)
     }
     
     static func centerDialogWRTWindow(_ dialog: NSWindow, _ parent: NSWindow) {

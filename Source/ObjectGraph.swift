@@ -159,12 +159,14 @@ class ObjectGraph {
         
         // UI-related utility classes
         
-        WindowManager.initialize(preferences: preferences.viewPreferences)
+//        WindowManager.instance.initialize(preferences: preferences.viewPreferences)
         UIUtils.initialize(preferences.viewPreferences)
         
         Themes.initialize(persistentState.ui.themes)
         FontSchemes.initialize(persistentState.ui.fontSchemes)
         ColorSchemes.initialize(persistentState.ui.colorSchemes)
+        
+        WindowLayoutState.initialize(persistentState.ui.windowLayout)
         WindowLayouts.loadUserDefinedLayouts(persistentState.ui.windowLayout.userLayouts)
         
         PlayerViewState.initialize(persistentState.ui.player)
@@ -216,7 +218,7 @@ class ObjectGraph {
         persistentState.playbackProfiles = playbackDelegate.profiles.all()
         
         persistentState.ui = UIState()
-        persistentState.ui.windowLayout = WindowManager.persistentState
+        persistentState.ui.windowLayout = WindowLayoutState.persistentState
         persistentState.ui.themes = Themes.persistentState
         persistentState.ui.fontSchemes = FontSchemes.persistentState
         persistentState.ui.colorSchemes = ColorSchemes.persistentState

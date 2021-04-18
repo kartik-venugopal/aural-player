@@ -3,21 +3,21 @@ import Cocoa
 class RegularAppModeController: AppModeController {
     
     var mode: AppMode {return .regular}
-    private var constituentViews: [ConstituentView] = []
+//    private var constituentViews: [ConstituentView] = []
     
     func presentMode() {
         
         NSApp.setActivationPolicy(.regular)
-        WindowManager.initializeWindows(fromState: ObjectGraph.persistentState.ui.windowLayout)
-//        constituentViews.forEach({$0.activate()})
+        WindowManager.createInstance(preferences: ObjectGraph.preferences.viewPreferences)
+        WindowManager.instance.loadWindows()
+        NSApplication.shared.activate(ignoringOtherApps: true)
     }
     
     func dismissMode() {
-//        windowManager.closeWindows()
-        constituentViews.forEach({$0.deactivate()})
+        WindowManager.destroyInstance()
     }
     
     func registerConstituentView(_ view: ConstituentView) {
-        constituentViews.append(view)
+//        constituentViews.append(view)
     }
 }

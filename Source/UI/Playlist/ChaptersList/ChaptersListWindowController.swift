@@ -12,8 +12,6 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
     
     override func windowDidLoad() {
         
-        self.window?.delegate = WindowManager.windowDelegate
-        
         changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
@@ -24,7 +22,7 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        WindowManager.hideChaptersList()
+        WindowManager.instance.hideChaptersList()
     }
     
     private func applyTheme() {
