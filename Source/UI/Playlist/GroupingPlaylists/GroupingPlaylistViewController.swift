@@ -37,6 +37,10 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         initSubscriptions()
         
         doApplyColorScheme(ColorSchemes.systemScheme, false)
+        
+        if PlaylistViewState.current == self.playlistType, preferences.showNewTrackInPlaylist {
+            showPlayingTrack()
+        }
     }
     
     private func initSubscriptions() {

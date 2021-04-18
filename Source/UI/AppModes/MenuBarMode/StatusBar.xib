@@ -8,12 +8,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="StatusBarViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="appLogo" destination="Z1q-TO-pG6" id="eWD-M2-jx4"/>
                 <outlet property="artOverlayBox" destination="xSV-wz-vgQ" id="l62-4K-E7e"/>
                 <outlet property="btnLoop" destination="Cut-80-aL8" id="Lko-ak-ETv"/>
                 <outlet property="btnNextTrack" destination="taN-kK-eEV" id="jmG-RA-8Zc"/>
                 <outlet property="btnPlayPause" destination="m2Q-Qd-juj" id="c91-fV-ANI"/>
                 <outlet property="btnPreviousTrack" destination="rru-Ww-H57" id="fLW-hW-vUg"/>
                 <outlet property="btnRepeat" destination="oIU-fy-2aj" id="oLq-IW-EcE"/>
+                <outlet property="btnSeekBackward" destination="9dh-O3-hsB" id="IU0-kI-0mF"/>
+                <outlet property="btnSeekForward" destination="G2a-Rd-K5w" id="S5s-qR-WeA"/>
                 <outlet property="btnSettings" destination="8UO-59-iT0" id="YE7-BV-Zxd"/>
                 <outlet property="btnShuffle" destination="CGV-J4-5aK" id="qjY-dM-xrL"/>
                 <outlet property="btnVolume" destination="P5p-7u-pjj" id="Uhl-L9-FyY"/>
@@ -64,7 +67,7 @@
                             <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                             <color key="fillColor" white="0.0" alpha="0.7958988527051446" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <button toolTip="Switch to regular mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Regular Mode button">
+                        <button toolTip="Switch to regular mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Regular Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="23" y="156" width="8" height="8"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NS8-FO-e8A">
@@ -75,7 +78,7 @@
                                 <action selector="regularModeAction:" target="-2" id="qnv-td-oSf"/>
                             </connections>
                         </button>
-                        <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-Eq-c87" userLabel="Close Button">
+                        <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-Eq-c87" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="9" y="155" width="10" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mzm-CL-LNF">
@@ -86,13 +89,16 @@
                                 <action selector="quitAction:" target="-2" id="yes-cl-mha"/>
                             </connections>
                         </button>
-                        <button toolTip="View settings" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UO-59-iT0" userLabel="Settings Button">
+                        <button toolTip="View settings" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UO-59-iT0" userLabel="Settings Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="280" y="156" width="10" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Settings" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="siu-Cg-lWE">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="showOrHideSettingsAction:" target="-2" id="VsM-h6-duJ"/>
                             </connections>

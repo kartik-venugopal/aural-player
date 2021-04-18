@@ -79,10 +79,7 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="dks-xg-67t" id="UFf-Na-Mqe"/>
-                                                    <outlet property="imgViewCenterYConstraint" destination="wNi-UY-fw6" id="mND-0b-ytI"/>
-                                                    <outlet property="imgViewLeadingConstraint" destination="phb-ZA-qiH" id="zUw-RI-Rfs"/>
                                                     <outlet property="textField" destination="aJe-Bl-Fbk" id="QiW-KS-ETt"/>
-                                                    <outlet property="textFieldLeadingConstraint" destination="Lca-Va-9De" id="3ug-2L-oom"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>

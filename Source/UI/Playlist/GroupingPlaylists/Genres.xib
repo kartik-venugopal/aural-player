@@ -80,10 +80,7 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="imageView" destination="lHY-xI-cje" id="P2H-5I-XCL"/>
-                                                    <outlet property="imgViewCenterYConstraint" destination="ozy-e0-OhD" id="3Vd-HP-wD0"/>
-                                                    <outlet property="imgViewLeadingConstraint" destination="43c-p7-TKZ" id="fkP-SR-uCS"/>
                                                     <outlet property="textField" destination="Z03-PG-pvS" id="CEA-SN-zEQ"/>
-                                                    <outlet property="textFieldLeadingConstraint" destination="iQT-SR-0sr" id="dql-3A-xr1"/>
                                                 </connections>
                                             </tableCellView>
                                         </prototypeCellViews>

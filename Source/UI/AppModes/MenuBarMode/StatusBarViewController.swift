@@ -4,11 +4,17 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     
     override var nibName: String? {return "StatusBar"}
     
+    @IBOutlet weak var appLogo: TintedImageView!
+    @IBOutlet weak var btnClose: TintedImageButton!
+    @IBOutlet weak var btnRegularMode: TintedImageButton!
+    
     @IBOutlet weak var trackInfoView: StatusBarPlayingTrackTextView!
     @IBOutlet weak var imgArt: NSImageView!
     @IBOutlet weak var artOverlayBox: NSBox!
     
     @IBOutlet weak var btnPlayPause: OnOffImageButton!
+    @IBOutlet weak var btnSeekBackward: TintedImageButton!
+    @IBOutlet weak var btnSeekForward: TintedImageButton!
     
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
@@ -41,7 +47,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     @IBOutlet weak var lblVolume: VALabel!
     private var autoHidingVolumeLabel: AutoHidingView!
     
-    @IBOutlet weak var btnSettings: NSButton!
+    @IBOutlet weak var btnSettings: TintedImageButton!
     @IBOutlet weak var settingsBox: NSBox!
     
     private var globalMouseClickMonitor: GlobalMouseClickMonitor!
@@ -67,10 +73,10 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         btnLoop.switchState(LoopState.none)
 
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
-        let offStateTintFunction = {return Colors.toggleButtonOffStateColor}
+        let offStateTintFunction = {NSColor.black}
         
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
-        let onStateTintFunction = {return Colors.functionButtonColor}
+        let onStateTintFunction = {Colors.Constants.white80Percent}
         
         btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeatOff, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeatAll, onStateTintFunction))]
 
@@ -84,11 +90,11 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         }
 
         // Play/pause button does not really have an "off" state
+        btnPlayPause.onStateTintFunction = onStateTintFunction
         btnPlayPause.offStateTintFunction = onStateTintFunction
         
         // Button tool tips
-        btnPreviousTrack.toolTipFunction = {
-            () -> String? in
+        btnPreviousTrack.toolTipFunction = {() -> String? in
 
             if let prevTrack = self.sequencer.peekPrevious() {
                 return String(format: "Previous track: '%@'", prevTrack.displayName)
@@ -96,9 +102,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
 
             return nil
         }
-
-        btnNextTrack.toolTipFunction = {
-            () -> String? in
+        
+        btnNextTrack.toolTipFunction = {() -> String? in
 
             if let nextTrack = self.sequencer.peekNext() {
                 return String(format: "Next track: '%@'", nextTrack.displayName)
@@ -106,6 +111,10 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
 
             return nil
         }
+        
+        [btnClose, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach {$0?.tintFunction = {Colors.Constants.white80Percent}}
+        
+        appLogo.tintFunction = {Colors.Constants.white80Percent}
 
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
     }

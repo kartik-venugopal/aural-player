@@ -27,7 +27,7 @@ class StatusBarSettingsViewController: NSViewController {
     @IBAction func showOrHideAlbumArtAction(_ sender: NSButton) {
         
         StatusBarPlayerViewState.showAlbumArt.toggle()
-        [imgArt, artOverlayBox].forEach {$0.showIf(StatusBarPlayerViewState.showAlbumArt)}
+        [imgArt, artOverlayBox].forEach {$0.showIf(StatusBarPlayerViewState.showAlbumArt && player.state.isPlayingOrPaused)}
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSButton) {

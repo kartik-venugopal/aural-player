@@ -31,6 +31,10 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         playlistView.menu = contextMenu
         
         doApplyColorScheme(ColorSchemes.systemScheme, false)
+        
+        if PlaylistViewState.current == .tracks, preferences.showNewTrackInPlaylist {
+            showPlayingTrack()
+        }
     }
     
     private func initSubscriptions() {

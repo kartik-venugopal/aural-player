@@ -29,6 +29,8 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
         infoView.applyFontScheme(FontSchemes.systemScheme)
         infoView.applyColorScheme(ColorSchemes.systemScheme)
         infoView.showView()
+        
+        trackChanged(player.playingTrack)
     }
 
     // Subscribe to various notifications
