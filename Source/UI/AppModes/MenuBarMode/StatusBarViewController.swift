@@ -150,11 +150,18 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
             seekSlider.enable()
             seekSlider.show()
             
-            [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
+            [lblTimeElapsed, lblTimeRemaining].forEach {$0?.show()}
             setSeekTimerState(true)
             
+            if theTrack.hasChapters {
+                beginPollingForChapterChange()
+            }
+            
         } else {
+            
             trackInfoView.trackInfo = nil
+            [lblTimeElapsed, lblTimeRemaining].forEach {$0?.hide()}
+            stopPollingForChapterChange()
         }
         
         if let art = player.playingTrack?.art?.image {
@@ -169,6 +176,34 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
         }
         
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
+        updateSeekPosition()
+    }
+    
+    private var curChapter: IndexedChapter? = nil
+    
+    // Creates a recurring task that polls the player to detect a change in the currently playing track chapter.
+    // This only occurs when the currently playing track actually has chapters.
+    private func beginPollingForChapterChange() {
+        
+        SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
+            
+            let playingChapter: IndexedChapter? = self.player.playingChapter
+            
+            // Compare the current chapter with the last known value of current chapter
+            if self.curChapter != playingChapter {
+                
+                guard let theTrack = self.player.playingTrack else {return}
+                
+                // There has been a change ... notify observers and update the variable
+                self.trackInfoView.trackInfo = PlayingTrackInfo(theTrack, playingChapter?.chapter.title)
+                self.curChapter = playingChapter
+            }
+        })
+    }
+    
+    // Disables the chapter change polling task
+    private func stopPollingForChapterChange() {
+        SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
     }
    
     // Plays the previous track in the current playback sequence
@@ -216,7 +251,7 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
         let seekPosn = player.seekPosition
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
-        let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
+        let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, .formatted, .formatted)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
         lblTimeRemaining.stringValue = trackTimes.remaining

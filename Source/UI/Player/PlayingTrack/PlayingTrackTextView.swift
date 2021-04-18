@@ -24,13 +24,27 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
         FontSchemes.systemScheme.player.infoBoxTitleFont
     }
     
+    var titleColor: NSColor {
+        Colors.Player.trackInfoTitleTextColor
+    }
+    
     var artistAlbumFont: NSFont {
         FontSchemes.systemScheme.player.infoBoxArtistAlbumFont
+    }
+    
+    var artistAlbumColor: NSColor {
+        Colors.Player.trackInfoArtistAlbumTextColor
     }
     
     var chapterTitleFont: NSFont {
         FontSchemes.systemScheme.player.infoBoxChapterTitleFont
     }
+    
+    var chapterTitleColor: NSColor {
+        Colors.Player.trackInfoChapterTextColor
+    }
+    
+    var lineSpacingBetweenArtistAlbumAndChapterTitle: CGFloat {7}
     
     // The displayed track title
     private var title: String? {
@@ -97,16 +111,16 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
                 
                 fullLengthArtistAlbumStr = String(format: "%@ -- %@", theArtist, theAlbum)
                 
-                truncatedArtistAlbumStr = truncateCompositeString(FontSchemes.systemScheme.player.infoBoxArtistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
+                truncatedArtistAlbumStr = truncateCompositeString(artistAlbumFont, lineWidth, fullLengthArtistAlbumStr!, theArtist, theAlbum, " -- ")
                 
             } else if let theArtist = artist {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, FontSchemes.systemScheme.player.infoBoxArtistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, artistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theArtist
                 
             } else if let theAlbum = album {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, FontSchemes.systemScheme.player.infoBoxArtistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, artistAlbumFont, lineWidth)
                 fullLengthArtistAlbumStr = theAlbum
             }
             
@@ -118,18 +132,18 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
             // Title (truncate only if artist, album, or chapter are displayed)
             let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, titleFont, lineWidth) : title
             
-            textView.textStorage?.append(attributedString(truncatedTitle, titleFont, Colors.Player.trackInfoTitleTextColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
+            textView.textStorage?.append(attributedString(truncatedTitle, titleFont, titleColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
             // Artist / Album
             if let _truncatedArtistAlbumStr = truncatedArtistAlbumStr {
-                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, artistAlbumFont, Colors.Player.trackInfoArtistAlbumTextColor, hasChapter ? 7 : nil))
+                textView.textStorage?.append(attributedString(_truncatedArtistAlbumStr, artistAlbumFont, artistAlbumColor, hasChapter ? lineSpacingBetweenArtistAlbumAndChapterTitle : nil))
             }
             
             // Chapter
             if let _chapterStr = chapterStr {
                 
                 let truncatedChapter: String = StringUtils.truncate(_chapterStr, chapterTitleFont, lineWidth)
-                textView.textStorage?.append(attributedString(truncatedChapter, chapterTitleFont, Colors.Player.trackInfoChapterTextColor))
+                textView.textStorage?.append(attributedString(truncatedChapter, chapterTitleFont, chapterTitleColor))
             }
             
             // Construct a tool tip with full length text (helpful when displayed fields are truncated because of length)
@@ -242,14 +256,28 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 class StatusBarPlayingTrackTextView: PlayingTrackTextView {
     
     override var titleFont: NSFont {
-        Fonts.Standard.mainFont_12
+        Fonts.Standard.mainFont_14
     }
     
     override var artistAlbumFont: NSFont {
-        Fonts.Standard.mainFont_11
+        Fonts.Standard.mainFont_12
     }
     
     override var chapterTitleFont: NSFont {
-        Fonts.Standard.mainFont_10
+        Fonts.Standard.mainFont_11
     }
+    
+    override var titleColor: NSColor {
+        .white
+    }
+    
+    override var artistAlbumColor: NSColor {
+        Colors.Constants.white90Percent
+    }
+    
+    override var chapterTitleColor: NSColor {
+        Colors.Constants.white80Percent
+    }
+    
+    override var lineSpacingBetweenArtistAlbumAndChapterTitle: CGFloat {4}
 }

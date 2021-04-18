@@ -39,17 +39,8 @@
                     <rect key="frame" x="0.0" y="-1" width="300" height="172"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-dM-R5z" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="240" y="24" width="50" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="8XC-E7-HbD" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                <font key="font" size="9" name="Play-Regular"/>
-                                <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </textFieldCell>
-                        </textField>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z1q-TO-pG6" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="125" y="149" width="50" height="12"/>
+                            <rect key="frame" x="125" y="154" width="50" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="Ol1-DI-LsO"/>
                             <userDefinedRuntimeAttributes>
@@ -57,22 +48,22 @@
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dk-EH-BOI" userLabel="Art View">
-                            <rect key="frame" x="110" y="58" width="80" height="80"/>
+                            <rect key="frame" x="110" y="63" width="80" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="MhS-nE-XZj"/>
                         </imageView>
                         <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="xSV-wz-vgQ" userLabel="Center Overlay Box">
-                            <rect key="frame" x="110" y="73" width="80" height="50"/>
+                            <rect key="frame" x="110" y="63" width="80" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView" id="BD0-a4-whT">
-                                <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
-                            <color key="fillColor" white="0.0" alpha="0.80061619719999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="fillColor" white="0.0" alpha="0.7958988527051446" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
                         <button toolTip="Switch to regular mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Regular Mode button">
-                            <rect key="frame" x="23" y="151" width="8" height="8"/>
+                            <rect key="frame" x="23" y="156" width="8" height="8"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NS8-FO-e8A">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -83,7 +74,7 @@
                             </connections>
                         </button>
                         <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-Eq-c87" userLabel="Close Button">
-                            <rect key="frame" x="9" y="150" width="10" height="10"/>
+                            <rect key="frame" x="9" y="155" width="10" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mzm-CL-LNF">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -215,6 +206,15 @@
                                 <action selector="seekForwardAction:" target="-2" id="Rqa-5p-vXv"/>
                             </connections>
                         </button>
+                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-dM-R5z" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="240" y="25" width="50" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="8XC-E7-HbD" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                <font key="font" size="10" name="Play-Regular"/>
+                                <color key="textColor" white="0.70298936629999997" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </textFieldCell>
+                        </textField>
                         <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LQL-m8-1KN" userLabel="Volume Slider">
                             <rect key="frame" x="250" y="12" width="42" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -224,10 +224,10 @@
                             </connections>
                         </slider>
                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-tl-It4" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="8" y="48" width="110" height="23"/>
+                            <rect key="frame" x="8" y="50" width="84" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" placeholderString="" id="MmB-FX-HNj" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                <font key="font" size="12" name="Play-Regular"/>
+                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="0:00" placeholderString="" id="MmB-FX-HNj" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                <font key="font" size="13" name="Play-Regular"/>
                                 <color key="textColor" white="0.55233473330000005" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <allowedInputSourceLocales>
@@ -236,10 +236,10 @@
                             </textFieldCell>
                         </textField>
                         <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuQ-Mc-uU0" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="160" y="48" width="130" height="23"/>
+                            <rect key="frame" x="191" y="50" width="99" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" placeholderString="" id="vhx-uu-UhR" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
-                                <font key="font" size="11" name="Play-Regular"/>
+                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="- 0:00" placeholderString="" id="vhx-uu-UhR" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
+                                <font key="font" size="13" name="Play-Regular"/>
                                 <color key="textColor" white="0.55233473330000005" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <allowedInputSourceLocales>
@@ -256,26 +256,26 @@
                             </connections>
                         </slider>
                         <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-Nw-abT" userLabel="Playing Track Info Box">
-                            <rect key="frame" x="5" y="73" width="290" height="50"/>
+                            <rect key="frame" x="5" y="63" width="290" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView" id="RjK-18-fyJ" customClass="StatusBarPlayingTrackTextView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="290" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="290" height="80"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Gpm-mc-bSS">
-                                        <rect key="frame" x="0.0" y="0.0" width="290" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="5I8-xp-xLg">
-                                            <rect key="frame" x="0.0" y="0.0" width="290" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="290" height="80"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView focusRingType="none" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="6X9-SD-oYC">
-                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="290" height="80"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <size key="minSize" width="290" height="50"/>
-                                                    <size key="maxSize" width="290" height="50"/>
+                                                    <size key="minSize" width="290" height="80"/>
+                                                    <size key="maxSize" width="290" height="80"/>
                                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                 </textView>
                                             </subviews>
