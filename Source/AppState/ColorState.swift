@@ -3,7 +3,7 @@ import Cocoa
 /*
     Encapsulates persistent app state for a single NSColor.
  */
-class ColorState: PersistentState {
+class ColorState: PersistentStateProtocol {
     
     // Gray, RGB, or CMYK
     var colorSpace: Int = 1

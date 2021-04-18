@@ -3,7 +3,7 @@ import Foundation
 /*
     Encapsulates playback sequence state
  */
-class PlaybackSequenceState: PersistentState {
+class PlaybackSequenceState: PersistentStateProtocol {
     
     var repeatMode: RepeatMode = AppDefaults.repeatMode
     var shuffleMode: ShuffleMode = AppDefaults.shuffleMode

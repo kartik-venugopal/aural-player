@@ -3,7 +3,7 @@ import Cocoa
 /*
     Encapsulates all persistent app state for color schemes.
  */
-class ColorSchemesState: PersistentState {
+class ColorSchemesState: PersistentStateProtocol {
 
     var userSchemes: [ColorSchemeState] = []
     var systemScheme: ColorSchemeState?
@@ -35,7 +35,7 @@ class ColorSchemesState: PersistentState {
 /*
     Encapsulates persistent app state for a single color scheme.
  */
-class ColorSchemeState: PersistentState {
+class ColorSchemeState: PersistentStateProtocol {
     
     var name: String = ""
     
@@ -88,7 +88,7 @@ class ColorSchemeState: PersistentState {
 /*
     Encapsulates persistent app state for a single GeneralColorScheme.
  */
-class GeneralColorSchemeState: PersistentState {
+class GeneralColorSchemeState: PersistentStateProtocol {
     
     var appLogoColor: ColorState?
     var backgroundColor: ColorState?
@@ -178,7 +178,7 @@ class GeneralColorSchemeState: PersistentState {
 /*
     Encapsulates persistent app state for a single PlayerColorScheme.
  */
-class PlayerColorSchemeState: PersistentState {
+class PlayerColorSchemeState: PersistentStateProtocol {
     
     var trackInfoPrimaryTextColor: ColorState?
     var trackInfoSecondaryTextColor: ColorState?
@@ -287,7 +287,7 @@ class PlayerColorSchemeState: PersistentState {
 /*
     Encapsulates persistent app state for a single PlaylistColorScheme.
  */
-class PlaylistColorSchemeState: PersistentState {
+class PlaylistColorSchemeState: PersistentStateProtocol {
     
     var trackNameTextColor: ColorState?
     var groupNameTextColor: ColorState?
@@ -403,7 +403,7 @@ class PlaylistColorSchemeState: PersistentState {
 /*
     Encapsulates persistent app state for a single EffectsColorScheme.
  */
-class EffectsColorSchemeState: PersistentState {
+class EffectsColorSchemeState: PersistentStateProtocol {
     
     var functionCaptionTextColor: ColorState?
     var functionValueTextColor: ColorState?

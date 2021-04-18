@@ -1,6 +1,6 @@
 import Cocoa
 
-class VisualizerUIState: PersistentState {
+class VisualizerUIState: PersistentStateProtocol {
     
     var type: String?
     var options: VisualizerOptionsState?
@@ -21,7 +21,7 @@ class VisualizerUIState: PersistentState {
     }
 }
 
-class VisualizerOptionsState: PersistentState {
+class VisualizerOptionsState: PersistentStateProtocol {
     
     var lowAmplitudeColor: ColorState?
     var highAmplitudeColor: ColorState?
@@ -44,17 +44,17 @@ class VisualizerOptionsState: PersistentState {
 
 extension VisualizerViewState {
     
-    static func initialize(_ appState: VisualizerUIState) {
+    static func initialize(_ persistentState: VisualizerUIState) {
         
-        if let vizTypeString = appState.type {
+        if let vizTypeString = persistentState.type {
             type = VisualizationType(rawValue: vizTypeString) ?? .spectrogram
         } else {
             type = .spectrogram
         }
         
         options = VisualizerViewOptions()
-        options.setColors(lowAmplitudeColor: appState.options?.lowAmplitudeColor?.toColor() ?? NSColor.blue,
-                          highAmplitudeColor: appState.options?.highAmplitudeColor?.toColor() ?? NSColor.red)
+        options.setColors(lowAmplitudeColor: persistentState.options?.lowAmplitudeColor?.toColor() ?? NSColor.blue,
+                          highAmplitudeColor: persistentState.options?.highAmplitudeColor?.toColor() ?? NSColor.red)
     }
     
     static var persistentState: VisualizerUIState {

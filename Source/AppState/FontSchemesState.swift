@@ -3,7 +3,7 @@ import Cocoa
 /*
     Encapsulates all persistent app state for color schemes.
  */
-class FontSchemesState: PersistentState {
+class FontSchemesState: PersistentStateProtocol {
 
     var userSchemes: [FontSchemeState] = []
     var systemScheme: FontSchemeState?
@@ -35,7 +35,7 @@ class FontSchemesState: PersistentState {
 /*
     Encapsulates persistent app state for a single color scheme.
  */
-class FontSchemeState: PersistentState {
+class FontSchemeState: PersistentStateProtocol {
 
     var name: String = ""
     
@@ -91,7 +91,7 @@ class FontSchemeState: PersistentState {
 /*
     Encapsulates persistent app state for a single PlayerFontScheme.
  */
-class PlayerFontSchemeState: PersistentState {
+class PlayerFontSchemeState: PersistentStateProtocol {
 
     var titleSize: CGFloat = 12
     var artistAlbumSize: CGFloat = 12
@@ -141,7 +141,7 @@ class PlayerFontSchemeState: PersistentState {
 /*
     Encapsulates persistent app state for a single PlaylistFontScheme.
  */
-class PlaylistFontSchemeState: PersistentState {
+class PlaylistFontSchemeState: PersistentStateProtocol {
 
     var trackTextSize: CGFloat = 12
     var trackTextYOffset: Int = 0
@@ -221,7 +221,7 @@ class PlaylistFontSchemeState: PersistentState {
 /*
     Encapsulates persistent app state for a single EffectsFontScheme.
  */
-class EffectsFontSchemeState: PersistentState {
+class EffectsFontSchemeState: PersistentStateProtocol {
 
     var unitCaptionSize: CGFloat = 12
     var unitFunctionSize: CGFloat = 12

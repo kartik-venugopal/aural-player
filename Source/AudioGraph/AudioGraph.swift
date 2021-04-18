@@ -88,7 +88,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             
             if let component = audioUnitsManager.component(ofType: OSType(auState.componentType), andSubType: OSType(auState.componentSubType)) {
                 
-                audioUnits.append(HostedAudioUnit(forComponent: component,appState: auState))
+                audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState))
             }
         }
         

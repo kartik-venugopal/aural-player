@@ -5,9 +5,9 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     private let node: AVAudioUnitDelay = AVAudioUnitDelay()
     let presets: DelayPresets = DelayPresets()
     
-    init(_ appState: AudioGraphState) {
+    init(_ persistentState: AudioGraphState) {
         
-        let delayState = appState.delayUnit
+        let delayState = persistentState.delayUnit
         
         super.init(.delay, delayState.state)
         

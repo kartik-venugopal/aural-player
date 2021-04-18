@@ -1,6 +1,6 @@
 import Foundation
 
-class HistoryState: PersistentState {
+class HistoryState: PersistentStateProtocol {
     
     var recentlyAdded: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()
     var recentlyPlayed: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()

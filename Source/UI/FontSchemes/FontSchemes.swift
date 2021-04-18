@@ -8,10 +8,10 @@ class FontSchemes {
     // The current system color scheme. It is initialized with the default scheme.
     static var systemScheme: FontScheme = FontScheme("_system_", FontSchemePreset.standard)
     
-    static func initialize(_ appState: FontSchemesState) {
+    static func initialize(_ persistentState: FontSchemesState) {
         
-        loadUserDefinedSchemes(appState.userSchemes.map {FontScheme($0, false)})
-        systemScheme = FontScheme(appState.systemScheme, true)
+        loadUserDefinedSchemes(persistentState.userSchemes.map {FontScheme($0, false)})
+        systemScheme = FontScheme(persistentState.systemScheme, true)
     }
     
     static func applyScheme(named name: String) -> FontScheme? {

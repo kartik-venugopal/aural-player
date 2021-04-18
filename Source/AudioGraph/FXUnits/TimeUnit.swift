@@ -5,9 +5,9 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
     private let node: VariableRateNode = VariableRateNode()
     let presets: TimePresets = TimePresets()
     
-    init(_ appState: AudioGraphState) {
+    init(_ persistentState: AudioGraphState) {
         
-        let timeState = appState.timeUnit
+        let timeState = persistentState.timeUnit
         
         super.init(.time, timeState.state)
         

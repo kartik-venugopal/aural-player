@@ -5,9 +5,9 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     private let node: AVAudioUnitReverb = AVAudioUnitReverb()
     let presets: ReverbPresets = ReverbPresets()
     
-    init(_ appState: AudioGraphState) {
+    init(_ persistentState: AudioGraphState) {
         
-        let reverbState = appState.reverbUnit
+        let reverbState = persistentState.reverbUnit
         
         avSpace = reverbState.space.avPreset
         super.init(.reverb, reverbState.state)

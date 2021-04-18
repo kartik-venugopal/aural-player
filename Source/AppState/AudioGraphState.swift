@@ -7,7 +7,7 @@ class FXUnitState<T: EffectsUnitPreset> {
     var userPresets: [T] = [T]()
 }
 
-class MasterUnitState: FXUnitState<MasterPreset>, PersistentState {
+class MasterUnitState: FXUnitState<MasterPreset>, PersistentStateProtocol {
     
     static func deserialize(_ map: NSDictionary) -> MasterUnitState {
         
@@ -73,7 +73,7 @@ fileprivate func deserializeMasterPreset(_ map: NSDictionary) -> MasterPreset {
     return MasterPreset(name, eqPreset, pitchPreset, timePreset, reverbPreset, delayPreset, filterPreset, false)
 }
 
-class EQUnitState: FXUnitState<EQPreset>, PersistentState {
+class EQUnitState: FXUnitState<EQPreset>, PersistentStateProtocol {
     
     var type: EQType = AppDefaults.eqType
     var globalGain: Float = AppDefaults.eqGlobalGain
@@ -121,7 +121,7 @@ fileprivate func deserializeEQPreset(_ map: NSDictionary) -> EQPreset {
     return EQPreset(name, state, bands, globalGain, false)
 }
 
-class PitchUnitState: FXUnitState<PitchPreset>, PersistentState {
+class PitchUnitState: FXUnitState<PitchPreset>, PersistentStateProtocol {
     
     var pitch: Float = AppDefaults.pitch
     var overlap: Float = AppDefaults.pitchOverlap
@@ -160,7 +160,7 @@ fileprivate func deserializePitchPreset(_ map: NSDictionary) -> PitchPreset {
     return PitchPreset(name, state, pitch, overlap, false)
 }
 
-class TimeUnitState: FXUnitState<TimePreset>, PersistentState {
+class TimeUnitState: FXUnitState<TimePreset>, PersistentStateProtocol {
     
     var rate: Float = AppDefaults.timeStretchRate
     var shiftPitch: Bool = AppDefaults.timeShiftPitch
@@ -202,7 +202,7 @@ fileprivate func deserializeTimePreset(_ map: NSDictionary) -> TimePreset {
     return TimePreset(name, state, rate, overlap, shiftPitch, false)
 }
 
-class ReverbUnitState: FXUnitState<ReverbPreset>, PersistentState {
+class ReverbUnitState: FXUnitState<ReverbPreset>, PersistentStateProtocol {
     
     var space: ReverbSpaces = AppDefaults.reverbSpace
     var amount: Float = AppDefaults.reverbAmount
@@ -241,7 +241,7 @@ fileprivate func deserializeReverbPreset(_ map: NSDictionary) -> ReverbPreset {
     return ReverbPreset(name, state, space, amount, false)
 }
 
-class DelayUnitState: FXUnitState<DelayPreset>, PersistentState {
+class DelayUnitState: FXUnitState<DelayPreset>, PersistentStateProtocol {
     
     var amount: Float = AppDefaults.delayAmount
     var time: Double = AppDefaults.delayTime
@@ -287,7 +287,7 @@ fileprivate func deserializeDelayPreset(_ map: NSDictionary) -> DelayPreset {
     return DelayPreset(name, state, amount, time, feedback, cutoff, false)
 }
 
-class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
+class FilterUnitState: FXUnitState<FilterPreset>, PersistentStateProtocol {
     
     var bands: [FilterBand] = []
     
@@ -325,7 +325,7 @@ class FilterUnitState: FXUnitState<FilterPreset>, PersistentState {
     }
 }
 
-class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
+class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentStateProtocol {
     
     var componentType: Int = 0
     var componentSubType: Int = 0
@@ -360,7 +360,7 @@ class AudioUnitState: FXUnitState<AudioUnitPreset>, PersistentState {
     }
 }
 
-class AudioUnitParameterState: PersistentState {
+class AudioUnitParameterState: PersistentStateProtocol {
     
     var address: UInt64 = 0
     var value: Float = 0
@@ -412,7 +412,7 @@ fileprivate func deserializeAUPreset(_ map: NSDictionary) -> AudioUnitPreset {
 /*
  Encapsulates audio graph state
  */
-class AudioGraphState: PersistentState {
+class AudioGraphState: PersistentStateProtocol {
     
     var outputDevice: AudioDeviceState = AudioDeviceState()
     

@@ -72,7 +72,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        WindowManager.initializeWindows()
+        WindowManager.initializeWindows(fromState: ObjectGraph.persistentState.ui.windowLayout)
 //        AppModeManager.presentMode(.regular)
         
         // Update the appLaunched flag

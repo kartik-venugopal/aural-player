@@ -66,8 +66,8 @@ struct AppConstants {
         static let baseDir: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music/aural")).resolvedURL
         
         // App state/log files
-        static let appStateFileName = "state.json"
-        static let appStateFile: URL = baseDir.appendingPathComponent(appStateFileName)
+        static let persistentStateFileName = "state.json"
+        static let persistentStateFile: URL = baseDir.appendingPathComponent(persistentStateFileName)
         
         static let logFileName = "aural.log"
         static let logFile: URL = baseDir.appendingPathComponent(logFileName)

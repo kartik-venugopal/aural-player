@@ -1,6 +1,6 @@
 import Foundation
 
-class MusicBrainzCacheState: PersistentState {
+class MusicBrainzCacheState: PersistentStateProtocol {
     
     var releases: [MusicBrainzCacheEntryState] = []
     var recordings: [MusicBrainzCacheEntryState] = []

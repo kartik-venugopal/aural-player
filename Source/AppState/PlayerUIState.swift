@@ -1,6 +1,6 @@
 import Foundation
 
-class PlayerUIState: PersistentState {
+class PlayerUIState: PersistentStateProtocol {
     
     var viewType: PlayerViewType = .defaultView
     
@@ -46,23 +46,23 @@ class PlayerUIState: PersistentState {
 
 extension PlayerViewState {
     
-    static func initialize(_ appState: PlayerUIState) {
+    static func initialize(_ persistentState: PlayerUIState) {
         
-        viewType = appState.viewType
+        viewType = persistentState.viewType
         
-        showAlbumArt = appState.showAlbumArt
-        showArtist = appState.showArtist
-        showAlbum = appState.showAlbum
-        showCurrentChapter = appState.showCurrentChapter
+        showAlbumArt = persistentState.showAlbumArt
+        showArtist = persistentState.showArtist
+        showAlbum = persistentState.showAlbum
+        showCurrentChapter = persistentState.showCurrentChapter
         
-        showTrackInfo = appState.showTrackInfo
+        showTrackInfo = persistentState.showTrackInfo
         
-        showPlayingTrackFunctions = appState.showPlayingTrackFunctions
-        showControls = appState.showControls
-        showTimeElapsedRemaining = appState.showTimeElapsedRemaining
+        showPlayingTrackFunctions = persistentState.showPlayingTrackFunctions
+        showControls = persistentState.showControls
+        showTimeElapsedRemaining = persistentState.showTimeElapsedRemaining
         
-        timeElapsedDisplayType = appState.timeElapsedDisplayType
-        timeRemainingDisplayType = appState.timeRemainingDisplayType
+        timeElapsedDisplayType = persistentState.timeElapsedDisplayType
+        timeRemainingDisplayType = persistentState.timeRemainingDisplayType
     }
     
     static var persistentState: PlayerUIState {

@@ -3,7 +3,7 @@ import Foundation
 /*
     Encapsulates an audio output device (remembered device)
  */
-class AudioDeviceState: PersistentState {
+class AudioDeviceState: PersistentStateProtocol {
     
     var name: String = ""
     var uid: String = ""

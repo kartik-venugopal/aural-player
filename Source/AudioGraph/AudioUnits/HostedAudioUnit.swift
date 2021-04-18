@@ -43,22 +43,22 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         self.node.addBypassStateObserver(self)
     }
     
-    init(forComponent component: AVAudioUnitComponent, appState: AudioUnitState) {
+    init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitState) {
         
         self.node = HostedAUNode(forComponent: component)
         
         var nodeParams: [AUParameterAddress: Float] = [:]
-        for param in appState.params {
+        for param in persistentState.params {
             nodeParams[param.address] = param.value
         }
         self.node.params = nodeParams
         
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
-        super.init(.au, appState.state)
+        super.init(.au, persistentState.state)
         self.node.addBypassStateObserver(self)
         
-        presets.addPresets(appState.userPresets)
+        presets.addPresets(persistentState.userPresets)
     }
     
     func nodeBypassStateChanged(_ nodeIsBypassed: Bool) {

@@ -3,14 +3,14 @@ import Foundation
 // Marks an object as having state that needs to be persisted
 protocol PersistentModelObject {
     
-    associatedtype T: PersistentState
+    associatedtype T: PersistentStateProtocol
     
     // Retrieves persistent state for this model object
     var persistentState: T {get}
 }
 
 // Marks an object as being suitable for persistence, i.e. it is serializable/deserializable
-protocol PersistentState {
+protocol PersistentStateProtocol {
     
     associatedtype T
     

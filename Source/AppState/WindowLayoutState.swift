@@ -1,6 +1,6 @@
 import Foundation
 
-class WindowLayoutState: PersistentState {
+class WindowLayoutState: PersistentStateProtocol {
     
     var showEffects: Bool = true
     var showPlaylist: Bool = true

@@ -1,6 +1,6 @@
 import Foundation
 
-class WindowUIState: PersistentState {
+class WindowUIState: PersistentStateProtocol {
     
     var cornerRadius: Float = Float(AppDefaults.windowCornerRadius)
     
@@ -18,8 +18,8 @@ class WindowUIState: PersistentState {
 
 extension WindowAppearanceState {
     
-    static func initialize(_ appState: WindowUIState) {
-        cornerRadius = CGFloat(appState.cornerRadius)
+    static func initialize(_ persistentState: WindowUIState) {
+        cornerRadius = CGFloat(persistentState.cornerRadius)
     }
     
     static var persistentState: WindowUIState {

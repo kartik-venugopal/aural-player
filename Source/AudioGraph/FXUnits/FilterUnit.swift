@@ -7,9 +7,9 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     
     override var avNodes: [AVAudioNode] {return [node]}
     
-    init(_ appState: AudioGraphState) {
+    init(_ persistentState: AudioGraphState) {
         
-        let filterState = appState.filterUnit
+        let filterState = persistentState.filterUnit
         
         super.init(.filter, filterState.state)
         

@@ -8,7 +8,7 @@ class RegularAppModeController: AppModeController {
     func presentMode() {
         
         NSApp.setActivationPolicy(.regular)
-        WindowManager.initializeWindows()
+        WindowManager.initializeWindows(fromState: ObjectGraph.persistentState.ui.windowLayout)
 //        constituentViews.forEach({$0.activate()})
     }
     

@@ -1,6 +1,6 @@
 import Foundation
 
-class ThemesState: PersistentState {
+class ThemesState: PersistentStateProtocol {
     
     var userThemes: [ThemeState] = []
     
@@ -22,7 +22,7 @@ class ThemesState: PersistentState {
     }
 }
 
-class ThemeState: PersistentState {
+class ThemeState: PersistentStateProtocol {
     
     var name: String = ""
     

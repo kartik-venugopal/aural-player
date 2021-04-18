@@ -56,7 +56,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         
         addSubViews()
         
-        let appState = ObjectGraph.appState.ui.windowLayout
+        let persistentState = ObjectGraph.persistentState.ui.windowLayout
         
         [btnQuit, btnMinimize].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
         
@@ -67,8 +67,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         
         logoImage.tintFunction = {return Colors.appLogoColor}
         
-        btnToggleEffects.onIf(appState.showEffects)
-        btnTogglePlaylist.onIf(appState.showPlaylist)
+        btnToggleEffects.onIf(persistentState.showEffects)
+        btnTogglePlaylist.onIf(persistentState.showPlaylist)
         
         applyColorScheme(ColorSchemes.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius

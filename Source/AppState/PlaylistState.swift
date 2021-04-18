@@ -3,7 +3,7 @@ import Foundation
 /*
  Encapsulates playlist state
  */
-class PlaylistState: PersistentState {
+class PlaylistState: PersistentStateProtocol {
     
     // List of track files
     var tracks: [URL] = [URL]()
@@ -45,7 +45,7 @@ class PlaylistState: PersistentState {
     }
 }
 
-class GroupingPlaylistState: PersistentState {
+class GroupingPlaylistState: PersistentStateProtocol {
     
     var _transient_type: String = ""
     var groups: [GroupState] = []
@@ -64,7 +64,7 @@ class GroupingPlaylistState: PersistentState {
     }
 }
 
-class GroupState: PersistentState {
+class GroupState: PersistentStateProtocol {
     
     var name: String = ""
 

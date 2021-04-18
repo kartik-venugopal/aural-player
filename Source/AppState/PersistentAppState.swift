@@ -5,7 +5,7 @@ import Cocoa
  
  TODO: Make this class conform to different protocols for access/mutation
  */
-class AppState {
+class PersistentAppState: PersistentStateProtocol {
     
     var appVersion: String = ""
     var ui: UIState = UIState()
@@ -19,34 +19,34 @@ class AppState {
     var playbackProfiles: [PlaybackProfile] = []
     var musicBrainzCache: MusicBrainzCacheState = MusicBrainzCacheState()
     
-    static let defaults: AppState = AppState()
+    static let defaults: PersistentAppState = PersistentAppState()
     
     // Produces an AppState object from deserialized JSON
-    static func deserialize(_ jsonObject: NSDictionary) -> AppState {
+    static func deserialize(_ map: NSDictionary) -> PersistentAppState {
         
-        let state = AppState()
+        let state = PersistentAppState()
         
-        if let uiDict = (jsonObject["ui"] as? NSDictionary) {
+        if let uiDict = (map["ui"] as? NSDictionary) {
             state.ui = UIState.deserialize(uiDict)
         }
         
-        if let map = (jsonObject["audioGraph"] as? NSDictionary) {
+        if let map = (map["audioGraph"] as? NSDictionary) {
             state.audioGraph = AudioGraphState.deserialize(map)
         }
         
-        if let playbackSequenceDict = (jsonObject["playbackSequence"] as? NSDictionary) {
+        if let playbackSequenceDict = (map["playbackSequence"] as? NSDictionary) {
             state.playbackSequence = PlaybackSequenceState.deserialize(playbackSequenceDict)
         }
         
-        if let playlistDict = (jsonObject["playlist"] as? NSDictionary) {
+        if let playlistDict = (map["playlist"] as? NSDictionary) {
             state.playlist = PlaylistState.deserialize(playlistDict)
         }
         
-        if let historyDict = (jsonObject["history"] as? NSDictionary) {
+        if let historyDict = (map["history"] as? NSDictionary) {
             state.history = HistoryState.deserialize(historyDict)
         }
         
-        if let favoritesArr = jsonObject["favorites"] as? [NSDictionary] {
+        if let favoritesArr = map["favorites"] as? [NSDictionary] {
             
             favoritesArr.forEach {
                 
@@ -56,21 +56,21 @@ class AppState {
             }
         }
         
-        (jsonObject["bookmarks"] as? NSArray)?.forEach({
+        (map["bookmarks"] as? NSArray)?.forEach({
             
             if let bookmarkDict = $0 as? NSDictionary, let bookmark = BookmarkState.deserialize(bookmarkDict) {
                 state.bookmarks.append(bookmark)
             }
         })
         
-        (jsonObject["playbackProfiles"] as? NSArray)?.forEach({
+        (map["playbackProfiles"] as? NSArray)?.forEach({
             
             if let dict = $0 as? NSDictionary, let profile = PlaybackProfile.deserialize(dict) {
                 state.playbackProfiles.append(profile)
             }
         })
         
-        if let musicBrainzCacheDict = (jsonObject["musicBrainzCache"] as? NSDictionary) {
+        if let musicBrainzCacheDict = (map["musicBrainzCache"] as? NSDictionary) {
             state.musicBrainzCache = MusicBrainzCacheState.deserialize(musicBrainzCacheDict)
         }
         

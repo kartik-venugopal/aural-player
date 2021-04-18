@@ -5,9 +5,9 @@ class EQUnit: FXUnit, EQUnitProtocol {
     private let node: ParametricEQ
     let presets: EQPresets = EQPresets()
     
-    init(_ appState: AudioGraphState) {
+    init(_ persistentState: AudioGraphState) {
         
-        let eqState = appState.eqUnit
+        let eqState = persistentState.eqUnit
         
         node = ParametricEQ(eqState.type)
         super.init(.eq, eqState.state)

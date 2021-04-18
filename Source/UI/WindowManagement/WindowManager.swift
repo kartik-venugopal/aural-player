@@ -2,13 +2,10 @@ import Cocoa
 
 class WindowManager {
     
-    private static var appState: WindowLayoutState!
     private static var preferences: ViewPreferences!
     
-    static func initialize(_ appState: WindowLayoutState, _ preferences: ViewPreferences) {
-        
-        WindowManager.appState = appState
-        WindowManager.preferences = preferences
+    static func initialize(preferences: ViewPreferences) {
+        Self.preferences = preferences
     }
     
     // App's main window
@@ -44,7 +41,7 @@ class WindowManager {
     
     // MARK - Core functionality ----------------------------------------------------
     
-    static func initializeWindows() {
+    static func initializeWindows(fromState persistentState: WindowLayoutState) {
         
         if preferences.layoutOnStartup.option == .specific {
             
@@ -55,24 +52,24 @@ class WindowManager {
             // TODO: Improve the logic for defaultLayout ... maybe do a guard check at the beginning to see if defaultLayout is required ???
             
             // Remember from last app launch
-            mainWindow.setFrameOrigin(appState.mainWindowOrigin)
+            mainWindow.setFrameOrigin(persistentState.mainWindowOrigin)
             
-            if appState.showEffects {
+            if persistentState.showEffects {
                 
                 mainWindow.addChildWindow(effectsWindow, ordered: NSWindow.OrderingMode.below)
                 
-                if let effectsWindowOrigin = appState.effectsWindowOrigin {
+                if let effectsWindowOrigin = persistentState.effectsWindowOrigin {
                     effectsWindow.setFrameOrigin(effectsWindowOrigin)
                 } else {
                     defaultLayout()
                 }
             }
             
-            if appState.showPlaylist {
+            if persistentState.showPlaylist {
                 
                 mainWindow.addChildWindow(playlistWindow, ordered: NSWindow.OrderingMode.below)
                 
-                if let playlistWindowFrame = appState.playlistWindowFrame {
+                if let playlistWindowFrame = persistentState.playlistWindowFrame {
                     playlistWindow.setFrame(playlistWindowFrame, display: true)
                 } else {
                     defaultLayout()
@@ -80,10 +77,10 @@ class WindowManager {
             }
             
             mainWindow.setIsVisible(true)
-            effectsWindow.setIsVisible(appState.showEffects)
-            playlistWindow.setIsVisible(appState.showPlaylist)
+            effectsWindow.setIsVisible(persistentState.showEffects)
+            playlistWindow.setIsVisible(persistentState.showPlaylist)
             
-            Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: appState.showPlaylist, showingEffectsWindow: appState.showEffects))
+            Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: persistentState.showPlaylist, showingEffectsWindow: persistentState.showEffects))
         }
     }
     

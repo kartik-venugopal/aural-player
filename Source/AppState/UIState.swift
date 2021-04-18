@@ -3,7 +3,7 @@ import Cocoa
 /*
  Encapsulates UI state
  */
-class UIState: PersistentState {
+class UIState: PersistentStateProtocol {
     
     var windowLayout: WindowLayoutState = WindowLayoutState()
     var themes: ThemesState = ThemesState()

@@ -6,7 +6,7 @@ import Foundation
 
 class ObjectGraph {
     
-    static var appState: AppState!
+    static var persistentState: PersistentAppState!
     static var preferences: Preferences!
     
     static var preferencesDelegate: PreferencesDelegate!
@@ -67,7 +67,7 @@ class ObjectGraph {
         
         // Load persistent app state from disk
         // Use defaults if app state could not be loaded from disk
-        appState = AppStateIO.load() ?? AppState.defaults
+        persistentState = AppStateIO.load() ?? PersistentAppState.defaults
         
         // Preferences (and delegate)
         preferences = Preferences.instance
@@ -76,7 +76,7 @@ class ObjectGraph {
         audioUnitsManager = AudioUnitsManager()
         
         // Audio Graph (and delegate)
-        audioGraph = AudioGraph(audioUnitsManager, appState.audioGraph)
+        audioGraph = AudioGraph(audioUnitsManager, persistentState.audioGraph)
         
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
         // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.
@@ -101,9 +101,9 @@ class ObjectGraph {
         playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
         
         // Sequencer and delegate
-        let repeatMode = appState.playbackSequence.repeatMode
-        let shuffleMode = appState.playbackSequence.shuffleMode
-        let playlistType = PlaylistType(rawValue: appState.ui.playlist.view.lowercased()) ?? .tracks
+        let repeatMode = persistentState.playbackSequence.repeatMode
+        let shuffleMode = persistentState.playbackSequence.shuffleMode
+        let playlistType = PlaylistType(rawValue: persistentState.ui.playlist.view.lowercased()) ?? .tracks
         
         sequencer = Sequencer(playlist, repeatMode, shuffleMode, playlistType)
         sequencerDelegate = SequencerDelegate(sequencer)
@@ -111,8 +111,8 @@ class ObjectGraph {
         fileReader = FileReader()
         fileCoverArtReader = FileCoverArtReader(fileReader)
         
-        musicBrainzCache = MusicBrainzCache(state: appState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz)
-        musicBrainzCoverArtReader = MusicBrainzCoverArtReader(state: appState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz, cache: musicBrainzCache)
+        musicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz)
+        musicBrainzCoverArtReader = MusicBrainzCoverArtReader(state: persistentState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz, cache: musicBrainzCache)
         
         coverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
         
@@ -120,7 +120,7 @@ class ObjectGraph {
         
         let profiles = PlaybackProfiles()
         
-        for profile in appState.playbackProfiles {
+        for profile in persistentState.playbackProfiles {
             profiles.add(profile.file, profile)
         }
         
@@ -131,10 +131,10 @@ class ObjectGraph {
         // Playback Delegate
         playbackDelegate = PlaybackDelegate(player, playlist, sequencer, profiles, preferences.playbackPreferences, startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
         
-        audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, appState.audioGraph)
+        audioGraphDelegate = AudioGraphDelegate(audioGraph, playbackDelegate, preferences.soundPreferences, persistentState.audioGraph)
         
         // Playlist Delegate
-        playlistDelegate = PlaylistDelegate(playlist, trackReader, appState.playlist, preferences,
+        playlistDelegate = PlaylistDelegate(playlist, trackReader, persistentState.playlist, preferences,
                                             [playbackDelegate as! PlaybackDelegate])
         
         // Recorder (and delegate)
@@ -143,13 +143,13 @@ class ObjectGraph {
         
         // History (and delegate)
         history = History(preferences.historyPreferences)
-        historyDelegate = HistoryDelegate(history, playlistDelegate, playbackDelegate, appState.history)
+        historyDelegate = HistoryDelegate(history, playlistDelegate, playbackDelegate, persistentState.history)
         
         bookmarks = Bookmarks()
-        bookmarksDelegate = BookmarksDelegate(bookmarks, playlistDelegate, playbackDelegate, appState.bookmarks)
+        bookmarksDelegate = BookmarksDelegate(bookmarks, playlistDelegate, playbackDelegate, persistentState.bookmarks)
         
         favorites = Favorites()
-        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, appState!.favorites)
+        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, persistentState!.favorites)
         
         mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
         
@@ -159,18 +159,18 @@ class ObjectGraph {
         
         // UI-related utility classes
         
-        WindowManager.initialize(appState.ui.windowLayout, preferences.viewPreferences)
+        WindowManager.initialize(preferences: preferences.viewPreferences)
         UIUtils.initialize(preferences.viewPreferences)
         
-        Themes.initialize(appState.ui.themes)
-        FontSchemes.initialize(appState.ui.fontSchemes)
-        ColorSchemes.initialize(appState.ui.colorSchemes)
-        WindowLayouts.loadUserDefinedLayouts(appState.ui.windowLayout.userLayouts)
+        Themes.initialize(persistentState.ui.themes)
+        FontSchemes.initialize(persistentState.ui.fontSchemes)
+        ColorSchemes.initialize(persistentState.ui.colorSchemes)
+        WindowLayouts.loadUserDefinedLayouts(persistentState.ui.windowLayout.userLayouts)
         
-        PlayerViewState.initialize(appState.ui.player)
-        PlaylistViewState.initialize(appState.ui.playlist)
-        VisualizerViewState.initialize(appState.ui.visualizer)
-        WindowAppearanceState.initialize(appState.ui.windowAppearance)
+        PlayerViewState.initialize(persistentState.ui.player)
+        PlaylistViewState.initialize(persistentState.ui.playlist)
+        VisualizerViewState.initialize(persistentState.ui.visualizer)
+        WindowAppearanceState.initialize(persistentState.ui.windowAppearance)
         
         fft = FFT()
         
@@ -205,36 +205,36 @@ class ObjectGraph {
     // Called when app exits
     static func tearDown() {
         
-        // Gather all pieces of persistent state into the appState object
+        // Gather all pieces of persistent state into the persistentState object
         
-        appState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
+        persistentState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
         
-        appState.audioGraph = (audioGraph as! AudioGraph).persistentState
-        appState.playlist = (playlist as! Playlist).persistentState
-        appState.playbackSequence = (sequencer as! Sequencer).persistentState
-        appState.playbackProfiles = playbackDelegate.profiles.all()
+        persistentState.audioGraph = (audioGraph as! AudioGraph).persistentState
+        persistentState.playlist = (playlist as! Playlist).persistentState
+        persistentState.playbackSequence = (sequencer as! Sequencer).persistentState
+        persistentState.playbackProfiles = playbackDelegate.profiles.all()
         
-        appState.ui = UIState()
-        appState.ui.windowLayout = WindowManager.persistentState
-        appState.ui.themes = Themes.persistentState
-        appState.ui.fontSchemes = FontSchemes.persistentState
-        appState.ui.colorSchemes = ColorSchemes.persistentState
-        appState.ui.player = PlayerViewState.persistentState
-        appState.ui.playlist = PlaylistViewState.persistentState
-        appState.ui.visualizer = VisualizerViewState.persistentState
-        appState.ui.windowAppearance = WindowAppearanceState.persistentState
+        persistentState.ui = UIState()
+        persistentState.ui.windowLayout = WindowManager.persistentState
+        persistentState.ui.themes = Themes.persistentState
+        persistentState.ui.fontSchemes = FontSchemes.persistentState
+        persistentState.ui.colorSchemes = ColorSchemes.persistentState
+        persistentState.ui.player = PlayerViewState.persistentState
+        persistentState.ui.playlist = PlaylistViewState.persistentState
+        persistentState.ui.visualizer = VisualizerViewState.persistentState
+        persistentState.ui.windowAppearance = WindowAppearanceState.persistentState
         
-        appState.history = (historyDelegate as! HistoryDelegate).persistentState
-        appState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
-        appState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
-        appState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
+        persistentState.history = (historyDelegate as! HistoryDelegate).persistentState
+        persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
+        persistentState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
+        persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
         
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.
         
         // App state persistence to disk
         tearDownOpQueue.addOperation {
-            AppStateIO.save(appState!)
+            AppStateIO.save(persistentState!)
         }
 
         // Tear down the audio engine

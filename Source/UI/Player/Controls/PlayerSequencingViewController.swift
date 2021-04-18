@@ -12,7 +12,7 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber {
     // Delegate that conveys all repeat/shuffle requests to the sequencer
     private let sequencer: SequencerDelegateProtocol = ObjectGraph.sequencerDelegate
     
-    private let appState: PlayerUIState = ObjectGraph.appState.ui.player
+    private let persistentState: PlayerUIState = ObjectGraph.persistentState.ui.player
     
     override func viewDidLoad() {
         

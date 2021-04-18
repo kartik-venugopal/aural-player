@@ -1,6 +1,6 @@
 import Foundation
 
-class PlaylistUIState: PersistentState {
+class PlaylistUIState: PersistentStateProtocol {
     
     var view: String = "Tracks"
     
@@ -18,8 +18,8 @@ class PlaylistUIState: PersistentState {
 
 extension PlaylistViewState {
     
-    static func initialize(_ appState: PlaylistUIState) {
-        current = PlaylistType(rawValue: appState.view.lowercased()) ?? .tracks
+    static func initialize(_ persistentState: PlaylistUIState) {
+        current = PlaylistType(rawValue: persistentState.view.lowercased()) ?? .tracks
     }
     
     static var persistentState: PlaylistUIState {
