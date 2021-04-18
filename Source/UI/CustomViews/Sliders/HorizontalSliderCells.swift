@@ -84,6 +84,29 @@ class VolumeSliderCell: HorizontalSliderCell {
     }
 }
 
+class StatusBarVolumeSliderCell: VolumeSliderCell {
+    
+    override var knobColor: NSColor {return Colors.Constants.white70Percent}
+    override var barRadius: CGFloat {return 0}
+    override var knobRadius: CGFloat {return 0}
+    
+    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
+        
+        let knobFrame = knobRect(flipped: false)
+        let halfKnobWidth = knobFrame.width / 2
+        
+        let leftRect = NSRect(x: aRect.minX, y: aRect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
+
+        Colors.Constants.white70Percent.setFill()
+        leftRect.fill()
+        
+        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
+        
+        Colors.Constants.white30Percent.setFill()
+        rightRect.fill()
+    }
+}
+
 // Defines the range (start and end points) used to render a track segment playback loop
 struct PlaybackLoopRange {
     
@@ -102,6 +125,8 @@ class SeekSliderCell: HorizontalSliderCell {
     override var knobRadius: CGFloat {return 1}
     override var knobWidth: CGFloat {return 10}
     override var knobHeightOutsideBar: CGFloat {return 2}
+    
+    var loopColor: NSColor {Colors.Player.seekBarLoopColor}
     
     var loop: PlaybackLoopRange?
     
@@ -125,19 +150,33 @@ class SeekSliderCell: HorizontalSliderCell {
         self.loop = nil
     }
     
+    func drawLeftRect(inRect rect: NSRect, knobFrame: NSRect) {
+        
+        let halfKnobWidth = knobFrame.width / 2
+        
+        let leftRect = NSRect(x: rect.minX, y: rect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: rect.height)
+        foregroundGradient.draw(in: leftRect, angle: gradientDegrees)
+    }
+    
+    func drawRightRect(inRect rect: NSRect, knobFrame: NSRect) {
+        
+        let halfKnobWidth = knobFrame.width / 2
+        
+        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: rect.minY, width: rect.width - (knobFrame.maxX - halfKnobWidth), height: rect.height)
+        backgroundGradient.draw(in: rightRect, angle: gradientDegrees)
+    }
+    
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         let knobFrame = knobRect(flipped: false)
-        let halfKnobWidth = knobFrame.width / 2
         
-        let leftRect = NSRect(x: aRect.minX, y: aRect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
-        foregroundGradient.draw(in: leftRect, angle: gradientDegrees)
-        
-        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
-        backgroundGradient.draw(in: rightRect, angle: gradientDegrees)
+        drawLeftRect(inRect: aRect, knobFrame: knobFrame)
+        drawRightRect(inRect: aRect, knobFrame: knobFrame)
         
         // Render segment playback loop, if one is defined
         if let loop = self.loop {
+            
+            let halfKnobWidth = knobFrame.width / 2
 
             // Start and end points for the loop
             let startX = loop.start
@@ -146,7 +185,7 @@ class SeekSliderCell: HorizontalSliderCell {
             // Loop bar
             let loopRect = NSRect(x: startX, y: aRect.minY, width: (endX - startX + 1), height: aRect.height)
             var drawPath = NSBezierPath.init(roundedRect: loopRect, xRadius: barRadius, yRadius: barRadius)
-            Colors.Player.seekBarLoopColor.setFill()
+            loopColor.setFill()
             drawPath.fill()
             
             let markerMinY = knobFrame.minY + knobHeightOutsideBar / 2
@@ -155,15 +194,15 @@ class SeekSliderCell: HorizontalSliderCell {
             // Loop start marker
             let loopStartMarker = NSRect(x: startX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
             drawPath = NSBezierPath.init(roundedRect: loopStartMarker, xRadius: knobRadius, yRadius: knobRadius)
-            Colors.Player.seekBarLoopColor.setFill()
+            loopColor.setFill()
             drawPath.fill()
             
             // Loop end marker
-            if (loop.end != nil) {
+            if loop.end != nil {
             
                 let loopEndMarker = NSRect(x: endX - (knobWidth / 2), y: markerMinY, width: knobWidth, height: markerHeight)
                 drawPath = NSBezierPath.init(roundedRect: loopEndMarker, xRadius: knobRadius, yRadius: knobRadius)
-                Colors.Player.seekBarLoopColor.setFill()
+                loopColor.setFill()
                 drawPath.fill()
             }
         }
@@ -194,6 +233,30 @@ class SeekSliderCell: HorizontalSliderCell {
         let knobPath = NSBezierPath(roundedRect: rect, xRadius: knobRadius, yRadius: knobRadius)
         knobColor.setFill()
         knobPath.fill()
+    }
+}
+
+class StatusBarSeekSliderCell: SeekSliderCell {
+    
+    override var knobColor: NSColor {Colors.Constants.white70Percent}
+    override var loopColor: NSColor {.white}
+    
+    override func drawLeftRect(inRect rect: NSRect, knobFrame: NSRect) {
+        
+        let halfKnobWidth = knobFrame.width / 2
+        
+        let leftRect = NSRect(x: rect.minX, y: rect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: rect.height)
+        Colors.Constants.white70Percent.setFill()
+        leftRect.fill()
+    }
+    
+    override func drawRightRect(inRect rect: NSRect, knobFrame: NSRect) {
+        
+        let halfKnobWidth = knobFrame.width / 2
+        
+        let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: rect.minY, width: rect.width - (knobFrame.maxX - halfKnobWidth), height: rect.height)
+        Colors.Constants.white30Percent.setFill()
+        rightRect.fill()
     }
 }
 

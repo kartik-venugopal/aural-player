@@ -5,9 +5,10 @@ import Cocoa
 
 // TODO: Can this be a general info popup ? "Tracks are being added ... (progress)" ?
 class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSubscriber {
-
+    
     @IBOutlet weak var trackInfoView: PlayingTrackTextView!
     @IBOutlet weak var imgArt: NSImageView!
+    @IBOutlet weak var artOverlayBox: NSBox!
     
     @IBOutlet weak var btnPlayPause: OnOffImageButton!
     
@@ -122,6 +123,8 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
         seekTimer = RepeatingTaskExecutor(intervalMillis: 500, task: {
             self.updateSeekPosition()
         }, queue: .main)
+        
+        updateTrackInfo()
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -154,7 +157,17 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
             trackInfoView.trackInfo = nil
         }
         
-        imgArt.image = player.playingTrack?.art?.image
+        if let art = player.playingTrack?.art?.image {
+            
+            imgArt.image = art
+            artOverlayBox.show()
+            
+        } else {
+            
+            imgArt.image = nil
+            artOverlayBox.hide()
+        }
+        
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
     }
    
