@@ -14,6 +14,7 @@
                 <outlet property="btnPlayPause" destination="m2Q-Qd-juj" id="c91-fV-ANI"/>
                 <outlet property="btnPreviousTrack" destination="rru-Ww-H57" id="fLW-hW-vUg"/>
                 <outlet property="btnRepeat" destination="oIU-fy-2aj" id="oLq-IW-EcE"/>
+                <outlet property="btnSettings" destination="8UO-59-iT0" id="YE7-BV-Zxd"/>
                 <outlet property="btnShuffle" destination="CGV-J4-5aK" id="qjY-dM-xrL"/>
                 <outlet property="btnVolume" destination="P5p-7u-pjj" id="Uhl-L9-FyY"/>
                 <outlet property="imgArt" destination="4dk-EH-BOI" id="cpf-qA-qGH"/>
@@ -24,6 +25,7 @@
                 <outlet property="seekSliderCell" destination="UsT-W0-Z4w" id="9yx-f6-hh1"/>
                 <outlet property="seekSliderClone" destination="1Kq-UT-L4a" id="lJy-Lc-qXo"/>
                 <outlet property="seekSliderCloneCell" destination="zPk-jS-dUE" id="wXa-Q7-uNK"/>
+                <outlet property="settingsBox" destination="Prg-DV-9kD" id="SJh-9G-KG7"/>
                 <outlet property="trackInfoView" destination="RjK-18-fyJ" id="WQ1-Cc-2d0"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="7Tk-vw-vqd"/>
                 <outlet property="volumeSlider" destination="LQL-m8-1KN" id="kcc-oV-tss"/>
@@ -82,6 +84,17 @@
                             </buttonCell>
                             <connections>
                                 <action selector="quitAction:" target="-2" id="yes-cl-mha"/>
+                            </connections>
+                        </button>
+                        <button toolTip="View settings" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UO-59-iT0" userLabel="Settings Button">
+                            <rect key="frame" x="280" y="156" width="10" height="10"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Settings" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="siu-Cg-lWE">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="showOrHideSettingsAction:" target="-2" id="VsM-h6-duJ"/>
                             </connections>
                         </button>
                         <button toolTip="Repeat" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIU-fy-2aj" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -300,6 +313,70 @@
                             <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="fillColor" white="0.0" alpha="0.74614876760000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
+                        <box hidden="YES" boxType="custom" cornerRadius="4" titlePosition="noTitle" id="Prg-DV-9kD" userLabel="Settings Box">
+                            <rect key="frame" x="90" y="23" width="200" height="130"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <view key="contentView" id="TlV-4d-sjw">
+                                <rect key="frame" x="1" y="1" width="198" height="128"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0A-lH-Ti7" userLabel="Caption">
+                                        <rect key="frame" x="20" y="97" width="135" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="View settings" id="lPn-WR-OfT">
+                                            <font key="font" size="13" name="Play-Regular"/>
+                                            <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vq5-5H-ybr" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="22" y="73" width="141" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Show album art" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ANP-5n-8Qa">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideAlbumArtAction:" target="k4h-E2-r6g" id="W87-EM-PyR"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zYL-4V-R3Z" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="22" y="53" width="141" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Show artist" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="3if-i6-aPz">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideArtistAction:" target="k4h-E2-r6g" id="0aO-y1-ffH"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nkl-3v-Cqb" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="22" y="33" width="141" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Show album" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="4lr-KY-AOf">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideAlbumAction:" target="k4h-E2-r6g" id="gov-Cb-jdC"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q1t-7d-POz" userLabel="Show chapter title" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="22" y="13" width="141" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="Show chapter title" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9fH-kr-uQA">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" size="11" name="Play-Regular"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showOrHideChapterTitleAction:" target="k4h-E2-r6g" id="ELd-K6-qnG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                            <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </box>
                     </subviews>
                 </view>
             </subviews>
@@ -311,6 +388,18 @@
             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="zPk-jS-dUE" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
             <point key="canvasLocation" x="-2884" y="682"/>
         </slider>
+        <customObject id="k4h-E2-r6g" customClass="StatusBarSettingsViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="artOverlayBox" destination="xSV-wz-vgQ" id="Rcn-OR-vqh"/>
+                <outlet property="btnShowAlbum" destination="Nkl-3v-Cqb" id="RRE-db-EKb"/>
+                <outlet property="btnShowArt" destination="vq5-5H-ybr" id="vug-Ur-2Qw"/>
+                <outlet property="btnShowArtist" destination="zYL-4V-R3Z" id="241-rM-0XO"/>
+                <outlet property="btnShowChapterTitle" destination="q1t-7d-POz" id="flZ-0E-hPn"/>
+                <outlet property="imgArt" destination="4dk-EH-BOI" id="eGx-du-ZgY"/>
+                <outlet property="trackInfoView" destination="RjK-18-fyJ" id="bt3-Dk-LjT"/>
+                <outlet property="view" destination="Prg-DV-9kD" id="mTz-nN-uX2"/>
+            </connections>
+        </customObject>
     </objects>
     <resources>
         <image name="AppTitle" width="117" height="32"/>
@@ -324,6 +413,7 @@
         <image name="RepeatOff" width="43" height="71"/>
         <image name="SeekBackward" width="46" height="34"/>
         <image name="SeekForward" width="46" height="34"/>
+        <image name="Settings" width="10" height="7"/>
         <image name="ShuffleOff" width="26" height="26"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>

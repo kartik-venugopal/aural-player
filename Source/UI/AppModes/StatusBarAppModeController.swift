@@ -1,6 +1,6 @@
 import Cocoa
 
-class StatusBarAppModeController: AppModeController {
+class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 
     var mode: AppMode {return .statusBar}
 
@@ -13,10 +13,22 @@ class StatusBarAppModeController: AppModeController {
 
         statusItem.button?.image = NSImage(named: "AppIcon-StatusBar")
         let menu = NSMenu()
+        
         let item1 = NSMenuItem(title: "", action: nil, keyEquivalent: "")
         item1.view = statusBarViewController.view
+        
         menu.addItem(item1)
+        menu.delegate = self
+        
         statusItem.menu = menu
+    }
+    
+    func menuDidClose(_ menu: NSMenu) {
+        statusBarViewController.statusBarMenuClosed()
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        statusBarViewController.statusBarMenuOpened()
     }
     
     func dismissMode() {
@@ -26,4 +38,10 @@ class StatusBarAppModeController: AppModeController {
     func registerConstituentView(_ view: ConstituentView) {
         
     }
+}
+
+protocol StatusBarMenuObserver {
+    
+    func statusBarMenuOpened()
+    func statusBarMenuClosed()
 }

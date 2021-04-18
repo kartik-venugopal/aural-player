@@ -13,7 +13,6 @@ class PlayerViewState {
     static var showCurrentChapter: Bool = true
     
     static var showTrackInfo: Bool = true
-    static var showSequenceInfo: Bool = false
     
     static var showPlayingTrackFunctions: Bool = true
     static var showControls: Bool = true
@@ -21,6 +20,14 @@ class PlayerViewState {
     
     static var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+}
+
+class StatusBarPlayerViewState {
+    
+    static var showAlbumArt: Bool = true
+    static var showArtist: Bool = true
+    static var showAlbum: Bool = true
+    static var showCurrentChapter: Bool = true
 }
 
 enum PlayerViewType: String {

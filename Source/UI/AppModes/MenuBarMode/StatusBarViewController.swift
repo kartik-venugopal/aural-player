@@ -1,12 +1,10 @@
-/*
- View controller for the popover that displays a brief information message when a track is added to or removed from the Favorites list
- */
 import Cocoa
 
-// TODO: Can this be a general info popup ? "Tracks are being added ... (progress)" ?
-class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSubscriber {
+class StatusBarViewController: NSViewController, StatusBarMenuObserver, NotificationSubscriber {
     
-    @IBOutlet weak var trackInfoView: PlayingTrackTextView!
+    override var nibName: String? {return "StatusBar"}
+    
+    @IBOutlet weak var trackInfoView: StatusBarPlayingTrackTextView!
     @IBOutlet weak var imgArt: NSImageView!
     @IBOutlet weak var artOverlayBox: NSBox!
     
@@ -43,10 +41,9 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
     @IBOutlet weak var lblVolume: VALabel!
     private var autoHidingVolumeLabel: AutoHidingView!
     
-    var statusItem: NSStatusItem!
-
-    override var nibName: String? {return "StatusBar"}
-
+    @IBOutlet weak var btnSettings: NSButton!
+    @IBOutlet weak var settingsBox: NSBox!
+    
     private var globalMouseClickMonitor: GlobalMouseClickMonitor!
 
 //    private var gestureHandler: GestureHandler?
@@ -164,16 +161,8 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
             stopPollingForChapterChange()
         }
         
-        if let art = player.playingTrack?.art?.image {
-            
-            imgArt.image = art
-            artOverlayBox.show()
-            
-        } else {
-            
-            imgArt.image = nil
-            artOverlayBox.hide()
-        }
+        imgArt.image = player.playingTrack?.art?.image
+        [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && StatusBarPlayerViewState.showAlbumArt)}
         
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         updateSeekPosition()
@@ -410,6 +399,18 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
         }
     }
     
+    @IBAction func showOrHideSettingsAction(_ sender: NSButton) {
+        settingsBox.showIf(settingsBox.isHidden)
+    }
+    
+    func statusBarMenuClosed() {
+        settingsBox.hideIfShown()
+    }
+    
+    func statusBarMenuOpened() {
+        print("\nMenu Opened !!!")
+    }
+    
 //    // Replays the currently playing track, from the beginning, if there is one
 //    func replayTrack() {
 //
@@ -446,7 +447,7 @@ class StatusBarViewController: NSViewController, NSMenuDelegate, NotificationSub
     func dismiss() {
 
 //        close()
-        NSStatusBar.system.removeStatusItem(statusItem)
+//        NSStatusBar.system.removeStatusItem(statusItem)
     }
 
     @IBAction func regularModeAction(_ sender: AnyObject) {

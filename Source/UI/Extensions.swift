@@ -18,6 +18,13 @@ extension NSView {
         self.isHidden = true
     }
     
+    func hideIfShown() {
+        
+        if !isHidden {
+            self.isHidden = true
+        }
+    }
+    
     func show() {
         self.isHidden = false
     }

@@ -44,6 +44,18 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
         Colors.Player.trackInfoChapterTextColor
     }
     
+    var shouldShowArtist: Bool {
+        PlayerViewState.showArtist
+    }
+    
+    var shouldShowAlbum: Bool {
+        PlayerViewState.showAlbum
+    }
+    
+    var shouldShowChapterTitle: Bool {
+        PlayerViewState.showCurrentChapter
+    }
+    
     var lineSpacingBetweenArtistAlbumAndChapterTitle: CGFloat {7}
     
     // The displayed track title
@@ -53,16 +65,16 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     
     // The displayed track artist (displayed only if user setting allows it)
     private var artist: String? {
-        return PlayerViewState.showArtist ? trackInfo?.artist : nil
+        return shouldShowArtist ? trackInfo?.artist : nil
     }
     
     // The displayed track album (displayed only if user setting allows it)
     private var album: String? {
-        return PlayerViewState.showAlbum ? trackInfo?.album : nil
+        return shouldShowAlbum ? trackInfo?.album : nil
     }
     
     private var chapterTitle: String? {
-        return PlayerViewState.showCurrentChapter ? trackInfo?.playingChapterTitle : nil
+        return shouldShowChapterTitle ? trackInfo?.playingChapterTitle : nil
     }
     
     // Represents the maximum width allowed for one line of text displayed in the text view
@@ -277,6 +289,18 @@ class StatusBarPlayingTrackTextView: PlayingTrackTextView {
     
     override var chapterTitleColor: NSColor {
         Colors.Constants.white80Percent
+    }
+    
+    override var shouldShowArtist: Bool {
+        StatusBarPlayerViewState.showArtist
+    }
+    
+    override var shouldShowAlbum: Bool {
+        StatusBarPlayerViewState.showAlbum
+    }
+    
+    override var shouldShowChapterTitle: Bool {
+        StatusBarPlayerViewState.showCurrentChapter
     }
     
     override var lineSpacingBetweenArtistAlbumAndChapterTitle: CGFloat {4}

@@ -56,7 +56,6 @@ extension PlayerViewState {
         showCurrentChapter = appState.showCurrentChapter
         
         showTrackInfo = appState.showTrackInfo
-        showSequenceInfo = appState.showSequenceInfo
         
         showPlayingTrackFunctions = appState.showPlayingTrackFunctions
         showControls = appState.showControls
@@ -78,7 +77,6 @@ extension PlayerViewState {
         state.showCurrentChapter = showCurrentChapter
         
         state.showTrackInfo = showTrackInfo
-        state.showSequenceInfo = showSequenceInfo
         
         state.showPlayingTrackFunctions = showPlayingTrackFunctions
         state.showControls = showControls
