@@ -50,6 +50,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     @IBOutlet weak var btnSettings: TintedImageButton!
     @IBOutlet weak var settingsBox: NSBox!
     
+    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
+    
     private var globalMouseClickMonitor: GlobalMouseClickMonitor!
 
 //    private var gestureHandler: GestureHandler?
@@ -117,6 +119,16 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         appLogo.tintFunction = {Colors.Constants.white80Percent}
 
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
+        
+        // MARK: Notification subscriptions
+        
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
+        
+        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
+        
+        Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
+        
+        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
     }
     
     override func viewDidLoad() {
@@ -418,25 +430,40 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     
     func statusBarMenuOpened() {}
     
-    // The "errorState" arg indicates whether the player is in an error state (i.e. the new track cannot be played back). If so, update the UI accordingly.
-//    private func trackChanged(_ newTrack: Track?) {
-//
-//        playbackView.trackChanged(player.state, player.playbackLoop, newTrack)
-//
-////        if let track = newTrack, track.hasChapters {
-////            beginPollingForChapterChange()
-////        } else {
-////            stopPollingForChapterChange()
-////        }
-//    }
+    // MARK: Message handling
+
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
+        updateTrackInfo()
+    }
     
-//    func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
-//
-//        self.trackChanged(nil)
-//
-//        let error = notification.error
-//        alertDialog.showAlert(.error, "Track not played", error.track?.displayName ?? "<Unknown>", error.message)
-//    }
+    // When track info for the playing track changes, display fields need to be updated
+    func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
+        
+        print("Updated track \(notification.updatedTrack.displayName) fields: \(notification.updatedFields)")
+        
+        if notification.updatedTrack == player.playingTrack {
+            updateTrackInfo()
+        }
+    }
+    
+    func chapterChanged(_ notification: ChapterChangedNotification) {
+        
+        if let playingTrack = player.playingTrack {
+            trackInfoView.trackInfo = PlayingTrackInfo(playingTrack, notification.newChapter?.chapter.title)
+        }
+    }
+    
+    // TODO: How to display errors in status bar mode ???
+    func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
+        
+        updateTrackInfo()
+        
+        if let invalidTrackError = notification.error as? InvalidTrackError {
+            alertDialog.showAlert(.error, "Track not played", invalidTrackError.file.lastPathComponent, notification.error.message)
+        } else {
+            alertDialog.showAlert(.error, "Track not played", "", notification.error.message)
+        }
+    }
     
     @IBAction func regularModeAction(_ sender: AnyObject) {
         AppModeManager.presentMode(.regular)
