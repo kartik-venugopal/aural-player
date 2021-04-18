@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         super.init()
         
         // Configuration and initialization
-        configureLogging()
+//        configureLogging()
         ObjectGraph.initialize()
     }
     
@@ -72,8 +72,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        WindowManager.initializeWindows(fromState: ObjectGraph.persistentState.ui.windowLayout)
-//        AppModeManager.presentMode(.regular)
+//        WindowManager.initializeWindows(fromState: ObjectGraph.persistentState.ui.windowLayout)
+        AppModeManager.presentMode(.statusBar)
         
         // Update the appLaunched flag
         appLaunched = true

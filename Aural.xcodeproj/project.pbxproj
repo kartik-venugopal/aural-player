@@ -505,6 +505,7 @@
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
 		3EBABCBE262C1A350015A73A /* StatusBarSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBD262C1A350015A73A /* StatusBarSettingsViewController.swift */; };
+		3EBABCC0262C2CA80015A73A /* StatusBarPlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBF262C2CA80015A73A /* StatusBarPlayerUIState.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
 		3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E725E552A1002259C4 /* shufen.regular.ttf */; };
 		3ECB54EE25E559E5002259C4 /* futura light bt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54EC25E559DE002259C4 /* futura light bt.ttf */; };
@@ -1122,6 +1123,7 @@
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EBABCBD262C1A350015A73A /* StatusBarSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarSettingsViewController.swift; sourceTree = "<group>"; };
+		3EBABCBF262C2CA80015A73A /* StatusBarPlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarPlayerUIState.swift; sourceTree = "<group>"; };
 		3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ragingredlotus-bb.regular.ttf"; sourceTree = "<group>"; };
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
 		3ECB54EC25E559DE002259C4 /* futura light bt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "futura light bt.ttf"; sourceTree = "<group>"; };
@@ -2549,6 +2551,7 @@
 				3EF0C3DE262A92AB0042C720 /* WindowLayoutState.swift */,
 				3EF0C3E0262A93520042C720 /* WindowUIState.swift */,
 				3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */,
+				3EBABCBF262C2CA80015A73A /* StatusBarPlayerUIState.swift */,
 			);
 			path = AppState;
 			sourceTree = "<group>";
@@ -3770,6 +3773,7 @@
 				3E6C12AA25CEBE2700BF0D07 /* AboutDialogController.swift in Sources */,
 				3E6C12A325CEBE2700BF0D07 /* StringInputPopoverViewController.swift in Sources */,
 				3E6C118125CEBD6D00BF0D07 /* ParametricEQNode.swift in Sources */,
+				3EBABCC0262C2CA80015A73A /* StatusBarPlayerUIState.swift in Sources */,
 				3E6C116625CEBD6000BF0D07 /* TimePresets.swift in Sources */,
 				3E6C120D25CEBDD100BF0D07 /* Recorder.swift in Sources */,
 				3E9C12132622216500D90EA4 /* Themes.swift in Sources */,

@@ -12,7 +12,7 @@ protocol PersistentModelObject {
 // Marks an object as being suitable for persistence, i.e. it is serializable/deserializable
 protocol PersistentStateProtocol {
     
-    associatedtype T
+    associatedtype T: PersistentStateProtocol
     
     // Constructs an instance of this state object from the given map
     static func deserialize(_ map: NSDictionary) -> T
