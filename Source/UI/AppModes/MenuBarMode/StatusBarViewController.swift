@@ -163,7 +163,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     }
     
     private func updateTrackInfo() {
-
+        
         if let theTrack = player.playingTrack {
             
             trackInfoView.trackInfo = PlayingTrackInfo(theTrack, player.playingChapter?.chapter.title)
@@ -189,7 +189,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && StatusBarPlayerViewState.showAlbumArt)}
         
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
-        updateSeekPosition()
+        playbackLoopChanged()
     }
     
     private var curChapter: IndexedChapter? = nil

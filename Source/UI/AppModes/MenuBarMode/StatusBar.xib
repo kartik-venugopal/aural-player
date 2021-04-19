@@ -408,7 +408,7 @@
         <slider verticalHuggingPriority="750" id="1Kq-UT-L4a" userLabel="Seek Slider Clone">
             <rect key="frame" x="0.0" y="0.0" width="282" height="15"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="zPk-jS-dUE" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
+            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="zPk-jS-dUE" customClass="StatusBarSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
             <point key="canvasLocation" x="-2884" y="682"/>
         </slider>
         <customObject id="k4h-E2-r6g" customClass="StatusBarSettingsViewController" customModule="Aural" customModuleProvider="target">

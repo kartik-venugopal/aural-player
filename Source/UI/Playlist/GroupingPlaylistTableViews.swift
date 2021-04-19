@@ -3,7 +3,7 @@ import Cocoa
 /*
     A customized NSOutlineView that overrides contextual menu behavior
  */
-class AuralPlaylistOutlineView: NSOutlineView {
+class AuralPlaylistOutlineView: NSOutlineView, Destroyable {
     
     static var cachedDisclosureIcon_collapsed: NSImage!
     static var cachedDisclosureIcon_expanded: NSImage!
@@ -11,6 +11,10 @@ class AuralPlaylistOutlineView: NSOutlineView {
     static var cachedGroupIcon: NSImage!
     
     static var disclosureButtons: [NSButton] = []
+    
+    static func destroy() {
+        disclosureButtons.removeAll()
+    }
     
     static func updateCachedImages() {
         

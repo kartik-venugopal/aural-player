@@ -178,6 +178,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         close()
         Messenger.unsubscribeAll(for: self)
+        
+        AuralPlaylistOutlineView.destroy()
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
