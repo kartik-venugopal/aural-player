@@ -12,7 +12,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     private lazy var createThemeDialogController: CreateThemeDialogController = CreateThemeDialogController.instance
     private lazy var userThemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
+    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
     @IBOutlet weak var theMenu: NSMenu!
     

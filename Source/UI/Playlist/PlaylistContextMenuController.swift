@@ -57,7 +57,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     private lazy var trackReader: TrackReader = ObjectGraph.trackReader
     
-    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
     // One-time setup
     override func awakeFromNib() {

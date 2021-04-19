@@ -13,7 +13,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
     
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
+    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
     @IBOutlet weak var theMenu: NSMenu!
     

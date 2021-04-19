@@ -1,6 +1,22 @@
 import Cocoa
 
-class EditorWindowController: NSWindowController, ModalComponentProtocol {
+class EditorWindowController: NSWindowController, ModalComponentProtocol, Destroyable {
+    
+    private static var _instance: EditorWindowController?
+    static var instance: EditorWindowController {
+        
+        if _instance == nil {
+            _instance = EditorWindowController()
+        }
+        
+        return _instance!
+    }
+    
+    static func destroy() {
+        
+        _instance?.destroy()
+        _instance = nil
+    }
     
     private lazy var bookmarksEditorView: NSView = ViewFactory.bookmarksEditorView
     

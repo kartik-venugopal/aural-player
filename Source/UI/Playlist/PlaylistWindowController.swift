@@ -48,7 +48,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     // Sort dialog
     private lazy var playlistSortDialogLoader: LazyWindowLoader<PlaylistSortWindowController> = LazyWindowLoader()
     
-    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
     // For gesture handling
     private var eventMonitor: Any?

@@ -13,7 +13,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
+    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
     private lazy var fileReader: FileReader = ObjectGraph.fileReader
     

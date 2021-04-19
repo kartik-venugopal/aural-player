@@ -14,7 +14,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
     @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem!
     
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
+    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
     private lazy var fileReader: FileReader = ObjectGraph.fileReader
     

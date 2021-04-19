@@ -4,7 +4,7 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
 
     private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
+    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
     @IBOutlet weak var theMenu: NSMenu!
     

@@ -54,7 +54,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: SoundPreferences = ObjectGraph.preferencesDelegate.preferences.soundPreferences
     
-    private lazy var presetsEditor: EditorWindowController = WindowFactory.editorWindowController
+    private lazy var presetsEditor: EditorWindowController = EditorWindowController.instance
     
     // One-time setup.
     override func awakeFromNib() {

@@ -42,7 +42,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
-    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
     func menuNeedsUpdate(_ menu: NSMenu) {
 
@@ -255,6 +255,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func nextPlaylistViewAction(_ sender: Any) {
         Messenger.publish(.playlist_nextView)
+        alertDialog.showAlert(.error, "Track not played", "Muthu", "Sami !!!")
     }
     
     private func checkIfPlaylistIsBeingModified() -> Bool {

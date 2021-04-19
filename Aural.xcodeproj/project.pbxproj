@@ -433,7 +433,6 @@
 		3E6C130625CEBE8F00BF0D07 /* SeekSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104425CEB98600BF0D07 /* SeekSliderView.swift */; };
 		3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103425CEB98600BF0D07 /* InfoPopupProtocol.swift */; };
 		3E6C130925CEBE8F00BF0D07 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */; };
-		3E6C130A25CEBE8F00BF0D07 /* WindowFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105625CEB98600BF0D07 /* WindowFactory.swift */; };
 		3E6C130B25CEBE8F00BF0D07 /* FileSystemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103B25CEB98600BF0D07 /* FileSystemDataSource.swift */; };
 		3E6C130C25CEBE8F00BF0D07 /* WindowLayoutPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */; };
 		3E6C130D25CEBE8F00BF0D07 /* PlayerSequencingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104925CEB98600BF0D07 /* PlayerSequencingViewController.swift */; };
@@ -926,7 +925,6 @@
 		3E6C105225CEB98600BF0D07 /* ModalComponentProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalComponentProtocols.swift; sourceTree = "<group>"; };
 		3E6C105325CEB98600BF0D07 /* WindowLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayouts.swift; sourceTree = "<group>"; };
 		3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPresets.swift; sourceTree = "<group>"; };
-		3E6C105625CEB98600BF0D07 /* WindowFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowFactory.swift; sourceTree = "<group>"; };
 		3E6C105725CEB98600BF0D07 /* ObjectGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
 		3E6C105825CEB98600BF0D07 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		3E6C105C25CEB98600BF0D07 /* SequencerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -1595,7 +1593,6 @@
 				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */,
 				3E6C0F1C25CEB98500BF0D07 /* Strings.swift */,
-				3E6C105625CEB98600BF0D07 /* WindowFactory.swift */,
 				3E6C0F9525CEB98600BF0D07 /* ViewFactory.swift */,
 				3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */,
 				3E6C0F9725CEB98600BF0D07 /* Extensions.swift */,
@@ -3591,7 +3588,6 @@
 				3E6C12C125CEBE6700BF0D07 /* PitchViewController.swift in Sources */,
 				3E6C130C25CEBE8F00BF0D07 /* WindowLayoutPresets.swift in Sources */,
 				3E6C11FE25CEBDD100BF0D07 /* Group.swift in Sources */,
-				3E6C130A25CEBE8F00BF0D07 /* WindowFactory.swift in Sources */,
 				3E7572FC2609E8A400CA3F85 /* HTTPClient.swift in Sources */,
 				3E6C119425CEBD6D00BF0D07 /* MasterUnit.swift in Sources */,
 				3E6C12A625CEBE2700BF0D07 /* ToggleMenuItem.swift in Sources */,

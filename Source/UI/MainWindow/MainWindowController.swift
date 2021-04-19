@@ -120,6 +120,9 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         close()
         Messenger.unsubscribeAll(for: self)
+        
+        AlertWindowController.destroy()
+        EditorWindowController.destroy()
     }
     
     // Shows/hides the playlist window (by delegating)

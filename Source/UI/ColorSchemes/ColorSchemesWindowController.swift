@@ -5,6 +5,7 @@ import Cocoa
  */
 class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver, Destroyable {
     
+    private static var _instance: ColorSchemesWindowController?
     static var instance: ColorSchemesWindowController {
         
         if _instance == nil {

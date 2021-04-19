@@ -50,7 +50,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     @IBOutlet weak var btnSettings: TintedImageButton!
     @IBOutlet weak var settingsBox: NSBox!
     
-    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
 //    private var gestureHandler: GestureHandler?
     

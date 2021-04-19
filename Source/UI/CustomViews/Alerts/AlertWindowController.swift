@@ -1,6 +1,22 @@
 import Cocoa
 
-class AlertWindowController: NSWindowController, ModalComponentProtocol {
+class AlertWindowController: NSWindowController, ModalComponentProtocol, Destroyable {
+    
+    private static var _instance: AlertWindowController?
+    static var instance: AlertWindowController {
+        
+        if _instance == nil {
+            _instance = AlertWindowController()
+        }
+        
+        return _instance!
+    }
+    
+    static func destroy() {
+        
+        _instance?.destroy()
+        _instance = nil
+    }
     
     override var windowNibName: String? {return "Alerts"}
     
@@ -22,7 +38,7 @@ class AlertWindowController: NSWindowController, ModalComponentProtocol {
     
     func showAlert(_ alertType: AlertType, _ title: String, _ message: String, _ info: String) {
         
-        if (!self.isWindowLoaded) {
+        if !self.isWindowLoaded {
             _ = self.window!
         }
         

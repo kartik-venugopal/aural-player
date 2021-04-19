@@ -11,7 +11,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
+    private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
     override func viewDidLoad() {
         
