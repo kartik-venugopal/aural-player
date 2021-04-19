@@ -6,10 +6,6 @@ import Cocoa
 
 class EffectsWindowController: NSWindowController, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var effectsContainerBox: NSBox!
     @IBOutlet weak var tabButtonsBox: NSBox!

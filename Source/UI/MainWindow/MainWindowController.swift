@@ -5,10 +5,6 @@ import Cocoa
  */
 class MainWindowController: NSWindowController, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     // Main application window. Contains the Now Playing info box and player controls. Not resizable.
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow
@@ -66,8 +62,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         containerBox.addSubview(playerViewController.view)
         
-        let persistentState = ObjectGraph.persistentState.ui.windowLayout
-        
         [btnQuit, btnMinimize, btnStatusBarMode].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
         
         [btnToggleEffects, btnTogglePlaylist].forEach({
@@ -77,8 +71,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         logoImage.tintFunction = {return Colors.appLogoColor}
         
-        btnToggleEffects.onIf(persistentState.showEffects)
-        btnTogglePlaylist.onIf(persistentState.showPlaylist)
+        btnToggleEffects.onIf(WindowLayoutState.showEffects)
+        btnTogglePlaylist.onIf(WindowLayoutState.showPlaylist)
         
         applyColorScheme(ColorSchemes.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius

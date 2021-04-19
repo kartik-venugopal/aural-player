@@ -159,8 +159,8 @@ class SeekSliderView: NSView, ColorSchemeable {
             
             seekTimer?.stop()
             
-            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {
-                self.updateSeekPosition()
+            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {[weak self] in
+                self?.updateSeekPosition()
             }, queue: .main)
             
             setSeekTimerState(playbackState == .playing)

@@ -43,20 +43,20 @@ class PlaybackView: NSView, ColorSchemeable {
         btnPlayPause.offStateTintFunction = onStateTintFunction
         
         // Button tool tips
-        btnPreviousTrack.toolTipFunction = {
+        btnPreviousTrack.toolTipFunction = {[weak self]
             () -> String? in
 
-            if let prevTrack = self.sequencer.peekPrevious() {
+            if let prevTrack = self?.sequencer.peekPrevious() {
                 return String(format: "Previous track: '%@'", prevTrack.displayName)
             }
 
             return nil
         }
 
-        btnNextTrack.toolTipFunction = {
+        btnNextTrack.toolTipFunction = {[weak self]
             () -> String? in
 
-            if let nextTrack = self.sequencer.peekNext() {
+            if let nextTrack = self?.sequencer.peekNext() {
                 return String(format: "Next track: '%@'", nextTrack.displayName)
             }
 

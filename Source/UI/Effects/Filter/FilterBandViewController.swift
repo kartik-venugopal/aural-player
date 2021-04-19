@@ -44,7 +44,7 @@ class FilterBandViewController: NSViewController {
     
     private func oneTimeSetup() {
         
-        freqRangeSlider.onControlChanged = {(slider: RangeSlider) -> Void in self.freqRangeChanged()}
+        freqRangeSlider.onControlChanged = {[weak self] (slider: RangeSlider) -> Void in self?.freqRangeChanged()}
         freqRangeSlider.stateFunction = filterUnit.stateFunction
         cutoffSlider.stateFunction = filterUnit.stateFunction
         

@@ -5,10 +5,6 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, NSTabViewDelegate, NotificationSubscriber, Destroyable {
     
-//    deinit {
-//        print("\nDeinited \(self.className)")
-//    }
-    
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
     
