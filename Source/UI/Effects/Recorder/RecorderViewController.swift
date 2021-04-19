@@ -3,7 +3,7 @@ import Cocoa
 /*
     View controller for the Recorder unit
  */
-class RecorderViewController: NSViewController, NotificationSubscriber {
+class RecorderViewController: NSViewController, NotificationSubscriber, Destroyable {
     
     // Recorder controls
     @IBOutlet weak var btnRecord: OnOffImageButton!
@@ -52,9 +52,13 @@ class RecorderViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .fx_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
     }
     
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
+    }
+    
     private func initControls() {
         
-        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {self.updateRecordingInfo()}, queue: .main)
+        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {[weak self] in self?.updateRecordingInfo()}, queue: .main)
         
         btnRecord.off()
         

@@ -144,6 +144,8 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     
     func destroy() {
         
+        ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController, recorderViewController] as? [Destroyable])?.forEach {$0.destroy()}
+        
         close()
         Messenger.unsubscribeAll(for: self)
     }

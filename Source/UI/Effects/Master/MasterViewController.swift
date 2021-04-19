@@ -36,9 +36,9 @@ class MasterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         
-        let auStateFunction: EffectsUnitStateFunction = {
+        let auStateFunction: EffectsUnitStateFunction = {[weak self] in
             
-            for unit in self.graph.audioUnits {
+            for unit in self?.graph.audioUnits ?? [] {
             
                 if unit.state == .active {
                     return .active

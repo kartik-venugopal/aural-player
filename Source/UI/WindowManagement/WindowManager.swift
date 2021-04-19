@@ -136,11 +136,9 @@ class WindowManager: NSObject, NSWindowDelegate {
             mainWindow.removeChildWindow(window)
         }
         
-        mainWindowController.destroy()
-        effectsWindowLoader.destroy()
-        playlistWindowLoader.destroy()
-        chaptersListWindowLoader.destroy()
-        visualizerWindowLoader.destroy()
+        ([mainWindowController, effectsWindowLoader, playlistWindowLoader, chaptersListWindowLoader, visualizerWindowLoader] as? [Destroyable])?.forEach {
+            $0.destroy()
+        }
     }
     
     // Revert to default layout if app state is corrupted

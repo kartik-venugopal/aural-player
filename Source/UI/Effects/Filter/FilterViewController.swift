@@ -15,13 +15,13 @@ class FilterViewController: FXUnitViewController {
     @IBOutlet weak var tabsBox: NSBox!
     private var tabButtons: [NSButton] = []
     private var bandControllers: [FilterBandViewController] = []
-    private var numTabs: Int {return bandControllers.count}
+    private var numTabs: Int {bandControllers.count}
     
     private var selTab: Int = -1
     
     override var nibName: String? {return "Filter"}
     
-    var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}
+    var filterUnit: FilterUnitDelegateProtocol {graph.filterUnit}
     
     var tabsShown: ClosedRange<Int> = (-1)...(-1)
     
@@ -38,7 +38,7 @@ class FilterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
 
-        let bandsDataFunction = {() -> [FilterBand] in return self.filterUnit.bands}
+        let bandsDataFunction = {[weak self] () -> [FilterBand] in return self?.filterUnit.bands ?? []}
         filterView.initialize(self.unitStateFunction, bandsDataFunction, AudioGraphFilterBandsDataSource(filterUnit))
     }
  
@@ -147,7 +147,7 @@ class FilterViewController: FXUnitViewController {
     
     private func initBandController(_ bandCon: FilterBandViewController, _ index: Int) {
         
-        bandCon.bandChangedCallback = {() -> Void in self.bandChanged()}
+        bandCon.bandChangedCallback = {[weak self] () -> Void in self?.bandChanged()}
         bandControllers.append(bandCon)
         bandCon.bandIndex = index
         

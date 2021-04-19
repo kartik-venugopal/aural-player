@@ -4,7 +4,7 @@ import AVFoundation
 /*
     View controller for the Audio Units view.
  */
-class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSubscriber {
+class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSubscriber, Destroyable {
     
     override var nibName: String? {return "AudioUnits"}
     
@@ -35,7 +35,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         
         // Subscribe to notifications
         Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
-        Messenger.subscribe(self, .auFXUnit_showEditor, {(notif: ShowAudioUnitEditorCommandNotification) in self.doEditAudioUnit(notif.audioUnit)})
+        Messenger.subscribe(self, .auFXUnit_showEditor, {[weak self] (notif: ShowAudioUnitEditorCommandNotification) in self?.doEditAudioUnit(notif.audioUnit)})
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
@@ -53,6 +53,10 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
         Messenger.subscribe(self, .playlist_changeTrackNameTextColor, self.changeAURowTextColor(_:))
         Messenger.subscribe(self, .playlist_changeTrackNameSelectedTextColor, self.changeAURowSelectedTextColor(_:))
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
 
     @IBAction func addAudioUnitAction(_ sender: Any) {
