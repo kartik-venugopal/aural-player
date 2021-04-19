@@ -10,7 +10,12 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     @IBOutlet weak var playlistViewDelegate: GroupingPlaylistViewDelegate!
     
-    var contextMenu: NSMenu!
+    var contextMenu: NSMenu! {
+        
+        didSet {
+            playlistView.menu = contextMenu
+        }
+    }
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
@@ -32,7 +37,6 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         // Enable drag n drop
         playlistView.enableDragDrop()
-        playlistView.menu = contextMenu
         
         initSubscriptions()
         

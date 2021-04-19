@@ -9,6 +9,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="PlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="infoView" destination="ywj-Sd-BS4" id="5rp-1V-t9U"/>
+                <outlet property="playbackViewController" destination="W5O-7l-xTa" id="TMN-Fg-D5p"/>
+                <outlet property="playerAudioViewController" destination="bbe-2a-cSz" id="Rfv-yV-Hba"/>
+                <outlet property="playerSequencingViewController" destination="BqW-FI-x6I" id="qB2-gn-r5p"/>
+                <outlet property="playingTrackFunctionsViewController" destination="DlG-hJ-3cs" id="eka-UM-pyy"/>
                 <outlet property="view" destination="ywj-Sd-BS4" id="jKH-HR-Rfs"/>
             </connections>
         </customObject>
@@ -184,7 +188,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="kNP-jx-l2H">
                                                                 <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <textView focusRingType="none" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="6eJ-hR-0r4">
                                                                         <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>

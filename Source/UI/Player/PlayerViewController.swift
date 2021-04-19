@@ -13,7 +13,12 @@
  */
 import Cocoa
 
-class PlayerViewController: NSViewController, NotificationSubscriber {
+class PlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
+
+    @IBOutlet weak var playbackViewController: PlaybackViewController!
+    @IBOutlet weak var playerSequencingViewController: PlayerSequencingViewController!
+    @IBOutlet weak var playerAudioViewController: PlayerAudioViewController!
+    @IBOutlet weak var playingTrackFunctionsViewController: PlayingTrackFunctionsViewController!
     
     @IBOutlet weak var infoView: PlayingTrackView!
     
@@ -66,6 +71,13 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_changeTrackInfoTertiaryTextColor, infoView.changeTertiaryTextColor(_:))
     }
     
+    func destroy() {
+        
+        ([playbackViewController, playerAudioViewController, playerSequencingViewController, playingTrackFunctionsViewController] as? [Destroyable])?.forEach {$0.destroy()}
+        
+        Messenger.unsubscribeAll(for: self)
+    }
+    
     private func trackChanged(_ track: Track?) {
         
         if let theTrack = track {
@@ -96,34 +108,5 @@ class PlayerViewController: NSViewController, NotificationSubscriber {
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         trackChanged(notification.endTrack)
-    }
-}
-
-// Encapsulates displayed information for the currently playing track.
-struct PlayingTrackInfo {
-    
-    let track: Track
-    let playingChapterTitle: String?
-    
-    init(_ track: Track, _ playingChapterTitle: String?) {
-        
-        self.track = track
-        self.playingChapterTitle = playingChapterTitle
-    }
-    
-    var art: NSImage? {
-        return track.art?.image
-    }
-    
-    var artist: String? {
-        return track.artist
-    }
-    
-    var album: String? {
-        return track.album
-    }
-    
-    var displayName: String? {
-        return track.title ?? track.defaultDisplayName
     }
 }

@@ -50,7 +50,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
     
-    private let jumpToTimeDialog: ModalDialogDelegate = WindowFactory.jumpToTimeEditorDialog
+    private lazy var jumpToTimeDialog: ModalDialogDelegate = WindowFactory.jumpToTimeEditorDialog
     
     // One-time setup
     override func awakeFromNib() {

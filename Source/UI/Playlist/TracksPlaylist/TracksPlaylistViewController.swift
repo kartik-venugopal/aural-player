@@ -7,7 +7,13 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
     
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
-    var contextMenu: NSMenu!
+    
+    var contextMenu: NSMenu! {
+        
+        didSet {
+            playlistView.menu = contextMenu
+        }
+    }
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
@@ -27,8 +33,6 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         playlistView.enableDragDrop()
         
         initSubscriptions()
-        
-        playlistView.menu = contextMenu
         
         doApplyColorScheme(ColorSchemes.systemScheme, false)
         

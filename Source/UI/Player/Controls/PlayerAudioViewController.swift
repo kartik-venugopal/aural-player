@@ -3,7 +3,7 @@
  */
 import Cocoa
 
-class PlayerAudioViewController: NSViewController, NotificationSubscriber {
+class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destroyable {
     
     // Volume/pan controls
     @IBOutlet weak var btnVolume: TintedImageButton!
@@ -68,6 +68,10 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
         Messenger.subscribe(self, .player_changeSliderValueTextColor, self.changeSliderValueTextColor(_:))
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     // Updates the volume

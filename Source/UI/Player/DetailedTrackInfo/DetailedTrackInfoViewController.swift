@@ -3,7 +3,7 @@
 */
 import Cocoa
 
-class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, NotificationSubscriber {
+class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, NotificationSubscriber, Destroyable {
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -76,6 +76,10 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
                                  filter: {msg in self.popover.isShown && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)},
                                  queue: .main)
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     static func create() -> DetailedTrackInfoViewController {

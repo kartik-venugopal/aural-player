@@ -468,7 +468,7 @@
 		3E6C133D25CEBEA700BF0D07 /* JSONWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D925CEB98700BF0D07 /* JSONWriter.swift */; };
 		3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C107A25CEB98600BF0D07 /* StopPlaybackChain.swift */; };
 		3E6C134225CEBEF500BF0D07 /* EndPlaybackSequenceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C107B25CEB98600BF0D07 /* EndPlaybackSequenceAction.swift */; };
-		3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */; };
+		3E6C136B25CEBFB900BF0D07 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* Application.xib */; };
 		3E7572F12609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572EC2609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift */; };
 		3E7572F22609E83B00CA3F85 /* MusicBrainzArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572ED2609E83B00CA3F85 /* MusicBrainzArtist.swift */; };
 		3E7572F32609E83B00CA3F85 /* MusicBrainzRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572EE2609E83B00CA3F85 /* MusicBrainzRecording.swift */; };
@@ -484,6 +484,7 @@
 		3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */; };
 		3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */; };
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
+		3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */; };
 		3E9C12112622208F00D90EA4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12102622208F00D90EA4 /* Theme.swift */; };
 		3E9C12132622216500D90EA4 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12122622216500D90EA4 /* Themes.swift */; };
 		3E9C12152622259500D90EA4 /* ThemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12142622259500D90EA4 /* ThemePreset.swift */; };
@@ -848,7 +849,7 @@
 		3E6C0FDE25CEB98600BF0D07 /* HistoryMenuControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMenuControllers.swift; sourceTree = "<group>"; };
 		3E6C0FDF25CEB98600BF0D07 /* PlaylistMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMenuController.swift; sourceTree = "<group>"; };
 		3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackMenuController.swift; sourceTree = "<group>"; };
-		3E6C0FE225CEB98600BF0D07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/\U001bMainMenu.xib"; sourceTree = "<group>"; };
+		3E6C0FE225CEB98600BF0D07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Application.xib; sourceTree = "<group>"; };
 		3E6C0FE425CEB98600BF0D07 /* AuralMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuralMenuController.swift; sourceTree = "<group>"; };
 		3E6C0FE525CEB98600BF0D07 /* ViewMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMenuController.swift; sourceTree = "<group>"; };
 		3E6C0FE625CEB98600BF0D07 /* DockMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DockMenuController.swift; sourceTree = "<group>"; };
@@ -1103,6 +1104,7 @@
 		3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralFontScheme.xib; sourceTree = "<group>"; };
 		3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
+		3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackInfo.swift; sourceTree = "<group>"; };
 		3E9C12102622208F00D90EA4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		3E9C12122622216500D90EA4 /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		3E9C12142622259500D90EA4 /* ThemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreset.swift; sourceTree = "<group>"; };
@@ -1574,6 +1576,8 @@
 		3E6C0F1A25CEB98500BF0D07 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C0FE125CEB98600BF0D07 /* Application.xib */,
+				3E6C0FDD25CEB98600BF0D07 /* Menus */,
 				3E9E58FC25DB6B150064EB5F /* AppModes */,
 				3E6C0F1D25CEB98500BF0D07 /* MainWindow */,
 				3E6C101A25CEB98600BF0D07 /* Player */,
@@ -1588,7 +1592,6 @@
 				3E6C0F9925CEB98600BF0D07 /* ColorSchemes */,
 				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
-				3E6C0FDD25CEB98600BF0D07 /* Menus */,
 				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */,
 				3E6C0F1C25CEB98500BF0D07 /* Strings.swift */,
@@ -1692,12 +1695,12 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F5825CEB98600BF0D07 /* Playlist.xib */,
+				3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */,
 				3E6C0F3C25CEB98600BF0D07 /* TracksPlaylist */,
 				3E6C0F4D25CEB98600BF0D07 /* GroupingPlaylists */,
 				3E6C0F5925CEB98600BF0D07 /* Search */,
 				3E6C0F4125CEB98600BF0D07 /* Sort */,
 				3E6C0F5F25CEB98600BF0D07 /* ChaptersList */,
-				3E6C0F5725CEB98600BF0D07 /* PlaylistWindowController.swift */,
 				3E6C0F5C25CEB98600BF0D07 /* AuralPlaylistViews.swift */,
 				3E6C0F5D25CEB98600BF0D07 /* GroupingPlaylistTableViews.swift */,
 				3E6C0F5E25CEB98600BF0D07 /* PlaylistContextMenuController.swift */,
@@ -2075,7 +2078,6 @@
 		3E6C0FDD25CEB98600BF0D07 /* Menus */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */,
 				3E6C0FDE25CEB98600BF0D07 /* HistoryMenuControllers.swift */,
 				3E6C0FDF25CEB98600BF0D07 /* PlaylistMenuController.swift */,
 				3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */,
@@ -2229,6 +2231,7 @@
 				3E6C102525CEB98600BF0D07 /* PlayingTrackSubview.swift */,
 				3E6C102725CEB98600BF0D07 /* PlayingTrackTextView.swift */,
 				3E6C102825CEB98600BF0D07 /* PlayingTrackView.swift */,
+				3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */,
 			);
 			path = PlayingTrack;
 			sourceTree = "<group>";
@@ -3200,7 +3203,7 @@
 				3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */,
 				3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */,
 				3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */,
-				3E6C136B25CEBFB900BF0D07 /* MainMenu.xib in Resources */,
+				3E6C136B25CEBFB900BF0D07 /* Application.xib in Resources */,
 				3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */,
 				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */,
@@ -3434,6 +3437,7 @@
 				3E6C11D825CEBDBE00BF0D07 /* PlaybackSegment.swift in Sources */,
 				3E6C132425CEBEA000BF0D07 /* DateUtils.swift in Sources */,
 				3E6C124B25CEBDF400BF0D07 /* GenresPlaylistSortViewController.swift in Sources */,
+				3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */,
 				3E6C121125CEBDD100BF0D07 /* HistoryPreferences.swift in Sources */,
 				3EDB345E25E8B75D004DF7DE /* AVFFileReader.swift in Sources */,
 				3E6C12AC25CEBE2700BF0D07 /* RangeSlider.swift in Sources */,
@@ -3800,12 +3804,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3E6C0FE125CEB98600BF0D07 /* MainMenu.xib */ = {
+		3E6C0FE125CEB98600BF0D07 /* Application.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				3E6C0FE225CEB98600BF0D07 /* Base */,
 			);
-			name = "\U001bMainMenu.xib";
+			name = Application.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

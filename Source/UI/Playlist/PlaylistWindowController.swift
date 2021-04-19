@@ -29,10 +29,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBOutlet weak var btnScrollToBottom: TintedImageButton!
     
     // The different playlist views
-    private lazy var tracksView: NSView = ViewFactory.tracksView
-    private lazy var artistsView: NSView = ViewFactory.artistsView
-    private lazy var albumsView: NSView = ViewFactory.albumsView
-    private lazy var genresView: NSView = ViewFactory.genresView
+    private let tracksViewController: TracksPlaylistViewController = TracksPlaylistViewController()
+    private let artistsViewController: ArtistsPlaylistViewController = ArtistsPlaylistViewController()
+    private let albumsViewController: AlbumsPlaylistViewController = AlbumsPlaylistViewController()
+    private let genresViewController: GenresPlaylistViewController = GenresPlaylistViewController()
     
     @IBOutlet weak var contextMenu: NSMenu!
     
@@ -98,7 +98,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     // Initialize all the tab views (and select the one preferred by the user)
     private func setUpTabGroup() {
         
-        let allViews = [tracksView, artistsView, albumsView, genresView]
+        let allViews = [tracksViewController, artistsViewController, albumsViewController, genresViewController].map {$0.view}
         
         tabGroup.addViewsForTabs(allViews)
         [1, 2, 3, 0].forEach({tabGroup.selectTabViewItem(at: $0)})
@@ -113,6 +113,9 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         }
         
         tabGroup.delegate = self
+        
+        tracksViewController.contextMenu = self.contextMenu
+        [artistsViewController, albumsViewController, genresViewController].forEach {$0.contextMenu = self.contextMenu}
     }
     
     private func initSubscriptions() {

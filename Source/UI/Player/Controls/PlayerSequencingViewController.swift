@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlayerSequencingViewController: NSViewController, NotificationSubscriber {
+class PlayerSequencingViewController: NSViewController, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
@@ -42,6 +42,10 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     // Toggles the repeat mode

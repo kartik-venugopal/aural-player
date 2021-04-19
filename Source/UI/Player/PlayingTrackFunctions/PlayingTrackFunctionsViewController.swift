@@ -6,7 +6,7 @@ import Cocoa
  
     Also handles such requests from app menus.
  */
-class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscriber {
+class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscriber, Destroyable {
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
@@ -66,6 +66,10 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
         
         self.view.hide()
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     private func moreInfo() {

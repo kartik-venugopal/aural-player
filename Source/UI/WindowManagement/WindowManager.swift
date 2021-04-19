@@ -28,7 +28,7 @@ class WindowManager: NSObject, NSWindowDelegate {
     let mainWindow: NSWindow
     
     // Load these optional windows only if/when needed
-    private lazy var effectsWindowLoader: LazyWindowLoader<EffectsWindowController> = LazyWindowLoader()
+    private var effectsWindowLoader: LazyWindowLoader<EffectsWindowController> = LazyWindowLoader()
     private lazy var _effectsWindow: NSWindow = {[weak self] in
         
         effectsWindowLoader.window.delegate = self
@@ -37,7 +37,7 @@ class WindowManager: NSObject, NSWindowDelegate {
     
     var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
 
-    private lazy var playlistWindowLoader: LazyWindowLoader<PlaylistWindowController> = LazyWindowLoader()
+    private var playlistWindowLoader: LazyWindowLoader<PlaylistWindowController> = LazyWindowLoader()
     private lazy var _playlistWindow: NSWindow = {[weak self] in
         
         playlistWindowLoader.window.delegate = self

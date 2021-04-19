@@ -5,47 +5,6 @@ import Cocoa
  */
 struct ViewFactory {
     
-    fileprivate struct PlayerViews {
-        
-        fileprivate static let rootViewController: PlayerViewController = PlayerViewController()
-    }
-    
-    // Sub-views for the different individual effects units displayed on the Effects panel
-    fileprivate struct EffectsViews {
-        
-        fileprivate static let masterViewController: MasterViewController = MasterViewController()
-        
-        fileprivate static let eqViewController: EQViewController = EQViewController()
-        
-        fileprivate static let pitchViewController: PitchViewController = PitchViewController()
-        
-        fileprivate static let timeViewController: TimeViewController = TimeViewController()
-        
-        fileprivate static let reverbViewController: ReverbViewController = ReverbViewController()
-        
-        fileprivate static let delayViewController: DelayViewController = DelayViewController()
-        
-        fileprivate static let filterViewController: FilterViewController = FilterViewController()
-        
-        fileprivate static let auViewController: AudioUnitsViewController = AudioUnitsViewController()
-        
-        fileprivate static let recorderViewController: RecorderViewController = RecorderViewController()
-    }
-    
-    // Sub-views for the different individual playlist views displayed in the playlist window's tab group
-    fileprivate struct PlaylistViews {
-        
-        fileprivate static let tracksViewController: TracksPlaylistViewController = TracksPlaylistViewController()
-        
-        fileprivate static let artistsViewController: ArtistsPlaylistViewController = ArtistsPlaylistViewController()
-        
-        fileprivate static let albumsViewController: AlbumsPlaylistViewController = AlbumsPlaylistViewController()
-        
-        fileprivate static let genresViewController: GenresPlaylistViewController = GenresPlaylistViewController()
-        
-        fileprivate static let contextMenuController: PlaylistContextMenuController = PlaylistContextMenuController()
-    }
-    
     // Sub-views for the different individual playlist views displayed in the playlist window's tab group
     fileprivate struct PreferencesViews {
         
@@ -120,80 +79,7 @@ struct ViewFactory {
     static var statusBarViewController: StatusBarViewController = {
         StatusBarViewController()
     }()
-    
-    // Returns the view that displays the player
-    static var playerView: NSView {
-        return PlayerViews.rootViewController.view
-    }
-    
-    // Returns the view that displays the Equalizer effects unit
-    static var masterView: NSView {
-        return EffectsViews.masterViewController.view
-    }
-    
-    // Returns the view that displays the Equalizer effects unit
-    static var eqView: NSView {
-        return EffectsViews.eqViewController.view
-    }
-    
-    // Returns the view that displays the Pitch effects unit
-    static var pitchView: NSView {
-        return EffectsViews.pitchViewController.view
-    }
-    
-    // Returns the view that displays the Time effects unit
-    static var timeView: NSView {
-        return EffectsViews.timeViewController.view
-    }
-    
-    // Returns the view that displays the Reverb effects unit
-    static var reverbView: NSView {
-        return EffectsViews.reverbViewController.view
-    }
-    
-    // Returns the view that displays the Delay effects unit
-    static var delayView: NSView {
-        return EffectsViews.delayViewController.view
-    }
-    
-    // Returns the view that displays the Filter effects unit
-    static var filterView: NSView {
-        return EffectsViews.filterViewController.view
-    }
-    
-    static var auView: NSView {
-        return EffectsViews.auViewController.view
-    }
-    
-    // Returns the view that displays the Recorder unit
-    static var recorderView: NSView {
-        return EffectsViews.recorderViewController.view
-    }
-    
-    // Returns the "Tracks" playlist view
-    static var tracksView: NSView {
-        return PlaylistViews.tracksViewController.view
-    }
-    
-    // Returns the "Artists" playlist view
-    static var artistsView: NSView {
-        return PlaylistViews.artistsViewController.view
-    }
-    
-    // Returns the "Albums" playlist view
-    static var albumsView: NSView {
-        return PlaylistViews.albumsViewController.view
-    }
-    
-    // Returns the "Genres" playlist view
-    static var genresView: NSView {
-        return PlaylistViews.genresViewController.view
-    }
-    
-    static var contextMenu: NSMenu {
-        return PlaylistViews.contextMenuController.contextMenu
-    }
-    
+   
     static var detailedTrackInfoPopover: PopoverViewDelegate {
         return PopoverViews.detailedTrackInfoPopover
     }

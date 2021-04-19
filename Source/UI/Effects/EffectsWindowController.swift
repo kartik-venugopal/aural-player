@@ -15,16 +15,16 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     @IBOutlet weak var tabButtonsBox: NSBox!
 
     // The constituent sub-views, one for each effects unit
-
-    private let masterView: NSView = ViewFactory.masterView
-    private let eqView: NSView = ViewFactory.eqView
-    private let pitchView: NSView = ViewFactory.pitchView
-    private let timeView: NSView = ViewFactory.timeView
-    private let reverbView: NSView = ViewFactory.reverbView
-    private let delayView: NSView = ViewFactory.delayView
-    private let filterView: NSView = ViewFactory.filterView
-    private let auView: NSView = ViewFactory.auView
-    private let recorderView: NSView = ViewFactory.recorderView
+    
+    private let masterViewController: MasterViewController = MasterViewController()
+    private let eqViewController: EQViewController = EQViewController()
+    private let pitchViewController: PitchViewController = PitchViewController()
+    private let timeViewController: TimeViewController = TimeViewController()
+    private let reverbViewController: ReverbViewController = ReverbViewController()
+    private let delayViewController: DelayViewController = DelayViewController()
+    private let filterViewController: FilterViewController = FilterViewController()
+    private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
+    private let recorderViewController: RecorderViewController = RecorderViewController()
 
     // Tab view and its buttons
 
@@ -75,16 +75,11 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     }
 
     private func addSubViews() {
-
-        fxTabView.tabViewItem(at: 0).view?.addSubview(masterView)
-        fxTabView.tabViewItem(at: 1).view?.addSubview(eqView)
-        fxTabView.tabViewItem(at: 2).view?.addSubview(pitchView)
-        fxTabView.tabViewItem(at: 3).view?.addSubview(timeView)
-        fxTabView.tabViewItem(at: 4).view?.addSubview(reverbView)
-        fxTabView.tabViewItem(at: 5).view?.addSubview(delayView)
-        fxTabView.tabViewItem(at: 6).view?.addSubview(filterView)
-        fxTabView.tabViewItem(at: 7).view?.addSubview(auView)
-        fxTabView.tabViewItem(at: 8).view?.addSubview(recorderView)
+        
+        for (index, viewController) in [masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController, recorderViewController].enumerated() {
+            
+            fxTabView.tabViewItem(at: index).view?.addSubview(viewController.view)
+        }
 
         fxTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, auTabViewButton, recorderTabViewButton]
         

@@ -4,7 +4,7 @@
  */
 import Cocoa
 
-class PlaybackViewController: NSViewController, NotificationSubscriber {
+class PlaybackViewController: NSViewController, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var playbackView: PlaybackView!
     
@@ -58,6 +58,10 @@ class PlaybackViewController: NSViewController, NotificationSubscriber {
         Messenger.subscribe(self, .player_changeSliderValueTextColor, playbackView.changeSliderValueTextColor(_:))
         
         trackChanged(player.playingTrack)
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
