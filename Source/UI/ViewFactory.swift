@@ -25,11 +25,6 @@ struct ViewFactory {
     
     fileprivate struct PopoverViews {
         
-        // The view that displays detailed track information, when requested by the user
-        fileprivate static var detailedTrackInfoPopover: PopoverViewDelegate = {
-            return DetailedTrackInfoViewController.create()
-        }()
-        
         // The view that displays a brief info message when a track is added to or removed from Favorites
         fileprivate static var infoPopup: InfoPopupViewController = {
             return InfoPopupViewController.create()
@@ -79,10 +74,6 @@ struct ViewFactory {
     static var statusBarViewController: StatusBarViewController = {
         StatusBarViewController()
     }()
-   
-    static var detailedTrackInfoPopover: PopoverViewDelegate {
-        return PopoverViews.detailedTrackInfoPopover
-    }
     
     static var infoPopup: InfoPopupProtocol {
         return PopoverViews.infoPopup

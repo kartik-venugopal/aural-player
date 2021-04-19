@@ -5,9 +5,9 @@ import Cocoa
  */
 class PlaylistWindowController: NSWindowController, NSTabViewDelegate, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
+//    deinit {
+//        print("\nDeinited \(self.className)")
+//    }
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
@@ -174,6 +174,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     func destroy() {
+        
+        ([tracksViewController, artistsViewController, albumsViewController, genresViewController] as? [Destroyable])?.forEach {$0.destroy()}
         
         close()
         Messenger.unsubscribeAll(for: self)

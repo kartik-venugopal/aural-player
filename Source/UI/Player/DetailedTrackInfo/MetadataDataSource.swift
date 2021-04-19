@@ -5,6 +5,10 @@ import Cocoa
  */
 class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
+    
     // The table view that displays the track info
     @IBOutlet weak var table: NSTableView! {
         
@@ -104,9 +108,13 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
 }
 
 // Place to hold a reference to the trackInfoView object (used in DetailedTrackInfoRowView class)
-class TrackInfoViewHolder {
+class TrackInfoViewHolder: Destroyable {
     
     static var tablesMap: [TrackInfoTab: NSTableView] = [:]
+    
+    static func destroy() {
+        tablesMap.removeAll()
+    }
 }
 
 enum TrackInfoTab {

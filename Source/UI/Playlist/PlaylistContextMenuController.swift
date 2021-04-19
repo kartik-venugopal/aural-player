@@ -41,7 +41,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private var groupMenuItems: [NSMenuItem] = []
     
     // Popover view that displays detailed info for the selected track
-    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
+    private lazy var detailedInfoPopover: DetailedTrackInfoViewController = DetailedTrackInfoViewController.instance
     
     // Popup view that displays a brief notification when a selected track is added/removed to/from the Favorites list
     private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
@@ -148,7 +148,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         guard let theClickedTrack = clickedTrack else {return}
         
-        DetailedTrackInfoViewController.attachedToPlayer = false
+        detailedInfoPopover.attachedToPlayer = false
         
         trackReader.loadAuxiliaryMetadata(for: theClickedTrack)
         

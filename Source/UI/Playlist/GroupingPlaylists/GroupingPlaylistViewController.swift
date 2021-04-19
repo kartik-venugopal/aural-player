@@ -3,7 +3,11 @@ import Cocoa
 /*
     Base view controller for the hierarchical/grouping ("Artists", "Albums", and "Genres") playlist views
  */
-class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
+class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, Destroyable {
+    
+//    deinit {
+//        print("\nDeinited \(self.className)")
+//    }
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
@@ -113,6 +117,10 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .playlist_changePlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
         Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     override func viewDidAppear() {

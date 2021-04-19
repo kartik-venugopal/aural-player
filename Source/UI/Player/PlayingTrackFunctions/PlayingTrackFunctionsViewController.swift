@@ -8,6 +8,10 @@ import Cocoa
  */
 class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscriber, Destroyable {
     
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
+    
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
     
@@ -31,7 +35,13 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     private lazy var trackReader: TrackReader = ObjectGraph.trackReader
     
     // Popover view that displays detailed info for the currently playing track
-    private lazy var detailedInfoPopover: PopoverViewDelegate = ViewFactory.detailedTrackInfoPopover
+    private lazy var detailedInfoPopover: DetailedTrackInfoViewController = {
+        
+        detailedInfoPopoverLoaded = true
+        return DetailedTrackInfoViewController.instance
+    }()
+    
+    private var detailedInfoPopoverLoaded: Bool = false
     
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
@@ -69,6 +79,8 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     }
     
     func destroy() {
+        
+        DetailedTrackInfoViewController.destroy()
         Messenger.unsubscribeAll(for: self)
     }
     
@@ -88,7 +100,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
                 
             } else {
                 
-                DetailedTrackInfoViewController.attachedToPlayer = true
+                detailedInfoPopover.attachedToPlayer = true
                 
                 // TODO: This should be done through a delegate (TrackDelegate ???)
                 trackReader.loadAuxiliaryMetadata(for: playingTrack)
@@ -238,7 +250,10 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     }
     
     private func noTrackPlaying() {
-        detailedInfoPopover.close()
+        
+        if detailedInfoPopoverLoaded {
+            detailedInfoPopover.close()
+        }
     }
     
     private func trackChanged(_ newTrack: Track?) {
@@ -247,7 +262,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             
             newTrackStarted(theNewTrack)
             
-            if detailedInfoPopover.isShown, DetailedTrackInfoViewController.attachedToPlayer {
+            if detailedInfoPopoverLoaded && detailedInfoPopover.isShown && detailedInfoPopover.attachedToPlayer {
                 
                 trackReader.loadAuxiliaryMetadata(for: theNewTrack)
                 detailedInfoPopover.refresh(theNewTrack)

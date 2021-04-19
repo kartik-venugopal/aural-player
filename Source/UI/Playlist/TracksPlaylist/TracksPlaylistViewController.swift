@@ -3,7 +3,11 @@ import Cocoa
 /*
     View controller for the flat ("Tracks") playlist view
  */
-class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
+class TracksPlaylistViewController: NSViewController, NotificationSubscriber, Destroyable {
+    
+//    deinit {
+//        print("\nDeinited \(self.className)")
+//    }
     
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
@@ -96,6 +100,10 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber {
         
         Messenger.subscribe(self, .playlist_changePlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
         Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     private var selectedRows: IndexSet {playlistView.selectedRowIndexes}

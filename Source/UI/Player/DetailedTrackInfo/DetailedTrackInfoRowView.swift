@@ -43,7 +43,7 @@ class DetailedTrackInfoRowView: NSTableRowView {
     
     private func createCell(_ id: String, _ text: String, _ alignment: NSTextAlignment?) -> NSTableCellView? {
         
-        if let cell = TrackInfoViewHolder.tablesMap[tableId!]!.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: id), owner: nil) as? NSTableCellView {
+        if let cell = TrackInfoViewHolder.tablesMap[tableId!]?.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: id), owner: nil) as? NSTableCellView {
             
             cell.textField?.stringValue = text
             

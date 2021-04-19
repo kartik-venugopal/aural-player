@@ -5,6 +5,39 @@ import Cocoa
 
 class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, NotificationSubscriber, Destroyable {
     
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
+    
+    private static var _instance: DetailedTrackInfoViewController?
+    static var instance: DetailedTrackInfoViewController {
+        
+        if _instance == nil {
+            _instance = create()
+        }
+        
+        return _instance!
+    }
+    
+    private static func create() -> DetailedTrackInfoViewController {
+        
+        let controller = DetailedTrackInfoViewController()
+        
+        let popover = NSPopover()
+        popover.behavior = .semitransient
+        popover.contentViewController = controller
+        
+        controller.popover = popover
+        
+        return controller
+    }
+    
+    static func destroy() {
+        
+        _instance?.destroy()
+        _instance = nil
+    }
+    
     // The actual popover that is shown
     private var popover: NSPopover!
     
@@ -21,6 +54,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     @IBOutlet weak var lyricsView: NSTextView! {
         
         didSet {
+            
             lyricsView.font = Fonts.Standard.mainFont_13
             lyricsView.alignment = .center
             lyricsView.backgroundColor = Colors.popoverBackgroundColor
@@ -47,10 +81,11 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     @IBOutlet weak var fileSystemTable: NSTableView!
     
     // Temporary holder for the currently shown track
+    // TODO: Replace this static var with messaging: trackShown(track)
     static var shownTrack: Track?
     
     // Whether or not this popover is currently displayed attached to the player (false if attached to playlist).
-    static var attachedToPlayer: Bool = true
+    var attachedToPlayer: Bool = true
     
     // Popover positioning parameters
     private let positioningRect = NSZeroRect
@@ -74,25 +109,20 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         // Only respond to these notifications when the popover is shown, the updated track matches the displayed track,
         // and the album art field of the track was updated.
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
-                                 filter: {msg in self.popover.isShown && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)},
+                                 filter: {[weak self] msg in (self?.popover.isShown ?? false) && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)},
                                  queue: .main)
     }
     
     func destroy() {
+        
         Messenger.unsubscribeAll(for: self)
-    }
-    
-    static func create() -> DetailedTrackInfoViewController {
         
-        let controller = DetailedTrackInfoViewController()
+        close()
         
-        let popover = NSPopover()
-        popover.behavior = .semitransient
-        popover.contentViewController = controller
+        popover.contentViewController = nil
+        self.popover = nil
         
-        controller.popover = popover
-        
-        return controller
+        TrackInfoViewHolder.destroy()
     }
     
     // Called each time the popover is shown ... refreshes the data in the table view depending on which track is currently playing

@@ -1715,8 +1715,8 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F4025CEB98600BF0D07 /* Tracks.xib */,
-				3E6C0F3D25CEB98600BF0D07 /* TracksPlaylistViewDelegate.swift */,
 				3E6C0F3E25CEB98600BF0D07 /* TracksPlaylistViewController.swift */,
+				3E6C0F3D25CEB98600BF0D07 /* TracksPlaylistViewDelegate.swift */,
 				3E6C0F3F25CEB98600BF0D07 /* TracksPlaylistViewDataSource.swift */,
 			);
 			path = TracksPlaylist;

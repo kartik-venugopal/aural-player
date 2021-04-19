@@ -3,6 +3,15 @@ import Cocoa
 protocol Destroyable {
     
     func destroy()
+    
+    static func destroy()
+}
+
+extension Destroyable {
+    
+    func destroy() {}
+    
+    static func destroy() {}
 }
 
 class WindowManager: NSObject, NSWindowDelegate {
