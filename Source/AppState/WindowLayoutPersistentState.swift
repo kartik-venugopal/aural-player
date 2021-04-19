@@ -112,21 +112,25 @@ extension WindowLayoutState {
         
         let uiState = WindowLayoutPersistentState()
         
-        // TODO: Use WindowLayoutState here, and in WindowManager, transfer info to WindowLayoutState before destroy()
-        
-        uiState.showEffects = WindowManager.instance.isShowingEffects
-        uiState.showPlaylist = WindowManager.instance.isShowingPlaylist
-
-        uiState.mainWindowOrigin = WindowManager.instance.mainWindow.origin
-
-        if uiState.showEffects, let effectsWindow = WindowManager.instance.effectsWindow {
-            uiState.effectsWindowOrigin = effectsWindow.origin
+        if let windowManager = WindowManager.instance {
+            
+            uiState.showEffects = windowManager.isShowingEffects
+            uiState.showPlaylist = windowManager.isShowingPlaylist
+            
+            uiState.mainWindowOrigin = windowManager.mainWindowFrame.origin
+            uiState.effectsWindowOrigin = windowManager.effectsWindow?.origin
+            uiState.playlistWindowFrame = windowManager.playlistWindow?.frame
+            
+        } else {
+            
+            uiState.showEffects = WindowLayoutState.showEffects
+            uiState.showPlaylist = WindowLayoutState.showPlaylist
+            
+            uiState.mainWindowOrigin = WindowLayoutState.mainWindowOrigin
+            uiState.effectsWindowOrigin = WindowLayoutState.effectsWindowOrigin
+            uiState.playlistWindowFrame = WindowLayoutState.playlistWindowFrame
         }
-        
-        if uiState.showPlaylist, let playlistWindow = WindowManager.instance.playlistWindow {
-            uiState.playlistWindowFrame = playlistWindow.frame
-        }
-        
+
         uiState.userLayouts = WindowLayouts.userDefinedLayouts
         
         return uiState

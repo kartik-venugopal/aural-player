@@ -144,6 +144,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
             self?.updateSeekPosition()
         }, queue: .main)
         
+        btnPlayPause.onIf(player.state == .playing)
         updateTrackInfo()
     }
     

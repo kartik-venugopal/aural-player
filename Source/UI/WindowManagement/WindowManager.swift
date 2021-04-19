@@ -141,6 +141,15 @@ class WindowManager: NSObject, NSWindowDelegate {
     
     func destroy() {
         
+        // Before destroying this instance, transfer its state info to WindowLayoutState.
+        
+        WindowLayoutState.showEffects = isShowingEffects
+        WindowLayoutState.showPlaylist = isShowingPlaylist
+        
+        WindowLayoutState.mainWindowOrigin = mainWindow.origin
+        WindowLayoutState.playlistWindowFrame = playlistWindow?.frame
+        WindowLayoutState.effectsWindowOrigin = effectsWindow?.origin
+        
         for window in mainWindow.childWindows ?? [] {
             mainWindow.removeChildWindow(window)
         }
