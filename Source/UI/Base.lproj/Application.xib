@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
+            <connections>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+                <outlet property="dockMenu" destination="7lR-jg-Hrh" id="0Wa-a8-QGX"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="29W-IU-ITu" customClass="DockMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="favoritesMenu" destination="WRB-ga-QzB" id="mFI-MZ-xYg"/>
+                <outlet property="favoritesMenuItem" destination="I89-DR-v3r" id="1HH-Sx-7rx"/>
+                <outlet property="recentlyPlayedMenu" destination="aSw-mI-3ut" id="3Cf-Ir-DJz"/>
+                <outlet property="repeatAllMenuItem" destination="0zK-7w-8z4" id="gRt-Im-ymR"/>
+                <outlet property="repeatOffMenuItem" destination="pxm-4j-4jw" id="PhF-dS-I4b"/>
+                <outlet property="repeatOneMenuItem" destination="x3D-4c-i0o" id="YMR-Ju-ZaC"/>
+                <outlet property="shuffleOffMenuItem" destination="ZUr-qq-9e4" id="vAp-hn-aAd"/>
+                <outlet property="shuffleOnMenuItem" destination="GtC-65-0P7" id="tDz-zo-aD0"/>
+            </connections>
+        </customObject>
+        <menu id="7lR-jg-Hrh" userLabel="Dock Menu">
+            <items>
+                <menuItem title="Recently played" id="SXx-y5-6Um" userLabel="Recently played">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Recently played" id="aSw-mI-3ut"/>
+                </menuItem>
+                <menuItem title="Favorites" id="yx1-0C-wVJ" userLabel="Favorites">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Favorites" id="WRB-ga-QzB"/>
+                </menuItem>
+                <menuItem title="Add playing track to Favorites" id="I89-DR-v3r" userLabel="Add track to favorites" customClass="ToggleMenuItem" customModule="Aural" customModuleProvider="target">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTitle" value="Add playing track to Favorites"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTitle" value="Remove playing track from Favorites"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="favoritesAction:" target="29W-IU-ITu" id="CDH-ow-dfV"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="C2z-jB-bGV"/>
+                <menuItem title="Play / Pause" id="haA-Vb-9QH">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playOrPauseAction:" target="29W-IU-ITu" id="3I0-ka-dGb"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Stop" id="hc1-22-4pF">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="stopAction:" target="29W-IU-ITu" id="3Lu-7i-g1n"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Replay current track" id="xaX-37-oif" userLabel="Replay current track">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="replayTrackAction:" target="29W-IU-ITu" id="maR-Bc-sWa"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Previous track" id="p99-Ng-Iu1" userLabel="Previous track">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="previousTrackAction:" target="29W-IU-ITu" id="qq2-mO-H2q"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Next track" id="b4G-JT-u6L" userLabel="Next track">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="nextTrackAction:" target="29W-IU-ITu" id="bhi-kB-c0l"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Seek backward" id="nyw-QG-ObJ" userLabel="Seek backward">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="seekBackwardAction:" target="29W-IU-ITu" id="78D-yE-0z8"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Seek forward" id="gmg-BK-hzJ" userLabel="Seek forward">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="seekForwardAction:" target="29W-IU-ITu" id="wUK-ur-vj2"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="dwA-R8-e0L"/>
+                <menuItem title="Repeat Mode" id="stj-Uf-Zis" userLabel="Repeat Mode">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Repeat Mode" id="Y9I-m1-Aag">
+                        <items>
+                            <menuItem title="Off" id="pxm-4j-4jw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="repeatOffAction:" target="29W-IU-ITu" id="9Jm-z8-qiz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Repeat One" id="x3D-4c-i0o">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="repeatOneAction:" target="29W-IU-ITu" id="w8i-fA-T3g"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Repeat All" id="0zK-7w-8z4">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="repeatAllAction:" target="29W-IU-ITu" id="9HT-pl-3FS"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                        <connections>
+                            <outlet property="delegate" destination="29W-IU-ITu" id="5ax-zm-jM0"/>
+                        </connections>
+                    </menu>
+                </menuItem>
+                <menuItem title="Shuffle Mode" id="uAL-uJ-rZ8" userLabel="Shuffle Mode">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Shuffle Mode" id="NFN-sY-o1g">
+                        <items>
+                            <menuItem title="Off" id="ZUr-qq-9e4" userLabel="Shuffle Off">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="shuffleOffAction:" target="29W-IU-ITu" id="9gw-AL-05m"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="On" id="GtC-65-0P7" userLabel="Shuffle On">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="shuffleOnAction:" target="29W-IU-ITu" id="mfV-2i-whg"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                        <connections>
+                            <outlet property="delegate" destination="29W-IU-ITu" id="VvB-1c-izJ"/>
+                        </connections>
+                    </menu>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="WpM-FZ-MLT"/>
+                <menuItem title="Mute / Unmute" id="TUt-R6-cKe">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="muteOrUnmuteAction:" target="29W-IU-ITu" id="f9J-yg-4PC"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Decrease Volume" id="cCz-MH-bwI" userLabel="Decrease Volume">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="decreaseVolumeAction:" target="29W-IU-ITu" id="LxI-Rf-Wzk"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Increase Volume" id="gVF-PB-pgp" userLabel="Increase Volume">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="increaseVolumeAction:" target="29W-IU-ITu" id="rzM-Wd-pQ0"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="29W-IU-ITu" id="wEj-32-cNV"/>
+            </connections>
+            <point key="canvasLocation" x="169" y="822"/>
+        </menu>
+    </objects>
+</document>

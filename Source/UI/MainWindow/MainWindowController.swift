@@ -19,7 +19,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     // The box that encloses the Now Playing info section
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var containerBox: NSBox!
-    private lazy var playerView: NSView = ViewFactory.playerView
+    
+    private let playerViewController: PlayerViewController = PlayerViewController()
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
@@ -32,6 +33,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     @IBOutlet weak var settingsMenuIconItem: TintedIconMenuItem!
     
+    @IBOutlet weak var mainMenu: NSMenu!
+    
     private var eventMonitor: Any?
     
     private var gestureHandler: GestureHandler!
@@ -39,6 +42,10 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     override var windowNibName: String? {return "MainWindow"}
     
     // MARK: Setup
+    
+    override func awakeFromNib() {
+        NSApp.mainMenu = self.mainMenu
+    }
     
     // One-time setup
     override func windowDidLoad() {
@@ -57,7 +64,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         theWindow.isMovableByWindowBackground = true
         theWindow.makeKeyAndOrderFront(self)
         
-        addSubViews()
+        containerBox.addSubview(playerViewController.view)
         
         let persistentState = ObjectGraph.persistentState.ui.windowLayout
         
@@ -84,11 +91,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
             
             btnSettingsMenu.setFrameOrigin(frame.origin)
         }
-    }
-    
-    // Add the sub-views that make up the main window
-    private func addSubViews() {
-        containerBox.addSubview(playerView)
     }
     
     private func activateGestureHandler() {
@@ -119,6 +121,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     }
     
     func destroy() {
+        
+        playerViewController.destroy()
         
         close()
         Messenger.unsubscribeAll(for: self)

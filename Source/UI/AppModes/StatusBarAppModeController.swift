@@ -44,10 +44,6 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
             self.statusItem = nil
         }
     }
-    
-    func registerConstituentView(_ view: ConstituentView) {
-        
-    }
 }
 
 protocol StatusBarMenuObserver {

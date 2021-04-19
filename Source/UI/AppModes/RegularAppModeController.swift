@@ -3,21 +3,22 @@ import Cocoa
 class RegularAppModeController: AppModeController {
     
     var mode: AppMode {return .regular}
-//    private var constituentViews: [ConstituentView] = []
     
     func presentMode() {
         
         NSApp.setActivationPolicy(.regular)
+        
         WindowManager.createInstance(preferences: ObjectGraph.preferences.viewPreferences)
         WindowManager.instance.loadWindows()
+        
+        // TODO: Here, set the main menu
+        
         NSApplication.shared.activate(ignoringOtherApps: true)
     }
     
     func dismissMode() {
+        
         WindowManager.destroyInstance()
-    }
-    
-    func registerConstituentView(_ view: ConstituentView) {
-//        constituentViews.append(view)
+        NSApp.mainMenu = nil
     }
 }
