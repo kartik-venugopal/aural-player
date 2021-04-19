@@ -5,7 +5,7 @@ import Cocoa
  */
 class AuralMenuController: NSObject {
     
-    private lazy var preferencesDialog: ModalDialogDelegate = WindowFactory.preferencesDialog
+    private lazy var preferencesDialogLoader: LazyWindowLoader<PreferencesWindowController> = LazyWindowLoader()
     
     private lazy var aboutDialog: AboutDialogController = AboutDialogController()
     
@@ -15,7 +15,7 @@ class AuralMenuController: NSObject {
     
     // Presents the Preferences modal dialog
     @IBAction func preferencesAction(_ sender: Any) {
-        _ = preferencesDialog.showDialog()
+        _ = preferencesDialogLoader.controller.showDialog()
     }
     
     // Hides the app
@@ -26,5 +26,9 @@ class AuralMenuController: NSObject {
     // Quits the app
     @IBAction func quitAction(_ sender: AnyObject) {
         NSApp.terminate(self)
+    }
+    
+    deinit {
+        preferencesDialogLoader.destroy()
     }
 }

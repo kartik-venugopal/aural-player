@@ -26,9 +26,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     override var nibName: String? {return "AlbumsPlaylistSort"}
     
-    var sortView: NSView {
-        return self.view
-    }
+    var sortView: NSView {view}
     
     var playlistType: PlaylistType {.albums}
     
@@ -40,15 +38,13 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
         tracksSortToggleAction(self)
     }
     
-    @IBAction func groupsSortToggleAction(_ sender: Any) {
-    }
+    @IBAction func groupsSortToggleAction(_ sender: Any) {}
     
     @IBAction func groupsSortFieldAction(_ sender: Any) {}
     
     @IBAction func groupsSortOrderAction(_ sender: Any) {}
     
-    @IBAction func tracksSortToggleAction(_ sender: Any) {
-    }
+    @IBAction func tracksSortToggleAction(_ sender: Any) {}
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}
     

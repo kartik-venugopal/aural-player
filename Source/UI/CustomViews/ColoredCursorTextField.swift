@@ -9,8 +9,9 @@ class ColoredCursorTextField: NSTextField {
         
         // Change the cursor color
         
-        let fieldEditor = self.window!.fieldEditor(true, for: self) as! NSTextView
-        fieldEditor.insertionPointColor = Colors.textFieldCursorColor
+        if let fieldEditor = self.window?.fieldEditor(true, for: self) as? NSTextView {
+            fieldEditor.insertionPointColor = Colors.textFieldCursorColor
+        }
     }
 }
 

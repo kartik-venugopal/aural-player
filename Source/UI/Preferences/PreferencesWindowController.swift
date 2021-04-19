@@ -3,7 +3,7 @@ import Cocoa
 /*
     Window controller for the preferences dialog
  */
-class PreferencesWindowController: NSWindowController, ModalDialogDelegate {
+class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Destroyable {
     
     @IBOutlet weak var tabView: AuralTabView!
     

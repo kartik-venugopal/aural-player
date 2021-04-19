@@ -46,15 +46,13 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
         tracksSortToggleAction(self)
     }
     
-    @IBAction func groupsSortToggleAction(_ sender: Any) {
-    }
+    @IBAction func groupsSortToggleAction(_ sender: Any) {}
     
     @IBAction func groupsSortFieldAction(_ sender: Any) {}
     
     @IBAction func groupsSortOrderAction(_ sender: Any) {}
     
-    @IBAction func tracksSortToggleAction(_ sender: Any) {
-    }
+    @IBAction func tracksSortToggleAction(_ sender: Any) {}
     
     @IBAction func tracksSortScopeAction(_ sender: Any) {}
     

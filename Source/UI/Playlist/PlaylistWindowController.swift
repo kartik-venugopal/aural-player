@@ -43,10 +43,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBOutlet weak var progressSpinner: NSProgressIndicator!
     
     // Search dialog
-    private lazy var playlistSearchDialog: ModalDialogDelegate = WindowFactory.playlistSearchDialog
+    private lazy var playlistSearchDialogLoader: LazyWindowLoader<PlaylistSearchWindowController> = LazyWindowLoader()
     
     // Sort dialog
-    private lazy var playlistSortDialog: ModalDialogDelegate = WindowFactory.playlistSortDialog
+    private lazy var playlistSortDialogLoader: LazyWindowLoader<PlaylistSortWindowController> = LazyWindowLoader()
     
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
@@ -172,6 +172,9 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     func destroy() {
         
         ([tracksViewController, artistsViewController, albumsViewController, genresViewController] as? [Destroyable])?.forEach {$0.destroy()}
+        
+        playlistSearchDialogLoader.destroy()
+        playlistSortDialogLoader.destroy()
         
         close()
         Messenger.unsubscribeAll(for: self)
@@ -344,7 +347,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     private func search() {
-        _ = playlistSearchDialog.showDialog()
+        _ = playlistSearchDialogLoader.controller.showDialog()
     }
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
@@ -355,7 +358,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private func sort() {
         
         if !checkIfPlaylistIsBeingModified() {
-            _ = playlistSortDialog.showDialog()
+            _ = playlistSortDialogLoader.controller.showDialog()
         }
     }
     

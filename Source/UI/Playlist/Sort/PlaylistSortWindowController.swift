@@ -3,7 +3,11 @@ import Cocoa
 /*
     Window controller for the playlist sort dialog
  */
-class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate {
+class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     @IBOutlet weak var container: NSBox!
     

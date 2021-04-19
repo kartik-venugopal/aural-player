@@ -3,7 +3,11 @@ import Cocoa
 /*
     Window controller for the playlist search dialog
  */
-class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, NotificationSubscriber {
+class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, NotificationSubscriber, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     @IBOutlet weak var searchField: ColoredCursorSearchField!
     
@@ -43,6 +47,10 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
         
         Messenger.subscribe(self, .playlist_searchTextChanged, self.searchTextChanged(_:))
         WindowManager.instance.registerModalComponent(self)
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     var isModal: Bool {self.window?.isVisible ?? false}

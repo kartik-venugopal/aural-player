@@ -7,6 +7,10 @@ import Cocoa
  */
 class PlaybackMenuController: NSObject, NSMenuDelegate {
     
+    deinit {
+        jumpToTimeDialogLoader.destroy()
+    }
+    
     // Menu items whose states are toggled when they (or others) are clicked
     
     @IBOutlet weak var playOrPauseMenuItem: NSMenuItem!     // Needs to be toggled
@@ -50,7 +54,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
     
-    private lazy var jumpToTimeDialog: ModalDialogDelegate = WindowFactory.jumpToTimeEditorDialog
+    private lazy var jumpToTimeDialogLoader: LazyWindowLoader<JumpToTimeEditorWindowController> = LazyWindowLoader()
     
     // One-time setup
     override func awakeFromNib() {
@@ -176,7 +180,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func jumpToTimeAction(_ sender: AnyObject) {
-        _ = jumpToTimeDialog.showDialog()
+        _ = jumpToTimeDialogLoader.controller.showDialog()
     }
     
     // MARK: Repeat and Shuffle

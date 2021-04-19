@@ -1,6 +1,10 @@
 import Cocoa
 
-class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscriber, ModalDialogDelegate {
+class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscriber, ModalDialogDelegate, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     override var windowNibName: String? {return "JumpToTimeEditorDialog"}
     
@@ -29,36 +33,41 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
     
     override func windowDidLoad() {
         
-        secondsFormatter.valueFunction = {
+        secondsFormatter.valueFunction = {[weak self]
             () -> String in
             
-            return String(describing: self.secondsStepper.doubleValue)
+            return String(describing: self?.secondsStepper.doubleValue ?? 0)
         }
         
-        secondsFormatter.updateFunction = {
+        secondsFormatter.updateFunction = {[weak self]
             (_ value: Double) in
             
-            self.secondsStepper.doubleValue = value
+            self?.secondsStepper.doubleValue = value
         }
         
-        percentageFormatter.valueFunction = {
+        percentageFormatter.valueFunction = {[weak self]
             () -> String in
             
-            return String(describing: self.percentageStepper.doubleValue)
+            return String(describing: self?.percentageStepper.doubleValue ?? 0)
         }
         
-        percentageFormatter.updateFunction = {
+        percentageFormatter.updateFunction = {[weak self]
             (_ value: Double) in
             
-            self.percentageStepper.doubleValue = value
+            self?.percentageStepper.doubleValue = value
         }
         
         percentageFormatter.maxValue = 100
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
-                                 filter: {msg in self.window?.isVisible ?? false},
+                                 filter: {[weak self] msg in self?.window?.isVisible ?? false},
                                  queue: .main)
+        
         WindowManager.instance.registerModalComponent(self)
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     var isModal: Bool {
