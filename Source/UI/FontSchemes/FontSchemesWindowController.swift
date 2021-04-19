@@ -3,7 +3,23 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system color scheme to be edited.
  */
-class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
+class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver, Destroyable {
+    
+    private static var _instance: FontSchemesWindowController?
+    static var instance: FontSchemesWindowController {
+        
+        if _instance == nil {
+            _instance = FontSchemesWindowController()
+        }
+        
+        return _instance!
+    }
+    
+    static func destroy() {
+        
+        _instance?.destroy()
+        _instance = nil
+    }
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -43,8 +59,8 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         tabView.addViewsForTabs(subViews.map {$0.fontSchemesView})
         
         // Register an observer that updates undo/redo button states whenever the history changes.
-        history.changeListener = {
-            self.updateButtonStates()
+        history.changeListener = {[weak self] in
+            self?.updateButtonStates()
         }
 
         // Register self as a modal component
@@ -175,7 +191,8 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         // Recreate the user-defined scheme items
         FontSchemes.userDefinedSchemes.forEach({
             
-            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.loadSchemeAction(_:)), keyEquivalent: "")
+            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.loadSchemeAction(_:)),
+                                              keyEquivalent: "")
             item.target = self
             item.indentationLevel = 1
             

@@ -5,7 +5,11 @@ import Cocoa
  */
 class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-    private lazy var fontSchemesDialog: ModalDialogDelegate = WindowFactory.fontSchemesDialog
+    deinit {
+        FontSchemesWindowController.destroy()
+    }
+    
+    private lazy var editorDialogController: FontSchemesWindowController = FontSchemesWindowController.instance
     
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -53,7 +57,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
     }
     
     @IBAction func customizeFontSchemeAction(_ sender: NSMenuItem) {
-        _ = fontSchemesDialog.showDialog()
+        _ = editorDialogController.showDialog()
     }
     
     @IBAction func saveSchemeAction(_ sender: NSMenuItem) {

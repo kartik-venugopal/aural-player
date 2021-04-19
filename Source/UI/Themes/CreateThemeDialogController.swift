@@ -1,6 +1,22 @@
 import Cocoa
 
-class CreateThemeDialogController: NSWindowController, StringInputReceiver, ModalDialogDelegate {
+class CreateThemeDialogController: NSWindowController, StringInputReceiver, ModalDialogDelegate, Destroyable {
+    
+    private static var _instance: CreateThemeDialogController?
+    static var instance: CreateThemeDialogController {
+        
+        if _instance == nil {
+            _instance = CreateThemeDialogController()
+        }
+        
+        return _instance!
+    }
+    
+    static func destroy() {
+        
+        _instance?.destroy()
+        _instance = nil
+    }
     
     override var windowNibName: NSNib.Name? {"CreateTheme"}
     

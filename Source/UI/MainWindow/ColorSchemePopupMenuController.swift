@@ -5,7 +5,11 @@ import Cocoa
  */
 class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-    private lazy var colorsDialog: ModalDialogDelegate = WindowFactory.colorSchemesDialog
+    deinit {
+        ColorSchemesWindowController.destroy()
+    }
+    
+    private lazy var editorDialogController: ColorSchemesWindowController = ColorSchemesWindowController.instance
     
     private lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -53,7 +57,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     }
     
     @IBAction func customizeSchemeAction(_ sender: NSMenuItem) {
-        _ = colorsDialog.showDialog()
+        _ = editorDialogController.showDialog()
     }
     
     @IBAction func saveSchemeAction(_ sender: NSMenuItem) {

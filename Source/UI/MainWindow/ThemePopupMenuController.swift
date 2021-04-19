@@ -5,7 +5,11 @@ import Cocoa
  */
 class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-    private lazy var createThemeDialog: ModalDialogDelegate = WindowFactory.createThemeDialog
+    deinit {
+        CreateThemeDialogController.destroy()
+    }
+    
+    private lazy var createThemeDialogController: CreateThemeDialogController = CreateThemeDialogController.instance
     private lazy var userThemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
     private lazy var editorWindowController: EditorWindowController = WindowFactory.editorWindowController
@@ -56,7 +60,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     }
     
     @IBAction func createThemeAction(_ sender: NSMenuItem) {
-        _ = createThemeDialog.showDialog()
+        _ = createThemeDialogController.showDialog()
     }
     
     @IBAction func manageThemesAction(_ sender: NSMenuItem) {

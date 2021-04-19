@@ -3,7 +3,22 @@ import Cocoa
 /*
     Controller for the color scheme editor panel that allows the current system color scheme to be edited.
  */
-class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver {
+class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver, Destroyable {
+    
+    static var instance: ColorSchemesWindowController {
+        
+        if _instance == nil {
+            _instance = ColorSchemesWindowController()
+        }
+        
+        return _instance!
+    }
+    
+    static func destroy() {
+        
+        _instance?.destroy()
+        _instance = nil
+    }
     
     @IBOutlet weak var tabView: AuralTabView!
     
@@ -54,21 +69,23 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         NSColorPanel.shared.showsAlpha = false
         
         // Register an observer that updates undo/redo button states whenever the history changes.
-        history.changeListener = {
-            self.updateButtonStates()
+        history.changeListener = {[weak self] in
+            self?.updateButtonStates()
         }
         
         // Set up an observer that responds whenever the clipboard color is changed (so that the UI can be updated accordingly)
-        clipboard.colorChangeCallback = {
+        clipboard.colorChangeCallback = {[weak self] in
             
-            if let color = self.clipboard.color {
+            guard let nonNilSelf = self else {return}
+            
+            if let color = nonNilSelf.clipboard.color {
                 
-                self.clipboardColorViewer.color = color
-                [self.clipboardIcon, self.clipboardColorViewer].forEach({$0?.show()})
+                nonNilSelf.clipboardColorViewer.color = color
+                [nonNilSelf.clipboardIcon, nonNilSelf.clipboardColorViewer].forEach {$0?.show()}
                 
             } else {
                 
-                [self.clipboardIcon, self.clipboardColorViewer].forEach({$0?.hide()})
+                [nonNilSelf.clipboardIcon, nonNilSelf.clipboardColorViewer].forEach {$0?.hide()}
             }
         }
         
