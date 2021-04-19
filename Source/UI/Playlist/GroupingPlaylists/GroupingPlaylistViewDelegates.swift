@@ -80,7 +80,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.playlistType = self.playlistType
         cell.item = track
         cell.isGroup = false
-        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
+        cell.rowSelectionStateFunction = {[weak outlineView] in
+            
+            if let theOutlineView = outlineView {
+                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: track))
+            }
+            
+            return false
+        }
         
         cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
@@ -104,7 +111,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.playlistType = self.playlistType
         cell.item = track
         cell.isGroup = false
-        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: track))}
+        cell.rowSelectionStateFunction = {[weak outlineView] in
+            
+            if let theOutlineView = outlineView {
+                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: track))
+            }
+            
+            return false
+        }
         
         cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, ValueFormatter.formatSecondsToHMS(track.duration))
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
@@ -120,7 +134,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.playlistType = self.playlistType
         cell.item = group
         cell.isGroup = true
-        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
+        cell.rowSelectionStateFunction = {[weak outlineView] in
+            
+            if let theOutlineView = outlineView {
+                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: group))
+            }
+            
+            return false
+        }
             
         cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
@@ -139,7 +160,14 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.playlistType = self.playlistType
         cell.item = group
         cell.isGroup = true
-        cell.rowSelectionStateFunction = {outlineView.selectedRowIndexes.contains(outlineView.row(forItem: group))}
+        cell.rowSelectionStateFunction = {[weak outlineView] in
+            
+            if let theOutlineView = outlineView {
+                return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: group))
+            }
+            
+            return false
+        }
         
         cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, ValueFormatter.formatSecondsToHMS(group.duration))
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)

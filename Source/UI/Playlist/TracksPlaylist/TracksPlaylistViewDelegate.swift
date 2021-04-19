@@ -69,7 +69,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
      
         guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
         
-        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, text)
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
@@ -80,7 +80,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_index, owner: nil) as? IndexCellView else {return nil}
             
-        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateImage(image)
         
         return cell
@@ -90,7 +90,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_trackName, owner: nil) as? TrackNameCellView else {return nil}
             
-        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, text)
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
@@ -101,7 +101,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_duration, owner: nil) as? DurationCellView else {return nil}
         
-        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        cell.rowSelectionStateFunction = {[weak tableView] in tableView?.selectedRowIndexes.contains(row) ?? false}
         cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, text)
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         

@@ -7,12 +7,12 @@ class PlaylistViewState {
     static var current: PlaylistType = .tracks
     
     // The current playlist view displayed within the playlist tab group
-    static var currentView: NSTableView!
+    static weak var currentView: NSTableView!
     
-    static var chaptersListView: NSTableView!
+    static weak var chaptersListView: NSTableView!
     
     // The playlist view that was clicked. Will be nil initially.
-    private static var _clickedView: NSTableView?
+    private static weak var _clickedView: NSTableView?
     
     // The playlist item that was clicked. Will be nil initially.
     private static var _clickedItem: SelectedPlaylistItem?

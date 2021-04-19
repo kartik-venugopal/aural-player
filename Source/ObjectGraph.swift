@@ -6,7 +6,6 @@ import Foundation
 
 class ObjectGraph {
     
-    static var persistentState: PersistentAppState!
     static var preferences: Preferences!
     
     static var preferencesDelegate: PreferencesDelegate!
@@ -67,7 +66,7 @@ class ObjectGraph {
         
         // Load persistent app state from disk
         // Use defaults if app state could not be loaded from disk
-        persistentState = AppStateIO.load() ?? PersistentAppState.defaults
+        let persistentState: PersistentAppState = AppStateIO.load() ?? PersistentAppState.defaults
         
         // Preferences (and delegate)
         preferences = Preferences.instance
@@ -149,7 +148,7 @@ class ObjectGraph {
         bookmarksDelegate = BookmarksDelegate(bookmarks, playlistDelegate, playbackDelegate, persistentState.bookmarks)
         
         favorites = Favorites()
-        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, persistentState!.favorites)
+        favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, persistentState.favorites)
         
         mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
         
@@ -209,6 +208,7 @@ class ObjectGraph {
     static func tearDown() {
         
         // Gather all pieces of persistent state into the persistentState object
+        let persistentState: PersistentAppState = PersistentAppState()
         
         persistentState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
         
@@ -238,7 +238,7 @@ class ObjectGraph {
         
         // App state persistence to disk
         tearDownOpQueue.addOperation {
-            AppStateIO.save(persistentState!)
+            AppStateIO.save(persistentState)
         }
 
         // Tear down the audio engine

@@ -12,8 +12,6 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber, 
     // Delegate that conveys all repeat/shuffle requests to the sequencer
     private let sequencer: SequencerDelegateProtocol = ObjectGraph.sequencerDelegate
     
-    private let persistentState: PlayerUIState = ObjectGraph.persistentState.ui.player
-    
     override func viewDidLoad() {
         
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
