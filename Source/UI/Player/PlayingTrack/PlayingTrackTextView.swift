@@ -268,27 +268,27 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 class StatusBarPlayingTrackTextView: PlayingTrackTextView {
     
     override var titleFont: NSFont {
-        Fonts.Standard.mainFont_14
+        Fonts.Standard.mainFont_13
     }
     
     override var artistAlbumFont: NSFont {
-        Fonts.Standard.mainFont_12
-    }
-    
-    override var chapterTitleFont: NSFont {
         Fonts.Standard.mainFont_11
     }
     
+    override var chapterTitleFont: NSFont {
+        Fonts.Standard.mainFont_10
+    }
+    
     override var titleColor: NSColor {
-        .white
+        Colors.Constants.white80Percent
     }
     
     override var artistAlbumColor: NSColor {
-        Colors.Constants.white90Percent
+        Colors.Constants.white70Percent
     }
     
     override var chapterTitleColor: NSColor {
-        Colors.Constants.white80Percent
+        Colors.Constants.white60Percent
     }
     
     override var shouldShowArtist: Bool {

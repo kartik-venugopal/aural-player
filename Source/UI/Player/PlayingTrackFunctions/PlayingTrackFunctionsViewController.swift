@@ -8,10 +8,6 @@ import Cocoa
  */
 class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!
     

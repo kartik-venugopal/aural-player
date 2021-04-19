@@ -71,10 +71,6 @@ struct ViewFactory {
         fileprivate static let effectsColorSchemeViewController: EffectsColorSchemeViewController = EffectsColorSchemeViewController()
     }
     
-    static var statusBarViewController: StatusBarViewController = {
-        StatusBarViewController()
-    }()
-    
     static var infoPopup: InfoPopupProtocol {
         return PopoverViews.infoPopup
     }

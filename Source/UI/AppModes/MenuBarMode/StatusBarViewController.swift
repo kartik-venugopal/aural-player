@@ -1,7 +1,7 @@
 import Cocoa
 
-class StatusBarViewController: NSViewController, StatusBarMenuObserver, NotificationSubscriber {
-    
+class StatusBarViewController: NSViewController, StatusBarMenuObserver, NotificationSubscriber, Destroyable {
+
     override var nibName: String? {return "StatusBar"}
     
     @IBOutlet weak var appLogo: TintedImageView!
@@ -52,8 +52,6 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     
     private lazy var alertDialog: AlertWindowController = WindowFactory.alertWindowController
     
-    private var globalMouseClickMonitor: GlobalMouseClickMonitor!
-
 //    private var gestureHandler: GestureHandler?
     
     // Delegate that conveys all playback requests to the player / playback sequencer
@@ -75,10 +73,10 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         btnLoop.switchState(LoopState.none)
 
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
-        let offStateTintFunction = {NSColor.black}
+        let offStateTintFunction = {Colors.Constants.white40Percent}
         
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
-        let onStateTintFunction = {Colors.Constants.white80Percent}
+        let onStateTintFunction = {Colors.Constants.white70Percent}
         
         btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeatOff, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeatAll, onStateTintFunction))]
 
@@ -96,27 +94,27 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         btnPlayPause.offStateTintFunction = onStateTintFunction
         
         // Button tool tips
-        btnPreviousTrack.toolTipFunction = {() -> String? in
+        btnPreviousTrack.toolTipFunction = {[weak self] () -> String? in
 
-            if let prevTrack = self.sequencer.peekPrevious() {
+            if let prevTrack = self?.sequencer.peekPrevious() {
                 return String(format: "Previous track: '%@'", prevTrack.displayName)
             }
 
             return nil
         }
         
-        btnNextTrack.toolTipFunction = {() -> String? in
+        btnNextTrack.toolTipFunction = {[weak self] () -> String? in
 
-            if let nextTrack = self.sequencer.peekNext() {
+            if let nextTrack = self?.sequencer.peekNext() {
                 return String(format: "Next track: '%@'", nextTrack.displayName)
             }
 
             return nil
         }
         
-        [btnClose, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach {$0?.tintFunction = {Colors.Constants.white80Percent}}
+        [btnClose, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
         
-        appLogo.tintFunction = {Colors.Constants.white80Percent}
+        appLogo.tintFunction = {Colors.Constants.white70Percent}
 
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         
@@ -131,6 +129,10 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
     }
     
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
+    }
+    
     override func viewDidLoad() {
         
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
@@ -138,8 +140,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         volumeSlider.floatValue = audioGraph.volume
         volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
         
-        seekTimer = RepeatingTaskExecutor(intervalMillis: 500, task: {
-            self.updateSeekPosition()
+        seekTimer = RepeatingTaskExecutor(intervalMillis: 500, task: {[weak self] in
+            self?.updateSeekPosition()
         }, queue: .main)
         
         updateTrackInfo()
@@ -195,18 +197,18 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     // This only occurs when the currently playing track actually has chapters.
     private func beginPollingForChapterChange() {
         
-        SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
+        SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {[weak self] () -> Void in
             
-            let playingChapter: IndexedChapter? = self.player.playingChapter
+            guard let nonNilSelf = self else {return}
+            
+            let playingChapter: IndexedChapter? = nonNilSelf.player.playingChapter
             
             // Compare the current chapter with the last known value of current chapter
-            if self.curChapter != playingChapter {
-                
-                guard let theTrack = self.player.playingTrack else {return}
+            if nonNilSelf.curChapter != playingChapter, let theTrack = nonNilSelf.player.playingTrack {
                 
                 // There has been a change ... notify observers and update the variable
-                self.trackInfoView.trackInfo = PlayingTrackInfo(theTrack, playingChapter?.chapter.title)
-                self.curChapter = playingChapter
+                nonNilSelf.trackInfoView.trackInfo = PlayingTrackInfo(theTrack, playingChapter?.chapter.title)
+                nonNilSelf.curChapter = playingChapter
             }
         })
     }
@@ -224,6 +226,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     func previousTrack() {
         
         player.previousTrack()
+        btnPlayPause.onIf(player.state == .playing)
         updateTrackInfo()
     }
     
@@ -235,6 +238,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     func nextTrack() {
         
         player.nextTrack()
+        btnPlayPause.onIf(player.state == .playing)
         updateTrackInfo()
     }
     
@@ -424,27 +428,16 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         settingsBox.showIf(settingsBox.isHidden)
     }
     
-    func statusBarMenuClosed() {
+    func statusBarMenuOpened() {
         settingsBox.hideIfShown()
     }
     
-    func statusBarMenuOpened() {}
+    func statusBarMenuClosed() {}
     
     // MARK: Message handling
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
-        
         updateTrackInfo()
-        
-        if let newTrack = notification.endTrack {
-            
-            let userNotification = NSUserNotification()
-            userNotification.informativeText = newTrack.displayName
-            userNotification.contentImage = newTrack.art?.image
-            userNotification.soundName = .none
-            
-            NSUserNotificationCenter.default.deliver(userNotification)
-        }
     }
     
     // When track info for the playing track changes, display fields need to be updated
@@ -481,63 +474,4 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     @IBAction func quitAction(_ sender: AnyObject) {
         NSApp.terminate(self)
     }
-
-    func popoverDidShow(_ notification: Notification) {
-
-        NSApp.activate(ignoringOtherApps: true)
-        globalMouseClickMonitor.start()
-    }
-
-    func popoverDidClose(_ notification: Notification) {
-        globalMouseClickMonitor.stop()
-    }
-
-    var subscriberId: String {
-        return self.className
-    }
 }
-
-fileprivate class GlobalMouseClickMonitor {
-
-    private var monitor: Any?
-    private let mask: NSEvent.EventTypeMask
-    private let handler: (NSEvent?) -> Void
-
-    public init(_ mask: NSEvent.EventTypeMask, _ handler: @escaping (NSEvent?) -> Void) {
-        self.mask = mask
-        self.handler = handler
-    }
-
-    deinit {
-        stop()
-    }
-
-    public func start() {
-
-        if (monitor == nil) {
-            monitor = NSEvent.addGlobalMonitorForEvents(matching: mask, handler: handler)
-        }
-    }
-
-    public func stop() {
-
-        if monitor != nil {
-            NSEvent.removeMonitor(monitor!)
-            monitor = nil
-        }
-    }
-}
-
-//
-//        globalMouseClickMonitor = GlobalMouseClickMonitor([.leftMouseDown, .rightMouseDown], {(event: NSEvent!) -> Void in
-//
-//            // If window is non-nil, it means it's the popover window (first time after launching)
-//            if event.window == nil {
-//                self.close()
-//            }
-//        })
-//
-////        SyncMessenger.subscribe(messageTypes: [.appResignedActiveNotification], subscriber: self)
-//
-//        NSApp.unhide(self)
-//    }

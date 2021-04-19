@@ -5,9 +5,12 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
     var mode: AppMode {return .statusBar}
 
     private var statusItem: NSStatusItem?
-    private lazy var statusBarViewController: StatusBarViewController = ViewFactory.statusBarViewController
+    
+    private var controller: StatusBarViewController!
     
     func presentMode() {
+        
+        controller = StatusBarViewController()
         
         NSApp.setActivationPolicy(.accessory)
         
@@ -17,7 +20,7 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
         let menu = NSMenu()
         
         let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-        menuItem.view = statusBarViewController.view
+        menuItem.view = controller.view
         
         menu.addItem(menuItem)
         menu.delegate = self
@@ -26,14 +29,16 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
     }
     
     func menuDidClose(_ menu: NSMenu) {
-        statusBarViewController.statusBarMenuClosed()
+        controller?.statusBarMenuClosed()
     }
     
     func menuWillOpen(_ menu: NSMenu) {
-        statusBarViewController.statusBarMenuOpened()
+        controller.statusBarMenuOpened()
     }
     
     func dismissMode() {
+        
+        controller.destroy()
      
         if let statusItem = self.statusItem {
             
@@ -43,6 +48,8 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
             NSStatusBar.system.removeStatusItem(statusItem)
             self.statusItem = nil
         }
+        
+        controller = nil
     }
 }
 
@@ -50,4 +57,9 @@ protocol StatusBarMenuObserver {
     
     func statusBarMenuOpened()
     func statusBarMenuClosed()
+}
+
+class SBMenuItem: NSMenuItem {
+    
+//    override func 
 }
