@@ -254,6 +254,7 @@ class Messenger {
             let observer = subscriptionsForSubscriber[notifName] {
             
             notifCtr.removeObserver(observer)
+            subscriptions[subscriber.subscriberId]?.removeValue(forKey: notifName)
         }
     }
     
@@ -269,6 +270,8 @@ class Messenger {
             for observer in subscriptionsForSubscriber.values {
                 notifCtr.removeObserver(observer)
             }
+            
+            subscriptions.removeValue(forKey: subscriber.subscriberId)
         }
     }
     

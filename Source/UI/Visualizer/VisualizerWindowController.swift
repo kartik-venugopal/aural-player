@@ -3,7 +3,11 @@ import AVFoundation
 
 let visualizationAnalysisBufferSize: Int = 2048
 
-class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverProtocol, NSWindowDelegate {
+class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverProtocol, NSWindowDelegate, NotificationSubscriber, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     override var windowNibName: String? {return "Visualizer"}
     
@@ -44,15 +48,16 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         supernovaMenuItem.representedObject = VisualizationType.supernova
         discoBallMenuItem.representedObject = VisualizationType.discoBall
         
-        NotificationCenter.default.addObserver(forName: Notification.Name("showOptions"), object: nil, queue: nil, using: {_ in
-            self.optionsBox.show()
-        })
-        
-        NotificationCenter.default.addObserver(forName: Notification.Name("hideOptions"), object: nil, queue: nil, using: {_ in
-            self.optionsBox.hide()
-        })
-        
         allViews = [spectrogram, supernova, discoBall]
+        
+        Messenger.subscribe(self, .visualizer_showOptions, self.showOptions)
+        Messenger.subscribe(self, .visualizer_hideOptions, self.hideOptions)
+    }
+    
+    func destroy() {
+        
+        close()
+        Messenger.unsubscribeAll(for: self)
     }
     
     override func showWindow(_ sender: Any?) {
@@ -68,6 +73,8 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         initUI(type: VisualizerViewState.type, lowAmplitudeColor: VisualizerViewState.options.lowAmplitudeColor, highAmplitudeColor: VisualizerViewState.options.highAmplitudeColor)
         
         audioGraph.registerRenderObserver(self)
+        
+        window?.orderFront(self)
     }
     
     private func initUI(type: VisualizationType, lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
@@ -145,6 +152,14 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     // TODO
     func deviceSampleRateChanged(newSampleRate: Double) {
 //        NSLog("**** Device SR changed: \(newSampleRate)")
+    }
+    
+    private func showOptions() {
+        self.optionsBox.show()
+    }
+    
+    private func hideOptions() {
+        self.optionsBox.hide()
     }
     
     @IBAction func setColorsAction(_ sender: NSColorWell) {

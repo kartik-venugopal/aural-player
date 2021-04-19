@@ -8,8 +8,8 @@ class VisualizerContainer: NSBox {
         
         self.removeAllTrackingAreas()
         self.updateTrackingAreas()
-        
-        NotificationCenter.default.post(name: Notification.Name("hideOptions"), object: nil)
+
+        Messenger.publish(.visualizer_hideOptions)
     }
     
     // Signals the view to start tracking mouse movements.
@@ -33,10 +33,10 @@ class VisualizerContainer: NSBox {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        NotificationCenter.default.post(name: Notification.Name("showOptions"), object: nil)
+        Messenger.publish(.visualizer_showOptions)
     }
     
     override func mouseExited(with event: NSEvent) {
-        NotificationCenter.default.post(name: Notification.Name("hideOptions"), object: nil)
+        Messenger.publish(.visualizer_hideOptions)
     }
 }

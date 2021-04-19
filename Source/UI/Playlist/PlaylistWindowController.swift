@@ -3,7 +3,11 @@ import Cocoa
 /*
     Window controller for the playlist window.
  */
-class PlaylistWindowController: NSWindowController, NSTabViewDelegate, NotificationSubscriber {
+class PlaylistWindowController: NSWindowController, NSTabViewDelegate, NotificationSubscriber, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var playlistContainerBox: NSBox!
@@ -91,12 +95,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         initSubscriptions()
     }
     
-    func destroy() {
-        
-        self.window?.isReleasedWhenClosed = true
-        self.window?.close()
-    }
-    
     // Initialize all the tab views (and select the one preferred by the user)
     private func setUpTabGroup() {
         
@@ -170,6 +168,12 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         Messenger.subscribe(self, .changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
         
         Messenger.subscribe(self, .playlist_changeSummaryInfoColor, self.changeSummaryInfoColor(_:))
+    }
+    
+    func destroy() {
+        
+        close()
+        Messenger.unsubscribeAll(for: self)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {

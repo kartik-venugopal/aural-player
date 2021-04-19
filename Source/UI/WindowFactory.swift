@@ -5,14 +5,6 @@ import Cocoa
  */
 class WindowFactory {
     
-    private static var mainWindowController: MainWindowController = MainWindowController()
-    
-    private static var effectsWindowController: EffectsWindowController = EffectsWindowController()
-    
-    private static var playlistWindowController: PlaylistWindowController = PlaylistWindowController()
-    
-    private static let chaptersListWindowController: ChaptersListWindowController = ChaptersListWindowController()
-    
     static var editorWindowController: EditorWindowController = EditorWindowController()
     
     private static var preferencesWindowController: PreferencesWindowController = PreferencesWindowController()
@@ -32,27 +24,6 @@ class WindowFactory {
     static var alertWindowController: AlertWindowController = AlertWindowController()
     
     // MARK: Accessor functions for the different windows/dialogs
-    
-    static var mainWindow: NSWindow {
-        return mainWindowController.window!
-    }
-    
-    static var effectsWindow: NSWindow {
-        return effectsWindowController.window!
-    }
-    
-    // Returns the playlist window
-    static var playlistWindow: NSWindow {
-        return playlistWindowController.window!
-    }
-    
-    static var chaptersListWindow: NSWindow {
-        return chaptersListWindowController.window!
-    }
-    
-    static var playlistContextMenu: NSMenu {
-        return playlistWindowController.contextMenu
-    }
     
     // Returns the preferences modal dialog
     static var preferencesDialog: ModalDialogDelegate {

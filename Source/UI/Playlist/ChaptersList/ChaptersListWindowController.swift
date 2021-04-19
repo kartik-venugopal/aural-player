@@ -4,7 +4,11 @@ import Cocoa
     Window controller for the Chapters list window.
     Contains the Chapters list view and performs window snapping.
  */
-class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
+class ChaptersListWindowController: NSWindowController, NotificationSubscriber, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     @IBOutlet weak var rootContainerBox: NSBox!
     
@@ -39,5 +43,11 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber {
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
         rootContainerBox.cornerRadius = radius
+    }
+    
+    func destroy() {
+        
+        close()
+        Messenger.unsubscribeAll(for: self)
     }
 }

@@ -1,5 +1,10 @@
 import Cocoa
 
+protocol Destroyable {
+    
+    func destroy()
+}
+
 class WindowManager: NSObject, NSWindowDelegate {
     
     private static var _instance: WindowManager?
@@ -23,53 +28,36 @@ class WindowManager: NSObject, NSWindowDelegate {
     let mainWindow: NSWindow
     
     // Load these optional windows only if/when needed
-    private var effectsWindowLoaded: Bool = false
-    private lazy var effectsWindowController: EffectsWindowController = {
+    private lazy var effectsWindowLoader: LazyWindowLoader<EffectsWindowController> = LazyWindowLoader()
+    private lazy var _effectsWindow: NSWindow = {[weak self] in
         
-        effectsWindowLoaded = true
-        
-        let controller = EffectsWindowController()
-        controller.window!.delegate = self
-        
-        return controller
+        effectsWindowLoader.window.delegate = self
+        return effectsWindowLoader.window
     }()
-    private lazy var _effectsWindow: NSWindow = effectsWindowController.window!
-    var effectsWindow: NSWindow? {effectsWindowLoaded ? _effectsWindow : nil}
-
-    private var playlistWindowLoaded: Bool = false
-    private lazy var playlistWindowController: PlaylistWindowController = {
-
-        playlistWindowLoaded = true
-        
-        let controller = PlaylistWindowController()
-        controller.window!.delegate = self
-        
-        return controller
-    }()
-    private lazy var _playlistWindow: NSWindow = playlistWindowController.window!
-    var playlistWindow: NSWindow? {playlistWindowLoaded ? _playlistWindow : nil}
     
-    // Helps with lazy loading of chapters list window
-    private var chaptersListWindowLoaded: Bool = false
+    var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
 
-    private lazy var chaptersListWindowController: ChaptersListWindowController = {
-
-        chaptersListWindowLoaded = true
-        let controller = ChaptersListWindowController()
-        controller.window!.delegate = self
+    private lazy var playlistWindowLoader: LazyWindowLoader<PlaylistWindowController> = LazyWindowLoader()
+    private lazy var _playlistWindow: NSWindow = {[weak self] in
         
-        return controller
+        playlistWindowLoader.window.delegate = self
+        return playlistWindowLoader.window
     }()
-    private lazy var _chaptersListWindow: NSWindow = WindowFactory.chaptersListWindow
-    var chaptersListWindow: NSWindow? {chaptersListWindowLoaded ? _chaptersListWindow : nil}
     
-    private var visualizerWindowLoaded: Bool = false
-    lazy var visualizerWindowController: VisualizerWindowController = {
+    var playlistWindow: NSWindow? {playlistWindowLoader.windowLoaded ? _playlistWindow : nil}
+
+    private lazy var chaptersListWindowLoader: LazyWindowLoader<ChaptersListWindowController> = LazyWindowLoader()
+    private lazy var _chaptersListWindow: NSWindow = {[weak self] in
         
-        visualizerWindowLoaded = true
-        return VisualizerWindowController()
+        chaptersListWindowLoader.window.delegate = self
+        return chaptersListWindowLoader.window
     }()
-    lazy var visualizerWindow: NSWindow = visualizerWindowController.window!
+    var chaptersListWindow: NSWindow? {chaptersListWindowLoader.windowLoaded ? _chaptersListWindow : nil}
+    
+    private lazy var visualizerWindowLoader: LazyWindowLoader<VisualizerWindowController> = LazyWindowLoader()
+    private lazy var _visualizerWindow: NSWindow = visualizerWindowLoader.window
+    
+    var visualizerWindow: NSWindow? {visualizerWindowLoader.windowLoaded ? _visualizerWindow : nil}
     
 //    private var onTop: Bool = false
     
@@ -105,8 +93,6 @@ class WindowManager: NSObject, NSWindowDelegate {
             
         } else {
             
-            // TODO: Improve the logic for defaultLayout ... maybe do a guard check at the beginning to see if defaultLayout is required ???
-            
             // Remember from last app launch
             mainWindow.setFrameOrigin(WindowLayoutState.mainWindowOrigin)
             mainWindow.show()
@@ -116,12 +102,13 @@ class WindowManager: NSObject, NSWindowDelegate {
                 mainWindow.addChildWindow(_effectsWindow, ordered: NSWindow.OrderingMode.below)
                 
                 if let effectsWindowOrigin = WindowLayoutState.effectsWindowOrigin {
+                    
                     _effectsWindow.setFrameOrigin(effectsWindowOrigin)
+                    _effectsWindow.show()
+                    
                 } else {
                     defaultLayout()
                 }
-                
-                _effectsWindow.show()
             }
             
             if WindowLayoutState.showPlaylist {
@@ -129,12 +116,13 @@ class WindowManager: NSObject, NSWindowDelegate {
                 mainWindow.addChildWindow(_playlistWindow, ordered: NSWindow.OrderingMode.below)
                 
                 if let playlistWindowFrame = WindowLayoutState.playlistWindowFrame {
+                    
                     _playlistWindow.setFrame(playlistWindowFrame, display: true)
+                    _playlistWindow.show()
+                    
                 } else {
                     defaultLayout()
                 }
-                
-                _playlistWindow.show()
             }
             
             mainWindow.makeKeyAndOrderFront(self)
@@ -144,11 +132,15 @@ class WindowManager: NSObject, NSWindowDelegate {
     
     func destroy() {
         
-        for window in [mainWindow, effectsWindow, playlistWindow, chaptersListWindow, visualizerWindow].compactMap({$0}) {
-            
-            window.isReleasedWhenClosed = true
-            window.close()
+        for window in mainWindow.childWindows ?? [] {
+            mainWindow.removeChildWindow(window)
         }
+        
+        mainWindowController.destroy()
+        effectsWindowLoader.destroy()
+        playlistWindowLoader.destroy()
+        chaptersListWindowLoader.destroy()
+        visualizerWindowLoader.destroy()
     }
     
     // Revert to default layout if app state is corrupted
@@ -196,16 +188,16 @@ class WindowManager: NSObject, NSWindowDelegate {
     }
     
     var isShowingEffects: Bool {
-        return effectsWindowLoaded && _effectsWindow.isVisible
+        return effectsWindowLoader.windowLoaded && _effectsWindow.isVisible
     }
     
     var isShowingPlaylist: Bool {
-        return playlistWindowLoaded && _playlistWindow.isVisible
+        return playlistWindowLoader.windowLoaded && _playlistWindow.isVisible
     }
     
     // NOTE - Boolean short-circuiting is important here. Otherwise, the chapters list window will be unnecessarily loaded.
     var isShowingChaptersList: Bool {
-        return chaptersListWindowLoaded && _chaptersListWindow.isVisible
+        return chaptersListWindowLoader.windowLoaded && _chaptersListWindow.isVisible
     }
     
     // NOTE - Boolean short-circuiting is important here. Otherwise, the chapters list window will be unnecessarily loaded.
@@ -214,7 +206,7 @@ class WindowManager: NSObject, NSWindowDelegate {
     }
     
     var isShowingVisualizer: Bool {
-        return visualizerWindowLoaded && visualizerWindow.isVisible
+        return visualizerWindowLoader.windowLoaded && _visualizerWindow.isVisible
     }
     
     var mainWindowFrame: NSRect {
@@ -239,7 +231,7 @@ class WindowManager: NSObject, NSWindowDelegate {
     // Hides the effects window
     private func hideEffects() {
         
-        if effectsWindowLoaded {
+        if effectsWindowLoader.windowLoaded {
             _effectsWindow.hide()
         }
     }
@@ -260,7 +252,7 @@ class WindowManager: NSObject, NSWindowDelegate {
     // Hides the playlist window
     private func hidePlaylist() {
         
-        if playlistWindowLoaded {
+        if playlistWindowLoader.windowLoaded {
             _playlistWindow.hide()
         }
     }
@@ -271,7 +263,7 @@ class WindowManager: NSObject, NSWindowDelegate {
     
     func showChaptersList() {
         
-        let shouldCenterChaptersListWindow = !chaptersListWindowLoaded
+        let shouldCenterChaptersListWindow = !chaptersListWindowLoader.windowLoaded
         
         _playlistWindow.addChildWindow(_chaptersListWindow, ordered: NSWindow.OrderingMode.above)
         _chaptersListWindow.makeKeyAndOrderFront(self)
@@ -285,7 +277,7 @@ class WindowManager: NSObject, NSWindowDelegate {
     
     func hideChaptersList() {
         
-        if chaptersListWindowLoaded {
+        if chaptersListWindowLoader.windowLoaded {
             _chaptersListWindow.hide()
         }
     }
@@ -296,13 +288,12 @@ class WindowManager: NSObject, NSWindowDelegate {
     
     private func showVisualizer() {
         
-        mainWindow.addChildWindow(visualizerWindow, ordered: NSWindow.OrderingMode.above)
-        visualizerWindowController.showWindow(self)
-        visualizerWindow.orderFront(self)
+        mainWindow.addChildWindow(_visualizerWindow, ordered: NSWindow.OrderingMode.above)
+        visualizerWindowLoader.controller.showWindow(self)
     }
     
     private func hideVisualizer() {
-        visualizerWindowController.close()
+        visualizerWindowLoader.controller.close()
     }
     
     func addChildWindow(_ window: NSWindow) {
@@ -347,14 +338,20 @@ class WindowManager: NSObject, NSWindowDelegate {
     // Sorted by order of relevance
     private func getCandidateWindowsForSnap(_ movedWindow: SnappingWindow) -> [NSWindow] {
         
-        if movedWindow === _playlistWindow {
-            return [mainWindow, _effectsWindow]
+        if isShowingPlaylist && movedWindow === _playlistWindow {
+            return isShowingEffects ? [mainWindow, _effectsWindow] : [mainWindow]
             
-        } else if movedWindow === _effectsWindow {
-            return [mainWindow, _playlistWindow]
+        } else if isShowingEffects && movedWindow === _effectsWindow {
+            return isShowingPlaylist ? [mainWindow, _playlistWindow] : [mainWindow]
             
         } else if isShowingChaptersList && movedWindow === chaptersListWindow {
-            return [_playlistWindow, mainWindow, _effectsWindow]
+            
+            var candidates: [NSWindow] = [mainWindow]
+            
+            if isShowingEffects {candidates.append(_effectsWindow)}
+            if isShowingPlaylist {candidates.append(_playlistWindow)}
+            
+            return candidates
         }
         
         // Main window

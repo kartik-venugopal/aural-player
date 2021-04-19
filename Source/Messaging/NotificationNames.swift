@@ -619,4 +619,9 @@ extension Notification.Name {
     static let windowAppearance_changeCornerRadius = Notification.Name("windowAppearance_changeCornerRadius")
     
     static let applyTheme = Notification.Name("applyTheme")
+    
+    // MARK: Visualizer commands sent to all app windows
+    
+    static let visualizer_showOptions = Notification.Name("visualizer_showOptions")
+    static let visualizer_hideOptions = Notification.Name("visualizer_hideOptions")
 }

@@ -4,7 +4,11 @@
 
 import Cocoa
 
-class EffectsWindowController: NSWindowController, NotificationSubscriber {
+class EffectsWindowController: NSWindowController, NotificationSubscriber, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var effectsContainerBox: NSBox!
@@ -36,7 +40,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
     @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
 
-    private var fxTabViewButtons: [EffectsUnitTabButton]!
+    private var fxTabViewButtons: [EffectsUnitTabButton] = []
     
     @IBOutlet weak var btnClose: TintedImageButton!
 
@@ -91,11 +95,11 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         reverbTabViewButton.stateFunction = graph.reverbUnit.stateFunction
         delayTabViewButton.stateFunction = graph.delayUnit.stateFunction
         filterTabViewButton.stateFunction = graph.filterUnit.stateFunction
-        
-        auTabViewButton.stateFunction = {
-            
-            for unit in self.graph.audioUnits {
-            
+
+        auTabViewButton.stateFunction = {[weak self] in
+
+            for unit in self?.graph.audioUnits ?? [] {
+
                 if unit.state == .active {
                     return .active
                 }
@@ -107,13 +111,14 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
             
             return .bypassed
         }
-        
-        recorderTabViewButton.stateFunction = {return self.recorder.isRecording ? .active : .bypassed}
+
+        recorderTabViewButton.stateFunction = {[weak self] in
+            return (self?.recorder.isRecording ?? false) ? .active : .bypassed
+        }
     }
 
     private func initUnits() {
-
-        [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, recorderTabViewButton].forEach {$0?.updateState()}
+        fxTabViewButtons.forEach {$0.updateState()}
     }
 
     private func initTabGroup() {
@@ -141,6 +146,12 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         Messenger.subscribe(self, .fx_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
         Messenger.subscribe(self, .fx_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
     }
+    
+    func destroy() {
+        
+        close()
+        Messenger.unsubscribeAll(for: self)
+    }
 
     // Switches the tab group to a particular tab
     @IBAction func tabViewAction(_ sender: NSButton) {
@@ -148,7 +159,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber {
         // Set sender button state, reset all other button states
         
         // TODO: Add a field "isSelected" to the tab button control to distinguish between "state" (on/off) and "selected"
-        fxTabViewButtons!.forEach {$0.state = convertToNSControlStateValue(0)}
+        fxTabViewButtons.forEach {$0.state = convertToNSControlStateValue(0)}
         sender.state = convertToNSControlStateValue(1)
 
         // Button tag is the tab index

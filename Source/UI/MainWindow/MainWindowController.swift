@@ -3,7 +3,11 @@ import Cocoa
 /*
     Window controller for the main application window.
  */
-class MainWindowController: NSWindowController, NotificationSubscriber {
+class MainWindowController: NSWindowController, NotificationSubscriber, Destroyable {
+    
+    deinit {
+        print("\nDeinited \(self.className)")
+    }
     
     // Main application window. Contains the Now Playing info box and player controls. Not resizable.
     private var theWindow: SnappingWindow {
@@ -42,8 +46,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         theWindow.setIsVisible(false)
         initWindow()
         theWindow.setIsVisible(false)
-        
-//        theWindow.delegate = WindowManager.instance.windowDelegate
         
         activateGestureHandler()
         initSubscriptions()
@@ -93,10 +95,10 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         
         // Register a handler for trackpad/MagicMouse gestures
         gestureHandler = GestureHandler(theWindow)
-        
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe, .scrollWheel], handler: {(event: NSEvent) -> NSEvent? in
-            return self.gestureHandler.handle(event) ? nil : event;
-        });
+
+        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe, .scrollWheel], handler: {[weak self] (event: NSEvent) -> NSEvent? in
+            return (self?.gestureHandler.handle(event) ?? false) ? nil : event
+        })
     }
     
     private func initSubscriptions() {
@@ -114,6 +116,12 @@ class MainWindowController: NSWindowController, NotificationSubscriber {
         Messenger.subscribe(self, .windowManager_layoutChanged, self.windowLayoutChanged(_:))
         
         Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
+    }
+    
+    func destroy() {
+        
+        close()
+        Messenger.unsubscribeAll(for: self)
     }
     
     // Shows/hides the playlist window (by delegating)
