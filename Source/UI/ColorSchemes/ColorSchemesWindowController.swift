@@ -36,10 +36,10 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     @IBOutlet weak var clipboardColorViewer: NSColorWell!
 
     // Subviews that handle color scheme editing for different UI components
-    private lazy var generalSchemeView: ColorSchemesViewProtocol = ViewFactory.generalColorSchemeView
-    private lazy var playerSchemeView: ColorSchemesViewProtocol = ViewFactory.playerColorSchemeView
-    private lazy var playlistSchemeView: ColorSchemesViewProtocol = ViewFactory.playlistColorSchemeView
-    private lazy var effectsSchemeView: ColorSchemesViewProtocol = ViewFactory.effectsColorSchemeView
+    private lazy var generalSchemeView: ColorSchemesViewProtocol = GeneralColorSchemeViewController()
+    private lazy var playerSchemeView: ColorSchemesViewProtocol = PlayerColorSchemeViewController()
+    private lazy var playlistSchemeView: ColorSchemesViewProtocol = PlaylistColorSchemeViewController()
+    private lazy var effectsSchemeView: ColorSchemesViewProtocol = EffectsColorSchemeViewController()
     
     private var subViews: [ColorSchemesViewProtocol] = []
     

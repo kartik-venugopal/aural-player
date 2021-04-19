@@ -18,19 +18,26 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
         _instance = nil
     }
     
-    private lazy var bookmarksEditorView: NSView = ViewFactory.bookmarksEditorView
+    private let bookmarksEditorViewController: NSViewController = BookmarksEditorViewController()
+    private lazy var bookmarksEditorView: NSView = bookmarksEditorViewController.view
     
-    private lazy var favoritesEditorView: NSView = ViewFactory.favoritesEditorView
+    private let favoritesEditorViewController: NSViewController = FavoritesEditorViewController()
+    private lazy var favoritesEditorView: NSView = favoritesEditorViewController.view
     
-    private lazy var layoutsEditorView: NSView = ViewFactory.layoutsEditorView
+    private let layoutsEditorViewController: NSViewController = LayoutsEditorViewController()
+    private lazy var layoutsEditorView: NSView = layoutsEditorViewController.view
     
-    private lazy var themesEditorView: NSView = ViewFactory.themesEditorView
+    private let themesEditorViewController: NSViewController = ThemesEditorViewController()
+    private lazy var themesEditorView: NSView = themesEditorViewController.view
     
-    private lazy var fontSchemesEditorView: NSView = ViewFactory.fontSchemesEditorView
+    private let fontSchemesEditorViewController: NSViewController = FontSchemesEditorViewController()
+    private lazy var fontSchemesEditorView: NSView = fontSchemesEditorViewController.view
     
-    private lazy var colorSchemesEditorView: NSView = ViewFactory.colorSchemesEditorView
+    private let colorSchemesEditorViewController: NSViewController = ColorSchemesEditorViewController()
+    private lazy var colorSchemesEditorView: NSView = colorSchemesEditorViewController.view
     
-    private lazy var effectsPresetsEditorView: NSView = ViewFactory.effectsPresetsEditorView
+    private let effectsPresetsEditorViewController: NSViewController = EffectsPresetsEditorViewController()
+    private lazy var effectsPresetsEditorView: NSView = effectsPresetsEditorViewController.view
     
     override var windowNibName: String? {return "EditorWindow"}
     

@@ -3,7 +3,44 @@
  */
 import Cocoa
 
-class InfoPopupViewController: NSViewController, InfoPopupProtocol {
+class InfoPopupViewController: NSViewController, InfoPopupProtocol, Destroyable {
+    
+    private static var _instance: InfoPopupViewController?
+    static var instance: InfoPopupViewController {
+        
+        if _instance == nil {
+            _instance = create()
+        }
+        
+        return _instance!
+    }
+    
+    private static func create() -> InfoPopupViewController {
+        
+        let controller = InfoPopupViewController()
+        
+        let popover = NSPopover()
+        popover.behavior = .semitransient
+        popover.contentViewController = controller
+        
+        controller.popover = popover
+        
+        return controller
+    }
+    
+    static func destroy() {
+        
+        _instance?.destroy()
+        _instance = nil
+    }
+    
+    func destroy() {
+        
+        close()
+        
+        popover.contentViewController = nil
+        self.popover = nil
+    }
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -18,19 +55,6 @@ class InfoPopupViewController: NSViewController, InfoPopupProtocol {
     private var viewHidingTimer: Timer?
     
     override var nibName: String? {return "InfoPopup"}
-    
-    static func create() -> InfoPopupViewController {
-        
-        let controller = InfoPopupViewController()
-        
-        let popover = NSPopover()
-        popover.behavior = .semitransient
-        popover.contentViewController = controller
-        
-        controller.popover = popover
-        
-        return controller
-    }
     
     // Shows a message that a track has been added to Favorites
     func showMessage(_ message: String, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -80,7 +104,7 @@ class InfoPopupViewController: NSViewController, InfoPopupProtocol {
     // Shows the popover
     private func show(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
         
-        if (!popover.isShown) {
+        if !popover.isShown {
             popover.show(relativeTo: positioningRect, of: relativeToView, preferredEdge: preferredEdge)
         }
     }
@@ -88,7 +112,7 @@ class InfoPopupViewController: NSViewController, InfoPopupProtocol {
     // Closes the popover
     @objc func close() {
         
-        if (popover.isShown) {
+        if popover.isShown {
             popover.performClose(self)
         }
     }

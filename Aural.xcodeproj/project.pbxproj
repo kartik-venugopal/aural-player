@@ -305,7 +305,6 @@
 		3E6C127125CEBE0600BF0D07 /* FilterPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8125CEB98600BF0D07 /* FilterPresetsEditor.xib */; };
 		3E6C127225CEBE0600BF0D07 /* EQPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7325CEB98600BF0D07 /* EQPresetsEditorViewController.swift */; };
 		3E6C127425CEBE1800BF0D07 /* EffectsUnitTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FB825CEB98600BF0D07 /* EffectsUnitTabButtonCell.swift */; };
-		3E6C127525CEBE1800BF0D07 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9525CEB98600BF0D07 /* ViewFactory.swift */; };
 		3E6C127625CEBE1800BF0D07 /* EffectsColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FA525CEB98600BF0D07 /* EffectsColorSchemeViewController.swift */; };
 		3E6C127725CEBE1800BF0D07 /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FAC25CEB98600BF0D07 /* ColorSchemes.swift */; };
 		3E6C127825CEBE1800BF0D07 /* PlayerColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FAF25CEB98600BF0D07 /* PlayerColorScheme.xib */; };
@@ -786,7 +785,6 @@
 		3E6C0F9225CEB98600BF0D07 /* ColorSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesEditorViewController.swift; sourceTree = "<group>"; };
 		3E6C0F9325CEB98600BF0D07 /* ColorSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreviewView.swift; sourceTree = "<group>"; };
 		3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
-		3E6C0F9525CEB98600BF0D07 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		3E6C0F9725CEB98600BF0D07 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3E6C0F9825CEB98600BF0D07 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -1593,7 +1591,6 @@
 				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */,
 				3E6C0F1C25CEB98500BF0D07 /* Strings.swift */,
-				3E6C0F9525CEB98600BF0D07 /* ViewFactory.swift */,
 				3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */,
 				3E6C0F9725CEB98600BF0D07 /* Extensions.swift */,
 				3E6C0FEB25CEB98600BF0D07 /* Images.swift */,
@@ -3350,7 +3347,6 @@
 				3E6C12C925CEBE6700BF0D07 /* Colors.swift in Sources */,
 				3EDB346025E8B75D004DF7DE /* CommonAVAssetParser.swift in Sources */,
 				3EDB33EA25E8AE09004DF7DE /* FFmpegAudioFormat.swift in Sources */,
-				3E6C127525CEBE1800BF0D07 /* ViewFactory.swift in Sources */,
 				3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */,
 				3E6C130B25CEBE8F00BF0D07 /* FileSystemDataSource.swift in Sources */,
 				3E6C123A25CEBDF400BF0D07 /* ChaptersListWindowController.swift in Sources */,

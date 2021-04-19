@@ -121,6 +121,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         close()
         Messenger.unsubscribeAll(for: self)
         
+        InfoPopupViewController.destroy()
         AlertWindowController.destroy()
         EditorWindowController.destroy()
     }

@@ -44,7 +44,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var detailedInfoPopover: DetailedTrackInfoViewController = DetailedTrackInfoViewController.instance
     
     // Popup view that displays a brief notification when a selected track is added/removed to/from the Favorites list
-    private lazy var infoPopup: InfoPopupProtocol = ViewFactory.infoPopup
+    private lazy var infoPopup: InfoPopupProtocol = InfoPopupViewController.instance
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
@@ -53,7 +53,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     // Delegate that provides access to History information
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     private lazy var trackReader: TrackReader = ObjectGraph.trackReader
     

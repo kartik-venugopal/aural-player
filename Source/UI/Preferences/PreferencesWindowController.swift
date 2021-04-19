@@ -9,13 +9,13 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
     
     // Sub views
     
-    private lazy var playlistPrefsView: PreferencesViewProtocol = ViewFactory.playlistPreferencesView
-    private lazy var playbackPrefsView: PreferencesViewProtocol = ViewFactory.playbackPreferencesView
-    private lazy var soundPrefsView: PreferencesViewProtocol = ViewFactory.soundPreferencesView
-    private lazy var viewPrefsView: PreferencesViewProtocol = ViewFactory.viewPreferencesView
-    private lazy var historyPrefsView: PreferencesViewProtocol = ViewFactory.historyPreferencesView
-    private lazy var controlsPrefsView: PreferencesViewProtocol = ViewFactory.controlsPreferencesView
-    private lazy var metadataPrefsView: PreferencesViewProtocol = ViewFactory.metadataPreferencesView
+    private let playlistPrefsView: PreferencesViewProtocol = PlaylistPreferencesViewController()
+    private let playbackPrefsView: PreferencesViewProtocol = PlaybackPreferencesViewController()
+    private let soundPrefsView: PreferencesViewProtocol = SoundPreferencesViewController()
+    private let viewPrefsView: PreferencesViewProtocol = ViewPreferencesViewController()
+    private let historyPrefsView: PreferencesViewProtocol = HistoryPreferencesViewController()
+    private let controlsPrefsView: PreferencesViewProtocol = ControlsPreferencesViewController()
+    private let metadataPrefsView: PreferencesViewProtocol = MetadataPreferencesViewController()
     
     private var subViews: [PreferencesViewProtocol] = []
     
@@ -35,7 +35,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
         
         subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView, metadataPrefsView]
         
-        tabView.addViewsForTabs([playlistPrefsView.preferencesView, playbackPrefsView.preferencesView, soundPrefsView.preferencesView, viewPrefsView.preferencesView, historyPrefsView.preferencesView, controlsPrefsView.preferencesView, metadataPrefsView.preferencesView])
+        tabView.addViewsForTabs(subViews.map {$0.preferencesView})
         
         WindowManager.instance.registerModalComponent(self)
         
