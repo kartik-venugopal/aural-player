@@ -58,6 +58,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
         Messenger.subscribe(self, .player_changeSliderValueTextColor, playbackView.changeSliderValueTextColor(_:))
         
         trackChanged(player.playingTrack)
+        playbackView.playbackStateChanged(player.state)
     }
     
     func destroy() {

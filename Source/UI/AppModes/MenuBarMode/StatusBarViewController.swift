@@ -144,8 +144,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
             self?.updateSeekPosition()
         }, queue: .main)
         
-        btnPlayPause.onIf(player.state == .playing)
         updateTrackInfo()
+        stateChanged(player.state)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -158,8 +158,14 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     func playOrPause() {
         
         player.togglePlayPause()
-        btnPlayPause.onIf(player.state == .playing)
+        stateChanged(player.state)
         updateTrackInfo()
+    }
+    
+    func stateChanged(_ newState: PlaybackState) {
+        
+        btnPlayPause.onIf(newState == .playing)
+        setSeekTimerState(newState == .playing)
     }
     
     private func updateTrackInfo() {
@@ -190,6 +196,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         playbackLoopChanged()
+        trackInfoView.bringToFront()
     }
     
     private var curChapter: IndexedChapter? = nil
@@ -227,8 +234,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     func previousTrack() {
         
         player.previousTrack()
-        btnPlayPause.onIf(player.state == .playing)
         updateTrackInfo()
+        stateChanged(player.state)
     }
     
     // Plays the next track in the current playback sequence
@@ -239,8 +246,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     func nextTrack() {
         
         player.nextTrack()
-        btnPlayPause.onIf(player.state == .playing)
         updateTrackInfo()
+        stateChanged(player.state)
     }
     
     // Moving the seek slider results in seeking the track to the new slider position
