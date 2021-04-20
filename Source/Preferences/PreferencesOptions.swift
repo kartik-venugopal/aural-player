@@ -89,6 +89,13 @@ enum WindowLayoutStartupOptions: String {
     case rememberFromLastAppLaunch
 }
 
+// All options for the view at startup
+enum AppModeStartupOptions: String {
+    
+    case specific
+    case rememberFromLastAppLaunch
+}
+
 // Window layout on startup preference
 class LayoutOnStartup {
     
@@ -99,6 +106,18 @@ class LayoutOnStartup {
     
     // NOTE: This is mutable. Potentially unsafe
     static let defaultInstance: LayoutOnStartup = LayoutOnStartup()
+}
+
+// Window layout on startup preference
+class AppModeOnStartup {
+    
+    var option: AppModeStartupOptions = .rememberFromLastAppLaunch
+    
+    // This is used only if option == .specific
+    var modeName: String = ""
+    
+    // NOTE: This is mutable. Potentially unsafe
+    static let defaultInstance: AppModeOnStartup = AppModeOnStartup()
 }
 
 enum ScrollSensitivity: String, CaseIterable {

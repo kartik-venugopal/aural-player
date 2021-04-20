@@ -14,17 +14,19 @@ extension Destroyable {
     static func destroy() {}
 }
 
-class WindowManager: NSObject, NSWindowDelegate {
+class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     private static var _instance: WindowManager?
     
     static var instance: WindowManager! {_instance}
     
-    static func createInstance(preferences: ViewPreferences) {
+    static func createInstance(preferences: ViewPreferences) -> WindowManager {
+        
         _instance = WindowManager(preferences: preferences)
+        return instance
     }
     
-    static func destroyInstance() {
+    static func destroy() {
         
         _instance?.destroy()
         _instance = nil

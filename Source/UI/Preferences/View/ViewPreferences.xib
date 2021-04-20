@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ViewPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="appModeMenu" destination="j46-J5-H9h" id="bHw-e9-wV7"/>
+                <outlet property="btnRememberAppMode" destination="2yW-bK-p0H" id="M0V-3i-7ql"/>
                 <outlet property="btnRememberLayout" destination="0OY-If-fJy" id="8JR-ob-MFf"/>
                 <outlet property="btnSnapToScreen" destination="lLF-UP-XoA" id="GbA-xi-isP"/>
                 <outlet property="btnSnapToWindows" destination="DUF-2F-cuz" id="lRt-Qo-CT3"/>
+                <outlet property="btnStartWithAppMode" destination="xEB-Xx-4ES" id="T8h-hE-Kye"/>
                 <outlet property="btnStartWithLayout" destination="hdt-N9-waq" id="4Fs-Yd-HiW"/>
                 <outlet property="gapStepper" destination="JM6-3k-x8N" id="QeI-Qi-F1T"/>
                 <outlet property="layoutMenu" destination="wN2-oO-Gzv" id="FdY-cu-I8R"/>
@@ -25,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="txW-fU-bK2">
-                    <rect key="frame" x="18" y="437" width="207" height="20"/>
+                    <rect key="frame" x="18" y="352" width="207" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window layout on startup" id="5uG-hC-9lX">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -34,7 +37,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zby-SI-fNg">
-                    <rect key="frame" x="18" y="352" width="132" height="20"/>
+                    <rect key="frame" x="18" y="267" width="132" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Window snapping" id="bBS-el-1Ja">
                         <font key="font" size="13" name="Play-Regular"/>
@@ -43,7 +46,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VBM-JL-EGo">
-                    <rect key="frame" x="58" y="313" width="205" height="20"/>
+                    <rect key="frame" x="58" y="228" width="205" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Gap between windows when snapped:" id="vBe-K4-yLt">
                         <font key="font" size="11" name="Play-Regular"/>
@@ -52,7 +55,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="raN-A4-2KT" userLabel="Window gap value">
-                    <rect key="frame" x="263" y="313" width="35" height="20"/>
+                    <rect key="frame" x="263" y="228" width="35" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" state="on" alignment="right" title="0px" id="SX5-qn-SOs">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="hHp-xe-8z8">
@@ -65,7 +68,7 @@
                     </textFieldCell>
                 </textField>
                 <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JM6-3k-x8N" userLabel="Window gap Stepper">
-                    <rect key="frame" x="299" y="311" width="15" height="22"/>
+                    <rect key="frame" x="299" y="226" width="15" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="25" id="HkQ-J3-crQ"/>
                     <connections>
@@ -73,9 +76,9 @@
                     </connections>
                 </stepper>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0OY-If-fJy" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="415" width="257" height="20"/>
+                    <rect key="frame" x="30" y="330" width="257" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Remember layout from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="yVZ-3R-cMA">
+                    <buttonCell key="cell" type="radio" title="Remember layout from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="yVZ-3R-cMA">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -84,9 +87,9 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdt-N9-waq" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="30" y="396" width="120" height="20"/>
+                    <rect key="frame" x="30" y="311" width="120" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Start with layout" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="tmX-cu-lWD">
+                    <buttonCell key="cell" type="radio" title="Start with layout" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="tmX-cu-lWD">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="11" name="Play-Regular"/>
                     </buttonCell>
@@ -95,7 +98,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wN2-oO-Gzv" userLabel="Layout menu">
-                    <rect key="frame" x="153" y="393" width="244" height="26"/>
+                    <rect key="frame" x="153" y="308" width="244" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Vertical full stack" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Lj0-KC-S5W" id="yjs-vf-m0v" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -131,8 +134,57 @@
                         </menu>
                     </popUpButtonCell>
                 </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wRa-K9-aKy">
+                    <rect key="frame" x="18" y="437" width="202" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="UI mode on startup" id="h56-lg-hVQ">
+                        <font key="font" size="13" name="Play-Regular"/>
+                        <color key="textColor" white="0.69986979169999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2yW-bK-p0H" userLabel="Remember layout from last app launch" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="415" width="295" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Remember mode from last app launch" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="fHL-P4-VSW">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="appModeOnStartupAction:" target="-2" id="ghY-oA-7ul"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xEB-Xx-4ES" userLabel="Start with layout Label" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="30" y="396" width="120" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Start with mode" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1Yo-Mv-HX6">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="appModeOnStartupAction:" target="-2" id="k6H-uZ-X58"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j46-J5-H9h" userLabel="App mode menu">
+                    <rect key="frame" x="153" y="393" width="244" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Regular mode (windowed)" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OM0-ct-omq" id="JfR-FV-Omn" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="Play-Regular"/>
+                        <menu key="menu" id="aFu-Cg-NjU">
+                            <items>
+                                <menuItem title="Regular mode (windowed)" state="on" id="OM0-ct-omq">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Status bar mode" id="ztQ-Rf-bal">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DUF-2F-cuz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="38" y="330" width="239" height="20"/>
+                    <rect key="frame" x="38" y="245" width="239" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Snap app windows to each other" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="zcX-Xj-qB5">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -143,7 +195,7 @@
                     </connections>
                 </button>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lLF-UP-XoA" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="38" y="293" width="323" height="20"/>
+                    <rect key="frame" x="38" y="208" width="323" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Snap app windows to screen corners and edges" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9Tk-y7-Lp0">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

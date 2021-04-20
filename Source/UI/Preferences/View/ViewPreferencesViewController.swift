@@ -2,6 +2,10 @@ import Cocoa
 
 class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
+    @IBOutlet weak var btnStartWithAppMode: NSButton!
+    @IBOutlet weak var btnRememberAppMode: NSButton!
+    @IBOutlet weak var appModeMenu: NSPopUpButton!
+    
     @IBOutlet weak var btnStartWithLayout: NSButton!
     @IBOutlet weak var btnRememberLayout: NSButton!
     @IBOutlet weak var layoutMenu: NSPopUpButton!
@@ -21,8 +25,18 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     func resetFields(_ preferences: Preferences) {
         
         let viewPrefs = preferences.viewPreferences
+        
+        if viewPrefs.appModeOnStartup.option == .specific {
+            btnStartWithAppMode.on()
+        } else {
+            btnRememberAppMode.on()
+        }
+        
+        if let item = appModeMenu.item(withTitle: viewPrefs.appModeOnStartup.modeName) {
+            appModeMenu.select(item)
+        }
      
-        if (viewPrefs.layoutOnStartup.option == .specific) {
+        if viewPrefs.layoutOnStartup.option == .specific {
             btnStartWithLayout.on()
         } else {
             btnRememberLayout.on()
@@ -68,6 +82,10 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         })
     }
     
+    @IBAction func appModeOnStartupAction(_ sender: Any) {
+        appModeMenu.enableIf(btnStartWithAppMode.isOn)
+    }
+    
     @IBAction func layoutOnStartupAction(_ sender: Any) {
         layoutMenu.enableIf(btnStartWithLayout.isOn)
     }
@@ -84,6 +102,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         let viewPrefs = preferences.viewPreferences
         
+        viewPrefs.appModeOnStartup.option = btnStartWithAppMode.isOn ? .specific : .rememberFromLastAppLaunch
+        viewPrefs.appModeOnStartup.modeName = appModeMenu.selectedItem!.title
+        
         viewPrefs.layoutOnStartup.option = btnStartWithLayout.isOn ? .specific : .rememberFromLastAppLaunch
         viewPrefs.layoutOnStartup.layoutName = layoutMenu.selectedItem!.title
         
@@ -93,7 +114,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         viewPrefs.windowGap = gapStepper.floatValue
         
         // Check if window gap was changed
-        if (viewPrefs.windowGap != oldWindowGap) {
+        if viewPrefs.windowGap != oldWindowGap {
             
             // Recompute system-defined layouts based on new gap between windows
             WindowLayouts.recomputeSystemDefinedLayouts()

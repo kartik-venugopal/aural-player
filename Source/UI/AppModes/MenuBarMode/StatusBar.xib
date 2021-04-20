@@ -78,7 +78,7 @@
                             <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                             <color key="fillColor" white="0.0" alpha="0.7958988527051446" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <button toolTip="Switch to regular mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Regular Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <button toolTip="Switch to regular (windowed) mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Regular Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="23" y="151" width="8" height="8"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NS8-FO-e8A">
@@ -353,7 +353,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vq5-5H-ybr" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="22" y="73" width="141" height="20"/>
+                                        <rect key="frame" x="22" y="68" width="141" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show album art" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ANP-5n-8Qa">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -364,7 +364,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zYL-4V-R3Z" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="22" y="53" width="141" height="20"/>
+                                        <rect key="frame" x="22" y="48" width="141" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show artist" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="3if-i6-aPz">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -375,7 +375,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nkl-3v-Cqb" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="22" y="33" width="141" height="20"/>
+                                        <rect key="frame" x="22" y="28" width="141" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show album" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="4lr-KY-AOf">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -386,7 +386,7 @@
                                         </connections>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q1t-7d-POz" userLabel="Show chapter title" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="22" y="13" width="141" height="20"/>
+                                        <rect key="frame" x="22" y="8" width="141" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Show chapter title" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="9fH-kr-uQA">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

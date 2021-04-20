@@ -124,6 +124,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         InfoPopupViewController.destroy()
         AlertWindowController.destroy()
         EditorWindowController.destroy()
+        
+        NSApp.mainMenu = nil
     }
     
     // Shows/hides the playlist window (by delegating)

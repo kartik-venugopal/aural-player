@@ -5,6 +5,7 @@ import Cocoa
  */
 class UIState: PersistentStateProtocol {
     
+    var appMode: String = ""
     var windowLayout: WindowLayoutPersistentState = WindowLayoutPersistentState()
     var themes: ThemesState = ThemesState()
     var fontSchemes: FontSchemesState = FontSchemesState()
@@ -19,6 +20,8 @@ class UIState: PersistentStateProtocol {
     static func deserialize(_ map: NSDictionary) -> UIState {
         
         let state = UIState()
+        
+        state.appMode = map["appMode"] as? String ?? ""
         
         if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
             state.windowLayout = WindowLayoutPersistentState.deserialize(windowLayoutMap)

@@ -1,10 +1,6 @@
 import Cocoa
 
-class AppModeManager: NotificationSubscriber {
-    
-    let subscriberId: String = "AppModeManager"
-    
-//    private static let subscriber: AppModeManager = AppModeManager()
+class AppModeManager {
     
     static var mode: AppMode = AppDefaults.appMode
     
@@ -12,37 +8,32 @@ class AppModeManager: NotificationSubscriber {
     
     private static var statusBarMode: StatusBarAppModeController = StatusBarAppModeController()
     
-    static func initialize() {
+    static func presentApp(lastPresentedAppMode: AppMode, preferences: ViewPreferences) {
         
-//        SyncMessenger.subscribe(actionTypes: [.regularAppMode, .statusBarAppMode, .miniBarAppMode], subscriber: subscriber)
-//        SyncMessenger.subscribe(actionTypes: [.regularAppMode], subscriber: subscriber)
+        if preferences.appModeOnStartup.option == .rememberFromLastAppLaunch {
+            presentMode(lastPresentedAppMode)
+            
+        } else {    // Specific mode
+            presentMode(AppMode(rawValue: preferences.appModeOnStartup.modeName) ?? AppDefaults.appMode)
+        }
     }
     
     static func presentMode(_ newMode: AppMode) {
         
-        switch mode {
-            
-        case .regular:  regularMode.dismissMode()
-            
-        case .statusBar: statusBarMode.dismissMode()
-            
-        }
+        dismissCurrentMode()
         
         mode = newMode
         
         switch mode {
             
-        case .regular:  presentRegularMode()
+        case .regular:  regularMode.presentMode()
         
-        case .statusBar: presentStatusBarMode()
+        case .statusBar: statusBarMode.presentMode()
         
         }
-        
-        // TODO: This will cause initSubscriptions to be called twice !
-//        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
     }
     
-    static func switchToMode(_ newMode: AppMode) {
+    private static func dismissCurrentMode() {
         
         switch mode {
             
@@ -51,37 +42,7 @@ class AppModeManager: NotificationSubscriber {
         case .statusBar: statusBarMode.dismissMode()
             
         }
-        
-        presentMode(newMode)
-//        SyncMessenger.publishNotification(AppModeChangedNotification(newMode))
     }
-    
-    private static func presentRegularMode() {
-        regularMode.presentMode()
-    }
-    
-    private static func presentStatusBarMode() {
-        statusBarMode.presentMode()
-    }
-    
-    
-    
-    // MARK: Message handling
-    
-//    func consumeMessage(_ message: ActionMessage) {
-//
-//        switch message.actionType {
-//
-//        case .regularAppMode:   AppModeManager.switchToMode(.regular)
-//
-////        case .statusBarAppMode: AppModeManager.switchToMode(.statusBar)
-////
-////        case .miniBarAppMode:   AppModeManager.switchToMode(.miniBar)
-//
-//        default: return
-//
-//        }
-//    }
 }
 
 enum AppMode: String {

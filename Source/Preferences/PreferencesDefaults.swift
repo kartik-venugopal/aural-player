@@ -59,6 +59,7 @@ struct PreferencesDefaults {
     
     struct View {
         
+        static let appModeOnStartup: AppModeOnStartup = AppModeOnStartup.defaultInstance
         static let layoutOnStartup: LayoutOnStartup = LayoutOnStartup.defaultInstance
         static let snapToWindows: Bool = true
         static let snapToScreen: Bool = true

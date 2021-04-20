@@ -1,21 +1,30 @@
 import Cocoa
 
-class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
+class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate, NotificationSubscriber {
 
-    var mode: AppMode {return .statusBar}
+    var mode: AppMode {.statusBar}
 
     private var statusItem: NSStatusItem?
-    
     private var controller: StatusBarViewController!
+    
+    private lazy var appIcon: NSImage = NSImage(named: "AppIcon-StatusBar")!
     
     func presentMode() {
         
         controller = StatusBarViewController()
-        
+
+        // Make app run in status bar and make it active.
         NSApp.setActivationPolicy(.accessory)
+        NSApp.activate(ignoringOtherApps: true)
         
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-        statusItem?.button?.image = NSImage(named: "AppIcon-StatusBar")
+        statusItem?.button?.image = appIcon
+        
+        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            statusItem?.button?.toolTip = "Aural Player v\(appVersion)"
+        } else {
+            statusItem?.button?.toolTip = "Aural Player"
+        }
         
         let menu = NSMenu()
         
@@ -56,10 +65,6 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 protocol StatusBarMenuObserver {
     
     func statusBarMenuOpened()
-    func statusBarMenuClosed()
-}
-
-class SBMenuItem: NSMenuItem {
     
-//    override func 
+    func statusBarMenuClosed()
 }

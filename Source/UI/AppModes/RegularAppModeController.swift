@@ -7,18 +7,12 @@ class RegularAppModeController: AppModeController {
     func presentMode() {
         
         NSApp.setActivationPolicy(.regular)
+        NSApp.activate(ignoringOtherApps: true)
         
-        WindowManager.createInstance(preferences: ObjectGraph.preferences.viewPreferences)
-        WindowManager.instance.loadWindows()
-        
-        // TODO: Here, set the main menu
-        
-        NSApplication.shared.activate(ignoringOtherApps: true)
+        WindowManager.createInstance(preferences: ObjectGraph.preferences.viewPreferences).loadWindows()
     }
     
     func dismissMode() {
-        
-        WindowManager.destroyInstance()
-        NSApp.mainMenu = nil
+        WindowManager.destroy()
     }
 }

@@ -2,6 +2,7 @@ import Cocoa
 
 class ViewPreferences: PersistentPreferencesProtocol {
     
+    var appModeOnStartup: AppModeOnStartup
     var layoutOnStartup: LayoutOnStartup
     var snapToWindows: Bool
     var snapToScreen: Bool
@@ -11,13 +12,26 @@ class ViewPreferences: PersistentPreferencesProtocol {
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
+        appModeOnStartup = PreferencesDefaults.View.appModeOnStartup
         layoutOnStartup = PreferencesDefaults.View.layoutOnStartup
         snapToWindows = PreferencesDefaults.View.snapToWindows
         snapToScreen = PreferencesDefaults.View.snapToScreen
         windowGap = PreferencesDefaults.View.windowGap
         
-        if let layoutOnStartupOptionStr = defaultsDictionary["view.layoutOnStartup.option"] as? String {
-            layoutOnStartup.option = WindowLayoutStartupOptions(rawValue: layoutOnStartupOptionStr)!
+        if let appModeOnStartupOptionStr = defaultsDictionary["view.appModeOnStartup.option"] as? String,
+           let option = AppModeStartupOptions(rawValue: appModeOnStartupOptionStr) {
+            
+            appModeOnStartup.option = option
+        }
+        
+        if let appModeStr = defaultsDictionary["view.appModeOnStartup.mode"] as? String {
+            appModeOnStartup.modeName = appModeStr
+        }
+        
+        if let layoutOnStartupOptionStr = defaultsDictionary["view.layoutOnStartup.option"] as? String,
+           let option = WindowLayoutStartupOptions(rawValue: layoutOnStartupOptionStr) {
+            
+            layoutOnStartup.option = option
         }
         
         if let layoutStr = defaultsDictionary["view.layoutOnStartup.layout"] as? String {
@@ -39,8 +53,12 @@ class ViewPreferences: PersistentPreferencesProtocol {
     
     func persist(defaults: UserDefaults) {
         
+        defaults.set(appModeOnStartup.option.rawValue, forKey: "view.appModeOnStartup.option")
+        defaults.set(appModeOnStartup.modeName, forKey: "view.appModeOnStartup.mode")
+        
         defaults.set(layoutOnStartup.option.rawValue, forKey: "view.layoutOnStartup.option")
         defaults.set(layoutOnStartup.layoutName, forKey: "view.layoutOnStartup.layout")
+        
         defaults.set(snapToWindows, forKey: "view.snap.toWindows")
         defaults.set(windowGap, forKey: "view.snap.toWindows.gap")
         defaults.set(snapToScreen, forKey: "view.snap.toScreen")

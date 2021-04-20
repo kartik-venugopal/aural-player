@@ -6,6 +6,8 @@ import Foundation
 
 class ObjectGraph {
     
+    static var lastPresentedAppMode: AppMode!
+    
     static var preferences: Preferences!
     
     static var preferencesDelegate: PreferencesDelegate!
@@ -67,6 +69,8 @@ class ObjectGraph {
         // Load persistent app state from disk
         // Use defaults if app state could not be loaded from disk
         let persistentState: PersistentAppState = AppStateIO.load() ?? PersistentAppState.defaults
+        
+        lastPresentedAppMode = AppMode(rawValue: persistentState.ui.appMode) ?? AppDefaults.appMode
         
         // Preferences (and delegate)
         preferences = Preferences.instance
@@ -218,6 +222,7 @@ class ObjectGraph {
         persistentState.playbackProfiles = playbackDelegate.profiles.all()
         
         persistentState.ui = UIState()
+        persistentState.ui.appMode = AppModeManager.mode.rawValue
         persistentState.ui.windowLayout = WindowLayoutState.persistentState
         persistentState.ui.themes = Themes.persistentState
         persistentState.ui.fontSchemes = FontSchemes.persistentState
