@@ -2,7 +2,7 @@ import Cocoa
 
 class AboutDialogController: NSWindowController, ModalComponentProtocol {
     
-    override var windowNibName: String? {return "AboutDialog"}
+    override var windowNibName: String? {"AboutDialog"}
     
     @IBOutlet weak var versionLabel: NSTextField! {
         
@@ -17,7 +17,5 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
         WindowManager.instance.registerModalComponent(self)
     }
     
-    var isModal: Bool {
-        return self.window?.isVisible ?? false
-    }
+    var isModal: Bool {self.window?.isVisible ?? false}
 }

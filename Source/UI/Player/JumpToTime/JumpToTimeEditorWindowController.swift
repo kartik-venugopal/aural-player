@@ -6,7 +6,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         print("\nDeinited \(self.className)")
     }
     
-    override var windowNibName: String? {return "JumpToTimeEditorDialog"}
+    override var windowNibName: String? {"JumpToTimeEditorDialog"}
     
     @IBOutlet weak var lblTrackName: NSTextField!
     @IBOutlet weak var lblTrackDuration: NSTextField!

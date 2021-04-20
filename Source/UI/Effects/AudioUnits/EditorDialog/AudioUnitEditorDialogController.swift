@@ -16,7 +16,7 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    override var windowNibName: String? {return "AudioUnitEditorDialog"}
+    override var windowNibName: String? {"AudioUnitEditorDialog"}
 
     var audioUnit: HostedAudioUnitDelegateProtocol!
     

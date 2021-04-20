@@ -35,7 +35,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     private var gestureHandler: GestureHandler!
     
-    override var windowNibName: String? {return "MainWindow"}
+    override var windowNibName: String? {"MainWindow"}
     
     // MARK: Setup
     

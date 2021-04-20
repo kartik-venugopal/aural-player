@@ -18,7 +18,7 @@ class AlertWindowController: NSWindowController, ModalComponentProtocol, Destroy
         _instance = nil
     }
     
-    override var windowNibName: String? {return "Alerts"}
+    override var windowNibName: String? {"Alerts"}
     
     @IBOutlet weak var icon: NSImageView!
     

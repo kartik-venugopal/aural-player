@@ -9,7 +9,7 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber, 
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var viewController: ChaptersListViewController!
     
-    override var windowNibName: String? {return "ChaptersList"}
+    override var windowNibName: String? {"ChaptersList"}
     
     override func windowDidLoad() {
         

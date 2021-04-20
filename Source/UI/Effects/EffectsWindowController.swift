@@ -51,7 +51,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         return self.window! as! SnappingWindow
     }
     
-    override var windowNibName: String? {return "Effects"}
+    override var windowNibName: String? {"Effects"}
 
     override func windowDidLoad() {
         

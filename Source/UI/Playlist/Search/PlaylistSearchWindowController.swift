@@ -39,7 +39,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
-    override var windowNibName: String? {return "PlaylistSearch"}
+    override var windowNibName: String? {"PlaylistSearch"}
     
     private var theWindow: NSWindow {self.window!}
     

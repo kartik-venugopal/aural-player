@@ -66,7 +66,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private lazy var fileOpenDialog = DialogsAndAlerts.openDialog
     private lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
-    override var windowNibName: String? {return "Playlist"}
+    override var windowNibName: String? {"Playlist"}
     
     private var childContainerBoxes: [NSBox] = []
     private var functionButtons: [TintedImageButton] = []

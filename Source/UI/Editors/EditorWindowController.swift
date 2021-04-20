@@ -18,146 +18,80 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
         _instance = nil
     }
     
-    private let bookmarksEditorViewController: NSViewController = BookmarksEditorViewController()
-    private lazy var bookmarksEditorView: NSView = bookmarksEditorViewController.view
+    private lazy var bookmarksEditorView: NSView = BookmarksEditorViewController().view
+    private lazy var favoritesEditorView: NSView = FavoritesEditorViewController().view
+    private lazy var layoutsEditorView: NSView = LayoutsEditorViewController().view
+    private lazy var themesEditorView: NSView = ThemesEditorViewController().view
+    private lazy var fontSchemesEditorView: NSView = FontSchemesEditorViewController().view
+    private lazy var colorSchemesEditorView: NSView = ColorSchemesEditorViewController().view
     
-    private let favoritesEditorViewController: NSViewController = FavoritesEditorViewController()
-    private lazy var favoritesEditorView: NSView = favoritesEditorViewController.view
+    private lazy var effectsPresetsEditorViewLoader: LazyViewLoader<EffectsPresetsEditorViewController> = LazyViewLoader()
+    private lazy var effectsPresetsEditorView: NSView = effectsPresetsEditorViewLoader.view
     
-    private let layoutsEditorViewController: NSViewController = LayoutsEditorViewController()
-    private lazy var layoutsEditorView: NSView = layoutsEditorViewController.view
+    override var windowNibName: String? {"EditorWindow"}
     
-    private let themesEditorViewController: NSViewController = ThemesEditorViewController()
-    private lazy var themesEditorView: NSView = themesEditorViewController.view
+    private var theWindow: NSWindow {self.window!}
     
-    private let fontSchemesEditorViewController: NSViewController = FontSchemesEditorViewController()
-    private lazy var fontSchemesEditorView: NSView = fontSchemesEditorViewController.view
-    
-    private let colorSchemesEditorViewController: NSViewController = ColorSchemesEditorViewController()
-    private lazy var colorSchemesEditorView: NSView = colorSchemesEditorViewController.view
-    
-    private let effectsPresetsEditorViewController: EffectsPresetsEditorViewController = EffectsPresetsEditorViewController()
-    private lazy var effectsPresetsEditorView: NSView = effectsPresetsEditorViewController.view
-    
-    override var windowNibName: String? {return "EditorWindow"}
-    
-    private var theWindow: NSWindow {
-        return self.window!
-    }
+    private var addedViews: Set<NSView> = Set()
     
     override func windowDidLoad() {
         
         // TODO: Use tab view ?
-        
-        theWindow.contentView?.addSubview(bookmarksEditorView)
-        theWindow.contentView?.addSubview(favoritesEditorView)
-        theWindow.contentView?.addSubview(layoutsEditorView)
-        theWindow.contentView?.addSubview(themesEditorView)
-        theWindow.contentView?.addSubview(fontSchemesEditorView)
-        theWindow.contentView?.addSubview(colorSchemesEditorView)
-        theWindow.contentView?.addSubview(effectsPresetsEditorView)
-        
         theWindow.isMovableByWindowBackground = true
-        
         WindowManager.instance.registerModalComponent(self)
     }
     
     func destroy() {
-        effectsPresetsEditorViewController.destroy()
+        
+        addedViews.removeAll()
+        effectsPresetsEditorViewLoader.destroy()
     }
     
-    var isModal: Bool {
-        return self.window?.isVisible ?? false
+    var isModal: Bool {self.window?.isVisible ?? false}
+    
+    func showEditor(_ editorView: NSView) {
+        
+        if !addedViews.contains(editorView) {
+            
+            theWindow.contentView?.addSubview(editorView)
+            addedViews.insert(editorView)
+        }
+        
+        addedViews.forEach {$0.hide()}
+        editorView.show()
+        
+        var frame = theWindow.frame
+        frame.size = NSMakeSize(frame.width, editorView.height)
+        theWindow.setFrame(frame, display: true)
+        
+        UIUtils.showDialog(theWindow)
     }
     
     func showBookmarksEditor() {
-        
-        bookmarksEditorView.show()
-        
-        var frame = theWindow.frame
-        frame.size = NSMakeSize(frame.width, bookmarksEditorView.height)
-        theWindow.setFrame(frame, display: true)
-        
-        [themesEditorView, fontSchemesEditorView, colorSchemesEditorView, favoritesEditorView, layoutsEditorView, effectsPresetsEditorView].forEach({$0.hide()})
-        
-        UIUtils.showDialog(theWindow)
+        showEditor(bookmarksEditorView)
     }
     
     func showFavoritesEditor() {
-        
-        favoritesEditorView.show()
-        
-        var frame = theWindow.frame
-        frame.size = NSMakeSize(frame.width, favoritesEditorView.height)
-        theWindow.setFrame(frame, display: true)
-        
-        [themesEditorView, fontSchemesEditorView, colorSchemesEditorView, bookmarksEditorView, layoutsEditorView, effectsPresetsEditorView].forEach({$0.hide()})
-        
-        UIUtils.showDialog(theWindow)
+        showEditor(favoritesEditorView)
     }
     
     func showLayoutsEditor() {
-        
-        layoutsEditorView.show()
-        
-        var frame = theWindow.frame
-        frame.size = NSMakeSize(frame.width, layoutsEditorView.height)
-        theWindow.setFrame(frame, display: true)
-        
-        [themesEditorView, fontSchemesEditorView, colorSchemesEditorView, favoritesEditorView, bookmarksEditorView, effectsPresetsEditorView].forEach({$0.hide()})
-        
-        UIUtils.showDialog(theWindow)
+        showEditor(layoutsEditorView)
     }
     
     func showEffectsPresetsEditor() {
-        
-        effectsPresetsEditorView.show()
-        
-        var frame = theWindow.frame
-        frame.size = NSMakeSize(frame.width, effectsPresetsEditorView.height)
-        theWindow.setFrame(frame, display: true)
-        
-        [themesEditorView, fontSchemesEditorView, colorSchemesEditorView, favoritesEditorView, layoutsEditorView, bookmarksEditorView].forEach({$0.hide()})
-        
-        UIUtils.showDialog(theWindow)
+        showEditor(effectsPresetsEditorView)
     }
     
     func showThemesEditor() {
-        
-        themesEditorView.show()
-        
-        var frame = theWindow.frame
-        frame.size = NSMakeSize(frame.width, themesEditorView.height)
-        theWindow.setFrame(frame, display: true)
-        
-        [fontSchemesEditorView, colorSchemesEditorView, effectsPresetsEditorView, favoritesEditorView, layoutsEditorView, bookmarksEditorView].forEach({$0.hide()})
-        
-        UIUtils.showDialog(theWindow)
+        showEditor(themesEditorView)
     }
     
     func showFontSchemesEditor() {
-        
-        fontSchemesEditorView.show()
-        
-        var frame = theWindow.frame
-        frame.size = NSMakeSize(frame.width, fontSchemesEditorView.height)
-        theWindow.setFrame(frame, display: true)
-        
-        [themesEditorView, colorSchemesEditorView, effectsPresetsEditorView, favoritesEditorView, layoutsEditorView, bookmarksEditorView].forEach({$0.hide()})
-        
-        UIUtils.showDialog(theWindow)
+        showEditor(fontSchemesEditorView)
     }
     
     func showColorSchemesEditor() {
-        
-        colorSchemesEditorView.show()
-        
-        var frame = theWindow.frame
-        frame.size = NSMakeSize(frame.width, colorSchemesEditorView.height)
-        theWindow.setFrame(frame, display: true)
-        
-        [themesEditorView, fontSchemesEditorView, effectsPresetsEditorView, favoritesEditorView, layoutsEditorView, bookmarksEditorView].forEach({$0.hide()})
-        
-        UIUtils.showDialog(theWindow)
+        showEditor(colorSchemesEditorView)
     }
 }

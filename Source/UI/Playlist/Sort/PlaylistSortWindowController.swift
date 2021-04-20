@@ -21,7 +21,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
-    override var windowNibName: String? {return "PlaylistSortDialog"}
+    override var windowNibName: String? {"PlaylistSortDialog"}
     
     private var theWindow: NSWindow {self.window!}
     

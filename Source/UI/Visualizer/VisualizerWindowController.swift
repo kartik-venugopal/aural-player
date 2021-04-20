@@ -9,7 +9,7 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         print("\nDeinited \(self.className)")
     }
     
-    override var windowNibName: String? {return "Visualizer"}
+    override var windowNibName: String? {"Visualizer"}
     
     @IBOutlet weak var containerBox: VisualizerContainer!
     @IBOutlet weak var tabView: NSTabView!
