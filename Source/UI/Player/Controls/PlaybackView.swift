@@ -28,9 +28,6 @@ class PlaybackView: NSView, ColorSchemeable {
     
     override func awakeFromNib() {
         
-        btnPlayPause.off()
-        btnLoop.switchState(LoopState.none)
-
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
         let offStateTintFunction = {return Colors.toggleButtonOffStateColor}
         
@@ -63,10 +60,22 @@ class PlaybackView: NSView, ColorSchemeable {
             return nil
         }
 
-        [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
+        [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         
         applyFontScheme(FontSchemes.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
+        
+        // MARK: Update controls based on current player state
+        
+        let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+        
+        btnPlayPause.onIf(player.state == .playing)
+        
+        if let loop = player.playbackLoop {
+            btnLoop.switchState(loop.isComplete ? LoopState.complete : LoopState.started)
+        } else {
+            btnLoop.switchState(LoopState.none)
+        }
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated

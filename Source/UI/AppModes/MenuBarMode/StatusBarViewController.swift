@@ -8,6 +8,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnRegularMode: TintedImageButton!
     
+    @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var trackInfoView: StatusBarPlayingTrackTextView!
     @IBOutlet weak var imgArt: NSImageView!
     @IBOutlet weak var artOverlayBox: NSBox!
@@ -124,6 +125,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
         
+        Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
+        
         Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
         
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
@@ -140,12 +143,15 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         volumeSlider.floatValue = audioGraph.volume
         volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
         
-        seekTimer = RepeatingTaskExecutor(intervalMillis: 500, task: {[weak self] in
+        let seekTimerInterval = roundedInt(1000 / (2 * audioGraph.timeUnit.effectiveRate))
+        
+        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
             self?.updateSeekPosition()
         }, queue: .main)
         
         updateTrackInfo()
-        stateChanged(player.state)
+        btnPlayPause.onIf(player.state == .playing)
+        setSeekTimerState(false)
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -178,7 +184,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
             seekSlider.show()
             
             [lblTimeElapsed, lblTimeRemaining].forEach {$0?.show()}
-            setSeekTimerState(true)
+            setSeekTimerState(player.state == .playing)
             
             if theTrack.hasChapters {
                 beginPollingForChapterChange()
@@ -196,7 +202,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         playbackLoopChanged()
-        trackInfoView.bringToFront()
+        
+        infoBox.bringToFront()
     }
     
     private var curChapter: IndexedChapter? = nil
@@ -433,14 +440,45 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     }
     
     @IBAction func showOrHideSettingsAction(_ sender: NSButton) {
-        settingsBox.showIf(settingsBox.isHidden)
+        
+        if settingsBox.isHidden {
+
+            settingsBox.show()
+            settingsBox.bringToFront()
+
+        } else {
+            
+            settingsBox.hide()
+            infoBox.bringToFront()
+        }
     }
     
     func statusBarMenuOpened() {
-        settingsBox.hideIfShown()
+        
+        if settingsBox.isShown {
+            
+            settingsBox.hide()
+            infoBox.bringToFront()
+        }
+        
+        if player.state == .playing {
+            
+            updateSeekPosition()
+            setSeekTimerState(true)
+        }
     }
     
-    func statusBarMenuClosed() {}
+    func statusBarMenuClosed() {
+        
+        if settingsBox.isShown {
+            
+            settingsBox.hide()
+            infoBox.bringToFront()
+        }
+        
+        // Updating seek position is not necessary when the view has been closed.
+        setSeekTimerState(false)
+    }
     
     // MARK: Message handling
 

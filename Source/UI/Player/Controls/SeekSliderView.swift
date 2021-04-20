@@ -35,13 +35,35 @@ class SeekSliderView: NSView, ColorSchemeable {
     
     override func awakeFromNib() {
         
-        // Allow clicks on the seek time display labels to switch to different display formats
+        // Allow clicks on the seek time display labels to switch to different display formats.
         lblTimeElapsed.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction)))
+        
         lblTimeRemaining.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
         
-        playbackRateChanged(timeUnit.effectiveRate, .noTrack)
-        
         applyColorScheme(ColorSchemes.systemScheme)
+        
+        // MARK: Update controls based on current player state
+        
+        let seekTimerInterval = roundedInt(1000 / (2 * timeUnit.effectiveRate))
+        
+        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
+            self?.updateSeekPosition()
+        }, queue: .main)
+        
+        let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+        
+        if let track = player.playingTrack {
+            
+            playbackLoopChanged(player.playbackLoop, track.duration)
+            seekSlider.enable()
+            seekSlider.show()
+            
+            [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
+            setSeekTimerState(player.state == .playing)
+            
+        } else {
+            noTrackPlaying()
+        }
     }
     
     @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {

@@ -2,7 +2,7 @@ import Cocoa
 
 class AppModeManager {
     
-    static var mode: AppMode = AppDefaults.appMode
+    static var mode: AppMode!
     
     private static var windowedMode: WindowedAppModeController = WindowedAppModeController()
     
@@ -22,20 +22,22 @@ class AppModeManager {
         
         dismissCurrentMode()
         
-        mode = newMode
+        switch newMode {
         
-        switch mode {
-            
-        case .windowed:  windowedMode.presentMode()
+        case .windowed:  windowedMode.presentMode(transitioningFromMode: mode)
         
-        case .statusBar: statusBarMode.presentMode()
+        case .statusBar: statusBarMode.presentMode(transitioningFromMode: mode)
         
         }
+        
+        mode = newMode
     }
     
     private static func dismissCurrentMode() {
         
-        switch mode {
+        guard let currentMode = self.mode else {return}
+        
+        switch currentMode {
             
         case .windowed:  windowedMode.dismissMode()
             
@@ -55,7 +57,7 @@ protocol AppModeController {
     
     var mode: AppMode {get}
     
-    func presentMode()
+    func presentMode(transitioningFromMode previousMode: AppMode?)
     
     func dismissMode()
 }

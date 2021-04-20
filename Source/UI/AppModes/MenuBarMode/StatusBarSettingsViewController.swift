@@ -7,9 +7,13 @@ class StatusBarSettingsViewController: NSViewController {
     @IBOutlet weak var btnShowAlbum: NSButton!
     @IBOutlet weak var btnShowChapterTitle: NSButton!
     
+    @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var trackInfoView: StatusBarPlayingTrackTextView!
     @IBOutlet weak var imgArt: NSImageView!
+    
     @IBOutlet weak var artOverlayBox: NSBox!
+    
+    @IBOutlet weak var settingsBox: NSBox!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -28,6 +32,15 @@ class StatusBarSettingsViewController: NSViewController {
         
         StatusBarPlayerViewState.showAlbumArt.toggle()
         [imgArt, artOverlayBox].forEach {$0.showIf(StatusBarPlayerViewState.showAlbumArt && player.state.isPlayingOrPaused)}
+
+        // Arrange the views in the following Z-order, with the settings box frontmost.
+        
+        if StatusBarPlayerViewState.showAlbumArt {
+            artOverlayBox.bringToFront()
+        }
+        
+        infoBox.bringToFront()
+        settingsBox.bringToFront()
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSButton) {

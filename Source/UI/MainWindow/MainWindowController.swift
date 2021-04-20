@@ -52,6 +52,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         activateGestureHandler()
         initSubscriptions()
+        
+        super.windowDidLoad()
     }
     
     // Set window properties

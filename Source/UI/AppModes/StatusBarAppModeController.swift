@@ -9,7 +9,7 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate, N
     
     private lazy var appIcon: NSImage = NSImage(named: "AppIcon-StatusBar")!
     
-    func presentMode() {
+    func presentMode(transitioningFromMode previousMode: AppMode?) {
         
         controller = StatusBarViewController()
 
@@ -47,7 +47,7 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate, N
     
     func dismissMode() {
         
-        controller.destroy()
+        controller?.destroy()
      
         if let statusItem = self.statusItem {
             

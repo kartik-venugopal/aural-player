@@ -23,6 +23,7 @@
                 <outlet property="btnShuffle" destination="CGV-J4-5aK" id="qjY-dM-xrL"/>
                 <outlet property="btnVolume" destination="P5p-7u-pjj" id="Uhl-L9-FyY"/>
                 <outlet property="imgArt" destination="4dk-EH-BOI" id="cpf-qA-qGH"/>
+                <outlet property="infoBox" destination="vrX-Nw-abT" id="UMp-4M-mG7"/>
                 <outlet property="lblTimeElapsed" destination="WYU-tl-It4" id="JyC-79-Q6m"/>
                 <outlet property="lblTimeRemaining" destination="tuQ-Mc-uU0" id="2x8-FY-WQq"/>
                 <outlet property="lblVolume" destination="ifp-dM-R5z" id="Eng-E8-Fy5"/>
@@ -46,16 +47,16 @@
                     <rect key="frame" x="0.0" y="-1" width="300" height="172"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="8vy-W7-AMz" userLabel="Background Box">
+                        <box wantsLayer="YES" fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="8vy-W7-AMz" userLabel="Background Box">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="170"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView" id="Pcv-UO-T7Y">
                                 <rect key="frame" x="1" y="1" width="298" height="168"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
-                            <color key="fillColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="fillColor" white="0.083118785511363633" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z1q-TO-pG6" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
+                        <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z1q-TO-pG6" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="125" y="149" width="50" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppTitle" id="Ol1-DI-LsO"/>
@@ -63,7 +64,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="AppTitle"/>
                             </userDefinedRuntimeAttributes>
                         </imageView>
-                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dk-EH-BOI" userLabel="Art View">
+                        <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4dk-EH-BOI" userLabel="Art View">
                             <rect key="frame" x="115" y="66" width="70" height="70"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="MhS-nE-XZj"/>
@@ -76,9 +77,9 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
-                            <color key="fillColor" white="0.0" alpha="0.7958988527051446" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="fillColor" white="0.083118785511363633" alpha="0.70047100871598644" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <button toolTip="Switch to windowed mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Windowed Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <button toolTip="Switch to windowed mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Windowed Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="23" y="151" width="8" height="8"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NS8-FO-e8A">
@@ -92,7 +93,7 @@
                                 <action selector="windowedModeAction:" target="-2" id="qnv-td-oSf"/>
                             </connections>
                         </button>
-                        <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-Eq-c87" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <button toolTip="Quit application" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-Eq-c87" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="9" y="150" width="10" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="mzm-CL-LNF">
@@ -106,7 +107,7 @@
                                 <action selector="quitAction:" target="-2" id="yes-cl-mha"/>
                             </connections>
                         </button>
-                        <button toolTip="View settings" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UO-59-iT0" userLabel="Settings Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <button toolTip="View settings" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UO-59-iT0" userLabel="Settings Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="280" y="151" width="10" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Settings" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="siu-Cg-lWE">
@@ -242,7 +243,7 @@
                                 <action selector="seekForwardAction:" target="-2" id="Rqa-5p-vXv"/>
                             </connections>
                         </button>
-                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-dM-R5z" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <textField hidden="YES" wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-dM-R5z" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="240" y="28" width="50" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="50%" id="8XC-E7-HbD" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -251,7 +252,7 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </textFieldCell>
                         </textField>
-                        <slider toolTip="Volume" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LQL-m8-1KN" userLabel="Volume Slider">
+                        <slider toolTip="Volume" wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LQL-m8-1KN" userLabel="Volume Slider">
                             <rect key="frame" x="250" y="15" width="42" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="gbw-fl-UMB" customClass="StatusBarVolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -259,7 +260,7 @@
                                 <action selector="volumeAction:" target="-2" id="3cV-Xu-u1z"/>
                             </connections>
                         </slider>
-                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-tl-It4" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <textField hidden="YES" wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-tl-It4" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="8" y="55" width="84" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="0:00" placeholderString="" id="MmB-FX-HNj" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -271,7 +272,7 @@
                                 </allowedInputSourceLocales>
                             </textFieldCell>
                         </textField>
-                        <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuQ-Mc-uU0" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
+                        <textField hidden="YES" wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tuQ-Mc-uU0" userLabel="Lbl Time Remaining" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="191" y="55" width="99" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="- 0:00" placeholderString="" id="vhx-uu-UhR" customClass="VALabelCell" customModule="Aural" customModuleProvider="target">
@@ -283,7 +284,7 @@
                                 </allowedInputSourceLocales>
                             </textFieldCell>
                         </textField>
-                        <slider hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMO-ue-ceg" userLabel="Seek Slider">
+                        <slider hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cMO-ue-ceg" userLabel="Seek Slider">
                             <rect key="frame" x="9" y="39" width="282" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="UsT-W0-Z4w" customClass="StatusBarSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
@@ -294,11 +295,11 @@
                         <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-Nw-abT" userLabel="Playing Track Info Box">
                             <rect key="frame" x="5" y="66" width="290" height="70"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <view key="contentView" id="RjK-18-fyJ" customClass="StatusBarPlayingTrackTextView" customModule="Aural" customModuleProvider="target">
+                            <view key="contentView" wantsLayer="YES" id="RjK-18-fyJ" customClass="StatusBarPlayingTrackTextView" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="290" height="70"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Gpm-mc-bSS">
+                                    <scrollView wantsLayer="YES" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Gpm-mc-bSS">
                                         <rect key="frame" x="0.0" y="0.0" width="290" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="5I8-xp-xLg">
@@ -336,7 +337,7 @@
                             <color key="borderColor" white="0.10159040179999999" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="fillColor" white="0.0" alpha="0.74614876760000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <box hidden="YES" boxType="custom" cornerRadius="4" titlePosition="noTitle" id="Prg-DV-9kD" userLabel="Settings Box">
+                        <box hidden="YES" wantsLayer="YES" boxType="custom" cornerRadius="4" titlePosition="noTitle" id="Prg-DV-9kD" userLabel="Settings Box">
                             <rect key="frame" x="90" y="18" width="200" height="130"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <view key="contentView" id="TlV-4d-sjw">
@@ -419,6 +420,8 @@
                 <outlet property="btnShowArtist" destination="zYL-4V-R3Z" id="241-rM-0XO"/>
                 <outlet property="btnShowChapterTitle" destination="q1t-7d-POz" id="flZ-0E-hPn"/>
                 <outlet property="imgArt" destination="4dk-EH-BOI" id="eGx-du-ZgY"/>
+                <outlet property="infoBox" destination="vrX-Nw-abT" id="ptG-Hy-BIP"/>
+                <outlet property="settingsBox" destination="Prg-DV-9kD" id="kfA-gq-jgs"/>
                 <outlet property="trackInfoView" destination="RjK-18-fyJ" id="bt3-Dk-LjT"/>
                 <outlet property="view" destination="Prg-DV-9kD" id="mTz-nN-uX2"/>
             </connections>
