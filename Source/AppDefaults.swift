@@ -6,7 +6,7 @@ import AVFoundation
 */
 struct AppDefaults {
     
-    static var appMode: AppMode = .regular
+    static var appMode: AppMode = .windowed
     
     static let repeatMode: RepeatMode = .off
     static let shuffleMode: ShuffleMode = .off

@@ -18,7 +18,9 @@
                 <outlet property="gapStepper" destination="JM6-3k-x8N" id="QeI-Qi-F1T"/>
                 <outlet property="layoutMenu" destination="wN2-oO-Gzv" id="FdY-cu-I8R"/>
                 <outlet property="lblWindowGap" destination="raN-A4-2KT" id="rJW-kh-qoM"/>
+                <outlet property="statusBarAppModeMenuItem" destination="ztQ-Rf-bal" id="zBJ-tT-HN8"/>
                 <outlet property="view" destination="YPU-Wt-2pN" id="oYL-9k-17W"/>
+                <outlet property="windowedAppModeMenuItem" destination="OM0-ct-omq" id="lKP-1Q-K46"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -168,12 +170,12 @@
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j46-J5-H9h" userLabel="App mode menu">
                     <rect key="frame" x="153" y="393" width="244" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Regular mode (windowed)" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OM0-ct-omq" id="JfR-FV-Omn" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                    <popUpButtonCell key="cell" type="push" title="Windowed mode" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="OM0-ct-omq" id="JfR-FV-Omn" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="10" name="Play-Regular"/>
                         <menu key="menu" id="aFu-Cg-NjU">
                             <items>
-                                <menuItem title="Regular mode (windowed)" state="on" id="OM0-ct-omq">
+                                <menuItem title="Windowed mode" state="on" id="OM0-ct-omq">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                                 <menuItem title="Status bar mode" id="ztQ-Rf-bal">

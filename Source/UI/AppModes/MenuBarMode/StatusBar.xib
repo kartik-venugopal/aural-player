@@ -10,11 +10,11 @@
             <connections>
                 <outlet property="appLogo" destination="Z1q-TO-pG6" id="eWD-M2-jx4"/>
                 <outlet property="artOverlayBox" destination="xSV-wz-vgQ" id="l62-4K-E7e"/>
-                <outlet property="btnClose" destination="D5e-Eq-c87" id="W9N-98-Y2T"/>
                 <outlet property="btnLoop" destination="Cut-80-aL8" id="Lko-ak-ETv"/>
                 <outlet property="btnNextTrack" destination="taN-kK-eEV" id="jmG-RA-8Zc"/>
                 <outlet property="btnPlayPause" destination="m2Q-Qd-juj" id="c91-fV-ANI"/>
                 <outlet property="btnPreviousTrack" destination="rru-Ww-H57" id="fLW-hW-vUg"/>
+                <outlet property="btnQuit" destination="D5e-Eq-c87" id="W9N-98-Y2T"/>
                 <outlet property="btnRegularMode" destination="GS3-VZ-nPx" id="1he-Yy-8mg"/>
                 <outlet property="btnRepeat" destination="oIU-fy-2aj" id="oLq-IW-EcE"/>
                 <outlet property="btnSeekBackward" destination="9dh-O3-hsB" id="IU0-kI-0mF"/>
@@ -78,7 +78,7 @@
                             <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                             <color key="fillColor" white="0.0" alpha="0.7958988527051446" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <button toolTip="Switch to regular (windowed) mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Regular Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                        <button toolTip="Switch to windowed mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Windowed Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="23" y="151" width="8" height="8"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NS8-FO-e8A">
@@ -89,7 +89,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="RegularMode"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="regularModeAction:" target="-2" id="qnv-td-oSf"/>
+                                <action selector="windowedModeAction:" target="-2" id="qnv-td-oSf"/>
                             </connections>
                         </button>
                         <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-Eq-c87" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">

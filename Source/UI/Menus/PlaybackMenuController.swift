@@ -74,7 +74,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         stopMenuItem.enableIf(!noTrack)
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
         
-        // Enabled only in regular mode if playing/paused
+        // Enabled only if playing/paused
         showInPlaylistMenuItem.enableIf(isPlayingOrPaused && WindowManager.instance.isShowingPlaylist)
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused)})
         

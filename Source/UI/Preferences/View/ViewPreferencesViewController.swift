@@ -6,6 +6,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     @IBOutlet weak var btnRememberAppMode: NSButton!
     @IBOutlet weak var appModeMenu: NSPopUpButton!
     
+    @IBOutlet weak var windowedAppModeMenuItem: NSMenuItem!
+    @IBOutlet weak var statusBarAppModeMenuItem: NSMenuItem!
+    
     @IBOutlet weak var btnStartWithLayout: NSButton!
     @IBOutlet weak var btnRememberLayout: NSButton!
     @IBOutlet weak var layoutMenu: NSPopUpButton!
@@ -22,6 +25,12 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         return self.view
     }
     
+    override func viewDidLoad() {
+        
+        windowedAppModeMenuItem.representedObject = AppMode.windowed
+        statusBarAppModeMenuItem.representedObject = AppMode.statusBar
+    }
+    
     func resetFields(_ preferences: Preferences) {
         
         let viewPrefs = preferences.viewPreferences
@@ -32,8 +41,10 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             btnRememberAppMode.on()
         }
         
-        if let item = appModeMenu.item(withTitle: viewPrefs.appModeOnStartup.modeName) {
-            appModeMenu.select(item)
+        if viewPrefs.appModeOnStartup.modeName == AppMode.statusBar.rawValue {
+            appModeMenu.select(statusBarAppModeMenuItem)
+        } else {
+            appModeMenu.select(windowedAppModeMenuItem)
         }
      
         if viewPrefs.layoutOnStartup.option == .specific {
@@ -103,7 +114,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         let viewPrefs = preferences.viewPreferences
         
         viewPrefs.appModeOnStartup.option = btnStartWithAppMode.isOn ? .specific : .rememberFromLastAppLaunch
-        viewPrefs.appModeOnStartup.modeName = appModeMenu.selectedItem!.title
+        viewPrefs.appModeOnStartup.modeName = (appModeMenu.selectedItem?.representedObject as? AppMode)?.rawValue ?? AppDefaults.appMode.rawValue
         
         viewPrefs.layoutOnStartup.option = btnStartWithLayout.isOn ? .specific : .rememberFromLastAppLaunch
         viewPrefs.layoutOnStartup.layoutName = layoutMenu.selectedItem!.title

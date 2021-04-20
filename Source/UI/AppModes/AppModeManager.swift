@@ -4,7 +4,7 @@ class AppModeManager {
     
     static var mode: AppMode = AppDefaults.appMode
     
-    private static var regularMode: RegularAppModeController = RegularAppModeController()
+    private static var windowedMode: WindowedAppModeController = WindowedAppModeController()
     
     private static var statusBarMode: StatusBarAppModeController = StatusBarAppModeController()
     
@@ -26,7 +26,7 @@ class AppModeManager {
         
         switch mode {
             
-        case .regular:  regularMode.presentMode()
+        case .windowed:  windowedMode.presentMode()
         
         case .statusBar: statusBarMode.presentMode()
         
@@ -37,7 +37,7 @@ class AppModeManager {
         
         switch mode {
             
-        case .regular:  regularMode.dismissMode()
+        case .windowed:  windowedMode.dismissMode()
             
         case .statusBar: statusBarMode.dismissMode()
             
@@ -47,7 +47,7 @@ class AppModeManager {
 
 enum AppMode: String {
     
-    case regular
+    case windowed
     case statusBar
 }
 

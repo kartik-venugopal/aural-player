@@ -1,8 +1,8 @@
 import Cocoa
 
-class RegularAppModeController: AppModeController {
+class WindowedAppModeController: AppModeController {
     
-    var mode: AppMode {return .regular}
+    var mode: AppMode {return .windowed}
     
     func presentMode() {
         

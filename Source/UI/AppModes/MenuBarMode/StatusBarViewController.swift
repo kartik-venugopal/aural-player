@@ -5,7 +5,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     override var nibName: String? {return "StatusBar"}
     
     @IBOutlet weak var appLogo: TintedImageView!
-    @IBOutlet weak var btnClose: TintedImageButton!
+    @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnRegularMode: TintedImageButton!
     
     @IBOutlet weak var trackInfoView: StatusBarPlayingTrackTextView!
@@ -112,7 +112,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
             return nil
         }
         
-        [btnClose, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
+        [btnQuit, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
         
         appLogo.tintFunction = {Colors.Constants.white70Percent}
 
@@ -468,8 +468,8 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         }
     }
     
-    @IBAction func regularModeAction(_ sender: AnyObject) {
-        AppModeManager.presentMode(.regular)
+    @IBAction func windowedModeAction(_ sender: AnyObject) {
+        AppModeManager.presentMode(.windowed)
     }
 
     @IBAction func quitAction(_ sender: AnyObject) {
