@@ -179,19 +179,19 @@ class Playlist: PlaylistCRUDProtocol {
     // MARK: Grouping/hierarchical playlist functions
     
     func groupAtIndex(_ type: GroupType, _ index: Int) -> Group? {
-        return groupingPlaylists[type.toPlaylistType()]!.groupAtIndex(index)
+        return groupingPlaylists[type.toPlaylistType()]?.groupAtIndex(index)
     }
     
     func groupingInfoForTrack(_ type: GroupType, _ track: Track) -> GroupedTrack? {
-        return groupingPlaylists[type.toPlaylistType()]!.groupingInfoForTrack(track)
+        return groupingPlaylists[type.toPlaylistType()]?.groupingInfoForTrack(track)
     }
     
     func indexOfGroup(_ group: Group) -> Int? {
-        return groupingPlaylists[group.type.toPlaylistType()]!.indexOfGroup(group)
+        return groupingPlaylists[group.type.toPlaylistType()]?.indexOfGroup(group)
     }
     
     func numberOfGroups(_ type: GroupType) -> Int {
-        return groupingPlaylists[type.toPlaylistType()]!.numberOfGroups
+        return groupingPlaylists[type.toPlaylistType()]?.numberOfGroups ?? 0
     }
     
     func allGroupingInfoForTrack(_ track: Track) -> [GroupType : GroupedTrack] {
