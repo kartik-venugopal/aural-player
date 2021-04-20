@@ -30,7 +30,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     
     private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
-    override var nibName: String? {return "Tracks"}
+    override var nibName: String? {"Tracks"}
     
     override func viewDidLoad() {
         

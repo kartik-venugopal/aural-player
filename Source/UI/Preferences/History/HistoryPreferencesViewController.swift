@@ -7,7 +7,7 @@ class HistoryPreferencesViewController: NSViewController, PreferencesViewProtoco
     
     private lazy var history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     
-    override var nibName: String? {return "HistoryPreferences"}
+    override var nibName: String? {"HistoryPreferences"}
     
     var preferencesView: NSView {
         return self.view

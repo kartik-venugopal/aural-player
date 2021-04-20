@@ -18,7 +18,7 @@ class PitchViewController: FXUnitViewController {
     @IBOutlet weak var lblOverlapMax: VALabel!
     @IBOutlet weak var lblPitchOverlapValue: VALabel!
     
-    override var nibName: String? {return "Pitch"}
+    override var nibName: String? {"Pitch"}
     
     private var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
  

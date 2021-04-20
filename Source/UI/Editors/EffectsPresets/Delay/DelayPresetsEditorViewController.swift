@@ -4,7 +4,7 @@ class DelayPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBOutlet weak var delayView: DelayView!
     
-    override var nibName: String? {return "DelayPresetsEditor"}
+    override var nibName: String? {"DelayPresetsEditor"}
     
     var delayUnit: DelayUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.delayUnit
     
@@ -20,11 +20,14 @@ class DelayPresetsEditorViewController: FXPresetsEditorGenericViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        delayView.initialize({() -> EffectsUnitState in return .active})
+        delayView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {
-        renderPreview(delayUnit.presets.presetByName(presetName)!)
+        
+        if let preset = delayUnit.presets.presetByName(presetName) {
+            renderPreview(preset)
+        }
     }
     
     private func renderPreview(_ preset: DelayPreset) {

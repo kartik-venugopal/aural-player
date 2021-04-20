@@ -25,7 +25,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    override var nibName: String? {return "Player"}
+    override var nibName: String? {"Player"}
     
     override func viewDidLoad() {
         

@@ -99,7 +99,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     
     private let noLyricsText: String = "< No lyrics available for this track >"
     
-    override var nibName: String? {return "DetailedTrackInfo"}
+    override var nibName: String? {"DetailedTrackInfo"}
     
     private let horizHTMLTablePadding: Int = 20
     private let vertHTMLTablePadding: Int = 5

@@ -1781,16 +1781,16 @@
 		3E6C0F6925CEB98600BF0D07 /* Editors */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F6A25CEB98600BF0D07 /* Favorites */,
 				3E6C0F6D25CEB98600BF0D07 /* EditorWindow.xib */,
+				3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */,
+				3E6C0F8925CEB98600BF0D07 /* Bookmarks */,
+				3E6C0F6A25CEB98600BF0D07 /* Favorites */,
 				3E6C0F6E25CEB98600BF0D07 /* EffectsPresets */,
 				3E6C0F8825CEB98600BF0D07 /* CustomEditorViews.swift */,
-				3E6C0F8925CEB98600BF0D07 /* Bookmarks */,
-				3E6C0F8C25CEB98600BF0D07 /* Layouts */,
 				3E51F344262AFDAF0048452F /* Themes */,
-				3E6C0F9025CEB98600BF0D07 /* ColorSchemes */,
 				3EA3CE6525E3FD5300BC7D07 /* FontSchemes */,
-				3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */,
+				3E6C0F9025CEB98600BF0D07 /* ColorSchemes */,
+				3E6C0F8C25CEB98600BF0D07 /* Layouts */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
@@ -1807,16 +1807,16 @@
 		3E6C0F6E25CEB98600BF0D07 /* EffectsPresets */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F6F25CEB98600BF0D07 /* Pitch */,
-				3E6C0F7225CEB98600BF0D07 /* EQ */,
 				3E6C0F7525CEB98600BF0D07 /* EffectsPresetsEditor.xib */,
-				3E6C0F7625CEB98600BF0D07 /* FXPresetsEditorGenericViewController.swift */,
-				3E6C0F7725CEB98600BF0D07 /* Reverb */,
-				3E6C0F7A25CEB98600BF0D07 /* Time */,
-				3E6C0F7D25CEB98600BF0D07 /* Master */,
-				3E6C0F8025CEB98600BF0D07 /* Filter */,
-				3E6C0F8425CEB98600BF0D07 /* Delay */,
 				3E6C0F8725CEB98600BF0D07 /* EffectsPresetsEditorViewController.swift */,
+				3E6C0F7625CEB98600BF0D07 /* FXPresetsEditorGenericViewController.swift */,
+				3E6C0F7D25CEB98600BF0D07 /* Master */,
+				3E6C0F7225CEB98600BF0D07 /* EQ */,
+				3E6C0F6F25CEB98600BF0D07 /* Pitch */,
+				3E6C0F7A25CEB98600BF0D07 /* Time */,
+				3E6C0F7725CEB98600BF0D07 /* Reverb */,
+				3E6C0F8425CEB98600BF0D07 /* Delay */,
+				3E6C0F8025CEB98600BF0D07 /* Filter */,
 			);
 			path = EffectsPresets;
 			sourceTree = "<group>";

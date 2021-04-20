@@ -42,7 +42,6 @@ class FontSchemePreviewView: NSView {
                 fxCaptionFont = theScheme.effects.unitCaptionFont
                 fxFunctionFont = theScheme.effects.unitFunctionFont
                 
-//                [playlistTabButton, playlistSelectedTabButton].forEach({$0?.redraw()})
                 containerBox.show()
             }
         }

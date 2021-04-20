@@ -15,13 +15,9 @@ class AudioGraphFilterBandsDataSource: FilterBandsDataSource {
         self.filterUnit = filterUnit
     }
     
-    func countFilterBands() -> Int {
-        return filterUnit.bands.count
-    }
+    func countFilterBands() -> Int {filterUnit.bands.count}
     
-    func getFilterBand(_ index: Int) -> FilterBand {
-        return filterUnit.bands[index]
-    }
+    func getFilterBand(_ index: Int) -> FilterBand {filterUnit.bands[index]}
 }
 
 class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
@@ -31,7 +27,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     var allowSelection: Bool = true
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return dataSource?.countFilterBands() ?? 0
+        dataSource?.countFilterBands() ?? 0
     }
     
     // Returns a view for a single row
@@ -41,7 +37,8 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let band = dataSource!.getFilterBand(row)
+        guard let band = dataSource?.getFilterBand(row) else {return nil}
+        
         let colID = tableColumn!.identifier.rawValue
         var cellText: String
         
@@ -87,17 +84,14 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     
     private func createCell(_ tableView: NSTableView, _ id: String, _ row: Int, _ text: String) -> BasicTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView {
-            
-            cell.textField?.stringValue = text
-            cell.textFont = Fonts.Standard.mainFont_10
-            cell.selectedTextFont = Fonts.Standard.mainFont_10
-            cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-            
-            return cell
-        }
+        guard let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView else {return nil}
         
-        return nil
+        cell.textField?.stringValue = text
+        cell.textFont = Fonts.Standard.mainFont_10
+        cell.selectedTextFont = Fonts.Standard.mainFont_10
+        cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
+        
+        return cell
     }
     
     // Row selection

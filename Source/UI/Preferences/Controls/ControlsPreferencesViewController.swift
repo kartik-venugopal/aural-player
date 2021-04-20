@@ -28,7 +28,7 @@ class ControlsPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     private lazy var mediaKeyHandler: MediaKeyHandler = ObjectGraph.mediaKeyHandler
     
-    override var nibName: String? {return "ControlsPreferences"}
+    override var nibName: String? {"ControlsPreferences"}
     
     override func viewDidLoad() {
         

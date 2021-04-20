@@ -64,17 +64,17 @@ class ColorSchemePreviewView: NSView {
     override func awakeFromNib() {
         
         playerFunctionButtons = [btnPlay, btnPreviousTrack, btnNextTrack]
-        playerFunctionButtons.forEach({$0.tintFunction = {return self.scheme?.general.functionButtonColor ?? NSColor.white}})
+        playerFunctionButtons.forEach({$0.tintFunction = {[weak self] in self?.scheme?.general.functionButtonColor ?? ColorSchemePreset.blackAttack.functionButtonColor}})
         
         playlistIndexDurationLabels = [lblPlaylistIndex_1, lblPlaylistIndex_3, lblPlaylistDuration_1, lblPlaylistDuration_3]
         playlistTrackTitleLabels = [lblPlaylistTitle_1, lblPlaylistTitle_3]
-        imgPlayingTrack.tintFunction = {return self.playingTrackIconColor}
+        imgPlayingTrack.tintFunction = {[weak self] in self?.playingTrackIconColor ?? ColorSchemePreset.blackAttack.playlistPlayingTrackIconColor}
         playlistSelectedTabButton.on()
         
         eqSliders = [eqSlider_1, eqSlider_2, eqSlider_3, eqSlider_4, eqSlider_5]
         eqSliderCells = [eqSliderCell_1, eqSliderCell_2, eqSliderCell_3, eqSliderCell_4, eqSliderCell_5]
         
-        btnBypass.tintFunction = {return self.activeUnitColor}
+        btnBypass.tintFunction = {[weak self] in self?.activeUnitColor ?? ColorSchemePreset.blackAttack.effectsActiveUnitStateColor}
     }
     
     // When any of the following fields is set, update the corresponding fields.
@@ -132,9 +132,9 @@ class ColorSchemePreviewView: NSView {
                 seekSliderCell._knobColor = theScheme.player.sliderKnobColorSameAsForeground ? theScheme.player.sliderForegroundColor : theScheme.player.sliderKnobColor
                 
                 seekSlider.redraw()
-                playerFunctionButtons.forEach({$0.reTint()})
+                playerFunctionButtons.forEach {$0.reTint()}
                 
-                eqSliderCells.forEach({
+                eqSliderCells.forEach {
                     
                     $0.foregroundStartColor = theScheme.effects.activeUnitStateColor
                     
@@ -176,9 +176,9 @@ class ColorSchemePreviewView: NSView {
                     }
                     
                     $0._knobColor = theScheme.effects.sliderKnobColorSameAsForeground ? theScheme.effects.activeUnitStateColor : theScheme.effects.sliderKnobColor
-                })
+                }
                 
-                eqSliders.forEach({$0.redraw()})
+                eqSliders.forEach {$0.redraw()}
                 
                 activeUnitColor = theScheme.effects.activeUnitStateColor
                 fxCaptionColor = theScheme.general.mainCaptionTextColor
@@ -195,9 +195,9 @@ class ColorSchemePreviewView: NSView {
                 
                 playlistTabButtonCell.tabButtonTextColor = theScheme.general.tabButtonTextColor
                 
-                [playlistTabButton, playlistSelectedTabButton].forEach({$0?.redraw()})
+                [playlistTabButton, playlistSelectedTabButton].forEach {$0?.redraw()}
                 
-                [playlistBox, playerBox, effectsBox].forEach({$0.show()})
+                [playlistBox, playerBox, effectsBox].forEach {$0.show()}
             }
         }
     }
@@ -294,9 +294,9 @@ class SeekSliderPreviewCell: SeekSliderCell {
     
     var _knobColor: NSColor = NSColor.white
     
-    override var backgroundGradient: NSGradient {return NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!}
-    override var foregroundGradient: NSGradient {return NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!}
-    override var knobColor: NSColor {return _knobColor}
+    override var backgroundGradient: NSGradient {NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!}
+    override var foregroundGradient: NSGradient {NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!}
+    override var knobColor: NSColor {_knobColor}
 }
 
 class EQSliderPreviewCell: EQSliderCell {
@@ -310,14 +310,14 @@ class EQSliderPreviewCell: EQSliderCell {
     var _knobColor: NSColor = NSColor.white
     
     override var foregroundGradient: NSGradient {
-        return NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!
+        NSGradient(starting: foregroundStartColor, ending: foregroundEndColor)!
     }
     
     override var backgroundGradient: NSGradient {
-        return NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!
+        NSGradient(starting: backgroundStartColor, ending: backgroundEndColor)!
     }
     
-    override var knobColor: NSColor {return _knobColor}
+    override var knobColor: NSColor {_knobColor}
 }
 
 class EQSliderConstantColorPreviewCell: EQSliderCell {
@@ -336,7 +336,7 @@ class EQSliderConstantColorPreviewCell: EQSliderCell {
     }
     
     override var backgroundGradient: NSGradient {
-        return Colors.Effects.defaultSliderBackgroundGradient
+        Colors.Effects.defaultSliderBackgroundGradient
     }
     
     override var knobColor: NSColor {
@@ -359,17 +359,15 @@ class PlaylistPreviewTabButtonCell: PlaylistViewsButtonCell {
     var selectedTabButtonTextColor: NSColor = NSColor.white
     var _selectionBoxColor: NSColor = Colors.Constants.white15Percent
     
-    override var unselectedTextColor: NSColor {return tabButtonTextColor}
-    override var selectedTextColor: NSColor {return selectedTabButtonTextColor}
-    override var selectionBoxColor: NSColor {return _selectionBoxColor}
+    override var unselectedTextColor: NSColor {tabButtonTextColor}
+    override var selectedTextColor: NSColor {selectedTabButtonTextColor}
+    override var selectionBoxColor: NSColor {_selectionBoxColor}
     
-    override var textFont: NSFont {return _textFont}
+    override var textFont: NSFont {_textFont}
     var _textFont: NSFont = Fonts.largeTabButtonFont
     
-    override var boldTextFont: NSFont {return _boldTextFont}
+    override var boldTextFont: NSFont {_boldTextFont}
     var _boldTextFont: NSFont = Fonts.largeTabButtonFont
     
-    override var yOffset: CGFloat {
-        return 1
-    }
+    override var yOffset: CGFloat {1}
 }

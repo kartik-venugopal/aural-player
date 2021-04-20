@@ -4,9 +4,9 @@ class EQPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBOutlet weak var eqView: EQView!
     
-    override var nibName: String? {return "EQPresetsEditor"}
+    override var nibName: String? {"EQPresetsEditor"}
     
-    var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}
+    var eqUnit: EQUnitDelegateProtocol {graph.eqUnit}
     
     override func awakeFromNib() {
         
@@ -20,18 +20,22 @@ class EQPresetsEditorViewController: FXPresetsEditorGenericViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        eqView.initialize(nil, nil, {() -> EffectsUnitState in return .active})
+        eqView.initialize(nil, nil, {() -> EffectsUnitState in .active})
         eqView.chooseType(.tenBand)
     }
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        let preset = eqUnit.presets.presetByName(firstSelectedPresetName)!
-        eqView.typeChanged(preset.bands, preset.globalGain)
+        if let preset = eqUnit.presets.presetByName(firstSelectedPresetName) {
+            eqView.typeChanged(preset.bands, preset.globalGain)
+        }
     }
     
     override func renderPreview(_ presetName: String) {
-        renderPreview(eqUnit.presets.presetByName(presetName)!)
+        
+        if let preset = eqUnit.presets.presetByName(presetName) {
+            renderPreview(preset)
+        }
     }
     
     private func renderPreview(_ preset: EQPreset) {

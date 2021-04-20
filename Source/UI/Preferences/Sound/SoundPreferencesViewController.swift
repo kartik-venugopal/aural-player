@@ -39,7 +39,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
     private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
-    override var nibName: String? {return "SoundPreferences"}
+    override var nibName: String? {"SoundPreferences"}
     
     var preferencesView: NSView {
         return self.view

@@ -24,7 +24,7 @@ class AlbumsPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBOutlet weak var useTrackNameIfNoMetadata: NSButton!
     
-    override var nibName: String? {return "AlbumsPlaylistSort"}
+    override var nibName: String? {"AlbumsPlaylistSort"}
     
     var sortView: NSView {view}
     

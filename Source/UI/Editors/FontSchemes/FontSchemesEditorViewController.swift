@@ -22,7 +22,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     // Used to temporarily store the original name of a font scheme that is being renamed.
     private var oldSchemeName: String = ""
     
-    override var nibName: String? {return "FontSchemesEditor"}
+    override var nibName: String? {"FontSchemesEditor"}
     
     override func viewDidAppear() {
         
@@ -34,7 +34,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
         editorView.deselectAll(self)
         
         // Set button states.
-        [btnDelete, btnRename, btnApply].forEach({$0.disable()})
+        [btnDelete, btnRename, btnApply].forEach {$0.disable()}
         
         // Clear the preview view (no scheme is selected).
         previewView.clear()
@@ -44,7 +44,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
         
         // Descending order
-        selectedSchemeNames.forEach({FontSchemes.deleteScheme($0)})
+        selectedSchemeNames.forEach {FontSchemes.deleteScheme($0)}
         
         // Update the cache
         schemesCache = FontSchemes.userDefinedSchemes
@@ -144,14 +144,14 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
         
         if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
-            cell.isSelectedFunction = {(row: Int) -> Bool in
-                return self.editorView.selectedRowIndexes.contains(row)
+            cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+                self?.editorView.selectedRowIndexes.contains(row) ?? false
             }
             
             cell.row = row
             
             cell.textField?.stringValue = text
-            cell.textField!.delegate = self
+            cell.textField?.delegate = self
             
             return cell
         }

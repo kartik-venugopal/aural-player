@@ -6,7 +6,7 @@ import AVFoundation
  */
 class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSubscriber, Destroyable {
     
-    override var nibName: String? {return "AudioUnits"}
+    override var nibName: String? {"AudioUnits"}
     
     @IBOutlet weak var lblCaption: NSTextField!
     

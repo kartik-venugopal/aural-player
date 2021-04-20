@@ -1,6 +1,6 @@
 import Cocoa
 
-class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NotificationSubscriber {
+class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var editorView: NSTableView!
     @IBOutlet weak var previewBox: NSBox!
@@ -14,19 +14,23 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     override func viewDidLoad() {
         
-        let unitTypeFilter: (EffectsUnit) -> Bool = {(unit: EffectsUnit) in unit == self.unitType}
+        let unitTypeFilter: (EffectsUnit) -> Bool = {[weak self] (unit: EffectsUnit) in unit == self?.unitType}
         
-        Messenger.subscribe(self, .fxPresetsEditor_reload, {(EffectsUnit) in self.doViewDidAppear()},
+        Messenger.subscribe(self, .fxPresetsEditor_reload, {[weak self] (EffectsUnit) in self?.doViewDidAppear()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsEditor_apply, {(EffectsUnit) in self.applySelectedPreset()},
+        Messenger.subscribe(self, .fxPresetsEditor_apply, {[weak self] (EffectsUnit) in self?.applySelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsEditor_rename, {(EffectsUnit) in self.renameSelectedPreset()},
+        Messenger.subscribe(self, .fxPresetsEditor_rename, {[weak self] (EffectsUnit) in self?.renameSelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsEditor_delete, {(EffectsUnit) in self.deleteSelectedPresets()},
+        Messenger.subscribe(self, .fxPresetsEditor_delete, {[weak self] (EffectsUnit) in self?.deleteSelectedPresets()},
                             filter: unitTypeFilter)
+    }
+    
+    func destroy() {
+        Messenger.unsubscribeAll(for: self)
     }
     
     override func viewDidAppear() {
@@ -57,19 +61,12 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     var selectedPresetNames: [String] {
         
-        var names = [String]()
-        
-        editorView.selectedRowIndexes.forEach({
-            
-            let cell = editorView.view(atColumn: 0, row: $0, makeIfNecessary: true) as! NSTableCellView
-            names.append(cell.textField!.stringValue)
-        })
-        
-        return names
+        editorView.selectedRowIndexes.compactMap {[weak editorView] in editorView?.view(atColumn: 0, row: $0, makeIfNecessary: true) as? NSTableCellView}
+            .compactMap {$0.textField?.stringValue}
     }
     
     var firstSelectedPresetName: String {
-        return (editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as! NSTableCellView).textField!.stringValue
+        (editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as! NSTableCellView).textField!.stringValue
     }
     
     func renameSelectedPreset() {
@@ -128,11 +125,8 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
-            cell.isSelectedFunction = {
-                
-                (row: Int) -> Bool in
-                
-                return self.editorView.selectedRowIndexes.contains(row)
+            cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+                return self?.editorView.selectedRowIndexes.contains(row) ?? false
             }
             
             cell.row = row
@@ -160,7 +154,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             // TODO: What if the string is too long ?
             
             // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newPresetName) || presetsWrapper.presetWithNameExists(newPresetName)) {
+            if StringUtils.isStringEmpty(newPresetName) || presetsWrapper.presetWithNameExists(newPresetName) {
                 
                 editedTextField.stringValue = preset.name
                 

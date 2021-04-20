@@ -7,7 +7,7 @@ class DelayViewController: FXUnitViewController {
     
     @IBOutlet weak var delayView: DelayView!
     
-    override var nibName: String? {return "Delay"}
+    override var nibName: String? {"Delay"}
     
     var delayUnit: DelayUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.delayUnit
     

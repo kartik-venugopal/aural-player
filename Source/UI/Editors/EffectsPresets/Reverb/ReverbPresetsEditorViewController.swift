@@ -4,9 +4,9 @@ class ReverbPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBOutlet weak var reverbView: ReverbView!
     
-    override var nibName: String? {return "ReverbPresetsEditor"}
+    override var nibName: String? {"ReverbPresetsEditor"}
     
-    var reverbUnit: ReverbUnitDelegateProtocol {return graph.reverbUnit}
+    var reverbUnit: ReverbUnitDelegateProtocol {graph.reverbUnit}
     
     override func awakeFromNib() {
         
@@ -20,11 +20,14 @@ class ReverbPresetsEditorViewController: FXPresetsEditorGenericViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        reverbView.initialize({() -> EffectsUnitState in return .active})
+        reverbView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {
-        renderPreview(reverbUnit.presets.presetByName(presetName)!)
+        
+        if let preset = reverbUnit.presets.presetByName(presetName) {
+            renderPreview(preset)
+        }
     }
     
     private func renderPreview(_ preset: ReverbPreset) {

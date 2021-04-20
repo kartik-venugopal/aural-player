@@ -16,7 +16,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     private var oldLayoutName: String = ""
     
-    override var nibName: String? {return "LayoutsEditor"}
+    override var nibName: String? {"LayoutsEditor"}
     
     override func viewDidAppear() {
         
@@ -143,17 +143,14 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         
         if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
-            cell.isSelectedFunction = {
-                
-                (row: Int) -> Bool in
-                
-                return self.editorView.selectedRowIndexes.contains(row)
+            cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+                self?.editorView.selectedRowIndexes.contains(row) ?? false
             }
             
             cell.row = row
             
             cell.textField?.stringValue = text
-            cell.textField!.delegate = self
+            cell.textField?.delegate = self
             
             return cell
         }

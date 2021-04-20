@@ -27,3 +27,6 @@ func floorInt(_ floatVal: Float) -> Int {
 func floorInt(_ doubleVal: Double) -> Int {
     return Int(floor(doubleVal))
 }
+
+let ascendingIntComparator: (Int, Int) -> Bool = {$0 < $1}
+let descendingIntComparator: (Int, Int) -> Bool = {$0 > $1}

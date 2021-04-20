@@ -30,7 +30,7 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     @IBOutlet weak var useTrackNameIfNoMetadata: NSButton!
     
-    override var nibName: String? {return "GenresPlaylistSort"}
+    override var nibName: String? {"GenresPlaylistSort"}
     
     var sortView: NSView {
         return self.view

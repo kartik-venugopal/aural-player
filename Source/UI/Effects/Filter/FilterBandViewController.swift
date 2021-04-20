@@ -2,7 +2,7 @@ import Cocoa
 
 class FilterBandViewController: NSViewController {
     
-    override var nibName: String? {return "FilterBand"}
+    override var nibName: String? {"FilterBand"}
     
     @IBOutlet weak var filterTypeMenu: NSPopUpButton!
     

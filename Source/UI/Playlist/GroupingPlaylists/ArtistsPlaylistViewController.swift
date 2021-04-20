@@ -8,5 +8,5 @@ class ArtistsPlaylistViewController: GroupingPlaylistViewController {
     override internal var groupType: GroupType {return .artist}
     override internal var playlistType: PlaylistType {return .artists}
     
-    override var nibName: String? {return "Artists"}
+    override var nibName: String? {"Artists"}
 }

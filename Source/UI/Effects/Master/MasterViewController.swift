@@ -21,7 +21,7 @@ class MasterViewController: FXUnitViewController {
     
     private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
     
-    override var nibName: String? {return "Master"}
+    override var nibName: String? {"Master"}
     
     override func awakeFromNib() {
         

@@ -8,7 +8,7 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     @IBOutlet weak var bandsTable: NSTableView!
     @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
     
-    override var nibName: String? {return "FilterPresetsEditor"}
+    override var nibName: String? {"FilterPresetsEditor"}
     
     var filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
@@ -25,8 +25,9 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         super.viewDidLoad()
         
-        let bandsDataFunction = {() -> [FilterBand] in return self.filterChartBands}
-        filterView.initialize({() -> EffectsUnitState in return .active}, bandsDataFunction, bandsDataSource, false)
+        let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
+        
+        filterView.initialize({() -> EffectsUnitState in .active}, bandsDataFunction, bandsDataSource, false)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false
@@ -34,20 +35,18 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override func renderPreview(_ presetName: String) {
         
-        let preset = filterUnit.presets.presetByName(presetName)!
-        bandsDataSource.preset = preset
-        filterView.refresh()
-        bandsTable.reloadData()
+        if let preset = filterUnit.presets.presetByName(presetName) {
+            
+            bandsDataSource.preset = preset
+            filterView.refresh()
+            bandsTable.reloadData()
+        }
     }
     
     private var filterChartBands: [FilterBand] {
         
         let selection = selectedPresetNames
-        if !selection.isEmpty {
-            return filterUnit.presets.presetByName(selection[0])!.bands
-        }
-        
-        return []
+        return selection.isNonEmpty ? filterUnit.presets.presetByName(selection[0])?.bands ?? [] : []
     }
 }
 
@@ -56,10 +55,10 @@ class PresetFilterBandsDataSource: FilterBandsDataSource {
     var preset: FilterPreset?
     
     func countFilterBands() -> Int {
-        return preset?.bands.count ?? 0
+        preset?.bands.count ?? 0
     }
     
     func getFilterBand(_ index: Int) -> FilterBand {
-        return preset!.bands[index]
+        preset!.bands[index]
     }
 }

@@ -22,7 +22,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     // Used to temporarily store the original name of a theme that is being renamed.
     private var oldThemeName: String = ""
     
-    override var nibName: String? {return "ThemesEditor"}
+    override var nibName: String? {"ThemesEditor"}
     
     override func viewDidAppear() {
         
@@ -34,7 +34,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
         editorView.deselectAll(self)
         
         // Set button states.
-        [btnDelete, btnRename, btnApply].forEach({$0.disable()})
+        [btnDelete, btnRename, btnApply].forEach {$0.disable()}
         
         // Clear the preview view (no theme is selected).
         previewView.clear()
@@ -44,7 +44,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     @IBAction func deleteSelectedThemesAction(_ sender: AnyObject) {
         
         // Descending order
-        selectedThemeNames.forEach({Themes.deleteTheme($0)})
+        selectedThemeNames.forEach {Themes.deleteTheme($0)}
         
         // Update the cache
         themesCache = Themes.userDefinedThemes
@@ -144,8 +144,8 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
         
         if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
-            cell.isSelectedFunction = {(row: Int) -> Bool in
-                return self.editorView.selectedRowIndexes.contains(row)
+            cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+                self?.editorView.selectedRowIndexes.contains(row) ?? false
             }
             
             cell.row = row

@@ -16,7 +16,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Delegate that relays accessor operations to the bookmarks model
     private let bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
     
-    override var nibName: String? {return "BookmarksEditor"}
+    override var nibName: String? {"BookmarksEditor"}
     
     override func viewDidLoad() {
         
@@ -47,17 +47,17 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        [btnDelete, btnPlay, btnRename].forEach({$0.disable()})
+        [btnDelete, btnPlay, btnRename].forEach {$0.disable()}
     }
     
     @IBAction func deleteSelectedBookmarksAction(_ sender: AnyObject) {
         
         // Descending order
-        let sortedSelection = editorView.selectedRowIndexes.sorted(by: {x, y -> Bool in x > y})
+        let sortedSelection = editorView.selectedRowIndexes.sorted(by: descendingIntComparator)
         
-        sortedSelection.forEach({
+        sortedSelection.forEach {
             bookmarks.deleteBookmarkAtIndex($0)
-        })
+        }
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -116,11 +116,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         // Only the bookmark name column is used for type selection
         let colID = tableColumn?.identifier.rawValue ?? ""
-        if colID != UIConstants.bookmarkNameColumnID {
-            return nil
-        }
-        
-        return bookmarks.getBookmarkAtIndex(row).name
+        return colID == UIConstants.bookmarkNameColumnID ? bookmarks.getBookmarkAtIndex(row).name : nil
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -132,7 +128,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         let selRows: Int = editorView.numberOfSelectedRows
         
         btnDelete.enableIf(selRows > 0)
-        [btnPlay, btnRename].forEach({$0.enableIf(selRows == 1)})
+        [btnPlay, btnRename].forEach {$0.enableIf(selRows == 1)}
     }
     
     // Returns a view for a single row
@@ -180,34 +176,28 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Creates a cell view containing text
     private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String, _ editable: Bool) -> EditorTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
-            
-            cell.isSelectedFunction = {
-                
-                (row: Int) -> Bool in
-                
-                return self.editorView.selectedRowIndexes.contains(row)
-            }
-            
-            cell.textField?.stringValue = text
-            cell.textField?.textColor = Colors.playlistTextColor
-            cell.row = row
-            
-            // Set tool tip on name/track only if text wider than column width
-            let font = cell.textField!.font!
-            if StringUtils.numberOfLines(text, font, column.width) > 1 {
-                cell.toolTip = text
-            }
-            
-            // Name column is editable
-            if editable {
-                cell.textField?.delegate = self
-            }
-            
-            return cell
+        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView else {return nil}
+        
+        cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+            self?.editorView.selectedRowIndexes.contains(row) ?? false
         }
         
-        return nil
+        cell.textField?.stringValue = text
+        cell.textField?.textColor = Colors.playlistTextColor
+        cell.row = row
+        
+        // Set tool tip on name/track only if text wider than column width
+        let font = cell.textField!.font!
+        if StringUtils.numberOfLines(text, font, column.width) > 1 {
+            cell.toolTip = text
+        }
+        
+        // Name column is editable
+        if editable {
+            cell.textField?.delegate = self
+        }
+        
+        return cell
     }
     
     func tableViewColumnDidResize(_ notification: Notification) {
@@ -221,10 +211,11 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
                 
                 for index in 0..<count {
                     
-                    let cell = tableView(editorView, viewFor: column, row: index) as! NSTableCellView
+                    guard let cell = tableView(editorView, viewFor: column, row: index) as? NSTableCellView,
+                          let textField = cell.textField else {continue}
                     
-                    let text = cell.textField!.stringValue
-                    let font = cell.textField!.font!
+                    let text = textField.stringValue
+                    let font = textField.font!
                     
                     if StringUtils.numberOfLines(text, font, column.width) > 1 {
                         cell.toolTip = text

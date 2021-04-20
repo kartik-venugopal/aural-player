@@ -64,17 +64,17 @@ class ThemePreviewView: NSView {
     override func awakeFromNib() {
         
         playerFunctionButtons = [btnPlay, btnPreviousTrack, btnNextTrack]
-        playerFunctionButtons.forEach({$0.tintFunction = {return self.theme?.colorScheme.general.functionButtonColor ?? NSColor.white}})
+        playerFunctionButtons.forEach {$0.tintFunction = {[weak self] in self?.theme?.colorScheme.general.functionButtonColor ?? NSColor.white}}
         
         playlistIndexDurationLabels = [lblPlaylistIndex_1, lblPlaylistIndex_3, lblPlaylistDuration_1, lblPlaylistDuration_3]
         playlistTrackTitleLabels = [lblPlaylistTitle_1, lblPlaylistTitle_3]
-        imgPlayingTrack.tintFunction = {return self.playingTrackIconColor}
+        imgPlayingTrack.tintFunction = {[weak self] in self?.playingTrackIconColor ?? ColorSchemePreset.blackAttack.playlistPlayingTrackIconColor}
         playlistSelectedTabButton.on()
         
         eqSliders = [eqSlider_1, eqSlider_2, eqSlider_3, eqSlider_4, eqSlider_5]
         eqSliderCells = [eqSliderCell_1, eqSliderCell_2, eqSliderCell_3, eqSliderCell_4, eqSliderCell_5]
         
-        btnBypass.tintFunction = {return self.activeUnitColor}
+        btnBypass.tintFunction = {[weak self] in self?.activeUnitColor ?? ColorSchemePreset.blackAttack.effectsActiveUnitStateColor}
     }
     
     // When any of the following fields is set, update the corresponding fields.
@@ -299,6 +299,6 @@ class ThemePreviewView: NSView {
     }
     
     func clear() {
-        [playlistBox, playerBox, effectsBox].forEach({$0.hide()})
+        [playlistBox, playerBox, effectsBox].forEach {$0.hide()}
     }
 }

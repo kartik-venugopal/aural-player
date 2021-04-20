@@ -38,7 +38,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
-    override var nibName: String? {return "PlaybackPreferences"}
+    override var nibName: String? {"PlaybackPreferences"}
     
     var preferencesView: NSView {
         return self.view

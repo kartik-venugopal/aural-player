@@ -18,16 +18,14 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     @IBOutlet weak var bandsTable: NSTableView!
     @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
     
-    // --------------------------------
-    
     private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
     private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.preferences
     
     private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     
-    override var nibName: String? {return "MasterPresetsEditor"}
+    override var nibName: String? {"MasterPresetsEditor"}
     
-    var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
+    var masterUnit: MasterUnitDelegateProtocol {graph.masterUnit}
     
     override func awakeFromNib() {
         
@@ -47,8 +45,8 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         eqSubPreview.chooseType(.tenBand)
         
-        let bandsDataFunction = {() -> [FilterBand] in return self.filterChartBands}
-        filterSubPreview.initialize({() -> EffectsUnitState in return self.presetFilterUnitState}, bandsDataFunction, bandsDataSource, false)
+        let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
+        filterSubPreview.initialize({[weak self] () -> EffectsUnitState in self?.presetFilterUnitState ?? .active}, bandsDataFunction, bandsDataSource, false)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false
@@ -57,13 +55,13 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     private var filterChartBands: [FilterBand] {
         
         let selection = selectedPresetNames
-        return selection.isEmpty ? [] : masterPresets.presetByName(selection[0])!.filter.bands
+        return selection.isEmpty ? [] : masterPresets.presetByName(selection[0])?.filter.bands ?? []
     }
     
     private var presetFilterUnitState: EffectsUnitState {
         
         let selection = selectedPresetNames
-        return selection.isEmpty ? .active : masterPresets.presetByName(selection[0])!.filter.state
+        return selection.isEmpty ? .active : masterPresets.presetByName(selection[0])?.filter.state ?? .active
     }
     
     override func viewDidAppear() {
@@ -71,14 +69,14 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         super.viewDidAppear()
         
         // Show EQ sub preview by default
-        subPreviewViews.forEach({$0.hide()})
+        subPreviewViews.forEach {$0.hide()}
         masterSubPreview.show()
         subPreviewMenu.selectItem(withTitle: "Master")
     }
     
     @IBAction func subPreviewMenuAction(_ sender: AnyObject) {
         
-        subPreviewViews.forEach({$0.hide()})
+        subPreviewViews.forEach {$0.hide()}
         
         let selItem = subPreviewMenu.titleOfSelectedItem
         
@@ -105,9 +103,11 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        let preset = masterPresets.presetByName(firstSelectedPresetName)!.eq
-        eqSubPreview.setUnitState(preset.state)
-        eqSubPreview.typeChanged(preset.bands, preset.globalGain)
+        if let preset = masterPresets.presetByName(firstSelectedPresetName)?.eq {
+            
+            eqSubPreview.setUnitState(preset.state)
+            eqSubPreview.typeChanged(preset.bands, preset.globalGain)
+        }
     }
     
     private func renderPreview(_ preset: MasterPreset) {
@@ -134,10 +134,12 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         if numRows == 1 {
             
             let presetName = firstSelectedPresetName
-            let masterPreset = masterPresets.presetByName(presetName)!
+            if let masterPreset = masterPresets.presetByName(presetName) {
 
-            bandsDataSource.preset = masterPreset.filter
-            renderPreview(masterPreset)
+                bandsDataSource.preset = masterPreset.filter
+                renderPreview(masterPreset)
+            }
+            
             oldPresetName = presetName
         }
         
@@ -154,7 +156,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         if masterPresets.presetWithNameExists(oldPresetName) {
 
-            if (StringUtils.isStringEmpty(newPresetName)) {
+            if StringUtils.isStringEmpty(newPresetName) {
             } else if masterPresets.presetWithNameExists(newPresetName) {
             } else {
 

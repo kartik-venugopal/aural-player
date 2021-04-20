@@ -27,7 +27,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnShowNewTrack: NSButton!
     @IBOutlet weak var btnShowChaptersList: NSButton!
     
-    override var nibName: String? {return "PlaylistPreferences"}
+    override var nibName: String? {"PlaylistPreferences"}
     
     var preferencesView: NSView {
         return self.view

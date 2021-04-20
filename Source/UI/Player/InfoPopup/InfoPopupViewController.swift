@@ -54,7 +54,7 @@ class InfoPopupViewController: NSViewController, InfoPopupProtocol, Destroyable 
     // Timer used to auto-hide the popover once it is shown
     private var viewHidingTimer: Timer?
     
-    override var nibName: String? {return "InfoPopup"}
+    override var nibName: String? {"InfoPopup"}
     
     // Shows a message that a track has been added to Favorites
     func showMessage(_ message: String, _ relativeToView: NSView, _ preferredEdge: NSRectEdge) {

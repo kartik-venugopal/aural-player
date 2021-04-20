@@ -19,7 +19,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     @IBOutlet weak var btnSnapToScreen: NSButton!
     
-    override var nibName: String? {return "ViewPreferences"}
+    override var nibName: String? {"ViewPreferences"}
     
     var preferencesView: NSView {
         return self.view

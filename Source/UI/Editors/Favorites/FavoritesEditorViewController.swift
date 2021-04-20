@@ -15,7 +15,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Delegate that relays accessor operations to the bookmarks model
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
-    override var nibName: String? {return "FavoritesEditor"}
+    override var nibName: String? {"FavoritesEditor"}
     
     override func viewDidLoad() {
         
@@ -23,7 +23,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         header.wantsLayer = true
         header.layer?.backgroundColor = NSColor.black.cgColor
         
-        editorView.tableColumns.forEach({
+        editorView.tableColumns.forEach {
             
             let col = $0
             let header = AuralTableHeaderCell()
@@ -32,7 +32,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
             header.isBordered = false
             
             col.headerCell = header
-        })
+        }
     }
     
     private func headerHeight() {
@@ -46,14 +46,14 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         editorView.reloadData()
         editorView.deselectAll(self)
         
-        [btnDelete, btnPlay].forEach({$0.disable()})
+        [btnDelete, btnPlay].forEach {$0.disable()}
     }
     
     @IBAction func deleteSelectedFavoritesAction(_ sender: AnyObject) {
         
         // Descending order
-        let sortedSelection = editorView.selectedRowIndexes.sorted(by: {x, y -> Bool in x > y})
-        sortedSelection.forEach({favorites.deleteFavoriteAtIndex($0)})
+        let sortedSelection = editorView.selectedRowIndexes.sorted(by: descendingIntComparator)
+        sortedSelection.forEach {favorites.deleteFavoriteAtIndex($0)}
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -136,28 +136,22 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Creates a cell view containing text
     private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String) -> EditorTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
-            
-            cell.isSelectedFunction = {
-                
-                (row: Int) -> Bool in
-                
-                return self.editorView.selectedRowIndexes.contains(row)
-            }
-            
-            cell.textField?.stringValue = text
-            cell.row = row
-            
-            // TODO: Doesn't update tool tips when columns are resized
-            // Set tool tip on name/track only if text wider than column width
-            let font = cell.textField!.font!
-            if StringUtils.numberOfLines(text, font, column.width) > 1 {
-                cell.toolTip = text
-            }
-            
-            return cell
+        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView else {return nil}
+        
+        cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+            self?.editorView.selectedRowIndexes.contains(row) ?? false
         }
         
-        return nil
+        cell.textField?.stringValue = text
+        cell.row = row
+        
+        // TODO: Doesn't update tool tips when columns are resized
+        // Set tool tip on name/track only if text wider than column width
+        let font = cell.textField!.font!
+        if StringUtils.numberOfLines(text, font, column.width) > 1 {
+            cell.toolTip = text
+        }
+        
+        return cell
     }
 }

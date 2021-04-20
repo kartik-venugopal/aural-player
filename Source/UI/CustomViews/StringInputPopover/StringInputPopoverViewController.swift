@@ -28,7 +28,7 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
     // A callback object so that the string input can be validated without this class knowing the logic for doing so
     private var client: StringInputReceiver!
     
-    override var nibName: String? {return "StringInputPopover"}
+    override var nibName: String? {"StringInputPopover"}
     
     static func create(_ client: StringInputReceiver) -> StringInputPopoverViewController {
         

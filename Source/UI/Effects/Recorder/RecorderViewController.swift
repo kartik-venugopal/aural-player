@@ -30,7 +30,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     // Cached recording info (used to determine recording format when saving a recording)
     private var recordingInfo: RecordingInfo?
     
-    override var nibName: String? {return "Recorder"}
+    override var nibName: String? {"Recorder"}
     
     override func viewDidLoad() {
         

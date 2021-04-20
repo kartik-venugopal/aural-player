@@ -19,7 +19,7 @@ class FilterViewController: FXUnitViewController {
     
     private var selTab: Int = -1
     
-    override var nibName: String? {return "Filter"}
+    override var nibName: String? {"Filter"}
     
     var filterUnit: FilterUnitDelegateProtocol {graph.filterUnit}
     

@@ -4,7 +4,7 @@ class TimePresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
-    override var nibName: String? {return "TimePresetsEditor"}
+    override var nibName: String? {"TimePresetsEditor"}
     
     var timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
@@ -20,11 +20,14 @@ class TimePresetsEditorViewController: FXPresetsEditorGenericViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        timeView.initialize({() -> EffectsUnitState in return .active})
+        timeView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {
-        renderPreview(timeUnit.presets.presetByName(presetName)!)
+
+        if let preset = timeUnit.presets.presetByName(presetName) {
+            renderPreview(preset)
+        }
     }
     
     private func renderPreview(_ preset: TimePreset) {

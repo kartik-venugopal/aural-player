@@ -2,7 +2,7 @@ import Cocoa
 
 class StatusBarViewController: NSViewController, StatusBarMenuObserver, NotificationSubscriber, Destroyable {
 
-    override var nibName: String? {return "StatusBar"}
+    override var nibName: String? {"StatusBar"}
     
     @IBOutlet weak var appLogo: TintedImageView!
     @IBOutlet weak var btnQuit: TintedImageButton!

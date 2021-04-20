@@ -18,11 +18,13 @@ class LayoutPreviewView: NSView {
     }
     
     func drawPreviewForLayout(_ layout: WindowLayout) {
+        
         self.layout = layout
         redraw()
     }
     
     func clear() {
+        
         self.layout = nil
         redraw()
     }

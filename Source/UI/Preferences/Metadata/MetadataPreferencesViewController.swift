@@ -14,7 +14,7 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     private let trackReader: TrackReader = ObjectGraph.trackReader
     private let musicBrainzCache: MusicBrainzCache = ObjectGraph.musicBrainzCache
     
-    override var nibName: String? {return "MetadataPreferences"}
+    override var nibName: String? {"MetadataPreferences"}
     
     var preferencesView: NSView {
         return self.view

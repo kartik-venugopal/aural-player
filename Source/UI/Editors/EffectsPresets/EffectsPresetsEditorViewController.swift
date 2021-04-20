@@ -1,14 +1,14 @@
 import Cocoa
 
-class EffectsPresetsEditorViewController: NSViewController, NotificationSubscriber {
+class EffectsPresetsEditorViewController: NSViewController, NotificationSubscriber, Destroyable {
     
-    private let masterPresetsEditorView: NSView = MasterPresetsEditorViewController().view
-    private let eqPresetsEditorView: NSView = EQPresetsEditorViewController().view
-    private let pitchPresetsEditorView: NSView = PitchPresetsEditorViewController().view
-    private let timePresetsEditorView: NSView = TimePresetsEditorViewController().view
-    private let reverbPresetsEditorView: NSView = ReverbPresetsEditorViewController().view
-    private let delayPresetsEditorView: NSView = DelayPresetsEditorViewController().view
-    private let filterPresetsEditorView: NSView = FilterPresetsEditorViewController().view
+    private let masterPresetsEditorViewController: MasterPresetsEditorViewController = MasterPresetsEditorViewController()
+    private let eqPresetsEditorViewController: EQPresetsEditorViewController = EQPresetsEditorViewController()
+    private let pitchPresetsEditorViewController: PitchPresetsEditorViewController = PitchPresetsEditorViewController()
+    private let timePresetsEditorViewController: TimePresetsEditorViewController = TimePresetsEditorViewController()
+    private let reverbPresetsEditorViewController: ReverbPresetsEditorViewController = ReverbPresetsEditorViewController()
+    private let delayPresetsEditorViewController: DelayPresetsEditorViewController = DelayPresetsEditorViewController()
+    private let filterPresetsEditorViewController: FilterPresetsEditorViewController = FilterPresetsEditorViewController()
     
     // Tab view and its buttons
     
@@ -28,12 +28,22 @@ class EffectsPresetsEditorViewController: NSViewController, NotificationSubscrib
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton!
     
-    override var nibName: String? {return "EffectsPresetsEditor"}
+    private var viewControllers: [NSViewController] = []
+    
+    override var nibName: String? {"EffectsPresetsEditor"}
     
     override func viewDidLoad() {
         
+        viewControllers = [masterPresetsEditorViewController, eqPresetsEditorViewController, pitchPresetsEditorViewController, timePresetsEditorViewController, reverbPresetsEditorViewController, delayPresetsEditorViewController, filterPresetsEditorViewController]
+        
         addSubViews()
         Messenger.subscribe(self, .presetsEditor_selectionChanged, self.editorSelectionChanged(_:))
+    }
+    
+    func destroy() {
+        
+        (viewControllers as? [Destroyable])?.forEach {$0.destroy()}
+        Messenger.unsubscribeAll(for: self)
     }
     
     override func viewDidAppear() {
@@ -48,13 +58,9 @@ class EffectsPresetsEditorViewController: NSViewController, NotificationSubscrib
     
     private func addSubViews() {
         
-        fxPresetsTabView.tabViewItem(at: 0).view?.addSubview(masterPresetsEditorView)
-        fxPresetsTabView.tabViewItem(at: 1).view?.addSubview(eqPresetsEditorView)
-        fxPresetsTabView.tabViewItem(at: 2).view?.addSubview(pitchPresetsEditorView)
-        fxPresetsTabView.tabViewItem(at: 3).view?.addSubview(timePresetsEditorView)
-        fxPresetsTabView.tabViewItem(at: 4).view?.addSubview(reverbPresetsEditorView)
-        fxPresetsTabView.tabViewItem(at: 5).view?.addSubview(delayPresetsEditorView)
-        fxPresetsTabView.tabViewItem(at: 6).view?.addSubview(filterPresetsEditorView)
+        for (index, viewController) in viewControllers.enumerated() {
+            fxPresetsTabView.tabViewItem(at: index).view?.addSubview(viewController.view)
+        }
         
         fxPresetsTabViewButtons = [masterPresetsTabViewButton, eqPresetsTabViewButton, pitchPresetsTabViewButton, timePresetsTabViewButton, reverbPresetsTabViewButton, delayPresetsTabViewButton, filterPresetsTabViewButton]
     }

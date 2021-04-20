@@ -9,7 +9,7 @@ class EQViewController: FXUnitViewController {
     
     private var eqUnit: EQUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.eqUnit
     
-    override var nibName: String? {return "EQ"}
+    override var nibName: String? {"EQ"}
     
     override func awakeFromNib() {
         

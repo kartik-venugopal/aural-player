@@ -4,7 +4,7 @@ class PitchPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBOutlet weak var pitchView: PitchView!
     
-    override var nibName: String? {return "PitchPresetsEditor"}
+    override var nibName: String? {"PitchPresetsEditor"}
     
     var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
     
@@ -20,11 +20,14 @@ class PitchPresetsEditorViewController: FXPresetsEditorGenericViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        pitchView.initialize({() -> EffectsUnitState in return .active})
+        pitchView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {
-        renderPreview(pitchUnit.presets.presetByName(presetName)!)
+        
+        if let preset = pitchUnit.presets.presetByName(presetName) {
+            renderPreview(preset)
+        }
     }
    
     private func renderPreview(_ preset: PitchPreset) {

@@ -36,7 +36,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
     private let colorSchemesEditorViewController: NSViewController = ColorSchemesEditorViewController()
     private lazy var colorSchemesEditorView: NSView = colorSchemesEditorViewController.view
     
-    private let effectsPresetsEditorViewController: NSViewController = EffectsPresetsEditorViewController()
+    private let effectsPresetsEditorViewController: EffectsPresetsEditorViewController = EffectsPresetsEditorViewController()
     private lazy var effectsPresetsEditorView: NSView = effectsPresetsEditorViewController.view
     
     override var windowNibName: String? {return "EditorWindow"}
@@ -60,6 +60,10 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
         theWindow.isMovableByWindowBackground = true
         
         WindowManager.instance.registerModalComponent(self)
+    }
+    
+    func destroy() {
+        effectsPresetsEditorViewController.destroy()
     }
     
     var isModal: Bool {

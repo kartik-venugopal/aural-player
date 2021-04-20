@@ -22,7 +22,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     // Used to temporarily store the original name of a color scheme that is being renamed.
     private var oldSchemeName: String = ""
     
-    override var nibName: String? {return "ColorSchemesEditor"}
+    override var nibName: String? {"ColorSchemesEditor"}
     
     override func viewDidAppear() {
         
@@ -34,7 +34,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         editorView.deselectAll(self)
         
         // Set button states.
-        [btnDelete, btnRename, btnApply].forEach({$0.disable()})
+        [btnDelete, btnRename, btnApply].forEach {$0.disable()}
         
         // Clear the preview view (no scheme is selected).
         previewView.clear()
@@ -44,7 +44,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
         
         // Descending order
-        selectedSchemeNames.forEach({ColorSchemes.deleteScheme($0)})
+        selectedSchemeNames.forEach {ColorSchemes.deleteScheme($0)}
         
         // Update the cache
         schemesCache = ColorSchemes.userDefinedSchemes
@@ -144,8 +144,8 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         
         if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
-            cell.isSelectedFunction = {(row: Int) -> Bool in
-                return self.editorView.selectedRowIndexes.contains(row)
+            cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+                self?.editorView.selectedRowIndexes.contains(row) ?? false
             }
             
             cell.row = row
