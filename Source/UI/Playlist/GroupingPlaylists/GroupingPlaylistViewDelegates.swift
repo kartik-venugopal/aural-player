@@ -78,14 +78,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             let imgView = cell.imageView else {return nil}
         
         cell.playlistType = self.playlistType
-        cell.item = track
         cell.isGroup = false
-        cell.rowSelectionStateFunction = {[weak outlineView] in
-            
+        cell.rowSelectionStateFunction = {[weak outlineView, weak track] in
+
             if let theOutlineView = outlineView {
                 return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: track))
             }
-            
+
             return false
         }
         
@@ -109,14 +108,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
         
         cell.playlistType = self.playlistType
-        cell.item = track
         cell.isGroup = false
-        cell.rowSelectionStateFunction = {[weak outlineView] in
-            
+        cell.rowSelectionStateFunction = {[weak outlineView, weak track] in
+
             if let theOutlineView = outlineView {
                 return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: track))
             }
-            
+
             return false
         }
         
@@ -132,14 +130,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         guard let cell = outlineView.makeView(withIdentifier: .uid_trackName, owner: nil) as? GroupedItemNameCellView else {return nil}
         
         cell.playlistType = self.playlistType
-        cell.item = group
         cell.isGroup = true
-        cell.rowSelectionStateFunction = {[weak outlineView] in
-            
+        cell.rowSelectionStateFunction = {[weak outlineView, weak group] in
+
             if let theOutlineView = outlineView {
                 return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: group))
             }
-            
+
             return false
         }
             
@@ -158,14 +155,13 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         guard let cell = outlineView.makeView(withIdentifier: .uid_duration, owner: nil) as? GroupedItemDurationCellView else {return nil}
         
         cell.playlistType = self.playlistType
-        cell.item = group
         cell.isGroup = true
-        cell.rowSelectionStateFunction = {[weak outlineView] in
-            
+        cell.rowSelectionStateFunction = {[weak outlineView, weak group] in
+
             if let theOutlineView = outlineView {
                 return theOutlineView.selectedRowIndexes.contains(theOutlineView.row(forItem: group))
             }
-            
+
             return false
         }
         

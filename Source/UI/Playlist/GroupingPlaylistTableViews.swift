@@ -92,9 +92,6 @@ class GroupedItemCellView: NSTableCellView {
     // This is used to determine which NSOutlineView contains this cell
     var playlistType: PlaylistType = .artists
     
-    // The item represented by the row containing this cell
-    var item: PlaylistItem?
-    
     func updateText(_ font: NSFont, _ text: String) {
         
         textField?.font = font
@@ -108,7 +105,7 @@ class GroupedItemCellView: NSTableCellView {
         guard let textField = self.textField else {return}
         
         // Remove any existing constraints on the text field's 'bottom' attribute
-        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {self.deactivateAndRemoveConstraint($0)}
+        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
 
         let textFieldBottomConstraint = NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: yOffset)
         
@@ -137,11 +134,11 @@ class GroupedItemNameCellView: GroupedItemCellView {
         
         guard let imgView = self.imageView, let textField = self.textField else {return}
         
-        self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {self.deactivateAndRemoveConstraint($0)}
+        self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
         
-        self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {self.deactivateAndRemoveConstraint($0)}
+        self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
         
-        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {self.deactivateAndRemoveConstraint($0)}
+        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
         
         let newImgViewCenterYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal,
                                                           toItem: self, attribute: .centerY, multiplier: 1.0, constant: imgViewCenterY)

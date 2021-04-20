@@ -92,7 +92,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
         guard let textField = self.textField else {return}
         
         // Remove any existing constraints on the text field's 'bottom' attribute
-        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {self.deactivateAndRemoveConstraint($0)}
+        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
 
         let textFieldBottomConstraint = NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: yOffset)
         

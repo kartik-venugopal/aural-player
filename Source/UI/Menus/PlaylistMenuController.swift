@@ -255,7 +255,6 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func nextPlaylistViewAction(_ sender: Any) {
         Messenger.publish(.playlist_nextView)
-        alertDialog.showAlert(.error, "Track not played", "Muthu", "Sami !!!")
     }
     
     private func checkIfPlaylistIsBeingModified() -> Bool {
