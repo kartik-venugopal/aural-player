@@ -6,11 +6,8 @@ import Cocoa
  */
 class ChaptersListWindowController: NSWindowController, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     @IBOutlet weak var rootContainerBox: NSBox!
+    @IBOutlet weak var viewController: ChaptersListViewController!
     
     override var windowNibName: String? {return "ChaptersList"}
     
@@ -46,6 +43,8 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber, 
     }
     
     func destroy() {
+        
+        viewController.destroy()
         
         close()
         Messenger.unsubscribeAll(for: self)

@@ -63,7 +63,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <font key="font" metaFont="system"/>
                     <tabViewItems>
-                        <tabViewItem label="Tab" identifier="" id="DyZ-BL-saG" userLabel="Default View">
+                        <tabViewItem identifier="" id="DyZ-BL-saG" userLabel="Default View">
                             <view key="view" id="C8h-EX-DPq">
                                 <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,7 +138,7 @@
                                 </subviews>
                             </view>
                         </tabViewItem>
-                        <tabViewItem label="View" identifier="" id="JOc-Ai-eMv" userLabel="Expanded Art View">
+                        <tabViewItem identifier="" id="JOc-Ai-eMv" userLabel="Expanded Art View">
                             <view key="view" id="jbg-XJ-Ttz">
                                 <rect key="frame" x="0.0" y="0.0" width="530" height="200"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -188,7 +188,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="kNP-jx-l2H">
                                                                 <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <textView focusRingType="none" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="6eJ-hR-0r4">
                                                                         <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
