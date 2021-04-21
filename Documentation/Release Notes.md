@@ -11,9 +11,13 @@ The app may be easily and seamlessly switched between the regular windowed mode 
 * **When in windowed mode**:  Click the "Switch to menu bar mode" button at the top left corner of the main player window, to switch to menu bar mode.
 * **When in menu bar mode**:  Click the "Switch to windowed mode" button at the top left corner of the menu bar player, to switch to windowed mode.
 
+#### Player view settings
+
+You can control what track information is displayed (eg. artist / album / cover art, etc) by clicking the hamburger icon button at the top right corner of the player view. This will open / close the view settings menu.
+
 ### Limited functions / settings available in menu bar mode
 
-Note that when running the app in menu bar mode, you will have access to only the most essential player functions like changing tracks, seeking, repeat / shuffle / looping, and volume control. This is by design ... the menu bar mode is meant to be as simple as possible. For more customization or to access more functionality, the app can be run in the regular windowed mode.
+Note that when running the app in menu bar mode, you will have access to only the most essential player functions like changing tracks, seeking, repeat / shuffle / looping, volume control, and a few view settings (described in the above section). This is by design ... the menu bar mode is meant to be as simple as possible. For more customization or to access more functionality, the app can be run in the regular windowed mode.
 
 ## Performance improvements
 
