@@ -121,7 +121,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
             
             PlaylistGestureHandler.handle(event)
             return event
-        });
+        })
         
         Messenger.subscribeAsync(self, .playlist_startedAddingTracks, self.startedAddingTracks, queue: .main)
         Messenger.subscribeAsync(self, .playlist_doneAddingTracks, self.doneAddingTracks, queue: .main)

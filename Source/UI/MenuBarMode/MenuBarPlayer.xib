@@ -77,7 +77,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
-                            <color key="fillColor" white="0.083118785511363633" alpha="0.70047100871598644" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="fillColor" white="0.077583793159965039" alpha="0.69647465919961737" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
                         <button toolTip="Switch to windowed mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Windowed Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="23" y="151" width="8" height="8"/>

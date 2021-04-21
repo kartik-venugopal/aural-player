@@ -35,6 +35,11 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     private var gestureHandler: GestureHandler!
     
+    // Delegate that retrieves current playback info
+    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    
+    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
+    
     override var windowNibName: String? {"MainWindow"}
     
     // MARK: Setup
@@ -114,6 +119,9 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         Messenger.subscribe(self, .windowManager_layoutChanged, self.windowLayoutChanged(_:))
         
         Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
+        
+        // If the playlist window has not yet been loaded, we need to handle this notification on behalf of the playlist window.
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, filter: {!WindowManager.instance.playlistWindowLoaded}, queue: .main)
     }
     
     func destroy() {
@@ -213,5 +221,17 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
         rootContainerBox.cornerRadius = radius
+    }
+    
+    func trackChanged() {
+        
+        // New track has no chapters, or there is no new track
+        if playbackInfo.chapterCount == 0 {
+            WindowManager.instance.hideChaptersList()
+            
+        } // Only show chapters list if preferred by user
+        else if playlistPreferences.showChaptersList {
+            WindowManager.instance.showChaptersList()
+        }
     }
 }

@@ -57,6 +57,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }()
     
     var playlistWindow: NSWindow? {playlistWindowLoader.windowLoaded ? _playlistWindow : nil}
+    var playlistWindowLoaded: Bool {playlistWindowLoader.windowLoaded}
 
     private lazy var chaptersListWindowLoader: LazyWindowLoader<ChaptersListWindowController> = LazyWindowLoader()
     private lazy var _chaptersListWindow: NSWindow = {[weak self] in
@@ -207,11 +208,11 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }
     
     var isShowingEffects: Bool {
-        return effectsWindowLoader.windowLoaded && _effectsWindow.isVisible
+        return effectsWindowLoaded && _effectsWindow.isVisible
     }
     
     var isShowingPlaylist: Bool {
-        return playlistWindowLoader.windowLoaded && _playlistWindow.isVisible
+        return playlistWindowLoaded && _playlistWindow.isVisible
     }
     
     // NOTE - Boolean short-circuiting is important here. Otherwise, the chapters list window will be unnecessarily loaded.
@@ -250,7 +251,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     // Hides the effects window
     private func hideEffects() {
         
-        if effectsWindowLoader.windowLoaded {
+        if effectsWindowLoaded {
             _effectsWindow.hide()
         }
     }
@@ -271,7 +272,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     // Hides the playlist window
     private func hidePlaylist() {
         
-        if playlistWindowLoader.windowLoaded {
+        if playlistWindowLoaded {
             _playlistWindow.hide()
         }
     }
@@ -284,12 +285,11 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         
         let shouldCenterChaptersListWindow = !chaptersListWindowLoader.windowLoaded
         
-        _playlistWindow.addChildWindow(_chaptersListWindow, ordered: NSWindow.OrderingMode.above)
         _chaptersListWindow.makeKeyAndOrderFront(self)
         
         // This will happen only once after each app launch - the very first time the window is shown.
         // After that, the window will be restored to its previous on-screen location
-        if shouldCenterChaptersListWindow {
+        if shouldCenterChaptersListWindow && playlistWindowLoaded {
             UIUtils.centerDialogWRTWindow(_chaptersListWindow, _playlistWindow)
         }
     }
