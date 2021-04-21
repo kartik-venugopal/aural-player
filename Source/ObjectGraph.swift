@@ -6,6 +6,8 @@ import Foundation
 
 class ObjectGraph {
     
+    // TODO: Make these vars lazily loaded
+    
     static var lastPresentedAppMode: AppMode!
     
     static var preferences: Preferences!
@@ -162,7 +164,6 @@ class ObjectGraph {
         
         // UI-related utility classes
         
-//        WindowManager.instance.initialize(preferences: preferences.viewPreferences)
         UIUtils.initialize(preferences.viewPreferences)
         
         Themes.initialize(persistentState.ui.themes)

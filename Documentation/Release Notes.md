@@ -1,52 +1,29 @@
-#  What's New in Version 2.11.0
+#  What's New in Version 2.12.0
 
-## Themes
+## Menu bar player mode
 
-Themes provide the convenience of applying all appearance settings (font scheme, color scheme, window appearance, etc.) in a single step by encapsulating all those settings in a single object. You can use built-in themes, or create and save your own hand-tailored themes for future use.
+Aural Player can now run in the macOS menu bar. This is useful for reducing desktop clutter or for running Aural Player in a more "lightweight" less resource-intensive or "background" mode. CPU usage and memory usage will be reduced when running in menu bar mode. 
 
-### Poolside.fm theme
+A typical use case for this feature is when the playlist has been created and sound settings have been set, and the user wants to play the playlist without needing to interact frequently with the application.
 
-This release adds a single built-in theme: Poolside.fm to demonstrate the themes feature. This theme is based on the theme on the poolside.fm website and was conceived of and designed by app user [yougotwill](https://github.com/yougotwill).
+The app may be easily and seamlessly switched between the regular windowed mode and the new menu bar mode as follows:
 
-### Window corner (rounding) radius
+* **When in windowed mode**:  Click the "Switch to menu bar mode" button at the top left corner of the main player window, to switch to menu bar mode.
+* **When in menu bar mode**:  Click the "Switch to windowed mode" button at the top left corner of the menu bar player, to switch to windowed mode.
 
-The corner (rounding) radius of the app's 4 main windows is now user-customizable. It can be set to a value ranging from 0 pixels to 25 pixels.
+### Limited functions / settings available in menu bar mode
 
-There are 2 ways to modify the window corner radius setting, 
+Note that when running the app in menu bar mode, you will have access to only the most essential player functions like changing tracks, seeking, repeat / shuffle / looping, and volume control. This is by design ... the menu bar mode is meant to be as simple as possible. For more customization or to access more functionality, the app can be run in the regular windowed mode.
 
-1 - From the settings popup menu at the top right corner of the main (player) window, find the menu item **Window Corner Radius** 
-2 - From the main menu item **View > Window Corner Radius**
+## Performance improvements
 
-Use the stepper control to adjust the value as desired.
+### Improved lazy window loading
 
-### Creating a new theme
+All application windows / dialogs are now lazily loaded only when they are actually required. This speeds up app startup time and reduces unnecessary CPU / memory usage.
 
-You can create a new theme consisting of an existing font scheme and color scheme. To access this feature, do one of the following:
+### Fixed memory leaks
 
-* From the settings popup menu at the top right corner of the main (player) window, find the menu item **Create new theme** 
-* From the main menu item **View > Create new theme**
-
-Clicking one of these menu items will pop up a dialog. On this dialog, choose options for your new theme and click Ok to save it.
-
-### Themes manager
-
-The themes manager allows users to preview, rename, apply, and/or delete user-defined themes. This is useful if:
-
-* You want to give your themes more meaningful or cooler names.
-* You've forgotten what one of your custom themes looks like, and want to visually preview it.
-* You have duplicates or simply want to reduce clutter and delete old themes no longer preferred or in use.
-
-Access the themes manager by going to **View > Manage themes**.
-
-NOTE - You cannot alter built-in themes ... only your own.
-
-### Bug fix - Playlist rows misalignment
-
-In some cases, certain playlist rows would be displayed with their icon and text misaligned. This bug has been fixed.
-
-### Bug fix - Window snapping crash
-
-In some cases, window snapping against the edges of the screen would result in a crash due to a null reference. This issue has been fixed.
+Fixed a lot of memory leaks present in the UI, so that views, windows, and model objects are properly released when switching between windowed and menu bar modes.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.11.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.12.0)
