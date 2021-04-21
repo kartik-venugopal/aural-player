@@ -2,7 +2,7 @@
 
 ## Menu bar player mode
 
-Aural Player can now run in the macOS menu bar. This is useful for reducing desktop clutter or for running Aural Player in a more "lightweight" less resource-intensive or "background" mode. CPU usage and memory usage will be reduced when running in menu bar mode. 
+Aural Player can now run in the macOS menu bar. This is useful for reducing desktop clutter or for running Aural Player in a "lightweight" less resource-intensive or "background" mode. CPU and memory usage will be reduced when running in menu bar mode. 
 
 A typical use case for this feature is when the playlist has been created and sound settings have been set, and the user wants to play the playlist without needing to interact frequently with the application.
 
@@ -13,11 +13,11 @@ The app may be easily and seamlessly switched between the regular windowed mode 
 
 #### Player view settings
 
-You can control what track information is displayed (eg. artist / album / cover art, etc) by clicking the hamburger icon button at the top right corner of the player view. This will open / close the view settings menu.
+You can control what track information is displayed (eg. artist / album / cover art, etc) by clicking the hamburger icon button at the top right corner of the menu bar player view. This will open / close the view settings menu.
 
 ### Limited functions / settings available in menu bar mode
 
-Note that when running the app in menu bar mode, you will have access to only the most essential player functions like changing tracks, seeking, repeat / shuffle / looping, volume control, and a few view settings (described in the above section). This is by design ... the menu bar mode is meant to be as simple as possible. For more customization or to access more functionality, the app can be run in the regular windowed mode.
+Note that when running the app in menu bar mode, you will have access to only the most essential player functions like changing tracks, seeking, repeat / shuffle / looping, volume control, and a few view settings (described in the above section). This is by design ... the menu bar mode is meant to be as simple and lightweight as possible. For more customization or to access more functionality, the app can be run in the regular windowed mode.
 
 ## Performance improvements
 
