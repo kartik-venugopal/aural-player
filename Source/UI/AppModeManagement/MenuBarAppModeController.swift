@@ -1,19 +1,19 @@
 import Cocoa
 
-class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate, NotificationSubscriber {
+class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate, NotificationSubscriber {
 
-    var mode: AppMode {.statusBar}
+    var mode: AppMode {.menuBar}
 
     private var statusItem: NSStatusItem?
-    private var controller: StatusBarViewController!
+    private var controller: MenuBarPlayerViewController!
     
-    private lazy var appIcon: NSImage = NSImage(named: "AppIcon-StatusBar")!
+    private lazy var appIcon: NSImage = NSImage(named: "AppIcon-MenuBar")!
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {
         
-        controller = StatusBarViewController()
+        controller = MenuBarPlayerViewController()
 
-        // Make app run in status bar and make it active.
+        // Make app run in menu bar and make it active.
         NSApp.setActivationPolicy(.accessory)
         NSApp.activate(ignoringOtherApps: true)
         
@@ -38,11 +38,11 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate, N
     }
     
     func menuDidClose(_ menu: NSMenu) {
-        controller?.statusBarMenuClosed()
+        controller?.menuBarMenuClosed()
     }
     
     func menuWillOpen(_ menu: NSMenu) {
-        controller.statusBarMenuOpened()
+        controller.menuBarMenuOpened()
     }
     
     func dismissMode() {
@@ -62,9 +62,9 @@ class StatusBarAppModeController: NSObject, AppModeController, NSMenuDelegate, N
     }
 }
 
-protocol StatusBarMenuObserver {
+protocol MenuBarMenuObserver {
     
-    func statusBarMenuOpened()
+    func menuBarMenuOpened()
     
-    func statusBarMenuClosed()
+    func menuBarMenuClosed()
 }

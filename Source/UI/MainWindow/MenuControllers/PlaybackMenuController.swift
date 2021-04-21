@@ -7,10 +7,6 @@ import Cocoa
  */
 class PlaybackMenuController: NSObject, NSMenuDelegate {
     
-    deinit {
-        jumpToTimeDialogLoader.destroy()
-    }
-    
     // Menu items whose states are toggled when they (or others) are clicked
     
     @IBOutlet weak var playOrPauseMenuItem: NSMenuItem!     // Needs to be toggled
@@ -251,5 +247,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
             repeatAllMenuItem.on()
             [repeatOffMenuItem, repeatOneMenuItem].forEach({$0?.off()})
         }
+    }
+    
+    deinit {
+        jumpToTimeDialogLoader.destroy()
     }
 }

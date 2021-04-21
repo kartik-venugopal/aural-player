@@ -7,7 +7,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     @IBOutlet weak var appModeMenu: NSPopUpButton!
     
     @IBOutlet weak var windowedAppModeMenuItem: NSMenuItem!
-    @IBOutlet weak var statusBarAppModeMenuItem: NSMenuItem!
+    @IBOutlet weak var menuBarAppModeMenuItem: NSMenuItem!
     
     @IBOutlet weak var btnStartWithLayout: NSButton!
     @IBOutlet weak var btnRememberLayout: NSButton!
@@ -28,7 +28,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     override func viewDidLoad() {
         
         windowedAppModeMenuItem.representedObject = AppMode.windowed
-        statusBarAppModeMenuItem.representedObject = AppMode.statusBar
+        menuBarAppModeMenuItem.representedObject = AppMode.menuBar
     }
     
     func resetFields(_ preferences: Preferences) {
@@ -41,8 +41,8 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             btnRememberAppMode.on()
         }
         
-        if viewPrefs.appModeOnStartup.modeName == AppMode.statusBar.rawValue {
-            appModeMenu.select(statusBarAppModeMenuItem)
+        if viewPrefs.appModeOnStartup.modeName == AppMode.menuBar.rawValue {
+            appModeMenu.select(menuBarAppModeMenuItem)
         } else {
             appModeMenu.select(windowedAppModeMenuItem)
         }

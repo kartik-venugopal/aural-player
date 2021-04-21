@@ -15,7 +15,7 @@ class UIState: PersistentStateProtocol {
     var visualizer: VisualizerUIState = VisualizerUIState()
     var windowAppearance: WindowUIState = WindowUIState()
     
-    var statusBarPlayer: StatusBarPlayerUIState = StatusBarPlayerUIState()
+    var menuBarPlayer: MenuBarPlayerUIState = MenuBarPlayerUIState()
     
     static func deserialize(_ map: NSDictionary) -> UIState {
         
@@ -55,8 +55,8 @@ class UIState: PersistentStateProtocol {
             state.windowAppearance = WindowUIState.deserialize(windowAppearanceMap)
         }
         
-        if let statusBarPlayerMap = map["statusBarPlayer"] as? NSDictionary {
-            state.statusBarPlayer = StatusBarPlayerUIState.deserialize(statusBarPlayerMap)
+        if let menuBarPlayerMap = map["menuBarPlayer"] as? NSDictionary {
+            state.menuBarPlayer = MenuBarPlayerUIState.deserialize(menuBarPlayerMap)
         }
         
         return state

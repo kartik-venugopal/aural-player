@@ -5,10 +5,6 @@ import Cocoa
  */
 class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     @IBOutlet weak var container: NSBox!
     
     private var tracksPlaylistSortView: SortViewProtocol = TracksPlaylistSortViewController()

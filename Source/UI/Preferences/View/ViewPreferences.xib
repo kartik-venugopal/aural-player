@@ -18,7 +18,7 @@
                 <outlet property="gapStepper" destination="JM6-3k-x8N" id="QeI-Qi-F1T"/>
                 <outlet property="layoutMenu" destination="wN2-oO-Gzv" id="FdY-cu-I8R"/>
                 <outlet property="lblWindowGap" destination="raN-A4-2KT" id="rJW-kh-qoM"/>
-                <outlet property="statusBarAppModeMenuItem" destination="ztQ-Rf-bal" id="zBJ-tT-HN8"/>
+                <outlet property="menuBarAppModeMenuItem" destination="ztQ-Rf-bal" id="zBJ-tT-HN8"/>
                 <outlet property="view" destination="YPU-Wt-2pN" id="oYL-9k-17W"/>
                 <outlet property="windowedAppModeMenuItem" destination="OM0-ct-omq" id="lKP-1Q-K46"/>
             </connections>
@@ -178,7 +178,7 @@
                                 <menuItem title="Windowed mode" state="on" id="OM0-ct-omq">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
-                                <menuItem title="Status bar mode" id="ztQ-Rf-bal">
+                                <menuItem title="Menu bar mode" id="ztQ-Rf-bal" userLabel="Menu bar mode">
                                     <modifierMask key="keyEquivalentModifierMask"/>
                                 </menuItem>
                             </items>

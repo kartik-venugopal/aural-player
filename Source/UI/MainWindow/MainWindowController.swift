@@ -20,7 +20,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
-    @IBOutlet weak var btnStatusBarMode: TintedImageButton!
+    @IBOutlet weak var btnMenuBarMode: TintedImageButton!
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
@@ -64,7 +64,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         containerBox.addSubview(playerViewController.view)
         
-        [btnQuit, btnMinimize, btnStatusBarMode].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
+        [btnQuit, btnMinimize, btnMenuBarMode].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
         
         [btnToggleEffects, btnTogglePlaylist].forEach({
             $0?.onStateTintFunction = {return Colors.viewControlButtonColor}
@@ -162,8 +162,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         theWindow.miniaturize(self)
     }
     
-    @IBAction func statusBarModeAction(_ sender: AnyObject) {
-        AppModeManager.presentMode(.statusBar)
+    @IBAction func menuBarModeAction(_ sender: AnyObject) {
+        AppModeManager.presentMode(.menuBar)
     }
     
     private func applyTheme() {
@@ -186,7 +186,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     private func changeViewControlButtonColor(_ color: NSColor) {
         
-        [btnQuit, btnMinimize, btnStatusBarMode, btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach({
+        [btnQuit, btnMinimize, btnMenuBarMode, btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach({
             ($0 as? Tintable)?.reTint()
         })
     }

@@ -176,7 +176,7 @@ class ObjectGraph {
         PlaylistViewState.initialize(persistentState.ui.playlist)
         VisualizerViewState.initialize(persistentState.ui.visualizer)
         WindowAppearanceState.initialize(persistentState.ui.windowAppearance)
-        StatusBarPlayerViewState.initialize(persistentState.ui.statusBarPlayer)
+        MenuBarPlayerViewState.initialize(persistentState.ui.menuBarPlayer)
         
         fft = FFT()
         
@@ -231,7 +231,7 @@ class ObjectGraph {
         persistentState.ui.playlist = PlaylistViewState.persistentState
         persistentState.ui.visualizer = VisualizerViewState.persistentState
         persistentState.ui.windowAppearance = WindowAppearanceState.persistentState
-        persistentState.ui.statusBarPlayer = StatusBarPlayerViewState.persistentState
+        persistentState.ui.menuBarPlayer = MenuBarPlayerViewState.persistentState
         
         persistentState.history = (historyDelegate as! HistoryDelegate).persistentState
         persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

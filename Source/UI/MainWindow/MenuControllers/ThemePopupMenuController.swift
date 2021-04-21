@@ -5,10 +5,6 @@ import Cocoa
  */
 class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
-    deinit {
-        CreateThemeDialogController.destroy()
-    }
-    
     private lazy var createThemeDialogController: CreateThemeDialogController = CreateThemeDialogController.instance
     private lazy var userThemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -97,5 +93,9 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         let windowAppearance: WindowAppearance = WindowAppearance(cornerRadius: WindowAppearanceState.cornerRadius)
         
         Themes.addUserDefinedTheme(Theme(name: string, fontScheme: fontScheme, colorScheme: colorScheme, windowAppearance: windowAppearance))
+    }
+    
+    deinit {
+        CreateThemeDialogController.destroy()
     }
 }

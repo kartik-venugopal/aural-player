@@ -22,14 +22,6 @@ class PlayerViewState {
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
 }
 
-class StatusBarPlayerViewState {
-    
-    static var showAlbumArt: Bool = true
-    static var showArtist: Bool = true
-    static var showAlbum: Bool = true
-    static var showCurrentChapter: Bool = true
-}
-
 enum PlayerViewType: String {
     
     case defaultView

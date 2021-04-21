@@ -1,15 +1,15 @@
 import Foundation
 
-class StatusBarPlayerUIState: PersistentStateProtocol {
+class MenuBarPlayerUIState: PersistentStateProtocol {
     
     var showAlbumArt: Bool = true
     var showArtist: Bool = true
     var showAlbum: Bool = true
     var showCurrentChapter: Bool = true
     
-    static func deserialize(_ map: NSDictionary) -> StatusBarPlayerUIState {
+    static func deserialize(_ map: NSDictionary) -> MenuBarPlayerUIState {
         
-        let state = StatusBarPlayerUIState()
+        let state = MenuBarPlayerUIState()
         
         state.showAlbumArt = map["showAlbumArt"] as? Bool ?? true
         state.showArtist = map["showArtist"] as? Bool ?? true
@@ -20,9 +20,9 @@ class StatusBarPlayerUIState: PersistentStateProtocol {
     }
 }
 
-extension StatusBarPlayerViewState {
+extension MenuBarPlayerViewState {
     
-    static func initialize(_ persistentState: StatusBarPlayerUIState) {
+    static func initialize(_ persistentState: MenuBarPlayerUIState) {
         
         showAlbumArt = persistentState.showAlbumArt
         showArtist = persistentState.showArtist
@@ -30,9 +30,9 @@ extension StatusBarPlayerViewState {
         showCurrentChapter = persistentState.showCurrentChapter
     }
     
-    static var persistentState: StatusBarPlayerUIState {
+    static var persistentState: MenuBarPlayerUIState {
         
-        let state = StatusBarPlayerUIState()
+        let state = MenuBarPlayerUIState()
         
         state.showAlbumArt = showAlbumArt
         state.showArtist = showArtist

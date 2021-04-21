@@ -477,12 +477,13 @@
 		3E7572FB2609E8A400CA3F85 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572F92609E8A400CA3F85 /* HTTPErrors.swift */; };
 		3E7572FC2609E8A400CA3F85 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572FA2609E8A400CA3F85 /* HTTPClient.swift */; };
 		3E803E23260A228200B705AA /* MusicBrainzCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E803E22260A228200B705AA /* MusicBrainzCache.swift */; };
-		3E824A4325DB74850089F217 /* StatusBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E824A4125DB74840089F217 /* StatusBar.xib */; };
-		3E824A4425DB74850089F217 /* StatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E824A4225DB74840089F217 /* StatusBarViewController.swift */; };
+		3E824A4325DB74850089F217 /* MenuBarPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E824A4125DB74840089F217 /* MenuBarPlayer.xib */; };
+		3E824A4425DB74850089F217 /* MenuBarPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */; };
 		3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932325E0CE2500F30F81 /* FontSchemes.xib */; };
 		3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */; };
 		3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */; };
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
+		3E987ECC2630088600E6836D /* MenuBarPlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */; };
 		3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */; };
 		3E9C12112622208F00D90EA4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12102622208F00D90EA4 /* Theme.swift */; };
 		3E9C12132622216500D90EA4 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12122622216500D90EA4 /* Themes.swift */; };
@@ -491,8 +492,7 @@
 		3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */; };
 		3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */; };
 		3E9CA7F4261A2209006133B6 /* AudioUnitEditorDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */; };
-		3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */; };
-		3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */; };
+		3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
 		3E9E591025DB6B150064EB5F /* WindowedAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */; };
 		3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */; };
@@ -505,7 +505,7 @@
 		3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
-		3EBABCBE262C1A350015A73A /* StatusBarSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBD262C1A350015A73A /* StatusBarSettingsViewController.swift */; };
+		3EBABCBE262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */; };
 		3EBABCC0262C2CA80015A73A /* StatusBarPlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBF262C2CA80015A73A /* StatusBarPlayerUIState.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
 		3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E725E552A1002259C4 /* shufen.regular.ttf */; };
@@ -1095,13 +1095,14 @@
 		3E7572F92609E8A400CA3F85 /* HTTPErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
 		3E7572FA2609E8A400CA3F85 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3E803E22260A228200B705AA /* MusicBrainzCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCache.swift; sourceTree = "<group>"; };
-		3E824A4125DB74840089F217 /* StatusBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusBar.xib; sourceTree = "<group>"; };
-		3E824A4225DB74840089F217 /* StatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarViewController.swift; sourceTree = "<group>"; };
+		3E824A4125DB74840089F217 /* MenuBarPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuBarPlayer.xib; sourceTree = "<group>"; };
+		3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewController.swift; sourceTree = "<group>"; };
 		3E836B5225DD3ABC00B9E303 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
 		3E91932325E0CE2500F30F81 /* FontSchemes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemes.xib; sourceTree = "<group>"; };
 		3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralFontScheme.xib; sourceTree = "<group>"; };
 		3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
+		3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewState.swift; sourceTree = "<group>"; };
 		3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackInfo.swift; sourceTree = "<group>"; };
 		3E9C12102622208F00D90EA4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		3E9C12122622216500D90EA4 /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
@@ -1110,8 +1111,7 @@
 		3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitDelegate.swift; sourceTree = "<group>"; };
 		3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitEditorDialog.xib; sourceTree = "<group>"; };
 		3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitEditorDialogController.swift; sourceTree = "<group>"; };
-		3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstituentView.swift; sourceTree = "<group>"; };
-		3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarAppModeController.swift; sourceTree = "<group>"; };
+		3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowedAppModeController.swift; sourceTree = "<group>"; };
 		3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeHistory.swift; sourceTree = "<group>"; };
@@ -1124,7 +1124,7 @@
 		3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseFileHandlesAction.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
-		3EBABCBD262C1A350015A73A /* StatusBarSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarSettingsViewController.swift; sourceTree = "<group>"; };
+		3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerSettingsViewController.swift; sourceTree = "<group>"; };
 		3EBABCBF262C2CA80015A73A /* StatusBarPlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarPlayerUIState.swift; sourceTree = "<group>"; };
 		3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ragingredlotus-bb.regular.ttf"; sourceTree = "<group>"; };
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
@@ -1575,26 +1575,26 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0FE125CEB98600BF0D07 /* Application.xib */,
-				3E6C0FDD25CEB98600BF0D07 /* Menus */,
-				3E9E58FC25DB6B150064EB5F /* AppModes */,
+				3E9E58FC25DB6B150064EB5F /* AppModeManagement */,
+				3E6C104F25CEB98600BF0D07 /* WindowManagement */,
 				3E6C0F1D25CEB98500BF0D07 /* MainWindow */,
 				3E6C101A25CEB98600BF0D07 /* Player */,
 				3E6C0F3B25CEB98600BF0D07 /* Playlist */,
 				3E6C0FED25CEB98600BF0D07 /* Effects */,
+				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F2425CEB98500BF0D07 /* Preferences */,
 				3E6C0F6925CEB98600BF0D07 /* Editors */,
-				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
-				3E6C104F25CEB98600BF0D07 /* WindowManagement */,
 				3E9C120F2622204F00D90EA4 /* Themes */,
 				3E2ED4A325DBAD6200732E79 /* FontSchemes */,
 				3E6C0F9925CEB98600BF0D07 /* ColorSchemes */,
-				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
+				3E9E590225DB6B150064EB5F /* MenuBarMode */,
+				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
-				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */,
 				3E6C0F1C25CEB98500BF0D07 /* Strings.swift */,
 				3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */,
 				3E6C0F9725CEB98600BF0D07 /* Extensions.swift */,
+				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
 				3E6C0FEB25CEB98600BF0D07 /* Images.swift */,
 				3E6C0FEC25CEB98600BF0D07 /* Colors.swift */,
 			);
@@ -1605,14 +1605,10 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F2025CEB98500BF0D07 /* MainWindow.xib */,
-				3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */,
-				3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */,
-				3E6C0F1E25CEB98500BF0D07 /* ColorSchemePopupMenuController.swift */,
-				3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */,
 				3E6C0F1F25CEB98500BF0D07 /* MainWindowController.swift */,
 				3E6C0F2125CEB98500BF0D07 /* GestureHandler.swift */,
-				3E6C0F2325CEB98500BF0D07 /* SettingsPopupMenuController.swift */,
 				3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */,
+				3E6C0FDD25CEB98600BF0D07 /* MenuControllers */,
 			);
 			path = MainWindow;
 			sourceTree = "<group>";
@@ -2071,9 +2067,14 @@
 			path = AboutDialog;
 			sourceTree = "<group>";
 		};
-		3E6C0FDD25CEB98600BF0D07 /* Menus */ = {
+		3E6C0FDD25CEB98600BF0D07 /* MenuControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */,
+				3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */,
+				3E6C0F1E25CEB98500BF0D07 /* ColorSchemePopupMenuController.swift */,
+				3E6C0F2225CEB98500BF0D07 /* WindowLayoutPopupMenuController.swift */,
+				3E6C0F2325CEB98500BF0D07 /* SettingsPopupMenuController.swift */,
 				3E6C0FDE25CEB98600BF0D07 /* HistoryMenuControllers.swift */,
 				3E6C0FDF25CEB98600BF0D07 /* PlaylistMenuController.swift */,
 				3E6C0FE025CEB98600BF0D07 /* PlaybackMenuController.swift */,
@@ -2085,7 +2086,7 @@
 				3E6C0FE925CEB98600BF0D07 /* BookmarksMenuController.swift */,
 				3E6C0FEA25CEB98600BF0D07 /* FavoritesMenuController.swift */,
 			);
-			path = Menus;
+			path = MenuControllers;
 			sourceTree = "<group>";
 		};
 		3E6C0FED25CEB98600BF0D07 /* Effects */ = {
@@ -2785,24 +2786,23 @@
 			path = EditorDialog;
 			sourceTree = "<group>";
 		};
-		3E9E58FC25DB6B150064EB5F /* AppModes */ = {
+		3E9E58FC25DB6B150064EB5F /* AppModeManagement */ = {
 			isa = PBXGroup;
 			children = (
 				3E9E590025DB6B150064EB5F /* AppModeManager.swift */,
-				3E9E58FE25DB6B150064EB5F /* ConstituentView.swift */,
-				3E9E58FF25DB6B150064EB5F /* StatusBarAppModeController.swift */,
+				3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */,
 				3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */,
-				3E9E590225DB6B150064EB5F /* MenuBarMode */,
 			);
-			path = AppModes;
+			path = AppModeManagement;
 			sourceTree = "<group>";
 		};
 		3E9E590225DB6B150064EB5F /* MenuBarMode */ = {
 			isa = PBXGroup;
 			children = (
-				3E824A4125DB74840089F217 /* StatusBar.xib */,
-				3E824A4225DB74840089F217 /* StatusBarViewController.swift */,
-				3EBABCBD262C1A350015A73A /* StatusBarSettingsViewController.swift */,
+				3E824A4125DB74840089F217 /* MenuBarPlayer.xib */,
+				3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */,
+				3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */,
+				3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */,
 			);
 			path = MenuBarMode;
 			sourceTree = "<group>";
@@ -3232,7 +3232,7 @@
 				3E6C126625CEBE0600BF0D07 /* DelayPresetsEditor.xib in Resources */,
 				3E5F943425E571A6002DEF80 /* Visualizer.xib in Resources */,
 				3E6C126D25CEBE0600BF0D07 /* FavoritesEditor.xib in Resources */,
-				3E824A4325DB74850089F217 /* StatusBar.xib in Resources */,
+				3E824A4325DB74850089F217 /* MenuBarPlayer.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */,
 				3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
@@ -3416,7 +3416,7 @@
 				3E6C12B425CEBE5800BF0D07 /* PlaybackMenuController.swift in Sources */,
 				3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */,
 				3E6C11C125CEBDB400BF0D07 /* SequenceScope.swift in Sources */,
-				3EBABCBE262C1A350015A73A /* StatusBarSettingsViewController.swift in Sources */,
+				3EBABCBE262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift in Sources */,
 				3E6C126725CEBE0600BF0D07 /* LayoutPreviewView.swift in Sources */,
 				3E6C120825CEBDD100BF0D07 /* GroupingPlaylistProtocols.swift in Sources */,
 				3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */,
@@ -3455,7 +3455,7 @@
 				3E6C125825CEBE0600BF0D07 /* LayoutsEditorViewController.swift in Sources */,
 				3E6C116B25CEBD6000BF0D07 /* PlaybackSequenceState.swift in Sources */,
 				3E5F943225E571A6002DEF80 /* VisualizerWindowController.swift in Sources */,
-				3E9E590E25DB6B150064EB5F /* StatusBarAppModeController.swift in Sources */,
+				3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */,
 				3E6C116525CEBD6000BF0D07 /* PersistentAppState.swift in Sources */,
 				3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */,
 				3E5623CA2619FAD500D55E43 /* HostedAudioUnit.swift in Sources */,
@@ -3492,7 +3492,6 @@
 				3E6C126B25CEBE0600BF0D07 /* BookmarksEditorViewController.swift in Sources */,
 				3E9CA7F4261A2209006133B6 /* AudioUnitEditorDialogController.swift in Sources */,
 				3E6C124025CEBDF400BF0D07 /* FlatPlaylistTableViews.swift in Sources */,
-				3E9E590D25DB6B150064EB5F /* ConstituentView.swift in Sources */,
 				3E5F943025E571A6002DEF80 /* VisualizerViewProtocol.swift in Sources */,
 				3E6C128825CEBE1800BF0D07 /* Fonts.swift in Sources */,
 				3E61D148260EFC1000C86BB2 /* MusicBrainzCoverArtReader.swift in Sources */,
@@ -3559,6 +3558,7 @@
 				3E6C119E25CEBD6D00BF0D07 /* Bookmark.swift in Sources */,
 				3E6C11A025CEBD6D00BF0D07 /* EQUnit.swift in Sources */,
 				3E6C117825CEBD6000BF0D07 /* AudioDeviceState.swift in Sources */,
+				3E987ECC2630088600E6836D /* MenuBarPlayerViewState.swift in Sources */,
 				3E6C131F25CEBEA000BF0D07 /* StringExtensions.swift in Sources */,
 				3E6C11D725CEBDBE00BF0D07 /* AuralPlayerNode.swift in Sources */,
 				3E6C121025CEBDD100BF0D07 /* CRUDOperationResults.swift in Sources */,
@@ -3786,7 +3786,7 @@
 				3E6C123225CEBDF400BF0D07 /* TracksPlaylistSortViewController.swift in Sources */,
 				3E6C12D625CEBE8100BF0D07 /* FilterViewController.swift in Sources */,
 				3E6C11EE25CEBDD100BF0D07 /* Sort.swift in Sources */,
-				3E824A4425DB74850089F217 /* StatusBarViewController.swift in Sources */,
+				3E824A4425DB74850089F217 /* MenuBarPlayerViewController.swift in Sources */,
 				3E6C11CF25CEBDBE00BF0D07 /* ApplyPlaybackProfileAction.swift in Sources */,
 				3E6C117A25CEBD6000BF0D07 /* AppStateProtocols.swift in Sources */,
 				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesEditorViewController.swift in Sources */,

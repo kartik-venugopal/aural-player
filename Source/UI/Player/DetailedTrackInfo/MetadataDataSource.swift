@@ -5,10 +5,6 @@ import Cocoa
  */
 class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     // The table view that displays the track info
     @IBOutlet weak var table: NSTableView! {
         

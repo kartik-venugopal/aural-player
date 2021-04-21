@@ -84,7 +84,7 @@ class VolumeSliderCell: HorizontalSliderCell {
     }
 }
 
-class StatusBarVolumeSliderCell: VolumeSliderCell {
+class MenuBarVolumeSliderCell: VolumeSliderCell {
     
     override var knobColor: NSColor {return Colors.Constants.white70Percent}
     override var barRadius: CGFloat {return 0}
@@ -236,7 +236,7 @@ class SeekSliderCell: HorizontalSliderCell {
     }
 }
 
-class StatusBarSeekSliderCell: SeekSliderCell {
+class MenuBarSeekSliderCell: SeekSliderCell {
     
     override var knobColor: NSColor {Colors.Constants.white70Percent}
     override var loopColor: NSColor {.white}

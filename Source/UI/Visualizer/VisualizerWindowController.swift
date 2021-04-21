@@ -5,10 +5,6 @@ let visualizationAnalysisBufferSize: Int = 2048
 
 class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverProtocol, NSWindowDelegate, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     override var windowNibName: String? {"Visualizer"}
     
     @IBOutlet weak var containerBox: VisualizerContainer!

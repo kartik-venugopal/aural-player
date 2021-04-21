@@ -6,7 +6,7 @@ class AppModeManager {
     
     private static var windowedMode: WindowedAppModeController = WindowedAppModeController()
     
-    private static var statusBarMode: StatusBarAppModeController = StatusBarAppModeController()
+    private static var menuBarMode: MenuBarAppModeController = MenuBarAppModeController()
     
     static func presentApp(lastPresentedAppMode: AppMode, preferences: ViewPreferences) {
         
@@ -26,7 +26,7 @@ class AppModeManager {
         
         case .windowed:  windowedMode.presentMode(transitioningFromMode: mode)
         
-        case .statusBar: statusBarMode.presentMode(transitioningFromMode: mode)
+        case .menuBar: menuBarMode.presentMode(transitioningFromMode: mode)
         
         }
         
@@ -41,7 +41,7 @@ class AppModeManager {
             
         case .windowed:  windowedMode.dismissMode()
             
-        case .statusBar: statusBarMode.dismissMode()
+        case .menuBar: menuBarMode.dismissMode()
             
         }
     }
@@ -50,7 +50,7 @@ class AppModeManager {
 enum AppMode: String {
     
     case windowed
-    case statusBar
+    case menuBar
 }
 
 protocol AppModeController {

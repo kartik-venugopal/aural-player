@@ -1,15 +1,15 @@
 import Cocoa
 
-class StatusBarViewController: NSViewController, StatusBarMenuObserver, NotificationSubscriber, Destroyable {
+class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, NotificationSubscriber, Destroyable {
 
-    override var nibName: String? {"StatusBar"}
+    override var nibName: String? {"MenuBarPlayer"}
     
     @IBOutlet weak var appLogo: TintedImageView!
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnRegularMode: TintedImageButton!
     
     @IBOutlet weak var infoBox: NSBox!
-    @IBOutlet weak var trackInfoView: StatusBarPlayingTrackTextView!
+    @IBOutlet weak var trackInfoView: MenuBarPlayingTrackTextView!
     @IBOutlet weak var imgArt: NSImageView!
     @IBOutlet weak var artOverlayBox: NSBox!
     
@@ -198,7 +198,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         }
         
         imgArt.image = player.playingTrack?.art?.image
-        [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && StatusBarPlayerViewState.showAlbumArt)}
+        [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && MenuBarPlayerViewState.showAlbumArt)}
         
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         playbackLoopChanged()
@@ -453,7 +453,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         }
     }
     
-    func statusBarMenuOpened() {
+    func menuBarMenuOpened() {
         
         if settingsBox.isShown {
             
@@ -468,7 +468,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         }
     }
     
-    func statusBarMenuClosed() {
+    func menuBarMenuClosed() {
         
         if settingsBox.isShown {
             
@@ -509,7 +509,7 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
         }
     }
     
-    // TODO: How to display errors in status bar mode ???
+    // TODO: How to display errors in menu bar mode ???
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
         updateTrackInfo()

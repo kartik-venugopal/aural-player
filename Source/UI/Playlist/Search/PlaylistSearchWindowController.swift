@@ -5,10 +5,6 @@ import Cocoa
  */
 class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     @IBOutlet weak var searchField: ColoredCursorSearchField!
     
     @IBOutlet weak var searchResultsSummaryLabel: NSTextField!

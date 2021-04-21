@@ -265,7 +265,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 //    }
 }
 
-class StatusBarPlayingTrackTextView: PlayingTrackTextView {
+class MenuBarPlayingTrackTextView: PlayingTrackTextView {
     
     override var titleFont: NSFont {
         Fonts.Standard.mainFont_13
@@ -292,15 +292,15 @@ class StatusBarPlayingTrackTextView: PlayingTrackTextView {
     }
     
     override var shouldShowArtist: Bool {
-        StatusBarPlayerViewState.showArtist
+        MenuBarPlayerViewState.showArtist
     }
     
     override var shouldShowAlbum: Bool {
-        StatusBarPlayerViewState.showAlbum
+        MenuBarPlayerViewState.showAlbum
     }
     
     override var shouldShowChapterTitle: Bool {
-        StatusBarPlayerViewState.showCurrentChapter
+        MenuBarPlayerViewState.showCurrentChapter
     }
     
     override var lineSpacingBetweenArtistAlbumAndChapterTitle: CGFloat {4}

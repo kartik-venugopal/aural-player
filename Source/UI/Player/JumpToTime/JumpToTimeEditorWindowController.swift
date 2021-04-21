@@ -2,10 +2,6 @@ import Cocoa
 
 class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscriber, ModalDialogDelegate, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     override var windowNibName: String? {"JumpToTimeEditorDialog"}
     
     @IBOutlet weak var lblTrackName: NSTextField!

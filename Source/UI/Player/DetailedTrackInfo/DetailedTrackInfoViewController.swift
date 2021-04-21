@@ -5,10 +5,6 @@ import Cocoa
 
 class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, NotificationSubscriber, Destroyable {
     
-    deinit {
-        print("\nDeinited \(self.className)")
-    }
-    
     private static var _instance: DetailedTrackInfoViewController?
     static var instance: DetailedTrackInfoViewController {
         

@@ -5,10 +5,6 @@ import Cocoa
  */
 class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, Destroyable {
     
-//    deinit {
-//        print("\nDeinited \(self.className)")
-//    }
-    
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!

@@ -5,10 +5,6 @@ import Cocoa
  */
 class TracksPlaylistViewController: NSViewController, NotificationSubscriber, Destroyable {
     
-//    deinit {
-//        print("\nDeinited \(self.className)")
-//    }
-    
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
     
