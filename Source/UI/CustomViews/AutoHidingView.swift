@@ -29,11 +29,11 @@ class AutoHidingView: NSObject {
         let token = callId.incrementAndGet()
 
         // Run a task later, to hide the view. If multiple tasks are spawned in quick succession, only one of them (the most recent one) should run.
-        DispatchQueue.main.asyncAfter(deadline: .now() + autoHideInterval, qos: .userInteractive, flags: .enforceQoS, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + autoHideInterval, qos: .userInteractive, flags: .enforceQoS, execute: {[weak self] in
             
             // Execute this task only if the current callId matches the previously obtained token.
-            if self.callId == token {
-                self.view.hide()
+            if self?.callId == token {
+                self?.view.hide()
             }
         })
     }
