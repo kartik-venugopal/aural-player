@@ -16,6 +16,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
+    private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     private lazy var fileReader: FileReader = ObjectGraph.fileReader
     
     fileprivate lazy var artLoadingQueue: OperationQueue = {
@@ -68,9 +69,10 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         menuItem.image = Images.imgPlayedTrack
         menuItem.image?.size = Dimensions.historyMenuItemImageSize
         
-        artLoadingQueue.addOperation {
+        artLoadingQueue.addOperation {[weak self] in
             
-            if let img = self.fileReader.getArt(for: bookmark.file), let imgCopy = img.image.copy() as? NSImage {
+            if let theImage = self?.playlist.findFile(bookmark.file)?.art?.image ?? self?.fileReader.getArt(for: bookmark.file)?.image,
+               let imgCopy = theImage.copy() as? NSImage {
                 
                 imgCopy.size = Dimensions.historyMenuItemImageSize
                 

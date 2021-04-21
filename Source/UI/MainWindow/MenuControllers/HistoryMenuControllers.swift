@@ -36,6 +36,7 @@ class HistoryMenuItem: NSMenuItem {
     var historyItem: HistoryItem!
 }
 
+fileprivate let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
 fileprivate let fileReader: FileReader = ObjectGraph.fileReader
 
 fileprivate func artForFile(_ _file: URL) -> NSImage? {
@@ -64,9 +65,7 @@ fileprivate func artForFile(_ _file: URL) -> NSImage? {
             
         } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
             
-            if let img = fileReader.getArt(for: file), let imgCopy = img.image.copy() as? NSImage {
-                return imgCopy
-            }
+            return (playlist.findFile(file)?.art?.image ?? fileReader.getArt(for: file)?.image)?.copy() as? NSImage
         }
     }
     
