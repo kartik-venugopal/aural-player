@@ -159,9 +159,17 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         Messenger.publish(.player_panRight)
     }
     
+    // Whether or not the Effects window is loaded (and is able to receive commands).
+    var effectsWindowLoaded: Bool {WindowManager.instance.effectsWindowLoaded}
+    
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {
-        Messenger.publish(.masterFXUnit_toggleEffects)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.masterFXUnit_toggleEffects)
+        } else {
+            _ = graph.masterUnit.toggleState()
+        }
     }
     
     @IBAction func managePresetsAction(_ sender: Any) {
@@ -170,66 +178,128 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     // Decreases each of the EQ bass bands by a certain preset decrement
     @IBAction func decreaseBassAction(_ sender: Any) {
-        Messenger.publish(.eqFXUnit_decreaseBass)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.eqFXUnit_decreaseBass)
+        } else {
+            _ = graph.eqUnit.decreaseBass()
+        }
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.
     @IBAction func increaseBassAction(_ sender: Any) {
-        Messenger.publish(.eqFXUnit_increaseBass)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.eqFXUnit_increaseBass)
+        } else {
+            _ = graph.eqUnit.increaseBass()
+        }
     }
     
     // Decreases each of the EQ mid-frequency bands by a certain preset decrement
     @IBAction func decreaseMidsAction(_ sender: Any) {
-        Messenger.publish(.eqFXUnit_decreaseMids)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.eqFXUnit_decreaseMids)
+        } else {
+            _ = graph.eqUnit.decreaseMids()
+        }
     }
     
     // Increases each of the EQ mid-frequency bands by a certain preset increment
     @IBAction func increaseMidsAction(_ sender: Any) {
-        Messenger.publish(.eqFXUnit_increaseMids)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.eqFXUnit_increaseMids)
+        } else {
+            _ = graph.eqUnit.increaseMids()
+        }
     }
     
     // Decreases each of the EQ treble bands by a certain preset decrement
     @IBAction func decreaseTrebleAction(_ sender: Any) {
-        Messenger.publish(.eqFXUnit_decreaseTreble)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.eqFXUnit_decreaseTreble)
+        } else {
+            _ = graph.eqUnit.decreaseTreble()
+        }
     }
     
     // Decreases each of the EQ treble bands by a certain preset increment
     @IBAction func increaseTrebleAction(_ sender: Any) {
-        Messenger.publish(.eqFXUnit_increaseTreble)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.eqFXUnit_increaseTreble)
+        } else {
+            _ = graph.eqUnit.increaseTreble()
+        }
     }
     
     // Decreases the pitch by a certain preset decrement
     @IBAction func decreasePitchAction(_ sender: Any) {
-        Messenger.publish(.pitchFXUnit_decreasePitch)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.pitchFXUnit_decreasePitch)
+        } else {
+            _ = graph.pitchUnit.decreasePitch()
+        }
     }
     
     // Increases the pitch by a certain preset increment
     @IBAction func increasePitchAction(_ sender: Any) {
-        Messenger.publish(.pitchFXUnit_increasePitch)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.pitchFXUnit_increasePitch)
+        } else {
+            _ = graph.pitchUnit.increasePitch()
+        }
     }
     
     // Sets the pitch to a value specified by the menu item clicked
     @IBAction func setPitchAction(_ sender: SoundParameterMenuItem) {
         
         // Menu item's "paramValue" specifies the pitch shift value associated with the menu item (in octaves)
-        Messenger.publish(.pitchFXUnit_setPitch, payload: sender.paramValue)
+        let pitch = sender.paramValue
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.pitchFXUnit_setPitch, payload: pitch)
+        } else {
+            graph.pitchUnit.pitch = pitch
+        }
     }
     
     // Decreases the playback rate by a certain preset decrement
     @IBAction func decreaseRateAction(_ sender: Any) {
-        Messenger.publish(.timeFXUnit_decreaseRate)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.timeFXUnit_decreaseRate)
+        } else {
+            _ = graph.timeUnit.decreaseRate()
+        }
     }
     
     // Increases the playback rate by a certain preset increment
     @IBAction func increaseRateAction(_ sender: Any) {
-        Messenger.publish(.timeFXUnit_increaseRate)
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.timeFXUnit_increaseRate)
+        } else {
+            _ = graph.timeUnit.increaseRate()
+        }
     }
     
     // Sets the playback rate to a value specified by the menu item clicked
     @IBAction func setRateAction(_ sender: SoundParameterMenuItem) {
         
         // Menu item's "paramValue" specifies the playback rate value associated with the menu item
-        Messenger.publish(.timeFXUnit_setRate, payload: sender.paramValue)
+        let rate = sender.paramValue
+        
+        if effectsWindowLoaded {
+            Messenger.publish(.timeFXUnit_setRate, payload: rate)
+        } else {
+            graph.timeUnit.rate = rate
+        }
     }
     
     @IBAction func rememberSettingsAction(_ sender: ToggleMenuItem) {

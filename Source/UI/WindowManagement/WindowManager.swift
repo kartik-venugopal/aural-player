@@ -47,6 +47,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }()
     
     var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
+    var effectsWindowLoaded: Bool {effectsWindowLoader.windowLoaded}
 
     private var playlistWindowLoader: LazyWindowLoader<PlaylistWindowController> = LazyWindowLoader()
     private lazy var _playlistWindow: NSWindow = {[weak self] in

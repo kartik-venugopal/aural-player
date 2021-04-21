@@ -483,7 +483,15 @@ class StatusBarViewController: NSViewController, StatusBarMenuObserver, Notifica
     // MARK: Message handling
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
+        
         updateTrackInfo()
+        
+        if let newTrack = notification.endTrack, audioGraph.soundProfiles.hasFor(newTrack) {
+            
+            // As a result of a sound profile for this track, volume may have changed.
+            volumeSlider.floatValue = audioGraph.volume
+            volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
+        }
     }
     
     // When track info for the playing track changes, display fields need to be updated

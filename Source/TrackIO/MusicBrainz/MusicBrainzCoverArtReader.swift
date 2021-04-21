@@ -86,7 +86,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
                 NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
                 
             } else {
-                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: \(error)")
+                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: \(error.localizedDescription)")
             }
         }
         
@@ -128,7 +128,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
                 NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
                 
             } else {
-                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: \(error)")
+                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: \(error.localizedDescription)")
             }
         }
         
