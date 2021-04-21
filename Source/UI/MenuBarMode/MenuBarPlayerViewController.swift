@@ -208,6 +208,10 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         playbackLoopChanged()
         
         infoBox.bringToFront()
+        
+        if settingsBox.isShown {
+            settingsBox.bringToFront()
+        }
     }
     
     private var curChapter: IndexedChapter? = nil
