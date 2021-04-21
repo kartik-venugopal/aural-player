@@ -184,7 +184,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
             seekSlider.show()
             
             [lblTimeElapsed, lblTimeRemaining].forEach {$0?.show()}
-            setSeekTimerState(player.state == .playing)
             
             if theTrack.hasChapters {
                 beginPollingForChapterChange()
@@ -193,8 +192,13 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         } else {
             
             trackInfoView.trackInfo = nil
-            [lblTimeElapsed, lblTimeRemaining].forEach {$0?.hide()}
             stopPollingForChapterChange()
+            
+            NSView.hideViews(lblTimeElapsed, lblTimeRemaining, seekSlider)
+            
+            seekSliderCell.removeLoop()
+            seekSlider.doubleValue = 0
+            seekSlider.disable()
         }
         
         imgArt.image = player.playingTrack?.art?.image
@@ -485,6 +489,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         updateTrackInfo()
+        stateChanged(player.state)
         
         if let newTrack = notification.endTrack, audioGraph.soundProfiles.hasFor(newTrack) {
             
@@ -513,6 +518,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
         updateTrackInfo()
+        stateChanged(player.state)
         
         if let invalidTrackError = notification.error as? InvalidTrackError {
             alertDialog.showAlert(.error, "Track not played", invalidTrackError.file.lastPathComponent, notification.error.message)
