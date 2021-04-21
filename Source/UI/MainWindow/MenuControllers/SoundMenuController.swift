@@ -264,8 +264,11 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         if effectsWindowLoaded {
             Messenger.publish(.pitchFXUnit_setPitch, payload: pitch)
+            
         } else {
+            
             graph.pitchUnit.pitch = pitch
+            graph.pitchUnit.ensureActive()
         }
     }
     
@@ -297,8 +300,11 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         
         if effectsWindowLoaded {
             Messenger.publish(.timeFXUnit_setRate, payload: rate)
+            
         } else {
+            
             graph.timeUnit.rate = rate
+            graph.timeUnit.ensureActive()
         }
     }
     
