@@ -490,7 +490,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
             
             // As a result of a sound profile for this track, volume may have changed.
             volumeSlider.floatValue = audioGraph.volume
-            volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
+            volumeChanged(audioGraph.volume, audioGraph.muted, true, true)
         }
     }
     
