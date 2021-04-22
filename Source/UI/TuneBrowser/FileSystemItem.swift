@@ -2,12 +2,28 @@ import Foundation
 
 class FileSystemItem {
     
+    // To prevent redundant items being created for the same URL.
+    private static var itemCache: [URL: FileSystemItem] = [:]
+    
+    static func create(forURL url: URL, loadChildren: Bool = false) -> FileSystemItem {
+        
+        if let item = itemCache[url] {
+            return item
+        }
+        
+        let item = FileSystemItem(url: url, loadChildren: loadChildren)
+        itemCache[url] = item
+        
+        return item
+    }
+    
     let url: URL
     let path: String
     let name: String
     let fileExtension: String
     
     lazy var children: [FileSystemItem] = loadChildren(url)
+    var metadataLoadedForChildren: Bool = false
     
     var isDirectory: Bool {url.hasDirectoryPath}
     
@@ -15,10 +31,12 @@ class FileSystemItem {
     
     var isTrack: Bool {AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)}
     
-    init(url: URL, loadChildren: Bool = false) {
+    var metadata: FileMetadata?
+    
+    private init(url: URL, loadChildren: Bool = false) {
         
         self.url = url
-        self.fileExtension = url.pathExtension.lowercased()
+        self.fileExtension = url.lowerCasedExtension
         self.path = url.path
         self.name = url.lastPathComponent
         
@@ -31,8 +49,8 @@ class FileSystemItem {
         
         guard dir.hasDirectoryPath, let dirContents = FileSystemUtils.getContentsOfDirectory(dir) else {return []}
         
-        return dirContents.map{FileSystemItem(url: $0)}
+        return dirContents.map{FileSystemItem.create(forURL: $0)}
             .filter {$0.isTrack || $0.isDirectory || $0.isPlaylist}
-            .sorted(by: {$0.name < $1.name})
+            .sorted(by: {$0.name.lowercased() < $1.name.lowercased()})
     }
 }

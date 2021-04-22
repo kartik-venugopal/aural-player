@@ -409,3 +409,11 @@ struct AudioGraphChangedNotification: NotificationPayload {
     
     let context: AudioGraphChangeContext
 }
+
+struct FileSystemFileMetadataLoadedNotification: NotificationPayload {
+    
+    let notificationName: Notification.Name = .fileSystem_fileMetadataLoaded
+    
+    // The file item whose metadata was updated.
+    let file: FileSystemItem
+}

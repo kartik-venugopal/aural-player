@@ -30,10 +30,20 @@ class TuneBrowserItemNameCell: NSTableCellView {
             icon.image = Images.imgGroup
             
         } else if file.isTrack {
-            icon.image = Images.imgPlayingArt
+            icon.image = file.metadata?.coverArt ?? Images.imgTrackNoArt
             
         } else if file.isPlaylist {
             icon.image = Images.imgPlaylistPreview
+        }
+    }
+}
+
+class TuneBrowserItemTextCell: NSTableCellView {
+ 
+    var text: String? = nil {
+        
+        didSet {
+            textField?.stringValue = text ?? ""
         }
     }
 }

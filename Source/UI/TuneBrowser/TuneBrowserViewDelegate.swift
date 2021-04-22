@@ -6,29 +6,23 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     @IBOutlet weak var browserView: TuneBrowserOutlineView!
     
-    @IBOutlet weak var pathControlWidget: NSPathControl! {
-        
-        didSet {
-            pathControlWidget.url = fsRoot.url
-        }
-    }
-    
-    lazy var fsRoot: FileSystemItem = FileSystemItem(url: AppConstants.FilesAndPaths.musicDir) {
-        
-        didSet {
-            pathControlWidget?.url = fsRoot.url
-        }
-    }
+    private let fileSystem: FileSystem = ObjectGraph.fileSystem
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         return 30
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, typeSelectStringFor tableColumn: NSTableColumn?, item: Any) -> String? {
+        
+        guard tableColumn?.identifier == .uid_tuneBrowserName, let fsItem = item as? FileSystemItem else {return nil}
+        return fsItem.name
     }
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
         
         if item == nil {
 
-            return fsRoot.children.count
+            return fileSystem.root.children.count
 
         } else if let fsItem = item as? FileSystemItem {
 
@@ -42,7 +36,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
         
         if item == nil {
             
-            return fsRoot.children[index]
+            return fileSystem.root.children[index]
             
         } else if let fsItem = item as? FileSystemItem {
             
@@ -58,20 +52,34 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        if tableColumn?.identifier.rawValue == "tuneBrowser_name", let fsItem = item as? FileSystemItem {
-            return createNameCell(outlineView, fsItem)
-        }
+        guard let colID = tableColumn?.identifier, let fsItem = item as? FileSystemItem else {return nil}
         
-        if tableColumn?.identifier.rawValue == "tuneBrowser_type", let fsItem = item as? FileSystemItem {
-            return createTypeCell(outlineView, fsItem)
-        }
+        switch colID {
         
-        return nil
+        case .uid_tuneBrowserName:      return createNameCell(outlineView, fsItem)
+            
+        case .uid_tuneBrowserType:      return createTypeCell(outlineView, fsItem)
+            
+        case .uid_tuneBrowserTitle:     return createTitleCell(outlineView, fsItem)
+            
+        case .uid_tuneBrowserArtist:    return createArtistCell(outlineView, fsItem)
+            
+        case .uid_tuneBrowserAlbum:    return createAlbumCell(outlineView, fsItem)
+            
+        case .uid_tuneBrowserGenre:    return createGenreCell(outlineView, fsItem)
+            
+        case .uid_tuneBrowserDuration:    return createDurationCell(outlineView, fsItem)
+            
+        case .uid_tuneBrowserFormat:    return createFormatCell(outlineView, fsItem)
+            
+        default:                        return nil
+            
+        }
     }
     
     private func createNameCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemNameCell? {
         
-        guard let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("tuneBrowser_name"), owner: nil)
+        guard let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserName, owner: nil)
             as? TuneBrowserItemNameCell else {return nil}
         
         cell.initializeForFile(item)
@@ -82,7 +90,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     private func createTypeCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTypeCell? {
         
-        guard let cell = outlineView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("tuneBrowser_type"), owner: nil)
+        guard let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserType, owner: nil)
             as? TuneBrowserItemTypeCell else {return nil}
         
         cell.initializeForFile(item)
@@ -91,8 +99,93 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
         return cell
     }
     
+    private func createTitleCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
+        
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserTitle, owner: nil)
+                as? TuneBrowserItemTextCell else {return nil}
+        
+        cell.text = item.metadata?.playlist?.title
+        cell.textField?.font = textFont
+        
+        return cell
+    }
+    
+    private func createArtistCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
+        
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserArtist, owner: nil)
+                as? TuneBrowserItemTextCell else {return nil}
+        
+        let metadata = item.metadata?.playlist
+        cell.text = metadata?.artist ?? metadata?.albumArtist ?? metadata?.performer
+        cell.textField?.font = textFont
+        
+        return cell
+    }
+    
+    private func createAlbumCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
+        
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserAlbum, owner: nil)
+                as? TuneBrowserItemTextCell else {return nil}
+        
+        cell.text = item.metadata?.playlist?.album
+        cell.textField?.font = textFont
+        
+        return cell
+    }
+    
+    private func createGenreCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
+        
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserGenre, owner: nil)
+                as? TuneBrowserItemTextCell else {return nil}
+        
+        cell.text = item.metadata?.playlist?.genre
+        cell.textField?.font = textFont
+        
+        return cell
+    }
+    
+    private func createDurationCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
+        
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserDuration, owner: nil)
+                as? TuneBrowserItemTextCell else {return nil}
+        
+        cell.text = ValueFormatter.formatSecondsToHMS(item.metadata?.playlist?.duration ?? 0)
+        cell.textField?.font = textFont
+        
+        return cell
+    }
+    
+    private func createFormatCell(_ outlineView: NSOutlineView, _ item: FileSystemItem) -> TuneBrowserItemTextCell? {
+        
+        guard item.isTrack, let cell = outlineView.makeView(withIdentifier: .uid_tuneBrowserFormat, owner: nil)
+                as? TuneBrowserItemTextCell else {return nil}
+        
+        let metadata = item.metadata?.auxiliary?.audioInfo
+        cell.text = metadata?.codec ?? metadata?.format
+        cell.textField?.font = textFont
+        
+        return cell
+    }
+    
     func outlineViewItemWillExpand(_ notification: Notification) {
         
-        // TODO: Load folder contents (1 level deep) lazily
+        guard let userInfo = notification.userInfo, let fsItem = userInfo["NSObject"] as? FileSystemItem else {
+            return
+        }
+        
+        print("\nExpanding folder: \(fsItem.url.lastPathComponent)")
+        fileSystem.loadMetadata(forChildrenOf: fsItem)
     }
+}
+
+extension NSUserInterfaceItemIdentifier {
+    
+    static let uid_tuneBrowserName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_name")
+    static let uid_tuneBrowserType: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_type")
+    static let uid_tuneBrowserTitle: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_title")
+    static let uid_tuneBrowserArtist: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_artist")
+    static let uid_tuneBrowserAlbum: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_album")
+    static let uid_tuneBrowserGenre: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_genre")
+    static let uid_tuneBrowserDuration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_duration")
+    static let uid_tuneBrowserFormat: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("tuneBrowser_format")
 }

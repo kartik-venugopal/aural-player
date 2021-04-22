@@ -30,7 +30,7 @@ protocol FileReaderProtocol {
     ///
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AuxiliaryMetadata
     
-    func getAllMetadata(for file: URL) throws -> FileMetadata
+    func getAllMetadata(for file: URL) -> FileMetadata
 }
 
 ///
@@ -111,10 +111,10 @@ class FileReader: FileReaderProtocol {
         return auxMetadata
     }
     
-    func getAllMetadata(for file: URL) throws -> FileMetadata {
+    func getAllMetadata(for file: URL) -> FileMetadata {
         
         return file.isNativelySupported ?
-            try avfReader.getAllMetadata(for: file) :
-            try ffmpegReader.getAllMetadata(for: file)
+            avfReader.getAllMetadata(for: file) :
+            ffmpegReader.getAllMetadata(for: file)
     }
 }

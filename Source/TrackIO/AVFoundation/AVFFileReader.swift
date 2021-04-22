@@ -185,13 +185,23 @@ class AVFFileReader: FileReaderProtocol {
         return metadata
     }
     
-    func getAllMetadata(for file: URL) throws -> FileMetadata {
+    func getAllMetadata(for file: URL) -> FileMetadata {
         
         let metadataMap = AVFMappedMetadata(file: file)
+        guard metadataMap.hasAudioTracks else {return FileMetadata()}
+        
         let metadata = FileMetadata()
         
-        metadata.playlist = try doGetPlaylistMetadata(for: file, fromMap: metadataMap)
+        do {
+            metadata.playlist = try doGetPlaylistMetadata(for: file, fromMap: metadataMap)
+        } catch {
+            NSLog("Error retrieving playlist metadata for file: '\(file.path)'. Error: \(error)")
+        }
+        
         metadata.auxiliary = doGetAuxiliaryMetadata(for: file, fromMap: metadataMap, loadingAudioInfoFrom: nil)
+        
+        let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
+        metadata.coverArt = parsers.firstNonNilMappedValue {$0.getArt(metadataMap)}?.image
         
         return metadata
     }

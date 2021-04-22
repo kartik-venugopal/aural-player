@@ -624,4 +624,8 @@ extension Notification.Name {
     
     static let visualizer_showOptions = Notification.Name("visualizer_showOptions")
     static let visualizer_hideOptions = Notification.Name("visualizer_hideOptions")
+    
+    // MARK: File system notifications sent to Tune Browser
+    
+    static let fileSystem_fileMetadataLoaded = Notification.Name("fileSystem_fileMetadataLoaded")
 }

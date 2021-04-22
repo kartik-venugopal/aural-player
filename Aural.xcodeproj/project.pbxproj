@@ -502,6 +502,7 @@
 		3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */; };
 		3EA3CE7025E420DE00BC7D07 /* Papyrus.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6F25E4208500BC7D07 /* Papyrus.ttf */; };
 		3EA3CE7325E420EC00BC7D07 /* AnironRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE7225E420E700BC7D07 /* AnironRegular.ttf */; };
+		3EA6622326316E7B0025C216 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA6622226316E7B0025C216 /* FileSystem.swift */; };
 		3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
@@ -1126,6 +1127,7 @@
 		3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreviewView.swift; sourceTree = "<group>"; };
 		3EA3CE6F25E4208500BC7D07 /* Papyrus.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Papyrus.ttf; sourceTree = "<group>"; };
 		3EA3CE7225E420E700BC7D07 /* AnironRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnironRegular.ttf; sourceTree = "<group>"; };
+		3EA6622226316E7B0025C216 /* FileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystem.swift; sourceTree = "<group>"; };
 		3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseFileHandlesAction.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
@@ -1364,6 +1366,7 @@
 				3EEC3B082631388D00F46175 /* TuneBrowserViewDelegate.swift */,
 				3EEC3B0C263138E400F46175 /* TuneBrowserTableViews.swift */,
 				3EEC3B0A263138BE00F46175 /* FileSystemItem.swift */,
+				3EA6622226316E7B0025C216 /* FileSystem.swift */,
 			);
 			path = TuneBrowser;
 			sourceTree = "<group>";
@@ -3609,6 +3612,7 @@
 				3EDB345225E8B75D004DF7DE /* TrackMetadata.swift in Sources */,
 				3E6C129625CEBE2700BF0D07 /* BannerLabel.swift in Sources */,
 				3E6C116925CEBD6000BF0D07 /* PitchPresets.swift in Sources */,
+				3EA6622326316E7B0025C216 /* FileSystem.swift in Sources */,
 				3E6C12C125CEBE6700BF0D07 /* PitchViewController.swift in Sources */,
 				3E6C130C25CEBE8F00BF0D07 /* WindowLayoutPresets.swift in Sources */,
 				3E6C11FE25CEBDD100BF0D07 /* Group.swift in Sources */,

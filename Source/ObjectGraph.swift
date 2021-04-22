@@ -60,6 +60,8 @@ class ObjectGraph {
     
     static var audioUnitsManager: AudioUnitsManager!
     
+    static var fileSystem: FileSystem!
+    
     static var fft: FFT!
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
@@ -180,6 +182,8 @@ class ObjectGraph {
         MenuBarPlayerViewState.initialize(persistentState.ui.menuBarPlayer)
         
         fft = FFT()
+        
+        fileSystem = FileSystem()
         
         DispatchQueue.global(qos: .background).async {
             cleanUpTranscoderFolders()

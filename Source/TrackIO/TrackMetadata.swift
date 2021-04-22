@@ -6,6 +6,7 @@ class FileMetadata {
     var playlist: PlaylistMetadata?
     var playback: PlaybackContextProtocol?
     var auxiliary: AuxiliaryMetadata?
+    var coverArt: NSImage?
     
     var isPlayable: Bool {validationError == nil}
     var validationError: DisplayableError?
