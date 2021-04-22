@@ -49,7 +49,11 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
-* **UI:** Winamp-like modular interface. Fully customizable fonts and colors with built-in and custom schemes, window layouts (built-in and custom), window snapping, collapsible UI components.
+* **UI:** 
+  * Winamp-like modular interface. 
+  * Fully customizable fonts and colors with built-in and custom schemes.
+  * Menu bar mode to run the app in the macOS menu bar.
+  * Window layouts (built-in and custom), window snapping, collapsible UI components.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition
 
 ## Download
@@ -102,11 +106,15 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ### "Lava" color scheme, "Futuristic" font scheme, default window layout
 
-![Vertical full stack window layout demo](/Documentation/Screenshots/FullStack.png?raw=true)
+![Vertical full stack window layout screenshot](/Documentation/Screenshots/FullStack.png?raw=true)
 
 ### Hosting Audio Units (AU) plug-in "TDR Nova" Equalizer by Tokyo Dawn Labs
 
 ![Audio Units demo GIF](/Documentation/Demos/AU-Demo.gif?raw=true)
+
+### Running in Menu Bar mode
+
+![Menu Bar Player screenshot](/Documentation/Screenshots/MenuBarPlayer.png?raw=true)
 
 ### Visualizer
 
