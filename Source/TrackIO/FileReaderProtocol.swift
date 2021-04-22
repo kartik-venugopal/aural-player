@@ -29,6 +29,8 @@ protocol FileReaderProtocol {
     /// Loads all non-essential ("auxiliary") metadata associated with a track, for display in the "Detailed track info" view.
     ///
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol?) -> AuxiliaryMetadata
+    
+    func getAllMetadata(for file: URL) throws -> FileMetadata
 }
 
 ///
@@ -107,5 +109,12 @@ class FileReader: FileReaderProtocol {
         auxMetadata.fileSystemInfo = fileSystemInfo
         
         return auxMetadata
+    }
+    
+    func getAllMetadata(for file: URL) throws -> FileMetadata {
+        
+        return file.isNativelySupported ?
+            try avfReader.getAllMetadata(for: file) :
+            try ffmpegReader.getAllMetadata(for: file)
     }
 }

@@ -40,6 +40,10 @@ class AVFFileReader: FileReaderProtocol {
         
         // Construct a metadata map for this file.
         let metadataMap = AVFMappedMetadata(file: file)
+        return try doGetPlaylistMetadata(for: file, fromMap: metadataMap)
+    }
+    
+    private func doGetPlaylistMetadata(for file: URL, fromMap metadataMap: AVFMappedMetadata) throws -> PlaylistMetadata {
         
         // Make sure the file has at least one audio track.
         guard metadataMap.hasAudioTracks else {throw NoAudioTracksError(file)}
@@ -100,6 +104,10 @@ class AVFFileReader: FileReaderProtocol {
         
         // Construct a metadata map for this file.
         let metadataMap = AVFMappedMetadata(file: file)
+        return doGetAuxiliaryMetadata(for: file, fromMap: metadataMap, loadingAudioInfoFrom: playbackContext)
+    }
+    
+    private func doGetAuxiliaryMetadata(for file: URL, fromMap metadataMap: AVFMappedMetadata, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
         
         // Obtain the parsers relevant to this track, based on the metadata present.
         let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
@@ -173,6 +181,17 @@ class AVFFileReader: FileReaderProtocol {
         }
         
         metadata.audioInfo = audioInfo
+        
+        return metadata
+    }
+    
+    func getAllMetadata(for file: URL) throws -> FileMetadata {
+        
+        let metadataMap = AVFMappedMetadata(file: file)
+        let metadata = FileMetadata()
+        
+        metadata.playlist = try doGetPlaylistMetadata(for: file, fromMap: metadataMap)
+        metadata.auxiliary = doGetAuxiliaryMetadata(for: file, fromMap: metadataMap, loadingAudioInfoFrom: nil)
         
         return metadata
     }
