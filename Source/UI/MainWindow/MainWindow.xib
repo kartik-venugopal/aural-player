@@ -701,6 +701,7 @@
                 <outlet property="toggleChaptersListMenuItem" destination="noi-da-YlA" id="eWn-LG-God"/>
                 <outlet property="toggleEffectsMenuItem" destination="pfz-PQ-tht" id="r6y-Q3-Pdf"/>
                 <outlet property="togglePlaylistMenuItem" destination="IY9-9c-uYd" id="jdR-qo-Iy7"/>
+                <outlet property="toggleTuneBrowserMenuItem" destination="Px1-8T-vlj" id="2h9-Jp-uqJ"/>
                 <outlet property="toggleVisualizerMenuItem" destination="sLP-gV-qpW" id="zG5-Og-5Y0"/>
             </connections>
         </customObject>
@@ -1630,7 +1631,12 @@ CA
                                     <action selector="toggleChaptersListAction:" target="7y7-Z8-Sp0" id="Fjd-12-28q"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="4" id="sLP-gV-qpW">
+                            <menuItem title="   Tune Browser window" keyEquivalent="4" indentationLevel="1" id="Px1-8T-vlj">
+                                <connections>
+                                    <action selector="toggleTuneBrowserAction:" target="7y7-Z8-Sp0" id="jS4-xc-4ZA"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="s" id="sLP-gV-qpW">
                                 <connections>
                                     <action selector="toggleVisualizerAction:" target="7y7-Z8-Sp0" id="rd8-YM-gmo"/>
                                 </connections>

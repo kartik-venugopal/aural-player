@@ -5,6 +5,12 @@ import Cocoa
  */
 struct Fonts {
     
+    // Font used in modal dialogs and utility windows.
+    struct Auxiliary {
+        
+        static let size13: NSFont = NSFont(name: "Play Regular", size: 13)!
+    }
+    
     struct Standard {
         
         static let mainFont_8: NSFont = NSFont(name: "Exo-Medium", size: 8)!

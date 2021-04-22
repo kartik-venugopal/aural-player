@@ -11,6 +11,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var togglePlaylistMenuItem: NSMenuItem!
     @IBOutlet weak var toggleEffectsMenuItem: NSMenuItem!
     @IBOutlet weak var toggleChaptersListMenuItem: NSMenuItem!
+    @IBOutlet weak var toggleTuneBrowserMenuItem: NSMenuItem!
     @IBOutlet weak var toggleVisualizerMenuItem: NSMenuItem!
     
     @IBOutlet weak var playerViewMenuItem: NSMenuItem!
@@ -60,6 +61,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         togglePlaylistMenuItem.onIf(WindowManager.instance.isShowingPlaylist)
         toggleEffectsMenuItem.onIf(WindowManager.instance.isShowingEffects)
         toggleChaptersListMenuItem.onIf(WindowManager.instance.isShowingChaptersList)
+        toggleTuneBrowserMenuItem.onIf(WindowManager.instance.isShowingTuneBrowser)
         toggleVisualizerMenuItem.onIf(WindowManager.instance.isShowingVisualizer)
         
         playerViewMenuItem.off()
@@ -81,6 +83,10 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     // Shows/hides the chapters list window
     @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
         WindowManager.instance.toggleChaptersList()
+    }
+    
+    @IBAction func toggleTuneBrowserAction(_ sender: AnyObject) {
+        WindowManager.instance.toggleTuneBrowser()
     }
     
     @IBAction func toggleVisualizerAction(_ sender: AnyObject) {

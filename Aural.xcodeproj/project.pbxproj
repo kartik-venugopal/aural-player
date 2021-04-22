@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E03276E263132E100D99522 /* TuneBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E03276D263132E100D99522 /* TuneBrowser.xib */; };
 		3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */; };
 		3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */; };
 		3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */; };
@@ -585,6 +586,10 @@
 		3EE7CB9825E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */; };
 		3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */; };
 		3EE7CB9F25E22D6C0075F1DD /* EffectsFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */; };
+		3EEC3B092631388D00F46175 /* TuneBrowserViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC3B082631388D00F46175 /* TuneBrowserViewDelegate.swift */; };
+		3EEC3B0B263138BE00F46175 /* FileSystemItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC3B0A263138BE00F46175 /* FileSystemItem.swift */; };
+		3EEC3B0D263138E400F46175 /* TuneBrowserTableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC3B0C263138E400F46175 /* TuneBrowserTableViews.swift */; };
+		3EEC3B0F26313BF800F46175 /* TuneBrowserWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC3B0E26313BF800F46175 /* TuneBrowserWindowController.swift */; };
 		3EF0C3D9262A91DB0042C720 /* ThemesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3D8262A91DB0042C720 /* ThemesState.swift */; };
 		3EF0C3DB262A92450042C720 /* PlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3DA262A92450042C720 /* PlayerUIState.swift */; };
 		3EF0C3DD262A92810042C720 /* PlaylistUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3DC262A92810042C720 /* PlaylistUIState.swift */; };
@@ -617,6 +622,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E03276D263132E100D99522 /* TuneBrowser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TuneBrowser.xib; sourceTree = "<group>"; };
 		3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo-Medium.ttf"; sourceTree = "<group>"; };
 		3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CarroisGothicSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metamorphous-Regular.ttf"; sourceTree = "<group>"; };
@@ -1317,6 +1323,10 @@
 		3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsFontScheme.xib; sourceTree = "<group>"; };
 		3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsFontSchemeViewController.swift; sourceTree = "<group>"; };
+		3EEC3B082631388D00F46175 /* TuneBrowserViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserViewDelegate.swift; sourceTree = "<group>"; };
+		3EEC3B0A263138BE00F46175 /* FileSystemItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemItem.swift; sourceTree = "<group>"; };
+		3EEC3B0C263138E400F46175 /* TuneBrowserTableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserTableViews.swift; sourceTree = "<group>"; };
+		3EEC3B0E26313BF800F46175 /* TuneBrowserWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserWindowController.swift; sourceTree = "<group>"; };
 		3EF0C3D8262A91DB0042C720 /* ThemesState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesState.swift; sourceTree = "<group>"; };
 		3EF0C3DA262A92450042C720 /* PlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUIState.swift; sourceTree = "<group>"; };
 		3EF0C3DC262A92810042C720 /* PlaylistUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistUIState.swift; sourceTree = "<group>"; };
@@ -1346,6 +1356,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E03276C2631327400D99522 /* TuneBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				3E03276D263132E100D99522 /* TuneBrowser.xib */,
+				3EEC3B0E26313BF800F46175 /* TuneBrowserWindowController.swift */,
+				3EEC3B082631388D00F46175 /* TuneBrowserViewDelegate.swift */,
+				3EEC3B0C263138E400F46175 /* TuneBrowserTableViews.swift */,
+				3EEC3B0A263138BE00F46175 /* FileSystemItem.swift */,
+			);
+			path = TuneBrowser;
+			sourceTree = "<group>";
+		};
 		3E2743892609E7C100DBDB34 /* MusicBrainz */ = {
 			isa = PBXGroup;
 			children = (
@@ -1580,6 +1602,7 @@
 				3E6C101A25CEB98600BF0D07 /* Player */,
 				3E6C0F3B25CEB98600BF0D07 /* Playlist */,
 				3E6C0FED25CEB98600BF0D07 /* Effects */,
+				3E03276C2631327400D99522 /* TuneBrowser */,
 				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F2425CEB98500BF0D07 /* Preferences */,
 				3E6C0F6925CEB98600BF0D07 /* Editors */,
@@ -3236,6 +3259,7 @@
 				3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
 				3E6C127125CEBE0600BF0D07 /* FilterPresetsEditor.xib in Resources */,
+				3E03276E263132E100D99522 /* TuneBrowser.xib in Resources */,
 				3E6C125625CEBE0600BF0D07 /* EffectsPresetsEditor.xib in Resources */,
 				3E6C126F25CEBE0600BF0D07 /* TimePresetsEditor.xib in Resources */,
 				3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */,
@@ -3312,6 +3336,7 @@
 				3E6C129925CEBE2700BF0D07 /* AuralTabView.swift in Sources */,
 				3E6C118825CEBD6D00BF0D07 /* AudioGraphDelegateProtocol.swift in Sources */,
 				3E6C11C425CEBDB400BF0D07 /* ShuffleSequence.swift in Sources */,
+				3EEC3B0F26313BF800F46175 /* TuneBrowserWindowController.swift in Sources */,
 				3E6C116425CEBD6000BF0D07 /* AudioGraph.swift in Sources */,
 				3EDB33E825E8AE09004DF7DE /* FFmpegAudioStream.swift in Sources */,
 				3E5F942E25E57190002DEF80 /* FFT.swift in Sources */,
@@ -3367,6 +3392,7 @@
 				3E7572FB2609E8A400CA3F85 /* HTTPErrors.swift in Sources */,
 				3E6C123325CEBDF400BF0D07 /* PlaylistWindowController.swift in Sources */,
 				3E6C127625CEBE1800BF0D07 /* EffectsColorSchemeViewController.swift in Sources */,
+				3EEC3B0D263138E400F46175 /* TuneBrowserTableViews.swift in Sources */,
 				3E6C11A625CEBD9E00BF0D07 /* HistoryProtocol.swift in Sources */,
 				3E6C11B725CEBDA900BF0D07 /* MediaApplicationWatcher.swift in Sources */,
 				3E6C117E25CEBD6D00BF0D07 /* Favorites.swift in Sources */,
@@ -3426,6 +3452,7 @@
 				3EDB345525E8B75D004DF7DE /* ID3Spec.swift in Sources */,
 				3E6C116C25CEBD6000BF0D07 /* DelayPresets.swift in Sources */,
 				3E6C12DF25CEBE8100BF0D07 /* PlayingTrackTextView.swift in Sources */,
+				3EEC3B092631388D00F46175 /* TuneBrowserViewDelegate.swift in Sources */,
 				3E6C123E25CEBDF400BF0D07 /* ChaptersListTableHeaderCell.swift in Sources */,
 				3E6C126A25CEBE0600BF0D07 /* ColorSchemesEditorViewController.swift in Sources */,
 				3E6C11D825CEBDBE00BF0D07 /* PlaybackSegment.swift in Sources */,
@@ -3732,6 +3759,7 @@
 				3E6C11AB25CEBDA200BF0D07 /* Errors.swift in Sources */,
 				3E6C127425CEBE1800BF0D07 /* EffectsUnitTabButtonCell.swift in Sources */,
 				3E6C133625CEBEA700BF0D07 /* HTMLWriter.swift in Sources */,
+				3EEC3B0B263138BE00F46175 /* FileSystemItem.swift in Sources */,
 				3E6C116D25CEBD6000BF0D07 /* AppConstants.swift in Sources */,
 				3EDB345325E8B75D004DF7DE /* Track.swift in Sources */,
 				3E6C11FC25CEBDD100BF0D07 /* PreferencesDelegateProtocol.swift in Sources */,
@@ -3938,7 +3966,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.12.0;
+				CURRENT_PROJECT_VERSION = 2.13.0;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
 				INFOPLIST_FILE = Info.plist;
@@ -3948,7 +3976,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.12.0;
+				MARKETING_VERSION = 2.13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";
@@ -3967,7 +3995,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.12.0;
+				CURRENT_PROJECT_VERSION = 2.13.0;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
 				INFOPLIST_FILE = Info.plist;
@@ -3977,7 +4005,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.12.0;
+				MARKETING_VERSION = 2.13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";

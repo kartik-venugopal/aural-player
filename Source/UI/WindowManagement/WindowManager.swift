@@ -72,6 +72,9 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     var visualizerWindow: NSWindow? {visualizerWindowLoader.windowLoaded ? _visualizerWindow : nil}
     
+    private lazy var tuneBrowserWindowLoader: LazyWindowLoader<TuneBrowserWindowController> = LazyWindowLoader()
+    private lazy var _tuneBrowserWindow: NSWindow = tuneBrowserWindowLoader.window
+    
 //    private var onTop: Bool = false
     
     // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
@@ -229,6 +232,10 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         return visualizerWindowLoader.windowLoaded && _visualizerWindow.isVisible
     }
     
+    var isShowingTuneBrowser: Bool {
+        return tuneBrowserWindowLoader.windowLoaded && _tuneBrowserWindow.isVisible
+    }
+    
     var mainWindowFrame: NSRect {
         return mainWindow.frame
     }
@@ -314,6 +321,23 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     private func hideVisualizer() {
         visualizerWindowLoader.controller.close()
+    }
+    
+    func toggleTuneBrowser() {
+        isShowingTuneBrowser ? hideTuneBrowser() : showTuneBrowser()
+    }
+    
+    private func showTuneBrowser() {
+        
+        mainWindow.addChildWindow(_tuneBrowserWindow, ordered: NSWindow.OrderingMode.above)
+        _tuneBrowserWindow.makeKeyAndOrderFront(self)
+    }
+    
+    private func hideTuneBrowser() {
+        
+        if tuneBrowserWindowLoader.windowLoaded {
+            _tuneBrowserWindow.hide()
+        }
     }
     
     func addChildWindow(_ window: NSWindow) {
