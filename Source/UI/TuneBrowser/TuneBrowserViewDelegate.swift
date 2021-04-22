@@ -4,7 +4,21 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     let textFont: NSFont = Fonts.Auxiliary.size13
     
-    private lazy var fsRoot: FileSystemItem = FileSystemItem(url: AppConstants.FilesAndPaths.musicDir)
+    @IBOutlet weak var browserView: TuneBrowserOutlineView!
+    
+    @IBOutlet weak var pathControlWidget: NSPathControl! {
+        
+        didSet {
+            pathControlWidget.url = fsRoot.url
+        }
+    }
+    
+    lazy var fsRoot: FileSystemItem = FileSystemItem(url: AppConstants.FilesAndPaths.musicDir) {
+        
+        didSet {
+            pathControlWidget?.url = fsRoot.url
+        }
+    }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         return 30
