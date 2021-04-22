@@ -27,7 +27,7 @@ class ObjectGraph {
     private static var ffmpegScheduler: PlaybackSchedulerProtocol!
     private static var sequencer: SequencerProtocol!
     
-    static var sampleConverter: SampleConverterProtocol!
+    static let sampleConverter: SampleConverterProtocol = FFmpegSampleConverter()
     
     static var sequencerDelegate: SequencerDelegateProtocol!
     static var sequencerInfoDelegate: SequencerInfoDelegateProtocol! {return sequencerDelegate}
@@ -58,11 +58,11 @@ class ObjectGraph {
     
     static var musicBrainzCache: MusicBrainzCache!
     
-    static var audioUnitsManager: AudioUnitsManager!
+    static let audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
     
-    static var fileSystem: FileSystem!
+    static let fileSystem: FileSystem = FileSystem()
     
-    static var fft: FFT!
+    static let fft: FFT = FFT()
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
@@ -80,8 +80,6 @@ class ObjectGraph {
         preferences = Preferences.instance
         preferencesDelegate = PreferencesDelegate(preferences)
         
-        audioUnitsManager = AudioUnitsManager()
-        
         // Audio Graph (and delegate)
         audioGraph = AudioGraph(audioUnitsManager, persistentState.audioGraph)
         
@@ -93,7 +91,6 @@ class ObjectGraph {
             avfScheduler = LegacyPlaybackScheduler(audioGraph.playerNode)
         }
         
-        sampleConverter = FFmpegSampleConverter()
         ffmpegScheduler = FFmpegScheduler(playerNode: audioGraph.playerNode, sampleConverter: sampleConverter)
         
         // Player
@@ -119,7 +116,7 @@ class ObjectGraph {
         fileCoverArtReader = FileCoverArtReader(fileReader)
         
         musicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz)
-        musicBrainzCoverArtReader = MusicBrainzCoverArtReader(state: persistentState.musicBrainzCache, preferences: preferences.metadataPreferences.musicBrainz, cache: musicBrainzCache)
+        musicBrainzCoverArtReader = MusicBrainzCoverArtReader(preferences: preferences.metadataPreferences.musicBrainz, cache: musicBrainzCache)
         
         coverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
         
@@ -180,10 +177,6 @@ class ObjectGraph {
         VisualizerViewState.initialize(persistentState.ui.visualizer)
         WindowAppearanceState.initialize(persistentState.ui.windowAppearance)
         MenuBarPlayerViewState.initialize(persistentState.ui.menuBarPlayer)
-        
-        fft = FFT()
-        
-        fileSystem = FileSystem()
         
         DispatchQueue.global(qos: .background).async {
             cleanUpTranscoderFolders()

@@ -1636,7 +1636,7 @@ CA
                                     <action selector="toggleTuneBrowserAction:" target="7y7-Z8-Sp0" id="jS4-xc-4ZA"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="s" id="sLP-gV-qpW">
+                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="5" id="sLP-gV-qpW">
                                 <connections>
                                     <action selector="toggleVisualizerAction:" target="7y7-Z8-Sp0" id="rd8-YM-gmo"/>
                                 </connections>

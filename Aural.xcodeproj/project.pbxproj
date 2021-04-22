@@ -492,6 +492,8 @@
 		3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */; };
 		3E9CA7F2261A21E8006133B6 /* AudioUnitEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */; };
 		3E9CA7F4261A2209006133B6 /* AudioUnitEditorDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */; };
+		3E9DAC912631E1800003B33F /* TuneBrowserSidebarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9DAC902631E1800003B33F /* TuneBrowserSidebarViewController.swift */; };
+		3E9DAC932631E28F0003B33F /* TuneBrowserSidebarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9DAC922631E28F0003B33F /* TuneBrowserSidebarItems.swift */; };
 		3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */; };
 		3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590025DB6B150064EB5F /* AppModeManager.swift */; };
 		3E9E591025DB6B150064EB5F /* WindowedAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */; };
@@ -1117,6 +1119,8 @@
 		3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitDelegate.swift; sourceTree = "<group>"; };
 		3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitEditorDialog.xib; sourceTree = "<group>"; };
 		3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitEditorDialogController.swift; sourceTree = "<group>"; };
+		3E9DAC902631E1800003B33F /* TuneBrowserSidebarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserSidebarViewController.swift; sourceTree = "<group>"; };
+		3E9DAC922631E28F0003B33F /* TuneBrowserSidebarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserSidebarItems.swift; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowedAppModeController.swift; sourceTree = "<group>"; };
@@ -1367,6 +1371,7 @@
 				3EEC3B0C263138E400F46175 /* TuneBrowserTableViews.swift */,
 				3EEC3B0A263138BE00F46175 /* FileSystemItem.swift */,
 				3EA6622226316E7B0025C216 /* FileSystem.swift */,
+				3E9DAC8F2631E1330003B33F /* Sidebar */,
 			);
 			path = TuneBrowser;
 			sourceTree = "<group>";
@@ -2811,6 +2816,15 @@
 			path = EditorDialog;
 			sourceTree = "<group>";
 		};
+		3E9DAC8F2631E1330003B33F /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				3E9DAC902631E1800003B33F /* TuneBrowserSidebarViewController.swift */,
+				3E9DAC922631E28F0003B33F /* TuneBrowserSidebarItems.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
 		3E9E58FC25DB6B150064EB5F /* AppModeManagement */ = {
 			isa = PBXGroup;
 			children = (
@@ -3380,6 +3394,7 @@
 				3E6C130B25CEBE8F00BF0D07 /* FileSystemDataSource.swift in Sources */,
 				3E6C123A25CEBDF400BF0D07 /* ChaptersListWindowController.swift in Sources */,
 				3E5F942D25E57190002DEF80 /* SpectrogramFFTData.swift in Sources */,
+				3E9DAC912631E1800003B33F /* TuneBrowserSidebarViewController.swift in Sources */,
 				3E6C11F525CEBDD100BF0D07 /* SearchQuery.swift in Sources */,
 				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCells.swift in Sources */,
 				3ECBF30A2619DF7200AD5C30 /* AudioUnitsTableViewDelegate.swift in Sources */,
@@ -3758,6 +3773,7 @@
 				3EDB33FD25E8AE09004DF7DE /* AVFSampleConverter.swift in Sources */,
 				3E6C12BF25CEBE6700BF0D07 /* EQViewController.swift in Sources */,
 				3E7572F72609E84C00CA3F85 /* MusicBrainzRESTClient.swift in Sources */,
+				3E9DAC932631E28F0003B33F /* TuneBrowserSidebarItems.swift in Sources */,
 				3E6C116725CEBD6000BF0D07 /* ObjectGraph.swift in Sources */,
 				3E6C123625CEBDF400BF0D07 /* GroupingPlaylistDataSources.swift in Sources */,
 				3E6C11AB25CEBDA200BF0D07 /* Errors.swift in Sources */,

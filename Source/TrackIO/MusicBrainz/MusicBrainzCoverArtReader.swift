@@ -17,7 +17,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     ///
     private let apiCallsLock: DispatchSemaphore = DispatchSemaphore(value: 1)
     
-    init(state: MusicBrainzCacheState, preferences: MusicBrainzPreferences, cache: MusicBrainzCache) {
+    init(preferences: MusicBrainzPreferences, cache: MusicBrainzCache) {
 
         self.restAPIClient = MusicBrainzRESTClient(preferences: preferences)
         self.cache = cache

@@ -22,7 +22,12 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         Messenger.subscribeAsync(self, .fileSystem_fileMetadataLoaded, self.fileMetadataLoaded(_:), queue: .main)
         
         fileSystem.root = FileSystemItem.create(forURL: AppConstants.FilesAndPaths.musicDir)
-        pathControlWidget.url = fileSystem.rootURL
+        
+        if let volumeName = FileSystemUtils.primaryVolumeName {
+            pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(NSHomeDirectory())/Music")
+        } else {
+            pathControlWidget.url = AppConstants.FilesAndPaths.musicDir
+        }
     }
     
     func destroy() {
@@ -41,7 +46,13 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         
         if let item = browserView.item(atRow: browserView.selectedRow), let fsItem = item as? FileSystemItem, fsItem.isDirectory {
             
-            pathControlWidget.url = fsItem.url
+            let path = fsItem.url.path
+            
+            if !path.hasPrefix("/Volumes"), let volumeName = FileSystemUtils.primaryVolumeName {
+                pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(path)")
+            } else {
+                pathControlWidget.url = fsItem.url
+            }
             
             fileSystem.root = fsItem
             browserView.reloadData()
@@ -53,9 +64,13 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         
         if let item = pathControlWidget.clickedPathItem, let url = item.url, url != pathControlWidget.url {
             
-            pathControlWidget.url = url
-            
             var path = url.path
+            
+            if !path.hasPrefix("/Volumes"), let volumeName = FileSystemUtils.primaryVolumeName {
+                pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(path)")
+            } else {
+                pathControlWidget.url = url
+            }
             
             if path.hasSuffix("/") {
                 fileSystem.rootURL = url

@@ -5,6 +5,23 @@ import Cocoa
 
 class FileSystemUtils {
     
+    static let primaryVolumeName: String? = {
+        
+        let url = URL(fileURLWithPath: "/Users")
+        
+        do {
+            return try url.resourceValues(forKeys: [.volumeNameKey]).allValues[.volumeNameKey] as? String
+        } catch {
+            return nil
+        }
+    }()
+    
+    static var secondaryVolumes: [URL] {
+        
+        fileManager.mountedVolumeURLs(includingResourceValuesForKeys: [URLResourceKey.volumeNameKey],
+                                      options: .init())?.filter{$0.path.hasPrefix("/Volumes")} ?? []
+    }
+    
     private static let fileManager: FileManager = FileManager.default
     
     // Checks if a file exists
