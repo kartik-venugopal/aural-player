@@ -6,7 +6,7 @@ Aural Player can now run in the macOS menu bar. This is useful for reducing desk
 
 A typical use case for this feature is when the playlist has been created and sound settings have been set, and the user wants to play the playlist without needing to interact frequently with the application.
 
-The app may be easily and seamlessly switched between the regular windowed mode and the new menu bar mode as follows:
+The app can be easily and seamlessly switched between the regular windowed mode and the new menu bar mode as follows:
 
 * **When in windowed mode**:  Click the "Switch to menu bar mode" button at the top left corner of the main player window, to switch to menu bar mode.
 * **When in menu bar mode**:  Click the "Switch to windowed mode" button at the top left corner of the menu bar player, to switch to windowed mode.
