@@ -222,7 +222,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     // NOTE - Boolean short-circuiting is important here. Otherwise, the chapters list window will be unnecessarily loaded.
     var isChaptersListWindowKey: Bool {
-        return isShowingChaptersList && chaptersListWindow == NSApp.keyWindow
+        return isShowingChaptersList && _chaptersListWindow == NSApp.keyWindow
     }
     
     var isShowingVisualizer: Bool {
@@ -285,6 +285,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         
         let shouldCenterChaptersListWindow = !chaptersListWindowLoader.windowLoaded
         
+        mainWindow.addChildWindow(_chaptersListWindow, ordered: NSWindow.OrderingMode.above)
         _chaptersListWindow.makeKeyAndOrderFront(self)
         
         // This will happen only once after each app launch - the very first time the window is shown.
@@ -363,7 +364,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         } else if isShowingEffects && movedWindow === _effectsWindow {
             return isShowingPlaylist ? [mainWindow, _playlistWindow] : [mainWindow]
             
-        } else if isShowingChaptersList && movedWindow === chaptersListWindow {
+        } else if isShowingChaptersList && movedWindow === _chaptersListWindow {
             
             var candidates: [NSWindow] = [mainWindow]
             
