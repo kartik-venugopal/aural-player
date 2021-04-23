@@ -34,7 +34,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
     private lazy var fontSchemesEditorView: NSView = fontSchemesEditorViewController.view
     
     private lazy var colorSchemesEditorViewController: NSViewController = ColorSchemesEditorViewController()
-    private lazy var colorSchemesEditorView: NSView = ColorSchemesEditorViewController().view
+    private lazy var colorSchemesEditorView: NSView = colorSchemesEditorViewController.view
     
     private lazy var effectsPresetsEditorViewLoader: LazyViewLoader<EffectsPresetsEditorViewController> = LazyViewLoader()
     private lazy var effectsPresetsEditorView: NSView = effectsPresetsEditorViewLoader.view
@@ -47,7 +47,6 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
     
     override func windowDidLoad() {
         
-        // TODO: Use tab view ?
         theWindow.isMovableByWindowBackground = true
         WindowManager.instance.registerModalComponent(self)
     }

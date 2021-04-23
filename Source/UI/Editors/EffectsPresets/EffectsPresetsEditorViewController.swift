@@ -74,6 +74,9 @@ class EffectsPresetsEditorViewController: NSViewController, NotificationSubscrib
         
         // Button tag is the tab index
         fxPresetsTabView.selectTabViewItem(at: sender.tag)
+        
+        // Reset button states when switching to a new tab.
+        updateButtonStates(0)
     }
     
     @IBAction func previousTabAction(_ sender: Any) {
