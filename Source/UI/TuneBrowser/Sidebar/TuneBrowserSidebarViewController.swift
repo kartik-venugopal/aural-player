@@ -1,7 +1,5 @@
 import Cocoa
 
-let tuneBrowserSidebarMusicFolder: TuneBrowserSidebarItem = TuneBrowserSidebarItem(url: tuneBrowserMusicFolderURL)
-
 class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource {
     
     @IBOutlet weak var sidebarView: TuneBrowserOutlineView!

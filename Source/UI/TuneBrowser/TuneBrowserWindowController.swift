@@ -1,6 +1,6 @@
 import Cocoa
 
-class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, Destroyable {
+class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, NotificationSubscriber, Destroyable {
     
     override var windowNibName: String? {"TuneBrowser"}
     
@@ -21,6 +21,63 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     // Delegate that relays CRUD actions to the playlist
     private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
+    override func awakeFromNib() {
+        
+        var displayedColumnIds: [String] = TuneBrowserState.displayedColumns.map {$0.id}
+        
+        // Show default columns if none have been selected (eg. first time app is launched).
+        if displayedColumnIds.isEmpty {
+            displayedColumnIds = [NSUserInterfaceItemIdentifier.uid_tuneBrowserName.rawValue]
+        }
+        
+        for column in browserView.tableColumns {
+//            column.headerCell = LibraryTableHeaderCell(stringValue: column.headerCell.stringValue)
+            column.isHidden = !displayedColumnIds.contains(column.identifier.rawValue)
+        }
+        
+        for (index, columnId) in displayedColumnIds.enumerated() {
+            
+            let oldIndex = browserView.column(withIdentifier: NSUserInterfaceItemIdentifier(columnId))
+            browserView.moveColumn(oldIndex, toColumn: index)
+        }
+        
+        var windowFrame = self.window!.frame
+        windowFrame.size = TuneBrowserState.windowSize
+        self.window?.setFrame(windowFrame, display: true)
+        
+        for column in TuneBrowserState.displayedColumns {
+            browserView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier(column.id))?.width = column.width
+        }
+    }
+    
+    private func onAppExit(_ request: AppExitRequestNotification) {
+        
+        TuneBrowserState.windowSize = self.window!.frame.size
+        
+        TuneBrowserState.displayedColumns = browserView.tableColumns.filter {$0.isShown}.map {DisplayedTableColumn(id: $0.identifier.rawValue, width: $0.width)}
+        
+        request.acceptResponse(okToExit: true)
+    }
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        
+        for item in menu.items {
+            
+            if let id = item.identifier {
+                item.onIf(browserView.tableColumn(withIdentifier: id)?.isShown ?? false)
+            }
+        }
+    }
+    
+    @IBAction func toggleColumnAction(_ sender: NSMenuItem) {
+        
+        // TODO: Validation - Don't allow 0 columns to be shown.
+        
+        if let id = sender.identifier {
+            browserView.tableColumn(withIdentifier: id)?.isHidden.toggle()
+        }
+    }
+    
     override func windowDidLoad() {
         
         super.windowDidLoad()
@@ -30,14 +87,16 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         
         Messenger.subscribeAsync(self, .fileSystem_fileMetadataLoaded, self.fileMetadataLoaded(_:), queue: .main)
         
-        fileSystem.root = FileSystemItem.create(forURL: AppConstants.FilesAndPaths.musicDir)
-        pathControlWidget.url = tuneBrowserMusicFolderURL
+        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         
         TuneBrowserSidebarCategory.allCases.forEach {sidebarView.expandItem($0)}
         
         respondToSidebarSelectionChange = false
         selectMusicFolder()
         respondToSidebarSelectionChange = true
+        
+        fileSystem.root = FileSystemItem.create(forURL: AppConstants.FilesAndPaths.musicDir)
+        pathControlWidget.url = tuneBrowserMusicFolderURL
     }
     
     private func selectMusicFolder() {
@@ -53,7 +112,9 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     
     private func fileMetadataLoaded(_ notif: FileSystemFileMetadataLoadedNotification) {
         
-        browserView.reloadItem(notif.file)
+        DispatchQueue.main.async {
+            self.browserView.reloadItem(notif.file)
+        }
         
         //        let itemIndex: Int = browserView.row(forItem: notif.file)
 //        browserView.reloadData(forRowIndexes: IndexSet([itemIndex]), columnIndexes: )
@@ -218,48 +279,3 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         self.window?.close()
     }
 }
-
-class TuneBrowserState {
-    
-    private static var sidebarUserFoldersByURL: [URL: TuneBrowserSidebarItem] = [:]
-    
-    private(set) static var sidebarUserFolders: [TuneBrowserSidebarItem] = []
-    
-    static func userFolder(forURL url: URL) -> TuneBrowserSidebarItem? {
-        sidebarUserFoldersByURL[url]
-    }
-    
-    static func addUserFolder(forURL url: URL) {
-        
-        if sidebarUserFoldersByURL[url] == nil {
-            
-            let newItem = TuneBrowserSidebarItem(url: url)
-            sidebarUserFolders.append(newItem)
-            sidebarUserFoldersByURL[url] = newItem
-        }
-    }
-    
-    static func removeUserFolder(item: TuneBrowserSidebarItem) -> Int? {
-        
-        sidebarUserFoldersByURL.removeValue(forKey: item.url)
-        return sidebarUserFolders.removeItem(item)
-    }
-}
-
-let tuneBrowserMusicFolderURL: URL = {
-    
-    if let volumeName = FileSystemUtils.primaryVolumeName {
-        return URL(fileURLWithPath: "/Volumes/\(volumeName)\(NSHomeDirectory())/Music")
-    } else {
-        return AppConstants.FilesAndPaths.musicDir
-    }
-}()
-
-let tuneBrowserPrimaryVolumeURL: URL = {
-    
-    if let volumeName = FileSystemUtils.primaryVolumeName {
-        return URL(fileURLWithPath: "/Volumes/\(volumeName)")
-    } else {
-        return URL(fileURLWithPath: "/")
-    }
-}()

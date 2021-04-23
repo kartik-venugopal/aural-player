@@ -87,7 +87,7 @@ fileprivate func mapNSPoint(_ map: NSDictionary) -> NSPoint? {
     return nil
 }
 
-fileprivate func mapNSSize(_ map: NSDictionary) -> NSSize? {
+func mapNSSize(_ map: NSDictionary) -> NSSize? {
     
     if let wd = map["width"] as? NSNumber, let ht = map["height"] as? NSNumber {
         return NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))

@@ -51,4 +51,6 @@ struct AppDefaults {
     static let lastTrackPosition: Double = 0
     
     static let windowCornerRadius: CGFloat = 3
+    
+    static let tuneBrowserWindowSize: NSSize = NSSize(width: 700, height: 500)
 }

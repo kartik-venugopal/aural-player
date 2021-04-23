@@ -557,3 +557,20 @@ extension NSGradient {
         return NSGradient(starting: end, ending: start)!
     }
 }
+
+extension NSTableColumn {
+    
+    var isShown: Bool {!self.isHidden}
+    
+    func show() {
+        self.isHidden = false
+    }
+    
+    func hide() {
+        self.isHidden = true
+    }
+    
+    func toggleShowOrHide() {
+        self.isHidden.toggle()
+    }
+}

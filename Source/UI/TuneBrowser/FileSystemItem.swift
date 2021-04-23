@@ -2,6 +2,7 @@ import Foundation
 
 class FileSystemItem {
     
+    // TODO: This needs to be a ConcurrentMap.
     // To prevent redundant items being created for the same URL.
     private static var itemCache: [URL: FileSystemItem] = [:]
     
