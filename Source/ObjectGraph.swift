@@ -160,6 +160,7 @@ class ObjectGraph {
         // Initialize utility classes.
         
         PlaylistIO.initialize(playlist)
+        TuneBrowserState.initialize(fromPersistentState: persistentState.tuneBrowser)
         
         // UI-related utility classes
         
@@ -235,6 +236,7 @@ class ObjectGraph {
         persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
         persistentState.bookmarks = (bookmarksDelegate as! BookmarksDelegate).persistentState
         persistentState.musicBrainzCache = musicBrainzCoverArtReader.cache.persistentState
+        persistentState.tuneBrowser = TuneBrowserState.persistentState
         
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.

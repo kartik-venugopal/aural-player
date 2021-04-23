@@ -10,12 +10,9 @@ enum TuneBrowserSidebarCategory: String, CaseIterable, CustomStringConvertible {
 
 class TuneBrowserSidebarItem: Equatable {
     
-    var displayName: String
     var url: URL
     
-    init(displayName: String, url: URL) {
-        
-        self.displayName = displayName
+    init(url: URL) {
         self.url = url
     }
     

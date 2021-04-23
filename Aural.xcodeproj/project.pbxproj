@@ -499,6 +499,7 @@
 		3E9E591025DB6B150064EB5F /* WindowedAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */; };
 		3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */; };
 		3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */; };
+		3EA331B526330B4800873244 /* TuneBrowserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA331B426330B4800873244 /* TuneBrowserState.swift */; };
 		3EA3CE6725E3FD9E00BC7D07 /* FontSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */; };
 		3EA3CE6A25E3FDE000BC7D07 /* FontSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */; };
 		3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */; };
@@ -1126,6 +1127,7 @@
 		3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowedAppModeController.swift; sourceTree = "<group>"; };
 		3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeHistory.swift; sourceTree = "<group>"; };
 		3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeChangeContext.swift; sourceTree = "<group>"; };
+		3EA331B426330B4800873244 /* TuneBrowserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserState.swift; sourceTree = "<group>"; };
 		3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemesEditor.xib; sourceTree = "<group>"; };
 		3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesEditorViewController.swift; sourceTree = "<group>"; };
 		3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreviewView.swift; sourceTree = "<group>"; };
@@ -2586,6 +2588,7 @@
 				3EF0C3E0262A93520042C720 /* WindowUIState.swift */,
 				3EF0C3E2262A93740042C720 /* VisualizerUIState.swift */,
 				3EBABCBF262C2CA80015A73A /* StatusBarPlayerUIState.swift */,
+				3EA331B426330B4800873244 /* TuneBrowserState.swift */,
 			);
 			path = AppState;
 			sourceTree = "<group>";
@@ -3431,6 +3434,7 @@
 				3E6C11C925CEBDBE00BF0D07 /* PlaybackDelegate.swift in Sources */,
 				3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */,
 				3E6C119B25CEBD6D00BF0D07 /* DeviceManager.swift in Sources */,
+				3EA331B526330B4800873244 /* TuneBrowserState.swift in Sources */,
 				3E6C11CE25CEBDBE00BF0D07 /* SavePlaybackProfileAction.swift in Sources */,
 				3E6C126325CEBE0600BF0D07 /* FavoritesEditorViewController.swift in Sources */,
 				3E6C128425CEBE1800BF0D07 /* Dimensions.swift in Sources */,

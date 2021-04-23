@@ -87,7 +87,7 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         
         print("Root: \(fileSystem.rootURL)")
         
-        if let folder = TuneBrowserViewState.userFolder(forURL: fileSystem.rootURL) {
+        if let folder = TuneBrowserState.userFolder(forURL: fileSystem.rootURL) {
             sidebarView.selectRow(sidebarView.row(forItem: folder))
             
         } else if fileSystem.rootURL == AppConstants.FilesAndPaths.musicDir || fileSystem.rootURL == tuneBrowserMusicFolderURL {
@@ -172,9 +172,9 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         
         if let clickedItem: FileSystemItem = browserView.rightClickedItem as? FileSystemItem {
             
-            TuneBrowserViewState.addUserFolder(forURL: clickedItem.url)
+            TuneBrowserState.addUserFolder(forURL: clickedItem.url)
             
-            sidebarView.insertItems(at: IndexSet(integer: TuneBrowserViewState.sidebarUserFolders.count),
+            sidebarView.insertItems(at: IndexSet(integer: TuneBrowserState.sidebarUserFolders.count),
                                     inParent: TuneBrowserSidebarCategory.folders, withAnimation: .slideDown)
         }
     }
@@ -182,7 +182,7 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     @IBAction func removeSidebarShortcutAction(_ sender: Any) {
         
         if let clickedItem: TuneBrowserSidebarItem = sidebarView.rightClickedItem as? TuneBrowserSidebarItem,
-           let removedItemIndex = TuneBrowserViewState.removeUserFolder(item: clickedItem) {
+           let removedItemIndex = TuneBrowserState.removeUserFolder(item: clickedItem) {
             
             let musicFolderRow = sidebarView.row(forItem: TuneBrowserSidebarCategory.folders) + 1
             let selectedRow = sidebarView.selectedRow
@@ -219,7 +219,7 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     }
 }
 
-class TuneBrowserViewState {
+class TuneBrowserState {
     
     private static var sidebarUserFoldersByURL: [URL: TuneBrowserSidebarItem] = [:]
     
@@ -233,7 +233,7 @@ class TuneBrowserViewState {
         
         if sidebarUserFoldersByURL[url] == nil {
             
-            let newItem = TuneBrowserSidebarItem(displayName: url.lastPathComponent, url: url)
+            let newItem = TuneBrowserSidebarItem(url: url)
             sidebarUserFolders.append(newItem)
             sidebarUserFoldersByURL[url] = newItem
         }

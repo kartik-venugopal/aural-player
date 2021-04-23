@@ -18,6 +18,7 @@ class PersistentAppState: PersistentStateProtocol {
     var bookmarks: [BookmarkState] = []
     var playbackProfiles: [PlaybackProfile] = []
     var musicBrainzCache: MusicBrainzCacheState = MusicBrainzCacheState()
+    var tuneBrowser: TuneBrowserPersistentState = TuneBrowserPersistentState()
     
     static let defaults: PersistentAppState = PersistentAppState()
     
@@ -70,8 +71,12 @@ class PersistentAppState: PersistentStateProtocol {
             }
         })
         
-        if let musicBrainzCacheDict = (map["musicBrainzCache"] as? NSDictionary) {
+        if let musicBrainzCacheDict = map["musicBrainzCache"] as? NSDictionary {
             state.musicBrainzCache = MusicBrainzCacheState.deserialize(musicBrainzCacheDict)
+        }
+        
+        if let tuneBrowserDict = map["tuneBrowser"] as? NSDictionary {
+            state.tuneBrowser = TuneBrowserPersistentState.deserialize(tuneBrowserDict)
         }
         
         return state

@@ -1,6 +1,6 @@
 import Cocoa
 
-let tuneBrowserSidebarMusicFolder: TuneBrowserSidebarItem = TuneBrowserSidebarItem(displayName: "Music", url: tuneBrowserMusicFolderURL)
+let tuneBrowserSidebarMusicFolder: TuneBrowserSidebarItem = TuneBrowserSidebarItem(url: tuneBrowserMusicFolderURL)
 
 class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource {
     
@@ -37,7 +37,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
                 
             case .folders:
                 
-                return TuneBrowserViewState.sidebarUserFolders.count + 1
+                return TuneBrowserState.sidebarUserFolders.count + 1
             }
         }
         
@@ -57,18 +57,18 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
         } else if item as? TuneBrowserSidebarCategory == .volumes {
             
             if index == 0 {
-                return TuneBrowserSidebarItem(displayName: FileSystemUtils.primaryVolumeName ?? "/", url: tuneBrowserPrimaryVolumeURL)
+                return TuneBrowserSidebarItem(url: tuneBrowserPrimaryVolumeURL)
             }
 
             let volume = FileSystemUtils.secondaryVolumes[index - 1]
-            return TuneBrowserSidebarItem(displayName: volume.lastPathComponent, url: volume)
+            return TuneBrowserSidebarItem(url: volume)
             
         } else if item as? TuneBrowserSidebarCategory == .folders {
             
             if index == 0 {
                 return tuneBrowserSidebarMusicFolder
             } else {
-                return TuneBrowserViewState.sidebarUserFolders[index - 1]
+                return TuneBrowserState.sidebarUserFolders[index - 1]
             }
         }
         
@@ -85,7 +85,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
             return createNameCell(outlineView, category.description)
             
         } else if let sidebarItem = item as? TuneBrowserSidebarItem {
-            return createNameCell(outlineView, sidebarItem.displayName)
+            return createNameCell(outlineView, sidebarItem.url.lastPathComponent)
         }
         
         return nil
