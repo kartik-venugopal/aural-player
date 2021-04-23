@@ -116,10 +116,6 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ![Menu Bar Player screenshot](/Documentation/Screenshots/MenuBarPlayer.png?raw=true)
 
-### Visualizer
-
-<img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
-
 ### Changing the font scheme
 
 ![Changing the font scheme demo](/Documentation/Demos/FontSchemes.gif?raw=true)
@@ -131,6 +127,10 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 ### Customizing the player view
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true)
+
+### Visualizer
+
+<img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
 
 ### Segment loop playback
 
@@ -151,10 +151,6 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 ### Searching the playlist
 
 ![Searching the playlist demo](/Documentation/Demos/PlaylistSearch.gif?raw=true)
-
-### Chapters support
-
-![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true)
 
 ## Known issues
 
