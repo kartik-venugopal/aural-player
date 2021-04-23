@@ -18,6 +18,9 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     
     private lazy var fileSystem: FileSystem = ObjectGraph.fileSystem
     
+    // Delegate that relays CRUD actions to the playlist
+    private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    
     override func windowDidLoad() {
         
         super.windowDidLoad()
@@ -136,7 +139,7 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     private func sidebarSelectionChanged(_ selectedItem: TuneBrowserSidebarItem) {
         
         let path = selectedItem.url.path
-        1
+        
         if !path.hasPrefix("/Volumes"), let volumeName = FileSystemUtils.primaryVolumeName {
             pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(path)")
         } else {
@@ -146,6 +149,23 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         fileSystem.root = FileSystemItem.create(forURL: selectedItem.url)
         browserView.reloadData()
         browserView.scrollRowToVisible(0)
+    }
+    
+    @IBAction func addBrowserItemsToPlaylistAction(_ sender: Any) {
+        doAddBrowserItemsToPlaylist()
+    }
+    
+    // TODO: Clarify this use case (which items qualify for this) ?
+    @IBAction func addBrowserItemsToPlaylistAndPlayAction(_ sender: Any) {
+        doAddBrowserItemsToPlaylist(beginPlayback: true)
+    }
+    
+    private func doAddBrowserItemsToPlaylist(beginPlayback: Bool? = nil) {
+        
+        let selIndexes = browserView.selectedRowIndexes
+        let selItemURLs = selIndexes.compactMap {[weak browserView] in browserView?.item(atRow: $0) as? FileSystemItem}.map {$0.url}
+        
+        playlist.addFiles(selItemURLs, beginPlayback: beginPlayback)
     }
     
     @IBAction func addSidebarShortcutAction(_ sender: Any) {
@@ -177,6 +197,20 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
                 let musicFolderRow = foldersRow + 1
                 sidebarView.selectRow(musicFolderRow)
             }
+        }
+    }
+    
+    @IBAction func showBrowserItemInFinderAction(_ sender: Any) {
+        
+        if let selItem = browserView.rightClickedItem as? FileSystemItem {
+            FileSystemUtils.showFileInFinder(selItem.url)
+        }
+    }
+    
+    @IBAction func showSidebarShortcutInFinderAction(_ sender: Any) {
+        
+        if let selItem = sidebarView.rightClickedItem as? TuneBrowserSidebarItem {
+            FileSystemUtils.showFileInFinder(selItem.url)
         }
     }
         

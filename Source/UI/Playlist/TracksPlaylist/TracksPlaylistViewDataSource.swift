@@ -107,7 +107,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
         } else if let files = info.draggingPasteboard.readObjects(forClasses: [NSURL.self]) as? [URL] {
             
             // Files added from Finder, add them to the playlist as URLs
-            playlist.addFiles(files)
+            playlist.addFiles(files, beginPlayback: nil)
             return true
         }
         

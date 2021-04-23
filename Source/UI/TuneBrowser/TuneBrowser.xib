@@ -135,7 +135,7 @@
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowserSidebar_name" id="U8U-jh-D5o">
-                                                                                <rect key="frame" x="8" y="0.0" width="131" height="30"/>
+                                                                                <rect key="frame" x="18" y="0.0" width="131" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqE-H1-GRU">
@@ -564,9 +564,15 @@
             <items>
                 <menuItem title="Add to playlist" id="RHu-WN-dZs">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addBrowserItemsToPlaylistAction:" target="-2" id="Fj6-8C-LLt"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Add to playlist and play" id="Y6q-rw-EFb">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addBrowserItemsToPlaylistAndPlayAction:" target="-2" id="5Nn-Eq-NGw"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Add shortcut to sidebar" id="P2D-Pp-0FW">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -574,13 +580,22 @@
                         <action selector="addSidebarShortcutAction:" target="-2" id="Ber-QM-0A4"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Show in Finder" id="SH7-mR-JYm">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showBrowserItemInFinderAction:" target="-2" id="lmT-sO-7LH"/>
+                    </connections>
+                </menuItem>
             </items>
             <point key="canvasLocation" x="-228" y="-240"/>
         </menu>
         <menu id="kzq-Fa-YpU" userLabel="Sidebar Context Menu">
             <items>
-                <menuItem title="Rename shortcut" id="usA-20-r8n" userLabel="Rename shortcut">
+                <menuItem title="Show in Finder" id="usA-20-r8n">
                     <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSidebarShortcutInFinderAction:" target="-2" id="X0M-Hj-nLB"/>
+                    </connections>
                 </menuItem>
                 <menuItem title="Remove shortcut" id="hvj-5F-baf" userLabel="Remove shortcut">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -589,7 +604,7 @@
                     </connections>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-228" y="-240"/>
+            <point key="canvasLocation" x="114" y="-281"/>
         </menu>
     </objects>
     <resources>

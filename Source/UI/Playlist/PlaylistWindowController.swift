@@ -203,7 +203,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         guard !checkIfPlaylistIsBeingModified() else {return}
         
         if fileOpenDialog.runModal() == NSApplication.ModalResponse.OK {
-            playlist.addFiles(fileOpenDialog.urls)
+            playlist.addFiles(fileOpenDialog.urls, beginPlayback: nil)
         }
     }
     

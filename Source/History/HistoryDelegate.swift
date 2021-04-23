@@ -53,7 +53,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
             throw FileNotFoundError(item)
         }
         
-        playlist.addFiles([item])
+        playlist.addFiles([item], beginPlayback: nil)
     }
     
     func playItem(_ item: URL, _ playlistType: PlaylistType) throws {

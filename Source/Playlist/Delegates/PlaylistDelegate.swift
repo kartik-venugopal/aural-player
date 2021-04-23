@@ -113,10 +113,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     // MARK: Playlist mutation functions --------------------------------------------------
     
-    func addFiles(_ files: [URL]) {
+    func addFiles(_ files: [URL], beginPlayback: Bool?) {
         
-        let autoplayEnabled: Bool = preferences.playbackPreferences.autoplayAfterAddingTracks
-        let interruptPlayback: Bool = preferences.playbackPreferences.autoplayAfterAddingOption == .always
+        let autoplayEnabled: Bool = beginPlayback ?? preferences.playbackPreferences.autoplayAfterAddingTracks
+        let interruptPlayback: Bool = beginPlayback ?? (preferences.playbackPreferences.autoplayAfterAddingOption == .always)
         
         addFiles_async(files, AutoplayOptions(autoplayEnabled, .playSpecificTrack, interruptPlayback))
     }

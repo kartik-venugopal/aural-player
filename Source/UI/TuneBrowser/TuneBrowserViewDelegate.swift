@@ -173,7 +173,6 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
             return
         }
         
-        print("\nExpanding folder: \(fsItem.url.lastPathComponent)")
         fileSystem.loadMetadata(forChildrenOf: fsItem)
     }
 }

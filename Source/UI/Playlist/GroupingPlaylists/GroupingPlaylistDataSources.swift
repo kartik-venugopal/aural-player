@@ -201,7 +201,7 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         } else if let files = info.draggingPasteboard.readObjects(forClasses: [NSURL.self], options: nil) as? [URL] {
             
             // Files added from Finder, add them to the playlist as URLs
-            playlist.addFiles(files)
+            playlist.addFiles(files, beginPlayback: nil)
             return true
         }
         
