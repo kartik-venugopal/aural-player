@@ -628,4 +628,8 @@ extension Notification.Name {
     // MARK: File system notifications sent to Tune Browser
     
     static let fileSystem_fileMetadataLoaded = Notification.Name("fileSystem_fileMetadataLoaded")
+    
+    // MARK: Tune Browser notifications
+    
+    static let tuneBrowser_sidebarSelectionChanged = Notification.Name("tuneBrowser_sidebarSelectionChanged")
 }

@@ -7,7 +7,7 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     @IBOutlet weak var browserView: TuneBrowserOutlineView!
     @IBOutlet weak var browserViewDelegate: TuneBrowserViewDelegate!
     
-    @IBOutlet weak var sidebarView: NSOutlineView!
+    @IBOutlet weak var sidebarView: TuneBrowserOutlineView!
     
     @IBOutlet weak var pathControlWidget: NSPathControl! {
         
@@ -22,12 +22,22 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         
         super.windowDidLoad()
         
+        Messenger.subscribe(self, .tuneBrowser_sidebarSelectionChanged, self.sidebarSelectionChanged(_:),
+                            filter: {[weak self] notif in self?.respondToSidebarSelectionChange ?? false})
+        
         Messenger.subscribeAsync(self, .fileSystem_fileMetadataLoaded, self.fileMetadataLoaded(_:), queue: .main)
         
         fileSystem.root = FileSystemItem.create(forURL: AppConstants.FilesAndPaths.musicDir)
         pathControlWidget.url = tuneBrowserMusicFolderURL
         
         TuneBrowserSidebarCategory.allCases.forEach {sidebarView.expandItem($0)}
+        
+        respondToSidebarSelectionChange = false
+        selectMusicFolder()
+        respondToSidebarSelectionChange = true
+    }
+    
+    private func selectMusicFolder() {
         
         let foldersRow = sidebarView.row(forItem: TuneBrowserSidebarCategory.folders)
         let musicFolderRow = foldersRow + 1
@@ -61,7 +71,30 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
             fileSystem.root = fsItem
             browserView.reloadData()
             browserView.scrollRowToVisible(0)
+            
+            updateSidebarSelection()
         }
+    }
+    
+    // If the folder currently shown by the browser corresponds to one of the folder shortcuts in the sidebar, select that
+    // item in the sidebar.
+    func updateSidebarSelection() {
+        
+        respondToSidebarSelectionChange = false
+        
+        print("Root: \(fileSystem.rootURL)")
+        
+        if let folder = TuneBrowserViewState.userFolder(forURL: fileSystem.rootURL) {
+            sidebarView.selectRow(sidebarView.row(forItem: folder))
+            
+        } else if fileSystem.rootURL == AppConstants.FilesAndPaths.musicDir || fileSystem.rootURL == tuneBrowserMusicFolderURL {
+            selectMusicFolder()
+            
+        } else {
+            sidebarView.clearSelection()
+        }
+        
+        respondToSidebarSelectionChange = true
     }
     
     @IBAction func pathControlAction(_ sender: Any) {
@@ -76,6 +109,12 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
                 pathControlWidget.url = url
             }
             
+            // Remove /Volumes from URL before setting fileSystem.rootURL
+            
+            if let volumeName = FileSystemUtils.primaryVolumeName, path.hasPrefix("/Volumes/\(volumeName)") {
+                path = path.replacingOccurrences(of: "/Volumes/\(volumeName)", with: "")
+            }
+            
             if path.hasSuffix("/") {
                 fileSystem.rootURL = url
                 
@@ -87,6 +126,57 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
             
             browserView.reloadData()
             browserView.scrollRowToVisible(0)
+            
+            updateSidebarSelection()
+        }
+    }
+    
+    private var respondToSidebarSelectionChange: Bool = true
+    
+    private func sidebarSelectionChanged(_ selectedItem: TuneBrowserSidebarItem) {
+        
+        let path = selectedItem.url.path
+        1
+        if !path.hasPrefix("/Volumes"), let volumeName = FileSystemUtils.primaryVolumeName {
+            pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(path)")
+        } else {
+            pathControlWidget.url = selectedItem.url
+        }
+        
+        fileSystem.root = FileSystemItem.create(forURL: selectedItem.url)
+        browserView.reloadData()
+        browserView.scrollRowToVisible(0)
+    }
+    
+    @IBAction func addSidebarShortcutAction(_ sender: Any) {
+        
+        if let clickedItem: FileSystemItem = browserView.rightClickedItem as? FileSystemItem {
+            
+            TuneBrowserViewState.addUserFolder(forURL: clickedItem.url)
+            
+            sidebarView.insertItems(at: IndexSet(integer: TuneBrowserViewState.sidebarUserFolders.count),
+                                    inParent: TuneBrowserSidebarCategory.folders, withAnimation: .slideDown)
+        }
+    }
+    
+    @IBAction func removeSidebarShortcutAction(_ sender: Any) {
+        
+        if let clickedItem: TuneBrowserSidebarItem = sidebarView.rightClickedItem as? TuneBrowserSidebarItem,
+           let removedItemIndex = TuneBrowserViewState.removeUserFolder(item: clickedItem) {
+            
+            let musicFolderRow = sidebarView.row(forItem: TuneBrowserSidebarCategory.folders) + 1
+            let selectedRow = sidebarView.selectedRow
+            let selectedItemRemoved = selectedRow == (musicFolderRow + removedItemIndex + 1)
+            
+            sidebarView.removeItems(at: IndexSet([removedItemIndex + 1]),
+                                    inParent: TuneBrowserSidebarCategory.folders, withAnimation: .effectFade)
+            
+            if selectedItemRemoved {
+                
+                let foldersRow = sidebarView.row(forItem: TuneBrowserSidebarCategory.folders)
+                let musicFolderRow = foldersRow + 1
+                sidebarView.selectRow(musicFolderRow)
+            }
         }
     }
         
@@ -97,7 +187,29 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
 
 class TuneBrowserViewState {
     
-    static var userFolders: [TuneBrowserSidebarItem] = []
+    private static var sidebarUserFoldersByURL: [URL: TuneBrowserSidebarItem] = [:]
+    
+    private(set) static var sidebarUserFolders: [TuneBrowserSidebarItem] = []
+    
+    static func userFolder(forURL url: URL) -> TuneBrowserSidebarItem? {
+        sidebarUserFoldersByURL[url]
+    }
+    
+    static func addUserFolder(forURL url: URL) {
+        
+        if sidebarUserFoldersByURL[url] == nil {
+            
+            let newItem = TuneBrowserSidebarItem(displayName: url.lastPathComponent, url: url)
+            sidebarUserFolders.append(newItem)
+            sidebarUserFoldersByURL[url] = newItem
+        }
+    }
+    
+    static func removeUserFolder(item: TuneBrowserSidebarItem) -> Int? {
+        
+        sidebarUserFoldersByURL.removeValue(forKey: item.url)
+        return sidebarUserFolders.removeItem(item)
+    }
 }
 
 let tuneBrowserMusicFolderURL: URL = {

@@ -18,6 +18,10 @@ extension NSTableView {
         self.selectRowIndexes(IndexSet(rows), byExtendingSelection: false)
     }
     
+    func clearSelection() {
+        self.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+    }
+    
     /*
         An event handler for customized contextual menu behavior.
         This function needs to be overriden in order to:

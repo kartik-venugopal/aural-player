@@ -8,7 +8,7 @@ enum TuneBrowserSidebarCategory: String, CaseIterable, CustomStringConvertible {
     var description: String {rawValue}
 }
 
-class TuneBrowserSidebarItem {
+class TuneBrowserSidebarItem: Equatable {
     
     var displayName: String
     var url: URL
@@ -17,5 +17,9 @@ class TuneBrowserSidebarItem {
         
         self.displayName = displayName
         self.url = url
+    }
+    
+    static func == (lhs: TuneBrowserSidebarItem, rhs: TuneBrowserSidebarItem) -> Bool {
+        lhs.url == rhs.url
     }
 }

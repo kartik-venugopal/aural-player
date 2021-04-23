@@ -115,7 +115,7 @@
                                                         <rect key="frame" x="1" y="1" width="148" height="423"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="13" outlineTableColumn="VmL-vn-dnB" id="FB0-VR-zel">
+                                                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="13" outlineTableColumn="VmL-vn-dnB" id="FB0-VR-zel" customClass="TuneBrowserSidebarOutlineView" customModule="Aural" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="423"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="17" height="0.0"/>
@@ -158,6 +158,7 @@
                                                                 <connections>
                                                                     <outlet property="dataSource" destination="2tz-J9-WoP" id="dZk-ZO-9wT"/>
                                                                     <outlet property="delegate" destination="2tz-J9-WoP" id="ddI-FI-xOm"/>
+                                                                    <outlet property="menu" destination="kzq-Fa-YpU" id="LW1-sh-gnv"/>
                                                                 </connections>
                                                             </outlineView>
                                                         </subviews>
@@ -480,6 +481,7 @@
                                                                     <action trigger="doubleAction" selector="openFolderAction:" target="-2" id="HZI-aB-aL8"/>
                                                                     <outlet property="dataSource" destination="rxi-DG-5sh" id="gHF-BV-CUt"/>
                                                                     <outlet property="delegate" destination="rxi-DG-5sh" id="rWn-ni-SjI"/>
+                                                                    <outlet property="menu" destination="Jl5-On-Z38" id="K2G-5X-4gm"/>
                                                                 </connections>
                                                             </outlineView>
                                                         </subviews>
@@ -558,6 +560,37 @@
                 <outlet property="view" destination="FB0-VR-zel" id="YBL-q7-A2w"/>
             </connections>
         </customObject>
+        <menu id="Jl5-On-Z38" userLabel="Browser Item Context Menu">
+            <items>
+                <menuItem title="Add to playlist" id="RHu-WN-dZs">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Add to playlist and play" id="Y6q-rw-EFb">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Add shortcut to sidebar" id="P2D-Pp-0FW">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSidebarShortcutAction:" target="-2" id="Ber-QM-0A4"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-228" y="-240"/>
+        </menu>
+        <menu id="kzq-Fa-YpU" userLabel="Sidebar Context Menu">
+            <items>
+                <menuItem title="Rename shortcut" id="usA-20-r8n" userLabel="Rename shortcut">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Remove shortcut" id="hvj-5F-baf" userLabel="Remove shortcut">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeSidebarShortcutAction:" target="-2" id="cXy-tt-iq7"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-228" y="-240"/>
+        </menu>
     </objects>
     <resources>
         <image name="Close" width="18" height="18"/>

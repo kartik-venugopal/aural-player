@@ -2,18 +2,42 @@ import Cocoa
 
 class TuneBrowserOutlineView: NSOutlineView {
     
+    var rightClickedItem: Any?
+    
     override func menu(for event: NSEvent) -> NSMenu? {
         
-        let clickedRow: Int = self.row(at: self.convert(event.locationInWindow, from: nil))
+        let clickedRow = self.rowForEvent(event)
 
         // If the click occurred outside of any of the playlist rows (i.e. empty space), don't show the menu
         if clickedRow == -1 {return nil}
+        
+        self.rightClickedItem = self.item(atRow: clickedRow)
         
         if !self.isRowSelected(clickedRow) {
             self.selectRow(clickedRow)
         }
         
         return self.menu
+    }
+}
+
+class TuneBrowserSidebarOutlineView: NSOutlineView {
+    
+    var rightClickedItem: Any?
+    
+    func resetRightClick() {
+        rightClickedItem = nil
+    }
+    
+    override func menu(for event: NSEvent) -> NSMenu? {
+        
+        let clickedRow = self.rowForEvent(event)
+
+        // If the click occurred outside of any of the playlist rows (i.e. empty space), don't show the menu
+        if clickedRow == -1 {return nil}
+
+        self.rightClickedItem = self.item(atRow: clickedRow)
+        return super.menu(for: event)
     }
 }
 
@@ -62,4 +86,9 @@ class TuneBrowserItemTypeCell: NSTableCellView {
             textField?.stringValue = "Playlist"
         }
     }
+}
+
+extension NSTableView {
+    
+    func rowForEvent(_ event: NSEvent) -> Int {self.row(at: self.convert(event.locationInWindow, from: nil))}
 }

@@ -1,16 +1,16 @@
 import Cocoa
 
+let tuneBrowserSidebarMusicFolder: TuneBrowserSidebarItem = TuneBrowserSidebarItem(displayName: "Music", url: tuneBrowserMusicFolderURL)
+
 class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate, NSOutlineViewDataSource {
     
-    @IBOutlet weak var sidebarView: NSOutlineView!
+    @IBOutlet weak var sidebarView: TuneBrowserOutlineView!
     
     override var nibName: String? {return "Sidebar"}
     
     let mainFont_14: NSFont = NSFont(name: "Play Regular", size: 13)!
     
     let categories: [TuneBrowserSidebarCategory] = TuneBrowserSidebarCategory.allCases
-    
-    let musicFolder: TuneBrowserSidebarItem = TuneBrowserSidebarItem(displayName: "Music", url: tuneBrowserMusicFolderURL)
     
     func initializeUI() {
         
@@ -37,7 +37,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
                 
             case .folders:
                 
-                return TuneBrowserViewState.userFolders.count + 1
+                return TuneBrowserViewState.sidebarUserFolders.count + 1
             }
         }
         
@@ -66,9 +66,9 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
         } else if item as? TuneBrowserSidebarCategory == .folders {
             
             if index == 0 {
-                return musicFolder
+                return tuneBrowserSidebarMusicFolder
             } else {
-                return TuneBrowserViewState.userFolders[index - 1]
+                return TuneBrowserViewState.sidebarUserFolders[index - 1]
             }
         }
         
@@ -111,20 +111,15 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
         return item is TuneBrowserSidebarCategory
     }
-    
-//    func outlineViewSelectionDidChange(_ notification: Notification) {
-//
-//        guard let outlineView = notification.object as? NSOutlineView else {return}
-//
-//        if let selectedItem = outlineView.item(atRow: outlineView.selectedRow) as? SidebarItem {
-//
-////            if selectedItem.displayName == playQueueItem.displayName {
-////                Messenger.publish(.browser_showTab, payload: 0)
-////            } else {
-////                Messenger.publish(.browser_showTab, payload: selectedItem.displayName == "Tracks" ? 1 : 2)
-////            }
-//        }
-//    }
+   
+    func outlineViewSelectionDidChange(_ notification: Notification) {
+        
+        guard let outlineView = notification.object as? NSOutlineView else {return}
+
+        if let selectedItem = outlineView.item(atRow: outlineView.selectedRow) as? TuneBrowserSidebarItem {
+            Messenger.publish(.tuneBrowser_sidebarSelectionChanged, payload: selectedItem)
+        }
+    }
 }
 
 extension NSUserInterfaceItemIdentifier {
