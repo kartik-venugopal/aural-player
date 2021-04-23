@@ -18,11 +18,22 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
         _instance = nil
     }
     
-    private lazy var bookmarksEditorView: NSView = BookmarksEditorViewController().view
-    private lazy var favoritesEditorView: NSView = FavoritesEditorViewController().view
-    private lazy var layoutsEditorView: NSView = LayoutsEditorViewController().view
-    private lazy var themesEditorView: NSView = ThemesEditorViewController().view
-    private lazy var fontSchemesEditorView: NSView = FontSchemesEditorViewController().view
+    private lazy var bookmarksEditorViewController: NSViewController = BookmarksEditorViewController()
+    private lazy var bookmarksEditorView: NSView = bookmarksEditorViewController.view
+    
+    private lazy var favoritesEditorViewController: NSViewController = FavoritesEditorViewController()
+    private lazy var favoritesEditorView: NSView = favoritesEditorViewController.view
+    
+    private lazy var layoutsEditorViewController: NSViewController = LayoutsEditorViewController()
+    private lazy var layoutsEditorView: NSView = layoutsEditorViewController.view
+    
+    private lazy var themesEditorViewController: NSViewController = ThemesEditorViewController()
+    private lazy var themesEditorView: NSView = themesEditorViewController.view
+    
+    private lazy var fontSchemesEditorViewController: NSViewController = FontSchemesEditorViewController()
+    private lazy var fontSchemesEditorView: NSView = fontSchemesEditorViewController.view
+    
+    private lazy var colorSchemesEditorViewController: NSViewController = ColorSchemesEditorViewController()
     private lazy var colorSchemesEditorView: NSView = ColorSchemesEditorViewController().view
     
     private lazy var effectsPresetsEditorViewLoader: LazyViewLoader<EffectsPresetsEditorViewController> = LazyViewLoader()
