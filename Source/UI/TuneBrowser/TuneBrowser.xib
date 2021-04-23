@@ -11,6 +11,7 @@
                 <outlet property="browserView" destination="aWI-Z6-ODA" id="4hv-Fv-sgb"/>
                 <outlet property="browserViewDelegate" destination="rxi-DG-5sh" id="bZv-5O-Xg9"/>
                 <outlet property="pathControlWidget" destination="jTW-xB-lKp" id="KGs-mn-iGt"/>
+                <outlet property="sidebarView" destination="FB0-VR-zel" id="6uj-Gl-WvZ"/>
                 <outlet property="window" destination="qGR-Iy-UWI" id="dko-Se-8PM"/>
             </connections>
         </customObject>
@@ -20,7 +21,7 @@
             <windowStyleMask key="styleMask" resizable="YES" texturedBackground="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="700" height="500"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" wantsLayer="YES" id="AD0-0w-Z6m">
                 <rect key="frame" x="0.0" y="0.0" width="700" height="500"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -108,13 +109,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="425"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keb-QC-bMy">
+                                                <scrollView autohidesScrollers="YES" horizontalLineScroll="30" horizontalPageScroll="10" verticalLineScroll="30" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keb-QC-bMy">
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="425"/>
                                                     <clipView key="contentView" id="sez-m0-WsD">
                                                         <rect key="frame" x="1" y="1" width="148" height="423"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="13" outlineTableColumn="VmL-vn-dnB" id="FB0-VR-zel">
+                                                            <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="13" outlineTableColumn="VmL-vn-dnB" id="FB0-VR-zel">
                                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="423"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="17" height="0.0"/>
@@ -134,11 +135,11 @@
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowserSidebar_name" id="U8U-jh-D5o">
-                                                                                <rect key="frame" x="18" y="0.0" width="131" height="24"/>
+                                                                                <rect key="frame" x="8" y="0.0" width="131" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqE-H1-GRU">
-                                                                                        <rect key="frame" x="0.0" y="4" width="131" height="16"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="131" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="RhJ-GW-OE9">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -162,7 +163,7 @@
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="ZLx-iW-T1K">
-                                                        <rect key="frame" x="1" y="408" width="148" height="16"/>
+                                                        <rect key="frame" x="-100" y="-100" width="148" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="r5q-0p-J2y">

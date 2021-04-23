@@ -8,9 +8,9 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     
     let mainFont_14: NSFont = NSFont(name: "Play Regular", size: 13)!
     
-    let categories: [SidebarCategory] = SidebarCategory.allCases
+    let categories: [TuneBrowserSidebarCategory] = TuneBrowserSidebarCategory.allCases
     
-    var folderItems: [SidebarItem] = [SidebarItem(displayName: "Music")]
+    let musicFolder: TuneBrowserSidebarItem = TuneBrowserSidebarItem(displayName: "Music", url: tuneBrowserMusicFolderURL)
     
     func initializeUI() {
         
@@ -19,7 +19,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     }
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
-        30
+        item is TuneBrowserSidebarCategory ? 30 : 26
     }
     
     func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
@@ -27,7 +27,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
         if item == nil {
             return categories.count
             
-        } else if let sidebarCat = item as? SidebarCategory {
+        } else if let sidebarCat = item as? TuneBrowserSidebarCategory {
             
             switch sidebarCat {
                 
@@ -37,7 +37,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
                 
             case .folders:
                 
-                return 1
+                return TuneBrowserViewState.userFolders.count + 1
             }
         }
         
@@ -45,7 +45,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     }
     
     func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
-        return item is SidebarCategory
+        return item is TuneBrowserSidebarCategory
     }
     
     func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
@@ -54,32 +54,37 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
 
             return categories[index]
 
-        } else if item as? SidebarCategory == .volumes {
+        } else if item as? TuneBrowserSidebarCategory == .volumes {
             
             if index == 0 {
-                return SidebarItem(displayName: FileSystemUtils.primaryVolumeName ?? "/")
+                return TuneBrowserSidebarItem(displayName: FileSystemUtils.primaryVolumeName ?? "/", url: tuneBrowserPrimaryVolumeURL)
             }
 
-            return SidebarItem(displayName: FileSystemUtils.secondaryVolumes[index - 1].lastPathComponent)
+            let volume = FileSystemUtils.secondaryVolumes[index - 1]
+            return TuneBrowserSidebarItem(displayName: volume.lastPathComponent, url: volume)
             
-        } else if item as? SidebarCategory == .folders {
+        } else if item as? TuneBrowserSidebarCategory == .folders {
             
-            return SidebarItem(displayName: "Music")
+            if index == 0 {
+                return musicFolder
+            } else {
+                return TuneBrowserViewState.userFolders[index - 1]
+            }
         }
         
         return ""
     }
     
     func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
-        return item is SidebarCategory
+        return item is TuneBrowserSidebarCategory
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         
-        if let category = item as? SidebarCategory {
+        if let category = item as? TuneBrowserSidebarCategory {
             return createNameCell(outlineView, category.description)
             
-        } else if let sidebarItem = item as? SidebarItem {
+        } else if let sidebarItem = item as? TuneBrowserSidebarItem {
             return createNameCell(outlineView, sidebarItem.displayName)
         }
         
@@ -100,11 +105,11 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        return !(item is SidebarCategory)
+        return !(item is TuneBrowserSidebarCategory)
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldShowOutlineCellForItem item: Any) -> Bool {
-        return item is SidebarCategory
+        return item is TuneBrowserSidebarCategory
     }
     
 //    func outlineViewSelectionDidChange(_ notification: Notification) {

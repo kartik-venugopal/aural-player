@@ -1,6 +1,6 @@
 import Foundation
 
-enum SidebarCategory: String, CaseIterable, CustomStringConvertible {
+enum TuneBrowserSidebarCategory: String, CaseIterable, CustomStringConvertible {
     
     case volumes = "Volumes"
     case folders = "Folders"
@@ -8,7 +8,14 @@ enum SidebarCategory: String, CaseIterable, CustomStringConvertible {
     var description: String {rawValue}
 }
 
-struct SidebarItem {
+class TuneBrowserSidebarItem {
     
-    let displayName: String
+    var displayName: String
+    var url: URL
+    
+    init(displayName: String, url: URL) {
+        
+        self.displayName = displayName
+        self.url = url
+    }
 }

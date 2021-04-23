@@ -7,6 +7,8 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     @IBOutlet weak var browserView: TuneBrowserOutlineView!
     @IBOutlet weak var browserViewDelegate: TuneBrowserViewDelegate!
     
+    @IBOutlet weak var sidebarView: NSOutlineView!
+    
     @IBOutlet weak var pathControlWidget: NSPathControl! {
         
         didSet {
@@ -19,15 +21,17 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
     override func windowDidLoad() {
         
         super.windowDidLoad()
+        
         Messenger.subscribeAsync(self, .fileSystem_fileMetadataLoaded, self.fileMetadataLoaded(_:), queue: .main)
         
         fileSystem.root = FileSystemItem.create(forURL: AppConstants.FilesAndPaths.musicDir)
+        pathControlWidget.url = tuneBrowserMusicFolderURL
         
-        if let volumeName = FileSystemUtils.primaryVolumeName {
-            pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(NSHomeDirectory())/Music")
-        } else {
-            pathControlWidget.url = AppConstants.FilesAndPaths.musicDir
-        }
+        TuneBrowserSidebarCategory.allCases.forEach {sidebarView.expandItem($0)}
+        
+        let foldersRow = sidebarView.row(forItem: TuneBrowserSidebarCategory.folders)
+        let musicFolderRow = foldersRow + 1
+        sidebarView.selectRow(musicFolderRow)
     }
     
     func destroy() {
@@ -90,3 +94,26 @@ class TuneBrowserWindowController: NSWindowController, NotificationSubscriber, D
         self.window?.close()
     }
 }
+
+class TuneBrowserViewState {
+    
+    static var userFolders: [TuneBrowserSidebarItem] = []
+}
+
+let tuneBrowserMusicFolderURL: URL = {
+    
+    if let volumeName = FileSystemUtils.primaryVolumeName {
+        return URL(fileURLWithPath: "/Volumes/\(volumeName)\(NSHomeDirectory())/Music")
+    } else {
+        return AppConstants.FilesAndPaths.musicDir
+    }
+}()
+
+let tuneBrowserPrimaryVolumeURL: URL = {
+    
+    if let volumeName = FileSystemUtils.primaryVolumeName {
+        return URL(fileURLWithPath: "/Volumes/\(volumeName)")
+    } else {
+        return URL(fileURLWithPath: "/")
+    }
+}()
