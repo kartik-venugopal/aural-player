@@ -113,6 +113,8 @@ class AVFFileReader: FileReaderProtocol {
         let parsers = metadataMap.keySpaces.compactMap {parsersMap[$0]}
         
         var metadata = AuxiliaryMetadata()
+        
+        metadata.year = parsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
         metadata.lyrics = cleanUpString(parsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
         
         var auxiliaryMetadata: [String: MetadataEntry] = [:]

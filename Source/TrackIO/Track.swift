@@ -119,11 +119,6 @@ class Track: Hashable, PlaylistItem {
     
     func setAuxiliaryMetadata(_ metadata: AuxiliaryMetadata) {
         
-        self.composer = metadata.composer
-        self.conductor = metadata.conductor
-        self.lyricist = metadata.lyricist
-        
-        self.bpm = metadata.bpm
         self.year = metadata.year
 
         self.lyrics = metadata.lyrics

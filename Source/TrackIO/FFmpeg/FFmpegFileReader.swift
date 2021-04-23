@@ -168,6 +168,7 @@ class FFmpegFileReader: FileReaderProtocol {
         
         var metadata = AuxiliaryMetadata()
         
+        metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
         metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
         
         var auxiliaryMetadata: [String: MetadataEntry] = [:]
