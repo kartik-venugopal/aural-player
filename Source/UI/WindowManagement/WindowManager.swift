@@ -405,12 +405,22 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
 
 class WindowLayoutState {
     
-    static var showEffects: Bool = true
-    static var showPlaylist: Bool = true
+    static var showEffects: Bool = WindowLayoutDefaults.showEffects
+    static var showPlaylist: Bool = WindowLayoutDefaults.showPlaylist
     
-    static var mainWindowOrigin: NSPoint = NSPoint.zero
-    static var effectsWindowOrigin: NSPoint? = nil
-    static var playlistWindowFrame: NSRect? = nil
+    static var mainWindowOrigin: NSPoint = WindowLayoutDefaults.mainWindowOrigin
+    static var effectsWindowOrigin: NSPoint? = WindowLayoutDefaults.effectsWindowOrigin
+    static var playlistWindowFrame: NSRect? = WindowLayoutDefaults.playlistWindowFrame
+}
+
+class WindowLayoutDefaults {
+    
+    static let showEffects: Bool = true
+    static let showPlaylist: Bool = true
+    
+    static let mainWindowOrigin: NSPoint = NSPoint.zero
+    static let effectsWindowOrigin: NSPoint? = nil
+    static let playlistWindowFrame: NSRect? = nil
 }
 
 // Convenient accessor for information about the current appearance settings for the app's main windows.

@@ -273,6 +273,15 @@ extension NSDictionary {
         return nil
     }
     
+    func cgFloatValue(forKey key: String) -> CGFloat? {
+        
+        if let floatValue = (self[key] as? NSNumber)?.floatValue {
+            return CGFloat(floatValue)
+        }
+        
+        return nil
+    }
+    
     func doubleValue(forKey key: String) -> Double? {
         (self[key] as? NSNumber)?.doubleValue
     }
@@ -325,6 +334,55 @@ extension NSDictionary {
         
         if let string = self[key] as? String {
             return URL(fileURLWithPath: string)
+        }
+        
+        return nil
+    }
+    
+    func urlArrayValue(forKey key: String) -> [URL]? {
+        (self[key] as? [String])?.map {URL(fileURLWithPath: $0)}
+    }
+    
+    func dateValue(forKey key: String) -> Date? {
+        
+        if let string = self[key] as? String {
+            return Date.fromString(string)
+        }
+        
+        return nil
+    }
+    
+    func nsPointValue(forKey key: String) -> NSPoint? {
+        
+        if let dict = self[key] as? NSDictionary,
+           let px = dict.cgFloatValue(forKey: "x"),
+           let py = dict.cgFloatValue(forKey: "y") {
+            
+            return NSPoint(x: px, y: py)
+        }
+        
+        return nil
+    }
+    
+    func nsSizeValue(forKey key: String) -> NSSize? {
+        
+        if let dict = self[key] as? NSDictionary,
+           let width = dict.cgFloatValue(forKey: "width"),
+           let height = dict.cgFloatValue(forKey: "height") {
+            
+            return NSSize(width: width, height: height)
+        }
+        
+        return nil
+    }
+    
+    func nsRectValue(forKey key: String) -> NSRect? {
+        
+        if let dict = self[key] as? NSDictionary,
+           let origin = dict.nsPointValue(forKey: "origin"),
+           let size = dict.nsSizeValue(forKey: "size") {
+            
+            return NSRect(origin: origin, size: size)
         }
         
         return nil

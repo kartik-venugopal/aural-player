@@ -119,7 +119,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
-        Messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     // Adds/removes the currently playing track to/from the "Favorites" list

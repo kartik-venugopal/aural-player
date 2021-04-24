@@ -36,7 +36,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         
         doApplyColorScheme(ColorSchemes.systemScheme, false)
         
-        if PlaylistViewState.current == .tracks, preferences.showNewTrackInPlaylist {
+        if PlaylistViewState.currentView == .tracks, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
         }
     }
@@ -115,8 +115,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     override func viewDidAppear() {
         
         // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
-        PlaylistViewState.current = .tracks
-        PlaylistViewState.currentView = playlistView
+        PlaylistViewState.currentView = .tracks
+        PlaylistViewState.currentTableView = playlistView
         
         Messenger.publish(.playlist_viewChanged, payload: PlaylistType.tracks)
     }
@@ -314,7 +314,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         let refreshIndexes: IndexSet = IndexSet(Set([notification.beginTrack, notification.endTrack].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
-        let needToShowTrack: Bool = PlaylistViewState.current == .tracks && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = PlaylistViewState.currentView == .tracks && preferences.showNewTrackInPlaylist
 
         if let newTrack = notification.endTrack {
             
@@ -349,7 +349,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         
         let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, errTrack].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
 
-        if let errTrackIndex = playlist.indexOfTrack(errTrack), PlaylistViewState.current == .tracks {
+        if let errTrackIndex = playlist.indexOfTrack(errTrack), PlaylistViewState.currentView == .tracks {
             selectTrack(errTrackIndex)
         }
 

@@ -98,8 +98,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
         
-        expandSelectedGroupsMenuItem.enableIf(PlaylistViewState.current != .tracks && atLeastOneItemSelected && onlyGroupsSelected)
-        collapseSelectedItemsMenuItem.enableIf(PlaylistViewState.current != .tracks && atLeastOneItemSelected)
+        expandSelectedGroupsMenuItem.enableIf(PlaylistViewState.currentView != .tracks && atLeastOneItemSelected && onlyGroupsSelected)
+        collapseSelectedItemsMenuItem.enableIf(PlaylistViewState.currentView != .tracks && atLeastOneItemSelected)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -108,10 +108,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let playlistNotEmpty = playlist.size > 0
         
-        expandSelectedGroupsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
-        collapseSelectedItemsMenuItem.hideIf_elseShow(PlaylistViewState.current == .tracks)
+        expandSelectedGroupsMenuItem.hideIf_elseShow(PlaylistViewState.currentView == .tracks)
+        collapseSelectedItemsMenuItem.hideIf_elseShow(PlaylistViewState.currentView == .tracks)
         
-        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.current != .tracks && playlistNotEmpty))})
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.currentView != .tracks && playlistNotEmpty))})
     }
     
     private var areOnlyGroupsSelected: Bool {!PlaylistViewState.selectedItems.contains(where: {$0.type != .group})}
@@ -128,7 +128,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func removeSelectedItemsAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
@@ -149,7 +149,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsUpAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
@@ -157,7 +157,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToTopAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
@@ -165,7 +165,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsDownAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
@@ -173,7 +173,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToBottomAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
@@ -197,56 +197,56 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             Messenger.publish(.chaptersList_playSelectedChapter)
             
         } else {
-            Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
     @IBAction func clearSelectionAction(_ sender: Any) {
-        Messenger.publish(.playlist_clearSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_clearSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func invertSelectionAction(_ sender: Any) {
-        Messenger.publish(.playlist_invertSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_invertSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func cropSelectionAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_cropSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_cropSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
     @IBAction func expandSelectedGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func collapseSelectedItemsAction(_ sender: Any) {
-        Messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func expandAllGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func collapseAllGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     // Scrolls the current playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: Any) {
-        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: Any) {
-        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func pageUpAction(_ sender: Any) {
-        Messenger.publish(.playlist_pageUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_pageUp, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     @IBAction func pageDownAction(_ sender: Any) {
-        Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func previousPlaylistViewAction(_ sender: Any) {

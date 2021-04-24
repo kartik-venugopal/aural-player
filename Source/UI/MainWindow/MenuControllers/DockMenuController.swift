@@ -126,7 +126,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
             
             do {
                 
-                try history.playItem(item.file, PlaylistViewState.current)
+                try history.playItem(item.file, PlaylistViewState.currentView)
                 
             } catch let error {
                 

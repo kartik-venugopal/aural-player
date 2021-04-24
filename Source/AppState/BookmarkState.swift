@@ -1,42 +1,36 @@
 import Foundation
 
-class BookmarkState {
+class BookmarkState: PersistentStateProtocol {
     
-    var name: String = ""
-    var file: URL
-    var startPosition: Double = 0
-    var endPosition: Double?
+    let name: String
+    let file: URL
+    let startPosition: Double
+    let endPosition: Double?
     
     init(_ name: String, _ file: URL, _ startPosition: Double, _ endPosition: Double?) {
+        
         self.name = name
         self.file = file
         self.startPosition = startPosition
         self.endPosition = endPosition
     }
     
-    required init?(_ bookmarkMap: NSDictionary) -> BookmarkState? {
+    required init?(_ map: NSDictionary) {
         
-        if let name = bookmarkMap["name"] as? String, let file = bookmarkMap["file"] as? String {
+        guard let name = map.stringValue(forKey: "name"),
+              let file = map.urlValue(forKey: "file"),
+              let startPosition = map.doubleValue(forKey: "startPosition") else {return nil}
             
-            let startPosition: Double = mapNumeric(bookmarkMap, "startPosition", AppDefaults.lastTrackPosition)
-            let endPosition: Double? = mapNumeric(bookmarkMap, "endPosition")
-            return BookmarkState(name, URL(fileURLWithPath: file), startPosition, endPosition)
-        }
-        
-        return nil
+        self.name = name
+        self.file = file
+        self.startPosition = startPosition
+        self.endPosition = map.doubleValue(forKey: "endPosition")
     }
 }
 
 extension BookmarksDelegate {
     
     var persistentState: [BookmarkState] {
-        
-        var arr = [BookmarkState]()
-        
-        bookmarks.allBookmarks.forEach({
-            arr.append(BookmarkState($0.name, $0.file, $0.startPosition, $0.endPosition))
-        })
-        
-        return arr
+        bookmarks.allBookmarks.map {BookmarkState($0.name, $0.file, $0.startPosition, $0.endPosition)}
     }
 }

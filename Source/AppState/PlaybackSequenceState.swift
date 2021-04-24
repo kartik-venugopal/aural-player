@@ -5,17 +5,19 @@ import Foundation
  */
 class PlaybackSequenceState: PersistentStateProtocol {
     
-    var repeatMode: RepeatMode = AppDefaults.repeatMode
-    var shuffleMode: ShuffleMode = AppDefaults.shuffleMode
+    let repeatMode: RepeatMode?
+    let shuffleMode: ShuffleMode?
     
-    required init?(_ map: NSDictionary) -> PlaybackSequenceState {
+    init(repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
         
-        let state = PlaybackSequenceState()
+        self.repeatMode = repeatMode
+        self.shuffleMode = shuffleMode
+    }
+    
+    required init?(_ map: NSDictionary) {
         
-        state.repeatMode = mapEnum(map, "repeatMode", AppDefaults.repeatMode)
-        state.shuffleMode = mapEnum(map, "shuffleMode", AppDefaults.shuffleMode)
-        
-        return state
+        self.repeatMode = map.enumValue(forKey: "repeatMode", ofType: RepeatMode.self)
+        self.shuffleMode = map.enumValue(forKey: "shuffleMode", ofType: ShuffleMode.self)
     }
 }
 
@@ -23,12 +25,7 @@ extension Sequencer: PersistentModelObject {
     
     var persistentState: PlaybackSequenceState {
         
-        let state = PlaybackSequenceState()
-        
         let modes = sequence.repeatAndShuffleModes
-        state.repeatMode = modes.repeatMode
-        state.shuffleMode = modes.shuffleMode
-        
-        return state
+        return PlaybackSequenceState(repeatMode: modes.repeatMode, shuffleMode: modes.shuffleMode)
     }
 }

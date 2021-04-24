@@ -2,31 +2,24 @@ import Foundation
 
 class PlaylistUIState: PersistentStateProtocol {
     
-    var view: String = "Tracks"
+    var view: PlaylistType?
     
-    required init?(_ map: NSDictionary) -> PlaylistUIState {
-        
-        let state = PlaylistUIState()
-        
-        if let viewName = map["view"] as? String {
-            state.view = viewName
-        }
-        
-        return state
+    init(view: PlaylistType) {
+        self.view = view
+    }
+    
+    required init?(_ map: NSDictionary) {
+        self.view = map.enumValue(forKey: "view", ofType: PlaylistType.self)
     }
 }
 
 extension PlaylistViewState {
     
     static func initialize(_ persistentState: PlaylistUIState) {
-        current = PlaylistType(rawValue: persistentState.view.lowercased()) ?? .tracks
+        currentView = persistentState.view ?? PlaylistViewDefaults.currentView
     }
     
     static var persistentState: PlaylistUIState {
-        
-        let state = PlaylistUIState()
-        state.view = current.rawValue.capitalizingFirstLetter()
-        
-        return state
+        PlaylistUIState(view: currentView)
     }
 }

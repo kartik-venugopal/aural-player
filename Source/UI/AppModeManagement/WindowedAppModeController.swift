@@ -10,6 +10,8 @@ class WindowedAppModeController: AppModeController {
         
         WindowManager.createInstance(preferences: ObjectGraph.preferences.viewPreferences).loadWindows()
         
+//        WindowManager.instance.toggleTuneBrowser()
+        
         // If this is not a transition from another app mode, we don't need to execute the hack below.
         if previousMode == nil {return}
         

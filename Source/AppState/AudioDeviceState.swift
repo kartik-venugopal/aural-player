@@ -5,21 +5,15 @@ import Foundation
  */
 class AudioDeviceState: PersistentStateProtocol {
     
-    var name: String = ""
-    var uid: String = ""
+    let name: String
+    let uid: String
     
-    required init?(_ map: NSDictionary) -> AudioDeviceState {
+    required init?(_ map: NSDictionary) {
         
-        let state: AudioDeviceState = AudioDeviceState()
+        guard let name = map.stringValue(forKey: "name"),
+              let uid = map.stringValue(forKey: "uid") else {return nil}
         
-        if let name = (map["name"] as? String) {
-            state.name = name
-        }
-        
-        if let uid = (map["uid"] as? String) {
-            state.uid = uid
-        }
-        
-        return state
+        self.name = name
+        self.uid = uid
     }
 }

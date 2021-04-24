@@ -4,10 +4,10 @@ import Cocoa
 class PlaylistViewState {
     
     // The current playlist view type displayed within the playlist tab group
-    static var current: PlaylistType = .tracks
+    static var currentView: PlaylistType = .tracks
     
     // The current playlist view displayed within the playlist tab group
-    static weak var currentView: NSTableView!
+    static weak var currentTableView: NSTableView!
     
     static weak var chaptersListView: NSTableView!
     
@@ -32,12 +32,12 @@ class PlaylistViewState {
     static var hasSelectedChapter: Bool {chaptersListView.selectedRow >= 0}
     
     // The group type corresponding to the current playlist view type
-    static var groupType: GroupType? {current.toGroupType()}
+    static var groupType: GroupType? {currentView.toGroupType()}
     
     static var selectedItem: SelectedPlaylistItem? {
         
         // Determine which item was clicked, and what kind of item it is
-        if let outlineView = currentView as? AuralPlaylistOutlineView {
+        if let outlineView = currentTableView as? AuralPlaylistOutlineView {
             
             // Grouping view
             let item = outlineView.item(atRow: outlineView.selectedRow)
@@ -55,18 +55,18 @@ class PlaylistViewState {
         } else {
             
             // Tracks view
-            return currentView.selectedRow >= 0 ? SelectedPlaylistItem(index: currentView.selectedRow) : nil
+            return currentTableView.selectedRow >= 0 ? SelectedPlaylistItem(index: currentTableView.selectedRow) : nil
         }
     }
     
-    static var selectedItemCount: Int {currentView.numberOfSelectedRows}
+    static var selectedItemCount: Int {currentTableView.numberOfSelectedRows}
     
     static var selectedItems: [SelectedPlaylistItem] {
         
-        let selectedRows = currentView.selectedRowIndexes
+        let selectedRows = currentTableView.selectedRowIndexes
         var items: [SelectedPlaylistItem] = []
         
-        if let outlineView = currentView as? AuralPlaylistOutlineView {
+        if let outlineView = currentTableView as? AuralPlaylistOutlineView {
             
             // Grouping view
             for item in selectedRows.compactMap({outlineView.item(atRow: $0)}) {
@@ -156,4 +156,9 @@ enum SelectedItemType {
     case index
     case track
     case group
+}
+
+class PlaylistViewDefaults {
+    
+    static let currentView: PlaylistType = .tracks
 }

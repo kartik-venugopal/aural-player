@@ -19,37 +19,26 @@ class PlayerUIState: PersistentStateProtocol {
     var timeElapsedDisplayType: TimeElapsedDisplayType?
     var timeRemainingDisplayType: TimeRemainingDisplayType?
     
-    required init?(_ map: NSDictionary) -> PlayerUIState? {
+    init() {}
+    
+    required init?(_ map: NSDictionary) {
         
-        let state = PlayerUIState()
+        self.viewType = map.enumValue(forKey: "viewType", ofType: PlayerViewType.self)
         
-        state.viewType = mapEnum(map, "viewType", PlayerViewType.defaultView)
+        self.showAlbumArt = map.boolValue(forKey: "showAlbumArt")
+        self.showArtist = map.boolValue(forKey: "showArtist")
+        self.showAlbum = map.boolValue(forKey: "showAlbum")
+        self.showCurrentChapter = map.boolValue(forKey: "showCurrentChapter")
         
-        state.showAlbumArt = map["showAlbumArt"] as? Bool
-        state.showArtist = map["showArtist"] as? Bool
-        state.showAlbum = map["showAlbum"] as? Bool
-        state.showCurrentChapter = map["showCurrentChapter"] as? Bool
+        self.showTrackInfo = map.boolValue(forKey: "showTrackInfo")
+        self.showSequenceInfo = map.boolValue(forKey: "showSequenceInfo")
         
-        state.showTrackInfo = map["showTrackInfo"] as? Bool
-        state.showSequenceInfo = map["showSequenceInfo"] as? Bool
+        self.showControls = map.boolValue(forKey: "showControls")
+        self.showTimeElapsedRemaining = map.boolValue(forKey: "showTimeElapsedRemaining")
+        self.showPlayingTrackFunctions = map.boolValue(forKey: "showPlayingTrackFunctions")
         
-        state.showControls = map["showControls"] as? Bool
-        state.showTimeElapsedRemaining = map["showTimeElapsedRemaining"] as? Bool
-        state.showPlayingTrackFunctions = map["showPlayingTrackFunctions"] as? Bool
-        
-        if let timeElapsedDisplayTypeString = map["timeElapsedDisplayType"] as? String,
-           let timeElapsedDisplayType = TimeElapsedDisplayType(rawValue: timeElapsedDisplayTypeString) {
-            
-            state.timeElapsedDisplayType = timeElapsedDisplayType
-        }
-        
-        if let timeRemainingDisplayTypeString = map["timeRemainingDisplayType"] as? String,
-           let timeRemainingDisplayType = TimeRemainingDisplayType(rawValue: timeRemainingDisplayTypeString) {
-            
-            state.timeRemainingDisplayType = timeRemainingDisplayType
-        }
-        
-        return state
+        self.timeElapsedDisplayType = map.enumValue(forKey: "timeElapsedDisplayType", ofType: TimeElapsedDisplayType.self)
+        self.timeRemainingDisplayType = map.enumValue(forKey: "timeRemainingDisplayType", ofType: TimeRemainingDisplayType.self)
     }
 }
 

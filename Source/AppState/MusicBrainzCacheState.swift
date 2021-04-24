@@ -1,31 +1,28 @@
 import Foundation
 
 class MusicBrainzCacheState: PersistentStateProtocol {
+
+    let releases: [MusicBrainzCacheEntryState]?
+    let recordings: [MusicBrainzCacheEntryState]?
     
-    var releases: [MusicBrainzCacheEntryState] = []
-    var recordings: [MusicBrainzCacheEntryState] = []
+    init(releases: [MusicBrainzCacheEntryState], recordings: [MusicBrainzCacheEntryState]) {
+        
+        self.releases = releases
+        self.recordings = recordings
+    }
     
-    required init?(_ map: NSDictionary) -> MusicBrainzCacheState {
+    required init?(_ map: NSDictionary) {
         
-        let state =  MusicBrainzCacheState()
-        
-        if let entriesArr = map["releases"] as? [NSDictionary] {
-            state.releases = entriesArr.compactMap {MusicBrainzCacheEntryState($0)}
-        }
-        
-        if let entriesArr = map["recordings"] as? [NSDictionary] {
-            state.recordings = entriesArr.compactMap {MusicBrainzCacheEntryState($0)}
-        }
-        
-        return state
+        self.releases = map.arrayValue(forKey: "releases", ofType: MusicBrainzCacheEntryState.self)
+        self.recordings = map.arrayValue(forKey: "recordings", ofType: MusicBrainzCacheEntryState.self)
     }
 }
 
-class MusicBrainzCacheEntryState: Hashable {
+class MusicBrainzCacheEntryState: PersistentStateProtocol {
     
-    var artist: String
-    var title: String
-    var file: URL
+    let artist: String
+    let title: String
+    let file: URL
     
     init(artist: String, title: String, file: URL) {
         
@@ -34,47 +31,44 @@ class MusicBrainzCacheEntryState: Hashable {
         self.file = file
     }
     
-    init?(_ map: NSDictionary) {
+    required init?(_ map: NSDictionary) {
         
-        if let theArtist = map["artist"] as? String,
-           let theTitle = map["title"] as? String,
-           let filePath = map["file"] as? String {
-            
-            self.artist = theArtist
-            self.title = theTitle
-            self.file = URL(fileURLWithPath: filePath)
-            
-        } else {
-            return nil
-        }
+        guard let artist = map.nonEmptyStringValue(forKey: "artist"),
+           let title = map.nonEmptyStringValue(forKey: "title"),
+           let file = map.urlValue(forKey: "file") else {return nil}
+        
+        self.artist = artist
+        self.title = title
+        self.file = file
     }
     
-    func hash(into hasher: inout Hasher) {
-        
-        hasher.combine(artist)
-        hasher.combine(title)
-        hasher.combine(file)
-    }
-    
-    static func == (lhs: MusicBrainzCacheEntryState, rhs: MusicBrainzCacheEntryState) -> Bool {
-        lhs.artist == rhs.artist && lhs.title == rhs.title && lhs.file == rhs.file
-    }
+//    func hash(into hasher: inout Hasher) {
+//
+//        hasher.combine(artist)
+//        hasher.combine(title)
+//        hasher.combine(file)
+//    }
+//
+//    static func == (lhs: MusicBrainzCacheEntryState, rhs: MusicBrainzCacheEntryState) -> Bool {
+//        lhs.artist == rhs.artist && lhs.title == rhs.title && lhs.file == rhs.file
+//    }
 }
 
 extension MusicBrainzCache: PersistentModelObject {
     
     var persistentState: MusicBrainzCacheState {
         
-        let state = MusicBrainzCacheState()
+        var releases: [MusicBrainzCacheEntryState] = []
+        var recordings: [MusicBrainzCacheEntryState] = []
         
         for (artist, title, file) in self.onDiskReleasesCache.entries {
-            state.releases.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
+             releases.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
         }
         
         for (artist, title, file) in self.onDiskRecordingsCache.entries {
-            state.recordings.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
+            recordings.append(MusicBrainzCacheEntryState(artist: artist, title: title, file: file))
         }
         
-        return state
+        return MusicBrainzCacheState(releases: releases, recordings: recordings)
     }
 }

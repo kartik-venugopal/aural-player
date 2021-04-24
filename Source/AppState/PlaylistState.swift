@@ -6,84 +6,80 @@ import Foundation
 class PlaylistState: PersistentStateProtocol {
     
     // List of track files
-    var tracks: [URL] = [URL]()
-    var groupingPlaylists: [String: GroupingPlaylistState] = [:]
+    var tracks: [URL]?
+    var groupingPlaylists: [String: GroupingPlaylistState]?
     
-    init() {}
+    init(tracks: [URL], groupingPlaylists: [String : GroupingPlaylistState]?) {
+        
+        self.tracks = tracks
+        self.groupingPlaylists = groupingPlaylists
+    }
     
-    required init?(_ map: NSDictionary) -> PlaylistState {
+    required init?(_ map: NSDictionary) {
         
-        let state = PlaylistState()
-        
-        (map["tracks"] as? [String])?.forEach({state.tracks.append(URL(fileURLWithPath: $0))})
+        self.tracks = map.urlArrayValue(forKey: "tracks")
         
         if let groupingPlaylistsMap = map["groupingPlaylists"] as? NSDictionary {
-         
-            if let artistsPlaylistMap = groupingPlaylistsMap["artists"] as? NSDictionary {
+            
+            self.groupingPlaylists = [:]
+            
+            if let artistsPlaylist = groupingPlaylistsMap.objectValue(forKey: "artists", ofType: GroupingPlaylistState.self) {
                 
-                let artistsPlaylist = GroupingPlaylistState.deserialize(artistsPlaylistMap)
                 artistsPlaylist._transient_type = "artists"
-                state.groupingPlaylists["artists"] = artistsPlaylist
+                self.groupingPlaylists?["artists"] = artistsPlaylist
             }
             
-            if let albumsPlaylistMap = groupingPlaylistsMap["albums"] as? NSDictionary {
+            if let albumsPlaylist = groupingPlaylistsMap.objectValue(forKey: "albums", ofType: GroupingPlaylistState.self) {
                 
-                let albumsPlaylist = GroupingPlaylistState.deserialize(albumsPlaylistMap)
                 albumsPlaylist._transient_type = "albums"
-                state.groupingPlaylists["albums"] = albumsPlaylist
+                self.groupingPlaylists?["albums"] = albumsPlaylist
             }
             
-            if let genresPlaylistMap = groupingPlaylistsMap["genres"] as? NSDictionary {
+            if let genresPlaylist = groupingPlaylistsMap.objectValue(forKey: "genres", ofType: GroupingPlaylistState.self) {
                 
-                let genresPlaylist = GroupingPlaylistState.deserialize(genresPlaylistMap)
                 genresPlaylist._transient_type = "genres"
-                state.groupingPlaylists["genres"] = genresPlaylist
+                self.groupingPlaylists?["genres"] = genresPlaylist
             }
         }
-        
-        return state
     }
 }
 
 class GroupingPlaylistState: PersistentStateProtocol {
     
     var _transient_type: String = ""
-    var groups: [GroupState] = []
+    let groups: [GroupState]?
     
-    init() {}
+    init(_transient_type: String, groups: [GroupState]) {
+        
+        self._transient_type = _transient_type
+        self.groups = groups
+    }
     
-    required init?(_ map: NSDictionary) -> GroupingPlaylistState {
-        
-        let state = GroupingPlaylistState()
-        
-        if let groupsArr = map["groups"] as? [NSDictionary] {
-            state.groups = groupsArr.compactMap {GroupState.deserialize($0)}
-        }
-        
-        return state
+    required init?(_ map: NSDictionary) {
+        self.groups = map.arrayValue(forKey: "groups", ofType: GroupState.self)
     }
 }
 
 class GroupState: PersistentStateProtocol {
     
-    var name: String = ""
+    let name: String
 
     // List of track files
-    var tracks: [URL] = []
+    let tracks: [URL]
     
-    init() {}
+    init(name: String, tracks: [URL]) {
+        
+        self.name = name
+        self.tracks = tracks
+    }
     
-    required init?(_ map: NSDictionary) -> GroupState {
+    required init?(_ map: NSDictionary) {
         
-        let state = GroupState()
+        guard let name = map.nonEmptyStringValue(forKey: "name"),
+              let tracks = map.urlArrayValue(forKey: "tracks") else {return nil}
         
-        state.name = map["name"] as? String ?? "<Unknown>"
-        
-        if let trackPaths = map["tracks"] as? [String] {
-            state.tracks = trackPaths.map {URL(fileURLWithPath: $0)}
-        }
-        
-        return state
+        self.name = name
+        self.tracks = tracks
     }
 }
 
@@ -92,40 +88,26 @@ extension Playlist: PersistentModelObject {
     // Returns all state for this playlist that needs to be persisted to disk
     var persistentState: PlaylistState {
         
-        let state = PlaylistState()
-        
-        state.tracks = tracks.map {$0.file}
+        var groupingPlaylists: [String: GroupingPlaylistState] = [:]
         
         for (type, playlist) in self.groupingPlaylists {
-            state.groupingPlaylists[type.rawValue] = (playlist as! GroupingPlaylist).persistentState
+            groupingPlaylists[type.rawValue] = (playlist as! GroupingPlaylist).persistentState
         }
         
-        return state
+        return PlaylistState(tracks: self.tracks.map {$0.file}, groupingPlaylists: groupingPlaylists)
     }
 }
 
 extension GroupingPlaylist: PersistentModelObject {
     
     var persistentState: GroupingPlaylistState {
-        
-        let state = GroupingPlaylistState()
-        
-        state._transient_type = self.playlistType.rawValue
-        state.groups = self.groups.compactMap {$0.persistentState}
-        
-        return state
+        GroupingPlaylistState(_transient_type: self.playlistType.rawValue, groups: self.groups.map {$0.persistentState})
     }
 }
 
 extension Group: PersistentModelObject {
     
     var persistentState: GroupState {
-        
-        let state = GroupState()
-        
-        state.name = self.name
-        state.tracks = self.tracks.map {$0.file}
-        
-        return state
+        GroupState(name: self.name, tracks: self.tracks.map {$0.file})
     }
 }

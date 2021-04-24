@@ -2,38 +2,44 @@ import Foundation
 
 class HistoryState: PersistentStateProtocol {
     
-    var recentlyAdded: [HistoryItemState] = []
-    var recentlyPlayed: [HistoryItemState] = []
+    let recentlyAdded: [HistoryItemState]?
+    let recentlyPlayed: [HistoryItemState]?
     
-    required init?(_ map: NSDictionary) -> HistoryState {
+    init(recentlyAdded: [HistoryItemState], recentlyPlayed: [HistoryItemState]) {
         
-        let state = HistoryState()
+        self.recentlyAdded = recentlyAdded
+        self.recentlyPlayed = recentlyPlayed
+    }
+    
+    required init?(_ map: NSDictionary) {
         
-        if let recentlyAddedArr = map["recentlyAdded"] as? [NSDictionary] {
-            state.recentlyAdded = recentlyAddedArr.compactMap {HistoryItemState.deserialize($0)}
-        }
-        
-        if let recentlyPlayedArr = map["recentlyPlayed"] as? [NSDictionary] {
-            state.recentlyPlayed = recentlyPlayedArr.compactMap {HistoryItemState.deserialize($0)}
-        }
-        
-        return state
+        self.recentlyAdded = map.arrayValue(forKey: "recentlyAdded", ofType: HistoryItemState.self)
+        self.recentlyPlayed = map.arrayValue(forKey: "recentlyPlayed", ofType: HistoryItemState.self)
     }
 }
 
-struct HistoryItemState {
+class HistoryItemState: PersistentStateProtocol {
     
     let file: URL
     let name: String
     let time: Date
     
-    required init?(_ map: NSDictionary) -> HistoryItemState? {
+    init(file: URL, name: String, time: Date) {
         
-        if let file = map["file"] as? String, let name = map["name"] as? String, let timestamp = map["time"] as? String {
-            return HistoryItemState(file: URL(fileURLWithPath: file), name: name, time: Date.fromString(timestamp))
-        }
+        self.file = file
+        self.name = name
+        self.time = time
+    }
+    
+    required init?(_ map: NSDictionary) {
         
-        return nil
+        guard let file = map.urlValue(forKey: "file"),
+              let name = map.stringValue(forKey: "name"),
+              let time = map.dateValue(forKey: "time") else {return nil}
+        
+        self.file = file
+        self.name = name
+        self.time = time
     }
 }
 
@@ -41,11 +47,9 @@ extension HistoryDelegate: PersistentModelObject {
     
     var persistentState: HistoryState {
         
-        let state = HistoryState()
+        let recentlyAdded = allRecentlyAddedItems().map {HistoryItemState(file: $0.file, name: $0.displayName, time: $0.time)}
+        let recentlyPlayed = allRecentlyPlayedItems().map {HistoryItemState(file: $0.file, name: $0.displayName, time: $0.time)}
         
-        state.recentlyAdded = allRecentlyAddedItems().map {HistoryItemState(file: $0.file, name: $0.displayName, time: $0.time)}
-        state.recentlyPlayed = allRecentlyPlayedItems().map {HistoryItemState(file: $0.file, name: $0.displayName, time: $0.time)}
-        
-        return state
+        return HistoryState(recentlyAdded: recentlyAdded, recentlyPlayed: recentlyPlayed)
     }
 }

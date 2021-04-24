@@ -2,112 +2,96 @@ import Foundation
 
 class WindowLayoutPersistentState: PersistentStateProtocol {
     
-    var showEffects: Bool = true
-    var showPlaylist: Bool = true
+    var showEffects: Bool?
+    var showPlaylist: Bool?
     
-    var mainWindowOrigin: NSPoint = NSPoint.zero
-    var effectsWindowOrigin: NSPoint? = nil
-    var playlistWindowFrame: NSRect? = nil
+    var mainWindowOrigin: NSPoint?
+    var effectsWindowOrigin: NSPoint?
+    var playlistWindowFrame: NSRect?
     
-    var userLayouts: [WindowLayout] = [WindowLayout]()
+    var userLayouts: [UserWindowLayoutPersistentState]?
     
-    required init?(_ map: NSDictionary) -> WindowLayoutPersistentState {
+    init() {}
+    
+    required init?(_ map: NSDictionary) {
         
-        let state = WindowLayoutPersistentState()
+        self.showPlaylist = map.boolValue(forKey: "showPlaylist")
+        self.showEffects = map.boolValue(forKey: "showEffects")
         
-        state.showPlaylist = mapDirectly(map, "showPlaylist", true)
-        state.showEffects = mapDirectly(map, "showEffects", true)
+        self.mainWindowOrigin = map.nsPointValue(forKey: "mainWindowOrigin")
+        self.effectsWindowOrigin = map.nsPointValue(forKey: "effectsWindowOrigin")
+        self.playlistWindowFrame = map.nsRectValue(forKey: "playlistWindowFrame")
         
-        if let mainWindowOriginDict = map["mainWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(mainWindowOriginDict) {
-            state.mainWindowOrigin = origin
-        }
-        
-        if let effectsWindowOriginDict = map["effectsWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(effectsWindowOriginDict) {
-            state.effectsWindowOrigin = origin
-        }
-        
-        if let frameDict = map["playlistWindowFrame"] as? NSDictionary, let originDict = frameDict["origin"] as? NSDictionary, let origin = mapNSPoint(originDict), let sizeDict = frameDict["size"] as? NSDictionary, let size = mapNSSize(sizeDict) {
-            
-            state.playlistWindowFrame = NSRect(origin: origin, size: size)
-        }
-        
-        if let userLayouts = map["userLayouts"] as? [NSDictionary] {
-            
-            for layout in userLayouts {
-                
-                if let layoutName = layout["name"] as? String {
-                    
-                    let layoutShowEffects: Bool? = mapDirectly(layout, "showEffects")
-                    let layoutShowPlaylist: Bool? = mapDirectly(layout, "showPlaylist")
-                    
-                    var layoutMainWindowOrigin: NSPoint?
-                    var layoutEffectsWindowOrigin: NSPoint?
-                    var layoutPlaylistWindowFrame: NSRect?
-                    
-                    if let mainWindowOriginDict = layout["mainWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(mainWindowOriginDict) {
-                        layoutMainWindowOrigin = origin
-                    }
-                    
-                    if let effectsWindowOriginDict = layout["effectsWindowOrigin"] as? NSDictionary, let origin = mapNSPoint(effectsWindowOriginDict) {
-                        layoutEffectsWindowOrigin = origin
-                    }
-                    
-                    if let frameDict = layout["playlistWindowFrame"] as? NSDictionary, let originDict = frameDict["origin"] as? NSDictionary, let origin = mapNSPoint(originDict), let sizeDict = frameDict["size"] as? NSDictionary, let size = mapNSSize(sizeDict) {
-                        
-                        layoutPlaylistWindowFrame = NSRect(origin: origin, size: size)
-                    }
-                    
-                    // Make sure you have all the required info
-                    if layoutShowEffects != nil && layoutShowPlaylist != nil && layoutMainWindowOrigin != nil {
-                        
-                        if ((layoutShowEffects! && layoutEffectsWindowOrigin != nil) || !layoutShowEffects!) {
-                            
-                            if ((layoutShowPlaylist! && layoutPlaylistWindowFrame != nil) || !layoutShowPlaylist!) {
-                                
-                                let newLayout = WindowLayout(layoutName, layoutShowEffects!, layoutShowPlaylist!, layoutMainWindowOrigin!, layoutEffectsWindowOrigin, layoutPlaylistWindowFrame, false)
-                                
-                                state.userLayouts.append(newLayout)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        return state
+        self.userLayouts = map.arrayValue(forKey: "userLayouts", ofType: UserWindowLayoutPersistentState.self)
     }
 }
 
-fileprivate func mapNSPoint(_ map: NSDictionary) -> NSPoint? {
+class UserWindowLayoutPersistentState: PersistentStateProtocol {
     
-    if let px = map["x"] as? NSNumber, let py = map["y"] as? NSNumber {
-        return NSPoint(x: CGFloat(px.floatValue), y: CGFloat(py.floatValue))
+    let name: String
+    let showEffects: Bool
+    let showPlaylist: Bool
+    
+    let mainWindowOrigin: NSPoint
+    let effectsWindowOrigin: NSPoint?
+    let playlistWindowFrame: NSRect?
+    
+    init(_ name: String, _ showEffects: Bool, _ showPlaylist: Bool, _ mainWindowOrigin: NSPoint, _ effectsWindowOrigin: NSPoint?, _ playlistWindowFrame: NSRect?) {
+        
+        self.name = name
+        self.showEffects = showEffects
+        self.showPlaylist = showPlaylist
+        self.mainWindowOrigin = mainWindowOrigin
+        self.effectsWindowOrigin = effectsWindowOrigin
+        self.playlistWindowFrame = playlistWindowFrame
     }
     
-    return nil
-}
-
-func mapNSSize(_ map: NSDictionary) -> NSSize? {
-    
-    if let wd = map["width"] as? NSNumber, let ht = map["height"] as? NSNumber {
-        return NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
+    required init?(_ map: NSDictionary) {
+        
+        guard let name = map.nonEmptyStringValue(forKey: "name"),
+              let showPlaylist = map.boolValue(forKey: "showPlaylist"),
+              let showEffects = map.boolValue(forKey: "showEffects"),
+              let mainWindowOrigin = map.nsPointValue(forKey: "mainWindowOrigin") else {return nil}
+        
+        self.name = name
+        self.showPlaylist = showPlaylist
+        self.showEffects = showEffects
+        
+        self.mainWindowOrigin = mainWindowOrigin
+        
+        if showPlaylist {
+            
+            guard let playlistWindowFrame = map.nsRectValue(forKey: "playlistWindowFrame") else {return nil}
+            self.playlistWindowFrame = playlistWindowFrame
+        }
+        
+        if showEffects {
+            
+            guard let effectsWindowOrigin = map.nsPointValue(forKey: "effectsWindowOrigin") else {return nil}
+            self.effectsWindowOrigin = effectsWindowOrigin
+        }
     }
-    
-    return nil
 }
 
 extension WindowLayoutState {
     
     static func initialize(_ persistentState: WindowLayoutPersistentState) {
         
-        Self.showPlaylist = persistentState.showPlaylist
-        Self.showEffects = persistentState.showEffects
+        Self.showPlaylist = persistentState.showPlaylist ?? WindowLayoutDefaults.showPlaylist
+        Self.showEffects = persistentState.showEffects ?? WindowLayoutDefaults.showEffects
         
-        Self.mainWindowOrigin = persistentState.mainWindowOrigin
-        Self.playlistWindowFrame = persistentState.playlistWindowFrame
-        Self.effectsWindowOrigin = persistentState.effectsWindowOrigin
+        Self.mainWindowOrigin = persistentState.mainWindowOrigin ?? WindowLayoutDefaults.mainWindowOrigin
+        Self.playlistWindowFrame = persistentState.playlistWindowFrame ?? WindowLayoutDefaults.playlistWindowFrame
+        Self.effectsWindowOrigin = persistentState.effectsWindowOrigin ?? WindowLayoutDefaults.effectsWindowOrigin
         
-        WindowLayouts.loadUserDefinedLayouts(persistentState.userLayouts)
+        var userLayouts: [WindowLayout] = []
+        
+        for layout in persistentState.userLayouts ?? [] {
+            
+            userLayouts.append(WindowLayout(layout.name, layout.showEffects, layout.showPlaylist, layout.mainWindowOrigin, layout.effectsWindowOrigin, layout.playlistWindowFrame, false))
+        }
+        
+        WindowLayouts.loadUserDefinedLayouts(userLayouts)
     }
     
     static var persistentState: WindowLayoutPersistentState {
@@ -133,7 +117,7 @@ extension WindowLayoutState {
             uiState.playlistWindowFrame = WindowLayoutState.playlistWindowFrame
         }
 
-        uiState.userLayouts = WindowLayouts.userDefinedLayouts
+        uiState.userLayouts = WindowLayouts.userDefinedLayouts.map {UserWindowLayoutPersistentState($0.name, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame)}
         
         return uiState
     }
