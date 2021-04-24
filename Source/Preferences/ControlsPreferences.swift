@@ -59,7 +59,7 @@ class ControlsPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(respondToMediaKeys, forKey: "controls.respondToMediaKeys")
         defaults.set(skipKeyBehavior.rawValue, forKey: "controls.skipKeyBehavior")

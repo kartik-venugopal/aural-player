@@ -22,7 +22,10 @@ class ColorSchemes {
     // Loads the user-defined schemes and current system color scheme from persistent state on app startup.
     static func initialize(_ schemesState: ColorSchemesState) {
         
-        loadUserDefinedSchemes(schemesState.userSchemes.map {ColorScheme($0, false)})
+        schemesState.userSchemes.map {ColorScheme($0, false)}.forEach {
+            userDefinedSchemesByName.addItem($0)
+        }
+        
         systemScheme = ColorScheme(schemesState.systemScheme, true)
     }
     
@@ -103,16 +106,6 @@ class ColorSchemes {
         
         // Update the map with the new name
         userDefinedSchemesByName.reMapForKey(oldName, newName)
-    }
-    
-    // Maps the given user-defined color schemes by name
-    static func loadUserDefinedSchemes(_ userDefinedSchemes: [ColorScheme]) {
-        
-        // TODO: What if the scheme's name is empty ? Should we assign a default name ?
-        
-        userDefinedSchemes.forEach({
-            userDefinedSchemesByName.addItem($0)
-        })
     }
     
     // Adds a new user-defined color scheme. Assume a preset with this name doesn't already exist.

@@ -45,7 +45,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     
     private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
 
-    private let preferences: ViewPreferences = ObjectGraph.preferencesDelegate.preferences.viewPreferences
+    private let preferences: ViewPreferences = ObjectGraph.preferences.viewPreferences
 
     private var theWindow: SnappingWindow {
         return self.window! as! SnappingWindow

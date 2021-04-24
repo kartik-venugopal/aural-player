@@ -67,7 +67,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(primarySeekLengthOption.rawValue, forKey: "playback.seekLength.primary.option")
         defaults.set(primarySeekLengthConstant, forKey: "playback.seekLength.primary.constant")

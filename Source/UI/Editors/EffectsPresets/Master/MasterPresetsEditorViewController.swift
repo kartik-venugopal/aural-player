@@ -18,8 +18,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     @IBOutlet weak var bandsTable: NSTableView!
     @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
     
-    private lazy var preferencesDelegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
-    private lazy var preferences: Preferences = ObjectGraph.preferencesDelegate.preferences
+    private lazy var preferences: Preferences = ObjectGraph.preferences
     
     private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     
@@ -164,7 +163,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
                 if preferences.soundPreferences.masterPresetOnStartup_name == oldPresetName {
 
                     preferences.soundPreferences.masterPresetOnStartup_name = newPresetName
-                    preferencesDelegate.preferences = preferences
+                    preferences.persist()
                 }
             }
         }

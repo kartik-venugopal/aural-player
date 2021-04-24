@@ -35,7 +35,7 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     fileprivate func trackInfoSet() {
         
         textView.trackInfo = self.trackInfo
-        artView.image = trackInfo?.art ?? Images.imgPlayingArt.applyingTint(ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor)
+        artView.image = trackInfo?.art ?? Images.imgPlayingArt
     }
 
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -104,8 +104,6 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
         [infoBox, functionsBox].forEach {
             $0?.fillColor = color
         }
-        
-        artView.image = trackInfo?.art ?? Images.imgPlayingArt.applyingTint(ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor)
         
         // The art view's shadow color will depend on the window background color (it needs to have contrast relative to it).
         artView.layer?.shadowColor = color.visibleShadowColor.cgColor
@@ -301,7 +299,6 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         let windowColorWithTransparency = color.clonedWithTransparency(overlayBox.fillColor.alphaComponent)
         [centerOverlayBox, overlayBox].forEach({$0?.fillColor = windowColorWithTransparency})
         
-        artView.image = trackInfo?.art ?? Images.imgPlayingArt.applyingTint(ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor)
         artView.layer?.shadowColor = color.visibleShadowColor.cgColor
     }
 }

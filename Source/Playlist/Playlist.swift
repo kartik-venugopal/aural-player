@@ -137,7 +137,7 @@ class Playlist: PlaylistCRUDProtocol {
             groupingPlaylistResults[$0.typeOfGroups] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
-        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes, tracks: removedTracks)
+        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes, tracks: Set(removedTracks))
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
@@ -233,7 +233,7 @@ class Playlist: PlaylistCRUDProtocol {
         // Remove from flat playlist
         let flatPlaylistResults: IndexSet = flatPlaylist.removeTracks(removedTracks)
         
-        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistResults, tracks: removedTracks)
+        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistResults, tracks: Set(removedTracks))
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {

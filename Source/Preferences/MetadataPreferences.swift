@@ -8,8 +8,8 @@ class MetadataPreferences: PersistentPreferencesProtocol {
         musicBrainz = MusicBrainzPreferences(defaultsDictionary)
     }
     
-    func persist(defaults: UserDefaults) {
-        musicBrainz.persist(defaults: defaults)
+    func persist(to defaults: UserDefaults) {
+        musicBrainz.persist(to: defaults)
     }
 }
 
@@ -28,7 +28,7 @@ class MusicBrainzPreferences: PersistentPreferencesProtocol {
         enableOnDiskCoverArtCache = defaultsDictionary["metadata.musicBrainz.enableOnDiskCoverArtCache"] as? Bool ?? PreferencesDefaults.Metadata.MusicBrainz.enableOnDiskCoverArtCache
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.setValue(httpTimeout, forKey: "metadata.musicBrainz.httpTimeout")
         defaults.setValue(enableCoverArtSearch, forKey: "metadata.musicBrainz.enableCoverArtSearch")

@@ -34,7 +34,7 @@ struct TrackRemovalResults {
     // Result from the flat playlist (indexes)
     let flatPlaylistResults: IndexSet
     
-    let tracks: [Track]
+    let tracks: Set<Track>
 }
 
 // Base class (not meant to be instantiated) for a track/group removal result

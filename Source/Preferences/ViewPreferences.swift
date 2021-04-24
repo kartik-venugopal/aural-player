@@ -51,7 +51,7 @@ class ViewPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(appModeOnStartup.option.rawValue, forKey: "view.appModeOnStartup.option")
         defaults.set(appModeOnStartup.modeName, forKey: "view.appModeOnStartup.mode")

@@ -64,7 +64,7 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(playlistOnStartup.rawValue, forKey: "playlist.playlistOnStartup")
         defaults.set(playlistFile?.path, forKey: "playlist.playlistOnStartup.playlistFile")

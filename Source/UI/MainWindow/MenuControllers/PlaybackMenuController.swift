@@ -48,7 +48,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
     
-    private let preferences: PlaybackPreferences = ObjectGraph.preferencesDelegate.preferences.playbackPreferences
+    private let preferences: PlaybackPreferences = ObjectGraph.preferences.playbackPreferences
     
     private lazy var jumpToTimeDialogLoader: LazyWindowLoader<JumpToTimeEditorWindowController> = LazyWindowLoader()
     

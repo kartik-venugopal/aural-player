@@ -8,8 +8,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // The actual player
     let player: PlayerProtocol
     
-    let playlist: PlaylistAccessorProtocol
-    
     // The playback sequence
     let sequencer: SequencerProtocol
     
@@ -24,11 +22,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     let stopPlaybackChain: StopPlaybackChain
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
-    init(_ player: PlayerProtocol, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
+    init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
          _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {
         
         self.player = player
-        self.playlist = playlist
         self.sequencer = sequencer
         self.preferences = preferences
         self.profiles = profiles
@@ -426,7 +423,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         sequencer.tracksRemoved(removeResults)
         
         // Playing track was removed, need to stop playback
-        if let thePlayingTrack = trackBeforeChange, !playlist.hasTrack(thePlayingTrack) {
+        if let thePlayingTrack = trackBeforeChange, removeResults.tracks.contains(thePlayingTrack) {
             doStop(thePlayingTrack)
         }
     }

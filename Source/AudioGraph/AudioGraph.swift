@@ -105,12 +105,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         playerNode.volume = muted ? 0 : playerVolume
         playerNode.pan = state.balance
         
-        soundProfiles = SoundProfiles()
-        state.soundProfiles.forEach {
-            soundProfiles.add($0.file, $0)
-        }
-        
-        soundProfiles.audioGraph = self
+        soundProfiles = SoundProfiles(state.soundProfiles)
         
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
         NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)

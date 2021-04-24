@@ -106,6 +106,8 @@ extension WindowLayoutState {
         Self.mainWindowOrigin = persistentState.mainWindowOrigin
         Self.playlistWindowFrame = persistentState.playlistWindowFrame
         Self.effectsWindowOrigin = persistentState.effectsWindowOrigin
+        
+        WindowLayouts.loadUserDefinedLayouts(persistentState.userLayouts)
     }
     
     static var persistentState: WindowLayoutPersistentState {

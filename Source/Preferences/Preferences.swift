@@ -9,29 +9,30 @@ protocol PersistentPreferencesProtocol {
     
     init(_ defaultsDictionary: [String: Any])
     
-    func persist(defaults: UserDefaults)
+    func persist(to defaults: UserDefaults)
 }
 
-class Preferences: PersistentPreferencesProtocol {
+class Preferences {
     
-    private static let singleton: Preferences = Preferences(defaultsDict)
+    static let instance: Preferences = Preferences()
     
-    fileprivate static let defaults: UserDefaults = UserDefaults.standard
-    fileprivate static let defaultsDict: [String: Any] = defaults.dictionaryRepresentation()
+    private let defaults: UserDefaults = UserDefaults.standard
     
-    // The (cached) user preferences. Values are held in these variables during app execution, and persisted prior to exiting.
+    // The (cached) user preferences.
     
-    var playbackPreferences: PlaybackPreferences
-    var soundPreferences: SoundPreferences
-    var playlistPreferences: PlaylistPreferences
-    var viewPreferences: ViewPreferences
-    var historyPreferences: HistoryPreferences
-    var controlsPreferences: ControlsPreferences
-    var metadataPreferences: MetadataPreferences
+    let playbackPreferences: PlaybackPreferences
+    let soundPreferences: SoundPreferences
+    let playlistPreferences: PlaylistPreferences
+    let viewPreferences: ViewPreferences
+    let historyPreferences: HistoryPreferences
+    let controlsPreferences: ControlsPreferences
+    let metadataPreferences: MetadataPreferences
     
-    private var allPreferences: [PersistentPreferencesProtocol] = []
+    private let allPreferences: [PersistentPreferencesProtocol]
     
-    internal required init(_ defaultsDictionary: [String: Any]) {
+    private init() {
+        
+        let defaultsDictionary: [String: Any] = defaults.dictionaryRepresentation()
         
         controlsPreferences = ControlsPreferences(defaultsDictionary)
         playbackPreferences = PlaybackPreferences(defaultsDictionary, controlsPreferences)
@@ -42,19 +43,14 @@ class Preferences: PersistentPreferencesProtocol {
         historyPreferences = HistoryPreferences(defaultsDictionary)
         metadataPreferences = MetadataPreferences(defaultsDictionary)
         
-        allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences, historyPreferences, controlsPreferences, metadataPreferences]
+        allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences,
+                          historyPreferences, controlsPreferences, metadataPreferences]
     }
     
-    func persist(defaults: UserDefaults) {
-        allPreferences.forEach({$0.persist(defaults: defaults)})
-    }
-    
-    static var instance: Preferences {
-        return singleton
-    }
-    
-    // Saves the preferences to disk (copies the values from the cache to UserDefaults)
-    static func persist(_ preferences: Preferences) {
-        preferences.persist(defaults: defaults)
+    func persist() {
+        
+        DispatchQueue.global(qos: .utility).async {
+            self.allPreferences.forEach {$0.persist(to: self.defaults)}
+        }
     }
 }

@@ -195,7 +195,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     private func saveSoundProfile() {
         
         if let plTrack = player.currentTrack {
-            soundProfiles.add(plTrack)
+            soundProfiles.add(for: plTrack, volume: volume, balance: balance, effects: settingsAsMasterPreset)
         }
     }
     
@@ -218,7 +218,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         if let theOldTrack = oldTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theOldTrack) {
             
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-            soundProfiles.add(theOldTrack)
+            soundProfiles.add(for: theOldTrack, volume: volume, balance: balance, effects: settingsAsMasterPreset)
         }
         
         // Apply sound profile if there is one for the new track and the preferences allow it
@@ -238,7 +238,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
-            soundProfiles.add(plTrack)
+            soundProfiles.add(for: plTrack, volume: volume, balance: balance, effects: settingsAsMasterPreset)
         }
         
         // Proceed with exit
