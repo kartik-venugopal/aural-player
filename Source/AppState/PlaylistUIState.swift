@@ -4,7 +4,7 @@ class PlaylistUIState: PersistentStateProtocol {
     
     var view: String = "Tracks"
     
-    static func deserialize(_ map: NSDictionary) -> PlaylistUIState {
+    required init?(_ map: NSDictionary) -> PlaylistUIState {
         
         let state = PlaylistUIState()
         

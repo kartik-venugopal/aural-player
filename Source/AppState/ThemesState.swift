@@ -10,7 +10,7 @@ class ThemesState: PersistentStateProtocol {
         self.userThemes = userThemes
     }
     
-    static func deserialize(_ map: NSDictionary) -> ThemesState {
+    required init?(_ map: NSDictionary) -> ThemesState {
         
         let state = ThemesState()
         
@@ -40,7 +40,7 @@ class ThemeState: PersistentStateProtocol {
         self.windowAppearance.cornerRadius = Float(theme.windowAppearance.cornerRadius)
     }
     
-    static func deserialize(_ map: NSDictionary) -> ThemeState {
+    required init?(_ map: NSDictionary) -> ThemeState {
         
         let state = ThemeState()
         

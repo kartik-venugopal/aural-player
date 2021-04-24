@@ -8,7 +8,7 @@ class PlaybackSequenceState: PersistentStateProtocol {
     var repeatMode: RepeatMode = AppDefaults.repeatMode
     var shuffleMode: ShuffleMode = AppDefaults.shuffleMode
     
-    static func deserialize(_ map: NSDictionary) -> PlaybackSequenceState {
+    required init?(_ map: NSDictionary) -> PlaybackSequenceState {
         
         let state = PlaybackSequenceState()
         

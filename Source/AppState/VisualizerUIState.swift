@@ -5,7 +5,7 @@ class VisualizerUIState: PersistentStateProtocol {
     var type: String?
     var options: VisualizerOptionsState?
     
-    static func deserialize(_ map: NSDictionary) -> VisualizerUIState {
+    required init?(_ map: NSDictionary) -> VisualizerUIState {
         
         let state = VisualizerUIState()
         
@@ -26,7 +26,7 @@ class VisualizerOptionsState: PersistentStateProtocol {
     var lowAmplitudeColor: ColorState?
     var highAmplitudeColor: ColorState?
     
-    static func deserialize(_ map: NSDictionary) -> VisualizerOptionsState {
+    required init?(_ map: NSDictionary) -> VisualizerOptionsState {
         
         let state = VisualizerOptionsState()
         

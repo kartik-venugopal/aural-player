@@ -16,12 +16,12 @@ class ColorSchemesState: PersistentStateProtocol {
         self.userSchemes = userSchemes
     }
     
-    static func deserialize(_ map: NSDictionary) -> ColorSchemesState {
+    required init?(_ map: NSDictionary) -> ColorSchemesState? {
         
         let state = ColorSchemesState()
         
         if let arr = map["userSchemes"] as? [NSDictionary] {
-            state.userSchemes = arr.map {ColorSchemeState.deserialize($0)}
+            state.userSchemes = arr.compactMap {ColorSchemeState.deserialize($0)}
         }
         
         if let dict = map["systemScheme"] as? NSDictionary {
@@ -57,13 +57,12 @@ class ColorSchemeState: PersistentStateProtocol {
         self.effects = EffectsColorSchemeState(scheme.effects)
     }
     
-    static func deserialize(_ map: NSDictionary) -> ColorSchemeState {
+    required init?(_ map: NSDictionary) -> ColorSchemeState? {
         
         let state = ColorSchemeState()
         
-        if let name = map["name"] as? String {
-            state.name = name
-        }
+        guard let name = map["name"] as? String, !name.isEmptyAfterTrimming else {return nil}
+        state.name = name
         
         if let dict = map["general"] as? NSDictionary {
             state.general = GeneralColorSchemeState.deserialize(dict)
@@ -123,7 +122,7 @@ class GeneralColorSchemeState: PersistentStateProtocol {
         self.buttonMenuTextColor = ColorState.fromColor(scheme.buttonMenuTextColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> GeneralColorSchemeState {
+    required init?(_ map: NSDictionary) -> GeneralColorSchemeState? {
         
         let state = GeneralColorSchemeState()
         
@@ -186,16 +185,16 @@ class PlayerColorSchemeState: PersistentStateProtocol {
     var sliderValueTextColor: ColorState?
     
     var sliderBackgroundColor: ColorState?
-    var sliderBackgroundGradientType: GradientType = .none
-    var sliderBackgroundGradientAmount: Int = 50
+    var sliderBackgroundGradientType: GradientType?
+    var sliderBackgroundGradientAmount: Int?
     
     var sliderForegroundColor: ColorState?
-    var sliderForegroundGradientType: GradientType = .none
-    var sliderForegroundGradientAmount: Int = 50
+    var sliderForegroundGradientType: GradientType?
+    var sliderForegroundGradientAmount: Int?
     
     
     var sliderKnobColor: ColorState?
-    var sliderKnobColorSameAsForeground: Bool = true
+    var sliderKnobColorSameAsForeground: Bool?
     var sliderLoopSegmentColor: ColorState?
     
     init() {}
@@ -220,7 +219,7 @@ class PlayerColorSchemeState: PersistentStateProtocol {
         self.sliderLoopSegmentColor = ColorState.fromColor(scheme.sliderLoopSegmentColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> PlayerColorSchemeState {
+    required init?(_ map: NSDictionary) -> PlayerColorSchemeState? {
         
         let state = PlayerColorSchemeState()
         
@@ -296,19 +295,13 @@ class PlaylistColorSchemeState: PersistentStateProtocol {
     var trackNameSelectedTextColor: ColorState?
     var groupNameSelectedTextColor: ColorState?
     var indexDurationSelectedTextColor: ColorState?
-    
+
     var summaryInfoColor: ColorState?
     
     var playingTrackIconColor: ColorState?
-//    var playingTrackIconSelectedRowsColor: ColorState?
-    
     var selectionBoxColor: ColorState?
-    
     var groupIconColor: ColorState?
-//    var groupIconSelectedRowsColor: ColorState?
-    
     var groupDisclosureTriangleColor: ColorState?
-//    var groupDisclosureTriangleSelectedRowsColor: ColorState?
     
     init() {}
     
@@ -323,20 +316,14 @@ class PlaylistColorSchemeState: PersistentStateProtocol {
         self.indexDurationSelectedTextColor = ColorState.fromColor(scheme.indexDurationSelectedTextColor)
         
         self.groupIconColor = ColorState.fromColor(scheme.groupIconColor)
-//        self.groupIconSelectedRowsColor = ColorState.fromColor(scheme.groupIconSelectedRowsColor)
-        
         self.groupDisclosureTriangleColor = ColorState.fromColor(scheme.groupDisclosureTriangleColor)
-//        self.groupDisclosureTriangleSelectedRowsColor = ColorState.fromColor(scheme.groupDisclosureTriangleSelectedRowsColor)
-        
         self.selectionBoxColor = ColorState.fromColor(scheme.selectionBoxColor)
-        
         self.playingTrackIconColor = ColorState.fromColor(scheme.playingTrackIconColor)
-//        self.playingTrackIconSelectedRowsColor = ColorState.fromColor(scheme.playingTrackIconSelectedRowsColor)
         
         self.summaryInfoColor = ColorState.fromColor(scheme.summaryInfoColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> PlaylistColorSchemeState {
+    required init?(_ map: NSDictionary) -> PlaylistColorSchemeState? {
         
         let state = PlaylistColorSchemeState()
         
@@ -368,17 +355,9 @@ class PlaylistColorSchemeState: PersistentStateProtocol {
             state.groupIconColor = ColorState.deserialize(colorDict)
         }
         
-//        if let colorDict = map["groupIconSelectedRowsColor"] as? NSDictionary {
-//            state.groupIconSelectedRowsColor = ColorState.deserialize(colorDict)
-//        }
-        
         if let colorDict = map["groupDisclosureTriangleColor"] as? NSDictionary {
             state.groupDisclosureTriangleColor = ColorState.deserialize(colorDict)
         }
-        
-//        if let colorDict = map["groupDisclosureTriangleSelectedRowsColor"] as? NSDictionary {
-//            state.groupDisclosureTriangleSelectedRowsColor = ColorState.deserialize(colorDict)
-//        }
         
         if let colorDict = map["selectionBoxColor"] as? NSDictionary {
             state.selectionBoxColor = ColorState.deserialize(colorDict)
@@ -387,10 +366,6 @@ class PlaylistColorSchemeState: PersistentStateProtocol {
         if let colorDict = map["playingTrackIconColor"] as? NSDictionary {
             state.playingTrackIconColor = ColorState.deserialize(colorDict)
         }
-        
-//        if let colorDict = map["playingTrackIconSelectedRowsColor"] as? NSDictionary {
-//            state.playingTrackIconSelectedRowsColor = ColorState.deserialize(colorDict)
-//        }
         
         if let colorDict = map["summaryInfoColor"] as? NSDictionary {
             state.summaryInfoColor = ColorState.deserialize(colorDict)
@@ -409,14 +384,14 @@ class EffectsColorSchemeState: PersistentStateProtocol {
     var functionValueTextColor: ColorState?
     
     var sliderBackgroundColor: ColorState?
-    var sliderBackgroundGradientType: GradientType = .none
-    var sliderBackgroundGradientAmount: Int = 50
+    var sliderBackgroundGradientType: GradientType?
+    var sliderBackgroundGradientAmount: Int?
     
-    var sliderForegroundGradientType: GradientType = .none
-    var sliderForegroundGradientAmount: Int = 50
+    var sliderForegroundGradientType: GradientType?
+    var sliderForegroundGradientAmount: Int?
     
     var sliderKnobColor: ColorState?
-    var sliderKnobColorSameAsForeground: Bool = true
+    var sliderKnobColorSameAsForeground: Bool?
     
     var sliderTickColor: ColorState?
     
@@ -448,7 +423,7 @@ class EffectsColorSchemeState: PersistentStateProtocol {
         self.suppressedUnitStateColor = ColorState.fromColor(scheme.suppressedUnitStateColor)
     }
     
-    static func deserialize(_ map: NSDictionary) -> EffectsColorSchemeState {
+    required init?(_ map: NSDictionary) -> EffectsColorSchemeState? {
         
         let state = EffectsColorSchemeState()
         

@@ -11,7 +11,7 @@ class WindowLayoutPersistentState: PersistentStateProtocol {
     
     var userLayouts: [WindowLayout] = [WindowLayout]()
     
-    static func deserialize(_ map: NSDictionary) -> WindowLayoutPersistentState {
+    required init?(_ map: NSDictionary) -> WindowLayoutPersistentState {
         
         let state = WindowLayoutPersistentState()
         

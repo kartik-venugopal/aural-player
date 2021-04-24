@@ -17,7 +17,7 @@ class UIState: PersistentStateProtocol {
     
     var menuBarPlayer: MenuBarPlayerUIState = MenuBarPlayerUIState()
     
-    static func deserialize(_ map: NSDictionary) -> UIState {
+    required init?(_ map: NSDictionary) -> UIState {
         
         let state = UIState()
         

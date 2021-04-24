@@ -5,7 +5,7 @@ class MusicBrainzCacheState: PersistentStateProtocol {
     var releases: [MusicBrainzCacheEntryState] = []
     var recordings: [MusicBrainzCacheEntryState] = []
     
-    static func deserialize(_ map: NSDictionary) -> MusicBrainzCacheState {
+    required init?(_ map: NSDictionary) -> MusicBrainzCacheState {
         
         let state =  MusicBrainzCacheState()
         

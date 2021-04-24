@@ -6,7 +6,7 @@ class TuneBrowserPersistentState: PersistentStateProtocol {
     var displayedColumns: [DisplayedTableColumn] = []
     var sidebar: TuneBrowserSidebarPersistentState = TuneBrowserSidebarPersistentState()
     
-    static func deserialize(_ map: NSDictionary) -> TuneBrowserPersistentState {
+    required init?(_ map: NSDictionary) -> TuneBrowserPersistentState {
         
         let state = TuneBrowserPersistentState()
         
@@ -30,7 +30,7 @@ class TuneBrowserSidebarPersistentState: PersistentStateProtocol {
     
     var userFolders: [TuneBrowserSidebarItemPersistentState] = []
     
-    static func deserialize(_ map: NSDictionary) -> TuneBrowserSidebarPersistentState {
+    required init?(_ map: NSDictionary) -> TuneBrowserSidebarPersistentState {
         
         let state = TuneBrowserSidebarPersistentState()
         
@@ -52,7 +52,7 @@ class TuneBrowserSidebarItemPersistentState: PersistentStateProtocol {
         self.url = url
     }
     
-    static func deserialize(_ map: NSDictionary) -> TuneBrowserSidebarItemPersistentState {
+    required init?(_ map: NSDictionary) -> TuneBrowserSidebarItemPersistentState {
         
         let state = TuneBrowserSidebarItemPersistentState()
         
@@ -91,7 +91,7 @@ extension TuneBrowserState {
 
 extension DisplayedTableColumn: PersistentStateProtocol {
     
-    static func deserialize(_ map: NSDictionary) -> DisplayedTableColumn {
+    required init?(_ map: NSDictionary) -> DisplayedTableColumn {
         
         let id: String = map["id"] as? String ?? ""
         var width: CGFloat = 50

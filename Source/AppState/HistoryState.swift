@@ -2,28 +2,35 @@ import Foundation
 
 class HistoryState: PersistentStateProtocol {
     
-    var recentlyAdded: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()
-    var recentlyPlayed: [(file: URL, name: String, time: Date)] = [(file: URL, name: String, time: Date)]()
+    var recentlyAdded: [HistoryItemState] = []
+    var recentlyPlayed: [HistoryItemState] = []
     
-    static func deserialize(_ map: NSDictionary) -> HistoryState {
+    required init?(_ map: NSDictionary) -> HistoryState {
         
         let state = HistoryState()
         
-        if let recentlyAdded = map["recentlyAdded"] as? [NSDictionary] {
-            recentlyAdded.forEach({if let item = deserializeHistoryItem($0) {state.recentlyAdded.append(item)}})
+        if let recentlyAddedArr = map["recentlyAdded"] as? [NSDictionary] {
+            state.recentlyAdded = recentlyAddedArr.compactMap {HistoryItemState.deserialize($0)}
         }
         
-        if let recentlyPlayed = map["recentlyPlayed"] as? [NSDictionary] {
-            recentlyPlayed.forEach({if let item = deserializeHistoryItem($0) {state.recentlyPlayed.append(item)}})
+        if let recentlyPlayedArr = map["recentlyPlayed"] as? [NSDictionary] {
+            state.recentlyPlayed = recentlyPlayedArr.compactMap {HistoryItemState.deserialize($0)}
         }
         
         return state
     }
+}
+
+struct HistoryItemState {
     
-    private static func deserializeHistoryItem(_ map: NSDictionary) -> (file: URL, name: String, time: Date)? {
+    let file: URL
+    let name: String
+    let time: Date
+    
+    required init?(_ map: NSDictionary) -> HistoryItemState? {
         
         if let file = map["file"] as? String, let name = map["name"] as? String, let timestamp = map["time"] as? String {
-            return (URL(fileURLWithPath: file), name, Date.fromString(timestamp))
+            return HistoryItemState(file: URL(fileURLWithPath: file), name: name, time: Date.fromString(timestamp))
         }
         
         return nil
@@ -36,8 +43,8 @@ extension HistoryDelegate: PersistentModelObject {
         
         let state = HistoryState()
         
-        allRecentlyAddedItems().forEach({state.recentlyAdded.append(($0.file, $0.displayName, $0.time))})
-        allRecentlyPlayedItems().forEach({state.recentlyPlayed.append(($0.file, $0.displayName, $0.time))})
+        state.recentlyAdded = allRecentlyAddedItems().map {HistoryItemState(file: $0.file, name: $0.displayName, time: $0.time)}
+        state.recentlyPlayed = allRecentlyPlayedItems().map {HistoryItemState(file: $0.file, name: $0.displayName, time: $0.time)}
         
         return state
     }

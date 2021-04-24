@@ -8,7 +8,7 @@ class AudioDeviceState: PersistentStateProtocol {
     var name: String = ""
     var uid: String = ""
     
-    static func deserialize(_ map: NSDictionary) -> AudioDeviceState {
+    required init?(_ map: NSDictionary) -> AudioDeviceState {
         
         let state: AudioDeviceState = AudioDeviceState()
         

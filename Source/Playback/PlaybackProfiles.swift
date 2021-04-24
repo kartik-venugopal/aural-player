@@ -31,7 +31,7 @@ class PlaybackProfile {
         self.lastPosition = lastPosition
     }
     
-    static func deserialize(_ map: NSDictionary) -> PlaybackProfile? {
+    required init?(_ map: NSDictionary) -> PlaybackProfile? {
         
         var profileFile: URL?
         var profileLastPosition: Double = AppDefaults.lastTrackPosition

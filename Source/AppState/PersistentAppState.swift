@@ -23,7 +23,7 @@ class PersistentAppState: PersistentStateProtocol {
     static let defaults: PersistentAppState = PersistentAppState()
     
     // Produces an AppState object from deserialized JSON
-    static func deserialize(_ map: NSDictionary) -> PersistentAppState {
+    required init?(_ map: NSDictionary) -> PersistentAppState {
         
         let state = PersistentAppState()
         

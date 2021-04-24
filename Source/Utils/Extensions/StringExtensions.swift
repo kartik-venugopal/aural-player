@@ -4,6 +4,10 @@ extension String {
     
     func lowerCasedAndTrimmed() -> String {self.lowercased().trim()}
     
+    var isEmptyAfterTrimming: Bool {
+        trim().isEmpty
+    }
+    
     func trim() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }

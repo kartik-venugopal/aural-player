@@ -7,7 +7,7 @@ class MenuBarPlayerUIState: PersistentStateProtocol {
     var showAlbum: Bool = true
     var showCurrentChapter: Bool = true
     
-    static func deserialize(_ map: NSDictionary) -> MenuBarPlayerUIState {
+    required init?(_ map: NSDictionary) -> MenuBarPlayerUIState {
         
         let state = MenuBarPlayerUIState()
         

@@ -11,7 +11,7 @@ class PlaylistState: PersistentStateProtocol {
     
     init() {}
     
-    static func deserialize(_ map: NSDictionary) -> PlaylistState {
+    required init?(_ map: NSDictionary) -> PlaylistState {
         
         let state = PlaylistState()
         
@@ -52,7 +52,7 @@ class GroupingPlaylistState: PersistentStateProtocol {
     
     init() {}
     
-    static func deserialize(_ map: NSDictionary) -> GroupingPlaylistState {
+    required init?(_ map: NSDictionary) -> GroupingPlaylistState {
         
         let state = GroupingPlaylistState()
         
@@ -73,7 +73,7 @@ class GroupState: PersistentStateProtocol {
     
     init() {}
     
-    static func deserialize(_ map: NSDictionary) -> GroupState {
+    required init?(_ map: NSDictionary) -> GroupState {
         
         let state = GroupState()
         

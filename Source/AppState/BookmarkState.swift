@@ -14,7 +14,7 @@ class BookmarkState {
         self.endPosition = endPosition
     }
     
-    static func deserialize(_ bookmarkMap: NSDictionary) -> BookmarkState? {
+    required init?(_ bookmarkMap: NSDictionary) -> BookmarkState? {
         
         if let name = bookmarkMap["name"] as? String, let file = bookmarkMap["file"] as? String {
             

@@ -2,43 +2,52 @@ import Foundation
 
 class PlayerUIState: PersistentStateProtocol {
     
-    var viewType: PlayerViewType = .defaultView
+    var viewType: PlayerViewType?
     
-    var showAlbumArt: Bool = true
-    var showArtist: Bool = true
-    var showAlbum: Bool = true
-    var showCurrentChapter: Bool = true
+    var showAlbumArt: Bool?
+    var showArtist: Bool?
+    var showAlbum: Bool?
+    var showCurrentChapter: Bool?
     
-    var showTrackInfo: Bool = true
-    var showSequenceInfo: Bool = true
+    var showTrackInfo: Bool?
+    var showSequenceInfo: Bool?
     
-    var showPlayingTrackFunctions: Bool = true
-    var showControls: Bool = true
-    var showTimeElapsedRemaining: Bool = true
+    var showPlayingTrackFunctions: Bool?
+    var showControls: Bool?
+    var showTimeElapsedRemaining: Bool?
     
-    var timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
-    var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+    var timeElapsedDisplayType: TimeElapsedDisplayType?
+    var timeRemainingDisplayType: TimeRemainingDisplayType?
     
-    static func deserialize(_ map: NSDictionary) -> PlayerUIState {
+    required init?(_ map: NSDictionary) -> PlayerUIState? {
         
         let state = PlayerUIState()
         
         state.viewType = mapEnum(map, "viewType", PlayerViewType.defaultView)
         
-        state.showAlbumArt = mapDirectly(map, "showAlbumArt", true)
-        state.showArtist = mapDirectly(map, "showArtist", true)
-        state.showAlbum = mapDirectly(map, "showAlbum", true)
-        state.showCurrentChapter = mapDirectly(map, "showCurrentChapter", true)
+        state.showAlbumArt = map["showAlbumArt"] as? Bool
+        state.showArtist = map["showArtist"] as? Bool
+        state.showAlbum = map["showAlbum"] as? Bool
+        state.showCurrentChapter = map["showCurrentChapter"] as? Bool
         
-        state.showTrackInfo = mapDirectly(map, "showTrackInfo", true)
-        state.showSequenceInfo = mapDirectly(map, "showSequenceInfo", true)
+        state.showTrackInfo = map["showTrackInfo"] as? Bool
+        state.showSequenceInfo = map["showSequenceInfo"] as? Bool
         
-        state.showControls = mapDirectly(map, "showControls", true)
-        state.showTimeElapsedRemaining = mapDirectly(map, "showTimeElapsedRemaining", true)
-        state.showPlayingTrackFunctions = mapDirectly(map, "showPlayingTrackFunctions", true)
+        state.showControls = map["showControls"] as? Bool
+        state.showTimeElapsedRemaining = map["showTimeElapsedRemaining"] as? Bool
+        state.showPlayingTrackFunctions = map["showPlayingTrackFunctions"] as? Bool
         
-        state.timeElapsedDisplayType = mapEnum(map, "timeElapsedDisplayType", TimeElapsedDisplayType.formatted)
-        state.timeRemainingDisplayType = mapEnum(map, "timeRemainingDisplayType", TimeRemainingDisplayType.formatted)
+        if let timeElapsedDisplayTypeString = map["timeElapsedDisplayType"] as? String,
+           let timeElapsedDisplayType = TimeElapsedDisplayType(rawValue: timeElapsedDisplayTypeString) {
+            
+            state.timeElapsedDisplayType = timeElapsedDisplayType
+        }
+        
+        if let timeRemainingDisplayTypeString = map["timeRemainingDisplayType"] as? String,
+           let timeRemainingDisplayType = TimeRemainingDisplayType(rawValue: timeRemainingDisplayTypeString) {
+            
+            state.timeRemainingDisplayType = timeRemainingDisplayType
+        }
         
         return state
     }
@@ -48,21 +57,21 @@ extension PlayerViewState {
     
     static func initialize(_ persistentState: PlayerUIState) {
         
-        viewType = persistentState.viewType
+        viewType = persistentState.viewType ?? PlayerViewDefaults.viewType
         
-        showAlbumArt = persistentState.showAlbumArt
-        showArtist = persistentState.showArtist
-        showAlbum = persistentState.showAlbum
-        showCurrentChapter = persistentState.showCurrentChapter
+        showAlbumArt = persistentState.showAlbumArt ?? PlayerViewDefaults.showAlbumArt
+        showArtist = persistentState.showArtist ?? PlayerViewDefaults.showArtist
+        showAlbum = persistentState.showAlbum ?? PlayerViewDefaults.showAlbum
+        showCurrentChapter = persistentState.showCurrentChapter ?? PlayerViewDefaults.showCurrentChapter
         
-        showTrackInfo = persistentState.showTrackInfo
+        showTrackInfo = persistentState.showTrackInfo ?? PlayerViewDefaults.showTrackInfo
         
-        showPlayingTrackFunctions = persistentState.showPlayingTrackFunctions
-        showControls = persistentState.showControls
-        showTimeElapsedRemaining = persistentState.showTimeElapsedRemaining
+        showPlayingTrackFunctions = persistentState.showPlayingTrackFunctions ?? PlayerViewDefaults.showPlayingTrackFunctions
+        showControls = persistentState.showControls ?? PlayerViewDefaults.showControls
+        showTimeElapsedRemaining = persistentState.showTimeElapsedRemaining ?? PlayerViewDefaults.showTimeElapsedRemaining
         
-        timeElapsedDisplayType = persistentState.timeElapsedDisplayType
-        timeRemainingDisplayType = persistentState.timeRemainingDisplayType
+        timeElapsedDisplayType = persistentState.timeElapsedDisplayType ?? PlayerViewDefaults.timeElapsedDisplayType
+        timeRemainingDisplayType = persistentState.timeRemainingDisplayType ?? PlayerViewDefaults.timeRemainingDisplayType
     }
     
     static var persistentState: PlayerUIState {

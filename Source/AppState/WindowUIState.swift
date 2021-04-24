@@ -4,7 +4,7 @@ class WindowUIState: PersistentStateProtocol {
     
     var cornerRadius: Float = Float(AppDefaults.windowCornerRadius)
     
-    static func deserialize(_ map: NSDictionary) -> WindowUIState {
+    required init?(_ map: NSDictionary) -> WindowUIState {
         
         let state = WindowUIState()
         

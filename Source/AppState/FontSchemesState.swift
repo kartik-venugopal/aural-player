@@ -16,12 +16,12 @@ class FontSchemesState: PersistentStateProtocol {
         self.userSchemes = userSchemes
     }
 
-    static func deserialize(_ map: NSDictionary) -> FontSchemesState {
+    required init?(_ map: NSDictionary) -> FontSchemesState? {
 
         let state = FontSchemesState()
 
         if let arr = map["userSchemes"] as? [NSDictionary] {
-            state.userSchemes = arr.map {FontSchemeState.deserialize($0)}
+            state.userSchemes = arr.compactMap {FontSchemeState.deserialize($0)}
         }
 
         if let dict = map["systemScheme"] as? NSDictionary {
@@ -33,7 +33,7 @@ class FontSchemesState: PersistentStateProtocol {
 }
 
 /*
-    Encapsulates persistent app state for a single color scheme.
+    Encapsulates persistent app state for a single font scheme.
  */
 class FontSchemeState: PersistentStateProtocol {
 
@@ -61,16 +61,18 @@ class FontSchemeState: PersistentStateProtocol {
         self.effects = EffectsFontSchemeState(scheme.effects)
     }
 
-    static func deserialize(_ map: NSDictionary) -> FontSchemeState {
+    required init?(_ map: NSDictionary) -> FontSchemeState? {
 
         let state = FontSchemeState()
 
-        if let name = map["name"] as? String {
-            state.name = name
-        }
-
-        state.textFontName = map["textFontName"] as? String ?? ""
-        state.headingFontName = map["headingFontName"] as? String ?? ""
+        // Every font scheme must have a name and text/heading font names (and they must be non-empty).
+        guard let name = map["name"] as? String, !name.isEmptyAfterTrimming,
+              let textFontName = map["textFontName"] as? String,
+              let headingFontName = map["headingFontName"] as? String else {return nil}
+        
+        state.name = name
+        state.textFontName = textFontName
+        state.headingFontName = headingFontName
 
         if let dict = map["player"] as? NSDictionary {
             state.player = PlayerFontSchemeState.deserialize(dict)
@@ -93,11 +95,11 @@ class FontSchemeState: PersistentStateProtocol {
  */
 class PlayerFontSchemeState: PersistentStateProtocol {
 
-    var titleSize: CGFloat = 12
-    var artistAlbumSize: CGFloat = 12
-    var chapterTitleSize: CGFloat = 12
-    var trackTimesSize: CGFloat = 12
-    var feedbackTextSize: CGFloat = 12
+    var titleSize: CGFloat?
+    var artistAlbumSize: CGFloat?
+    var chapterTitleSize: CGFloat?
+    var trackTimesSize: CGFloat?
+    var feedbackTextSize: CGFloat?
 
     init() {}
 
@@ -110,7 +112,7 @@ class PlayerFontSchemeState: PersistentStateProtocol {
         self.feedbackTextSize = scheme.feedbackFont.pointSize
     }
 
-    static func deserialize(_ map: NSDictionary) -> PlayerFontSchemeState {
+    required init?(_ map: NSDictionary) -> PlayerFontSchemeState? {
 
         let state = PlayerFontSchemeState()
 
@@ -143,18 +145,18 @@ class PlayerFontSchemeState: PersistentStateProtocol {
  */
 class PlaylistFontSchemeState: PersistentStateProtocol {
 
-    var trackTextSize: CGFloat = 12
-    var trackTextYOffset: Int = 0
+    var trackTextSize: CGFloat?
+    var trackTextYOffset: Int?
     
-    var groupTextSize: CGFloat = 12
-    var groupTextYOffset: Int = 0
+    var groupTextSize: CGFloat?
+    var groupTextYOffset: Int?
     
-    var summarySize: CGFloat = 12
-    var tabButtonTextSize: CGFloat = 12
+    var summarySize: CGFloat?
+    var tabButtonTextSize: CGFloat?
     
-    var chaptersListHeaderSize: CGFloat = 12
-    var chaptersListSearchSize: CGFloat = 12
-    var chaptersListCaptionSize: CGFloat = 12
+    var chaptersListHeaderSize: CGFloat?
+    var chaptersListSearchSize: CGFloat?
+    var chaptersListCaptionSize: CGFloat?
 
     init() {}
 
@@ -174,7 +176,7 @@ class PlaylistFontSchemeState: PersistentStateProtocol {
         self.chaptersListSearchSize = scheme.chaptersListSearchFont.pointSize
     }
 
-    static func deserialize(_ map: NSDictionary) -> PlaylistFontSchemeState {
+    required init?(_ map: NSDictionary) -> PlaylistFontSchemeState? {
 
         let state = PlaylistFontSchemeState()
 
@@ -223,11 +225,11 @@ class PlaylistFontSchemeState: PersistentStateProtocol {
  */
 class EffectsFontSchemeState: PersistentStateProtocol {
 
-    var unitCaptionSize: CGFloat = 12
-    var unitFunctionSize: CGFloat = 12
-    var masterUnitFunctionSize: CGFloat = 12
-    var filterChartSize: CGFloat = 12
-    var auRowTextYOffset: CGFloat = 0
+    var unitCaptionSize: CGFloat?
+    var unitFunctionSize: CGFloat?
+    var masterUnitFunctionSize: CGFloat?
+    var filterChartSize: CGFloat?
+    var auRowTextYOffset: CGFloat?
 
     init() {}
 
@@ -240,7 +242,7 @@ class EffectsFontSchemeState: PersistentStateProtocol {
         self.auRowTextYOffset = scheme.auRowTextYOffset
     }
 
-    static func deserialize(_ map: NSDictionary) -> EffectsFontSchemeState {
+    required init?(_ map: NSDictionary) -> EffectsFontSchemeState? {
 
         let state = EffectsFontSchemeState()
 

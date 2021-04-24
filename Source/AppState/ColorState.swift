@@ -41,7 +41,7 @@ class ColorState: PersistentStateProtocol {
     }
     
     // Deserializes persistent state for a single NSColor.
-    static func deserialize(_ map: NSDictionary) -> ColorState {
+    required init?(_ map: NSDictionary) -> ColorState {
         
         // Depending on the color space of the color, construct different objects.
         if let colorSpace = map["colorSpace"] as? NSNumber {
