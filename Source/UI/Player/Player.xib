@@ -26,7 +26,7 @@
                 <outlet property="btnShowPlayingTrackInPlaylist" destination="xih-km-OJQ" id="cPE-B5-dqf"/>
                 <outlet property="seekPositionMarkerView" destination="ibi-rN-iTf" id="qlf-33-BqW"/>
                 <outlet property="sliderView" destination="QDN-go-yNZ" id="VCT-Xe-sBe"/>
-                <outlet property="view" destination="AfR-G1-0Qr" id="Md7-Ak-PJi"/>
+                <outlet property="view" destination="OkF-Xg-tPe" id="I40-wb-cB0"/>
             </connections>
         </customObject>
         <slider verticalHuggingPriority="750" id="oxZ-LA-ON2" userLabel="Seek Slider Clone">
@@ -188,7 +188,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="kNP-jx-l2H">
                                                                 <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <textView focusRingType="none" editable="NO" selectable="NO" drawsBackground="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="6eJ-hR-0r4">
                                                                         <rect key="frame" x="0.0" y="0.0" width="470" height="80"/>
@@ -591,7 +591,7 @@ G1BhbiBTbGlkZXI
         <image name="NextTrack" width="31" height="35"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
-        <image name="PlayingArt" width="237" height="237"/>
+        <image name="PlayingArt" width="100" height="100"/>
         <image name="PreviousTrack" width="31" height="35"/>
         <image name="RepeatOff" width="43" height="71"/>
         <image name="SeekBackward" width="46" height="34"/>
