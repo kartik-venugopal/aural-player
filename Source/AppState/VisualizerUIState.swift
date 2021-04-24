@@ -2,22 +2,19 @@ import Cocoa
 
 class VisualizerUIState: PersistentStateProtocol {
     
-    var type: String?
-    var options: VisualizerOptionsState?
+    let type: VisualizationType?
+    let options: VisualizerOptionsState?
     
-    required init?(_ map: NSDictionary) -> VisualizerUIState {
+    init(type: VisualizationType?, options: VisualizerOptionsState?) {
         
-        let state = VisualizerUIState()
+        self.type = type
+        self.options = options
+    }
+    
+    required init?(_ map: NSDictionary) {
         
-        if let type = map["type"] as? String {
-            state.type = type
-        }
-        
-        if let optionsDict = map["options"] as? NSDictionary {
-            state.options = VisualizerOptionsState.deserialize(optionsDict)
-        }
-        
-        return state
+        self.type = map.enumValue(forKey: "type", ofType: VisualizationType.self)
+        self.options = map.objectValue(forKey: "options", ofType: VisualizerOptionsState.self)
     }
 }
 
@@ -26,19 +23,17 @@ class VisualizerOptionsState: PersistentStateProtocol {
     var lowAmplitudeColor: ColorState?
     var highAmplitudeColor: ColorState?
     
-    required init?(_ map: NSDictionary) -> VisualizerOptionsState {
+    init() {}
+    
+    required init?(_ map: NSDictionary) {
         
-        let state = VisualizerOptionsState()
-        
-        if let colorDict = map["lowAmplitudeColor"] as? NSDictionary {
-            state.lowAmplitudeColor = ColorState.deserialize(colorDict)
+        if let lowAmpColorDict = map["lowAmplitudeColor"] as? NSDictionary {
+            self.lowAmplitudeColor = ColorState.deserialize(lowAmpColorDict)
         }
         
-        if let colorDict = map["highAmplitudeColor"] as? NSDictionary {
-            state.highAmplitudeColor = ColorState.deserialize(colorDict)
+        if let highAmpColorDict = map["highAmplitudeColor"] as? NSDictionary {
+            self.highAmplitudeColor = ColorState.deserialize(highAmpColorDict)
         }
-        
-        return state
     }
 }
 
@@ -46,26 +41,20 @@ extension VisualizerViewState {
     
     static func initialize(_ persistentState: VisualizerUIState) {
         
-        if let vizTypeString = persistentState.type {
-            type = VisualizationType(rawValue: vizTypeString) ?? .spectrogram
-        } else {
-            type = .spectrogram
-        }
+        type = persistentState.type ?? .spectrogram
         
         options = VisualizerViewOptions()
-        options.setColors(lowAmplitudeColor: persistentState.options?.lowAmplitudeColor?.toColor() ?? NSColor.blue,
-                          highAmplitudeColor: persistentState.options?.highAmplitudeColor?.toColor() ?? NSColor.red)
+        
+        options.setColors(lowAmplitudeColor: persistentState.options?.lowAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.lowAmplitudeColor,
+                          highAmplitudeColor: persistentState.options?.highAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.highAmplitudeColor)
     }
     
     static var persistentState: VisualizerUIState {
         
-        let state = VisualizerUIState()
+        let visOptions = VisualizerOptionsState()
+        visOptions.lowAmplitudeColor = ColorState.fromColor(options.lowAmplitudeColor)
+        visOptions.highAmplitudeColor = ColorState.fromColor(options.highAmplitudeColor)
         
-        state.type = type.rawValue
-        state.options = VisualizerOptionsState()
-        state.options?.lowAmplitudeColor = ColorState.fromColor(options.lowAmplitudeColor)
-        state.options?.highAmplitudeColor = ColorState.fromColor(options.highAmplitudeColor)
-        
-        return state
+        return VisualizerUIState(type: type, options: visOptions)
     }
 }

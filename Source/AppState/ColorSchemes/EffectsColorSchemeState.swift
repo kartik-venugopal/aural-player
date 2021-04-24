@@ -48,66 +48,50 @@ class EffectsColorSchemeState: PersistentStateProtocol {
         self.suppressedUnitStateColor = ColorState.fromColor(scheme.suppressedUnitStateColor)
     }
     
-    required init?(_ map: NSDictionary) -> EffectsColorSchemeState? {
-        
-        let state = EffectsColorSchemeState()
+    required init?(_ map: NSDictionary) {
         
         if let colorDict = map["functionCaptionTextColor"] as? NSDictionary {
-            state.functionCaptionTextColor = ColorState.deserialize(colorDict)
+            self.functionCaptionTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["functionValueTextColor"] as? NSDictionary {
-            state.functionValueTextColor = ColorState.deserialize(colorDict)
+            self.functionValueTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["sliderBackgroundColor"] as? NSDictionary {
-            state.sliderBackgroundColor = ColorState.deserialize(colorDict)
+            self.sliderBackgroundColor = ColorState.deserialize(colorDict)
         }
         
-        if let gradientTypeStr = map["sliderBackgroundGradientType"] as? String,
-            let gradientType = GradientType(rawValue: gradientTypeStr) {
-            
-            state.sliderBackgroundGradientType = gradientType
-        }
+        self.sliderBackgroundGradientType = map.enumValue(forKey: "sliderBackgroundGradientType",
+                                                          ofType: GradientType.self)
         
-        if let amountNum = map["sliderBackgroundGradientAmount"] as? NSNumber {
-            state.sliderBackgroundGradientAmount = amountNum.intValue
-        }
+        self.sliderBackgroundGradientAmount = map.intValue(forKey: "sliderBackgroundGradientAmount")
         
-        if let gradientTypeStr = map["sliderForegroundGradientType"] as? String,
-            let gradientType = GradientType(rawValue: gradientTypeStr) {
-            
-            state.sliderForegroundGradientType = gradientType
-        }
+        self.sliderForegroundGradientType = map.enumValue(forKey: "sliderForegroundGradientType",
+                                                          ofType: GradientType.self)
         
-        if let amountNum = map["sliderForegroundGradientAmount"] as? NSNumber {
-            state.sliderForegroundGradientAmount = amountNum.intValue
-        }
+        self.sliderForegroundGradientAmount = map.intValue(forKey: "sliderForegroundGradientAmount")
         
         if let colorDict = map["sliderKnobColor"] as? NSDictionary {
-            state.sliderKnobColor = ColorState.deserialize(colorDict)
+            self.sliderKnobColor = ColorState.deserialize(colorDict)
         }
         
-        if let useForegroundColor = map["sliderKnobColorSameAsForeground"] as? Bool {
-            state.sliderKnobColorSameAsForeground = useForegroundColor
-        }
+        self.sliderKnobColorSameAsForeground = map.boolValue(forKey: "sliderKnobColorSameAsForeground")
         
         if let colorDict = map["sliderTickColor"] as? NSDictionary {
-            state.sliderTickColor = ColorState.deserialize(colorDict)
+            self.sliderTickColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["activeUnitStateColor"] as? NSDictionary {
-            state.activeUnitStateColor = ColorState.deserialize(colorDict)
+            self.activeUnitStateColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["bypassedUnitStateColor"] as? NSDictionary {
-            state.bypassedUnitStateColor = ColorState.deserialize(colorDict)
+            self.bypassedUnitStateColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["suppressedUnitStateColor"] as? NSDictionary {
-            state.suppressedUnitStateColor = ColorState.deserialize(colorDict)
+            self.suppressedUnitStateColor = ColorState.deserialize(colorDict)
         }
-        
-        return state
     }
 }

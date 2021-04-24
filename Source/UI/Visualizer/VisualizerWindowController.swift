@@ -201,8 +201,8 @@ enum VisualizationType: String, CaseIterable {
 
 class VisualizerViewOptions {
     
-    var lowAmplitudeColor: NSColor = .blue
-    var highAmplitudeColor: NSColor = .red
+    var lowAmplitudeColor: NSColor = VisualizerViewStateDefaults.lowAmplitudeColor
+    var highAmplitudeColor: NSColor = VisualizerViewStateDefaults.highAmplitudeColor
     
     func setColors(lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
         
@@ -213,6 +213,15 @@ class VisualizerViewOptions {
 
 class VisualizerViewState {
     
-    static var type: VisualizationType = .spectrogram
-    static var options: VisualizerViewOptions = VisualizerViewOptions()
+    static var type: VisualizationType = VisualizerViewStateDefaults.type
+    static var options: VisualizerViewOptions = VisualizerViewStateDefaults.options
+}
+
+class VisualizerViewStateDefaults {
+    
+    static let type: VisualizationType = .spectrogram
+    static let options: VisualizerViewOptions = VisualizerViewOptions()
+    
+    static let lowAmplitudeColor: NSColor = .blue
+    static let highAmplitudeColor: NSColor = .red
 }

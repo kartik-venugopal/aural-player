@@ -40,54 +40,50 @@ class PlaylistColorSchemeState: PersistentStateProtocol {
         self.summaryInfoColor = ColorState.fromColor(scheme.summaryInfoColor)
     }
     
-    required init?(_ map: NSDictionary) -> PlaylistColorSchemeState? {
-        
-        let state = PlaylistColorSchemeState()
+    required init?(_ map: NSDictionary) {
         
         if let colorDict = map["trackNameTextColor"] as? NSDictionary {
-            state.trackNameTextColor = ColorState.deserialize(colorDict)
+            self.trackNameTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["groupNameTextColor"] as? NSDictionary {
-            state.groupNameTextColor = ColorState.deserialize(colorDict)
+            self.groupNameTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["indexDurationTextColor"] as? NSDictionary {
-            state.indexDurationTextColor = ColorState.deserialize(colorDict)
+            self.indexDurationTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["trackNameSelectedTextColor"] as? NSDictionary {
-            state.trackNameSelectedTextColor = ColorState.deserialize(colorDict)
+            self.trackNameSelectedTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["groupNameSelectedTextColor"] as? NSDictionary {
-            state.groupNameSelectedTextColor = ColorState.deserialize(colorDict)
+            self.groupNameSelectedTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["indexDurationSelectedTextColor"] as? NSDictionary {
-            state.indexDurationSelectedTextColor = ColorState.deserialize(colorDict)
+            self.indexDurationSelectedTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["groupIconColor"] as? NSDictionary {
-            state.groupIconColor = ColorState.deserialize(colorDict)
+            self.groupIconColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["groupDisclosureTriangleColor"] as? NSDictionary {
-            state.groupDisclosureTriangleColor = ColorState.deserialize(colorDict)
+            self.groupDisclosureTriangleColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["selectionBoxColor"] as? NSDictionary {
-            state.selectionBoxColor = ColorState.deserialize(colorDict)
+            self.selectionBoxColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["playingTrackIconColor"] as? NSDictionary {
-            state.playingTrackIconColor = ColorState.deserialize(colorDict)
+            self.playingTrackIconColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["summaryInfoColor"] as? NSDictionary {
-            state.summaryInfoColor = ColorState.deserialize(colorDict)
+            self.summaryInfoColor = ColorState.deserialize(colorDict)
         }
-        
-        return state
     }
 }

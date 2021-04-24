@@ -45,66 +45,50 @@ class PlayerColorSchemeState: PersistentStateProtocol {
         self.sliderLoopSegmentColor = ColorState.fromColor(scheme.sliderLoopSegmentColor)
     }
     
-    required init?(_ map: NSDictionary) -> PlayerColorSchemeState? {
-        
-        let state = PlayerColorSchemeState()
+    required init?(_ map: NSDictionary) {
         
         if let colorDict = map["trackInfoPrimaryTextColor"] as? NSDictionary {
-            state.trackInfoPrimaryTextColor = ColorState.deserialize(colorDict)
+            self.trackInfoPrimaryTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["trackInfoSecondaryTextColor"] as? NSDictionary {
-            state.trackInfoSecondaryTextColor = ColorState.deserialize(colorDict)
+            self.trackInfoSecondaryTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["trackInfoTertiaryTextColor"] as? NSDictionary {
-            state.trackInfoTertiaryTextColor = ColorState.deserialize(colorDict)
+            self.trackInfoTertiaryTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["sliderValueTextColor"] as? NSDictionary {
-            state.sliderValueTextColor = ColorState.deserialize(colorDict)
+            self.sliderValueTextColor = ColorState.deserialize(colorDict)
         }
         
         if let colorDict = map["sliderBackgroundColor"] as? NSDictionary {
-            state.sliderBackgroundColor = ColorState.deserialize(colorDict)
+            self.sliderBackgroundColor = ColorState.deserialize(colorDict)
         }
         
-        if let gradientTypeStr = map["sliderBackgroundGradientType"] as? String,
-            let gradientType = GradientType(rawValue: gradientTypeStr) {
-            
-            state.sliderBackgroundGradientType = gradientType
-        }
+        self.sliderBackgroundGradientType = map.enumValue(forKey: "sliderBackgroundGradientType",
+                                                              ofType: GradientType.self)
         
-        if let amountNum = map["sliderBackgroundGradientAmount"] as? NSNumber {
-            state.sliderBackgroundGradientAmount = amountNum.intValue
-        }
+        self.sliderBackgroundGradientAmount = map.intValue(forKey: "sliderBackgroundGradientAmount")
         
         if let colorDict = map["sliderForegroundColor"] as? NSDictionary {
-            state.sliderForegroundColor = ColorState.deserialize(colorDict)
+            self.sliderForegroundColor = ColorState.deserialize(colorDict)
         }
         
-        if let gradientTypeStr = map["sliderForegroundGradientType"] as? String,
-            let gradientType = GradientType(rawValue: gradientTypeStr) {
-            
-            state.sliderForegroundGradientType = gradientType
-        }
+        self.sliderForegroundGradientType = map.enumValue(forKey: "sliderForegroundGradientType",
+                                                              ofType: GradientType.self)
         
-        if let amountNum = map["sliderForegroundGradientAmount"] as? NSNumber {
-            state.sliderForegroundGradientAmount = amountNum.intValue
-        }
+        self.sliderForegroundGradientAmount = map.intValue(forKey: "sliderForegroundGradientAmount")
         
         if let colorDict = map["sliderKnobColor"] as? NSDictionary {
-            state.sliderKnobColor = ColorState.deserialize(colorDict)
+            self.sliderKnobColor = ColorState.deserialize(colorDict)
         }
         
-        if let useForegroundColor = map["sliderKnobColorSameAsForeground"] as? Bool {
-            state.sliderKnobColorSameAsForeground = useForegroundColor
-        }
+        self.sliderKnobColorSameAsForeground = map.boolValue(forKey: "sliderKnobColorSameAsForeground")
         
         if let colorDict = map["sliderLoopSegmentColor"] as? NSDictionary {
-            state.sliderLoopSegmentColor = ColorState.deserialize(colorDict)
+            self.sliderLoopSegmentColor = ColorState.deserialize(colorDict)
         }
-        
-        return state
     }
 }

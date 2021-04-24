@@ -2,21 +2,19 @@ import Foundation
 
 class MenuBarPlayerUIState: PersistentStateProtocol {
     
-    var showAlbumArt: Bool = true
-    var showArtist: Bool = true
-    var showAlbum: Bool = true
-    var showCurrentChapter: Bool = true
+    var showAlbumArt: Bool?
+    var showArtist: Bool?
+    var showAlbum: Bool?
+    var showCurrentChapter: Bool?
     
-    required init?(_ map: NSDictionary) -> MenuBarPlayerUIState {
+    init() {}
+    
+    required init?(_ map: NSDictionary) {
         
-        let state = MenuBarPlayerUIState()
-        
-        state.showAlbumArt = map["showAlbumArt"] as? Bool ?? true
-        state.showArtist = map["showArtist"] as? Bool ?? true
-        state.showAlbum = map["showAlbum"] as? Bool ?? true
-        state.showCurrentChapter = map["showCurrentChapter"] as? Bool ?? true
-        
-        return state
+        self.showAlbumArt = map.boolValue(forKey: "showAlbumArt")
+        self.showArtist = map.boolValue(forKey: "showArtist")
+        self.showAlbum = map.boolValue(forKey: "showAlbum")
+        self.showCurrentChapter = map.boolValue(forKey: "showCurrentChapter")
     }
 }
 
@@ -24,10 +22,10 @@ extension MenuBarPlayerViewState {
     
     static func initialize(_ persistentState: MenuBarPlayerUIState) {
         
-        showAlbumArt = persistentState.showAlbumArt
-        showArtist = persistentState.showArtist
-        showAlbum = persistentState.showAlbum
-        showCurrentChapter = persistentState.showCurrentChapter
+        showAlbumArt = persistentState.showAlbumArt ?? MenuBarPlayerViewStateDefaults.showAlbumArt
+        showArtist = persistentState.showArtist ?? MenuBarPlayerViewStateDefaults.showArtist
+        showAlbum = persistentState.showAlbum ?? MenuBarPlayerViewStateDefaults.showAlbum
+        showCurrentChapter = persistentState.showCurrentChapter ?? MenuBarPlayerViewStateDefaults.showCurrentChapter
     }
     
     static var persistentState: MenuBarPlayerUIState {
