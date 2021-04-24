@@ -49,16 +49,6 @@ class ColorSchemeHistory {
         changeListener()
     }
     
-    // Returns details of the first possible undo operation, if one is available.
-    var changeToUndo: ColorSchemeChange? {
-        return undoStack.peek()
-    }
-    
-    // Returns details of the first possible redo operation, if one is available.
-    var changeToRedo: ColorSchemeChange? {
-        return redoStack.peek()
-    }
-    
     // Returns whether or not an undo operation is possible.
     var canUndo: Bool {
         return !undoStack.isEmpty

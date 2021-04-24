@@ -21,6 +21,7 @@
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
+		3E43072B26333B0500CD11FD /* TuneBrowserHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E43072A26333B0500CD11FD /* TuneBrowserHistory.swift */; };
 		3E43FB7125F9321100D4A597 /* FFmpegLoopDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */; };
 		3E45C03325E1264C00C1519C /* PlayerFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E45C03225E1264C00C1519C /* PlayerFontScheme.xib */; };
 		3E45C03625E1269500C1519C /* PlayerFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */; };
@@ -642,6 +643,7 @@
 		3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferences.swift; sourceTree = "<group>"; };
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E427EFA25D9065F00465569 /* Release Notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
+		3E43072A26333B0500CD11FD /* TuneBrowserHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserHistory.swift; sourceTree = "<group>"; };
 		3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegLoopDecoding.swift; sourceTree = "<group>"; };
 		3E45C03225E1264C00C1519C /* PlayerFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerFontScheme.xib; sourceTree = "<group>"; };
 		3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFontSchemeViewController.swift; sourceTree = "<group>"; };
@@ -1380,6 +1382,7 @@
 				3EEC3B0A263138BE00F46175 /* FileSystemItem.swift */,
 				3EA6622226316E7B0025C216 /* FileSystem.swift */,
 				3E9DAC8F2631E1330003B33F /* Sidebar */,
+				3E43072A26333B0500CD11FD /* TuneBrowserHistory.swift */,
 			);
 			path = TuneBrowser;
 			sourceTree = "<group>";
@@ -3674,6 +3677,7 @@
 				3E6C11A925CEBD9E00BF0D07 /* HistoryItems.swift in Sources */,
 				3E6C11F625CEBDD100BF0D07 /* ViewPreferences.swift in Sources */,
 				3E6C123125CEBDF400BF0D07 /* GroupingPlaylistTableViews.swift in Sources */,
+				3E43072B26333B0500CD11FD /* TuneBrowserHistory.swift in Sources */,
 				3EDB344B25E8B75D004DF7DE /* DefaultFFMpegMetadataParser.swift in Sources */,
 				3EDB33F425E8AE09004DF7DE /* FFmpegPacket.swift in Sources */,
 				3E6C118625CEBD6D00BF0D07 /* ReverbUnitDelegate.swift in Sources */,
