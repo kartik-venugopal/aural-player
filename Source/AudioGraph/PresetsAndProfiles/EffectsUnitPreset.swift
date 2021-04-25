@@ -13,7 +13,7 @@ class EffectsUnitPreset {
         self.systemDefined = systemDefined
     }
     
-    init(persistentState: EffectsUnitPresetState) {
+    init(persistentState: EffectsUnitPresetPersistentState) {
         
         self.name = persistentState.name
         self.state = persistentState.state

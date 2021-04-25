@@ -23,7 +23,7 @@ class MasterPreset: EffectsUnitPreset {
         super.init(name, .active, systemDefined)
     }
     
-    init(persistentState: MasterPresetState) {
+    init(persistentState: MasterPresetPersistentState) {
         
         self.eq = EQPreset(persistentState: persistentState.eq)
         self.pitch = PitchPreset(persistentState: persistentState.pitch)

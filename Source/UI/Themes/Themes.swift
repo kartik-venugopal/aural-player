@@ -6,7 +6,7 @@ import Cocoa
 class Themes {
 
     // Loads the user-defined schemes and current system theme from persistent state on app startup.
-    static func initialize(_ themesState: ThemesState?) {
+    static func initialize(_ themesState: ThemesPersistentState?) {
         
         for theme in (themesState?.userThemes ?? []).map({Theme(name: $0.name,
                                                                   fontScheme: FontScheme($0.fontScheme, false),
@@ -91,7 +91,7 @@ class Themes {
     }
     
     // State to be persisted to disk.
-    static var persistentState: ThemesState {
-        return ThemesState(userDefinedThemes.map {ThemeState($0)})
+    static var persistentState: ThemesPersistentState {
+        return ThemesPersistentState(userDefinedThemes.map {ThemePersistentState($0)})
     }
 }

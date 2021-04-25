@@ -5,7 +5,7 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     private let node: AVAudioUnitDelay = AVAudioUnitDelay()
     let presets: DelayPresets = DelayPresets()
     
-    init(persistentState: DelayUnitState?) {
+    init(persistentState: DelayUnitPersistentState?) {
         
         super.init(.delay, persistentState?.state ?? AudioGraphDefaults.delayState)
         
@@ -76,16 +76,16 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
         return DelayPreset("delaySettings", state, amount, time, feedback, lowPassCutoff, false)
     }
     
-    var persistentState: DelayUnitState {
+    var persistentState: DelayUnitPersistentState {
 
-        let unitState = DelayUnitState()
+        let unitState = DelayUnitPersistentState()
 
         unitState.state = state
         unitState.time = time
         unitState.amount = amount
         unitState.feedback = feedback
         unitState.lowPassCutoff = lowPassCutoff
-        unitState.userPresets = presets.userDefinedPresets.map {DelayPresetState(preset: $0)}
+        unitState.userPresets = presets.userDefinedPresets.map {DelayPresetPersistentState(preset: $0)}
 
         return unitState
     }

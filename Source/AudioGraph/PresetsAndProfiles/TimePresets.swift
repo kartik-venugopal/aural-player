@@ -25,7 +25,7 @@ class TimePreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: TimePresetState) {
+    init(persistentState: TimePresetPersistentState) {
         
         self.rate = persistentState.rate
         self.overlap = persistentState.overlap ?? AudioGraphDefaults.timeOverlap

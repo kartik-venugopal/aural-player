@@ -20,7 +20,7 @@ class AudioUnitPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: AudioUnitPresetState) {
+    init(persistentState: AudioUnitPresetPersistentState) {
         
         self.componentType = persistentState.componentType
         self.componentSubType = persistentState.componentSubType

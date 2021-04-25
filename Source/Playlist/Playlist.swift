@@ -266,7 +266,7 @@ class Playlist: PlaylistCRUDProtocol {
         return queue
     }()
     
-    func reOrder(accordingTo state: PlaylistState) {
+    func reOrder(accordingTo state: PlaylistPersistentState) {
         
         // Re-order each of the grouping playlists.
         // NOTE - The flat playlist does not need to be reordered,

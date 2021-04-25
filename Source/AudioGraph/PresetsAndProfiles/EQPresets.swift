@@ -23,7 +23,7 @@ class EQPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: EQPresetState) {
+    init(persistentState: EQPresetPersistentState) {
         
         self.bands = persistentState.bands
         self.globalGain = persistentState.globalGain ?? AudioGraphDefaults.eqGlobalGain

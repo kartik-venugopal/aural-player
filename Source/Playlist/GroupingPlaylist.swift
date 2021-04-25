@@ -297,7 +297,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         groupsByName.removeAll()
     }
     
-    func reOrder(accordingTo state: GroupingPlaylistState) {
+    func reOrder(accordingTo state: GroupingPlaylistPersistentState) {
         
         var insertionIndex: Int = 0
         

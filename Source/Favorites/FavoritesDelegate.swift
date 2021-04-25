@@ -10,7 +10,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(persistentState: [FavoriteState]?, _ favorites: FavoritesProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
+    init(persistentState: [FavoritePersistentState]?, _ favorites: FavoritesProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.favorites = favorites
         self.player = player
@@ -89,7 +89,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         }
     }
     
-    var persistentState: [FavoriteState] {
-        favorites.allFavorites.map {FavoriteState(file: $0.file, name: $0.name)}
+    var persistentState: [FavoritePersistentState] {
+        favorites.allFavorites.map {FavoritePersistentState(file: $0.file, name: $0.name)}
     }
 }

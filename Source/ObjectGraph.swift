@@ -73,7 +73,7 @@ class ObjectGraph {
         
         initializeUtilities(persistentState)
         
-        initializeUIState(persistentState)
+        initializeUIPersistentState(persistentState)
         
         DispatchQueue.global(qos: .background).async {
             cleanUpTranscoderFolders()
@@ -173,7 +173,7 @@ class ObjectGraph {
         UIUtils.initialize(preferences.viewPreferences)
     }
     
-    private static func initializeUIState(_ persistentState: PersistentAppState) {
+    private static func initializeUIPersistentState(_ persistentState: PersistentAppState) {
         
         Themes.initialize(persistentState.ui?.themes)
         FontSchemes.initialize(persistentState.ui?.fontSchemes)
@@ -222,9 +222,9 @@ class ObjectGraph {
         persistentState.audioGraph = (audioGraph as! AudioGraph).persistentState
         persistentState.playlist = (playlist as! Playlist).persistentState
         persistentState.playbackSequence = (sequencer as! Sequencer).persistentState
-        persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfileState(file: $0.file, lastPosition: $0.lastPosition)}
+        persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(file: $0.file, lastPosition: $0.lastPosition)}
         
-        let uiState = UIState()
+        let uiState = UIPersistentState()
         
         uiState.appMode = AppModeManager.mode
         uiState.windowLayout = WindowLayoutState.persistentState

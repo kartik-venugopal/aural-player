@@ -2,7 +2,7 @@ import Foundation
 
 class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
     
-    init(persistentState: [PlaybackProfileState]) {
+    init(persistentState: [PlaybackProfilePersistentState]) {
         
         super.init()
         

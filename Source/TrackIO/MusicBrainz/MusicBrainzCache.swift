@@ -22,7 +22,7 @@ class MusicBrainzCache: NotificationSubscriber {
         return queue
     }()
     
-    init(state: MusicBrainzCacheState?, preferences: MusicBrainzPreferences) {
+    init(state: MusicBrainzCachePersistentState?, preferences: MusicBrainzPreferences) {
         
         self.preferences = preferences
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))

@@ -14,7 +14,7 @@ class ReverbPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: ReverbPresetState) {
+    init(persistentState: ReverbPresetPersistentState) {
         
         self.space = persistentState.space
         self.amount = persistentState.amount

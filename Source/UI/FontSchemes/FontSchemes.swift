@@ -11,7 +11,7 @@ class FontSchemes {
     // Mapping of user-defined color schemes by display name.
     private static var userDefinedSchemesByName: StringKeyedCollection<FontScheme> = StringKeyedCollection()
     
-    static func initialize(_ persistentState: FontSchemesState?) {
+    static func initialize(_ persistentState: FontSchemesPersistentState?) {
         
         (persistentState?.userSchemes ?? []).map {FontScheme($0, false)}.forEach {
             userDefinedSchemesByName.addItem($0)
@@ -90,7 +90,7 @@ class FontSchemes {
     }
     
     // State to be persisted to disk.
-    static var persistentState: FontSchemesState {
-        return FontSchemesState(FontSchemeState(systemScheme), userDefinedSchemes.map {FontSchemeState($0)})
+    static var persistentState: FontSchemesPersistentState {
+        return FontSchemesPersistentState(FontSchemePersistentState(systemScheme), userDefinedSchemes.map {FontSchemePersistentState($0)})
     }
 }

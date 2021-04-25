@@ -159,7 +159,7 @@ class FilterBand {
         self.maxFreq = maxFreq
     }
     
-    init(persistentState: FilterBandState) {
+    init(persistentState: FilterBandPersistentState) {
         
         self.type = persistentState.type
         self.minFreq = persistentState.minFreq

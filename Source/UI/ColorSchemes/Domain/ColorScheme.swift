@@ -29,7 +29,7 @@ class ColorScheme: StringKeyedItem {
     
     // Utility function (for debugging purposes only)
     func toString() -> String {
-        return String(describing: JSONMapper.map(ColorSchemeState(self)))
+        return String(describing: JSONMapper.map(ColorSchemePersistentState(self)))
     }
     
     // Copy constructor ... creates a copy of the given scheme (used when creating a user-defined preset)
@@ -45,7 +45,7 @@ class ColorScheme: StringKeyedItem {
     }
     
     // Used when loading app state on startup
-    init(_ persistentState: ColorSchemeState?, _ systemDefined: Bool) {
+    init(_ persistentState: ColorSchemePersistentState?, _ systemDefined: Bool) {
         
         self.name = persistentState?.name ?? ""
         self.systemDefined = systemDefined
@@ -92,8 +92,8 @@ class ColorScheme: StringKeyedItem {
     }
     
     // State that can be persisted to disk
-    var persistentState: ColorSchemeState {
-        return ColorSchemeState(self)
+    var persistentState: ColorSchemePersistentState {
+        return ColorSchemePersistentState(self)
     }
 }
 
@@ -116,7 +116,7 @@ class GeneralColorScheme {
     var selectedTabButtonTextColor: NSColor
     var buttonMenuTextColor: NSColor
     
-    init(_ persistentState: GeneralColorSchemeState?) {
+    init(_ persistentState: GeneralColorSchemePersistentState?) {
         
         self.appLogoColor = persistentState?.appLogoColor?.toColor() ?? ColorSchemes.defaultScheme.general.appLogoColor
         self.backgroundColor = persistentState?.backgroundColor?.toColor() ?? ColorSchemes.defaultScheme.general.backgroundColor
@@ -212,8 +212,8 @@ class GeneralColorScheme {
         return GeneralColorScheme(self)
     }
     
-    var persistentState: GeneralColorSchemeState {
-        return GeneralColorSchemeState(self)
+    var persistentState: GeneralColorSchemePersistentState {
+        return GeneralColorSchemePersistentState(self)
     }
 }
 
@@ -239,7 +239,7 @@ class PlayerColorScheme {
     var sliderKnobColorSameAsForeground: Bool
     var sliderLoopSegmentColor: NSColor
     
-    init(_ persistentState: PlayerColorSchemeState?) {
+    init(_ persistentState: PlayerColorSchemePersistentState?) {
         
         self.trackInfoPrimaryTextColor = persistentState?.trackInfoPrimaryTextColor?.toColor() ?? ColorSchemes.defaultScheme.player.trackInfoPrimaryTextColor
         
@@ -349,8 +349,8 @@ class PlayerColorScheme {
         return PlayerColorScheme(self)
     }
 
-    var persistentState: PlayerColorSchemeState {
-        return PlayerColorSchemeState(self)
+    var persistentState: PlayerColorSchemePersistentState {
+        return PlayerColorSchemePersistentState(self)
     }
 }
 
@@ -380,7 +380,7 @@ class PlaylistColorScheme {
     var groupDisclosureTriangleColor: NSColor
 //    var groupDisclosureTriangleSelectedRowsColor: NSColor
     
-    init(_ persistentState: PlaylistColorSchemeState?) {
+    init(_ persistentState: PlaylistColorSchemePersistentState?) {
         
         self.trackNameTextColor = persistentState?.trackNameTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.trackNameTextColor
         self.groupNameTextColor = persistentState?.groupNameTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupNameTextColor
@@ -497,8 +497,8 @@ class PlaylistColorScheme {
         return PlaylistColorScheme(self)
     }
     
-    var persistentState: PlaylistColorSchemeState {
-        return PlaylistColorSchemeState(self)
+    var persistentState: PlaylistColorSchemePersistentState {
+        return PlaylistColorSchemePersistentState(self)
     }
 }
 
@@ -526,7 +526,7 @@ class EffectsColorScheme {
     var bypassedUnitStateColor: NSColor
     var suppressedUnitStateColor: NSColor
     
-    init(_ persistentState: EffectsColorSchemeState?) {
+    init(_ persistentState: EffectsColorSchemePersistentState?) {
         
         self.functionCaptionTextColor = persistentState?.functionCaptionTextColor?.toColor() ?? ColorSchemes.defaultScheme.effects.functionCaptionTextColor
         self.functionValueTextColor = persistentState?.functionValueTextColor?.toColor() ?? ColorSchemes.defaultScheme.effects.functionValueTextColor
@@ -640,8 +640,8 @@ class EffectsColorScheme {
         return EffectsColorScheme(self)
     }
     
-    var persistentState: EffectsColorSchemeState {
-        return EffectsColorSchemeState(self)
+    var persistentState: EffectsColorSchemePersistentState {
+        return EffectsColorSchemePersistentState(self)
     }
 }
 

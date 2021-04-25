@@ -21,7 +21,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
     // Stores the currently playing track, if there is one
     private(set) var currentTrack: Track?
     
-    init(persistentState: PlaybackSequenceState?, _ playlist: PlaylistAccessorProtocol, _ playlistType: PlaylistType) {
+    init(persistentState: PlaybackSequencePersistentState?, _ playlist: PlaylistAccessorProtocol, _ playlistType: PlaylistType) {
         
         let repeatMode = persistentState?.repeatMode ?? SequencerDefaults.repeatMode
         let shuffleMode = persistentState?.shuffleMode ?? SequencerDefaults.shuffleMode

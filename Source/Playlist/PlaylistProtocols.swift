@@ -194,7 +194,7 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     /// - Parameter state:  Application state persisted from the last app launch, including playlist sort order.
     ///                     This will determine how the playlist is reordered.
     ///
-    func reOrder(accordingTo state: PlaylistState)
+    func reOrder(accordingTo state: PlaylistPersistentState)
 }
 
 /*

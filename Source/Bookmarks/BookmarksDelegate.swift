@@ -10,7 +10,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(persistentState: [BookmarkState]?, _ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
+    init(persistentState: [BookmarkPersistentState]?, _ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.bookmarks = bookmarks
         self.playlist = playlist

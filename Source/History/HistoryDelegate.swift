@@ -20,7 +20,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
     
     let subscriberId: String = "HistoryDelegate"
     
-    init(persistentState: HistoryState?, _ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
+    init(persistentState: HistoryPersistentState?, _ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.history = history
         self.playlist = playlist

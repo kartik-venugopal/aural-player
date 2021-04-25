@@ -28,7 +28,7 @@ class DelayPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: DelayPresetState) {
+    init(persistentState: DelayPresetPersistentState) {
         
         self.amount = persistentState.amount
         self.time = persistentState.time

@@ -14,7 +14,7 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
     var nativeSlaveUnits: [FXUnit]
     var audioUnits: [HostedAudioUnit]
 
-    init(persistentState: MasterUnitState?, nativeSlaveUnits: [FXUnit], audioUnits: [HostedAudioUnit]) {
+    init(persistentState: MasterUnitPersistentState?, nativeSlaveUnits: [FXUnit], audioUnits: [HostedAudioUnit]) {
         
         self.nativeSlaveUnits = nativeSlaveUnits
         
@@ -125,12 +125,12 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
         descendingIndices.forEach {audioUnits.remove(at: $0)}
     }
     
-    var persistentState: MasterUnitState {
+    var persistentState: MasterUnitPersistentState {
 
-        let unitState = MasterUnitState()
+        let unitState = MasterUnitPersistentState()
 
         unitState.state = state
-        unitState.userPresets = presets.userDefinedPresets.map {MasterPresetState(preset: $0)}
+        unitState.userPresets = presets.userDefinedPresets.map {MasterPresetPersistentState(preset: $0)}
 
         return unitState
     }

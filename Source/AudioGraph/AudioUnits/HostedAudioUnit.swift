@@ -43,7 +43,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         self.node.addBypassStateObserver(self)
     }
     
-    init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitState) {
+    init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitPersistentState) {
         
         self.node = HostedAUNode(forComponent: component)
         
@@ -131,10 +131,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         return AudioUnitPreset("au-\(name)-Settings", state, false, componentType: self.componentType, componentSubType: self.componentSubType, number: 0)
     }
     
-    var persistentState: AudioUnitState {
+    var persistentState: AudioUnitPersistentState {
 
-        return AudioUnitState(componentType: node.componentType, componentSubType: node.componentSubType,
-                                       params: self.params.map {AudioUnitParameterState(address: $0.key, value: $0.value)}, state: self.state,
-                                       userPresets: presets.userDefinedPresets.map {AudioUnitPresetState(preset: $0)})
+        return AudioUnitPersistentState(componentType: node.componentType, componentSubType: node.componentSubType,
+                                       params: self.params.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)}, state: self.state,
+                                       userPresets: presets.userDefinedPresets.map {AudioUnitPresetPersistentState(preset: $0)})
     }
 }

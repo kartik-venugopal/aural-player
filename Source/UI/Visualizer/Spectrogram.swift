@@ -52,7 +52,7 @@ class Spectrogram: SKView, VisualizerViewProtocol {
             scene.backgroundColor = NSColor.black
             presentScene(scene)
             
-            // TODO: This will eventually come from VisualizerUIState.options (i.e. self.options)
+            // TODO: This will eventually come from VisualizerUIPersistentState.options (i.e. self.options)
             SpectrogramBar.numberOfBands = numberOfBands
             spacing = spacing_10Band
             

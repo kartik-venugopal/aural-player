@@ -12,7 +12,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     private let changeListeners: [PlaylistChangeListenerProtocol]
     
     // Persistent playlist state (used upon app startup)
-    private var persistentState: PlaylistState?
+    private var persistentState: PlaylistPersistentState?
     
     // User preferences (used for autoplay)
     private let preferences: Preferences
@@ -32,7 +32,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     var duration: Double {playlist.duration}
     
-    init(persistentState: PlaylistState?, _ playlist: PlaylistCRUDProtocol, _ trackReader: TrackReader, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistCRUDProtocol, _ trackReader: TrackReader, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
         self.trackReader = trackReader

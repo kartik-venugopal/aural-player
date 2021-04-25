@@ -164,12 +164,12 @@ class AudioUnitSwitchCellView: NSTableCellView {
     var action: (() -> ())! {
         
         didSet {
-            btnSwitch.action = #selector(self.toggleAudioUnitStateAction(_:))
+            btnSwitch.action = #selector(self.toggleAudioUnitPersistentStateAction(_:))
             btnSwitch.target = self
         }
     }
     
-    @objc func toggleAudioUnitStateAction(_ sender: Any) {
+    @objc func toggleAudioUnitPersistentStateAction(_ sender: Any) {
         self.action()
     }
 }

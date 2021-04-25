@@ -107,7 +107,7 @@ class Group: Hashable, PlaylistItem {
     /// - Parameter state:  Application state persisted from the last app launch, including group sort order.
     ///                     This will determine how the group is reordered.
     ///
-    func reOrder(accordingTo state: GroupState) {
+    func reOrder(accordingTo state: GroupPersistentState) {
         
         // Create a fast lookup map of URL -> Track, for all tracks in this group.
         var tracksMap: [URL: Track] = [:]

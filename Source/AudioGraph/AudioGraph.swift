@@ -58,7 +58,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var soundProfiles: SoundProfiles
     
     // Sets up the audio engine
-    init(_ audioUnitsManager: AudioUnitsManager, _ persistentState: AudioGraphState?) {
+    init(_ audioUnitsManager: AudioUnitsManager, _ persistentState: AudioGraphPersistentState?) {
         
         self.audioUnitsManager = audioUnitsManager
         audioEngine = AVAudioEngine()
@@ -202,12 +202,12 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         }
     }
     
-    var persistentState: AudioGraphState {
+    var persistentState: AudioGraphPersistentState {
         
-        let state: AudioGraphState = AudioGraphState()
+        let state: AudioGraphPersistentState = AudioGraphPersistentState()
         
         let outputDevice = self.outputDevice
-        state.outputDevice = AudioDeviceState(name: outputDevice.name, uid: outputDevice.uid)
+        state.outputDevice = AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid)
         
         // Volume and pan (balance)
         state.volume = playerVolume
@@ -223,7 +223,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.filterUnit = filterUnit.persistentState
         state.audioUnits = audioUnits.map {$0.persistentState}
         
-        state.soundProfiles = self.soundProfiles.all().map {SoundProfilePersistentState(file: $0.file, volume: $0.volume, balance: $0.balance, effects: MasterPresetState(preset: $0.effects))}
+        state.soundProfiles = self.soundProfiles.all().map {SoundProfilePersistentState(file: $0.file, volume: $0.volume, balance: $0.balance, effects: MasterPresetPersistentState(preset: $0.effects))}
         
         return state
     }

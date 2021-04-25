@@ -99,7 +99,7 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     /// - Parameter state:  Application state persisted from the last app launch, including playlist sort order.
     ///                     This will determine how the playlist is reordered.
     ///
-    func reOrder(accordingTo: GroupingPlaylistState)
+    func reOrder(accordingTo: GroupingPlaylistPersistentState)
 }
 
 protocol GroupingPlaylistCRUDProtocol: GroupingPlaylistAccessorProtocol, GroupingPlaylistMutatorProtocol {}

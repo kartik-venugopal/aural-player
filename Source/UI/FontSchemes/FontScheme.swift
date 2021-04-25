@@ -27,7 +27,7 @@ class FontScheme: StringKeyedItem {
     var effects: EffectsFontScheme
     
     // Used when loading app state on startup
-    init(_ persistentState: FontSchemeState?, _ systemDefined: Bool) {
+    init(_ persistentState: FontSchemePersistentState?, _ systemDefined: Bool) {
         
         self.name = persistentState?.name ?? ""
         self.systemDefined = systemDefined
@@ -70,7 +70,7 @@ class PlayerFontScheme {
     var trackTimesFont: NSFont
     var feedbackFont: NSFont
     
-    init(_ persistentState: FontSchemeState?) {
+    init(_ persistentState: FontSchemePersistentState?) {
         
         self.infoBoxTitleFont = FontSchemePreset.standard.infoBoxTitleFont
         self.infoBoxArtistAlbumFont = FontSchemePreset.standard.infoBoxArtistAlbumFont
@@ -140,7 +140,7 @@ class PlaylistFontScheme {
     var chaptersListSearchFont: NSFont
     var chaptersListCaptionFont: NSFont
     
-    init(_ persistentState: FontSchemeState?) {
+    init(_ persistentState: FontSchemePersistentState?) {
         
         self.trackTextFont = FontSchemePreset.standard.playlistTrackTextFont
         self.trackTextYOffset = FontSchemePreset.standard.playlistTrackTextYOffset
@@ -241,7 +241,7 @@ class EffectsFontScheme {
     var filterChartFont: NSFont
     var auRowTextYOffset: CGFloat
     
-    init(_ persistentState: FontSchemeState?) {
+    init(_ persistentState: FontSchemePersistentState?) {
         
         self.unitCaptionFont = FontSchemePreset.standard.effectsUnitCaptionFont
         self.unitFunctionFont = FontSchemePreset.standard.effectsUnitFunctionFont

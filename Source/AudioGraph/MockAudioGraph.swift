@@ -6,7 +6,7 @@
 // */
 //class MockAudioGraph: AudioGraphProtocol, PersistentModelObject {
 //
-//    var _state: AudioGraphState
+//    var _state: AudioGraphPersistentState
 //    
 //    // FX units
 //    var masterUnit: MasterUnit
@@ -43,7 +43,7 @@
 //    private var playerVolume: Float
 //    
 //    // Sets up the audio engine
-//    init(_ state: AudioGraphState) {
+//    init(_ state: AudioGraphPersistentState) {
 //        
 //        playerNode = AuralPlayerNode(useLegacyAPI: true)
 //        
@@ -104,7 +104,7 @@
 //    
 //    var persistentState: PersistentState {
 //        
-//        let state: AudioGraphState = AudioGraphState()
+//        let state: AudioGraphPersistentState = AudioGraphPersistentState()
 //        
 //        // Volume and pan (balance)
 //        state.volume = playerVolume
