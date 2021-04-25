@@ -2,9 +2,11 @@ import Foundation
 
 class EQUnitState: FXUnitState<EQPresetState> {
     
-    let type: EQType?
-    let globalGain: Float?
-    let bands: [Float]?
+    var type: EQType?
+    var globalGain: Float?
+    var bands: [Float]?
+    
+    override init() {super.init()}
     
     required init?(_ map: NSDictionary) {
         
@@ -21,13 +23,21 @@ class EQPresetState: EffectsUnitPresetState {
     let bands: [Float]
     let globalGain: Float?
     
+    init(preset: EQPreset) {
+        
+        self.bands = preset.bands
+        self.globalGain = preset.globalGain
+        
+        super.init(preset: preset)
+    }
+    
     required init?(_ map: NSDictionary) {
 
-        super.init(map)
-        
         guard let bands = map.floatArray(forKey: "bands") else {return nil}
         
         self.bands = bands
         self.globalGain = map.floatValue(forKey: "globalGain")
+        
+        super.init(map)
     }
 }

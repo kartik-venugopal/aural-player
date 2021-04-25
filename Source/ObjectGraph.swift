@@ -67,7 +67,7 @@ class ObjectGraph {
         // Use defaults if app state could not be loaded from disk
         let persistentState: PersistentAppState = AppStateIO.load() ?? PersistentAppState.defaults
         
-        lastPresentedAppMode = AppMode(rawValue: persistentState.ui.appMode) ?? AppDefaults.appMode
+        lastPresentedAppMode = persistentState.ui?.appMode ?? AppDefaults.appMode
         
         initializeCoreModules(persistentState)
         
@@ -117,11 +117,8 @@ class ObjectGraph {
     private static func initializeSequencer(_ persistentState: PersistentAppState) {
         
         // Sequencer and delegate
-        let repeatMode = persistentState.playbackSequence.repeatMode
-        let shuffleMode = persistentState.playbackSequence.shuffleMode
-        let playlistType = PlaylistType(rawValue: persistentState.ui.playlist.view.lowercased()) ?? .tracks
-        
-        sequencer = Sequencer(playlist, repeatMode, shuffleMode, playlistType)
+        let playlistType = persistentState.ui?.playlist?.view ?? .tracks
+        sequencer = Sequencer(persistentState: persistentState.playbackSequence, playlist, playlistType)
     }
     
     private static func initializeCoreModuleDelegates(_ persistentState: PersistentAppState) {
@@ -135,13 +132,13 @@ class ObjectGraph {
         recorderDelegate = RecorderDelegate(recorder)
         
         // Playlist Delegate
-        playlistDelegate = PlaylistDelegate(playlist, trackReader, persistentState.playlist, preferences,
+        playlistDelegate = PlaylistDelegate(persistentState: persistentState.playlist, playlist, trackReader, preferences,
                                             [playbackDelegate as! PlaybackDelegate])
     }
     
     private static func initializePlaybackDelegate(_ persistentState: PersistentAppState) {
         
-        let profiles = PlaybackProfiles(persistentState.playbackProfiles)
+        let profiles = PlaybackProfiles(persistentState: persistentState.playbackProfiles ?? [])
         
         let startPlaybackChain = StartPlaybackChain(player, sequencer, playlist, trackReader: trackReader, profiles, preferences.playbackPreferences)
         let stopPlaybackChain = StopPlaybackChain(player, playlist, sequencer, profiles, preferences.playbackPreferences)
@@ -164,11 +161,11 @@ class ObjectGraph {
     private static func initializeAuxiliaryModules(_ persistentState: PersistentAppState) {
         
         let history = History(preferences.historyPreferences)
-        historyDelegate = HistoryDelegate(history, playlistDelegate, playbackDelegate, persistentState.history)
+        historyDelegate = HistoryDelegate(persistentState: persistentState.history, history, playlistDelegate, playbackDelegate)
         
-        bookmarksDelegate = BookmarksDelegate(Bookmarks(), playlistDelegate, playbackDelegate, persistentState.bookmarks)
+        bookmarksDelegate = BookmarksDelegate(persistentState: persistentState.bookmarks, Bookmarks(), playlistDelegate, playbackDelegate)
         
-        favoritesDelegate = FavoritesDelegate(Favorites(), playlistDelegate, playbackDelegate, persistentState.favorites)
+        favoritesDelegate = FavoritesDelegate(persistentState: persistentState.favorites, Favorites(), playlistDelegate, playbackDelegate)
     }
     
     private static func initializeUtilities(_ persistentState: PersistentAppState) {
@@ -180,17 +177,17 @@ class ObjectGraph {
     
     private static func initializeUIState(_ persistentState: PersistentAppState) {
         
-        Themes.initialize(persistentState.ui.themes)
-        FontSchemes.initialize(persistentState.ui.fontSchemes)
-        ColorSchemes.initialize(persistentState.ui.colorSchemes)
+        Themes.initialize(persistentState.ui?.themes)
+        FontSchemes.initialize(persistentState.ui?.fontSchemes)
+        ColorSchemes.initialize(persistentState.ui?.colorSchemes)
         
-        WindowLayoutState.initialize(persistentState.ui.windowLayout)
+        WindowLayoutState.initialize(persistentState.ui?.windowLayout)
         
-        PlayerViewState.initialize(persistentState.ui.player)
-        PlaylistViewState.initialize(persistentState.ui.playlist)
-        VisualizerViewState.initialize(persistentState.ui.visualizer)
-        WindowAppearanceState.initialize(persistentState.ui.windowAppearance)
-        MenuBarPlayerViewState.initialize(persistentState.ui.menuBarPlayer)
+        PlayerViewState.initialize(persistentState.ui?.player)
+        PlaylistViewState.initialize(persistentState.ui?.playlist)
+        VisualizerViewState.initialize(persistentState.ui?.visualizer)
+        WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
+        MenuBarPlayerViewState.initialize(persistentState.ui?.menuBarPlayer)
     }
     
     ///
@@ -227,19 +224,19 @@ class ObjectGraph {
         persistentState.audioGraph = (audioGraph as! AudioGraph).persistentState
         persistentState.playlist = (playlist as! Playlist).persistentState
         persistentState.playbackSequence = (sequencer as! Sequencer).persistentState
-        persistentState.playbackProfiles = playbackDelegate.profiles.all()
+        persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfileState(file: $0.file, lastPosition: $0.lastPosition)}
         
-        persistentState.ui = UIState()
-        persistentState.ui.appMode = AppModeManager.mode.rawValue
-        persistentState.ui.windowLayout = WindowLayoutState.persistentState
-        persistentState.ui.themes = Themes.persistentState
-        persistentState.ui.fontSchemes = FontSchemes.persistentState
-        persistentState.ui.colorSchemes = ColorSchemes.persistentState
-        persistentState.ui.player = PlayerViewState.persistentState
-        persistentState.ui.playlist = PlaylistViewState.persistentState
-        persistentState.ui.visualizer = VisualizerViewState.persistentState
-        persistentState.ui.windowAppearance = WindowAppearanceState.persistentState
-        persistentState.ui.menuBarPlayer = MenuBarPlayerViewState.persistentState
+        persistentState.ui? = UIState()
+        persistentState.ui?.appMode = AppModeManager.mode
+        persistentState.ui?.windowLayout = WindowLayoutState.persistentState
+        persistentState.ui?.themes = Themes.persistentState
+        persistentState.ui?.fontSchemes = FontSchemes.persistentState
+        persistentState.ui?.colorSchemes = ColorSchemes.persistentState
+        persistentState.ui?.player = PlayerViewState.persistentState
+        persistentState.ui?.playlist = PlaylistViewState.persistentState
+        persistentState.ui?.visualizer = VisualizerViewState.persistentState
+        persistentState.ui?.windowAppearance = WindowAppearanceState.persistentState
+        persistentState.ui?.menuBarPlayer = MenuBarPlayerViewState.persistentState
         
         persistentState.history = (historyDelegate as! HistoryDelegate).persistentState
         persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

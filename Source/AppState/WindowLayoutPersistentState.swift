@@ -58,37 +58,28 @@ class UserWindowLayoutPersistentState: PersistentStateProtocol {
         self.showEffects = showEffects
         
         self.mainWindowOrigin = mainWindowOrigin
+        self.playlistWindowFrame = map.nsRectValue(forKey: "playlistWindowFrame")
+        self.effectsWindowOrigin = map.nsPointValue(forKey: "effectsWindowOrigin")
         
-        if showPlaylist {
-            
-            guard let playlistWindowFrame = map.nsRectValue(forKey: "playlistWindowFrame") else {return nil}
-            self.playlistWindowFrame = playlistWindowFrame
-        }
-        
-        if showEffects {
-            
-            guard let effectsWindowOrigin = map.nsPointValue(forKey: "effectsWindowOrigin") else {return nil}
-            self.effectsWindowOrigin = effectsWindowOrigin
+        if (showPlaylist && playlistWindowFrame == nil) || (showEffects && effectsWindowOrigin == nil) {
+            return nil
         }
     }
 }
 
 extension WindowLayoutState {
     
-    static func initialize(_ persistentState: WindowLayoutPersistentState) {
+    static func initialize(_ persistentState: WindowLayoutPersistentState?) {
         
-        Self.showPlaylist = persistentState.showPlaylist ?? WindowLayoutDefaults.showPlaylist
-        Self.showEffects = persistentState.showEffects ?? WindowLayoutDefaults.showEffects
+        Self.showPlaylist = persistentState?.showPlaylist ?? WindowLayoutDefaults.showPlaylist
+        Self.showEffects = persistentState?.showEffects ?? WindowLayoutDefaults.showEffects
         
-        Self.mainWindowOrigin = persistentState.mainWindowOrigin ?? WindowLayoutDefaults.mainWindowOrigin
-        Self.playlistWindowFrame = persistentState.playlistWindowFrame ?? WindowLayoutDefaults.playlistWindowFrame
-        Self.effectsWindowOrigin = persistentState.effectsWindowOrigin ?? WindowLayoutDefaults.effectsWindowOrigin
+        Self.mainWindowOrigin = persistentState?.mainWindowOrigin ?? WindowLayoutDefaults.mainWindowOrigin
+        Self.playlistWindowFrame = persistentState?.playlistWindowFrame ?? WindowLayoutDefaults.playlistWindowFrame
+        Self.effectsWindowOrigin = persistentState?.effectsWindowOrigin ?? WindowLayoutDefaults.effectsWindowOrigin
         
-        var userLayouts: [WindowLayout] = []
-        
-        for layout in persistentState.userLayouts ?? [] {
-            
-            userLayouts.append(WindowLayout(layout.name, layout.showEffects, layout.showPlaylist, layout.mainWindowOrigin, layout.effectsWindowOrigin, layout.playlistWindowFrame, false))
+        let userLayouts: [WindowLayout] = (persistentState?.userLayouts ?? []).map {
+            WindowLayout($0.name, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame, false)
         }
         
         WindowLayouts.loadUserDefinedLayouts(userLayouts)

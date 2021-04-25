@@ -3,7 +3,7 @@ import Cocoa
 /*
     Encapsulates persistent app state for a single NSColor.
  */
-class ColorState: PersistentStateProtocol {
+class ColorState: PersistentStateProtocol, PersistentStateFactoryProtocol {
     
     // Gray, RGB, or CMYK
     let colorSpace: Int
@@ -56,7 +56,7 @@ class ColorState: PersistentStateProtocol {
     }
     
     // Deserializes persistent state for a single NSColor.
-    static func deserialize<T: ColorState>(_ map: NSDictionary) -> T? {
+    static func deserialize(_ map: NSDictionary) -> ColorState? {
         
         // Depending on the color space of the color, construct different objects.
         if let colorSpace = map.intValue(forKey: "colorSpace") {
@@ -65,25 +65,25 @@ class ColorState: PersistentStateProtocol {
                 
             case NSColorSpace.Model.gray.rawValue:
                 
-                return (GrayscaleColorState(map) as! T)
+                return GrayscaleColorState(map)
                 
             case NSColorSpace.Model.rgb.rawValue:
                 
-                return (RGBColorState(map) as! T)
+                return RGBColorState(map)
                 
             case NSColorSpace.Model.cmyk.rawValue:
                 
-                return (CMYKColorState(map) as! T)
+                return CMYKColorState(map)
                 
             default:
                 
                 // Impossible
-                return defaultInstance as? T
+                return defaultInstance
             }
         }
 
         // Impossible
-        return defaultInstance as? T
+        return defaultInstance
     }
 }
 

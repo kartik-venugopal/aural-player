@@ -8,6 +8,12 @@ class AudioDeviceState: PersistentStateProtocol {
     let name: String
     let uid: String
     
+    init(name: String, uid: String) {
+        
+        self.name = name
+        self.uid = uid
+    }
+    
     required init?(_ map: NSDictionary) {
         
         guard let name = map.stringValue(forKey: "name"),

@@ -20,13 +20,13 @@ class ColorSchemes {
     }
     
     // Loads the user-defined schemes and current system color scheme from persistent state on app startup.
-    static func initialize(_ schemesState: ColorSchemesState) {
+    static func initialize(_ schemesState: ColorSchemesState?) {
         
-        schemesState.userSchemes.map {ColorScheme($0, false)}.forEach {
+        (schemesState?.userSchemes ?? []).map {ColorScheme($0, false)}.forEach {
             userDefinedSchemesByName.addItem($0)
         }
         
-        systemScheme = ColorScheme(schemesState.systemScheme, true)
+        systemScheme = ColorScheme(schemesState?.systemScheme, true)
     }
     
     // Mapping of user-defined color schemes by display name.

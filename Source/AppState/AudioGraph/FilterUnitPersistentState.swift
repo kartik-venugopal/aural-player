@@ -2,13 +2,14 @@ import Foundation
 
 class FilterUnitState: FXUnitState<FilterPresetState> {
     
-    let bands: [FilterBandState]?
+    var bands: [FilterBandState]?
+    
+    override init() {super.init()}
     
     required init?(_ map: NSDictionary) {
 
-        super.init(map)
-        
         self.bands = map.arrayValue(forKey: "bands", ofType: FilterBandState.self)
+        super.init(map)
     }
 }
 
@@ -19,31 +20,34 @@ class FilterBandState: PersistentStateProtocol {
     let minFreq: Float?     // Used for highPass, bandPass, and bandStop
     let maxFreq: Float?
     
+    init(band: FilterBand) {
+        
+        self.type = band.type
+        self.minFreq = band.minFreq
+        self.maxFreq = band.maxFreq
+    }
+    
     required init?(_ map: NSDictionary) {
         
         guard let type = map.enumValue(forKey: "type", ofType: FilterBandType.self) else {return nil}
         self.type = type
         
-        let minFreq = map.floatValue(forKey: "minFreq")
-        let maxFreq = map.floatValue(forKey: "maxFreq")
+        self.minFreq = map.floatValue(forKey: "minFreq")
+        self.maxFreq = map.floatValue(forKey: "maxFreq")
         
         switch type {
         
         case .bandPass, .bandStop:
             
-            guard let theMinFreq = minFreq, let theMaxFreq = maxFreq else {return nil}
-            self.minFreq = theMinFreq
-            self.maxFreq = theMaxFreq
+            guard self.minFreq != nil && self.maxFreq != nil else {return nil}
             
         case .lowPass:
             
             if maxFreq == nil {return nil}
-            self.maxFreq = maxFreq
             
         case .highPass:
             
             if minFreq == nil {return  nil}
-            self.minFreq = minFreq
         }
     }
 }
@@ -52,32 +56,17 @@ class FilterPresetState: EffectsUnitPresetState {
     
     let bands: [FilterBandState]
     
-    required init?(_ map: NSDictionary) {
+    init(preset: FilterPreset) {
         
-        super.init(map)
+        self.bands = preset.bands.map {FilterBandState(band: $0)}
+        super.init(preset: preset)
+    }
+    
+    required init?(_ map: NSDictionary) {
         
         guard let bands = map.arrayValue(forKey: "bands", ofType: FilterBandState.self) else {return nil}
         self.bands = bands
+        
+        super.init(map)
     }
 }
-
-//fileprivate func deserializeFilterPreset(_ map: NSDictionary) -> FilterPreset {
-//
-//    let name = map["name"] as? String ?? ""
-//    let state = mapEnum(map, "state", AppDefaults.filterState)
-//
-//    let presetBands: [FilterBand] = []
-//    if let bands = map["bands"] as? [NSDictionary] {
-//
-//        for bandDict in bands {
-//
-//            let bandType: FilterBandType = mapEnum(bandDict, "type", AppDefaults.filterBandType)
-//            let bandMinFreq: Float? = mapNumeric(bandDict, "minFreq")
-//            let bandMaxFreq: Float? = mapNumeric(bandDict, "maxFreq")
-//
-//            presetBands.append(FilterBand(bandType, bandMinFreq, bandMaxFreq))
-//        }
-//    }
-//
-//    return FilterPreset(name, state, presetBands, false)
-//}

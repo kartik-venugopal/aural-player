@@ -20,12 +20,12 @@ class MenuBarPlayerUIState: PersistentStateProtocol {
 
 extension MenuBarPlayerViewState {
     
-    static func initialize(_ persistentState: MenuBarPlayerUIState) {
+    static func initialize(_ persistentState: MenuBarPlayerUIState?) {
         
-        showAlbumArt = persistentState.showAlbumArt ?? MenuBarPlayerViewStateDefaults.showAlbumArt
-        showArtist = persistentState.showArtist ?? MenuBarPlayerViewStateDefaults.showArtist
-        showAlbum = persistentState.showAlbum ?? MenuBarPlayerViewStateDefaults.showAlbum
-        showCurrentChapter = persistentState.showCurrentChapter ?? MenuBarPlayerViewStateDefaults.showCurrentChapter
+        showAlbumArt = persistentState?.showAlbumArt ?? MenuBarPlayerViewStateDefaults.showAlbumArt
+        showArtist = persistentState?.showArtist ?? MenuBarPlayerViewStateDefaults.showArtist
+        showAlbum = persistentState?.showAlbum ?? MenuBarPlayerViewStateDefaults.showAlbum
+        showCurrentChapter = persistentState?.showCurrentChapter ?? MenuBarPlayerViewStateDefaults.showCurrentChapter
     }
     
     static var persistentState: MenuBarPlayerUIState {

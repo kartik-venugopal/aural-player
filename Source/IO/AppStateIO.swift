@@ -34,7 +34,9 @@ class AppStateIO {
                 let data = try JSONSerialization.jsonObject(with: inputStream, options: JSONSerialization.ReadingOptions())
                 inputStream.close()
                 
-                return PersistentAppState.deserialize(data as! NSDictionary)
+                if let dictionary = data as? NSDictionary {
+                    return PersistentAppState(dictionary)
+                }
                 
             } catch let error as NSError {
                 NSLog("Error loading app state config file: %@", error.description)

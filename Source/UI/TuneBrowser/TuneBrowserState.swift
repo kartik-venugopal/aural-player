@@ -30,8 +30,22 @@ class TuneBrowserState {
     }
 }
 
-struct DisplayedTableColumn {
+class DisplayedTableColumn: PersistentStateProtocol {
     
     let id: String
     let width: CGFloat
+    
+    init(id: String, width: CGFloat) {
+        
+        self.id = id
+        self.width = width
+    }
+    
+    required init?(_ map: NSDictionary) {
+        
+        guard let id = map.nonEmptyStringValue(forKey: "id") else {return nil}
+        self.id = id
+        
+        self.width = map.cgFloatValue(forKey: "width") ?? 50
+    }
 }

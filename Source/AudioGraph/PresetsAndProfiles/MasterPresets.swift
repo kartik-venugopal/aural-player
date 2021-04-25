@@ -22,4 +22,16 @@ class MasterPreset: EffectsUnitPreset {
         
         super.init(name, .active, systemDefined)
     }
+    
+    init(persistentState: MasterPresetState) {
+        
+        self.eq = EQPreset(persistentState: persistentState.eq)
+        self.pitch = PitchPreset(persistentState: persistentState.pitch)
+        self.time = TimePreset(persistentState: persistentState.time)
+        self.reverb = ReverbPreset(persistentState: persistentState.reverb)
+        self.delay = DelayPreset(persistentState: persistentState.delay)
+        self.filter = FilterPreset(persistentState: persistentState.filter)
+        
+        super.init(persistentState: persistentState)
+    }
 }

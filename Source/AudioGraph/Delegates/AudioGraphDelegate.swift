@@ -47,7 +47,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var soundProfiles: SoundProfiles {return graph.soundProfiles}
     
-    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState) {
+    init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState?) {
         
         self.graph = graph
         self.player = player
@@ -66,10 +66,10 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         
         if preferences.outputDeviceOnStartup.option == .rememberFromLastAppLaunch {
 
-            let prefDevice: AudioDeviceState = graphState.outputDevice
-
             // Check if remembered device is available (based on name and UID)
-            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDevice.name && $0.uid == prefDevice.uid}) {
+            if let prefDevice: AudioDeviceState = graphState?.outputDevice,
+               let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDevice.name && $0.uid == prefDevice.uid}) {
+                
                 self.graph.outputDevice = foundDevice
             }
 

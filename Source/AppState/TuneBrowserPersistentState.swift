@@ -2,77 +2,55 @@ import Foundation
 
 class TuneBrowserPersistentState: PersistentStateProtocol {
     
-    var windowSize: NSSize = AppDefaults.tuneBrowserWindowSize
-    var displayedColumns: [DisplayedTableColumn] = []
-    var sidebar: TuneBrowserSidebarPersistentState = TuneBrowserSidebarPersistentState()
+    var windowSize: NSSize?
+    var displayedColumns: [DisplayedTableColumn]?
+    var sidebar: TuneBrowserSidebarPersistentState?
     
-    required init?(_ map: NSDictionary) -> TuneBrowserPersistentState {
+    init() {}
+    
+    required init?(_ map: NSDictionary) {
         
-        let state = TuneBrowserPersistentState()
-        
-        if let windowSizeDict = map["windowSize"] as? NSDictionary, let windowSize = mapNSSize(windowSizeDict) {
-            state.windowSize = windowSize
-        }
-        
-        if let displayedColumnsArr = map["displayedColumns"] as? [NSDictionary] {
-            state.displayedColumns = displayedColumnsArr.map {DisplayedTableColumn.deserialize($0)}
-        }
-        
-        if let sidebarDict = map["sidebar"] as? NSDictionary {
-            state.sidebar = TuneBrowserSidebarPersistentState.deserialize(sidebarDict)
-        }
-        
-        return state
+        self.windowSize = map.nsSizeValue(forKey: "windowSize")
+        self.displayedColumns = map.arrayValue(forKey: "displayedColumns", ofType: DisplayedTableColumn.self)
+        self.sidebar = map.objectValue(forKey: "sidebar", ofType: TuneBrowserSidebarPersistentState.self)
     }
 }
 
 class TuneBrowserSidebarPersistentState: PersistentStateProtocol {
     
-    var userFolders: [TuneBrowserSidebarItemPersistentState] = []
+    let userFolders: [TuneBrowserSidebarItemPersistentState]?
     
-    required init?(_ map: NSDictionary) -> TuneBrowserSidebarPersistentState {
-        
-        let state = TuneBrowserSidebarPersistentState()
-        
-        if let userFoldersArr = map["userFolders"] as? [NSDictionary] {
-            state.userFolders = userFoldersArr.map {TuneBrowserSidebarItemPersistentState.deserialize($0)}
-        }
-        
-        return state
+    init(userFolders: [TuneBrowserSidebarItemPersistentState]?) {
+        self.userFolders = userFolders
+    }
+    
+    required init?(_ map: NSDictionary) {
+        self.userFolders = map.arrayValue(forKey: "userFolders", ofType: TuneBrowserSidebarItemPersistentState.self)
     }
 }
 
 class TuneBrowserSidebarItemPersistentState: PersistentStateProtocol {
     
-    var url: URL = URL(fileURLWithPath: "/")
+    var url: URL?
     
-    init() {}
-    
-    init(_ url: URL) {
+    init(url: URL) {
         self.url = url
     }
     
-    required init?(_ map: NSDictionary) -> TuneBrowserSidebarItemPersistentState {
-        
-        let state = TuneBrowserSidebarItemPersistentState()
-        
-        if let urlPath = map["url"] as? String {
-            state.url = URL(fileURLWithPath: urlPath)
-        }
-        
-        return state
+    required init?(_ map: NSDictionary) {
+        self.url = map.urlValue(forKey: "url")
     }
 }
 
 extension TuneBrowserState {
     
-    static func initialize(fromPersistentState state: TuneBrowserPersistentState) {
+    static func initialize(fromPersistentState state: TuneBrowserPersistentState?) {
         
-        Self.windowSize = state.windowSize
-        Self.displayedColumns = state.displayedColumns
+        Self.windowSize = state?.windowSize ?? NSSize(width: 700, height: 500)
+        Self.displayedColumns = state?.displayedColumns ?? []
         
-        for item in state.sidebar.userFolders {
-            Self.addUserFolder(forURL: item.url)
+        for url in (state?.sidebar?.userFolders ?? []).compactMap({$0.url}) {
+            Self.addUserFolder(forURL: url)
         }
     }
     
@@ -82,24 +60,8 @@ extension TuneBrowserState {
         
         state.windowSize = windowSize
         state.displayedColumns = displayedColumns
-        state.sidebar = TuneBrowserSidebarPersistentState()
-        state.sidebar.userFolders = sidebarUserFolders.map {TuneBrowserSidebarItemPersistentState($0.url)}
+        state.sidebar = TuneBrowserSidebarPersistentState(userFolders: sidebarUserFolders.map {TuneBrowserSidebarItemPersistentState(url: $0.url)})
         
         return state
-    }
-}
-
-extension DisplayedTableColumn: PersistentStateProtocol {
-    
-    required init?(_ map: NSDictionary) -> DisplayedTableColumn {
-        
-        let id: String = map["id"] as? String ?? ""
-        var width: CGFloat = 50
-        
-        if let widthNum = map["width"] as? NSNumber {
-            width = CGFloat(widthNum.floatValue)
-        }
-        
-        return DisplayedTableColumn(id: id, width: width)
     }
 }

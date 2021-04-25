@@ -3,8 +3,10 @@ import AVFoundation
 
 class FXUnitState<T: EffectsUnitPresetState>: PersistentStateProtocol {
     
-    let state: EffectsUnitState?
-    let userPresets: [T]?
+    var state: EffectsUnitState?
+    var userPresets: [T]?
+    
+    init() {}
     
     required init?(_ map: NSDictionary) {
         
@@ -17,6 +19,12 @@ class EffectsUnitPresetState: PersistentStateProtocol {
     
     let name: String
     let state: EffectsUnitState
+    
+    init(preset: EffectsUnitPreset) {
+        
+        self.name = preset.name
+        self.state = preset.state
+    }
     
     required init?(_ map: NSDictionary) {
       
@@ -33,22 +41,24 @@ class EffectsUnitPresetState: PersistentStateProtocol {
  */
 class AudioGraphState: PersistentStateProtocol {
     
-    let outputDevice: AudioDeviceState?
+    var outputDevice: AudioDeviceState?
     
-    let volume: Float?
-    let muted: Bool?
-    let balance: Float?
+    var volume: Float?
+    var muted: Bool?
+    var balance: Float?
     
-    let masterUnit: MasterUnitState?
-    let eqUnit: EQUnitState?
-    let pitchUnit: PitchUnitState?
-    let timeUnit: TimeUnitState?
-    let reverbUnit: ReverbUnitState?
-    let delayUnit: DelayUnitState?
-    let filterUnit: FilterUnitState?
-    let audioUnits: [AudioUnitState]?
+    var masterUnit: MasterUnitState?
+    var eqUnit: EQUnitState?
+    var pitchUnit: PitchUnitState?
+    var timeUnit: TimeUnitState?
+    var reverbUnit: ReverbUnitState?
+    var delayUnit: DelayUnitState?
+    var filterUnit: FilterUnitState?
+    var audioUnits: [AudioUnitState]?
     
-    let soundProfiles: [SoundProfilePersistentState]?
+    var soundProfiles: [SoundProfilePersistentState]?
+    
+    init() {}
     
     required init?(_ map: NSDictionary) {
         

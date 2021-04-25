@@ -4,17 +4,27 @@ class MasterUnitState: FXUnitState<MasterPresetState> {}
 
 class MasterPresetState: EffectsUnitPresetState {
     
-    let eq: EQPresetState?
-    let pitch: PitchPresetState?
-    let time: TimePresetState?
-    let reverb: ReverbPresetState?
-    let delay: DelayPresetState?
-    let filter: FilterPresetState?
+    let eq: EQPresetState
+    let pitch: PitchPresetState
+    let time: TimePresetState
+    let reverb: ReverbPresetState
+    let delay: DelayPresetState
+    let filter: FilterPresetState
+    
+    init(preset: MasterPreset) {
+        
+        self.eq = EQPresetState(preset: preset.eq)
+        self.pitch = PitchPresetState(preset: preset.pitch)
+        self.time = TimePresetState(preset: preset.time)
+        self.reverb = ReverbPresetState(preset: preset.reverb)
+        self.delay = DelayPresetState(preset: preset.delay)
+        self.filter = FilterPresetState(preset: preset.filter)
+        
+        super.init(preset: preset)
+    }
     
     required init?(_ map: NSDictionary) {
 
-        super.init(map)
-        
         guard let eq = map.objectValue(forKey: "eq", ofType: EQPresetState.self),
               let pitch = map.objectValue(forKey: "pitch", ofType: PitchPresetState.self),
               let time = map.objectValue(forKey: "time", ofType: TimePresetState.self),
@@ -28,5 +38,7 @@ class MasterPresetState: EffectsUnitPresetState {
         self.reverb = reverb
         self.delay = delay
         self.filter = filter
+        
+        super.init(map)
     }
 }

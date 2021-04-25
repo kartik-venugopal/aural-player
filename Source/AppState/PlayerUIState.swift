@@ -44,23 +44,23 @@ class PlayerUIState: PersistentStateProtocol {
 
 extension PlayerViewState {
     
-    static func initialize(_ persistentState: PlayerUIState) {
+    static func initialize(_ persistentState: PlayerUIState?) {
         
-        viewType = persistentState.viewType ?? PlayerViewDefaults.viewType
+        viewType = persistentState?.viewType ?? PlayerViewDefaults.viewType
         
-        showAlbumArt = persistentState.showAlbumArt ?? PlayerViewDefaults.showAlbumArt
-        showArtist = persistentState.showArtist ?? PlayerViewDefaults.showArtist
-        showAlbum = persistentState.showAlbum ?? PlayerViewDefaults.showAlbum
-        showCurrentChapter = persistentState.showCurrentChapter ?? PlayerViewDefaults.showCurrentChapter
+        showAlbumArt = persistentState?.showAlbumArt ?? PlayerViewDefaults.showAlbumArt
+        showArtist = persistentState?.showArtist ?? PlayerViewDefaults.showArtist
+        showAlbum = persistentState?.showAlbum ?? PlayerViewDefaults.showAlbum
+        showCurrentChapter = persistentState?.showCurrentChapter ?? PlayerViewDefaults.showCurrentChapter
         
-        showTrackInfo = persistentState.showTrackInfo ?? PlayerViewDefaults.showTrackInfo
+        showTrackInfo = persistentState?.showTrackInfo ?? PlayerViewDefaults.showTrackInfo
         
-        showPlayingTrackFunctions = persistentState.showPlayingTrackFunctions ?? PlayerViewDefaults.showPlayingTrackFunctions
-        showControls = persistentState.showControls ?? PlayerViewDefaults.showControls
-        showTimeElapsedRemaining = persistentState.showTimeElapsedRemaining ?? PlayerViewDefaults.showTimeElapsedRemaining
+        showPlayingTrackFunctions = persistentState?.showPlayingTrackFunctions ?? PlayerViewDefaults.showPlayingTrackFunctions
+        showControls = persistentState?.showControls ?? PlayerViewDefaults.showControls
+        showTimeElapsedRemaining = persistentState?.showTimeElapsedRemaining ?? PlayerViewDefaults.showTimeElapsedRemaining
         
-        timeElapsedDisplayType = persistentState.timeElapsedDisplayType ?? PlayerViewDefaults.timeElapsedDisplayType
-        timeRemainingDisplayType = persistentState.timeRemainingDisplayType ?? PlayerViewDefaults.timeRemainingDisplayType
+        timeElapsedDisplayType = persistentState?.timeElapsedDisplayType ?? PlayerViewDefaults.timeElapsedDisplayType
+        timeRemainingDisplayType = persistentState?.timeRemainingDisplayType ?? PlayerViewDefaults.timeRemainingDisplayType
     }
     
     static var persistentState: PlayerUIState {

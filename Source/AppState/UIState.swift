@@ -1,64 +1,36 @@
 import Cocoa
 
 /*
- Encapsulates UI state
+    Encapsulates UI state
  */
 class UIState: PersistentStateProtocol {
     
-    var appMode: String = ""
-    var windowLayout: WindowLayoutPersistentState = WindowLayoutPersistentState()
-    var themes: ThemesState = ThemesState()
-    var fontSchemes: FontSchemesState = FontSchemesState()
-    var colorSchemes: ColorSchemesState = ColorSchemesState()
-    var player: PlayerUIState = PlayerUIState()
-    var playlist: PlaylistUIState = PlaylistUIState()
-    var visualizer: VisualizerUIState = VisualizerUIState()
-    var windowAppearance: WindowUIState = WindowUIState()
+    var appMode: AppMode?
+    var windowLayout: WindowLayoutPersistentState?
+    var themes: ThemesState?
+    var fontSchemes: FontSchemesState?
+    var colorSchemes: ColorSchemesState?
+    var player: PlayerUIState?
+    var playlist: PlaylistUIState?
+    var visualizer: VisualizerUIState?
+    var windowAppearance: WindowUIState?
     
-    var menuBarPlayer: MenuBarPlayerUIState = MenuBarPlayerUIState()
+    var menuBarPlayer: MenuBarPlayerUIState?
     
-    required init?(_ map: NSDictionary) -> UIState {
+    init() {}
+    
+    required init?(_ map: NSDictionary) {
         
-        let state = UIState()
+        self.appMode = map.enumValue(forKey: "appMode", ofType: AppMode.self)
         
-        state.appMode = map["appMode"] as? String ?? ""
-        
-        if let windowLayoutMap = map["windowLayout"] as? NSDictionary {
-            state.windowLayout = WindowLayoutPersistentState.deserialize(windowLayoutMap)
-        }
-        
-        if let themesMap = map["themes"] as? NSDictionary {
-            state.themes = ThemesState.deserialize(themesMap)
-        }
-        
-        if let fontSchemesMap = map["fontSchemes"] as? NSDictionary {
-            state.fontSchemes = FontSchemesState.deserialize(fontSchemesMap)
-        }
-        
-        if let colorSchemesMap = map["colorSchemes"] as? NSDictionary {
-            state.colorSchemes = ColorSchemesState.deserialize(colorSchemesMap)
-        }
-        
-        if let playerMap = map["player"] as? NSDictionary {
-            state.player = PlayerUIState.deserialize(playerMap)
-        }
-        
-        if let playlistMap = map["playlist"] as? NSDictionary {
-            state.playlist = PlaylistUIState.deserialize(playlistMap)
-        }
-        
-        if let visualizerMap = map["visualizer"] as? NSDictionary {
-            state.visualizer = VisualizerUIState.deserialize(visualizerMap)
-        }
-        
-        if let windowAppearanceMap = map["windowAppearance"] as? NSDictionary {
-            state.windowAppearance = WindowUIState.deserialize(windowAppearanceMap)
-        }
-        
-        if let menuBarPlayerMap = map["menuBarPlayer"] as? NSDictionary {
-            state.menuBarPlayer = MenuBarPlayerUIState.deserialize(menuBarPlayerMap)
-        }
-        
-        return state
+        self.windowLayout = map.objectValue(forKey: "windowLayout", ofType: WindowLayoutPersistentState.self)
+        self.themes = map.objectValue(forKey: "themes", ofType: ThemesState.self)
+        self.fontSchemes = map.objectValue(forKey: "fontSchemes", ofType: FontSchemesState.self)
+        self.colorSchemes = map.objectValue(forKey: "colorSchemes", ofType: ColorSchemesState.self)
+        self.player = map.objectValue(forKey: "player", ofType: PlayerUIState.self)
+        self.playlist = map.objectValue(forKey: "playlist", ofType: PlaylistUIState.self)
+        self.visualizer = map.objectValue(forKey: "visualizer", ofType: VisualizerUIState.self)
+        self.windowAppearance = map.objectValue(forKey: "windowAppearance", ofType: WindowUIState.self)
+        self.menuBarPlayer = map.objectValue(forKey: "menuBarPlayer", ofType: MenuBarPlayerUIState.self)
     }
 }

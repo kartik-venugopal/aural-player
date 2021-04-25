@@ -39,14 +39,14 @@ class VisualizerOptionsState: PersistentStateProtocol {
 
 extension VisualizerViewState {
     
-    static func initialize(_ persistentState: VisualizerUIState) {
+    static func initialize(_ persistentState: VisualizerUIState?) {
         
-        type = persistentState.type ?? .spectrogram
+        type = persistentState?.type ?? .spectrogram
         
         options = VisualizerViewOptions()
         
-        options.setColors(lowAmplitudeColor: persistentState.options?.lowAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.lowAmplitudeColor,
-                          highAmplitudeColor: persistentState.options?.highAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.highAmplitudeColor)
+        options.setColors(lowAmplitudeColor: persistentState?.options?.lowAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.lowAmplitudeColor,
+                          highAmplitudeColor: persistentState?.options?.highAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.highAmplitudeColor)
     }
     
     static var persistentState: VisualizerUIState {

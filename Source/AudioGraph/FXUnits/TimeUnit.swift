@@ -5,17 +5,15 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
     private let node: VariableRateNode = VariableRateNode()
     let presets: TimePresets = TimePresets()
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: TimeUnitState?) {
         
-        let timeState = persistentState.timeUnit
+        super.init(.time, persistentState?.state ?? AudioGraphDefaults.timeState)
         
-        super.init(.time, timeState.state)
+        rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
+        overlap = persistentState?.overlap ?? AudioGraphDefaults.timeOverlap
+        shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
         
-        rate = timeState.rate
-        overlap = timeState.overlap
-        shiftPitch = timeState.shiftPitch
-        
-        presets.addPresets(timeState.userPresets)
+        presets.addPresets((persistentState?.userPresets ?? []).map {TimePreset(persistentState: $0)})
     }
     
     override var avNodes: [AVAudioNode] {return [node.timePitchNode, node.variNode]}
@@ -78,7 +76,7 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
         unitState.rate = rate
         unitState.overlap = overlap
         unitState.shiftPitch = shiftPitch
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {TimePresetState(preset: $0)}
 
         return unitState
     }

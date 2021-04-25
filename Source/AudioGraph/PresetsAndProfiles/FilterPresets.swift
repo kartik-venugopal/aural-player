@@ -20,6 +20,12 @@ class FilterPreset: EffectsUnitPreset {
         self.bands = bands
         super.init(name, state, systemDefined)
     }
+    
+    init(persistentState: FilterPresetState) {
+        
+        self.bands = persistentState.bands.map {FilterBand(persistentState: $0)}
+        super.init(persistentState.name, persistentState.state, false)
+    }
 }
 
 fileprivate struct SystemDefinedFilterPresets {

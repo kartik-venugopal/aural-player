@@ -7,14 +7,12 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     
     override var avNodes: [AVAudioNode] {return [node]}
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: FilterUnitState?) {
         
-        let filterState = persistentState.filterUnit
+        super.init(.filter, persistentState?.state ?? AudioGraphDefaults.filterState)
         
-        super.init(.filter, filterState.state)
-        
-        node.addBands(filterState.bands)
-        presets.addPresets(filterState.userPresets)
+        node.addBands((persistentState?.bands ?? []).map {FilterBand(persistentState: $0)})
+        presets.addPresets((persistentState?.userPresets ?? []).map {FilterPreset(persistentState: $0)})
     }
     
     var bands: [FilterBand] {
@@ -83,8 +81,8 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
         let filterState = FilterUnitState()
         
         filterState.state = state
-        filterState.bands = bands
-        filterState.userPresets = presets.userDefinedPresets
+        filterState.bands = bands.map {FilterBandState(band: $0)}
+        filterState.userPresets = presets.userDefinedPresets.map {FilterPresetState(preset: $0)}
         
         return filterState
     }

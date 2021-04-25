@@ -5,17 +5,15 @@ class EQUnit: FXUnit, EQUnitProtocol {
     private let node: ParametricEQ
     let presets: EQPresets = EQPresets()
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: EQUnitState?) {
         
-        let eqState = persistentState.eqUnit
+        node = ParametricEQ(persistentState?.type ?? AudioGraphDefaults.eqType)
+        super.init(.eq, persistentState?.state ?? AudioGraphDefaults.eqState)
         
-        node = ParametricEQ(eqState.type)
-        super.init(.eq, eqState.state)
+        bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
+        globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
         
-        bands = eqState.bands
-        globalGain = eqState.globalGain
-        
-        presets.addPresets(eqState.userPresets)
+        presets.addPresets((persistentState?.userPresets ?? []).map {EQPreset(persistentState: $0)})
     }
     
     override func stateChanged() {
@@ -103,7 +101,7 @@ class EQUnit: FXUnit, EQUnitProtocol {
         unitState.type = type
         unitState.bands = bands
         unitState.globalGain = globalGain
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {EQPresetState(preset: $0)}
 
         return unitState
     }

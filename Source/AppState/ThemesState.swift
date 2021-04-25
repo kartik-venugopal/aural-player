@@ -2,77 +2,48 @@ import Foundation
 
 class ThemesState: PersistentStateProtocol {
     
-    var userThemes: [ThemeState] = []
-    
-    init() {}
+    let userThemes: [ThemeState]?
     
     init(_ userThemes: [ThemeState]) {
         self.userThemes = userThemes
     }
     
-    required init?(_ map: NSDictionary) -> ThemesState {
-        
-        let state = ThemesState()
-        
-        if let userThemesArr = map["userThemes"] as? [NSDictionary] {
-            state.userThemes = userThemesArr.map {ThemeState.deserialize($0)}
-        }
-        
-        return state
+    required init?(_ map: NSDictionary) {
+        self.userThemes = map.arrayValue(forKey: "userThemes", ofType: ThemeState.self)
     }
 }
 
 class ThemeState: PersistentStateProtocol {
     
-    var name: String = ""
+    let name: String
     
-    var fontScheme: FontSchemeState = FontSchemeState()
-    var colorScheme: ColorSchemeState = ColorSchemeState()
-    var windowAppearance: WindowUIState = WindowUIState()
-    
-    init() {}
+    let fontScheme: FontSchemeState?
+    let colorScheme: ColorSchemeState?
+    let windowAppearance: WindowUIState?
     
     init(_ theme: Theme) {
         
         self.name = theme.name
         self.fontScheme = FontSchemeState(theme.fontScheme)
         self.colorScheme = ColorSchemeState(theme.colorScheme)
-        self.windowAppearance.cornerRadius = Float(theme.windowAppearance.cornerRadius)
+        self.windowAppearance = WindowUIState(cornerRadius: theme.windowAppearance.cornerRadius)
     }
     
-    required init?(_ map: NSDictionary) -> ThemeState {
+    required init?(_ map: NSDictionary) {
         
-        let state = ThemeState()
+        guard let name = map.nonEmptyStringValue(forKey: "name") else {return nil}
         
-        state.name = map["name"] as? String ?? ""
+        self.name = name
         
-        if let fontSchemeDict = map["fontScheme"] as? NSDictionary {
-            state.fontScheme = FontSchemeState.deserialize(fontSchemeDict)
-        }
-        
-        if let colorSchemeDict = map["colorScheme"] as? NSDictionary {
-            state.colorScheme = ColorSchemeState.deserialize(colorSchemeDict)
-        }
-        
-        if let windowAppearanceDict = map["windowAppearance"] as? NSDictionary {
-            state.windowAppearance = WindowUIState.deserialize(windowAppearanceDict)
-        }
-        
-        return state
+        self.fontScheme = map.objectValue(forKey: "fontScheme", ofType: FontSchemeState.self)
+        self.colorScheme = map.objectValue(forKey: "colorScheme", ofType: ColorSchemeState.self)
+        self.windowAppearance = map.objectValue(forKey: "windowAppearance", ofType: WindowUIState.self)
     }
 }
 
 extension Theme: PersistentModelObject {
     
     var persistentState: ThemeState {
-        
-        let state = ThemeState()
-        
-        state.name = self.name
-        state.fontScheme = FontSchemeState(self.fontScheme)
-        state.colorScheme = ColorSchemeState(self.colorScheme)
-        state.windowAppearance.cornerRadius = Float(self.windowAppearance.cornerRadius)
-        
-        return state
+        ThemeState(self)
     }
 }

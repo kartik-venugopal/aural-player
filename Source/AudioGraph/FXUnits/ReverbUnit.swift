@@ -5,15 +5,13 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     private let node: AVAudioUnitReverb = AVAudioUnitReverb()
     let presets: ReverbPresets = ReverbPresets()
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: ReverbUnitState?) {
         
-        let reverbState = persistentState.reverbUnit
+        avSpace = (persistentState?.space ?? AudioGraphDefaults.reverbSpace).avPreset
+        super.init(.reverb, persistentState?.state ?? AudioGraphDefaults.reverbState)
         
-        avSpace = reverbState.space.avPreset
-        super.init(.reverb, reverbState.state)
-        
-        amount = reverbState.amount
-        presets.addPresets(reverbState.userPresets)
+        amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
+        presets.addPresets((persistentState?.userPresets ?? []).map {ReverbPreset(persistentState: $0)})
     }
     
     override var avNodes: [AVAudioNode] {return [node]}
@@ -72,7 +70,7 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
         unitState.state = state
         unitState.space = space
         unitState.amount = amount
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {ReverbPresetState(preset: $0)}
 
         return unitState
     }

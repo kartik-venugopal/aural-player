@@ -6,12 +6,12 @@ import Cocoa
 class Themes {
 
     // Loads the user-defined schemes and current system theme from persistent state on app startup.
-    static func initialize(_ themesState: ThemesState) {
+    static func initialize(_ themesState: ThemesState?) {
         
-        for theme in themesState.userThemes.map({Theme(name: $0.name,
+        for theme in (themesState?.userThemes ?? []).map({Theme(name: $0.name,
                                                                   fontScheme: FontScheme($0.fontScheme, false),
                                                                   colorScheme: ColorScheme($0.colorScheme, false),
-                                                                  windowAppearance: WindowAppearance(cornerRadius: CGFloat($0.windowAppearance.cornerRadius)))}) {
+                                                                  windowAppearance: WindowAppearance(cornerRadius: $0.windowAppearance?.cornerRadius ?? WindowAppearanceStateDefaults.cornerRadius))}) {
             
             userDefinedThemesByName.addItem(theme)
         }

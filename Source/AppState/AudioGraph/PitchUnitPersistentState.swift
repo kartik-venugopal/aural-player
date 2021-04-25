@@ -2,8 +2,10 @@ import Foundation
 
 class PitchUnitState: FXUnitState<PitchPresetState> {
     
-    let pitch: Float?
-    let overlap: Float?
+    var pitch: Float?
+    var overlap: Float?
+    
+    override init() {super.init()}
     
     required init?(_ map: NSDictionary) {
         
@@ -19,13 +21,21 @@ class PitchPresetState: EffectsUnitPresetState {
     let pitch: Float
     let overlap: Float?
     
-    required init?(_ map: NSDictionary) {
+    init(preset: PitchPreset) {
         
-        super.init(map)
+        self.pitch = preset.pitch
+        self.overlap = preset.overlap
+        
+        super.init(preset: preset)
+    }
+    
+    required init?(_ map: NSDictionary) {
         
         guard let pitch = map.floatValue(forKey: "pitch") else {return nil}
         
         self.pitch = pitch
         self.overlap = map.floatValue(forKey: "overlap")
+        
+        super.init(map)
     }
 }

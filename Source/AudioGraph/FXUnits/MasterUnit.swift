@@ -14,7 +14,7 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
     var nativeSlaveUnits: [FXUnit]
     var audioUnits: [HostedAudioUnit]
 
-    init(_ persistentState: AudioGraphState, _ nativeSlaveUnits: [FXUnit], _ audioUnits: [HostedAudioUnit]) {
+    init(persistentState: MasterUnitState?, nativeSlaveUnits: [FXUnit], audioUnits: [HostedAudioUnit]) {
         
         self.nativeSlaveUnits = nativeSlaveUnits
         
@@ -27,8 +27,8 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
         
         self.audioUnits = audioUnits
         
-        super.init(.master, persistentState.masterUnit.state)
-        presets.addPresets(persistentState.masterUnit.userPresets)
+        super.init(.master, persistentState?.state ?? AudioGraphDefaults.masterState)
+        presets.addPresets((persistentState?.userPresets ?? []).map {MasterPreset(persistentState: $0)})
         
         Messenger.subscribe(self, .fx_unitActivated, self.ensureActive)
     }
@@ -130,7 +130,7 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
         let unitState = MasterUnitState()
 
         unitState.state = state
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {MasterPresetState(preset: $0)}
 
         return unitState
     }

@@ -11,13 +11,13 @@ class FontSchemes {
     // Mapping of user-defined color schemes by display name.
     private static var userDefinedSchemesByName: StringKeyedCollection<FontScheme> = StringKeyedCollection()
     
-    static func initialize(_ persistentState: FontSchemesState) {
+    static func initialize(_ persistentState: FontSchemesState?) {
         
-        persistentState.userSchemes.map {FontScheme($0, false)}.forEach {
+        (persistentState?.userSchemes ?? []).map {FontScheme($0, false)}.forEach {
             userDefinedSchemesByName.addItem($0)
         }
         
-        systemScheme = FontScheme(persistentState.systemScheme, true)
+        systemScheme = FontScheme(persistentState?.systemScheme, true)
     }
     
     static func applyScheme(named name: String) -> FontScheme? {

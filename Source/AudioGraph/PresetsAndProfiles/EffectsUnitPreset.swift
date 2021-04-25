@@ -12,4 +12,11 @@ class EffectsUnitPreset {
         self.state = state
         self.systemDefined = systemDefined
     }
+    
+    init(persistentState: EffectsUnitPresetState) {
+        
+        self.name = persistentState.name
+        self.state = persistentState.state
+        self.systemDefined = false
+    }
 }

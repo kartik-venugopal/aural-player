@@ -24,6 +24,15 @@ class TimePreset: EffectsUnitPreset {
         self.shiftPitch = shiftPitch
         super.init(name, state, systemDefined)
     }
+    
+    init(persistentState: TimePresetState) {
+        
+        self.rate = persistentState.rate
+        self.overlap = persistentState.overlap ?? AudioGraphDefaults.timeOverlap
+        self.shiftPitch = persistentState.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
+        
+        super.init(persistentState: persistentState)
+    }
 }
 
 fileprivate struct SystemDefinedTimePresets {

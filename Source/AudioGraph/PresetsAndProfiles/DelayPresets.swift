@@ -27,19 +27,23 @@ class DelayPreset: EffectsUnitPreset {
         
         super.init(name, state, systemDefined)
     }
+    
+    init(persistentState: DelayPresetState) {
+        
+        self.amount = persistentState.amount
+        self.time = persistentState.time
+        self.feedback = persistentState.feedback
+        self.lowPassCutoff = persistentState.lowPassCutoff
+        
+        super.init(persistentState: persistentState)
+    }
 }
 
 fileprivate struct SystemDefinedDelayPresets {
     
-    static let presets: [DelayPreset] = {
-        
-        var arr: [DelayPreset] = []
-        SystemDefinedDelayPresetParams.allValues.forEach({
-            arr.append(DelayPreset($0.rawValue, $0.state, $0.amount, $0.time, $0.feedback, $0.cutoff, true))
-        })
-        
-        return arr
-    }()
+    static let presets: [DelayPreset] = SystemDefinedDelayPresetParams.allValues.map {
+        DelayPreset($0.rawValue, $0.state, $0.amount, $0.time, $0.feedback, $0.cutoff, true)
+    }
 }
 
 /*

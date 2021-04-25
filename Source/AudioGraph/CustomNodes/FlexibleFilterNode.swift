@@ -159,6 +159,13 @@ class FilterBand {
         self.maxFreq = maxFreq
     }
     
+    init(persistentState: FilterBandState) {
+        
+        self.type = persistentState.type
+        self.minFreq = persistentState.minFreq
+        self.maxFreq = persistentState.maxFreq
+    }
+    
     func withMinFreq(_ freq: Float) -> FilterBand {
         self.minFreq = freq
         return self

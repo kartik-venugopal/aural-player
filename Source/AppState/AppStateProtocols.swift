@@ -14,3 +14,11 @@ protocol PersistentStateProtocol {
     
     init?(_ map: NSDictionary)
 }
+
+// Marks an object as being suitable for persistence, i.e. it is serializable/deserializable
+protocol PersistentStateFactoryProtocol {
+    
+    associatedtype T: PersistentStateProtocol
+    
+    static func deserialize(_ map: NSDictionary) -> T?
+}

@@ -9,6 +9,14 @@ class SoundProfilePersistentState: PersistentStateProtocol {
     
     let effects: MasterPresetState
     
+    init(file: URL, volume: Float, balance: Float, effects: MasterPresetState) {
+        
+        self.file = file
+        self.volume = volume
+        self.balance = balance
+        self.effects = effects
+    }
+    
     required init?(_ map: NSDictionary) {
         
         guard let file = map.urlValue(forKey: "file"),

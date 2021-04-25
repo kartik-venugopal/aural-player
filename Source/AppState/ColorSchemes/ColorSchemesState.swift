@@ -8,8 +8,6 @@ class ColorSchemesState: PersistentStateProtocol {
     let userSchemes: [ColorSchemeState]?
     let systemScheme: ColorSchemeState?
     
-    init() {}
-    
     init(_ systemScheme: ColorSchemeState, _ userSchemes: [ColorSchemeState]) {
         
         self.systemScheme = systemScheme
@@ -34,8 +32,6 @@ class ColorSchemeState: PersistentStateProtocol {
     let player: PlayerColorSchemeState?
     let playlist: PlaylistColorSchemeState?
     let effects: EffectsColorSchemeState?
-    
-    init() {}
     
     // When saving app state to disk
     init(_ scheme: ColorScheme) {

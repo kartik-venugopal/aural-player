@@ -312,6 +312,15 @@ extension NSDictionary {
         return nil
     }
     
+    func factoryObjectValue<T: PersistentStateFactoryProtocol, U: PersistentStateProtocol>(forKey key: String, ofType: T.Type) -> U? {
+        
+        if let dict = self[key] as? NSDictionary {
+            return T.deserialize(dict) as? U
+        }
+        
+        return nil
+    }
+    
     func arrayValue<T: PersistentStateProtocol>(forKey key: String, ofType: T.Type) -> [T]? {
         
         if let array = self[key] as? [NSDictionary] {

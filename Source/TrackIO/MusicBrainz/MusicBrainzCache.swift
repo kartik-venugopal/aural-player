@@ -22,7 +22,7 @@ class MusicBrainzCache: NotificationSubscriber {
         return queue
     }()
     
-    init(state: MusicBrainzCacheState, preferences: MusicBrainzPreferences) {
+    init(state: MusicBrainzCacheState?, preferences: MusicBrainzPreferences) {
         
         self.preferences = preferences
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
@@ -37,7 +37,7 @@ class MusicBrainzCache: NotificationSubscriber {
         
         // Initialize the cache with entries that were previously persisted to disk.
             
-        for entry in state.releases {
+        for entry in state?.releases ?? [] {
             
             diskIOOpQueue.addOperation {
                 
@@ -52,7 +52,7 @@ class MusicBrainzCache: NotificationSubscriber {
             }
         }
             
-        for entry in state.recordings {
+        for entry in state?.recordings ?? [] {
             
             diskIOOpQueue.addOperation {
                 

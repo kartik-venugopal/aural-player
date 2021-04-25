@@ -20,7 +20,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
     
     let subscriberId: String = "HistoryDelegate"
     
-    init(_ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ historyState: HistoryState) {
+    init(persistentState: HistoryState?, _ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.history = history
         self.playlist = playlist
@@ -28,8 +28,8 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
         
         // Restore the history model object from persistent state
         
-        historyState.recentlyAdded.reversed().forEach({history.addRecentlyAddedItem($0.file, $0.name, $0.time)})
-        historyState.recentlyPlayed.reversed().forEach({history.addRecentlyPlayedItem($0.file, $0.name, $0.time)})
+        persistentState?.recentlyAdded?.reversed().forEach({history.addRecentlyAddedItem($0.file, $0.name, $0.time)})
+        persistentState?.recentlyPlayed?.reversed().forEach({history.addRecentlyPlayedItem($0.file, $0.name, $0.time)})
         Messenger.publish(.history_updated)
         
         Messenger.subscribeAsync(self, .history_itemsAdded, self.itemsAdded(_:), queue: backgroundQueue)

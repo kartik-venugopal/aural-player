@@ -2,10 +2,12 @@ import Foundation
 
 class DelayUnitState: FXUnitState<DelayPresetState> {
     
-    let amount: Float?
-    let time: Double?
-    let feedback: Float?
-    let lowPassCutoff: Float?
+    var amount: Float?
+    var time: Double?
+    var feedback: Float?
+    var lowPassCutoff: Float?
+    
+    override init() {super.init()}
     
     required init?(_ map: NSDictionary) {
         
@@ -25,6 +27,16 @@ class DelayPresetState: EffectsUnitPresetState {
     let feedback: Float
     let lowPassCutoff: Float
     
+    init(preset: DelayPreset) {
+        
+        self.amount = preset.amount
+        self.time = preset.time
+        self.feedback = preset.feedback
+        self.lowPassCutoff = preset.lowPassCutoff
+        
+        super.init(preset: preset)
+    }
+    
     required init?(_ map: NSDictionary) {
         
         guard let amount = map.floatValue(forKey: "amount"),
@@ -36,5 +48,7 @@ class DelayPresetState: EffectsUnitPresetState {
         self.time = time
         self.feedback = feedback
         self.lowPassCutoff = lowPassCutoff
+        
+        super.init(map)
     }
 }

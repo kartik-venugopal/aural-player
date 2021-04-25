@@ -55,10 +55,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
-        super.init(.au, persistentState.state)
+        super.init(.au, persistentState.state ?? AudioGraphDefaults.auState)
         self.node.addBypassStateObserver(self)
         
-        presets.addPresets(persistentState.userPresets)
+        presets.addPresets((persistentState.userPresets ?? []).map {AudioUnitPreset(persistentState: $0)})
     }
     
     func nodeBypassStateChanged(_ nodeIsBypassed: Bool) {
@@ -133,24 +133,8 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     var persistentState: AudioUnitState {
 
-        let unitState = AudioUnitState()
-
-        unitState.state = state
-        
-        unitState.componentType = Int(self.node.componentType)
-        unitState.componentSubType = Int(self.node.componentSubType)
-        
-        for (address, value) in self.params {
-            
-            let paramState = AudioUnitParameterState()
-            paramState.address = address
-            paramState.value = value
-            
-            unitState.params.append(paramState)
-        }
-        
-        unitState.userPresets = presets.userDefinedPresets
-
-        return unitState
+        return AudioUnitState(componentType: node.componentType, componentSubType: node.componentSubType,
+                                       params: self.params.map {AudioUnitParameterState(address: $0.key, value: $0.value)}, state: self.state,
+                                       userPresets: presets.userDefinedPresets.map {AudioUnitPresetState(preset: $0)})
     }
 }

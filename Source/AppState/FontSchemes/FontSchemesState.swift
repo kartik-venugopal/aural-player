@@ -37,8 +37,6 @@ class FontSchemeState: PersistentStateProtocol {
     var playlist: PlaylistFontSchemeState?
     var effects: EffectsFontSchemeState?
 
-    init() {}
-
     // When saving app state to disk
     init(_ scheme: FontScheme) {
 

@@ -15,8 +15,8 @@ class PlaylistUIState: PersistentStateProtocol {
 
 extension PlaylistViewState {
     
-    static func initialize(_ persistentState: PlaylistUIState) {
-        currentView = persistentState.view ?? PlaylistViewDefaults.currentView
+    static func initialize(_ persistentState: PlaylistUIState?) {
+        currentView = persistentState?.view ?? PlaylistViewDefaults.currentView
     }
     
     static var persistentState: PlaylistUIState {
