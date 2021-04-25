@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E03276E263132E100D99522 /* TuneBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E03276D263132E100D99522 /* TuneBrowser.xib */; };
+		3E0ED09F2635992200B90EB2 /* DictionaryFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0ED09E2635992200B90EB2 /* DictionaryFunctions.swift */; };
 		3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */; };
 		3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */; };
 		3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */; };
@@ -646,6 +647,7 @@
 
 /* Begin PBXFileReference section */
 		3E03276D263132E100D99522 /* TuneBrowser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TuneBrowser.xib; sourceTree = "<group>"; };
+		3E0ED09E2635992200B90EB2 /* DictionaryFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryFunctions.swift; sourceTree = "<group>"; };
 		3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo-Medium.ttf"; sourceTree = "<group>"; };
 		3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CarroisGothicSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metamorphous-Regular.ttf"; sourceTree = "<group>"; };
@@ -2629,6 +2631,7 @@
 				3EA331B426330B4800873244 /* TuneBrowserPersistentState.swift */,
 				3E773021263471E9004F202E /* FavoriteState.swift */,
 				3E55AC1326352E9600248679 /* PlaybackProfileState.swift */,
+				3E0ED09E2635992200B90EB2 /* DictionaryFunctions.swift */,
 			);
 			path = AppState;
 			sourceTree = "<group>";
@@ -3854,6 +3857,7 @@
 				3E6C131425CEBE8F00BF0D07 /* AudioDataSource.swift in Sources */,
 				3E6C12F825CEBE8F00BF0D07 /* DetailedTrackInfoRowView.swift in Sources */,
 				3E6C132B25CEBEA000BF0D07 /* ConcurrencyUtils.swift in Sources */,
+				3E0ED09F2635992200B90EB2 /* DictionaryFunctions.swift in Sources */,
 				3E6C116A25CEBD6000BF0D07 /* EQPresets.swift in Sources */,
 				3E6C117425CEBD6000BF0D07 /* AppDefaults.swift in Sources */,
 				3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */,

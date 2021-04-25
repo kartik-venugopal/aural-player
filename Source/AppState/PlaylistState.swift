@@ -24,20 +24,14 @@ class PlaylistState: PersistentStateProtocol {
             self.groupingPlaylists = [:]
             
             if let artistsPlaylist = groupingPlaylistsMap.objectValue(forKey: "artists", ofType: GroupingPlaylistState.self) {
-                
-                artistsPlaylist._transient_type = "artists"
                 self.groupingPlaylists?["artists"] = artistsPlaylist
             }
             
             if let albumsPlaylist = groupingPlaylistsMap.objectValue(forKey: "albums", ofType: GroupingPlaylistState.self) {
-                
-                albumsPlaylist._transient_type = "albums"
                 self.groupingPlaylists?["albums"] = albumsPlaylist
             }
             
             if let genresPlaylist = groupingPlaylistsMap.objectValue(forKey: "genres", ofType: GroupingPlaylistState.self) {
-                
-                genresPlaylist._transient_type = "genres"
                 self.groupingPlaylists?["genres"] = genresPlaylist
             }
         }
@@ -46,16 +40,20 @@ class PlaylistState: PersistentStateProtocol {
 
 class GroupingPlaylistState: PersistentStateProtocol {
     
-    var _transient_type: String = ""
+    let type: String
     let groups: [GroupState]?
     
-    init(_transient_type: String, groups: [GroupState]) {
+    init(type: String, groups: [GroupState]) {
         
-        self._transient_type = _transient_type
+        self.type = type
         self.groups = groups
     }
     
     required init?(_ map: NSDictionary) {
+        
+        guard let type = map.nonEmptyStringValue(forKey: "type") else {return nil}
+        
+        self.type = type
         self.groups = map.arrayValue(forKey: "groups", ofType: GroupState.self)
     }
 }
@@ -101,7 +99,7 @@ extension Playlist: PersistentModelObject {
 extension GroupingPlaylist: PersistentModelObject {
     
     var persistentState: GroupingPlaylistState {
-        GroupingPlaylistState(_transient_type: self.playlistType.rawValue, groups: self.groups.map {$0.persistentState})
+        GroupingPlaylistState(type: self.playlistType.rawValue, groups: self.groups.map {$0.persistentState})
     }
 }
 

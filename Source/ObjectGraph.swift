@@ -6,8 +6,6 @@ import Foundation
 
 class ObjectGraph {
     
-    // TODO: Make these vars lazily loaded
-    
     static var lastPresentedAppMode: AppMode!
     
     static let preferences: Preferences = Preferences.instance
@@ -226,17 +224,20 @@ class ObjectGraph {
         persistentState.playbackSequence = (sequencer as! Sequencer).persistentState
         persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfileState(file: $0.file, lastPosition: $0.lastPosition)}
         
-        persistentState.ui? = UIState()
-        persistentState.ui?.appMode = AppModeManager.mode
-        persistentState.ui?.windowLayout = WindowLayoutState.persistentState
-        persistentState.ui?.themes = Themes.persistentState
-        persistentState.ui?.fontSchemes = FontSchemes.persistentState
-        persistentState.ui?.colorSchemes = ColorSchemes.persistentState
-        persistentState.ui?.player = PlayerViewState.persistentState
-        persistentState.ui?.playlist = PlaylistViewState.persistentState
-        persistentState.ui?.visualizer = VisualizerViewState.persistentState
-        persistentState.ui?.windowAppearance = WindowAppearanceState.persistentState
-        persistentState.ui?.menuBarPlayer = MenuBarPlayerViewState.persistentState
+        let uiState = UIState()
+        
+        uiState.appMode = AppModeManager.mode
+        uiState.windowLayout = WindowLayoutState.persistentState
+        uiState.themes = Themes.persistentState
+        uiState.fontSchemes = FontSchemes.persistentState
+        uiState.colorSchemes = ColorSchemes.persistentState
+        uiState.player = PlayerViewState.persistentState
+        uiState.playlist = PlaylistViewState.persistentState
+        uiState.visualizer = VisualizerViewState.persistentState
+        uiState.windowAppearance = WindowAppearanceState.persistentState
+        uiState.menuBarPlayer = MenuBarPlayerViewState.persistentState
+        
+        persistentState.ui = uiState
         
         persistentState.history = (historyDelegate as! HistoryDelegate).persistentState
         persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
@@ -254,6 +255,7 @@ class ObjectGraph {
 
         // Tear down the audio engine
         tearDownOpQueue.addOperation {
+            
             player.tearDown()
             audioGraph.tearDown()
         }

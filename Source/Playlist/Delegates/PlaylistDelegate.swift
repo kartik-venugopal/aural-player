@@ -12,7 +12,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     private let changeListeners: [PlaylistChangeListenerProtocol]
     
     // Persistent playlist state (used upon app startup)
-    private var persistentState: PlaylistState!
+    private var persistentState: PlaylistState?
     
     // User preferences (used for autoplay)
     private let preferences: Preferences
@@ -136,9 +136,9 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             self.collectTracks(files, false)
             self.addSessionTracks()
             
-            if reorderGroupingPlaylists {
+            if reorderGroupingPlaylists, let persistentState = self.persistentState {
                 
-                self.playlist.reOrder(accordingTo: self.persistentState)
+                self.playlist.reOrder(accordingTo: persistentState)
                 self.persistentState = nil
             }
             
@@ -408,9 +408,9 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
             addFiles_async(filesToOpen, AutoplayOptions(true), userAction: false)
-            
-        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch, let tracks = self.persistentState.tracks {
-            
+
+        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch, let tracks = self.persistentState?.tracks {
+
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
             addFiles_async(tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
             
