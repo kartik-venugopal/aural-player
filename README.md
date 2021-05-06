@@ -154,7 +154,7 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ## Known issues
 
-### 1 - The text is too small on my high resolution Mac screen !!!
+### 1 - The text is too small (not readable) on my high resolution Mac screen.
 
 The fix for this is easy. 
 
