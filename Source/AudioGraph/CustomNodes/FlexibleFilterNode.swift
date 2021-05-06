@@ -187,6 +187,14 @@ class FilterBand {
     static func bandStopBand(_ minFreq: Float, _ maxFreq: Float) -> FilterBand {
         return FilterBand(.bandStop, minFreq, maxFreq)
     }
+    
+    static func lowPassBand(_ maxFreq: Float) -> FilterBand {
+        return FilterBand(.lowPass, nil, maxFreq)
+    }
+    
+    static func highPassBand(_ minFreq: Float) -> FilterBand {
+        return FilterBand(.lowPass, minFreq, nil)
+    }
 }
 
 protocol FilterNodeProtocol {

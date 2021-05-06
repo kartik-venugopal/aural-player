@@ -1,35 +1,42 @@
 import Foundation
 
-extension NSDictionary {
+extension Dictionary where Key == String, Value == Any {
     
-    func intValue(forKey key: String) -> Int? {
-        (self[key] as? NSNumber)?.intValue
-    }
-    
-    func uint32Value(forKey key: String) -> UInt32? {
-        (self[key] as? NSNumber)?.uint32Value
-    }
-    
-    func uint64Value(forKey key: String) -> UInt64? {
-        (self[key] as? NSNumber)?.uint64Value
-    }
-    
-    func floatValue(forKey key: String) -> Float? {
-        (self[key] as? NSNumber)?.floatValue
-    }
-    
-    func floatArray(forKey key: String) -> [Float]? {
+    func enumValue<T: RawRepresentable>(forKey key: String, ofType: T.Type) -> T? where T.RawValue == String {
         
-        if let array = self[key] as? [NSNumber] {
-            return array.compactMap {$0.floatValue}
+        if let string = self[key] as? String {
+            return T(rawValue: string)
         }
         
         return nil
     }
+}
+
+extension NSDictionary {
+    
+    func intValue(forKey key: String) -> Int? {
+        self[key] as? Int
+    }
+    
+    func uint32Value(forKey key: String) -> UInt32? {
+        self[key] as? UInt32
+    }
+    
+    func uint64Value(forKey key: String) -> UInt64? {
+        self[key] as? UInt64
+    }
+    
+    func floatValue(forKey key: String) -> Float? {
+        self[key] as? Float
+    }
+    
+    func floatArrayValue(forKey key: String) -> [Float]? {
+        self[key] as? [Float]
+    }
     
     func cgFloatValue(forKey key: String) -> CGFloat? {
         
-        if let floatValue = (self[key] as? NSNumber)?.floatValue {
+        if let floatValue = self[key] as? Float {
             return CGFloat(floatValue)
         }
         
@@ -37,7 +44,7 @@ extension NSDictionary {
     }
     
     func doubleValue(forKey key: String) -> Double? {
-        (self[key] as? NSNumber)?.doubleValue
+        self[key] as? Double
     }
     
     func stringValue(forKey key: String) -> String? {

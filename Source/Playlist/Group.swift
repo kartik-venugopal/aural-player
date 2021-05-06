@@ -35,8 +35,6 @@ class Group: Hashable, PlaylistItem {
         return (lhs.type == rhs.type) && (lhs.name == rhs.name)
     }
     
-    func allTracks() -> [Track] {tracks}
-    
     // Number of tracks
     var size: Int {tracks.count}
     

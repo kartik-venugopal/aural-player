@@ -213,7 +213,8 @@ class Playlist: PlaylistCRUDProtocol {
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults {
         
         // Flatten the groups into their tracks, removing duplicates (the same track being added individually and from its parent group)
-        let removedTracks: [Track] = Array(Set(tracks + groups.flatMap {$0.allTracks()}))
+        let removedTracksSet: Set<Track> = Set(tracks + groups.flatMap {$0.tracks})
+        let removedTracks: [Track] = Array(removedTracksSet)
         
         // Remove secondary state associated with these tracks
         removedTracks.forEach {
@@ -233,7 +234,8 @@ class Playlist: PlaylistCRUDProtocol {
         // Remove from flat playlist
         let flatPlaylistResults: IndexSet = flatPlaylist.removeTracks(removedTracks)
         
-        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistResults, tracks: Set(removedTracks))
+        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults,
+                                   flatPlaylistResults: flatPlaylistResults, tracks: removedTracksSet)
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {

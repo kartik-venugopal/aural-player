@@ -5,17 +5,18 @@ import AVFoundation
 
 class AppStateIO {
     
+    static let persistentStateFile: URL = AppConstants.FilesAndPaths.persistentStateFile
+    
     // Saves app state to default user documents directory
     static func save(_ state: PersistentAppState) {
         
         FileSystemUtils.createDirectory(AppConstants.FilesAndPaths.baseDir)
         
         let jsonObject = JSONMapper.map(state)
-        let file = AppConstants.FilesAndPaths.persistentStateFile
         
         do {
             
-            try JSONWriter.writeObject(jsonObject, file, true)
+            try JSONWriter.writeObject(jsonObject, persistentStateFile, true)
             
         } catch let error as NSError {
            NSLog("Error saving app state config file: %@", error.description)
@@ -25,7 +26,7 @@ class AppStateIO {
     // Loads app state from default user documents directory
     static func load() -> PersistentAppState? {
         
-        if let inputStream = InputStream(url: AppConstants.FilesAndPaths.persistentStateFile) {
+        if let inputStream = InputStream(url: persistentStateFile) {
             
             inputStream.open()
             

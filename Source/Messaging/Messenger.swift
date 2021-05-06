@@ -294,36 +294,6 @@ class Messenger {
     }
 }
 
-/*
-    A contract for all subscribers of notifications
- */
-protocol NotificationSubscriber {
-    
-    // A unique identifer for this subscriber (typically the class name and some instance identifier like hashValue)
-    var subscriberId: String {get}
-}
-
-// Default implementations
-extension NotificationSubscriber {
-    
-    // CAUTION - For implementation classes of which multiple instances are subscribers, ensure that hashValue is unique across all those instances.
-    
-    // Default implementation of subscriberId.
-    // NOTE - Subscribers should always override this implementation if they are not an NSObject and not a singleton instance.
-    var subscriberId: String {
-        
-        let className = String(describing: Mirror(reflecting: self).subjectType)
-        
-        // If the subscriber is an NSObject, its hashValue is appended to the subscriberId to provide more uniqueness.
-        if let object = self as? NSObject {
-            return String(format: "%@-%ld", className, object.hashValue)
-        }
-        
-        // For singleton objects, the className will suffice as a unique subscriberId.
-        return className
-    }
-}
-
 extension Notification {
     
     // A designated key used when accessing a notification payload object inside the userInfo map.
@@ -334,11 +304,10 @@ extension Notification {
     // map without having to refer to userInfo explicitly.
     var payload: Any? {
         
-        get {
-            return userInfo?[Notification.userInfoKey_payload]
+        get {userInfo?[Notification.userInfoKey_payload]
         }
         
-        set(newValue) {
+        set {
             
             if let theValue = newValue {
                 
