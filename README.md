@@ -60,6 +60,8 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 ### Compatibility
 
+**NOTE - Machines with M1 processors are NOT supported yet (hopefully soon).**
+
 **User**: macOS 10.12 (Sierra) or later versions.
 
 [Latest release](https://github.com/maculateConception/aural-player/releases/latest)
