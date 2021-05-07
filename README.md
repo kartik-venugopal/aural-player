@@ -2,7 +2,7 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
-** Update (May 7, 2021) **
+## Update (May 7, 2021)
 
 Since I do not have access to M1 hardware, and my hardware is unable to run macOS Big Sur in it current unusable state, I will not be pushing out any further updates to Aural Player for the time being, at least not any updates relevant to Big Sur or M1 hardware.
 
