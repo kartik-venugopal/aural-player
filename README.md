@@ -2,6 +2,12 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
+** Update (May 7, 2021) **
+
+Since I do not have access to M1 hardware, and my hardware is unable to run macOS Big Sur in it current unusable state, I will not be pushing out any further updates to Aural Player for the time being, at least not any updates relevant to Big Sur or M1 hardware.
+
+I leave it as an exercise for those interested to get Aural Player ready to run on M1 hardware. This will require building universal ffmpeg shared libraries that are capable of running on both x86_64 and arm64 architectures.
+
 ## Table of Contents
   * [Overview](#overview)
   * [Summary of features](#summary-of-features)
