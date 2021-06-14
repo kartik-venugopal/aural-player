@@ -4,7 +4,7 @@
 
 ### Update (June 15, 2021)
 
-** Support for M1 machines coming soon ! **
+**Support for M1 machines coming soon !**
 
 I have finally figured out how to build universal FFmpeg binaries and resolve other issues relevant to arm64 (M1) builds. I should be able to put out a working release for M1 machines (i.e. a universal build that runs on both Intel and M1 Macs) pretty soon. Stay tuned !
 
@@ -66,7 +66,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 ### Compatibility
 
-** Support for M1 machines coming soon ! **
+**Support for M1 machines coming soon !**
 
 **User**: macOS 10.12 (Sierra) or later versions.
 
