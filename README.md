@@ -6,7 +6,7 @@
 
 **Support for M1 machines coming soon !**
 
-I have finally figured out how to build universal FFmpeg binaries and resolve other issues relevant to arm64 (M1) builds. I should be able to put out a working release for M1 machines (i.e. a universal build that runs on both Intel and M1 Macs) pretty soon. Stay tuned !
+I have finally figured out how to build universal FFmpeg binaries and have resolved other issues relevant to arm64 (M1) builds. I should be able to put out a working release pretty soon. Stay tuned !
 
 ## Table of Contents
   * [Overview](#overview)
