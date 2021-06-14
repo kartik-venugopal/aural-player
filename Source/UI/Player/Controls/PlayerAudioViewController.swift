@@ -33,6 +33,11 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     
     override func viewDidLoad() {
         
+        // Ugly hack to properly align pan slider on Big Sur.
+        if SystemUtils.isBigSur {
+            panSlider.moveUp(distance: 3)
+        }
+        
         autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
         

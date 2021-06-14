@@ -86,11 +86,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         // Hackish fix to properly position settings menu button (hamburger icon) on older systems.
         if !SystemUtils.isBigSur {
-            
-            var frame = btnSettingsMenu.frame
-            frame.origin.y += 1
-            
-            btnSettingsMenu.setFrameOrigin(frame.origin)
+            btnSettingsMenu.moveUp(distance: 1)
         }
     }
     

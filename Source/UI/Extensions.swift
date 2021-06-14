@@ -95,6 +95,10 @@ extension NSView {
         self.bottomAnchor.constraint(equalTo: otherView.bottomAnchor)])
     }
     
+    func moveUp(distance: CGFloat) {
+        frame.origin.y += distance
+    }
+    
     // MARK - Static functions
     
     static func showViews(_ views: NSView...) {
