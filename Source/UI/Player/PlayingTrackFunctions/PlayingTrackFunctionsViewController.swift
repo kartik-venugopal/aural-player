@@ -70,8 +70,6 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
-        
-        self.view.hide()
     }
     
     func destroy() {
@@ -269,8 +267,6 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
             // No track playing, clear the info fields
             noTrackPlaying()
         }
-        
-        self.view.showIf(newTrack != nil)
     }
     
     private func applyTheme() {

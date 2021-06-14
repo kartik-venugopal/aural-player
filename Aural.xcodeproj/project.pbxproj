@@ -1136,7 +1136,6 @@
 		3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlmendraSC-Regular.ttf"; sourceTree = "<group>"; };
 		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
 		3ED4FE38260A274100C50609 /* MusicBrainzCacheState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCacheState.swift; sourceTree = "<group>"; };
-		3ED983F626260AF700E3A936 /* unused.rb */ = {isa = PBXFileReference; lastKnownFileType = text.script.ruby; path = unused.rb; sourceTree = "<group>"; };
 		3EDB334925E8AD89004DF7DE /* libswresample.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libswresample.3.dylib; sourceTree = "<group>"; };
 		3EDB334A25E8AD89004DF7DE /* libavformat.58.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libavformat.58.dylib; sourceTree = "<group>"; };
 		3EDB334B25E8AD89004DF7DE /* libavutil.56.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libavutil.56.dylib; sourceTree = "<group>"; };
@@ -1466,7 +1465,6 @@
 				3EDB334825E8AD89004DF7DE /* Frameworks */,
 				3E427EC525D9065F00465569 /* Documentation */,
 				3E6C0EC025CEB3ED00BF0D07 /* Products */,
-				3ED983F626260AF700E3A936 /* unused.rb */,
 				3E6C0EC925CEB3EE00BF0D07 /* Info.plist */,
 			);
 			sourceTree = "<group>";
@@ -3938,7 +3936,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.12.0;
+				CURRENT_PROJECT_VERSION = 2.13.0;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
 				INFOPLIST_FILE = Info.plist;
@@ -3948,7 +3946,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.12.0;
+				MARKETING_VERSION = 2.13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";
@@ -3967,7 +3965,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.12.0;
+				CURRENT_PROJECT_VERSION = 2.13.0;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
 				INFOPLIST_FILE = Info.plist;
@@ -3977,7 +3975,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 2.12.0;
+				MARKETING_VERSION = 2.13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";
