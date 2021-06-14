@@ -2725,9 +2725,9 @@
 		3E6C114D25CEB9C100BF0D07 /* ffmpeg */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C115225CEB9C100BF0D07 /* README.txt */,
 				3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */,
 				3E6C115025CEB9C100BF0D07 /* ffmpeg-sourceCode.bz2 */,
-				3E6C115225CEB9C100BF0D07 /* README.txt */,
 			);
 			path = ffmpeg;
 			sourceTree = "<group>";

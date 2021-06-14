@@ -1,20 +1,29 @@
-Pre-requisites (need to be installed on this system to build FFmpeg):
-
-1 - Homebrew (Download instructions here: https://brew.sh/)
-2 - nasm - assembler for x86 (Run "brew install nasm" ... after installing Homebrew)
-3 - clang - C compiler (Run "xcode-select --install")
-
-Instructions to build FFmpeg shared libaries (.dylib) from source.
+Instructions to build universal FFmpeg shared libaries (.dylib) from source.
+These binaries can run on both Intel x86_64 and arm64 (i.e. M1) architectures.
 
 NOTE - Pay attention to licensing requirements / considerations if / when distributing these libraries.
 
-1 - Open a terminal window
+Pre-requisites (need to be installed on this system):
+
+1 - Xcode 12.2 or a later version. macOS SDK version must be 11.0 or greater (for arm64).
+2 - Homebrew (Instructions here: https://brew.sh/)
+3 - nasm - assembler for x86 (Run "brew install nasm" ... after installing Homebrew)
+4 - clang - C compiler (Run "xcode-select --install")
+5 - pkg-config (Run "brew install pkg-config")
+
+Steps:
+
+1 - Open a terminal window.
 
 2 - cd to the directory containing this README.txt file (and the FFmpeg build script and source code archive). This step is important. The build script will assume that you have done this and will not work otherwise.
 
-3 - Run "./build-ffmpeg.sh" and wait till it is finished executing
+3 - Run "./build-ffmpeg.sh" and wait till it is finished executing. It should take approximately 12 - 15 minutes.
 
-4 - The newly built FFmpeg shared libraries will be in the subdirectory "sharedLibs"
-(there should be 4: 1 - libavcodec.(version).dylib, 2 - libavformat.(version).dylib, 3 - libavutil.(version).dylib, 4 - libswresample.(version).dylib)
+4 - The newly built FFmpeg shared libraries will be in the subdirectory "sharedLibs". There should be 4 of them:
 
-5 - Copy the shared libraries into the Frameworks group in the Xcode project (replace existing files).
+    1 - libavcodec.(version).dylib
+    2 - libavformat.(version).dylib
+    3 - libavutil.(version).dylib
+    4 - libswresample.(version).dylib)
+    
+5 - Copy the shared libraries into the "Frameworks" group in the Xcode project (replace existing files).

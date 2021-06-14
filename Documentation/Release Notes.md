@@ -1,33 +1,20 @@
-#  What's New in Version 2.12.0
+#  What's New in Version 2.13.0
 
-## Menu bar player mode
+## M1 (arm64 architecture) support with universal binary
 
-Aural Player can now run in the macOS menu bar. This is useful for reducing desktop clutter or for running Aural Player in a "lightweight" less resource-intensive or "background" mode. CPU and memory usage will be reduced when running in menu bar mode. 
+This is the first working release for Macs with the new M1 arm64-based chips. 
 
-A typical use case for this feature is when the playlist has been created and sound settings have been set, and the user wants to play the playlist without needing to interact frequently with the application.
+This build and all subsequent app release builds will be universal binaries, i.e. capable of running on both Intel Macs and newer M1 Macs.
 
-The app can be easily and seamlessly switched between the regular windowed mode and the new menu bar mode as follows:
+This release is functionally identical to v2.12.1, i.e. no new features have been added. The sole purpose of this release is to provide M1 support.
 
-* **When in windowed mode**:  Click the "Switch to menu bar mode" button at the top left corner of the main player window, to switch to menu bar mode.
-* **When in menu bar mode**:  Click the "Switch to windowed mode" button at the top left corner of the menu bar player, to switch to windowed mode.
+## Feedback requested
 
-#### Player view settings
+Since I do not have access to M1 hardware, I cannot personally confirm that this build works on M1 machines. 
 
-You can control what track information is displayed (eg. artist / album / cover art, etc) by clicking the hamburger icon button at the top right corner of the menu bar player view. This will open / close the view settings menu.
+I would greatly appreciate feedback on this build from users with M1 machines, letting me know if it works. Thanks. 
 
-### Limited functions / settings available in menu bar mode
-
-Note that when running the app in menu bar mode, you will have access to only the most essential player functions like changing tracks, seeking, repeat / shuffle / looping, volume control, and a few view settings (described in the above section). This is by design ... the menu bar mode is meant to be as simple and lightweight as possible. For more customization or to access more functionality, the app can be run in the regular windowed mode.
-
-## Performance improvements
-
-### Improved lazy window loading
-
-All application windows / dialogs are now lazily loaded only when they are actually required. This speeds up app startup time and reduces unnecessary CPU / memory usage.
-
-### Fixed memory leaks
-
-Fixed a lot of memory leaks present in the UI, so that views, windows, and model objects are properly released when switching between windowed and menu bar modes.
+You may contact the developer on [Twitter](https://twitter.com/AuralPlayer) or by [email](mailto:aural.student@gmail.com). You can also file an issue here on GitHub. 
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.12.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/2.13.0)
