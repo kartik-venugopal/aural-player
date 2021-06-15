@@ -16,7 +16,7 @@ export avutilLib="libavutil.${avutilVersion}.dylib"
 export swresampleLib="libswresample.${swresampleVersion}.dylib"
 
 # The name of the FFmpeg source archive file.
-export srcArchiveName="ffmpeg-sourceCode.bz2"
+export srcArchiveName="ffmpeg-${ffmpegVersion}.tar.bz2"
 
 # The name of the FFmpeg source directory (once the archive has been uncompressed).
 export srcDirName="ffmpeg-${ffmpegVersion}"

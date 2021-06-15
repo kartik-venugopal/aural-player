@@ -1082,7 +1082,6 @@
 		3E6C113E25CEB98700BF0D07 /* RecorderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderDelegate.swift; sourceTree = "<group>"; };
 		3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlegreyaSansSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-ffmpeg.sh"; sourceTree = "<group>"; };
-		3E6C115025CEB9C100BF0D07 /* ffmpeg-sourceCode.bz2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ffmpeg-sourceCode.bz2"; sourceTree = "<group>"; };
 		3E6C115225CEB9C100BF0D07 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E6C115325CEB9C100BF0D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E7572EC2609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzCoverArtArchive.swift; sourceTree = "<group>"; };
@@ -2727,7 +2726,6 @@
 			children = (
 				3E6C115225CEB9C100BF0D07 /* README.txt */,
 				3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */,
-				3E6C115025CEB9C100BF0D07 /* ffmpeg-sourceCode.bz2 */,
 			);
 			path = ffmpeg;
 			sourceTree = "<group>";
@@ -3129,7 +3127,6 @@
 				3E6C0EBC25CEB3ED00BF0D07 /* Frameworks */,
 				3E6C0EBD25CEB3ED00BF0D07 /* Resources */,
 				3EDB340725E8AEB3004DF7DE /* Embed Libraries */,
-				3ED983F526260ACC00E3A936 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3270,26 +3267,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3ED983F526260ACC00E3A936 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "file=\"unused.rb\"\n\nif [ -f \"$file\" ]\n\nthen\n\necho \"$file found.\"ruby unused.rb xcode\n\nelse\n\necho \"unused.rb doesn't exist\"\n\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E6C0EBB25CEB3ED00BF0D07 /* Sources */ = {
