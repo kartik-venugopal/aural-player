@@ -22,19 +22,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView focusRingType="none" appearanceType="darkAqua" borderType="none" autohidesScrollers="YES" horizontalLineScroll="34" horizontalPageScroll="10" verticalLineScroll="34" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K58-n2-zaU" userLabel="Playlist Albums View">
-                    <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
+                    <rect key="frame" x="0.0" y="0.0" width="420" height="173"/>
                     <clipView key="contentView" focusRingType="none" copiesOnScroll="NO" id="L4D-0W-akw">
-                        <rect key="frame" x="0.0" y="0.0" width="443" height="173"/>
+                        <rect key="frame" x="0.0" y="0.0" width="420" height="173"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" tableStyle="plain" columnReordering="NO" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="16" outlineTableColumn="fuY-IV-I6h" id="zOt-gt-mXm" userLabel="Playlist Albums View" customClass="AuralPlaylistOutlineView" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="458" height="173"/>
+                                <rect key="frame" x="0.0" y="0.0" width="486" height="173"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="4"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="deviceWhite"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_Name" width="372" minWidth="322" maxWidth="10000" id="fuY-IV-I6h" userLabel="Album">
+                                    <tableColumn identifier="cid_Name" width="400" minWidth="370" maxWidth="10000" id="fuY-IV-I6h" userLabel="Album">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -47,7 +47,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="VOq-Bg-6l2" customClass="GroupedItemNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="2" width="377" height="30"/>
+                                                <rect key="frame" x="1" y="2" width="400" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <imageView identifier="Icon" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="15c-ix-5A0" userLabel="Icon">
@@ -59,7 +59,7 @@
                                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="885-tl-72K"/>
                                                     </imageView>
                                                     <textField identifier="TrackName" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="GZi-f8-q8M" userLabel="Track Name">
-                                                        <rect key="frame" x="28" y="0.0" width="351" height="30"/>
+                                                        <rect key="frame" x="28" y="0.0" width="374" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="KvR-EV-FDa"/>
                                                         </constraints>
@@ -97,11 +97,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView focusRingType="none" id="4CH-bK-zT1" customClass="GroupedItemDurationCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="376" y="2" width="84" height="30"/>
+                                                <rect key="frame" x="404" y="2" width="80" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="nIb-9O-Jw2" userLabel="Duration">
-                                                        <rect key="frame" x="-7" y="0.0" width="88" height="30"/>
+                                                        <rect key="frame" x="-7" y="0.0" width="84" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="PU9-6j-ux6"/>
                                                         </constraints>

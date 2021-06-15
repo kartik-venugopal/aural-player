@@ -17,7 +17,7 @@ class AudioDataSource: TrackInfoDataSource {
             trackInfo.append((key: "Codec", value: codec))
         }
         
-        trackInfo.append((key: "Track Duration", value: ValueFormatter.formatSecondsToHMS(track.duration)))
+        trackInfo.append((key: "Duration", value: ValueFormatter.formatSecondsToHMS(track.duration)))
         
         if let bitRate = track.audioInfo?.bitRate {
             
