@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -36,12 +36,12 @@
                 <scrollView fixedFrame="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j8U-Uo-cLm">
                     <rect key="frame" x="70" y="22" width="421" height="118"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <clipView key="contentView" id="Rf5-tM-f2s">
+                    <clipView key="contentView" copiesOnScroll="NO" id="Rf5-tM-f2s">
                         <rect key="frame" x="1" y="1" width="404" height="116"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" id="IHZ-s3-hWQ">
-                                <rect key="frame" x="0.0" y="0.0" width="421" height="116"/>
+                            <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="none" tableStyle="plain" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="automatic" viewBased="YES" id="IHZ-s3-hWQ">
+                                <rect key="frame" x="0.0" y="0.0" width="411" height="116"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="2" height="0.0"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -60,7 +60,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="PkN-pY-SqV" customClass="AudioUnitSwitchCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="11" y="0.0" width="30" height="24"/>
+                                                <rect key="frame" x="1" y="0.0" width="30" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button wantsLayer="YES" id="uQG-Ce-H9z" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
@@ -91,7 +91,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="1jH-Wo-xoL" customClass="AudioUnitNameCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="43" y="0.0" width="355" height="24"/>
+                                                <rect key="frame" x="28" y="0.0" width="355" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="1jO-gX-HEt">
@@ -130,7 +130,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="r9Q-eF-PCd" customClass="AudioUnitEditCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="400" y="0.0" width="30" height="24"/>
+                                                <rect key="frame" x="385" y="0.0" width="30" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <button toolTip="Audio Unit settings" wantsLayer="YES" id="jrf-Hh-PYN" userLabel="Edit Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
