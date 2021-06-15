@@ -1792,8 +1792,8 @@
 		3E6C0F6A25CEB98600BF0D07 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F6B25CEB98600BF0D07 /* FavoritesEditorViewController.swift */,
 				3E6C0F6C25CEB98600BF0D07 /* FavoritesEditor.xib */,
+				3E6C0F6B25CEB98600BF0D07 /* FavoritesEditorViewController.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -1883,8 +1883,8 @@
 		3E6C0F8925CEB98600BF0D07 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F8A25CEB98600BF0D07 /* BookmarksEditorViewController.swift */,
 				3E6C0F8B25CEB98600BF0D07 /* BookmarksEditor.xib */,
+				3E6C0F8A25CEB98600BF0D07 /* BookmarksEditorViewController.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
