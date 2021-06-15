@@ -17,7 +17,7 @@ Steps:
 
 2 - cd to the directory containing this README.txt file (and the FFmpeg build script and source code archive). This step is important. The build script will assume that you have done this and will not work otherwise.
 
-3 - Run "./build-ffmpeg.sh" and wait till it is finished executing. It should take approximately 12 - 15 minutes.
+3 - Run "./build-ffmpeg.sh" and wait till it is finished executing.
 
 4 - The newly built FFmpeg shared libraries will be in the subdirectory "sharedLibs". There should be 4 of them:
 
@@ -26,4 +26,9 @@ Steps:
     3 - libavutil.(version).dylib
     4 - libswresample.(version).dylib)
     
-5 - Copy the shared libraries into the "Frameworks" group in the Xcode project (replace existing files).
+5 - (Optional) Using the lipo command, verify that the dylibs are indeed universal, supporting both x86_64 and arm64 architectures.
+
+    Example command:    "lipo -info sharedLibs/libavcodec.58.dylib"
+    Example output:     "Architectures in the fat file: sharedLibs/libavcodec.58.dylib are: x86_64 arm64"
+    
+6 - Copy the shared libraries into the "Frameworks" group in the Xcode project (replace existing files).
