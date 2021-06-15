@@ -65,17 +65,17 @@ class GroupingPlaylistRowView: PlaylistRowView {
     
     override func didAddSubview(_ subview: NSView) {
         
-        if SystemUtils.isBigSur, let disclosureButton = subview as? NSButton {
-        
+        if let disclosureButton = subview as? NSButton {
+            
             disclosureButton.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-              disclosureButton.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-              disclosureButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+                disclosureButton.topAnchor.constraint(equalTo: topAnchor, constant: SystemUtils.isBigSur ? 12 : 9),
+                disclosureButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
             ])
-      }
-      
-      super.didAddSubview(subview)
+        }
+        
+        super.didAddSubview(subview)
     }
 }
 

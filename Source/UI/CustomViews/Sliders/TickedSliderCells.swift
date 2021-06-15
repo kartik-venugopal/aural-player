@@ -7,9 +7,9 @@ import Cocoa
 // Base class for all ticked horizontal slider cells
 class TickedSliderCell: HorizontalSliderCell {
     
-    var tickVerticalSpacing: CGFloat {return 1}
-    var tickWidth: CGFloat {return 2}
-    var tickColor: NSColor {return Colors.sliderNotchColor}
+    var tickVerticalSpacing: CGFloat {1}
+    var tickWidth: CGFloat {2}
+    var tickColor: NSColor {Colors.sliderNotchColor}
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
@@ -53,12 +53,12 @@ class TickedSliderCell: HorizontalSliderCell {
 // Cell for pan slider
 class PanTickedSliderCell: TickedSliderCell {
     
-    override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
+    override var barRadius: CGFloat {1}
+    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
     
-    override var knobWidth: CGFloat {return 6}
-    override var knobRadius: CGFloat {return 0.5}
-    override var knobHeightOutsideBar: CGFloat {return 1.5}
+    override var knobWidth: CGFloat {6}
+    override var knobRadius: CGFloat {0.5}
+    override var knobHeightOutsideBar: CGFloat {1.5}
     
     // Draw entire bar with single gradient
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
@@ -106,20 +106,20 @@ class PanTickedSliderCell: TickedSliderCell {
 // Cell for all ticked effects sliders
 class EffectsTickedSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
-    override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
+    override var barRadius: CGFloat {1.5}
+    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
     
-    override var knobWidth: CGFloat {return 10}
-    override var knobRadius: CGFloat {return 1}
-    override var knobHeightOutsideBar: CGFloat {return 1.5}
+    override var knobWidth: CGFloat {10}
+    override var knobRadius: CGFloat {1}
+    override var knobHeightOutsideBar: CGFloat {1.5}
     
     override var knobColor: NSColor {
         return Colors.Effects.sliderKnobColorForState(self.unitState)
     }
     
-    override var tickColor: NSColor {return Colors.Effects.sliderTickColor}
+    override var tickColor: NSColor {Colors.Effects.sliderTickColor}
     
-    override var tickVerticalSpacing: CGFloat {return 1}
+    override var tickVerticalSpacing: CGFloat {1}
     
     override var backgroundGradient: NSGradient {
         return Colors.Effects.sliderBackgroundGradient
@@ -165,7 +165,7 @@ class EffectsTickedSliderPreviewCell: EffectsTickedSliderCell {
         }
     }
     
-    override var tickColor: NSColor {return Colors.Effects.defaultTickColor}
+    override var tickColor: NSColor {Colors.Effects.defaultTickColor}
     
     override var backgroundGradient: NSGradient {
         return Colors.Effects.defaultSliderBackgroundGradient

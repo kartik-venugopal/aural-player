@@ -145,7 +145,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         // Constraints
-        cell.reActivateConstraints(imgViewCenterY: -1, imgViewLeading: 8, textFieldLeading: 5)
+        cell.reActivateConstraints(imgViewCenterY: -1, imgViewLeading: 11, textFieldLeading: 5)
         
         return cell
     }

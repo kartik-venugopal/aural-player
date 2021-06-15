@@ -9,19 +9,19 @@ class HorizontalSliderCell: NSSliderCell {
     
     // TODO: Apply logic from SeekSliderCell.drawKnob and knobRect here in this class (so that all sliders can benefit from it)
     
-    var barRadius: CGFloat {return 1}
+    var barRadius: CGFloat {1}
     
-    var backgroundGradient: NSGradient {return Colors.Player.sliderBackgroundGradient}
-    var foregroundGradient: NSGradient {return Colors.Player.sliderForegroundGradient}
-    var gradientDegrees: CGFloat {return UIConstants.horizontalGradientDegrees}
+    var backgroundGradient: NSGradient {Colors.Player.sliderBackgroundGradient}
+    var foregroundGradient: NSGradient {Colors.Player.sliderForegroundGradient}
+    var gradientDegrees: CGFloat {UIConstants.horizontalGradientDegrees}
     
-    var barInsetX: CGFloat {return 0}
-    var barInsetY: CGFloat {return 0}
+    var barInsetX: CGFloat {0}
+    var barInsetY: CGFloat {0}
     
-    var knobWidth: CGFloat {return 10}
-    var knobHeightOutsideBar: CGFloat {return 2}
-    var knobRadius: CGFloat {return 1}
-    var knobColor: NSColor {return Colors.Player.sliderKnobColor}
+    var knobWidth: CGFloat {10}
+    var knobHeightOutsideBar: CGFloat {2}
+    var knobRadius: CGFloat {1}
+    var knobColor: NSColor {Colors.Player.sliderKnobColor}
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
@@ -62,12 +62,11 @@ class HorizontalSliderCell: NSSliderCell {
 // Cell for volume slider
 class VolumeSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
+    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
     
-    override var knobWidth: CGFloat {return 6}
-    override var knobRadius: CGFloat {return 0.5}
-    override var knobHeightOutsideBar: CGFloat {return 1.5}
+    override var knobWidth: CGFloat {6}
+    override var knobRadius: CGFloat {0.5}
+    override var knobHeightOutsideBar: CGFloat {1.5}
     
     override func knobRect(flipped: Bool) -> NSRect {
         
@@ -86,9 +85,9 @@ class VolumeSliderCell: HorizontalSliderCell {
 
 class MenuBarVolumeSliderCell: VolumeSliderCell {
     
-    override var knobColor: NSColor {return Colors.Constants.white70Percent}
-    override var barRadius: CGFloat {return 0}
-    override var knobRadius: CGFloat {return 0}
+    override var knobColor: NSColor {Colors.Constants.white70Percent}
+    override var barRadius: CGFloat {0}
+    override var knobRadius: CGFloat {0}
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
         
@@ -96,12 +95,10 @@ class MenuBarVolumeSliderCell: VolumeSliderCell {
         let halfKnobWidth = knobFrame.width / 2
         
         let leftRect = NSRect(x: aRect.minX, y: aRect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: aRect.height)
-
         Colors.Constants.white70Percent.setFill()
         leftRect.fill()
         
         let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: aRect.minY, width: aRect.width - (knobFrame.maxX - halfKnobWidth), height: aRect.height)
-        
         Colors.Constants.white30Percent.setFill()
         rightRect.fill()
     }
@@ -119,12 +116,11 @@ struct PlaybackLoopRange {
 // Cell for seek position slider
 class SeekSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 1}
-    override var barInsetY: CGFloat {return SystemUtils.isBigSur ? 0 : 0.5}
+    override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
     
-    override var knobRadius: CGFloat {return 1}
-    override var knobWidth: CGFloat {return 10}
-    override var knobHeightOutsideBar: CGFloat {return 2}
+    override var knobRadius: CGFloat {1}
+    override var knobWidth: CGFloat {10}
+    override var knobHeightOutsideBar: CGFloat {2}
     
     var loopColor: NSColor {Colors.Player.seekBarLoopColor}
     
@@ -155,7 +151,8 @@ class SeekSliderCell: HorizontalSliderCell {
         let halfKnobWidth = knobFrame.width / 2
         
         let leftRect = NSRect(x: rect.minX, y: rect.minY, width: max(halfKnobWidth, knobFrame.minX + halfKnobWidth), height: rect.height)
-        foregroundGradient.draw(in: leftRect, angle: gradientDegrees)
+        let path = NSBezierPath(roundedRect: leftRect, xRadius: barRadius, yRadius: barRadius)
+        foregroundGradient.draw(in: path, angle: gradientDegrees)
     }
     
     func drawRightRect(inRect rect: NSRect, knobFrame: NSRect) {
@@ -163,7 +160,8 @@ class SeekSliderCell: HorizontalSliderCell {
         let halfKnobWidth = knobFrame.width / 2
         
         let rightRect = NSRect(x: knobFrame.maxX - halfKnobWidth, y: rect.minY, width: rect.width - (knobFrame.maxX - halfKnobWidth), height: rect.height)
-        backgroundGradient.draw(in: rightRect, angle: gradientDegrees)
+        let path = NSBezierPath(roundedRect: rightRect, xRadius: barRadius, yRadius: barRadius)
+        backgroundGradient.draw(in: path, angle: gradientDegrees)
     }
     
     override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
@@ -263,13 +261,13 @@ class MenuBarSeekSliderCell: SeekSliderCell {
 // Cell for sliders on the Preferences panel
 class PreferencesSliderCell: HorizontalSliderCell {
     
-    override var barRadius: CGFloat {return 1.5}
-    override var barInsetY: CGFloat {return 0.5}
+    override var barRadius: CGFloat {1.5}
+    override var barInsetY: CGFloat {0.5}
     
-    override var backgroundGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
-    override var foregroundGradient: NSGradient {return Colors.Effects.defaultSliderBackgroundGradient}
+    override var backgroundGradient: NSGradient {Colors.Effects.defaultSliderBackgroundGradient}
+    override var foregroundGradient: NSGradient {Colors.Effects.defaultSliderBackgroundGradient}
     
-    override var knobColor: NSColor {return Colors.Constants.white80Percent}
+    override var knobColor: NSColor {Colors.Constants.white80Percent}
 }
 
 extension NSRect {
