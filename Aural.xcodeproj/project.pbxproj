@@ -1818,8 +1818,8 @@
 		3E6C0F6F25CEB98600BF0D07 /* Pitch */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7025CEB98600BF0D07 /* PitchPresetsEditorViewController.swift */,
 				3E6C0F7125CEB98600BF0D07 /* PitchPresetsEditor.xib */,
+				3E6C0F7025CEB98600BF0D07 /* PitchPresetsEditorViewController.swift */,
 			);
 			path = Pitch;
 			sourceTree = "<group>";
@@ -1827,8 +1827,8 @@
 		3E6C0F7225CEB98600BF0D07 /* EQ */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7325CEB98600BF0D07 /* EQPresetsEditorViewController.swift */,
 				3E6C0F7425CEB98600BF0D07 /* EQPresetsEditor.xib */,
+				3E6C0F7325CEB98600BF0D07 /* EQPresetsEditorViewController.swift */,
 			);
 			path = EQ;
 			sourceTree = "<group>";
@@ -1836,8 +1836,8 @@
 		3E6C0F7725CEB98600BF0D07 /* Reverb */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7825CEB98600BF0D07 /* ReverbPresetsEditorViewController.swift */,
 				3E6C0F7925CEB98600BF0D07 /* ReverbPresetsEditor.xib */,
+				3E6C0F7825CEB98600BF0D07 /* ReverbPresetsEditorViewController.swift */,
 			);
 			path = Reverb;
 			sourceTree = "<group>";
@@ -1854,8 +1854,8 @@
 		3E6C0F7D25CEB98600BF0D07 /* Master */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7E25CEB98600BF0D07 /* MasterPresetsEditorViewController.swift */,
 				3E6C0F7F25CEB98600BF0D07 /* MasterPresetsEditor.xib */,
+				3E6C0F7E25CEB98600BF0D07 /* MasterPresetsEditorViewController.swift */,
 				3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */,
 			);
 			path = Master;

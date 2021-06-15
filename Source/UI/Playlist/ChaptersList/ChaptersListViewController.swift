@@ -133,6 +133,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         // Need to do this every time the view reappears (i.e. the Chapters list window is opened)
         chaptersListView.reloadData()
         
+        if let chapter = player.playingChapter, chapter.index < chaptersListView.numberOfRows {
+            chaptersListView.scrollRowToVisible(chapter.index)
+        }
+        
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
