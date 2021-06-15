@@ -20,8 +20,8 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
             
         case "#":
             
-            // Center alignment
-            x = cellFrame.maxX - (cellFrame.width / 2) - (size.width / 2)
+            // Left alignment
+            x = cellFrame.minX + 7
             
         case "Title":
             
