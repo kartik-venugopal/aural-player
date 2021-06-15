@@ -52,7 +52,6 @@ function configureAndMake {
     # CD to the source directory.
     cd "src-${arch}/${srcDirName}"
     
-    
     # Determine compiler / linker flags based on architecture.
     if [[ "$arch" == "arm64" ]]
     then

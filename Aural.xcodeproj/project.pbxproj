@@ -21,6 +21,8 @@
 		3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
 		3E43FB7125F9321100D4A597 /* FFmpegLoopDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */; };
+		3E4590F5267946C000C5BFB7 /* exportOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3E4590F4267946C000C5BFB7 /* exportOptions.plist */; };
+		3E4590F92679627500C5BFB7 /* appIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E4590F82679627500C5BFB7 /* appIcon.icns */; };
 		3E45C03325E1264C00C1519C /* PlayerFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E45C03225E1264C00C1519C /* PlayerFontScheme.xib */; };
 		3E45C03625E1269500C1519C /* PlayerFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */; };
 		3E4CC362261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */; };
@@ -631,6 +633,10 @@
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E427EFA25D9065F00465569 /* Release Notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
 		3E43FB7025F9321100D4A597 /* FFmpegLoopDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegLoopDecoding.swift; sourceTree = "<group>"; };
+		3E4590F1267941EC00C5BFB7 /* buildAppBundle.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = buildAppBundle.sh; sourceTree = "<group>"; };
+		3E4590F32679434900C5BFB7 /* dmg-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dmg-background.png"; sourceTree = "<group>"; };
+		3E4590F4267946C000C5BFB7 /* exportOptions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = exportOptions.plist; sourceTree = "<group>"; };
+		3E4590F82679627500C5BFB7 /* appIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = appIcon.icns; sourceTree = "<group>"; };
 		3E45C03225E1264C00C1519C /* PlayerFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerFontScheme.xib; sourceTree = "<group>"; };
 		3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterUnitAUTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -1389,6 +1395,17 @@
 				3E427EFA25D9065F00465569 /* Release Notes.md */,
 			);
 			path = Documentation;
+			sourceTree = "<group>";
+		};
+		3E4590F22679433F00C5BFB7 /* releaseAutomation */ = {
+			isa = PBXGroup;
+			children = (
+				3E4590F1267941EC00C5BFB7 /* buildAppBundle.sh */,
+				3E4590F32679434900C5BFB7 /* dmg-background.png */,
+				3E4590F4267946C000C5BFB7 /* exportOptions.plist */,
+				3E4590F82679627500C5BFB7 /* appIcon.icns */,
+			);
+			path = releaseAutomation;
 			sourceTree = "<group>";
 		};
 		3E45C03025E1261800C1519C /* Player */ = {
@@ -2715,6 +2732,7 @@
 		3E6C114C25CEB9C100BF0D07 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E4590F22679433F00C5BFB7 /* releaseAutomation */,
 				3E6C114D25CEB9C100BF0D07 /* ffmpeg */,
 				3E6C115325CEB9C100BF0D07 /* Assets.xcassets */,
 			);
@@ -3229,6 +3247,7 @@
 				3E824A4325DB74850089F217 /* MenuBarPlayer.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */,
 				3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */,
+				3E4590F5267946C000C5BFB7 /* exportOptions.plist in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
 				3E6C127125CEBE0600BF0D07 /* FilterPresetsEditor.xib in Resources */,
 				3E6C125625CEBE0600BF0D07 /* EffectsPresetsEditor.xib in Resources */,
@@ -3252,6 +3271,7 @@
 				3E6C125925CEBE0600BF0D07 /* BookmarksEditor.xib in Resources */,
 				3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */,
 				3EE7CB9525E21F9F0075F1DD /* PlaylistFontScheme.xib in Resources */,
+				3E4590F92679627500C5BFB7 /* appIcon.icns in Resources */,
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
 				3E6C123D25CEBDF400BF0D07 /* Artists.xib in Resources */,
 				3E6C12AD25CEBE2700BF0D07 /* StringInputPopover.xib in Resources */,
@@ -3911,9 +3931,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2.13.0;
+				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
 				INFOPLIST_FILE = Info.plist;
@@ -3940,9 +3962,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2.13.0;
+				DEVELOPMENT_TEAM = C4YUF2G676;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
 				INFOPLIST_FILE = Info.plist;
