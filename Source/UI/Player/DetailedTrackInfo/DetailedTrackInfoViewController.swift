@@ -89,7 +89,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     private lazy var dateFormatter: DateFormatter = {
     
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM dd, yyyy  'at'  hh:mm:ss a"
+        formatter.dateFormat = "MMMM dd, yyyy 'at' hh:mm:ss a"
         return formatter
     }()
     
@@ -250,13 +250,11 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         for index in 0..<table.numberOfRows {
             
             if let keyCell = table.view(atColumn: 0, row: index, makeIfNecessary: true) as? NSTableCellView,
-                let key = keyCell.textField?.stringValue {
+               let key = keyCell.textField?.stringValue,
+               let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as? NSTableCellView,
+               let value = valueCell.textField?.stringValue {
                 
-                if let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as? NSTableCellView,
-                    let value = valueCell.textField?.stringValue {
-                    
-                    dict[key.prefix(key.count - 1) as NSString] = value as AnyObject
-                }
+                dict[key.prefix(key.count - 1) as NSString] = value as AnyObject
             }
         }
         
@@ -299,7 +297,12 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     if withArt, let image = track.art?.image, let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: .jpeg, properties: [:]) {
                         
                         let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.displayName + "-coverArt.jpg")
-                        try data.write(to: imgFile)
+                        
+                        do {
+                            
+                            try data.write(to: imgFile)
+                        } catch {}
+                        
                         html.addImage(imgFile.lastPathComponent, "(Cover Art)")
                     }
                     

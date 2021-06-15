@@ -83,7 +83,8 @@ class HTMLWriter {
         return htmlString
     }
     
-    func addTable(_ heading: String, _ headingSize: Int, _ columnHeaders: [String]?, _ rows: [[HTMLText]], _ horizPadding: Int = 0, _ vertPadding: Int = 0) {
+    func addTable(_ heading: String, _ headingSize: Int, _ columnHeaders: [String]?, _ rows: [[HTMLText]],
+                  _ horizPadding: Int = 0, _ vertPadding: Int = 0) {
 
         // Table heading
         data.append(String(format: "\t<h%d><u>%@</u></h%d>\n", headingSize, heading, headingSize))
