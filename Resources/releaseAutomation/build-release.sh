@@ -14,7 +14,7 @@
 # ./buildReleasePackage.sh dmg      (Will build DMG)
 #
 
-export releaseVersion="2.13.0"
+export releaseVersion="3.0.0"
 
 # Directory containing the Aural Player Xcode project.
 export projectDir="../.."
