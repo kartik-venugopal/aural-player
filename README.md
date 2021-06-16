@@ -2,11 +2,11 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
-### Update (June 15, 2021)
+### Update (June 16, 2021)
 
-**Support for M1 machines coming soon !**
+**M1 machines are now supported !**
 
-I have finally figured out how to build universal FFmpeg binaries and have resolved other issues relevant to arm64 (M1) builds. I should be able to put out a working release pretty soon. Stay tuned !
+[Version 3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0) released, with support for M1 machines. I am asking for feedback from M1 Mac users to let me know if it works, since I do not have access to M1 hardware. Thanks !
 
 ## Table of Contents
   * [Overview](#overview)
@@ -66,21 +66,20 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 ### Compatibility
 
-**Support for M1 machines coming soon !**
+This table lists the ***minimum*** required Aural Player version for your hardware and macOS version.
 
-**User**: macOS 10.12 (Sierra) or later versions.
+|              | Intel (x86_64)  | M1 (arm64)|
+| :---:        | :-:             | :-:       |
+| macOS 10.12+ | [1.0.0](https://github.com/maculateConception/aural-player/releases/tag/v1.0.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)     |
+| macOS 11.x (Big Sur)  | [2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)    |
 
 [Latest release](https://github.com/maculateConception/aural-player/releases/latest)
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
-**Developer**: Swift 5 and XCode 11.
+**Developer**: Swift 5 and XCode 12.
 
 [Source code zip archive](https://github.com/maculateConception/aural-player/archive/refs/heads/master.zip)
-
-### Important note for macOS Big Sur
-
-If you're on macOS Big Sur, you must download v2.3.0 or later versions. No older app versions will run on macOS Big Sur.
 
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
