@@ -6,7 +6,7 @@
 
 **M1 machines are now supported !**
 
-[Version 3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0) released, with support for M1 machines. I am asking for feedback from M1 Mac users to let me know if it works, since I do not have access to M1 hardware. Thanks !
+[Version 3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0) has been released, with support for M1 machines. I am asking for feedback from M1 Mac users to let me know if it works, since I do not have access to M1 hardware. Thanks !
 
 ## Table of Contents
   * [Overview](#overview)
@@ -197,6 +197,8 @@ Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable
 All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
 
 [How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
+
+[Handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts)
 
 NOTE - The documentation is incomplete and is a work in progress.
 
