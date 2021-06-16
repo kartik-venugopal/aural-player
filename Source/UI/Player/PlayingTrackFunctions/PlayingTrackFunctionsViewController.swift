@@ -60,6 +60,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
+        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.noTrackPlaying, queue: .main)
         
         Messenger.subscribe(self, .player_moreInfo, self.moreInfo)
         Messenger.subscribe(self, .favoritesList_addOrRemove, self.addOrRemoveFavorite)
