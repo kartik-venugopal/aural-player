@@ -13,7 +13,6 @@
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
-    + [Important note for macOS Big Sur](#important-note-for-macos-big-sur)
     + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
@@ -66,12 +65,14 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 ### Compatibility
 
-This table lists the ***minimum*** required Aural Player version for your hardware and macOS version.
+This table lists the ***minimum*** required Aural Player version for your hardware and macOS version. It is always recommended to use the [latest](https://github.com/maculateConception/aural-player/releases/latest) app version, regardless of your hardware / macOS version.
 
 |              | Intel (x86_64)  | M1 (arm64)|
 | :---:        | :-:             | :-:       |
 | macOS 10.12+ | [1.0.0](https://github.com/maculateConception/aural-player/releases/tag/v1.0.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)     |
 | macOS 11.x (Big Sur)  | [2.3.0](https://github.com/maculateConception/aural-player/releases/tag/2.3.0)           | [3.0.0](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)    |
+
+**NOTE:** Version 3.0.0 and all subsequent releases are universal binaries, i.e. capable of running on both Intel and M1 Macs.
 
 [Latest release](https://github.com/maculateConception/aural-player/releases/latest)
 
