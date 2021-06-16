@@ -73,29 +73,25 @@ function configureAndMake {
     --enable-shared \
     --disable-static \
     --enable-runtime-cpudetect \
+    --enable-hardcoded-tables \
     --enable-pthreads \
     --disable-doc \
     --disable-debug \
-    --disable-swscale \
-    --disable-avdevice \
-    --disable-sdl2 \
-    --disable-programs \
-    --disable-network \
-    --disable-postproc \
-    --disable-appkit \
+    --disable-all \
+    --enable-avcodec \
+    --enable-avformat \
+    --enable-swresample \
     --enable-avfoundation \
     --enable-audiotoolbox \
-    --disable-libspeex \
-    --disable-libopencore_amrnb \
-    --disable-libopencore_amrwb \
-    --disable-coreimage \
-    --disable-iconv \
+    --enable-coreimage \
     --enable-zlib \
+    --disable-everything \
+    --disable-appkit \
+    --disable-iconv \
     --disable-bzlib \
-    --disable-lzma \
+    --disable-sdl2 \
     --disable-videotoolbox \
     --disable-securetransport \
-    --disable-everything \
     --enable-demuxer=ape,asf,asf_o,dsf,flac,iff,matroska,mpc,mpc8,ogg,rm,tak,tta,wv \
     --enable-parser=bmp,cook,flac,gif,jpeg2000,mjpeg,mpegaudio,opus,png,sipr,tak,vorbis,webp \
     --enable-protocol=file \

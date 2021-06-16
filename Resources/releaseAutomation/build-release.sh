@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #
-# Builds an Aural Player app bundle and packages it in a compressed read-only DMG disk image suitable
+# Builds an Aural Player app bundle and optionally packages it in a compressed read-only DMG disk image suitable
 # for distribution as a product release.
 #
 # This script accepts 1 optional argument that will determine whether to build an app bundle (.app)
@@ -13,13 +13,16 @@
 # ./buildReleasePackage.sh app      (Will build app bundle)
 # ./buildReleasePackage.sh dmg      (Will build DMG)
 #
+# NOTE - Building the DMG image requires a tool called "create-dmg". This tool must be installed on the system.
+# It can be installed by running "brew install create-dmg". For more info, see https://github.com/create-dmg/create-dmg.
+#
 
 export releaseVersion="3.0.0"
 
 # Directory containing the Aural Player Xcode project.
 export projectDir="../.."
 
-# Destination directory where the DMG installer will be stored.
+# Destination directory where the app bundle / DMG image will be stored.
 export releaseDir="./Aural Player ${releaseVersion}"
 
 # File names.
@@ -38,22 +41,29 @@ function buildAppBundle {
         mkdir -p "${releaseDir}"
     fi
 
+    # Build an Xcode archive.
     xcodebuild -project $projectDir/Aural.xcodeproj -config Release -scheme Aural -archivePath "${archive}" archive
+    
+    # Export the app bundle from the archive.
     xcodebuild -archivePath "${archive}" -exportArchive -exportPath "${releaseDir}" -exportOptionsPlist exportOptions.plist
     
+    # Remove the archive (no longer required).
     rm -rf "${archive}"
 }
 
 function buildDMG {
 
-    echo "Building Aural Player ${releaseVersion} DMG installer ..."
+    echo "Building Aural Player ${releaseVersion} DMG image ..."
 
+    # The app bundle needs to be built first.
     buildAppBundle
 
+    # Remove any old installer, if present.
     if [ -f "${installer}" ]; then
         rm "${installer}"
     fi
 
+    # Invoke the "create-dmg" tool.
     create-dmg \
       --volname "Aural Player ${releaseVersion}" \
       --volicon "assets/appIcon.icns" \
@@ -68,6 +78,7 @@ function buildDMG {
       "${installer}" \
       "${releaseDir}"
       
+    # Remove the app bundle (no longer required).
     rm -rf "${releaseDir}"
 }
 
