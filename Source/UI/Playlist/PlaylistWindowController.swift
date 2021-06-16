@@ -136,6 +136,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
                                  queue: .main)
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, queue: .main)
+        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackChanged, queue: .main)
         
         Messenger.subscribe(self, .playlist_viewChanged, self.playlistTypeChanged)
         
