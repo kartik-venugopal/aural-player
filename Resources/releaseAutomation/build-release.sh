@@ -71,7 +71,7 @@ function buildDMG {
     rm -rf "${releaseDir}"
 }
 
-# Determine compiler / linker flags based on architecture.
+# Determine build type based on program argument.
 if [[ $1 == "app" ]]
 then
     buildAppBundle
