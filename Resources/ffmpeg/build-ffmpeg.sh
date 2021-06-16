@@ -96,10 +96,10 @@ function configureAndMake {
     --disable-videotoolbox \
     --disable-securetransport \
     --disable-everything \
-    --enable-demuxer=aac,ac3,aiff,amr,amrnb,amrwb,ape,asf,asf_o,caf,dsf,dts,dtshd,eac3,flac,iff,matroska,mp3,mpc,mpc8,ogg,rm,tak,tta,wav,wv \
-    --enable-parser=aac,aac_latm,ac3,bmp,cook,dca,flac,gif,jpeg2000,mjpeg,mpegaudio,opus,png,sipr,tak,vorbis,webp \
+    --enable-demuxer=ape,asf,asf_o,dsf,flac,iff,matroska,mpc,mpc8,ogg,rm,tak,tta,wv \
+    --enable-parser=bmp,cook,flac,gif,jpeg2000,mjpeg,mpegaudio,opus,png,sipr,tak,vorbis,webp \
     --enable-protocol=file \
-    --enable-decoder=aac,aac_at,aac_fixed,aac_latm,ac3,ac3_at,ac3_fixed,acelp.kelvin,alac,alac_at,amr_nb,amr_nb_at,amr_wb,amrnb,amrwb,ape,cook,dca,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,eac3,eac3_at,flac,mp1,mp1_at,mp1float,mp2,mp2_at,mp2float,mp3,mp3_at,mp3adu,mp3adufloat,mp3float,mp3on4,mp3on4float,mp4als,mpc7,mpc8,musepack7,musepack8,opus,pcm_dvd,pcm_f16le,pcm_f24le,pcm_f32be,pcm_f32le,pcm_f64be,pcm_f64le,pcm_lxf,pcm_mulaw,pcm_mulaw_at,pcm_s16be,pcm_s16be_planar,pcm_s16le,pcm_s16le_planar,pcm_s24be,pcm_s24daud,pcm_s24le,pcm_s24le_planar,pcm_s32be,pcm_s32le,pcm_s32le_planar,pcm_s64be,pcm_s64le,pcm_s8,pcm_s8_planar,pcm_sga,pcm_u16be,pcm_u16le,pcm_u24be,pcm_u24le,pcm_u32be,pcm_u32le,pcm_u8,pcm_vidc,ra_144,ra_288,ralf,sipr,tta,tak,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice
+    --enable-decoder=acelp.kelvin,ape,cook,dsd_lsbf,dsd_lsbf_planar,dsd_msbf,dsd_msbf_planar,flac,mpc7,mpc8,musepack7,musepack8,opus,ra_144,ra_288,ralf,sipr,tta,tak,vorbis,wavpack,wmav1,wmav2,wmalossless,wmapro,wmavoice
     
     # Build FFmpeg (use multithreading).
     tokens=$(sysctl hw.physicalcpu)
