@@ -2,15 +2,15 @@
 
 ## M1 (arm64 architecture) support with universal binary
 
-This is the first working release for Macs with the new M1 arm64-based chips. 
+This is the first working release for Macs with the new M1 arm64-based chips. This build and all subsequent app release builds will be universal binaries, i.e. capable of running on both Intel Macs and newer M1 Macs.
 
-This build and all subsequent app release builds will be universal binaries, i.e. capable of running on both Intel Macs and newer M1 Macs.
-
-This release is functionally identical to v2.12.1, i.e. no new features have been added. The sole purpose of this release is to provide M1 support.
+This release is functionally identical to v2.12.1, i.e. no new features have been added, and some minor bugs have been fixed. The sole purpose of this release is to provide M1 support.
 
 ## Feedback requested
 
-Since I do not have access to M1 hardware, I cannot personally confirm that this build works on M1 machines. 
+Since I do not have access to M1 hardware, I cannot personally confirm that this build works on M1 machines, so I am asking for your help.
+
+To fully test the validity of this build, please try playback of non-native tracks (eg. FLAC, Vorbis, Opus, APE, etc.). Playback of non-native tracks will exercise the ffmpeg library, which is also a universal binary.
 
 I would greatly appreciate feedback on this build from users with M1 machines, letting me know if it works. Thanks. 
 
