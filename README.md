@@ -198,6 +198,8 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 [How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
 
+[Handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts)
+
 NOTE - The documentation is incomplete and is a work in progress.
 
 ## Contact and conversation
