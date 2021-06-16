@@ -78,7 +78,7 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
-**Developer**: Swift 5 and XCode 12.
+**Developer requirements**: Swift 5 and XCode 12.2+.
 
 [Source code zip archive](https://github.com/maculateConception/aural-player/archive/refs/heads/master.zip)
 
