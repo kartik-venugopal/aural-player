@@ -44,7 +44,7 @@ class TrackReader {
             
             DispatchQueue.global(qos: .userInitiated).async {
                 
-                if let duration = self.fileReader.computeAccurationDuration(for: track.file), duration > 0 {
+                if let duration = self.fileReader.computeAccurateDuration(for: track.file), duration > 0 {
                     
                     track.duration = duration
                     track.durationIsAccurate = true
