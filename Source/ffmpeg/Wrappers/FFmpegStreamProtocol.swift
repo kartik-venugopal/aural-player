@@ -32,4 +32,6 @@ protocol FFmpegStreamProtocol {
 extension AVRational {
 
     var ratio: Double {Double(num) / Double(den)}
+    
+    var reciprocalRatio: Double {Double(den) / Double(num)}
 }

@@ -312,15 +312,12 @@ class FFmpegFileContext {
         // Describes the seeking mode to use (seek by frame, seek by byte, etc)
         var flags: Int32 = 0
         
-        // Validate the duration of the file (which is needed to compute the target frame).
-        if duration <= 0 {throw SeekError(-1)}
-        
         // We need to determine a target frame, given the seek position in seconds,
         // duration, and frame count.
-        timestamp = Int64(time * Double(stream.timeBaseDuration) / duration)
+        timestamp = Int64(time * Double(stream.timeBase.reciprocalRatio))
         
         // Validate the target frame (cannot exceed the total frame count)
-        if timestamp >= stream.timeBaseDuration {throw SeekError(ERROR_EOF)}
+        if stream.timeBaseDuration > 0, timestamp >= stream.timeBaseDuration {throw SeekError(ERROR_EOF)}
         
         // We need to seek by frame.
         //

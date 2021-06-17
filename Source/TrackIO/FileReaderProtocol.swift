@@ -13,7 +13,7 @@ protocol FileReaderProtocol {
     ///
     func getPlaylistMetadata(for file: URL) throws -> PlaylistMetadata
     
-    func computeAccurationDuration(for file: URL) -> Double?
+    func computeAccurateDuration(for file: URL) -> Double?
     
     ///
     /// Loads all metadata and resources that are required for track playback.
@@ -54,11 +54,11 @@ class FileReader: FileReaderProtocol {
             try ffmpegReader.getPlaylistMetadata(for: file)
     }
     
-    func computeAccurationDuration(for file: URL) -> Double? {
+    func computeAccurateDuration(for file: URL) -> Double? {
         
         return file.isNativelySupported ?
-            avfReader.computeAccurationDuration(for: file) :
-            ffmpegReader.computeAccurationDuration(for: file)
+            avfReader.computeAccurateDuration(for: file) :
+            ffmpegReader.computeAccurateDuration(for: file)
     }
     
     func getPlaybackMetadata(for file: URL) throws -> PlaybackContextProtocol {

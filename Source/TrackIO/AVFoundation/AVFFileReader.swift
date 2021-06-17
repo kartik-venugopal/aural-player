@@ -80,7 +80,7 @@ class AVFFileReader: FileReaderProtocol {
         return metadata
     }
     
-    func computeAccurationDuration(for file: URL) -> Double? {
+    func computeAccurateDuration(for file: URL) -> Double? {
         return nil
     }
     
