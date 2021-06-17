@@ -25,7 +25,7 @@ class FileSystemUtils {
         
         do
         {
-            try FileManager.default.createDirectory(atPath: dir.path, withIntermediateDirectories: true, attributes: nil)
+            try fileManager.createDirectory(atPath: dir.path, withIntermediateDirectories: true, attributes: nil)
         }
         catch let error as NSError
         {
