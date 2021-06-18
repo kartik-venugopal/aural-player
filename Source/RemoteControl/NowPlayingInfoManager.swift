@@ -47,6 +47,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed)
         Messenger.subscribe(self, .player_playbackStateChanged, self.playbackStateChanged)
         Messenger.subscribe(self, .player_seekPerformed, self.seekPerformed)
+        Messenger.subscribe(self, .fx_playbackRateChanged, self.playbackRateChanged(_:))
     }
     
     private func handlePreTrackChange() {
@@ -82,6 +83,18 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
             
             nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
             nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.rate) : 0.0
+            
+            nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
+        }
+    }
+    
+    private func playbackRateChanged(_ newRate: Float) {
+        
+        if var nowPlayingInfo = nowPlayingInfoCenter.nowPlayingInfo {
+            
+            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackInfo.state == .playing ? Double(newRate) : 0.0
+            nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate]
+            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
             
             nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
         }
