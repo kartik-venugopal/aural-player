@@ -40,8 +40,6 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         // Subscribe to notifications about changes in the player's state, so that the Now Playing Info Center can be
         // updated in response to any of those changes.
         //
-        // TODO: Also listen for changes in playback rate, seek events, repeat / shuffle mode, sequence scope, etc.
-        //
         Messenger.subscribe(self, .player_preTrackChange, self.handlePreTrackChange)
         Messenger.subscribe(self, .player_trackTransitioned, self.trackChanged(_:), filter: {msg in msg.trackChanged})
         Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed)
