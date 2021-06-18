@@ -4,6 +4,8 @@ fileprivate var screenVisibleFrame: NSRect {
     return NSScreen.main!.visibleFrame
 }
 
+fileprivate let playlistHeight_verticalFullStack: CGFloat = 340
+
 enum WindowLayoutPresets: String, CaseIterable {
     
     case verticalFullStack
@@ -100,7 +102,10 @@ enum WindowLayoutPresets: String, CaseIterable {
             
             let xPadding = visibleFrame.width - mainWindowWidth
             x = visibleFrame.minX + (xPadding / 2)
-            y = visibleFrame.maxY - mainWindowHeight
+            
+            let totalStackHeight = mainWindowHeight + effectsWindowHeight + twoGaps + playlistHeight_verticalFullStack
+            let yPadding = visibleFrame.height - totalStackHeight
+            y = visibleFrame.maxY - (yPadding / 2) - mainWindowHeight
             
         case .horizontalFullStack:
             
@@ -209,14 +214,13 @@ enum WindowLayoutPresets: String, CaseIterable {
         let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
         
         let gap = gapBetweenWindows
-        let twoGaps = 2 * gap
         
         // Compute this only once
         let visibleFrame = screenVisibleFrame
         
         switch self {
             
-        case .verticalFullStack:    return visibleFrame.height - (mainWindowHeight + effectsWindowHeight + twoGaps)
+        case .verticalFullStack:    return playlistHeight_verticalFullStack
             
         case .horizontalFullStack, .horizontalPlayerAndPlaylist:  return mainWindowHeight
             
@@ -280,7 +284,7 @@ enum WindowLayoutPresets: String, CaseIterable {
         case .verticalFullStack:
             
             x = mwo.x
-            y = visibleFrame.minY
+            y = mwo.y - effectsWindowHeight - twoGaps - playlistHeight
             
         case .horizontalFullStack:
             
