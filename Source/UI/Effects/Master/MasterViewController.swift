@@ -82,6 +82,8 @@ class MasterViewController: FXUnitViewController {
         updateButtons()
         broadcastStateChangeNotification()
         
+        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
+        
         audioUnitsTable.reloadData()
     }
     
@@ -230,6 +232,8 @@ class MasterViewController: FXUnitViewController {
     override func stateChanged() {
         
         updateButtons()
+        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
+        
         audioUnitsTable.reloadData()
     }
     
