@@ -25,8 +25,12 @@ class RemoteCommandManager: NSObject {
     var seekBackwardCommand: MPRemoteCommand {cmdCenter.seekBackwardCommand}
     var seekForwardCommand: MPRemoteCommand {cmdCenter.seekForwardCommand}
     
-    var likeCommand: MPRemoteCommand {cmdCenter.likeCommand}
-    var dislikeCommand: MPRemoteCommand {cmdCenter.dislikeCommand}
+    var changeRepeatModeCommand: MPChangeRepeatModeCommand {cmdCenter.changeRepeatModeCommand}
+    var changeShuffleModeCommand: MPChangeShuffleModeCommand {cmdCenter.changeShuffleModeCommand}
+    
+    var likeCommand: MPFeedbackCommand {cmdCenter.likeCommand}
+    var dislikeCommand: MPFeedbackCommand {cmdCenter.dislikeCommand}
+    var bookmarkCommand: MPFeedbackCommand {cmdCenter.bookmarkCommand}
     
     var changePlaybackPositionCommand: MPChangePlaybackPositionCommand {cmdCenter.changePlaybackPositionCommand}
     
@@ -102,6 +106,38 @@ class RemoteCommandManager: NSObject {
         changePlaybackPositionCommand.addTarget(self, action: #selector(self.handleChangePlaybackPosition(_:)))
         changePlaybackPositionCommand.isEnabled = true
         
+        // Repeat mode control
+        
+        changeRepeatModeCommand.addTarget(self, action: #selector(self.handleChangeRepeatMode(_:)))
+        changeRepeatModeCommand.isEnabled = true
+        changeRepeatModeCommand.currentRepeatType = .all
+        
+        // Shuffle mode control
+        
+        changeShuffleModeCommand.addTarget(self, action: #selector(self.handleChangeShuffleMode(_:)))
+        changeShuffleModeCommand.isEnabled = true
+        changeShuffleModeCommand.currentShuffleType = .off
+        
+        // Feedback commands
+        
+        likeCommand.addTarget(self, action: #selector(self.handleLike(_:)))
+        likeCommand.localizedTitle = "Like"
+        likeCommand.localizedShortTitle = "Like"
+        likeCommand.isActive = true
+        likeCommand.isEnabled = true
+        
+        dislikeCommand.addTarget(self, action: #selector(self.handleDislike(_:)))
+        dislikeCommand.localizedTitle = "Dislike"
+        dislikeCommand.localizedShortTitle = "Dislike"
+        dislikeCommand.isActive = true
+        dislikeCommand.isEnabled = true
+        
+        bookmarkCommand.addTarget(self, action: #selector(self.handleBookmark(_:)))
+        bookmarkCommand.localizedTitle = "Bookmark"
+        bookmarkCommand.localizedShortTitle = "Bookmark"
+        bookmarkCommand.isActive = true
+        bookmarkCommand.isEnabled = true
+        
         activated = true
     }
     
@@ -110,7 +146,8 @@ class RemoteCommandManager: NSObject {
         if !activated {return}
         
         [playCommand, pauseCommand, togglePlayPauseCommand, stopCommand, previousTrackCommand, nextTrackCommand,
-        skipBackwardCommand, skipForwardCommand, seekBackwardCommand, seekBackwardCommand, changePlaybackPositionCommand].forEach {
+        skipBackwardCommand, skipForwardCommand, seekBackwardCommand, seekBackwardCommand, changePlaybackPositionCommand,
+        changeRepeatModeCommand, changeShuffleModeCommand, likeCommand, dislikeCommand, bookmarkCommand].forEach {
             
             $0.removeTarget(self, action: nil)
             $0.isEnabled = false
@@ -234,5 +271,83 @@ class RemoteCommandManager: NSObject {
         
         Messenger.publish(.player_jumpToTime, payload: event.positionTime)
         return .success
+    }
+    
+    @objc func handleChangeRepeatMode(_ event: MPChangeRepeatModeCommandEvent) -> MPRemoteCommandHandlerStatus {
+        
+        Messenger.publish(.player_setRepeatMode, payload: event.repeatType.toRepeatMode())
+        return .success
+    }
+    
+    @objc func handleChangeShuffleMode(_ event: MPChangeShuffleModeCommandEvent) -> MPRemoteCommandHandlerStatus {
+        
+        Messenger.publish(.player_setShuffleMode, payload: event.shuffleType.toShuffleMode())
+        return .success
+    }
+    
+    ///
+    /// Handles a remote command to "like" the currently playing track.
+    ///
+    /// - Parameter event: An event object containing information about the received command.
+    ///
+    /// - returns: Status indicating the result of executing the received command.
+    ///
+    @objc func handleLike(_ event: MPFeedbackCommandEvent) -> MPRemoteCommandHandlerStatus {
+        
+        print("\nLike")
+        Messenger.publish(.favoritesList_addOrRemove)
+        return .success
+    }
+    
+    @objc func handleDislike(_ event: MPFeedbackCommandEvent) -> MPRemoteCommandHandlerStatus {
+        
+        print("\nDislike")
+        Messenger.publish(.favoritesList_addOrRemove)
+        return .success
+    }
+    
+    @objc func handleBookmark(_ event: MPFeedbackCommandEvent) -> MPRemoteCommandHandlerStatus {
+        
+        print("\nBookmark")
+        
+        // TODO: This needs to be done without a prompt for bookmark name.
+        Messenger.publish(.player_bookmarkPosition)
+        return .success
+    }
+}
+
+@available(OSX 10.12.2, *)
+extension MPRepeatType {
+    
+    func toRepeatMode() -> RepeatMode {
+        
+        switch self {
+        
+        case .off:  return .off
+            
+        case .one:  return .one
+            
+        case .all:  return .all
+            
+        @unknown default:   return .off
+            
+        }
+    }
+}
+
+@available(OSX 10.12.2, *)
+extension MPShuffleType {
+    
+    func toShuffleMode() -> ShuffleMode {
+        
+        switch self {
+        
+        case .off:  return .off
+            
+        case .collections, .items:  return .on
+            
+        @unknown default:   return .off
+            
+        }
     }
 }
