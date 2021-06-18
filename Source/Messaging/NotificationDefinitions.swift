@@ -60,12 +60,12 @@ struct TrackTransitionNotification: NotificationPayload {
 }
 
 /*
-    Signifies that a track change is about to occur. Gives observers a chance to perform some
-    computation/processing before the track change occurs (eg. saving/applying audio settings).
+    Signifies that track playback is about to occur. Gives observers a chance to perform some
+    computation/processing before track playback starts (eg. saving/applying audio settings).
 */
-struct PreTrackChangeNotification: NotificationPayload {
+struct PreTrackPlaybackNotification: NotificationPayload {
     
-    let notificationName: Notification.Name = .player_preTrackChange
+    let notificationName: Notification.Name = .player_preTrackPlayback
     
     // The track that was playing before the track change (may be nil, meaning no track was playing)
     let oldTrack: Track?

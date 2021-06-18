@@ -1,4 +1,4 @@
-import Foundation
+import Cocoa
 import MediaPlayer
 
 ///
@@ -20,6 +20,10 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     /// Provides current playback sequence information (eg. repeat / shuffle modes, how many tracks are in the playback queue, etc).
     private let sequencer: SequencerInfoDelegateProtocol
     
+    private static let optimalArtworkSize: NSSize = NSMakeSize(50, 50)
+    
+    private var preTrackChange: Bool = false
+    
     init(playbackInfo: PlaybackInfoDelegateProtocol, audioGraph: AudioGraphDelegateProtocol, sequencer: SequencerInfoDelegateProtocol) {
         
         self.playbackInfo = playbackInfo
@@ -29,8 +33,8 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         super.init()
     
         // Initialize the Now Playing Info Center with current info.
-        self.playbackStateChanged()
         self.updateNowPlayingInfo()
+        self.playbackStateChanged()
         
         //
         // Subscribe to notifications about changes in the player's state, so that the Now Playing Info Center can be
@@ -38,8 +42,15 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         //
         // TODO: Also listen for changes in playback rate, seek events, repeat / shuffle mode, sequence scope, etc.
         //
+        Messenger.subscribe(self, .player_preTrackChange, self.handlePreTrackChange)
         Messenger.subscribe(self, .player_trackTransitioned, self.trackChanged(_:), filter: {msg in msg.trackChanged})
+        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed)
         Messenger.subscribe(self, .player_playbackStateChanged, self.playbackStateChanged)
+        Messenger.subscribe(self, .player_seekPerformed, self.seekPerformed)
+    }
+    
+    private func handlePreTrackChange() {
+        preTrackChange = true
     }
     
     ///
@@ -49,7 +60,13 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     private func trackChanged(_ notification: TrackTransitionNotification) {
         
         updateNowPlayingInfo()
-        playbackStateChanged()
+        preTrackChange = false
+    }
+    
+    private func trackNotPlayed() {
+        
+        updateNowPlayingInfo()
+        preTrackChange = false
     }
     
     ///
@@ -57,8 +74,24 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     ///
     private func playbackStateChanged() {
         
-        nowPlayingInfoCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+        if preTrackChange {return}
+        
         nowPlayingInfoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
+        
+        if var nowPlayingInfo = nowPlayingInfoCenter.nowPlayingInfo {
+            
+            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.rate) : 0.0
+            
+            nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
+        }
+    }
+    
+    ///
+    /// Responds to the player performing a seek. Updates the Now Playing Info Center with the new seek position.
+    ///
+    private func seekPerformed() {
+        nowPlayingInfoCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
     }
     
     ///
@@ -87,7 +120,14 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         if #available(OSX 10.13.2, *) {
             
             if let artwork = playingTrack?.art?.image {
-                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: artwork.size, requestHandler: {size in artwork})
+                
+                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in
+                    
+                    let imageCopy: NSImage = artwork.copy() as! NSImage
+                    imageCopy.size = Self.optimalArtworkSize
+                    return imageCopy
+                })
+                
             } else {
                 nowPlayingInfo[MPMediaItemPropertyArtwork] = nil
             }
@@ -110,6 +150,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueCount] = UInt(sequencer.sequenceInfo.totalTracks)
         
         // Update the nowPlayingInfo dictionary in the Now Playing Info Center.
+        nowPlayingInfoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
         nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
     }
 }

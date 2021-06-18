@@ -73,6 +73,8 @@ extension Notification.Name {
     // Signifies that the playback state of the player has changed.
     static let player_playbackStateChanged = Notification.Name("player_playbackStateChanged")
     
+    static let player_seekPerformed = Notification.Name("player_seekPerformed")
+    
     // Signifies that the currently playing track chapter has changed.
     static let player_chapterChanged = Notification.Name("player_chapterChanged")
     
@@ -82,8 +84,11 @@ extension Notification.Name {
     // Signifies that an error occurred and the player was unable to play the requested track.
     static let player_trackNotPlayed = Notification.Name("player_trackNotPlayed")
     
-    // Signifies that the current track is about to change in response to a request.
+    // Signifies that the current track is about to change.
     static let player_preTrackChange = Notification.Name("player_preTrackChange")
+    
+    // Signifies that a new track is about to start playback.
+    static let player_preTrackPlayback = Notification.Name("player_preTrackPlayback")
     
     // Signifies that a track / playback state transition has occurred.
     // eg. when changing tracks or stopping playback

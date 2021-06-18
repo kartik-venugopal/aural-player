@@ -124,7 +124,9 @@ class Player: PlayerProtocol, NotificationSubscriber {
         
         // Create a new identical session (for the track that is playing), and perform a seek within it
         if !playbackCompleted, let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
+            
             scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
+            Messenger.publish(.player_seekPerformed)
         }
         
         return PlayerSeekResult(actualSeekPosition: actualSeekTime, loopRemoved: loopRemoved, trackPlaybackCompleted: playbackCompleted)

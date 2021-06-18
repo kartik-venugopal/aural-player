@@ -96,7 +96,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         }
         
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
-        Messenger.subscribe(self, .player_preTrackChange, self.preTrackChange(_:))
+        Messenger.subscribe(self, .player_preTrackPlayback, self.preTrackPlayback(_:))
         
         Messenger.subscribe(self, .fx_saveSoundProfile, self.saveSoundProfile)
         Messenger.subscribe(self, .fx_deleteSoundProfile, self.deleteSoundProfile)
@@ -206,7 +206,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         }
     }
     
-    func preTrackChange(_ notification: PreTrackChangeNotification) {
+    func preTrackPlayback(_ notification: PreTrackPlaybackNotification) {
         trackChanged(notification.oldTrack, notification.newTrack)
     }
     

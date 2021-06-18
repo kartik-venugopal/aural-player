@@ -25,6 +25,9 @@ class RemoteCommandManager: NSObject {
     var seekBackwardCommand: MPRemoteCommand {cmdCenter.seekBackwardCommand}
     var seekForwardCommand: MPRemoteCommand {cmdCenter.seekForwardCommand}
     
+    var likeCommand: MPRemoteCommand {cmdCenter.likeCommand}
+    var dislikeCommand: MPRemoteCommand {cmdCenter.dislikeCommand}
+    
     var changePlaybackPositionCommand: MPChangePlaybackPositionCommand {cmdCenter.changePlaybackPositionCommand}
     
     private let preferences: Preferences

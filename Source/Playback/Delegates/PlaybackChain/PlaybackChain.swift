@@ -11,7 +11,7 @@ class PlaybackChain {
     
     // The index of the currently executing action within the chain.
     // NOTE: An index of -1 denotes that the chain has not yet started execution.
-    private var actionIndex: Int = -1
+    var actionIndex: Int = -1
     
     // Builder pattern function to append a single action to the chain.
     func withAction(_ action: PlaybackChainAction) -> PlaybackChain {

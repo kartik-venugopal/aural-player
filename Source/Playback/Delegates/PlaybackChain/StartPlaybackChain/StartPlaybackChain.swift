@@ -24,6 +24,15 @@ class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
         .withAction(PredictiveTrackPreparationAction(sequencer: sequencer, trackReader: trackReader))
     }
     
+    override func execute(_ context: PlaybackRequestContext) {
+        
+        actionIndex = -1
+        PlaybackRequestContext.begun(context)
+        
+        Messenger.publish(.player_preTrackChange)
+        proceed(context)
+    }
+    
     // Halts playback and ends the playback sequence when an error is encountered.
     override func terminate(_ context: PlaybackRequestContext, _ error: DisplayableError) {
 
