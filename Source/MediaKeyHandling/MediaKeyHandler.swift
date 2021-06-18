@@ -5,7 +5,7 @@ import Cocoa
  */
 class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
     
-    private var preferences: ControlsPreferences
+    private var preferences: MediaKeysControlsPreferences
     
     private var mediaKeyTap: MediaKeyTap?
     private var monitoringEnabled: Bool = false
@@ -33,10 +33,10 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
     // Recurring task used to repeat key press events according to the preferred repeat speed
     private var repeatExecutor: RepeatingTaskExecutor?
     
-    init(_ preferences: ControlsPreferences) {
+    init(_ preferences: MediaKeysControlsPreferences) {
         
         self.preferences = preferences
-        Messenger.subscribe(self, .application_launched, self.startMonitoring, filter: {preferences.respondToMediaKeys})
+        Messenger.subscribe(self, .application_launched, self.startMonitoring, filter: {preferences.enabled})
     }
     
     func startMonitoring() {

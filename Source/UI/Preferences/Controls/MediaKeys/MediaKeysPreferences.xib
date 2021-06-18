@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MediaKeysPreferencesViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnHybrid" destination="t5C-n1-wDI" id="Wrk-c2-mWf"/>
+                <outlet property="btnRespondToMediaKeys" destination="R2X-gt-PCG" id="ECT-Ed-wb0"/>
+                <outlet property="btnSeekingOnly" destination="E6Z-3c-yTO" id="6tE-rv-2xf"/>
+                <outlet property="btnTrackChangesOnly" destination="dFy-Ns-xmb" id="cFY-3K-PIC"/>
+                <outlet property="repeatSpeedMenu" destination="YUP-UJ-fTV" id="b1z-uA-GUm"/>
+                <outlet property="view" destination="c22-O7-iKe" id="oVg-GG-Bbw"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="688" height="420"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rLf-Vl-IWg" userLabel="Sensitivity">
+                    <rect key="frame" x="69" y="268" width="72" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Repeat rate" id="kyv-Ch-L7C">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R2X-gt-PCG" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="19" y="382" width="227" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Respond to media keys" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bnI-91-dmx">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="mediaKeyResponseAction:" target="-2" id="bFT-Fm-zYd"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6Z-3c-yTO" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="69" y="296" width="177" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Seeking only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="DN0-aF-U9E">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="skipKeyBehaviorAction:" target="-2" id="p4E-hA-hS2"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFy-Ns-xmb" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="69" y="316" width="200" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Track changes only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="Stg-Ui-bjC">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="skipKeyBehaviorAction:" target="-2" id="WgM-zI-AIR"/>
+                    </connections>
+                </button>
+                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t5C-n1-wDI" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="69" y="336" width="343" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Press to change tracks, press and hold to seek" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="cth-gy-KT2">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" size="11" name="Play-Regular"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="skipKeyBehaviorAction:" target="-2" id="aWu-bQ-AEV"/>
+                    </connections>
+                </button>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YUP-UJ-fTV" userLabel="Seeking speed menu">
+                    <rect key="frame" x="145" y="265" width="103" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="V2w-pp-rhc" id="epP-3w-g7g" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="10" name="Play-Regular"/>
+                        <menu key="menu" id="YcD-mF-dyC">
+                            <items>
+                                <menuItem title="Slow" id="hmz-Gr-y7L" userLabel="Slow">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Medium" state="on" id="V2w-pp-rhc">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                                <menuItem title="Fast" id="bE2-Y8-6cT" userLabel="Fast">
+                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                </menuItem>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0iz-JW-dbF" userLabel="Sensitivity">
+                    <rect key="frame" x="59" y="360" width="204" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Behavior of                keys" id="KEe-hP-lce">
+                        <font key="font" size="12" name="Play-Regular"/>
+                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MUw-MX-P9X">
+                    <rect key="frame" x="123" y="364" width="19" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SeekBackward" id="XnV-OU-JNm"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="stT-Wc-tEQ">
+                    <rect key="frame" x="144" y="364" width="19" height="10"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SeekForward" id="0T3-OO-Nh6"/>
+                </imageView>
+            </subviews>
+            <point key="canvasLocation" x="5" y="154"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="SeekBackward" width="46" height="34"/>
+        <image name="SeekForward" width="46" height="34"/>
+    </resources>
+</document>

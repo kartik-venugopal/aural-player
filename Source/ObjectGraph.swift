@@ -151,7 +151,7 @@ class ObjectGraph {
         // Remote Control objects
         if #available(OSX 10.12.2, *) {
             
-            remoteCommandManager = RemoteCommandManager()
+            remoteCommandManager = RemoteCommandManager(preferences: preferences)
             
             nowPlayingInfoManager = NowPlayingInfoManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
                                                           sequencer: sequencerDelegate)
@@ -171,7 +171,7 @@ class ObjectGraph {
         favorites = Favorites()
         favoritesDelegate = FavoritesDelegate(favorites, playlistDelegate, playbackDelegate, persistentState.favorites)
         
-        mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences)
+        mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences.mediaKeys)
         
         // Initialize utility classes.
         

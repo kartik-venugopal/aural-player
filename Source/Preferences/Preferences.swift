@@ -34,8 +34,8 @@ class Preferences: PersistentPreferencesProtocol {
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         controlsPreferences = ControlsPreferences(defaultsDictionary)
-        playbackPreferences = PlaybackPreferences(defaultsDictionary, controlsPreferences)
-        soundPreferences = SoundPreferences(defaultsDictionary, controlsPreferences)
+        playbackPreferences = PlaybackPreferences(defaultsDictionary, controlsPreferences.gestures)
+        soundPreferences = SoundPreferences(defaultsDictionary, controlsPreferences.gestures)
         playlistPreferences = PlaylistPreferences(defaultsDictionary)
         
         viewPreferences = ViewPreferences(defaultsDictionary)

@@ -5,7 +5,7 @@ import Cocoa
 
 class PlaylistGestureHandler {
     
-    private static let preferences: ControlsPreferences = ObjectGraph.preferences.controlsPreferences
+    private static let preferences: GesturesControlsPreferences = ObjectGraph.preferences.controlsPreferences.gestures
     
     // Handles a single event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
     static func handle(_ event: NSEvent) {

@@ -152,3 +152,9 @@ enum SeekLengthOptions: String {
     case constant
     case percentage
 }
+
+enum TrackChangeOrSeekingOptions: String {
+    
+    case trackChange
+    case seeking
+}

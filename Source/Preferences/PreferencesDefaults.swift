@@ -74,19 +74,37 @@ struct PreferencesDefaults {
     
     struct Controls {
         
-        static let respondToMediaKeys: Bool = true
-        static let skipKeyBehavior: SkipKeyBehavior = .hybrid
-        static let repeatSpeed: SkipKeyRepeatSpeed = .medium
+        struct MediaKeys {
+            
+            static let enabled: Bool = true
+            static let skipKeyBehavior: SkipKeyBehavior = .hybrid
+            static let repeatSpeed: SkipKeyRepeatSpeed = .medium
+        }
         
-        static let allowVolumeControl: Bool = true
-        static let allowSeeking: Bool = true
-        static let allowTrackChange: Bool = true
+        struct Gestures {
+            
+            static let allowVolumeControl: Bool = true
+            static let allowSeeking: Bool = true
+            static let allowTrackChange: Bool = true
+            
+            static let allowPlaylistNavigation: Bool = true
+            static let allowPlaylistTabToggle: Bool = true
+            
+            static let volumeControlSensitivity: ScrollSensitivity = .medium
+            static let seekSensitivity: ScrollSensitivity = .medium
+            
+        }
         
-        static let allowPlaylistNavigation: Bool = true
-        static let allowPlaylistTabToggle: Bool = true
-        
-        static let volumeControlSensitivity: ScrollSensitivity = .medium
-        static let seekSensitivity: ScrollSensitivity = .medium
+        struct RemoteControl {
+            
+            static let enabled: Bool = false
+            
+            static let allowPlayPause: Bool = true
+            static let allowStop: Bool = true
+            static let allowTrackChangeOrSeeking: Bool = true
+            static let trackChangeOrSeekingOption: TrackChangeOrSeekingOptions = .trackChange
+            static let allowPlaybackPositionControl: Bool = true
+        }
     }
     
     struct Metadata {

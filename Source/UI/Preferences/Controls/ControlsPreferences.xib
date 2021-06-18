@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ControlsPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnAllowPlaylistNavigation" destination="lXI-ya-hRS" id="2aI-Gj-3Oo"/>
-                <outlet property="btnAllowPlaylistTabToggle" destination="EWq-Ot-KSS" id="Ln5-hw-h4R"/>
-                <outlet property="btnAllowSeeking" destination="Yr4-1a-eyr" id="UM4-CP-DRI"/>
-                <outlet property="btnAllowTrackChange" destination="EDg-hi-cnH" id="Udo-KQ-h6K"/>
-                <outlet property="btnAllowVolumeControl" destination="qyy-A4-KcT" id="a50-uG-p9P"/>
-                <outlet property="btnHybrid" destination="nU4-1G-tWz" id="LVt-gr-d3u"/>
-                <outlet property="btnRespondToMediaKeys" destination="RAh-7u-OwD" id="acv-XZ-cfT"/>
-                <outlet property="btnSeekingOnly" destination="eBk-bY-8SI" id="5JE-Dd-lsl"/>
-                <outlet property="btnTrackChangesOnly" destination="Eup-wD-UuU" id="S9b-uI-kSb"/>
-                <outlet property="repeatSpeedMenu" destination="678-aC-1iA" id="3eO-sd-TgR"/>
-                <outlet property="seekSensitivityMenu" destination="AcR-kI-jWJ" id="bK5-I5-LUt"/>
+                <outlet property="tabView" destination="2Ht-DN-HLi" id="Lqm-Gr-dKL"/>
                 <outlet property="view" destination="gGy-jp-4Vt" id="OfW-26-rEr"/>
-                <outlet property="volumeControlSensitivityMenu" destination="ctW-oU-LaL" id="zn9-jc-wWy"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -29,260 +18,66 @@
             <rect key="frame" x="0.0" y="0.0" width="688" height="486"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8jG-X6-CSc" userLabel="Sensitivity">
-                    <rect key="frame" x="66" y="315" width="72" height="20"/>
+                <tabView fixedFrame="YES" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="2Ht-DN-HLi" userLabel="Tab View" customClass="AuralTabView" customModule="Aural" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="10" width="688" height="420"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Repeat rate" id="JUS-ZM-18g">
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcR-kI-jWJ" userLabel="Sensitivity menu">
-                    <rect key="frame" x="164" y="142" width="104" height="26"/>
+                    <font key="font" metaFont="system"/>
+                    <tabViewItems>
+                        <tabViewItem label="Media Keys" identifier="" id="ERV-OM-y2y" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="r4a-tZ-6kE">
+                                <rect key="frame" x="0.0" y="0.0" width="688" height="420"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="TOj-41-uRm" id="lyD-MF-waP"/>
+                            </connections>
+                        </tabViewItem>
+                        <tabViewItem label="Item 1" identifier="" id="xaO-BS-bpJ" userLabel="Gestures" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="ffi-Q6-D9v">
+                                <rect key="frame" x="0.0" y="0.0" width="688" height="420"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="9An-oe-jjK" id="8aX-T1-s3s"/>
+                            </connections>
+                        </tabViewItem>
+                        <tabViewItem label="Item 2" identifier="" id="e6S-Xh-5Jr" userLabel="Remote Control" customClass="AuralTabViewItem" customModule="Aural" customModuleProvider="target">
+                            <view key="view" id="JpE-Vp-eUh">
+                                <rect key="frame" x="0.0" y="0.0" width="688" height="420"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <connections>
+                                <outlet property="tabButton" destination="Wdi-BN-Zaq" id="srb-HV-8Gv"/>
+                            </connections>
+                        </tabViewItem>
+                    </tabViewItems>
+                </tabView>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TOj-41-uRm" userLabel="Media Keys tab button">
+                    <rect key="frame" x="189" y="437" width="95" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="jus-ar-1ap" id="fcX-qb-OWz" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="Play-Regular"/>
-                        <menu key="menu" id="udd-Fe-BmE">
-                            <items>
-                                <menuItem title="Low" id="kMA-R7-MPN">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Medium" state="on" id="jus-ar-1ap">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="High" id="Vqj-fF-qWj">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qJb-cG-Tbu" userLabel="Sensitivity">
-                    <rect key="frame" x="88" y="144" width="73" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensitivity" id="GUH-d6-iYL">
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctW-oU-LaL" userLabel="Sensitivity menu">
-                    <rect key="frame" x="164" y="182" width="104" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="qCd-Yr-XUS" id="7k0-Mu-mID" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="Play-Regular"/>
-                        <menu key="menu" id="7II-gj-S1R">
-                            <items>
-                                <menuItem title="Low" id="eU9-Tq-J91">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Medium" state="on" id="qCd-Yr-XUS">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="High" id="nMD-Bg-v4J">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9y6-i3-r5b" userLabel="Sensitivity">
-                    <rect key="frame" x="88" y="184" width="73" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensitivity" id="9Np-lL-jyE">
-                        <font key="font" size="11" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EWq-Ot-KSS" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="51" y="52" width="318" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Horizontal swipe) Switch playlist view tabs" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oTM-Ba-724">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXI-ya-hRS" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="51" y="72" width="318" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Vertical swipe) Scroll to top/bottom of playlist" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="kfP-hP-NPx">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yat-U6-Ira">
-                    <rect key="frame" x="38" y="95" width="181" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist window" id="aDS-hy-H1r">
-                        <font key="font" size="12" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EDg-hi-cnH" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="51" y="124" width="277" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Horizontal swipe) Previous/next track" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="1Vv-Ye-yjp">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yr4-1a-eyr" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="51" y="165" width="277" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Horizontal scroll) Seek backward/forward" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="oIi-Lf-Iuy">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="allowSeekingAction:" target="-2" id="hzg-B4-4mb"/>
-                    </connections>
-                </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qyy-A4-KcT" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="51" y="205" width="277" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="(Vertical scroll) Increase/decrease volume " bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="Ue0-gt-7hK">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="allowVolumeControlAction:" target="-2" id="Azg-3q-s6F"/>
-                    </connections>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Amb-Wh-OFo" userLabel="Playback">
-                    <rect key="frame" x="38" y="230" width="215" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playback / sound (main window)" id="vVB-Y9-4Pn">
-                        <font key="font" size="12" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qmL-yf-alB">
-                    <rect key="frame" x="278" y="262" width="72" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Disable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="w41-Ai-T0s" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Media Keys" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gbB-NR-LTO" customClass="ContrastedPrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="disableAllGesturesAction:" target="-2" id="oqg-AS-pWf"/>
-                    </connections>
-                </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nMp-0r-Qka">
-                    <rect key="frame" x="195" y="262" width="72" height="19"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="roundRect" title="Enable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="90M-Kl-rhs" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="12" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="enableAllGesturesAction:" target="-2" id="eYf-Ff-SLT"/>
-                    </connections>
-                </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1DP-Fv-jbp">
-                    <rect key="frame" x="18" y="263" width="176" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Trackpad / mouse gestures" id="fox-MA-GXd">
-                        <font key="font" size="13" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RAh-7u-OwD" userLabel="Media key response" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="16" y="429" width="227" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Respond to media keys" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="a1U-qL-Hru">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="mediaKeyResponseAction:" target="-2" id="M7C-4A-AC5"/>
-                    </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eBk-bY-8SI" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="66" y="343" width="177" height="18"/>
+                <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="9An-oe-jjK" userLabel="Gestures tab button">
+                    <rect key="frame" x="294" y="437" width="82" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Seeking only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="gj0-ry-JO1">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
+                    <buttonCell key="cell" type="square" title="Gestures" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="VTf-XO-bfx" customClass="ContrastedPrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="skipKeyBehaviorAction:" target="-2" id="2Es-ls-lfp"/>
-                    </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eup-wD-UuU" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="66" y="363" width="200" height="18"/>
+                <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Wdi-BN-Zaq" userLabel="Remote Control tab button">
+                    <rect key="frame" x="379" y="437" width="117" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Track changes only" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="rMT-Sx-IjD">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
+                    <buttonCell key="cell" type="square" title="Remote Control" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Uhw-2s-yf3" customClass="ContrastedPrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="skipKeyBehaviorAction:" target="-2" id="kTk-7i-Lga"/>
-                    </connections>
                 </button>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nU4-1G-tWz" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                    <rect key="frame" x="66" y="383" width="343" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="radio" title="Press to change tracks, press and hold to seek" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="FnW-cL-NUx">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" size="11" name="Play-Regular"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="skipKeyBehaviorAction:" target="-2" id="9H7-bY-lqg"/>
-                    </connections>
-                </button>
-                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="678-aC-1iA" userLabel="Seeking speed menu">
-                    <rect key="frame" x="142" y="312" width="103" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="AXZ-Qm-0kq" id="0bT-dj-EJl" userLabel="Menu" customClass="PreferencesPopupMenuCell" customModule="Aural" customModuleProvider="target">
-                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" size="10" name="Play-Regular"/>
-                        <menu key="menu" id="nES-6k-DYV">
-                            <items>
-                                <menuItem title="Slow" id="AJ0-wO-WEK" userLabel="Slow">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Medium" state="on" id="AXZ-Qm-0kq">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                                <menuItem title="Fast" id="9aj-Cw-AHi" userLabel="Fast">
-                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                </menuItem>
-                            </items>
-                        </menu>
-                    </popUpButtonCell>
-                </popUpButton>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mhe-Dv-3JQ" userLabel="Sensitivity">
-                    <rect key="frame" x="56" y="407" width="204" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Behavior of                keys" id="5Gi-0U-NAb">
-                        <font key="font" size="12" name="Play-Regular"/>
-                        <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xb5-HP-DFa">
-                    <rect key="frame" x="120" y="411" width="19" height="10"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SeekBackward" id="Ugb-CH-X7s"/>
-                </imageView>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2xe-6K-C2M">
-                    <rect key="frame" x="141" y="411" width="19" height="10"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SeekForward" id="2eB-iF-fKs"/>
-                </imageView>
             </subviews>
             <point key="canvasLocation" x="189" y="196"/>
         </view>
     </objects>
-    <resources>
-        <image name="SeekBackward" width="46" height="34"/>
-        <image name="SeekForward" width="46" height="34"/>
-    </resources>
 </document>

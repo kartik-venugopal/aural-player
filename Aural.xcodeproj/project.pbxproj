@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		3E11B2D7267BFDEF00AB7DC9 /* RemoteCommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */; };
+		3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */; };
+		3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */; };
+		3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */; };
+		3E2000C5267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2000C4267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift */; };
+		3E2000C7267CEEF7008BAB70 /* GesturesPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2000C6267CEEF7008BAB70 /* GesturesPreferencesViewController.swift */; };
+		3E2000C9267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2000C8267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift */; };
 		3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */; };
 		3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */; };
 		3E25558B25DE49F300CD7938 /* Metamorphous-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */; };
@@ -620,6 +626,12 @@
 
 /* Begin PBXFileReference section */
 		3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandManager.swift; sourceTree = "<group>"; };
+		3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaKeysPreferences.xib; sourceTree = "<group>"; };
+		3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GesturesPreferences.xib; sourceTree = "<group>"; };
+		3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteControlPreferences.xib; sourceTree = "<group>"; };
+		3E2000C4267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysPreferencesViewController.swift; sourceTree = "<group>"; };
+		3E2000C6267CEEF7008BAB70 /* GesturesPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesPreferencesViewController.swift; sourceTree = "<group>"; };
+		3E2000C8267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferencesViewController.swift; sourceTree = "<group>"; };
 		3E25557D25DE48AB00CD7938 /* Exo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo-Medium.ttf"; sourceTree = "<group>"; };
 		3E25557F25DE48AB00CD7938 /* CarroisGothicSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CarroisGothicSC-Regular.ttf"; sourceTree = "<group>"; };
 		3E25558225DE48AC00CD7938 /* Metamorphous-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metamorphous-Regular.ttf"; sourceTree = "<group>"; };
@@ -1281,6 +1293,33 @@
 			path = RemoteControl;
 			sourceTree = "<group>";
 		};
+		3E2000BB267CDF7E008BAB70 /* MediaKeys */ = {
+			isa = PBXGroup;
+			children = (
+				3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */,
+				3E2000C4267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift */,
+			);
+			path = MediaKeys;
+			sourceTree = "<group>";
+		};
+		3E2000BC267CDF85008BAB70 /* Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */,
+				3E2000C6267CEEF7008BAB70 /* GesturesPreferencesViewController.swift */,
+			);
+			path = Gestures;
+			sourceTree = "<group>";
+		};
+		3E2000BD267CDFA1008BAB70 /* RemoteControl */ = {
+			isa = PBXGroup;
+			children = (
+				3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */,
+				3E2000C8267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift */,
+			);
+			path = RemoteControl;
+			sourceTree = "<group>";
+		};
 		3E2743892609E7C100DBDB34 /* MusicBrainz */ = {
 			isa = PBXGroup;
 			children = (
@@ -1596,6 +1635,9 @@
 			children = (
 				3E6C0F2925CEB98500BF0D07 /* ControlsPreferences.xib */,
 				3E6C0F2A25CEB98500BF0D07 /* ControlsPreferencesViewController.swift */,
+				3E2000BB267CDF7E008BAB70 /* MediaKeys */,
+				3E2000BC267CDF85008BAB70 /* Gestures */,
+				3E2000BD267CDFA1008BAB70 /* RemoteControl */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -3103,6 +3145,7 @@
 				3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */,
 				3E6C126625CEBE0600BF0D07 /* DelayPresetsEditor.xib in Resources */,
 				3E5F943425E571A6002DEF80 /* Visualizer.xib in Resources */,
+				3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */,
 				3E6C126D25CEBE0600BF0D07 /* FavoritesEditor.xib in Resources */,
 				3E824A4325DB74850089F217 /* MenuBarPlayer.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */,
@@ -3137,9 +3180,11 @@
 				3E6C12A725CEBE2700BF0D07 /* Alerts.xib in Resources */,
 				3E6C124A25CEBDF400BF0D07 /* AlbumsPlaylistSort.xib in Resources */,
 				3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */,
+				3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */,
 				3E6C123925CEBDF400BF0D07 /* PlaylistSearch.xib in Resources */,
 				3E6C121425CEBDE500BF0D07 /* MainWindow.xib in Resources */,
 				3E6C124325CEBDF400BF0D07 /* Albums.xib in Resources */,
+				3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */,
 				3E6C12D225CEBE6700BF0D07 /* Pitch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3235,6 +3280,7 @@
 				3E5F943325E571A6002DEF80 /* Spectrogram.swift in Sources */,
 				3E6C123725CEBDF400BF0D07 /* AuralPlaylistViews.swift in Sources */,
 				3EDB33F025E8AE09004DF7DE /* FFmpegAudioCodec.swift in Sources */,
+				3E2000C9267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift in Sources */,
 				3EDB33F725E8AE09004DF7DE /* FFmpegCodec.swift in Sources */,
 				3E6C124E25CEBDF400BF0D07 /* PlaylistContextMenuController.swift in Sources */,
 				3E6C11C925CEBDBE00BF0D07 /* PlaybackDelegate.swift in Sources */,
@@ -3278,6 +3324,7 @@
 				3EDB346C25E8BABC004DF7DE /* FFmpegPlaybackContext.swift in Sources */,
 				3EDB345525E8B75D004DF7DE /* ID3Spec.swift in Sources */,
 				3E6C116C25CEBD6000BF0D07 /* DelayPresets.swift in Sources */,
+				3E2000C7267CEEF7008BAB70 /* GesturesPreferencesViewController.swift in Sources */,
 				3E6C12DF25CEBE8100BF0D07 /* PlayingTrackTextView.swift in Sources */,
 				3E6C123E25CEBDF400BF0D07 /* ChaptersListTableHeaderCell.swift in Sources */,
 				3E6C126A25CEBE0600BF0D07 /* ColorSchemesEditorViewController.swift in Sources */,
@@ -3392,6 +3439,7 @@
 				3E6C12FF25CEBE8F00BF0D07 /* PlayerViewPopupMenuController.swift in Sources */,
 				3EDB346725E8B75D004DF7DE /* TrackReader.swift in Sources */,
 				3E6C121325CEBDE500BF0D07 /* UIConstants.swift in Sources */,
+				3E2000C5267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift in Sources */,
 				3EDB33FF25E8AE09004DF7DE /* FFmpegChannelLayoutsMapper.swift in Sources */,
 				3EDB33FE25E8AE09004DF7DE /* AVFExtensions.swift in Sources */,
 				3E6C121C25CEBDE600BF0D07 /* SoundPreferencesViewController.swift in Sources */,

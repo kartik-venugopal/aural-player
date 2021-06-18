@@ -17,7 +17,7 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         return scrollSensitiveSeekLengths[controlsPreferences.seekSensitivity]!
     }
     
-    private var controlsPreferences: ControlsPreferences!
+    private var controlsPreferences: GesturesControlsPreferences!
     
     var autoplayOnStartup: Bool
     var autoplayAfterAddingTracks: Bool
@@ -25,7 +25,8 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     var rememberLastPositionOption: RememberSettingsForTrackOptions
     
-    convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
+    convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
+        
         self.init(defaultsDictionary)
         self.controlsPreferences = controlsPreferences
     }

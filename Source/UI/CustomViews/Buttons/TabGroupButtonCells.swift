@@ -91,7 +91,16 @@ class PrefsTabButtonCell: TabGroupButtonCell {
     override var fillBeforeBorder: Bool {return false}
     override var borderRadius: CGFloat {return 4}
     override var borderLineWidth: CGFloat {return 1.5}
-    override var selectionBoxColor: NSColor {return NSColor.black}
+    override var selectionBoxColor: NSColor {.black}
+}
+
+class ContrastedPrefsTabButtonCell: TabGroupButtonCell {
+    
+//    override var fillBeforeBorder: Bool {return false}
+//    override var borderRadius: CGFloat {return 4}
+//    override var borderLineWidth: CGFloat {return 1.5}
+    override var selectionBoxColor: NSColor {Colors.Constants.white70Percent}
+    override var selectedTextColor: NSColor {.black}
 }
 
 class EQPreviewTabButtonCell: TabGroupButtonCell {

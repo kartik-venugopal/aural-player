@@ -25,9 +25,9 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     var rememberEffectsSettingsOption: RememberSettingsForTrackOptions
     
-    private var controlsPreferences: ControlsPreferences!
+    private var controlsPreferences: GesturesControlsPreferences!
     
-    convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: ControlsPreferences) {
+    convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
         
         self.init(defaultsDictionary)
         self.controlsPreferences = controlsPreferences
