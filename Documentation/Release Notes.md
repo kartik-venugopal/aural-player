@@ -1,20 +1,18 @@
-#  What's New in Version 3.0.0
+#  What's New in Version 3.1.0
 
-## M1 (arm64 architecture) support with universal binary
+## Remote Control and Now Playing Info
 
-This is the first working release for Macs with the new M1 arm64-based chips. This build and all subsequent app release builds will be universal binaries, i.e. capable of running on both Intel Macs and newer M1 Macs.
+*Remote Control* is the ability of Aural Player to be controlled from outside the application, for example, from the macOS Control Center (available in Big Sur) or by Apple accessories (eg. headphones) that are able to send ***MPRemoteCommand*** audio commands to macOS. Exposed functions include play / pause, previous / next track, skipping forward / backward, or seeking to an arbitrary playback position. 
 
-This release is functionally identical to v2.12.1, i.e. no new features have been added, and some minor bugs have been fixed. The sole purpose of this release is to provide M1 support. The bump in major version number indicates the significance of this update.
+*Now Playing Info* is the display of current audio information within the "Now Playing" section of the macOS Control Center and/or the associated player widget that attaches to the menu bar. This includes the currently playing track's title, artist, album, cover art, playback position, etc.
 
-## Feedback requested
+This feature provides the abillity to control Aural Player through a familiar native interface such as Control Center, without having to switch to the app, and is also an allternative to using media keys.
 
-Since I do not have access to M1 hardware, I cannot personally confirm that this build works on M1 machines, so I am asking for your help.
+**NOTE** - This feature's capabilities are roughly comparable to that of Aural Player running in menu bar mode, although menu bar mode does provide some extra functions such as volume control, repeat, shuffle, segment looping, etc. 
 
-To fully test the validity of this build, please try playback of non-native tracks (eg. FLAC, Vorbis, Opus, APE, etc.). Playback of non-native tracks will exercise the ffmpeg library, which is also a universal binary.
+### Remote Control not available in menu bar mode
 
-I would greatly appreciate feedback on this build from users with M1 machines, letting me know if it works. Thanks. 
-
-You may contact the developer on [Twitter](https://twitter.com/AuralPlayer) or by [email](mailto:aural.student@gmail.com). You can also file an issue here on GitHub. 
+Note that when running Aural Player in menu bar mode, it will *not* be able to receive Remote Control commands.
 
 ### **For more info**
-Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.0.0)
+Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.1.0)
