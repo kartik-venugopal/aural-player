@@ -14,13 +14,17 @@
 # ./buildReleasePackage.sh dmg      (Will build DMG)
 #
 # NOTE - Building the DMG image requires a tool called "create-dmg". This tool must be installed on the system.
-# It can be installed by running "brew install create-dmg". For more info, see https://github.com/create-dmg/create-dmg.
+# It can be installed by running "brew install create-dmg". For more info, see:
+# https://github.com/create-dmg/create-dmg.
 #
-
-export releaseVersion="3.0.0"
 
 # Directory containing the Aural Player Xcode project.
 export projectDir="../.."
+
+echo "Reading build version from Aural Player project ..."
+
+# Get release version from the project.
+export releaseVersion=$(xcodebuild -project $projectDir/Aural.xcodeproj -showBuildSettings | grep MARKETING_VERSION | cut -d'=' -f2 | tr -d ' ')
 
 # Destination directory where the app bundle / DMG image will be stored.
 export releaseDir="./Aural Player ${releaseVersion}"

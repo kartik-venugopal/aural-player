@@ -28,7 +28,7 @@ class Track: Hashable, PlaylistItem {
 
     var title: String?
     
-    var theArtist: String?
+    private var theArtist: String?
     
     var artist: String? {
         theArtist ?? albumArtist ?? performer

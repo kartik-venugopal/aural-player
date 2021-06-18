@@ -10,3 +10,4 @@ Resources/ffmpeg/decoders.txt
 Resources/ffmpeg/decoders-stats.txt
 Resources/ffmpeg/parsers.txt
 Resources/releaseAutomation/*.dmg
+Resources/ffmpeg/audio-decoders.txt

@@ -70,6 +70,9 @@ extension Notification.Name {
     
     // MARK: Notifications published by the player.
     
+    // Signifies that the playback state of the player has changed.
+    static let player_playbackStateChanged = Notification.Name("player_playbackStateChanged")
+    
     // Signifies that the currently playing track chapter has changed.
     static let player_chapterChanged = Notification.Name("player_chapterChanged")
     

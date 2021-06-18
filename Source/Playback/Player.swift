@@ -17,7 +17,9 @@ class Player: PlayerProtocol, NotificationSubscriber {
     private let avfScheduler: PlaybackSchedulerProtocol
     private let ffmpegScheduler: PlaybackSchedulerProtocol
     
-    private(set) var state: PlaybackState = .noTrack
+    private(set) var state: PlaybackState = .noTrack {
+        didSet {Messenger.publish(.player_playbackStateChanged)}
+    }
     
     init(graph: PlayerGraphProtocol, avfScheduler: PlaybackSchedulerProtocol, ffmpegScheduler: PlaybackSchedulerProtocol) {
         
