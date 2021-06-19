@@ -6,9 +6,9 @@
 
 **M1 machines are now supported !**
 
-Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the latest release build works fine on M1 hardware !
-
 [Try it out](https://github.com/maculateConception/aural-player/releases/latest).
+
+Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the latest release build works fine on M1 hardware !
 
 ## Table of Contents
   * [Overview](#overview)
