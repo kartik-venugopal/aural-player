@@ -20,9 +20,13 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     /// Provides current playback sequence information (eg. repeat / shuffle modes, how many tracks are in the playback queue, etc).
     private let sequencer: SequencerInfoDelegateProtocol
     
+    /// 50x50 is the size of the image view in macOS Control Center.
     private static let optimalArtworkSize: NSSize = NSMakeSize(50, 50)
+    
+    /// An image to display when the currently playing track does not have any associated cover art, resized to an optimal size for display in Control Center.
     private static let defaultArtwork: NSImage = Images.imgPlayingArt.copy(ofSize: optimalArtworkSize)
     
+    /// A flag used to prevent unnecessary redundant updates.
     private var preTrackChange: Bool = false
     
     init(playbackInfo: PlaybackInfoDelegateProtocol, audioGraph: AudioGraphDelegateProtocol, sequencer: SequencerInfoDelegateProtocol) {
@@ -34,6 +38,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         super.init()
     
         // Initialize the Now Playing Info Center with current info.
+        
         infoCenter.nowPlayingInfo = [String: Any]()
         infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyMediaType] = MPNowPlayingInfoMediaType.audio.rawValue
         self.updateNowPlayingInfo()
@@ -51,6 +56,9 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         Messenger.subscribeAsync(self, .fx_playbackRateChanged, self.playbackRateChanged(_:), queue: .main)
     }
     
+    ///
+    /// Responds to a notification that the currently playing track is about to change.
+    ///
     private func handlePreTrackChange() {
         preTrackChange = true
     }
@@ -70,6 +78,8 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     ///
     private func playbackStateChanged() {
         
+        // If the currently playing track is about to change, don't respond to this notification
+        // because another notification will be sent shortly.
         if preTrackChange {return}
         
         infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
@@ -81,7 +91,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         var nowPlayingInfo = infoCenter.nowPlayingInfo!
         
         // Set playback rate
-        let playbackRate: Double = playbackInfo.state == .playing ? Double(newRate) : 0.0
+        let playbackRate: Double = playbackInfo.state == .playing ? Double(newRate) : .zero
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
@@ -133,6 +143,8 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         nowPlayingInfo[MPMediaItemPropertyDiscNumber] = playingTrack?.discNumber
         nowPlayingInfo[MPMediaItemPropertyDiscCount] = playingTrack?.totalDiscs
         
+        // Cover art
+        
         if #available(OSX 10.13.2, *) {
             
             nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in playingTrack?.art?.image.copy(ofSize: size) ?? Self.defaultArtwork})
@@ -145,7 +157,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         
         // Playback rate
         
-        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.effectiveRate) : 0.0
+        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.effectiveRate) : .zero
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
@@ -155,6 +167,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueCount] = UInt(sequencer.sequenceInfo.totalTracks)
         
         // Update the nowPlayingInfo dictionary in the Now Playing Info Center.
+        
         infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
         infoCenter.nowPlayingInfo = nowPlayingInfo
     }
