@@ -9,7 +9,7 @@ import MediaPlayer
 class NowPlayingInfoManager: NSObject, NotificationSubscriber {
 
     /// The underlying Now Playing Info Center.
-    fileprivate let nowPlayingInfoCenter = MPNowPlayingInfoCenter.default()
+    fileprivate let infoCenter = MPNowPlayingInfoCenter.default()
     
     /// Provides current player information (eg. which track is playing, playback state, playback position, etc).
     private let playbackInfo: PlaybackInfoDelegateProtocol
@@ -21,6 +21,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     private let sequencer: SequencerInfoDelegateProtocol
     
     private static let optimalArtworkSize: NSSize = NSMakeSize(50, 50)
+    private static let defaultArtwork: NSImage = Images.imgPlayingArt.copy(ofSize: optimalArtworkSize)
     
     private var preTrackChange: Bool = false
     
@@ -33,15 +34,16 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         super.init()
     
         // Initialize the Now Playing Info Center with current info.
+        infoCenter.nowPlayingInfo = [String: Any]()
+        infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyMediaType] = MPNowPlayingInfoMediaType.audio.rawValue
         self.updateNowPlayingInfo()
-        self.playbackStateChanged()
         
         //
         // Subscribe to notifications about changes in the player's state, so that the Now Playing Info Center can be
         // updated in response to any of those changes.
         //
         Messenger.subscribe(self, .player_preTrackChange, self.handlePreTrackChange)
-        Messenger.subscribe(self, .player_trackTransitioned, self.trackChanged(_:), filter: {msg in msg.trackChanged})
+        Messenger.subscribe(self, .player_trackTransitioned, self.trackChanged)
         Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed)
         Messenger.subscribe(self, .player_playbackStateChanged, self.playbackStateChanged)
         Messenger.subscribe(self, .player_seekPerformed, self.seekPerformed)
@@ -56,7 +58,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     /// Responds to a change in the currently playing track. Updates the Now Playing Info Center with information
     /// about the new playing track.
     ///
-    private func trackChanged(_ notification: TrackTransitionNotification) {
+    private func trackChanged() {
         
         updateNowPlayingInfo()
         preTrackChange = false
@@ -75,34 +77,31 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         
         if preTrackChange {return}
         
-        nowPlayingInfoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
-        
-        if var nowPlayingInfo = nowPlayingInfoCenter.nowPlayingInfo {
-            
-            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
-            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.rate) : 0.0
-            
-            nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
-        }
+        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
+        playbackRateChanged(audioGraph.timeUnit.rate)
     }
     
     private func playbackRateChanged(_ newRate: Float) {
         
-        if var nowPlayingInfo = nowPlayingInfoCenter.nowPlayingInfo {
-            
-            nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackInfo.state == .playing ? Double(newRate) : 0.0
-            nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate]
-            nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
-            
-            nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
-        }
+        var nowPlayingInfo = infoCenter.nowPlayingInfo!
+        
+        // Set playback rate
+        let playbackRate: Double = playbackInfo.state == .playing ? Double(newRate) : 0.0
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
+        nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
+        
+        // Set elapsed time
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+        
+        infoCenter.nowPlayingInfo = nowPlayingInfo
     }
     
     ///
     /// Responds to the player performing a seek. Updates the Now Playing Info Center with the new seek position.
     ///
     private func seekPerformed() {
-        nowPlayingInfoCenter.nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+        
+        infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
     }
     
     ///
@@ -110,10 +109,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     ///
     private func updateNowPlayingInfo() {
         
-        var nowPlayingInfo = nowPlayingInfoCenter.nowPlayingInfo ?? [String: Any]()
-        
-        nowPlayingInfo[MPNowPlayingInfoPropertyMediaType] = MPNowPlayingInfoMediaType.audio.rawValue
-        
+        var nowPlayingInfo = infoCenter.nowPlayingInfo!
         let playingTrack = playbackInfo.playingTrack
         
         // Metadata
@@ -130,18 +126,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         
         if #available(OSX 10.13.2, *) {
             
-            if let artwork = playingTrack?.art?.image {
-                
-                nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in
-                    
-                    let imageCopy: NSImage = artwork.copy() as! NSImage
-                    imageCopy.size = Self.optimalArtworkSize
-                    return imageCopy
-                })
-                
-            } else {
-                nowPlayingInfo[MPMediaItemPropertyArtwork] = nil
-            }
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in playingTrack?.art?.image.copy(ofSize: size) ?? Self.defaultArtwork})
         }
         
         // Seek position and duration
@@ -151,7 +136,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         
         // Playback rate
         
-        let playbackRate = Double(audioGraph.timeUnit.rate)
+        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.rate) : 0.0
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
@@ -161,8 +146,8 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueCount] = UInt(sequencer.sequenceInfo.totalTracks)
         
         // Update the nowPlayingInfo dictionary in the Now Playing Info Center.
-        nowPlayingInfoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
-        nowPlayingInfoCenter.nowPlayingInfo = nowPlayingInfo
+        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
+        infoCenter.nowPlayingInfo = nowPlayingInfo
     }
 }
 

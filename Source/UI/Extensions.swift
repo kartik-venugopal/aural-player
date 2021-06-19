@@ -440,6 +440,13 @@ extension NSImage {
         
         return image
     }
+    
+    func copy(ofSize size: NSSize) -> NSImage {
+        
+        let copy = self.copy() as! NSImage
+        copy.size = size
+        return copy
+    }
 }
 
 extension NSColor {
