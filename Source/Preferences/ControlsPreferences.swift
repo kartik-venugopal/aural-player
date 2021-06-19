@@ -110,20 +110,11 @@ class GesturesControlsPreferences: PersistentPreferencesProtocol {
 class RemoteControlPreferences: PersistentPreferencesProtocol {
     
     var enabled: Bool
- 
-    var allowPlayPause: Bool
-    var allowStop: Bool
-    var allowTrackChangeOrSeeking: Bool
     var trackChangeOrSeekingOption: TrackChangeOrSeekingOptions
-    var allowPlaybackPositionControl: Bool
     
     internal required init(_ defaultsDictionary: [String: Any]) {
 
         enabled = defaultsDictionary["controls.remoteControl.enabled"] as? Bool ?? PreferencesDefaults.Controls.RemoteControl.enabled
-        
-        allowPlayPause = defaultsDictionary["controls.remoteControl.allowPlayPause"] as? Bool ?? PreferencesDefaults.Controls.RemoteControl.allowPlayPause
-        allowStop = defaultsDictionary["controls.remoteControl.allowStop"] as? Bool ?? PreferencesDefaults.Controls.RemoteControl.allowStop
-        allowTrackChangeOrSeeking = defaultsDictionary["controls.remoteControl.allowTrackChangeOrSeeking"] as? Bool ?? PreferencesDefaults.Controls.RemoteControl.allowTrackChangeOrSeeking
         
         if let trackChangeOrSeekingOptionStr = defaultsDictionary["controls.remoteControl.trackChangeOrSeekingOption"] as? String {
             
@@ -131,18 +122,11 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
         } else {
             trackChangeOrSeekingOption = PreferencesDefaults.Controls.RemoteControl.trackChangeOrSeekingOption
         }
-        
-        allowPlaybackPositionControl = defaultsDictionary["controls.remoteControl.allowPlaybackPositionControl"] as? Bool ?? PreferencesDefaults.Controls.RemoteControl.allowPlaybackPositionControl
     }
     
     func persist(defaults: UserDefaults) {
         
         defaults.set(enabled, forKey: "controls.remoteControl.enabled")
-        
-        defaults.set(allowPlayPause, forKey: "controls.remoteControl.allowPlayPause")
-        defaults.set(allowStop, forKey: "controls.remoteControl.allowStop")
-        defaults.set(allowTrackChangeOrSeeking, forKey: "controls.remoteControl.allowTrackChangeOrSeeking")
         defaults.set(trackChangeOrSeekingOption.rawValue, forKey: "controls.remoteControl.trackChangeOrSeekingOption")
-        defaults.set(allowPlaybackPositionControl, forKey: "controls.remoteControl.allowPlaybackPositionControl")
     }
 }
