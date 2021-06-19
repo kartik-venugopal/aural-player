@@ -40,15 +40,9 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
             let controlsPrefs = preferences.controlsPreferences.remoteControl
             
             btnEnableRemoteControl.onIf(controlsPrefs.enabled)
-            [btnShowTrackChangeControls, btnShowSeekingControls].forEach({$0?.enableIf(controlsPrefs.enabled)})
-            
             btnShowTrackChangeControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .trackChange)
             btnShowSeekingControls.onIf(controlsPrefs.trackChangeOrSeekingOption == .seeking)
         }
-    }
-    
-    @IBAction func enableRemoteControlAction(_ sender: Any) {
-        [btnShowTrackChangeControls, btnShowSeekingControls].forEach({$0?.enableIf(btnEnableRemoteControl.isOn)})
     }
     
     @IBAction func trackChangeOrSeekingOptionsAction(_ sender: Any) {

@@ -64,9 +64,6 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" size="13" name="Play-Regular"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="enableRemoteControlAction:" target="-2" id="b3i-14-tFP"/>
-                                </connections>
                             </button>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQV-xJ-MQm" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
                                 <rect key="frame" x="70" y="222" width="361" height="18"/>
