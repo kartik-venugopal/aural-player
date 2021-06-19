@@ -97,7 +97,7 @@ struct PreferencesDefaults {
         
         struct RemoteControl {
             
-            static let enabled: Bool = true
+            static var enabled: Bool {SystemUtils.isBigSur}
             static let trackChangeOrSeekingOption: TrackChangeOrSeekingOptions = .trackChange
         }
     }

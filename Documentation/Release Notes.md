@@ -14,7 +14,15 @@ Controllable functions:
  * Skip forward / backward
  * Seek to an arbitrary playback position
  
- **NOTE** - This feature is available starting with **macOS 10.12.2**.   
+ **NOTE** - This feature is available starting with **macOS 10.12.2**.
+ 
+ ### Preferences
+ 
+ Note that Remote Control will be enabled by default on macOS Big Sur, and disabled by default on older systems, because it is less likely to be used on older systems ... Control Center is only available on Big Sur.
+ 
+ You can enable / disable Remote Control by opening the Preferences dialog, switching to the *Controls* tab, then selecting the *Remote Control* sub-tab.
+ 
+ Here, you can also choose whether to display track change controls (previous / next track) or seeking controls (skip backward / forward) in Control Center.
  
  ## Now Playing Info
 
