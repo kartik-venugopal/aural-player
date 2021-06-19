@@ -24,23 +24,10 @@ class RemoteCommandManager: NSObject {
     
     var changePlaybackPositionCommand: MPChangePlaybackPositionCommand {cmdCenter.changePlaybackPositionCommand}
     
-    private let preferences: Preferences
-    
     private var activated: Bool = false
     
-    init(preferences: Preferences) {
-        
-        self.preferences = preferences
-        super.init()
-        
-        if preferences.controlsPreferences.remoteControl.enabled {
-            activateCommandHandlers()
-        }
-    }
-    
-    func activateCommandHandlers() {
-        
-        let remoteControlPrefs = self.preferences.controlsPreferences.remoteControl
+    /// Registers command handlers with the command center.
+    func activate(trackChangeOrSeekingOption: TrackChangeOrSeekingOptions, seekInterval: Double) {
         
         // Previous / Next track
         
@@ -48,18 +35,18 @@ class RemoteCommandManager: NSObject {
         nextTrackCommand.removeTarget(self, action: nil)
         
         [previousTrackCommand, nextTrackCommand].forEach {
-            $0.isEnabled = remoteControlPrefs.trackChangeOrSeekingOption == .trackChange
+            $0.isEnabled = trackChangeOrSeekingOption == .trackChange
         }
         
         // Skip backward / forward
         
         [skipBackwardCommand, skipForwardCommand].forEach {
             
-            $0.isEnabled = remoteControlPrefs.trackChangeOrSeekingOption == .seeking
+            $0.isEnabled = trackChangeOrSeekingOption == .seeking
             $0.removeTarget(self, action: nil)
         }
         
-        if remoteControlPrefs.trackChangeOrSeekingOption == .trackChange {
+        if trackChangeOrSeekingOption == .trackChange {
             
             previousTrackCommand.addTarget(self, action: #selector(self.handlePreviousTrack(_:)))
             nextTrackCommand.addTarget(self, action: #selector(self.handleNextTrack(_:)))
@@ -69,7 +56,7 @@ class RemoteCommandManager: NSObject {
             skipBackwardCommand.addTarget(self, action: #selector(self.handleSkipBackward(_:)))
             skipForwardCommand.addTarget(self, action: #selector(self.handleSkipForward(_:)))
             
-            skipBackwardCommand.preferredIntervals = [NSNumber(value: preferences.playbackPreferences.primarySeekLengthConstant)]
+            skipBackwardCommand.preferredIntervals = [NSNumber(value: seekInterval)]
             skipForwardCommand.preferredIntervals = skipBackwardCommand.preferredIntervals
         }
         
@@ -96,7 +83,8 @@ class RemoteCommandManager: NSObject {
         activated = true
     }
     
-    func deactivateCommandHandlers() {
+    /// Un-registers command handlers with the command center.
+    func deactivate() {
         
         if !activated {return}
         
@@ -108,6 +96,13 @@ class RemoteCommandManager: NSObject {
          }
         
         activated = false
+    }
+    
+    /// Updates the seek interval of the skip commands.
+    func updateSeekInterval(to newInterval: Double) {
+        
+        skipBackwardCommand.preferredIntervals = [NSNumber(value: newInterval)]
+        skipForwardCommand.preferredIntervals = skipBackwardCommand.preferredIntervals
     }
     
     ///

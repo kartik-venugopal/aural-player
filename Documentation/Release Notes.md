@@ -24,18 +24,23 @@ Controllable functions:
  
  Remote Control's capabilities are roughly comparable to that of Aural Player running in menu bar mode, although menu bar mode does provide some extra functions such as volume control, repeat, shuffle, segment looping, etc, and is more reliable.
  
- Note that when running Aural Player in menu bar mode, it will *not* be able to receive Remote Control commands.
+ Note that when running Aural Player in menu bar mode, it will *not* be able to receive Remote Control commands. Now Playing info (in Control Center) will still be displayed but the playback controls will not be functional.
  
-### Media keys no longer require Accessibility permissions
+### Remote Control and media keys
 
-An advantage of the Remote Control feature is that, when enabled, media keys don't require OS-level Accessibility permissions in order to function. They should work by default out-of-the-box.
+An advantage of the Remote Control feature is that, when enabled, media keys don't require OS-level Accessibility permissions in order to function. They should work by default out-of-the-box, once Aural Player becomes the "Now Playable" app and shows up in the "Now Playing" section of the Control Center (i.e. once playback is started).
+
+If you do *not* grant Accessibility permissions to Aural Player, the behavior of the media keys will be dictated by which controls are enabled by Remote Control (i.e. track changes or seeking). Remote Control preferences will take precedence over media keys preferences.
+
+If you do grant Accessibility permissions to Aural Player, the behavior of the media keys will be dictated by Aural Player's media keys preferences.
 
 ### macOS Control Center is unreliable and buggy
 
 The macOS Control Center is generally unreliable and buggy, and the following issues may occur sporadically:
 
-* Track cover art disappears when pausing the track. Closing and re-opening the Control Center UI resolves this issue.
+* Track cover art disappears when pausing / resuming a track. Closing and re-opening the Control Center UI resolves this issue.
 * The playback position may go out of sync with the app's actual playback position. 
+* The time interval (seconds) displayed in skip controls may not match the actual skip time interval aka "seek length".
 
 This behavior is not exclusive to Aural Player; it can be observed when using the Control Center with other audio apps such as Spotify.
 

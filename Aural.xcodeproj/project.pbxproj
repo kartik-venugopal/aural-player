@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0DF3D0267E6EE60035FE29 /* RemoteControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */; };
 		3E11B2D7267BFDEF00AB7DC9 /* RemoteCommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */; };
 		3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */; };
 		3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */; };
@@ -625,6 +626,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlManager.swift; sourceTree = "<group>"; };
 		3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandManager.swift; sourceTree = "<group>"; };
 		3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaKeysPreferences.xib; sourceTree = "<group>"; };
 		3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GesturesPreferences.xib; sourceTree = "<group>"; };
@@ -1287,6 +1289,7 @@
 		3E11B2D2267BF8BB00AB7DC9 /* RemoteControl */ = {
 			isa = PBXGroup;
 			children = (
+				3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */,
 				3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */,
 				3E634E08267C7C1C00B6EA5F /* NowPlayingInfoManager.swift */,
 			);
@@ -3529,6 +3532,7 @@
 				3E6C116825CEBD6000BF0D07 /* HistoryState.swift in Sources */,
 				3EDB346125E8B75D004DF7DE /* AVFFormatDescriptions.swift in Sources */,
 				3E6C11FD25CEBDD100BF0D07 /* PlaylistItemArray.swift in Sources */,
+				3E0DF3D0267E6EE60035FE29 /* RemoteControlManager.swift in Sources */,
 				3E6C11B525CEBDA900BF0D07 /* MKExtensions.swift in Sources */,
 				3E6C11FA25CEBDD100BF0D07 /* ChangeListenerProtocols.swift in Sources */,
 				3EDB345B25E8B75D004DF7DE /* AVFMetadataParser.swift in Sources */,

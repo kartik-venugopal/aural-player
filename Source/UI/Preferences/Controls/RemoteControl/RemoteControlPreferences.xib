@@ -82,9 +82,9 @@
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rep-tO-bLD" userLabel="SelectPlaybackControls">
-                                <rect key="frame" x="61" y="247" width="467" height="20"/>
+                                <rect key="frame" x="61" y="247" width="372" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select which playback controls you want displayed  (requires app restart)" id="xxU-XL-SeN">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select which playback controls you want displayed" id="xxU-XL-SeN">
                                     <font key="font" size="13" name="Play-Regular"/>
                                     <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

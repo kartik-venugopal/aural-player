@@ -10,6 +10,9 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
     @IBOutlet weak var btnShowTrackChangeControls: NSButton!
     @IBOutlet weak var btnShowSeekingControls: NSButton!
     
+    @available(OSX 10.12.2, *)
+    private var remoteControlManager: RemoteControlManager {ObjectGraph.remoteControlManager}
+    
     override var nibName: String? {"RemoteControlPreferences"}
     
     override func viewDidLoad() {
@@ -58,13 +61,18 @@ class RemoteControlPreferencesViewController: NSViewController, PreferencesViewP
             
             let controlsPrefs = preferences.controlsPreferences.remoteControl
             
+            let wasEnabled: Bool = controlsPrefs.enabled
+            let oldTrackChangeOrSeekingOption = controlsPrefs.trackChangeOrSeekingOption
+            
             controlsPrefs.enabled = btnEnableRemoteControl.isOn
             controlsPrefs.trackChangeOrSeekingOption = btnShowTrackChangeControls.isOn ? .trackChange : .seeking
             
-            if controlsPrefs.enabled {
-                ObjectGraph.remoteCommandManager.activateCommandHandlers()
-            } else {
-                ObjectGraph.remoteCommandManager.deactivateCommandHandlers()
+            // Don't do anything unless at least one preference was changed.
+            
+            let prefsHaveChanged = (wasEnabled != controlsPrefs.enabled) || (oldTrackChangeOrSeekingOption != controlsPrefs.trackChangeOrSeekingOption)
+            
+            if prefsHaveChanged {
+                remoteControlManager.preferencesUpdated()
             }
         }
     }

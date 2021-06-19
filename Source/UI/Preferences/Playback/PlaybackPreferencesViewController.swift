@@ -38,6 +38,9 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
     
+    @available(OSX 10.12.2, *)
+    private var remoteControlManager: RemoteControlManager {ObjectGraph.remoteControlManager}
+    
     override var nibName: String? {"PlaybackPreferences"}
     
     var preferencesView: NSView {
@@ -172,6 +175,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         let prefs = preferences.playbackPreferences
         
+        let oldPrimarySeekLengthConstant = prefs.primarySeekLengthConstant
+        
         prefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.isOn ? .constant : .percentage
         prefs.primarySeekLengthConstant = Int(round(primarySeekLengthPicker.interval))
         prefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
@@ -185,6 +190,8 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         prefs.autoplayAfterAddingTracks = btnAutoplayAfterAddingTracks.isOn
         prefs.autoplayAfterAddingOption = btnAutoplayIfNotPlaying.isOn ? .ifNotPlaying : .always
         
+        // Playback profiles
+        
         let wasAllTracks: Bool = prefs.rememberLastPositionOption == .allTracks
         
         prefs.rememberLastPositionOption = btnRememberPosition_individualTracks.isOn ? .individualTracks : .allTracks
@@ -193,6 +200,13 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         
         if wasAllTracks && isNowIndividualTracks {
             playbackProfiles.removeAll()
+        }
+
+        // Remote Control (seek interval)
+        
+        // If the (primary) seek interval has changed, update Remote Control with the new interval.
+        if oldPrimarySeekLengthConstant != prefs.primarySeekLengthConstant, #available(OSX 10.12.2, *) {
+            remoteControlManager.updateSeekInterval(to: Double(prefs.primarySeekLengthConstant))
         }
     }
 }

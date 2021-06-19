@@ -29,6 +29,8 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     /// A flag used to prevent unnecessary redundant updates.
     private var preTrackChange: Bool = false
     
+    private var activated: Bool = false
+    
     init(playbackInfo: PlaybackInfoDelegateProtocol, audioGraph: AudioGraphDelegateProtocol, sequencer: SequencerInfoDelegateProtocol) {
         
         self.playbackInfo = playbackInfo
@@ -36,7 +38,12 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         self.sequencer = sequencer
         
         super.init()
+    }
     
+    func activate() {
+        
+        if activated {return}
+        
         // Initialize the Now Playing Info Center with current info.
         
         infoCenter.nowPlayingInfo = [String: Any]()
@@ -54,6 +61,20 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         Messenger.subscribeAsync(self, .player_seekPerformed, self.seekPerformed, queue: .main)
         Messenger.subscribeAsync(self, .player_loopRestarted, self.loopRestarted, queue: .main)
         Messenger.subscribeAsync(self, .fx_playbackRateChanged, self.playbackRateChanged(_:), queue: .main)
+        
+        activated = true
+    }
+    
+    func deactivate() {
+        
+        if !activated {return}
+        
+        infoCenter.playbackState = .stopped
+        infoCenter.nowPlayingInfo?.removeAll()
+        
+        Messenger.unsubscribeAll(for: self)
+        
+        activated = false
     }
     
     ///

@@ -36,10 +36,7 @@ class ObjectGraph {
     static var playbackInfoDelegate: PlaybackInfoDelegateProtocol! {return playbackDelegate}
     
     @available(OSX 10.12.2, *)
-    static var remoteCommandManager: RemoteCommandManager!
-    
-    @available(OSX 10.12.2, *)
-    static var nowPlayingInfoManager: NowPlayingInfoManager!
+    static var remoteControlManager: RemoteControlManager!
     
     private static var recorder: Recorder!
     static var recorderDelegate: RecorderDelegateProtocol!
@@ -148,13 +145,11 @@ class ObjectGraph {
         playlistDelegate = PlaylistDelegate(playlist, trackReader, persistentState.playlist, preferences,
                                             [playbackDelegate as! PlaybackDelegate])
         
-        // Remote Control objects
+        // Remote Control
         if #available(OSX 10.12.2, *) {
             
-            remoteCommandManager = RemoteCommandManager(preferences: preferences)
-            
-            nowPlayingInfoManager = NowPlayingInfoManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
-                                                          sequencer: sequencerDelegate)
+            remoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
+                                                          sequencer: sequencerDelegate, preferences: preferences)
         }
         
         // Recorder (and delegate)
