@@ -44,7 +44,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         //
         Messenger.subscribe(self, .player_preTrackChange, self.handlePreTrackChange)
         Messenger.subscribe(self, .player_trackTransitioned, self.trackChanged)
-        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed)
+        Messenger.subscribe(self, .player_trackNotPlayed, self.trackChanged)
         Messenger.subscribe(self, .player_playbackStateChanged, self.playbackStateChanged)
         Messenger.subscribe(self, .player_seekPerformed, self.seekPerformed)
         Messenger.subscribe(self, .fx_playbackRateChanged, self.playbackRateChanged(_:))
@@ -59,12 +59,6 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     /// about the new playing track.
     ///
     private func trackChanged() {
-        
-        updateNowPlayingInfo()
-        preTrackChange = false
-    }
-    
-    private func trackNotPlayed() {
         
         updateNowPlayingInfo()
         preTrackChange = false
