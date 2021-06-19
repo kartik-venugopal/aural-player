@@ -1,8 +1,10 @@
 #  What's New in Version 3.1.0
 
+Special thanks to GitHub user [ReekyStive](https://github.com/ReekyStive) for suggesting that this feature be implemented. 😊
+
 ## Remote Control
 
-*Remote Control* is the ability of Aural Player to be controlled from outside the application, for example, from the macOS Control Center (available in Big Sur) or by Apple accessories (eg. headphones) or 3rd party apps that are able to send ***MPRemoteCommand*** audio commands to macOS. 
+*Remote Control* is the ability of Aural Player to be controlled from outside the application, i.e. it can become the "Now Playing" app in macOS. For example, it can be controlled from the macOS Control Center (available in Big Sur) or by Apple accessories (eg. headphones) or 3rd party apps that are able to send ***MPRemoteCommand*** playback commands to macOS.
 
 Controllable functions: 
 
@@ -43,6 +45,12 @@ The macOS Control Center is generally unreliable and buggy, and the following is
 * The time interval (seconds) displayed in skip controls may not match the actual skip time interval aka "seek length".
 
 This behavior is not exclusive to Aural Player; it can be observed when using the Control Center with other audio apps such as Spotify.
+
+### Other changes
+
+ * Bug fix (effects): Sometimes, when the playback rate was changed, the proper notification was not being dispatched. This sometimes resulted in unnecessary increased CPU usage and issues with playback position display in the player UI. This issue has been fixed.
+ 
+* Modified the default "Vertical Full Stack" window layout so that the height of the playlist window is reduced and the app doesn't span the entire height of the screen. 
 
 ### **For more info**
 Visit the [official release page](https://github.com/maculateConception/aural-player/releases/tag/3.1.0)
