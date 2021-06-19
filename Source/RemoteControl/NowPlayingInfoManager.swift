@@ -78,6 +78,57 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     }
     
     ///
+    /// Updates the Now Playing Info Center with information about the currently playing track.
+    ///
+    private func updateNowPlayingInfo() {
+        
+        var nowPlayingInfo = infoCenter.nowPlayingInfo!
+        let playingTrack = playbackInfo.playingTrack
+        
+        // Metadata
+        
+        nowPlayingInfo[MPMediaItemPropertyTitle] = playingTrack?.title
+        nowPlayingInfo[MPMediaItemPropertyArtist] = playingTrack?.artist
+        nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = playingTrack?.album
+        nowPlayingInfo[MPMediaItemPropertyGenre] = playingTrack?.genre
+        
+        nowPlayingInfo[MPMediaItemPropertyAlbumTrackNumber] = playingTrack?.trackNumber
+        nowPlayingInfo[MPMediaItemPropertyAlbumTrackCount] = playingTrack?.totalTracks
+        nowPlayingInfo[MPMediaItemPropertyDiscNumber] = playingTrack?.discNumber
+        nowPlayingInfo[MPMediaItemPropertyDiscCount] = playingTrack?.totalDiscs
+        
+        // Cover art
+        
+        if #available(OSX 10.13.2, *) {
+            
+            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in playingTrack?.art?.image.copy(ofSize: size) ?? Self.defaultArtwork})
+        }
+        
+        // Seek position and duration
+        
+        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
+        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = playingTrack?.duration
+        
+        // Playback rate
+        
+        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.effectiveRate) : .zero
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
+        nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
+        
+        // Playback sequence scope
+        
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueIndex] = UInt(sequencer.sequenceInfo.trackIndex)
+        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueCount] = UInt(sequencer.sequenceInfo.totalTracks)
+        
+        // Update the nowPlayingInfo dictionary in the Now Playing Info Center.
+        
+        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
+        infoCenter.nowPlayingInfo = nowPlayingInfo
+    }
+    
+    // MARK: Notification handling --------------------------------------------------------
+    
+    ///
     /// Responds to a notification that the currently playing track is about to change.
     ///
     private func handlePreTrackChange() {
@@ -134,55 +185,6 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.playbackInfo.seekPosition.timeElapsed
         })
-    }
-    
-    ///
-    /// Updates the Now Playing Info Center with information about the currently playing track.
-    ///
-    private func updateNowPlayingInfo() {
-        
-        var nowPlayingInfo = infoCenter.nowPlayingInfo!
-        let playingTrack = playbackInfo.playingTrack
-        
-        // Metadata
-        
-        nowPlayingInfo[MPMediaItemPropertyTitle] = playingTrack?.title
-        nowPlayingInfo[MPMediaItemPropertyArtist] = playingTrack?.artist
-        nowPlayingInfo[MPMediaItemPropertyAlbumTitle] = playingTrack?.album
-        nowPlayingInfo[MPMediaItemPropertyGenre] = playingTrack?.genre
-        
-        nowPlayingInfo[MPMediaItemPropertyAlbumTrackNumber] = playingTrack?.trackNumber
-        nowPlayingInfo[MPMediaItemPropertyAlbumTrackCount] = playingTrack?.totalTracks
-        nowPlayingInfo[MPMediaItemPropertyDiscNumber] = playingTrack?.discNumber
-        nowPlayingInfo[MPMediaItemPropertyDiscCount] = playingTrack?.totalDiscs
-        
-        // Cover art
-        
-        if #available(OSX 10.13.2, *) {
-            
-            nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: Self.optimalArtworkSize, requestHandler: {size in playingTrack?.art?.image.copy(ofSize: size) ?? Self.defaultArtwork})
-        }
-        
-        // Seek position and duration
-        
-        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
-        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = playingTrack?.duration
-        
-        // Playback rate
-        
-        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.effectiveRate) : .zero
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
-        nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
-        
-        // Playback sequence scope
-        
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueIndex] = UInt(sequencer.sequenceInfo.trackIndex)
-        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackQueueCount] = UInt(sequencer.sequenceInfo.totalTracks)
-        
-        // Update the nowPlayingInfo dictionary in the Now Playing Info Center.
-        
-        infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
-        infoCenter.nowPlayingInfo = nowPlayingInfo
     }
 }
 
