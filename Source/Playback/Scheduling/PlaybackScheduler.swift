@@ -130,6 +130,8 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         if beginPlayback {
             playerNode.play()
         }
+        
+        Messenger.publish(.player_loopRestarted)
     }
     
     func endLoop(_ session: PlaybackSession, _ loopEndTime: Double, _ beginPlayback: Bool) {
@@ -199,6 +201,8 @@ class PlaybackScheduler: PlaybackSchedulerProtocol {
         if wasPlaying {
             playerNode.play()
         }
+        
+        Messenger.publish(.player_loopRestarted)
     }
 
     // Computes a segment completion handler closure, given a playback session.

@@ -73,7 +73,11 @@ extension Notification.Name {
     // Signifies that the playback state of the player has changed.
     static let player_playbackStateChanged = Notification.Name("player_playbackStateChanged")
     
+    // Signifies that the player has performed a seek, resulting in a change in the playback position.
     static let player_seekPerformed = Notification.Name("player_seekPerformed")
+    
+    // Signifies that the player has restarted a segment loop.
+    static let player_loopRestarted = Notification.Name("player_loopRestarted")
     
     // Signifies that the currently playing track chapter has changed.
     static let player_chapterChanged = Notification.Name("player_chapterChanged")
