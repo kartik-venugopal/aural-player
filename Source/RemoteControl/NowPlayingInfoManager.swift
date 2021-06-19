@@ -59,7 +59,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackChanged, queue: .main)
         Messenger.subscribeAsync(self, .player_playbackStateChanged, self.playbackStateChanged, queue: .main)
         Messenger.subscribeAsync(self, .player_seekPerformed, self.seekPerformed, queue: .main)
-        Messenger.subscribeAsync(self, .player_loopRestarted, self.loopRestarted, queue: .main)
+        Messenger.subscribeAsync(self, .player_loopRestarted, self.seekPerformed, queue: .main)
         Messenger.subscribeAsync(self, .fx_playbackRateChanged, self.playbackRateChanged(_:), queue: .main)
         
         activated = true
@@ -123,22 +123,14 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     }
     
     ///
-    /// Responds to the player performing a seek. Updates the Now Playing Info Center with the new seek position.
+    /// Responds to the player performing a seek to an arbitrary position. Updates the Now Playing Info Center with the new seek position.
     ///
     private func seekPerformed() {
-        infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
-    }
-    
-    ///
-    /// Responds to the player restarting a segment loop. Updates the Now Playing Info Center with the new seek position (roughly corresponding to the loop's start time).
-    ///
-    private func loopRestarted() {
         
         infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
 
-        // This is a dirty hack to get the seek position to be updated properly when a segment loop is restarted.
-        // Without this hack, the Control Center's playback position continues on past the segment loop's end time.
-        
+        // This is a dirty hack to get the seek position to be updated properly when a seek occurs or a segment loop is restarted.
+        // Without this hack, the Control Center's playback position sometimes goes out of sync with the actual playback position.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
             self.infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = self.playbackInfo.seekPosition.timeElapsed
         })
