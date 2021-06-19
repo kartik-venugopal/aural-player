@@ -124,6 +124,10 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ![Menu Bar Player screenshot](/Documentation/Screenshots/MenuBarPlayer.png?raw=true)
 
+### Control Center integration
+
+![Control Center integration screenshot](/Documentation/Screenshots/ControlCenter2.png?raw=true)
+
 ### Visualizer
 
 <img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
