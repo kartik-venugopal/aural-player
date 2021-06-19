@@ -72,7 +72,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         if preTrackChange {return}
         
         infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
-        playbackRateChanged(audioGraph.timeUnit.rate)
+        playbackRateChanged(audioGraph.timeUnit.effectiveRate)
     }
     
     private func playbackRateChanged(_ newRate: Float) {
@@ -94,7 +94,6 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
     /// Responds to the player performing a seek. Updates the Now Playing Info Center with the new seek position.
     ///
     private func seekPerformed() {
-        
         infoCenter.nowPlayingInfo![MPNowPlayingInfoPropertyElapsedPlaybackTime] = playbackInfo.seekPosition.timeElapsed
     }
     
@@ -130,7 +129,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         
         // Playback rate
         
-        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.rate) : 0.0
+        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.effectiveRate) : 0.0
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         

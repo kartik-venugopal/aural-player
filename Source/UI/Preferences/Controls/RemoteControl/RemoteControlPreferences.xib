@@ -8,10 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="RemoteControlPreferencesViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnAllowPlayPause" destination="OXd-Xc-P3y" id="cEd-28-7Yd"/>
-                <outlet property="btnAllowPlaybackPositionControl" destination="rVO-zi-kvt" id="v8l-X7-d6Z"/>
-                <outlet property="btnAllowStop" destination="dks-99-XUf" id="EpX-qb-RdU"/>
-                <outlet property="btnAllowTrackChangeOrSeeking" destination="JkK-Um-vuV" id="l3T-P0-Sj1"/>
                 <outlet property="btnEnableRemoteControl" destination="C3Y-XZ-TqJ" id="tEi-Q3-jWt"/>
                 <outlet property="btnShowSeekingControls" destination="Ecr-zR-fQj" id="nUa-kP-OtY"/>
                 <outlet property="btnShowTrackChangeControls" destination="xQV-xJ-MQm" id="eQk-RI-zPb"/>
@@ -85,55 +81,6 @@
                                     <action selector="trackChangeOrSeekingOptionsAction:" target="-2" id="w8H-2H-rJg"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OXd-Xc-P3y" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="33" y="76" width="144" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Play / Pause" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="aBC-X0-SVq">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="Play-Regular"/>
-                                </buttonCell>
-                            </button>
-                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dks-99-XUf" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="33" y="56" width="126" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Stop" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="MqJ-o4-Cel">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="Play-Regular"/>
-                                </buttonCell>
-                            </button>
-                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JkK-Um-vuV" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="33" y="36" width="257" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Track change / Seeking" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="EeA-BP-0Vy">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="Play-Regular"/>
-                                </buttonCell>
-                            </button>
-                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wtL-RW-Dun">
-                                <rect key="frame" x="115" y="113" width="72" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="roundRect" title="Disable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2O0-OX-Tex" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="12" name="Play-Regular"/>
-                                </buttonCell>
-                            </button>
-                            <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kav-TY-xGD">
-                                <rect key="frame" x="32" y="113" width="72" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="roundRect" title="Enable all" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1WH-Na-B1L" customClass="ModalDialogControlButtonCell" customModule="Aural" customModuleProvider="target">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" size="12" name="Play-Regular"/>
-                                </buttonCell>
-                            </button>
-                            <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SI7-AA-j8g">
-                                <rect key="frame" x="32" y="147" width="275" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Select which controls you want to enable." id="iCs-8l-1lJ">
-                                    <font key="font" size="13" name="Play-Regular"/>
-                                    <color key="textColor" white="0.70467122400000004" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rep-tO-bLD" userLabel="SelectPlaybackControls">
                                 <rect key="frame" x="61" y="247" width="467" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -143,14 +90,6 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rVO-zi-kvt" customClass="DialogCheckRadioButton" customModule="Aural" customModuleProvider="target">
-                                <rect key="frame" x="33" y="-34" width="367" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Playback position control (slider bar)" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="ojA-E8-aQc">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" size="11" name="Play-Regular"/>
-                                </buttonCell>
-                            </button>
                         </subviews>
                     </view>
                     <color key="fillColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
