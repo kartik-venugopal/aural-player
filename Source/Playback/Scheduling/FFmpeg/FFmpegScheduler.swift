@@ -21,7 +21,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     // This is required because, in rare cases, some file segments may complete when they've reached close to the end, even if the last frame has not played yet.
     var trackCompletedWhilePaused: Bool = false
     
-    let sampleConverter: SampleConverterProtocol
+    let sampleConverter: FFmpegSampleConverter
     
     ///
     /// A **serial** operation queue on which all *deferred* scheduling tasks are enqueued, i.e. tasks scheduling buffers that will be played back at a later time.
@@ -48,7 +48,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         return queue
     }()
     
-    init(playerNode: AuralPlayerNode, sampleConverter: SampleConverterProtocol) {
+    init(playerNode: AuralPlayerNode, sampleConverter: FFmpegSampleConverter) {
         
         self.playerNode = playerNode
         self.sampleConverter = sampleConverter

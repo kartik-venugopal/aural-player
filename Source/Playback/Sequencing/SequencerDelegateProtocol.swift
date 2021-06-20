@@ -1,9 +1,8 @@
 import Foundation
 
 /*
-    Contract for a middleman/delegate that retrieves information about playback sequence state
+    Contract for a middleman/delegate that retrieves information about playback sequence state.
  */
-
 protocol SequencerInfoDelegateProtocol {
     
     // Returns the currently playing track, with its index

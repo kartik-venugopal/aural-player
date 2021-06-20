@@ -2,11 +2,12 @@ import AVFoundation
 import Accelerate
 
 ///
-/// An FFmpeg implementation of **SampleConverterProtocol**.
+/// Performs conversion of PCM audio samples to the standard format suitable for playback in an AVAudioEngine,
+/// i.e. 32-bit floating point non-interleaved (aka planar).
 ///
 /// Uses **libswresample** to do the actual conversion.
 ///
-class FFmpegSampleConverter: SampleConverterProtocol {
+class FFmpegSampleConverter {
     
     ///
     /// The standard (i.e. "canonical") audio sample format preferred by Core Audio on macOS.

@@ -2,12 +2,14 @@ import Cocoa
 import AVFoundation
 
 /*
-    Manages audio scheduling, and playback. See PlaybackSchedulerProtocol for more details on all the functions provided.
+    Subclass of AVFScheduler that handles scheduling of native tracks on systems that
+    do not use the newer completion callback APIs provided by AVAudioPlayerNode.
+    Uses polling to detect track playback completion.
  
     NOTE - This class is only used on macOS 10.12 and older systems. It will be deprecated and/or decommissioned at some
     point in the future.
  */
-class LegacyPlaybackScheduler: PlaybackScheduler {
+class LegacyAVFScheduler: AVFScheduler {
 
     // A timer used to check if track playback has completed. This is required because the playerNode sends completion notifications prematurely, before track
     // playback has been completed. This problem has been fixed in PlaybackScheduler. It is the reason why this class is now deprecated, and only in use on macOS Sierra systems.
@@ -67,7 +69,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
         }
             
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyAVFScheduler.completionPollTimerIntervalMillis, task: {
             
             self.pollForTrackCompletion()
             
@@ -90,7 +92,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
         let trackDuration = curSession.track.duration
         let curPos = seekPosition
         
-        if curPos > (trackDuration - LegacyPlaybackScheduler.timeComparisonTolerance) && playerNode.isPlaying {
+        if curPos > (trackDuration - LegacyAVFScheduler.timeComparisonTolerance) && playerNode.isPlaying {
             
             // Notify observers that the track has finished playing. Don't do this if paused and seeking to the end.
             trackCompleted(curSession)
@@ -108,7 +110,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
         }
             
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyPlaybackScheduler.completionPollTimerIntervalMillis, task: {
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyAVFScheduler.completionPollTimerIntervalMillis, task: {
             
             self.pollForLoopCompletion()
             
@@ -128,7 +130,7 @@ class LegacyPlaybackScheduler: PlaybackScheduler {
             return
         }
         
-        if seekPosition > (loopEndTime - LegacyPlaybackScheduler.timeComparisonTolerance) && playerNode.isPlaying {
+        if seekPosition > (loopEndTime - LegacyAVFScheduler.timeComparisonTolerance) && playerNode.isPlaying {
             restartLoop(session, loop.startTime, loopEndTime)
         }
     }
