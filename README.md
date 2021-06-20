@@ -15,9 +15,9 @@ Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the la
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
-    + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
+    + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
   * [Screenshots](#screenshots)
   * [Known issues](#known-issues)
   * [Documentation](#documentation)
@@ -84,6 +84,19 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 [Source code zip archive](https://github.com/maculateConception/aural-player/archive/refs/heads/master.zip)
 
+### Installation
+
+1. Mount the **AuralPlayer-x.y.z.dmg** image file
+2. From within the mounted image, copy **Aural.app** to your local drive (e.g. Applications folder)
+3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
+4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
+
+NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
+
+### Enabling media keys support (optional)
+
+Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support)
+
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
 In order to circumvent the hassle of macOS security restrictions, the location where the app stores its persisted state has changed from *~/Documents* to *~/Music*. This means that if you are upgrading from an older version of Aural Player (v2.2.0 or older), you need to move your app state directory from *~/Documents* to *~/Music* (exact steps listed below). Otherwise, note that you will lose all your previously saved app settings (playlist, sound settings, favorites, history, color schemes, window layouts, etc).
@@ -99,18 +112,6 @@ The contents of the "aural" folder should look like this:
 
 ![aural app state folder screenshot](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/auralDir2.png)
 
-### Installation
-
-1. Mount the **AuralPlayer-x.y.z.dmg** image file
-2. From within the mounted image, copy **Aural.app** to your local drive (e.g. Applications folder)
-3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
-4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
-
-NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
-
-### Enabling media keys support (optional)
-
-Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support)
      
 ## Screenshots
 
