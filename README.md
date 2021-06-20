@@ -112,6 +112,19 @@ The contents of the "aural" folder should look like this:
 
 ![aural app state folder screenshot](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/auralDir2.png)
 
+## Documentation
+
+All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
+
+Some pages to get you started:
+
+[How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
+
+[Handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts)
+
+[Developer reference](https://github.com/maculateConception/aural-player/wiki/Developer-reference)
+
+NOTE - The documentation is incomplete and is a work in progress.
      
 ## Screenshots
 
@@ -200,20 +213,6 @@ This should fix the problem. If not, try Fix# 2.
 **Fix# 2 - Change your system's Bluetooth audio codec settings**
 
 Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable-aptx-aac-bluetooth-audio-codecs-macos/).
-
-## Documentation
-
-All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
-
-Some pages to get started:
-
-[How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
-
-[Handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts)
-
-[Developer reference](https://github.com/maculateConception/aural-player/wiki/Developer-reference)
-
-NOTE - The documentation is incomplete and is a work in progress.
 
 ## Contact and conversation
 
