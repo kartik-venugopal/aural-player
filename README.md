@@ -80,7 +80,7 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
-**Developer requirements**: Swift 5 and XCode 12.2+.
+**Developer requirements**: XCode 12.2+ (Swift 5.x).
 
 [Source code zip archive](https://github.com/maculateConception/aural-player/archive/refs/heads/master.zip)
 
@@ -205,9 +205,13 @@ Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable
 
 All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
 
+Some pages to get started:
+
 [How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
 
 [Handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts)
+
+[Developer reference](https://github.com/maculateConception/aural-player/wiki/Developer-reference)
 
 NOTE - The documentation is incomplete and is a work in progress.
 
