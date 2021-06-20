@@ -476,6 +476,7 @@
 		3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C107A25CEB98600BF0D07 /* StopPlaybackChain.swift */; };
 		3E6C134225CEBEF500BF0D07 /* EndPlaybackSequenceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C107B25CEB98600BF0D07 /* EndPlaybackSequenceAction.swift */; };
 		3E6C136B25CEBFB900BF0D07 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* Application.xib */; };
+		3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E752743267F32A60092BB89 /* RoundedImageView.swift */; };
 		3E7572F12609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572EC2609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift */; };
 		3E7572F22609E83B00CA3F85 /* MusicBrainzArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572ED2609E83B00CA3F85 /* MusicBrainzArtist.swift */; };
 		3E7572F32609E83B00CA3F85 /* MusicBrainzRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7572EE2609E83B00CA3F85 /* MusicBrainzRecording.swift */; };
@@ -1106,6 +1107,7 @@
 		3E6C114F25CEB9C100BF0D07 /* build-ffmpeg.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-ffmpeg.sh"; sourceTree = "<group>"; };
 		3E6C115225CEB9C100BF0D07 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		3E6C115325CEB9C100BF0D07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3E752743267F32A60092BB89 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		3E7572EC2609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzCoverArtArchive.swift; sourceTree = "<group>"; };
 		3E7572ED2609E83B00CA3F85 /* MusicBrainzArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzArtist.swift; sourceTree = "<group>"; };
 		3E7572EE2609E83B00CA3F85 /* MusicBrainzRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzRecording.swift; sourceTree = "<group>"; };
@@ -1995,6 +1997,7 @@
 				3E6C0FD125CEB98600BF0D07 /* AuralTabView.swift */,
 				3E6C0FD225CEB98600BF0D07 /* Sliders */,
 				3E6C0FD925CEB98600BF0D07 /* ValidatedLabelCell.swift */,
+				3E752743267F32A60092BB89 /* RoundedImageView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -3429,6 +3432,7 @@
 				3E7572F52609E83B00CA3F85 /* MusicBrainzRelease.swift in Sources */,
 				3E6C12D125CEBE6700BF0D07 /* TimeViewController.swift in Sources */,
 				3E6C11BD25CEBDB000BF0D07 /* NotificationDefinitions.swift in Sources */,
+				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,
 				3E6C119F25CEBD6D00BF0D07 /* AudioGraphProtocols.swift in Sources */,
 				3EDB33EC25E8AE09004DF7DE /* FFmpegFrame.swift in Sources */,
 				3E6C11C725CEBDB400BF0D07 /* Sequencer.swift in Sources */,
