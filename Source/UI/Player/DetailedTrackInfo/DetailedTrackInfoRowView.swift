@@ -14,6 +14,10 @@ class DetailedTrackInfoRowView: NSTableRowView {
     var keyTextAlignment: NSTextAlignment?
     var valueTextAlignment: NSTextAlignment?
     
+    // Track info view column identifiers (popover)
+    static let trackInfoKeyColumnID: String = "cid_TrackInfoKey"
+    static let trackInfoValueColumnID: String = "cid_TrackInfoValue"
+    
     // Factory method
     static func fromKeyAndValue(_ key: String, _ value: String, _ tableId: TrackInfoTab, _ keyTextAlignment: NSTextAlignment? = nil, _ valueTextAlignment: NSTextAlignment? = nil) -> DetailedTrackInfoRowView {
         
@@ -32,12 +36,12 @@ class DetailedTrackInfoRowView: NSTableRowView {
         if (column == 0) {
             
             // Key
-            return createCell(UIConstants.trackInfoKeyColumnID, key! + ":", keyTextAlignment)
+            return createCell(Self.trackInfoKeyColumnID, key! + ":", keyTextAlignment)
             
         } else {
             
             // Value
-            return createCell(UIConstants.trackInfoValueColumnID, value!, valueTextAlignment)
+            return createCell(Self.trackInfoValueColumnID, value!, valueTextAlignment)
         }
     }
     

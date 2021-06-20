@@ -22,24 +22,26 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        switch tableColumn!.identifier {
+        guard let colID = tableColumn?.identifier else {return nil}
+        
+        switch colID {
         
         case .uid_audioUnitSwitch:
             
-            return createSwitchCell(tableView, tableColumn!.identifier.rawValue, row)
+            return createSwitchCell(tableView, colID, row)
             
         case .uid_audioUnitName:
             
-            return createNameCell(tableView, tableColumn!.identifier.rawValue, row)
+            return createNameCell(tableView, colID, row)
             
         default: return nil
             
         }
     }
 
-    private func createSwitchCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitSwitchCellView? {
+    private func createSwitchCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ row: Int) -> AudioUnitSwitchCellView? {
      
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitSwitchCellView {
+        if let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitSwitchCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
             
@@ -62,9 +64,9 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
         return nil
     }
     
-    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> MasterUnitAUTableNameCellView? {
+    private func createNameCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ row: Int) -> MasterUnitAUTableNameCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? MasterUnitAUTableNameCellView {
+        if let cell = tableView.makeView(withIdentifier: id, owner: nil) as? MasterUnitAUTableNameCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
             

@@ -17,6 +17,16 @@ enum WindowLayoutPresets: String, CaseIterable {
     case verticalPlayerAndPlaylist
     case horizontalPlayerAndPlaylist
     
+    static let minPlaylistWidth: CGFloat = 530
+    
+    // Main window size (never changes)
+    static let mainWindowWidth: CGFloat = 530
+    static let mainWindowHeight: CGFloat = 230
+    
+    // Effects window size (never changes)
+    static let effectsWindowWidth: CGFloat = 530
+    static let effectsWindowHeight: CGFloat = 230
+    
     // Converts a user-friendly display name to an instance of PitchPresets
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
         return WindowLayoutPresets(rawValue: StringUtils.camelCase(displayName)) ?? .verticalFullStack
@@ -75,11 +85,11 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var mainWindowOrigin: NSPoint {
         
-        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
-        let mainWindowHeight: CGFloat = Dimensions.mainWindowHeight
+        let mainWindowWidth: CGFloat = Self.mainWindowWidth
+        let mainWindowHeight: CGFloat = Self.mainWindowHeight
         
-        let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
-        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
+        let effectsWindowWidth: CGFloat = Self.effectsWindowWidth
+        let effectsWindowHeight: CGFloat = Self.effectsWindowHeight
         
         let gap = gapBetweenWindows
         let twoGaps = 2 * gap
@@ -162,8 +172,8 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var effectsWindowOrigin: NSPoint {
         
-        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
-        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
+        let mainWindowWidth: CGFloat = Self.mainWindowWidth
+        let effectsWindowHeight: CGFloat = Self.effectsWindowHeight
         
         let gap = gapBetweenWindows
         
@@ -209,9 +219,9 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var playlistHeight: CGFloat {
         
-        let mainWindowHeight: CGFloat = Dimensions.mainWindowHeight
+        let mainWindowHeight: CGFloat = Self.mainWindowHeight
         
-        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
+        let effectsWindowHeight: CGFloat = Self.effectsWindowHeight
         
         let gap = gapBetweenWindows
         
@@ -235,12 +245,12 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var playlistWidth: CGFloat {
         
-        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
-        let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
+        let mainWindowWidth: CGFloat = Self.mainWindowWidth
+        let effectsWindowWidth: CGFloat = Self.effectsWindowWidth
         
         let gap = gapBetweenWindows
         let twoGaps = 2 * gap
-        let minWidth = Dimensions.minPlaylistWidth
+        let minWidth = Self.minPlaylistWidth
         
         // Compute this only once
         let visibleFrame = screenVisibleFrame
@@ -264,10 +274,10 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     var playlistWindowOrigin: NSPoint {
         
-        let mainWindowWidth: CGFloat = Dimensions.mainWindowWidth
+        let mainWindowWidth: CGFloat = Self.mainWindowWidth
         
-        let effectsWindowWidth: CGFloat = Dimensions.effectsWindowWidth
-        let effectsWindowHeight: CGFloat = Dimensions.effectsWindowHeight
+        let effectsWindowWidth: CGFloat = Self.effectsWindowWidth
+        let effectsWindowHeight: CGFloat = Self.effectsWindowHeight
         
         let gap = gapBetweenWindows
         let twoGaps = 2 * gap

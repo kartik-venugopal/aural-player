@@ -115,8 +115,11 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
         
         // Only the bookmark name column is used for type selection
-        let colID = tableColumn?.identifier.rawValue ?? ""
-        return colID == UIConstants.bookmarkNameColumnID ? bookmarks.getBookmarkAtIndex(row).name : nil
+        if let colID = tableColumn?.identifier, colID == .uid_bookmarkNameColumn {
+            return bookmarks.getBookmarkAtIndex(row).name
+        }
+        
+        return nil
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -139,24 +142,26 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
+        guard let colID = tableColumn?.identifier else {return nil}
+        
         let bookmark = bookmarks.getBookmarkAtIndex(row)
         
-        switch tableColumn!.identifier.rawValue {
+        switch colID {
             
-        case UIConstants.bookmarkNameColumnID:
+        case .uid_bookmarkNameColumn:
             
             return createTextCell(tableView, tableColumn!, row, bookmark.name, true)
             
-        case UIConstants.bookmarkTrackColumnID:
+        case .uid_bookmarkTrackColumn:
             
             return createTextCell(tableView, tableColumn!, row, bookmark.file.path, false)
             
-        case UIConstants.bookmarkStartPositionColumnID:
+        case .uid_bookmarkStartPositionColumn:
             
             let formattedPosition = ValueFormatter.formatSecondsToHMS(bookmark.startPosition)
             return createTextCell(tableView, tableColumn!, row, formattedPosition, false)
             
-        case UIConstants.bookmarkEndPositionColumnID:
+        case .uid_bookmarkEndPositionColumn:
             
             var formattedPosition: String = ""
             
@@ -262,4 +267,14 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
             cell.toolTip = nil
         }
     }
+}
+
+extension NSUserInterfaceItemIdentifier {
+    
+    // Table view column identifiers
+    
+    static let uid_bookmarkNameColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkName")
+    static let uid_bookmarkTrackColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkTrack")
+    static let uid_bookmarkStartPositionColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkStartPosition")
+    static let uid_bookmarkEndPositionColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_BookmarkEndPosition")
 }

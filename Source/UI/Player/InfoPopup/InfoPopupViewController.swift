@@ -5,6 +5,8 @@ import Cocoa
 
 class InfoPopupViewController: NSViewController, InfoPopupProtocol, Destroyable {
     
+    static let favoritesPopupAutoHideIntervalSeconds: TimeInterval = 1.5
+    
     private static var _instance: InfoPopupViewController?
     static var instance: InfoPopupViewController {
         
@@ -98,7 +100,7 @@ class InfoPopupViewController: NSViewController, InfoPopupProtocol, Destroyable 
         viewHidingTimer?.invalidate()
         
         // Activate a new timer task to auto-hide the popover
-        viewHidingTimer = Timer.scheduledTimer(timeInterval: UIConstants.favoritesPopupAutoHideIntervalSeconds, target: self, selector: #selector(self.close), userInfo: nil, repeats: false)
+        viewHidingTimer = Timer.scheduledTimer(timeInterval: Self.favoritesPopupAutoHideIntervalSeconds, target: self, selector: #selector(self.close), userInfo: nil, repeats: false)
     }
     
     // Shows the popover

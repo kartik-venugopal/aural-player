@@ -74,14 +74,14 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         menuItem.target = self
         
         menuItem.image = Images.imgPlayedTrack
-        menuItem.image?.size = Dimensions.historyMenuItemImageSize
+        menuItem.image?.size = menuItemCoverArtImageSize
         
         artLoadingQueue.addOperation {[weak self] in
             
             if let theImage = self?.playlist.findFile(item.file)?.art?.image ?? self?.fileReader.getArt(for: item.file)?.image,
                let imgCopy = theImage.copy() as? NSImage {
                 
-                imgCopy.size = Dimensions.historyMenuItemImageSize
+                imgCopy.size = menuItemCoverArtImageSize
                 
                 DispatchQueue.main.async {
                     menuItem.image = imgCopy

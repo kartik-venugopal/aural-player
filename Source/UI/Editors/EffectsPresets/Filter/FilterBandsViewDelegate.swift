@@ -37,14 +37,14 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        guard let band = dataSource?.getFilterBand(row) else {return nil}
+        guard let colID = tableColumn?.identifier,
+              let band = dataSource?.getFilterBand(row) else {return nil}
         
-        let colID = tableColumn!.identifier.rawValue
         var cellText: String
         
         switch colID {
             
-        case UIConstants.filterBandsFreqColumnID:
+        case .uid_filterBandsFreqColumn:
             
             switch band.type {
                 
@@ -61,7 +61,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
                 cellText = String(format: "> %@", formatFreqNumber(band.minFreq!))
             }
             
-        case UIConstants.filterBandsTypeColumnID:
+        case .uid_filterBandsTypeColumn:
             
             cellText = band.type.description
             
@@ -82,9 +82,9 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
         }
     }
     
-    private func createCell(_ tableView: NSTableView, _ id: String, _ row: Int, _ text: String) -> BasicTableCellView? {
+    private func createCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ row: Int, _ text: String) -> BasicTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: convertToNSUserInterfaceItemIdentifier(id), owner: nil) as? BasicTableCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? BasicTableCellView else {return nil}
         
         cell.textField?.stringValue = text
         cell.textFont = Fonts.Standard.mainFont_10
@@ -100,7 +100,9 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     }
 }
 
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSUserInterfaceItemIdentifier(_ input: String) -> NSUserInterfaceItemIdentifier {
-    return NSUserInterfaceItemIdentifier(rawValue: input)
+extension NSUserInterfaceItemIdentifier {
+    
+    // Table view column identifiers
+    static let uid_filterBandsFreqColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Frequencies")
+    static let uid_filterBandsTypeColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Type")
 }

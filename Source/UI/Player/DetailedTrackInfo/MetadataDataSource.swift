@@ -30,9 +30,13 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
     
     // Constants used to calculate row height
     
-    let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    // Values used to determine the row height of table rows in the detailed track info popover view
+    static let trackInfoKeyColumnWidth: CGFloat = 135
+    static let trackInfoValueColumnWidth: CGFloat = 365
     
-    let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), Dimensions.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), TrackInfoDataSource.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    
+    let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), TrackInfoDataSource.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
     
     let value_unknown: String = "<Unknown>"
     

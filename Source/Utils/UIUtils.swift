@@ -18,6 +18,8 @@ class UIUtils {
     
     private static var preferences: ViewPreferences!
     
+    private static let snapProximity: CGFloat = 15
+    
     static func initialize(_ preferences: ViewPreferences) {
         UIUtils.preferences = preferences
     }
@@ -198,12 +200,12 @@ class UIUtils {
     private static func checkForSnapToWindow_bottom(_ child: SnappingWindow, _ parent: NSWindow) -> SnapToWindowType {
         
         // Left edges
-        var snapMinX = parent.x - Dimensions.snapProximity
-        var snapMaxX = parent.x + Dimensions.snapProximity
+        var snapMinX = parent.x - Self.snapProximity
+        var snapMaxX = parent.x + Self.snapProximity
         let rangeX_leftEdges = snapMinX...snapMaxX
         
-        let snapMinY = parent.y - Dimensions.snapProximity
-        let snapMaxY = parent.y + Dimensions.snapProximity
+        let snapMinY = parent.y - Self.snapProximity
+        let snapMaxY = parent.y + Self.snapProximity
         let rangeY = snapMinY...snapMaxY
         
         if rangeX_leftEdges.contains(child.x) && rangeY.contains(child.maxY) {
@@ -211,8 +213,8 @@ class UIUtils {
         }
         
         // Right edges
-        snapMinX = parent.maxX - Dimensions.snapProximity
-        snapMaxX = parent.maxX + Dimensions.snapProximity
+        snapMinX = parent.maxX - Self.snapProximity
+        snapMaxX = parent.maxX + Self.snapProximity
         let rangeX_rightEdges = snapMinX...snapMaxX
         
         if rangeX_rightEdges.contains(child.maxX) && rangeY.contains(child.maxY) {
@@ -226,12 +228,12 @@ class UIUtils {
     private static func checkForSnapToWindow_top(_ child: SnappingWindow, _ parent: NSWindow) -> SnapToWindowType {
         
         // Left edges
-        var snapMinX = parent.x - Dimensions.snapProximity
-        var snapMaxX = parent.x + Dimensions.snapProximity
+        var snapMinX = parent.x - Self.snapProximity
+        var snapMaxX = parent.x + Self.snapProximity
         let rangeX_leftEdges = snapMinX...snapMaxX
         
-        let snapMinY = parent.maxY - Dimensions.snapProximity
-        let snapMaxY = parent.maxY + Dimensions.snapProximity
+        let snapMinY = parent.maxY - Self.snapProximity
+        let snapMaxY = parent.maxY + Self.snapProximity
         let rangeY = snapMinY...snapMaxY
         
         if rangeX_leftEdges.contains(child.x) && rangeY.contains(child.y) {
@@ -239,8 +241,8 @@ class UIUtils {
         }
         
         // Right edges
-        snapMinX = parent.maxX - Dimensions.snapProximity
-        snapMaxX = parent.maxX + Dimensions.snapProximity
+        snapMinX = parent.maxX - Self.snapProximity
+        snapMaxX = parent.maxX + Self.snapProximity
         let rangeX_rightEdges = snapMinX...snapMaxX
         
         if rangeX_rightEdges.contains(child.maxX) && rangeY.contains(child.y) {
@@ -253,13 +255,13 @@ class UIUtils {
     // Left edge of FX vs Right edge of main (i.e. to the right of the main window)
     private static func checkForSnapToWindow_right(_ child: SnappingWindow, _ parent: NSWindow) -> SnapToWindowType {
         
-        let snapMinX = parent.maxX - Dimensions.snapProximity
-        let snapMaxX = parent.maxX + Dimensions.snapProximity
+        let snapMinX = parent.maxX - Self.snapProximity
+        let snapMaxX = parent.maxX + Self.snapProximity
         let rangeX = snapMinX...snapMaxX
         
         // Bottom edges
-        var snapMinY = parent.y - Dimensions.snapProximity
-        var snapMaxY = parent.y + Dimensions.snapProximity
+        var snapMinY = parent.y - Self.snapProximity
+        var snapMaxY = parent.y + Self.snapProximity
         let rangeY_bottomEdges = snapMinY...snapMaxY
         
         if rangeX.contains(child.x) && rangeY_bottomEdges.contains(child.y) {
@@ -267,8 +269,8 @@ class UIUtils {
         }
         
         // Top edges
-        snapMinY = parent.maxY - Dimensions.snapProximity
-        snapMaxY = parent.maxY + Dimensions.snapProximity
+        snapMinY = parent.maxY - Self.snapProximity
+        snapMaxY = parent.maxY + Self.snapProximity
         let rangeY_topEdges = snapMinY...snapMaxY
         
         if rangeX.contains(child.x) && rangeY_topEdges.contains(child.maxY) {
@@ -281,13 +283,13 @@ class UIUtils {
     // Right edge of FX vs Left edge of main (i.e. to the left of the main window)
     private static func checkForSnapToWindow_left(_ child: SnappingWindow, _ parent: NSWindow) -> SnapToWindowType {
         
-        let snapMinX = parent.x - child.width - Dimensions.snapProximity
-        let snapMaxX = parent.x - child.width + Dimensions.snapProximity
+        let snapMinX = parent.x - child.width - Self.snapProximity
+        let snapMaxX = parent.x - child.width + Self.snapProximity
         let rangeX = snapMinX...snapMaxX
         
         // Bottom edges
-        var snapMinY = parent.y - Dimensions.snapProximity
-        var snapMaxY = parent.y + Dimensions.snapProximity
+        var snapMinY = parent.y - Self.snapProximity
+        var snapMaxY = parent.y + Self.snapProximity
         let rangeY_bottomEdges = snapMinY...snapMaxY
         
         if rangeX.contains(child.x) && rangeY_bottomEdges.contains(child.y) {
@@ -295,8 +297,8 @@ class UIUtils {
         }
         
         // Top edges
-        snapMinY = parent.maxY - Dimensions.snapProximity
-        snapMaxY = parent.maxY + Dimensions.snapProximity
+        snapMinY = parent.maxY - Self.snapProximity
+        snapMaxY = parent.maxY + Self.snapProximity
         let rangeY_topEdges = snapMinY...snapMaxY
         
         if rangeX.contains(child.x) && rangeY_topEdges.contains(child.maxY) {
@@ -386,10 +388,10 @@ class UIUtils {
     private static func checkForSnapToVisibleFrame_topLeftCorner(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
         let snapMinX = visibleFrame.minX
-        let snapMaxX = visibleFrame.minX + Dimensions.snapProximity
+        let snapMaxX = visibleFrame.minX + Self.snapProximity
         let rangeX = snapMinX...snapMaxX
         
-        let snapMinY = visibleFrame.maxY - Dimensions.snapProximity
+        let snapMinY = visibleFrame.maxY - Self.snapProximity
         let snapMaxY = visibleFrame.maxY
         let rangeY = snapMinY...snapMaxY
         
@@ -402,11 +404,11 @@ class UIUtils {
     
     private static func checkForSnapToVisibleFrame_topRightCorner(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
-        let snapMinX = visibleFrame.maxX - Dimensions.snapProximity
+        let snapMinX = visibleFrame.maxX - Self.snapProximity
         let snapMaxX = visibleFrame.maxX
         let rangeX = snapMinX...snapMaxX
         
-        let snapMinY = visibleFrame.maxY - Dimensions.snapProximity
+        let snapMinY = visibleFrame.maxY - Self.snapProximity
         let snapMaxY = visibleFrame.maxY
         let rangeY = snapMinY...snapMaxY
         
@@ -419,12 +421,12 @@ class UIUtils {
     
     private static func checkForSnapToVisibleFrame_bottomRightCorner(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
-        let snapMinX = visibleFrame.maxX - Dimensions.snapProximity
+        let snapMinX = visibleFrame.maxX - Self.snapProximity
         let snapMaxX = visibleFrame.maxX
         let rangeX = snapMinX...snapMaxX
         
         let snapMinY = visibleFrame.minY
-        let snapMaxY = visibleFrame.minY + Dimensions.snapProximity
+        let snapMaxY = visibleFrame.minY + Self.snapProximity
         let rangeY = snapMinY...snapMaxY
         
         if rangeX.contains(window.maxX) && rangeY.contains(window.y) {
@@ -437,11 +439,11 @@ class UIUtils {
     private static func checkForSnapToVisibleFrame_bottomLeftCorner(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
         let snapMinX = visibleFrame.minX
-        let snapMaxX = visibleFrame.minX + Dimensions.snapProximity
+        let snapMaxX = visibleFrame.minX + Self.snapProximity
         let rangeX = snapMinX...snapMaxX
         
         let snapMinY = visibleFrame.minY
-        let snapMaxY = visibleFrame.minY + Dimensions.snapProximity
+        let snapMaxY = visibleFrame.minY + Self.snapProximity
         let rangeY = snapMinY...snapMaxY
         
         if rangeX.contains(window.x) && rangeY.contains(window.y) {
@@ -454,7 +456,7 @@ class UIUtils {
     private static func checkForSnapToVisibleFrame_leftEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
         let snapMinX = visibleFrame.minX
-        let snapMaxX = visibleFrame.minX + Dimensions.snapProximity
+        let snapMaxX = visibleFrame.minX + Self.snapProximity
         let rangeX = snapMinX...snapMaxX
         
         if rangeX.contains(window.x) {
@@ -466,7 +468,7 @@ class UIUtils {
     
     private static func checkForSnapToVisibleFrame_topEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
-        let snapMinY = visibleFrame.maxY - Dimensions.snapProximity
+        let snapMinY = visibleFrame.maxY - Self.snapProximity
         let snapMaxY = visibleFrame.maxY
         let rangeY = snapMinY...snapMaxY
         
@@ -479,7 +481,7 @@ class UIUtils {
     
     private static func checkForSnapToVisibleFrame_rightEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
-        let snapMinX = visibleFrame.maxX - Dimensions.snapProximity
+        let snapMinX = visibleFrame.maxX - Self.snapProximity
         let snapMaxX = visibleFrame.maxX
         let rangeX = snapMinX...snapMaxX
         
@@ -493,7 +495,7 @@ class UIUtils {
     private static func checkForSnapToVisibleFrame_bottomEdge(_ window: SnappingWindow) -> SnapToVisibleFrameType {
         
         let snapMinY = visibleFrame.minY
-        let snapMaxY = visibleFrame.minY + Dimensions.snapProximity
+        let snapMaxY = visibleFrame.minY + Self.snapProximity
         let rangeY = snapMinY...snapMaxY
         
         if rangeY.contains(window.y) {

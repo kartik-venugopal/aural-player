@@ -11,6 +11,9 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []
     
+    // Index set used to reload specific playlist rows
+    static let allColumnIndexes: IndexSet = IndexSet([0, 1, 2])
+    
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
         return playlist.size
@@ -96,7 +99,7 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
                 
                 // Reload all source and destination rows, and all rows in between
                 let reloadIndices: IndexSet = IndexSet(allIndices.min()!...allIndices.max()!)
-                tableView.reloadData(forRowIndexes: reloadIndices, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+                tableView.reloadData(forRowIndexes: reloadIndices, columnIndexes: Self.allColumnIndexes)
                 
                 // Select all the destination rows (the new locations of the moved tracks)
                 tableView.selectRowIndexes(IndexSet(destinationIndices), byExtendingSelection: false)

@@ -33,6 +33,9 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     // Recorder timer interval (milliseconds)
     static let timerIntervalMillis: Int = 500
     
+    // Default value for the label that shows a track's seek position
+    static let zeroDurationString: String = "0:00"
+    
     override var nibName: String? {"Recorder"}
     
     override func viewDidLoad() {
@@ -89,7 +92,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         recorderTimer?.startOrResume()
         
         // Update the UI to display current recording information
-        lblRecorderDuration.stringValue = Strings.zeroDurationString
+        lblRecorderDuration.stringValue = Self.zeroDurationString
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.show()
         

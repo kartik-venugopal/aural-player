@@ -5,43 +5,39 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
     
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return audioGraph.audioUnits.count
-    }
+    func numberOfRows(in tableView: NSTableView) -> Int {audioGraph.audioUnits.count}
     
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 24
-    }
+    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {24}
     
     // Returns a view for a single row
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return AudioUnitsTableRowView()
-    }
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {AudioUnitsTableRowView()}
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        switch tableColumn!.identifier {
+        guard let colID = tableColumn?.identifier else {return nil}
+        
+        switch colID {
         
         case .uid_audioUnitSwitch:
             
-            return createSwitchCell(tableView, tableColumn!.identifier.rawValue, row)
+            return createSwitchCell(tableView, colID, row)
             
         case .uid_audioUnitName:
             
-            return createNameCell(tableView, tableColumn!.identifier.rawValue, row)
+            return createNameCell(tableView, colID, row)
             
         case .uid_audioUnitEdit:
             
-            return createEditCell(tableView, tableColumn!.identifier.rawValue, row)
+            return createEditCell(tableView, colID, row)
             
         default: return nil
             
         }
     }
     
-    private func createSwitchCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitSwitchCellView? {
+    private func createSwitchCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ row: Int) -> AudioUnitSwitchCellView? {
      
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitSwitchCellView {
+        if let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitSwitchCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
             
@@ -64,9 +60,9 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         return nil
     }
     
-    private func createNameCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitNameCellView? {
+    private func createNameCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ row: Int) -> AudioUnitNameCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitNameCellView {
+        if let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitNameCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
             
@@ -81,9 +77,9 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
         return nil
     }
     
-    private func createEditCell(_ tableView: NSTableView, _ id: String, _ row: Int) -> AudioUnitEditCellView? {
+    private func createEditCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ row: Int) -> AudioUnitEditCellView? {
      
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(id), owner: nil) as? AudioUnitEditCellView {
+        if let cell = tableView.makeView(withIdentifier: id, owner: nil) as? AudioUnitEditCellView {
             
             let audioUnit = audioGraph.audioUnits[row]
             
@@ -195,7 +191,7 @@ class AudioUnitEditCellView: NSTableCellView {
 
 extension NSUserInterfaceItemIdentifier {
     
-    static let uid_audioUnitSwitch: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.audioUnitSwitchColumnID)
-    static let uid_audioUnitName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.audioUnitNameColumnID)
-    static let uid_audioUnitEdit: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.audioUnitEditColumnID)
+    static let uid_audioUnitSwitch: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_AudioUnitSwitch")
+    static let uid_audioUnitName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_AudioUnitName")
+    static let uid_audioUnitEdit: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_AudioUnitEdit")
 }

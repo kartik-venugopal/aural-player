@@ -8,9 +8,6 @@ class GestureHandler {
     // The window for which gestures are to be handled
     private var window: NSWindow?
     
-    // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
-    static let scrollSessionMaxTimeGapSeconds: TimeInterval = (1.0/6)
-    
     init(_ window: NSWindow?) {
         self.window = window
     }
@@ -139,7 +136,7 @@ class GestureHandler {
             let lastEventTime = ScrollSession.lastEventTime ?? 0
             
             // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
-            if (event.timestamp - lastEventTime) < Self.scrollSessionMaxTimeGapSeconds {
+            if (event.timestamp - lastEventTime) < ScrollSession.maxTimeGapSeconds {
                 
                 // Mark the timestamp of this event (for future events), but do not process it
                 ScrollSession.updateLastEventTime(event)
@@ -171,6 +168,9 @@ fileprivate class ScrollSession {
     // TimeInterval represents systemUpTime. See ProcessInfo.processInfo.systemUpTime.
     static var lastEventTime: TimeInterval?
     
+    // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
+    static let maxTimeGapSeconds: TimeInterval = (1.0/6)
+    
     // Map of counts of events in different scroll directions. Used to determine the intended scroll direction for a session.
     private static var events: [GestureDirection: Int] = [.up: 0, .down: 0, .left: 0, .right: 0]
     
@@ -183,7 +183,7 @@ fileprivate class ScrollSession {
     static func validateEvent(_ event: NSEvent, _ eventDir: GestureDirection) -> Bool {
         
         // Check if this event belongs to the current scroll session (based on time since last event)
-        if timeSinceLastEvent(event) < Self.scrollSessionMaxTimeGapSeconds {
+        if timeSinceLastEvent(event) < Self.maxTimeGapSeconds {
             
             // There is an ongoing (current) scroll session. Check if the direction for this event matches the intended scroll direction.
             

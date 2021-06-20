@@ -57,7 +57,7 @@ class LayoutPreviewView: NSView {
             renderPreview(layout.mainWindowOrigin, mainWindowFrame.width, mainWindowFrame.height, Images.imgPlayerPreview)
             
             if layout.showEffects, let effectsWindowOrigin = layout.effectsWindowOrigin {
-                renderPreview(effectsWindowOrigin, Dimensions.effectsWindowWidth, Dimensions.effectsWindowHeight, Images.imgEffectsPreview)
+                renderPreview(effectsWindowOrigin, WindowLayoutPresets.effectsWindowWidth, WindowLayoutPresets.effectsWindowHeight, Images.imgEffectsPreview)
             }
             
             if layout.showPlaylist, let playlistWindowFrame = layout.playlistWindowFrame {

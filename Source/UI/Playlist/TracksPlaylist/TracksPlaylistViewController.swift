@@ -8,6 +8,9 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!
     
+    // Index set used to reload specific playlist rows
+    static let allColumnIndexes: IndexSet = IndexSet([0, 1, 2])
+    
     var contextMenu: NSMenu! {
         
         didSet {
@@ -186,7 +189,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         for result in results {
             
             playlistView.moveRow(at: result.sourceIndex, to: result.destinationIndex)
-            playlistView.reloadData(forRowIndexes: IndexSet([result.sourceIndex, result.destinationIndex]), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: IndexSet([result.sourceIndex, result.destinationIndex]), columnIndexes: Self.allColumnIndexes)
         }
     }
     
@@ -204,7 +207,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
             removeAndInsertItems(results.sorted(by: TrackMoveResult.compareAscending))
             
             // Refresh the relevant rows
-            playlistView.reloadData(forRowIndexes: IndexSet(0...selectedRows.max()!), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: IndexSet(0...selectedRows.max()!), columnIndexes: Self.allColumnIndexes)
             
             // Select all the same rows but now at the top
             playlistView.scrollRowToVisible(0)
@@ -226,7 +229,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
             removeAndInsertItems(results.sorted(by: TrackMoveResult.compareDescending))
 
             // Refresh the relevant rows
-            playlistView.reloadData(forRowIndexes: IndexSet(selectedRows.min()!...lastRow), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: IndexSet(selectedRows.min()!...lastRow), columnIndexes: Self.allColumnIndexes)
             
             // Select all the same items but now at the bottom
             let firstSelectedRow = lastRow - selectedRowCount + 1
@@ -286,7 +289,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         DispatchQueue.main.async {
             
             if let updatedTrackIndex = self.playlist.indexOfTrack(notification.updatedTrack) {
-                self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+                self.playlistView.reloadData(forRowIndexes: IndexSet(integer: updatedTrackIndex), columnIndexes: Self.allColumnIndexes)
             }
         }
     }
@@ -307,7 +310,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         if firstRemovedRow <= lastPlaylistRowAfterRemove {
             
             let refreshIndexes = IndexSet(firstRemovedRow...lastPlaylistRowAfterRemove)
-            playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: Self.allColumnIndexes)
         }
     }
     
@@ -339,7 +342,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         // If this is not done async, the row view could get garbled.
         // (because of other potential simultaneous updates - e.g. PlayingTrackInfoUpdated)
         DispatchQueue.main.async {
-            self.playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+            self.playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: Self.allColumnIndexes)
         }
     }
     
@@ -353,7 +356,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
             selectTrack(errTrackIndex)
         }
 
-        playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: UIConstants.flatPlaylistViewColumnIndexes)
+        playlistView.reloadData(forRowIndexes: refreshIndexes, columnIndexes: Self.allColumnIndexes)
     }
     
     // Selects an item within the playlist view, to show a single search result

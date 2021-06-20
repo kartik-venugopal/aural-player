@@ -223,7 +223,6 @@
 		3E6C120F25CEBDD100BF0D07 /* GroupingPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F0C25CEB98500BF0D07 /* GroupingPlaylist.swift */; };
 		3E6C121025CEBDD100BF0D07 /* CRUDOperationResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1225CEB98500BF0D07 /* CRUDOperationResults.swift */; };
 		3E6C121125CEBDD100BF0D07 /* HistoryPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C109825CEB98700BF0D07 /* HistoryPreferences.swift */; };
-		3E6C121325CEBDE500BF0D07 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */; };
 		3E6C121425CEBDE500BF0D07 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2025CEB98500BF0D07 /* MainWindow.xib */; };
 		3E6C121525CEBDE500BF0D07 /* ViewPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F3625CEB98600BF0D07 /* ViewPreferences.xib */; };
 		3E6C121625CEBDE500BF0D07 /* Tracks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4025CEB98600BF0D07 /* Tracks.xib */; };
@@ -231,7 +230,6 @@
 		3E6C121825CEBDE500BF0D07 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2B25CEB98500BF0D07 /* PreferencesWindowController.swift */; };
 		3E6C121925CEBDE600BF0D07 /* TracksPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F3E25CEB98600BF0D07 /* TracksPlaylistViewController.swift */; };
 		3E6C121A25CEBDE600BF0D07 /* PlaylistPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2625CEB98500BF0D07 /* PlaylistPreferences.xib */; };
-		3E6C121B25CEBDE600BF0D07 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1C25CEB98500BF0D07 /* Strings.swift */; };
 		3E6C121C25CEBDE600BF0D07 /* SoundPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F3A25CEB98600BF0D07 /* SoundPreferencesViewController.swift */; };
 		3E6C121D25CEBDE600BF0D07 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F2C25CEB98500BF0D07 /* Preferences.xib */; };
 		3E6C121E25CEBDE600BF0D07 /* ViewPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F3725CEB98600BF0D07 /* ViewPreferencesViewController.swift */; };
@@ -328,7 +326,6 @@
 		3E6C128125CEBE1800BF0D07 /* ModalDialogButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FB625CEB98600BF0D07 /* ModalDialogButtonCells.swift */; };
 		3E6C128225CEBE1800BF0D07 /* EffectsColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FA625CEB98600BF0D07 /* EffectsColorScheme.xib */; };
 		3E6C128325CEBE1800BF0D07 /* TintedImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FBC25CEB98600BF0D07 /* TintedImageButton.swift */; };
-		3E6C128425CEBE1800BF0D07 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */; };
 		3E6C128525CEBE1800BF0D07 /* AuralColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FA225CEB98600BF0D07 /* AuralColorPicker.swift */; };
 		3E6C128625CEBE1800BF0D07 /* TrackPeekingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FBD25CEB98600BF0D07 /* TrackPeekingButton.swift */; };
 		3E6C128725CEBE1800BF0D07 /* TabGroupButtonCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FBA25CEB98600BF0D07 /* TabGroupButtonCells.swift */; };
@@ -749,8 +746,6 @@
 		3E6C0F1725CEB98500BF0D07 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		3E6C0F1825CEB98500BF0D07 /* FavoritesDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesDelegate.swift; sourceTree = "<group>"; };
 		3E6C0F1925CEB98500BF0D07 /* AppDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDefaults.swift; sourceTree = "<group>"; };
-		3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
-		3E6C0F1C25CEB98500BF0D07 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		3E6C0F1E25CEB98500BF0D07 /* ColorSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3E6C0F1F25CEB98500BF0D07 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		3E6C0F2025CEB98500BF0D07 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -840,7 +835,6 @@
 		3E6C0F9225CEB98600BF0D07 /* ColorSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesEditorViewController.swift; sourceTree = "<group>"; };
 		3E6C0F9325CEB98600BF0D07 /* ColorSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreviewView.swift; sourceTree = "<group>"; };
 		3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
-		3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		3E6C0F9825CEB98600BF0D07 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3E6C0F9A25CEB98600BF0D07 /* ColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3E6C0F9B25CEB98600BF0D07 /* ColorSchemes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemes.xib; sourceTree = "<group>"; };
@@ -1659,9 +1653,6 @@
 				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
 				3EAFB5EA267FEC4500F0DC96 /* Extensions */,
-				3E6C0F1B25CEB98500BF0D07 /* UIConstants.swift */,
-				3E6C0F1C25CEB98500BF0D07 /* Strings.swift */,
-				3E6C0F9625CEB98600BF0D07 /* Dimensions.swift */,
 				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
 				3E6C0FEB25CEB98600BF0D07 /* Images.swift */,
 				3E6C0FEC25CEB98600BF0D07 /* Colors.swift */,
@@ -3443,7 +3434,6 @@
 				3E6C119B25CEBD6D00BF0D07 /* DeviceManager.swift in Sources */,
 				3E6C11CE25CEBDBE00BF0D07 /* SavePlaybackProfileAction.swift in Sources */,
 				3E6C126325CEBE0600BF0D07 /* FavoritesEditorViewController.swift in Sources */,
-				3E6C128425CEBE1800BF0D07 /* Dimensions.swift in Sources */,
 				3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */,
 				3E6C11B925CEBDAD00BF0D07 /* MediaKeyHandler.swift in Sources */,
 				3E6C130E25CEBE8F00BF0D07 /* PopoverContentView.swift in Sources */,
@@ -3576,7 +3566,6 @@
 				3E6C12E625CEBE8100BF0D07 /* FilterBandViewController.swift in Sources */,
 				3E6C12C425CEBE6700BF0D07 /* EQView.swift in Sources */,
 				3E6C123C25CEBDF400BF0D07 /* ArtistsPlaylistSortViewController.swift in Sources */,
-				3E6C121B25CEBDE600BF0D07 /* Strings.swift in Sources */,
 				3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */,
 				3EDB345D25E8B75D004DF7DE /* ID3AVFParser.swift in Sources */,
 				3E5F943525E571A6002DEF80 /* Supernova.swift in Sources */,
@@ -3605,7 +3594,6 @@
 				3EF0C3E3262A93740042C720 /* VisualizerUIState.swift in Sources */,
 				3E6C12FF25CEBE8F00BF0D07 /* PlayerViewPopupMenuController.swift in Sources */,
 				3EDB346725E8B75D004DF7DE /* TrackReader.swift in Sources */,
-				3E6C121325CEBDE500BF0D07 /* UIConstants.swift in Sources */,
 				3E2000C5267CEE53008BAB70 /* MediaKeysPreferencesViewController.swift in Sources */,
 				3EAFB605267FF1E700F0DC96 /* NSRectExtensions.swift in Sources */,
 				3EDB33FF25E8AE09004DF7DE /* FFmpegChannelLayoutsMapper.swift in Sources */,

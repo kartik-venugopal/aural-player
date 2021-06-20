@@ -31,6 +31,9 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     private let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
     private let lowVolumeRange: Range<Float> = 1..<100.0/3
     
+    // Time intervals for which feedback labels or views that are to be auto-hidden are displayed, before being hidden
+    static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
+    
     override func viewDidLoad() {
         
         // Ugly hack to properly align pan slider on Big Sur.
@@ -38,8 +41,8 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
             panSlider.moveUp(distance: 3)
         }
         
-        autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
-        autoHidingPanLabel = AutoHidingView(lblPan, UIConstants.feedbackLabelAutoHideIntervalSeconds)
+        autoHidingVolumeLabel = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
+        autoHidingPanLabel = AutoHidingView(lblPan, Self.feedbackLabelAutoHideIntervalSeconds)
         
         volumeSlider.floatValue = audioGraph.volume
         volumeChanged(audioGraph.volume, audioGraph.muted, true, false)

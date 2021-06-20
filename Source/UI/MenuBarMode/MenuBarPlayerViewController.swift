@@ -68,6 +68,9 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     private let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
     private let lowVolumeRange: Range<Float> = 1..<100.0/3
     
+    // Time intervals for which feedback labels or views that are to be auto-hidden are displayed, before being hidden
+    static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
+    
     override func awakeFromNib() {
         
         btnPlayPause.off()
@@ -138,7 +141,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     
     override func viewDidLoad() {
         
-        autoHidingVolumeLabel = AutoHidingView(lblVolume, UIConstants.feedbackLabelAutoHideIntervalSeconds)
+        autoHidingVolumeLabel = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
         
         volumeSlider.floatValue = audioGraph.volume
         volumeChanged(audioGraph.volume, audioGraph.muted, true, false)

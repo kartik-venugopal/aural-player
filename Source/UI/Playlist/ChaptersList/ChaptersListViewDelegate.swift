@@ -20,7 +20,9 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        guard let track = playbackInfo.playingTrack, track.hasChapters, row < playbackInfo.chapterCount, let columnId = tableColumn?.identifier else {return nil}
+        guard let columnId = tableColumn?.identifier,
+              let track = playbackInfo.playingTrack, track.hasChapters, row < playbackInfo.chapterCount
+               else {return nil}
             
         let chapter = track.chapters[row]
         

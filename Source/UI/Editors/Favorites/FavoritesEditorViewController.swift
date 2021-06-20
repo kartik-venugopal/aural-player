@@ -118,10 +118,10 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
+        guard let colID = tableColumn?.identifier else {return nil}
         let favorite = favorites.getFavoriteAtIndex(row)
-        let colID = tableColumn?.identifier.rawValue ?? ""
         
-        if colID == UIConstants.favoriteNameColumnID {
+        if colID == .uid_favoriteNameColumn {
             
             // Name
             return createTextCell(tableView, tableColumn!, row, favorite.name)
@@ -154,4 +154,10 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         return cell
     }
+}
+
+extension NSUserInterfaceItemIdentifier {
+    
+    // Table view column identifiers
+    static let uid_favoriteNameColumn: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_FavoriteName")
 }

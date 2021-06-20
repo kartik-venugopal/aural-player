@@ -143,19 +143,21 @@ class BasicTableCellView: NSTableCellView {
 
 extension NSUserInterfaceItemIdentifier {
     
-    static let uid_index: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.playlistIndexColumnID)
+    // Playlist view column identifiers
     
-    static let uid_trackName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.playlistNameColumnID)
+    static let uid_index: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Index")
     
-    static let uid_duration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.playlistDurationColumnID)
+    static let uid_trackName: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Name")
     
-    static let uid_chapterIndex: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterIndexColumnID)
+    static let uid_duration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_Duration")
     
-    static let uid_chapterTitle: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterTitleColumnID)
+    static let uid_chapterIndex: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterIndex")
     
-    static let uid_chapterStartTime: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterStartTimeColumnID)
+    static let uid_chapterTitle: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterTitle")
     
-    static let uid_chapterDuration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier(UIConstants.chapterDurationColumnID)
+    static let uid_chapterStartTime: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterStartTime")
+    
+    static let uid_chapterDuration: NSUserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier("cid_chapterDuration")
 }
 
 extension NSPasteboard.PasteboardType {

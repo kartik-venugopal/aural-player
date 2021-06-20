@@ -1,5 +1,7 @@
 import Cocoa
 
+let menuItemCoverArtImageSize: NSSize = NSSize(width: 22, height: 22)
+
 /*
     Manages and provides actions for the History menu that displays historical information about the usage of the app.
  */
@@ -81,7 +83,7 @@ fileprivate func createHistoryMenuItem(_ item: HistoryItem, _ actionTarget: AnyO
     menuItem.target = actionTarget
     
     menuItem.image = Images.imgPlayedTrack
-    menuItem.image?.size = Dimensions.historyMenuItemImageSize
+    menuItem.image?.size = menuItemCoverArtImageSize
     
     let queue = item is AddedItem ? addedItemsArtLoadingQueue : playedItemsArtLoadingQueue
     
@@ -89,7 +91,7 @@ fileprivate func createHistoryMenuItem(_ item: HistoryItem, _ actionTarget: AnyO
         
         if let art = artForFile(item.file) {
             
-            art.size = Dimensions.historyMenuItemImageSize
+            art.size = menuItemCoverArtImageSize
             
             DispatchQueue.main.async {
                 menuItem.image = art
