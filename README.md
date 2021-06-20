@@ -128,7 +128,9 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ### Control Center integration
 
-![Control Center integration screenshot](/Documentation/Screenshots/ControlCenter2.png?raw=true)
+![Control Center integration 1 screenshot](/Documentation/Screenshots/ControlCenter1.png?raw=true)
+
+![Control Center integration 2 screenshot](/Documentation/Screenshots/ControlCenter2.png?raw=true)
 
 ### Visualizer
 
