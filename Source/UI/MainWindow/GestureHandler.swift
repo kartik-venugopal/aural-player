@@ -8,6 +8,9 @@ class GestureHandler {
     // The window for which gestures are to be handled
     private var window: NSWindow?
     
+    // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
+    static let scrollSessionMaxTimeGapSeconds: TimeInterval = (1.0/6)
+    
     init(_ window: NSWindow?) {
         self.window = window
     }
@@ -136,7 +139,7 @@ class GestureHandler {
             let lastEventTime = ScrollSession.lastEventTime ?? 0
             
             // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
-            if (event.timestamp - lastEventTime) < UIConstants.scrollSessionMaxTimeGapSeconds {
+            if (event.timestamp - lastEventTime) < Self.scrollSessionMaxTimeGapSeconds {
                 
                 // Mark the timestamp of this event (for future events), but do not process it
                 ScrollSession.updateLastEventTime(event)
@@ -180,7 +183,7 @@ fileprivate class ScrollSession {
     static func validateEvent(_ event: NSEvent, _ eventDir: GestureDirection) -> Bool {
         
         // Check if this event belongs to the current scroll session (based on time since last event)
-        if timeSinceLastEvent(event) < UIConstants.scrollSessionMaxTimeGapSeconds {
+        if timeSinceLastEvent(event) < Self.scrollSessionMaxTimeGapSeconds {
             
             // There is an ongoing (current) scroll session. Check if the direction for this event matches the intended scroll direction.
             

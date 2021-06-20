@@ -26,7 +26,7 @@ class TintedImageButton: NSButton, Tintable {
     
     // Reapplies the tint (eg. when the tint color has changed or the base image has changed).
     func reTint() {
-        self.image = self.baseImage?.applyingTint(tintFunction())
+        self.image = self.baseImage?.filledWithColor(tintFunction())
     }
 }
 

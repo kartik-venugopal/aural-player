@@ -46,7 +46,7 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
             
             // Check if there is a track currently playing, and if this row matches that track.
             if track == playbackInfo.playingTrack {
-                return createIndexImageCell(tableView, row, Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor))
+                return createIndexImageCell(tableView, row, Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor))
             }
             
             // Otherwise, create a text cell with the track index

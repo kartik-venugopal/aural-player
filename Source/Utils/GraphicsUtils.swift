@@ -23,7 +23,7 @@ class GraphicsUtils {
         
         let rect = NSRect(x: pt1.x, y: pt1.y, width: pt2.x - pt1.x + width, height: pt2.y - pt1.y + 1)
 
-        gradient.draw(in: rect, angle: UIConstants.verticalGradientDegrees)
+        gradient.draw(in: rect, angle: .verticalGradientDegrees)
     }
     
     // Draws an arrow, from a given point (origin)

@@ -18,16 +18,16 @@ class AuralPlaylistOutlineView: NSOutlineView, Destroyable {
     
     static func updateCachedImages() {
         
-        cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
-        cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(Colors.Playlist.groupDisclosureTriangleColor)
+        cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.filledWithColor(Colors.Playlist.groupDisclosureTriangleColor)
+        cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.filledWithColor(Colors.Playlist.groupDisclosureTriangleColor)
         
-        cachedGroupIcon = Images.imgGroup.applyingTint(Colors.Playlist.groupIconColor)
+        cachedGroupIcon = Images.imgGroup.filledWithColor(Colors.Playlist.groupIconColor)
     }
     
     static func changeDisclosureTriangleColor(_ color: NSColor) {
         
-        cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.applyingTint(color)
-        cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.applyingTint(color)
+        cachedDisclosureIcon_collapsed = Images.imgDisclosure_collapsed.filledWithColor(color)
+        cachedDisclosureIcon_expanded = Images.imgDisclosure_expanded.filledWithColor(color)
         
         for button in disclosureButtons {
             
@@ -37,7 +37,7 @@ class AuralPlaylistOutlineView: NSOutlineView, Destroyable {
     }
     
     static func changeGroupIconColor(_ color: NSColor) {
-        cachedGroupIcon = Images.imgGroup.applyingTint(color)
+        cachedGroupIcon = Images.imgGroup.filledWithColor(color)
     }
     
     override func menu(for event: NSEvent) -> NSMenu? {

@@ -2,6 +2,9 @@ import Foundation
 
 extension Int {
     
+    static let ascendingIntComparator: (Int, Int) -> Bool = {$0 < $1}
+    static let descendingIntComparator: (Int, Int) -> Bool = {$0 > $1}
+    
     mutating func increment() {
         self += 1
     }

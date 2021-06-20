@@ -29,9 +29,9 @@ class ModalDialogButtonCell: NSButtonCell {
         let borderPath = NSBezierPath.init(roundedRect: drawRect, xRadius: borderRadius, yRadius: borderRadius)
         
         if isEnabled {
-            backgroundFillGradient.draw(in: borderPath, angle: -UIConstants.verticalGradientDegrees)
+            backgroundFillGradient.draw(in: borderPath, angle: -.verticalGradientDegrees)
         } else {
-            backgroundFillGradient_disabled.draw(in: borderPath, angle: -UIConstants.verticalGradientDegrees)
+            backgroundFillGradient_disabled.draw(in: borderPath, angle: -.verticalGradientDegrees)
         }
         
         // Title

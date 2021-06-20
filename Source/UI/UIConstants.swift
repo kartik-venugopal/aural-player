@@ -36,20 +36,7 @@ struct UIConstants {
     static let audioUnitNameColumnID: String = "cid_AudioUnitName"
     static let audioUnitEditColumnID: String = "cid_AudioUnitEdit"
     
-    // Angles used to fill gradients
-    static let verticalGradientDegrees: CGFloat = -90.0
-    static let horizontalGradientDegrees: CGFloat = -180.0
-    
-    // Recorder timer interval (milliseconds)
-    static let recorderTimerIntervalMillis: Int = 500
-    
     // Time intervals for which feedback labels or views that are to be auto-hidden are displayed, before being hidden
     static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
     static let favoritesPopupAutoHideIntervalSeconds: TimeInterval = 1.5
-    
-    // Maximum time gap between scroll events for them to be considered as being part of the same scroll session
-    static let scrollSessionMaxTimeGapSeconds: TimeInterval = (1.0/6)
-    
-    static let offState: NSControl.StateValue = NSControl.StateValue(rawValue: 0)
-    static let onState: NSControl.StateValue = NSControl.StateValue(rawValue: 1)
 }

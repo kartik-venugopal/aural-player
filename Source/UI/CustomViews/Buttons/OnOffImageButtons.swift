@@ -86,7 +86,7 @@ class OnOffImageButton: NSButton, Tintable {
     // Sets the button state to be "Off"
     override func off() {
         
-        self.image = offStateImage?.applyingTint(offStateTintFunction())
+        self.image = offStateImage?.filledWithColor(offStateTintFunction())
         self.toolTip = offStateTooltip
         _isOn = false
     }
@@ -94,7 +94,7 @@ class OnOffImageButton: NSButton, Tintable {
     // Sets the button state to be "On"
     override func on() {
         
-        self.image = onStateImage?.applyingTint(onStateTintFunction())
+        self.image = onStateImage?.filledWithColor(onStateTintFunction())
         self.toolTip = onStateTooltip
         _isOn = true
     }
@@ -118,9 +118,9 @@ class OnOffImageButton: NSButton, Tintable {
     func reTint() {
         
         if _isOn {
-            self.image = onStateImage?.applyingTint(onStateTintFunction())
+            self.image = onStateImage?.filledWithColor(onStateTintFunction())
         } else {
-            self.image = offStateImage?.applyingTint(offStateTintFunction())
+            self.image = offStateImage?.filledWithColor(offStateTintFunction())
         }
     }
 }
@@ -196,7 +196,7 @@ class EffectsUnitTriStateBypassButton: OnOffImageButton {
     // Sets the button state to be "Off"
     override func off() {
         
-        self.image = self.image?.applyingTint(offStateTintFunction())
+        self.image = self.image?.filledWithColor(offStateTintFunction())
         self.toolTip = offStateTooltip
         _isOn = false
     }
@@ -204,14 +204,14 @@ class EffectsUnitTriStateBypassButton: OnOffImageButton {
     // Sets the button state to be "On"
     override func on() {
         
-        self.image = self.image?.applyingTint(onStateTintFunction())
+        self.image = self.image?.filledWithColor(onStateTintFunction())
         self.toolTip = onStateTooltip
         _isOn = true
     }
     
     func mixed() {
         
-        self.image = self.image?.applyingTint(mixedStateTintFunction())
+        self.image = self.image?.filledWithColor(mixedStateTintFunction())
         self.toolTip = mixedStateTooltip
     }
     
@@ -243,7 +243,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     override func off() {
         
-        self.image = self.image?.applyingTint(offStateTintFunction())
+        self.image = self.image?.filledWithColor(offStateTintFunction())
         self.toolTip = offStateTooltip
         _isOn = false
         
@@ -255,7 +255,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     override func on() {
         
-        self.image = self.image?.applyingTint(onStateTintFunction())
+        self.image = self.image?.filledWithColor(onStateTintFunction())
         self.toolTip = onStateTooltip
         _isOn = true
         
@@ -267,7 +267,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     
     func mixed() {
         
-        self.image = self.image?.applyingTint(mixedStateTintFunction())
+        self.image = self.image?.filledWithColor(mixedStateTintFunction())
         self.toolTip = mixedStateTooltip
         
         if let cell = self.cell as? EffectsUnitTabButtonCell {
@@ -280,11 +280,11 @@ class EffectsUnitTabButton: OnOffImageButton {
         
         switch unitState {
             
-        case .bypassed: self.image = self.image?.applyingTint(offStateTintFunction())
+        case .bypassed: self.image = self.image?.filledWithColor(offStateTintFunction())
             
-        case .active: self.image = self.image?.applyingTint(onStateTintFunction())
+        case .active: self.image = self.image?.filledWithColor(onStateTintFunction())
             
-        case .suppressed: self.image = self.image?.applyingTint(mixedStateTintFunction())
+        case .suppressed: self.image = self.image?.filledWithColor(mixedStateTintFunction())
             
         }
         

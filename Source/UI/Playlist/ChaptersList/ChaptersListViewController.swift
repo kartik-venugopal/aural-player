@@ -456,8 +456,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
             cell.resetSearchButtonCell()
             
             // Tint the 2 cell images according to the appropriate color.
-            cell.cancelButtonCell?.image = cell.cancelButtonCell?.image?.applyingTint(Colors.Playlist.trackNameTextColor)
-            cell.searchButtonCell?.image = cell.searchButtonCell?.image?.applyingTint(Colors.Playlist.trackNameTextColor)
+            cell.cancelButtonCell?.image = cell.cancelButtonCell?.image?.filledWithColor(Colors.Playlist.trackNameTextColor)
+            cell.searchButtonCell?.image = cell.searchButtonCell?.image?.filledWithColor(Colors.Playlist.trackNameTextColor)
         }
         
         txtSearch.redraw()

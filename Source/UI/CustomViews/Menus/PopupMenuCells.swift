@@ -30,7 +30,7 @@ class PopupMenuCell: NSPopUpButtonCell {
         let drawRect = cellFrame.insetBy(dx: cellInsetX, dy: cellInsetY)
         let drawPath = NSBezierPath.init(roundedRect: drawRect, xRadius: rectRadius, yRadius: rectRadius)
         
-        menuGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        menuGradient.draw(in: drawPath, angle: -.verticalGradientDegrees)
         
         // Draw arrow
         let x = drawRect.maxX - arrowXMargin, y = drawRect.maxY - arrowYMargin

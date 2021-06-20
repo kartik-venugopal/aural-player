@@ -72,7 +72,7 @@ class FilterChart: NSView {
                 let brect = NSRect(x: rx1, y: bottomMargin + 1, width: rx2 - rx1, height: (height / 2) - 2)
                 drawPath = NSBezierPath.init(rect: brect)
                 
-                col.draw(in: drawPath, angle: UIConstants.verticalGradientDegrees)
+                col.draw(in: drawPath, angle: .verticalGradientDegrees)
                 
             case .lowPass:
                 

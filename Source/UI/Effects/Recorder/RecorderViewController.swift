@@ -30,6 +30,9 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     // Cached recording info (used to determine recording format when saving a recording)
     private var recordingInfo: RecordingInfo?
     
+    // Recorder timer interval (milliseconds)
+    static let timerIntervalMillis: Int = 500
+    
     override var nibName: String? {"Recorder"}
     
     override func viewDidLoad() {
@@ -58,7 +61,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     
     private func initControls() {
         
-        recorderTimer = RepeatingTaskExecutor(intervalMillis: UIConstants.recorderTimerIntervalMillis, task: {[weak self] in self?.updateRecordingInfo()}, queue: .main)
+        recorderTimer = RepeatingTaskExecutor(intervalMillis: Self.timerIntervalMillis, task: {[weak self] in self?.updateRecordingInfo()}, queue: .main)
         
         btnRecord.off()
         

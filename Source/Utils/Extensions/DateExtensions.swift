@@ -1,57 +1,11 @@
-import Cocoa
+import Foundation
 
-/*
-    A set of utility functions related to Date objects
- */
-class DateUtils {
-    
-    // Constants representing different time intervals (in seconds)
-    
-    private static let oneHour: TimeInterval = 3600
-    private static let oneDay: TimeInterval = 24 * oneHour
-    private static let oneWeek: TimeInterval = 7 * oneDay
-    private static let thirtyDays: TimeInterval = 30 * oneDay
-    
-    // Computes a time category (see TimeElapsed) representing the time elapsed since a given date (until now)
-    static func timeElapsedSinceDate(_ date: Date) -> TimeElapsed {
-        
-        // Convert a TimeInterval to a TimeElapsed
-        
-        let timeElapsed = Date().timeIntervalSince(date)
-        
-        if timeElapsed > thirtyDays {
-            return .olderThan30Days
-        }
-        
-        if timeElapsed > oneWeek {
-            return .past30Days
-        }
-        
-        if timeElapsed > oneDay {
-            return .past7Days
-        }
-        
-        if timeElapsed > oneHour {
-            return .past24Hours
-        }
-        
-        return .pastHour
-    }
-}
+// Constants representing different time intervals (in seconds)
 
-// Enumerates time categories that can be used to group historical data, describing when an event occurred, based on its timestamp. For example, an item that was played 10 minutes ago falls into the category "Past hour".
-enum TimeElapsed: String {
-    
-    case pastHour = "Past hour"
-    
-    case past24Hours = "Past 24 hours"
-    
-    case past7Days = "Past 7 days"
-    
-    case past30Days = "Past 30 days"
-    
-    case olderThan30Days = "Older than 30 days"
-}
+fileprivate let oneHour: TimeInterval = 3600
+fileprivate let oneDay: TimeInterval = 24 * oneHour
+fileprivate let oneWeek: TimeInterval = 7 * oneDay
+fileprivate let thirtyDays: TimeInterval = 30 * oneDay
 
 // Convenience utility functions
 extension Date {
@@ -131,4 +85,44 @@ extension Date {
     var year: Int {
         return Calendar.current.component(.year, from: self)
     }
+    
+    // Computes a time category (see TimeElapsed) representing the time elapsed since a given date (until now)
+    static func timeElapsedSince(_ date: Date) -> TimeElapsed {
+        
+        // Convert a TimeInterval to a TimeElapsed
+        
+        let timeElapsed = Date().timeIntervalSince(date)
+        
+        if timeElapsed > thirtyDays {
+            return .olderThan30Days
+        }
+        
+        if timeElapsed > oneWeek {
+            return .past30Days
+        }
+        
+        if timeElapsed > oneDay {
+            return .past7Days
+        }
+        
+        if timeElapsed > oneHour {
+            return .past24Hours
+        }
+        
+        return .pastHour
+    }
+}
+
+// Enumerates time categories that can be used to group historical data, describing when an event occurred, based on its timestamp. For example, an item that was played 10 minutes ago falls into the category "Past hour".
+enum TimeElapsed: String {
+    
+    case pastHour = "Past hour"
+    
+    case past24Hours = "Past 24 hours"
+    
+    case past7Days = "Past 7 days"
+    
+    case past30Days = "Past 30 days"
+    
+    case olderThan30Days = "Older than 30 days"
 }

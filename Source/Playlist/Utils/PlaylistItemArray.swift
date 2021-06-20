@@ -48,7 +48,7 @@ extension Array where Element: Equatable {
     
     mutating func removeItems(_ indices: IndexSet) -> [Element] {
         
-        return indices.sorted(by: descendingIntComparator)
+        return indices.sorted(by: Int.descendingIntComparator)
             .compactMap {self.indices.contains($0) ? self.remove(at: $0) : nil}
     }
     
@@ -56,7 +56,7 @@ extension Array where Element: Equatable {
 
         // Collect and sort indices before removing items
         let indices: [Int] = items.compactMap {self.firstIndex(of: ($0))}
-                                    .sorted(by: descendingIntComparator)
+                                    .sorted(by: Int.descendingIntComparator)
         
         indices.forEach({self.remove(at: $0)})
         
@@ -87,7 +87,7 @@ extension Array where Element: Equatable {
         
         // Indices need to be in ascending order, because items need to be moved up, one by one, from top to bottom of the playlist
         // Determine if there is a contiguous block of items at the top of the playlist, that cannot be moved. If there is, determine its size.
-        let ascendingOldIndices = indices.sorted(by: ascendingIntComparator)
+        let ascendingOldIndices = indices.sorted(by: Int.ascendingIntComparator)
         let unmovableBlockSize: Int = self.indices.first(where: {!ascendingOldIndices.contains($0)}) ?? 0
         
         guard areAscendingIndicesValid(ascendingOldIndices) && unmovableBlockSize < ascendingOldIndices.count else {return [:]}
@@ -103,7 +103,7 @@ extension Array where Element: Equatable {
     mutating func moveItemsDown(_ indices: IndexSet) -> [Int: Int] {
         
         // Indices need to be in descending order, because items need to be moved down, one by one, from bottom to top of the playlist
-        let descendingOldIndices = indices.sorted(by: descendingIntComparator)
+        let descendingOldIndices = indices.sorted(by: Int.descendingIntComparator)
         
         // Determine if there is a contiguous block of items at the bottom of the playlist, that cannot be moved. If there is, determine its size.
         let indicesReversed = self.indices.reversed()
@@ -129,7 +129,7 @@ extension Array where Element: Equatable {
     
     mutating func moveItemsToTop(_ indices: IndexSet) -> [Int: Int] {
         
-        let sortedIndices = indices.sorted(by: ascendingIntComparator)
+        let sortedIndices = indices.sorted(by: Int.ascendingIntComparator)
         guard areAscendingIndicesValid(sortedIndices) else {return [:]}
 
         var results: [Int: Int] = [:]
@@ -151,7 +151,7 @@ extension Array where Element: Equatable {
     
     mutating func moveItemsToBottom(_ indices: IndexSet) -> [Int: Int] {
         
-        let sortedIndices = indices.sorted(by: descendingIntComparator)
+        let sortedIndices = indices.sorted(by: Int.descendingIntComparator)
         guard areDescendingIndicesValid(sortedIndices) else {return [:]}
         
         var results: [Int: Int] = [:]
@@ -180,7 +180,7 @@ extension Array where Element: Equatable {
         
         // Make sure that the source indices are iterated in descending order, because tracks need to be removed from the bottom up.
         // Collect all the tracks into an array for re-insertion later.
-        let sourceItems: [Element] = sourceIndices.sorted(by: descendingIntComparator).compactMap {self.removeItem($0)}
+        let sourceItems: [Element] = sourceIndices.sorted(by: Int.descendingIntComparator).compactMap {self.removeItem($0)}
         
         // Reverse the source items collection to match the order of the destination indices.
         // For each destination index, copy over a source item into the corresponding destination hole.
@@ -188,6 +188,6 @@ extension Array where Element: Equatable {
             self.insert(sourceItem, at: destinationIndex)
         }
         
-        return Dictionary(uniqueKeysWithValues: zip(sourceIndices.sorted(by: ascendingIntComparator), destinationIndices))
+        return Dictionary(uniqueKeysWithValues: zip(sourceIndices.sorted(by: Int.ascendingIntComparator), destinationIndices))
     }
 }

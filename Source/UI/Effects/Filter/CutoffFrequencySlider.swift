@@ -11,7 +11,7 @@ class CutoffFrequencySlider: EffectsUnitSlider {
     }
 }
 
-class CutoffFrequencySliderCell: EffectsTickedSliderCell {
+class CutoffFrequencySliderCell: EffectsSliderCell {
     
     var filterType: FilterBandType = .lowPass
     

@@ -18,6 +18,6 @@ class TintedImageView: NSImageView, Tintable {
     }
     
     func reTint() {
-        self.image = self.baseImage?.applyingTint(tintFunction())
+        self.image = self.baseImage?.filledWithColor(tintFunction())
     }
 }

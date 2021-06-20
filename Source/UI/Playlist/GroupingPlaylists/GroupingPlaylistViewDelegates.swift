@@ -92,7 +92,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
         cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
         
         if track == playbackInfo.playingTrack {
-            imgView.image = Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor)
+            imgView.image = Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor)
         } else {
             imgView.image = nil
         }

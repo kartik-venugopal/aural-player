@@ -52,7 +52,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     @IBAction func deleteSelectedFavoritesAction(_ sender: AnyObject) {
         
         // Descending order
-        let sortedSelection = editorView.selectedRowIndexes.sorted(by: descendingIntComparator)
+        let sortedSelection = editorView.selectedRowIndexes.sorted(by: Int.descendingIntComparator)
         sortedSelection.forEach {favorites.deleteFavoriteAtIndex($0)}
         
         editorView.reloadData()

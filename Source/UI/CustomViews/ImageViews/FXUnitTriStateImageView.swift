@@ -31,14 +31,14 @@ class EffectsUnitBypassImage: NSImageView, Tintable {
     // Sets the button state to be "Off"
     func off() {
         
-        self.image = self.image?.applyingTint(offStateTintFunction())
+        self.image = self.image?.filledWithColor(offStateTintFunction())
         _isOn = false
     }
     
     // Sets the button state to be "On"
     func on() {
         
-        self.image = self.image?.applyingTint(onStateTintFunction())
+        self.image = self.image?.filledWithColor(onStateTintFunction())
         _isOn = true
     }
     
@@ -65,9 +65,9 @@ class EffectsUnitBypassImage: NSImageView, Tintable {
     func reTint() {
         
         if _isOn {
-            self.image = self.image?.applyingTint(onStateTintFunction())
+            self.image = self.image?.filledWithColor(onStateTintFunction())
         } else {
-            self.image = self.image?.applyingTint(offStateTintFunction())
+            self.image = self.image?.filledWithColor(offStateTintFunction())
         }
     }
 }
@@ -120,7 +120,7 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     }
     
     func mixed() {
-        self.image = self.image?.applyingTint(mixedStateTintFunction())
+        self.image = self.image?.filledWithColor(mixedStateTintFunction())
     }
     
     override func reTint() {

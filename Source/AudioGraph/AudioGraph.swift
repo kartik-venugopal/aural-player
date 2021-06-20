@@ -174,7 +174,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     func removeAudioUnits(at indices: IndexSet) {
         
-        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: descendingIntComparator)
+        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: Int.descendingIntComparator)
         
         for index in descendingIndices {
             audioUnits.remove(at: index)

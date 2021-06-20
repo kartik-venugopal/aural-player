@@ -27,7 +27,7 @@ class MultiStateImageButton: NSButton, Tintable {
         
         // Set the button's image based on the new state
         if let imageAndTintFunction = map[String(describing: newState)] {
-            self.image = imageAndTintFunction.image.applyingTint(imageAndTintFunction.tintFunction())
+            self.image = imageAndTintFunction.image.filledWithColor(imageAndTintFunction.tintFunction())
         }
     }
     
@@ -35,7 +35,7 @@ class MultiStateImageButton: NSButton, Tintable {
 
         // NOTE - It is important to use a non-optional value for the map lookup, otherwise the string description won't match the targeted key.
         if let theState = self._state, let imageAndTintFunction = map[String(describing: theState)] {
-            self.image = imageAndTintFunction.image.applyingTint(imageAndTintFunction.tintFunction())
+            self.image = imageAndTintFunction.image.filledWithColor(imageAndTintFunction.tintFunction())
         }
     }
 }

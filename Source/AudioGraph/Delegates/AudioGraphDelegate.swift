@@ -178,7 +178,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         
         graph.removeAudioUnits(at: indices)
         
-        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: descendingIntComparator)
+        let descendingIndices = indices.filter {$0 < audioUnits.count}.sorted(by: Int.descendingIntComparator)
         return descendingIndices.map {audioUnits.remove(at: $0)}
     }
     

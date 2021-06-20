@@ -79,11 +79,11 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
         // Bottom rect
         var drawPath = NSBezierPath.init(roundedRect: bottomRect, xRadius: barRadius, yRadius: barRadius)
         
-        foregroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        foregroundGradient.draw(in: drawPath, angle: -.verticalGradientDegrees)
         
         // Top rect
         drawPath = NSBezierPath.init(roundedRect: topRect, xRadius: barRadius, yRadius: barRadius)
-        backgroundGradient.draw(in: drawPath, angle: -UIConstants.verticalGradientDegrees)
+        backgroundGradient.draw(in: drawPath, angle: -.verticalGradientDegrees)
         
         // Draw one tick across the center of the bar (marking 0dB)
         let tickMinX = drawRect.minX + 1.5

@@ -63,7 +63,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         cell.textField?.stringValue = text
         cell.textField?.showIf(!showCurrentChapterMarker)
         
-        cell.imageView?.image = showCurrentChapterMarker ? Images.imgPlayingTrack.applyingTint(Colors.Playlist.playingTrackIconColor) : nil
+        cell.imageView?.image = showCurrentChapterMarker ? Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor) : nil
         cell.imageView?.showIf(showCurrentChapterMarker)
         
         return cell
