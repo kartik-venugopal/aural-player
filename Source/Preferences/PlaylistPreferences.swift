@@ -68,15 +68,15 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(playlistOnStartup.rawValue, forKey: Self.key_playlistOnStartup)
-        defaults.set(playlistFile?.path, forKey: Self.key_playlistFile)
-        defaults.set(tracksFolder?.path, forKey: Self.key_tracksFolder)
+        defaults[Self.key_playlistOnStartup] = playlistOnStartup.rawValue 
+        defaults[Self.key_playlistFile] = playlistFile?.path 
+        defaults[Self.key_tracksFolder] = tracksFolder?.path 
         
-        defaults.set(viewOnStartup.option.rawValue, forKey: Self.key_viewOnStartupOption)
-        defaults.set(viewOnStartup.viewName, forKey: Self.key_viewOnStartupViewName)
+        defaults[Self.key_viewOnStartupOption] = viewOnStartup.option.rawValue 
+        defaults[Self.key_viewOnStartupViewName] = viewOnStartup.viewName 
         
-        defaults.set(showNewTrackInPlaylist, forKey: Self.key_showNewTrackInPlaylist)
-        defaults.set(showChaptersList, forKey: Self.key_showChaptersList)
+        defaults[Self.key_showNewTrackInPlaylist] = showNewTrackInPlaylist 
+        defaults[Self.key_showChaptersList] = showChaptersList 
     }
 }
 

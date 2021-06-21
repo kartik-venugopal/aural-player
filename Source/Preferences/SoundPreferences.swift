@@ -99,25 +99,25 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(outputDeviceOnStartup.option.rawValue, forKey: Self.key_outputDeviceOnStartupOption)
-        defaults.set(outputDeviceOnStartup.preferredDeviceName, forKey: Self.key_outputDeviceOnStartupPreferredDeviceName)
-        defaults.set(outputDeviceOnStartup.preferredDeviceUID, forKey: Self.key_outputDeviceOnStartupPreferredDeviceUID)
+        defaults[Self.key_outputDeviceOnStartupOption] = outputDeviceOnStartup.option.rawValue 
+        defaults[Self.key_outputDeviceOnStartupPreferredDeviceName] = outputDeviceOnStartup.preferredDeviceName 
+        defaults[Self.key_outputDeviceOnStartupPreferredDeviceUID] = outputDeviceOnStartup.preferredDeviceUID 
         
-        defaults.set(volumeDelta, forKey: Self.key_volumeDelta)
+        defaults[Self.key_volumeDelta] = volumeDelta 
         
-        defaults.set(volumeOnStartupOption.rawValue, forKey: Self.key_volumeOnStartupOption)
-        defaults.set(startupVolumeValue, forKey: Self.key_startupVolumeValue)
+        defaults[Self.key_volumeOnStartupOption] = volumeOnStartupOption.rawValue 
+        defaults[Self.key_startupVolumeValue] = startupVolumeValue 
         
-        defaults.set(panDelta, forKey: Self.key_panDelta)
+        defaults[Self.key_panDelta] = panDelta 
         
-        defaults.set(eqDelta, forKey: Self.key_eqDelta)
-        defaults.set(pitchDelta, forKey: Self.key_pitchDelta)
-        defaults.set(timeDelta, forKey: Self.key_timeDelta)
+        defaults[Self.key_eqDelta] = eqDelta 
+        defaults[Self.key_pitchDelta] = pitchDelta 
+        defaults[Self.key_timeDelta] = timeDelta 
         
-        defaults.set(effectsSettingsOnStartupOption.rawValue, forKey: Self.key_effectsSettingsOnStartupOption)
-        defaults.set(masterPresetOnStartup_name, forKey: Self.key_masterPresetOnStartup_name)
+        defaults[Self.key_effectsSettingsOnStartupOption] = effectsSettingsOnStartupOption.rawValue 
+        defaults[Self.key_masterPresetOnStartup_name] = masterPresetOnStartup_name 
         
-        defaults.set(rememberEffectsSettingsOption.rawValue, forKey: Self.key_rememberEffectsSettingsOption)
+        defaults[Self.key_rememberEffectsSettingsOption] = rememberEffectsSettingsOption.rawValue 
     }
 }
 

@@ -20,7 +20,7 @@ class HistoryPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(recentlyAddedListSize, forKey: Self.key_recentlyAddedListSize)
-        defaults.set(recentlyPlayedListSize, forKey: Self.key_recentlyPlayedListSize)
+        defaults[Self.key_recentlyAddedListSize] = recentlyAddedListSize 
+        defaults[Self.key_recentlyPlayedListSize] = recentlyPlayedListSize 
     }
 }

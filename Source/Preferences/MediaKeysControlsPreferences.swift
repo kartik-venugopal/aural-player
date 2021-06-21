@@ -23,9 +23,9 @@ class MediaKeysControlsPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(enabled, forKey: Self.key_enabled)
-        defaults.set(skipKeyBehavior.rawValue, forKey: Self.key_skipKeyBehavior)
-        defaults.set(repeatSpeed.rawValue, forKey: Self.key_repeatSpeed)
+        defaults[Self.key_enabled] = enabled
+        defaults[Self.key_skipKeyBehavior] = skipKeyBehavior.rawValue
+        defaults[Self.key_repeatSpeed] = repeatSpeed.rawValue
     }
 }
 

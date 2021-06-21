@@ -45,15 +45,15 @@ class GesturesControlsPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(allowVolumeControl, forKey: Self.key_allowVolumeControl)
-        defaults.set(allowSeeking, forKey: Self.key_allowSeeking)
-        defaults.set(allowTrackChange, forKey: Self.key_allowTrackChange)
+        defaults[Self.key_allowVolumeControl] = allowVolumeControl 
+        defaults[Self.key_allowSeeking] = allowSeeking 
+        defaults[Self.key_allowTrackChange] = allowTrackChange 
         
-        defaults.set(allowPlaylistNavigation, forKey: Self.key_allowPlaylistNavigation)
-        defaults.set(allowPlaylistTabToggle, forKey: Self.key_allowPlaylistTabToggle)
+        defaults[Self.key_allowPlaylistNavigation] = allowPlaylistNavigation 
+        defaults[Self.key_allowPlaylistTabToggle] = allowPlaylistTabToggle 
         
-        defaults.set(volumeControlSensitivity.rawValue, forKey: Self.key_volumeControlSensitivity)
-        defaults.set(seekSensitivity.rawValue, forKey: Self.key_seekSensitivity)
+        defaults[Self.key_volumeControlSensitivity] = volumeControlSensitivity.rawValue 
+        defaults[Self.key_seekSensitivity] = seekSensitivity.rawValue 
     }
 }
 

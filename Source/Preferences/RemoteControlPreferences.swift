@@ -21,8 +21,8 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(enabled, forKey: Self.key_enabled)
-        defaults.set(trackChangeOrSeekingOption.rawValue, forKey: Self.key_trackChangeOrSeekingOption)
+        defaults[Self.key_enabled] = enabled 
+        defaults[Self.key_trackChangeOrSeekingOption] = trackChangeOrSeekingOption.rawValue 
     }
 }
 

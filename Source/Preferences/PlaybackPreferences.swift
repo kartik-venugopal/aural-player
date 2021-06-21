@@ -76,19 +76,19 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(primarySeekLengthOption.rawValue, forKey: Self.key_primarySeekLengthOption)
-        defaults.set(primarySeekLengthConstant, forKey: Self.key_primarySeekLengthConstant)
-        defaults.set(primarySeekLengthPercentage, forKey: Self.key_primarySeekLengthPercentage)
+        defaults[Self.key_primarySeekLengthOption] = primarySeekLengthOption.rawValue 
+        defaults[Self.key_primarySeekLengthConstant] = primarySeekLengthConstant 
+        defaults[Self.key_primarySeekLengthPercentage] = primarySeekLengthPercentage 
         
-        defaults.set(secondarySeekLengthOption.rawValue, forKey: Self.key_secondarySeekLengthOption)
-        defaults.set(secondarySeekLengthConstant, forKey: Self.key_secondarySeekLengthConstant)
-        defaults.set(secondarySeekLengthPercentage, forKey: Self.key_secondarySeekLengthPercentage)
+        defaults[Self.key_secondarySeekLengthOption] = secondarySeekLengthOption.rawValue 
+        defaults[Self.key_secondarySeekLengthConstant] = secondarySeekLengthConstant 
+        defaults[Self.key_secondarySeekLengthPercentage] = secondarySeekLengthPercentage 
         
-        defaults.set(autoplayOnStartup, forKey: Self.key_autoplayOnStartup)
-        defaults.set(autoplayAfterAddingTracks, forKey: Self.key_autoplayAfterAddingTracks)
-        defaults.set(autoplayAfterAddingOption.rawValue, forKey: Self.key_autoplayAfterAddingOption)
+        defaults[Self.key_autoplayOnStartup] = autoplayOnStartup 
+        defaults[Self.key_autoplayAfterAddingTracks] = autoplayAfterAddingTracks 
+        defaults[Self.key_autoplayAfterAddingOption] = autoplayAfterAddingOption.rawValue 
         
-        defaults.set(rememberLastPositionOption.rawValue, forKey: Self.key_rememberLastPositionOption)
+        defaults[Self.key_rememberLastPositionOption] = rememberLastPositionOption.rawValue 
     }
 }
 

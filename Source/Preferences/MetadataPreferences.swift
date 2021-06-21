@@ -38,8 +38,8 @@ class MusicBrainzPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.setValue(httpTimeout, forKey: Self.key_httpTimeout)
-        defaults.setValue(enableCoverArtSearch, forKey: Self.key_enableCoverArtSearch)
-        defaults.setValue(enableOnDiskCoverArtCache, forKey: Self.key_enableOnDiskCoverArtCache)
+        defaults[Self.key_httpTimeout] = httpTimeout
+        defaults[Self.key_enableCoverArtSearch] = enableCoverArtSearch
+        defaults[Self.key_enableOnDiskCoverArtCache] = enableOnDiskCoverArtCache
     }
 }

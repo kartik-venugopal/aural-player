@@ -56,15 +56,15 @@ class ViewPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(appModeOnStartup.option.rawValue, forKey: Self.key_appModeOnStartupOption)
-        defaults.set(appModeOnStartup.modeName, forKey: Self.key_appModeOnStartupModeName)
+        defaults[Self.key_appModeOnStartupOption] = appModeOnStartup.option.rawValue 
+        defaults[Self.key_appModeOnStartupModeName] = appModeOnStartup.modeName 
         
-        defaults.set(layoutOnStartup.option.rawValue, forKey: Self.key_layoutOnStartupOption)
-        defaults.set(layoutOnStartup.layoutName, forKey: Self.key_layoutOnStartupLayoutName)
+        defaults[Self.key_layoutOnStartupOption] = layoutOnStartup.option.rawValue 
+        defaults[Self.key_layoutOnStartupLayoutName] = layoutOnStartup.layoutName 
         
-        defaults.set(snapToWindows, forKey: Self.key_snapToWindows)
-        defaults.set(windowGap, forKey: Self.key_windowGap)
-        defaults.set(snapToScreen, forKey: Self.key_snapToScreen)
+        defaults[Self.key_snapToWindows] = snapToWindows 
+        defaults[Self.key_windowGap] = windowGap 
+        defaults[Self.key_snapToScreen] = snapToScreen 
     }
 }
 
