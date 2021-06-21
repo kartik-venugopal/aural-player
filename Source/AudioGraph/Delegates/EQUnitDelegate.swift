@@ -12,20 +12,20 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     
     var type: EQType {
         
-        get {return unit.type}
+        get {unit.type}
         set(newType) {unit.type = newType}
     }
     
     var globalGain: Float {
         
-        get {return unit.globalGain}
-        set(newValue) {unit.globalGain = newValue}
+        get {unit.globalGain}
+        set {unit.globalGain = newValue}
     }
     
     var bands: [Float] {
         
-        get {return unit.bands}
-        set(newValue) {unit.bands = newValue}
+        get {unit.bands}
+        set {unit.bands = newValue}
     }
     
     var presets: EQPresets {return unit.presets}

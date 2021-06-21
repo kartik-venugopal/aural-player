@@ -27,7 +27,7 @@
 //    
 //    var outputDevice: AudioDevice {
 //        
-//        get {return AudioDevice(deviceID: AudioDeviceID(0))}
+//        get {AudioDevice(deviceID: AudioDeviceID(0))}
 //        set {}
 //    }
 //    
@@ -72,9 +72,9 @@
 //    
 //    var volume: Float {
 //        
-//        get {return playerVolume}
+//        get {playerVolume}
 //        
-//        set(newValue) {
+//        set {
 //            playerVolume = newValue
 //            if !muted {playerNode.volume = newValue}
 //        }
@@ -82,8 +82,8 @@
 //    
 //    var balance: Float {
 //        
-//        get {return playerNode.pan}
-//        set(newValue) {playerNode.pan = newValue}
+//        get {playerNode.pan}
+//        set {playerNode.pan = newValue}
 //    }
 //    
 //    var muted: Bool {

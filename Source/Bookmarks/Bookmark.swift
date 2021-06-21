@@ -12,7 +12,7 @@ class Bookmark: StringKeyedItem {
             self.track?.displayName ?? _name
         }
         
-        set(newValue) {
+        set {
             _name = newValue
         }
     }
@@ -23,7 +23,7 @@ class Bookmark: StringKeyedItem {
             return name
         }
         
-        set(newValue) {
+        set {
             name = newValue
         }
     }

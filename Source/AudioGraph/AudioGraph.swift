@@ -16,7 +16,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var outputDevice: AudioDevice {
         
-        get {return deviceManager.outputDevice}
+        get {deviceManager.outputDevice}
         
         set(newDevice) {
             deviceManager.outputDevice = newDevice
@@ -110,8 +110,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             soundProfiles.add($0.file, $0)
         }
         
-        soundProfiles.audioGraph = self
-        
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
         NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
         
@@ -133,9 +131,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var volume: Float {
         
-        get {return playerVolume}
+        get {playerVolume}
         
-        set(newValue) {
+        set {
             playerVolume = newValue
             if !muted {playerNode.volume = newValue}
         }
@@ -143,8 +141,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var balance: Float {
         
-        get {return playerNode.pan}
-        set(newValue) {playerNode.pan = newValue}
+        get {playerNode.pan}
+        set {playerNode.pan = newValue}
     }
     
     var muted: Bool {

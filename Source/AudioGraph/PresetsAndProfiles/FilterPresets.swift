@@ -8,7 +8,7 @@ class FilterPresets: FXPresets<FilterPreset> {
         addPresets(SystemDefinedFilterPresets.presets)
     }
     
-    static var defaultPreset: FilterPreset = {return SystemDefinedFilterPresets.presets.first(where: {$0.name == SystemDefinedFilterPresetParams.passThrough.rawValue})!}()
+    static var defaultPreset: FilterPreset = {SystemDefinedFilterPresets.presets.first(where: {$0.name == SystemDefinedFilterPresetParams.passThrough.rawValue})!}()
 }
 
 class FilterPreset: EffectsUnitPreset {

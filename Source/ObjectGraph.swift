@@ -49,7 +49,7 @@ class ObjectGraph {
     }()
     
     static let sequencerDelegate: SequencerDelegateProtocol = SequencerDelegate(sequencer)
-    static var sequencerInfoDelegate: SequencerInfoDelegateProtocol! {return sequencerDelegate}
+    static var sequencerInfoDelegate: SequencerInfoDelegateProtocol! {sequencerDelegate}
     
     static let playbackDelegate: PlaybackDelegateProtocol = {
         
@@ -64,7 +64,7 @@ class ObjectGraph {
                                 startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
     }()
     
-    static var playbackInfoDelegate: PlaybackInfoDelegateProtocol! {return playbackDelegate}
+    static var playbackInfoDelegate: PlaybackInfoDelegateProtocol! {playbackDelegate}
     
     @available(OSX 10.12.2, *)
     static let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,

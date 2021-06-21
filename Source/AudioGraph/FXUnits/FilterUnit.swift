@@ -19,8 +19,8 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     
     var bands: [FilterBand] {
         
-        get {return node.allBands()}
-        set(newValue) {node.setBands(newValue)}
+        get {node.allBands()}
+        set {node.setBands(newValue)}
     }
     
     override func stateChanged() {

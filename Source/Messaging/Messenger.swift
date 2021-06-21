@@ -338,7 +338,7 @@ extension Notification {
             return userInfo?[Notification.userInfoKey_payload]
         }
         
-        set(newValue) {
+        set {
             
             if let theValue = newValue {
                 

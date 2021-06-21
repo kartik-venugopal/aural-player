@@ -35,7 +35,7 @@ class HistoryItem: EquatableHistoryItem {
             return _displayName
         }
         
-        set(newValue) {
+        set {
             self._displayName = newValue
         }
     }

@@ -26,20 +26,20 @@ class EQUnit: FXUnit, EQUnitProtocol {
     
     var type: EQType {
         
-        get {return node.type}
+        get {node.type}
         set(newType) {node.chooseType(newType)}
     }
     
     var globalGain: Float {
         
-        get {return node.globalGain}
-        set(newValue) {node.globalGain = newValue}
+        get {node.globalGain}
+        set {node.globalGain = newValue}
     }
     
     var bands: [Float] {
         
-        get {return node.allBands()}
-        set(newValue) {node.setBands(newValue)}
+        get {node.allBands()}
+        set {node.setBands(newValue)}
     }
     
     override var avNodes: [AVAudioNode] {

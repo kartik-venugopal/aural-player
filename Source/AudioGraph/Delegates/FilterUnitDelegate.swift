@@ -6,8 +6,8 @@ class FilterUnitDelegate: FXUnitDelegate<FilterUnit>, FilterUnitDelegateProtocol
     
     var bands: [FilterBand] {
         
-        get {return unit.bands}
-        set(newValue) {unit.bands = newValue}
+        get {unit.bands}
+        set {unit.bands = newValue}
     }
     
     func addBand(_ band: FilterBand) -> Int {

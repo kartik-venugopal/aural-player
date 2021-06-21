@@ -27,26 +27,26 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     
     var amount: Float {
         
-        get {return node.wetDryMix}
-        set(newValue) {node.wetDryMix = newValue}
+        get {node.wetDryMix}
+        set {node.wetDryMix = newValue}
     }
     
     var time: Double {
         
-        get {return node.delayTime}
-        set(newValue) {node.delayTime = newValue}
+        get {node.delayTime}
+        set {node.delayTime = newValue}
     }
     
     var feedback: Float {
         
-        get {return node.feedback}
-        set(newValue) {node.feedback = newValue}
+        get {node.feedback}
+        set {node.feedback = newValue}
     }
     
     var lowPassCutoff: Float {
         
-        get {return node.lowPassCutoff}
-        set(newValue) {node.lowPassCutoff = newValue}
+        get {node.lowPassCutoff}
+        set {node.lowPassCutoff = newValue}
     }
     
     override func stateChanged() {

@@ -14,7 +14,7 @@ class Favorite: StringKeyedItem {
             self.track?.displayName ?? _name
         }
         
-        set(newValue) {
+        set {
             _name = newValue
         }
     }

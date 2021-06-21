@@ -20,7 +20,7 @@ class ParametricEQ: ParametricEQProtocol {
     
     var globalGain: Float {
 
-        get {return activeNode.globalGain}
+        get {activeNode.globalGain}
         set(newGlobalGain) {activeNode.globalGain = newGlobalGain}
     }
     

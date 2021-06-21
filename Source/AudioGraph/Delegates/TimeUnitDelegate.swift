@@ -6,8 +6,8 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
     
     var rate: Float {
         
-        get {return unit.rate}
-        set(newValue) {unit.rate = newValue}
+        get {unit.rate}
+        set {unit.rate = newValue}
     }
     
     var effectiveRate: Float {
@@ -18,16 +18,16 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
     
     var overlap: Float {
         
-        get {return unit.overlap}
-        set(newValue) {unit.overlap = newValue}
+        get {unit.overlap}
+        set {unit.overlap = newValue}
     }
     
     var formattedOverlap: String {return ValueFormatter.formatOverlap(overlap)}
     
     var shiftPitch: Bool {
         
-        get {return unit.shiftPitch}
-        set(newValue) {unit.shiftPitch = newValue}
+        get {unit.shiftPitch}
+        set {unit.shiftPitch = newValue}
     }
     
     var pitch: Float {return unit.pitch}

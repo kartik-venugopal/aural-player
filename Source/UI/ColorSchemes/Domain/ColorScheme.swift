@@ -14,7 +14,7 @@ class ColorScheme: StringKeyedItem {
             return name
         }
         
-        set(newValue) {
+        set {
             name = newValue
         }
     }

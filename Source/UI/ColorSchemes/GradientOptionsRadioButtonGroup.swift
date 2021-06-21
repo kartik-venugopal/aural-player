@@ -27,7 +27,7 @@ class GradientOptionsRadioButtonGroup: NSControl {
             return .none
         }
         
-        set(newValue) {
+        set {
             
             // Sets the states of the buttons depending on a GradientType value
             

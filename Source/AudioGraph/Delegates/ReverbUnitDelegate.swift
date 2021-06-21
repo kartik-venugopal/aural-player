@@ -6,14 +6,14 @@ class ReverbUnitDelegate: FXUnitDelegate<ReverbUnit>, ReverbUnitDelegateProtocol
     
     var space: ReverbSpaces {
         
-        get {return unit.space}
-        set(newValue) {unit.space = newValue}
+        get {unit.space}
+        set {unit.space = newValue}
     }
     
     var amount: Float {
         
-        get {return unit.amount}
-        set(newValue) {unit.amount = newValue}
+        get {unit.amount}
+        set {unit.amount = newValue}
     }
     
     var formattedAmount: String {

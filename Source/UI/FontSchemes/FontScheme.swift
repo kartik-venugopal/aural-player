@@ -14,7 +14,7 @@ class FontScheme: StringKeyedItem {
             return name
         }
         
-        set(newValue) {
+        set {
             name = newValue
         }
     }

@@ -6,8 +6,8 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
     
     var pitch: Float {
         
-        get {return unit.pitch * AppConstants.ValueConversions.pitch_audioGraphToUI}
-        set(newValue) {unit.pitch = newValue * AppConstants.ValueConversions.pitch_UIToAudioGraph}
+        get {unit.pitch * AppConstants.ValueConversions.pitch_audioGraphToUI}
+        set {unit.pitch = newValue * AppConstants.ValueConversions.pitch_UIToAudioGraph}
     }
     
     var formattedPitch: String {
@@ -16,8 +16,8 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
     
     var overlap: Float {
         
-        get {return unit.overlap}
-        set(newValue) {unit.overlap = newValue}
+        get {unit.overlap}
+        set {unit.overlap = newValue}
     }
     
     var formattedOverlap: String {

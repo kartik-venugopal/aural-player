@@ -28,14 +28,14 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     var space: ReverbSpaces {
         
-        get {return ReverbSpaces.mapFromAVPreset(avSpace)}
-        set(newValue) {avSpace = newValue.avPreset}
+        get {ReverbSpaces.mapFromAVPreset(avSpace)}
+        set {avSpace = newValue.avPreset}
     }
     
     var amount: Float {
         
-        get {return node.wetDryMix}
-        set(newValue) {node.wetDryMix = newValue}
+        get {node.wetDryMix}
+        set {node.wetDryMix = newValue}
     }
     
     override func stateChanged() {

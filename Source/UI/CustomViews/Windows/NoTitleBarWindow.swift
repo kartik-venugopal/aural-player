@@ -6,9 +6,7 @@ class NoTitleBarWindow: NSWindow {
         self.titlebarAppearsTransparent = true
     }
     
-    override var canBecomeKey: Bool {
-        get {return true}
-    }
+    override var canBecomeKey: Bool {true}
 }
 
 class NoTitleBarPanel: NSPanel {

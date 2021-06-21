@@ -6,19 +6,14 @@ import AVFoundation
 
 class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
-    var availableDevices: AudioDeviceList {
-        return graph.availableDevices
-    }
+    var availableDevices: AudioDeviceList {graph.availableDevices}
     
-    var systemDevice: AudioDevice {return graph.systemDevice}
+    var systemDevice: AudioDevice {graph.systemDevice}
     
     var outputDevice: AudioDevice {
         
-        get {return graph.outputDevice}
-        
-        set(newValue) {
-            graph.outputDevice = newValue
-        }
+        get {graph.outputDevice}
+        set {graph.outputDevice = newValue}
     }
     
     var outputDeviceBufferSize: Int {
@@ -45,7 +40,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     // User preferences
     private let preferences: SoundPreferences
     
-    var soundProfiles: SoundProfiles {return graph.soundProfiles}
+    var soundProfiles: SoundProfiles {graph.soundProfiles}
     
     init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphState) {
         
@@ -108,22 +103,22 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var volume: Float {
         
-        get {return round(graph.volume * AppConstants.ValueConversions.volume_audioGraphToUI)}
-        set(newValue) {graph.volume = newValue * AppConstants.ValueConversions.volume_UIToAudioGraph}
+        get {round(graph.volume * AppConstants.ValueConversions.volume_audioGraphToUI)}
+        set {graph.volume = newValue * AppConstants.ValueConversions.volume_UIToAudioGraph}
     }
     
     var formattedVolume: String {return ValueFormatter.formatVolume(volume)}
     
     var muted: Bool {
         
-        get {return graph.muted}
-        set(newValue) {graph.muted = newValue}
+        get {graph.muted}
+        set {graph.muted = newValue}
     }
     
     var balance: Float {
         
-        get {return round(graph.balance * AppConstants.ValueConversions.pan_audioGraphToUI)}
-        set(newValue) {graph.balance = newValue * AppConstants.ValueConversions.pan_UIToAudioGraph}
+        get {round(graph.balance * AppConstants.ValueConversions.pan_audioGraphToUI)}
+        set {graph.balance = newValue * AppConstants.ValueConversions.pan_UIToAudioGraph}
     }
     
     var formattedBalance: String {return ValueFormatter.formatPan(balance)}
@@ -195,7 +190,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     private func saveSoundProfile() {
         
         if let plTrack = player.currentTrack {
-            soundProfiles.add(plTrack)
+            soundProfiles.add(plTrack, SoundProfile(file: plTrack.file, volume: self.volume, balance: self.balance, effects: self.settingsAsMasterPreset))
         }
     }
     
@@ -218,7 +213,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         if let theOldTrack = oldTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theOldTrack) {
             
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-            soundProfiles.add(theOldTrack)
+            soundProfiles.add(theOldTrack, SoundProfile(file: theOldTrack.file, volume: self.volume, balance: self.balance, effects: self.settingsAsMasterPreset))
         }
         
         // Apply sound profile if there is one for the new track and the preferences allow it
@@ -238,7 +233,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
-            soundProfiles.add(plTrack)
+            soundProfiles.add(plTrack, SoundProfile(file: plTrack.file, volume: self.volume, balance: self.balance, effects: self.settingsAsMasterPreset))
         }
         
         // Proceed with exit
