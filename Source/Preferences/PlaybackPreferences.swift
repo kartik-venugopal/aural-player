@@ -25,51 +25,69 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     var rememberLastPositionOption: RememberSettingsForTrackOptions
     
-    convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
+    private static let keyPrefix: String = "playback"
+    
+    private static let key_primarySeekLengthOption: String = "\(PlaybackPreferences.keyPrefix).seekLength.primary.option"
+    private static let key_primarySeekLengthConstant: String = "\(PlaybackPreferences.keyPrefix).seekLength.primary.constant"
+    private static let key_primarySeekLengthPercentage: String = "\(PlaybackPreferences.keyPrefix).seekLength.primary.percentage"
+    
+    private static let key_secondarySeekLengthOption: String = "\(PlaybackPreferences.keyPrefix).seekLength.secondary.option"
+    private static let key_secondarySeekLengthConstant: String = "\(PlaybackPreferences.keyPrefix).seekLength.secondary.constant"
+    private static let key_secondarySeekLengthPercentage: String = "\(PlaybackPreferences.keyPrefix).seekLength.secondary.percentage"
+    
+    private static let key_autoplayOnStartup: String = "\(PlaybackPreferences.keyPrefix).autoplayOnStartup"
+    private static let key_autoplayAfterAddingTracks: String = "\(PlaybackPreferences.keyPrefix).autoplayAfterAddingTracks"
+    private static let key_autoplayAfterAddingOption: String = "\(PlaybackPreferences.keyPrefix).autoplayAfterAddingTracks.option"
+    
+    private static let key_rememberLastPositionOption: String = "\(PlaybackPreferences.keyPrefix).rememberLastPosition.option"
+    
+    convenience init(_ dict: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
         
-        self.init(defaultsDictionary)
+        self.init(dict)
         self.controlsPreferences = controlsPreferences
     }
     
-    internal required init(_ defaultsDictionary: [String: Any]) {
+    private typealias Defaults = PreferencesDefaults.Playback
+    
+    internal required init(_ dict: [String: Any]) {
         
-        primarySeekLengthOption = defaultsDictionary.enumValue(forKey: "playback.seekLength.primary.option",
-                                                               ofType: SeekLengthOptions.self) ?? PreferencesDefaults.Playback.primarySeekLengthOption
+        primarySeekLengthOption = dict.enumValue(forKey: Self.key_primarySeekLengthOption,
+                                                 ofType: SeekLengthOptions.self) ?? Defaults.primarySeekLengthOption
         
-        primarySeekLengthConstant = defaultsDictionary["playback.seekLength.primary.constant", Int.self] ?? PreferencesDefaults.Playback.primarySeekLengthConstant
-        primarySeekLengthPercentage = defaultsDictionary["playback.seekLength.primary.percentage", Int.self] ?? PreferencesDefaults.Playback.primarySeekLengthPercentage
+        primarySeekLengthConstant = dict[Self.key_primarySeekLengthConstant, Int.self] ?? Defaults.primarySeekLengthConstant
+        primarySeekLengthPercentage = dict[Self.key_primarySeekLengthPercentage, Int.self] ?? Defaults.primarySeekLengthPercentage
         
-        secondarySeekLengthOption = defaultsDictionary.enumValue(forKey: "playback.seekLength.secondary.option",
-                                                                     ofType: SeekLengthOptions.self) ?? PreferencesDefaults.Playback.secondarySeekLengthOption
+        secondarySeekLengthOption = dict.enumValue(forKey: Self.key_secondarySeekLengthOption,
+                                                   ofType: SeekLengthOptions.self) ?? Defaults.secondarySeekLengthOption
         
-        secondarySeekLengthConstant = defaultsDictionary["playback.seekLength.secondary.constant", Int.self] ?? PreferencesDefaults.Playback.secondarySeekLengthConstant
-        secondarySeekLengthPercentage = defaultsDictionary["playback.seekLength.secondary.percentage", Int.self] ?? PreferencesDefaults.Playback.secondarySeekLengthPercentage
+        secondarySeekLengthConstant = dict[Self.key_secondarySeekLengthConstant, Int.self] ?? Defaults.secondarySeekLengthConstant
+        secondarySeekLengthPercentage = dict[Self.key_secondarySeekLengthPercentage, Int.self] ?? Defaults.secondarySeekLengthPercentage
         
-        autoplayOnStartup = defaultsDictionary["playback.autoplayOnStartup", Bool.self] ?? PreferencesDefaults.Playback.autoplayOnStartup
+        autoplayOnStartup = dict[Self.key_autoplayOnStartup, Bool.self] ?? Defaults.autoplayOnStartup
         
-        autoplayAfterAddingTracks = defaultsDictionary["playback.autoplayAfterAddingTracks", Bool.self] ?? PreferencesDefaults.Playback.autoplayAfterAddingTracks
+        autoplayAfterAddingTracks = dict[Self.key_autoplayAfterAddingTracks, Bool.self] ?? Defaults.autoplayAfterAddingTracks
         
-        autoplayAfterAddingOption = defaultsDictionary.enumValue(forKey: "playback.autoplayAfterAddingTracks.option",
-                                                                     ofType: AutoplayAfterAddingOptions.self) ?? PreferencesDefaults.Playback.autoplayAfterAddingOption
-
-        rememberLastPositionOption = defaultsDictionary.enumValue(forKey: "playback.rememberLastPosition.option",
-                                                                      ofType: RememberSettingsForTrackOptions.self) ?? PreferencesDefaults.Playback.rememberLastPositionOption
+        autoplayAfterAddingOption = dict.enumValue(forKey: Self.key_autoplayAfterAddingOption,
+                                                   ofType: AutoplayAfterAddingOptions.self) ?? Defaults.autoplayAfterAddingOption
+        
+        rememberLastPositionOption = dict.enumValue(forKey: Self.key_rememberLastPositionOption,
+                                                    ofType: RememberSettingsForTrackOptions.self) ?? Defaults.rememberLastPositionOption
     }
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(primarySeekLengthOption.rawValue, forKey: "playback.seekLength.primary.option")
-        defaults.set(primarySeekLengthConstant, forKey: "playback.seekLength.primary.constant")
-        defaults.set(primarySeekLengthPercentage, forKey: "playback.seekLength.primary.percentage")
+        defaults.set(primarySeekLengthOption.rawValue, forKey: Self.key_primarySeekLengthOption)
+        defaults.set(primarySeekLengthConstant, forKey: Self.key_primarySeekLengthConstant)
+        defaults.set(primarySeekLengthPercentage, forKey: Self.key_primarySeekLengthPercentage)
         
-        defaults.set(secondarySeekLengthOption.rawValue, forKey: "playback.seekLength.secondary.option")
-        defaults.set(secondarySeekLengthConstant, forKey: "playback.seekLength.secondary.constant")
-        defaults.set(secondarySeekLengthPercentage, forKey: "playback.seekLength.secondary.percentage")
+        defaults.set(secondarySeekLengthOption.rawValue, forKey: Self.key_secondarySeekLengthOption)
+        defaults.set(secondarySeekLengthConstant, forKey: Self.key_secondarySeekLengthConstant)
+        defaults.set(secondarySeekLengthPercentage, forKey: Self.key_secondarySeekLengthPercentage)
         
-        defaults.set(autoplayOnStartup, forKey: "playback.autoplayOnStartup")
-        defaults.set(autoplayAfterAddingTracks, forKey: "playback.autoplayAfterAddingTracks")
-        defaults.set(autoplayAfterAddingOption.rawValue, forKey: "playback.autoplayAfterAddingTracks.option")
+        defaults.set(autoplayOnStartup, forKey: Self.key_autoplayOnStartup)
+        defaults.set(autoplayAfterAddingTracks, forKey: Self.key_autoplayAfterAddingTracks)
+        defaults.set(autoplayAfterAddingOption.rawValue, forKey: Self.key_autoplayAfterAddingOption)
         
-        defaults.set(rememberLastPositionOption.rawValue, forKey: "playback.rememberLastPosition.option")
+        defaults.set(rememberLastPositionOption.rawValue, forKey: Self.key_rememberLastPositionOption)
     }
 }

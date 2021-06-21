@@ -22,34 +22,34 @@ class ViewPreferences: PersistentPreferencesProtocol {
     private static let key_windowGap: String = "\(ViewPreferences.keyPrefix).snap.toWindows.gap"
     private static let key_snapToScreen: String = "\(ViewPreferences.keyPrefix).snap.toScreen"
     
-    internal required init(_ defaultsDictionary: [String: Any]) {
+    internal required init(_ dict: [String: Any]) {
         
         appModeOnStartup = PreferencesDefaults.View.appModeOnStartup
         layoutOnStartup = PreferencesDefaults.View.layoutOnStartup
         
-        if let appModeOnStartupOption = defaultsDictionary.enumValue(forKey: Self.key_appModeOnStartupOption,
+        if let appModeOnStartupOption = defaults.enumValue(forKey: Self.key_appModeOnStartupOption,
                                                                      ofType: AppModeStartupOptions.self) {
             
             appModeOnStartup.option = appModeOnStartupOption
         }
         
-        if let appModeStr = defaultsDictionary[Self.key_appModeOnStartupModeName, String.self] {
+        if let appModeStr = defaults[Self.key_appModeOnStartupModeName, String.self] {
             appModeOnStartup.modeName = appModeStr
         }
         
-        if let layoutOnStartupOption = defaultsDictionary.enumValue(forKey: Self.key_layoutOnStartupOption,
+        if let layoutOnStartupOption = defaults.enumValue(forKey: Self.key_layoutOnStartupOption,
                                                                     ofType: WindowLayoutStartupOptions.self) {
             
             layoutOnStartup.option = layoutOnStartupOption
         }
         
-        if let layoutStr = defaultsDictionary[Self.key_layoutOnStartupLayoutName, String.self] {
+        if let layoutStr = defaults[Self.key_layoutOnStartupLayoutName, String.self] {
             layoutOnStartup.layoutName = layoutStr
         }
         
-        snapToWindows = defaultsDictionary[Self.key_snapToWindows, Bool.self] ?? PreferencesDefaults.View.snapToWindows
-        windowGap = defaultsDictionary[Self.key_windowGap, Float.self] ?? PreferencesDefaults.View.windowGap
-        snapToScreen = defaultsDictionary[Self.key_snapToScreen, Bool.self] ?? PreferencesDefaults.View.snapToScreen
+        snapToWindows = defaults[Self.key_snapToWindows, Bool.self] ?? PreferencesDefaults.View.snapToWindows
+        windowGap = defaults[Self.key_windowGap, Float.self] ?? PreferencesDefaults.View.windowGap
+        snapToScreen = defaults[Self.key_snapToScreen, Bool.self] ?? PreferencesDefaults.View.snapToScreen
     }
     
     func persist(to defaults: UserDefaults) {

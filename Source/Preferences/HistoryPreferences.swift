@@ -9,10 +9,10 @@ class HistoryPreferences: PersistentPreferencesProtocol {
     private static let key_recentlyAddedListSize: String = "\(HistoryPreferences.keyPrefix).recentlyAddedListSize"
     private static let key_recentlyPlayedListSize: String = "\(HistoryPreferences.keyPrefix).recentlyPlayedListSize"
     
-    internal required init(_ defaultsDictionary: [String: Any]) {
+    internal required init(_ dict: [String: Any]) {
         
-        recentlyAddedListSize = defaultsDictionary[Self.key_recentlyAddedListSize, Int.self] ?? PreferencesDefaults.History.recentlyAddedListSize
-        recentlyPlayedListSize = defaultsDictionary[Self.key_recentlyPlayedListSize, Int.self] ?? PreferencesDefaults.History.recentlyPlayedListSize
+        recentlyAddedListSize = defaults[Self.key_recentlyAddedListSize, Int.self] ?? PreferencesDefaults.History.recentlyAddedListSize
+        recentlyPlayedListSize = defaults[Self.key_recentlyPlayedListSize, Int.self] ?? PreferencesDefaults.History.recentlyPlayedListSize
     }
     
     func persist(to defaults: UserDefaults) {

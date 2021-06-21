@@ -7,7 +7,7 @@ import Cocoa
 // Contract for a persistent preferences object
 protocol PersistentPreferencesProtocol {
     
-    init(_ defaultsDictionary: [String: Any])
+    init(_ dict: [String: Any])
     
     func persist(to defaults: UserDefaults)
 }

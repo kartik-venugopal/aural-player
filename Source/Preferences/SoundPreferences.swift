@@ -27,61 +27,47 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     private var controlsPreferences: GesturesControlsPreferences!
     
-    convenience init(_ defaultsDictionary: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
+    convenience init(_ defaults: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
         
-        self.init(defaultsDictionary)
+        self.init(defaults)
         self.controlsPreferences = controlsPreferences
     }
     
-    internal required init(_ defaultsDictionary: [String: Any]) {
+    private typealias Defaults = PreferencesDefaults.Sound
+    
+    internal required init(_ dict: [String: Any]) {
         
-        outputDeviceOnStartup = PreferencesDefaults.Sound.outputDeviceOnStartup
+        outputDeviceOnStartup = Defaults.outputDeviceOnStartup
         
-        if let outputDeviceOnStartupOptionStr = defaultsDictionary["sound.outputDeviceOnStartup.option", String.self],
-            let option = OutputDeviceStartupOptions(rawValue: outputDeviceOnStartupOptionStr) {
-            
-            outputDeviceOnStartup.option = option
+        if let outputDeviceOnStartupOption = dict.enumValue(forKey: "sound.outputDeviceOnStartup.option", ofType: OutputDeviceStartupOptions.self) {
+            outputDeviceOnStartup.option = outputDeviceOnStartupOption
         }
         
-        if let deviceName = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceName", String.self], deviceName.trim() != "" {
+        if let deviceName = dict.nonEmptyStringValue(forKey: "sound.outputDeviceOnStartup.preferredDeviceName") {
             outputDeviceOnStartup.preferredDeviceName = deviceName
         }
         
-        if let deviceUID = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceUID", String.self], deviceUID.trim() != "" {
+        if let deviceUID = dict.nonEmptyStringValue(forKey: "sound.outputDeviceOnStartup.preferredDeviceUID") {
             outputDeviceOnStartup.preferredDeviceUID = deviceUID
         }
         
-        volumeDelta = defaultsDictionary["sound.volumeDelta", Float.self] ?? PreferencesDefaults.Sound.volumeDelta
+        volumeDelta = dict["sound.volumeDelta", Float.self] ?? Defaults.volumeDelta
         
-        if let volumeOnStartupOptionStr = defaultsDictionary["sound.volumeOnStartup.option", String.self] {
-            volumeOnStartupOption = VolumeStartupOptions(rawValue: volumeOnStartupOptionStr) ?? PreferencesDefaults.Sound.volumeOnStartupOption
-        } else {
-            volumeOnStartupOption = PreferencesDefaults.Sound.volumeOnStartupOption
-        }
+        volumeOnStartupOption = dict.enumValue(forKey: "sound.volumeOnStartup.option", ofType: VolumeStartupOptions.self) ?? Defaults.volumeOnStartupOption
         
-        startupVolumeValue = defaultsDictionary["sound.volumeOnStartup.value", Float.self] ?? PreferencesDefaults.Sound.startupVolumeValue
+        startupVolumeValue = dict["sound.volumeOnStartup.value", Float.self] ?? Defaults.startupVolumeValue
         
-        panDelta = defaultsDictionary["sound.panDelta", Float.self] ?? PreferencesDefaults.Sound.panDelta
+        panDelta = dict["sound.panDelta", Float.self] ?? Defaults.panDelta
         
-        eqDelta = defaultsDictionary["sound.eqDelta", Float.self] ?? PreferencesDefaults.Sound.eqDelta
-        pitchDelta = defaultsDictionary["sound.pitchDelta", Int.self] ?? PreferencesDefaults.Sound.pitchDelta
-        timeDelta = defaultsDictionary["sound.timeDelta", Float.self] ?? PreferencesDefaults.Sound.timeDelta
+        eqDelta = dict["sound.eqDelta", Float.self] ?? Defaults.eqDelta
+        pitchDelta = dict["sound.pitchDelta", Int.self] ?? Defaults.pitchDelta
+        timeDelta = dict["sound.timeDelta", Float.self] ?? Defaults.timeDelta
         
-        if let effectsSettingsOnStartupOptionStr = defaultsDictionary["sound.effectsSettingsOnStartup.option", String.self] {
-            effectsSettingsOnStartupOption = EffectsSettingsStartupOptions(rawValue: effectsSettingsOnStartupOptionStr) ?? PreferencesDefaults.Sound.effectsSettingsOnStartupOption
-        } else {
-            effectsSettingsOnStartupOption = PreferencesDefaults.Sound.effectsSettingsOnStartupOption
-        }
+        effectsSettingsOnStartupOption = dict.enumValue(forKey: "sound.effectsSettingsOnStartup.option", ofType: EffectsSettingsStartupOptions.self) ?? Defaults.effectsSettingsOnStartupOption
         
-        masterPresetOnStartup_name = defaultsDictionary["sound.effectsSettingsOnStartup.masterPreset", String.self] ?? PreferencesDefaults.Sound.masterPresetOnStartup_name
+        masterPresetOnStartup_name = dict["sound.effectsSettingsOnStartup.masterPreset", String.self] ?? Defaults.masterPresetOnStartup_name
         
-        if let optionStr = defaultsDictionary["sound.rememberEffectsSettings.option", String.self] {
-            
-            rememberEffectsSettingsOption = RememberSettingsForTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberEffectsSettingsOption
-            
-        } else {
-            rememberEffectsSettingsOption = PreferencesDefaults.Sound.rememberEffectsSettingsOption
-        }
+        rememberEffectsSettingsOption = dict.enumValue(forKey: "sound.rememberEffectsSettings.option", ofType: RememberSettingsForTrackOptions.self) ?? Defaults.rememberEffectsSettingsOption
         
         // Revert to default if data is corrupt (missing master preset)
         if effectsSettingsOnStartupOption == .applyMasterPreset && masterPresetOnStartup_name == nil {

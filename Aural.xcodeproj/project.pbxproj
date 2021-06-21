@@ -2597,16 +2597,16 @@
 		3E6C109425CEB98700BF0D07 /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C109525CEB98700BF0D07 /* PlaybackPreferences.swift */,
-				3E6C109625CEB98700BF0D07 /* ViewPreferences.swift */,
 				3E6C109725CEB98700BF0D07 /* Preferences.swift */,
-				3E6C109825CEB98700BF0D07 /* HistoryPreferences.swift */,
-				3E6C109A25CEB98700BF0D07 /* PreferencesDefaults.swift */,
 				3E6C109C25CEB98700BF0D07 /* PlaylistPreferences.swift */,
-				3E6C109D25CEB98700BF0D07 /* PreferencesOptions.swift */,
-				3E6C109E25CEB98700BF0D07 /* ControlsPreferences.swift */,
+				3E6C109525CEB98700BF0D07 /* PlaybackPreferences.swift */,
 				3E6C109F25CEB98700BF0D07 /* SoundPreferences.swift */,
+				3E6C109625CEB98700BF0D07 /* ViewPreferences.swift */,
+				3E6C109825CEB98700BF0D07 /* HistoryPreferences.swift */,
+				3E6C109E25CEB98700BF0D07 /* ControlsPreferences.swift */,
 				3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */,
+				3E6C109D25CEB98700BF0D07 /* PreferencesOptions.swift */,
+				3E6C109A25CEB98700BF0D07 /* PreferencesDefaults.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";

@@ -17,6 +17,15 @@ extension Dictionary where Key == String, Value == Any {
         set {}
     }
     
+    func nonEmptyStringValue(forKey key: String) -> String? {
+        
+        if let string = self[key] as? String {
+            return string.isEmptyAfterTrimming ? nil : string
+        }
+        
+        return nil
+    }
+    
     func enumValue<T: RawRepresentable>(forKey key: String, ofType: T.Type) -> T? where T.RawValue == String {
         
         if let string = self[key] as? String {

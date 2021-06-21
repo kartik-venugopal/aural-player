@@ -27,40 +27,42 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     private static let key_showNewTrackInPlaylist: String = "\(PlaylistPreferences.keyPrefix).showNewTrackInPlaylist"
     private static let key_showChaptersList: String = "\(PlaylistPreferences.keyPrefix).showChaptersList"
     
-    internal required init(_ defaultsDictionary: [String: Any]) {
+    private typealias Defaults = PreferencesDefaults.Playlist
+    
+    internal required init(_ dict: [String: Any]) {
         
-        viewOnStartup = PreferencesDefaults.Playlist.viewOnStartup
+        viewOnStartup = Defaults.viewOnStartup
         
-        if let viewOnStartupOption = defaultsDictionary.enumValue(forKey: Self.key_viewOnStartupOption, ofType: PlaylistViewStartupOptions.self) {
+        if let viewOnStartupOption = dict.enumValue(forKey: Self.key_viewOnStartupOption, ofType: PlaylistViewStartupOptions.self) {
             viewOnStartup.option = viewOnStartupOption
         }
         
-        if let viewName = defaultsDictionary[Self.key_viewOnStartupViewName, String.self] {
+        if let viewName = dict[Self.key_viewOnStartupViewName, String.self] {
             viewOnStartup.viewName = viewName
         }
         
-        playlistOnStartup = defaultsDictionary.enumValue(forKey: Self.key_playlistOnStartup, ofType: PlaylistStartupOptions.self) ?? PreferencesDefaults.Playlist.playlistOnStartup
+        playlistOnStartup = dict.enumValue(forKey: Self.key_playlistOnStartup, ofType: PlaylistStartupOptions.self) ?? Defaults.playlistOnStartup
         
-        playlistFile = defaultsDictionary.urlValue(forKey: Self.key_playlistFile) ?? PreferencesDefaults.Playlist.playlistFile
+        playlistFile = dict.urlValue(forKey: Self.key_playlistFile) ?? Defaults.playlistFile
         
-        showNewTrackInPlaylist = defaultsDictionary[Self.key_showNewTrackInPlaylist, Bool.self] ?? PreferencesDefaults.Playlist.showNewTrackInPlaylist
+        showNewTrackInPlaylist = dict[Self.key_showNewTrackInPlaylist, Bool.self] ?? Defaults.showNewTrackInPlaylist
         
-        showChaptersList = defaultsDictionary[Self.key_showChaptersList, Bool.self] ?? PreferencesDefaults.Playlist.showChaptersList
+        showChaptersList = dict[Self.key_showChaptersList, Bool.self] ?? Defaults.showChaptersList
         
-        // If .loadFile selected but no file available to load from, revert back to defaults
+        // If .loadFile selected but no file available to load from, revert back to dict
         if playlistOnStartup == .loadFile && playlistFile == nil {
             
-            playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
-            playlistFile = PreferencesDefaults.Playlist.playlistFile
+            playlistOnStartup = Defaults.playlistOnStartup
+            playlistFile = Defaults.playlistFile
         }
         
-        tracksFolder = defaultsDictionary.urlValue(forKey: Self.key_tracksFolder) ?? PreferencesDefaults.Playlist.tracksFolder
+        tracksFolder = dict.urlValue(forKey: Self.key_tracksFolder) ?? Defaults.tracksFolder
         
-        // If .loadFolder selected but no folder available to load from, revert back to defaults
+        // If .loadFolder selected but no folder available to load from, revert back to dict
         if playlistOnStartup == .loadFolder && tracksFolder == nil {
             
-            playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
-            tracksFolder = PreferencesDefaults.Playlist.tracksFolder
+            playlistOnStartup = Defaults.playlistOnStartup
+            tracksFolder = Defaults.tracksFolder
         }
     }
     
