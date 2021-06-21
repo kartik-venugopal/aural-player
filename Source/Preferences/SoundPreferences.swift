@@ -89,7 +89,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(outputDeviceOnStartup.option.rawValue, forKey: "sound.outputDeviceOnStartup.option")
         defaults.set(outputDeviceOnStartup.preferredDeviceName, forKey: "sound.outputDeviceOnStartup.preferredDeviceName")

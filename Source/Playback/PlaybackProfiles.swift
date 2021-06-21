@@ -1,6 +1,16 @@
 import Foundation
 
-class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {}
+class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
+    
+    init(_ profiles: [PlaybackProfile]) {
+        
+        super.init()
+        
+        for profile in profiles {
+            self.add(profile.file, profile)
+        }
+    }
+}
 
 class PlaybackProfile {
     

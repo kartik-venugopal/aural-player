@@ -107,7 +107,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         // Perform asynchronously, to unblock the main thread
         DispatchQueue.global(qos: .userInitiated).async {
-            PlaylistIO.savePlaylist(file)
+            PlaylistIO.savePlaylist(tracks: self.tracks, toFile: file)
         }
     }
     
@@ -219,7 +219,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     // Expands a playlist into individual tracks
     private func expandPlaylist(_ playlistFile: URL) {
         
-        if let loadedPlaylist = PlaylistIO.loadPlaylist(playlistFile) {
+        if let loadedPlaylist = PlaylistIO.loadPlaylist(fromFile: playlistFile) {
             
             addSession.totalTracks += loadedPlaylist.tracks.count - 1
             collectTracks(loadedPlaylist.tracks, true)

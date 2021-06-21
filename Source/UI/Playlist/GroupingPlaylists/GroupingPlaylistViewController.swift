@@ -23,7 +23,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let preferences: PlaylistPreferences = ObjectGraph.preferencesDelegate.preferences.playlistPreferences
+    private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
     // Intended to be overriden by subclasses
     

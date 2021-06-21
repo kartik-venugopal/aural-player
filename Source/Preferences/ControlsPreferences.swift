@@ -13,11 +13,11 @@ class ControlsPreferences: PersistentPreferencesProtocol {
         remoteControl = RemoteControlPreferences(defaultsDictionary)
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
-        mediaKeys.persist(defaults: defaults)
-        gestures.persist(defaults: defaults)
-        remoteControl.persist(defaults: defaults)
+        mediaKeys.persist(to: defaults)
+        gestures.persist(to: defaults)
+        remoteControl.persist(to: defaults)
     }
 }
 
@@ -46,7 +46,7 @@ class MediaKeysControlsPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(enabled, forKey: "controls.mediaKeys.enabled")
         defaults.set(skipKeyBehavior.rawValue, forKey: "controls.mediaKeys.skipKeyBehavior")
@@ -93,7 +93,7 @@ class GesturesControlsPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(allowVolumeControl, forKey: "controls.gestures.allowVolumeControl")
         defaults.set(allowSeeking, forKey: "controls.gestures.allowSeeking")
@@ -124,7 +124,7 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
         }
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(enabled, forKey: "controls.remoteControl.enabled")
         defaults.set(trackChangeOrSeekingOption.rawValue, forKey: "controls.remoteControl.trackChangeOrSeekingOption")

@@ -27,7 +27,7 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     
     var vizView: VisualizerViewProtocol!
     var allViews: [VisualizerViewProtocol] = []
-    private let fft: FFT = ObjectGraph.fft
+    private lazy var fft: FFT = FFT()
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     private var normalDeviceBufferSize: Int = 0

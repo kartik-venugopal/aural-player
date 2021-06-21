@@ -3,9 +3,9 @@ import Foundation
 protocol PlaylistIOProtocol {
     
     // Save current playlist to an output file
-    static func savePlaylist(_ file: URL)
+    static func savePlaylist(tracks: [Track], toFile file: URL)
     
-    static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist?
+    static func loadPlaylist(fromFile playlistFile: URL) -> SavedPlaylist?
 }
 
 // Facade for all importing/exporting of playlist file formats (e.g. M3U)
@@ -15,18 +15,14 @@ class PlaylistIO: PlaylistIOProtocol {
     
     static let stringEncodingFormats: [String.Encoding] = [.utf8, .ascii, .macOSRoman, .isoLatin1, .isoLatin2, .windowsCP1250, .windowsCP1251, .windowsCP1252, .windowsCP1253, .windowsCP1254, .unicode, .utf16, .utf16BigEndian, .utf16LittleEndian, .utf32, .utf32BigEndian, .utf32LittleEndian, .iso2022JP, .japaneseEUC, .nextstep, .nonLossyASCII, .shiftJIS, .symbol]
     
-    static func initialize(_ playlist: PlaylistAccessorProtocol) {
-        M3UPlaylistIO.initialize(playlist)
-    }
-    
     // Save current playlist to an output file
-    static func savePlaylist(_ file: URL) {
-        M3UPlaylistIO.savePlaylist(file)
+    static func savePlaylist(tracks: [Track], toFile file: URL) {
+        M3UPlaylistIO.savePlaylist(tracks: tracks, toFile: file)
     }
     
     // Load playlist from file into current playlist.
-    static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist? {
-        return M3UPlaylistIO.loadPlaylist(playlistFile)
+    static func loadPlaylist(fromFile playlistFile: URL) -> SavedPlaylist? {
+        return M3UPlaylistIO.loadPlaylist(fromFile: playlistFile)
     }
     
     static func readFileAsString(_ file: URL) -> String? {

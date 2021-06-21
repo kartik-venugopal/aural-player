@@ -16,8 +16,6 @@ class GesturesPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var volumeControlSensitivityMenu: NSPopUpButton!
     @IBOutlet weak var seekSensitivityMenu: NSPopUpButton!
     
-    private lazy var mediaKeyHandler: MediaKeyHandler = ObjectGraph.mediaKeyHandler
-    
     override var nibName: String? {"GesturesPreferences"}
     
     override func viewDidLoad() {

@@ -11,7 +11,7 @@ class HistoryPreferences: PersistentPreferencesProtocol {
         recentlyPlayedListSize = defaultsDictionary["history.recentlyPlayedListSize"] as? Int ?? PreferencesDefaults.History.recentlyPlayedListSize
     }
     
-    func persist(defaults: UserDefaults) {
+    func persist(to defaults: UserDefaults) {
         
         defaults.set(recentlyAddedListSize, forKey: "history.recentlyAddedListSize")
         defaults.set(recentlyPlayedListSize, forKey: "history.recentlyPlayedListSize")

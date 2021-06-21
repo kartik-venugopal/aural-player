@@ -80,7 +80,7 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     private var gapBetweenWindows: CGFloat {
         
-        return CGFloat(ObjectGraph.preferencesDelegate.preferences.viewPreferences.windowGap)
+        return CGFloat(ObjectGraph.preferences.viewPreferences.windowGap)
     }
     
     var mainWindowOrigin: NSPoint {

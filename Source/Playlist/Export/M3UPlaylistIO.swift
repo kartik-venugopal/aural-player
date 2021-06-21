@@ -8,19 +8,13 @@ class M3UPlaylistIO: PlaylistIOProtocol {
     private static let header: String = "#EXTM3U"
     private static let infoPrefix: String = "#EXTINF:"
     
-    static var playlist: PlaylistAccessorProtocol!
-    
-    static func initialize(_ playlist: PlaylistAccessorProtocol) {
-        Self.playlist = playlist
-    }
-    
     // Save current playlist to an output file
-    static func savePlaylist(_ file: URL) {
+    static func savePlaylist(tracks: [Track], toFile file: URL) {
         
         var contents: String = header + "\n"
         
         // Buffer the output
-        for track in playlist.tracks {
+        for track in tracks {
             
             // EXTINF line consists of the prefix, followed by duration and track name (without extension)
             let extInfo = String(format: "%@%d,%@", infoPrefix, roundedInt(track.duration), track.displayName)
@@ -43,7 +37,7 @@ class M3UPlaylistIO: PlaylistIOProtocol {
     }
     
     // Load playlist from file into current playlist. Handles varying M3U formats.
-    static func loadPlaylist(_ playlistFile: URL) -> SavedPlaylist? {
+    static func loadPlaylist(fromFile playlistFile: URL) -> SavedPlaylist? {
         
         guard let fileContents: String = PlaylistIO.readFileAsString(playlistFile) else {return nil}
         

@@ -19,11 +19,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
     
     private var subViews: [PreferencesViewProtocol] = []
     
-    // Delegate that performs CRUD on user preferences
-    private var delegate: PreferencesDelegateProtocol = ObjectGraph.preferencesDelegate
-    
-    // Cached preferences instance
-    private var preferences: Preferences = ObjectGraph.preferencesDelegate.preferences
+    private lazy var preferences: Preferences = ObjectGraph.preferences
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     
@@ -98,7 +94,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
         
         if !saveFailed {
             
-            delegate.preferences = preferences
+            preferences.persist()
             modalDialogResponse = .ok
             UIUtils.dismissDialog(self.window!)
         }
