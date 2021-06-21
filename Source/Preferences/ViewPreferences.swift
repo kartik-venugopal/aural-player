@@ -12,44 +12,46 @@ class ViewPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "view"
     
-    private static let key_appModeOnStartupOption: String = "\(ViewPreferences.keyPrefix).appModeOnStartup.option"
-    private static let key_appModeOnStartupModeName: String = "\(ViewPreferences.keyPrefix).appModeOnStartup.mode"
+    private static let key_appModeOnStartupOption: String = "\(keyPrefix).appModeOnStartup.option"
+    private static let key_appModeOnStartupModeName: String = "\(keyPrefix).appModeOnStartup.mode"
     
-    private static let key_layoutOnStartupOption: String = "\(ViewPreferences.keyPrefix).layoutOnStartup.option"
-    private static let key_layoutOnStartupLayoutName: String = "\(ViewPreferences.keyPrefix).layoutOnStartup.layout"
+    private static let key_layoutOnStartupOption: String = "\(keyPrefix).layoutOnStartup.option"
+    private static let key_layoutOnStartupLayoutName: String = "\(keyPrefix).layoutOnStartup.layout"
     
-    private static let key_snapToWindows: String = "\(ViewPreferences.keyPrefix).snap.toWindows"
-    private static let key_windowGap: String = "\(ViewPreferences.keyPrefix).snap.toWindows.gap"
-    private static let key_snapToScreen: String = "\(ViewPreferences.keyPrefix).snap.toScreen"
+    private static let key_snapToWindows: String = "\(keyPrefix).snap.toWindows"
+    private static let key_windowGap: String = "\(keyPrefix).snap.toWindows.gap"
+    private static let key_snapToScreen: String = "\(keyPrefix).snap.toScreen"
+    
+    private typealias Defaults = PreferencesDefaults.View
     
     internal required init(_ dict: [String: Any]) {
         
-        appModeOnStartup = PreferencesDefaults.View.appModeOnStartup
-        layoutOnStartup = PreferencesDefaults.View.layoutOnStartup
+        appModeOnStartup = Defaults.appModeOnStartup
+        layoutOnStartup = Defaults.layoutOnStartup
         
-        if let appModeOnStartupOption = defaults.enumValue(forKey: Self.key_appModeOnStartupOption,
-                                                                     ofType: AppModeStartupOptions.self) {
+        if let appModeOnStartupOption = dict.enumValue(forKey: Self.key_appModeOnStartupOption,
+                                                       ofType: AppModeStartupOptions.self) {
             
             appModeOnStartup.option = appModeOnStartupOption
         }
         
-        if let appModeStr = defaults[Self.key_appModeOnStartupModeName, String.self] {
+        if let appModeStr = dict[Self.key_appModeOnStartupModeName, String.self] {
             appModeOnStartup.modeName = appModeStr
         }
         
-        if let layoutOnStartupOption = defaults.enumValue(forKey: Self.key_layoutOnStartupOption,
-                                                                    ofType: WindowLayoutStartupOptions.self) {
+        if let layoutOnStartupOption = dict.enumValue(forKey: Self.key_layoutOnStartupOption,
+                                                      ofType: WindowLayoutStartupOptions.self) {
             
             layoutOnStartup.option = layoutOnStartupOption
         }
         
-        if let layoutStr = defaults[Self.key_layoutOnStartupLayoutName, String.self] {
+        if let layoutStr = dict[Self.key_layoutOnStartupLayoutName, String.self] {
             layoutOnStartup.layoutName = layoutStr
         }
         
-        snapToWindows = defaults[Self.key_snapToWindows, Bool.self] ?? PreferencesDefaults.View.snapToWindows
-        windowGap = defaults[Self.key_windowGap, Float.self] ?? PreferencesDefaults.View.windowGap
-        snapToScreen = defaults[Self.key_snapToScreen, Bool.self] ?? PreferencesDefaults.View.snapToScreen
+        snapToWindows = dict[Self.key_snapToWindows, Bool.self] ?? Defaults.snapToWindows
+        windowGap = dict[Self.key_windowGap, Float.self] ?? Defaults.windowGap
+        snapToScreen = dict[Self.key_snapToScreen, Bool.self] ?? Defaults.snapToScreen
     }
     
     func persist(to defaults: UserDefaults) {

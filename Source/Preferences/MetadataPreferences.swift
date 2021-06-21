@@ -4,8 +4,8 @@ class MetadataPreferences: PersistentPreferencesProtocol {
     
     var musicBrainz: MusicBrainzPreferences
     
-    required init(_ defaults: [String : Any]) {
-        musicBrainz = MusicBrainzPreferences(defaults)
+    required init(_ dict: [String : Any]) {
+        musicBrainz = MusicBrainzPreferences(dict)
     }
     
     func persist(to defaults: UserDefaults) {
@@ -19,21 +19,27 @@ class MusicBrainzPreferences: PersistentPreferencesProtocol {
     var enableCoverArtSearch: Bool
     var enableOnDiskCoverArtCache: Bool
     
+    private static let keyPrefix: String = "metadata.musicBrainz"
+    
+    private static let key_httpTimeout: String = "\(keyPrefix).httpTimeout"
+    private static let key_enableCoverArtSearch: String = "\(keyPrefix).enableCoverArtSearch"
+    private static let key_enableOnDiskCoverArtCache: String = "\(keyPrefix).enableOnDiskCoverArtCache"
+    
     private typealias Defaults = PreferencesDefaults.Metadata.MusicBrainz
     
-    required init(_ defaults: [String : Any]) {
+    required init(_ dict: [String : Any]) {
         
-        httpTimeout = defaults["metadata.musicBrainz.httpTimeout", Int.self] ?? Defaults.httpTimeout
+        httpTimeout = dict[Self.key_httpTimeout, Int.self] ?? Defaults.httpTimeout
         
-        enableCoverArtSearch = defaults["metadata.musicBrainz.enableCoverArtSearch", Bool.self] ?? Defaults.enableCoverArtSearch
+        enableCoverArtSearch = dict[Self.key_enableCoverArtSearch, Bool.self] ?? Defaults.enableCoverArtSearch
         
-        enableOnDiskCoverArtCache = defaults["metadata.musicBrainz.enableOnDiskCoverArtCache", Bool.self] ?? Defaults.enableOnDiskCoverArtCache
+        enableOnDiskCoverArtCache = dict[Self.key_enableOnDiskCoverArtCache, Bool.self] ?? Defaults.enableOnDiskCoverArtCache
     }
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.setValue(httpTimeout, forKey: "metadata.musicBrainz.httpTimeout")
-        defaults.setValue(enableCoverArtSearch, forKey: "metadata.musicBrainz.enableCoverArtSearch")
-        defaults.setValue(enableOnDiskCoverArtCache, forKey: "metadata.musicBrainz.enableOnDiskCoverArtCache")
+        defaults.setValue(httpTimeout, forKey: Self.key_httpTimeout)
+        defaults.setValue(enableCoverArtSearch, forKey: Self.key_enableCoverArtSearch)
+        defaults.setValue(enableOnDiskCoverArtCache, forKey: Self.key_enableOnDiskCoverArtCache)
     }
 }

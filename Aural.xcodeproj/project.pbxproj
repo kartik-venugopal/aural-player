@@ -50,6 +50,9 @@
 		3E1454F32680B5000034056E /* NotificationSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F22680B5000034056E /* NotificationSubscriber.swift */; };
 		3E1454F52680C6DC0034056E /* FXUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F42680C6DC0034056E /* FXUnitPersistentState.swift */; };
 		3E1454F72680C7280034056E /* EffectsUnitPresetPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F62680C7280034056E /* EffectsUnitPresetPersistentState.swift */; };
+		3E1454F92680F9C50034056E /* MediaKeysControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F82680F9C50034056E /* MediaKeysControlsPreferences.swift */; };
+		3E1454FB2680F9DF0034056E /* GesturesControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */; };
+		3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */; };
 		3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */; };
 		3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */; };
 		3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */; };
@@ -717,6 +720,9 @@
 		3E1454F22680B5000034056E /* NotificationSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubscriber.swift; sourceTree = "<group>"; };
 		3E1454F42680C6DC0034056E /* FXUnitPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitPersistentState.swift; sourceTree = "<group>"; };
 		3E1454F62680C7280034056E /* EffectsUnitPresetPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitPresetPersistentState.swift; sourceTree = "<group>"; };
+		3E1454F82680F9C50034056E /* MediaKeysControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysControlsPreferences.swift; sourceTree = "<group>"; };
+		3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesControlsPreferences.swift; sourceTree = "<group>"; };
+		3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferences.swift; sourceTree = "<group>"; };
 		3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaKeysPreferences.xib; sourceTree = "<group>"; };
 		3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GesturesPreferences.xib; sourceTree = "<group>"; };
 		3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteControlPreferences.xib; sourceTree = "<group>"; };
@@ -2604,6 +2610,9 @@
 				3E6C109625CEB98700BF0D07 /* ViewPreferences.swift */,
 				3E6C109825CEB98700BF0D07 /* HistoryPreferences.swift */,
 				3E6C109E25CEB98700BF0D07 /* ControlsPreferences.swift */,
+				3E1454F82680F9C50034056E /* MediaKeysControlsPreferences.swift */,
+				3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */,
+				3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */,
 				3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */,
 				3E6C109D25CEB98700BF0D07 /* PreferencesOptions.swift */,
 				3E6C109A25CEB98700BF0D07 /* PreferencesDefaults.swift */,
@@ -3501,6 +3510,7 @@
 				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCells.swift in Sources */,
 				3ECBF30A2619DF7200AD5C30 /* AudioUnitsTableViewDelegate.swift in Sources */,
 				3E6C11AD25CEBDA200BF0D07 /* AppStateIO.swift in Sources */,
+				3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */,
 				3EDB346325E8B75D004DF7DE /* CoverArtCache.swift in Sources */,
 				3E6C118725CEBD6D00BF0D07 /* VariableRateNode.swift in Sources */,
 				3E6C127025CEBE0600BF0D07 /* FilterBandsViewDelegate.swift in Sources */,
@@ -3627,6 +3637,7 @@
 				3E6C132125CEBEA000BF0D07 /* StringUtils.swift in Sources */,
 				3EDB345125E8B75D004DF7DE /* VorbisCommentParser.swift in Sources */,
 				3E6C12B525CEBE5800BF0D07 /* BookmarksMenuController.swift in Sources */,
+				3E1454FB2680F9DF0034056E /* GesturesControlsPreferences.swift in Sources */,
 				3E6C12EC25CEBE8100BF0D07 /* PlayingTrackView.swift in Sources */,
 				3EDB33F325E8AE09004DF7DE /* FFmpegErrors.swift in Sources */,
 				3EAFB615267FF47200F0DC96 /* FilterBandSlider.swift in Sources */,
@@ -3684,6 +3695,7 @@
 				3E09D0CC26805C19008ECB8C /* UIPersistentState.swift in Sources */,
 				3E6C11CD25CEBDBE00BF0D07 /* ChapterPlayback.swift in Sources */,
 				3E7572F52609E83B00CA3F85 /* MusicBrainzRelease.swift in Sources */,
+				3E1454F92680F9C50034056E /* MediaKeysControlsPreferences.swift in Sources */,
 				3E6C12D125CEBE6700BF0D07 /* TimeViewController.swift in Sources */,
 				3E6C11BD25CEBDB000BF0D07 /* NotificationDefinitions.swift in Sources */,
 				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,

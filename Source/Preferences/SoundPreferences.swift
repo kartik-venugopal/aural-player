@@ -27,6 +27,28 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     private var controlsPreferences: GesturesControlsPreferences!
     
+    private static let keyPrefix: String = "sound"
+    
+    private static let key_outputDeviceOnStartupOption: String = "\(keyPrefix).outputDeviceOnStartup.option"
+    private static let key_outputDeviceOnStartupPreferredDeviceName: String = "\(keyPrefix).outputDeviceOnStartup.preferredDeviceName"
+    private static let key_outputDeviceOnStartupPreferredDeviceUID: String = "\(keyPrefix).outputDeviceOnStartup.preferredDeviceUID"
+    
+    private static let key_volumeDelta: String = "\(keyPrefix).volumeDelta"
+    
+    private static let key_volumeOnStartupOption: String = "\(keyPrefix).volumeOnStartup.option"
+    private static let key_startupVolumeValue: String = "\(keyPrefix).volumeOnStartup.value"
+    
+    private static let key_panDelta: String = "\(keyPrefix).panDelta"
+    
+    private static let key_eqDelta: String = "\(keyPrefix).eqDelta"
+    private static let key_pitchDelta: String = "\(keyPrefix).pitchDelta"
+    private static let key_timeDelta: String = "\(keyPrefix).timeDelta"
+    
+    private static let key_effectsSettingsOnStartupOption: String = "\(keyPrefix).effectsSettingsOnStartup.option"
+    private static let key_masterPresetOnStartup_name: String = "\(keyPrefix).effectsSettingsOnStartup.masterPreset"
+    
+    private static let key_rememberEffectsSettingsOption: String = "\(keyPrefix).rememberEffectsSettings.option"
+    
     convenience init(_ defaults: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
         
         self.init(defaults)
@@ -39,35 +61,35 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         outputDeviceOnStartup = Defaults.outputDeviceOnStartup
         
-        if let outputDeviceOnStartupOption = dict.enumValue(forKey: "sound.outputDeviceOnStartup.option", ofType: OutputDeviceStartupOptions.self) {
+        if let outputDeviceOnStartupOption = dict.enumValue(forKey: Self.key_outputDeviceOnStartupOption, ofType: OutputDeviceStartupOptions.self) {
             outputDeviceOnStartup.option = outputDeviceOnStartupOption
         }
         
-        if let deviceName = dict.nonEmptyStringValue(forKey: "sound.outputDeviceOnStartup.preferredDeviceName") {
+        if let deviceName = dict.nonEmptyStringValue(forKey: Self.key_outputDeviceOnStartupPreferredDeviceName) {
             outputDeviceOnStartup.preferredDeviceName = deviceName
         }
         
-        if let deviceUID = dict.nonEmptyStringValue(forKey: "sound.outputDeviceOnStartup.preferredDeviceUID") {
+        if let deviceUID = dict.nonEmptyStringValue(forKey: Self.key_outputDeviceOnStartupPreferredDeviceUID) {
             outputDeviceOnStartup.preferredDeviceUID = deviceUID
         }
         
-        volumeDelta = dict["sound.volumeDelta", Float.self] ?? Defaults.volumeDelta
+        volumeDelta = dict[Self.key_volumeDelta, Float.self] ?? Defaults.volumeDelta
         
-        volumeOnStartupOption = dict.enumValue(forKey: "sound.volumeOnStartup.option", ofType: VolumeStartupOptions.self) ?? Defaults.volumeOnStartupOption
+        volumeOnStartupOption = dict.enumValue(forKey: Self.key_volumeOnStartupOption, ofType: VolumeStartupOptions.self) ?? Defaults.volumeOnStartupOption
         
-        startupVolumeValue = dict["sound.volumeOnStartup.value", Float.self] ?? Defaults.startupVolumeValue
+        startupVolumeValue = dict[Self.key_volumeOnStartupOption, Float.self] ?? Defaults.startupVolumeValue
         
-        panDelta = dict["sound.panDelta", Float.self] ?? Defaults.panDelta
+        panDelta = dict[Self.key_panDelta, Float.self] ?? Defaults.panDelta
         
-        eqDelta = dict["sound.eqDelta", Float.self] ?? Defaults.eqDelta
-        pitchDelta = dict["sound.pitchDelta", Int.self] ?? Defaults.pitchDelta
-        timeDelta = dict["sound.timeDelta", Float.self] ?? Defaults.timeDelta
+        eqDelta = dict[Self.key_eqDelta, Float.self] ?? Defaults.eqDelta
+        pitchDelta = dict[Self.key_pitchDelta, Int.self] ?? Defaults.pitchDelta
+        timeDelta = dict[Self.key_timeDelta, Float.self] ?? Defaults.timeDelta
         
-        effectsSettingsOnStartupOption = dict.enumValue(forKey: "sound.effectsSettingsOnStartup.option", ofType: EffectsSettingsStartupOptions.self) ?? Defaults.effectsSettingsOnStartupOption
+        effectsSettingsOnStartupOption = dict.enumValue(forKey: Self.key_effectsSettingsOnStartupOption, ofType: EffectsSettingsStartupOptions.self) ?? Defaults.effectsSettingsOnStartupOption
         
-        masterPresetOnStartup_name = dict["sound.effectsSettingsOnStartup.masterPreset", String.self] ?? Defaults.masterPresetOnStartup_name
+        masterPresetOnStartup_name = dict[Self.key_masterPresetOnStartup_name, String.self] ?? Defaults.masterPresetOnStartup_name
         
-        rememberEffectsSettingsOption = dict.enumValue(forKey: "sound.rememberEffectsSettings.option", ofType: RememberSettingsForTrackOptions.self) ?? Defaults.rememberEffectsSettingsOption
+        rememberEffectsSettingsOption = dict.enumValue(forKey: Self.key_rememberEffectsSettingsOption, ofType: RememberSettingsForTrackOptions.self) ?? Defaults.rememberEffectsSettingsOption
         
         // Revert to default if data is corrupt (missing master preset)
         if effectsSettingsOnStartupOption == .applyMasterPreset && masterPresetOnStartup_name == nil {
@@ -77,24 +99,24 @@ class SoundPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(outputDeviceOnStartup.option.rawValue, forKey: "sound.outputDeviceOnStartup.option")
-        defaults.set(outputDeviceOnStartup.preferredDeviceName, forKey: "sound.outputDeviceOnStartup.preferredDeviceName")
-        defaults.set(outputDeviceOnStartup.preferredDeviceUID, forKey: "sound.outputDeviceOnStartup.preferredDeviceUID")
+        defaults.set(outputDeviceOnStartup.option.rawValue, forKey: Self.key_outputDeviceOnStartupOption)
+        defaults.set(outputDeviceOnStartup.preferredDeviceName, forKey: Self.key_outputDeviceOnStartupPreferredDeviceName)
+        defaults.set(outputDeviceOnStartup.preferredDeviceUID, forKey: Self.key_outputDeviceOnStartupPreferredDeviceUID)
         
-        defaults.set(volumeDelta, forKey: "sound.volumeDelta")
+        defaults.set(volumeDelta, forKey: Self.key_volumeDelta)
         
-        defaults.set(volumeOnStartupOption.rawValue, forKey: "sound.volumeOnStartup.option")
-        defaults.set(startupVolumeValue, forKey: "sound.volumeOnStartup.value")
+        defaults.set(volumeOnStartupOption.rawValue, forKey: Self.key_volumeOnStartupOption)
+        defaults.set(startupVolumeValue, forKey: Self.key_startupVolumeValue)
         
-        defaults.set(panDelta, forKey: "sound.panDelta")
+        defaults.set(panDelta, forKey: Self.key_panDelta)
         
-        defaults.set(eqDelta, forKey: "sound.eqDelta")
-        defaults.set(pitchDelta, forKey: "sound.pitchDelta")
-        defaults.set(timeDelta, forKey: "sound.timeDelta")
+        defaults.set(eqDelta, forKey: Self.key_eqDelta)
+        defaults.set(pitchDelta, forKey: Self.key_pitchDelta)
+        defaults.set(timeDelta, forKey: Self.key_timeDelta)
         
-        defaults.set(effectsSettingsOnStartupOption.rawValue, forKey: "sound.effectsSettingsOnStartup.option")
-        defaults.set(masterPresetOnStartup_name, forKey: "sound.effectsSettingsOnStartup.masterPreset")
+        defaults.set(effectsSettingsOnStartupOption.rawValue, forKey: Self.key_effectsSettingsOnStartupOption)
+        defaults.set(masterPresetOnStartup_name, forKey: Self.key_masterPresetOnStartup_name)
         
-        defaults.set(rememberEffectsSettingsOption.rawValue, forKey: "sound.rememberEffectsSettings.option")
+        defaults.set(rememberEffectsSettingsOption.rawValue, forKey: Self.key_rememberEffectsSettingsOption)
     }
 }

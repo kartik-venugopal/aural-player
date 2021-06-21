@@ -17,15 +17,15 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "playlist"
     
-    private static let key_viewOnStartupOption: String = "\(PlaylistPreferences.keyPrefix).viewOnStartup.option"
-    private static let key_viewOnStartupViewName: String = "\(PlaylistPreferences.keyPrefix).viewOnStartup.view"
+    private static let key_viewOnStartupOption: String = "\(keyPrefix).viewOnStartup.option"
+    private static let key_viewOnStartupViewName: String = "\(keyPrefix).viewOnStartup.view"
     
-    private static let key_playlistOnStartup: String = "\(PlaylistPreferences.keyPrefix).playlistOnStartup"
-    private static let key_playlistFile: String = "\(PlaylistPreferences.keyPrefix).playlistOnStartup.playlistFile"
-    private static let key_tracksFolder: String = "\(PlaylistPreferences.keyPrefix).playlistOnStartup.tracksFolder"
+    private static let key_playlistOnStartup: String = "\(keyPrefix).playlistOnStartup"
+    private static let key_playlistFile: String = "\(keyPrefix).playlistOnStartup.playlistFile"
+    private static let key_tracksFolder: String = "\(keyPrefix).playlistOnStartup.tracksFolder"
     
-    private static let key_showNewTrackInPlaylist: String = "\(PlaylistPreferences.keyPrefix).showNewTrackInPlaylist"
-    private static let key_showChaptersList: String = "\(PlaylistPreferences.keyPrefix).showChaptersList"
+    private static let key_showNewTrackInPlaylist: String = "\(keyPrefix).showNewTrackInPlaylist"
+    private static let key_showChaptersList: String = "\(keyPrefix).showChaptersList"
     
     private typealias Defaults = PreferencesDefaults.Playlist
     
