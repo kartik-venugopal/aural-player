@@ -170,8 +170,8 @@ class ID3FFmpegParser: FFmpegMetadataParser {
                 value = ID3MediaTypes.readableString(for: value)
             }
             
-            key = StringUtils.cleanUpString(key)
-            value = StringUtils.cleanUpString(value)
+            key = key.withEncodingAndNullsRemoved()
+            value = value.withEncodingAndNullsRemoved()
             
             metadata[key] = MetadataEntry(.id3, readableKey(key), value)
         }

@@ -188,10 +188,10 @@ class ITunesParser: AVFMetadataParser {
                 }
             }
             
-            let rKey = ITunesSpec.readableKey(StringUtils.cleanUpString(key))
+            let rKey = ITunesSpec.readableKey(key.withEncodingAndNullsRemoved())
             
             if !ignoredKeys.contains(rKey.lowercased()) {
-                metadata[key] = MetadataEntry(.iTunes, rKey, StringUtils.cleanUpString(value))
+                metadata[key] = MetadataEntry(.iTunes, rKey, value.withEncodingAndNullsRemoved())
             }
         }
         

@@ -55,13 +55,13 @@ class PlaylistFontSchemeViewController: NSViewController, FontSchemesViewProtoco
         trackTextStepper.floatValue = Float(fontScheme.playlist.trackTextFont.pointSize * 10)
         txtTrackText.stringValue = String(format: "%.1f", trackTextStepper.floatValue / 10.0)
         
-        trackTextYOffsetStepper.integerValue = roundedInt(fontScheme.playlist.trackTextYOffset)
+        trackTextYOffsetStepper.integerValue = fontScheme.playlist.trackTextYOffset.roundedInt
         txtTrackTextYOffset.stringValue = String(format: "%d px", trackTextYOffsetStepper.integerValue)
         
         groupTextStepper.floatValue = Float(fontScheme.playlist.groupTextFont.pointSize * 10)
         txtGroupText.stringValue = String(format: "%.1f", groupTextStepper.floatValue / 10.0)
         
-        groupTextYOffsetStepper.integerValue = roundedInt(fontScheme.playlist.groupTextYOffset)
+        groupTextYOffsetStepper.integerValue = fontScheme.playlist.groupTextYOffset.roundedInt
         txtGroupTextYOffset.stringValue = String(format: "%d px", groupTextYOffsetStepper.integerValue)
       
         summaryStepper.floatValue = Float(fontScheme.playlist.summaryFont.pointSize * 10)

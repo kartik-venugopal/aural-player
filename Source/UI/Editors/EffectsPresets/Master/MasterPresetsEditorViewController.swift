@@ -155,7 +155,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         if masterPresets.presetWithNameExists(oldPresetName) {
 
-            if StringUtils.isStringEmpty(newPresetName) {
+            if String.isEmpty(newPresetName) {
             } else if masterPresets.presetWithNameExists(newPresetName) {
             } else {
 

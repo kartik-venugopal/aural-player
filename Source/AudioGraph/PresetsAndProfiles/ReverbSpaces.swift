@@ -71,11 +71,11 @@ enum ReverbSpaces: String {
     
     // User-friendly, UI-friendly description string
     var description: String {
-        return StringUtils.splitCamelCaseWord(rawValue, false)
+        rawValue.splitAsCamelCaseWord(capitalizeEachWord: false)
     }
  
     // Constructs a ReverPresets object from a description string
     static func fromDescription(_ description: String) -> ReverbSpaces {
-        return ReverbSpaces(rawValue: StringUtils.camelCase(description)) ?? AppDefaults.reverbSpace
+        return ReverbSpaces(rawValue: description.camelCased()) ?? AppDefaults.reverbSpace
     }
 }

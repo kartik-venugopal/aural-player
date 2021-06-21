@@ -174,7 +174,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
             // TODO: What if the string is too long ?
             
             // Empty string is invalid, revert to old value
-            if StringUtils.isStringEmpty(newThemeName) {
+            if String.isEmpty(newThemeName) {
                 
                 editedTextField.stringValue = theme.name
                 

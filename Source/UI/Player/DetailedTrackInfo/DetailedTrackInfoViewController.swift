@@ -231,7 +231,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                 
                 do {
                     
-                    try JSONWriter.writeObject(dict as NSDictionary, outFile)
+                    try JSONSerialization.writeObject(dict as NSDictionary, toFile: outFile)
                     
                 } catch let error {
                     

@@ -64,7 +64,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         playerViewMenuItem.off()
         
-        cornerRadiusStepper.integerValue = roundedInt(WindowAppearanceState.cornerRadius)
+        cornerRadiusStepper.integerValue = WindowAppearanceState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
     }
  

@@ -17,7 +17,7 @@ class M3UPlaylistIO: PlaylistIOProtocol {
         for track in tracks {
             
             // EXTINF line consists of the prefix, followed by duration and track name (without extension)
-            let extInfo = String(format: "%@%d,%@", infoPrefix, roundedInt(track.duration), track.displayName)
+            let extInfo = String(format: "%@%d,%@", infoPrefix, track.duration.roundedInt, track.displayName)
             contents.append(extInfo + "\n")
             
             // Compute a relative path for this track, relative to the playlist folder.
@@ -56,7 +56,7 @@ class M3UPlaylistIO: PlaylistIOProtocol {
             } else {
                 
                 // Line contains track path
-                if !StringUtils.isStringEmpty(line) {
+                if !String.isEmpty(line) {
                     
                     // Convert Windows paths to UNIX paths (this will not work for absolute Windows paths like "C:\...")
                     let trackFilePath: String = line.replacingOccurrences(of: "\\", with: "/")

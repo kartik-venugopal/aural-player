@@ -1,8 +1,8 @@
 import Foundation
 
-class JSONWriter {
+extension JSONSerialization {
     
-    static func writeObject(_ jsonObject: NSDictionary, _ file: URL, _ failSilently: Bool = false) throws {
+    static func writeObject(_ jsonObject: NSDictionary, toFile file: URL, failSilently: Bool = false) throws {
         
         if let outputStream = OutputStream(url: file, append: false) {
             
@@ -22,7 +22,7 @@ class JSONWriter {
             }
             
             var ioError: NSError?
-            let bytesWritten = JSONSerialization.writeJSONObject(jsonObject, to: outputStream, options: JSONSerialization.WritingOptions.prettyPrinted, error: &ioError)
+            let bytesWritten = Self.writeJSONObject(jsonObject, to: outputStream, options: Self.WritingOptions.prettyPrinted, error: &ioError)
             
             outputStream.close()
             

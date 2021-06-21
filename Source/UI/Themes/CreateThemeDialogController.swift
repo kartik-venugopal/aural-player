@@ -70,7 +70,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         initFontSchemesMenu()
         initColorSchemesMenu()
         
-        windowCornerRadiusStepper.integerValue = roundedInt(AppDefaults.windowCornerRadius)
+        windowCornerRadiusStepper.integerValue = AppDefaults.windowCornerRadius.roundedInt
         lblWindowCornerRadius.stringValue = "\(windowCornerRadiusStepper.integerValue) px"
         
         errorBox.hide()

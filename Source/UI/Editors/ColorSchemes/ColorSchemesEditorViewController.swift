@@ -174,7 +174,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
             // TODO: What if the string is too long ?
             
             // Empty string is invalid, revert to old value
-            if StringUtils.isStringEmpty(newSchemeName) {
+            if String.isEmpty(newSchemeName) {
                 
                 editedTextField.stringValue = scheme.name
                 

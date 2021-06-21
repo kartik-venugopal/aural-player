@@ -29,7 +29,7 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     // Converts a user-friendly display name to an instance of PitchPresets
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
-        return WindowLayoutPresets(rawValue: StringUtils.camelCase(displayName)) ?? .verticalFullStack
+        return WindowLayoutPresets(rawValue: displayName.camelCased()) ?? .verticalFullStack
     }
     
     // Recomputes the layout (useful when the window gap preference changes)

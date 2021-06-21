@@ -23,10 +23,10 @@ class PlaylistFontSchemePersistentState: PersistentStateProtocol {
     init(_ scheme: PlaylistFontScheme) {
 
         self.trackTextSize = scheme.trackTextFont.pointSize
-        self.trackTextYOffset = roundedInt(scheme.trackTextYOffset)
+        self.trackTextYOffset = scheme.trackTextYOffset.roundedInt
         
         self.groupTextSize = scheme.groupTextFont.pointSize
-        self.groupTextYOffset = roundedInt(scheme.groupTextYOffset)
+        self.groupTextYOffset = scheme.groupTextYOffset.roundedInt
         
         self.summarySize = scheme.summaryFont.pointSize
         self.tabButtonTextSize = scheme.tabButtonTextFont.pointSize

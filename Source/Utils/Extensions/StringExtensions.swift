@@ -1,8 +1,131 @@
-import Foundation
+import Cocoa
 
 extension String {
     
+    func truncate(font: NSFont, maxWidth: CGFloat) -> String {
+        
+        let selfWidth = size(withFont: font).width
+        
+        if selfWidth <= maxWidth {
+            return self
+        }
+        
+        let len = self.count
+        var cur = len - 2
+        var str: String = ""
+        
+        while cur >= 0 {
+            
+            str = self.substring(range: 0..<(cur + 1)) + "..."
+            
+            let strWidth = str.size(withFont: font).width
+            if strWidth <= maxWidth {
+                return str
+            }
+            
+            cur -= 1
+        }
+        
+        return str
+    }
+    
+    func size(withFont font: NSFont) -> CGSize {
+        size(withAttributes: [.font: font])
+    }
+    
+    // For a given piece of text rendered in a certain font, and a given line width, calculates the number of lines the text will occupy (e.g. in a multi-line label)
+    func numberOfLines(font: NSFont, lineWidth: CGFloat) -> Int {
+        
+        let size: CGSize = self.size(withAttributes: [.font: font])
+        return Int(ceil(size.width / lineWidth))
+    }
+    
+    func withEncodingAndNullsRemoved() -> String {
+        (self.removingPercentEncoding ?? self).replacingOccurrences(of: "\0", with: "")
+    }
+    
+    // Splits a camel cased word into separate words, all capitalized. For ex, "albumName" -> "Album Name". This is useful for display within the UI.
+    func splitAsCamelCaseWord(capitalizeEachWord: Bool) -> String {
+        
+        var newString: String = ""
+        
+        var firstLetter: Bool = true
+        for eachCharacter in self {
+            
+            if (eachCharacter >= "A" && eachCharacter <= "Z") == true {
+                
+                // Upper case character
+                
+                // Add a space to delimit the words
+                if (!firstLetter) {
+                    // Don't append a space if it's the first word (if first word is already capitalized as in "AlbumName")
+                    newString.append(" ")
+                } else {
+                    firstLetter = false
+                }
+                
+                if (capitalizeEachWord) {
+                    newString.append(eachCharacter)
+                } else {
+                    newString.append(String(eachCharacter).lowercased())
+                }
+                
+            } else if (firstLetter) {
+                
+                // Always capitalize the first word
+                newString.append(String(eachCharacter).capitalized)
+                firstLetter = false
+                
+            } else {
+                
+                newString.append(eachCharacter)
+            }
+        }
+        
+        return newString
+    }
+    
+    // Joins multiple words into one camel-cased word. For example, "Medium hall" -> "mediumHall"
+    func camelCased() -> String {
+        
+        var newString: String = ""
+        var wordStart: Bool = false
+        
+        for eachCharacter in self {
+            
+            // Ignore spaces
+            if eachCharacter == " " {
+                
+                wordStart = true
+                continue
+            }
+            
+            if newString == "" {
+                
+                // The very first character needs to be lowercased
+                newString.append(String(eachCharacter).lowercased())
+                
+            } else if (wordStart) {
+                
+                // The first character of subsequent words needs to be capitalized
+                newString.append(String(eachCharacter).capitalized)
+                wordStart = false
+                
+            } else {
+                newString.append(eachCharacter)
+            }
+        }
+        
+        return newString
+    }
+    
+    
     func lowerCasedAndTrimmed() -> String {self.lowercased().trim()}
+    
+    // Checks if the string 1 - is non-null, 2 - has characters, 3 - not all characters are whitespace
+    static func isEmpty(_ string: String?) -> Bool {
+        string == nil ? true : string!.isEmptyAfterTrimming
+    }
     
     var isEmptyAfterTrimming: Bool {
         trim().isEmpty

@@ -154,7 +154,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             // TODO: What if the string is too long ?
             
             // Empty string is invalid, revert to old value
-            if StringUtils.isStringEmpty(newPresetName) || presetsWrapper.presetWithNameExists(newPresetName) {
+            if String.isEmpty(newPresetName) || presetsWrapper.presetWithNameExists(newPresetName) {
                 
                 editedTextField.stringValue = preset.name
                 

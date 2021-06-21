@@ -148,7 +148,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
         // TODO: Doesn't update tool tips when columns are resized
         // Set tool tip on name/track only if text wider than column width
         let font = cell.textField!.font!
-        if StringUtils.numberOfLines(text, font, column.width) > 1 {
+        if text.numberOfLines(font: font, lineWidth: column.width) > 1 {
             cell.toolTip = text
         }
         

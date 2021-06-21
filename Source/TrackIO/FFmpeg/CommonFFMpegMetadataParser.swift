@@ -131,7 +131,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
                 value = langName
             }
             
-            value = StringUtils.cleanUpString(value)
+            value = value.withEncodingAndNullsRemoved()
             
             metadata[key] = MetadataEntry(.common, readableKey(key), value)
         }

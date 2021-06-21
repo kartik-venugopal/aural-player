@@ -193,7 +193,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         
         // Set tool tip on name/track only if text wider than column width
         let font = cell.textField!.font!
-        if StringUtils.numberOfLines(text, font, column.width) > 1 {
+        if text.numberOfLines(font: font, lineWidth: column.width) > 1 {
             cell.toolTip = text
         }
         
@@ -222,7 +222,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
                     let text = textField.stringValue
                     let font = textField.font!
                     
-                    if StringUtils.numberOfLines(text, font, column.width) > 1 {
+                    if text.numberOfLines(font: font, lineWidth: column.width) > 1 {
                         cell.toolTip = text
                     } else {
                         cell.toolTip = nil
@@ -247,7 +247,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         // TODO: What if the string is too long ?
         
         // Empty string is invalid, revert to old value
-        if (StringUtils.isStringEmpty(newBookmarkName)) {
+        if (String.isEmpty(newBookmarkName)) {
             editedTextField.stringValue = bookmark.name
             
         } else {
@@ -261,7 +261,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         let font = editedTextField.font!
         let nameColumn = editorView.tableColumns[0]
         
-        if StringUtils.numberOfLines(newBookmarkName, font, nameColumn.width) > 1 {
+        if newBookmarkName.numberOfLines(font: font, lineWidth: nameColumn.width) > 1 {
             cell.toolTip = newBookmarkName
         } else {
             cell.toolTip = nil

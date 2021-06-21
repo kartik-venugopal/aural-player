@@ -74,7 +74,7 @@ class FilterBandsViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDeleg
     
     private func formatFreqNumber(_ freq: Float) -> String {
         
-        let num = roundedInt(freq)
+        let num = freq.roundedInt
         if num % 1000 == 0 {
             return String(format: "%d KHz", num / 1000)
         } else {

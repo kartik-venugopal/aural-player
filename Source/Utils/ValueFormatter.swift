@@ -33,13 +33,13 @@ class ValueFormatter {
 
         case .seconds:
 
-        let elapsedSecondsInt = roundedInt(elapsedSeconds)
+        let elapsedSecondsInt = elapsedSeconds.roundedInt
         let secStr = commaSeparatedInt(elapsedSecondsInt)
         elapsedString = String(format: "%@ sec", secStr)
 
         case .percentage:
 
-        elapsedString = String(format: "%d%%", floorInt(percentageElapsed))
+            elapsedString = String(format: "%d%%", percentageElapsed.floorInt)
 
         }
 
@@ -47,23 +47,23 @@ class ValueFormatter {
 
         case .formatted:
 
-        let elapsedSecondsInt = roundedInt(elapsedSeconds)
-        let durationInt = roundedInt(duration)
+        let elapsedSecondsInt = elapsedSeconds.roundedInt
+            let durationInt = duration.roundedInt
         
         remainingString = formatSecondsToHMS(durationInt - elapsedSecondsInt, true)
 
         case .seconds:
 
-        let elapsedSecondsInt = roundedInt(elapsedSeconds)
-        let durationInt = roundedInt(duration)
+        let elapsedSecondsInt = elapsedSeconds.roundedInt
+            let durationInt = duration.roundedInt
         let secStr = commaSeparatedInt(durationInt - elapsedSecondsInt)
         
         remainingString = String(format: "- %@ sec", secStr)
 
         case .percentage:
-
-        let percentageRemaining = 100 - floorInt(percentageElapsed)
-        remainingString = String(format: "- %d%%", percentageRemaining)
+            
+            let percentageRemaining = 100 - percentageElapsed.floorInt
+            remainingString = String(format: "- %d%%", percentageRemaining)
 
         case .duration_formatted:
 
@@ -71,7 +71,7 @@ class ValueFormatter {
 
         case .duration_seconds:
 
-        let durationInt = roundedInt(duration)
+            let durationInt = duration.roundedInt
         let secStr = commaSeparatedInt(durationInt)
         
         remainingString = String(format: "%@ sec", secStr)
@@ -86,7 +86,7 @@ class ValueFormatter {
         The "includeMinusPrefix" indicates whether or not to include a prefix of "-" in the formatted string returned.
     */
     static func formatSecondsToHMS(_ timeSecondsDouble: Double, _ includeMinusPrefix: Bool = false) -> String {
-        return formatSecondsToHMS(roundedInt(timeSecondsDouble))
+        return formatSecondsToHMS(timeSecondsDouble.roundedInt)
     }
     
     static func formatSecondsToHMS(_ timeSeconds: Int, _ includeMinusPrefix: Bool = false) -> String {

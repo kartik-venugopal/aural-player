@@ -17,3 +17,21 @@ extension FloatingPoint {
         return self
     }
 }
+
+extension Double {
+    
+    var roundedInt: Int {lround(self)}
+    
+    var floorInt: Int {Int(floor(self))}
+}
+
+extension Float {
+    
+    var roundedInt: Int {lroundf(self)}
+    
+    var floorInt: Int {Int(floorf(self))}
+}
+
+extension CGFloat {
+    var roundedInt: Int {lroundf(Float(self))}
+}

@@ -47,7 +47,7 @@ class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
         var metadata: [String: MetadataEntry] = [:]
         
         for (key, value) in metadataMap.otherMetadata.auxiliaryFields {
-            metadata[key] = MetadataEntry(.other, key, StringUtils.cleanUpString(value.trim()))
+            metadata[key] = MetadataEntry(.other, key, value.trim().withEncodingAndNullsRemoved())
         }
         
         return metadata

@@ -209,7 +209,7 @@ extension AVMetadataItem {
     
     var valueAsString: String? {
 
-        if !StringUtils.isStringEmpty(self.stringValue) {
+        if !String.isEmpty(self.stringValue) {
             return self.stringValue
         }
         
@@ -230,7 +230,7 @@ extension AVMetadataItem {
     
     var valueAsNumericalString: String {
         
-        if !StringUtils.isStringEmpty(self.stringValue), let num = Int(self.stringValue!) {
+        if !String.isEmpty(self.stringValue), let num = Int(self.stringValue!) {
             return String(describing: num)
         }
         

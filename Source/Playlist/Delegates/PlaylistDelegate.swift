@@ -22,7 +22,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     private var addSession: TrackAddSession!
     
-    private let concurrentAddOpCount = roundedInt(Double(SystemUtils.numberOfActiveCores) * 1.5)
+    private let concurrentAddOpCount = (Double(SystemUtils.numberOfActiveCores) * 1.5).roundedInt
     
     var isBeingModified: Bool {addSession != nil}
     

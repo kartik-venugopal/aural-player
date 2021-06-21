@@ -129,10 +129,10 @@ class FilterChart: NSView {
                 text = String(describing: intY)
             }
             
-            let tw = StringUtils.sizeOfString(text, textFont)
-            let tx = offset + x * scale - tw.width / 2
+            let tw = text.size(withFont: textFont).width
+            let tx = offset + x * scale - tw / 2
             
-            let trect = NSRect(x: tx, y: bottomMargin + height / 2 + 2, width: tw.width + 10, height: 15)
+            let trect = NSRect(x: tx, y: bottomMargin + height / 2 + 2, width: tw + 10, height: 15)
             
             GraphicsUtils.drawTextInRect(trect, text, textColor, textFont)
             

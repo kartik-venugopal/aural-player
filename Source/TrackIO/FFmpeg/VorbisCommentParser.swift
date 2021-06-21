@@ -400,7 +400,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
                 value = bVal ? "Yes" : "No"
             }
             
-            value = StringUtils.cleanUpString(value)
+            value = value.withEncodingAndNullsRemoved()
             
             metadata[key] = MetadataEntry(.vorbis, readableKey(key), value)
         }

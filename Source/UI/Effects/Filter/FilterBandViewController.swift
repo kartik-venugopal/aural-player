@@ -165,7 +165,7 @@ class FilterBandViewController: NSViewController {
     
     private func formatFrequency(_ freq: Float) -> String {
         
-        let rounded = roundedInt(freq)
+        let rounded = freq.roundedInt
         
         if rounded % 1000 == 0 {
             return String(format: "%d KHz", rounded / 1000)

@@ -146,7 +146,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         volumeSlider.floatValue = audioGraph.volume
         volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
         
-        let seekTimerInterval = roundedInt(1000 / (2 * audioGraph.timeUnit.effectiveRate))
+        let seekTimerInterval = (1000 / (2 * audioGraph.timeUnit.effectiveRate)).roundedInt
         
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
             self?.updateSeekPosition()

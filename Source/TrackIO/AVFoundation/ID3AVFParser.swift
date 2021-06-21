@@ -167,7 +167,7 @@ class ID3AVFParser: AVFMetadataParser {
             if replaceableKeyFields.contains(key), let attrs = item.extraAttributes, !attrs.isEmpty {
                 
                 // TXXX or COMM or WXXX
-                if let infoKey = mapReplaceableKeyField(attrs), !StringUtils.isStringEmpty(infoKey) {
+                if let infoKey = mapReplaceableKeyField(attrs), !String.isEmpty(infoKey) {
                     entryKey = infoKey
                 }
                 
@@ -209,8 +209,8 @@ class ID3AVFParser: AVFMetadataParser {
                 entryValue = ID3MediaTypes.readableString(for: value)
             }
             
-            entryKey = StringUtils.cleanUpString(entryKey)
-            entryValue = StringUtils.cleanUpString(entryValue)
+            entryKey = entryKey.withEncodingAndNullsRemoved()
+            entryValue = entryValue.withEncodingAndNullsRemoved()
             
             metadata[entryKey] = MetadataEntry(.id3, readableKey(entryKey), entryValue)
         }
@@ -230,7 +230,7 @@ class ID3AVFParser: AVFMetadataParser {
             
             if key == "info" {
                 info = aValue
-            } else if !StringUtils.isStringEmpty(aValue) {
+            } else if !String.isEmpty(aValue) {
                 value += String(format: "%@ = %@, ", key, aValue)
             }
         }

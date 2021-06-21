@@ -44,7 +44,7 @@ class SeekSliderView: NSView, ColorSchemeable {
         
         // MARK: Update controls based on current player state
         
-        let seekTimerInterval = roundedInt(1000 / (2 * timeUnit.effectiveRate))
+        let seekTimerInterval = (1000 / (2 * timeUnit.effectiveRate)).roundedInt
         
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
             self?.updateSeekPosition()
@@ -175,7 +175,7 @@ class SeekSliderView: NSView, ColorSchemeable {
     // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     func playbackRateChanged(_ rate: Float, _ playbackState: PlaybackState) {
         
-        let interval = roundedInt(1000 / (2 * rate))
+        let interval = (1000 / (2 * rate)).roundedInt
         
         if interval != seekTimer?.interval {
             

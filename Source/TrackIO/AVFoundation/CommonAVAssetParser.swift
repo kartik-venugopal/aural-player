@@ -66,7 +66,7 @@ class CommonAVFMetadataParser: AVFMetadataParser {
                     value = langName
                 }
 
-                metadata[key] = MetadataEntry(.common, StringUtils.splitCamelCaseWord(key, true), value)
+                metadata[key] = MetadataEntry(.common, key.splitAsCamelCaseWord(capitalizeEachWord: true), value)
             }
         }
 

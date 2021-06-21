@@ -52,7 +52,7 @@ class EffectsFontSchemeViewController: NSViewController, FontSchemesViewProtocol
         filterChartStepper.floatValue = Float(fontScheme.effects.filterChartFont.pointSize * 10)
         txtFilterChart.stringValue = String(format: "%.1f", filterChartStepper.floatValue / 10.0)
         
-        auTableRowYOffsetStepper.integerValue = roundedInt(fontScheme.effects.auRowTextYOffset)
+        auTableRowYOffsetStepper.integerValue = fontScheme.effects.auRowTextYOffset.roundedInt
         txtAUTableRowYOffset.stringValue = String(format: "%d px", auTableRowYOffsetStepper.integerValue)
     }
     

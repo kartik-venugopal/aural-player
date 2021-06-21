@@ -171,7 +171,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
             // TODO: What if the string is too long ?
             
             // Empty string is invalid, revert to old value
-            if (StringUtils.isStringEmpty(newLayoutName)) {
+            if (String.isEmpty(newLayoutName)) {
                 editedTextField.stringValue = layout.name
                 
             } else if WindowLayouts.layoutWithNameExists(newLayoutName) {

@@ -110,11 +110,11 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             hideError_tracksFolder()
         }
     
-        if btnLoadPlaylistFromFile.isOn && StringUtils.isStringEmpty(lblPlaylistFile.stringValue) {
+        if btnLoadPlaylistFromFile.isOn && String.isEmpty(lblPlaylistFile.stringValue) {
             choosePlaylistFileAction(sender)
         }
         
-        if btnLoadTracksFromFolder.isOn && StringUtils.isStringEmpty(lblFolder.stringValue) {
+        if btnLoadTracksFromFolder.isOn && String.isEmpty(lblFolder.stringValue) {
             chooseTracksFolderAction(sender)
         }
     }
@@ -139,7 +139,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
         } else if btnLoadPlaylistFromFile.isOn {
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
-            if !StringUtils.isStringEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
+            if !String.isEmpty(lblPlaylistFile.stringValue) && errorIcon_1.isHidden {
                 
                 prefs.playlistOnStartup = .loadFile
                 prefs.playlistFile = URL(fileURLWithPath: lblPlaylistFile.stringValue)
@@ -156,7 +156,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             // Load tracks from folder
             
             // Make sure 1 - label is not empty, and 2 - no previous error message is shown
-            if !StringUtils.isStringEmpty(lblFolder.stringValue) && errorIcon_2.isHidden {
+            if !String.isEmpty(lblFolder.stringValue) && errorIcon_2.isHidden {
             
                 prefs.playlistOnStartup = .loadFolder
                 prefs.tracksFolder = URL(fileURLWithPath: lblFolder.stringValue)

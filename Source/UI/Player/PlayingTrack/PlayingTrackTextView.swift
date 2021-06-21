@@ -127,12 +127,12 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
                 
             } else if let theArtist = artist {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theArtist, artistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = theArtist.truncate(font: artistAlbumFont, maxWidth: lineWidth)
                 fullLengthArtistAlbumStr = theArtist
                 
             } else if let theAlbum = album {
                 
-                truncatedArtistAlbumStr = StringUtils.truncate(theAlbum, artistAlbumFont, lineWidth)
+                truncatedArtistAlbumStr = theAlbum.truncate(font: artistAlbumFont, maxWidth: lineWidth)
                 fullLengthArtistAlbumStr = theAlbum
             }
             
@@ -142,7 +142,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
             let hasChapter: Bool = chapterStr != nil
             
             // Title (truncate only if artist, album, or chapter are displayed)
-            let truncatedTitle: String = hasArtistAlbum || hasChapter ? StringUtils.truncate(title, titleFont, lineWidth) : title
+            let truncatedTitle: String = hasArtistAlbum || hasChapter ? title.truncate(font: titleFont, maxWidth: lineWidth) : title
             
             textView.textStorage?.append(attributedString(truncatedTitle, titleFont, titleColor, hasArtistAlbum ? 3 : (hasChapter ? 5 : nil)))
             
@@ -154,7 +154,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
             // Chapter
             if let _chapterStr = chapterStr {
                 
-                let truncatedChapter: String = StringUtils.truncate(_chapterStr, chapterTitleFont, lineWidth)
+                let truncatedChapter: String = _chapterStr.truncate(font: chapterTitleFont, maxWidth: lineWidth)
                 textView.textStorage?.append(attributedString(truncatedChapter, chapterTitleFont, chapterTitleColor))
             }
             
@@ -172,15 +172,15 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     private func truncateCompositeString(_ font: NSFont, _ maxWidth: CGFloat, _ fullLengthString: String, _ s1: String, _ s2: String, _ separator: String) -> String {
         
         // Check if the full length string fits. If so, no need to truncate.
-        let origWidth = StringUtils.widthOfString(fullLengthString, font)
+        let origWidth = fullLengthString.size(withFont: font).width
         
         if origWidth <= maxWidth {
             return fullLengthString
         }
         
         // If fullLengthString doesn't fit, find out which is longer ... s1 or s2 ... truncate the longer one just enough to fit
-        let w1 = StringUtils.widthOfString(s1, font)
-        let w2 = StringUtils.widthOfString(s2, font)
+        let w1 = s1.size(withFont: font).width
+        let w2 = s2.size(withFont: font).width
         
         if w1 > w2 {
             
@@ -191,13 +191,13 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
             // Width available for s1 = maximum width - (original width - s1's width)
             let max1: CGFloat = maxWidth - wRemainder1
             
-            let t1 = StringUtils.truncate(s1, font, max1)
+            let t1 = s1.truncate(font: font, maxWidth: max1)
             return String(format: "%@%@%@", t1, separator, s2)
             
         } else {
             
             // s2 is longer than s1, simply truncate the string as a whole
-            return StringUtils.truncate(fullLengthString, font, maxWidth)
+            return fullLengthString.truncate(font: font, maxWidth: maxWidth)
         }
     }
     

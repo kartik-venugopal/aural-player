@@ -237,7 +237,7 @@ class ApeV2Parser: FFmpegMetadataParser {
                 value = bVal ? "Yes" : "No"
             }
             
-            value = StringUtils.cleanUpString(value)
+            value = value.withEncodingAndNullsRemoved()
             
             metadata[key] = MetadataEntry(.ape, readableKey(key), value)
         }

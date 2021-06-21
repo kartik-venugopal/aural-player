@@ -178,7 +178,7 @@
 		3E6C11A925CEBD9E00BF0D07 /* HistoryItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10AA25CEB98700BF0D07 /* HistoryItems.swift */; };
 		3E6C11AB25CEBDA200BF0D07 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A725CEB98700BF0D07 /* Errors.swift */; };
 		3E6C11AC25CEBDA200BF0D07 /* M3UPlaylistIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A325CEB98700BF0D07 /* M3UPlaylistIO.swift */; };
-		3E6C11AD25CEBDA200BF0D07 /* AppStateIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A825CEB98700BF0D07 /* AppStateIO.swift */; };
+		3E6C11AD25CEBDA200BF0D07 /* PersistentStateIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A825CEB98700BF0D07 /* PersistentStateIO.swift */; };
 		3E6C11AF25CEBDA200BF0D07 /* CueSheetIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A425CEB98700BF0D07 /* CueSheetIO.swift */; };
 		3E6C11B025CEBDA200BF0D07 /* PlaylistIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A225CEB98700BF0D07 /* PlaylistIO.swift */; };
 		3E6C11B125CEBDA200BF0D07 /* AudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A525CEB98700BF0D07 /* AudioIO.swift */; };
@@ -486,7 +486,6 @@
 		3E6C131E25CEBEA000BF0D07 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CE25CEB98700BF0D07 /* CollectionExtensions.swift */; };
 		3E6C131F25CEBEA000BF0D07 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CB25CEB98700BF0D07 /* StringExtensions.swift */; };
 		3E6C132025CEBEA000BF0D07 /* StringKeyedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */; };
-		3E6C132125CEBEA000BF0D07 /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C525CEB98700BF0D07 /* StringUtils.swift */; };
 		3E6C132325CEBEA000BF0D07 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */; };
 		3E6C132525CEBEA000BF0D07 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */; };
 		3E6C132625CEBEA000BF0D07 /* AVFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CA25CEB98700BF0D07 /* AVFExtensions.swift */; };
@@ -494,13 +493,11 @@
 		3E6C132925CEBEA000BF0D07 /* ConcurrentCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C225CEB98700BF0D07 /* ConcurrentCollections.swift */; };
 		3E6C132A25CEBEA000BF0D07 /* IndexSetExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CD25CEB98700BF0D07 /* IndexSetExtensions.swift */; };
 		3E6C132B25CEBEA000BF0D07 /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D525CEB98700BF0D07 /* ConcurrencyUtils.swift */; };
-		3E6C133025CEBEA000BF0D07 /* MathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BE25CEB98700BF0D07 /* MathUtils.swift */; };
 		3E6C133325CEBEA000BF0D07 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C025CEB98700BF0D07 /* Stack.swift */; };
 		3E6C133625CEBEA700BF0D07 /* HTMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */; };
 		3E6C133825CEBEA700BF0D07 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D725CEB98700BF0D07 /* FileSystemUtils.swift */; };
 		3E6C133B25CEBEA700BF0D07 /* GraphicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */; };
 		3E6C133C25CEBEA700BF0D07 /* TimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */; };
-		3E6C133D25CEBEA700BF0D07 /* JSONWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D925CEB98700BF0D07 /* JSONWriter.swift */; };
 		3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C107A25CEB98600BF0D07 /* StopPlaybackChain.swift */; };
 		3E6C134225CEBEF500BF0D07 /* EndPlaybackSequenceAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C107B25CEB98600BF0D07 /* EndPlaybackSequenceAction.swift */; };
 		3E6C136B25CEBFB900BF0D07 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FE125CEB98600BF0D07 /* Application.xib */; };
@@ -648,6 +645,7 @@
 		3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */; };
 		3EE2CC3126810D6F002C1B29 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2CC3026810D6F002C1B29 /* ArrayExtensions.swift */; };
 		3EE2CC3326811074002C1B29 /* NSTableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2CC3226811074002C1B29 /* NSTableViewExtensions.swift */; };
+		3EE2CC3526811814002C1B29 /* JSONSerializationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2CC3426811814002C1B29 /* JSONSerializationExtensions.swift */; };
 		3EE7CB9525E21F9F0075F1DD /* PlaylistFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9425E21F9F0075F1DD /* PlaylistFontScheme.xib */; };
 		3EE7CB9825E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */; };
 		3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */; };
@@ -1092,7 +1090,7 @@
 		3E6C10A425CEB98700BF0D07 /* CueSheetIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CueSheetIO.swift; sourceTree = "<group>"; };
 		3E6C10A525CEB98700BF0D07 /* AudioIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioIO.swift; sourceTree = "<group>"; };
 		3E6C10A725CEB98700BF0D07 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		3E6C10A825CEB98700BF0D07 /* AppStateIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateIO.swift; sourceTree = "<group>"; };
+		3E6C10A825CEB98700BF0D07 /* PersistentStateIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStateIO.swift; sourceTree = "<group>"; };
 		3E6C10AA25CEB98700BF0D07 /* HistoryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItems.swift; sourceTree = "<group>"; };
 		3E6C10AB25CEB98700BF0D07 /* HistoryDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E6C10AC25CEB98700BF0D07 /* HistoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProtocol.swift; sourceTree = "<group>"; };
@@ -1106,12 +1104,10 @@
 		3E6C10B625CEB98700BF0D07 /* BookmarksProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksProtocol.swift; sourceTree = "<group>"; };
 		3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeUnit.swift; sourceTree = "<group>"; };
-		3E6C10BE25CEB98700BF0D07 /* MathUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathUtils.swift; sourceTree = "<group>"; };
 		3E6C10C025CEB98700BF0D07 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringKeyedCollection.swift; sourceTree = "<group>"; };
 		3E6C10C225CEB98700BF0D07 /* ConcurrentCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentCollections.swift; sourceTree = "<group>"; };
 		3E6C10C325CEB98700BF0D07 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		3E6C10C525CEB98700BF0D07 /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
 		3E6C10CA25CEB98700BF0D07 /* AVFExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVFExtensions.swift; sourceTree = "<group>"; };
 		3E6C10CB25CEB98700BF0D07 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -1124,7 +1120,6 @@
 		3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		3E6C10D725CEB98700BF0D07 /* FileSystemUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
 		3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWriter.swift; sourceTree = "<group>"; };
-		3E6C10D925CEB98700BF0D07 /* JSONWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWriter.swift; sourceTree = "<group>"; };
 		3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsUtils.swift; sourceTree = "<group>"; };
 		3E6C10F825CEB98700BF0D07 /* PersistentStateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStateProtocols.swift; sourceTree = "<group>"; };
 		3E6C10FD25CEB98700BF0D07 /* JSONMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONMapper.swift; sourceTree = "<group>"; };
@@ -1363,6 +1358,7 @@
 		3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Play-Regular.ttf"; sourceTree = "<group>"; };
 		3EE2CC3026810D6F002C1B29 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		3EE2CC3226811074002C1B29 /* NSTableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableViewExtensions.swift; sourceTree = "<group>"; };
+		3EE2CC3426811814002C1B29 /* JSONSerializationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONSerializationExtensions.swift; sourceTree = "<group>"; };
 		3EE7CB9425E21F9F0075F1DD /* PlaylistFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistFontScheme.xib; sourceTree = "<group>"; };
 		3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsFontScheme.xib; sourceTree = "<group>"; };
@@ -2651,21 +2647,18 @@
 		3E6C10B725CEB98700BF0D07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */,
 				3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */,
-				3E6C10BE25CEB98700BF0D07 /* MathUtils.swift */,
+				3E6C10CF25CEB98700BF0D07 /* Size.swift */,
 				3E6C10BF25CEB98700BF0D07 /* DataStructures */,
-				3E6C10C525CEB98700BF0D07 /* StringUtils.swift */,
 				3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */,
 				3E6C10C925CEB98700BF0D07 /* Extensions */,
-				3E6C10CF25CEB98700BF0D07 /* Size.swift */,
 				3E6C10D325CEB98700BF0D07 /* Concurrency */,
 				3E7572F82609E89300CA3F85 /* HTTP */,
 				3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */,
 				3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */,
 				3E6C10D725CEB98700BF0D07 /* FileSystemUtils.swift */,
 				3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */,
-				3E6C10D925CEB98700BF0D07 /* JSONWriter.swift */,
+				3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */,
 				3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */,
 				3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */,
 			);
@@ -2698,6 +2691,7 @@
 				3E145500268106DF0034056E /* DictionaryExtensions.swift */,
 				3E145502268107910034056E /* MirrorExtensions.swift */,
 				3EE2CC3026810D6F002C1B29 /* ArrayExtensions.swift */,
+				3EE2CC3426811814002C1B29 /* JSONSerializationExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2716,7 +2710,7 @@
 			isa = PBXGroup;
 			children = (
 				3E09D09A2680578B008ECB8C /* Model */,
-				3E6C10A825CEB98700BF0D07 /* AppStateIO.swift */,
+				3E6C10A825CEB98700BF0D07 /* PersistentStateIO.swift */,
 				3E6C10FD25CEB98700BF0D07 /* JSONMapper.swift */,
 				3E09D09B26805AB6008ECB8C /* DictionaryFunctions.swift */,
 			);
@@ -3488,7 +3482,6 @@
 				3E09D0DC26805C19008ECB8C /* MasterUnitPersistentState.swift in Sources */,
 				3E6C128025CEBE1800BF0D07 /* ColorScheme.swift in Sources */,
 				3E6C116125CEBD6000BF0D07 /* JSONMapper.swift in Sources */,
-				3E6C133D25CEBEA700BF0D07 /* JSONWriter.swift in Sources */,
 				3E6C127C25CEBE1800BF0D07 /* GeneralColorSchemeViewController.swift in Sources */,
 				3E6C11CA25CEBDBE00BF0D07 /* PlaybackInfoDelegateProtocol.swift in Sources */,
 				3EDB33F625E8AE09004DF7DE /* FFmpegStreamProtocol.swift in Sources */,
@@ -3504,7 +3497,7 @@
 				3E09D0E526805C19008ECB8C /* EQUnitPersistentState.swift in Sources */,
 				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCells.swift in Sources */,
 				3ECBF30A2619DF7200AD5C30 /* AudioUnitsTableViewDelegate.swift in Sources */,
-				3E6C11AD25CEBDA200BF0D07 /* AppStateIO.swift in Sources */,
+				3E6C11AD25CEBDA200BF0D07 /* PersistentStateIO.swift in Sources */,
 				3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */,
 				3EDB346325E8B75D004DF7DE /* CoverArtCache.swift in Sources */,
 				3E6C118725CEBD6D00BF0D07 /* VariableRateNode.swift in Sources */,
@@ -3630,7 +3623,6 @@
 				3E6C11D625CEBDBE00BF0D07 /* HaltPlaybackAction.swift in Sources */,
 				3EDB345625E8B75D004DF7DE /* LanguageMap.swift in Sources */,
 				3EAFB611267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift in Sources */,
-				3E6C132125CEBEA000BF0D07 /* StringUtils.swift in Sources */,
 				3EDB345125E8B75D004DF7DE /* VorbisCommentParser.swift in Sources */,
 				3E6C12B525CEBE5800BF0D07 /* BookmarksMenuController.swift in Sources */,
 				3E1454FB2680F9DF0034056E /* GesturesControlsPreferences.swift in Sources */,
@@ -3911,6 +3903,7 @@
 				3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */,
 				3E6C131825CEBEA000BF0D07 /* SizeUnit.swift in Sources */,
 				3E6C122325CEBDE600BF0D07 /* SettingsPopupMenuController.swift in Sources */,
+				3EE2CC3526811814002C1B29 /* JSONSerializationExtensions.swift in Sources */,
 				3E6C125F25CEBE0600BF0D07 /* EffectsPresetsEditorViewController.swift in Sources */,
 				3E09D0DB26805C19008ECB8C /* BookmarkPersistentState.swift in Sources */,
 				3E6C132A25CEBEA000BF0D07 /* IndexSetExtensions.swift in Sources */,
@@ -3968,7 +3961,6 @@
 				3E6C134225CEBEF500BF0D07 /* EndPlaybackSequenceAction.swift in Sources */,
 				3E6C122B25CEBDE600BF0D07 /* WindowLayoutPopupMenuController.swift in Sources */,
 				3E6C129A25CEBE2700BF0D07 /* ProgressArc.swift in Sources */,
-				3E6C133025CEBEA000BF0D07 /* MathUtils.swift in Sources */,
 				3E6C118A25CEBD6D00BF0D07 /* EQUnitDelegate.swift in Sources */,
 				3E6C12FA25CEBE8F00BF0D07 /* PlayerViewController.swift in Sources */,
 				3E6C128E25CEBE1800BF0D07 /* ColorSchemePreset.swift in Sources */,

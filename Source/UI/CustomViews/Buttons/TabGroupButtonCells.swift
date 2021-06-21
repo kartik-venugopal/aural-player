@@ -72,7 +72,7 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
         // Selection underline
         if isOn {
             
-            let underlineWidth = StringUtils.sizeOfString(title, font).width
+            let underlineWidth = title.size(withFont: font).width
             let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.maxY - 2, width: underlineWidth, height: 2)
             
             selectionBoxColor.setFill()
@@ -142,7 +142,7 @@ class EQSelectorButtonCell: TabGroupButtonCell {
         // Selection dot
         if isOn {
             
-            let textWidth = StringUtils.sizeOfString(title, font).width
+            let textWidth = title.size(withFont: font).width
             let markerSize: CGFloat = 6
             let markerX = cellFrame.centerX - (textWidth / 2) - 5 - markerSize
             let markerRect = NSRect(x: markerX, y: cellFrame.centerY - (markerSize / 2) + yOffset + 1, width: markerSize, height: markerSize)
@@ -169,7 +169,7 @@ class FilterBandsTabButtonCell: EQSelectorButtonCell {
         // Selection underline
         if isOn {
             
-            let underlineWidth = StringUtils.sizeOfString(title, font).width
+            let underlineWidth = title.size(withFont: font).width
             let selRect = NSRect(x: cellFrame.centerX - (underlineWidth / 2), y: cellFrame.minY + 2, width: underlineWidth, height: 1)
             selectionBoxColor.setFill()
             selRect.fill()
