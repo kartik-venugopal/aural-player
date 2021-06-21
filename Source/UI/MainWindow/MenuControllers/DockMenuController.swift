@@ -136,7 +136,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
                     DispatchQueue.main.async {
                         
                         // Position and display an alert with error info
-                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item"))
+                        _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item").showModal()
                         self.history.deleteItem(item)
                     }
                 }
@@ -160,7 +160,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
                 DispatchQueue.main.async {
                     
                     // Position and display an alert with error info
-                    _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite"))
+                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite").showModal()
                     self.favorites.deleteFavoriteWithFile(fav.file)
                 }
             }

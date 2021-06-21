@@ -37,8 +37,8 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     private func headerHeight() {
 
-        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height + 10))
-        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 10))
+        header.resize(header.width, header.height + 10)
+        clipView.resize(clipView.width, clipView.height + 10)
     }
     
     override func viewDidAppear() {
@@ -86,7 +86,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
                     DispatchQueue.main.async {
                         
                         // Position and display an alert with error info
-                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite"))
+                        _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite").showModal()
                         self.favorites.deleteFavoriteWithFile(fav.file)
                         self.editorView.reloadData()
                     }
@@ -96,7 +96,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        UIUtils.dismissDialog(self.view.window!)
+        self.view.window!.close()
     }
     
     // MARK: View delegate functions

@@ -13,6 +13,10 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
         }
     }
     
+    override func showWindow(_ sender: Any?) {
+        window?.showCentered(relativeTo: WindowManager.instance.mainWindow)
+    }
+    
     override func windowDidLoad() {
         WindowManager.instance.registerModalComponent(self)
     }

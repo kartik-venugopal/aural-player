@@ -14,7 +14,7 @@ class LayoutPreviewView: NSView {
     }
     
     private var scale: CGFloat {
-       return self.frame.width / screen.width
+       return self.width / screen.width
     }
     
     func drawPreviewForLayout(_ layout: WindowLayout) {

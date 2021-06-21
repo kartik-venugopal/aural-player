@@ -89,7 +89,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        UIUtils.dismissDialog(self.view.window!)
+        self.view.window!.close()
     }
     
     private func updatePreview() {

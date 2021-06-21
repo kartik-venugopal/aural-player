@@ -111,8 +111,6 @@ class ObjectGraph {
         
         // Initialize utility classes.
         
-        UIUtils.initialize(preferences.viewPreferences)
-        
         Themes.initialize(persistentState.ui?.themes)
         FontSchemes.initialize(persistentState.ui?.fontSchemes)
         ColorSchemes.initialize(persistentState.ui?.colorSchemes)

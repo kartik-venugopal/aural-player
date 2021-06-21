@@ -92,6 +92,8 @@
 		3E57AF8C262B2C8100678C16 /* ChicagoFLF.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */; };
 		3E59A175262C9EDA006DF775 /* LazyWindowLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A174262C9EDA006DF775 /* LazyWindowLoader.swift */; };
 		3E5F3DEF2681260700E826F0 /* AtomicBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DEE2681260700E826F0 /* AtomicBool.swift */; };
+		3E5F3DF126813F2400E826F0 /* NSEventExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DF026813F2400E826F0 /* NSEventExtensions.swift */; };
+		3E5F3DF326814C9700E826F0 /* NSAlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DF226814C9700E826F0 /* NSAlertExtensions.swift */; };
 		3E5F942025E570A9002DEF80 /* Spectrogram3DBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941725E570A9002DEF80 /* Spectrogram3DBar.swift */; };
 		3E5F942125E570A9002DEF80 /* Spectrogram3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941825E570A9002DEF80 /* Spectrogram3D.swift */; };
 		3E5F942C25E57190002DEF80 /* BassFFTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F93F925E57081002DEF80 /* BassFFTData.swift */; };
@@ -184,7 +186,6 @@
 		3E6C11B025CEBDA200BF0D07 /* PlaylistIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A225CEB98700BF0D07 /* PlaylistIO.swift */; };
 		3E6C11B125CEBDA200BF0D07 /* AudioIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A525CEB98700BF0D07 /* AudioIO.swift */; };
 		3E6C11B325CEBDA900BF0D07 /* MediaKeyTapInternals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C113025CEB98700BF0D07 /* MediaKeyTapInternals.swift */; };
-		3E6C11B425CEBDA900BF0D07 /* NSEventExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112E25CEB98700BF0D07 /* NSEventExtensions.swift */; };
 		3E6C11B525CEBDA900BF0D07 /* MKExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C113325CEB98700BF0D07 /* MKExtensions.swift */; };
 		3E6C11B625CEBDA900BF0D07 /* MediaKeyTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C113125CEB98700BF0D07 /* MediaKeyTap.swift */; };
 		3E6C11B725CEBDA900BF0D07 /* MediaApplicationWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C113225CEB98700BF0D07 /* MediaApplicationWatcher.swift */; };
@@ -487,7 +488,6 @@
 		3E6C131E25CEBEA000BF0D07 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CE25CEB98700BF0D07 /* CollectionExtensions.swift */; };
 		3E6C131F25CEBEA000BF0D07 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CB25CEB98700BF0D07 /* StringExtensions.swift */; };
 		3E6C132025CEBEA000BF0D07 /* StringKeyedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */; };
-		3E6C132325CEBEA000BF0D07 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */; };
 		3E6C132525CEBEA000BF0D07 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */; };
 		3E6C132625CEBEA000BF0D07 /* AVFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CA25CEB98700BF0D07 /* AVFExtensions.swift */; };
 		3E6C132825CEBEA000BF0D07 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D425CEB98700BF0D07 /* RepeatingTaskExecutor.swift */; };
@@ -766,6 +766,8 @@
 		3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChicagoFLF.ttf; sourceTree = "<group>"; };
 		3E59A174262C9EDA006DF775 /* LazyWindowLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyWindowLoader.swift; sourceTree = "<group>"; };
 		3E5F3DEE2681260700E826F0 /* AtomicBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicBool.swift; sourceTree = "<group>"; };
+		3E5F3DF026813F2400E826F0 /* NSEventExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSEventExtensions.swift; sourceTree = "<group>"; };
+		3E5F3DF226814C9700E826F0 /* NSAlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAlertExtensions.swift; sourceTree = "<group>"; };
 		3E5F93F725E57081002DEF80 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		3E5F93F825E57081002DEF80 /* SpectrogramFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrogramFFTData.swift; sourceTree = "<group>"; };
 		3E5F93F925E57081002DEF80 /* BassFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BassFFTData.swift; sourceTree = "<group>"; };
@@ -1103,7 +1105,6 @@
 		3E6C10B425CEB98700BF0D07 /* BookmarksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksDelegate.swift; sourceTree = "<group>"; };
 		3E6C10B525CEB98700BF0D07 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		3E6C10B625CEB98700BF0D07 /* BookmarksProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksProtocol.swift; sourceTree = "<group>"; };
-		3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeUnit.swift; sourceTree = "<group>"; };
 		3E6C10C025CEB98700BF0D07 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringKeyedCollection.swift; sourceTree = "<group>"; };
@@ -1161,7 +1162,6 @@
 		3E6C112925CEB98700BF0D07 /* PitchUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchUnitDelegate.swift; sourceTree = "<group>"; };
 		3E6C112A25CEB98700BF0D07 /* DelayUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayUnitDelegate.swift; sourceTree = "<group>"; };
 		3E6C112B25CEB98700BF0D07 /* AudioGraphProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphProtocols.swift; sourceTree = "<group>"; };
-		3E6C112E25CEB98700BF0D07 /* NSEventExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSEventExtensions.swift; sourceTree = "<group>"; };
 		3E6C112F25CEB98700BF0D07 /* MediaKeyTap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MediaKeyTap.h; sourceTree = "<group>"; };
 		3E6C113025CEB98700BF0D07 /* MediaKeyTapInternals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyTapInternals.swift; sourceTree = "<group>"; };
 		3E6C113125CEB98700BF0D07 /* MediaKeyTap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeyTap.swift; sourceTree = "<group>"; };
@@ -2657,7 +2657,6 @@
 				3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */,
 				3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */,
 				3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */,
-				3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */,
 				3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */,
 				3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */,
 			);
@@ -2822,7 +2821,6 @@
 		3E6C112D25CEB98700BF0D07 /* MediaKeyTap */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C112E25CEB98700BF0D07 /* NSEventExtensions.swift */,
 				3E6C112F25CEB98700BF0D07 /* MediaKeyTap.h */,
 				3E6C113025CEB98700BF0D07 /* MediaKeyTapInternals.swift */,
 				3E6C113125CEB98700BF0D07 /* MediaKeyTap.swift */,
@@ -3019,6 +3017,7 @@
 				3EAFB5F1267FEE0400F0DC96 /* NSControlExtensions.swift */,
 				3EAFB5F3267FEE6400F0DC96 /* NSTabViewExtensions.swift */,
 				3EAFB5F5267FEE9D00F0DC96 /* NSWindowExtensions.swift */,
+				3E5F3DF226814C9700E826F0 /* NSAlertExtensions.swift */,
 				3EAFB5F7267FEEC700F0DC96 /* NSBezierPathExtensions.swift */,
 				3EAFB5F9267FEEEA00F0DC96 /* NSImageExtensions.swift */,
 				3EAFB5FB267FEF1C00F0DC96 /* NSColorExtensions.swift */,
@@ -3026,6 +3025,7 @@
 				3EAFB604267FF1E700F0DC96 /* NSRectExtensions.swift */,
 				3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */,
 				3EE2CC3226811074002C1B29 /* NSTableViewExtensions.swift */,
+				3E5F3DF026813F2400E826F0 /* NSEventExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3454,6 +3454,7 @@
 				3E6C11C425CEBDB400BF0D07 /* ShuffleSequence.swift in Sources */,
 				3E6C116425CEBD6000BF0D07 /* AudioGraph.swift in Sources */,
 				3EDB33E825E8AE09004DF7DE /* FFmpegAudioStream.swift in Sources */,
+				3E5F3DF126813F2400E826F0 /* NSEventExtensions.swift in Sources */,
 				3EAFB5D5267FE7CC00F0DC96 /* FileMetadata.swift in Sources */,
 				3E09D0E126805C19008ECB8C /* DelayUnitPersistentState.swift in Sources */,
 				3E5F942E25E57190002DEF80 /* FFT.swift in Sources */,
@@ -3500,6 +3501,7 @@
 				3E6C11AD25CEBDA200BF0D07 /* PersistentStateIO.swift in Sources */,
 				3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */,
 				3EDB346325E8B75D004DF7DE /* CoverArtCache.swift in Sources */,
+				3E5F3DF326814C9700E826F0 /* NSAlertExtensions.swift in Sources */,
 				3E6C118725CEBD6D00BF0D07 /* VariableRateNode.swift in Sources */,
 				3E6C127025CEBE0600BF0D07 /* FilterBandsViewDelegate.swift in Sources */,
 				3E51F34A262AFF310048452F /* ThemesEditorViewController.swift in Sources */,
@@ -3741,7 +3743,6 @@
 				3E5F943625E571A6002DEF80 /* DiscoBall.swift in Sources */,
 				3E6C120A25CEBDD100BF0D07 /* RecordingInfo.swift in Sources */,
 				3E6C119725CEBD6D00BF0D07 /* BookmarksDelegateProtocol.swift in Sources */,
-				3E6C11B425CEBDA900BF0D07 /* NSEventExtensions.swift in Sources */,
 				3E6C12FE25CEBE8F00BF0D07 /* PlaybackView.swift in Sources */,
 				3EAFB5E3267FE99500F0DC96 /* URLExtensions.swift in Sources */,
 				3EDB346525E8B75D004DF7DE /* FileReaderProtocol.swift in Sources */,
@@ -3981,7 +3982,6 @@
 				3E6C11CF25CEBDBE00BF0D07 /* ApplyPlaybackProfileAction.swift in Sources */,
 				3E6C117A25CEBD6000BF0D07 /* PersistentStateProtocols.swift in Sources */,
 				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesEditorViewController.swift in Sources */,
-				3E6C132325CEBEA000BF0D07 /* UIUtils.swift in Sources */,
 				3EAFB5E9267FEBB200F0DC96 /* FloatingPointExtensions.swift in Sources */,
 				3E6C12F125CEBE8100BF0D07 /* FilterView.swift in Sources */,
 				3E09D0E726805C19008ECB8C /* HistoryPersistentState.swift in Sources */,
@@ -4134,7 +4134,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.1.0;
+				CURRENT_PROJECT_VERSION = 3.2.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
@@ -4145,7 +4145,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";
@@ -4165,7 +4165,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.1.0;
+				CURRENT_PROJECT_VERSION = 3.2.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
@@ -4176,7 +4176,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.1.0;
+				MARKETING_VERSION = 3.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.anon.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";

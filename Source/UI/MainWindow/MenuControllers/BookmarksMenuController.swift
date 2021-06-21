@@ -116,7 +116,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
                 DispatchQueue.main.async {
                     
                     // Position and display an alert with error info
-                    _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark"))
+                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
                     self.bookmarks.deleteBookmarkWithName(sender.bookmark.name)
                 }
             }

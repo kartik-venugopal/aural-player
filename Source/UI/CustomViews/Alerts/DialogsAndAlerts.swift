@@ -242,7 +242,7 @@ struct DialogsAndAlerts {
         alert.alertStyle = .warning
         alert.icon = Images.imgWarning
         
-        let rect: NSRect = NSRect(x: alert.window.frame.origin.x, y: alert.window.frame.origin.y, width: alert.window.frame.width, height: 150)
+        let rect: NSRect = NSRect(x: alert.window.frame.origin.x, y: alert.window.frame.origin.y, width: alert.window.width, height: 150)
         alert.window.setFrame(rect, display: true)
         
         alert.addButton(withTitle: "Ok")

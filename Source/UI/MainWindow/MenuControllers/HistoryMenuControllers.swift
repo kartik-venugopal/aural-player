@@ -170,7 +170,7 @@ class RecentlyAddedMenuController: NSObject, NSMenuDelegate {
                     DispatchQueue.main.async {
                         
                         // Position and display an alert with error info
-                        _ = UIUtils.showAlert(DialogsAndAlerts.historyItemNotAddedAlertWithError(fnfError, "Remove item from history"))
+                        _ = DialogsAndAlerts.historyItemNotAddedAlertWithError(fnfError, "Remove item from history").showModal()
                         self.history.deleteItem(item)
                     }
                 }
@@ -217,7 +217,7 @@ class RecentlyPlayedMenuController: NSObject, NSMenuDelegate {
                     DispatchQueue.main.async {
                         
                         // Position and display an alert with error info
-                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item"))
+                        _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove item").showModal()
                         self.history.deleteItem(item)
                     }
                 }

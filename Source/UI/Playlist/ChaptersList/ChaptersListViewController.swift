@@ -89,8 +89,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     
     private func setHeaderHeight() {
         
-        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height + 5))
-        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 5))
+        header.resize(header.width, header.height + 5)
+        clipView.resize(clipView.width, clipView.height + 5)
     }
     
     private func initSubscriptions() {

@@ -80,13 +80,13 @@ class InfoPopupViewController: NSViewController, InfoPopupProtocol, Destroyable 
             
 //            let msg: NSString = message as NSString
 //            let stringSize: CGSize = msg.size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): label.font as AnyObject]))
-//            let lblWidth = label.frame.width
+//            let lblWidth = label.width
 //            let textWidth = min(stringSize.width, lblWidth) + 20
 //
-//            label.setFrameSize(NSMakeSize(textWidth, label.frame.height))
+//            label.resize(textWidth, label.height)
 //
 //            var wFrame = self.view.window!.frame
-//            wFrame.size = NSMakeSize(textWidth, self.view.frame.height)
+//            wFrame.size = NSMakeSize(textWidth, self.view.height)
 //            self.view.window?.setFrame(wFrame, display: true)
         }
     }

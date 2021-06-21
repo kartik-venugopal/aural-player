@@ -74,7 +74,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         
         // Force loading of the window if it hasn't been loaded yet (only once)
         if !self.isWindowLoaded {
-            _ = self.window!
+            _ = theWindow
         }
         
         guard let playingTrack = playbackInfo.playingTrack else {
@@ -85,7 +85,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         }
             
         resetFields(playingTrack)
-        UIUtils.showDialog(self.window!)
+        theWindow.showCenteredOnScreen()
         modalDialogResponse = .ok
         
         return modalDialogResponse
@@ -170,13 +170,13 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         Messenger.publish(.player_jumpToTime, payload: jumpToTime)
         
         modalDialogResponse = .ok
-        UIUtils.dismissDialog(self.window!)
+        theWindow.close()
     }
     
     @IBAction func cancelAction(_ sender: Any) {
         
         modalDialogResponse = .cancel
-        UIUtils.dismissDialog(self.window!)
+        theWindow.close()
     }
     
     func trackTransitioned(_ msg: TrackTransitionNotification) {

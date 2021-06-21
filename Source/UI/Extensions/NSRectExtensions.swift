@@ -10,3 +10,10 @@ extension NSRect {
         return self.minY + (self.height / 2)
     }
 }
+
+extension NSPoint {
+    
+    func translating(_ dx: CGFloat, _ dy: CGFloat) -> NSPoint {
+        self.applying(CGAffineTransform(translationX: dx, y: dy))
+    }
+}

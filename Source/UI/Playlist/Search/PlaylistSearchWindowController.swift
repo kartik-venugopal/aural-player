@@ -37,8 +37,6 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     
     override var windowNibName: String? {"PlaylistSearch"}
     
-    private var theWindow: NSWindow {self.window!}
-    
     override func windowDidLoad() {
         
         Messenger.subscribe(self, .playlist_searchTextChanged, self.searchTextChanged(_:))
@@ -64,7 +62,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
         noResultsFound()
         theWindow.makeFirstResponder(searchField)
         
-        UIUtils.showDialog(theWindow)
+        theWindow.showCenteredOnScreen()
         return modalDialogResponse
     }
     
@@ -120,7 +118,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     @IBAction func searchDoneAction(_ sender: Any) {
         
         modalDialogResponse = .ok
-        UIUtils.dismissDialog(theWindow)
+        theWindow.close()
     }
     
     // If no fields to compare or no search text, don't do the search

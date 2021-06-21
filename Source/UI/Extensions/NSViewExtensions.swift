@@ -2,17 +2,17 @@ import Cocoa
 
 extension NSView {
     
-    var width: CGFloat {
-        return self.frame.width
+    var width: CGFloat {frame.width}
+    
+    var height: CGFloat {frame.height}
+    
+    var size: NSSize {frame.size}
+    
+    func resize(_ width: CGFloat, _ height: CGFloat) {
+        setFrameSize(NSMakeSize(width, height))
     }
     
-    var height: CGFloat {
-        return self.frame.height
-    }
-    
-    var isShown: Bool {
-        return !isHidden
-    }
+    var isShown: Bool {!isHidden}
     
     func hide() {
         self.isHidden = true

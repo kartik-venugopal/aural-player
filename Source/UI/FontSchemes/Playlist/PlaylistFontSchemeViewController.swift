@@ -41,7 +41,7 @@ class PlaylistFontSchemeViewController: NSViewController, FontSchemesViewProtoco
     private func scrollToTop() {
         
         let contentView: NSClipView = scrollView.contentView
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
+        contentView.scroll(NSMakePoint(0, contentView.documentView!.height))
     }
     
     func resetFields(_ fontScheme: FontScheme) {

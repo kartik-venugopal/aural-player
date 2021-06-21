@@ -111,7 +111,7 @@ class FilterViewController: FXUnitViewController {
         let index = filterUnit.addBand(bandCon.band)
         initBandController(bandCon, index)
         
-        let btnWidth = bandCon.tabButton.frame.width
+        let btnWidth = bandCon.tabButton.width
         let prevBtnX = index == 0 ? 0 : tabButtons[index - 1].frame.origin.x + btnWidth
         bandCon.tabButton.setFrameOrigin(NSPoint(x: prevBtnX, y: 0))
         
@@ -138,7 +138,7 @@ class FilterViewController: FXUnitViewController {
         bandCon.band = filterUnit.getBand(index)
         initBandController(bandCon, index)
         
-        let btnWidth = bandCon.tabButton.frame.width
+        let btnWidth = bandCon.tabButton.width
         bandCon.tabButton.setFrameOrigin(NSPoint(x: btnWidth * CGFloat(index), y: 0))
         
         // Button state
@@ -198,11 +198,11 @@ class FilterViewController: FXUnitViewController {
     }
     
     private func moveTabButtonsLeft() {
-        tabButtons.forEach({$0.displaceLeft($0.frame.width)})
+        tabButtons.forEach({$0.displaceLeft($0.width)})
     }
     
     private func moveTabButtonsRight() {
-        tabButtons.forEach({$0.displaceRight($0.frame.width)})
+        tabButtons.forEach({$0.displaceRight($0.width)})
     }
     
     @IBAction func removeAllBandsAction(_ sender: AnyObject) {

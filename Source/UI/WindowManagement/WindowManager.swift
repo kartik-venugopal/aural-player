@@ -291,7 +291,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         // This will happen only once after each app launch - the very first time the window is shown.
         // After that, the window will be restored to its previous on-screen location
         if shouldCenterChaptersListWindow && playlistWindowLoaded {
-            UIUtils.centerDialogWRTWindow(_chaptersListWindow, _playlistWindow)
+            _chaptersListWindow.showCentered(relativeTo: _playlistWindow)
         }
     }
     
@@ -340,7 +340,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
                 // First check if window can be snapped to another app window
                 for mate in getCandidateWindowsForSnap(movedWindow) {
 
-                    if mate.isVisible && UIUtils.checkForSnapToWindow(movedWindow, mate) {
+                    if mate.isVisible && movedWindow.checkForSnap(to: mate) {
 
                         snapped = true
                         break
@@ -350,7 +350,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
 
             // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
             if preferences.snapToScreen && !snapped {
-                UIUtils.checkForSnapToVisibleFrame(movedWindow)
+                movedWindow.checkForSnapToVisibleFrame()
             }
         }
     }

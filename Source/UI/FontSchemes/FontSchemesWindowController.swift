@@ -71,7 +71,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         
         // Force loading of the window if it hasn't been loaded yet (only once)
         if !self.isWindowLoaded {
-            _ = self.window!
+            _ = theWindow
         }
         
         subViews.forEach {$0.resetFields(FontSchemes.systemScheme)}
@@ -83,7 +83,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         // Reset the subviews according to the current system color scheme, and show the first tab
         tabView.selectTabViewItem(at: 0)
         
-        UIUtils.showDialog(self.window!)
+        theWindow.showCenteredOnScreen()
         
         return .ok
     }
@@ -164,7 +164,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         
         // Close the system color chooser panel.
         NSColorPanel.shared.close()
-        UIUtils.dismissDialog(self.window!)
+        theWindow.close()
     }
     
     // Updates the undo/redo function button states according to the current state of the change history,

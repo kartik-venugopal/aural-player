@@ -39,7 +39,7 @@ class AlertWindowController: NSWindowController, ModalComponentProtocol, Destroy
     func showAlert(_ alertType: AlertType, _ title: String, _ message: String, _ info: String) {
         
         if !self.isWindowLoaded {
-            _ = self.window!
+            _ = theWindow
         }
         
         switch alertType {
@@ -56,12 +56,11 @@ class AlertWindowController: NSWindowController, ModalComponentProtocol, Destroy
         lblMessage.stringValue = message
         lblInfo.stringValue = info
         
-        UIUtils.centerDialogWRTScreen(self.window!)
-        self.window!.makeKeyAndOrderFront(self)
+        theWindow.showCenteredOnScreen()
     }
     
     @IBAction func okButtonAction(_ sender: Any) {
-        self.window!.close()
+        theWindow.close()
     }
 }
 

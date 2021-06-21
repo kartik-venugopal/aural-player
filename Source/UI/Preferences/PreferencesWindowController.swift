@@ -46,7 +46,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
      
         // Force loading of the window if it hasn't been loaded yet (only once)
         if (!self.isWindowLoaded) {
-            _ = self.window!
+            _ = theWindow
         }
         
         resetPreferencesFields()
@@ -54,7 +54,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
         // Select the playlist prefs tab
         tabView.selectTabViewItem(at: 0)
         
-        UIUtils.showDialog(window!)
+        window!.showCenteredOnScreen()
         
         return modalDialogResponse
     }
@@ -96,14 +96,14 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
             
             preferences.persist()
             modalDialogResponse = .ok
-            UIUtils.dismissDialog(self.window!)
+            theWindow.close()
         }
     }
     
     @IBAction func cancelPreferencesAction(_ sender: Any) {
         
         modalDialogResponse = .cancel
-        UIUtils.dismissDialog(self.window!)
+        theWindow.close()
     }
 }
 

@@ -44,13 +44,13 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
             
             // Resize the window to exactly contain the audio unit's view.
             
-            let curWindowSize: NSSize = self.window!.frame.size
-            let viewContainerSize: NSSize = self.viewContainer.frame.size
+            let curWindowSize: NSSize = self.theWindow.size
+            let viewContainerSize: NSSize = self.viewContainer.size
             
-            let widthDelta = viewContainerSize.width - auView.frame.width
-            let heightDelta = viewContainerSize.height - auView.frame.height
+            let widthDelta = viewContainerSize.width - auView.width
+            let heightDelta = viewContainerSize.height - auView.height
             
-            self.window?.resizeTo(newWidth: curWindowSize.width - widthDelta, newHeight: curWindowSize.height - heightDelta)
+            self.window?.resize(curWindowSize.width - widthDelta, curWindowSize.height - heightDelta)
         }
         
         lblTitle.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
@@ -63,10 +63,10 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         
         // Force loading of the window if it hasn't been loaded yet (only once)
         if !self.isWindowLoaded {
-            _ = self.window!
+            _ = theWindow
         }
         
-        UIUtils.showDialog(self.window!)
+        theWindow.showCenteredOnScreen()
     }
     
     private func initFactoryPresets() {
@@ -84,7 +84,7 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     }
     
     @IBAction func closeAction(_ sender: Any) {
-        UIUtils.dismissDialog(self.window!)
+        theWindow.close()
     }
     
     @IBAction func applyFactoryPresetAction(_ sender: Any) {

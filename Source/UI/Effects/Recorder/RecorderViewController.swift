@@ -211,7 +211,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         if recorder.isRecording {
             
             // Recording ongoing, prompt the user to save/discard it
-            let userResponse = UIUtils.showAlert(DialogsAndAlerts.saveRecordingAlert).rawValue
+            let userResponse = DialogsAndAlerts.saveRecordingAlert.showModal().rawValue
             
             if userResponse == RecordingAlertResponse.saveAndExit.rawValue {
                 stopRecording()

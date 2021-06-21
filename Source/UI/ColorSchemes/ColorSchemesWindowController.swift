@@ -98,7 +98,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         
         // Force loading of the window if it hasn't been loaded yet (only once)
         if !self.isWindowLoaded {
-            _ = self.window!
+            _ = theWindow
         }
         
         // Reset the change history and the color clipboard (every time the dialog is shown)
@@ -112,7 +112,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         // Enable/disable function buttons
         updateButtonStates()
         
-        UIUtils.showDialog(self.window!)
+        theWindow.showCenteredOnScreen()
         
         return .ok
     }
@@ -251,7 +251,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         
         // Close the system color chooser panel.
         NSColorPanel.shared.close()
-        UIUtils.dismissDialog(self.window!)
+        theWindow.close()
     }
     
     deinit {

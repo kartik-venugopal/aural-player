@@ -41,8 +41,6 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
     
     override var windowNibName: String? {"EditorWindow"}
     
-    private var theWindow: NSWindow {self.window!}
-    
     private var addedViews: Set<NSView> = Set()
     
     override func windowDidLoad() {
@@ -74,7 +72,7 @@ class EditorWindowController: NSWindowController, ModalComponentProtocol, Destro
         frame.size = NSMakeSize(frame.width, editorView.height)
         theWindow.setFrame(frame, display: true)
         
-        UIUtils.showDialog(theWindow)
+        theWindow.showCenteredOnScreen()
     }
     
     func showBookmarksEditor() {

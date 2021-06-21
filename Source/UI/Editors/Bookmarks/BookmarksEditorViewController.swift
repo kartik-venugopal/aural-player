@@ -38,8 +38,8 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     private func headerHeight() {
         
-        header.setFrameSize(NSMakeSize(header.frame.size.width, header.frame.size.height + 10))
-        clipView.setFrameSize(NSMakeSize(clipView.frame.size.width, clipView.frame.size.height + 10))
+        header.resize(header.width, header.height + 10)
+        clipView.resize(clipView.width, clipView.height + 10)
     }
     
     override func viewDidAppear() {
@@ -82,7 +82,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
                     DispatchQueue.main.async {
                         
                         // Position and display an alert with error info
-                        _ = UIUtils.showAlert(DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark"))
+                        _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
                         self.bookmarks.deleteBookmarkWithName(bookmark.name)
                         self.editorView.reloadData()
                     }
@@ -101,7 +101,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        UIUtils.dismissDialog(self.view.window!)
+        self.view.window!.close()
     }
     
     // MARK: View delegate functions

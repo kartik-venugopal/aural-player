@@ -197,7 +197,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     
                 } catch {
                     
-                    _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("Image file not written", "Unable to export image", error.localizedDescription))
+                    _ = DialogsAndAlerts.genericErrorAlert("Image file not written", "Unable to export image", error.localizedDescription).showModal()
                 }
             }
         }
@@ -236,7 +236,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                 } catch let error {
                     
                     if let error = error as? JSONWriteError {
-                        _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("JSON file not written", error.message, error.description))
+                        _ = DialogsAndAlerts.genericErrorAlert("JSON file not written", error.message, error.description).showModal()
                     }
                 }
             }
@@ -321,7 +321,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                 } catch let error {
                     
                     if let error = error as? HTMLWriteError {
-                        _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("HTML file not written", error.message, error.description))
+                        _ = DialogsAndAlerts.genericErrorAlert("HTML file not written", error.message, error.description).showModal()
                     }
                 }
             }

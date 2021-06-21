@@ -56,7 +56,8 @@ class GestureHandler {
         // If a modal dialog is open, don't do anything
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
         
-        if event.window === self.window && !WindowManager.instance.isShowingModalComponent, let swipeDirection = UIUtils.determineSwipeDirection(event), swipeDirection.isHorizontal {
+        if event.window === self.window && !WindowManager.instance.isShowingModalComponent,
+           let swipeDirection = event.gestureDirection, swipeDirection.isHorizontal {
 
             handleTrackChange(swipeDirection)
         }
@@ -78,10 +79,10 @@ class GestureHandler {
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
         
         // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
-        if event.window === self.window && !WindowManager.instance.isShowingModalComponent, let scrollVector = UIUtils.determineScrollVector(event) {
+        if event.window === self.window && !WindowManager.instance.isShowingModalComponent, let scrollDirection = event.gestureDirection {
             
             // Vertical scroll = volume control, horizontal scroll = seeking
-            scrollVector.direction.isVertical ? handleVolumeControl(event, scrollVector.direction) : handleSeek(event, scrollVector.direction)
+            scrollDirection.isVertical ? handleVolumeControl(event, scrollDirection) : handleSeek(event, scrollDirection)
         }
     }
     

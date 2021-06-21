@@ -47,10 +47,6 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
 
     private let preferences: ViewPreferences = ObjectGraph.preferences.viewPreferences
 
-    private var theWindow: SnappingWindow {
-        return self.window! as! SnappingWindow
-    }
-    
     override var windowNibName: String? {"Effects"}
 
     override func windowDidLoad() {

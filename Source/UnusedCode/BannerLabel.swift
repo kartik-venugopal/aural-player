@@ -53,7 +53,7 @@
 //        label = NSTextField.createLabel(self.text, self.font, self.alignment, self.textColor, self.backgroundColor)
 //
 //        self.addSubview(label)
-//        label.setFrameSize(self.frame.size)
+//        label.setFrameSize(self.size)
 //        label.setFrameOrigin(NSPoint.zero)
 //
 //        self.wantsLayer = true
@@ -76,9 +76,9 @@
 //                let size: CGSize = (self.text as NSString).size(withAttributes: convertToOptionalNSAttributedStringKeyDictionary([convertFromNSAttributedStringKey(NSAttributedString.Key.font): self.label.font!]))
 //                self.textWidth = size.width
 //
-//                self.label?.setFrameSize(NSSize(width: max(self.textWidth + 10, self.frame.width), height: self.label.frame.height))
+//                self.label?.resize(max(self.textWidth + 10, self.width), self.label.height)
 //
-//                if self.textWidth >= self.frame.width && self.allowAnimation {
+//                if self.textWidth >= self.width && self.allowAnimation {
 //                    self.doBeginAnimation(self.text)
 //                }
 //            }
@@ -95,7 +95,7 @@
 //
 //    private func doBeginAnimation(_ animatedText: String) {
 //
-//        let distanceToMove = self.frame.width - label.frame.width
+//        let distanceToMove = self.width - label.width
 //
 //        NSAnimationContext.runAnimationGroup({_ in
 //

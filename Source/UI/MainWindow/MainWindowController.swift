@@ -5,11 +5,6 @@ import Cocoa
  */
 class MainWindowController: NSWindowController, NotificationSubscriber, Destroyable {
     
-    // Main application window. Contains the Now Playing info box and player controls. Not resizable.
-    private var theWindow: SnappingWindow {
-        return self.window! as! SnappingWindow
-    }
-    
     @IBOutlet weak var logoImage: TintedImageView!
     
     // The box that encloses the Now Playing info section

@@ -37,8 +37,8 @@ class FilterChart: NSView {
         drawPath.fill()
         
         let offset: CGFloat = 5
-        let width = self.frame.width - 2 * offset
-        let height = self.frame.height - 10
+        let width = self.width - 2 * offset
+        let height = self.height - 10
         let scale: CGFloat = width / 3
         let bottomMargin: CGFloat = 5
         

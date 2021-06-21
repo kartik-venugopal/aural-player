@@ -93,7 +93,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     
     // Dismisses the editor dialog.
     @IBAction func doneAction(_ sender: AnyObject) {
-        UIUtils.dismissDialog(self.view.window!)
+        self.view.window!.close()
     }
     
     // Updates the visual preview.
@@ -183,7 +183,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
                 // Another scheme with that name exists, can't rename
                 editedTextField.stringValue = scheme.name
                 
-                _ = UIUtils.showAlert(DialogsAndAlerts.genericErrorAlert("Can't rename font scheme", "Another font scheme with that name already exists.", "Please type a unique name."))
+                _ = DialogsAndAlerts.genericErrorAlert("Can't rename font scheme", "Another font scheme with that name already exists.", "Please type a unique name.").showModal()
                 
             } else {
                 

@@ -61,8 +61,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
-    private var theWindow: SnappingWindow {self.window! as! SnappingWindow}
-    
     private lazy var fileOpenDialog = DialogsAndAlerts.openDialog
     private lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
@@ -233,7 +231,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            _ = UIUtils.showAlert(DialogsAndAlerts.tracksNotAddedAlertWithErrors(errors))
+            _ = DialogsAndAlerts.tracksNotAddedAlertWithErrors(errors).showModal()
         }
     }
     

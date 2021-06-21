@@ -61,7 +61,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         
         // Force loading of the window if it hasn't been loaded yet (only once)
         if !self.isWindowLoaded {
-            _ = self.window!
+            _ = theWindow
         }
         
         txtName.stringValue = "My New Theme"
@@ -75,7 +75,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         
         errorBox.hide()
         
-        UIUtils.showDialog(self.window!)
+        theWindow.showCenteredOnScreen()
         
         return .ok
     }
@@ -143,13 +143,13 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         } else {
             
             acceptInput(txtName.stringValue)
-            UIUtils.dismissDialog(self.window!)
+            theWindow.close()
         }
     }
     
     // Dismisses the panel when the user is done making changes
     @IBAction func cancelAction(_ sender: Any) {
-        UIUtils.dismissDialog(self.window!)
+        theWindow.close()
     }
     
     // MARK - StringInputReceiver functions (to receive the name of a new user-defined color scheme)

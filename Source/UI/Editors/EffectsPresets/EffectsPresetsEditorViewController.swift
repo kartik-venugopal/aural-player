@@ -110,7 +110,7 @@ class EffectsPresetsEditorViewController: NSViewController, NotificationSubscrib
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
-        UIUtils.dismissDialog(self.view.window!)
+        self.view.window!.close()
     }
     
     private func updateButtonStates(_ selRows: Int) {

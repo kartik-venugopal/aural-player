@@ -66,7 +66,7 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
     func scrollToTop() {
         
         let contentView: NSClipView = scrollView.contentView
-        contentView.scroll(NSMakePoint(0, contentView.documentView!.frame.height))
+        contentView.scroll(NSMakePoint(0, contentView.documentView!.height))
     }
     
     // If the last change that was made to the system color scheme was performed on a control in this view, then undo the change. Otherwise, do nothing.

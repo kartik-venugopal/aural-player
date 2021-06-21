@@ -19,8 +19,6 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
     
     override var windowNibName: String? {"PlaylistSortDialog"}
     
-    private var theWindow: NSWindow {self.window!}
-    
     private var displayedSortView: SortViewProtocol!
     
     override func windowDidLoad() {
@@ -59,7 +57,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         
         displayedSortView.sortView.show()
         
-        UIUtils.showDialog(theWindow)
+        theWindow.showCenteredOnScreen()
         return modalDialogResponse
     }
     
@@ -72,13 +70,13 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.forView(displayedSortView.playlistType))
         
         modalDialogResponse = .ok
-        UIUtils.dismissDialog(theWindow)
+        theWindow.close()
     }
     
     @IBAction func sortCancelBtnAction(_ sender: Any) {
         
         modalDialogResponse = .cancel
-        UIUtils.dismissDialog(theWindow)
+        theWindow.close()
     }
 }
 

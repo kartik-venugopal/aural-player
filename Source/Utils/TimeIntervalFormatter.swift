@@ -41,12 +41,8 @@ class TimeIntervalFormatter: Formatter {
     }
     
     override func editingString(for obj: Any) -> String? {
-        
         return valueFunction != nil ? valueFunction!() : "0"
     }
     
-    override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        
-        return true
-    }
+    override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {true}
 }

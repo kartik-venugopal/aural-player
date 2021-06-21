@@ -84,7 +84,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 
         // Set the line width to assist with truncation of title/artist/album/chapter strings,
         // with some padding to allow for slight discrepancies when truncating
-        lineWidth = (textView?.frame.width ?? 300) - 10
+        lineWidth = (textView?.width ?? 300) - 10
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
@@ -214,10 +214,10 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 
             // If this isn't done, the text view frame occupies the whole ScrollView, and the text
             // is not vertically aligned on older systems (Sierra / HighSierra)
-            textView.setFrameSize(NSSize(width: textView.frame.width, height: txtHeight + 10))
+            textView.resize(textView.width, txtHeight + 10)
             
             // Move the text view down from the top, by adjusting the top insets of the clip view.
-            let heightDifference = self.frame.height - txtHeight
+            let heightDifference = self.height - txtHeight
             clipView.contentInsets.top = heightDifference / 2
         }
     }
