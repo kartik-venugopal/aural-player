@@ -242,7 +242,6 @@
 		3E6C120325CEBDD100BF0D07 /* ControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C109E25CEB98700BF0D07 /* ControlsPreferences.swift */; };
 		3E6C120425CEBDD100BF0D07 /* FlatPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EFF25CEB98500BF0D07 /* FlatPlaylist.swift */; };
 		3E6C120525CEBDD100BF0D07 /* PlaylistDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F0F25CEB98500BF0D07 /* PlaylistDelegateProtocol.swift */; };
-		3E6C120625CEBDD100BF0D07 /* PreferencesOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C109D25CEB98700BF0D07 /* PreferencesOptions.swift */; };
 		3E6C120725CEBDD100BF0D07 /* RecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C113725CEB98700BF0D07 /* RecordingSession.swift */; };
 		3E6C120825CEBDD100BF0D07 /* GroupingPlaylistProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F0425CEB98500BF0D07 /* GroupingPlaylistProtocols.swift */; };
 		3E6C120925CEBDD100BF0D07 /* SortComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F0725CEB98500BF0D07 /* SortComparator.swift */; };
@@ -1082,7 +1081,6 @@
 		3E6C109825CEB98700BF0D07 /* HistoryPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPreferences.swift; sourceTree = "<group>"; };
 		3E6C109A25CEB98700BF0D07 /* PreferencesDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDefaults.swift; sourceTree = "<group>"; };
 		3E6C109C25CEB98700BF0D07 /* PlaylistPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistPreferences.swift; sourceTree = "<group>"; };
-		3E6C109D25CEB98700BF0D07 /* PreferencesOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesOptions.swift; sourceTree = "<group>"; };
 		3E6C109E25CEB98700BF0D07 /* ControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsPreferences.swift; sourceTree = "<group>"; };
 		3E6C109F25CEB98700BF0D07 /* SoundPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPreferences.swift; sourceTree = "<group>"; };
 		3E6C10A225CEB98700BF0D07 /* PlaylistIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistIO.swift; sourceTree = "<group>"; };
@@ -2614,7 +2612,6 @@
 				3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */,
 				3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */,
 				3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */,
-				3E6C109D25CEB98700BF0D07 /* PreferencesOptions.swift */,
 				3E6C109A25CEB98700BF0D07 /* PreferencesDefaults.swift */,
 			);
 			path = Preferences;
@@ -3717,7 +3714,6 @@
 				3EDB33FF25E8AE09004DF7DE /* FFmpegChannelLayoutsMapper.swift in Sources */,
 				3EDB33FE25E8AE09004DF7DE /* AVFExtensions.swift in Sources */,
 				3E6C121C25CEBDE600BF0D07 /* SoundPreferencesViewController.swift in Sources */,
-				3E6C120625CEBDD100BF0D07 /* PreferencesOptions.swift in Sources */,
 				3E09D0D326805C19008ECB8C /* MenuBarPlayerUIPersistentState.swift in Sources */,
 				3E6C120F25CEBDD100BF0D07 /* GroupingPlaylist.swift in Sources */,
 				3E6C116325CEBD6000BF0D07 /* FilterPresets.swift in Sources */,

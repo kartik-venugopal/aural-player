@@ -28,3 +28,17 @@ class MediaKeysControlsPreferences: PersistentPreferencesProtocol {
         defaults.set(repeatSpeed.rawValue, forKey: Self.key_repeatSpeed)
     }
 }
+
+enum SkipKeyBehavior: String {
+    
+    case hybrid
+    case trackChangesOnly
+    case seekingOnly
+}
+
+enum SkipKeyRepeatSpeed: String {
+    
+    case slow
+    case medium
+    case fast
+}

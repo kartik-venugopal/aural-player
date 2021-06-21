@@ -67,3 +67,41 @@ class ViewPreferences: PersistentPreferencesProtocol {
         defaults.set(snapToScreen, forKey: Self.key_snapToScreen)
     }
 }
+
+// Window layout on startup preference
+class LayoutOnStartup {
+    
+    var option: WindowLayoutStartupOptions = .rememberFromLastAppLaunch
+    
+    // This is used only if option == .specific
+    var layoutName: String = ""
+    
+    // NOTE: This is mutable. Potentially unsafe
+    static let defaultInstance: LayoutOnStartup = LayoutOnStartup()
+}
+
+// All options for the view at startup
+enum WindowLayoutStartupOptions: String {
+    
+    case specific
+    case rememberFromLastAppLaunch
+}
+
+// Window layout on startup preference
+class AppModeOnStartup {
+    
+    var option: AppModeStartupOptions = .rememberFromLastAppLaunch
+    
+    // This is used only if option == .specific
+    var modeName: String = ""
+    
+    // NOTE: This is mutable. Potentially unsafe
+    static let defaultInstance: AppModeOnStartup = AppModeOnStartup()
+}
+
+// All options for the view at startup
+enum AppModeStartupOptions: String {
+    
+    case specific
+    case rememberFromLastAppLaunch
+}

@@ -91,3 +91,22 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         defaults.set(rememberLastPositionOption.rawValue, forKey: Self.key_rememberLastPositionOption)
     }
 }
+
+enum SeekLengthOptions: String {
+    
+    case constant
+    case percentage
+}
+
+// Possible options for the "autoplay afer adding tracks" user preference
+enum AutoplayAfterAddingOptions: String {
+    
+    case ifNotPlaying
+    case always
+}
+
+enum RememberSettingsForTrackOptions: String {
+    
+    case allTracks
+    case individualTracks
+}

@@ -25,3 +25,9 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
         defaults.set(trackChangeOrSeekingOption.rawValue, forKey: Self.key_trackChangeOrSeekingOption)
     }
 }
+
+enum TrackChangeOrSeekingOptions: String {
+    
+    case trackChange
+    case seeking
+}

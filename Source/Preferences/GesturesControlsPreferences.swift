@@ -56,3 +56,10 @@ class GesturesControlsPreferences: PersistentPreferencesProtocol {
         defaults.set(seekSensitivity.rawValue, forKey: Self.key_seekSensitivity)
     }
 }
+
+enum ScrollSensitivity: String, CaseIterable {
+    
+    case low
+    case medium
+    case high
+}

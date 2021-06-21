@@ -120,3 +120,36 @@ class SoundPreferences: PersistentPreferencesProtocol {
         defaults.set(rememberEffectsSettingsOption.rawValue, forKey: Self.key_rememberEffectsSettingsOption)
     }
 }
+
+// Window layout on startup preference
+class OutputDeviceOnStartup {
+    
+    var option: OutputDeviceStartupOptions = .system
+    
+    // This is used only if option == .specific
+    var preferredDeviceName: String? = nil
+    var preferredDeviceUID: String? = nil
+    
+    // NOTE: This is mutable. Potentially unsafe (convert variable into factory method ???)
+    static let defaultInstance: OutputDeviceOnStartup = OutputDeviceOnStartup()
+}
+
+enum OutputDeviceStartupOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case system
+    case specific
+}
+
+// All options for the volume at startup
+enum VolumeStartupOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case specific
+}
+
+enum EffectsSettingsStartupOptions: String {
+    
+    case rememberFromLastAppLaunch
+    case applyMasterPreset
+}

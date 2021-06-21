@@ -79,3 +79,45 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
         defaults.set(showChaptersList, forKey: Self.key_showChaptersList)
     }
 }
+
+// All options for the playlist at startup
+enum PlaylistStartupOptions: String {
+    
+    case empty
+    case rememberFromLastAppLaunch
+    case loadFile
+    case loadFolder
+}
+
+// Playlist view on startup preference
+class PlaylistViewOnStartup {
+    
+    var option: PlaylistViewStartupOptions = .rememberFromLastAppLaunch
+    
+    // This is used only if option == .specific
+    var viewName: String = "Tracks"
+    
+    var viewIndex: Int {
+        
+        switch viewName {
+            
+        case "Artists":  return 1;
+            
+        case "Albums":  return 2;
+            
+        case "Genres": return 3;
+            
+        default:    return 0;
+            
+        }
+    }
+    
+    // NOTE: This is mutable. Potentially unsafe
+    static let defaultInstance: PlaylistViewOnStartup = PlaylistViewOnStartup()
+}
+
+enum PlaylistViewStartupOptions: String {
+    
+    case specific
+    case rememberFromLastAppLaunch
+}
