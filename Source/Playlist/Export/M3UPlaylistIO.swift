@@ -21,8 +21,8 @@ class M3UPlaylistIO: PlaylistIOProtocol {
             contents.append(extInfo + "\n")
             
             // Compute a relative path for this track, relative to the playlist folder.
-            // For example, if playlist = /A/B/C/D.m3u, and trackFile = /A/E.mp3, then the relative path = ../../../E.mp3
-            let relativePath = FileSystemUtils.relativePath(file, track.file)
+            // For example, if playlist = /A/B/C/D.m3u, and trackFile = /A/E.mp3, then the relative path = ../../E.mp3
+            let relativePath = track.file.path(relativeTo: file)
             contents.append(relativePath + "\n")
         }
         

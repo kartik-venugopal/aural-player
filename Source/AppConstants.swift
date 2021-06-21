@@ -63,7 +63,9 @@ struct AppConstants {
     
     struct FilesAndPaths {
         
-        static let baseDir: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music/aural")).resolvedURL
+        // Default user's music directory (default place to look in, when opening/saving files)
+        static let musicDir: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Music").resolvedURL
+        static let baseDir: URL = musicDir.appendingPathComponent("aural", isDirectory: true)
         
         // App state/log files
         static let persistentStateFileName = "state.json"
@@ -72,10 +74,7 @@ struct AppConstants {
         static let logFileName = "aural.log"
         static let logFile: URL = baseDir.appendingPathComponent(logFileName)
         
-        // Default user's music directory (default place to look in, when opening/saving files)
-        static let musicDir: URL = FileSystemUtils.resolveTruePath(URL(fileURLWithPath: NSHomeDirectory() + "/Music")).resolvedURL
-        
         // Directory where recordings are temporarily stored, till the user defines the location
-        static let recordingDir: URL = baseDir.appendingPathComponent("recordings", isDirectory: true)
+        static let recordingsDir: URL = baseDir.appendingPathComponent("recordings", isDirectory: true)
     }
 }

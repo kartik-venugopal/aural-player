@@ -9,7 +9,7 @@ class PersistentStateIO {
     
     static func save(_ state: PersistentAppState) {
         
-        FileSystemUtils.createDirectory(AppConstants.FilesAndPaths.baseDir)
+        AppConstants.FilesAndPaths.baseDir.createDirectory()
         
         let jsonObject = JSONMapper.map(state)
         

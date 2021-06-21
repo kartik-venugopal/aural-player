@@ -83,16 +83,15 @@ class AddedItem: HistoryItem {
     func loadDisplayInfoFromFile(_ setDisplayName: Bool) {
         
         // Resolve sym links and aliases
-        let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
-        self.file = resolvedFileInfo.resolvedURL
+        self.file = file.resolvedURL
         
-        if (resolvedFileInfo.isDirectory) {
+        if file.isDirectory {
             
             // Display name is last path component
             // Art is folder icon
             
             if setDisplayName {
-                self.displayName = FileSystemUtils.getLastPathComponents(file, 4)
+                self.displayName = file.lastPathComponents(count: 4)
             }
             
         } else {
@@ -100,13 +99,13 @@ class AddedItem: HistoryItem {
             // Single file - playlist or track
             let fileExtension = file.lowerCasedExtension
             
-            if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
+            if AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension) {
                 
                 // Playlist
                 // Display name is last path component
                 // Art is playlist icon
                 if setDisplayName {
-                    self.displayName = FileSystemUtils.getLastPathComponents(file, 4)
+                    self.displayName = file.lastPathComponents(count: 4)
                 }
             }
         }

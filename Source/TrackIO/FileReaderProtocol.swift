@@ -96,7 +96,7 @@ class FileReader: FileReaderProtocol {
         // Load file system info for the track.
         
         let fileSystemInfo = FileSystemInfo(file)
-        let attrs = FileSystemUtils.fileAttributes(path: file.path)
+        let attrs = file.attributes
         
         fileSystemInfo.size = attrs.size
         fileSystemInfo.creationDate = attrs.creationDate

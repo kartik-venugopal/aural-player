@@ -520,7 +520,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
         
         // This is a safe typecast, because the context menu will prevent this function from being executed on groups. In other words, the selected item will always be a track.
         if let selTrack = selectedItem as? Track {
-            FileSystemUtils.showFileInFinder(selTrack.file)
+            selTrack.file.showInFinder()
         }
     }
     

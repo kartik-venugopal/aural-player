@@ -371,7 +371,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     private func showTrackInFinder() {
         
         if let selTrack = playlist.trackAtIndex(playlistView.selectedRow) {
-            FileSystemUtils.showFileInFinder(selTrack.file)
+            selTrack.file.showInFinder()
         }
     }
     

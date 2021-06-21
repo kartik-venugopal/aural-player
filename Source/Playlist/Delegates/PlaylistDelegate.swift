@@ -178,17 +178,16 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         for file in files {
             
             // Playlists might contain broken file references
-            if !FileSystemUtils.fileExists(file) {
+            if !file.exists {
                 
                 addSession.addError(FileNotFoundError(file))
                 continue
             }
             
             // Always resolve sym links and aliases before reading the file
-            let resolvedFileInfo = FileSystemUtils.resolveTruePath(file)
-            let resolvedFile = resolvedFileInfo.resolvedURL
+            let resolvedFile = file.resolvedURL
             
-            if resolvedFileInfo.isDirectory {
+            if resolvedFile.isDirectory {
 
                 // Directory
                 if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
@@ -229,7 +228,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     // Expands a directory into individual tracks (and subdirectories)
     private func expandDirectory(_ dir: URL) {
         
-        if let dirContents = FileSystemUtils.getContentsOfDirectory(dir) {
+        if let dirContents = dir.children {
             
             addSession.totalTracks += dirContents.count - 1
             collectTracks(dirContents, true)
@@ -287,7 +286,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         }
         
         // Always resolve sym links and aliases before reading the file
-        let resolvedFile = FileSystemUtils.resolveTruePath(file).resolvedURL
+        let resolvedFile = file.resolvedURL
         
         // If track exists, return it
         if let foundTrack = playlist.findTrackByFile(resolvedFile) {
@@ -297,7 +296,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         // Track doesn't exist yet, need to add it
         
         // If the file points to an invalid location, throw an error
-        guard FileSystemUtils.fileExists(resolvedFile) else {throw FileNotFoundError(resolvedFile)}
+        guard resolvedFile.exists else {throw FileNotFoundError(resolvedFile)}
         
         // Load display info
         let track = Track(resolvedFile)

@@ -1,6 +1,6 @@
 import Cocoa
 
-class DoubleValueFormatter: Formatter {
+class TimeIntervalFormatter: Formatter {
     
     var minValue: Double = 0
     var maxValue: Double = Double.greatestFiniteMagnitude

@@ -139,8 +139,8 @@ class ObjectGraph {
         
         let artDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("albumArt", isDirectory: true)
         
-        for folder in [transcoderDir, artDir].filter({FileSystemUtils.fileExists($0)}) {
-            FileSystemUtils.deleteDir(folder)
+        for folder in [transcoderDir, artDir] {
+            folder.delete()
         }
     }
     

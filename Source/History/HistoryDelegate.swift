@@ -49,7 +49,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
     
     func addItem(_ item: URL) throws {
         
-        if !FileSystemUtils.fileExists(item) {
+        if !item.exists {
             throw FileNotFoundError(item)
         }
         

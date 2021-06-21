@@ -12,15 +12,16 @@ class Recorder: RecorderProtocol {
     private let dispatchQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
     
     init(_ graph: RecorderGraphProtocol) {
+        
         self.graph = graph
-        FileSystemUtils.createDirectory(AppConstants.FilesAndPaths.recordingDir)
+        AppConstants.FilesAndPaths.recordingsDir.createDirectory()
     }
     
     // TODO: What if creating the audio file fails ? Return a Bool to indicate success ?
     func startRecording(_ params: RecordingParams) {
         
         let session = RecordingSession.start(params.format)
-        let url = URL(fileURLWithPath: session.tempFilePath)
+        let url = session.tempFile
         
         if let recordingFile = AudioIO.createAudioFileForWriting(url, params.settings) {
         
@@ -50,9 +51,8 @@ class Recorder: RecorderProtocol {
     func saveRecording(_ url: URL) {
         
         // Rename the file from the temp URL -> user-defined URL
-        let tempRecordingFilePath = RecordingSession.currentSession!.tempFilePath
-        let srcURL = URL(fileURLWithPath: tempRecordingFilePath)
-        FileSystemUtils.renameFile(srcURL, url)
+        let tempRecordingFile = RecordingSession.currentSession!.tempFile
+        tempRecordingFile.rename(to: url)
         
         RecordingSession.invalidateCurrentSession()
     }
@@ -68,7 +68,7 @@ class Recorder: RecorderProtocol {
     // Deletes the temporary recording file if the user discards the recording when prompted to save it
     func deleteRecording() {
         
-        FileSystemUtils.deleteFile(RecordingSession.currentSession!.tempFilePath)
+        RecordingSession.currentSession!.tempFile.delete(recursive: false)
         RecordingSession.invalidateCurrentSession()
     }
 }

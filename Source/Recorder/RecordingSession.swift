@@ -6,7 +6,7 @@ import AVFoundation
 class RecordingSession {
     
     // The temporary file that will hold the recording, till the user specifies a path
-    let tempFilePath: String
+    let tempFile: URL
     
     // Audio format of the recording
     let format: RecordingFormat
@@ -20,9 +20,9 @@ class RecordingSession {
     // The current recording session, if any
     static var currentSession: RecordingSession?
     
-    init(_ format: RecordingFormat, _ tempFilePath: String) {
+    init(_ format: RecordingFormat, _ tempFile: URL) {
         
-        self.tempFilePath = tempFilePath
+        self.tempFile = tempFile
         self.format = format
         self.active = true
     }
@@ -33,7 +33,7 @@ class RecordingSession {
         // Duration = now - startTime
         let now = Date()
         let duration = now.timeIntervalSince(startTime!)
-        let size = FileSystemUtils.sizeOfFile(path: tempFilePath)
+        let size = tempFile.size
         
         return RecordingInfo(format, duration, size)
     }
@@ -42,9 +42,10 @@ class RecordingSession {
     static func start(_ format: RecordingFormat) -> RecordingSession {
         
         let nowString = Date().serializableString_hms()
-        let tempFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.FilesAndPaths.recordingDir.path, nowString, format.fileExtension)
+        let tempFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.FilesAndPaths.recordingsDir.path, nowString, format.fileExtension)
+        let tempFile = URL(fileURLWithPath: tempFilePath)
         
-        currentSession = RecordingSession(format, tempFilePath)
+        currentSession = RecordingSession(format, tempFile)
         return currentSession!
     }
     

@@ -91,6 +91,7 @@
 		3E5623CC2619FCB300D55E43 /* AudioUnitPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623CB2619FCB300D55E43 /* AudioUnitPresets.swift */; };
 		3E57AF8C262B2C8100678C16 /* ChicagoFLF.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */; };
 		3E59A175262C9EDA006DF775 /* LazyWindowLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A174262C9EDA006DF775 /* LazyWindowLoader.swift */; };
+		3E5F3DEF2681260700E826F0 /* AtomicBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DEE2681260700E826F0 /* AtomicBool.swift */; };
 		3E5F942025E570A9002DEF80 /* Spectrogram3DBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941725E570A9002DEF80 /* Spectrogram3DBar.swift */; };
 		3E5F942125E570A9002DEF80 /* Spectrogram3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941825E570A9002DEF80 /* Spectrogram3D.swift */; };
 		3E5F942C25E57190002DEF80 /* BassFFTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F93F925E57081002DEF80 /* BassFFTData.swift */; };
@@ -495,7 +496,6 @@
 		3E6C132B25CEBEA000BF0D07 /* ConcurrencyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D525CEB98700BF0D07 /* ConcurrencyUtils.swift */; };
 		3E6C133325CEBEA000BF0D07 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C025CEB98700BF0D07 /* Stack.swift */; };
 		3E6C133625CEBEA700BF0D07 /* HTMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */; };
-		3E6C133825CEBEA700BF0D07 /* FileSystemUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D725CEB98700BF0D07 /* FileSystemUtils.swift */; };
 		3E6C133B25CEBEA700BF0D07 /* GraphicsUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */; };
 		3E6C133C25CEBEA700BF0D07 /* TimeIntervalFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */; };
 		3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C107A25CEB98600BF0D07 /* StopPlaybackChain.swift */; };
@@ -765,6 +765,7 @@
 		3E56672B2679F5D800D77A8F /* dmg-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dmg-background.png"; sourceTree = "<group>"; };
 		3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChicagoFLF.ttf; sourceTree = "<group>"; };
 		3E59A174262C9EDA006DF775 /* LazyWindowLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyWindowLoader.swift; sourceTree = "<group>"; };
+		3E5F3DEE2681260700E826F0 /* AtomicBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicBool.swift; sourceTree = "<group>"; };
 		3E5F93F725E57081002DEF80 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		3E5F93F825E57081002DEF80 /* SpectrogramFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrogramFFTData.swift; sourceTree = "<group>"; };
 		3E5F93F925E57081002DEF80 /* BassFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BassFFTData.swift; sourceTree = "<group>"; };
@@ -1118,7 +1119,6 @@
 		3E6C10D425CEB98700BF0D07 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
 		3E6C10D525CEB98700BF0D07 /* ConcurrencyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyUtils.swift; sourceTree = "<group>"; };
 		3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalFormatter.swift; sourceTree = "<group>"; };
-		3E6C10D725CEB98700BF0D07 /* FileSystemUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemUtils.swift; sourceTree = "<group>"; };
 		3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWriter.swift; sourceTree = "<group>"; };
 		3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicsUtils.swift; sourceTree = "<group>"; };
 		3E6C10F825CEB98700BF0D07 /* PersistentStateProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStateProtocols.swift; sourceTree = "<group>"; };
@@ -2656,7 +2656,6 @@
 				3E7572F82609E89300CA3F85 /* HTTP */,
 				3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */,
 				3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */,
-				3E6C10D725CEB98700BF0D07 /* FileSystemUtils.swift */,
 				3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */,
 				3E6C10BC25CEB98700BF0D07 /* UIUtils.swift */,
 				3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */,
@@ -2700,6 +2699,7 @@
 			isa = PBXGroup;
 			children = (
 				3EFB1C5F25EFCFAC00EF7F0F /* AtomicCounter.swift */,
+				3E5F3DEE2681260700E826F0 /* AtomicBool.swift */,
 				3E6C10D425CEB98700BF0D07 /* RepeatingTaskExecutor.swift */,
 				3E6C10D525CEB98700BF0D07 /* ConcurrencyUtils.swift */,
 			);
@@ -2839,11 +2839,11 @@
 				3E6C113725CEB98700BF0D07 /* RecordingSession.swift */,
 				3E6C113825CEB98700BF0D07 /* RecordingQuality.swift */,
 				3E6C113925CEB98700BF0D07 /* RecorderDelegateProtocol.swift */,
+				3E6C113E25CEB98700BF0D07 /* RecorderDelegate.swift */,
 				3E6C113A25CEB98700BF0D07 /* RecorderProtocol.swift */,
 				3E6C113B25CEB98700BF0D07 /* RecordingFormat.swift */,
 				3E6C113C25CEB98700BF0D07 /* RecordingInfo.swift */,
 				3E6C113D25CEB98700BF0D07 /* RecordingParams.swift */,
-				3E6C113E25CEB98700BF0D07 /* RecorderDelegate.swift */,
 				3E6C10A525CEB98700BF0D07 /* AudioIO.swift */,
 			);
 			path = Recorder;
@@ -3831,6 +3831,7 @@
 				3E5F942125E570A9002DEF80 /* Spectrogram3D.swift in Sources */,
 				3E5F943C25E571F7002DEF80 /* AudioGraphCallbacks.swift in Sources */,
 				3E6C118C25CEBD6D00BF0D07 /* DelayUnitDelegate.swift in Sources */,
+				3E5F3DEF2681260700E826F0 /* AtomicBool.swift in Sources */,
 				3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */,
 				3E6C131925CEBEA000BF0D07 /* Size.swift in Sources */,
 				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsEditorViewController.swift in Sources */,
@@ -3947,7 +3948,6 @@
 				3E09D0D426805C19008ECB8C /* ThemesPersistentState.swift in Sources */,
 				3E6C125725CEBE0600BF0D07 /* TimePresetsEditorViewController.swift in Sources */,
 				3E6C12AB25CEBE2700BF0D07 /* ValidatedLabelCell.swift in Sources */,
-				3E6C133825CEBEA700BF0D07 /* FileSystemUtils.swift in Sources */,
 				3EDB33F225E8AE09004DF7DE /* FFmpegChapter.swift in Sources */,
 				3E5F944325E5738E002DEF80 /* AUExtensions.swift in Sources */,
 				3EDB346D25E8BABC004DF7DE /* AVFPlaybackContext.swift in Sources */,

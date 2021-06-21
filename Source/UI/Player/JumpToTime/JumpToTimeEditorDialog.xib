@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,7 +29,7 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="503" height="238"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="503" height="238"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -198,7 +198,7 @@ Gw
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="146.5" y="116"/>
         </window>
-        <customFormatter id="4cF-sk-vOX" customClass="DoubleValueFormatter" customModule="Aural" customModuleProvider="target"/>
-        <customFormatter id="Hhe-p9-9Po" userLabel="Percentage Formatter" customClass="DoubleValueFormatter" customModule="Aural" customModuleProvider="target"/>
+        <customFormatter id="4cF-sk-vOX" customClass="TimeIntervalFormatter" customModule="Aural" customModuleProvider="target"/>
+        <customFormatter id="Hhe-p9-9Po" userLabel="Percentage Formatter" customClass="TimeIntervalFormatter" customModule="Aural" customModuleProvider="target"/>
     </objects>
 </document>

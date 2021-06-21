@@ -11,7 +11,8 @@ class MusicBrainzCache: NotificationSubscriber {
     var onDiskReleasesCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     var onDiskRecordingsCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     
-    private let baseDir: URL = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache", isDirectory: true)
+    private let baseDir: URL = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache",
+                                                                                         isDirectory: true)
     
     private let diskIOOpQueue: OperationQueue = {
 
@@ -29,11 +30,11 @@ class MusicBrainzCache: NotificationSubscriber {
         
         guard preferences.enableCoverArtSearch && preferences.enableOnDiskCoverArtCache else {
             
-            FileSystemUtils.deleteDir(self.baseDir)
+            self.baseDir.delete()
             return
         }
         
-        FileSystemUtils.createDirectory(self.baseDir)
+        self.baseDir.createDirectory()
         
         // Initialize the cache with entries that were previously persisted to disk.
             
@@ -42,7 +43,7 @@ class MusicBrainzCache: NotificationSubscriber {
             diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
+                if entry.file.exists, let coverArt = CoverArt(imageFile: entry.file) {
                     
                     // Entry is valid, enter it into the cache.
                     
@@ -57,7 +58,7 @@ class MusicBrainzCache: NotificationSubscriber {
             diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if FileSystemUtils.fileExists(entry.file), let coverArt = CoverArt(imageFile: entry.file) {
+                if entry.file.exists, let coverArt = CoverArt(imageFile: entry.file) {
                     
                     // Entry is valid, enter it into the cache.
                     
@@ -95,7 +96,7 @@ class MusicBrainzCache: NotificationSubscriber {
         // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
             
-            FileSystemUtils.createDirectory(self.baseDir)
+            self.baseDir.createDirectory()
             
             let nowString = Date().serializableString_hms()
             let randomNum = Int.random(in: 0..<10000)
@@ -128,7 +129,7 @@ class MusicBrainzCache: NotificationSubscriber {
         // Write the file to disk (on-disk caching)
         diskIOOpQueue.addOperation {
             
-            FileSystemUtils.createDirectory(self.baseDir)
+            self.baseDir.createDirectory()
             
             let nowString = Date().serializableString_hms()
             let randomNum = Int.random(in: 0..<10000)
@@ -174,7 +175,7 @@ class MusicBrainzCache: NotificationSubscriber {
         onDiskRecordingsCache.removeAll()
         
         diskIOOpQueue.addOperation {
-            FileSystemUtils.deleteDir(self.baseDir)
+            self.baseDir.delete()
         }
     }
     
@@ -184,7 +185,7 @@ class MusicBrainzCache: NotificationSubscriber {
             
             // Clean up files that are unmapped.
             
-            if let allFiles = FileSystemUtils.getContentsOfDirectory(self.baseDir) {
+            if let allFiles = self.baseDir.children {
                 
                 let mappedFiles: Set<URL> = Set(self.onDiskReleasesCache.entries.map {$0.2} + self.onDiskRecordingsCache.entries.map {$0.2})
                 
@@ -192,7 +193,7 @@ class MusicBrainzCache: NotificationSubscriber {
                 
                 // Delete unmapped files.
                 for file in unmappedFiles {
-                    FileSystemUtils.deleteFile(file.path)
+                    file.delete(recursive: false)
                 }
             }
         }

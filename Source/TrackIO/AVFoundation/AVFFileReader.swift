@@ -168,7 +168,7 @@ class AVFFileReader: FileReaderProtocol {
         } else {
 
             // Bit rate = file size / duration in seconds
-            let fileSize = FileSystemUtils.sizeOfFile(path: file.path)
+            let fileSize = file.size
             audioInfo.bitRate = (Double(fileSize.sizeBytes) * 8 / (Double(metadataMap.avAsset.duration.seconds) * Double(Size.KB))).roundedInt
         }
         

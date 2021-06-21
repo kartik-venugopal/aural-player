@@ -77,4 +77,8 @@ extension NSImage {
         copy.size = size
         return copy
     }
+    
+    func imageCopy() -> NSImage {
+        self.copy() as! NSImage
+    }
 }

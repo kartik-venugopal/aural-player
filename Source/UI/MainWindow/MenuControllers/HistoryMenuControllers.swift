@@ -44,10 +44,9 @@ fileprivate let fileReader: FileReader = ObjectGraph.fileReader
 fileprivate func artForFile(_ _file: URL) -> NSImage? {
     
     // Resolve sym links and aliases
-    let resolvedFileInfo = FileSystemUtils.resolveTruePath(_file)
-    let file = resolvedFileInfo.resolvedURL
+    let file = _file.resolvedURL
     
-    if (resolvedFileInfo.isDirectory) {
+    if file.isDirectory {
         
         // Display name is last path component
         // Art is folder icon
@@ -58,16 +57,16 @@ fileprivate func artForFile(_ _file: URL) -> NSImage? {
         // Single file - playlist or track
         let fileExtension = file.lowerCasedExtension
         
-        if (AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension)) {
+        if AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension) {
             
             // Playlist
             // Display name is last path component
             // Art is playlist icon
             return Images.imgHistory_playlist_padded
             
-        } else if (AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension)) {
+        } else if AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension) {
             
-            return (playlist.findFile(file)?.art?.image ?? fileReader.getArt(for: file)?.image)?.copy() as? NSImage
+            return (playlist.findFile(file)?.art?.image ?? fileReader.getArt(for: file)?.image)?.imageCopy()
         }
     }
     
