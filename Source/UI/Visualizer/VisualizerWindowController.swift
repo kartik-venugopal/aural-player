@@ -193,26 +193,3 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         allViews.forEach {$0.dismissView()}
     }
 }
-
-enum VisualizationType: String, CaseIterable {
-    
-    case spectrogram, supernova, discoBall
-}
-
-class VisualizerViewOptions {
-    
-    var lowAmplitudeColor: NSColor = .blue
-    var highAmplitudeColor: NSColor = .red
-    
-    func setColors(lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
-        
-        self.lowAmplitudeColor = lowAmplitudeColor
-        self.highAmplitudeColor = highAmplitudeColor
-    }
-}
-
-class VisualizerViewState {
-    
-    static var type: VisualizationType = .spectrogram
-    static var options: VisualizerViewOptions = VisualizerViewOptions()
-}

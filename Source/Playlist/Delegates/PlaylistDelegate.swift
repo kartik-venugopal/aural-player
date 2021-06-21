@@ -12,7 +12,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     private let changeListeners: [PlaylistChangeListenerProtocol]
     
     // Persistent playlist state (used upon app startup)
-    private var playlistState: PlaylistState!
+    private var persistentState: PlaylistPersistentState?
     
     // User preferences (used for autoplay)
     private let preferences: Preferences
@@ -32,12 +32,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     var duration: Double {playlist.duration}
     
-    init(_ playlist: PlaylistCRUDProtocol, _ trackReader: TrackReader, _ playlistState: PlaylistState, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistCRUDProtocol, _ trackReader: TrackReader, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
         self.trackReader = trackReader
         
-        self.playlistState = playlistState
+        self.persistentState = persistentState
         self.preferences = preferences
         
         self.changeListeners = changeListeners
@@ -136,10 +136,10 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             self.collectTracks(files, false)
             self.addSessionTracks()
             
-            if reorderGroupingPlaylists {
+            if reorderGroupingPlaylists, let persistentState = self.persistentState {
                 
-                self.playlist.reOrder(accordingTo: self.playlistState)
-                self.playlistState = nil
+                self.playlist.reOrder(accordingTo: persistentState)
+                self.persistentState = nil
             }
             
             // ------------------ NOTIFY ------------------
@@ -408,11 +408,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
             addFiles_async(filesToOpen, AutoplayOptions(true), userAction: false)
-            
-        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch, let thePlaylistState = self.playlistState {
-            
+
+        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch, let tracks = self.persistentState?.tracks {
+
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(thePlaylistState.tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
+            addFiles_async(tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
             
         } else if preferences.playlistPreferences.playlistOnStartup == .loadFile, let playlistFile: URL = preferences.playlistPreferences.playlistFile {
             

@@ -58,7 +58,7 @@ class PlaylistViewOnStartup {
     
     var viewIndex: Int {
         
-        switch(viewName) {
+        switch viewName {
             
         case "Artists":  return 1;
             

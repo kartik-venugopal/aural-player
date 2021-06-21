@@ -15,49 +15,49 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     var showNewTrackInPlaylist: Bool
     var showChaptersList: Bool
     
+    private static let keyPrefix: String = "playlist"
+    
+    private static let key_viewOnStartupOption: String = "\(PlaylistPreferences.keyPrefix).viewOnStartup.option"
+    private static let key_viewOnStartupViewName: String = "\(PlaylistPreferences.keyPrefix).viewOnStartup.view"
+    
+    private static let key_playlistOnStartup: String = "\(PlaylistPreferences.keyPrefix).playlistOnStartup"
+    private static let key_playlistFile: String = "\(PlaylistPreferences.keyPrefix).playlistOnStartup.playlistFile"
+    private static let key_tracksFolder: String = "\(PlaylistPreferences.keyPrefix).playlistOnStartup.tracksFolder"
+    
+    private static let key_showNewTrackInPlaylist: String = "\(PlaylistPreferences.keyPrefix).showNewTrackInPlaylist"
+    private static let key_showChaptersList: String = "\(PlaylistPreferences.keyPrefix).showChaptersList"
+    
     internal required init(_ defaultsDictionary: [String: Any]) {
         
         viewOnStartup = PreferencesDefaults.Playlist.viewOnStartup
         
-        if let viewOnStartupOptionStr = defaultsDictionary["playlist.viewOnStartup.option"] as? String {
-            viewOnStartup.option = PlaylistViewStartupOptions(rawValue: viewOnStartupOptionStr)!
+        if let viewOnStartupOption = defaultsDictionary.enumValue(forKey: Self.key_viewOnStartupOption, ofType: PlaylistViewStartupOptions.self) {
+            viewOnStartup.option = viewOnStartupOption
         }
         
-        if let viewStr = defaultsDictionary["playlist.viewOnStartup.view"] as? String {
-            viewOnStartup.viewName = viewStr
+        if let viewName = defaultsDictionary[Self.key_viewOnStartupViewName, String.self] {
+            viewOnStartup.viewName = viewName
         }
         
-        if let playlistOnStartupStr = defaultsDictionary["playlist.playlistOnStartup"] as? String {
-            playlistOnStartup = PlaylistStartupOptions(rawValue: playlistOnStartupStr)!
-        } else {
-            playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
-        }
+        playlistOnStartup = defaultsDictionary.enumValue(forKey: Self.key_playlistOnStartup, ofType: PlaylistStartupOptions.self) ?? PreferencesDefaults.Playlist.playlistOnStartup
         
-        if let playlistFileStr = defaultsDictionary["playlist.playlistOnStartup.playlistFile"] as? String {
-            playlistFile = URL(fileURLWithPath: playlistFileStr)
-        } else {
-            playlistFile = PreferencesDefaults.Playlist.playlistFile
-        }
+        playlistFile = defaultsDictionary.urlValue(forKey: Self.key_playlistFile) ?? PreferencesDefaults.Playlist.playlistFile
         
-        showNewTrackInPlaylist = defaultsDictionary["playlist.showNewTrackInPlaylist"] as? Bool ?? PreferencesDefaults.Playlist.showNewTrackInPlaylist
+        showNewTrackInPlaylist = defaultsDictionary[Self.key_showNewTrackInPlaylist, Bool.self] ?? PreferencesDefaults.Playlist.showNewTrackInPlaylist
         
-        showChaptersList = defaultsDictionary["playlist.showChaptersList"] as? Bool ?? PreferencesDefaults.Playlist.showChaptersList
+        showChaptersList = defaultsDictionary[Self.key_showChaptersList, Bool.self] ?? PreferencesDefaults.Playlist.showChaptersList
         
         // If .loadFile selected but no file available to load from, revert back to defaults
-        if (playlistOnStartup == .loadFile && playlistFile == nil) {
+        if playlistOnStartup == .loadFile && playlistFile == nil {
             
             playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
             playlistFile = PreferencesDefaults.Playlist.playlistFile
         }
         
-        if let tracksFolderStr = defaultsDictionary["playlist.playlistOnStartup.tracksFolder"] as? String {
-            tracksFolder = URL(fileURLWithPath: tracksFolderStr)
-        } else {
-            tracksFolder = PreferencesDefaults.Playlist.tracksFolder
-        }
+        tracksFolder = defaultsDictionary.urlValue(forKey: Self.key_tracksFolder) ?? PreferencesDefaults.Playlist.tracksFolder
         
         // If .loadFolder selected but no folder available to load from, revert back to defaults
-        if (playlistOnStartup == .loadFolder && tracksFolder == nil) {
+        if playlistOnStartup == .loadFolder && tracksFolder == nil {
             
             playlistOnStartup = PreferencesDefaults.Playlist.playlistOnStartup
             tracksFolder = PreferencesDefaults.Playlist.tracksFolder
@@ -66,14 +66,14 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     
     func persist(to defaults: UserDefaults) {
         
-        defaults.set(playlistOnStartup.rawValue, forKey: "playlist.playlistOnStartup")
-        defaults.set(playlistFile?.path, forKey: "playlist.playlistOnStartup.playlistFile")
-        defaults.set(tracksFolder?.path, forKey: "playlist.playlistOnStartup.tracksFolder")
+        defaults.set(playlistOnStartup.rawValue, forKey: Self.key_playlistOnStartup)
+        defaults.set(playlistFile?.path, forKey: Self.key_playlistFile)
+        defaults.set(tracksFolder?.path, forKey: Self.key_tracksFolder)
         
-        defaults.set(viewOnStartup.option.rawValue, forKey: "playlist.viewOnStartup.option")
-        defaults.set(viewOnStartup.viewName, forKey: "playlist.viewOnStartup.view")
+        defaults.set(viewOnStartup.option.rawValue, forKey: Self.key_viewOnStartupOption)
+        defaults.set(viewOnStartup.viewName, forKey: Self.key_viewOnStartupViewName)
         
-        defaults.set(showNewTrackInPlaylist, forKey: "playlist.showNewTrackInPlaylist")
-        defaults.set(showChaptersList, forKey: "playlist.showChaptersList")
+        defaults.set(showNewTrackInPlaylist, forKey: Self.key_showNewTrackInPlaylist)
+        defaults.set(showChaptersList, forKey: Self.key_showChaptersList)
     }
 }

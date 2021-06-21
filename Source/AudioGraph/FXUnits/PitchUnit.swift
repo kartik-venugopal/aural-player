@@ -5,29 +5,28 @@ class PitchUnit: FXUnit, PitchShiftUnitProtocol {
     private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     let presets: PitchPresets = PitchPresets()
     
-    // TODO: Pass in PitchUnitState (use generics to pass in type T)
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: PitchUnitPersistentState?) {
         
-        super.init(.pitch, persistentState.pitchUnit.state)
+        super.init(.pitch, persistentState?.state ?? AudioGraphDefaults.pitchState)
         
-        node.pitch = persistentState.pitchUnit.pitch
-        node.overlap = persistentState.pitchUnit.overlap
+        node.pitch = persistentState?.pitch ?? AudioGraphDefaults.pitch
+        node.overlap = persistentState?.overlap ?? AudioGraphDefaults.pitchOverlap
         
-        presets.addPresets(persistentState.pitchUnit.userPresets)
+        presets.addPresets((persistentState?.userPresets ?? []).map {PitchPreset(persistentState: $0)})
     }
     
     override var avNodes: [AVAudioNode] {return [node]}
     
     var pitch: Float {
         
-        get {node.pitch}
-        set {node.pitch = newValue}
+        get {return node.pitch}
+        set(newValue) {node.pitch = newValue}
     }
     
     var overlap: Float {
         
-        get {node.overlap}
-        set {node.overlap = newValue}
+        get {return node.overlap}
+        set(newValue) {node.overlap = newValue}
     }
     
     override func stateChanged() {
@@ -57,14 +56,14 @@ class PitchUnit: FXUnit, PitchShiftUnitProtocol {
         return PitchPreset("pitchSettings", state, pitch, overlap, false)
     }
     
-    var persistentState: PitchUnitState {
+    var persistentState: PitchUnitPersistentState {
         
-        let unitState = PitchUnitState()
+        let unitState = PitchUnitPersistentState()
         
         unitState.state = state
         unitState.pitch = pitch
         unitState.overlap = overlap
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {PitchPresetPersistentState(preset: $0)}
         
         return unitState
     }

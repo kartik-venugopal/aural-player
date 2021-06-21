@@ -6,9 +6,15 @@ import Cocoa
 class Themes {
 
     // Loads the user-defined schemes and current system theme from persistent state on app startup.
-    static func initialize(_ themesState: ThemesState) {
+    static func initialize(_ themesState: ThemesPersistentState?) {
         
-        loadUserDefinedThemes(themesState.userThemes.map {Theme(name: $0.name, fontScheme: FontScheme($0.fontScheme, false), colorScheme: ColorScheme($0.colorScheme, false), windowAppearance: WindowAppearance(cornerRadius: CGFloat($0.windowAppearance.cornerRadius)))})
+        for theme in (themesState?.userThemes ?? []).map({Theme(name: $0.name,
+                                                                  fontScheme: FontScheme($0.fontScheme, false),
+                                                                  colorScheme: ColorScheme($0.colorScheme, false),
+                                                                  windowAppearance: WindowAppearance(cornerRadius: $0.windowAppearance?.cornerRadius ?? WindowAppearanceStateDefaults.cornerRadius))}) {
+            
+            userDefinedThemesByName.addItem(theme)
+        }
     }
     
     // Mapping of user-defined themes by display name.
@@ -74,14 +80,6 @@ class Themes {
         userDefinedThemesByName.reMapForKey(oldName, newName)
     }
     
-    // Maps the given user-defined themes by name
-    static func loadUserDefinedThemes(_ userDefinedThemes: [Theme]) {
-        
-        userDefinedThemes.forEach {
-            userDefinedThemesByName.addItem($0)
-        }
-    }
-    
     // Adds a new user-defined theme. Assume a preset with this name doesn't already exist.
     static func addUserDefinedTheme(_ theme: Theme) {
         userDefinedThemesByName.addItem(theme)
@@ -93,7 +91,7 @@ class Themes {
     }
     
     // State to be persisted to disk.
-    static var persistentState: ThemesState {
-        return ThemesState(userDefinedThemes.map {ThemeState($0)})
+    static var persistentState: ThemesPersistentState {
+        return ThemesPersistentState(userDefinedThemes.map {ThemePersistentState($0)})
     }
 }

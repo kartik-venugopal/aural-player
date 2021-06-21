@@ -10,16 +10,16 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(_ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol, _ state: [BookmarkState]) {
+    init(persistentState: [BookmarkPersistentState]?, _ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.bookmarks = bookmarks
         self.playlist = playlist
         self.player = player
         
         // Restore the bookmarks model object from persistent state
-        state.forEach({
+        persistentState?.forEach {
             _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition, $0.endPosition)
-        })
+        }
     }
     
     func addBookmark(_ name: String, _ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) -> Bookmark {

@@ -297,12 +297,12 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         groupsByName.removeAll()
     }
     
-    func reOrder(accordingTo state: GroupingPlaylistState) {
+    func reOrder(accordingTo state: GroupingPlaylistPersistentState) {
         
         var insertionIndex: Int = 0
         
         // Iterate through all groups, inserting each one at insertionIndex ... 0, 1, 2, and so on.
-        for groupState in state.groups {
+        for groupState in state.groups ?? [] {
             
             if let group = groupsByName[groupState.name], let index = indexOfGroup(group) {
                 

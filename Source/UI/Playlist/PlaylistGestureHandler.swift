@@ -28,7 +28,7 @@ class PlaylistGestureHandler {
         if preferences.allowPlaylistNavigation {
         
             Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom,
-                              payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+                              payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     

@@ -32,7 +32,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         set(newParams) {node.params = newParams}
     }
     
-    override var avNodes: [AVAudioNode] {[node]}
+    override var avNodes: [AVAudioNode] {return [node]}
     
     init(forComponent component: AVAudioUnitComponent) {
         
@@ -43,7 +43,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         self.node.addBypassStateObserver(self)
     }
     
-    init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitState) {
+    init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitPersistentState) {
         
         self.node = HostedAUNode(forComponent: component)
         
@@ -55,10 +55,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
-        super.init(.au, persistentState.state)
+        super.init(.au, persistentState.state ?? AudioGraphDefaults.auState)
         self.node.addBypassStateObserver(self)
         
-        presets.addPresets(persistentState.userPresets)
+        presets.addPresets((persistentState.userPresets ?? []).map {AudioUnitPreset(persistentState: $0)})
     }
     
     func nodeBypassStateChanged(_ nodeIsBypassed: Bool) {
@@ -131,26 +131,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         return AudioUnitPreset("au-\(name)-Settings", state, false, componentType: self.componentType, componentSubType: self.componentSubType, number: 0)
     }
     
-    var persistentState: AudioUnitState {
+    var persistentState: AudioUnitPersistentState {
 
-        let unitState = AudioUnitState()
-
-        unitState.state = state
-        
-        unitState.componentType = Int(self.node.componentType)
-        unitState.componentSubType = Int(self.node.componentSubType)
-        
-        for (address, value) in self.params {
-            
-            let paramState = AudioUnitParameterState()
-            paramState.address = address
-            paramState.value = value
-            
-            unitState.params.append(paramState)
-        }
-        
-        unitState.userPresets = presets.userDefinedPresets
-
-        return unitState
+        return AudioUnitPersistentState(componentType: node.componentType, componentSubType: node.componentSubType,
+                                       params: self.params.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)}, state: self.state,
+                                       userPresets: presets.userDefinedPresets.map {AudioUnitPresetPersistentState(preset: $0)})
     }
 }

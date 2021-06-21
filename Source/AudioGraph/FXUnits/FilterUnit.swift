@@ -7,20 +7,18 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     
     override var avNodes: [AVAudioNode] {return [node]}
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: FilterUnitPersistentState?) {
         
-        let filterState = persistentState.filterUnit
+        super.init(.filter, persistentState?.state ?? AudioGraphDefaults.filterState)
         
-        super.init(.filter, filterState.state)
-        
-        node.addBands(filterState.bands)
-        presets.addPresets(filterState.userPresets)
+        node.addBands((persistentState?.bands ?? []).map {FilterBand(persistentState: $0)})
+        presets.addPresets((persistentState?.userPresets ?? []).map {FilterPreset(persistentState: $0)})
     }
     
     var bands: [FilterBand] {
         
-        get {node.allBands()}
-        set {node.setBands(newValue)}
+        get {return node.allBands()}
+        set(newValue) {node.setBands(newValue)}
     }
     
     override func stateChanged() {
@@ -78,13 +76,13 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
         return FilterPreset("filterSettings", state, bands, false)
     }
     
-    var persistentState: FilterUnitState {
+    var persistentState: FilterUnitPersistentState {
         
-        let filterState = FilterUnitState()
+        let filterState = FilterUnitPersistentState()
         
         filterState.state = state
-        filterState.bands = bands
-        filterState.userPresets = presets.userDefinedPresets
+        filterState.bands = bands.map {FilterBandPersistentState(band: $0)}
+        filterState.userPresets = presets.userDefinedPresets.map {FilterPresetState(preset: $0)}
         
         return filterState
     }

@@ -45,7 +45,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         // Choose sort view based on current playlist view
         NSView.hideViews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
         
-        switch PlaylistViewState.current {
+        switch PlaylistViewState.currentView {
 
         case .tracks:       displayedSortView = tracksPlaylistSortView
             

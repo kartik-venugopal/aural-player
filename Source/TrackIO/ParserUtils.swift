@@ -283,11 +283,11 @@ class ParserUtils {
         
         let imgMetadata = ImageMetadata()
         
-        if let colorModel = dict["ColorModel"] as? String {
+        if let colorModel = dict["ColorModel", String.self] {
             imgMetadata.colorSpace = colorModel
         }
         
-        if let colorProfile = dict["ProfileName"] as? String {
+        if let colorProfile = dict["ProfileName", String.self] {
             imgMetadata.colorProfile = colorProfile
         }
         
@@ -298,19 +298,19 @@ class ParserUtils {
             }
         }
         
-        if let bitDepthNum = dict["Depth"] as? NSNumber {
+        if let bitDepthNum = dict["Depth", NSNumber.self] {
             imgMetadata.bitDepth = bitDepthNum.intValue
         }
         
-        if let wd = dict["PixelWidth"] as? NSNumber, let ht = dict["PixelHeight"] as? NSNumber {
+        if let wd = dict["PixelWidth", NSNumber.self], let ht = dict["PixelHeight", NSNumber.self] {
             imgMetadata.dimensions = NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
         }
         
-        if let xRes = dict["DPIWidth"] as? NSNumber, let yRes = dict["DPIHeight"] as? NSNumber {
+        if let xRes = dict["DPIWidth", NSNumber.self], let yRes = dict["DPIHeight", NSNumber.self] {
             imgMetadata.resolution = NSSize(width: CGFloat(xRes.floatValue), height: CGFloat(yRes.floatValue))
         }
         
-        if let hasAlphaNum = dict["HasAlpha"] as? NSNumber {
+        if let hasAlphaNum = dict["HasAlpha", NSNumber.self] {
             imgMetadata.hasAlpha = hasAlphaNum.intValue == 0 ? false : true
         }
         

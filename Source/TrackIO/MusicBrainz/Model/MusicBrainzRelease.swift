@@ -42,34 +42,33 @@ class MusicBrainzRelease {
     init?(_ dict: NSDictionary) {
         
         // Validate the dictionary (all fields must be present, and there must be at least one artist credit).
-        guard let id = dict["id"] as? String,
-              let title = dict["title"] as? String
-        else {return nil}
+        guard let id = dict["id", String.self],
+              let title = dict["title", String.self] else {return nil}
         
         self.id = id
         self.title = title
         
         // Map the NSDictionary array to MusicBrainzArtistCredit objects, eliminating nil values.
-        if let artistCredits = dict["artist-credit"] as? [NSDictionary] {
+        if let artistCredits = dict["artist-credit", [NSDictionary].self] {
             self.artistCredits = artistCredits.compactMap {MusicBrainzArtistCredit($0)}
         }
         
-        if let dateStr = dict["date"] as? String, let date = parseDateString(dateStr) {
+        if let dateStr = dict["date", String.self], let date = parseDateString(dateStr) {
             self.date = date
         }
         
-        if let releaseGroupDict = dict["release-group"] as? NSDictionary,
-           let primaryTypeStr = releaseGroupDict["primary-type"] as? String,
+        if let releaseGroupDict = dict["release-group", NSDictionary.self],
+           let primaryTypeStr = releaseGroupDict["primary-type", String.self],
            let type = MusicBrainzReleaseType(rawValue: primaryTypeStr.lowercased()) {
         
             self.type = type
         }
         
-        if let country = dict["country"] as? String {
+        if let country = dict["country", String.self] {
             self.countryType = MusicBrainzReleaseCountryType.typeForCountry(country)
         }
         
-        if let status = dict["status"] as? String, let releaseStatus = MusicBrainzReleaseStatus(rawValue: status.lowercased()) {
+        if let status = dict["status", String.self], let releaseStatus = MusicBrainzReleaseStatus(rawValue: status.lowercased()) {
             self.status = releaseStatus
         }
     }

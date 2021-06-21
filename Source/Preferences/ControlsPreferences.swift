@@ -31,15 +31,15 @@ class MediaKeysControlsPreferences: PersistentPreferencesProtocol {
         
         // Media keys
         
-        enabled = defaultsDictionary["controls.mediaKeys.enabled"] as? Bool ?? PreferencesDefaults.Controls.MediaKeys.enabled
+        enabled = defaultsDictionary["controls.mediaKeys.enabled", Bool.self] ?? PreferencesDefaults.Controls.MediaKeys.enabled
         
-        if let skipKeyBehaviorStr = defaultsDictionary["controls.mediaKeys.skipKeyBehavior"] as? String {
+        if let skipKeyBehaviorStr = defaultsDictionary["controls.mediaKeys.skipKeyBehavior", String.self] {
             skipKeyBehavior = SkipKeyBehavior(rawValue: skipKeyBehaviorStr) ?? PreferencesDefaults.Controls.MediaKeys.skipKeyBehavior
         } else {
             skipKeyBehavior = PreferencesDefaults.Controls.MediaKeys.skipKeyBehavior
         }
         
-        if let repeatSpeedStr = defaultsDictionary["controls.mediaKeys.repeatSpeed"] as? String {
+        if let repeatSpeedStr = defaultsDictionary["controls.mediaKeys.repeatSpeed", String.self] {
             repeatSpeed = SkipKeyRepeatSpeed(rawValue: repeatSpeedStr) ?? PreferencesDefaults.Controls.MediaKeys.repeatSpeed
         } else {
             repeatSpeed = PreferencesDefaults.Controls.MediaKeys.repeatSpeed
@@ -70,23 +70,23 @@ class GesturesControlsPreferences: PersistentPreferencesProtocol {
         
         // Gestures
         
-        allowVolumeControl = defaultsDictionary["controls.gestures.allowVolumeControl"] as? Bool ?? PreferencesDefaults.Controls.Gestures.allowVolumeControl
+        allowVolumeControl = defaultsDictionary["controls.gestures.allowVolumeControl", Bool.self] ?? PreferencesDefaults.Controls.Gestures.allowVolumeControl
         
-        allowSeeking = defaultsDictionary["controls.gestures.allowSeeking"] as? Bool ?? PreferencesDefaults.Controls.Gestures.allowSeeking
+        allowSeeking = defaultsDictionary["controls.gestures.allowSeeking", Bool.self] ?? PreferencesDefaults.Controls.Gestures.allowSeeking
         
-        allowTrackChange = defaultsDictionary["controls.gestures.allowTrackChange"] as? Bool ?? PreferencesDefaults.Controls.Gestures.allowTrackChange
+        allowTrackChange = defaultsDictionary["controls.gestures.allowTrackChange", Bool.self] ?? PreferencesDefaults.Controls.Gestures.allowTrackChange
         
-        allowPlaylistNavigation = defaultsDictionary["controls.gestures.allowPlaylistNavigation"] as? Bool ?? PreferencesDefaults.Controls.Gestures.allowPlaylistNavigation
+        allowPlaylistNavigation = defaultsDictionary["controls.gestures.allowPlaylistNavigation", Bool.self] ?? PreferencesDefaults.Controls.Gestures.allowPlaylistNavigation
         
-        allowPlaylistTabToggle = defaultsDictionary["controls.gestures.allowPlaylistTabToggle"] as? Bool ?? PreferencesDefaults.Controls.Gestures.allowPlaylistTabToggle
+        allowPlaylistTabToggle = defaultsDictionary["controls.gestures.allowPlaylistTabToggle", Bool.self] ?? PreferencesDefaults.Controls.Gestures.allowPlaylistTabToggle
         
-        if let volumeControlSensitivityStr = defaultsDictionary["controls.gestures.volumeControlSensitivity"] as? String {
+        if let volumeControlSensitivityStr = defaultsDictionary["controls.gestures.volumeControlSensitivity", String.self] {
             volumeControlSensitivity = ScrollSensitivity(rawValue: volumeControlSensitivityStr)!
         } else {
             volumeControlSensitivity = PreferencesDefaults.Controls.Gestures.volumeControlSensitivity
         }
         
-        if let seekSensitivityStr = defaultsDictionary["controls.gestures.seekSensitivity"] as? String {
+        if let seekSensitivityStr = defaultsDictionary["controls.gestures.seekSensitivity", String.self] {
             seekSensitivity = ScrollSensitivity(rawValue: seekSensitivityStr)!
         } else {
             seekSensitivity = PreferencesDefaults.Controls.Gestures.seekSensitivity
@@ -114,9 +114,9 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
     
     internal required init(_ defaultsDictionary: [String: Any]) {
 
-        enabled = defaultsDictionary["controls.remoteControl.enabled"] as? Bool ?? PreferencesDefaults.Controls.RemoteControl.enabled
+        enabled = defaultsDictionary["controls.remoteControl.enabled", Bool.self] ?? PreferencesDefaults.Controls.RemoteControl.enabled
         
-        if let trackChangeOrSeekingOptionStr = defaultsDictionary["controls.remoteControl.trackChangeOrSeekingOption"] as? String {
+        if let trackChangeOrSeekingOptionStr = defaultsDictionary["controls.remoteControl.trackChangeOrSeekingOption", String.self] {
             
             trackChangeOrSeekingOption = TrackChangeOrSeekingOptions(rawValue: trackChangeOrSeekingOptionStr) ?? PreferencesDefaults.Controls.RemoteControl.trackChangeOrSeekingOption
         } else {

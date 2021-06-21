@@ -25,8 +25,8 @@ class MusicBrainzRecording {
     init?(_ dict: NSDictionary) {
         
         // Validate the dictionary (all fields must be present, and there must be at least one release).
-        guard let id = dict["id"] as? String,
-              let releaseDicts = dict["releases"] as? [NSDictionary],
+        guard let id = dict["id", String.self],
+              let releaseDicts = dict["releases", [NSDictionary].self],
               !releaseDicts.isEmpty else {return nil}
         
         self.id = id

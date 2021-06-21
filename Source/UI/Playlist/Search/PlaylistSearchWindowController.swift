@@ -71,7 +71,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     // Called when any of the search criteria have changed, performs a new search
     private func updateSearch() {
         
-        searchResults = playlist.search(searchQuery, PlaylistViewState.current)
+        searchResults = playlist.search(searchQuery, PlaylistViewState.currentView)
         
         // Show the first result
         searchResults.hasResults ? nextSearchAction(self) : noResultsFound()
@@ -114,7 +114,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
         
         // Selects a track within the playlist view, to show the user where the track is located within the playlist
         Messenger.publish(SelectSearchResultCommandNotification(searchResult: searchResult,
-                                                                viewSelector: PlaylistViewSelector.forView(PlaylistViewState.current)))
+                                                                viewSelector: PlaylistViewSelector.forView(PlaylistViewState.currentView)))
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {

@@ -16,7 +16,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var outputDevice: AudioDevice {
         
-        get {deviceManager.outputDevice}
+        get {return deviceManager.outputDevice}
         
         set(newDevice) {
             deviceManager.outputDevice = newDevice
@@ -58,7 +58,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var soundProfiles: SoundProfiles
     
     // Sets up the audio engine
-    init(_ audioUnitsManager: AudioUnitsManager, _ state: AudioGraphState) {
+    init(_ audioUnitsManager: AudioUnitsManager, _ persistentState: AudioGraphPersistentState?) {
         
         self.audioUnitsManager = audioUnitsManager
         audioEngine = AVAudioEngine()
@@ -76,39 +76,35 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         deviceManager = DeviceManager(outputAudioUnit: audioEngine.outputNode.audioUnit!)
         
-        eqUnit = EQUnit(state)
-        pitchUnit = PitchUnit(state)
-        timeUnit = TimeUnit(state)
-        reverbUnit = ReverbUnit(state)
-        delayUnit = DelayUnit(state)
-        filterUnit = FilterUnit(state)
+        eqUnit = EQUnit(persistentState: persistentState?.eqUnit)
+        pitchUnit = PitchUnit(persistentState: persistentState?.pitchUnit)
+        timeUnit = TimeUnit(persistentState: persistentState?.timeUnit)
+        reverbUnit = ReverbUnit(persistentState: persistentState?.reverbUnit)
+        delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
+        filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
         
         self.audioUnits = []
-        for auState in state.audioUnits {
+        for auState in persistentState?.audioUnits ?? [] {
             
-            if let component = audioUnitsManager.component(ofType: OSType(auState.componentType), andSubType: OSType(auState.componentSubType)) {
-                
+            if let component = audioUnitsManager.component(ofType: auState.componentType, andSubType: auState.componentSubType) {
                 audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState))
             }
         }
         
         let nativeSlaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit]
-        masterUnit = MasterUnit(state, nativeSlaveUnits, audioUnits)
+        masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits, audioUnits: audioUnits)
 
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
         let removableNodes = audioUnits.flatMap {$0.avNodes}
         
         audioEngineHelper = AudioEngineHelper(engine: audioEngine, permanentNodes: permanentNodes, removableNodes: removableNodes)
         
-        playerVolume = state.volume
-        muted = state.muted
+        playerVolume = persistentState?.volume ?? AudioGraphDefaults.volume
+        muted = persistentState?.muted ?? AudioGraphDefaults.muted
         playerNode.volume = muted ? 0 : playerVolume
-        playerNode.pan = state.balance
+        playerNode.pan = persistentState?.balance ?? AudioGraphDefaults.balance
         
-        soundProfiles = SoundProfiles()
-        state.soundProfiles.forEach {
-            soundProfiles.add($0.file, $0)
-        }
+        soundProfiles = SoundProfiles(persistentState?.soundProfiles ?? [])
         
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
         NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
@@ -131,9 +127,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var volume: Float {
         
-        get {playerVolume}
+        get {return playerVolume}
         
-        set {
+        set(newValue) {
             playerVolume = newValue
             if !muted {playerNode.volume = newValue}
         }
@@ -141,8 +137,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var balance: Float {
         
-        get {playerNode.pan}
-        set {playerNode.pan = newValue}
+        get {return playerNode.pan}
+        set(newValue) {playerNode.pan = newValue}
     }
     
     var muted: Bool {
@@ -201,17 +197,17 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     func clearSoundTails() {
         
         // Clear sound tails from reverb and delay nodes, if they're active
-        [delayUnit, reverbUnit].forEach({
+        [delayUnit, reverbUnit].forEach {
             if $0.isActive {$0.reset()}
-        })
+        }
     }
     
-    var persistentState: AudioGraphState {
+    var persistentState: AudioGraphPersistentState {
         
-        let state: AudioGraphState = AudioGraphState()
+        let state: AudioGraphPersistentState = AudioGraphPersistentState()
         
-        state.outputDevice.name = outputDevice.name
-        state.outputDevice.uid = outputDevice.uid
+        let outputDevice = self.outputDevice
+        state.outputDevice = AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid)
         
         // Volume and pan (balance)
         state.volume = playerVolume
@@ -227,7 +223,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.filterUnit = filterUnit.persistentState
         state.audioUnits = audioUnits.map {$0.persistentState}
         
-        state.soundProfiles.append(contentsOf: soundProfiles.all())
+        state.soundProfiles = self.soundProfiles.all().map {SoundProfilePersistentState(file: $0.file, volume: $0.volume, balance: $0.balance, effects: MasterPresetPersistentState(preset: $0.effects))}
         
         return state
     }
@@ -253,4 +249,45 @@ enum EffectsUnitState: String {
     
     // Master unit off, and effects unit on
     case suppressed
+}
+
+struct AudioGraphDefaults {
+    
+    static let volume: Float = 0.5
+    static let balance: Float = 0
+    static let muted: Bool = false
+    
+    static let masterState: EffectsUnitState = .active
+    
+    static let eqState: EffectsUnitState = .bypassed
+    static let eqType: EQType = .tenBand
+    static let eqGlobalGain: Float = 0
+    static let eqBands: [Float] = Array(repeating: Float(0), count: 10)
+    static let eqBandGain: Float = 0
+    
+    static let pitchState: EffectsUnitState = .bypassed
+    static let pitch: Float = 0
+    static let pitchOverlap: Float = 8
+    
+    static let timeState: EffectsUnitState = .bypassed
+    static let timeStretchRate: Float = 1
+    static let timeShiftPitch: Bool = false
+    static let timeOverlap: Float = 8
+    
+    static let reverbState: EffectsUnitState = .bypassed
+    static let reverbSpace: ReverbSpaces = .mediumHall
+    static let reverbAmount: Float = 50
+    
+    static let delayState: EffectsUnitState = .bypassed
+    static let delayAmount: Float = 100
+    static let delayTime: Double = 1
+    static let delayFeedback: Float = 50
+    static let delayLowPassCutoff: Float = 15000
+
+    static let filterState: EffectsUnitState = .bypassed
+    static let filterBandType: FilterBandType = .bandStop
+    static let filterBandMinFreq: Float = AppConstants.Sound.audibleRangeMin
+    static let filterBandMaxFreq: Float = AppConstants.Sound.subBass_max
+    
+    static let auState: EffectsUnitState = .active
 }

@@ -42,7 +42,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
         
         doApplyColorScheme(ColorSchemes.systemScheme, false)
         
-        if PlaylistViewState.current == self.playlistType, preferences.showNewTrackInPlaylist {
+        if PlaylistViewState.currentView == self.playlistType, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
         }
     }
@@ -122,8 +122,8 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     override func viewDidAppear() {
         
         // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
-        PlaylistViewState.current = self.playlistType
-        PlaylistViewState.currentView = playlistView
+        PlaylistViewState.currentView = self.playlistType
+        PlaylistViewState.currentTableView = playlistView
 
         Messenger.publish(.playlist_viewChanged, payload: self.playlistType)
     }
@@ -436,7 +436,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     // Refreshes the playlist view in response to tracks/groups being removed from the playlist
     private func tracksRemoved(_ results: TrackRemovalResults) {
         
-        if PlaylistViewState.current != self.playlistType {
+        if PlaylistViewState.currentView != self.playlistType {
             
             DispatchQueue.main.async {
                 self.playlistView.reloadData()
@@ -483,7 +483,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
         }
         
         // Check if there is a new track, and change the selection accordingly.
-        if PlaylistViewState.current.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist {
+        if PlaylistViewState.currentView.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist {
             notification.endTrack != nil ? showPlayingTrack() : clearSelection()
         }
     }
@@ -498,7 +498,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
         }
 
         // Only need to do this if this playlist view is shown
-        if PlaylistViewState.current.toGroupType() == self.groupType,
+        if PlaylistViewState.currentView.toGroupType() == self.groupType,
            let groupingInfo = playlist.groupingInfoForTrack(self.groupType, errTrack) {
 
             selectTrack(groupingInfo)

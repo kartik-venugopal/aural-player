@@ -22,6 +22,26 @@ class PlayerViewState {
     static var timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
 }
 
+struct PlayerViewDefaults {
+    
+    static let viewType: PlayerViewType = .defaultView
+    
+    static let showAlbumArt: Bool = true
+    static let showArtist: Bool = true
+    static let showAlbum: Bool = true
+    static let showCurrentChapter: Bool = true
+    
+    static let showTrackInfo: Bool = true
+    static let showSequenceInfo: Bool = true
+    
+    static let showPlayingTrackFunctions: Bool = true
+    static let showControls: Bool = true
+    static let showTimeElapsedRemaining: Bool = true
+    
+    static let timeElapsedDisplayType: TimeElapsedDisplayType = .formatted
+    static let timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
+}
+
 enum PlayerViewType: String {
     
     case defaultView

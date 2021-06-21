@@ -21,7 +21,10 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
     // Stores the currently playing track, if there is one
     private(set) var currentTrack: Track?
     
-    init(_ playlist: PlaylistAccessorProtocol, _ repeatMode: RepeatMode, _ shuffleMode: ShuffleMode, _ playlistType: PlaylistType) {
+    init(persistentState: PlaybackSequencePersistentState?, _ playlist: PlaylistAccessorProtocol, _ playlistType: PlaylistType) {
+        
+        let repeatMode = persistentState?.repeatMode ?? SequencerDefaults.repeatMode
+        let shuffleMode = persistentState?.shuffleMode ?? SequencerDefaults.shuffleMode
         
         self.sequence = PlaybackSequence(repeatMode, shuffleMode)
         self.playlist = playlist
@@ -203,7 +206,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
         return nil
     }
     
-    /* 
+    /*
         Given an absolute index within a grouping/hierarchical playlist, maps the absolute index to a group index and track index within that group, and returns the corresponding track at that location.
      
         Example: The track with an absolute index of 5, is Track 0 under Group 2, below.
@@ -468,4 +471,10 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
         // Updates the instance variable playlistType, with the new playlistType value
         self.playlistType = newPlaylistType
     }
+}
+
+struct SequencerDefaults {
+    
+    static let repeatMode: RepeatMode = .off
+    static let shuffleMode: ShuffleMode = .off
 }

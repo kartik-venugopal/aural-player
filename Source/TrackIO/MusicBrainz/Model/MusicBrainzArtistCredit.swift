@@ -26,8 +26,8 @@ class MusicBrainzArtistCredit {
     init?(_ dict: NSDictionary) {
 
         // Validate the dictionary (all fields must be present).
-        guard let name = dict["name"] as? String,
-              let artist = dict["artist"] as? NSDictionary,
+        guard let name = dict["name", String.self],
+              let artist = dict["artist", NSDictionary.self],
               let mbArtist = MusicBrainzArtist(artist) else {return nil}
 
         self.name = name

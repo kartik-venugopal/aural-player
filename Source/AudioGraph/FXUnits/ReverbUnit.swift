@@ -5,15 +5,13 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     private let node: AVAudioUnitReverb = AVAudioUnitReverb()
     let presets: ReverbPresets = ReverbPresets()
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: ReverbUnitPersistentState?) {
         
-        let reverbState = persistentState.reverbUnit
+        avSpace = (persistentState?.space ?? AudioGraphDefaults.reverbSpace).avPreset
+        super.init(.reverb, persistentState?.state ?? AudioGraphDefaults.reverbState)
         
-        avSpace = reverbState.space.avPreset
-        super.init(.reverb, reverbState.state)
-        
-        amount = reverbState.amount
-        presets.addPresets(reverbState.userPresets)
+        amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
+        presets.addPresets((persistentState?.userPresets ?? []).map {ReverbPreset(persistentState: $0)})
     }
     
     override var avNodes: [AVAudioNode] {return [node]}
@@ -28,14 +26,14 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     var space: ReverbSpaces {
         
-        get {ReverbSpaces.mapFromAVPreset(avSpace)}
-        set {avSpace = newValue.avPreset}
+        get {return ReverbSpaces.mapFromAVPreset(avSpace)}
+        set(newValue) {avSpace = newValue.avPreset}
     }
     
     var amount: Float {
         
-        get {node.wetDryMix}
-        set {node.wetDryMix = newValue}
+        get {return node.wetDryMix}
+        set(newValue) {node.wetDryMix = newValue}
     }
     
     override func stateChanged() {
@@ -65,14 +63,14 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
         return ReverbPreset("reverbSettings", state, space, amount, false)
     }
     
-    var persistentState: ReverbUnitState {
+    var persistentState: ReverbUnitPersistentState {
 
-        let unitState = ReverbUnitState()
+        let unitState = ReverbUnitPersistentState()
 
         unitState.state = state
         unitState.space = space
         unitState.amount = amount
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {ReverbPresetPersistentState(preset: $0)}
 
         return unitState
     }

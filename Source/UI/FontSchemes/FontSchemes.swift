@@ -8,10 +8,16 @@ class FontSchemes {
     // The current system color scheme. It is initialized with the default scheme.
     static var systemScheme: FontScheme = FontScheme("_system_", FontSchemePreset.standard)
     
-    static func initialize(_ persistentState: FontSchemesState) {
+    // Mapping of user-defined color schemes by display name.
+    private static var userDefinedSchemesByName: StringKeyedCollection<FontScheme> = StringKeyedCollection()
+    
+    static func initialize(_ persistentState: FontSchemesPersistentState?) {
         
-        loadUserDefinedSchemes(persistentState.userSchemes.map {FontScheme($0, false)})
-        systemScheme = FontScheme(persistentState.systemScheme, true)
+        (persistentState?.userSchemes ?? []).map {FontScheme($0, false)}.forEach {
+            userDefinedSchemesByName.addItem($0)
+        }
+        
+        systemScheme = FontScheme(persistentState?.systemScheme, true)
     }
     
     static func applyScheme(named name: String) -> FontScheme? {
@@ -30,6 +36,12 @@ class FontSchemes {
         return nil
     }
     
+    static func applyScheme(_ fontScheme: FontScheme) -> FontScheme {
+
+        systemScheme = FontScheme("_system_", true, fontScheme)
+        return systemScheme
+    }
+    
     static func schemeByName(_ name: String) -> FontScheme? {
         
         if let fontSchemePreset = FontSchemePreset.presetByName(name) {
@@ -38,15 +50,6 @@ class FontSchemes {
         
         return userDefinedSchemesByName.itemWithKey(name)
     }
-    
-    static func applyScheme(_ fontScheme: FontScheme) -> FontScheme {
-
-        systemScheme = FontScheme("_system_", true, fontScheme)
-        return systemScheme
-    }
-    
-    // Mapping of user-defined color schemes by display name.
-    private static var userDefinedSchemesByName: StringKeyedCollection<FontScheme> = StringKeyedCollection()
     
     // Array of all user-defined color schemes.
     static var userDefinedSchemes: [FontScheme] {
@@ -76,16 +79,6 @@ class FontSchemes {
         userDefinedSchemesByName.reMapForKey(oldName, newName)
     }
     
-    // Maps the given user-defined color schemes by name
-    static func loadUserDefinedSchemes(_ userDefinedSchemes: [FontScheme]) {
-        
-        // TODO: What if the scheme's name is empty ? Should we assign a default name ?
-        
-        userDefinedSchemes.forEach {
-            userDefinedSchemesByName.addItem($0)
-        }
-    }
-    
     // Adds a new user-defined color scheme. Assume a preset with this name doesn't already exist.
     static func addUserDefinedScheme(_ scheme: FontScheme) {
         userDefinedSchemesByName.addItem(scheme)
@@ -97,7 +90,7 @@ class FontSchemes {
     }
     
     // State to be persisted to disk.
-    static var persistentState: FontSchemesState {
-        return FontSchemesState(FontSchemeState(systemScheme), userDefinedSchemes.map {FontSchemeState($0)})
+    static var persistentState: FontSchemesPersistentState {
+        return FontSchemesPersistentState(FontSchemePersistentState(systemScheme), userDefinedSchemes.map {FontSchemePersistentState($0)})
     }
 }

@@ -19,6 +19,15 @@ class AudioUnitPreset: EffectsUnitPreset {
         
         super.init(name, state, systemDefined)
     }
+    
+    init(persistentState: AudioUnitPresetPersistentState) {
+        
+        self.componentType = persistentState.componentType
+        self.componentSubType = persistentState.componentSubType
+        self.number = persistentState.number
+        
+        super.init(persistentState.name, persistentState.state, false)
+    }
 }
 
 struct AudioUnitFactoryPreset {

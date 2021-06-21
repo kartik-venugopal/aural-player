@@ -8,7 +8,7 @@ class FilterPresets: FXPresets<FilterPreset> {
         addPresets(SystemDefinedFilterPresets.presets)
     }
     
-    static var defaultPreset: FilterPreset = {SystemDefinedFilterPresets.presets.first(where: {$0.name == SystemDefinedFilterPresetParams.passThrough.rawValue})!}()
+    static var defaultPreset: FilterPreset = {return SystemDefinedFilterPresets.presets.first(where: {$0.name == SystemDefinedFilterPresetParams.passThrough.rawValue})!}()
 }
 
 class FilterPreset: EffectsUnitPreset {
@@ -19,6 +19,12 @@ class FilterPreset: EffectsUnitPreset {
         
         self.bands = bands
         super.init(name, state, systemDefined)
+    }
+    
+    init(persistentState: FilterPresetState) {
+        
+        self.bands = persistentState.bands.map {FilterBand(persistentState: $0)}
+        super.init(persistentState.name, persistentState.state, false)
     }
 }
 

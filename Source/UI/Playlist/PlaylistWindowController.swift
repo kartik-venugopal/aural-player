@@ -105,7 +105,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
             tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)
             
         } else {    // Remember the view from the last app launch
-            tabGroup.selectTabViewItem(at: PlaylistViewState.current.index)
+            tabGroup.selectTabViewItem(at: PlaylistViewState.currentView.index)
         }
         
         tabGroup.delegate = self
@@ -254,12 +254,12 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
     private func updatePlaylistSummary(_ trackAddProgress: TrackAddOperationProgress? = nil) {
         
-        let summary = playlist.summary(PlaylistViewState.current)
+        let summary = playlist.summary(PlaylistViewState.currentView)
         lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(summary.totalDuration)
         
         let numTracks = summary.size
         
-        if PlaylistViewState.current == .tracks {
+        if PlaylistViewState.currentView == .tracks {
             
             lblTracksSummary.stringValue = String(format: "%d %@",
                                                   numTracks, numTracks == 1 ? "track" : "tracks")
@@ -284,7 +284,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         guard !checkIfPlaylistIsBeingModified() else {return}
         
-        Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         updatePlaylistSummary()
     }
     
@@ -324,7 +324,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
@@ -332,16 +332,16 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
         }
     }
     
     private func nextView() {
-        PlaylistViewState.current == .genres ? tabGroup.selectFirstTabViewItem(self) : tabGroup.selectNextTabViewItem(self)
+        PlaylistViewState.currentView == .genres ? tabGroup.selectFirstTabViewItem(self) : tabGroup.selectNextTabViewItem(self)
     }
     
     private func previousView() {
-        PlaylistViewState.current == .tracks ? tabGroup.selectLastTabViewItem(self) : tabGroup.selectPreviousTabViewItem(self)
+        PlaylistViewState.currentView == .tracks ? tabGroup.selectLastTabViewItem(self) : tabGroup.selectPreviousTabViewItem(self)
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
@@ -369,20 +369,20 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     // Scrolls the playlist view to the top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     // Scrolls the playlist view to the bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func pageUpAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_pageUp, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_pageUp, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     @IBAction func pageDownAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.current))
+        Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
     }
     
     private func applyTheme() {

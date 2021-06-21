@@ -315,7 +315,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     private func hideVisualizer() {
         visualizerWindowLoader.controller.close()
     }
-    
+
     func addChildWindow(_ window: NSWindow) {
         mainWindow.addChildWindow(window, ordered: .above)
     }
@@ -381,17 +381,31 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
 
 class WindowLayoutState {
     
-    static var showEffects: Bool = true
-    static var showPlaylist: Bool = true
+    static var showEffects: Bool = WindowLayoutDefaults.showEffects
+    static var showPlaylist: Bool = WindowLayoutDefaults.showPlaylist
     
-    static var mainWindowOrigin: NSPoint = NSPoint.zero
-    static var effectsWindowOrigin: NSPoint? = nil
-    static var playlistWindowFrame: NSRect? = nil
+    static var mainWindowOrigin: NSPoint = WindowLayoutDefaults.mainWindowOrigin
+    static var effectsWindowOrigin: NSPoint? = WindowLayoutDefaults.effectsWindowOrigin
+    static var playlistWindowFrame: NSRect? = WindowLayoutDefaults.playlistWindowFrame
+}
+
+class WindowLayoutDefaults {
+    
+    static let showEffects: Bool = true
+    static let showPlaylist: Bool = true
+    
+    static let mainWindowOrigin: NSPoint = NSPoint.zero
+    static let effectsWindowOrigin: NSPoint? = nil
+    static let playlistWindowFrame: NSRect? = nil
 }
 
 // Convenient accessor for information about the current appearance settings for the app's main windows.
 class WindowAppearanceState {
-    static var cornerRadius: CGFloat = AppDefaults.windowCornerRadius
+    static var cornerRadius: CGFloat = WindowAppearanceStateDefaults.cornerRadius
+}
+
+class WindowAppearanceStateDefaults {
+    static let cornerRadius: CGFloat = 3
 }
 
 // A snapshot of WindowAppearanceState

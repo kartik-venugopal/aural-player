@@ -5,18 +5,16 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     private let node: AVAudioUnitDelay = AVAudioUnitDelay()
     let presets: DelayPresets = DelayPresets()
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: DelayUnitPersistentState?) {
         
-        let delayState = persistentState.delayUnit
+        super.init(.delay, persistentState?.state ?? AudioGraphDefaults.delayState)
         
-        super.init(.delay, delayState.state)
+        time = persistentState?.time ?? AudioGraphDefaults.delayTime
+        amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
+        feedback = persistentState?.feedback ?? AudioGraphDefaults.delayFeedback
+        lowPassCutoff = persistentState?.lowPassCutoff ?? AudioGraphDefaults.delayLowPassCutoff
         
-        time = delayState.time
-        amount = delayState.amount
-        feedback = delayState.feedback
-        lowPassCutoff = delayState.lowPassCutoff
-        
-        presets.addPresets(delayState.userPresets)
+        presets.addPresets((persistentState?.userPresets ?? []).map {DelayPreset(persistentState: $0)})
     }
     
     override var avNodes: [AVAudioNode] {return [node]}
@@ -27,26 +25,26 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     
     var amount: Float {
         
-        get {node.wetDryMix}
-        set {node.wetDryMix = newValue}
+        get {return node.wetDryMix}
+        set(newValue) {node.wetDryMix = newValue}
     }
     
     var time: Double {
         
-        get {node.delayTime}
-        set {node.delayTime = newValue}
+        get {return node.delayTime}
+        set(newValue) {node.delayTime = newValue}
     }
     
     var feedback: Float {
         
-        get {node.feedback}
-        set {node.feedback = newValue}
+        get {return node.feedback}
+        set(newValue) {node.feedback = newValue}
     }
     
     var lowPassCutoff: Float {
         
-        get {node.lowPassCutoff}
-        set {node.lowPassCutoff = newValue}
+        get {return node.lowPassCutoff}
+        set(newValue) {node.lowPassCutoff = newValue}
     }
     
     override func stateChanged() {
@@ -78,16 +76,16 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
         return DelayPreset("delaySettings", state, amount, time, feedback, lowPassCutoff, false)
     }
     
-    var persistentState: DelayUnitState {
+    var persistentState: DelayUnitPersistentState {
 
-        let unitState = DelayUnitState()
+        let unitState = DelayUnitPersistentState()
 
         unitState.state = state
         unitState.time = time
         unitState.amount = amount
         unitState.feedback = feedback
         unitState.lowPassCutoff = lowPassCutoff
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {DelayPresetPersistentState(preset: $0)}
 
         return unitState
     }

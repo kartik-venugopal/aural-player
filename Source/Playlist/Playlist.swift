@@ -213,7 +213,8 @@ class Playlist: PlaylistCRUDProtocol {
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> TrackRemovalResults {
         
         // Flatten the groups into their tracks, removing duplicates (the same track being added individually and from its parent group)
-        let removedTracks: [Track] = Array(Set(tracks + groups.flatMap {$0.allTracks()}))
+        let removedTracksSet: Set<Track> = Set(tracks + groups.flatMap {$0.tracks})
+        let removedTracks: [Track] = Array(removedTracksSet)
         
         // Remove secondary state associated with these tracks
         removedTracks.forEach {
@@ -233,7 +234,8 @@ class Playlist: PlaylistCRUDProtocol {
         // Remove from flat playlist
         let flatPlaylistResults: IndexSet = flatPlaylist.removeTracks(removedTracks)
         
-        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: flatPlaylistResults, tracks: removedTracks)
+        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults,
+                                   flatPlaylistResults: flatPlaylistResults, tracks: removedTracks)
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {
@@ -266,7 +268,7 @@ class Playlist: PlaylistCRUDProtocol {
         return queue
     }()
     
-    func reOrder(accordingTo state: PlaylistState) {
+    func reOrder(accordingTo state: PlaylistPersistentState) {
         
         // Re-order each of the grouping playlists.
         // NOTE - The flat playlist does not need to be reordered,
@@ -274,7 +276,7 @@ class Playlist: PlaylistCRUDProtocol {
         
         for (type, playlist) in groupingPlaylists {
             
-            if let playlistState = state.groupingPlaylists[type.rawValue] {
+            if let playlistState = state.groupingPlaylists?[type.rawValue] {
 
                 // The different grouping playlists can be reordered in parallel,
                 // because the reorder operations are independent of each other.

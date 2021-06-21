@@ -22,6 +22,13 @@ class PitchPreset: EffectsUnitPreset {
         self.overlap = overlap
         super.init(name, state, systemDefined)
     }
+    
+    init(persistentState: PitchPresetPersistentState) {
+        
+        self.pitch = persistentState.pitch
+        self.overlap = persistentState.overlap ?? AudioGraphDefaults.pitchOverlap
+        super.init(persistentState.name, persistentState.state, false)
+    }
 }
 
 fileprivate struct SystemDefinedPitchPresets {

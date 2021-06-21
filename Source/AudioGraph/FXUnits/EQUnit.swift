@@ -5,17 +5,15 @@ class EQUnit: FXUnit, EQUnitProtocol {
     private let node: ParametricEQ
     let presets: EQPresets = EQPresets()
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: EQUnitPersistentState?) {
         
-        let eqState = persistentState.eqUnit
+        node = ParametricEQ(persistentState?.type ?? AudioGraphDefaults.eqType)
+        super.init(.eq, persistentState?.state ?? AudioGraphDefaults.eqState)
         
-        node = ParametricEQ(eqState.type)
-        super.init(.eq, eqState.state)
+        bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
+        globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
         
-        bands = eqState.bands
-        globalGain = eqState.globalGain
-        
-        presets.addPresets(eqState.userPresets)
+        presets.addPresets((persistentState?.userPresets ?? []).map {EQPreset(persistentState: $0)})
     }
     
     override func stateChanged() {
@@ -26,20 +24,20 @@ class EQUnit: FXUnit, EQUnitProtocol {
     
     var type: EQType {
         
-        get {node.type}
+        get {return node.type}
         set(newType) {node.chooseType(newType)}
     }
     
     var globalGain: Float {
         
-        get {node.globalGain}
-        set {node.globalGain = newValue}
+        get {return node.globalGain}
+        set(newValue) {node.globalGain = newValue}
     }
     
     var bands: [Float] {
         
-        get {node.allBands()}
-        set {node.setBands(newValue)}
+        get {return node.allBands()}
+        set(newValue) {node.setBands(newValue)}
     }
     
     override var avNodes: [AVAudioNode] {
@@ -95,15 +93,15 @@ class EQUnit: FXUnit, EQUnitProtocol {
         return EQPreset("eqSettings", state, bands, globalGain, false)
     }
     
-    var persistentState: EQUnitState {
+    var persistentState: EQUnitPersistentState {
 
-        let unitState = EQUnitState()
+        let unitState = EQUnitPersistentState()
 
         unitState.state = state
         unitState.type = type
         unitState.bands = bands
         unitState.globalGain = globalGain
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {EQPresetPersistentState(preset: $0)}
 
         return unitState
     }

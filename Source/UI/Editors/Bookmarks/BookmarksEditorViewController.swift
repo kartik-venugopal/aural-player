@@ -209,7 +209,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
      
         // Update tool tips as some may no longer be needed or some new ones may be needed
         
-        if let column = notification.userInfo?["NSTableColumn"] as? NSTableColumn {
+        if let column = notification.userInfo?["NSTableColumn", NSTableColumn.self] {
         
             let count = bookmarks.count
             if count > 0 {

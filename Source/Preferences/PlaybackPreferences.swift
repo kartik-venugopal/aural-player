@@ -33,39 +33,27 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     internal required init(_ defaultsDictionary: [String: Any]) {
         
-        if let primarySeekLengthOptionStr = defaultsDictionary["playback.seekLength.primary.option"] as? String {
-            primarySeekLengthOption = SeekLengthOptions(rawValue: primarySeekLengthOptionStr) ?? PreferencesDefaults.Playback.primarySeekLengthOption
-        } else {
-            primarySeekLengthOption = PreferencesDefaults.Playback.primarySeekLengthOption
-        }
+        primarySeekLengthOption = defaultsDictionary.enumValue(forKey: "playback.seekLength.primary.option",
+                                                               ofType: SeekLengthOptions.self) ?? PreferencesDefaults.Playback.primarySeekLengthOption
         
-        primarySeekLengthConstant = defaultsDictionary["playback.seekLength.primary.constant"] as? Int ?? PreferencesDefaults.Playback.primarySeekLengthConstant
-        primarySeekLengthPercentage = defaultsDictionary["playback.seekLength.primary.percentage"] as? Int ?? PreferencesDefaults.Playback.primarySeekLengthPercentage
+        primarySeekLengthConstant = defaultsDictionary["playback.seekLength.primary.constant", Int.self] ?? PreferencesDefaults.Playback.primarySeekLengthConstant
+        primarySeekLengthPercentage = defaultsDictionary["playback.seekLength.primary.percentage", Int.self] ?? PreferencesDefaults.Playback.primarySeekLengthPercentage
         
-        if let secondarySeekLengthOptionStr = defaultsDictionary["playback.seekLength.secondary.option"] as? String {
-            secondarySeekLengthOption = SeekLengthOptions(rawValue: secondarySeekLengthOptionStr) ?? PreferencesDefaults.Playback.secondarySeekLengthOption
-        } else {
-            secondarySeekLengthOption = PreferencesDefaults.Playback.secondarySeekLengthOption
-        }
+        secondarySeekLengthOption = defaultsDictionary.enumValue(forKey: "playback.seekLength.secondary.option",
+                                                                     ofType: SeekLengthOptions.self) ?? PreferencesDefaults.Playback.secondarySeekLengthOption
         
-        secondarySeekLengthConstant = defaultsDictionary["playback.seekLength.secondary.constant"] as? Int ?? PreferencesDefaults.Playback.secondarySeekLengthConstant
-        secondarySeekLengthPercentage = defaultsDictionary["playback.seekLength.secondary.percentage"] as? Int ?? PreferencesDefaults.Playback.secondarySeekLengthPercentage
+        secondarySeekLengthConstant = defaultsDictionary["playback.seekLength.secondary.constant", Int.self] ?? PreferencesDefaults.Playback.secondarySeekLengthConstant
+        secondarySeekLengthPercentage = defaultsDictionary["playback.seekLength.secondary.percentage", Int.self] ?? PreferencesDefaults.Playback.secondarySeekLengthPercentage
         
-        autoplayOnStartup = defaultsDictionary["playback.autoplayOnStartup"] as? Bool ?? PreferencesDefaults.Playback.autoplayOnStartup
+        autoplayOnStartup = defaultsDictionary["playback.autoplayOnStartup", Bool.self] ?? PreferencesDefaults.Playback.autoplayOnStartup
         
-        autoplayAfterAddingTracks = defaultsDictionary["playback.autoplayAfterAddingTracks"] as? Bool ?? PreferencesDefaults.Playback.autoplayAfterAddingTracks
+        autoplayAfterAddingTracks = defaultsDictionary["playback.autoplayAfterAddingTracks", Bool.self] ?? PreferencesDefaults.Playback.autoplayAfterAddingTracks
         
-        if let autoplayAfterAddingOptionStr = defaultsDictionary["playback.autoplayAfterAddingTracks.option"] as? String {
-            autoplayAfterAddingOption = AutoplayAfterAddingOptions(rawValue: autoplayAfterAddingOptionStr) ?? PreferencesDefaults.Playback.autoplayAfterAddingOption
-        } else {
-            autoplayAfterAddingOption = PreferencesDefaults.Playback.autoplayAfterAddingOption
-        }
-        
-        if let optionStr = defaultsDictionary["playback.rememberLastPosition.option"] as? String {
-            rememberLastPositionOption = RememberSettingsForTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Playback.rememberLastPositionOption
-        } else {
-            rememberLastPositionOption = PreferencesDefaults.Playback.rememberLastPositionOption
-        }
+        autoplayAfterAddingOption = defaultsDictionary.enumValue(forKey: "playback.autoplayAfterAddingTracks.option",
+                                                                     ofType: AutoplayAfterAddingOptions.self) ?? PreferencesDefaults.Playback.autoplayAfterAddingOption
+
+        rememberLastPositionOption = defaultsDictionary.enumValue(forKey: "playback.rememberLastPosition.option",
+                                                                      ofType: RememberSettingsForTrackOptions.self) ?? PreferencesDefaults.Playback.rememberLastPositionOption
     }
     
     func persist(to defaults: UserDefaults) {

@@ -2,6 +2,15 @@ import Foundation
 
 class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
     
+    init(persistentState: [PlaybackProfilePersistentState]) {
+        
+        super.init()
+        
+        for profile in persistentState {
+            self.add(profile.file, PlaybackProfile(profile.file, profile.lastPosition))
+        }
+    }
+    
     init(_ profiles: [PlaybackProfile]) {
         
         super.init()
@@ -29,19 +38,5 @@ class PlaybackProfile {
         
         self.file = track.file
         self.lastPosition = lastPosition
-    }
-    
-    static func deserialize(_ map: NSDictionary) -> PlaybackProfile? {
-        
-        var profileFile: URL?
-        var profileLastPosition: Double = AppDefaults.lastTrackPosition
-        
-        if let file = map["file"] as? String {
-            profileFile = URL(fileURLWithPath: file)
-            profileLastPosition = mapNumeric(map, "lastPosition", AppDefaults.lastTrackPosition)
-            return PlaybackProfile(profileFile!, profileLastPosition)
-        }
-        
-        return nil
     }
 }

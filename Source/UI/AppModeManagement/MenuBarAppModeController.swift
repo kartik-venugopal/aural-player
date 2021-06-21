@@ -20,7 +20,7 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate, Not
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItem?.button?.image = appIcon
         
-        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] {
             statusItem?.button?.toolTip = "Aural Player v\(appVersion)"
         } else {
             statusItem?.button?.toolTip = "Aural Player"

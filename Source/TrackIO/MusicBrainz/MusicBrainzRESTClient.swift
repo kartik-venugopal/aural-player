@@ -99,7 +99,7 @@ class MusicBrainzRESTClient {
         
         if let url = URL(string: "\(musicBrainzAPIBaseURL)/release?query=release:%22\(encodedReleaseTitleString)%22%20AND%20artistname:%22\(encodedArtistString)%22%20AND%20status:official%20AND%20primarytype:album&fmt=json"),
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
-           let releasesArr = mbDict["releases"] as? [NSDictionary] {
+           let releasesArr = mbDict["releases", [NSDictionary].self] {
             
             // Map the NSDictionary array (the result of JSON deserialization)
             // to an array of MBRelease objects that we can work with.
@@ -152,7 +152,7 @@ class MusicBrainzRESTClient {
         
         if let url = URL(string: "\(musicBrainzAPIBaseURL)/recording?query=recording:%22\(encodedRecordingTitleString)%22%20AND%20artistname:%22\(encodedArtistString)%22%20AND%20status:official%20AND%20(primarytype:album%20OR%20primarytype:single)&inc=releases&fmt=json"),
            let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
-           let recordingsArr = mbDict["recordings"] as? [NSDictionary] {
+           let recordingsArr = mbDict["recordings", [NSDictionary].self] {
             
             // Step 1 - Map the NSDictionary array (the result of JSON deserialization)
             // to an array of MBRecording objects that we can work with.
@@ -195,7 +195,7 @@ class MusicBrainzRESTClient {
                 
                 if let url = URL(string: "\(musicBrainzAPIBaseURL)/release/\(release.id)?fmt=json"),
                    let mbDict = try httpClient.performGETForJSON(toURL: url, withHeaders: standardHeaders, timeout: preferences.httpTimeout),
-                   let archiveDict = mbDict["cover-art-archive"] as? NSDictionary,
+                   let archiveDict = mbDict["cover-art-archive", NSDictionary.self],
                    let archive = MusicBrainzCoverArtArchive(archiveDict),
                    archive.hasArt && archive.front {
                     
@@ -247,7 +247,7 @@ class MusicBrainzRESTClient {
 ///
 /// The version number of this application (used in a request header for all requests sent to MusicBrainz). Used to idenfity this app to MusicBrainz.
 ///
-fileprivate let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.9.0"
+fileprivate let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "2.9.0"
 
 ///
 /// Contact info for the developer of this application (used in a request header for all requests sent to MusicBrainz).

@@ -39,10 +39,10 @@ class MusicBrainzCoverArtArchive {
     init?(_ dict: NSDictionary) {
 
         // Validate the dictionary (all fields must be present).
-        guard let artwork = dict["artwork"] as? Bool,
-              let back = dict["back"] as? Bool,
-              let front = dict["front"] as? Bool,
-              let count = dict["count"] as? NSNumber else {return nil}
+        guard let artwork = dict["artwork", Bool.self],
+              let back = dict["back", Bool.self],
+              let front = dict["front", Bool.self],
+              let count = dict["count", NSNumber.self] else {return nil}
        
         self.artwork = artwork
         self.back = back
@@ -62,10 +62,10 @@ class MusicBrainzCoverArtImage {
     init?(_ dict: NSDictionary) {
 
         // Validate the dictionary (all fields must be present).
-        guard let image = dict["image"] as? String else {return nil}
+        guard let image = dict["image", String.self] else {return nil}
         self.image = image
        
-        if let thumbnails = dict["thumbnails"] as? NSDictionary {
+        if let thumbnails = dict["thumbnails", NSDictionary.self] {
             
             for (size, url) in thumbnails {
                 
@@ -75,7 +75,7 @@ class MusicBrainzCoverArtImage {
             }
         }
         
-        self.approved = dict["approved"] as? Bool ?? false
-        self.front = dict["front"] as? Bool ?? false
+        self.approved = dict["approved", Bool.self] ?? false
+        self.front = dict["front", Bool.self] ?? false
     }
 }

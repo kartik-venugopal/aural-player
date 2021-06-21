@@ -5,37 +5,35 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
     private let node: VariableRateNode = VariableRateNode()
     let presets: TimePresets = TimePresets()
     
-    init(_ persistentState: AudioGraphState) {
+    init(persistentState: TimeUnitPersistentState?) {
         
-        let timeState = persistentState.timeUnit
+        super.init(.time, persistentState?.state ?? AudioGraphDefaults.timeState)
         
-        super.init(.time, timeState.state)
+        rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
+        overlap = persistentState?.overlap ?? AudioGraphDefaults.timeOverlap
+        shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
         
-        rate = timeState.rate
-        overlap = timeState.overlap
-        shiftPitch = timeState.shiftPitch
-        
-        presets.addPresets(timeState.userPresets)
+        presets.addPresets((persistentState?.userPresets ?? []).map {TimePreset(persistentState: $0)})
     }
     
     override var avNodes: [AVAudioNode] {return [node.timePitchNode, node.variNode]}
 
     var rate: Float {
         
-        get {node.rate}
-        set {node.rate = newValue}
+        get {return node.rate}
+        set(newValue) {node.rate = newValue}
     }
     
     var overlap: Float {
         
-        get {node.overlap}
-        set {node.overlap = newValue}
+        get {return node.overlap}
+        set(newValue) {node.overlap = newValue}
     }
     
     var shiftPitch: Bool {
         
-        get {node.shiftPitch}
-        set {node.shiftPitch = newValue}
+        get {return node.shiftPitch}
+        set(newValue) {node.shiftPitch = newValue}
     }
     
     var pitch: Float {
@@ -70,15 +68,15 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
         return TimePreset("timeSettings", state, rate, overlap, shiftPitch, false)
     }
     
-    var persistentState: TimeUnitState {
+    var persistentState: TimeUnitPersistentState {
 
-        let unitState = TimeUnitState()
+        let unitState = TimeUnitPersistentState()
 
         unitState.state = state
         unitState.rate = rate
         unitState.overlap = overlap
         unitState.shiftPitch = shiftPitch
-        unitState.userPresets = presets.userDefinedPresets
+        unitState.userPresets = presets.userDefinedPresets.map {TimePresetPersistentState(preset: $0)}
 
         return unitState
     }

@@ -19,13 +19,15 @@ class MusicBrainzPreferences: PersistentPreferencesProtocol {
     var enableCoverArtSearch: Bool
     var enableOnDiskCoverArtCache: Bool
     
+    private typealias Defaults = PreferencesDefaults.Metadata.MusicBrainz
+    
     required init(_ defaultsDictionary: [String : Any]) {
         
-        httpTimeout = (defaultsDictionary["metadata.musicBrainz.httpTimeout"] as? NSNumber)?.intValue ?? PreferencesDefaults.Metadata.MusicBrainz.httpTimeout
+        httpTimeout = defaultsDictionary["metadata.musicBrainz.httpTimeout", Int.self] ?? Defaults.httpTimeout
         
-        enableCoverArtSearch = defaultsDictionary["metadata.musicBrainz.enableCoverArtSearch"] as? Bool ?? PreferencesDefaults.Metadata.MusicBrainz.enableCoverArtSearch
+        enableCoverArtSearch = defaultsDictionary["metadata.musicBrainz.enableCoverArtSearch", Bool.self] ?? Defaults.enableCoverArtSearch
         
-        enableOnDiskCoverArtCache = defaultsDictionary["metadata.musicBrainz.enableOnDiskCoverArtCache"] as? Bool ?? PreferencesDefaults.Metadata.MusicBrainz.enableOnDiskCoverArtCache
+        enableOnDiskCoverArtCache = defaultsDictionary["metadata.musicBrainz.enableOnDiskCoverArtCache", Bool.self] ?? Defaults.enableOnDiskCoverArtCache
     }
     
     func persist(to defaults: UserDefaults) {

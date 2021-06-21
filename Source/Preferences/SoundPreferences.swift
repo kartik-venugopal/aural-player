@@ -37,45 +37,45 @@ class SoundPreferences: PersistentPreferencesProtocol {
         
         outputDeviceOnStartup = PreferencesDefaults.Sound.outputDeviceOnStartup
         
-        if let outputDeviceOnStartupOptionStr = defaultsDictionary["sound.outputDeviceOnStartup.option"] as? String,
+        if let outputDeviceOnStartupOptionStr = defaultsDictionary["sound.outputDeviceOnStartup.option", String.self],
             let option = OutputDeviceStartupOptions(rawValue: outputDeviceOnStartupOptionStr) {
             
             outputDeviceOnStartup.option = option
         }
         
-        if let deviceName = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceName"] as? String, deviceName.trim() != "" {
+        if let deviceName = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceName", String.self], deviceName.trim() != "" {
             outputDeviceOnStartup.preferredDeviceName = deviceName
         }
         
-        if let deviceUID = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceUID"] as? String, deviceUID.trim() != "" {
+        if let deviceUID = defaultsDictionary["sound.outputDeviceOnStartup.preferredDeviceUID", String.self], deviceUID.trim() != "" {
             outputDeviceOnStartup.preferredDeviceUID = deviceUID
         }
         
-        volumeDelta = defaultsDictionary["sound.volumeDelta"] as? Float ?? PreferencesDefaults.Sound.volumeDelta
+        volumeDelta = defaultsDictionary["sound.volumeDelta", Float.self] ?? PreferencesDefaults.Sound.volumeDelta
         
-        if let volumeOnStartupOptionStr = defaultsDictionary["sound.volumeOnStartup.option"] as? String {
+        if let volumeOnStartupOptionStr = defaultsDictionary["sound.volumeOnStartup.option", String.self] {
             volumeOnStartupOption = VolumeStartupOptions(rawValue: volumeOnStartupOptionStr) ?? PreferencesDefaults.Sound.volumeOnStartupOption
         } else {
             volumeOnStartupOption = PreferencesDefaults.Sound.volumeOnStartupOption
         }
         
-        startupVolumeValue = defaultsDictionary["sound.volumeOnStartup.value"] as? Float ?? PreferencesDefaults.Sound.startupVolumeValue
+        startupVolumeValue = defaultsDictionary["sound.volumeOnStartup.value", Float.self] ?? PreferencesDefaults.Sound.startupVolumeValue
         
-        panDelta = defaultsDictionary["sound.panDelta"] as? Float ?? PreferencesDefaults.Sound.panDelta
+        panDelta = defaultsDictionary["sound.panDelta", Float.self] ?? PreferencesDefaults.Sound.panDelta
         
-        eqDelta = defaultsDictionary["sound.eqDelta"] as? Float ?? PreferencesDefaults.Sound.eqDelta
-        pitchDelta = defaultsDictionary["sound.pitchDelta"] as? Int ?? PreferencesDefaults.Sound.pitchDelta
-        timeDelta = defaultsDictionary["sound.timeDelta"] as? Float ?? PreferencesDefaults.Sound.timeDelta
+        eqDelta = defaultsDictionary["sound.eqDelta", Float.self] ?? PreferencesDefaults.Sound.eqDelta
+        pitchDelta = defaultsDictionary["sound.pitchDelta", Int.self] ?? PreferencesDefaults.Sound.pitchDelta
+        timeDelta = defaultsDictionary["sound.timeDelta", Float.self] ?? PreferencesDefaults.Sound.timeDelta
         
-        if let effectsSettingsOnStartupOptionStr = defaultsDictionary["sound.effectsSettingsOnStartup.option"] as? String {
+        if let effectsSettingsOnStartupOptionStr = defaultsDictionary["sound.effectsSettingsOnStartup.option", String.self] {
             effectsSettingsOnStartupOption = EffectsSettingsStartupOptions(rawValue: effectsSettingsOnStartupOptionStr) ?? PreferencesDefaults.Sound.effectsSettingsOnStartupOption
         } else {
             effectsSettingsOnStartupOption = PreferencesDefaults.Sound.effectsSettingsOnStartupOption
         }
         
-        masterPresetOnStartup_name = defaultsDictionary["sound.effectsSettingsOnStartup.masterPreset"] as? String ?? PreferencesDefaults.Sound.masterPresetOnStartup_name
+        masterPresetOnStartup_name = defaultsDictionary["sound.effectsSettingsOnStartup.masterPreset", String.self] ?? PreferencesDefaults.Sound.masterPresetOnStartup_name
         
-        if let optionStr = defaultsDictionary["sound.rememberEffectsSettings.option"] as? String {
+        if let optionStr = defaultsDictionary["sound.rememberEffectsSettings.option", String.self] {
             
             rememberEffectsSettingsOption = RememberSettingsForTrackOptions(rawValue: optionStr) ?? PreferencesDefaults.Sound.rememberEffectsSettingsOption
             
