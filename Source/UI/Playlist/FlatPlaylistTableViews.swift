@@ -1,38 +1,5 @@
 import Cocoa
 
-extension NSView {
-    
-    func activateAndAddConstraints(_ constraints: NSLayoutConstraint...) {
-        
-        for constraint in constraints {
-            
-            constraint.isActive = true
-            self.addConstraint(constraint)
-        }
-    }
-    
-    func activateAndAddConstraint(_ constraint: NSLayoutConstraint) {
-        
-        constraint.isActive = true
-        self.addConstraint(constraint)
-    }
-    
-    func deactivateAndRemoveConstraints(_ constraints: NSLayoutConstraint...) {
-        
-        for constraint in constraints {
-            
-            constraint.isActive = false
-            self.removeConstraint(constraint)
-        }
-    }
-    
-    func deactivateAndRemoveConstraint(_ constraint: NSLayoutConstraint) {
-        
-        constraint.isActive = false
-        self.removeConstraint(constraint)
-    }
-}
-
 /*
     A customized NSTableView that overrides contextual menu behavior
  */

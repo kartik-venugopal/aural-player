@@ -108,4 +108,34 @@ extension NSView {
     static func hideViews(_ views: NSView...) {
         views.forEach({$0.hide()})
     }
+    
+    func activateAndAddConstraints(_ constraints: NSLayoutConstraint...) {
+        
+        for constraint in constraints {
+            
+            constraint.isActive = true
+            self.addConstraint(constraint)
+        }
+    }
+    
+    func activateAndAddConstraint(_ constraint: NSLayoutConstraint) {
+        
+        constraint.isActive = true
+        self.addConstraint(constraint)
+    }
+    
+    func deactivateAndRemoveConstraints(_ constraints: NSLayoutConstraint...) {
+        
+        for constraint in constraints {
+            
+            constraint.isActive = false
+            self.removeConstraint(constraint)
+        }
+    }
+    
+    func deactivateAndRemoveConstraint(_ constraint: NSLayoutConstraint) {
+        
+        constraint.isActive = false
+        self.removeConstraint(constraint)
+    }
 }

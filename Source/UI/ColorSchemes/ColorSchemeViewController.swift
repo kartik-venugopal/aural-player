@@ -78,19 +78,19 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
             
             // Perform the undo operation on the relevant control, according to the control type
             
-            if let colorPicker = controlsMap[lastChange.tag] as? NSColorWell, let undoColor = lastChange.undoValue as? NSColor {
+            if let colorPicker = controlsMap[lastChange.tag, NSColorWell.self], let undoColor = lastChange.undoValue as? NSColor {
                 
                 colorPicker.color = undoColor
                 
-            } else if let btnToggle = controlsMap[lastChange.tag] as? NSButton, let boolVal = lastChange.undoValue as? Bool {
+            } else if let btnToggle = controlsMap[lastChange.tag, NSButton.self], let boolVal = lastChange.undoValue as? Bool {
                 
                 btnToggle.onIf(boolVal)
                 
-            } else if let btnGroup = controlsMap[lastChange.tag] as? GradientOptionsRadioButtonGroup, let gradientType = lastChange.undoValue as? GradientType {
+            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self], let gradientType = lastChange.undoValue as? GradientType {
                 
                 btnGroup.gradientType = gradientType
                 
-            } else if let stepper = controlsMap[lastChange.tag] as? NSStepper, let intVal = lastChange.undoValue as? Int {
+            } else if let stepper = controlsMap[lastChange.tag, NSStepper.self], let intVal = lastChange.undoValue as? Int {
                 
                 stepper.integerValue = intVal
             }
@@ -119,20 +119,20 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
             
             // Perform the redo operation on the relevant control, according to the control type
             
-            if let colorPicker = controlsMap[lastChange.tag] as? NSColorWell, let redoColor = lastChange.redoValue as? NSColor {
+            if let colorPicker = controlsMap[lastChange.tag, NSColorWell.self], let redoColor = lastChange.redoValue as? NSColor {
                 
                 colorPicker.color = redoColor
                 
-            } else if let btnToggle = controlsMap[lastChange.tag] as? NSButton, let boolVal = lastChange.redoValue as? Bool {
+            } else if let btnToggle = controlsMap[lastChange.tag, NSButton.self], let boolVal = lastChange.redoValue as? Bool {
                 
                 btnToggle.onIf(boolVal)
                 
-            } else if let btnGroup = controlsMap[lastChange.tag] as? GradientOptionsRadioButtonGroup,
+            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self],
                 let gradientType = lastChange.redoValue as? GradientType {
                     
                 btnGroup.gradientType = gradientType
                 
-            } else if let stepper = controlsMap[lastChange.tag] as? NSStepper, let intVal = lastChange.redoValue as? Int {
+            } else if let stepper = controlsMap[lastChange.tag, NSStepper.self], let intVal = lastChange.redoValue as? Int {
                 
                 stepper.integerValue = intVal
             }

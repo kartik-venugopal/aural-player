@@ -142,22 +142,22 @@ class FileSystemUtils {
         if let mditem = MDItemCreate(nil, path as CFString),
             
             let mdnames = MDItemCopyAttributeNames(mditem),
-            let mdattrs = MDItemCopyAttributes(mditem, mdnames) as? [String:Any] {
+            let mdattrs = MDItemCopyAttributes(mditem, mdnames) as? [String: Any] {
             
-            kindOfFile = mdattrs[kMDItemKind as String] as? String
-            lastOpened = mdattrs[kMDItemLastUsedDate as String] as? Date
+            kindOfFile = mdattrs[kMDItemKind as String, String.self]
+            lastOpened = mdattrs[kMDItemLastUsedDate as String, Date.self]
         }
         
         do {
 
             let attr = try fileManager.attributesOfItem(atPath: path)
-            fileSize = Size(sizeBytes: attr[FileAttributeKey.size] as! UInt)
+            fileSize = Size(sizeBytes: attr[FileAttributeKey.size, UInt.self]!)
             
-            if let modDate = attr[FileAttributeKey.modificationDate] as? Date {
+            if let modDate = attr[FileAttributeKey.modificationDate, Date.self] {
                 lastModified = modDate
             }
             
-            if let cDate = attr[FileAttributeKey.creationDate] as? Date {
+            if let cDate = attr[FileAttributeKey.creationDate, Date.self] {
                 creationDate = cDate
             }
             

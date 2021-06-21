@@ -135,10 +135,3 @@ class JSONMapper {
         return dict as NSDictionary
     }
 }
-
-extension Mirror {
-    
-    var allChildren: [Mirror.Child] {
-        self.children + (self.superclassMirror?.allChildren ?? [])
-    }
-}

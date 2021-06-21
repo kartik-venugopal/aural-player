@@ -117,8 +117,3 @@ class FFmpegPlaybackContext: PlaybackContextProtocol {
         close()
     }
 }
-
-extension AVAudioChannelLayout {
-    
-    static let stereo: AVAudioChannelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_Stereo)!
-}

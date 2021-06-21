@@ -95,7 +95,7 @@ class MediaApplicationWatcher {
     // MARK: - Notifications
 
     @objc private func applicationLaunched(_ notification: Notification) {
-        if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication {
+        if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey, NSRunningApplication.self] {
             if inStaticWhitelist(application) && application != NSRunningApplication.current {
                 delegate?.whitelistedAppStarted()
             }
@@ -103,14 +103,14 @@ class MediaApplicationWatcher {
     }
 
     @objc private func applicationActivated(_ notification: Notification) {
-        if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication {
+        if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey, NSRunningApplication.self] {
             guard whitelisted(application) else { return }
             handleApplicationActivation(application: application)
         }
     }
 
     @objc private func applicationTerminated(_ notification: Notification) {
-        if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication {
+        if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey, NSRunningApplication.self] {
             mediaApps = mediaApps.filter { $0 != application }
             updateKeyInterceptStatus()
         }

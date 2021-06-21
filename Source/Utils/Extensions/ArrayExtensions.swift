@@ -85,8 +85,8 @@ extension Array where Element: Equatable {
 
     mutating func moveItemsUp(_ indices: IndexSet) -> [Int: Int] {
         
-        // Indices need to be in ascending order, because items need to be moved up, one by one, from top to bottom of the playlist
-        // Determine if there is a contiguous block of items at the top of the playlist, that cannot be moved. If there is, determine its size.
+        // Indices need to be in ascending order, because items need to be moved up, one by one, from top to bottom of the array
+        // Determine if there is a contiguous block of items at the top of the array, that cannot be moved. If there is, determine its size.
         let ascendingOldIndices = indices.sorted(by: Int.ascendingIntComparator)
         let unmovableBlockSize: Int = self.indices.first(where: {!ascendingOldIndices.contains($0)}) ?? 0
         
@@ -102,10 +102,10 @@ extension Array where Element: Equatable {
     
     mutating func moveItemsDown(_ indices: IndexSet) -> [Int: Int] {
         
-        // Indices need to be in descending order, because items need to be moved down, one by one, from bottom to top of the playlist
+        // Indices need to be in descending order, because items need to be moved down, one by one, from bottom to top of the array
         let descendingOldIndices = indices.sorted(by: Int.descendingIntComparator)
         
-        // Determine if there is a contiguous block of items at the bottom of the playlist, that cannot be moved. If there is, determine its size.
+        // Determine if there is a contiguous block of items at the bottom of the array, that cannot be moved. If there is, determine its size.
         let indicesReversed = self.indices.reversed()
         let unmovableBlockSize = self.lastIndex - (indicesReversed.first(where: {!descendingOldIndices.contains($0)}) ?? 0)
         
@@ -168,7 +168,7 @@ extension Array where Element: Equatable {
     }
     
     /*
-       In response to a playlist reordering by drag and drop, and given source indices, a destination index, and the drop operation (on/above), determines which destination indices the source indexs will occupy.
+       In response to a array reordering by drag and drop, and given source indices, a destination index, and the drop operation (on/above), determines which destination indices the source indexs will occupy.
     */
     mutating func dragAndDropItems(_ sourceIndices: IndexSet, _ dropIndex: Int) -> [Int: Int] {
         
@@ -191,3 +191,46 @@ extension Array where Element: Equatable {
         return Dictionary(uniqueKeysWithValues: zip(sourceIndices.sorted(by: Int.ascendingIntComparator), destinationIndices))
     }
 }
+
+extension Array {
+    
+    func firstNonNilMappedValue<R>(_ mapFunc: (Element) -> R?) ->R? {
+
+        for elm in self {
+
+            if let result = mapFunc(elm) {
+                return result
+            }
+        }
+
+        return nil
+    }
+}
+
+// Unused code
+//extension Array where Element: FloatingPoint {
+//
+//    func fastMin() -> Float {
+//
+//        let floats = self as! [Float]
+//        var min: Float = 0
+//        vDSP_minv(floats, 1, &min, UInt(count))
+//        return min
+//    }
+//
+//    func fastMax() -> Float {
+//
+//        let floats = self as! [Float]
+//        var max: Float = 0
+//        vDSP_maxv(floats, 1, &max, UInt(count))
+//        return max
+//    }
+//
+//    func avg() -> Float {
+//
+//        let floats = self as! [Float]
+//        var mean: Float = 0
+//        vDSP_meanv(floats, 1, &mean, UInt(count))
+//        return mean
+//    }
+//}
