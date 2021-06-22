@@ -5,13 +5,13 @@ protocol PresetsWrapperProtocol {
     var userDefinedPresets: [EffectsUnitPreset] {get}
     var systemDefinedPresets: [EffectsUnitPreset] {get}
     
-    func presetByName(_ name: String) -> EffectsUnitPreset?
+    func preset(named name: String) -> EffectsUnitPreset?
     
-    func deletePresets(_ presetNames: [String])
+    func deletePresets(named presetNames: [String])
     
-    func renamePreset(_ oldName: String, _ newName: String)
+    func renamePreset(named oldName: String, to newName: String)
     
-    func presetWithNameExists(_ name: String) -> Bool
+    func presetExists(named name: String) -> Bool
 }
 
 class PresetsWrapper<T: EffectsUnitPreset, U: FXPresets<T>>: PresetsWrapperProtocol {
@@ -29,19 +29,19 @@ class PresetsWrapper<T: EffectsUnitPreset, U: FXPresets<T>>: PresetsWrapperProto
         return presets.systemDefinedPresets
     }
     
-    func presetByName(_ name: String) -> EffectsUnitPreset? {
-        return presets.presetByName(name)
+    func preset(named name: String) -> EffectsUnitPreset? {
+        return presets.preset(named: name)
     }
     
-    func deletePresets(_ presetNames: [String]) {
-        presets.deletePresets(presetNames)
+    func deletePresets(named presetNames: [String]) {
+        presets.deletePresets(named: presetNames)
     }
     
-    func renamePreset(_ oldName: String, _ newName: String) {
-        presets.renamePreset(oldName, newName)
+    func renamePreset(named oldName: String, to newName: String) {
+        presets.renamePreset(named: oldName, to: newName)
     }
     
-    func presetWithNameExists(_ name: String) -> Bool {
-        return presets.presetWithNameExists(name)
+    func presetExists(named name: String) -> Bool {
+        return presets.presetExists(named: name)
     }
 }

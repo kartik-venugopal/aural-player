@@ -1,6 +1,13 @@
 import Foundation
 
-class ReverbPresets: FXPresets<ReverbPreset> {}
+class ReverbPresets: FXPresets<ReverbPreset> {
+    
+    init(persistentState: ReverbUnitPersistentState?) {
+        
+        let userDefinedPresets = (persistentState?.userPresets ?? []).map {ReverbPreset(persistentState: $0)}
+        super.init(systemDefinedPresets: [], userDefinedPresets: userDefinedPresets)
+    }
+}
 
 class ReverbPreset: EffectsUnitPreset {
     

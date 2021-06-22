@@ -1,6 +1,13 @@
 import Foundation
 
-class MasterPresets: FXPresets<MasterPreset> {}
+class MasterPresets: FXPresets<MasterPreset> {
+    
+    init(persistentState: MasterUnitPersistentState?) {
+        
+        super.init(systemDefinedPresets: [],
+                   userDefinedPresets: (persistentState?.userPresets ?? []).map {MasterPreset(persistentState: $0)})
+    }
+}
 
 class MasterPreset: EffectsUnitPreset {
     

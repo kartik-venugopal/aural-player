@@ -25,7 +25,7 @@ class TimePresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override func renderPreview(_ presetName: String) {
 
-        if let preset = timeUnit.presets.presetByName(presetName) {
+        if let preset = timeUnit.presets.preset(named: presetName) {
             renderPreview(preset)
         }
     }

@@ -46,8 +46,22 @@ class MappedPresets<P> where P: MappedPreset {
         userDefinedPresetsMap.removePresetAtIndex(index)
     }
     
+    func deletePresets(atIndices indices: IndexSet) {
+        
+        for index in indices.sorted(by: Int.descendingIntComparator) {
+            userDefinedPresetsMap.removePresetAtIndex(index)
+        }
+    }
+    
     func deletePreset(named name: String) {
         userDefinedPresetsMap.removePreset(withKey: name)
+    }
+    
+    func deletePresets(named presetNames: [String]) {
+        
+        for name in presetNames {
+            deletePreset(named: name)
+        }
     }
     
     func renamePreset(named oldName: String, to newName: String) {

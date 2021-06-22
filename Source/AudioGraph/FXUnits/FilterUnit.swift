@@ -3,21 +3,21 @@ import AVFoundation
 class FilterUnit: FXUnit, FilterUnitProtocol {
     
     private let node: FlexibleFilterNode = FlexibleFilterNode()
-    let presets: FilterPresets = FilterPresets()
+    let presets: FilterPresets
     
     override var avNodes: [AVAudioNode] {return [node]}
     
     init(persistentState: FilterUnitPersistentState?) {
         
+        presets = FilterPresets(persistentState: persistentState)
         super.init(.filter, persistentState?.state ?? AudioGraphDefaults.filterState)
         
         node.addBands((persistentState?.bands ?? []).map {FilterBand(persistentState: $0)})
-        presets.addPresets((persistentState?.userPresets ?? []).map {FilterPreset(persistentState: $0)})
     }
     
     var bands: [FilterBand] {
         
-        get {return node.allBands()}
+        get {node.allBands()}
         set {node.setBands(newValue)}
     }
     
@@ -58,7 +58,7 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     
     override func applyPreset(_ presetName: String) {
         
-        if let preset = presets.presetByName(presetName) {
+        if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -73,7 +73,7 @@ class FilterUnit: FXUnit, FilterUnitProtocol {
     }
     
     var settingsAsPreset: FilterPreset {
-        return FilterPreset("filterSettings", state, bands, false)
+        FilterPreset("filterSettings", state, bands, false)
     }
     
     var persistentState: FilterUnitPersistentState {

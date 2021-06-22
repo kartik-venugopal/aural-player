@@ -13,7 +13,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     var auAudioUnit: AUAudioUnit {node.auAudioUnit}
     
-    let presets: AudioUnitPresets = AudioUnitPresets()
+    let presets: AudioUnitPresets
     
     var supportsUserPresets: Bool {
         
@@ -34,8 +34,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
     
     override var avNodes: [AVAudioNode] {return [node]}
     
+    // Called when the user adds a new audio unit.
     init(forComponent component: AVAudioUnitComponent) {
         
+        presets = AudioUnitPresets()
         self.node = HostedAUNode(forComponent: component)
         self.factoryPresets = node.auAudioUnit.factoryPresets?.map {AudioUnitFactoryPreset(name: $0.name, number: $0.number)} ?? []
         
@@ -43,8 +45,10 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         self.node.addBypassStateObserver(self)
     }
     
+    // Called upon app startup when restoring from persisted state.
     init(forComponent component: AVAudioUnitComponent, persistentState: AudioUnitPersistentState) {
         
+        self.presets = AudioUnitPresets(persistentState: persistentState)
         self.node = HostedAUNode(forComponent: component)
         
         var nodeParams: [AUParameterAddress: Float] = [:]
@@ -57,8 +61,6 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         
         super.init(.au, persistentState.state ?? AudioGraphDefaults.auState)
         self.node.addBypassStateObserver(self)
-        
-        presets.addPresets((persistentState.userPresets ?? []).map {AudioUnitPreset(persistentState: $0)})
     }
     
     func nodeBypassStateChanged(_ nodeIsBypassed: Bool) {
@@ -99,7 +101,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
 
     override func applyPreset(_ presetName: String) {
 
-        if let preset = presets.presetByName(presetName) {
+        if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
         }
     }

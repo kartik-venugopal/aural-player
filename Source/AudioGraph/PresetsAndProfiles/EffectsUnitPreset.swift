@@ -1,8 +1,17 @@
 import Foundation
 
-class EffectsUnitPreset {
+class EffectsUnitPreset: MappedPreset {
     
     var name: String
+    
+    var key: String {
+        
+        get {name}
+        set {name = newValue}
+    }
+    
+    var userDefined: Bool {!systemDefined}
+    
     let systemDefined: Bool
     var state: EffectsUnitState
     

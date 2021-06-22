@@ -78,7 +78,7 @@ class EQUnitDelegate: FXUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
             _ = toggleState()
             
             // Reset to "flat" preset (because it is equivalent to an inactive EQ)
-            bands = EQPresets.defaultPreset.bands
+            bands = presets.defaultPreset.bands
         }
     }
 }

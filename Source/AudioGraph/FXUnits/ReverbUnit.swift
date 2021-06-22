@@ -3,18 +3,18 @@ import AVFoundation
 class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     private let node: AVAudioUnitReverb = AVAudioUnitReverb()
-    let presets: ReverbPresets = ReverbPresets()
+    let presets: ReverbPresets
     
     init(persistentState: ReverbUnitPersistentState?) {
         
         avSpace = (persistentState?.space ?? AudioGraphDefaults.reverbSpace).avPreset
+        presets = ReverbPresets(persistentState: persistentState)
         super.init(.reverb, persistentState?.state ?? AudioGraphDefaults.reverbState)
         
         amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
-        presets.addPresets((persistentState?.userPresets ?? []).map {ReverbPreset(persistentState: $0)})
     }
     
-    override var avNodes: [AVAudioNode] {return [node]}
+    override var avNodes: [AVAudioNode] {[node]}
     
     override func reset() {
         node.reset()
@@ -26,13 +26,13 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     var space: ReverbSpaces {
         
-        get {return ReverbSpaces.mapFromAVPreset(avSpace)}
+        get {ReverbSpaces.mapFromAVPreset(avSpace)}
         set {avSpace = newValue.avPreset}
     }
     
     var amount: Float {
         
-        get {return node.wetDryMix}
+        get {node.wetDryMix}
         set {node.wetDryMix = newValue}
     }
     
@@ -48,7 +48,7 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     override func applyPreset(_ presetName: String) {
         
-        if let preset = presets.presetByName(presetName) {
+        if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -60,7 +60,7 @@ class ReverbUnit: FXUnit, ReverbUnitProtocol {
     }
     
     var settingsAsPreset: ReverbPreset {
-        return ReverbPreset("reverbSettings", state, space, amount, false)
+        ReverbPreset("reverbSettings", state, space, amount, false)
     }
     
     var persistentState: ReverbUnitPersistentState {

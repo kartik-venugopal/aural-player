@@ -35,7 +35,7 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = filterUnit.presets.presetByName(presetName) {
+        if let preset = filterUnit.presets.preset(named: presetName) {
             
             bandsDataSource.preset = preset
             filterView.refresh()
@@ -46,7 +46,7 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     private var filterChartBands: [FilterBand] {
         
         let selection = selectedPresetNames
-        return selection.isNonEmpty ? filterUnit.presets.presetByName(selection[0])?.bands ?? [] : []
+        return selection.isNonEmpty ? filterUnit.presets.preset(named: selection[0])?.bands ?? [] : []
     }
 }
 

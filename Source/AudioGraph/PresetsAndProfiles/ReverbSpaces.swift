@@ -29,18 +29,18 @@ enum ReverbSpaces: String {
         
         switch self {
             
-        case .smallRoom: return AVAudioUnitReverbPreset.smallRoom
-        case .mediumRoom: return AVAudioUnitReverbPreset.mediumRoom
-        case .largeRoom: return AVAudioUnitReverbPreset.largeRoom
+        case .smallRoom: return .smallRoom
+        case .mediumRoom: return .mediumRoom
+        case .largeRoom: return .largeRoom
             
-        case .mediumHall: return AVAudioUnitReverbPreset.mediumHall
-        case .largeHall: return AVAudioUnitReverbPreset.largeHall
+        case .mediumHall: return .mediumHall
+        case .largeHall: return .largeHall
             
-        case .mediumChamber: return AVAudioUnitReverbPreset.mediumChamber
-        case .largeChamber: return AVAudioUnitReverbPreset.largeChamber
+        case .mediumChamber: return .mediumChamber
+        case .largeChamber: return .largeChamber
             
-        case .cathedral: return AVAudioUnitReverbPreset.cathedral
-        case .plate: return AVAudioUnitReverbPreset.plate
+        case .cathedral: return .cathedral
+        case .plate: return .plate
             
         }
     }
@@ -50,18 +50,18 @@ enum ReverbSpaces: String {
         
         switch preset {
             
-        case AVAudioUnitReverbPreset.smallRoom: return .smallRoom
-        case AVAudioUnitReverbPreset.mediumRoom: return .mediumRoom
-        case AVAudioUnitReverbPreset.largeRoom: return .largeRoom
+        case .smallRoom: return .smallRoom
+        case .mediumRoom: return .mediumRoom
+        case .largeRoom: return .largeRoom
             
-        case AVAudioUnitReverbPreset.mediumHall: return .mediumHall
-        case AVAudioUnitReverbPreset.largeHall: return .largeHall
+        case .mediumHall: return .mediumHall
+        case .largeHall: return .largeHall
             
-        case AVAudioUnitReverbPreset.mediumChamber: return .mediumChamber
-        case AVAudioUnitReverbPreset.largeChamber: return .largeChamber
+        case .mediumChamber: return .mediumChamber
+        case .largeChamber: return .largeChamber
             
-        case AVAudioUnitReverbPreset.cathedral: return .cathedral
-        case AVAudioUnitReverbPreset.plate: return .plate
+        case .cathedral: return .cathedral
+        case .plate: return .plate
             
         // This should never happen
         default: return ReverbSpaces.smallRoom

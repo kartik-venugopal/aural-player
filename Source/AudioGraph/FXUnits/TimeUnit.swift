@@ -3,17 +3,16 @@ import AVFoundation
 class TimeUnit: FXUnit, TimeUnitProtocol {
     
     private let node: VariableRateNode = VariableRateNode()
-    let presets: TimePresets = TimePresets()
+    let presets: TimePresets
     
     init(persistentState: TimeUnitPersistentState?) {
         
+        presets = TimePresets(persistentState: persistentState)
         super.init(.time, persistentState?.state ?? AudioGraphDefaults.timeState)
         
         rate = persistentState?.rate ?? AudioGraphDefaults.timeStretchRate
         overlap = persistentState?.overlap ?? AudioGraphDefaults.timeOverlap
         shiftPitch = persistentState?.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
-        
-        presets.addPresets((persistentState?.userPresets ?? []).map {TimePreset(persistentState: $0)})
     }
     
     override var avNodes: [AVAudioNode] {return [node.timePitchNode, node.variNode]}
@@ -52,7 +51,7 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
     
     override func applyPreset(_ presetName: String) {
         
-        if let preset = presets.presetByName(presetName) {
+        if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
         }
     }

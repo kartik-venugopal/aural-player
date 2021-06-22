@@ -3,17 +3,16 @@ import AVFoundation
 class EQUnit: FXUnit, EQUnitProtocol {
     
     private let node: ParametricEQ
-    let presets: EQPresets = EQPresets()
+    let presets: EQPresets
     
     init(persistentState: EQUnitPersistentState?) {
         
         node = ParametricEQ(persistentState?.type ?? AudioGraphDefaults.eqType)
+        presets = EQPresets(persistentState: persistentState)
         super.init(.eq, persistentState?.state ?? AudioGraphDefaults.eqState)
         
         bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
         globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
-        
-        presets.addPresets((persistentState?.userPresets ?? []).map {EQPreset(persistentState: $0)})
     }
     
     override func stateChanged() {
@@ -78,7 +77,7 @@ class EQUnit: FXUnit, EQUnitProtocol {
     
     override func applyPreset(_ presetName: String) {
         
-        if let preset = presets.presetByName(presetName) {
+        if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
         }
     }

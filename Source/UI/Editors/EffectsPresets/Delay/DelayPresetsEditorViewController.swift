@@ -25,7 +25,7 @@ class DelayPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = delayUnit.presets.presetByName(presetName) {
+        if let preset = delayUnit.presets.preset(named: presetName) {
             renderPreview(preset)
         }
     }

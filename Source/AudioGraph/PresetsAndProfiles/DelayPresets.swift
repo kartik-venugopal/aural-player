@@ -2,13 +2,15 @@ import Foundation
 
 class DelayPresets: FXPresets<DelayPreset> {
     
-    override init() {
+    init(persistentState: DelayUnitPersistentState?) {
         
-        super.init()
-        addPresets(SystemDefinedDelayPresets.presets)
+        let systemDefinedPresets = SystemDefinedDelayPresetParams.allCases.map {$0.preset}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).map {DelayPreset(persistentState: $0)}
+        
+        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    static var defaultPreset: DelayPreset = {return SystemDefinedDelayPresets.presets.first(where: {$0.name == SystemDefinedDelayPresetParams.oneSecond.rawValue})!}()
+    override var defaultPreset: DelayPreset {systemDefinedPresetsMap[SystemDefinedDelayPresetParams.oneSecond.rawValue]!}
 }
 
 class DelayPreset: EffectsUnitPreset {
@@ -39,17 +41,10 @@ class DelayPreset: EffectsUnitPreset {
     }
 }
 
-fileprivate struct SystemDefinedDelayPresets {
-    
-    static let presets: [DelayPreset] = SystemDefinedDelayPresetParams.allValues.map {
-        DelayPreset($0.rawValue, $0.state, $0.amount, $0.time, $0.feedback, $0.cutoff, true)
-    }
-}
-
 /*
     An enumeration of built-in delay presets the user can choose from
  */
-fileprivate enum SystemDefinedDelayPresetParams: String {
+fileprivate enum SystemDefinedDelayPresetParams: String, CaseIterable {
     
     case quarterSecond = "1/4 second delay"
     case halfSecond = "1/2 second delay"
@@ -58,8 +53,6 @@ fileprivate enum SystemDefinedDelayPresetParams: String {
     case twoSeconds = "2 seconds delay"
     
     case slightEcho = "Slight echo"
-    
-    static var allValues: [SystemDefinedDelayPresetParams] = [.quarterSecond, .halfSecond, .threeFourthsSecond, .oneSecond, .twoSeconds, .slightEcho]
     
     // Converts a user-friendly display name to an instance of DelayPresets
     static func fromDisplayName(_ displayName: String) -> SystemDefinedDelayPresetParams {
@@ -99,5 +92,9 @@ fileprivate enum SystemDefinedDelayPresetParams: String {
     
     var state: EffectsUnitState {
         return .active
+    }
+    
+    var preset: DelayPreset {
+        DelayPreset(rawValue, state, amount, time, feedback, cutoff, true)
     }
 }

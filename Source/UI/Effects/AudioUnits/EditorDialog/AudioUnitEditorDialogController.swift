@@ -120,7 +120,7 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
         
         let presets = audioUnit.presets
         
-        if presets.presetWithNameExists(string) {
+        if presets.presetExists(named: string) {
             return (false, "Preset with this name already exists !")
         } else {
             return (true, nil)

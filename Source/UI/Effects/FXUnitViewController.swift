@@ -214,7 +214,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if presetsWrapper.presetWithNameExists(string) {
+        if presetsWrapper.presetExists(named: string) {
             return (false, "Preset with this name already exists !")
         } else {
             return (true, nil)

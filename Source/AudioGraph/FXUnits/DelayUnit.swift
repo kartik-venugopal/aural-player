@@ -3,21 +3,20 @@ import AVFoundation
 class DelayUnit: FXUnit, DelayUnitProtocol {
     
     private let node: AVAudioUnitDelay = AVAudioUnitDelay()
-    let presets: DelayPresets = DelayPresets()
+    let presets: DelayPresets
     
     init(persistentState: DelayUnitPersistentState?) {
         
+        presets = DelayPresets(persistentState: persistentState)
         super.init(.delay, persistentState?.state ?? AudioGraphDefaults.delayState)
         
         time = persistentState?.time ?? AudioGraphDefaults.delayTime
         amount = persistentState?.amount ?? AudioGraphDefaults.delayAmount
         feedback = persistentState?.feedback ?? AudioGraphDefaults.delayFeedback
         lowPassCutoff = persistentState?.lowPassCutoff ?? AudioGraphDefaults.delayLowPassCutoff
-        
-        presets.addPresets((persistentState?.userPresets ?? []).map {DelayPreset(persistentState: $0)})
     }
     
-    override var avNodes: [AVAudioNode] {return [node]}
+    override var avNodes: [AVAudioNode] {[node]}
     
     override func reset() {
         node.reset()
@@ -25,25 +24,25 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     
     var amount: Float {
         
-        get {return node.wetDryMix}
+        get {node.wetDryMix}
         set {node.wetDryMix = newValue}
     }
     
     var time: Double {
         
-        get {return node.delayTime}
+        get {node.delayTime}
         set {node.delayTime = newValue}
     }
     
     var feedback: Float {
         
-        get {return node.feedback}
+        get {node.feedback}
         set {node.feedback = newValue}
     }
     
     var lowPassCutoff: Float {
         
-        get {return node.lowPassCutoff}
+        get {node.lowPassCutoff}
         set {node.lowPassCutoff = newValue}
     }
     
@@ -59,7 +58,7 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     
     override func applyPreset(_ presetName: String) {
         
-        if let preset = presets.presetByName(presetName) {
+        if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
         }
     }
@@ -73,7 +72,7 @@ class DelayUnit: FXUnit, DelayUnitProtocol {
     }
     
     var settingsAsPreset: DelayPreset {
-        return DelayPreset("delaySettings", state, amount, time, feedback, lowPassCutoff, false)
+        DelayPreset("delaySettings", state, amount, time, feedback, lowPassCutoff, false)
     }
     
     var persistentState: DelayUnitPersistentState {

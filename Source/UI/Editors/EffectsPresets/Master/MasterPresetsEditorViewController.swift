@@ -54,13 +54,13 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     private var filterChartBands: [FilterBand] {
         
         let selection = selectedPresetNames
-        return selection.isEmpty ? [] : masterPresets.presetByName(selection[0])?.filter.bands ?? []
+        return selection.isEmpty ? [] : masterPresets.preset(named: selection[0])?.filter.bands ?? []
     }
     
     private var presetFilterUnitState: EffectsUnitState {
         
         let selection = selectedPresetNames
-        return selection.isEmpty ? .active : masterPresets.presetByName(selection[0])?.filter.state ?? .active
+        return selection.isEmpty ? .active : masterPresets.preset(named: selection[0])?.filter.state ?? .active
     }
     
     override func viewDidAppear() {
@@ -102,7 +102,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        if let preset = masterPresets.presetByName(firstSelectedPresetName)?.eq {
+        if let preset = masterPresets.preset(named: firstSelectedPresetName)?.eq {
             
             eqSubPreview.setUnitState(preset.state)
             eqSubPreview.typeChanged(preset.bands, preset.globalGain)
@@ -133,7 +133,7 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         if numRows == 1 {
             
             let presetName = firstSelectedPresetName
-            if let masterPreset = masterPresets.presetByName(presetName) {
+            if let masterPreset = masterPresets.preset(named: presetName) {
 
                 bandsDataSource.preset = masterPreset.filter
                 renderPreview(masterPreset)
@@ -153,10 +153,10 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         let newPresetName = (obj.object as! NSTextField).stringValue
         
-        if masterPresets.presetWithNameExists(oldPresetName) {
+        if masterPresets.presetExists(named: oldPresetName) {
 
             if String.isEmpty(newPresetName) {
-            } else if masterPresets.presetWithNameExists(newPresetName) {
+            } else if masterPresets.presetExists(named: newPresetName) {
             } else {
 
                 // Also update the sound preference, if the chosen preset was this edited one

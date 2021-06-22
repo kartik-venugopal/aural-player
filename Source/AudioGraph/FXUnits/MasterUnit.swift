@@ -2,7 +2,7 @@ import Foundation
 
 class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
     
-    let presets: MasterPresets = MasterPresets()
+    let presets: MasterPresets
     
     var eqUnit: EQUnit
     var pitchUnit: PitchUnit
@@ -26,9 +26,9 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
         filterUnit = nativeSlaveUnits.first(where: {$0 is FilterUnit})! as! FilterUnit
         
         self.audioUnits = audioUnits
+        presets = MasterPresets(persistentState: persistentState)
         
         super.init(.master, persistentState?.state ?? AudioGraphDefaults.masterState)
-        presets.addPresets((persistentState?.userPresets ?? []).map {MasterPreset(persistentState: $0)})
         
         Messenger.subscribe(self, .fx_unitActivated, self.ensureActive)
     }
@@ -91,7 +91,7 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
     
     override func applyPreset(_ presetName: String) {
         
-        if let preset = presets.presetByName(presetName) {
+        if let preset = presets.preset(named: presetName) {
             applyPreset(preset)
         }
     }

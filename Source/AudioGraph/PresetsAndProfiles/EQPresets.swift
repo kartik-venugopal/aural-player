@@ -2,13 +2,15 @@ import Foundation
 
 class EQPresets: FXPresets<EQPreset> {
     
-    override init() {
-     
-        super.init()
-        addPresets(SystemDefinedEQPresets.presets)
+    init(persistentState: EQUnitPersistentState?) {
+        
+        let systemDefinedPresets = SystemDefinedEQPresetParams.allCases.map {$0.preset}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).map {EQPreset(persistentState: $0)}
+        
+        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    static var defaultPreset: EQPreset = {return SystemDefinedEQPresets.presets.first(where: {$0.name == SystemDefinedEQPresetParams.flat.rawValue})!}()
+    override var defaultPreset: EQPreset {systemDefinedPresetsMap[SystemDefinedEQPresetParams.flat.rawValue]!}
 }
 
 class EQPreset: EffectsUnitPreset {
@@ -30,11 +32,6 @@ class EQPreset: EffectsUnitPreset {
         
         super.init(persistentState: persistentState)
     }
-}
-
-fileprivate struct SystemDefinedEQPresets {
-    
-    static let presets: [EQPreset] = SystemDefinedEQPresetParams.allCases.map { EQPreset($0.rawValue, $0.state, $0.bands, $0.globalGain, true) }
 }
 
 /*
@@ -97,6 +94,10 @@ fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
     
     var state: EffectsUnitState {
         return .active
+    }
+    
+    var preset: EQPreset {
+        EQPreset(rawValue, state, bands, globalGain, true)
     }
 }
 

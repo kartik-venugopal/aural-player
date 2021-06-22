@@ -2,13 +2,15 @@ import Foundation
 
 class TimePresets: FXPresets<TimePreset> {
     
-    override init() {
+    init(persistentState: TimeUnitPersistentState?) {
         
-        super.init()
-        addPresets(SystemDefinedTimePresets.presets)
+        let systemDefinedPresets = SystemDefinedTimePresetParams.allCases.map {$0.preset}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).map {TimePreset(persistentState: $0)}
+        
+        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    static var defaultPreset: TimePreset = {return SystemDefinedTimePresets.presets.first(where: {$0.name == SystemDefinedTimePresetParams.normal.rawValue})!}()
+    override var defaultPreset: TimePreset {systemDefinedPresetsMap[SystemDefinedTimePresetParams.normal.rawValue]!}
 }
 
 class TimePreset: EffectsUnitPreset {
@@ -35,23 +37,10 @@ class TimePreset: EffectsUnitPreset {
     }
 }
 
-fileprivate struct SystemDefinedTimePresets {
-    
-    static let presets: [TimePreset] = {
-        
-        var arr: [TimePreset] = []
-        SystemDefinedTimePresetParams.allValues.forEach({
-            arr.append(TimePreset($0.rawValue, $0.state, $0.rate, $0.overlap, $0.shiftPitch, true))
-        })
-        
-        return arr
-    }()
-}
-
 /*
     An enumeration of built-in pitch presets the user can choose from
  */
-fileprivate enum SystemDefinedTimePresetParams: String {
+fileprivate enum SystemDefinedTimePresetParams: String, CaseIterable {
     
     case normal = "Normal (1x)"  // default
     
@@ -67,8 +56,6 @@ fileprivate enum SystemDefinedTimePresetParams: String {
     case laidBack = "Laid back"
     case speedyGonzales = "Speedy Gonzales"
     case slowLikeMolasses = "Slow like molasses"
-    
-    static var allValues: [SystemDefinedTimePresetParams] = [.normal, .quarterX, .halfX, .threeFourthsX, .twoX, .threeX, .fourX, .speedyGonzales, .slowLikeMolasses, .tooMuchCoffee, .laidBack]
     
     // Converts a user-friendly display name to an instance of TimePresets
     static func fromDisplayName(_ displayName: String) -> SystemDefinedTimePresetParams {
@@ -114,5 +101,9 @@ fileprivate enum SystemDefinedTimePresetParams: String {
     
     var state: EffectsUnitState {
         return .active
+    }
+    
+    var preset: TimePreset {
+        TimePreset(rawValue, state, rate, overlap, shiftPitch, true)
     }
 }

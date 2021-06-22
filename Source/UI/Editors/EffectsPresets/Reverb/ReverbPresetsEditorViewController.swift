@@ -25,7 +25,7 @@ class ReverbPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = reverbUnit.presets.presetByName(presetName) {
+        if let preset = reverbUnit.presets.preset(named: presetName) {
             renderPreview(preset)
         }
     }

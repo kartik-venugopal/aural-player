@@ -2,13 +2,15 @@ import Foundation
 
 class PitchPresets: FXPresets<PitchPreset> {
     
-    override init() {
+    init(persistentState: PitchUnitPersistentState?) {
         
-        super.init()
-        addPresets(SystemDefinedPitchPresets.presets)
+        let systemDefinedPresets = SystemDefinedPitchPresetParams.allCases.map {$0.preset}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).map {PitchPreset(persistentState: $0)}
+        
+        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    static var defaultPreset: PitchPreset = {return SystemDefinedPitchPresets.presets.first(where: {$0.name == SystemDefinedPitchPresetParams.normal.rawValue})!}()
+    override var defaultPreset: PitchPreset {systemDefinedPresetsMap[SystemDefinedPitchPresetParams.normal.rawValue]!}
 }
 
 class PitchPreset: EffectsUnitPreset {
@@ -31,23 +33,10 @@ class PitchPreset: EffectsUnitPreset {
     }
 }
 
-fileprivate struct SystemDefinedPitchPresets {
-    
-    static let presets: [PitchPreset] = {
-        
-        var arr: [PitchPreset] = []
-        SystemDefinedPitchPresetParams.allValues.forEach({
-            arr.append(PitchPreset($0.rawValue, $0.state, $0.pitch, $0.overlap, true))
-        })
-        
-        return arr
-    }()
-}
-
 /*
     An enumeration of built-in pitch presets the user can choose from
  */
-fileprivate enum SystemDefinedPitchPresetParams: String {
+fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
     
     case normal = "Normal"  // default
     case happyLittleGirl = "Happy little girl"
@@ -59,8 +48,6 @@ fileprivate enum SystemDefinedPitchPresetParams: String {
     case robocop = "Robocop"
     case oneOctaveDown = "-1 8ve"
     case twoOctavesDown = "-2 8ve"
-    
-    static var allValues: [SystemDefinedPitchPresetParams] = [.normal, .chipmunk, .happyLittleGirl, .oneOctaveUp, .twoOctavesUp, .deep, .robocop, .oneOctaveDown, .twoOctavesDown]
     
     // Converts a user-friendly display name to an instance of PitchPresets
     static func fromDisplayName(_ displayName: String) -> SystemDefinedPitchPresetParams {
@@ -98,5 +85,9 @@ fileprivate enum SystemDefinedPitchPresetParams: String {
     
     var state: EffectsUnitState {
         return .active
+    }
+    
+    var preset: PitchPreset {
+        PitchPreset(rawValue, state, pitch, overlap, true)
     }
 }

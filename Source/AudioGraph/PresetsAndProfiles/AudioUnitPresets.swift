@@ -2,6 +2,16 @@ import Foundation
 import AVFoundation
 
 class AudioUnitPresets: FXPresets<AudioUnitPreset> {
+    
+    init() {
+        super.init(systemDefinedPresets: [], userDefinedPresets: [])
+    }
+    
+    init(persistentState: AudioUnitPersistentState?) {
+        
+        let userDefinedPresets = (persistentState?.userPresets ?? []).map {AudioUnitPreset(persistentState: $0)}
+        super.init(systemDefinedPresets: [], userDefinedPresets: userDefinedPresets)
+    }
 }
 
 class AudioUnitPreset: EffectsUnitPreset {

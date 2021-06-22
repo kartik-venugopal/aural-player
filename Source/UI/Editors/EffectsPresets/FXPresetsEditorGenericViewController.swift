@@ -51,7 +51,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     func deleteSelectedPresets() {
         
-        presetsWrapper.deletePresets(selectedPresetNames)
+        presetsWrapper.deletePresets(named: selectedPresetNames)
         editorView.reloadData()
         
         previewBox.hide()
@@ -147,21 +147,21 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         let editedTextField = obj.object as! NSTextField
         let newPresetName = editedTextField.stringValue
         
-        if let preset = presetsWrapper.presetByName(oldPresetName) {
+        if let preset = presetsWrapper.preset(named: oldPresetName) {
             
             editedTextField.textColor = Colors.playlistSelectedTextColor
             
             // TODO: What if the string is too long ?
             
             // Empty string is invalid, revert to old value
-            if String.isEmpty(newPresetName) || presetsWrapper.presetWithNameExists(newPresetName) {
+            if String.isEmpty(newPresetName) || presetsWrapper.presetExists(named: newPresetName) {
                 
                 editedTextField.stringValue = preset.name
                 
             } else {
                 
                 // Update the preset name
-                presetsWrapper.renamePreset(oldPresetName, newPresetName)
+                presetsWrapper.renamePreset(named: oldPresetName, to: newPresetName)
             }
             
         } else {

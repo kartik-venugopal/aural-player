@@ -2,13 +2,15 @@ import Foundation
 
 class FilterPresets: FXPresets<FilterPreset> {
     
-    override init() {
+    init(persistentState: FilterUnitPersistentState?) {
         
-        super.init()
-        addPresets(SystemDefinedFilterPresets.presets)
+        let systemDefinedPresets = SystemDefinedFilterPresetParams.allCases.map {$0.preset}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).map {FilterPreset(persistentState: $0)}
+        
+        super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    static var defaultPreset: FilterPreset = {return SystemDefinedFilterPresets.presets.first(where: {$0.name == SystemDefinedFilterPresetParams.passThrough.rawValue})!}()
+    override var defaultPreset: FilterPreset {systemDefinedPresetsMap[SystemDefinedFilterPresetParams.passThrough.rawValue]!}
 }
 
 class FilterPreset: EffectsUnitPreset {
@@ -28,23 +30,10 @@ class FilterPreset: EffectsUnitPreset {
     }
 }
 
-fileprivate struct SystemDefinedFilterPresets {
-    
-    static let presets: [FilterPreset] = {
-        
-        var arr: [FilterPreset] = []
-        SystemDefinedFilterPresetParams.allValues.forEach({
-            arr.append(FilterPreset($0.rawValue, .active, $0.bands, true))
-        })
-        
-        return arr
-    }()
-}
-
 /*
     An enumeration of built-in delay presets the user can choose from
  */
-fileprivate enum SystemDefinedFilterPresetParams: String {
+fileprivate enum SystemDefinedFilterPresetParams: String, CaseIterable {
     
     case passThrough = "Pass through"   // default
     case nothingButBass = "Nothing but bass"
@@ -72,7 +61,9 @@ fileprivate enum SystemDefinedFilterPresetParams: String {
         }
     }
     
-    static var allValues: [SystemDefinedFilterPresetParams] = [.passThrough, .nothingButBass, .emphasizedVocals, .noBass, .noSubBass, .karaoke]
+    var preset: FilterPreset {
+        FilterPreset(rawValue, .active, bands, true)
+    }
     
     // Converts a user-friendly display name to an instance of FilterPresets
     static func fromDisplayName(_ displayName: String) -> SystemDefinedFilterPresetParams {

@@ -484,7 +484,6 @@
 		3E6C131C25CEBEA000BF0D07 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CC25CEB98700BF0D07 /* IntExtensions.swift */; };
 		3E6C131E25CEBEA000BF0D07 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CE25CEB98700BF0D07 /* CollectionExtensions.swift */; };
 		3E6C131F25CEBEA000BF0D07 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CB25CEB98700BF0D07 /* StringExtensions.swift */; };
-		3E6C132025CEBEA000BF0D07 /* StringKeyedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */; };
 		3E6C132525CEBEA000BF0D07 /* ValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */; };
 		3E6C132625CEBEA000BF0D07 /* AVFExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CA25CEB98700BF0D07 /* AVFExtensions.swift */; };
 		3E6C132825CEBEA000BF0D07 /* RepeatingTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10D425CEB98700BF0D07 /* RepeatingTaskExecutor.swift */; };
@@ -1101,7 +1100,6 @@
 		3E6C10B525CEB98700BF0D07 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeUnit.swift; sourceTree = "<group>"; };
 		3E6C10C025CEB98700BF0D07 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
-		3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringKeyedCollection.swift; sourceTree = "<group>"; };
 		3E6C10C225CEB98700BF0D07 /* ConcurrentCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentCollections.swift; sourceTree = "<group>"; };
 		3E6C10C325CEB98700BF0D07 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatter.swift; sourceTree = "<group>"; };
@@ -2658,7 +2656,6 @@
 			isa = PBXGroup;
 			children = (
 				3E6C10C025CEB98700BF0D07 /* Stack.swift */,
-				3E6C10C125CEB98700BF0D07 /* StringKeyedCollection.swift */,
 				3E6C10C225CEB98700BF0D07 /* ConcurrentCollections.swift */,
 				3E6C10C325CEB98700BF0D07 /* Queue.swift */,
 				3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */,
@@ -2712,12 +2709,12 @@
 			children = (
 				3E6C110025CEB98700BF0D07 /* AudioGraph.swift */,
 				3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */,
-				3E5623C82619FA8600D55E43 /* AudioUnits */,
-				3E6C110125CEB98700BF0D07 /* PresetsAndProfiles */,
-				3E6C110D25CEB98700BF0D07 /* Utils */,
-				3E6C111125CEB98700BF0D07 /* CustomNodes */,
 				3E6C111625CEB98700BF0D07 /* FXUnits */,
+				3E5623C82619FA8600D55E43 /* AudioUnits */,
 				3E6C112025CEB98700BF0D07 /* Delegates */,
+				3E6C110125CEB98700BF0D07 /* PresetsAndProfiles */,
+				3E6C111125CEB98700BF0D07 /* CustomNodes */,
+				3E6C110D25CEB98700BF0D07 /* Utils */,
 				3E6C112B25CEB98700BF0D07 /* AudioGraphProtocols.swift */,
 				3E5F943925E571F0002DEF80 /* AudioGraphCallbacks.swift */,
 			);
@@ -2727,18 +2724,18 @@
 		3E6C110125CEB98700BF0D07 /* PresetsAndProfiles */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C110225CEB98700BF0D07 /* FilterPresets.swift */,
 				3E6C110325CEB98700BF0D07 /* EffectsUnitPreset.swift */,
-				3E6C110425CEB98700BF0D07 /* SoundProfile.swift */,
-				3E6C110525CEB98700BF0D07 /* EQPresets.swift */,
-				3E6C110625CEB98700BF0D07 /* ReverbSpaces.swift */,
+				3E6C110C25CEB98700BF0D07 /* FXPresets.swift */,
 				3E6C110725CEB98700BF0D07 /* MasterPresets.swift */,
-				3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */,
-				3E6C110925CEB98700BF0D07 /* DelayPresets.swift */,
+				3E6C110525CEB98700BF0D07 /* EQPresets.swift */,
 				3E6C110A25CEB98700BF0D07 /* PitchPresets.swift */,
 				3E6C110B25CEB98700BF0D07 /* TimePresets.swift */,
-				3E6C110C25CEB98700BF0D07 /* FXPresets.swift */,
+				3E6C110825CEB98700BF0D07 /* ReverbPresets.swift */,
+				3E6C110625CEB98700BF0D07 /* ReverbSpaces.swift */,
+				3E6C110925CEB98700BF0D07 /* DelayPresets.swift */,
+				3E6C110225CEB98700BF0D07 /* FilterPresets.swift */,
 				3E5623CB2619FCB300D55E43 /* AudioUnitPresets.swift */,
+				3E6C110425CEB98700BF0D07 /* SoundProfile.swift */,
 			);
 			path = PresetsAndProfiles;
 			sourceTree = "<group>";
@@ -2769,15 +2766,15 @@
 		3E6C111625CEB98700BF0D07 /* FXUnits */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C111725CEB98700BF0D07 /* PitchUnit.swift */,
 				3E6C111825CEB98700BF0D07 /* FXUnitProtocols.swift */,
-				3E6C111925CEB98700BF0D07 /* FilterUnit.swift */,
-				3E6C111A25CEB98700BF0D07 /* ReverbUnit.swift */,
-				3E6C111B25CEB98700BF0D07 /* EQUnit.swift */,
-				3E6C111C25CEB98700BF0D07 /* DelayUnit.swift */,
-				3E6C111D25CEB98700BF0D07 /* TimeUnit.swift */,
-				3E6C111E25CEB98700BF0D07 /* MasterUnit.swift */,
 				3E6C111F25CEB98700BF0D07 /* FXUnit.swift */,
+				3E6C111E25CEB98700BF0D07 /* MasterUnit.swift */,
+				3E6C111B25CEB98700BF0D07 /* EQUnit.swift */,
+				3E6C111725CEB98700BF0D07 /* PitchUnit.swift */,
+				3E6C111D25CEB98700BF0D07 /* TimeUnit.swift */,
+				3E6C111A25CEB98700BF0D07 /* ReverbUnit.swift */,
+				3E6C111C25CEB98700BF0D07 /* DelayUnit.swift */,
+				3E6C111925CEB98700BF0D07 /* FilterUnit.swift */,
 			);
 			path = FXUnits;
 			sourceTree = "<group>";
@@ -3852,7 +3849,6 @@
 				3E6C117C25CEBD6000BF0D07 /* FXPresets.swift in Sources */,
 				3E5F943725E571A6002DEF80 /* SpectrogramBar.swift in Sources */,
 				3E6C120725CEBDD100BF0D07 /* RecordingSession.swift in Sources */,
-				3E6C132025CEBEA000BF0D07 /* StringKeyedCollection.swift in Sources */,
 				3E6C132525CEBEA000BF0D07 /* ValueFormatter.swift in Sources */,
 				3E6C132925CEBEA000BF0D07 /* ConcurrentCollections.swift in Sources */,
 				3E7572F22609E83B00CA3F85 /* MusicBrainzArtist.swift in Sources */,
