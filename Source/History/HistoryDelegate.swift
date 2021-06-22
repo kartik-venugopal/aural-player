@@ -67,7 +67,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
                 player.play(newTrack)
             }
             
-        } catch let error {
+        } catch {
             
             if let fnfError = error as? FileNotFoundError {
                 

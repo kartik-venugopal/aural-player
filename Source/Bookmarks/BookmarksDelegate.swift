@@ -1,8 +1,10 @@
 import Foundation
 
+fileprivate typealias Bookmarks = MappedPresets<Bookmark>
+
 class BookmarksDelegate: BookmarksDelegateProtocol {
     
-    let bookmarks: BookmarksProtocol
+    private let bookmarks: Bookmarks
     
     // Delegate used to perform CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol
@@ -10,36 +12,37 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    init(persistentState: [BookmarkPersistentState]?, _ bookmarks: BookmarksProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
+    init(persistentState: [BookmarkPersistentState]?, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
-        self.bookmarks = bookmarks
         self.playlist = playlist
         self.player = player
         
         // Restore the bookmarks model object from persistent state
-        persistentState?.forEach {
-            _ = bookmarks.addBookmark($0.name, $0.file, $0.startPosition, $0.endPosition)
-        }
+        let allBookmarks: [Bookmark] = persistentState?.map {Bookmark($0.name, $0.file, $0.startPosition, $0.endPosition)} ?? []
+        self.bookmarks = Bookmarks(systemDefinedPresets: [], userDefinedPresets: allBookmarks)
     }
     
     func addBookmark(_ name: String, _ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) -> Bookmark {
-        return bookmarks.addBookmark(name, track.file, startPosition, endPosition)
+        
+        let newBookmark = Bookmark(name, track.file, startPosition, endPosition)
+        bookmarks.addPreset(newBookmark)
+        return newBookmark
     }
     
     var allBookmarks: [Bookmark] {
-        return bookmarks.allBookmarks
+        return bookmarks.userDefinedPresets
     }
     
     var count: Int {
-        return bookmarks.count
+        return bookmarks.numberOfUserDefinedPresets
     }
     
     func getBookmarkAtIndex(_ index: Int) -> Bookmark {
-        return bookmarks.getBookmarkAtIndex(index)
+        return bookmarks.userDefinedPresets[index]
     }
     
     func bookmarkWithNameExists(_ name: String) -> Bool {
-        return bookmarks.bookmarkWithNameExists(name)
+        return bookmarks.presetExists(named: name)
     }
     
     func playBookmark(_ bookmark: Bookmark) throws {
@@ -53,7 +56,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
                 player.play(newTrack, params)
             }
             
-        } catch let error {
+        } catch {
             
             if let fnfError = error as? FileNotFoundError {
                 
@@ -65,14 +68,20 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     }
     
     func renameBookmarkAtIndex(_ index: Int, _ newName: String) {
-        bookmarks.renameBookmarkAtIndex(index, newName)
+        
+        let bookmark = bookmarks.userDefinedPresets[index]
+        bookmarks.renamePreset(named: bookmark.name, to: newName)
     }
     
     func deleteBookmarkAtIndex(_ index: Int) {
-        bookmarks.deleteBookmarkAtIndex(index)
+        bookmarks.deletePreset(atIndex: index)
     }
     
     func deleteBookmarkWithName(_ name: String) {
-        bookmarks.deleteBookmarkWithName(name)
+        bookmarks.deletePreset(named: name)
+    }
+    
+    var persistentState: [BookmarkPersistentState] {
+        allBookmarks.map {BookmarkPersistentState($0.name, $0.file, $0.startPosition, $0.endPosition)}
     }
 }

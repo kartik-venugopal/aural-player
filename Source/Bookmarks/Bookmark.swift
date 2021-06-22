@@ -1,6 +1,6 @@
 import Cocoa
 
-class Bookmark: StringKeyedItem {
+class Bookmark: MappedPreset {
     
     // A name or description (e.g. "2nd chapter of audiobook")
     private var _name: String
@@ -8,25 +8,17 @@ class Bookmark: StringKeyedItem {
     // Used by the UI (track.displayName)
     var name: String {
         
-        get {
-            self.track?.displayName ?? _name
-        }
-        
-        set {
-            _name = newValue
-        }
+        get {track?.displayName ?? _name}
+        set {_name = newValue}
     }
     
     var key: String {
         
-        get {
-            return name
-        }
-        
-        set {
-            name = newValue
-        }
+        get {name}
+        set {name = newValue}
     }
+    
+    var userDefined: Bool {true}
     
     // The file of the track being bookmarked
     let file: URL

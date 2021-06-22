@@ -1,6 +1,6 @@
 import Cocoa
 
-class Favorite: StringKeyedItem {
+class Favorite: MappedPreset {
     
     // The file of the track being favorited
     let file: URL
@@ -10,25 +10,17 @@ class Favorite: StringKeyedItem {
     // Used by the UI (track.displayName)
     var name: String {
         
-        get {
-            self.track?.displayName ?? _name
-        }
-        
-        set {
-            _name = newValue
-        }
+        get {track?.displayName ?? _name}
+        set {_name = newValue}
     }
     
     var key: String {
         
-        get {
-            return file.path
-        }
-        
-        set {
-            // Do nothing
-        }
+        get {file.path}
+        set {} // Do nothing
     }
+    
+    var userDefined: Bool {true}
     
     var track: Track?
     

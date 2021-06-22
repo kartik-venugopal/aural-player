@@ -159,10 +159,9 @@ class RecentlyAddedMenuController: NSObject, NSMenuDelegate {
         if let item = sender.historyItem as? AddedItem {
             
             do {
-                
                 try history.addItem(item.file)
                 
-            } catch let error {
+            } catch {
                 
                 if let fnfError = error as? FileNotFoundError {
                     
@@ -209,7 +208,7 @@ class RecentlyPlayedMenuController: NSObject, NSMenuDelegate {
                 
                 try history.playItem(item.file, PlaylistViewState.currentView)
                 
-            } catch let error {
+            } catch {
                 
                 if let fnfError = error as? FileNotFoundError {
                     

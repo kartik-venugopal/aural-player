@@ -233,7 +233,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     
                     try JSONSerialization.writeObject(dict as NSDictionary, toFile: outFile)
                     
-                } catch let error {
+                } catch {
                     
                     if let error = error as? JSONWriteError {
                         _ = DialogsAndAlerts.genericErrorAlert("JSON file not written", error.message, error.description).showModal()
@@ -318,7 +318,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     
                     try html.writeToFile(outFile)
                     
-                } catch let error {
+                } catch {
                     
                     if let error = error as? HTMLWriteError {
                         _ = DialogsAndAlerts.genericErrorAlert("HTML file not written", error.message, error.description).showModal()

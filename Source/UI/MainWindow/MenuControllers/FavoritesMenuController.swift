@@ -108,7 +108,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
             
             try favorites.playFavorite(fav)
             
-        } catch let error {
+        } catch {
             
             if let fnfError = error as? FileNotFoundError {
                 

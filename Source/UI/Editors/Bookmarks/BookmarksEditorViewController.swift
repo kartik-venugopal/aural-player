@@ -74,7 +74,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
 
                 try bookmarks.playBookmark(bookmark)
                 
-            } catch let error {
+            } catch {
                 
                 if let fnfError = error as? FileNotFoundError {
                     

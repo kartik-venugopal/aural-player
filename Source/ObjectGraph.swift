@@ -72,12 +72,10 @@ class ObjectGraph {
     private static let history: History = History(preferences.historyPreferences)
     static let historyDelegate: HistoryDelegateProtocol = HistoryDelegate(persistentState: persistentState.history, history, playlistDelegate, playbackDelegate)
     
-    private static let favorites: Favorites = Favorites()
-    static var favoritesDelegate: FavoritesDelegateProtocol = FavoritesDelegate(persistentState: persistentState.favorites, Favorites(), playlistDelegate,
+    static var favoritesDelegate: FavoritesDelegateProtocol = FavoritesDelegate(persistentState: persistentState.favorites, playlistDelegate,
                                                                                 playbackDelegate)
     
-    private static let bookmarks: Bookmarks = Bookmarks()
-    static let bookmarksDelegate: BookmarksDelegateProtocol = BookmarksDelegate(persistentState: persistentState.bookmarks, Bookmarks(), playlistDelegate,
+    static let bookmarksDelegate: BookmarksDelegateProtocol = BookmarksDelegate(persistentState: persistentState.bookmarks, playlistDelegate,
                                                                                 playbackDelegate)
     
     static let fileReader: FileReader = FileReader()

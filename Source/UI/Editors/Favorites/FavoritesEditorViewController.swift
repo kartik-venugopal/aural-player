@@ -78,7 +78,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
                 
                 try favorites.playFavorite(fav)
                 
-            } catch let error {
+            } catch {
                 
                 if let fnfError = error as? FileNotFoundError {
                     
@@ -101,19 +101,15 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     // MARK: View delegate functions
     
-    // Returns the total number of playlist rows
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return favorites.count
-    }
+    // Returns the total number of favorites rows
+    func numberOfRows(in tableView: NSTableView) -> Int {favorites.count}
     
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateButtonStates()
     }
     
     // Returns a view for a single row
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
-    }
+    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {GenericTableRowView()}
     
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {

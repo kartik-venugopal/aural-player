@@ -128,7 +128,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
                 
                 try history.playItem(item.file, PlaylistViewState.currentView)
                 
-            } catch let error {
+            } catch {
                 
                 if let fnfError = error as? FileNotFoundError {
                     
@@ -152,7 +152,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
             
             try favorites.playFavorite(fav)
             
-        } catch let error {
+        } catch {
             
             if let fnfError = error as? FileNotFoundError {
                 

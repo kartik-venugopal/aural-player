@@ -27,10 +27,3 @@ class BookmarkPersistentState: PersistentStateProtocol {
         self.endPosition = map["endPosition", Double.self]
     }
 }
-
-extension BookmarksDelegate {
-    
-    var persistentState: [BookmarkPersistentState] {
-        bookmarks.allBookmarks.map {BookmarkPersistentState($0.name, $0.file, $0.startPosition, $0.endPosition)}
-    }
-}
