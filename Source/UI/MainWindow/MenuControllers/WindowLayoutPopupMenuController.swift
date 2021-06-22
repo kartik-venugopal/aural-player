@@ -6,6 +6,8 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
     
     private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
+    private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
+    
     @IBOutlet weak var theMenu: NSMenu!
     
     override func awakeFromNib() {
@@ -27,17 +29,17 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
         }
         
         // Recreate the custom layout items
-        WindowLayouts.userDefinedLayouts.forEach({
+        windowLayoutsManager.userDefinedPresets.forEach {
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applyLayoutAction(_:)), keyEquivalent: "")
             item.target = self
             item.indentationLevel = 1
             
             menu.insertItem(item, at: 3)
-        })
+        }
         
         for index in 0...2 {
-            menu.item(at: index)?.showIf_elseHide(WindowLayouts.userDefinedLayouts.count > 0)
+            menu.item(at: index)?.showIf_elseHide(windowLayoutsManager.numberOfUserDefinedPresets > 0)
         }
     }
 
@@ -65,7 +67,7 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        let valid = !WindowLayouts.layoutWithNameExists(string)
+        let valid = !windowLayoutsManager.presetExists(named: string)
         
         if (!valid) {
             return (false, "A layout with this name already exists !")
@@ -74,8 +76,11 @@ class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputRece
         }
     }
     
-    // Receives a new EQ preset name and saves the new preset
+    // Receives a new preset name and saves the new preset
     func acceptInput(_ string: String) {
-        WindowLayouts.addUserDefinedLayout(string, WindowManager.instance.currentWindowLayout)
+        
+        let newLayout = WindowManager.instance.currentWindowLayout
+        newLayout.name = string
+        windowLayoutsManager.addPreset(newLayout)
     }
 }

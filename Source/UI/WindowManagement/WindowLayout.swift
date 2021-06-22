@@ -23,3 +23,14 @@ class WindowLayout {
         self.systemDefined = systemDefined
     }
 }
+
+extension WindowLayout: MappedPreset {
+    
+    var key: String {
+        
+        get {name}
+        set {name = newValue}
+    }
+    
+    var userDefined: Bool {!systemDefined}
+}

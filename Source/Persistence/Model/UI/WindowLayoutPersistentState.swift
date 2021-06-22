@@ -1,6 +1,6 @@
 import Foundation
 
-class WindowLayoutPersistentState: PersistentStateProtocol {
+class WindowLayoutsPersistentState: PersistentStateProtocol {
     
     var showEffects: Bool?
     var showPlaylist: Bool?
@@ -69,7 +69,7 @@ class UserWindowLayoutPersistentState: PersistentStateProtocol {
 
 extension WindowLayoutState {
     
-    static func initialize(_ persistentState: WindowLayoutPersistentState?) {
+    static func initialize(_ persistentState: WindowLayoutsPersistentState?) {
         
         Self.showPlaylist = persistentState?.showPlaylist ?? WindowLayoutDefaults.showPlaylist
         Self.showEffects = persistentState?.showEffects ?? WindowLayoutDefaults.showEffects
@@ -77,17 +77,11 @@ extension WindowLayoutState {
         Self.mainWindowOrigin = persistentState?.mainWindowOrigin ?? WindowLayoutDefaults.mainWindowOrigin
         Self.playlistWindowFrame = persistentState?.playlistWindowFrame ?? WindowLayoutDefaults.playlistWindowFrame
         Self.effectsWindowOrigin = persistentState?.effectsWindowOrigin ?? WindowLayoutDefaults.effectsWindowOrigin
-        
-        let userLayouts: [WindowLayout] = (persistentState?.userLayouts ?? []).map {
-            WindowLayout($0.name, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame, false)
-        }
-        
-        WindowLayouts.loadUserDefinedLayouts(userLayouts)
     }
     
-    static var persistentState: WindowLayoutPersistentState {
+    static var persistentState: WindowLayoutsPersistentState {
         
-        let uiState = WindowLayoutPersistentState()
+        let uiState = WindowLayoutsPersistentState()
         
         if let windowManager = WindowManager.instance {
             
@@ -108,7 +102,7 @@ extension WindowLayoutState {
             uiState.playlistWindowFrame = WindowLayoutState.playlistWindowFrame
         }
 
-        uiState.userLayouts = WindowLayouts.userDefinedLayouts.map {UserWindowLayoutPersistentState($0.name, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame)}
+        uiState.userLayouts = ObjectGraph.windowLayoutsManager.userDefinedPresets.map {UserWindowLayoutPersistentState($0.name, $0.showEffects, $0.showPlaylist, $0.mainWindowOrigin, $0.effectsWindowOrigin, $0.playlistWindowFrame)}
         
         return uiState
     }

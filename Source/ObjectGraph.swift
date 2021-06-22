@@ -1,9 +1,8 @@
+import Foundation
+
 /*
     Takes care of loading all persistent app state from disk, and constructing the critical objects in the app's object tree - player, playlist, audio graph (i.e., "the back end"), and all delegates (middlemen/facades) for interaction between the UI and the "back end".
  */
-
-import Foundation
-
 class ObjectGraph {
     
     static let persistentState: PersistentAppState = PersistentStateIO.load() ?? PersistentAppState.defaults
@@ -93,6 +92,8 @@ class ObjectGraph {
     
     static let musicBrainzCache: MusicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache,
                                                                      preferences: preferences.metadataPreferences.musicBrainz)
+    
+    static let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout)
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}

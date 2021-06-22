@@ -6,7 +6,7 @@ import Cocoa
 class UIPersistentState: PersistentStateProtocol {
     
     var appMode: AppMode?
-    var windowLayout: WindowLayoutPersistentState?
+    var windowLayout: WindowLayoutsPersistentState?
     var themes: ThemesPersistentState?
     var fontSchemes: FontSchemesPersistentState?
     var colorSchemes: ColorSchemesPersistentState?
@@ -23,7 +23,7 @@ class UIPersistentState: PersistentStateProtocol {
         
         self.appMode = map.enumValue(forKey: "appMode", ofType: AppMode.self)
         
-        self.windowLayout = map.persistentObjectValue(forKey: "windowLayout", ofType: WindowLayoutPersistentState.self)
+        self.windowLayout = map.persistentObjectValue(forKey: "windowLayout", ofType: WindowLayoutsPersistentState.self)
         self.themes = map.persistentObjectValue(forKey: "themes", ofType: ThemesPersistentState.self)
         self.fontSchemes = map.persistentObjectValue(forKey: "fontSchemes", ofType: FontSchemesPersistentState.self)
         self.colorSchemes = map.persistentObjectValue(forKey: "colorSchemes", ofType: ColorSchemesPersistentState.self)

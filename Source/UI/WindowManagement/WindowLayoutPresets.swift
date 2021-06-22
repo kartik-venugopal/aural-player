@@ -31,7 +31,8 @@ enum WindowLayoutPresets: String, CaseIterable {
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
         return WindowLayoutPresets(rawValue: displayName.camelCased()) ?? .verticalFullStack
     }
-    
+
+    // TODO: Should also check the screen and recompute when the screen changes
     // Recomputes the layout (useful when the window gap preference changes)
     static func recompute(_ layout: WindowLayout) {
         
@@ -42,21 +43,8 @@ enum WindowLayoutPresets: String, CaseIterable {
         layout.playlistWindowFrame = preset.playlistWindowFrame
     }
     
-    // TODO: Write a generic split camel case function to convert rawValue to description
-    var description: String {
-        
-        switch self {
-            
-        case .verticalFullStack: return "Vertical full stack"
-        case .horizontalFullStack: return "Horizontal full stack"
-        case .compactCornered: return "Compact cornered"
-        case .bigBottomPlaylist: return "Big bottom playlist"
-        case .bigLeftPlaylist: return "Big left playlist"
-        case .bigRightPlaylist: return "Big right playlist"
-        case .verticalPlayerAndPlaylist: return "Vertical player and playlist"
-        case .horizontalPlayerAndPlaylist: return "Horizontal player and playlist"
-            
-        }
+    var name: String {
+        rawValue.splitAsCamelCaseWord(capitalizeEachWord: false)
     }
     
     var showPlaylist: Bool {

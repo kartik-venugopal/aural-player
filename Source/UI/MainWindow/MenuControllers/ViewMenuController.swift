@@ -35,9 +35,11 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        manageLayoutsMenuItem.enableIf(!WindowLayouts.userDefinedLayouts.isEmpty)
+        manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedPresets.isEmpty)
         toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
         
         let showingModalComponent: Bool = WindowManager.instance.isShowingModalComponent

@@ -20,9 +20,9 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     static var instance: WindowManager! {_instance}
     
-    static func createInstance(preferences: ViewPreferences) -> WindowManager {
+    static func createInstance(layoutsManager: WindowLayoutsManager, preferences: ViewPreferences) -> WindowManager {
         
-        _instance = WindowManager(preferences: preferences)
+        _instance = WindowManager(layoutsManager: layoutsManager, preferences: preferences)
         return instance
     }
     
@@ -33,6 +33,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }
     
     private let preferences: ViewPreferences
+    private let layoutsManager: WindowLayoutsManager
     
     // App's main window
     private let mainWindowController: MainWindowController
@@ -77,8 +78,9 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
     private var modalComponentRegistry: [ModalComponentProtocol] = []
     
-    init(preferences: ViewPreferences) {
+    init(layoutsManager: WindowLayoutsManager, preferences: ViewPreferences) {
         
+        self.layoutsManager = layoutsManager
         self.preferences = preferences
         
         self.mainWindowController = MainWindowController()
@@ -165,7 +167,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     // Revert to default layout if app state is corrupted
     private func defaultLayout() {
-        layout(WindowLayouts.defaultLayout)
+        layout(layoutsManager.defaultLayout)
     }
     
     func layout(_ layout: WindowLayout) {
@@ -204,7 +206,10 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }
     
     func layout(_ name: String) {
-        layout(WindowLayouts.layoutByName(name)!)
+        
+        if let theLayout = layoutsManager.preset(named: name) {
+            layout(theLayout)
+        }
     }
     
     var isShowingEffects: Bool {

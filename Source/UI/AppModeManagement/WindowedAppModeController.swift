@@ -8,7 +8,8 @@ class WindowedAppModeController: AppModeController {
         
         NSApp.setActivationPolicy(.regular)
         
-        WindowManager.createInstance(preferences: ObjectGraph.preferences.viewPreferences).loadWindows()
+        WindowManager.createInstance(layoutsManager: ObjectGraph.windowLayoutsManager,
+                                     preferences: ObjectGraph.preferences.viewPreferences).loadWindows()
         
         // If this is not a transition from another app mode, we don't need to execute the hack below.
         if previousMode == nil {return}

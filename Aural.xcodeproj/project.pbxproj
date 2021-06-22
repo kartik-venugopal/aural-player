@@ -94,6 +94,7 @@
 		3E5F3DEF2681260700E826F0 /* AtomicBool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DEE2681260700E826F0 /* AtomicBool.swift */; };
 		3E5F3DF126813F2400E826F0 /* NSEventExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DF026813F2400E826F0 /* NSEventExtensions.swift */; };
 		3E5F3DF326814C9700E826F0 /* NSAlertExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DF226814C9700E826F0 /* NSAlertExtensions.swift */; };
+		3E5F3DF52681702000E826F0 /* MappedPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F3DF42681702000E826F0 /* MappedPresets.swift */; };
 		3E5F942025E570A9002DEF80 /* Spectrogram3DBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941725E570A9002DEF80 /* Spectrogram3DBar.swift */; };
 		3E5F942125E570A9002DEF80 /* Spectrogram3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941825E570A9002DEF80 /* Spectrogram3D.swift */; };
 		3E5F942C25E57190002DEF80 /* BassFFTData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F93F925E57081002DEF80 /* BassFFTData.swift */; };
@@ -457,7 +458,7 @@
 		3E6C12F625CEBE8F00BF0D07 /* InfoPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103325CEB98600BF0D07 /* InfoPopupViewController.swift */; };
 		3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C103525CEB98600BF0D07 /* InfoPopup.xib */; };
 		3E6C12F825CEBE8F00BF0D07 /* DetailedTrackInfoRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103925CEB98600BF0D07 /* DetailedTrackInfoRowView.swift */; };
-		3E6C12F925CEBE8F00BF0D07 /* WindowLayouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105325CEB98600BF0D07 /* WindowLayouts.swift */; };
+		3E6C12F925CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105325CEB98600BF0D07 /* WindowLayoutsManager.swift */; };
 		3E6C12FA25CEBE8F00BF0D07 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103125CEB98600BF0D07 /* PlayerViewController.swift */; };
 		3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C104E25CEB98600BF0D07 /* JumpToTimeEditorDialog.xib */; };
 		3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C104225CEB98600BF0D07 /* Player.xib */; };
@@ -768,6 +769,7 @@
 		3E5F3DEE2681260700E826F0 /* AtomicBool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomicBool.swift; sourceTree = "<group>"; };
 		3E5F3DF026813F2400E826F0 /* NSEventExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSEventExtensions.swift; sourceTree = "<group>"; };
 		3E5F3DF226814C9700E826F0 /* NSAlertExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAlertExtensions.swift; sourceTree = "<group>"; };
+		3E5F3DF42681702000E826F0 /* MappedPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappedPresets.swift; sourceTree = "<group>"; };
 		3E5F93F725E57081002DEF80 /* FFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFT.swift; sourceTree = "<group>"; };
 		3E5F93F825E57081002DEF80 /* SpectrogramFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrogramFFTData.swift; sourceTree = "<group>"; };
 		3E5F93F925E57081002DEF80 /* BassFFTData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BassFFTData.swift; sourceTree = "<group>"; };
@@ -1039,7 +1041,7 @@
 		3E6C105025CEB98600BF0D07 /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		3E6C105125CEB98600BF0D07 /* WindowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayout.swift; sourceTree = "<group>"; };
 		3E6C105225CEB98600BF0D07 /* ModalComponentProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalComponentProtocols.swift; sourceTree = "<group>"; };
-		3E6C105325CEB98600BF0D07 /* WindowLayouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayouts.swift; sourceTree = "<group>"; };
+		3E6C105325CEB98600BF0D07 /* WindowLayoutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutsManager.swift; sourceTree = "<group>"; };
 		3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPresets.swift; sourceTree = "<group>"; };
 		3E6C105725CEB98600BF0D07 /* ObjectGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectGraph.swift; sourceTree = "<group>"; };
 		3E6C105825CEB98600BF0D07 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
@@ -2468,7 +2470,7 @@
 				3E59A174262C9EDA006DF775 /* LazyWindowLoader.swift */,
 				3E6C105125CEB98600BF0D07 /* WindowLayout.swift */,
 				3E6C105225CEB98600BF0D07 /* ModalComponentProtocols.swift */,
-				3E6C105325CEB98600BF0D07 /* WindowLayouts.swift */,
+				3E6C105325CEB98600BF0D07 /* WindowLayoutsManager.swift */,
 				3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */,
 				3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */,
 			);
@@ -2659,6 +2661,7 @@
 				3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */,
 				3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */,
 				3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */,
+				3E5F3DF42681702000E826F0 /* MappedPresets.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3447,7 +3450,7 @@
 				3E9C12152622259500D90EA4 /* ThemePreset.swift in Sources */,
 				3E6C124125CEBDF400BF0D07 /* ArtistsPlaylistViewController.swift in Sources */,
 				3E6C120025CEBDD100BF0D07 /* PreferencesDefaults.swift in Sources */,
-				3E6C12F925CEBE8F00BF0D07 /* WindowLayouts.swift in Sources */,
+				3E6C12F925CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */,
 				3E6C129225CEBE1800BF0D07 /* ColorSchemeViewController.swift in Sources */,
 				3E6C129925CEBE2700BF0D07 /* AuralTabView.swift in Sources */,
 				3E6C118825CEBD6D00BF0D07 /* AudioGraphDelegateProtocol.swift in Sources */,
@@ -3473,6 +3476,7 @@
 				3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */,
 				3E6C12B725CEBE5800BF0D07 /* PlaylistMenuController.swift in Sources */,
 				3E6C11F125CEBDD100BF0D07 /* Preferences.swift in Sources */,
+				3E5F3DF52681702000E826F0 /* MappedPresets.swift in Sources */,
 				3E6C12A925CEBE2700BF0D07 /* FXUnitTriStateImageView.swift in Sources */,
 				3E6C130625CEBE8F00BF0D07 /* SeekSliderView.swift in Sources */,
 				3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */,

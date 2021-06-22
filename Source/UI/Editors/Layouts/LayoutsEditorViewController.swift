@@ -13,6 +13,8 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     // Delegate that performs CRUD on user preferences
     private lazy var preferences: Preferences = ObjectGraph.preferences
     
+    private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
+    
     private var oldLayoutName: String = ""
     
     override var nibName: String? {"LayoutsEditor"}
@@ -34,14 +36,13 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         let prefLayout = preferences.viewPreferences.layoutOnStartup.layoutName
         
         // The preferred layout (in the view preferences) was deleted. Set the preference to the default
-        if (selection.contains(prefLayout)) {
+        if selection.contains(prefLayout) {
             
-            let defaultLayout = WindowLayouts.defaultLayout.name
-            
+            let defaultLayout = windowLayoutsManager.defaultLayout.name
             preferences.viewPreferences.layoutOnStartup.layoutName = defaultLayout
         }
 
-        selection.forEach({WindowLayouts.deleteLayout($0)})
+        selection.forEach {windowLayoutsManager.deletePreset(named: $0)}
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -94,13 +95,10 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     private func updatePreview() {
         
-        if editorView.numberOfSelectedRows == 1 {
-            
-            let layout = WindowLayouts.layoutByName(selectedLayoutNames[0])!
+        if editorView.numberOfSelectedRows == 1, let layout = windowLayoutsManager.preset(named: selectedLayoutNames[0]) {
             previewView.drawPreviewForLayout(layout)
             
         } else {
-            
             previewView.clear()
         }
     }
@@ -109,7 +107,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return WindowLayouts.userDefinedLayouts.count
+        return windowLayoutsManager.numberOfUserDefinedPresets
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -132,7 +130,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     // Returns a view for a single column
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let layout = WindowLayouts.userDefinedLayouts[row]
+        let layout = windowLayoutsManager.userDefinedPresets[row]
         return createTextCell(tableView, tableColumn!, row, layout.name)
     }
     
@@ -162,7 +160,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         
         let editedTextField = obj.object as! NSTextField
         
-        if let layout = WindowLayouts.layoutByName(oldLayoutName, false) {
+        if let layout = windowLayoutsManager.preset(named: oldLayoutName) {
             
             let newLayoutName = editedTextField.stringValue
             
@@ -174,7 +172,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
             if (String.isEmpty(newLayoutName)) {
                 editedTextField.stringValue = layout.name
                 
-            } else if WindowLayouts.layoutWithNameExists(newLayoutName) {
+            } else if windowLayoutsManager.presetExists(named: newLayoutName) {
                 
                 // Another layout with that name exists, can't rename
                 editedTextField.stringValue = layout.name
@@ -182,7 +180,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
             } else {
             
                 // Update the layout name
-                WindowLayouts.renameLayout(layout.name, newLayoutName)
+                windowLayoutsManager.renamePreset(named: layout.name, to: newLayoutName)
                 
                 // Also update the view preference, if the chosen layout was this edited one
                 let prefLayout = preferences.viewPreferences.layoutOnStartup.layoutName

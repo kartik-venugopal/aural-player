@@ -19,6 +19,8 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     @IBOutlet weak var btnSnapToScreen: NSButton!
     
+    private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
+    
     override var nibName: String? {"ViewPreferences"}
     
     var preferencesView: NSView {
@@ -59,7 +61,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             layoutMenu.select(item)
         } else {
             // Default
-            layoutMenu.select(layoutMenu.item(withTitle: WindowLayouts.defaultLayout.name))
+            layoutMenu.select(layoutMenu.item(withTitle: windowLayoutsManager.defaultLayout.name))
         }
         layoutMenu.enableIf(btnStartWithLayout.isOn)
         
@@ -88,9 +90,9 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         }
         
         // Reinsert the custom layouts
-        WindowLayouts.userDefinedLayouts.forEach({
+        windowLayoutsManager.userDefinedPresets.forEach {
             self.layoutMenu.insertItem(withTitle: $0.name, at: 0)
-        })
+        }
     }
     
     @IBAction func appModeOnStartupAction(_ sender: Any) {
@@ -128,7 +130,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         if viewPrefs.windowGap != oldWindowGap {
             
             // Recompute system-defined layouts based on new gap between windows
-            WindowLayouts.recomputeSystemDefinedLayouts()
+            windowLayoutsManager.recomputeSystemDefinedLayouts()
         }
         
         viewPrefs.snapToScreen = btnSnapToScreen.isOn
