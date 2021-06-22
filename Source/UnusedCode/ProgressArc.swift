@@ -20,7 +20,7 @@
 //    var backgroundColor: NSColor {return Colors.Player.progressArcBackgroundColor}
 //    var foregroundColor: NSColor {return Colors.Player.sliderForegroundColor}
 //
-//    var textFont: NSFont {return FontSchemes.systemScheme.player.infoBoxArtistAlbumFont}
+//    var textFont: NSFont {return fontSchemesManager.systemScheme.player.infoBoxArtistAlbumFont}
 //
 //    override func awakeFromNib() {
 //        radius = (self.width - (2 * lineWidth)) / 2

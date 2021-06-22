@@ -5,6 +5,8 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
     
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     func numberOfRows(in tableView: NSTableView) -> Int {audioGraph.audioUnits.count}
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {24}
@@ -67,9 +69,9 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             let audioUnit = audioGraph.audioUnits[row]
             
             cell.textField?.stringValue = "\(audioUnit.name) v\(audioUnit.version) by \(audioUnit.manufacturerName)"
-            cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
+            cell.textField?.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
             cell.rowSelectionStateFunction = {tableView.selectedRowIndexes.contains(row)}
-            cell.realignText(yOffset: FontSchemes.systemScheme.effects.auRowTextYOffset)
+            cell.realignText(yOffset: fontSchemesManager.systemScheme.effects.auRowTextYOffset)
             
             return cell
         }

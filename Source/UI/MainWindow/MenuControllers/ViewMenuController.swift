@@ -37,7 +37,8 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
     
-    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
+    private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -50,7 +51,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedPresets > 0))
         
         [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
-        manageFontSchemesMenuItem.enableIf(!showingModalComponent && (FontSchemes.numberOfUserDefinedSchemes > 0))
+        manageFontSchemesMenuItem.enableIf(!showingModalComponent && (fontSchemesManager.numberOfUserDefinedPresets > 0))
         
         [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
         manageColorSchemesMenuItem.enableIf(!showingModalComponent && (ColorSchemes.numberOfUserDefinedSchemes > 0))

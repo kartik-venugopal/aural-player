@@ -16,6 +16,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
     fileprivate var playlistType: PlaylistType
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     init(_ playlistType: PlaylistType) {
         self.playlistType = playlistType
     }
@@ -88,8 +90,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             return false
         }
         
-        cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
-        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
+        cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, playlist.displayNameForTrack(self.playlistType, track))
+        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.trackTextYOffset)
         
         if track == playbackInfo.playingTrack {
             imgView.image = Images.imgPlayingTrack.filledWithColor(Colors.Playlist.playingTrackIconColor)
@@ -118,8 +120,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             return false
         }
         
-        cell.updateText(FontSchemes.systemScheme.playlist.trackTextFont, ValueFormatter.formatSecondsToHMS(track.duration))
-        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.trackTextYOffset)
+        cell.updateText(fontSchemesManager.systemScheme.playlist.trackTextFont, ValueFormatter.formatSecondsToHMS(track.duration))
+        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.trackTextYOffset)
         
         return cell
     }
@@ -140,8 +142,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             return false
         }
             
-        cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
-        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
+        cell.updateText(fontSchemesManager.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
+        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.groupTextYOffset)
         cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         // Constraints
@@ -165,8 +167,8 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             return false
         }
         
-        cell.updateText(FontSchemes.systemScheme.playlist.groupTextFont, ValueFormatter.formatSecondsToHMS(group.duration))
-        cell.realignText(yOffset: FontSchemes.systemScheme.playlist.groupTextYOffset)
+        cell.updateText(fontSchemesManager.systemScheme.playlist.groupTextFont, ValueFormatter.formatSecondsToHMS(group.duration))
+        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.groupTextYOffset)
         
         return cell
     }

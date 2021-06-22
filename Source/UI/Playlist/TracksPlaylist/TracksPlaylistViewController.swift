@@ -27,6 +27,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
     override var nibName: String? {"Tracks"}
@@ -400,7 +402,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     
     private func applyTheme() {
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     

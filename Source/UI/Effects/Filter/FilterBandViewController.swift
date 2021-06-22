@@ -26,6 +26,8 @@ class FilterBandViewController: NSViewController {
     
     private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.Sound.audibleRangeMin).withMaxFreq(AppConstants.Sound.subBass_max)
     var bandIndex: Int!
     
@@ -38,7 +40,7 @@ class FilterBandViewController: NSViewController {
         oneTimeSetup()
         resetFields()
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -184,13 +186,13 @@ class FilterBandViewController: NSViewController {
         
         tabButton.redraw()
         
-        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont})
         
-        filterTypeMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        filterTypeMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
         filterTypeMenu.redraw()
         
-        presetRangesMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
-        lblFrequencies.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        presetRangesMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
+        lblFrequencies.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

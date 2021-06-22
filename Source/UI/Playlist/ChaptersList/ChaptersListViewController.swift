@@ -40,6 +40,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     // The chapters list window is only considered modal when it is the key window AND the search bar has focus
     // (i.e. a search is being performed)
     var isModal: Bool {
@@ -140,11 +142,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         let chapterCount: Int = player.chapterCount
         lblSummary.stringValue = String(format: "%d %@", chapterCount, chapterCount == 1 ? "chapter" : "chapters")
         
-        lblWindowTitle.font = FontSchemes.systemScheme.playlist.chaptersListCaptionFont
-        lblSummary.font = FontSchemes.systemScheme.playlist.summaryFont
+        lblWindowTitle.font = fontSchemesManager.systemScheme.playlist.chaptersListCaptionFont
+        lblSummary.font = fontSchemesManager.systemScheme.playlist.summaryFont
         
-        txtSearch.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
-        lblNumMatches.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
+        txtSearch.font = fontSchemesManager.systemScheme.playlist.chaptersListSearchFont
+        lblNumMatches.font = fontSchemesManager.systemScheme.playlist.chaptersListSearchFont
         
         btnLoopChapter.onIf(player.chapterLoopExists)
         
@@ -375,7 +377,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     
     private func applyTheme() {
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
@@ -388,11 +390,11 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
             chaptersListView.reloadData()
             chaptersListView.selectRowIndexes(selectedRows, byExtendingSelection: false)
             
-            lblWindowTitle.font = FontSchemes.systemScheme.playlist.chaptersListCaptionFont
-            lblSummary.font = FontSchemes.systemScheme.playlist.summaryFont
+            lblWindowTitle.font = fontSchemesManager.systemScheme.playlist.chaptersListCaptionFont
+            lblSummary.font = fontSchemesManager.systemScheme.playlist.summaryFont
             
-            txtSearch.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
-            lblNumMatches.font = FontSchemes.systemScheme.playlist.chaptersListSearchFont
+            txtSearch.font = fontSchemesManager.systemScheme.playlist.chaptersListSearchFont
+            lblNumMatches.font = fontSchemesManager.systemScheme.playlist.chaptersListSearchFont
         }
     }
     

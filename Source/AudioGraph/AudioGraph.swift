@@ -129,7 +129,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         get {return playerVolume}
         
-        set(newValue) {
+        set {
             playerVolume = newValue
             if !muted {playerNode.volume = newValue}
         }
@@ -138,7 +138,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var balance: Float {
         
         get {return playerNode.pan}
-        set(newValue) {playerNode.pan = newValue}
+        set {playerNode.pan = newValue}
     }
     
     var muted: Bool {

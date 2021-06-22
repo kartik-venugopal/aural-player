@@ -61,6 +61,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     private lazy var fileOpenDialog = DialogsAndAlerts.openDialog
     private lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
     
@@ -82,7 +84,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         functionButtons = [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] + controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
         tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
 
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
@@ -385,15 +387,15 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     private func applyTheme() {
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTracksSummary.font = FontSchemes.systemScheme.playlist.summaryFont
-        lblDurationSummary.font = FontSchemes.systemScheme.playlist.summaryFont
+        lblTracksSummary.font = fontSchemesManager.systemScheme.playlist.summaryFont
+        lblDurationSummary.font = fontSchemesManager.systemScheme.playlist.summaryFont
         
         redrawTabButtons()
     }

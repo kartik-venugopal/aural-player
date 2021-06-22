@@ -29,6 +29,8 @@ class SeekSliderView: NSView, ColorSchemeable {
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     var seekSliderValue: Double {
         return seekSlider.doubleValue
     }
@@ -191,8 +193,8 @@ class SeekSliderView: NSView, ColorSchemeable {
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblTimeElapsed.font = FontSchemes.systemScheme.player.trackTimesFont
-        lblTimeRemaining.font = FontSchemes.systemScheme.player.trackTimesFont
+        lblTimeElapsed.font = fontSchemesManager.systemScheme.player.trackTimesFont
+        lblTimeRemaining.font = fontSchemesManager.systemScheme.player.trackTimesFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

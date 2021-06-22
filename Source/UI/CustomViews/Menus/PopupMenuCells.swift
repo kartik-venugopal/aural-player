@@ -78,8 +78,8 @@ class FXUnitPopupMenuCell: NicerPopupMenuCell {
     
     override var menuGradient: NSGradient {return Colors.textButtonMenuGradient}
     
-    override var titleFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
-    override var titleColor: NSColor {return Colors.buttonMenuTextColor}
+    override var titleFont: NSFont {Fonts.Effects.unitFunctionFont}
+    override var titleColor: NSColor {Colors.buttonMenuTextColor}
     
     override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
         

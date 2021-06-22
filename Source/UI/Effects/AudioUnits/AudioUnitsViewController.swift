@@ -21,6 +21,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     
     private let audioUnitsManager: AudioUnitsManager = ObjectGraph.audioUnitsManager
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     @IBOutlet weak var btnAudioUnitsMenu: NSPopUpButton!
     @IBOutlet weak var audioUnitsMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnRemove: TintedImageButton!
@@ -30,7 +32,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         audioUnitsMenuIconItem.tintFunction = {return Colors.functionButtonColor}
         btnRemove.tintFunction = {return Colors.functionButtonColor}
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to notifications
@@ -127,13 +129,13 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     
     private func applyTheme() {
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
+        lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
         tableView.reloadData(forRowIndexes: IndexSet((0..<tableView.numberOfRows)), columnIndexes: [1])
     }
     

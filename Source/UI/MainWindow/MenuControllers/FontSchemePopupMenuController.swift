@@ -11,6 +11,8 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
     
     private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
+    private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     @IBOutlet weak var theMenu: NSMenu!
     
     override func awakeFromNib() {
@@ -31,7 +33,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
         }
         
         // Recreate the user-defined font scheme items
-        FontSchemes.userDefinedSchemes.forEach {
+        fontSchemesManager.userDefinedPresets.forEach {
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
             item.target = self
@@ -41,13 +43,13 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
         }
         
         for index in 0...2 {
-            menu.item(at: index)?.showIf_elseHide(FontSchemes.numberOfUserDefinedSchemes > 0)
+            menu.item(at: index)?.showIf_elseHide(fontSchemesManager.numberOfUserDefinedPresets > 0)
         }
     }
     
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
         
-        if let fontScheme = FontSchemes.applyScheme(named: sender.title) {
+        if let fontScheme = fontSchemesManager.applyScheme(named: sender.title) {
             Messenger.publish(.applyFontScheme, payload: fontScheme)
         }
     }
@@ -76,7 +78,7 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if FontSchemes.schemeWithNameExists(string) {
+        if fontSchemesManager.presetExists(named: string) {
             return (false, "Font scheme with this name already exists !")
         } else if string.trim().isEmpty {
             return (false, "Name must have at least 1 character.")
@@ -89,8 +91,8 @@ class FontSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiv
     func acceptInput(_ string: String) {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
-        let newScheme: FontScheme = FontScheme(string, false, FontSchemes.systemScheme)
-        FontSchemes.addUserDefinedScheme(newScheme)
+        let newScheme: FontScheme = FontScheme(string, false, fontSchemesManager.systemScheme)
+        fontSchemesManager.addPreset(newScheme)
     }
     
     deinit {

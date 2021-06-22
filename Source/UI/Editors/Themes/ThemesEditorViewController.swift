@@ -22,7 +22,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     // Used to temporarily store the original name of a theme that is being renamed.
     private var oldThemeName: String = ""
     
-    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
     
     override var nibName: String? {"ThemesEditor"}
     

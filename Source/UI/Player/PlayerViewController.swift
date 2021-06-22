@@ -25,13 +25,15 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     // Delegate that conveys all seek and playback info requests to the player
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     override var nibName: String? {"Player"}
     
     override func viewDidLoad() {
         
         initSubscriptions()
         
-        infoView.applyFontScheme(FontSchemes.systemScheme)
+        infoView.applyFontScheme(fontSchemesManager.systemScheme)
         infoView.applyColorScheme(ColorSchemes.systemScheme)
         infoView.showView()
         

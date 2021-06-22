@@ -2,6 +2,8 @@ import Cocoa
 
 class FilterChart: NSView {
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
     var filterUnitStateFunction: (() -> EffectsUnitState) = {() -> EffectsUnitState in return .active}
     
@@ -114,7 +116,7 @@ class FilterChart: NSView {
         
         // Draw X-axis markings
         let xMarks: [CGFloat] = [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]
-        let textFont: NSFont = FontSchemes.systemScheme.effects.filterChartFont
+        let textFont: NSFont = fontSchemesManager.systemScheme.effects.filterChartFont
         
         for y in xMarks {
 

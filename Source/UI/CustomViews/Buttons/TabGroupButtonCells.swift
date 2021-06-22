@@ -58,8 +58,8 @@ class PlaylistViewsButtonCell: TabGroupButtonCell {
     override var borderRadius: CGFloat {return 3}
     override var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
-    override var textFont: NSFont {return FontSchemes.systemScheme.playlist.tabButtonTextFont}
-    override var boldTextFont: NSFont {return FontSchemes.systemScheme.playlist.tabButtonTextFont}
+    override var textFont: NSFont {Fonts.Playlist.tabButtonTextFont}
+    override var boldTextFont: NSFont {Fonts.Playlist.tabButtonTextFont}
     
     override var borderInsetY: CGFloat {return 0}
     
@@ -124,8 +124,9 @@ class TrackInfoPopoverTabButtonCell: TabGroupButtonCell {
 
 class EQSelectorButtonCell: TabGroupButtonCell {
     
-    override var textFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
-    override var boldTextFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
+    override var textFont: NSFont {Fonts.Effects.unitFunctionFont}
+    override var boldTextFont: NSFont {Fonts.Effects.unitFunctionFont}
+    
     override var borderRadius: CGFloat {return 1}
     
     override var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}

@@ -20,13 +20,13 @@ class PitchUnit: FXUnit, PitchShiftUnitProtocol {
     var pitch: Float {
         
         get {return node.pitch}
-        set(newValue) {node.pitch = newValue}
+        set {node.pitch = newValue}
     }
     
     var overlap: Float {
         
         get {return node.overlap}
-        set(newValue) {node.overlap = newValue}
+        set {node.overlap = newValue}
     }
     
     override func stateChanged() {

@@ -74,7 +74,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
     func backgroundStyleChanged() {
         
         textField?.textColor = rowIsSelected ? Colors.Playlist.trackNameSelectedTextColor : Colors.Playlist.trackNameTextColor
-        textField?.font = FontSchemes.systemScheme.playlist.trackTextFont
+        textField?.font = Fonts.Playlist.trackTextFont
     }
 }
 
@@ -98,7 +98,7 @@ class DurationCellView: BasicFlatPlaylistCellView {
         
         // Check if this row is selected, change font and color accordingly
         textField?.textColor = isSelectedRow ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-        textField?.font = FontSchemes.systemScheme.playlist.trackTextFont
+        textField?.font = Fonts.Playlist.trackTextFont
     }
 }
 
@@ -111,6 +111,6 @@ class IndexCellView: BasicFlatPlaylistCellView {
         
         // Check if this row is selected, change font and color accordingly
         textField?.textColor = rowIsSelected ? Colors.Playlist.indexDurationSelectedTextColor : Colors.Playlist.indexDurationTextColor
-        textField?.font = FontSchemes.systemScheme.playlist.trackTextFont
+        textField?.font = Fonts.Playlist.trackTextFont
     }
 }

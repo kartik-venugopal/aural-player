@@ -6,6 +6,8 @@ class ReverbView: NSView {
     @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     var spaceString: String {
         return reverbSpaceMenu.titleOfSelectedItem!
     }
@@ -50,7 +52,7 @@ class ReverbView: NSView {
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        reverbSpaceMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        reverbSpaceMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
         reverbSpaceMenu.redraw()
     }
     

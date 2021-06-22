@@ -58,11 +58,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="exo-t1-gz5" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="259" height="35"/>
+                                                <rect key="frame" x="1" y="1" width="250" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaH-zB-bhH" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="10" width="254" height="25"/>
+                                                        <rect key="frame" x="5" y="10" width="245" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="USh-HZ-jDF">
                                                             <font key="font" metaFont="system"/>
@@ -79,6 +79,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="applySelectedSchemeAction:" target="-2" id="9wx-QW-7cX"/>
                                     <outlet property="dataSource" destination="-2" id="Ynz-Sf-9HX"/>
                                     <outlet property="delegate" destination="-2" id="A4k-C7-g0p"/>
                                 </connections>

@@ -36,6 +36,8 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     private lazy var playlistView: FontSchemesViewProtocol = PlaylistFontSchemeViewController()
     private lazy var effectsView: FontSchemesViewProtocol = EffectsFontSchemeViewController()
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     // Popover to collect user input (i.e. color scheme name) when saving new color schemes
     lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
@@ -74,7 +76,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
             _ = theWindow
         }
         
-        subViews.forEach {$0.resetFields(FontSchemes.systemScheme)}
+        subViews.forEach {$0.resetFields(fontSchemesManager.systemScheme)}
         
         // Reset the change history (every time the dialog is shown)
         history.begin()
@@ -90,15 +92,15 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     
     @IBAction func applyChangesAction(_ sender: Any) {
         
-        let undoValue: FontScheme = FontSchemes.systemScheme.clone()
+        let undoValue: FontScheme = fontSchemesManager.systemScheme.clone()
         
         let context = FontSchemeChangeContext()
-        generalView.applyFontScheme(context, to: FontSchemes.systemScheme)
+        generalView.applyFontScheme(context, to: fontSchemesManager.systemScheme)
         
-        [playerView, playlistView, effectsView].forEach {$0.applyFontScheme(context, to: FontSchemes.systemScheme)}
-        Messenger.publish(.applyFontScheme, payload: FontSchemes.systemScheme)
+        [playerView, playlistView, effectsView].forEach {$0.applyFontScheme(context, to: fontSchemesManager.systemScheme)}
+        Messenger.publish(.applyFontScheme, payload: fontSchemesManager.systemScheme)
         
-        let redoValue: FontScheme = FontSchemes.systemScheme.clone()
+        let redoValue: FontScheme = fontSchemesManager.systemScheme.clone()
         history.noteChange(undoValue, redoValue)
     }
     
@@ -110,14 +112,14 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     
     @IBAction func loadSchemeAction(_ sender: NSMenuItem) {
         
-        if let scheme = FontSchemes.schemeByName(sender.title) {
+        if let scheme = fontSchemesManager.preset(named: sender.title) {
             subViews.forEach {$0.loadFontScheme(scheme)}
         }
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {
         
-        let systemFontScheme = FontSchemes.applyScheme(fontScheme)
+        let systemFontScheme = fontSchemesManager.applyScheme(fontScheme)
         subViews.forEach {$0.resetFields(systemFontScheme)}
         Messenger.publish(.applyFontScheme, payload: systemFontScheme)
         
@@ -189,7 +191,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         }
         
         // Recreate the user-defined scheme items
-        FontSchemes.userDefinedSchemes.forEach({
+        fontSchemesManager.userDefinedPresets.forEach({
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.loadSchemeAction(_:)),
                                               keyEquivalent: "")
@@ -215,7 +217,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
         // Name cannot match the name of an existing scheme.
-        if FontSchemes.schemeWithNameExists(string) {
+        if fontSchemesManager.presetExists(named: string) {
             
             return (false, "Font scheme with this name already exists !")
         }
@@ -234,8 +236,8 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     func acceptInput(_ string: String) {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
-        let newScheme: FontScheme = FontScheme(string, false, FontSchemes.systemScheme)
-        FontSchemes.addUserDefinedScheme(newScheme)
+        let newScheme: FontScheme = FontScheme(string, false, fontSchemesManager.systemScheme)
+        fontSchemesManager.addPreset(newScheme)
     }
 }
 

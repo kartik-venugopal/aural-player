@@ -5,6 +5,8 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
     
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return audioGraph.audioUnits.count
     }
@@ -71,8 +73,8 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             let audioUnit = audioGraph.audioUnits[row]
             
             cell.textField?.stringValue = audioUnit.name
-            cell.textField?.font = FontSchemes.systemScheme.effects.unitFunctionFont
-            cell.realignText(yOffset: FontSchemes.systemScheme.effects.auRowTextYOffset)
+            cell.textField?.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
+            cell.realignText(yOffset: fontSchemesManager.systemScheme.effects.auRowTextYOffset)
 
             switch audioUnit.state {
             

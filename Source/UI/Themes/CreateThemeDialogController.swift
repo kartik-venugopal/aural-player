@@ -33,7 +33,9 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
     @IBOutlet weak var windowCornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblWindowCornerRadius: NSTextField!
     
-    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
+    
+    private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     
     var isModal: Bool {
         return self.window?.isVisible ?? false
@@ -90,14 +92,14 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         }
         
         // Recreate the user-defined scheme items
-        FontSchemes.userDefinedSchemes.forEach {
+        fontSchemesManager.userDefinedPresets.forEach {
 
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: nil, keyEquivalent: "")
             item.indentationLevel = 1
             fontSchemesMenu.insertItem(item, at: 3)
         }
         
-        let numberOfUserDefinedSchemes: Int = FontSchemes.numberOfUserDefinedSchemes
+        let numberOfUserDefinedSchemes: Int = fontSchemesManager.numberOfUserDefinedPresets
         
         for index in 0...2 {
             fontSchemesMenu.item(at: index)?.showIf_elseHide(numberOfUserDefinedSchemes > 0)
@@ -179,7 +181,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
     func acceptInput(_ string: String) {
         
         guard let fontSchemeName = btnFontSchemesMenu.titleOfSelectedItem,
-              let fontScheme = FontSchemes.schemeByName(fontSchemeName),
+              let fontScheme = fontSchemesManager.preset(named: fontSchemeName),
               let colorSchemeName = btnColorSchemesMenu.titleOfSelectedItem,
               let colorScheme = ColorSchemes.schemeByName(colorSchemeName) else {
             

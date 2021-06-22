@@ -21,19 +21,19 @@ class TimeUnit: FXUnit, TimeUnitProtocol {
     var rate: Float {
         
         get {return node.rate}
-        set(newValue) {node.rate = newValue}
+        set {node.rate = newValue}
     }
     
     var overlap: Float {
         
         get {return node.overlap}
-        set(newValue) {node.overlap = newValue}
+        set {node.overlap = newValue}
     }
     
     var shiftPitch: Bool {
         
         get {return node.shiftPitch}
-        set(newValue) {node.shiftPitch = newValue}
+        set {node.shiftPitch = newValue}
     }
     
     var pitch: Float {

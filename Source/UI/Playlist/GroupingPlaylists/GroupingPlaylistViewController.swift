@@ -10,6 +10,8 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     @IBOutlet weak var playlistViewDelegate: GroupingPlaylistViewDelegate!
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     var contextMenu: NSMenu! {
         
         didSet {
@@ -526,7 +528,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     
     private func applyTheme() {
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     

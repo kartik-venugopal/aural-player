@@ -93,7 +93,7 @@ class ColorAwareButtonCell: ModalDialogButtonCell {
 
 class FXTextButtonCell: ColorAwareButtonCell {
     
-    override var textFont: NSFont {return FontSchemes.systemScheme.effects.unitFunctionFont}
+    override var textFont: NSFont {Fonts.Effects.unitFunctionFont}
     
     override var yOffset: CGFloat {
         

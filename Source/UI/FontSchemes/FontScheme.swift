@@ -3,21 +3,18 @@ import Cocoa
 /*
     Container for fonts used by the UI
  */
-class FontScheme: StringKeyedItem {
+class FontScheme: MappedPreset {
     
     // Displayed name
     var name: String
     
     var key: String {
         
-        get {
-            return name
-        }
-        
-        set(newValue) {
-            name = newValue
-        }
+        get {name}
+        set {name = newValue}
     }
+    
+    var userDefined: Bool {!systemDefined}
 
     // False if defined by the user
     let systemDefined: Bool

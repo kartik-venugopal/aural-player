@@ -3,9 +3,11 @@ import Cocoa
 /*
     Utility class that manages all themes, including user-defined schemes, system-defined presets, and the current system theme.
  */
-class Themes: MappedPresets<Theme> {
+class ThemesManager: MappedPresets<Theme> {
     
-    init(persistentState: ThemesPersistentState?) {
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
+    init(persistentState: ThemesPersistentState?, fontSchemesManager: FontSchemesManager) {
         
         let systemDefinedThemes = ThemePreset.allCases.map {$0.theme}
         
@@ -20,7 +22,7 @@ class Themes: MappedPresets<Theme> {
     // Applies a theme to the system theme and returns the modified system scheme.
     func applyTheme(_ theme: Theme) {
         
-        _ = FontSchemes.applyScheme(theme.fontScheme)
+        _ = fontSchemesManager.applyScheme(theme.fontScheme)
         _ = ColorSchemes.applyScheme(theme.colorScheme)
         
         WindowAppearanceState.cornerRadius = theme.windowAppearance.cornerRadius

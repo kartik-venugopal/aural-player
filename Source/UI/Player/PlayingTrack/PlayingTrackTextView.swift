@@ -21,7 +21,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     }
     
     var titleFont: NSFont {
-        FontSchemes.systemScheme.player.infoBoxTitleFont
+        Fonts.Player.infoBoxTitleFont
     }
     
     var titleColor: NSColor {
@@ -29,7 +29,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     }
     
     var artistAlbumFont: NSFont {
-        FontSchemes.systemScheme.player.infoBoxArtistAlbumFont
+        Fonts.Player.infoBoxArtistAlbumFont
     }
     
     var artistAlbumColor: NSColor {
@@ -37,7 +37,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     }
     
     var chapterTitleFont: NSFont {
-        FontSchemes.systemScheme.player.infoBoxChapterTitleFont
+        Fonts.Player.infoBoxChapterTitleFont
     }
     
     var chapterTitleColor: NSColor {

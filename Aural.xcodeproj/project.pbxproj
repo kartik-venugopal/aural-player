@@ -69,7 +69,7 @@
 		3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */; };
 		3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontScheme.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */; };
-		3E2ED4A925DBC50500732E79 /* FontSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSchemes.swift */; };
+		3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */; };
 		3E35AC9F25E6254500EBCCEB /* VisualizerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */; };
 		3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */; };
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
@@ -517,7 +517,7 @@
 		3E987ECC2630088600E6836D /* MenuBarPlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */; };
 		3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */; };
 		3E9C12112622208F00D90EA4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12102622208F00D90EA4 /* Theme.swift */; };
-		3E9C12132622216500D90EA4 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12122622216500D90EA4 /* Themes.swift */; };
+		3E9C12132622216500D90EA4 /* ThemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12122622216500D90EA4 /* ThemesManager.swift */; };
 		3E9C12152622259500D90EA4 /* ThemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12142622259500D90EA4 /* ThemePreset.swift */; };
 		3E9C88312614FE73003B10AD /* CompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */; };
 		3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */; };
@@ -734,7 +734,7 @@
 		3E2976122629473500459272 /* WindowCornerRadiusMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCornerRadiusMenuItemView.swift; sourceTree = "<group>"; };
 		3E2ED4A425DBAD8400732E79 /* FontScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontScheme.swift; sourceTree = "<group>"; };
 		3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreset.swift; sourceTree = "<group>"; };
-		3E2ED4A825DBC50500732E79 /* FontSchemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemes.swift; sourceTree = "<group>"; };
+		3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesManager.swift; sourceTree = "<group>"; };
 		3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerContainer.swift; sourceTree = "<group>"; };
 		3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyViewLoader.swift; sourceTree = "<group>"; };
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
@@ -1195,7 +1195,7 @@
 		3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewState.swift; sourceTree = "<group>"; };
 		3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackInfo.swift; sourceTree = "<group>"; };
 		3E9C12102622208F00D90EA4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		3E9C12122622216500D90EA4 /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
+		3E9C12122622216500D90EA4 /* ThemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesManager.swift; sourceTree = "<group>"; };
 		3E9C12142622259500D90EA4 /* ThemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreset.swift; sourceTree = "<group>"; };
 		3E9C88302614FE73003B10AD /* CompositeKeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeKeyMap.swift; sourceTree = "<group>"; };
 		3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitDelegate.swift; sourceTree = "<group>"; };
@@ -1520,7 +1520,7 @@
 				3EE7CB9A25E22A490075F1DD /* Effects */,
 				3E2ED4A425DBAD8400732E79 /* FontScheme.swift */,
 				3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */,
-				3E2ED4A825DBC50500732E79 /* FontSchemes.swift */,
+				3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */,
 			);
 			path = FontSchemes;
 			sourceTree = "<group>";
@@ -2916,7 +2916,7 @@
 			isa = PBXGroup;
 			children = (
 				3E9C12102622208F00D90EA4 /* Theme.swift */,
-				3E9C12122622216500D90EA4 /* Themes.swift */,
+				3E9C12122622216500D90EA4 /* ThemesManager.swift */,
 				3E9C12142622259500D90EA4 /* ThemePreset.swift */,
 				3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */,
 				3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */,
@@ -3718,7 +3718,7 @@
 				3E6C121025CEBDD100BF0D07 /* CRUDOperationResults.swift in Sources */,
 				3E6C125C25CEBE0600BF0D07 /* FilterPresetsEditorViewController.swift in Sources */,
 				3E6C121E25CEBDE600BF0D07 /* ViewPreferencesViewController.swift in Sources */,
-				3E2ED4A925DBC50500732E79 /* FontSchemes.swift in Sources */,
+				3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */,
 				3E6C127D25CEBE1800BF0D07 /* AutoHidingView.swift in Sources */,
 				3E6C12A025CEBE2700BF0D07 /* TintedImageView.swift in Sources */,
 				3E09D0D026805C19008ECB8C /* PlayerColorSchemePersistentState.swift in Sources */,
@@ -3960,7 +3960,7 @@
 				3E6C116625CEBD6000BF0D07 /* TimePresets.swift in Sources */,
 				3EAFB5DF267FE86000F0DC96 /* FileSystemInfo.swift in Sources */,
 				3E6C120D25CEBDD100BF0D07 /* Recorder.swift in Sources */,
-				3E9C12132622216500D90EA4 /* Themes.swift in Sources */,
+				3E9C12132622216500D90EA4 /* ThemesManager.swift in Sources */,
 				3E9E590F25DB6B150064EB5F /* AppModeManager.swift in Sources */,
 				3E6C11F825CEBDD100BF0D07 /* RecordingFormat.swift in Sources */,
 				3E6C123225CEBDF400BF0D07 /* TracksPlaylistSortViewController.swift in Sources */,

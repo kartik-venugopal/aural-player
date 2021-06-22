@@ -6,6 +6,8 @@ import Cocoa
  */
 class FontSchemeHistory {
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     // Stack used to store changes that can be undone (i.e. LIFO).
     private var undoStack: Stack<FontSchemeChange> = Stack()
     
@@ -28,7 +30,7 @@ class FontSchemeHistory {
         redoStack.clear()
         
         // Capture a snapshot of the system color scheme before any changes are made to it.
-        undoAllRestorePoint = FontSchemes.systemScheme.clone()
+        undoAllRestorePoint = fontSchemesManager.systemScheme.clone()
     }
     
     // Stores a record for a new change made to the system color scheme.
@@ -74,7 +76,7 @@ class FontSchemeHistory {
         // Capture a snapshot of the system color scheme for a potential "Redo all" operation later.
         // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
         if redoStack.isEmpty && !undoStack.isEmpty {
-            redoAllRestorePoint = FontSchemes.systemScheme.clone()
+            redoAllRestorePoint = fontSchemesManager.systemScheme.clone()
         }
         
         // Try popping the undo stack. If a change is available, transfer it onto the redo stack.
@@ -94,7 +96,7 @@ class FontSchemeHistory {
         // Capture a snapshot of the system color scheme for a potential "Redo all" operation later.
         // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
         if redoStack.isEmpty && !undoStack.isEmpty {
-            redoAllRestorePoint = FontSchemes.systemScheme.clone()
+            redoAllRestorePoint = fontSchemesManager.systemScheme.clone()
         }
         
         // Transfer all records to the redo stack.

@@ -31,13 +31,13 @@ class EQUnit: FXUnit, EQUnitProtocol {
     var globalGain: Float {
         
         get {return node.globalGain}
-        set(newValue) {node.globalGain = newValue}
+        set {node.globalGain = newValue}
     }
     
     var bands: [Float] {
         
         get {return node.allBands()}
-        set(newValue) {node.setBands(newValue)}
+        set {node.setBands(newValue)}
     }
     
     override var avNodes: [AVAudioNode] {

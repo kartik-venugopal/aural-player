@@ -13,6 +13,8 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     @IBOutlet weak var btnApply: NSButton!
     @IBOutlet weak var btnRename: NSButton!
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     // A cache that prevents redundant fetch operations when populating the table view.
     private var schemesCache: [FontScheme] = []
     
@@ -27,7 +29,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     override func viewDidAppear() {
         
         // Populate the cache with all user-defined schemes.
-        schemesCache = FontSchemes.userDefinedSchemes
+        schemesCache = fontSchemesManager.userDefinedPresets
         
         // Refresh the table view.
         editorView.reloadData()
@@ -44,10 +46,10 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
         
         // Descending order
-        selectedSchemeNames.forEach {FontSchemes.deleteScheme($0)}
+        selectedSchemeNames.forEach {fontSchemesManager.deletePreset(named: $0)}
         
         // Update the cache
-        schemesCache = FontSchemes.userDefinedSchemes
+        schemesCache = fontSchemesManager.userDefinedPresets
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -86,7 +88,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     // Applies the selected font scheme to the system.
     @IBAction func applySelectedSchemeAction(_ sender: AnyObject) {
         
-        if let scheme = FontSchemes.applyScheme(named: selectedSchemeNames[0]) {
+        if let scheme = fontSchemesManager.applyScheme(named: selectedSchemeNames[0]) {
             Messenger.publish(.applyFontScheme, payload: scheme)
         }
     }
@@ -165,7 +167,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
         
         let editedTextField = obj.object as! NSTextField
         
-        if let scheme = FontSchemes.userDefinedSchemeByName(oldSchemeName, false) {
+        if let scheme = fontSchemesManager.userDefinedPreset(named: oldSchemeName) {
             
             let newSchemeName = editedTextField.stringValue
             
@@ -178,7 +180,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
                 
                 editedTextField.stringValue = scheme.name
                 
-            } else if FontSchemes.schemeWithNameExists(newSchemeName) {
+            } else if fontSchemesManager.presetExists(named: newSchemeName) {
                 
                 // Another scheme with that name exists, can't rename
                 editedTextField.stringValue = scheme.name
@@ -188,10 +190,10 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
             } else {
                 
                 // Update the scheme name
-                FontSchemes.renameScheme(scheme.name, newSchemeName)
+                fontSchemesManager.renamePreset(named: scheme.name, to: newSchemeName)
                 
                 // Update the cache
-                schemesCache = FontSchemes.userDefinedSchemes
+                schemesCache = fontSchemesManager.userDefinedPresets
             }
         }
     }

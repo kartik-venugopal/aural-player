@@ -22,6 +22,8 @@ class PlaybackView: NSView, ColorSchemeable {
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let sequencer: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     var seekSliderValue: Double {
         return sliderView.seekSliderValue
     }
@@ -62,7 +64,7 @@ class PlaybackView: NSView, ColorSchemeable {
 
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         // MARK: Update controls based on current player state
@@ -114,7 +116,7 @@ class PlaybackView: NSView, ColorSchemeable {
     
     func applyTheme() {
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     

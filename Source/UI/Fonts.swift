@@ -5,6 +5,8 @@ import Cocoa
  */
 struct Fonts {
     
+    private static let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     struct Standard {
         
         static let mainFont_8: NSFont = NSFont(name: "Exo-Medium", size: 8)!
@@ -238,4 +240,27 @@ struct Fonts {
     
     // Font used by the popup menus
     static let popupMenuFont: NSFont = Standard.mainFont_10
+    
+    struct Player {
+        
+        static var infoBoxTitleFont: NSFont {fontSchemesManager.systemScheme.player.infoBoxTitleFont}
+        static var infoBoxArtistAlbumFont: NSFont {fontSchemesManager.systemScheme.player.infoBoxArtistAlbumFont}
+        static var infoBoxChapterTitleFont: NSFont {fontSchemesManager.systemScheme.player.infoBoxChapterTitleFont}
+    }
+    
+    struct Playlist {
+        
+        static var trackTextFont: NSFont {fontSchemesManager.systemScheme.playlist.trackTextFont}
+        
+        static var groupTextFont: NSFont {fontSchemesManager.systemScheme.playlist.groupTextFont}
+        
+        static var tabButtonTextFont: NSFont {fontSchemesManager.systemScheme.playlist.tabButtonTextFont}
+        
+        static var chaptersListHeaderFont: NSFont {fontSchemesManager.systemScheme.playlist.chaptersListHeaderFont}
+    }
+    
+    struct Effects {
+        
+        static var unitFunctionFont: NSFont {fontSchemesManager.systemScheme.effects.unitFunctionFont}
+    }
 }

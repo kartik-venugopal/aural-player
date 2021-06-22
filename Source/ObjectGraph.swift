@@ -92,7 +92,8 @@ class ObjectGraph {
                                                                      preferences: preferences.metadataPreferences.musicBrainz)
     
     static let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout)
-    static let themesManager: Themes = Themes(persistentState: persistentState.ui?.themes)
+    static let themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
+    static let fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
@@ -111,7 +112,6 @@ class ObjectGraph {
         
         // Initialize utility classes.
         
-        FontSchemes.initialize(persistentState.ui?.fontSchemes)
         ColorSchemes.initialize(persistentState.ui?.colorSchemes)
         
         WindowLayoutState.initialize(persistentState.ui?.windowLayout)
@@ -168,7 +168,7 @@ class ObjectGraph {
         uiState.appMode = AppModeManager.mode
         uiState.windowLayout = WindowLayoutState.persistentState
         uiState.themes = themesManager.persistentState
-        uiState.fontSchemes = FontSchemes.persistentState
+        uiState.fontSchemes = fontSchemesManager.persistentState
         uiState.colorSchemes = ColorSchemes.persistentState
         uiState.player = PlayerViewState.persistentState
         uiState.playlist = PlaylistViewState.persistentState

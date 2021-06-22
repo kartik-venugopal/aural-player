@@ -8,6 +8,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     // Used to determine the currently playing track/chapter
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     // Returns a custom view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
         return PlaylistRowView()
@@ -54,8 +56,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = FontSchemes.systemScheme.playlist.trackTextFont
-        cell.selectedTextFont = FontSchemes.systemScheme.playlist.trackTextFont
+        cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
+        cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor
@@ -75,8 +77,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = FontSchemes.systemScheme.playlist.trackTextFont
-        cell.selectedTextFont = FontSchemes.systemScheme.playlist.trackTextFont
+        cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
+        cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.trackNameTextColor
         cell.selectedTextColor = Colors.Playlist.trackNameSelectedTextColor
@@ -93,8 +95,8 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         
         guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? BasicTableCellView else {return nil}
         
-        cell.textFont = FontSchemes.systemScheme.playlist.trackTextFont
-        cell.selectedTextFont = FontSchemes.systemScheme.playlist.trackTextFont
+        cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
+        cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         
         cell.textColor = Colors.Playlist.indexDurationTextColor
         cell.selectedTextColor = Colors.Playlist.indexDurationSelectedTextColor

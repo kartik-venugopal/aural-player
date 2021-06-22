@@ -10,7 +10,8 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
     private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
-    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
+    private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     
     @IBOutlet weak var theMenu: NSMenu!
     
@@ -90,7 +91,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     func acceptInput(_ string: String) {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
-        let fontScheme: FontScheme = FontScheme("Font scheme for theme '\(string)'", false, FontSchemes.systemScheme)
+        let fontScheme: FontScheme = FontScheme("Font scheme for theme '\(string)'", false, fontSchemesManager.systemScheme)
         let colorScheme: ColorScheme = ColorScheme("Color scheme for theme '\(string)'", false, ColorSchemes.systemScheme)
         let windowAppearance: WindowAppearance = WindowAppearance(cornerRadius: WindowAppearanceState.cornerRadius)
         

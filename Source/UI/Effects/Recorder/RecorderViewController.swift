@@ -30,6 +30,8 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     // Cached recording info (used to determine recording format when saving a recording)
     private var recordingInfo: RecordingInfo?
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    
     // Recorder timer interval (milliseconds)
     static let timerIntervalMillis: Int = 500
     
@@ -41,7 +43,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     override func viewDidLoad() {
         
         initControls()
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
         
         // Subscribe to notifications
@@ -140,21 +142,21 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     
     private func applyTheme() {
         
-        applyFontScheme(FontSchemes.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(ColorSchemes.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         
-        lblCaption.font = FontSchemes.systemScheme.effects.unitCaptionFont
+        lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
         
-        functionLabels.forEach({$0.font = FontSchemes.systemScheme.effects.unitFunctionFont})
+        functionLabels.forEach({$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont})
         
         formatMenu.redraw()
-        formatMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        formatMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
         
         qualityMenu.redraw()
-        qualityMenu.font = FontSchemes.systemScheme.effects.unitFunctionFont
+        qualityMenu.font = fontSchemesManager.systemScheme.effects.unitFunctionFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
