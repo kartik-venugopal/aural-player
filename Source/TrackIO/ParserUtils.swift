@@ -16,7 +16,7 @@ class ParserUtils {
             
             if let dataType = item.dataType, dataType as NSString == kCMMetadataBaseDataType_RawData as NSString {
                 
-                let vals = data.filter({num -> Bool in num > 0})
+                let vals = data.filter {$0 > 0}
                 
                 if let firstVal = vals.first {
                     return GenreMap.forID3Code(Int(firstVal) + offset)
@@ -28,7 +28,7 @@ class ParserUtils {
                 
             } else {
                 
-                let vals = data.filter({num -> Bool in num > 0})
+                let vals = data.filter {$0 > 0}
                 
                 if vals.count > 1 {
                     // Probably a string
@@ -157,7 +157,7 @@ class ParserUtils {
 
         } else if let dataValue = item.dataValue {
             
-            let vals = dataValue.filter({num -> Bool in num > 0})
+            let vals = dataValue.filter {$0 > 0}
             
             switch vals.count {
                 
@@ -266,7 +266,7 @@ class ParserUtils {
             if tokens.count == 3, let hours = Double(tokens[0]), let mins = Double(tokens[1]), let secs = Double(tokens[2]) {
                 
                 let duration = (hours * 3600) + (mins * 60) + secs
-                return duration > 0 ? duration : 0
+                return max(duration, 0)
             }
         }
         
@@ -283,13 +283,8 @@ class ParserUtils {
         
         let imgMetadata = ImageMetadata()
         
-        if let colorModel = dict["ColorModel", String.self] {
-            imgMetadata.colorSpace = colorModel
-        }
-        
-        if let colorProfile = dict["ProfileName", String.self] {
-            imgMetadata.colorProfile = colorProfile
-        }
+        imgMetadata.colorSpace = dict["ColorModel", String.self]
+        imgMetadata.colorProfile = dict["ProfileName", String.self]
         
         for (key, value) in dict {
             
@@ -298,21 +293,17 @@ class ParserUtils {
             }
         }
         
-        if let bitDepthNum = dict["Depth", NSNumber.self] {
-            imgMetadata.bitDepth = bitDepthNum.intValue
+        imgMetadata.bitDepth = dict["Depth", Int.self]
+        
+        if let wd = dict.cgFloatValue(forKey: "PixelWidth"), let ht = dict.cgFloatValue(forKey: "PixelHeight") {
+            imgMetadata.dimensions = NSSize(width: wd, height: ht)
         }
         
-        if let wd = dict["PixelWidth", NSNumber.self], let ht = dict["PixelHeight", NSNumber.self] {
-            imgMetadata.dimensions = NSSize(width: CGFloat(wd.floatValue), height: CGFloat(ht.floatValue))
+        if let xRes = dict.cgFloatValue(forKey: "DPIWidth"), let yRes = dict.cgFloatValue(forKey: "DPIHeight") {
+            imgMetadata.resolution = NSSize(width: xRes, height: yRes)
         }
         
-        if let xRes = dict["DPIWidth", NSNumber.self], let yRes = dict["DPIHeight", NSNumber.self] {
-            imgMetadata.resolution = NSSize(width: CGFloat(xRes.floatValue), height: CGFloat(yRes.floatValue))
-        }
-        
-        if let hasAlphaNum = dict["HasAlpha", NSNumber.self] {
-            imgMetadata.hasAlpha = hasAlphaNum.intValue == 0 ? false : true
-        }
+        imgMetadata.hasAlpha = dict["HasAlpha", NSNumber.self]?.boolValue
         
         return imgMetadata
     }
