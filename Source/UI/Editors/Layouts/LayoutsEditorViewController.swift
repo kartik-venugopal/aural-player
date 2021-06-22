@@ -95,7 +95,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     private func updatePreview() {
         
-        if editorView.numberOfSelectedRows == 1, let layout = windowLayoutsManager.preset(named: selectedLayoutNames[0]) {
+        if editorView.numberOfSelectedRows == 1, let layout = windowLayoutsManager.userDefinedPreset(named: selectedLayoutNames[0]) {
             previewView.drawPreviewForLayout(layout)
             
         } else {
@@ -160,7 +160,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
         
         let editedTextField = obj.object as! NSTextField
         
-        if let layout = windowLayoutsManager.preset(named: oldLayoutName) {
+        if let layout = windowLayoutsManager.userDefinedPreset(named: oldLayoutName) {
             
             let newLayoutName = editedTextField.stringValue
             

@@ -37,6 +37,8 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
     
+    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedPresets.isEmpty)
@@ -45,7 +47,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         let showingModalComponent: Bool = WindowManager.instance.isShowingModalComponent
         
         [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
-        manageThemesMenuItem.enableIf(!showingModalComponent && (Themes.numberOfUserDefinedThemes > 0))
+        manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedPresets > 0))
         
         [applyFontSchemeMenuItem, saveFontSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
         manageFontSchemesMenuItem.enableIf(!showingModalComponent && (FontSchemes.numberOfUserDefinedSchemes > 0))

@@ -2,7 +2,7 @@ import Foundation
 
 extension NSDictionary {
     
-    func persistentObjectValue<T: PersistentStateProtocol>(forKey key: String, ofType: T.Type) -> T? {
+    func persistentObjectValue<T: PersistentStateProtocol>(forKey key: String, ofType type: T.Type) -> T? {
         
         if let dict = self[key, NSDictionary.self] {
             return T.init(dict)
@@ -11,7 +11,7 @@ extension NSDictionary {
         return nil
     }
     
-    func persistentFactoryObjectValue<T: PersistentStateFactoryProtocol, U: PersistentStateProtocol>(forKey key: String, ofType: T.Type) -> U? {
+    func persistentFactoryObjectValue<T: PersistentStateFactoryProtocol, U: PersistentStateProtocol>(forKey key: String, ofType type: T.Type) -> U? {
         
         if let dict = self[key, NSDictionary.self] {
             return T.deserialize(dict) as? U
@@ -20,7 +20,7 @@ extension NSDictionary {
         return nil
     }
     
-    func persistentObjectArrayValue<T: PersistentStateProtocol>(forKey key: String, ofType: T.Type) -> [T]? {
+    func persistentObjectArrayValue<T: PersistentStateProtocol>(forKey key: String, ofType type: T.Type) -> [T]? {
         
         if let array = self[key, [NSDictionary].self] {
             return array.compactMap {T.init($0)}

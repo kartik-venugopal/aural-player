@@ -56,4 +56,9 @@ enum ThemePreset: String, CaseIterable {
 
         }
     }
+    
+    var theme: Theme {
+        
+        Theme(name: name, fontScheme: fontScheme, colorScheme: colorScheme, windowAppearance: WindowAppearance(cornerRadius: windowCornerRadius), userDefined: false)
+    }
 }

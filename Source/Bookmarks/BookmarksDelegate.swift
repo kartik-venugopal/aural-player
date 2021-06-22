@@ -29,20 +29,16 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         return newBookmark
     }
     
-    var allBookmarks: [Bookmark] {
-        return bookmarks.userDefinedPresets
-    }
+    var allBookmarks: [Bookmark] {bookmarks.userDefinedPresets}
     
-    var count: Int {
-        return bookmarks.numberOfUserDefinedPresets
-    }
+    var count: Int {bookmarks.numberOfUserDefinedPresets}
     
     func getBookmarkAtIndex(_ index: Int) -> Bookmark {
-        return bookmarks.userDefinedPresets[index]
+        bookmarks.userDefinedPresets[index]
     }
     
     func bookmarkWithNameExists(_ name: String) -> Bool {
-        return bookmarks.presetExists(named: name)
+        bookmarks.userDefinedPresetExists(named: name)
     }
     
     func playBookmark(_ bookmark: Bookmark) throws {

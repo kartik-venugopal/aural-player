@@ -55,6 +55,10 @@ class MappedPresets<P> where P: MappedPreset {
     }
     
     func presetExists(named name: String) -> Bool {
+        return userDefinedPresetsMap.presetWithKeyExists(name) || systemDefinedPresetsMap.presetWithKeyExists(name)
+    }
+    
+    func userDefinedPresetExists(named name: String) -> Bool {
         return userDefinedPresetsMap.presetWithKeyExists(name)
     }
 }

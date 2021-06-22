@@ -18,7 +18,6 @@ class PlayerColorSchemePersistentState: PersistentStateProtocol {
     var sliderForegroundGradientType: GradientType?
     var sliderForegroundGradientAmount: Int?
     
-    
     var sliderKnobColor: ColorPersistentState?
     var sliderKnobColorSameAsForeground: Bool?
     var sliderLoopSegmentColor: ColorPersistentState?

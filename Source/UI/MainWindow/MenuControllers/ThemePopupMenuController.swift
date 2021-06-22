@@ -10,6 +10,8 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
     private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
+    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    
     @IBOutlet weak var theMenu: NSMenu!
     
     override func awakeFromNib() {
@@ -30,7 +32,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         }
         
         // Recreate the user-defined color scheme items
-        Themes.userDefinedThemes.forEach {
+        themesManager.userDefinedPresets.forEach {
 
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applyThemeAction(_:)), keyEquivalent: "")
             item.target = self
@@ -40,13 +42,13 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         }
 
         for index in 0...2 {
-            menu.item(at: index)?.showIf_elseHide(Themes.numberOfUserDefinedThemes > 0)
+            menu.item(at: index)?.showIf_elseHide(themesManager.numberOfUserDefinedPresets > 0)
         }
     }
     
     @IBAction func applyThemeAction(_ sender: NSMenuItem) {
         
-        if Themes.applyTheme(named: sender.title) {
+        if themesManager.applyTheme(named: sender.title) {
             Messenger.publish(.applyTheme)
         }
     }
@@ -75,7 +77,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if Themes.themeWithNameExists(string) {
+        if themesManager.presetExists(named: string) {
             return (false, "Theme with this name already exists !")
         } else if string.trim().isEmpty {
             return (false, "Name must have at least 1 character.")
@@ -92,7 +94,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         let colorScheme: ColorScheme = ColorScheme("Color scheme for theme '\(string)'", false, ColorSchemes.systemScheme)
         let windowAppearance: WindowAppearance = WindowAppearance(cornerRadius: WindowAppearanceState.cornerRadius)
         
-        Themes.addUserDefinedTheme(Theme(name: string, fontScheme: fontScheme, colorScheme: colorScheme, windowAppearance: windowAppearance))
+        themesManager.addPreset(Theme(name: string, fontScheme: fontScheme, colorScheme: colorScheme, windowAppearance: windowAppearance, userDefined: true))
     }
     
     deinit {

@@ -33,6 +33,8 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
     @IBOutlet weak var windowCornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblWindowCornerRadius: NSTextField!
     
+    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    
     var isModal: Bool {
         return self.window?.isVisible ?? false
     }
@@ -164,7 +166,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if Themes.themeWithNameExists(string) {
+        if themesManager.presetExists(named: string) {
             return (false, "Theme with this name already exists !")
         } else if string.trim().isEmpty {
             return (false, "Name must have at least 1 character.")
@@ -191,7 +193,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         
         let windowAppearance: WindowAppearance = WindowAppearance(cornerRadius: CGFloat(windowCornerRadiusStepper.integerValue))
         
-        Themes.addUserDefinedTheme(Theme(name: string, fontScheme: themeFontScheme, colorScheme: themeColorScheme,
-                                         windowAppearance: windowAppearance))
+        themesManager.addPreset(Theme(name: string, fontScheme: themeFontScheme, colorScheme: themeColorScheme,
+                                         windowAppearance: windowAppearance, userDefined: true))
     }
 }

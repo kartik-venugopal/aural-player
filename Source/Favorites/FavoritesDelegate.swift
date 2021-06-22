@@ -41,8 +41,10 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     
     var allFavorites: [Favorite] {favorites.userDefinedPresets}
     
+    var count: Int {favorites.numberOfUserDefinedPresets}
+    
     func getFavoriteWithFile(_ file: URL) -> Favorite? {
-        favorites.preset(named: file.path)
+        favorites.userDefinedPreset(named: file.path)
     }
     
     func getFavoriteAtIndex(_ index: Int) -> Favorite {
@@ -62,12 +64,8 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         Messenger.publish(.favoritesList_trackRemoved, payload: file)
     }
     
-    var count: Int {
-        favorites.numberOfUserDefinedPresets
-    }
-    
     func favoriteWithFileExists(_ file: URL) -> Bool {
-        favorites.presetExists(named: file.path)
+        favorites.userDefinedPresetExists(named: file.path)
     }
     
     func playFavorite(_ favorite: Favorite) throws {

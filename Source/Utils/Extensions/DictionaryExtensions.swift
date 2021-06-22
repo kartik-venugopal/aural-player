@@ -10,7 +10,7 @@ extension Dictionary {
     
     func nonEmptyStringValue(forKey key: Key) -> String? {
         
-        if let string = self[key] as? String {
+        if let string = self[key, String.self] {
             return string.isEmptyAfterTrimming ? nil : string
         }
         
@@ -19,7 +19,7 @@ extension Dictionary {
     
     func enumValue<T: RawRepresentable>(forKey key: Key, ofType: T.Type) -> T? where T.RawValue == String {
         
-        if let string = self[key] as? String {
+        if let string = self[key, String.self] {
             return T(rawValue: string)
         }
         
@@ -28,7 +28,7 @@ extension Dictionary {
     
     func urlValue(forKey key: Key) -> URL? {
         
-        if let string = self[key] as? String {
+        if let string = self[key, String.self] {
             return URL(fileURLWithPath: string)
         }
         
@@ -46,8 +46,8 @@ extension NSDictionary {
     
     func cgFloatValue(forKey key: String) -> CGFloat? {
         
-        if let floatValue = self[key] as? Float {
-            return CGFloat(floatValue)
+        if let number = self[key, NSNumber.self] {
+            return CGFloat(number.floatValue)
         }
         
         return nil
@@ -55,7 +55,7 @@ extension NSDictionary {
     
     func nonEmptyStringValue(forKey key: String) -> String? {
         
-        if let string = self[key] as? String {
+        if let string = self[key, String.self] {
             return string.isEmptyAfterTrimming ? nil : string
         }
         
@@ -64,7 +64,7 @@ extension NSDictionary {
     
     func enumValue<T: RawRepresentable>(forKey key: String, ofType: T.Type) -> T? where T.RawValue == String {
         
-        if let string = self[key] as? String {
+        if let string = self[key, String.self] {
             return T(rawValue: string)
         }
         
@@ -73,7 +73,7 @@ extension NSDictionary {
     
     func urlValue(forKey key: String) -> URL? {
         
-        if let string = self[key] as? String {
+        if let string = self[key, String.self] {
             return URL(fileURLWithPath: string)
         }
         
@@ -81,12 +81,12 @@ extension NSDictionary {
     }
     
     func urlArrayValue(forKey key: String) -> [URL]? {
-        (self[key] as? [String])?.map {URL(fileURLWithPath: $0)}
+        self[key, [String].self]?.map {URL(fileURLWithPath: $0)}
     }
     
     func dateValue(forKey key: String) -> Date? {
         
-        if let string = self[key] as? String {
+        if let string = self[key, String.self] {
             return Date.fromString(string)
         }
         
@@ -95,7 +95,7 @@ extension NSDictionary {
     
     func nsPointValue(forKey key: String) -> NSPoint? {
         
-        if let dict = self[key] as? NSDictionary,
+        if let dict = self[key, NSDictionary.self],
            let px = dict.cgFloatValue(forKey: "x"),
            let py = dict.cgFloatValue(forKey: "y") {
             
@@ -107,7 +107,7 @@ extension NSDictionary {
     
     func nsSizeValue(forKey key: String) -> NSSize? {
         
-        if let dict = self[key] as? NSDictionary,
+        if let dict = self[key, NSDictionary.self],
            let width = dict.cgFloatValue(forKey: "width"),
            let height = dict.cgFloatValue(forKey: "height") {
             
@@ -119,7 +119,7 @@ extension NSDictionary {
     
     func nsRectValue(forKey key: String) -> NSRect? {
         
-        if let dict = self[key] as? NSDictionary,
+        if let dict = self[key, NSDictionary.self],
            let origin = dict.nsPointValue(forKey: "origin"),
            let size = dict.nsSizeValue(forKey: "size") {
             

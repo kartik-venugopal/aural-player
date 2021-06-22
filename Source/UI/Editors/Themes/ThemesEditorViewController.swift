@@ -22,12 +22,14 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     // Used to temporarily store the original name of a theme that is being renamed.
     private var oldThemeName: String = ""
     
+    private lazy var themesManager: Themes = ObjectGraph.themesManager
+    
     override var nibName: String? {"ThemesEditor"}
     
     override func viewDidAppear() {
         
         // Populate the cache with all user-defined themes.
-        themesCache = Themes.userDefinedThemes
+        themesCache = themesManager.userDefinedPresets
         
         // Refresh the table view.
         editorView.reloadData()
@@ -44,10 +46,10 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     @IBAction func deleteSelectedThemesAction(_ sender: AnyObject) {
         
         // Descending order
-        selectedThemeNames.forEach {Themes.deleteTheme($0)}
+        selectedThemeNames.forEach {themesManager.deletePreset(named: $0)}
         
         // Update the cache
-        themesCache = Themes.userDefinedThemes
+        themesCache = themesManager.userDefinedPresets
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -86,7 +88,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     // Applies the selected theme to the system.
     @IBAction func applySelectedThemeAction(_ sender: AnyObject) {
         
-        if Themes.applyTheme(named: selectedThemeNames[0]) {
+        if themesManager.applyTheme(named: selectedThemeNames[0]) {
             Messenger.publish(.applyTheme)
         }
     }
@@ -165,7 +167,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
         
         let editedTextField = obj.object as! NSTextField
         
-        if let theme = Themes.userDefinedThemeByName(oldThemeName) {
+        if let theme = themesManager.userDefinedPreset(named: oldThemeName) {
             
             let newThemeName = editedTextField.stringValue
             
@@ -178,7 +180,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
                 
                 editedTextField.stringValue = theme.name
                 
-            } else if Themes.themeWithNameExists(newThemeName) {
+            } else if themesManager.presetExists(named: newThemeName) {
                 
                 // Another theme with that name exists, can't rename
                 editedTextField.stringValue = theme.name
@@ -188,10 +190,10 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
             } else {
                 
                 // Update the theme name
-                Themes.renameTheme(theme.name, newThemeName)
+                themesManager.renamePreset(named: theme.name, to: newThemeName)
                 
                 // Update the cache
-                themesCache = Themes.userDefinedThemes
+                themesCache = themesManager.userDefinedPresets
             }
         }
     }
