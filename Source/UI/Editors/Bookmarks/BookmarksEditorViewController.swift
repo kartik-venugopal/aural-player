@@ -52,12 +52,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
     
     @IBAction func deleteSelectedBookmarksAction(_ sender: AnyObject) {
         
-        // Descending order
-        let sortedSelection = editorView.selectedRowIndexes.sorted(by: Int.descendingIntComparator)
-        
-        sortedSelection.forEach {
-            bookmarks.deleteBookmarkAtIndex($0)
-        }
+        bookmarks.deleteBookmarks(atIndices: editorView.selectedRowIndexes)
         
         editorView.reloadData()
         editorView.deselectAll(self)

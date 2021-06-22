@@ -123,6 +123,19 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         bandsTable.reloadData()
     }
     
+    override func deleteSelectedPresets() {
+        
+        // If there is a user-chosen master preset to be applied on app startup, and that preset
+        // is being deleted, reset the user preference value.
+        if let startupPreset = preferences.soundPreferences.masterPresetOnStartup_name,
+           selectedPresetNames.contains(startupPreset) {
+           
+            preferences.soundPreferences.masterPresetOnStartup_name = nil
+        }
+        
+        super.deleteSelectedPresets()
+    }
+    
     // MARK: View delegate functions
     
     override func tableViewSelectionDidChange(_ notification: Notification) {

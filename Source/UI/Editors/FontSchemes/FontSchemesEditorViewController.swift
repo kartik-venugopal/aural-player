@@ -45,8 +45,7 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     // Deletes all font schemes selected in the table view.
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
         
-        // Descending order
-        selectedSchemeNames.forEach {fontSchemesManager.deletePreset(named: $0)}
+        fontSchemesManager.deletePresets(atIndices: editorView.selectedRowIndexes)
         
         // Update the cache
         schemesCache = fontSchemesManager.userDefinedPresets

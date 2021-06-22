@@ -51,7 +51,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     func deleteSelectedPresets() {
         
-        presetsWrapper.deletePresets(named: selectedPresetNames)
+        presetsWrapper.deletePresets(atIndices: editorView.selectedRowIndexes)
         editorView.reloadData()
         
         previewBox.hide()

@@ -45,8 +45,7 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     // Deletes all themes selected in the table view.
     @IBAction func deleteSelectedThemesAction(_ sender: AnyObject) {
         
-        // Descending order
-        selectedThemeNames.forEach {themesManager.deletePreset(named: $0)}
+        themesManager.deletePresets(atIndices: editorView.selectedRowIndexes)
         
         // Update the cache
         themesCache = themesManager.userDefinedPresets

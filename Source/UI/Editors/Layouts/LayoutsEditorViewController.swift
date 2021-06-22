@@ -31,18 +31,16 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     
     @IBAction func deleteSelectedLayoutsAction(_ sender: AnyObject) {
         
-        // Descending order
-        let selection = selectedLayoutNames
         let prefLayout = preferences.viewPreferences.layoutOnStartup.layoutName
         
-        // The preferred layout (in the view preferences) was deleted. Set the preference to the default
-        if selection.contains(prefLayout) {
+        // The preferred layout (in the view preferences) was deleted. Set the preference to the default.
+        if selectedLayoutNames.contains(prefLayout) {
             
             let defaultLayout = windowLayoutsManager.defaultLayout.name
             preferences.viewPreferences.layoutOnStartup.layoutName = defaultLayout
         }
 
-        selection.forEach {windowLayoutsManager.deletePreset(named: $0)}
+        windowLayoutsManager.deletePresets(atIndices: editorView.selectedRowIndexes)
         
         editorView.reloadData()
         editorView.deselectAll(self)

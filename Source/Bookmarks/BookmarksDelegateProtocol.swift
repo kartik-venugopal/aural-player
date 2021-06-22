@@ -15,6 +15,8 @@ protocol BookmarksDelegateProtocol {
     
     func deleteBookmarkAtIndex(_ index: Int)
     
+    func deleteBookmarks(atIndices indices: IndexSet)
+    
     func deleteBookmarkWithName(_ name: String)
     
     func bookmarkWithNameExists(_ name: String) -> Bool

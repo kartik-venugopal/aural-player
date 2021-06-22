@@ -45,8 +45,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     // Deletes all color schemes selected in the table view.
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
         
-        // Descending order
-        selectedSchemeNames.forEach {colorSchemesManager.deletePreset(named: $0)}
+        colorSchemesManager.deletePresets(atIndices: editorView.selectedRowIndexes)
         
         // Update the cache
         schemesCache = colorSchemesManager.userDefinedPresets

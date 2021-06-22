@@ -2063,8 +2063,8 @@
 			isa = PBXGroup;
 			children = (
 				3E6C0F8D25CEB98600BF0D07 /* LayoutsEditor.xib */,
-				3E6C0F8E25CEB98600BF0D07 /* LayoutPreviewView.swift */,
 				3E6C0F8F25CEB98600BF0D07 /* LayoutsEditorViewController.swift */,
+				3E6C0F8E25CEB98600BF0D07 /* LayoutPreviewView.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";

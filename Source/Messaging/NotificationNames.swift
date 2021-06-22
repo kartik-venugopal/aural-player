@@ -30,8 +30,8 @@ extension Notification.Name {
     // Signifies that a track has been added to the favorites list.
     static let favoritesList_trackAdded = Notification.Name("favoritesList_trackAdded")
     
-    // Signifies that a track has been removed from the favorites list.
-    static let favoritesList_trackRemoved = Notification.Name("favoritesList_trackRemoved")
+    // Signifies that tracks have been removed from the favorites list.
+    static let favoritesList_tracksRemoved = Notification.Name("favoritesList_tracksRemoved")
     
     // Commands the Favorites list to add/remove the currently playing track to/from the list.
     // Functions as a toggle: add/remove.

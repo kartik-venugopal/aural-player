@@ -16,6 +16,8 @@ protocol FavoritesDelegateProtocol {
     
     func deleteFavoriteAtIndex(_ index: Int)
     
+    func deleteFavorites(atIndices indices: IndexSet)
+    
     func deleteFavoriteWithFile(_ file: URL)
     
     func favoriteWithFileExists(_ file: URL) -> Bool

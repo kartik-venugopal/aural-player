@@ -73,6 +73,10 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         bookmarks.deletePreset(atIndex: index)
     }
     
+    func deleteBookmarks(atIndices indices: IndexSet) {
+        bookmarks.deletePresets(atIndices: indices)
+    }
+    
     func deleteBookmarkWithName(_ name: String) {
         bookmarks.deletePreset(named: name)
     }

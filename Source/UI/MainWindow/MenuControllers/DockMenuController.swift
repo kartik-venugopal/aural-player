@@ -49,7 +49,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
         favoritesMenuItem.off()
         
         Messenger.subscribeAsync(self, .favoritesList_trackAdded, self.trackAddedToFavorites(_:), queue: .main)
-        Messenger.subscribeAsync(self, .favoritesList_trackRemoved, self.trackRemovedFromFavorites(_:), queue: .main)
+        Messenger.subscribeAsync(self, .favoritesList_tracksRemoved, self.tracksRemovedFromFavorites(_:), queue: .main)
         Messenger.subscribeAsync(self, .history_updated, self.recreateHistoryMenus, queue: .main)
         
         // Subscribe to notifications
@@ -101,20 +101,20 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     }
     
     // Responds to a notification that a track has been removed from the Favorites list, by updating the Favorites menu
-    func trackRemovedFromFavorites(_ trackFile: URL) {
+    func tracksRemovedFromFavorites(_ removedFavoritesFiles: Set<URL>) {
         
         // Remove it from the menu
-        favoritesMenu.items.forEach({
+        favoritesMenu.items.forEach {
             
-            if let favItem = $0 as? FavoritesMenuItem, favItem.favorite.file.path == trackFile.path {
-                
+            if let favItem = $0 as? FavoritesMenuItem, removedFavoritesFiles.contains(favItem.favorite.file) {
+                 
                 favoritesMenu.removeItem($0)
                 return
             }
-        })
+        }
         
         // Update the toggle menu item
-        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == trackFile.path {
+        if let plTrack = playbackInfo.currentTrack, removedFavoritesFiles.contains(plTrack.file) {
             favoritesMenuItem.off()
         }
     }

@@ -7,7 +7,7 @@ protocol PresetsWrapperProtocol {
     
     func preset(named name: String) -> EffectsUnitPreset?
     
-    func deletePresets(named presetNames: [String])
+    func deletePresets(atIndices indices: IndexSet)
     
     func renamePreset(named oldName: String, to newName: String)
     
@@ -33,8 +33,8 @@ class PresetsWrapper<T: EffectsUnitPreset, U: FXPresets<T>>: PresetsWrapperProto
         return presets.preset(named: name)
     }
     
-    func deletePresets(named presetNames: [String]) {
-        presets.deletePresets(named: presetNames)
+    func deletePresets(atIndices indices: IndexSet) {
+        presets.deletePresets(atIndices: indices)
     }
     
     func renamePreset(named oldName: String, to newName: String) {
