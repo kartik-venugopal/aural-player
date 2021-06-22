@@ -6,6 +6,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     func numberOfRows(in tableView: NSTableView) -> Int {audioGraph.audioUnits.count}
     
@@ -85,7 +86,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             
             let audioUnit = audioGraph.audioUnits[row]
             
-            cell.btnEdit.tintFunction = {ColorSchemes.systemScheme.general.functionButtonColor}
+            cell.btnEdit.tintFunction = {self.colorSchemesManager.systemScheme.general.functionButtonColor}
             cell.btnEdit.reTint()
             
             cell.action = {
@@ -112,7 +113,7 @@ class AudioUnitsTableRowView: NSTableRowView {
             let selectionRect = self.bounds.insetBy(dx: 30, dy: 0).offsetBy(dx: -5, dy: 0)
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
             
-            ColorSchemes.systemScheme.playlist.selectionBoxColor.setFill()
+            Colors.Playlist.selectionBoxColor.setFill()
             selectionPath.fill()
         }
     }

@@ -36,6 +36,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
     private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
     
     private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private lazy var colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     var isModal: Bool {
         return self.window?.isVisible ?? false
@@ -116,7 +117,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         }
         
         // Recreate the user-defined scheme items
-        ColorSchemes.userDefinedSchemes.forEach {
+        colorSchemesManager.userDefinedPresets.forEach {
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: nil, keyEquivalent: "")
             item.indentationLevel = 1
@@ -124,7 +125,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         }
         
         for index in 0...2 {
-            colorSchemesMenu.item(at: index)?.showIf_elseHide(ColorSchemes.numberOfUserDefinedSchemes > 0)
+            colorSchemesMenu.item(at: index)?.showIf_elseHide(colorSchemesManager.numberOfUserDefinedPresets > 0)
         }
         
         btnColorSchemesMenu.select(colorSchemesMenu.item(withTitle: ColorSchemePreset.blackAttack.name))
@@ -183,9 +184,9 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         guard let fontSchemeName = btnFontSchemesMenu.titleOfSelectedItem,
               let fontScheme = fontSchemesManager.preset(named: fontSchemeName),
               let colorSchemeName = btnColorSchemesMenu.titleOfSelectedItem,
-              let colorScheme = ColorSchemes.schemeByName(colorSchemeName) else {
+              let colorScheme = colorSchemesManager.preset(named: colorSchemeName) else {
             
-            NSLog("Something went wrong ... can't create theme with name '\(string)'.")
+            NSLog("Don't have all the required information ... can't create theme with name '\(string)'.")
             return
         }
         

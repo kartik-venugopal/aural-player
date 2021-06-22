@@ -39,6 +39,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
     private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private lazy var colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
@@ -54,7 +55,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         manageFontSchemesMenuItem.enableIf(!showingModalComponent && (fontSchemesManager.numberOfUserDefinedPresets > 0))
         
         [applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
-        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (ColorSchemes.numberOfUserDefinedSchemes > 0))
+        manageColorSchemesMenuItem.enableIf(!showingModalComponent && (colorSchemesManager.numberOfUserDefinedPresets > 0))
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state

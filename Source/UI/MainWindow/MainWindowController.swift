@@ -35,6 +35,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     override var windowNibName: String? {"MainWindow"}
     
     // MARK: Setup
@@ -76,7 +78,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         btnToggleEffects.onIf(WindowLayoutState.showEffects)
         btnTogglePlaylist.onIf(WindowLayoutState.showPlaylist)
         
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         // Hackish fix to properly position settings menu button (hamburger icon) on older systems.
@@ -167,7 +169,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     private func applyTheme() {
         
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }
     

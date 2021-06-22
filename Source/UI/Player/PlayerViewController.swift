@@ -26,6 +26,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     override var nibName: String? {"Player"}
     
@@ -34,7 +35,8 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
         initSubscriptions()
         
         infoView.applyFontScheme(fontSchemesManager.systemScheme)
-        infoView.applyColorScheme(ColorSchemes.systemScheme)
+        infoView.applyColorScheme(colorSchemesManager.systemScheme)
+        
         infoView.showView()
         
         trackChanged(player.playingTrack)

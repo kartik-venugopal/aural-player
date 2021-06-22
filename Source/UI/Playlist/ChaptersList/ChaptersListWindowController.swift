@@ -9,11 +9,13 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber, 
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var viewController: ChaptersListViewController!
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     override var windowNibName: String? {"ChaptersList"}
     
     override func windowDidLoad() {
         
-        changeBackgroundColor(ColorSchemes.systemScheme.general.backgroundColor)
+        changeBackgroundColor(colorSchemesManager.systemScheme.general.backgroundColor)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
@@ -27,7 +29,7 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber, 
     }
     
     private func applyTheme() {
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

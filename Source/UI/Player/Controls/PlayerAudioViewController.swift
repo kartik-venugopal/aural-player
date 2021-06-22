@@ -27,6 +27,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     private let soundPreferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     // Numerical ranges
     private let highVolumeRange: ClosedRange<Float> = 200.0/3...100
@@ -53,7 +54,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
         panChanged(audioGraph.balance, false)
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
 
         initSubscriptions()
     }
@@ -198,7 +199,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {

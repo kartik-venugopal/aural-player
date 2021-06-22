@@ -31,6 +31,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     private var recordingInfo: RecordingInfo?
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     // Recorder timer interval (milliseconds)
     static let timerIntervalMillis: Int = 500
@@ -44,7 +45,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         
         initControls()
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         
         // Subscribe to notifications
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
@@ -143,7 +144,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

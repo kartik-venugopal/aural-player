@@ -94,6 +94,7 @@ class ObjectGraph {
     static let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout)
     static let themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     static let fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
+    static let colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
     
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
@@ -111,8 +112,6 @@ class ObjectGraph {
         }
         
         // Initialize utility classes.
-        
-        ColorSchemes.initialize(persistentState.ui?.colorSchemes)
         
         WindowLayoutState.initialize(persistentState.ui?.windowLayout)
         
@@ -169,7 +168,7 @@ class ObjectGraph {
         uiState.windowLayout = WindowLayoutState.persistentState
         uiState.themes = themesManager.persistentState
         uiState.fontSchemes = fontSchemesManager.persistentState
-        uiState.colorSchemes = ColorSchemes.persistentState
+        uiState.colorSchemes = colorSchemesManager.persistentState
         uiState.player = PlayerViewState.persistentState
         uiState.playlist = PlaylistViewState.persistentState
         uiState.visualizer = VisualizerViewState.persistentState

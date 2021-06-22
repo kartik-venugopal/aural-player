@@ -36,6 +36,8 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBOutlet weak var sliderLoopSegmentColorPicker: AuralColorPicker!
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     override var nibName: NSNib.Name? {return "PlayerColorScheme"}
     
     override func viewDidLoad() {
@@ -98,67 +100,67 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func primaryTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackInfoPrimaryTextColorPicker.tag, ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor, trackInfoPrimaryTextColorPicker.color, .changeColor)
+        history.noteChange(trackInfoPrimaryTextColorPicker.tag, colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor, trackInfoPrimaryTextColorPicker.color, .changeColor)
         changePrimaryTextColor()
     }
     
     private func changePrimaryTextColor() {
         
-        ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor = trackInfoPrimaryTextColorPicker.color
+        colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor = trackInfoPrimaryTextColorPicker.color
         Messenger.publish(.player_changeTrackInfoPrimaryTextColor, payload: trackInfoPrimaryTextColorPicker.color)
     }
     
     @IBAction func secondaryTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackInfoSecondaryTextColorPicker.tag, ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor, trackInfoSecondaryTextColorPicker.color, .changeColor)
+        history.noteChange(trackInfoSecondaryTextColorPicker.tag, colorSchemesManager.systemScheme.player.trackInfoSecondaryTextColor, trackInfoSecondaryTextColorPicker.color, .changeColor)
         changeSecondaryTextColor()
     }
     
     private func changeSecondaryTextColor() {
         
-        ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor = trackInfoSecondaryTextColorPicker.color
+        colorSchemesManager.systemScheme.player.trackInfoSecondaryTextColor = trackInfoSecondaryTextColorPicker.color
         Messenger.publish(.player_changeTrackInfoSecondaryTextColor, payload: trackInfoSecondaryTextColorPicker.color)
     }
     
     @IBAction func tertiaryTextColorAction(_ sender: Any) {
         
-        history.noteChange(trackInfoTertiaryTextColorPicker.tag, ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor, trackInfoTertiaryTextColorPicker.color, .changeColor)
+        history.noteChange(trackInfoTertiaryTextColorPicker.tag, colorSchemesManager.systemScheme.player.trackInfoTertiaryTextColor, trackInfoTertiaryTextColorPicker.color, .changeColor)
         changeTertiaryTextColor()
     }
     
     private func changeTertiaryTextColor() {
         
-        ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor = trackInfoTertiaryTextColorPicker.color
+        colorSchemesManager.systemScheme.player.trackInfoTertiaryTextColor = trackInfoTertiaryTextColorPicker.color
         Messenger.publish(.player_changeTrackInfoTertiaryTextColor, payload: trackInfoTertiaryTextColorPicker.color)
     }
     
     @IBAction func sliderValueTextColorAction(_ sender: Any) {
         
-        history.noteChange(sliderValueTextColorPicker.tag, ColorSchemes.systemScheme.player.sliderValueTextColor, sliderValueTextColorPicker.color, .changeColor)
+        history.noteChange(sliderValueTextColorPicker.tag, colorSchemesManager.systemScheme.player.sliderValueTextColor, sliderValueTextColorPicker.color, .changeColor)
         changeSliderValueTextColor()
     }
     
     private func changeSliderValueTextColor() {
         
-        ColorSchemes.systemScheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
+        colorSchemesManager.systemScheme.player.sliderValueTextColor = sliderValueTextColorPicker.color
         Messenger.publish(.player_changeSliderValueTextColor, payload: sliderValueTextColorPicker.color)
     }
     
     @IBAction func sliderForegroundColorAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundColorPicker.tag, ColorSchemes.systemScheme.player.sliderForegroundColor, sliderForegroundColorPicker.color, .changeColor)
+        history.noteChange(sliderForegroundColorPicker.tag, colorSchemesManager.systemScheme.player.sliderForegroundColor, sliderForegroundColorPicker.color, .changeColor)
         changeSliderForegroundColor()
     }
     
     private func changeSliderForegroundColor() {
         
-        ColorSchemes.systemScheme.player.sliderForegroundColor = sliderForegroundColorPicker.color
+        colorSchemesManager.systemScheme.player.sliderForegroundColor = sliderForegroundColorPicker.color
         sliderForegroundChanged()
     }
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundGradientBtnGroup.tag, ColorSchemes.systemScheme.player.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderForegroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.player.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderForegroundGradient()
     }
@@ -166,9 +168,9 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderForegroundGradient() {
         
         if btnSliderForegroundGradientEnabled.isOn {
-            ColorSchemes.systemScheme.player.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
+            colorSchemesManager.systemScheme.player.sliderForegroundGradientType = btnSliderForegroundGradientDarken.isOn ? .darken : .brighten
         } else {
-            ColorSchemes.systemScheme.player.sliderForegroundGradientType = .none
+            colorSchemesManager.systemScheme.player.sliderForegroundGradientType = .none
         }
         
         [btnSliderForegroundGradientDarken, btnSliderForegroundGradientBrighten, sliderForegroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderForegroundGradientEnabled.isOn)})
@@ -178,20 +180,20 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderForegroundGradientBrightenOrDarkenAction(_ sender: Any) {
 
-        history.noteChange(sliderForegroundGradientBtnGroup.tag, ColorSchemes.systemScheme.player.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderForegroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.player.sliderForegroundGradientType, sliderForegroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderForegroundGradient()
     }
     
     @IBAction func sliderForegroundGradientAmountAction(_ sender: Any) {
         
-        history.noteChange(sliderForegroundGradientAmountStepper.tag, ColorSchemes.systemScheme.player.sliderForegroundGradientAmount, sliderForegroundGradientAmountStepper.integerValue, .setIntValue)
+        history.noteChange(sliderForegroundGradientAmountStepper.tag, colorSchemesManager.systemScheme.player.sliderForegroundGradientAmount, sliderForegroundGradientAmountStepper.integerValue, .setIntValue)
         changeSliderForegroundGradientAmount()
     }
     
     private func changeSliderForegroundGradientAmount() {
         
-        ColorSchemes.systemScheme.player.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
+        colorSchemesManager.systemScheme.player.sliderForegroundGradientAmount = sliderForegroundGradientAmountStepper.integerValue
         lblSliderForegroundGradientAmount.stringValue = String(format: "%d%%", sliderForegroundGradientAmountStepper.integerValue)
         
         sliderForegroundChanged()
@@ -205,19 +207,19 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderBackgroundColorAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundColorPicker.tag, ColorSchemes.systemScheme.player.sliderBackgroundColor, sliderBackgroundColorPicker.color, .changeColor)
+        history.noteChange(sliderBackgroundColorPicker.tag, colorSchemesManager.systemScheme.player.sliderBackgroundColor, sliderBackgroundColorPicker.color, .changeColor)
         changeSliderBackgroundColor()
     }
     
     private func changeSliderBackgroundColor() {
         
-        ColorSchemes.systemScheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
+        colorSchemesManager.systemScheme.player.sliderBackgroundColor = sliderBackgroundColorPicker.color
         sliderBackgroundChanged()
     }
     
     @IBAction func enableSliderBackgroundGradientAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientBtnGroup.tag, ColorSchemes.systemScheme.player.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderBackgroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.player.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderBackgroundGradient()
     }
@@ -225,9 +227,9 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderBackgroundGradient() {
         
         if btnSliderBackgroundGradientEnabled.isOn {
-            ColorSchemes.systemScheme.player.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
+            colorSchemesManager.systemScheme.player.sliderBackgroundGradientType = btnSliderBackgroundGradientDarken.isOn ? .darken : .brighten
         } else {
-            ColorSchemes.systemScheme.player.sliderBackgroundGradientType = .none
+            colorSchemesManager.systemScheme.player.sliderBackgroundGradientType = .none
         }
         
         [btnSliderBackgroundGradientDarken, btnSliderBackgroundGradientBrighten, sliderBackgroundGradientAmountStepper].forEach({$0?.enableIf(btnSliderBackgroundGradientEnabled.isOn)})
@@ -237,20 +239,20 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderBackgroundGradientBrightenOrDarkenAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientBtnGroup.tag, ColorSchemes.systemScheme.player.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
+        history.noteChange(sliderBackgroundGradientBtnGroup.tag, colorSchemesManager.systemScheme.player.sliderBackgroundGradientType, sliderBackgroundGradientBtnGroup.gradientType, .changeGradient)
         
         changeSliderBackgroundGradient()
     }
     
     @IBAction func sliderBackgroundGradientAmountAction(_ sender: Any) {
         
-        history.noteChange(sliderBackgroundGradientAmountStepper.tag, ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount, sliderBackgroundGradientAmountStepper.integerValue, .setIntValue)
+        history.noteChange(sliderBackgroundGradientAmountStepper.tag, colorSchemesManager.systemScheme.player.sliderBackgroundGradientAmount, sliderBackgroundGradientAmountStepper.integerValue, .setIntValue)
         changeSliderBackgroundGradientAmount()
     }
     
     private func changeSliderBackgroundGradientAmount() {
         
-        ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
+        colorSchemesManager.systemScheme.player.sliderBackgroundGradientAmount = sliderBackgroundGradientAmountStepper.integerValue
         lblSliderBackgroundGradientAmount.stringValue = String(format: "%d%%", sliderBackgroundGradientAmountStepper.integerValue)
         
         sliderBackgroundChanged()
@@ -264,37 +266,37 @@ class PlayerColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
         
-        history.noteChange(sliderKnobColorPicker.tag, ColorSchemes.systemScheme.player.sliderKnobColor, sliderKnobColorPicker.color, .changeColor)
+        history.noteChange(sliderKnobColorPicker.tag, colorSchemesManager.systemScheme.player.sliderKnobColor, sliderKnobColorPicker.color, .changeColor)
         changeSliderKnobColor()
     }
     
     private func changeSliderKnobColor() {
         
-        ColorSchemes.systemScheme.player.sliderKnobColor = sliderKnobColorPicker.color
+        colorSchemesManager.systemScheme.player.sliderKnobColor = sliderKnobColorPicker.color
         Messenger.publish(.player_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
         
-        history.noteChange(btnSliderKnobColorSameAsForeground.tag, ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground, btnSliderKnobColorSameAsForeground.isOn, .toggle)
+        history.noteChange(btnSliderKnobColorSameAsForeground.tag, colorSchemesManager.systemScheme.player.sliderKnobColorSameAsForeground, btnSliderKnobColorSameAsForeground.isOn, .toggle)
         toggleKnobColorSameAsForeground()
     }
     
     private func toggleKnobColorSameAsForeground() {
         
-        ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
+        colorSchemesManager.systemScheme.player.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
         Messenger.publish(.player_changeSliderColors)
     }
     
     @IBAction func sliderLoopSegmentColorAction(_ sender: Any) {
         
-        history.noteChange(sliderLoopSegmentColorPicker.tag, ColorSchemes.systemScheme.player.sliderLoopSegmentColor, sliderLoopSegmentColorPicker.color, .changeColor)
+        history.noteChange(sliderLoopSegmentColorPicker.tag, colorSchemesManager.systemScheme.player.sliderLoopSegmentColor, sliderLoopSegmentColorPicker.color, .changeColor)
         changeSliderLoopSegmentColor()
     }
     
     private func changeSliderLoopSegmentColor() {
         
-        ColorSchemes.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
+        colorSchemesManager.systemScheme.player.sliderLoopSegmentColor = sliderLoopSegmentColorPicker.color
         Messenger.publish(.player_changeSliderColors)
     }
 }

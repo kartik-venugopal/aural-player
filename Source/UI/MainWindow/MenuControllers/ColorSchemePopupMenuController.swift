@@ -11,6 +11,8 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     
     private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     @IBOutlet weak var theMenu: NSMenu!
     
     override func awakeFromNib() {
@@ -31,23 +33,23 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
         }
         
         // Recreate the user-defined color scheme items
-        ColorSchemes.userDefinedSchemes.forEach({
+        colorSchemesManager.userDefinedPresets.forEach {
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
             item.target = self
             item.indentationLevel = 1
             
             menu.insertItem(item, at: 3)
-        })
+        }
         
         for index in 0...2 {
-            menu.item(at: index)?.showIf_elseHide(ColorSchemes.numberOfUserDefinedSchemes > 0)
+            menu.item(at: index)?.showIf_elseHide(colorSchemesManager.numberOfUserDefinedPresets > 0)
         }
     }
     
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
         
-        if let scheme = ColorSchemes.applyScheme(sender.title) {
+        if let scheme = colorSchemesManager.applyScheme(named: sender.title) {
             Messenger.publish(.applyColorScheme, payload: scheme)
         }
     }
@@ -76,7 +78,7 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
-        if ColorSchemes.schemeWithNameExists(string) {
+        if colorSchemesManager.presetExists(named: string) {
             return (false, "Color scheme with this name already exists !")
         } else if string.trim().isEmpty {
             return (false, "Name must have at least 1 character.")
@@ -89,8 +91,8 @@ class ColorSchemePopupMenuController: NSObject, NSMenuDelegate, StringInputRecei
     func acceptInput(_ string: String) {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
-        let newScheme: ColorScheme = ColorScheme(string, false, ColorSchemes.systemScheme)
-        ColorSchemes.addUserDefinedScheme(newScheme)
+        let newScheme: ColorScheme = ColorScheme(string, false, colorSchemesManager.systemScheme)
+        colorSchemesManager.addPreset(newScheme)
     }
     
     deinit {

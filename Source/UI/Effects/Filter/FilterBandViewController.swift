@@ -27,6 +27,7 @@ class FilterBandViewController: NSViewController {
     private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.Sound.audibleRangeMin).withMaxFreq(AppConstants.Sound.subBass_max)
     var bandIndex: Int!
@@ -41,7 +42,7 @@ class FilterBandViewController: NSViewController {
         resetFields()
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func oneTimeSetup() {

@@ -6,6 +6,8 @@ import Cocoa
 
 struct Colors {
     
+    private static let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     struct Constants {
         
         static let white7Percent: NSColor = NSColor(white: 0.07, alpha: 1)
@@ -38,71 +40,71 @@ struct Colors {
     }
     
     static var windowBackgroundColor: NSColor {
-        return ColorSchemes.systemScheme.general.backgroundColor
+        return colorSchemesManager.systemScheme.general.backgroundColor
     }
     
     static var appLogoColor: NSColor {
-        return ColorSchemes.systemScheme.general.appLogoColor
+        return colorSchemesManager.systemScheme.general.appLogoColor
     }
     
     static var viewControlButtonColor: NSColor {
-        return ColorSchemes.systemScheme.general.viewControlButtonColor
+        return colorSchemesManager.systemScheme.general.viewControlButtonColor
     }
     
     static var functionButtonColor: NSColor {
-        return ColorSchemes.systemScheme.general.functionButtonColor
+        return colorSchemesManager.systemScheme.general.functionButtonColor
     }
     
     static var textButtonMenuGradient: NSGradient {
         
-        let color = ColorSchemes.systemScheme.general.textButtonMenuColor
+        let color = colorSchemesManager.systemScheme.general.textButtonMenuColor
         return NSGradient(starting: color, ending: color.darkened(40))!
     }
     
     static var toggleButtonOffStateColor: NSColor {
-        return ColorSchemes.systemScheme.general.toggleButtonOffStateColor
+        return colorSchemesManager.systemScheme.general.toggleButtonOffStateColor
     }
     
     static var mainCaptionTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.mainCaptionTextColor
+        return colorSchemesManager.systemScheme.general.mainCaptionTextColor
     }
     
     static var tabButtonTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.tabButtonTextColor
+        return colorSchemesManager.systemScheme.general.tabButtonTextColor
     }
     
     static var selectedTabButtonTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.selectedTabButtonTextColor
+        return colorSchemesManager.systemScheme.general.selectedTabButtonTextColor
     }
     
     static var selectedTabButtonColor: NSColor {
-        return ColorSchemes.systemScheme.general.selectedTabButtonColor
+        return colorSchemesManager.systemScheme.general.selectedTabButtonColor
     }
     
     static var buttonMenuTextColor: NSColor {
-        return ColorSchemes.systemScheme.general.buttonMenuTextColor
+        return colorSchemesManager.systemScheme.general.buttonMenuTextColor
     }
     
     struct Player {
         
         static var trackInfoTitleTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.trackInfoPrimaryTextColor
+            return colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor
         }
         
         static var trackInfoArtistAlbumTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.trackInfoSecondaryTextColor
+            return colorSchemesManager.systemScheme.player.trackInfoSecondaryTextColor
         }
         
         static var trackInfoChapterTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.trackInfoTertiaryTextColor
+            return colorSchemesManager.systemScheme.player.trackInfoTertiaryTextColor
         }
         
         static var trackTimesTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderValueTextColor
+            return colorSchemesManager.systemScheme.player.sliderValueTextColor
         }
         
         static var feedbackTextColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderValueTextColor
+            return colorSchemesManager.systemScheme.player.sliderValueTextColor
         }
         
         // Updates the cached NSGradient objects used by the player's seek slider
@@ -117,40 +119,37 @@ struct Colors {
         }
         
         private static func updateSliderBackgroundGradient() {
+            _sliderBackgroundGradient = computeSliderBackgroundGradient()
+        }
+        
+        private static func computeSliderBackgroundGradient() -> NSGradient {
             
-            let endColor = ColorSchemes.systemScheme.player.sliderBackgroundColor
+            let endColor = colorSchemesManager.systemScheme.player.sliderBackgroundColor
             
-            switch ColorSchemes.systemScheme.player.sliderBackgroundGradientType {
+            switch colorSchemesManager.systemScheme.player.sliderBackgroundGradientType {
                 
             case .none:
                 
-                _sliderBackgroundGradient = NSGradient(starting: endColor, ending: endColor)!
+                return NSGradient(starting: endColor, ending: endColor)!
                 
             case .darken:
                 
-                let amount = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.player.sliderBackgroundGradientAmount
                 let startColor = endColor.darkened(CGFloat(amount))
                 
-                _sliderBackgroundGradient = NSGradient(starting: startColor, ending: endColor)!
+                return NSGradient(starting: startColor, ending: endColor)!
                 
             case .brighten:
                 
-                let amount = ColorSchemes.systemScheme.player.sliderBackgroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.player.sliderBackgroundGradientAmount
                 let startColor = endColor.brightened(CGFloat(amount))
                 
-                _sliderBackgroundGradient = NSGradient(starting: startColor, ending: endColor)!
+                return NSGradient(starting: startColor, ending: endColor)!
             }
         }
         
         // Cached background gradient used by the player's seek slider (to avoid repeated recomputations)
-        static var _sliderBackgroundGradient: NSGradient = {
-            
-            // Default value
-            
-            let backgroundStart = Constants.white20Percent
-            let backgroundEnd =  Constants.white40Percent
-            return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
-        }()
+        static var _sliderBackgroundGradient: NSGradient = computeSliderBackgroundGradient()
         
         static var sliderBackgroundGradient: NSGradient {
             return _sliderBackgroundGradient
@@ -161,156 +160,14 @@ struct Colors {
         }
         
         private static func updateSliderForegroundGradient() {
+            _sliderForegroundGradient = computeSliderForegroundGradient()
+        }
+        
+        private static func computeSliderForegroundGradient() -> NSGradient {
             
-            let startColor = ColorSchemes.systemScheme.player.sliderForegroundColor
+            let startColor = colorSchemesManager.systemScheme.player.sliderForegroundColor
             
-            switch ColorSchemes.systemScheme.player.sliderForegroundGradientType {
-                
-            case .none:
-                
-                _sliderForegroundGradient = NSGradient(starting: startColor, ending: startColor)!
-                
-            case .darken:
-                
-                let amount = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
-                let endColor = startColor.darkened(CGFloat(amount))
-                
-                _sliderForegroundGradient = NSGradient(starting: startColor, ending: endColor)!
-                
-            case .brighten:
-                
-                let amount = ColorSchemes.systemScheme.player.sliderForegroundGradientAmount
-                let endColor = startColor.brightened(CGFloat(amount))
-                
-                _sliderForegroundGradient = NSGradient(starting: startColor, ending: endColor)!
-            }
-        }
-        
-        // Cached foreground gradient used by the player's seek slider (to avoid repeated recomputations)
-        static var _sliderForegroundGradient: NSGradient = {
-            
-            // Default value
-            
-            let foregroundStart = Constants.white70Percent
-            let foregroundEnd =  Constants.white50Percent
-            return NSGradient(starting: foregroundStart, ending: foregroundEnd)!
-        }()
-        
-        static var sliderForegroundGradient: NSGradient {
-            return _sliderForegroundGradient
-        }
-        
-        static var sliderForegroundColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderForegroundColor
-        }
-        
-        static var seekBarLoopColor: NSColor {
-            return ColorSchemes.systemScheme.player.sliderLoopSegmentColor
-        }
-        
-        static var sliderKnobColor: NSColor {
-            
-            return ColorSchemes.systemScheme.player.sliderKnobColorSameAsForeground ? ColorSchemes.systemScheme.player.sliderForegroundColor : ColorSchemes.systemScheme.player.sliderKnobColor
-        }
-    }
-    
-    struct Playlist {
-        
-        static var trackNameTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.trackNameTextColor
-        }
-        
-        static var groupNameTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.groupNameTextColor
-        }
-        
-        static var indexDurationTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.indexDurationTextColor
-        }
-        
-        static var trackNameSelectedTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.trackNameSelectedTextColor
-        }
-        
-        static var groupNameSelectedTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.groupNameSelectedTextColor
-        }
-        
-        static var indexDurationSelectedTextColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.indexDurationSelectedTextColor
-        }
-        
-        static var playingTrackIconColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.playingTrackIconColor
-        }
-        
-        static var selectionBoxColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.selectionBoxColor
-        }
-        
-        static var groupIconColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.groupIconColor
-        }
-        
-        static var groupDisclosureTriangleColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.groupDisclosureTriangleColor
-        }
-        
-        static var summaryInfoColor: NSColor {
-            return ColorSchemes.systemScheme.playlist.summaryInfoColor
-        }
-    }
-    
-    struct Effects {
-        
-        static var functionCaptionTextColor: NSColor {
-            return ColorSchemes.systemScheme.effects.functionCaptionTextColor
-        }
-        
-        static var functionValueTextColor: NSColor {
-            return ColorSchemes.systemScheme.effects.functionValueTextColor
-        }
-        
-        static var sliderBackgroundColor: NSColor {
-            return ColorSchemes.systemScheme.effects.sliderBackgroundColor
-        }
-        
-        static func sliderKnobColorForState(_ state: EffectsUnitState) -> NSColor {
-            
-            let useForegroundColor: Bool = ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground
-            
-            switch state {
-                
-            case .active:   return useForegroundColor ? Colors.Effects.activeUnitStateColor : ColorSchemes.systemScheme.effects.sliderKnobColor
-                
-            case .bypassed: return useForegroundColor ? Colors.Effects.bypassedUnitStateColor : ColorSchemes.systemScheme.effects.sliderKnobColor
-                
-            case .suppressed:   return useForegroundColor ? Colors.Effects.suppressedUnitStateColor : ColorSchemes.systemScheme.effects.sliderKnobColor
-                
-            }
-        }
-        
-        static var sliderTickColor: NSColor {
-            return ColorSchemes.systemScheme.effects.sliderTickColor
-        }
-        
-        static var activeUnitStateColor: NSColor {
-            return ColorSchemes.systemScheme.effects.activeUnitStateColor
-        }
-        
-        static var bypassedUnitStateColor: NSColor {
-            return ColorSchemes.systemScheme.effects.bypassedUnitStateColor
-        }
-        
-        static var suppressedUnitStateColor: NSColor {
-            return ColorSchemes.systemScheme.effects.suppressedUnitStateColor
-        }
-        
-        static var activeSliderGradient: NSGradient {
-            
-            let startColor = ColorSchemes.systemScheme.effects.activeUnitStateColor
-            
-            switch ColorSchemes.systemScheme.effects.sliderForegroundGradientType {
+            switch colorSchemesManager.systemScheme.player.sliderForegroundGradientType {
                 
             case .none:
                 
@@ -318,14 +175,154 @@ struct Colors {
                 
             case .darken:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.player.sliderForegroundGradientAmount
                 let endColor = startColor.darkened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!
                 
             case .brighten:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.player.sliderForegroundGradientAmount
+                let endColor = startColor.brightened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+            }
+        }
+        
+        // Cached foreground gradient used by the player's seek slider (to avoid repeated recomputations)
+        static var _sliderForegroundGradient: NSGradient = computeSliderForegroundGradient()
+        
+        static var sliderForegroundGradient: NSGradient {
+            return _sliderForegroundGradient
+        }
+        
+        static var sliderForegroundColor: NSColor {
+            return colorSchemesManager.systemScheme.player.sliderForegroundColor
+        }
+        
+        static var seekBarLoopColor: NSColor {
+            return colorSchemesManager.systemScheme.player.sliderLoopSegmentColor
+        }
+        
+        static var sliderKnobColor: NSColor {
+            
+            return colorSchemesManager.systemScheme.player.sliderKnobColorSameAsForeground ? colorSchemesManager.systemScheme.player.sliderForegroundColor : colorSchemesManager.systemScheme.player.sliderKnobColor
+        }
+    }
+    
+    struct Playlist {
+        
+        static var trackNameTextColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.trackNameTextColor
+        }
+        
+        static var groupNameTextColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.groupNameTextColor
+        }
+        
+        static var indexDurationTextColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.indexDurationTextColor
+        }
+        
+        static var trackNameSelectedTextColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.trackNameSelectedTextColor
+        }
+        
+        static var groupNameSelectedTextColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.groupNameSelectedTextColor
+        }
+        
+        static var indexDurationSelectedTextColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.indexDurationSelectedTextColor
+        }
+        
+        static var playingTrackIconColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.playingTrackIconColor
+        }
+        
+        static var selectionBoxColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.selectionBoxColor
+        }
+        
+        static var groupIconColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.groupIconColor
+        }
+        
+        static var groupDisclosureTriangleColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.groupDisclosureTriangleColor
+        }
+        
+        static var summaryInfoColor: NSColor {
+            return colorSchemesManager.systemScheme.playlist.summaryInfoColor
+        }
+    }
+    
+    struct Effects {
+        
+        static var functionCaptionTextColor: NSColor {
+            return colorSchemesManager.systemScheme.effects.functionCaptionTextColor
+        }
+        
+        static var functionValueTextColor: NSColor {
+            return colorSchemesManager.systemScheme.effects.functionValueTextColor
+        }
+        
+        static var sliderBackgroundColor: NSColor {
+            return colorSchemesManager.systemScheme.effects.sliderBackgroundColor
+        }
+        
+        static func sliderKnobColorForState(_ state: EffectsUnitState) -> NSColor {
+            
+            let useForegroundColor: Bool = colorSchemesManager.systemScheme.effects.sliderKnobColorSameAsForeground
+            let staticKnobColor: NSColor = colorSchemesManager.systemScheme.effects.sliderKnobColor
+            
+            switch state {
+                
+            case .active:   return useForegroundColor ? activeUnitStateColor : staticKnobColor
+                
+            case .bypassed: return useForegroundColor ? bypassedUnitStateColor : staticKnobColor
+                
+            case .suppressed:   return useForegroundColor ? suppressedUnitStateColor : staticKnobColor
+                
+            }
+        }
+        
+        static var sliderTickColor: NSColor {
+            return colorSchemesManager.systemScheme.effects.sliderTickColor
+        }
+        
+        static var activeUnitStateColor: NSColor {
+            return colorSchemesManager.systemScheme.effects.activeUnitStateColor
+        }
+        
+        static var bypassedUnitStateColor: NSColor {
+            return colorSchemesManager.systemScheme.effects.bypassedUnitStateColor
+        }
+        
+        static var suppressedUnitStateColor: NSColor {
+            return colorSchemesManager.systemScheme.effects.suppressedUnitStateColor
+        }
+        
+        static var activeSliderGradient: NSGradient {
+            
+            let startColor = colorSchemesManager.systemScheme.effects.activeUnitStateColor
+            
+            switch colorSchemesManager.systemScheme.effects.sliderForegroundGradientType {
+                
+            case .none:
+                
+                return NSGradient(starting: startColor, ending: startColor)!
+                
+            case .darken:
+                
+                let amount = colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount
+                let endColor = startColor.darkened(CGFloat(amount))
+                
+                return NSGradient(starting: startColor, ending: endColor)!
+                
+            case .brighten:
+                
+                let amount = colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount
                 let endColor = startColor.brightened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!
@@ -334,9 +331,9 @@ struct Colors {
         
         static var bypassedSliderGradient: NSGradient {
             
-            let startColor = ColorSchemes.systemScheme.effects.bypassedUnitStateColor
+            let startColor = colorSchemesManager.systemScheme.effects.bypassedUnitStateColor
             
-            switch ColorSchemes.systemScheme.effects.sliderForegroundGradientType {
+            switch colorSchemesManager.systemScheme.effects.sliderForegroundGradientType {
                 
             case .none:
                 
@@ -344,14 +341,14 @@ struct Colors {
                 
             case .darken:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount
                 let endColor = startColor.darkened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!
                 
             case .brighten:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount
                 let endColor = startColor.brightened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!
@@ -360,9 +357,9 @@ struct Colors {
         
         static var suppressedSliderGradient: NSGradient {
             
-            let startColor = ColorSchemes.systemScheme.effects.suppressedUnitStateColor
+            let startColor = colorSchemesManager.systemScheme.effects.suppressedUnitStateColor
             
-            switch ColorSchemes.systemScheme.effects.sliderForegroundGradientType {
+            switch colorSchemesManager.systemScheme.effects.sliderForegroundGradientType {
                 
             case .none:
                 
@@ -370,14 +367,14 @@ struct Colors {
                 
             case .darken:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount
                 let endColor = startColor.darkened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!
                 
             case .brighten:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderForegroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.effects.sliderForegroundGradientAmount
                 let endColor = startColor.brightened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!
@@ -386,9 +383,9 @@ struct Colors {
         
         static var sliderBackgroundGradient: NSGradient {
             
-            let endColor = ColorSchemes.systemScheme.effects.sliderBackgroundColor
+            let endColor = colorSchemesManager.systemScheme.effects.sliderBackgroundColor
             
-            switch ColorSchemes.systemScheme.effects.sliderBackgroundGradientType {
+            switch colorSchemesManager.systemScheme.effects.sliderBackgroundGradientType {
                 
             case .none:
                 
@@ -396,14 +393,14 @@ struct Colors {
                 
             case .darken:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderBackgroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.effects.sliderBackgroundGradientAmount
                 let startColor = endColor.darkened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!
                 
             case .brighten:
                 
-                let amount = ColorSchemes.systemScheme.effects.sliderBackgroundGradientAmount
+                let amount = colorSchemesManager.systemScheme.effects.sliderBackgroundGradientAmount
                 let startColor = endColor.brightened(CGFloat(amount))
                 
                 return NSGradient(starting: startColor, ending: endColor)!

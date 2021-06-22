@@ -88,7 +88,9 @@ class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource, 
     // Applies the selected font scheme to the system.
     @IBAction func applySelectedSchemeAction(_ sender: AnyObject) {
         
-        if let scheme = fontSchemesManager.applyScheme(named: selectedSchemeNames[0]) {
+        if let firstSelectedSchemeName = selectedSchemeNames.first,
+           let scheme = fontSchemesManager.applyScheme(named: firstSelectedSchemeName) {
+            
             Messenger.publish(.applyFontScheme, payload: scheme)
         }
     }

@@ -6,6 +6,7 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
     private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     func numberOfRows(in tableView: NSTableView) -> Int {
         return audioGraph.audioUnits.count
@@ -80,15 +81,15 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             
             case .active:
                 
-                cell.textField?.textColor = ColorSchemes.systemScheme.effects.activeUnitStateColor
+                cell.textField?.textColor = colorSchemesManager.systemScheme.effects.activeUnitStateColor
                 
             case .bypassed:
                 
-                cell.textField?.textColor = ColorSchemes.systemScheme.effects.bypassedUnitStateColor
+                cell.textField?.textColor = colorSchemesManager.systemScheme.effects.bypassedUnitStateColor
                 
             case .suppressed:
                 
-                cell.textField?.textColor = ColorSchemes.systemScheme.effects.suppressedUnitStateColor
+                cell.textField?.textColor = colorSchemesManager.systemScheme.effects.suppressedUnitStateColor
             }
             
             return cell

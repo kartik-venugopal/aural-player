@@ -44,6 +44,8 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
+    
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
 
     private let preferences: ViewPreferences = ObjectGraph.preferences.viewPreferences
 
@@ -58,7 +60,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
 
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         initUnits()
@@ -161,7 +163,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     
     private func applyTheme() {
         
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }
     

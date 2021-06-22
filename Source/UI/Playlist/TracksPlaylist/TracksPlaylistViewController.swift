@@ -28,6 +28,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
@@ -39,7 +40,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         
         initSubscriptions()
         
-        doApplyColorScheme(ColorSchemes.systemScheme, false)
+        doApplyColorScheme(colorSchemesManager.systemScheme, false)
         
         if PlaylistViewState.currentView == .tracks, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
@@ -403,7 +404,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {

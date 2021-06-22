@@ -12,6 +12,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
     
     private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
     private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private lazy var colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     @IBOutlet weak var theMenu: NSMenu!
     
@@ -92,7 +93,7 @@ class ThemePopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
         let fontScheme: FontScheme = FontScheme("Font scheme for theme '\(string)'", false, fontSchemesManager.systemScheme)
-        let colorScheme: ColorScheme = ColorScheme("Color scheme for theme '\(string)'", false, ColorSchemes.systemScheme)
+        let colorScheme: ColorScheme = ColorScheme("Color scheme for theme '\(string)'", false, colorSchemesManager.systemScheme)
         let windowAppearance: WindowAppearance = WindowAppearance(cornerRadius: WindowAppearanceState.cornerRadius)
         
         themesManager.addPreset(Theme(name: string, fontScheme: fontScheme, colorScheme: colorScheme, windowAppearance: windowAppearance, userDefined: true))

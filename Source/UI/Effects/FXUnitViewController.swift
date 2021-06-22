@@ -21,6 +21,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
     let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     var fxUnit: FXUnitDelegateProtocol!
     var unitStateFunction: EffectsUnitStateFunction!
@@ -36,7 +37,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         initControls()
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     func oneTimeSetup() {
@@ -135,7 +136,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

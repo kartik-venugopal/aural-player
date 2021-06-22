@@ -19,6 +19,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var selectedTabButtonTextColorPicker: AuralColorPicker!
     @IBOutlet weak var buttonMenuTextColorPicker: AuralColorPicker!
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     override var nibName: NSNib.Name? {return "GeneralColorScheme"}
     
     override func viewDidLoad() {
@@ -63,133 +65,133 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     @IBAction func appLogoColorAction(_ sender: Any) {
         
-        history.noteChange(appLogoColorPicker.tag, ColorSchemes.systemScheme.general.appLogoColor, appLogoColorPicker.color, .changeColor)
+        history.noteChange(appLogoColorPicker.tag, colorSchemesManager.systemScheme.general.appLogoColor, appLogoColorPicker.color, .changeColor)
         changeAppLogoColor()
     }
     
     private func changeAppLogoColor() {
         
-        ColorSchemes.systemScheme.general.appLogoColor = appLogoColorPicker.color
+        colorSchemesManager.systemScheme.general.appLogoColor = appLogoColorPicker.color
         Messenger.publish(.changeAppLogoColor, payload: appLogoColorPicker.color)
     }
     
     @IBAction func backgroundColorAction(_ sender: Any) {
         
-        history.noteChange(backgroundColorPicker.tag, ColorSchemes.systemScheme.general.backgroundColor, backgroundColorPicker.color, .changeColor)
+        history.noteChange(backgroundColorPicker.tag, colorSchemesManager.systemScheme.general.backgroundColor, backgroundColorPicker.color, .changeColor)
         changeBackgroundColor()
     }
     
     private func changeBackgroundColor() {
         
-        ColorSchemes.systemScheme.general.backgroundColor = backgroundColorPicker.color
+        colorSchemesManager.systemScheme.general.backgroundColor = backgroundColorPicker.color
         Messenger.publish(.changeBackgroundColor, payload: backgroundColorPicker.color)
     }
     
     @IBAction func viewControlButtonColorAction(_ sender: Any) {
         
-        history.noteChange(viewControlButtonColorPicker.tag, ColorSchemes.systemScheme.general.viewControlButtonColor, viewControlButtonColorPicker.color, .changeColor)
+        history.noteChange(viewControlButtonColorPicker.tag, colorSchemesManager.systemScheme.general.viewControlButtonColor, viewControlButtonColorPicker.color, .changeColor)
         changeViewControlButtonColor()
     }
     
     private func changeViewControlButtonColor() {
         
-        ColorSchemes.systemScheme.general.viewControlButtonColor = viewControlButtonColorPicker.color
+        colorSchemesManager.systemScheme.general.viewControlButtonColor = viewControlButtonColorPicker.color
         Messenger.publish(.changeViewControlButtonColor, payload: viewControlButtonColorPicker.color)
     }
     
     @IBAction func functionButtonColorAction(_ sender: Any) {
         
-        history.noteChange(functionButtonColorPicker.tag, ColorSchemes.systemScheme.general.functionButtonColor, functionButtonColorPicker.color, .changeColor)
+        history.noteChange(functionButtonColorPicker.tag, colorSchemesManager.systemScheme.general.functionButtonColor, functionButtonColorPicker.color, .changeColor)
         changeFunctionButtonColor()
     }
     
     private func changeFunctionButtonColor() {
         
-        ColorSchemes.systemScheme.general.functionButtonColor = functionButtonColorPicker.color
+        colorSchemesManager.systemScheme.general.functionButtonColor = functionButtonColorPicker.color
         Messenger.publish(.changeFunctionButtonColor, payload: functionButtonColorPicker.color)
     }
     
     @IBAction func textButtonMenuColorAction(_ sender: Any) {
         
-        history.noteChange(textButtonMenuColorPicker.tag, ColorSchemes.systemScheme.general.textButtonMenuColor, textButtonMenuColorPicker.color, .changeColor)
+        history.noteChange(textButtonMenuColorPicker.tag, colorSchemesManager.systemScheme.general.textButtonMenuColor, textButtonMenuColorPicker.color, .changeColor)
         changeTextButtonMenuColor()
     }
     
     private func changeTextButtonMenuColor() {
         
-        ColorSchemes.systemScheme.general.textButtonMenuColor = textButtonMenuColorPicker.color
+        colorSchemesManager.systemScheme.general.textButtonMenuColor = textButtonMenuColorPicker.color
         Messenger.publish(.changeTextButtonMenuColor, payload: textButtonMenuColorPicker.color)
     }
     
     @IBAction func toggleButtonOffStateColorAction(_ sender: Any) {
         
-        history.noteChange(toggleButtonOffStateColorPicker.tag, ColorSchemes.systemScheme.general.toggleButtonOffStateColor, toggleButtonOffStateColorPicker.color, .changeColor)
+        history.noteChange(toggleButtonOffStateColorPicker.tag, colorSchemesManager.systemScheme.general.toggleButtonOffStateColor, toggleButtonOffStateColorPicker.color, .changeColor)
         changeToggleButtonOffStateColor()
     }
     
     private func changeToggleButtonOffStateColor() {
         
-        ColorSchemes.systemScheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
+        colorSchemesManager.systemScheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
         Messenger.publish(.changeToggleButtonOffStateColor, payload: toggleButtonOffStateColorPicker.color)
     }
     
     @IBAction func selectedTabButtonColorAction(_ sender: Any) {
         
-        history.noteChange(selectedTabButtonColorPicker.tag, ColorSchemes.systemScheme.general.selectedTabButtonColor, selectedTabButtonColorPicker.color, .changeColor)
+        history.noteChange(selectedTabButtonColorPicker.tag, colorSchemesManager.systemScheme.general.selectedTabButtonColor, selectedTabButtonColorPicker.color, .changeColor)
         changeSelectedTabButtonColor()
     }
     
     private func changeSelectedTabButtonColor() {
         
-        ColorSchemes.systemScheme.general.selectedTabButtonColor = selectedTabButtonColorPicker.color
+        colorSchemesManager.systemScheme.general.selectedTabButtonColor = selectedTabButtonColorPicker.color
         Messenger.publish(.changeSelectedTabButtonColor, payload: selectedTabButtonColorPicker.color)
     }
     
     @IBAction func mainCaptionTextColorAction(_ sender: Any) {
         
-        history.noteChange(mainCaptionTextColorPicker.tag, ColorSchemes.systemScheme.general.mainCaptionTextColor, mainCaptionTextColorPicker.color, .changeColor)
+        history.noteChange(mainCaptionTextColorPicker.tag, colorSchemesManager.systemScheme.general.mainCaptionTextColor, mainCaptionTextColorPicker.color, .changeColor)
         changeMainCaptionTextColor()
     }
     
     private func changeMainCaptionTextColor() {
         
-        ColorSchemes.systemScheme.general.mainCaptionTextColor = mainCaptionTextColorPicker.color
+        colorSchemesManager.systemScheme.general.mainCaptionTextColor = mainCaptionTextColorPicker.color
         Messenger.publish(.changeMainCaptionTextColor, payload: mainCaptionTextColorPicker.color)
     }
     
     @IBAction func tabButtonTextColorAction(_ sender: Any) {
         
-        history.noteChange(tabButtonTextColorPicker.tag, ColorSchemes.systemScheme.general.tabButtonTextColor, tabButtonTextColorPicker.color, .changeColor)
+        history.noteChange(tabButtonTextColorPicker.tag, colorSchemesManager.systemScheme.general.tabButtonTextColor, tabButtonTextColorPicker.color, .changeColor)
         changeTabButtonTextColor()
     }
     
     private func changeTabButtonTextColor()	{
         
-        ColorSchemes.systemScheme.general.tabButtonTextColor = tabButtonTextColorPicker.color
+        colorSchemesManager.systemScheme.general.tabButtonTextColor = tabButtonTextColorPicker.color
         Messenger.publish(.changeTabButtonTextColor, payload: tabButtonTextColorPicker.color)
     }
     
     @IBAction func selectedTabButtonTextColorAction(_ sender: Any) {
         
-        history.noteChange(selectedTabButtonTextColorPicker.tag, ColorSchemes.systemScheme.general.selectedTabButtonTextColor, selectedTabButtonTextColorPicker.color, .changeColor)
+        history.noteChange(selectedTabButtonTextColorPicker.tag, colorSchemesManager.systemScheme.general.selectedTabButtonTextColor, selectedTabButtonTextColorPicker.color, .changeColor)
         changeSelectedTabButtonTextColor()
     }
     
     private func changeSelectedTabButtonTextColor()    {
         
-        ColorSchemes.systemScheme.general.selectedTabButtonTextColor = selectedTabButtonTextColorPicker.color
+        colorSchemesManager.systemScheme.general.selectedTabButtonTextColor = selectedTabButtonTextColorPicker.color
         Messenger.publish(.changeSelectedTabButtonTextColor, payload: selectedTabButtonTextColorPicker.color)
     }
     
     @IBAction func buttonMenuTextColorAction(_ sender: Any) {
         
-        history.noteChange(buttonMenuTextColorPicker.tag, ColorSchemes.systemScheme.general.buttonMenuTextColor, buttonMenuTextColorPicker.color, .changeColor)
+        history.noteChange(buttonMenuTextColorPicker.tag, colorSchemesManager.systemScheme.general.buttonMenuTextColor, buttonMenuTextColorPicker.color, .changeColor)
         changeButtonMenuTextColor()
     }
     
     private func changeButtonMenuTextColor() {
         
-        ColorSchemes.systemScheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
+        colorSchemesManager.systemScheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
         Messenger.publish(.changeButtonMenuTextColor, payload: buttonMenuTextColorPicker.color)
     }
 }

@@ -30,6 +30,7 @@ class SeekSliderView: NSView, ColorSchemeable {
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     var seekSliderValue: Double {
         return seekSlider.doubleValue
@@ -42,7 +43,7 @@ class SeekSliderView: NSView, ColorSchemeable {
         
         lblTimeRemaining.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
         
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         
         // MARK: Update controls based on current player state
         

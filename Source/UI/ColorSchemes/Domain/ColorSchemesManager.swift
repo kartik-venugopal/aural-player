@@ -1,0 +1,64 @@
+import Cocoa
+
+/*
+    Utility class that manages all color schemes, including user-defined schemes, system-defined presets, and the current system color scheme.
+ */
+class ColorSchemesManager: MappedPresets<ColorScheme> {
+    
+    // Default color scheme (uses colors from the default system-defined preset)
+    static let defaultScheme: ColorScheme = ColorScheme("_default_", ColorSchemePreset.defaultScheme)
+    
+    // The current system color scheme. It is initialized with the default scheme.
+    private(set) var systemScheme: ColorScheme = ColorScheme("_system_", ColorSchemePreset.defaultScheme) {
+        didSet {systemSchemeChanged()}
+    }
+    
+    init(persistentState: ColorSchemesPersistentState?) {
+        
+        let systemDefinedSchemes = ColorSchemePreset.allCases.map {ColorScheme($0.name, $0)}
+        let userDefinedSchemes = (persistentState?.userSchemes ?? []).map {ColorScheme($0, false)}
+        
+        if let persistentSystemScheme = persistentState?.systemScheme {
+            
+            self.systemScheme = ColorScheme(persistentSystemScheme, true)
+            
+        } else {
+            
+            self.systemScheme = systemDefinedSchemes.first(where: {$0.name == ColorSchemePreset.defaultScheme.name}) ??
+                ColorScheme("_system_", ColorSchemePreset.defaultScheme)
+        }
+        
+        super.init(systemDefinedPresets: systemDefinedSchemes, userDefinedPresets: userDefinedSchemes)
+    }
+    
+    private func systemSchemeChanged() {
+        
+        // Update color / gradient caches whenever the system scheme changes.
+        Colors.Player.updateSliderColors()
+        AuralPlaylistOutlineView.updateCachedImages()
+    }
+    
+    // Applies a color scheme to the system color scheme and returns the modified system scheme.
+    func applyScheme(_ scheme: ColorScheme) -> ColorScheme {
+        
+        systemScheme.applyScheme(scheme)
+        systemSchemeChanged()
+        
+        return systemScheme
+    }
+    
+    // Attempts to apply a color scheme to the system color scheme, looking up the scheme by the given display name, and if found, returns the modified system scheme.
+    func applyScheme(named name: String) -> ColorScheme? {
+        
+        if let scheme = preset(named: name) {
+            return applyScheme(scheme)
+        }
+        
+        return nil
+    }
+    
+    // State to be persisted to disk.
+    var persistentState: ColorSchemesPersistentState {
+        return ColorSchemesPersistentState(ColorSchemePersistentState(systemScheme), userDefinedPresets.map {ColorSchemePersistentState($0)})
+    }
+}

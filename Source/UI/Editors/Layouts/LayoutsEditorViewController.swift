@@ -86,7 +86,10 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
     }
     
     @IBAction func applySelectedLayoutAction(_ sender: AnyObject) {
-        WindowManager.instance.layout(selectedLayoutNames[0])
+        
+        if let firstSelectedLayoutName = selectedLayoutNames.first {
+            WindowManager.instance.layout(firstSelectedLayoutName)
+        }
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {

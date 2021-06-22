@@ -41,6 +41,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     // The chapters list window is only considered modal when it is the key window AND the search bar has focus
     // (i.e. a search is being performed)
@@ -56,7 +57,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         functionButtons = [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive, btnPreviousMatch, btnNextMatch]
         
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         
         initHeader()
         
@@ -378,7 +379,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {

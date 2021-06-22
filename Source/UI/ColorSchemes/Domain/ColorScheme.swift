@@ -3,21 +3,18 @@ import Cocoa
 /*
     Encapsulates all colors that determine a color scheme that can be appplied to the entire application.
  */
-class ColorScheme: StringKeyedItem {
+class ColorScheme: MappedPreset {
     
     // Displayed name
     var name: String
     
     var key: String {
         
-        get {
-            return name
-        }
-        
-        set {
-            name = newValue
-        }
+        get {name}
+        set {name = newValue}
     }
+    
+    var userDefined: Bool {!systemDefined}
 
     // False if defined by the user
     let systemDefined: Bool
@@ -118,26 +115,26 @@ class GeneralColorScheme {
     
     init(_ persistentState: GeneralColorSchemePersistentState?) {
         
-        self.appLogoColor = persistentState?.appLogoColor?.toColor() ?? ColorSchemes.defaultScheme.general.appLogoColor
-        self.backgroundColor = persistentState?.backgroundColor?.toColor() ?? ColorSchemes.defaultScheme.general.backgroundColor
+        self.appLogoColor = persistentState?.appLogoColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.appLogoColor
+        self.backgroundColor = persistentState?.backgroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.backgroundColor
         
-        self.viewControlButtonColor = persistentState?.viewControlButtonColor?.toColor() ?? ColorSchemes.defaultScheme.general.viewControlButtonColor
+        self.viewControlButtonColor = persistentState?.viewControlButtonColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.viewControlButtonColor
         
-        self.functionButtonColor = persistentState?.functionButtonColor?.toColor() ?? ColorSchemes.defaultScheme.general.functionButtonColor
+        self.functionButtonColor = persistentState?.functionButtonColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.functionButtonColor
         
-        self.textButtonMenuColor = persistentState?.textButtonMenuColor?.toColor() ?? ColorSchemes.defaultScheme.general.textButtonMenuColor
+        self.textButtonMenuColor = persistentState?.textButtonMenuColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.textButtonMenuColor
         
-        self.toggleButtonOffStateColor = persistentState?.toggleButtonOffStateColor?.toColor() ?? ColorSchemes.defaultScheme.general.toggleButtonOffStateColor
+        self.toggleButtonOffStateColor = persistentState?.toggleButtonOffStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.toggleButtonOffStateColor
         
-        self.selectedTabButtonColor = persistentState?.selectedTabButtonColor?.toColor() ?? ColorSchemes.defaultScheme.general.selectedTabButtonColor
+        self.selectedTabButtonColor = persistentState?.selectedTabButtonColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.selectedTabButtonColor
         
-        self.mainCaptionTextColor = persistentState?.mainCaptionTextColor?.toColor() ?? ColorSchemes.defaultScheme.general.mainCaptionTextColor
+        self.mainCaptionTextColor = persistentState?.mainCaptionTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.mainCaptionTextColor
         
-        self.tabButtonTextColor = persistentState?.tabButtonTextColor?.toColor() ?? ColorSchemes.defaultScheme.general.tabButtonTextColor
+        self.tabButtonTextColor = persistentState?.tabButtonTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.tabButtonTextColor
         
-        self.selectedTabButtonTextColor = persistentState?.selectedTabButtonTextColor?.toColor() ?? ColorSchemes.defaultScheme.general.selectedTabButtonTextColor
+        self.selectedTabButtonTextColor = persistentState?.selectedTabButtonTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.selectedTabButtonTextColor
         
-        self.buttonMenuTextColor = persistentState?.buttonMenuTextColor?.toColor() ?? ColorSchemes.defaultScheme.general.buttonMenuTextColor
+        self.buttonMenuTextColor = persistentState?.buttonMenuTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.buttonMenuTextColor
     }
     
     init(_ scheme: GeneralColorScheme) {
@@ -241,28 +238,28 @@ class PlayerColorScheme {
     
     init(_ persistentState: PlayerColorSchemePersistentState?) {
         
-        self.trackInfoPrimaryTextColor = persistentState?.trackInfoPrimaryTextColor?.toColor() ?? ColorSchemes.defaultScheme.player.trackInfoPrimaryTextColor
+        self.trackInfoPrimaryTextColor = persistentState?.trackInfoPrimaryTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.trackInfoPrimaryTextColor
         
-        self.trackInfoSecondaryTextColor = persistentState?.trackInfoSecondaryTextColor?.toColor() ?? ColorSchemes.defaultScheme.player.trackInfoSecondaryTextColor
+        self.trackInfoSecondaryTextColor = persistentState?.trackInfoSecondaryTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.trackInfoSecondaryTextColor
         
-        self.trackInfoTertiaryTextColor = persistentState?.trackInfoTertiaryTextColor?.toColor() ?? ColorSchemes.defaultScheme.player.trackInfoTertiaryTextColor
+        self.trackInfoTertiaryTextColor = persistentState?.trackInfoTertiaryTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.trackInfoTertiaryTextColor
         
-        self.sliderValueTextColor = persistentState?.sliderValueTextColor?.toColor() ?? ColorSchemes.defaultScheme.player.sliderValueTextColor
+        self.sliderValueTextColor = persistentState?.sliderValueTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderValueTextColor
         
-        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorSchemes.defaultScheme.player.sliderBackgroundColor
+        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderBackgroundColor
         
-        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorSchemes.defaultScheme.player.sliderBackgroundGradientType
-        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorSchemes.defaultScheme.player.sliderBackgroundGradientAmount
+        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorSchemesManager.defaultScheme.player.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorSchemesManager.defaultScheme.player.sliderBackgroundGradientAmount
         
-        self.sliderForegroundColor = persistentState?.sliderForegroundColor?.toColor() ?? ColorSchemes.defaultScheme.player.sliderForegroundColor
+        self.sliderForegroundColor = persistentState?.sliderForegroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderForegroundColor
         
-        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorSchemes.defaultScheme.player.sliderForegroundGradientType
-        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorSchemes.defaultScheme.player.sliderForegroundGradientAmount
+        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorSchemesManager.defaultScheme.player.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorSchemesManager.defaultScheme.player.sliderForegroundGradientAmount
         
-        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorSchemes.defaultScheme.player.sliderKnobColor
-        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorSchemes.defaultScheme.player.sliderKnobColorSameAsForeground
+        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderKnobColor
+        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorSchemesManager.defaultScheme.player.sliderKnobColorSameAsForeground
         
-        self.sliderLoopSegmentColor = persistentState?.sliderLoopSegmentColor?.toColor() ?? ColorSchemes.defaultScheme.player.sliderLoopSegmentColor
+        self.sliderLoopSegmentColor = persistentState?.sliderLoopSegmentColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderLoopSegmentColor
     }
     
     init(_ scheme: PlayerColorScheme) {
@@ -382,29 +379,29 @@ class PlaylistColorScheme {
     
     init(_ persistentState: PlaylistColorSchemePersistentState?) {
         
-        self.trackNameTextColor = persistentState?.trackNameTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.trackNameTextColor
-        self.groupNameTextColor = persistentState?.groupNameTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupNameTextColor
-        self.indexDurationTextColor = persistentState?.indexDurationTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.indexDurationTextColor
+        self.trackNameTextColor = persistentState?.trackNameTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.trackNameTextColor
+        self.groupNameTextColor = persistentState?.groupNameTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupNameTextColor
+        self.indexDurationTextColor = persistentState?.indexDurationTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.indexDurationTextColor
         
-        self.trackNameSelectedTextColor = persistentState?.trackNameSelectedTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.trackNameSelectedTextColor
+        self.trackNameSelectedTextColor = persistentState?.trackNameSelectedTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.trackNameSelectedTextColor
         
-        self.groupNameSelectedTextColor = persistentState?.groupNameSelectedTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupNameSelectedTextColor
+        self.groupNameSelectedTextColor = persistentState?.groupNameSelectedTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupNameSelectedTextColor
         
-        self.indexDurationSelectedTextColor = persistentState?.indexDurationSelectedTextColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.indexDurationSelectedTextColor
+        self.indexDurationSelectedTextColor = persistentState?.indexDurationSelectedTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.indexDurationSelectedTextColor
         
-        self.summaryInfoColor = persistentState?.summaryInfoColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.summaryInfoColor
+        self.summaryInfoColor = persistentState?.summaryInfoColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.summaryInfoColor
         
-        self.selectionBoxColor = persistentState?.selectionBoxColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.selectionBoxColor
+        self.selectionBoxColor = persistentState?.selectionBoxColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.selectionBoxColor
         
-        self.playingTrackIconColor = persistentState?.playingTrackIconColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.playingTrackIconColor
+        self.playingTrackIconColor = persistentState?.playingTrackIconColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.playingTrackIconColor
         
 //        self.playingTrackIconSelectedRowsColor = persistentState?.playingTrackIconSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.playingTrackIconSelectedRowsColor
         
-        self.groupIconColor = persistentState?.groupIconColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupIconColor
+        self.groupIconColor = persistentState?.groupIconColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupIconColor
         
 //        self.groupIconSelectedRowsColor = persistentState?.groupIconSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupIconSelectedRowsColor
         
-        self.groupDisclosureTriangleColor = persistentState?.groupDisclosureTriangleColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupDisclosureTriangleColor
+        self.groupDisclosureTriangleColor = persistentState?.groupDisclosureTriangleColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupDisclosureTriangleColor
         
 //        self.groupDisclosureTriangleSelectedRowsColor = persistentState?.groupDisclosureTriangleSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupDisclosureTriangleSelectedRowsColor
     }
@@ -528,24 +525,24 @@ class EffectsColorScheme {
     
     init(_ persistentState: EffectsColorSchemePersistentState?) {
         
-        self.functionCaptionTextColor = persistentState?.functionCaptionTextColor?.toColor() ?? ColorSchemes.defaultScheme.effects.functionCaptionTextColor
-        self.functionValueTextColor = persistentState?.functionValueTextColor?.toColor() ?? ColorSchemes.defaultScheme.effects.functionValueTextColor
+        self.functionCaptionTextColor = persistentState?.functionCaptionTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.functionCaptionTextColor
+        self.functionValueTextColor = persistentState?.functionValueTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.functionValueTextColor
         
-        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorSchemes.defaultScheme.effects.sliderBackgroundColor
-        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorSchemes.defaultScheme.effects.sliderBackgroundGradientType
-        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorSchemes.defaultScheme.effects.sliderBackgroundGradientAmount
+        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.sliderBackgroundColor
+        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorSchemesManager.defaultScheme.effects.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorSchemesManager.defaultScheme.effects.sliderBackgroundGradientAmount
         
-        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorSchemes.defaultScheme.effects.sliderForegroundGradientType
-        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorSchemes.defaultScheme.effects.sliderForegroundGradientAmount
+        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorSchemesManager.defaultScheme.effects.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorSchemesManager.defaultScheme.effects.sliderForegroundGradientAmount
         
-        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorSchemes.defaultScheme.effects.sliderKnobColor
-        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorSchemes.defaultScheme.effects.sliderKnobColorSameAsForeground
+        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.sliderKnobColor
+        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorSchemesManager.defaultScheme.effects.sliderKnobColorSameAsForeground
         
-        self.sliderTickColor = persistentState?.sliderTickColor?.toColor() ?? ColorSchemes.defaultScheme.effects.sliderTickColor
+        self.sliderTickColor = persistentState?.sliderTickColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.sliderTickColor
         
-        self.activeUnitStateColor = persistentState?.activeUnitStateColor?.toColor() ?? ColorSchemes.defaultScheme.effects.activeUnitStateColor
-        self.bypassedUnitStateColor = persistentState?.bypassedUnitStateColor?.toColor() ?? ColorSchemes.defaultScheme.effects.bypassedUnitStateColor
-        self.suppressedUnitStateColor = persistentState?.suppressedUnitStateColor?.toColor() ?? ColorSchemes.defaultScheme.effects.suppressedUnitStateColor
+        self.activeUnitStateColor = persistentState?.activeUnitStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.activeUnitStateColor
+        self.bypassedUnitStateColor = persistentState?.bypassedUnitStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.bypassedUnitStateColor
+        self.suppressedUnitStateColor = persistentState?.suppressedUnitStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.suppressedUnitStateColor
     }
     
     init(_ scheme: EffectsColorScheme) {

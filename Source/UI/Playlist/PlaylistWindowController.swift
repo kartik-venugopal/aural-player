@@ -62,6 +62,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     private lazy var fileOpenDialog = DialogsAndAlerts.openDialog
     private lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
@@ -85,7 +86,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
 
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
         initSubscriptions()
@@ -388,7 +389,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
     }
     

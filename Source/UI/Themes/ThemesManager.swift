@@ -6,6 +6,7 @@ import Cocoa
 class ThemesManager: MappedPresets<Theme> {
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     init(persistentState: ThemesPersistentState?, fontSchemesManager: FontSchemesManager) {
         
@@ -23,7 +24,7 @@ class ThemesManager: MappedPresets<Theme> {
     func applyTheme(_ theme: Theme) {
         
         _ = fontSchemesManager.applyScheme(theme.fontScheme)
-        _ = ColorSchemes.applyScheme(theme.colorScheme)
+        _ = colorSchemesManager.applyScheme(theme.colorScheme)
         
         WindowAppearanceState.cornerRadius = theme.windowAppearance.cornerRadius
         Messenger.publish(.windowAppearance_changeCornerRadius, payload: WindowAppearanceState.cornerRadius)

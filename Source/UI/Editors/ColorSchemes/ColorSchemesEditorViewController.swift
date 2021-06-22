@@ -19,6 +19,8 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     // A view that gives the user a visual preview of what each color scheme looks like.
     @IBOutlet weak var previewView: ColorSchemePreviewView!
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     // Used to temporarily store the original name of a color scheme that is being renamed.
     private var oldSchemeName: String = ""
     
@@ -27,7 +29,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     override func viewDidAppear() {
         
         // Populate the cache with all user-defined schemes.
-        schemesCache = ColorSchemes.userDefinedSchemes
+        schemesCache = colorSchemesManager.userDefinedPresets
         
         // Refresh the table view.
         editorView.reloadData()
@@ -44,10 +46,10 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
         
         // Descending order
-        selectedSchemeNames.forEach {ColorSchemes.deleteScheme($0)}
+        selectedSchemeNames.forEach {colorSchemesManager.deletePreset(named: $0)}
         
         // Update the cache
-        schemesCache = ColorSchemes.userDefinedSchemes
+        schemesCache = colorSchemesManager.userDefinedPresets
         
         editorView.reloadData()
         editorView.deselectAll(self)
@@ -86,7 +88,9 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
     // Applies the selected color scheme to the system.
     @IBAction func applySelectedSchemeAction(_ sender: AnyObject) {
         
-        if let scheme = ColorSchemes.applyScheme(selectedSchemeNames[0]) {
+        if let firstSelectedSchemeName = selectedSchemeNames.first,
+           let scheme = colorSchemesManager.applyScheme(named: firstSelectedSchemeName) {
+            
             Messenger.publish(.applyColorScheme, payload: scheme)
         }
     }
@@ -165,7 +169,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
         
         let editedTextField = obj.object as! NSTextField
         
-        if let scheme = ColorSchemes.userDefinedSchemeByName(oldSchemeName, false) {
+        if let scheme = colorSchemesManager.userDefinedPreset(named: oldSchemeName) {
             
             let newSchemeName = editedTextField.stringValue
             
@@ -178,7 +182,7 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
                 
                 editedTextField.stringValue = scheme.name
                 
-            } else if ColorSchemes.schemeWithNameExists(newSchemeName) {
+            } else if colorSchemesManager.presetExists(named: newSchemeName) {
                 
                 // Another scheme with that name exists, can't rename
                 editedTextField.stringValue = scheme.name
@@ -188,10 +192,10 @@ class ColorSchemesEditorViewController: NSViewController, NSTableViewDataSource,
             } else {
                 
                 // Update the scheme name
-                ColorSchemes.renameScheme(scheme.name, newSchemeName)
+                colorSchemesManager.renamePreset(named: scheme.name, to: newSchemeName)
                 
                 // Update the cache
-                schemesCache = ColorSchemes.userDefinedSchemes
+                schemesCache = colorSchemesManager.userDefinedPresets
             }
         }
     }

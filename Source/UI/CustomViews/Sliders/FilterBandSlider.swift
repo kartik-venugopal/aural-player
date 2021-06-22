@@ -23,7 +23,7 @@ class FilterBandSlider: RangeSlider {
     }
     
     override var knobColor: NSColor {
-        return ColorSchemes.systemScheme.effects.sliderKnobColorSameAsForeground ? barFillColor : ColorSchemes.systemScheme.effects.sliderKnobColor
+        Colors.Effects.sliderKnobColorForState(self.unitState)
     }
     
     override var barBackgroundColor: NSColor {

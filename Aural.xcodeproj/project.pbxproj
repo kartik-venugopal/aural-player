@@ -345,7 +345,7 @@
 		3E6C127225CEBE0600BF0D07 /* EQPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7325CEB98600BF0D07 /* EQPresetsEditorViewController.swift */; };
 		3E6C127425CEBE1800BF0D07 /* EffectsUnitTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FB825CEB98600BF0D07 /* EffectsUnitTabButtonCell.swift */; };
 		3E6C127625CEBE1800BF0D07 /* EffectsColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FA525CEB98600BF0D07 /* EffectsColorSchemeViewController.swift */; };
-		3E6C127725CEBE1800BF0D07 /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FAC25CEB98600BF0D07 /* ColorSchemes.swift */; };
+		3E6C127725CEBE1800BF0D07 /* ColorSchemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FAC25CEB98600BF0D07 /* ColorSchemesManager.swift */; };
 		3E6C127825CEBE1800BF0D07 /* PlayerColorScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0FAF25CEB98600BF0D07 /* PlayerColorScheme.xib */; };
 		3E6C127A25CEBE1800BF0D07 /* ColorSchemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9B25CEB98600BF0D07 /* ColorSchemes.xib */; };
 		3E6C127B25CEBE1800BF0D07 /* PlaylistColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9E25CEB98600BF0D07 /* PlaylistColorSchemeViewController.swift */; };
@@ -916,7 +916,7 @@
 		3E6C0FA925CEB98600BF0D07 /* ColorSchemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreset.swift; sourceTree = "<group>"; };
 		3E6C0FAA25CEB98600BF0D07 /* ColorSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeHistory.swift; sourceTree = "<group>"; };
 		3E6C0FAB25CEB98600BF0D07 /* ColorClipboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorClipboard.swift; sourceTree = "<group>"; };
-		3E6C0FAC25CEB98600BF0D07 /* ColorSchemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
+		3E6C0FAC25CEB98600BF0D07 /* ColorSchemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesManager.swift; sourceTree = "<group>"; };
 		3E6C0FAD25CEB98600BF0D07 /* GradientOptionsRadioButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientOptionsRadioButtonGroup.swift; sourceTree = "<group>"; };
 		3E6C0FAF25CEB98600BF0D07 /* PlayerColorScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerColorScheme.xib; sourceTree = "<group>"; };
 		3E6C0FB025CEB98600BF0D07 /* PlayerColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerColorSchemeViewController.swift; sourceTree = "<group>"; };
@@ -2132,7 +2132,7 @@
 				3E6C0FA925CEB98600BF0D07 /* ColorSchemePreset.swift */,
 				3E6C0FAA25CEB98600BF0D07 /* ColorSchemeHistory.swift */,
 				3E6C0FAB25CEB98600BF0D07 /* ColorClipboard.swift */,
-				3E6C0FAC25CEB98600BF0D07 /* ColorSchemes.swift */,
+				3E6C0FAC25CEB98600BF0D07 /* ColorSchemesManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -3430,7 +3430,7 @@
 			files = (
 				3E09D0C626805C19008ECB8C /* MusicBrainzCachePersistentState.swift in Sources */,
 				3E6C133B25CEBEA700BF0D07 /* GraphicsUtils.swift in Sources */,
-				3E6C127725CEBE1800BF0D07 /* ColorSchemes.swift in Sources */,
+				3E6C127725CEBE1800BF0D07 /* ColorSchemesManager.swift in Sources */,
 				3ECBF3032619CD4500AD5C30 /* HostedAUNode.swift in Sources */,
 				3EAFB609267FF29300F0DC96 /* VolumeSliderCell.swift in Sources */,
 				3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewDelegates.swift in Sources */,

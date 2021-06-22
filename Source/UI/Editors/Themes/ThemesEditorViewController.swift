@@ -88,7 +88,9 @@ class ThemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTa
     // Applies the selected theme to the system.
     @IBAction func applySelectedThemeAction(_ sender: AnyObject) {
         
-        if themesManager.applyTheme(named: selectedThemeNames[0]) {
+        if let firstSelectedThemeName = selectedThemeNames.first,
+           themesManager.applyTheme(named: firstSelectedThemeName) {
+            
             Messenger.publish(.applyTheme)
         }
     }

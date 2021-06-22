@@ -12,6 +12,8 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber, 
     // Delegate that conveys all repeat/shuffle requests to the sequencer
     private let sequencer: SequencerDelegateProtocol = ObjectGraph.sequencerDelegate
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     override func viewDidLoad() {
         
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
@@ -71,7 +73,7 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber, 
     }
     
     private func applyTheme() {
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

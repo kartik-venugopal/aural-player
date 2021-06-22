@@ -22,6 +22,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     private let audioUnitsManager: AudioUnitsManager = ObjectGraph.audioUnitsManager
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     @IBOutlet weak var btnAudioUnitsMenu: NSPopUpButton!
     @IBOutlet weak var audioUnitsMenuIconItem: TintedIconMenuItem!
@@ -33,7 +34,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         btnRemove.tintFunction = {return Colors.functionButtonColor}
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
         
         // Subscribe to notifications
         Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
@@ -130,7 +131,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

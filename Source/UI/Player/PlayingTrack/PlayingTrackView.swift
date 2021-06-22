@@ -12,6 +12,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     @IBOutlet weak var expandedArtView: PlayingTrackSubview!
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     // The player view that is currently displayed
     private var activeView: PlayingTrackSubview {
@@ -146,7 +147,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

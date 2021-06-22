@@ -11,6 +11,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     @IBOutlet weak var playlistViewDelegate: GroupingPlaylistViewDelegate!
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     var contextMenu: NSMenu! {
         
@@ -42,7 +43,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
         
         initSubscriptions()
         
-        doApplyColorScheme(ColorSchemes.systemScheme, false)
+        doApplyColorScheme(colorSchemesManager.systemScheme, false)
         
         if PlaylistViewState.currentView == self.playlistType, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
@@ -529,7 +530,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     private func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func applyFontScheme(_ fontScheme: FontScheme) {

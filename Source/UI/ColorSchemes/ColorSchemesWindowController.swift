@@ -46,6 +46,8 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     // Popover to collect user input (i.e. color scheme name) when saving new color schemes
     lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     // Maintains a history of all changes made to the system color scheme since the dialog opened. Allows undo/redo.
     private var history: ColorSchemeHistory = ColorSchemeHistory()
     
@@ -106,7 +108,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         clipboard.clear()
         
         // Reset the subviews according to the current system color scheme, and show the first tab
-        subViews.forEach({$0.resetFields(ColorSchemes.systemScheme, history, clipboard)})
+        subViews.forEach({$0.resetFields(colorSchemesManager.systemScheme, history, clipboard)})
         tabView.selectTabViewItem(at: 0)
         
         // Enable/disable function buttons
@@ -121,10 +123,10 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     @IBAction func applySchemeAction(_ sender: NSMenuItem) {
         
         // First, capture a snapshot of the current scheme (for potentially undoing later)
-        let undoValue: ColorScheme = ColorSchemes.systemScheme.clone()
+        let undoValue: ColorScheme = colorSchemesManager.systemScheme.clone()
         
         // Apply the user-selected scheme
-        if let scheme = ColorSchemes.applyScheme(sender.title) {
+        if let scheme = colorSchemesManager.applyScheme(named: sender.title) {
             
             // Capture the new scheme (for potentially redoing changes later)
             let redoValue: ColorScheme = scheme.clone()
@@ -161,7 +163,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     
     // Apply a given color scheme to the system scheme
     private func applyScheme(_ scheme: ColorScheme) {
-        schemeUpdated(ColorSchemes.applyScheme(scheme))
+        schemeUpdated(colorSchemesManager.applyScheme(scheme))
     }
     
     // Notify UI components of a scheme update
@@ -271,7 +273,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         }
         
         // Recreate the user-defined scheme items
-        ColorSchemes.userDefinedSchemes.forEach({
+        colorSchemesManager.userDefinedPresets.forEach({
             
             let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
             item.target = self
@@ -296,7 +298,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
         
         // Name cannot match the name of an existing scheme.
-        if ColorSchemes.schemeWithNameExists(string) {
+        if colorSchemesManager.presetExists(named: string) {
             
             return (false, "Color scheme with this name already exists !")
         }
@@ -315,8 +317,8 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     func acceptInput(_ string: String) {
         
         // Copy the current system scheme into the new scheme, and name it with the user's given scheme name
-        let newScheme: ColorScheme = ColorScheme(string, false, ColorSchemes.systemScheme)
-        ColorSchemes.addUserDefinedScheme(newScheme)
+        let newScheme: ColorScheme = ColorScheme(string, false, colorSchemesManager.systemScheme)
+        colorSchemesManager.addPreset(newScheme)
     }
 }
 

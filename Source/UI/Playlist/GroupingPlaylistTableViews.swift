@@ -5,10 +5,9 @@ import Cocoa
  */
 class AuralPlaylistOutlineView: NSOutlineView, Destroyable {
     
-    static var cachedDisclosureIcon_collapsed: NSImage!
-    static var cachedDisclosureIcon_expanded: NSImage!
-    
-    static var cachedGroupIcon: NSImage!
+    static var cachedDisclosureIcon_collapsed: NSImage = Images.imgDisclosure_collapsed.filledWithColor(Colors.Playlist.groupDisclosureTriangleColor)
+    static var cachedDisclosureIcon_expanded: NSImage = Images.imgDisclosure_expanded.filledWithColor(Colors.Playlist.groupDisclosureTriangleColor)
+    static var cachedGroupIcon: NSImage = Images.imgGroup.filledWithColor(Colors.Playlist.groupIconColor)
     
     static var disclosureButtons: [NSButton] = []
     

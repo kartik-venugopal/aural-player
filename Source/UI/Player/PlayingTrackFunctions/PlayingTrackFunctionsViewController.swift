@@ -44,6 +44,8 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
     
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     private var allButtons: [Tintable] = []
     
     override func viewDidLoad() {
@@ -271,7 +273,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     }
     
     private func applyTheme() {
-        applyColorScheme(ColorSchemes.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
@@ -283,7 +285,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     }
     
     private func redrawButtons() {
-        allButtons.forEach({$0.reTint()})
+        allButtons.forEach {$0.reTint()}
     }
     
     private func changeToggleButtonOffStateColor(_ color: NSColor) {
