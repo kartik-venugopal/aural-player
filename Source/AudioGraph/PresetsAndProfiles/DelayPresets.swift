@@ -10,7 +10,7 @@ class DelayPresets: FXPresets<DelayPreset> {
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    override var defaultPreset: DelayPreset {systemDefinedPresetsMap[SystemDefinedDelayPresetParams.oneSecond.rawValue]!}
+    override var defaultPreset: DelayPreset {systemDefinedPreset(named: SystemDefinedDelayPresetParams.oneSecond.rawValue)!}
 }
 
 class DelayPreset: EffectsUnitPreset {

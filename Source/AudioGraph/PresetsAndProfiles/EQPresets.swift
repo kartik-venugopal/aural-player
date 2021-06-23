@@ -10,7 +10,7 @@ class EQPresets: FXPresets<EQPreset> {
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    override var defaultPreset: EQPreset {systemDefinedPresetsMap[SystemDefinedEQPresetParams.flat.rawValue]!}
+    override var defaultPreset: EQPreset {systemDefinedPreset(named: SystemDefinedEQPresetParams.flat.rawValue)!}
 }
 
 class EQPreset: EffectsUnitPreset {

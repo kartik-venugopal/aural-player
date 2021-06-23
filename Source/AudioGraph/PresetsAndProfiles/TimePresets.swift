@@ -10,7 +10,7 @@ class TimePresets: FXPresets<TimePreset> {
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    override var defaultPreset: TimePreset {systemDefinedPresetsMap[SystemDefinedTimePresetParams.normal.rawValue]!}
+    override var defaultPreset: TimePreset {systemDefinedPreset(named: SystemDefinedTimePresetParams.normal.rawValue)!}
 }
 
 class TimePreset: EffectsUnitPreset {

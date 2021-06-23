@@ -9,8 +9,8 @@ protocol MappedPreset {
 
 class MappedPresets<P> where P: MappedPreset {
     
-    let userDefinedPresetsMap: PresetsMap<P> = PresetsMap()
-    let systemDefinedPresetsMap: PresetsMap<P> = PresetsMap()
+    private let userDefinedPresetsMap: PresetsMap<P> = PresetsMap()
+    private let systemDefinedPresetsMap: PresetsMap<P> = PresetsMap()
     
     var userDefinedPresets: [P] {userDefinedPresetsMap.allPresets}
     var systemDefinedPresets: [P] {systemDefinedPresetsMap.allPresets}
@@ -40,6 +40,10 @@ class MappedPresets<P> where P: MappedPreset {
     
     func userDefinedPreset(named name: String) -> P? {
         userDefinedPresetsMap[name]
+    }
+    
+    func systemDefinedPreset(named name: String) -> P? {
+        systemDefinedPresetsMap[name]
     }
     
     func deletePreset(atIndex index: Int) {
@@ -77,7 +81,7 @@ class MappedPresets<P> where P: MappedPreset {
     }
 }
 
-class PresetsMap<P> where P: MappedPreset {
+fileprivate class PresetsMap<P> where P: MappedPreset {
     
     private var array: [P] = []
     private var map: [String: P] = [:]

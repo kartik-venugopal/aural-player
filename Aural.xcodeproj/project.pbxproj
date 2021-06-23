@@ -382,9 +382,9 @@
 		3E6C129A25CEBE2700BF0D07 /* ProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC025CEB98600BF0D07 /* ProgressArc.swift */; };
 		3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC525CEB98600BF0D07 /* ColoredCursorTextField.swift */; };
 		3E6C129C25CEBE2700BF0D07 /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC925CEB98600BF0D07 /* AlertWindowController.swift */; };
-		3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCells.swift */; };
+		3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCell.swift */; };
 		3E6C129E25CEBE2700BF0D07 /* EQSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */; };
-		3E6C129F25CEBE2700BF0D07 /* TickedSliderCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD325CEB98600BF0D07 /* TickedSliderCells.swift */; };
+		3E6C129F25CEBE2700BF0D07 /* TickedSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD325CEB98600BF0D07 /* TickedSliderCell.swift */; };
 		3E6C12A025CEBE2700BF0D07 /* TintedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FBE25CEB98600BF0D07 /* TintedImageView.swift */; };
 		3E6C12A125CEBE2700BF0D07 /* PopupMenuCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FCF25CEB98600BF0D07 /* PopupMenuCells.swift */; };
 		3E6C12A225CEBE2700BF0D07 /* SnappingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FCB25CEB98600BF0D07 /* SnappingWindow.swift */; };
@@ -951,10 +951,10 @@
 		3E6C0FCF25CEB98600BF0D07 /* PopupMenuCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupMenuCells.swift; sourceTree = "<group>"; };
 		3E6C0FD025CEB98600BF0D07 /* TriStateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriStateLabel.swift; sourceTree = "<group>"; };
 		3E6C0FD125CEB98600BF0D07 /* AuralTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuralTabView.swift; sourceTree = "<group>"; };
-		3E6C0FD325CEB98600BF0D07 /* TickedSliderCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickedSliderCells.swift; sourceTree = "<group>"; };
+		3E6C0FD325CEB98600BF0D07 /* TickedSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickedSliderCell.swift; sourceTree = "<group>"; };
 		3E6C0FD425CEB98600BF0D07 /* RangeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeSlider.swift; sourceTree = "<group>"; };
 		3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitSlider.swift; sourceTree = "<group>"; };
-		3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSliderCells.swift; sourceTree = "<group>"; };
+		3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSliderCell.swift; sourceTree = "<group>"; };
 		3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSliderCell.swift; sourceTree = "<group>"; };
 		3E6C0FD825CEB98600BF0D07 /* BannerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerLabel.swift; sourceTree = "<group>"; };
 		3E6C0FD925CEB98600BF0D07 /* ValidatedLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatedLabelCell.swift; sourceTree = "<group>"; };
@@ -1751,9 +1751,9 @@
 				3E6C101A25CEB98600BF0D07 /* Player */,
 				3E6C0F3B25CEB98600BF0D07 /* Playlist */,
 				3E6C0FED25CEB98600BF0D07 /* Effects */,
+				3E6C0F6925CEB98600BF0D07 /* PresetsManagers */,
 				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F2425CEB98500BF0D07 /* Preferences */,
-				3E6C0F6925CEB98600BF0D07 /* PresetsManagers */,
 				3E9C120F2622204F00D90EA4 /* Themes */,
 				3E2ED4A325DBAD6200732E79 /* FontSchemes */,
 				3E6C0F9925CEB98600BF0D07 /* ColorSchemes */,
@@ -2216,8 +2216,8 @@
 		3E6C0FD225CEB98600BF0D07 /* Sliders */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCells.swift */,
-				3E6C0FD325CEB98600BF0D07 /* TickedSliderCells.swift */,
+				3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCell.swift */,
+				3E6C0FD325CEB98600BF0D07 /* TickedSliderCell.swift */,
 				3E6C0FD425CEB98600BF0D07 /* RangeSlider.swift */,
 				3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */,
 				3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */,
@@ -3491,7 +3491,7 @@
 				3E5F942D25E57190002DEF80 /* SpectrogramFFTData.swift in Sources */,
 				3E6C11F525CEBDD100BF0D07 /* SearchQuery.swift in Sources */,
 				3E09D0E526805C19008ECB8C /* EQUnitPersistentState.swift in Sources */,
-				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCells.swift in Sources */,
+				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCell.swift in Sources */,
 				3ECBF30A2619DF7200AD5C30 /* AudioUnitsTableViewDelegate.swift in Sources */,
 				3E6C11AD25CEBDA200BF0D07 /* PersistentStateIO.swift in Sources */,
 				3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */,
@@ -3868,7 +3868,7 @@
 				3E6C11A525CEBD9E00BF0D07 /* LRUArray.swift in Sources */,
 				3E6C121725CEBDE500BF0D07 /* HistoryPreferencesViewController.swift in Sources */,
 				3EDB33EB25E8AE09004DF7DE /* FFmpegMetadataReader.swift in Sources */,
-				3E6C129F25CEBE2700BF0D07 /* TickedSliderCells.swift in Sources */,
+				3E6C129F25CEBE2700BF0D07 /* TickedSliderCell.swift in Sources */,
 				3E6C11A725CEBD9E00BF0D07 /* HistoryDelegate.swift in Sources */,
 				3E6C12A225CEBE2700BF0D07 /* SnappingWindow.swift in Sources */,
 				3E5F943125E571A6002DEF80 /* VisualizerUtils.swift in Sources */,

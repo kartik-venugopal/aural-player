@@ -10,7 +10,7 @@ class PitchPresets: FXPresets<PitchPreset> {
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    override var defaultPreset: PitchPreset {systemDefinedPresetsMap[SystemDefinedPitchPresetParams.normal.rawValue]!}
+    override var defaultPreset: PitchPreset {systemDefinedPreset(named: SystemDefinedPitchPresetParams.normal.rawValue)!}
 }
 
 class PitchPreset: EffectsUnitPreset {

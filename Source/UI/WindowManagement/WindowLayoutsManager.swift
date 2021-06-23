@@ -18,7 +18,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout> {
     }
     
     var defaultLayout: WindowLayout {
-        systemDefinedPresetsMap[WindowLayoutPresets.verticalFullStack.name]!
+        systemDefinedPreset(named: WindowLayoutPresets.verticalFullStack.name)!
     }
     
     func recomputeSystemDefinedLayouts() {

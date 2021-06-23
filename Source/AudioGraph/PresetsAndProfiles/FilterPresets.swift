@@ -10,7 +10,7 @@ class FilterPresets: FXPresets<FilterPreset> {
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    override var defaultPreset: FilterPreset {systemDefinedPresetsMap[SystemDefinedFilterPresetParams.passThrough.rawValue]!}
+    override var defaultPreset: FilterPreset {systemDefinedPreset(named: SystemDefinedFilterPresetParams.passThrough.rawValue)!}
 }
 
 class FilterPreset: EffectsUnitPreset {
