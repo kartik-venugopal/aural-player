@@ -3,11 +3,6 @@ import Cocoa
 class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate {
     
     @IBOutlet weak var editorView: NSTableView!
-    @IBOutlet weak var header: NSTableHeaderView!
-    
-    // Used to adjust the header height
-    @IBOutlet weak var scrollView: NSScrollView!
-    @IBOutlet weak var clipView: NSClipView!
     
     @IBOutlet weak var btnDelete: NSButton!
     @IBOutlet weak var btnPlay: NSButton!
@@ -18,27 +13,7 @@ class FavoritesEditorViewController: NSViewController, NSTableViewDataSource,  N
     override var nibName: String? {"FavoritesEditor"}
     
     override func viewDidLoad() {
-        
-        headerHeight()
-        header.wantsLayer = true
-        header.layer?.backgroundColor = NSColor.black.cgColor
-        
-        editorView.tableColumns.forEach {
-            
-            let col = $0
-            let header = AuralTableHeaderCell()
-            
-            header.stringValue = col.headerCell.stringValue
-            header.isBordered = false
-            
-            col.headerCell = header
-        }
-    }
-    
-    private func headerHeight() {
-
-        header.resize(header.width, header.height + 10)
-        clipView.resize(clipView.width, clipView.height + 10)
+        editorView.customizeHeader(heightIncrease: 8, customCellType: AuralTableHeaderCell.self)
     }
     
     override func viewDidAppear() {

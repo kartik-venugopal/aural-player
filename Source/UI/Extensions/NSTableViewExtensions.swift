@@ -62,6 +62,31 @@ extension NSTableView {
             self.enclosingScrollView?.contentView.scroll(to: down)
         }
     }
+    
+    func customizeHeader<C>(heightIncrease: CGFloat, customCellType: C.Type) where C: NSTableHeaderCell {
+        
+        guard let header = self.headerView else {return}
+        
+        header.resize(header.width, header.height + heightIncrease)
+        
+        if let clipView = enclosingScrollView?.documentView as? NSClipView {
+            clipView.resize(clipView.width, clipView.height + heightIncrease)
+        }
+        
+        header.wantsLayer = true
+        header.layer?.backgroundColor = NSColor.black.cgColor
+        
+        tableColumns.forEach {
+            
+            let col = $0
+            let header = C.init()
+            
+            header.stringValue = col.headerCell.stringValue
+            header.isBordered = false
+            
+            col.headerCell = header
+        }
+    }
 }
 
 extension NSPasteboard.PasteboardType {

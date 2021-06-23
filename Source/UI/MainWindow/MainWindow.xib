@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,7 +29,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="W7v-UI-tl4">
@@ -270,7 +270,7 @@
                                                             <menuItem title="Poolside.fm" state="mixed" indentationLevel="1" id="7ET-rc-9Yr">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyThemeAction:" target="iBX-Gc-cxj" id="jhd-MK-jIL"/>
+                                                                    <action selector="applyPresetAction:" target="iBX-Gc-cxj" id="YXr-eh-zuJ"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
@@ -288,7 +288,7 @@
                                                 <menuItem title="Save current theme" id="bGz-9b-srD" userLabel="Save current theme">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="saveThemeAction:" target="iBX-Gc-cxj" id="86g-5U-ANo"/>
+                                                        <action selector="savePresetAction:" target="iBX-Gc-cxj" id="hVA-U3-VGv"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="bz6-jn-bpS"/>
@@ -300,55 +300,55 @@
                                                             <menuItem title="Standard" indentationLevel="1" id="43j-ji-ycl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="IPD-5W-P11"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="9ZN-DE-PiX"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Rounded" indentationLevel="1" id="eQL-Ub-yN2">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="6Ty-I8-hG7"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="JcW-rx-Adk"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Programmer" indentationLevel="1" id="wd9-v0-USI">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="EQC-nx-zTl"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="7lr-f3-IwJ"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Futuristic" indentationLevel="1" id="zp0-54-BsY">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="8er-JT-d7B"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="Xr9-rt-c1s"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Novelist" indentationLevel="1" id="rKV-Kl-mba">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="awr-zz-ItR"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="kgD-uc-MOe"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Soy Sauce" indentationLevel="1" id="vch-4n-9oL">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="ZPW-L6-Ls6"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="Tv6-2N-FBQ"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Gothic" indentationLevel="1" id="pc7-RT-aH8">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="2j0-0o-u7c"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="TjV-Nc-SHI"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Papyrus" indentationLevel="1" id="gjG-cI-Cmn">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="h1I-fR-GqS"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="jwU-cV-Deo"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Poolside.fm" indentationLevel="1" id="laX-wc-TQz">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="jyH-lC-gOA" id="Bug-pg-EeG"/>
+                                                                    <action selector="applyPresetAction:" target="jyH-lC-gOA" id="7Xs-Jo-Gpt"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="GxE-An-9JV"/>
@@ -367,7 +367,7 @@
                                                 <menuItem title="Save current scheme" id="61k-O1-7w2" userLabel="Save current scheme">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="saveSchemeAction:" target="jyH-lC-gOA" id="leJ-0g-kch"/>
+                                                        <action selector="savePresetAction:" target="jyH-lC-gOA" id="omv-UM-KVd"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="kCi-Zk-hgw"/>
@@ -379,49 +379,49 @@
                                                             <menuItem title="Black attack (default)" indentationLevel="1" id="e6H-rX-5qX">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="OfO-xx-SNw"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="OBG-05-7fK"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Black &amp; aqua" indentationLevel="1" id="Q49-Xm-uru">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="Dr5-Uq-RIe"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="4QJ-pj-gq3"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Lava" indentationLevel="1" id="sNL-Wk-hye">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="0Jd-bc-TVE"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="gtc-ve-7oa"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="White blight" indentationLevel="1" id="41Q-2F-UWV">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="15X-5K-pbZ"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="KZL-Fq-qqU"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Gloomy day" indentationLevel="1" id="w3W-IL-Xys">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="CMQ-iF-zKY"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="4bl-jj-rA5"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Brownie" indentationLevel="1" id="ROY-4K-3en">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="T67-nJ-ppm"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="OTK-Qb-Q5V"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="The blues" indentationLevel="1" id="FJ3-SF-NSo">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="DIM-ba-iGi"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="rmT-GJ-QDE"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Poolside.fm" indentationLevel="1" id="n7e-jY-Srs">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applySchemeAction:" target="df9-sN-idv" id="ugZ-UR-QgO"/>
+                                                                    <action selector="applyPresetAction:" target="df9-sN-idv" id="pi5-UN-9oY"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem isSeparatorItem="YES" id="p0F-ct-Gfh"/>
@@ -440,14 +440,13 @@
                                                 <menuItem title="Save current scheme" id="qvE-di-9Bh" userLabel="Save current scheme">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="saveSchemeAction:" target="df9-sN-idv" id="o0Y-7q-cmF"/>
+                                                        <action selector="savePresetAction:" target="df9-sN-idv" id="65u-cf-dDs"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="2kB-OR-pRg"/>
                                                 <menuItem title="Window corner radius" id="Fm1-z9-ixG">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="saveSchemeAction:" target="df9-sN-idv" id="1n7-qh-FOE"/>
                                                         <outlet property="view" destination="f8G-sv-wa9" id="GYP-R7-AEw"/>
                                                     </connections>
                                                 </menuItem>
@@ -460,49 +459,49 @@
                                                             <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="KSu-L0-WGd">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="Crw-b8-o53"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="2un-IE-T6a"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Horizontal full stack" image="WindowLayout-HorizontalStack" id="ZAr-P0-9nl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="sbS-qO-lRS"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="HR0-Sn-XBw"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Big bottom playlist" image="WindowLayout-BigBottomPlaylist" id="i2s-Ws-ntU">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="QvI-sg-eJR"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="7wH-Wb-pnL"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Big right playlist" image="WindowLayout-BigRightPlaylist" id="e9A-2L-4GR">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="RVk-2p-8EK"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="L6I-M0-fqI"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Big left playlist" image="WindowLayout-BigLeftPlaylist" id="shG-Lq-iLv">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="VgW-bP-nhu"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="Et9-R6-giy"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Vertical player and playlist" image="WindowLayout-VerticalPlayerAndPlaylist" id="xgu-nh-tCl">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="zKk-cY-bL8"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="a5Z-vr-W8O"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Horizontal player and playlist" image="WindowLayout-HorizontalPlayerAndPlaylist" id="YgY-RJ-vjG">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="7Xe-zC-dmd"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="nuv-q5-y5F"/>
                                                                 </connections>
                                                             </menuItem>
                                                             <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="npH-RD-Q2Y">
                                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                                 <connections>
-                                                                    <action selector="applyLayoutAction:" target="lwq-x3-5V8" id="Xkg-zf-izy"/>
+                                                                    <action selector="applyPresetAction:" target="lwq-x3-5V8" id="bxF-OW-Dvb"/>
                                                                 </connections>
                                                             </menuItem>
                                                         </items>
@@ -514,7 +513,7 @@
                                                 <menuItem title="Save current layout" id="E7X-gX-sqW" userLabel="Save current layout">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
-                                                        <action selector="saveWindowLayoutAction:" target="lwq-x3-5V8" id="Prk-5L-Cnr"/>
+                                                        <action selector="savePresetAction:" target="lwq-x3-5V8" id="mIg-NC-qGn"/>
                                                     </connections>
                                                 </menuItem>
                                             </items>
@@ -730,7 +729,7 @@
         </customObject>
         <customObject id="hwD-go-Fm4" customClass="ThemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="theMenu" destination="lkD-Rx-VSP" id="nJM-0o-qKM"/>
+                <outlet property="theMenu" destination="lkD-Rx-VSP" id="dHk-Yc-Vh7"/>
             </connections>
         </customObject>
         <customObject id="DYg-Ag-wOY" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
@@ -1784,7 +1783,7 @@ CA
                                         <menuItem title="Poolside.fm" state="mixed" indentationLevel="1" id="xq6-Fq-U02">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyThemeAction:" target="hwD-go-Fm4" id="Yri-Bz-jhw"/>
+                                                <action selector="applyPresetAction:" target="hwD-go-Fm4" id="cjr-h5-r6V"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -1802,7 +1801,7 @@ CA
                             <menuItem title="   Save current theme" indentationLevel="1" id="eWN-3w-ipu" userLabel="Save current theme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="saveThemeAction:" target="hwD-go-Fm4" id="G0P-0h-gW4"/>
+                                    <action selector="savePresetAction:" target="hwD-go-Fm4" id="eoR-7b-fh3"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="   Manage themes" indentationLevel="1" id="OJt-WE-Icj" userLabel="Manage themes">
@@ -1820,55 +1819,55 @@ CA
                                         <menuItem title="Standard" indentationLevel="1" id="gyN-uP-TAl">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="sfg-4b-Zzg"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="Rdq-DM-ZFu"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Rounded" indentationLevel="1" id="Khe-Gy-NcE">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="SyX-pA-KEQ"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="BsG-ud-phl"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Programmer" indentationLevel="1" id="cs8-hU-zw9">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="j8X-Cu-DXh"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="d9y-As-zC8"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Futuristic" indentationLevel="1" id="cln-vL-lgQ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="ttl-a3-bvS"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="mUL-z9-X1H"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Novelist" indentationLevel="1" id="zsB-iv-HJ9">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="3u0-B2-vbM"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="Nt0-50-aw6"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Soy Sauce" indentationLevel="1" id="ohc-fy-AGx">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="CKj-VQ-gSC"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="V3m-GV-84M"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Gothic" indentationLevel="1" id="jhm-Tn-1MQ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="hSy-rv-w3a"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="MxK-NE-eSp"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Papyrus" indentationLevel="1" id="h3V-tV-H5Y">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="ZXq-8O-MvA"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="aaq-DS-anp"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Poolside.fm" indentationLevel="1" id="2q5-DT-nyG">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="DYg-Ag-wOY" id="c6P-Uo-EC8"/>
+                                                <action selector="applyPresetAction:" target="DYg-Ag-wOY" id="tJ2-ap-X3g"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="3v3-VV-1Ss"/>
@@ -1887,7 +1886,7 @@ CA
                             <menuItem title="   Save current scheme" indentationLevel="1" id="LV2-4v-14L" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="saveSchemeAction:" target="DYg-Ag-wOY" id="bMC-9L-Ued"/>
+                                    <action selector="savePresetAction:" target="DYg-Ag-wOY" id="B9S-5T-CGA"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="   Manage font schemes" indentationLevel="1" id="3GH-eP-uTb" userLabel="Manage font schemes">
@@ -1905,49 +1904,49 @@ CA
                                         <menuItem title="Black attack (default)" indentationLevel="1" id="949-Oc-MPu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="Woq-d7-KqQ"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="qFt-B5-ZTJ"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Black &amp; aqua" indentationLevel="1" id="yhH-Kc-78h">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="KaG-wH-6gH"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="axU-H8-kuJ"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Lava" indentationLevel="1" id="0xg-XN-Yr0">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="fgd-0y-t1y"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="BqK-Dl-y6Q"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="White blight" indentationLevel="1" id="lpm-tW-lOV">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="1jR-D8-ujR"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="vGb-2O-a5R"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Gloomy day" indentationLevel="1" id="UzR-Ak-55I">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="Vmq-7E-fVP"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="Gyf-Ju-F1Q"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Brownie" indentationLevel="1" id="Alg-B9-Jcc">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="OLv-CZ-PAI"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="9du-EM-B9r"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="The blues" indentationLevel="1" id="twr-id-OpX">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="GKm-5f-Tg6"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="rDj-kO-JzB"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Poolside.fm" indentationLevel="1" id="yHo-h5-YUi">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applySchemeAction:" target="U0b-83-uhv" id="cCu-hV-kEg"/>
+                                                <action selector="applyPresetAction:" target="U0b-83-uhv" id="jhi-Dy-hGq"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="C4O-0S-gwz"/>
@@ -1966,7 +1965,7 @@ CA
                             <menuItem title="   Save current scheme" indentationLevel="1" id="bB1-AP-We1" userLabel="Save current scheme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="saveSchemeAction:" target="U0b-83-uhv" id="9cr-Qa-7b2"/>
+                                    <action selector="savePresetAction:" target="U0b-83-uhv" id="wud-fO-0m2"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="   Manage color schemes" indentationLevel="1" id="Zqf-9X-sii" userLabel="Manage color schemes">
@@ -1991,49 +1990,49 @@ CA
                                         <menuItem title="Vertical full stack" image="WindowLayout-VerticalStack" id="stA-zB-BJd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="w30-wv-Qhe"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="bdY-6e-mqw"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Horizontal full stack" image="WindowLayout-HorizontalStack" id="7Cr-Cn-Z6q">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="dBS-Of-Mmm"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="1jf-XK-aza"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Big bottom playlist" image="WindowLayout-BigBottomPlaylist" id="NYP-wb-cHd">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="eVI-Va-HQ6"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="rT9-M6-cRg"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Big right playlist" image="WindowLayout-BigRightPlaylist" id="FKI-zh-HQw">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="87u-j0-T6N"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="GUX-By-e8v"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Big left playlist" image="WindowLayout-BigLeftPlaylist" id="IKJ-gc-EKS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="DTX-Md-tBA"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="MgD-QS-NQc"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Vertical player and playlist" image="WindowLayout-VerticalPlayerAndPlaylist" id="PEA-GM-jee">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="H16-4d-BFG"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="aeH-k1-0ce"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Horizontal player and playlist" image="WindowLayout-HorizontalPlayerAndPlaylist" id="N86-i0-DFy">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="3dL-9e-Slv"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="wzc-fT-wUE"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Compact cornered" image="WindowLayout-CompactCornered" id="JVU-2b-DBu">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="applyLayoutAction:" target="pl0-NF-g2u" id="Y5d-ZT-2gO"/>
+                                                <action selector="applyPresetAction:" target="pl0-NF-g2u" id="bLB-dR-iVM"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -2045,7 +2044,7 @@ CA
                             <menuItem title="   Save current layout" indentationLevel="1" id="ZSo-HK-shQ" userLabel="Save current layout">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="saveWindowLayoutAction:" target="pl0-NF-g2u" id="76O-m3-tAn"/>
+                                    <action selector="savePresetAction:" target="pl0-NF-g2u" id="n0F-ja-1q1"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="   Manage layouts" indentationLevel="1" id="R0R-Wi-POR" userLabel="Manage layouts">

@@ -59,7 +59,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         applyColorScheme(colorSchemesManager.systemScheme)
         
-        initHeader()
+        chaptersListView.customizeHeader(heightIncrease: 5, customCellType: ChaptersListTableHeaderCell.self)
         
         // Set these fields for later access
         PlaylistViewState.chaptersListView = self.chaptersListView
@@ -72,28 +72,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
         
         WindowManager.instance.registerModalComponent(self)
-    }
-    
-    private func initHeader() {
-        
-        setHeaderHeight()
-        header.wantsLayer = true
-        header.layer?.backgroundColor = NSColor.black.cgColor
-        
-        for column in chaptersListView.tableColumns {
-            
-            let header = ChaptersListTableHeaderCell()
-            header.stringValue = column.headerCell.stringValue
-            header.isBordered = false
-            
-            column.headerCell = header
-        }
-    }
-    
-    private func setHeaderHeight() {
-        
-        header.resize(header.width, header.height + 5)
-        clipView.resize(clipView.width, clipView.height + 5)
     }
     
     private func initSubscriptions() {
@@ -429,12 +407,12 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     }
     
     private func changeToggleButtonOffStateColor(_ color: NSColor) {
-        [btnLoopChapter, btnCaseSensitive].forEach({$0.reTint()})
+        [btnLoopChapter, btnCaseSensitive].forEach {$0.reTint()}
     }
     
     private func changeSummaryInfoColor(_ color: NSColor) {
         
-        [lblSummary, lblNumMatches].forEach({$0?.textColor = color})
+        [lblSummary, lblNumMatches].forEach {$0?.textColor = color}
         header.redraw()
     }
     

@@ -11,10 +11,7 @@
                 <outlet property="btnDelete" destination="wGy-ls-4VO" id="aJa-Nj-6c0"/>
                 <outlet property="btnPlay" destination="CUz-2i-eYj" id="Ggv-gv-ZOn"/>
                 <outlet property="btnRename" destination="bQE-4x-Ygm" id="OQX-4e-rnm"/>
-                <outlet property="clipView" destination="KAU-bY-FSr" id="Ur5-AB-TcS"/>
                 <outlet property="editorView" destination="LsQ-Ag-buL" id="qEX-d8-LeL"/>
-                <outlet property="header" destination="zCC-CA-2wI" id="Sur-3P-hhd"/>
-                <outlet property="scrollView" destination="zsE-z5-DED" id="sGy-yJ-zF4"/>
                 <outlet property="view" destination="c22-O7-iKe" id="RBb-de-nLh"/>
             </connections>
         </customObject>

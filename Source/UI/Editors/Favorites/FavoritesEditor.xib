@@ -10,10 +10,7 @@
             <connections>
                 <outlet property="btnDelete" destination="54W-bE-CZ4" id="DTl-UE-ZlT"/>
                 <outlet property="btnPlay" destination="htq-Lq-qTq" id="HyS-yG-4UF"/>
-                <outlet property="clipView" destination="auU-U1-QGz" id="owW-yy-9bh"/>
                 <outlet property="editorView" destination="fkE-tG-QQj" id="538-Y1-Fc5"/>
-                <outlet property="header" destination="Qey-ZP-hcG" id="75j-EF-gDX"/>
-                <outlet property="scrollView" destination="PNR-3L-FpA" id="bcX-gp-2eI"/>
                 <outlet property="view" destination="Ovo-SL-XF4" id="EeS-wy-vgv"/>
             </connections>
         </customObject>
@@ -60,11 +57,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="K3a-31-Piw" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="255" height="25"/>
+                                                <rect key="frame" x="1" y="1" width="250" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Xs-cA-3zW">
-                                                        <rect key="frame" x="5" y="0.0" width="250" height="25"/>
+                                                        <rect key="frame" x="5" y="0.0" width="245" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Table View Cell" id="TMa-kk-kbO">
                                                             <font key="font" metaFont="system"/>
@@ -92,11 +89,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="adU-hO-45n" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="254" y="1" width="388" height="25"/>
+                                                <rect key="frame" x="254" y="1" width="384" height="25"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdm-Bd-EXC">
-                                                        <rect key="frame" x="5" y="0.0" width="383" height="25"/>
+                                                        <rect key="frame" x="5" y="0.0" width="379" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" sendsActionOnEndEditing="YES" title="Table View Cell" id="IbI-Vh-zLz">
                                                             <font key="font" metaFont="system"/>

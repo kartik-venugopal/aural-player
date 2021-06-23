@@ -1,86 +1,33 @@
 import Cocoa
 
-class WindowLayoutPopupMenuController: NSObject, NSMenuDelegate, StringInputReceiver {
+class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
 
-    private lazy var layoutNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
-    
     private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
-    
     private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
     
-    @IBOutlet weak var theMenu: NSMenu!
+    override var descriptionOfPreset: String {"layout"}
+    override var descriptionOfPreset_plural: String {"layouts"}
     
-    override func awakeFromNib() {
-        
-        theMenu.insertItem(NSMenuItem.createDescriptor(title: "Built-in layouts"), at: 0)
-        theMenu.insertItem(NSMenuItem.separator(), at: 0)
-        
-        theMenu.insertItem(NSMenuItem.separator(), at: 0)
-        theMenu.insertItem(NSMenuItem.createDescriptor(title: "Custom layouts"), at: 0)
-        theMenu.insertItem(NSMenuItem.separator(), at: 0)
-    }
-
-    // When the menu is about to open, set the menu item states according to the current window/view state
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        
-        // Remove all custom presets (all items before the first separator)
-        while let item = menu.item(at: 3), !item.isSeparatorItem {
-            menu.removeItem(at: 3)
-        }
-        
-        // Recreate the custom layout items
-        windowLayoutsManager.userDefinedPresets.forEach {
-            
-            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applyLayoutAction(_:)), keyEquivalent: "")
-            item.target = self
-            item.indentationLevel = 1
-            
-            menu.insertItem(item, at: 3)
-        }
-        
-        for index in 0...2 {
-            menu.item(at: index)?.showIf_elseHide(windowLayoutsManager.numberOfUserDefinedPresets > 0)
-        }
-    }
-
-    @IBAction func applyLayoutAction(_ sender: NSMenuItem) {
-        WindowManager.instance.layout(sender.title)
+    override var userDefinedPresets: [MappedPreset] {windowLayoutsManager.userDefinedPresets}
+    override var numberOfUserDefinedPresets: Int {windowLayoutsManager.numberOfUserDefinedPresets}
+    
+    override func presetExists(named name: String) -> Bool {
+        windowLayoutsManager.presetExists(named: name)
     }
     
-    @IBAction func saveWindowLayoutAction(_ sender: NSMenuItem) {
-        layoutNamePopover.show(WindowManager.instance.mainWindow.contentView!, NSRectEdge.maxX)
+    // Receives a new layout name and saves the new layout.
+    override func addPreset(named name: String) {
+        
+        let newLayout = WindowManager.instance.currentWindowLayout
+        newLayout.name = name
+        windowLayoutsManager.addPreset(newLayout)
+    }
+    
+    override func applyPreset(named name: String) {
+        WindowManager.instance.layout(name)
     }
     
     @IBAction func manageLayoutsAction(_ sender: Any) {
         editorWindowController.showLayoutsEditor()
-    }
-    
-    // MARK - StringInputReceiver functions
-    
-    var inputPrompt: String {
-        return "Enter a layout name:"
-    }
-    
-    var defaultValue: String? {
-        return "<My custom layout>"
-    }
-    
-    func validate(_ string: String) -> (valid: Bool, errorMsg: String?) {
-        
-        let valid = !windowLayoutsManager.presetExists(named: string)
-        
-        if (!valid) {
-            return (false, "A layout with this name already exists !")
-        } else {
-            return (true, nil)
-        }
-    }
-    
-    // Receives a new preset name and saves the new preset
-    func acceptInput(_ string: String) {
-        
-        let newLayout = WindowManager.instance.currentWindowLayout
-        newLayout.name = string
-        windowLayoutsManager.addPreset(newLayout)
     }
 }
