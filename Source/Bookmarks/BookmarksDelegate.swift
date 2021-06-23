@@ -63,10 +63,8 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         }
     }
     
-    func renameBookmarkAtIndex(_ index: Int, _ newName: String) {
-        
-        let bookmark = bookmarks.userDefinedPresets[index]
-        bookmarks.renamePreset(named: bookmark.name, to: newName)
+    func renameBookmark(named name: String, to newName: String) {
+        bookmarks.renamePreset(named: name, to: newName)
     }
     
     func deleteBookmarkAtIndex(_ index: Int) {

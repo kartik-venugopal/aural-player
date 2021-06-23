@@ -8,10 +8,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="BookmarksEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnDelete" destination="wGy-ls-4VO" id="aJa-Nj-6c0"/>
-                <outlet property="btnPlay" destination="CUz-2i-eYj" id="Ggv-gv-ZOn"/>
+                <outlet property="btnApply" destination="CUz-2i-eYj" id="Ore-8g-jAO"/>
+                <outlet property="btnDelete" destination="wGy-ls-4VO" id="DIZ-kL-qAq"/>
                 <outlet property="btnRename" destination="bQE-4x-Ygm" id="OQX-4e-rnm"/>
-                <outlet property="editorView" destination="LsQ-Ag-buL" id="qEX-d8-LeL"/>
+                <outlet property="presetsTableView" destination="LsQ-Ag-buL" id="hu1-7g-qan"/>
                 <outlet property="view" destination="c22-O7-iKe" id="RBb-de-nLh"/>
             </connections>
         </customObject>
@@ -177,7 +177,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <action trigger="doubleAction" selector="playSelectedBookmarkAction:" target="-2" id="7aU-xf-Qjy"/>
+                                    <action trigger="doubleAction" selector="applySelectedPresetAction:" target="-2" id="hUj-bM-x98"/>
                                     <outlet property="dataSource" destination="-2" id="Tza-8W-ex0"/>
                                     <outlet property="delegate" destination="-2" id="4Wt-WK-Cza"/>
                                 </connections>
@@ -207,7 +207,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="playSelectedBookmarkAction:" target="-2" id="S0f-Nq-tqb"/>
+                        <action selector="applySelectedPresetAction:" target="-2" id="WmQ-Av-SBG"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wGy-ls-4VO">
@@ -221,7 +221,7 @@ CA
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="deleteSelectedBookmarksAction:" target="-2" id="zrZ-n6-aLb"/>
+                        <action selector="deleteSelectedPresetsAction:" target="-2" id="BPx-bE-HJ1"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MQk-tv-7et">
@@ -246,7 +246,7 @@ Gw
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="renameBookmarkAction:" target="-2" id="RSz-sf-uv0"/>
+                        <action selector="renamePresetAction:" target="-2" id="dVz-G0-DB0"/>
                     </connections>
                 </button>
             </subviews>

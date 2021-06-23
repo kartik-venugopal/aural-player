@@ -7,10 +7,8 @@ class FavoritesEditorViewController: GenericPresetsManagerViewController {
     
     override var nibName: String? {"FavoritesEditor"}
     
-    // Needs to be overriden by subclasses.
     override var numberOfPresets: Int {favorites.count}
     
-    // Needs to be overriden by subclasses.
     override func nameOfPreset(atIndex index: Int) -> String {favorites.getFavoriteAtIndex(index).name}
     
     override func deletePresets(atIndices indices: IndexSet) {

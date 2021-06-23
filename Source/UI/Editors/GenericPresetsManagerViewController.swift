@@ -85,6 +85,17 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
         return GenericTableRowView()
     }
     
+    // Enables type selection, allowing the user to conveniently and efficiently find a playlist track by typing its display name, which results in the track, if found, being selected within the playlist
+    func tableView(_ tableView: NSTableView, typeSelectStringFor tableColumn: NSTableColumn?, row: Int) -> String? {
+        
+        // Only the name (first) column is used for type selection.
+        if let column = tableColumn, (column.tableView?.column(withIdentifier: column.identifier) ?? -1) == 0 {
+            return nameOfPreset(atIndex: row)
+        }
+        
+        return nil
+    }
+    
     func tableViewSelectionDidChange(_ notification: Notification) {
         updateButtonStates()
     }
