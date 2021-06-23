@@ -11,7 +11,7 @@
                 <outlet property="btnApply" destination="AV0-JT-ycn" id="uuV-q1-JVU"/>
                 <outlet property="btnDelete" destination="nEx-Kg-TVk" id="yrF-ox-c7m"/>
                 <outlet property="btnRename" destination="nm1-n8-6j8" id="q9X-LR-wus"/>
-                <outlet property="editorView" destination="vdY-UW-D02" id="HdZ-kQ-QQo"/>
+                <outlet property="presetsTableView" destination="vdY-UW-D02" id="rg8-ub-JCR"/>
                 <outlet property="previewView" destination="XYA-nb-LyR" id="xOE-ZM-2Ut"/>
                 <outlet property="view" destination="aC3-ZY-zfD" id="lqD-5w-Yl5"/>
             </connections>
@@ -91,7 +91,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <action trigger="doubleAction" selector="applySelectedLayoutAction:" target="-2" id="Zzj-fU-2Ef"/>
+                                    <action trigger="doubleAction" selector="applySelectedPresetAction:" target="-2" id="xtA-r0-BH8"/>
                                     <outlet property="dataSource" destination="-2" id="bd8-SA-Ej2"/>
                                     <outlet property="delegate" destination="-2" id="89f-UE-coo"/>
                                 </connections>
@@ -117,7 +117,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="applySelectedLayoutAction:" target="-2" id="NM2-od-0FN"/>
+                        <action selector="applySelectedPresetAction:" target="-2" id="piJ-d8-Fhb"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nm1-n8-6j8">
@@ -128,7 +128,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="renameLayoutAction:" target="-2" id="BcM-Et-iAh"/>
+                        <action selector="renamePresetAction:" target="-2" id="Qaa-dW-4T1"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nEx-Kg-TVk">
@@ -142,7 +142,7 @@ CA
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="deleteSelectedLayoutsAction:" target="-2" id="e5S-aE-0Pd"/>
+                        <action selector="deleteSelectedPresetsAction:" target="-2" id="XDY-Pd-Yt7"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jpF-7b-DGX">
