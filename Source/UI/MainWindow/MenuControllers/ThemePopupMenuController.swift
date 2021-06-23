@@ -1,12 +1,12 @@
 import Cocoa
 
 /*
-    Controller for the popup menu that lists the available color schemes and opens the color scheme editor panel.
+    Controller for the popup menu that lists the available themes and opens the theme editor panel.
  */
 class ThemePopupMenuController: GenericPresetPopupMenuController {
     
     private lazy var creationDialogController: CreateThemeDialogController = CreateThemeDialogController.instance
-    private lazy var managerWindowController: EditorWindowController = EditorWindowController.instance
+    private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
     private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
     private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager

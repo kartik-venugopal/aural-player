@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    Controller for the color scheme editor panel that allows the current system color scheme to be edited.
+    Controller for the color scheme editor panel that allows the current system font scheme to be edited.
  */
 class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDialogDelegate, StringInputReceiver, Destroyable {
     

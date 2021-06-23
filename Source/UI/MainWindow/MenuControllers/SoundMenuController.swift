@@ -54,7 +54,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private let preferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
     
-    private lazy var presetsEditor: EditorWindowController = EditorWindowController.instance
+    private lazy var presetsManager: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
     // One-time setup.
     override func awakeFromNib() {
@@ -173,7 +173,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func managePresetsAction(_ sender: Any) {
-        presetsEditor.showEffectsPresetsEditor()
+        presetsManager.showEffectsPresetsManager()
     }
     
     // Decreases each of the EQ bass bands by a certain preset decrement

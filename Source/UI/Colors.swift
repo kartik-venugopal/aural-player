@@ -447,7 +447,7 @@ struct Colors {
     
     // TODO: Rename these constants to reflect that they are constants (not dictated by the system color scheme).
     
-    static let editorHeaderTextColor: NSColor = Constants.white85Percent
+    static let presetsManagerTableHeaderTextColor: NSColor = Constants.white85Percent
     
     // Color of text inside the playlist (non-selected items)
     static let defaultLightTextColor: NSColor = Constants.white60Percent

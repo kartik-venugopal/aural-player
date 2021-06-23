@@ -14,7 +14,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
     @IBOutlet weak var manageBookmarksMenuItem: NSMenuItem!
     
-    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
+    private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
     private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     private lazy var fileReader: FileReader = ObjectGraph.fileReader
@@ -124,7 +124,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func manageBookmarksAction(_ sender: Any) {
-        editorWindowController.showBookmarksEditor()
+        managerWindowController.showBookmarksEditor()
     }
 }
 

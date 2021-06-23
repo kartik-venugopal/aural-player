@@ -6,7 +6,7 @@ import Cocoa
 class FontSchemePopupMenuController: GenericPresetPopupMenuController {
     
     private lazy var customizationDialogController: FontSchemesWindowController = FontSchemesWindowController.instance
-    private lazy var managerWindowController: EditorWindowController = EditorWindowController.instance
+    private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
     private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     

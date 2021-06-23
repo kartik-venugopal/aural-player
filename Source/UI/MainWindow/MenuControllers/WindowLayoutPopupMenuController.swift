@@ -2,7 +2,7 @@ import Cocoa
 
 class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
 
-    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
+    private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
     private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
     
     override var descriptionOfPreset: String {"layout"}
@@ -28,6 +28,6 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     }
     
     @IBAction func manageLayoutsAction(_ sender: Any) {
-        editorWindowController.showLayoutsEditor()
+        managerWindowController.showLayoutsEditor()
     }
 }

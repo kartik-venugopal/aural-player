@@ -15,7 +15,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     
-    private lazy var editorWindowController: EditorWindowController = EditorWindowController.instance
+    private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
     private lazy var fileReader: FileReader = ObjectGraph.fileReader
     
@@ -123,9 +123,9 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         }
     }
     
-    // Opens the editor to manage favorites
+    // Opens the presets manager to manage favorites
     @IBAction func manageFavoritesAction(_ sender: Any) {
-        editorWindowController.showFavoritesEditor()
+        managerWindowController.showFavoritesEditor()
     }
 }
 

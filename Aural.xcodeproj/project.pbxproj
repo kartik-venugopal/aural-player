@@ -82,9 +82,9 @@
 		3E45C03625E1269500C1519C /* PlayerFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */; };
 		3E4CC362261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */; };
 		3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */; };
-		3E51F346262AFDCA0048452F /* ThemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F345262AFDCA0048452F /* ThemesEditor.xib */; };
+		3E51F346262AFDCA0048452F /* ThemesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F345262AFDCA0048452F /* ThemesManager.xib */; };
 		3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F347262AFDF80048452F /* ThemePreviewView.swift */; };
-		3E51F34A262AFF310048452F /* ThemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F349262AFF300048452F /* ThemesEditorViewController.swift */; };
+		3E51F34A262AFF310048452F /* ThemesManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F349262AFF300048452F /* ThemesManagerViewController.swift */; };
 		3E53ACBE267FDE4C00B5AF52 /* DebuggingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */; };
 		3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */; };
 		3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */; };
@@ -314,37 +314,37 @@
 		3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F4A25CEB98600BF0D07 /* TracksPlaylistSort.xib */; };
 		3E6C125125CEBDF400BF0D07 /* PlaylistViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6725CEB98600BF0D07 /* PlaylistViewState.swift */; };
 		3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F5625CEB98600BF0D07 /* GroupingPlaylistViewDelegates.swift */; };
-		3E6C125425CEBE0600BF0D07 /* ColorSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9125CEB98600BF0D07 /* ColorSchemesEditor.xib */; };
+		3E6C125425CEBE0600BF0D07 /* ColorSchemesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9125CEB98600BF0D07 /* ColorSchemesManager.xib */; };
 		3E6C125525CEBE0600BF0D07 /* ColorSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9325CEB98600BF0D07 /* ColorSchemePreviewView.swift */; };
-		3E6C125625CEBE0600BF0D07 /* EffectsPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7525CEB98600BF0D07 /* EffectsPresetsEditor.xib */; };
-		3E6C125725CEBE0600BF0D07 /* TimePresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7C25CEB98600BF0D07 /* TimePresetsEditorViewController.swift */; };
-		3E6C125825CEBE0600BF0D07 /* LayoutsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8F25CEB98600BF0D07 /* LayoutsEditorViewController.swift */; };
-		3E6C125925CEBE0600BF0D07 /* BookmarksEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8B25CEB98600BF0D07 /* BookmarksEditor.xib */; };
-		3E6C125A25CEBE0600BF0D07 /* EQPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7425CEB98600BF0D07 /* EQPresetsEditor.xib */; };
-		3E6C125B25CEBE0600BF0D07 /* ReverbPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7825CEB98600BF0D07 /* ReverbPresetsEditorViewController.swift */; };
-		3E6C125C25CEBE0600BF0D07 /* FilterPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8325CEB98600BF0D07 /* FilterPresetsEditorViewController.swift */; };
-		3E6C125D25CEBE0600BF0D07 /* DelayPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8625CEB98600BF0D07 /* DelayPresetsEditorViewController.swift */; };
-		3E6C125E25CEBE0600BF0D07 /* ReverbPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7925CEB98600BF0D07 /* ReverbPresetsEditor.xib */; };
-		3E6C125F25CEBE0600BF0D07 /* EffectsPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8725CEB98600BF0D07 /* EffectsPresetsEditorViewController.swift */; };
-		3E6C126025CEBE0600BF0D07 /* EditorWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6D25CEB98600BF0D07 /* EditorWindow.xib */; };
-		3E6C126125CEBE0600BF0D07 /* LayoutsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8D25CEB98600BF0D07 /* LayoutsEditor.xib */; };
-		3E6C126225CEBE0600BF0D07 /* EditorWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */; };
-		3E6C126325CEBE0600BF0D07 /* FavoritesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6B25CEB98600BF0D07 /* FavoritesEditorViewController.swift */; };
-		3E6C126425CEBE0600BF0D07 /* PitchPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7025CEB98600BF0D07 /* PitchPresetsEditorViewController.swift */; };
-		3E6C126525CEBE0600BF0D07 /* FXPresetsEditorGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7625CEB98600BF0D07 /* FXPresetsEditorGenericViewController.swift */; };
-		3E6C126625CEBE0600BF0D07 /* DelayPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8525CEB98600BF0D07 /* DelayPresetsEditor.xib */; };
+		3E6C125625CEBE0600BF0D07 /* EffectsPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7525CEB98600BF0D07 /* EffectsPresetsManager.xib */; };
+		3E6C125725CEBE0600BF0D07 /* TimePresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7C25CEB98600BF0D07 /* TimePresetsManagerViewController.swift */; };
+		3E6C125825CEBE0600BF0D07 /* LayoutsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8F25CEB98600BF0D07 /* LayoutsManagerViewController.swift */; };
+		3E6C125925CEBE0600BF0D07 /* BookmarksManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8B25CEB98600BF0D07 /* BookmarksManager.xib */; };
+		3E6C125A25CEBE0600BF0D07 /* EQPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7425CEB98600BF0D07 /* EQPresetsManager.xib */; };
+		3E6C125B25CEBE0600BF0D07 /* ReverbPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7825CEB98600BF0D07 /* ReverbPresetsManagerViewController.swift */; };
+		3E6C125C25CEBE0600BF0D07 /* FilterPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8325CEB98600BF0D07 /* FilterPresetsManagerViewController.swift */; };
+		3E6C125D25CEBE0600BF0D07 /* DelayPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8625CEB98600BF0D07 /* DelayPresetsManagerViewController.swift */; };
+		3E6C125E25CEBE0600BF0D07 /* ReverbPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7925CEB98600BF0D07 /* ReverbPresetsManager.xib */; };
+		3E6C125F25CEBE0600BF0D07 /* EffectsPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8725CEB98600BF0D07 /* EffectsPresetsManagerViewController.swift */; };
+		3E6C126025CEBE0600BF0D07 /* PresetsManagerWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6D25CEB98600BF0D07 /* PresetsManagerWindow.xib */; };
+		3E6C126125CEBE0600BF0D07 /* LayoutsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8D25CEB98600BF0D07 /* LayoutsManager.xib */; };
+		3E6C126225CEBE0600BF0D07 /* PresetsManagerWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9425CEB98600BF0D07 /* PresetsManagerWindowController.swift */; };
+		3E6C126325CEBE0600BF0D07 /* FavoritesManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6B25CEB98600BF0D07 /* FavoritesManagerViewController.swift */; };
+		3E6C126425CEBE0600BF0D07 /* PitchPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7025CEB98600BF0D07 /* PitchPresetsManagerViewController.swift */; };
+		3E6C126525CEBE0600BF0D07 /* FXPresetsManagerGenericViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7625CEB98600BF0D07 /* FXPresetsManagerGenericViewController.swift */; };
+		3E6C126625CEBE0600BF0D07 /* DelayPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8525CEB98600BF0D07 /* DelayPresetsManager.xib */; };
 		3E6C126725CEBE0600BF0D07 /* LayoutPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8E25CEB98600BF0D07 /* LayoutPreviewView.swift */; };
-		3E6C126825CEBE0600BF0D07 /* PitchPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7125CEB98600BF0D07 /* PitchPresetsEditor.xib */; };
-		3E6C126925CEBE0600BF0D07 /* MasterPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7E25CEB98600BF0D07 /* MasterPresetsEditorViewController.swift */; };
-		3E6C126A25CEBE0600BF0D07 /* ColorSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9225CEB98600BF0D07 /* ColorSchemesEditorViewController.swift */; };
-		3E6C126B25CEBE0600BF0D07 /* BookmarksEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8A25CEB98600BF0D07 /* BookmarksEditorViewController.swift */; };
-		3E6C126C25CEBE0600BF0D07 /* CustomEditorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8825CEB98600BF0D07 /* CustomEditorViews.swift */; };
-		3E6C126D25CEBE0600BF0D07 /* FavoritesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6C25CEB98600BF0D07 /* FavoritesEditor.xib */; };
-		3E6C126E25CEBE0600BF0D07 /* MasterPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7F25CEB98600BF0D07 /* MasterPresetsEditor.xib */; };
-		3E6C126F25CEBE0600BF0D07 /* TimePresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7B25CEB98600BF0D07 /* TimePresetsEditor.xib */; };
+		3E6C126825CEBE0600BF0D07 /* PitchPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7125CEB98600BF0D07 /* PitchPresetsManager.xib */; };
+		3E6C126925CEBE0600BF0D07 /* MasterPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7E25CEB98600BF0D07 /* MasterPresetsManagerViewController.swift */; };
+		3E6C126A25CEBE0600BF0D07 /* ColorSchemesManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9225CEB98600BF0D07 /* ColorSchemesManagerViewController.swift */; };
+		3E6C126B25CEBE0600BF0D07 /* BookmarksManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8A25CEB98600BF0D07 /* BookmarksManagerViewController.swift */; };
+		3E6C126C25CEBE0600BF0D07 /* CustomPresetsManagerViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8825CEB98600BF0D07 /* CustomPresetsManagerViews.swift */; };
+		3E6C126D25CEBE0600BF0D07 /* FavoritesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F6C25CEB98600BF0D07 /* FavoritesManager.xib */; };
+		3E6C126E25CEBE0600BF0D07 /* MasterPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7F25CEB98600BF0D07 /* MasterPresetsManager.xib */; };
+		3E6C126F25CEBE0600BF0D07 /* TimePresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7B25CEB98600BF0D07 /* TimePresetsManager.xib */; };
 		3E6C127025CEBE0600BF0D07 /* FilterBandsViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8225CEB98600BF0D07 /* FilterBandsViewDelegate.swift */; };
-		3E6C127125CEBE0600BF0D07 /* FilterPresetsEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8125CEB98600BF0D07 /* FilterPresetsEditor.xib */; };
-		3E6C127225CEBE0600BF0D07 /* EQPresetsEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7325CEB98600BF0D07 /* EQPresetsEditorViewController.swift */; };
+		3E6C127125CEBE0600BF0D07 /* FilterPresetsManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C0F8125CEB98600BF0D07 /* FilterPresetsManager.xib */; };
+		3E6C127225CEBE0600BF0D07 /* EQPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F7325CEB98600BF0D07 /* EQPresetsManagerViewController.swift */; };
 		3E6C127425CEBE1800BF0D07 /* EffectsUnitTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FB825CEB98600BF0D07 /* EffectsUnitTabButtonCell.swift */; };
 		3E6C127625CEBE1800BF0D07 /* EffectsColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FA525CEB98600BF0D07 /* EffectsColorSchemeViewController.swift */; };
 		3E6C127725CEBE1800BF0D07 /* ColorSchemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FAC25CEB98600BF0D07 /* ColorSchemesManager.swift */; };
@@ -529,8 +529,8 @@
 		3E9E591025DB6B150064EB5F /* WindowedAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */; };
 		3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */; };
 		3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */; };
-		3EA3CE6725E3FD9E00BC7D07 /* FontSchemesEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */; };
-		3EA3CE6A25E3FDE000BC7D07 /* FontSchemesEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */; };
+		3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6625E3FD9E00BC7D07 /* FontSchemesManager.xib */; };
+		3EA3CE6A25E3FDE000BC7D07 /* FontSchemesManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6925E3FDE000BC7D07 /* FontSchemesManagerViewController.swift */; };
 		3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */; };
 		3EA3CE7025E420DE00BC7D07 /* Papyrus.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6F25E4208500BC7D07 /* Papyrus.ttf */; };
 		3EA3CE7325E420EC00BC7D07 /* AnironRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE7225E420E700BC7D07 /* AnironRegular.ttf */; };
@@ -751,9 +751,9 @@
 		3E45C03525E1269500C1519C /* PlayerFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E4CC361261EBEEC00740333 /* MasterUnitAUTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterUnitAUTableViewDelegate.swift; sourceTree = "<group>"; };
 		3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAudioGraph.swift; sourceTree = "<group>"; };
-		3E51F345262AFDCA0048452F /* ThemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemesEditor.xib; sourceTree = "<group>"; };
+		3E51F345262AFDCA0048452F /* ThemesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThemesManager.xib; sourceTree = "<group>"; };
 		3E51F347262AFDF80048452F /* ThemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreviewView.swift; sourceTree = "<group>"; };
-		3E51F349262AFF300048452F /* ThemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesEditorViewController.swift; sourceTree = "<group>"; };
+		3E51F349262AFF300048452F /* ThemesManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesManagerViewController.swift; sourceTree = "<group>"; };
 		3E525C00261E3330001D9186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingUtils.swift; sourceTree = "<group>"; };
 		3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neo-latina-demo-FFP.ttf"; sourceTree = "<group>"; };
@@ -873,37 +873,37 @@
 		3E6C0F6525CEB98600BF0D07 /* PlaylistGestureHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistGestureHandler.swift; sourceTree = "<group>"; };
 		3E6C0F6625CEB98600BF0D07 /* FlatPlaylistTableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatPlaylistTableViews.swift; sourceTree = "<group>"; };
 		3E6C0F6725CEB98600BF0D07 /* PlaylistViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewState.swift; sourceTree = "<group>"; };
-		3E6C0F6B25CEB98600BF0D07 /* FavoritesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F6C25CEB98600BF0D07 /* FavoritesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesEditor.xib; sourceTree = "<group>"; };
-		3E6C0F6D25CEB98600BF0D07 /* EditorWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditorWindow.xib; sourceTree = "<group>"; };
-		3E6C0F7025CEB98600BF0D07 /* PitchPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchPresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F7125CEB98600BF0D07 /* PitchPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PitchPresetsEditor.xib; sourceTree = "<group>"; };
-		3E6C0F7325CEB98600BF0D07 /* EQPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F7425CEB98600BF0D07 /* EQPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPresetsEditor.xib; sourceTree = "<group>"; };
-		3E6C0F7525CEB98600BF0D07 /* EffectsPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsPresetsEditor.xib; sourceTree = "<group>"; };
-		3E6C0F7625CEB98600BF0D07 /* FXPresetsEditorGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresetsEditorGenericViewController.swift; sourceTree = "<group>"; };
-		3E6C0F7825CEB98600BF0D07 /* ReverbPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbPresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F7925CEB98600BF0D07 /* ReverbPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReverbPresetsEditor.xib; sourceTree = "<group>"; };
-		3E6C0F7B25CEB98600BF0D07 /* TimePresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePresetsEditor.xib; sourceTree = "<group>"; };
-		3E6C0F7C25CEB98600BF0D07 /* TimePresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F7E25CEB98600BF0D07 /* MasterPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F7F25CEB98600BF0D07 /* MasterPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterPresetsEditor.xib; sourceTree = "<group>"; };
-		3E6C0F8125CEB98600BF0D07 /* FilterPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterPresetsEditor.xib; sourceTree = "<group>"; };
+		3E6C0F6B25CEB98600BF0D07 /* FavoritesManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F6C25CEB98600BF0D07 /* FavoritesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesManager.xib; sourceTree = "<group>"; };
+		3E6C0F6D25CEB98600BF0D07 /* PresetsManagerWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresetsManagerWindow.xib; sourceTree = "<group>"; };
+		3E6C0F7025CEB98600BF0D07 /* PitchPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PitchPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F7125CEB98600BF0D07 /* PitchPresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PitchPresetsManager.xib; sourceTree = "<group>"; };
+		3E6C0F7325CEB98600BF0D07 /* EQPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F7425CEB98600BF0D07 /* EQPresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EQPresetsManager.xib; sourceTree = "<group>"; };
+		3E6C0F7525CEB98600BF0D07 /* EffectsPresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsPresetsManager.xib; sourceTree = "<group>"; };
+		3E6C0F7625CEB98600BF0D07 /* FXPresetsManagerGenericViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresetsManagerGenericViewController.swift; sourceTree = "<group>"; };
+		3E6C0F7825CEB98600BF0D07 /* ReverbPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverbPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F7925CEB98600BF0D07 /* ReverbPresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReverbPresetsManager.xib; sourceTree = "<group>"; };
+		3E6C0F7B25CEB98600BF0D07 /* TimePresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimePresetsManager.xib; sourceTree = "<group>"; };
+		3E6C0F7C25CEB98600BF0D07 /* TimePresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F7E25CEB98600BF0D07 /* MasterPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F7F25CEB98600BF0D07 /* MasterPresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MasterPresetsManager.xib; sourceTree = "<group>"; };
+		3E6C0F8125CEB98600BF0D07 /* FilterPresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterPresetsManager.xib; sourceTree = "<group>"; };
 		3E6C0F8225CEB98600BF0D07 /* FilterBandsViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsViewDelegate.swift; sourceTree = "<group>"; };
-		3E6C0F8325CEB98600BF0D07 /* FilterPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F8525CEB98600BF0D07 /* DelayPresetsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelayPresetsEditor.xib; sourceTree = "<group>"; };
-		3E6C0F8625CEB98600BF0D07 /* DelayPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F8725CEB98600BF0D07 /* EffectsPresetsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPresetsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F8825CEB98600BF0D07 /* CustomEditorViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEditorViews.swift; sourceTree = "<group>"; };
-		3E6C0F8A25CEB98600BF0D07 /* BookmarksEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F8B25CEB98600BF0D07 /* BookmarksEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksEditor.xib; sourceTree = "<group>"; };
-		3E6C0F8D25CEB98600BF0D07 /* LayoutsEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutsEditor.xib; sourceTree = "<group>"; };
+		3E6C0F8325CEB98600BF0D07 /* FilterPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F8525CEB98600BF0D07 /* DelayPresetsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelayPresetsManager.xib; sourceTree = "<group>"; };
+		3E6C0F8625CEB98600BF0D07 /* DelayPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F8725CEB98600BF0D07 /* EffectsPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F8825CEB98600BF0D07 /* CustomPresetsManagerViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPresetsManagerViews.swift; sourceTree = "<group>"; };
+		3E6C0F8A25CEB98600BF0D07 /* BookmarksManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F8B25CEB98600BF0D07 /* BookmarksManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksManager.xib; sourceTree = "<group>"; };
+		3E6C0F8D25CEB98600BF0D07 /* LayoutsManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LayoutsManager.xib; sourceTree = "<group>"; };
 		3E6C0F8E25CEB98600BF0D07 /* LayoutPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutPreviewView.swift; sourceTree = "<group>"; };
-		3E6C0F8F25CEB98600BF0D07 /* LayoutsEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutsEditorViewController.swift; sourceTree = "<group>"; };
-		3E6C0F9125CEB98600BF0D07 /* ColorSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemesEditor.xib; sourceTree = "<group>"; };
-		3E6C0F9225CEB98600BF0D07 /* ColorSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesEditorViewController.swift; sourceTree = "<group>"; };
+		3E6C0F8F25CEB98600BF0D07 /* LayoutsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutsManagerViewController.swift; sourceTree = "<group>"; };
+		3E6C0F9125CEB98600BF0D07 /* ColorSchemesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemesManager.xib; sourceTree = "<group>"; };
+		3E6C0F9225CEB98600BF0D07 /* ColorSchemesManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemesManagerViewController.swift; sourceTree = "<group>"; };
 		3E6C0F9325CEB98600BF0D07 /* ColorSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemePreviewView.swift; sourceTree = "<group>"; };
-		3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorWindowController.swift; sourceTree = "<group>"; };
+		3E6C0F9425CEB98600BF0D07 /* PresetsManagerWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsManagerWindowController.swift; sourceTree = "<group>"; };
 		3E6C0F9825CEB98600BF0D07 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		3E6C0F9A25CEB98600BF0D07 /* ColorSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemeViewController.swift; sourceTree = "<group>"; };
 		3E6C0F9B25CEB98600BF0D07 /* ColorSchemes.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorSchemes.xib; sourceTree = "<group>"; };
@@ -1208,8 +1208,8 @@
 		3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowedAppModeController.swift; sourceTree = "<group>"; };
 		3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeHistory.swift; sourceTree = "<group>"; };
 		3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemeChangeContext.swift; sourceTree = "<group>"; };
-		3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemesEditor.xib; sourceTree = "<group>"; };
-		3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesEditorViewController.swift; sourceTree = "<group>"; };
+		3EA3CE6625E3FD9E00BC7D07 /* FontSchemesManager.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FontSchemesManager.xib; sourceTree = "<group>"; };
+		3EA3CE6925E3FDE000BC7D07 /* FontSchemesManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesManagerViewController.swift; sourceTree = "<group>"; };
 		3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreviewView.swift; sourceTree = "<group>"; };
 		3EA3CE6F25E4208500BC7D07 /* Papyrus.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Papyrus.ttf; sourceTree = "<group>"; };
 		3EA3CE7225E420E700BC7D07 /* AnironRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AnironRegular.ttf; sourceTree = "<group>"; };
@@ -1567,8 +1567,8 @@
 		3E51F344262AFDAF0048452F /* Themes */ = {
 			isa = PBXGroup;
 			children = (
-				3E51F345262AFDCA0048452F /* ThemesEditor.xib */,
-				3E51F349262AFF300048452F /* ThemesEditorViewController.swift */,
+				3E51F345262AFDCA0048452F /* ThemesManager.xib */,
+				3E51F349262AFF300048452F /* ThemesManagerViewController.swift */,
 				3E51F347262AFDF80048452F /* ThemePreviewView.swift */,
 			);
 			path = Themes;
@@ -1753,8 +1753,7 @@
 				3E6C0FED25CEB98600BF0D07 /* Effects */,
 				3E5F941525E570A9002DEF80 /* Visualizer */,
 				3E6C0F2425CEB98500BF0D07 /* Preferences */,
-				3E6C0F6925CEB98600BF0D07 /* Editors */,
-				3E6C0F8825CEB98600BF0D07 /* CustomEditorViews.swift */,
+				3E6C0F6925CEB98600BF0D07 /* PresetsManagers */,
 				3E9C120F2622204F00D90EA4 /* Themes */,
 				3E2ED4A325DBAD6200732E79 /* FontSchemes */,
 				3E6C0F9925CEB98600BF0D07 /* ColorSchemes */,
@@ -1947,11 +1946,11 @@
 			path = ChaptersList;
 			sourceTree = "<group>";
 		};
-		3E6C0F6925CEB98600BF0D07 /* Editors */ = {
+		3E6C0F6925CEB98600BF0D07 /* PresetsManagers */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F6D25CEB98600BF0D07 /* EditorWindow.xib */,
-				3E6C0F9425CEB98600BF0D07 /* EditorWindowController.swift */,
+				3E6C0F6D25CEB98600BF0D07 /* PresetsManagerWindow.xib */,
+				3E6C0F9425CEB98600BF0D07 /* PresetsManagerWindowController.swift */,
 				3E3579D126837D3D009522A0 /* GenericPresetsManagerViewController.swift */,
 				3E6C0F8925CEB98600BF0D07 /* Bookmarks */,
 				3E6C0F6A25CEB98600BF0D07 /* Favorites */,
@@ -1960,15 +1959,16 @@
 				3EA3CE6525E3FD5300BC7D07 /* FontSchemes */,
 				3E6C0F9025CEB98600BF0D07 /* ColorSchemes */,
 				3E6C0F8C25CEB98600BF0D07 /* Layouts */,
+				3E6C0F8825CEB98600BF0D07 /* CustomPresetsManagerViews.swift */,
 			);
-			path = Editors;
+			path = PresetsManagers;
 			sourceTree = "<group>";
 		};
 		3E6C0F6A25CEB98600BF0D07 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F6C25CEB98600BF0D07 /* FavoritesEditor.xib */,
-				3E6C0F6B25CEB98600BF0D07 /* FavoritesEditorViewController.swift */,
+				3E6C0F6C25CEB98600BF0D07 /* FavoritesManager.xib */,
+				3E6C0F6B25CEB98600BF0D07 /* FavoritesManagerViewController.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -1976,9 +1976,9 @@
 		3E6C0F6E25CEB98600BF0D07 /* EffectsPresets */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7525CEB98600BF0D07 /* EffectsPresetsEditor.xib */,
-				3E6C0F8725CEB98600BF0D07 /* EffectsPresetsEditorViewController.swift */,
-				3E6C0F7625CEB98600BF0D07 /* FXPresetsEditorGenericViewController.swift */,
+				3E6C0F7525CEB98600BF0D07 /* EffectsPresetsManager.xib */,
+				3E6C0F8725CEB98600BF0D07 /* EffectsPresetsManagerViewController.swift */,
+				3E6C0F7625CEB98600BF0D07 /* FXPresetsManagerGenericViewController.swift */,
 				3E6C0F7D25CEB98600BF0D07 /* Master */,
 				3E6C0F7225CEB98600BF0D07 /* EQ */,
 				3E6C0F6F25CEB98600BF0D07 /* Pitch */,
@@ -1993,8 +1993,8 @@
 		3E6C0F6F25CEB98600BF0D07 /* Pitch */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7125CEB98600BF0D07 /* PitchPresetsEditor.xib */,
-				3E6C0F7025CEB98600BF0D07 /* PitchPresetsEditorViewController.swift */,
+				3E6C0F7125CEB98600BF0D07 /* PitchPresetsManager.xib */,
+				3E6C0F7025CEB98600BF0D07 /* PitchPresetsManagerViewController.swift */,
 			);
 			path = Pitch;
 			sourceTree = "<group>";
@@ -2002,8 +2002,8 @@
 		3E6C0F7225CEB98600BF0D07 /* EQ */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7425CEB98600BF0D07 /* EQPresetsEditor.xib */,
-				3E6C0F7325CEB98600BF0D07 /* EQPresetsEditorViewController.swift */,
+				3E6C0F7425CEB98600BF0D07 /* EQPresetsManager.xib */,
+				3E6C0F7325CEB98600BF0D07 /* EQPresetsManagerViewController.swift */,
 			);
 			path = EQ;
 			sourceTree = "<group>";
@@ -2011,8 +2011,8 @@
 		3E6C0F7725CEB98600BF0D07 /* Reverb */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7925CEB98600BF0D07 /* ReverbPresetsEditor.xib */,
-				3E6C0F7825CEB98600BF0D07 /* ReverbPresetsEditorViewController.swift */,
+				3E6C0F7925CEB98600BF0D07 /* ReverbPresetsManager.xib */,
+				3E6C0F7825CEB98600BF0D07 /* ReverbPresetsManagerViewController.swift */,
 			);
 			path = Reverb;
 			sourceTree = "<group>";
@@ -2020,8 +2020,8 @@
 		3E6C0F7A25CEB98600BF0D07 /* Time */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7B25CEB98600BF0D07 /* TimePresetsEditor.xib */,
-				3E6C0F7C25CEB98600BF0D07 /* TimePresetsEditorViewController.swift */,
+				3E6C0F7B25CEB98600BF0D07 /* TimePresetsManager.xib */,
+				3E6C0F7C25CEB98600BF0D07 /* TimePresetsManagerViewController.swift */,
 			);
 			path = Time;
 			sourceTree = "<group>";
@@ -2029,8 +2029,8 @@
 		3E6C0F7D25CEB98600BF0D07 /* Master */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F7F25CEB98600BF0D07 /* MasterPresetsEditor.xib */,
-				3E6C0F7E25CEB98600BF0D07 /* MasterPresetsEditorViewController.swift */,
+				3E6C0F7F25CEB98600BF0D07 /* MasterPresetsManager.xib */,
+				3E6C0F7E25CEB98600BF0D07 /* MasterPresetsManagerViewController.swift */,
 				3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */,
 			);
 			path = Master;
@@ -2039,9 +2039,9 @@
 		3E6C0F8025CEB98600BF0D07 /* Filter */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F8125CEB98600BF0D07 /* FilterPresetsEditor.xib */,
+				3E6C0F8125CEB98600BF0D07 /* FilterPresetsManager.xib */,
 				3E6C0F8225CEB98600BF0D07 /* FilterBandsViewDelegate.swift */,
-				3E6C0F8325CEB98600BF0D07 /* FilterPresetsEditorViewController.swift */,
+				3E6C0F8325CEB98600BF0D07 /* FilterPresetsManagerViewController.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -2049,8 +2049,8 @@
 		3E6C0F8425CEB98600BF0D07 /* Delay */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F8525CEB98600BF0D07 /* DelayPresetsEditor.xib */,
-				3E6C0F8625CEB98600BF0D07 /* DelayPresetsEditorViewController.swift */,
+				3E6C0F8525CEB98600BF0D07 /* DelayPresetsManager.xib */,
+				3E6C0F8625CEB98600BF0D07 /* DelayPresetsManagerViewController.swift */,
 			);
 			path = Delay;
 			sourceTree = "<group>";
@@ -2058,8 +2058,8 @@
 		3E6C0F8925CEB98600BF0D07 /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F8B25CEB98600BF0D07 /* BookmarksEditor.xib */,
-				3E6C0F8A25CEB98600BF0D07 /* BookmarksEditorViewController.swift */,
+				3E6C0F8B25CEB98600BF0D07 /* BookmarksManager.xib */,
+				3E6C0F8A25CEB98600BF0D07 /* BookmarksManagerViewController.swift */,
 			);
 			path = Bookmarks;
 			sourceTree = "<group>";
@@ -2067,8 +2067,8 @@
 		3E6C0F8C25CEB98600BF0D07 /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F8D25CEB98600BF0D07 /* LayoutsEditor.xib */,
-				3E6C0F8F25CEB98600BF0D07 /* LayoutsEditorViewController.swift */,
+				3E6C0F8D25CEB98600BF0D07 /* LayoutsManager.xib */,
+				3E6C0F8F25CEB98600BF0D07 /* LayoutsManagerViewController.swift */,
 				3E6C0F8E25CEB98600BF0D07 /* LayoutPreviewView.swift */,
 			);
 			path = Layouts;
@@ -2077,8 +2077,8 @@
 		3E6C0F9025CEB98600BF0D07 /* ColorSchemes */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F9125CEB98600BF0D07 /* ColorSchemesEditor.xib */,
-				3E6C0F9225CEB98600BF0D07 /* ColorSchemesEditorViewController.swift */,
+				3E6C0F9125CEB98600BF0D07 /* ColorSchemesManager.xib */,
+				3E6C0F9225CEB98600BF0D07 /* ColorSchemesManagerViewController.swift */,
 				3E6C0F9325CEB98600BF0D07 /* ColorSchemePreviewView.swift */,
 			);
 			path = ColorSchemes;
@@ -2960,8 +2960,8 @@
 		3EA3CE6525E3FD5300BC7D07 /* FontSchemes */ = {
 			isa = PBXGroup;
 			children = (
-				3EA3CE6625E3FD9E00BC7D07 /* FontSchemesEditor.xib */,
-				3EA3CE6925E3FDE000BC7D07 /* FontSchemesEditorViewController.swift */,
+				3EA3CE6625E3FD9E00BC7D07 /* FontSchemesManager.xib */,
+				3EA3CE6925E3FDE000BC7D07 /* FontSchemesManagerViewController.swift */,
 				3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */,
 			);
 			path = FontSchemes;
@@ -3354,10 +3354,10 @@
 				3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */,
 				3E6C125025CEBDF400BF0D07 /* TracksPlaylistSort.xib in Resources */,
 				3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */,
-				3E6C125A25CEBE0600BF0D07 /* EQPresetsEditor.xib in Resources */,
+				3E6C125A25CEBE0600BF0D07 /* EQPresetsManager.xib in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQ.xib in Resources */,
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
-				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesEditor.xib in Resources */,
+				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */,
 				3E6C12CB25CEBE6700BF0D07 /* Time.xib in Resources */,
 				3E6C122225CEBDE600BF0D07 /* SoundPreferences.xib in Resources */,
 				3E6C12F725CEBE8F00BF0D07 /* InfoPopup.xib in Resources */,
@@ -3368,44 +3368,44 @@
 				3E6C128D25CEBE1800BF0D07 /* GeneralColorScheme.xib in Resources */,
 				3E6C12E325CEBE8100BF0D07 /* Recorder.xib in Resources */,
 				3E6C121525CEBDE500BF0D07 /* ViewPreferences.xib in Resources */,
-				3E6C126125CEBE0600BF0D07 /* LayoutsEditor.xib in Resources */,
+				3E6C126125CEBE0600BF0D07 /* LayoutsManager.xib in Resources */,
 				3E6C123525CEBDF400BF0D07 /* ChaptersList.xib in Resources */,
 				3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */,
-				3E6C125E25CEBE0600BF0D07 /* ReverbPresetsEditor.xib in Resources */,
+				3E6C125E25CEBE0600BF0D07 /* ReverbPresetsManager.xib in Resources */,
 				3E6C12A425CEBE2700BF0D07 /* AboutDialog.xib in Resources */,
-				3E6C126025CEBE0600BF0D07 /* EditorWindow.xib in Resources */,
+				3E6C126025CEBE0600BF0D07 /* PresetsManagerWindow.xib in Resources */,
 				3E6C12D925CEBE8100BF0D07 /* Filter.xib in Resources */,
 				3E6C127A25CEBE1800BF0D07 /* ColorSchemes.xib in Resources */,
 				3E6C121625CEBDE500BF0D07 /* Tracks.xib in Resources */,
 				3ECBF3082619D58E00AD5C30 /* AudioUnits.xib in Resources */,
-				3E6C126625CEBE0600BF0D07 /* DelayPresetsEditor.xib in Resources */,
+				3E6C126625CEBE0600BF0D07 /* DelayPresetsManager.xib in Resources */,
 				3E5F943425E571A6002DEF80 /* Visualizer.xib in Resources */,
 				3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */,
-				3E6C126D25CEBE0600BF0D07 /* FavoritesEditor.xib in Resources */,
+				3E6C126D25CEBE0600BF0D07 /* FavoritesManager.xib in Resources */,
 				3E824A4325DB74850089F217 /* MenuBarPlayer.xib in Resources */,
 				3E6C12FC25CEBE8F00BF0D07 /* Player.xib in Resources */,
 				3E6C12C225CEBE6700BF0D07 /* Master.xib in Resources */,
 				3E6C12FB25CEBE8F00BF0D07 /* JumpToTimeEditorDialog.xib in Resources */,
-				3E6C127125CEBE0600BF0D07 /* FilterPresetsEditor.xib in Resources */,
-				3E6C125625CEBE0600BF0D07 /* EffectsPresetsEditor.xib in Resources */,
-				3E6C126F25CEBE0600BF0D07 /* TimePresetsEditor.xib in Resources */,
+				3E6C127125CEBE0600BF0D07 /* FilterPresetsManager.xib in Resources */,
+				3E6C125625CEBE0600BF0D07 /* EffectsPresetsManager.xib in Resources */,
+				3E6C126F25CEBE0600BF0D07 /* TimePresetsManager.xib in Resources */,
 				3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */,
 				3E6C123425CEBDF400BF0D07 /* GenresPlaylistSort.xib in Resources */,
 				3E6C123B25CEBDF400BF0D07 /* Genres.xib in Resources */,
 				3E6C128225CEBE1800BF0D07 /* EffectsColorScheme.xib in Resources */,
 				3E6C12ED25CEBE8100BF0D07 /* Delay.xib in Resources */,
-				3E51F346262AFDCA0048452F /* ThemesEditor.xib in Resources */,
+				3E51F346262AFDCA0048452F /* ThemesManager.xib in Resources */,
 				3E6C124225CEBDF400BF0D07 /* ArtistsPlaylistSort.xib in Resources */,
 				3E6C127825CEBE1800BF0D07 /* PlayerColorScheme.xib in Resources */,
-				3E6C125425CEBE0600BF0D07 /* ColorSchemesEditor.xib in Resources */,
+				3E6C125425CEBE0600BF0D07 /* ColorSchemesManager.xib in Resources */,
 				3E6C122E25CEBDE600BF0D07 /* PlaybackPreferences.xib in Resources */,
 				3E6C121A25CEBDE600BF0D07 /* PlaylistPreferences.xib in Resources */,
 				3E6C12E525CEBE8100BF0D07 /* Effects.xib in Resources */,
-				3E6C126E25CEBE0600BF0D07 /* MasterPresetsEditor.xib in Resources */,
+				3E6C126E25CEBE0600BF0D07 /* MasterPresetsManager.xib in Resources */,
 				3E6C129025CEBE1800BF0D07 /* PlaylistColorScheme.xib in Resources */,
-				3E6C126825CEBE0600BF0D07 /* PitchPresetsEditor.xib in Resources */,
+				3E6C126825CEBE0600BF0D07 /* PitchPresetsManager.xib in Resources */,
 				3E6C124625CEBDF400BF0D07 /* Playlist.xib in Resources */,
-				3E6C125925CEBE0600BF0D07 /* BookmarksEditor.xib in Resources */,
+				3E6C125925CEBE0600BF0D07 /* BookmarksManager.xib in Resources */,
 				3E6C121F25CEBDE600BF0D07 /* ControlsPreferences.xib in Resources */,
 				3EE7CB9525E21F9F0075F1DD /* PlaylistFontScheme.xib in Resources */,
 				3E6C122C25CEBDE600BF0D07 /* HistoryPreferences.xib in Resources */,
@@ -3452,7 +3452,7 @@
 				3EAFB5D5267FE7CC00F0DC96 /* FileMetadata.swift in Sources */,
 				3E09D0E126805C19008ECB8C /* DelayUnitPersistentState.swift in Sources */,
 				3E5F942E25E57190002DEF80 /* FFT.swift in Sources */,
-				3E6C126C25CEBE0600BF0D07 /* CustomEditorViews.swift in Sources */,
+				3E6C126C25CEBE0600BF0D07 /* CustomPresetsManagerViews.swift in Sources */,
 				3E6C121825CEBDE500BF0D07 /* PreferencesWindowController.swift in Sources */,
 				3E6C12DB25CEBE8100BF0D07 /* RecorderViewController.swift in Sources */,
 				3E61D144260EF53500C86BB2 /* CoverArtReader.swift in Sources */,
@@ -3499,7 +3499,7 @@
 				3E5F3DF326814C9700E826F0 /* NSAlertExtensions.swift in Sources */,
 				3E6C118725CEBD6D00BF0D07 /* VariableRateNode.swift in Sources */,
 				3E6C127025CEBE0600BF0D07 /* FilterBandsViewDelegate.swift in Sources */,
-				3E51F34A262AFF310048452F /* ThemesEditorViewController.swift in Sources */,
+				3E51F34A262AFF310048452F /* ThemesManagerViewController.swift in Sources */,
 				3E6C129425CEBE1800BF0D07 /* PrettyScroller.swift in Sources */,
 				3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */,
 				3E09D0C726805C19008ECB8C /* PlaybackProfilePersistentState.swift in Sources */,
@@ -3513,7 +3513,7 @@
 				3E6C11A625CEBD9E00BF0D07 /* HistoryProtocol.swift in Sources */,
 				3E6C11B725CEBDA900BF0D07 /* MediaApplicationWatcher.swift in Sources */,
 				3E6C12A525CEBE2700BF0D07 /* EffectsUnitSlider.swift in Sources */,
-				3E6C126525CEBE0600BF0D07 /* FXPresetsEditorGenericViewController.swift in Sources */,
+				3E6C126525CEBE0600BF0D07 /* FXPresetsManagerGenericViewController.swift in Sources */,
 				3E6C12D325CEBE6700BF0D07 /* EQSubview.swift in Sources */,
 				3E6C119925CEBD6D00BF0D07 /* MasterUnitDelegate.swift in Sources */,
 				3EE2CC3326811074002C1B29 /* NSTableViewExtensions.swift in Sources */,
@@ -3533,7 +3533,7 @@
 				3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */,
 				3E6C119B25CEBD6D00BF0D07 /* DeviceManager.swift in Sources */,
 				3E6C11CE25CEBDBE00BF0D07 /* SavePlaybackProfileAction.swift in Sources */,
-				3E6C126325CEBE0600BF0D07 /* FavoritesEditorViewController.swift in Sources */,
+				3E6C126325CEBE0600BF0D07 /* FavoritesManagerViewController.swift in Sources */,
 				3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */,
 				3E6C11B925CEBDAD00BF0D07 /* MediaKeyHandler.swift in Sources */,
 				3E6C130E25CEBE8F00BF0D07 /* PopoverContentView.swift in Sources */,
@@ -3572,7 +3572,7 @@
 				3E2000C7267CEEF7008BAB70 /* GesturesPreferencesViewController.swift in Sources */,
 				3E6C12DF25CEBE8100BF0D07 /* PlayingTrackTextView.swift in Sources */,
 				3E6C123E25CEBDF400BF0D07 /* ChaptersListTableHeaderCell.swift in Sources */,
-				3E6C126A25CEBE0600BF0D07 /* ColorSchemesEditorViewController.swift in Sources */,
+				3E6C126A25CEBE0600BF0D07 /* ColorSchemesManagerViewController.swift in Sources */,
 				3E6C11D825CEBDBE00BF0D07 /* PlaybackSegment.swift in Sources */,
 				3E6C124B25CEBDF400BF0D07 /* GenresPlaylistSortViewController.swift in Sources */,
 				3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */,
@@ -3583,12 +3583,12 @@
 				3E6C128625CEBE1800BF0D07 /* TrackPeekingButton.swift in Sources */,
 				3E6C124825CEBDF400BF0D07 /* GenresPlaylistViewController.swift in Sources */,
 				3E09D0D926805C19008ECB8C /* EffectsFontSchemePersistentState.swift in Sources */,
-				3E6C126925CEBE0600BF0D07 /* MasterPresetsEditorViewController.swift in Sources */,
+				3E6C126925CEBE0600BF0D07 /* MasterPresetsManagerViewController.swift in Sources */,
 				3EAFB5D9267FE80000F0DC96 /* AuxiliaryMetadata.swift in Sources */,
 				3EDB33E925E8AE09004DF7DE /* FFmpegFileContext.swift in Sources */,
 				3E09D0E426805C19008ECB8C /* SoundProfilePersistentState.swift in Sources */,
 				3E6C12D725CEBE8100BF0D07 /* PlayerViewState.swift in Sources */,
-				3E6C127225CEBE0600BF0D07 /* EQPresetsEditorViewController.swift in Sources */,
+				3E6C127225CEBE0600BF0D07 /* EQPresetsManagerViewController.swift in Sources */,
 				3E6C11EB25CEBDC400BF0D07 /* PlaybackSession.swift in Sources */,
 				3E6C12AE25CEBE2700BF0D07 /* DialogsAndAlerts.swift in Sources */,
 				3E6C12E225CEBE8100BF0D07 /* PlayingTrackSubview.swift in Sources */,
@@ -3596,7 +3596,7 @@
 				3E7572F42609E83B00CA3F85 /* MusicBrainzArtistCredit.swift in Sources */,
 				3EFB1C6025EFCFAC00EF7F0F /* AtomicCounter.swift in Sources */,
 				3E6C122625CEBDE600BF0D07 /* GestureHandler.swift in Sources */,
-				3E6C125825CEBE0600BF0D07 /* LayoutsEditorViewController.swift in Sources */,
+				3E6C125825CEBE0600BF0D07 /* LayoutsManagerViewController.swift in Sources */,
 				3E5F943225E571A6002DEF80 /* VisualizerWindowController.swift in Sources */,
 				3E9E590E25DB6B150064EB5F /* MenuBarAppModeController.swift in Sources */,
 				3E2976132629473500459272 /* WindowCornerRadiusMenuItemView.swift in Sources */,
@@ -3639,7 +3639,7 @@
 				3E6C11E925CEBDC400BF0D07 /* PlaybackLoop.swift in Sources */,
 				3E6C119625CEBD6D00BF0D07 /* FavoritesDelegateProtocol.swift in Sources */,
 				3E09D0C926805C19008ECB8C /* WindowUIPersistentState.swift in Sources */,
-				3E6C126B25CEBE0600BF0D07 /* BookmarksEditorViewController.swift in Sources */,
+				3E6C126B25CEBE0600BF0D07 /* BookmarksManagerViewController.swift in Sources */,
 				3E9CA7F4261A2209006133B6 /* AudioUnitEditorDialogController.swift in Sources */,
 				3E6C124025CEBDF400BF0D07 /* FlatPlaylistTableViews.swift in Sources */,
 				3E09D0CA26805C19008ECB8C /* VisualizerUIPersistentState.swift in Sources */,
@@ -3671,7 +3671,7 @@
 				3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */,
 				3EDB345D25E8B75D004DF7DE /* ID3AVFParser.swift in Sources */,
 				3E5F943525E571A6002DEF80 /* Supernova.swift in Sources */,
-				3E6C126225CEBE0600BF0D07 /* EditorWindowController.swift in Sources */,
+				3E6C126225CEBE0600BF0D07 /* PresetsManagerWindowController.swift in Sources */,
 				3E6C11F025CEBDD100BF0D07 /* SoundPreferences.swift in Sources */,
 				3E6C118F25CEBD6D00BF0D07 /* PitchUnit.swift in Sources */,
 				3E6C11ED25CEBDD100BF0D07 /* FlatPlaylistProtocols.swift in Sources */,
@@ -3720,7 +3720,7 @@
 				3E6C131F25CEBEA000BF0D07 /* StringExtensions.swift in Sources */,
 				3E6C11D725CEBDBE00BF0D07 /* AuralPlayerNode.swift in Sources */,
 				3E6C121025CEBDD100BF0D07 /* CRUDOperationResults.swift in Sources */,
-				3E6C125C25CEBE0600BF0D07 /* FilterPresetsEditorViewController.swift in Sources */,
+				3E6C125C25CEBE0600BF0D07 /* FilterPresetsManagerViewController.swift in Sources */,
 				3E6C121E25CEBDE600BF0D07 /* ViewPreferencesViewController.swift in Sources */,
 				3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */,
 				3E6C127D25CEBE1800BF0D07 /* AutoHidingView.swift in Sources */,
@@ -3807,12 +3807,12 @@
 				3E6C129C25CEBE2700BF0D07 /* AlertWindowController.swift in Sources */,
 				3E6C12A825CEBE2700BF0D07 /* TriStateLabel.swift in Sources */,
 				3E43FB7125F9321100D4A597 /* FFmpegLoopDecoding.swift in Sources */,
-				3E6C125D25CEBE0600BF0D07 /* DelayPresetsEditorViewController.swift in Sources */,
+				3E6C125D25CEBE0600BF0D07 /* DelayPresetsManagerViewController.swift in Sources */,
 				3E6C11DF25CEBDBE00BF0D07 /* AVFScheduler.swift in Sources */,
 				3EDB345825E8B75D004DF7DE /* GenreMap.swift in Sources */,
 				3EAFB5F2267FEE0400F0DC96 /* NSControlExtensions.swift in Sources */,
 				3E45C03625E1269500C1519C /* PlayerFontSchemeViewController.swift in Sources */,
-				3E6C126425CEBE0600BF0D07 /* PitchPresetsEditorViewController.swift in Sources */,
+				3E6C126425CEBE0600BF0D07 /* PitchPresetsManagerViewController.swift in Sources */,
 				3E6C12CE25CEBE6700BF0D07 /* ReverbView.swift in Sources */,
 				3E6C122525CEBDE600BF0D07 /* PlaybackPreferencesViewController.swift in Sources */,
 				3E6C12C525CEBE6700BF0D07 /* ReverbViewController.swift in Sources */,
@@ -3828,7 +3828,7 @@
 				3E5F3DEF2681260700E826F0 /* AtomicBool.swift in Sources */,
 				3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */,
 				3E6C131925CEBEA000BF0D07 /* Size.swift in Sources */,
-				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsEditorViewController.swift in Sources */,
+				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsManagerViewController.swift in Sources */,
 				3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */,
 				3E09D0E326805C19008ECB8C /* TimeUnitPersistentState.swift in Sources */,
 				3EDB345725E8B75D004DF7DE /* ITunesSpec.swift in Sources */,
@@ -3898,7 +3898,7 @@
 				3E6C131825CEBEA000BF0D07 /* SizeUnit.swift in Sources */,
 				3E6C122325CEBDE600BF0D07 /* SettingsPopupMenuController.swift in Sources */,
 				3EE2CC3526811814002C1B29 /* JSONSerializationExtensions.swift in Sources */,
-				3E6C125F25CEBE0600BF0D07 /* EffectsPresetsEditorViewController.swift in Sources */,
+				3E6C125F25CEBE0600BF0D07 /* EffectsPresetsManagerViewController.swift in Sources */,
 				3E09D0DB26805C19008ECB8C /* BookmarkPersistentState.swift in Sources */,
 				3E6C132A25CEBEA000BF0D07 /* IndexSetExtensions.swift in Sources */,
 				3E6C128525CEBE1800BF0D07 /* AuralColorPicker.swift in Sources */,
@@ -3939,7 +3939,7 @@
 				3E6C120525CEBDD100BF0D07 /* PlaylistDelegateProtocol.swift in Sources */,
 				3E62B81A2605D6E00042CAAA /* PredictiveTrackPreparationAction.swift in Sources */,
 				3E09D0D426805C19008ECB8C /* ThemesPersistentState.swift in Sources */,
-				3E6C125725CEBE0600BF0D07 /* TimePresetsEditorViewController.swift in Sources */,
+				3E6C125725CEBE0600BF0D07 /* TimePresetsManagerViewController.swift in Sources */,
 				3E6C12AB25CEBE2700BF0D07 /* ValidatedLabelCell.swift in Sources */,
 				3EDB33F225E8AE09004DF7DE /* FFmpegChapter.swift in Sources */,
 				3E5F944325E5738E002DEF80 /* AUExtensions.swift in Sources */,
@@ -3973,7 +3973,7 @@
 				3E824A4425DB74850089F217 /* MenuBarPlayerViewController.swift in Sources */,
 				3E6C11CF25CEBDBE00BF0D07 /* ApplyPlaybackProfileAction.swift in Sources */,
 				3E6C117A25CEBD6000BF0D07 /* PersistentStateProtocols.swift in Sources */,
-				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesEditorViewController.swift in Sources */,
+				3EA3CE6A25E3FDE000BC7D07 /* FontSchemesManagerViewController.swift in Sources */,
 				3EAFB5E9267FEBB200F0DC96 /* FloatingPointExtensions.swift in Sources */,
 				3E6C12F125CEBE8100BF0D07 /* FilterView.swift in Sources */,
 				3E09D0E726805C19008ECB8C /* HistoryPersistentState.swift in Sources */,

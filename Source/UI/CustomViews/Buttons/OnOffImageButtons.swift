@@ -312,7 +312,7 @@ class EffectsUnitTabButton: OnOffImageButton {
     }
 }
 
-// Special button used in the effects presets editor.
+// Special button used in the effects presets manager.
 class EffectsUnitTriStateBypassPreviewButton: EffectsUnitTriStateBypassButton {
     
     override func awakeFromNib() {

@@ -1,7 +1,7 @@
 import Cocoa
 
 /*
-    A utility that maintains a chronological record of all changes made to a color scheme (used by the color scheme editor panel), using LIFO stacks.
+    A utility that maintains a chronological record of all changes made to a color scheme (used by the font scheme editor panel), using LIFO stacks.
     Provides undo/redo capabilities.
  */
 class FontSchemeHistory {

@@ -218,9 +218,9 @@ struct Fonts {
     
     static let helpInfoTextFont: NSFont = Standard.mainFont_12
     
-    static let editorTableHeaderTextFont: NSFont = Standard.mainFont_13
-    static let editorTableTextFont: NSFont = Standard.mainFont_12
-    static let editorTableSelectedTextFont: NSFont = Standard.mainFont_12
+    static let presetsManagerTableHeaderTextFont: NSFont = Standard.mainFont_13
+    static let presetsManagerTableTextFont: NSFont = Standard.mainFont_12
+    static let presetsManagerTableSelectedTextFont: NSFont = Standard.mainFont_12
     
     // Font used by the playlist tab view buttons
     static let tabViewButtonFont: NSFont = Standard.mainFont_12

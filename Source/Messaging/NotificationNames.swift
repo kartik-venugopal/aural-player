@@ -145,10 +145,10 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Notifications published by the presets editor.
+    // MARK: Notifications published by the presets manager.
     
-    // Signifies that the number of rows selected in a NSTableView within the presets editor has changed.
-    static let presetsEditor_selectionChanged = Notification.Name("presetsEditor_selectionChanged")
+    // Signifies that the number of rows selected in a NSTableView within the presets manager has changed.
+    static let presetsManager_selectionChanged = Notification.Name("presetsManager_selectionChanged")
     
     // ----------------------------------------------------------------------------------------
     
@@ -489,19 +489,19 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: FX presets editor commands
+    // MARK: FX presets manager commands
 
-    // Commands the FX presets editor to reload all available FX presets for its currently selected tab
-    static let fxPresetsEditor_reload = Notification.Name("fxPresetsEditor_reload")
+    // Commands the FX presets manager to reload all available FX presets for its currently selected tab
+    static let fxPresetsManager_reload = Notification.Name("fxPresetsManager_reload")
 
-    // Commands the FX presets editor to rename the single selected FX preset in its currently selected tab
-    static let fxPresetsEditor_rename = Notification.Name("fxPresetsEditor_rename")
+    // Commands the FX presets manager to rename the single selected FX preset in its currently selected tab
+    static let fxPresetsManager_rename = Notification.Name("fxPresetsManager_rename")
 
-    // Commands the FX presets editor to delete all selected FX presets in its currently selected tab
-    static let fxPresetsEditor_delete = Notification.Name("fxPresetsEditor_delete")
+    // Commands the FX presets manager to delete all selected FX presets in its currently selected tab
+    static let fxPresetsManager_delete = Notification.Name("fxPresetsManager_delete")
 
-    // Commands the FX presets editor to apply the single selected FX preset in its currently selected tab
-    static let fxPresetsEditor_apply = Notification.Name("fxPresetsEditor_apply")
+    // Commands the FX presets manager to apply the single selected FX preset in its currently selected tab
+    static let fxPresetsManager_apply = Notification.Name("fxPresetsManager_apply")
     
     // ----------------------------------------------------------------------------------------
     

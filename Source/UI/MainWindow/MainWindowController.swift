@@ -126,7 +126,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         InfoPopupViewController.destroy()
         AlertWindowController.destroy()
-        EditorWindowController.destroy()
+        PresetsManagerWindowController.destroy()
         
         NSApp.mainMenu = nil
     }
