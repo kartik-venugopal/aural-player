@@ -8,9 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FavoritesEditorViewController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnApply" destination="htq-Lq-qTq" id="8Xk-22-epf"/>
                 <outlet property="btnDelete" destination="54W-bE-CZ4" id="DTl-UE-ZlT"/>
-                <outlet property="btnPlay" destination="htq-Lq-qTq" id="HyS-yG-4UF"/>
-                <outlet property="editorView" destination="fkE-tG-QQj" id="538-Y1-Fc5"/>
+                <outlet property="presetsTableView" destination="fkE-tG-QQj" id="GI2-aA-D8C"/>
                 <outlet property="view" destination="Ovo-SL-XF4" id="EeS-wy-vgv"/>
             </connections>
         </customObject>
@@ -110,7 +110,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <action trigger="doubleAction" selector="playSelectedFavoriteAction:" target="-2" id="9fH-Kl-GR7"/>
+                                    <action trigger="doubleAction" selector="applySelectedPresetAction:" target="-2" id="K3c-f3-hKf"/>
                                     <outlet property="dataSource" destination="-2" id="WlV-gJ-Mwx"/>
                                     <outlet property="delegate" destination="-2" id="znf-NP-TgR"/>
                                 </connections>
@@ -143,7 +143,7 @@ DQ
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="playSelectedFavoriteAction:" target="-2" id="Vle-fc-SEW"/>
+                        <action selector="applySelectedPresetAction:" target="-2" id="VAz-cK-gd2"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54W-bE-CZ4">
@@ -157,7 +157,7 @@ CA
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="deleteSelectedFavoritesAction:" target="-2" id="Wzp-yO-ull"/>
+                        <action selector="deleteSelectedPresetsAction:" target="-2" id="lh7-hk-31U"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TZl-N3-SfQ">

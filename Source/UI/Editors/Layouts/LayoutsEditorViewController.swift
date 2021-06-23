@@ -165,7 +165,7 @@ class LayoutsEditorViewController: NSViewController, NSTableViewDataSource,  NST
             
             let newLayoutName = editedTextField.stringValue
             
-            editedTextField.textColor = Colors.playlistSelectedTextColor
+            editedTextField.textColor = Colors.defaultSelectedLightTextColor
             
             // TODO: What if the string is too long ?
             

@@ -158,7 +158,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         }
         
         cell.textField?.stringValue = text
-        cell.textField?.textColor = Colors.playlistTextColor
+        cell.textField?.textColor = Colors.defaultLightTextColor
         cell.row = row
         
         // Set tool tip on name/track only if text wider than column width
@@ -212,7 +212,7 @@ class BookmarksEditorViewController: NSViewController, NSTableViewDataSource,  N
         let bookmark = bookmarks.getBookmarkAtIndex(rowIndex)
         let newBookmarkName = editedTextField.stringValue
         
-        editedTextField.textColor = Colors.playlistSelectedTextColor
+        editedTextField.textColor = Colors.defaultSelectedLightTextColor
         
         // TODO: What if the string is too long ?
         

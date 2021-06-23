@@ -149,7 +149,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         if let preset = presetsWrapper.preset(named: oldPresetName) {
             
-            editedTextField.textColor = Colors.playlistSelectedTextColor
+            editedTextField.textColor = Colors.defaultSelectedLightTextColor
             
             // TODO: What if the string is too long ?
             

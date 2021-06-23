@@ -63,6 +63,6 @@ class FormattedIntervalLabel: NSTextField {
         self.font = Fonts.Standard.mainFont_11
         self.isBordered = false
         self.drawsBackground = false
-        self.textColor = Colors.playlistTextColor
+        self.textColor = Colors.defaultLightTextColor
     }
 }

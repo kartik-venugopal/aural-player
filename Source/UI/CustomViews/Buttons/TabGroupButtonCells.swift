@@ -19,7 +19,7 @@ class TabGroupButtonCell: NSButtonCell {
     var selectionBoxColor: NSColor {return Colors.tabViewSelectionBoxColor}
     
     var unselectedTextColor: NSColor {return Colors.tabViewButtonTextColor}
-    var selectedTextColor: NSColor {return Colors.playlistSelectedTextColor}
+    var selectedTextColor: NSColor {return Colors.defaultSelectedLightTextColor}
     var textFont: NSFont {return Fonts.tabViewButtonFont}
     var boldTextFont: NSFont {return Fonts.tabViewButtonBoldFont}
     

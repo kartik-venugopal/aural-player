@@ -41,7 +41,7 @@ class EditorTableCellView: NSTableCellView {
             
             if let textField = self.textField {
                 
-                textField.textColor = isSelRow ? Colors.playlistSelectedTextColor : Colors.playlistTextColor
+                textField.textColor = isSelRow ? Colors.defaultSelectedLightTextColor : Colors.defaultLightTextColor
                 textField.font = isSelRow ? Fonts.editorTableSelectedTextFont : Fonts.editorTableTextFont
             }
         }

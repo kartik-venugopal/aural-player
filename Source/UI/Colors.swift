@@ -445,13 +445,15 @@ struct Colors {
         return Effects.functionValueTextColor
     }
     
+    // TODO: Rename these constants to reflect that they are constants (not dictated by the system color scheme).
+    
     static let editorHeaderTextColor: NSColor = Constants.white85Percent
     
     // Color of text inside the playlist (non-selected items)
-    static let playlistTextColor: NSColor = Constants.white60Percent
+    static let defaultLightTextColor: NSColor = Constants.white60Percent
     
     // Color of selected item text inside the playlist
-    static let playlistSelectedTextColor: NSColor = NSColor.white
+    static let defaultSelectedLightTextColor: NSColor = NSColor.white
     
     // Fill color of box drawn around selected playlist item
     static let playlistSelectionBoxColor: NSColor = Constants.white15Percent

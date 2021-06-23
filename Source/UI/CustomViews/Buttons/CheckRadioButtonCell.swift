@@ -21,7 +21,7 @@ class DialogCheckRadioButton: NSButton {
     func titleUpdated() {
         
         self.attributedTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.boxTextColor)
-        self.attributedAlternateTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.playlistSelectedTextColor)
+        self.attributedAlternateTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.defaultSelectedLightTextColor)
     }
 }
 
@@ -29,7 +29,7 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.checkRadioButtonFont}
     
-    var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.playlistSelectedTextColor}
+    var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.defaultSelectedLightTextColor}
     
     var xOffset: CGFloat {0}
     var yOffset: CGFloat {0}
