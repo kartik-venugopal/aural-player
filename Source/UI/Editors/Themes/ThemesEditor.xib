@@ -11,7 +11,7 @@
                 <outlet property="btnApply" destination="1L7-Tt-Bae" id="sRc-YF-o5W"/>
                 <outlet property="btnDelete" destination="s6g-WG-k8K" id="1g3-Yi-aRz"/>
                 <outlet property="btnRename" destination="nkj-oQ-jEX" id="9vs-5K-5Rz"/>
-                <outlet property="editorView" destination="yR5-Ox-HXf" id="JnJ-2B-bEE"/>
+                <outlet property="presetsTableView" destination="yR5-Ox-HXf" id="PcS-Ib-b5G"/>
                 <outlet property="previewView" destination="lLn-r2-XOI" id="7mu-c7-W5r"/>
                 <outlet property="view" destination="dS8-eU-hl7" id="qa9-9s-IIn"/>
             </connections>
@@ -58,11 +58,11 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="NkZ-uZ-DLl" customClass="EditorTableCellView" customModule="Aural" customModuleProvider="target">
-                                                <rect key="frame" x="1" y="1" width="259" height="35"/>
+                                                <rect key="frame" x="1" y="1" width="250" height="35"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w2c-ad-t2e" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="10" width="254" height="25"/>
+                                                        <rect key="frame" x="5" y="10" width="245" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="QaC-Mf-Zwm">
                                                             <font key="font" metaFont="system"/>
@@ -79,7 +79,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <action trigger="doubleAction" selector="applySelectedThemeAction:" target="-2" id="ShR-ec-8Yd"/>
+                                    <action trigger="doubleAction" selector="applySelectedPresetAction:" target="-2" id="yNR-hE-2n3"/>
                                     <outlet property="dataSource" destination="-2" id="x4c-8P-n8C"/>
                                     <outlet property="delegate" destination="-2" id="L3K-jC-1Te"/>
                                 </connections>
@@ -376,7 +376,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="renameThemeAction:" target="-2" id="7fz-mL-eKn"/>
+                        <action selector="renamePresetAction:" target="-2" id="Ed9-Fg-nEO"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecV-LO-gVa">
@@ -396,7 +396,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="applySelectedThemeAction:" target="-2" id="1XO-H6-w6l"/>
+                        <action selector="applySelectedPresetAction:" target="-2" id="SxZ-qK-wYD"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gwY-A6-dIl">
@@ -424,7 +424,7 @@ CA
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="deleteSelectedThemesAction:" target="-2" id="Pkb-9p-fOk"/>
+                        <action selector="deleteSelectedPresetsAction:" target="-2" id="dII-lm-emf"/>
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ot3-sm-Rfr">
