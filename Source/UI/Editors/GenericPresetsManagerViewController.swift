@@ -163,6 +163,9 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
         let oldPresetName = nameOfPreset(atIndex: rowIndex)
         let newPresetName = editedTextField.stringValue
         
+        // No change in preset name. Nothing to be done.
+        if newPresetName == oldPresetName {return}
+        
         editedTextField.textColor = Colors.defaultSelectedLightTextColor
         
         // TODO: What if the string is too long ?

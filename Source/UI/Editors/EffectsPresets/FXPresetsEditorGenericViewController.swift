@@ -145,6 +145,9 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         let oldPresetName = preset.name
         let newPresetName = editedTextField.stringValue
         
+        // No change in preset name. Nothing to be done.
+        if newPresetName == oldPresetName {return}
+        
         editedTextField.textColor = Colors.defaultSelectedLightTextColor
         
         // TODO: What if the string is too long ?
@@ -163,9 +166,13 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
             _ = DialogsAndAlerts.genericErrorAlert("Can't rename preset", "Another preset with that name already exists.", "Please type a unique name.").showModal()
             
         } else {
-            
-            // Update the preset name
-            presetsWrapper.renamePreset(named: oldPresetName, to: newPresetName)
+            renamePreset(named: oldPresetName, to: newPresetName)
         }
+    }
+    
+    func renamePreset(named name: String, to newName: String) {
+        
+        // Update the preset name
+        presetsWrapper.renamePreset(named: name, to: newName)
     }
 }

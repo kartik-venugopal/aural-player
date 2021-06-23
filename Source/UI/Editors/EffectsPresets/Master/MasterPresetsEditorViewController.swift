@@ -154,42 +154,24 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         let numRows: Int = editorView.numberOfSelectedRows
         previewBox.showIf(numRows == 1)
         
-        if numRows == 1, let preset = firstSelectedPreset {
+        if numRows == 1, let masterPreset = firstSelectedPreset as? MasterPreset {
             
-            let presetName = preset.name
-            if let masterPreset = preset as? MasterPreset {
-
-                bandsDataSource.preset = masterPreset.filter
-                renderPreview(masterPreset)
-            }
-            
-            oldPresetName = presetName
+            bandsDataSource.preset = masterPreset.filter
+            renderPreview(masterPreset)
         }
         
         Messenger.publish(.presetsEditor_selectionChanged, payload: numRows)
     }
     
-    // MARK: Text field delegate functions
-    
-    override func controlTextDidEndEditing(_ obj: Notification) {
+    override func renamePreset(named name: String, to newName: String) {
         
-        super.controlTextDidEndEditing(obj)
+        super.renamePreset(named: name, to: newName)
         
-        let newPresetName = (obj.object as! NSTextField).stringValue
-        
-        if masterPresets.presetExists(named: oldPresetName) {
-
-            if String.isEmpty(newPresetName) {
-            } else if masterPresets.presetExists(named: newPresetName) {
-            } else {
-
-                // Also update the sound preference, if the chosen preset was this edited one
-                if preferences.soundPreferences.masterPresetOnStartup_name == oldPresetName {
-
-                    preferences.soundPreferences.masterPresetOnStartup_name = newPresetName
-                    preferences.persist()
-                }
-            }
+        // Also update the sound preference, if the chosen preset was this edited one
+        if preferences.soundPreferences.masterPresetOnStartup_name == name {
+            
+            preferences.soundPreferences.masterPresetOnStartup_name = newName
+            preferences.persist()
         }
     }
 }
