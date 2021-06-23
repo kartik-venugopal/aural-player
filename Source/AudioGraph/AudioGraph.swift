@@ -52,9 +52,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     var filterUnit: FilterUnit
     var audioUnits: [HostedAudioUnit]
     
-    // Sound setting value holders
-    private var playerVolume: Float
-    
     var soundProfiles: SoundProfiles
     
     // Sets up the audio engine
@@ -99,9 +96,9 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         audioEngineHelper = AudioEngineHelper(engine: audioEngine, permanentNodes: permanentNodes, removableNodes: removableNodes)
         
-        playerVolume = persistentState?.volume ?? AudioGraphDefaults.volume
+        playerNode.volume = persistentState?.volume ?? AudioGraphDefaults.volume
         muted = persistentState?.muted ?? AudioGraphDefaults.muted
-        playerNode.volume = muted ? 0 : playerVolume
+        auxMixer.volume = muted ? 0 : 1
         playerNode.pan = persistentState?.balance ?? AudioGraphDefaults.balance
         
         soundProfiles = SoundProfiles(persistentState?.soundProfiles ?? [])
@@ -127,22 +124,18 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     var volume: Float {
         
-        get {return playerVolume}
-        
-        set {
-            playerVolume = newValue
-            if !muted {playerNode.volume = newValue}
-        }
+        get {playerNode.volume}
+        set {playerNode.volume = newValue}
     }
     
     var balance: Float {
         
-        get {return playerNode.pan}
+        get {playerNode.pan}
         set {playerNode.pan = newValue}
     }
     
     var muted: Bool {
-        didSet {playerNode.volume = muted ? 0 : playerVolume}
+        didSet {auxMixer.volume = muted ? 0 : 1}
     }
     
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
@@ -210,7 +203,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.outputDevice = AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid)
         
         // Volume and pan (balance)
-        state.volume = playerVolume
+        state.volume = playerNode.volume
         state.muted = muted
         state.balance = playerNode.pan
         
