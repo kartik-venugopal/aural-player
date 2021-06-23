@@ -28,6 +28,6 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     }
     
     @IBAction func manageLayoutsAction(_ sender: Any) {
-        managerWindowController.showLayoutsEditor()
+        managerWindowController.showLayoutsManager()
     }
 }

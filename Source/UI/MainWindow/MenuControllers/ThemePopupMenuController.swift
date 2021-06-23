@@ -45,7 +45,7 @@ class ThemePopupMenuController: GenericPresetPopupMenuController {
     }
     
     @IBAction func manageThemesAction(_ sender: NSMenuItem) {
-        managerWindowController.showThemesEditor()
+        managerWindowController.showThemesManager()
     }
     
     deinit {

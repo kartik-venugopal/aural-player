@@ -40,7 +40,7 @@ class FontSchemePopupMenuController: GenericPresetPopupMenuController {
     }
     
     @IBAction func manageSchemesAction(_ sender: NSMenuItem) {
-        managerWindowController.showFontSchemesEditor()
+        managerWindowController.showFontSchemesManager()
     }
     
     deinit {

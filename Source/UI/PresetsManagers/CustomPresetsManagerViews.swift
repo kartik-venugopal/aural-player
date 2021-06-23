@@ -31,7 +31,7 @@ class PresetsManagerTableCellView: NSTableCellView {
     // The table view row that this cell is contained in. Used to determine whether or not this cell is selected.
     var row: Int = -1
     
-    var isSelectedFunction: ((Int) -> Bool)?
+    var isSelectedFunction: ((Int) -> Bool) = {row in false}
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
     override var backgroundStyle: NSView.BackgroundStyle {
@@ -39,7 +39,7 @@ class PresetsManagerTableCellView: NSTableCellView {
         didSet {
             
             // Check if this row is selected
-            let isSelRow = isSelectedFunction!(row)
+            let isSelRow = isSelectedFunction(row)
             
             if let textField = self.textField {
                 

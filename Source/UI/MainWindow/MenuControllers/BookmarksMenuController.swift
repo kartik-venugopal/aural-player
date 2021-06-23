@@ -124,7 +124,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func manageBookmarksAction(_ sender: Any) {
-        managerWindowController.showBookmarksEditor()
+        managerWindowController.showBookmarksManager()
     }
 }
 

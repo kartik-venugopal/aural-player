@@ -40,7 +40,7 @@ class ColorSchemePopupMenuController: GenericPresetPopupMenuController {
     }
     
     @IBAction func manageSchemesAction(_ sender: NSMenuItem) {
-        managerWindowController.showColorSchemesEditor()
+        managerWindowController.showColorSchemesManager()
     }
     
     deinit {

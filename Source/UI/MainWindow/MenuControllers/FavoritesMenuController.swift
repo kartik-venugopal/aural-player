@@ -125,7 +125,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     // Opens the presets manager to manage favorites
     @IBAction func manageFavoritesAction(_ sender: Any) {
-        managerWindowController.showFavoritesEditor()
+        managerWindowController.showFavoritesManager()
     }
 }
 
