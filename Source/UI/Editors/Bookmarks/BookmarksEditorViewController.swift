@@ -11,6 +11,10 @@ class BookmarksEditorViewController: GenericPresetsManagerViewController {
     
     override func nameOfPreset(atIndex index: Int) -> String {bookmarks.getBookmarkAtIndex(index).name}
     
+    override func presetExists(named name: String) -> Bool {
+        bookmarks.bookmarkWithNameExists(name)
+    }
+    
     override func deletePresets(atIndices indices: IndexSet) {
         bookmarks.deleteBookmarks(atIndices: presetsTableView.selectedRowIndexes)
     }

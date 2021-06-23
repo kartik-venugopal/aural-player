@@ -62,7 +62,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="w2c-ad-t2e" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="10" width="245" height="25"/>
+                                                        <rect key="frame" x="5" y="5" width="245" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="QaC-Mf-Zwm">
                                                             <font key="font" metaFont="system"/>

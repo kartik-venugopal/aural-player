@@ -16,6 +16,10 @@ class ThemesEditorViewController: GenericPresetsManagerViewController {
     
     override func nameOfPreset(atIndex index: Int) -> String {themesManager.userDefinedPresets[index].name}
     
+    override func presetExists(named name: String) -> Bool {
+        themesManager.presetExists(named: name)
+    }
+    
     override func viewDidAppear() {
         
         super.viewDidAppear()
@@ -47,11 +51,9 @@ class ThemesEditorViewController: GenericPresetsManagerViewController {
     private func updatePreview() {
         
         if presetsTableView.numberOfSelectedRows == 1 {
-            
             previewView.theme = themesManager.userDefinedPresets[presetsTableView.selectedRow]
             
         } else {
-            
             previewView.clear()
         }
     }

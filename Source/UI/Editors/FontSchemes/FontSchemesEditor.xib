@@ -11,7 +11,7 @@
                 <outlet property="btnApply" destination="ODG-C6-d8S" id="zGK-3Y-rYa"/>
                 <outlet property="btnDelete" destination="IhD-Vh-6vj" id="hEa-Vb-DAO"/>
                 <outlet property="btnRename" destination="CyX-vw-dRn" id="u1G-E7-fqK"/>
-                <outlet property="editorView" destination="x25-n7-m1E" id="1ck-uu-3Gt"/>
+                <outlet property="presetsTableView" destination="x25-n7-m1E" id="IXZ-uU-tBK"/>
                 <outlet property="previewView" destination="0xH-9c-dC8" id="q0e-h3-4LK"/>
                 <outlet property="view" destination="uBx-Bt-q9m" id="3eC-2b-9Z8"/>
             </connections>
@@ -62,7 +62,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MaH-zB-bhH" customClass="EditorTextField" customModule="Aural" customModuleProvider="target">
-                                                        <rect key="frame" x="5" y="10" width="245" height="25"/>
+                                                        <rect key="frame" x="5" y="5" width="245" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" lineBreakMode="truncatingMiddle" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="USh-HZ-jDF">
                                                             <font key="font" metaFont="system"/>
@@ -79,7 +79,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
-                                    <action trigger="doubleAction" selector="applySelectedSchemeAction:" target="-2" id="9wx-QW-7cX"/>
+                                    <action trigger="doubleAction" selector="applySelectedPresetAction:" target="-2" id="cwt-PT-meZ"/>
                                     <outlet property="dataSource" destination="-2" id="Ynz-Sf-9HX"/>
                                     <outlet property="delegate" destination="-2" id="A4k-C7-g0p"/>
                                 </connections>
@@ -105,7 +105,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="renameSchemeAction:" target="-2" id="FlW-ER-RAo"/>
+                        <action selector="renamePresetAction:" target="-2" id="JnS-Zy-U71"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ODG-C6-d8S">
@@ -116,7 +116,7 @@
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
                     <connections>
-                        <action selector="applySelectedSchemeAction:" target="-2" id="moI-fF-FaG"/>
+                        <action selector="applySelectedPresetAction:" target="-2" id="bG1-4X-PNR"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fbA-g2-aKq">
@@ -144,7 +144,7 @@ CA
 </string>
                     </buttonCell>
                     <connections>
-                        <action selector="deleteSelectedSchemesAction:" target="-2" id="tWZ-Om-fnQ"/>
+                        <action selector="deleteSelectedPresetsAction:" target="-2" id="Uhq-0t-ISv"/>
                     </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" borderWidth="0.0" cornerRadius="4" translatesAutoresizingMaskIntoConstraints="NO" id="Cpa-gM-DHl" userLabel="Preview container">

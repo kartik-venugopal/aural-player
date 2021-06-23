@@ -3,199 +3,75 @@ import Cocoa
 /*
  View controller for the editor that allows the user to manage user-defined font schemes.
  */
-class FontSchemesEditorViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
-    
-    // The table listing all user-defined font schemes.
-    @IBOutlet weak var editorView: NSTableView!
-    
-    // Buttons for operations that can be performed on the schemes.
-    @IBOutlet weak var btnDelete: NSButton!
-    @IBOutlet weak var btnApply: NSButton!
-    @IBOutlet weak var btnRename: NSButton!
+class FontSchemesEditorViewController: GenericPresetsManagerViewController {
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    
-    // A cache that prevents redundant fetch operations when populating the table view.
-    private var schemesCache: [FontScheme] = []
     
     // A view that gives the user a visual preview of what each font scheme looks like.
     @IBOutlet weak var previewView: FontSchemePreviewView!
     
-    // Used to temporarily store the original name of a font scheme that is being renamed.
-    private var oldSchemeName: String = ""
-    
     override var nibName: String? {"FontSchemesEditor"}
+    
+    override var numberOfPresets: Int {fontSchemesManager.numberOfUserDefinedPresets}
+    
+    override func nameOfPreset(atIndex index: Int) -> String {fontSchemesManager.userDefinedPresets[index].name}
+    
+    override func presetExists(named name: String) -> Bool {
+        fontSchemesManager.presetExists(named: name)
+    }
     
     override func viewDidAppear() {
         
-        // Populate the cache with all user-defined schemes.
-        schemesCache = fontSchemesManager.userDefinedPresets
+        super.viewDidAppear()
         
-        // Refresh the table view.
-        editorView.reloadData()
-        editorView.deselectAll(self)
-        
-        // Set button states.
-        [btnDelete, btnRename, btnApply].forEach {$0.disable()}
-        
-        // Clear the preview view (no scheme is selected).
+        // Clear the preview view (no theme is selected).
         previewView.clear()
     }
     
-    // Deletes all font schemes selected in the table view.
-    @IBAction func deleteSelectedSchemesAction(_ sender: AnyObject) {
+    override func deletePresets(atIndices indices: IndexSet) {
         
-        fontSchemesManager.deletePresets(atIndices: editorView.selectedRowIndexes)
-        
-        // Update the cache
-        schemesCache = fontSchemesManager.userDefinedPresets
-        
-        editorView.reloadData()
-        editorView.deselectAll(self)
-        
-        updateButtonStates()
-        updatePreview()
-    }
-    
-    // Returns the names of all font schemes selected in the table view.
-    private var selectedSchemeNames: [String] {
-        return editorView.selectedRowIndexes.map {schemesCache[$0].name}
-    }
-    
-    // Updates button states depending on how many rows are selected in the table view.
-    private func updateButtonStates() {
-        
-        let selRows: Int = editorView.numberOfSelectedRows
-        
-        btnDelete.enableIf(selRows > 0)
-        btnApply.enableIf(selRows == 1)
-        btnRename.enableIf(selRows == 1)
-    }
-    
-    // Renames a single font scheme.
-    @IBAction func renameSchemeAction(_ sender: AnyObject) {
-        
-        let selectedRowView = editorView.rowView(atRow: editorView.selectedRow, makeIfNecessary: true)
-        
-        if let editedTextField = (selectedRowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
-            
-            // Shift focus to the text field for the scheme being renamed.
-            self.view.window?.makeFirstResponder(editedTextField)
-        }
+        fontSchemesManager.deletePresets(atIndices: indices)
+        previewView.clear()
     }
     
     // Applies the selected font scheme to the system.
-    @IBAction func applySelectedSchemeAction(_ sender: AnyObject) {
+    override func applyPreset(atIndex index: Int) {
         
-        if let firstSelectedSchemeName = selectedSchemeNames.first,
-           let scheme = fontSchemesManager.applyScheme(named: firstSelectedSchemeName) {
-            
-            Messenger.publish(.applyFontScheme, payload: scheme)
-        }
+        let selScheme = fontSchemesManager.userDefinedPresets[index]
+        let updatedScheme = fontSchemesManager.applyScheme(selScheme)
+        
+        // TODO: This should really be in FontSchemesManager, not here. Same for other preset managers.
+        Messenger.publish(.applyFontScheme, payload: updatedScheme)
     }
     
-    // Dismisses the editor dialog.
-    @IBAction func doneAction(_ sender: AnyObject) {
-        self.view.window!.close()
+    override func renamePreset(named name: String, to newName: String) {
+        fontSchemesManager.renamePreset(named: name, to: newName)
     }
-    
+
     // Updates the visual preview.
     private func updatePreview() {
         
-        if editorView.numberOfSelectedRows == 1 {
-            
-            previewView.scheme = schemesCache[editorView.selectedRow]
+        if presetsTableView.numberOfSelectedRows == 1 {
+            previewView.scheme = fontSchemesManager.userDefinedPresets[presetsTableView.selectedRow]
             
         } else {
-            
             previewView.clear()
         }
     }
     
-    // MARK: View delegate and data source functions
-    
-    // Returns the total number of font schemes
-    func numberOfRows(in tableView: NSTableView) -> Int {
-        return schemesCache.count
-    }
+    // MARK: Table view delegate and data source functions
     
     // When the table selection changes, the button states and preview might need to change.
-    func tableViewSelectionDidChange(_ notification: Notification) {
+    override func tableViewSelectionDidChange(_ notification: Notification) {
         
-        updateButtonStates()
+        super.tableViewSelectionDidChange(notification)
         updatePreview()
-        
-        if editorView.numberOfSelectedRows == 1 {
-            oldSchemeName = schemesCache[editorView.selectedRow].name
-        }
-    }
-    
-    // Returns a view for a single row
-    func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
-        return GenericTableRowView()
     }
     
     // Returns a view for a single column
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        let scheme = schemesCache[row]
-        return createTextCell(tableView, tableColumn!, row, scheme.name)
-    }
-    
-    // Creates a cell view containing text
-    private func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String) -> EditorTableCellView? {
-        
-        if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
-            
-            cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
-                self?.editorView.selectedRowIndexes.contains(row) ?? false
-            }
-            
-            cell.row = row
-            
-            cell.textField?.stringValue = text
-            cell.textField?.delegate = self
-            
-            return cell
-        }
-        
-        return nil
-    }
-    
-    // MARK: Text field delegate functions
-    
-    func controlTextDidEndEditing(_ obj: Notification) {
-        
-        let editedTextField = obj.object as! NSTextField
-        
-        if let scheme = fontSchemesManager.userDefinedPreset(named: oldSchemeName) {
-            
-            let newSchemeName = editedTextField.stringValue
-            
-            editedTextField.textColor = Colors.defaultSelectedLightTextColor
-            
-            // TODO: What if the string is too long ?
-            
-            // Empty string is invalid, revert to old value
-            if String.isEmpty(newSchemeName) {
-                
-                editedTextField.stringValue = scheme.name
-                
-            } else if fontSchemesManager.presetExists(named: newSchemeName) {
-                
-                // Another scheme with that name exists, can't rename
-                editedTextField.stringValue = scheme.name
-                
-                _ = DialogsAndAlerts.genericErrorAlert("Can't rename font scheme", "Another font scheme with that name already exists.", "Please type a unique name.").showModal()
-                
-            } else {
-                
-                // Update the scheme name
-                fontSchemesManager.renamePreset(named: scheme.name, to: newSchemeName)
-                
-                // Update the cache
-                schemesCache = fontSchemesManager.userDefinedPresets
-            }
-        }
+        let scheme = fontSchemesManager.userDefinedPresets[row]
+        return createTextCell(tableView, tableColumn!, row, scheme.name, true)
     }
 }

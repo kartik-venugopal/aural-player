@@ -12,6 +12,9 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
     var numberOfPresets: Int {0}
     
     // Needs to be overriden by subclasses.
+    func presetExists(named name: String) -> Bool {false}
+    
+    // Needs to be overriden by subclasses.
     func renamePreset(named name: String, to newName: String) {
     }
     
@@ -148,7 +151,7 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
         }
     }
     
-    // Renames the selected bookmark.
+    // Renames the selected preset.
     func controlTextDidEndEditing(_ obj: Notification) {
         
         let rowIndex = presetsTableView.selectedRow
@@ -157,25 +160,31 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
         guard let cell = rowView?.view(atColumn: 0) as? NSTableCellView,
               let editedTextField = cell.textField else {return}
         
-        let oldBookmarkName = nameOfPreset(atIndex: rowIndex)
-        let newBookmarkName = editedTextField.stringValue
+        let oldPresetName = nameOfPreset(atIndex: rowIndex)
+        let newPresetName = editedTextField.stringValue
         
         editedTextField.textColor = Colors.defaultSelectedLightTextColor
         
         // TODO: What if the string is too long ?
         
         // Empty string is invalid, revert to old value
-        if newBookmarkName.isEmptyAfterTrimming {
-            editedTextField.stringValue = oldBookmarkName
+        if newPresetName.isEmptyAfterTrimming {
+            editedTextField.stringValue = oldPresetName
+            
+        } else if presetExists(named: newPresetName) {
+            
+            // Another theme with that name exists, can't rename
+            editedTextField.stringValue = oldPresetName
+            
+            _ = DialogsAndAlerts.genericErrorAlert("Can't rename preset", "Another preset with that name already exists.", "Please type a unique name.").showModal()
             
         } else {
             
-            // Update the bookmark name
-            renamePreset(named: oldBookmarkName, to: newBookmarkName)
+            // Update the preset name
+            renamePreset(named: oldPresetName, to: newPresetName)
         }
         
         // Update the tool tip
-
         let nameColumn = presetsTableView.tableColumns[0]
         updateTooltip(forCell: cell, inColumn: nameColumn)
     }
