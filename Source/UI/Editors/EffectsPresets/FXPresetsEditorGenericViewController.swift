@@ -10,8 +10,6 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     var presetsWrapper: PresetsWrapperProtocol!
     var unitType: EffectsUnit!
     
-    var oldPresetName: String = ""
-    
     override func viewDidLoad() {
         
         let unitTypeFilter: (EffectsUnit) -> Bool = {[weak self] (unit: EffectsUnit) in unit == self?.unitType}
@@ -90,7 +88,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     
     // Returns the total number of playlist rows
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return presetsWrapper.userDefinedPresets.count
+        presetsWrapper.userDefinedPresets.count
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -99,10 +97,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         previewBox.showIf(numRows == 1)
         
         if numRows == 1, let preset = firstSelectedPreset {
-            
-            let presetName = preset.name
-            renderPreview(presetName)
-            oldPresetName = presetName
+            renderPreview(preset.name)
         }
         
         Messenger.publish(.presetsEditor_selectionChanged, payload: numRows)
@@ -123,51 +118,54 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
     // Creates a cell view containing text
     func createTextCell(_ tableView: NSTableView, _ column: NSTableColumn, _ row: Int, _ text: String) -> EditorTableCellView? {
         
-        if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
-            
-            cell.isSelectedFunction = {[weak self] row in
-                return self?.editorView.selectedRowIndexes.contains(row) ?? false
-            }
-            
-            cell.row = row
-            
-            cell.textField?.stringValue = text
-            cell.textField!.delegate = self
-            
-            return cell
+        guard let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView
+        else {return nil}
+        
+        cell.isSelectedFunction = {[weak self] row in
+            self?.editorView.selectedRowIndexes.contains(row) ?? false
         }
         
-        return nil
+        cell.row = row
+        
+        cell.textField?.stringValue = text
+        cell.textField?.delegate = self
+        
+        return cell
     }
     
     // MARK: Text field delegate functions
     
     func controlTextDidEndEditing(_ obj: Notification) {
         
-        let editedTextField = obj.object as! NSTextField
+        guard let editedTextField = obj.object as? NSTextField else {return}
+        
+        let rowIndex = editorView.selectedRow
+        let preset = presetsWrapper.userDefinedPresets[rowIndex]
+        
+        let oldPresetName = preset.name
         let newPresetName = editedTextField.stringValue
         
-        if let preset = presetsWrapper.preset(named: oldPresetName) {
+        editedTextField.textColor = Colors.defaultSelectedLightTextColor
+        
+        // TODO: What if the string is too long ?
+        
+        // If new name is empty or a preset with the new name exists, revert to old value.
+        if newPresetName.isEmptyAfterTrimming {
             
-            editedTextField.textColor = Colors.defaultSelectedLightTextColor
+            editedTextField.stringValue = preset.name
             
-            // TODO: What if the string is too long ?
+            _ = DialogsAndAlerts.genericErrorAlert("Can't rename preset", "Preset name must have at least one non-whitespace character.", "Please type a valid name.").showModal()
             
-            // Empty string is invalid, revert to old value
-            if String.isEmpty(newPresetName) || presetsWrapper.presetExists(named: newPresetName) {
-                
-                editedTextField.stringValue = preset.name
-                
-            } else {
-                
-                // Update the preset name
-                presetsWrapper.renamePreset(named: oldPresetName, to: newPresetName)
-            }
+        } else if presetsWrapper.presetExists(named: newPresetName) {
+            
+            editedTextField.stringValue = preset.name
+            
+            _ = DialogsAndAlerts.genericErrorAlert("Can't rename preset", "Another preset with that name already exists.", "Please type a unique name.").showModal()
             
         } else {
             
-            // IMPOSSIBLE
-            editedTextField.stringValue = oldPresetName
+            // Update the preset name
+            presetsWrapper.renamePreset(named: oldPresetName, to: newPresetName)
         }
     }
 }

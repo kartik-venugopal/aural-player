@@ -156,7 +156,7 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
         
         let rowIndex = presetsTableView.selectedRow
         let rowView = presetsTableView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        
+
         guard let cell = rowView?.view(atColumn: 0) as? NSTableCellView,
               let editedTextField = cell.textField else {return}
         
@@ -169,7 +169,10 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
         
         // Empty string is invalid, revert to old value
         if newPresetName.isEmptyAfterTrimming {
+            
             editedTextField.stringValue = oldPresetName
+            
+            _ = DialogsAndAlerts.genericErrorAlert("Can't rename preset", "Preset name must have at least one non-whitespace character.", "Please type a valid name.").showModal()
             
         } else if presetExists(named: newPresetName) {
             
