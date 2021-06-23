@@ -59,29 +59,29 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         Messenger.publish(.presetsEditor_selectionChanged, payload: Int(0))
     }
     
-    var selectedPresetNames: [String] {
-        
-        editorView.selectedRowIndexes.compactMap {[weak editorView] in editorView?.view(atColumn: 0, row: $0, makeIfNecessary: true) as? NSTableCellView}
-            .compactMap {$0.textField?.stringValue}
+    var selectedPresets: [EffectsUnitPreset] {
+        editorView.selectedRowIndexes.map {presetsWrapper.userDefinedPresets[$0]}
     }
     
-    var firstSelectedPresetName: String {
-        (editorView.view(atColumn: 0, row: editorView.selectedRow, makeIfNecessary: true) as! NSTableCellView).textField!.stringValue
-    }
+    var firstSelectedPreset: EffectsUnitPreset? {selectedPresets.first}
     
     func renameSelectedPreset() {
         
         let rowIndex = editorView.selectedRow
         let rowView = editorView.rowView(atRow: rowIndex, makeIfNecessary: true)
-        let editedTextField = (rowView?.view(atColumn: 0) as! NSTableCellView).textField!
         
-        self.view.window?.makeFirstResponder(editedTextField)
+        if let editedTextField = (rowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
+            self.view.window?.makeFirstResponder(editedTextField)
+        }
     }
     
     func applySelectedPreset() {
         
-        fxUnit.applyPreset(firstSelectedPresetName)
-        Messenger.publish(.fx_updateFXUnitView, payload: self.unitType!)
+        if let preset = firstSelectedPreset {
+            
+            fxUnit.applyPreset(preset.name)
+            Messenger.publish(.fx_updateFXUnitView, payload: self.unitType!)
+        }
     }
     
     func renderPreview(_ presetName: String) {}
@@ -98,9 +98,9 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         let numRows: Int = editorView.numberOfSelectedRows
         previewBox.showIf(numRows == 1)
         
-        if numRows == 1 {
+        if numRows == 1, let preset = firstSelectedPreset {
             
-            let presetName = firstSelectedPresetName
+            let presetName = preset.name
             renderPreview(presetName)
             oldPresetName = presetName
         }
@@ -125,7 +125,7 @@ class FXPresetsEditorGenericViewController: NSViewController, NSTableViewDataSou
         
         if let cell = tableView.makeView(withIdentifier: column.identifier, owner: nil) as? EditorTableCellView {
             
-            cell.isSelectedFunction = {[weak self] (row: Int) -> Bool in
+            cell.isSelectedFunction = {[weak self] row in
                 return self?.editorView.selectedRowIndexes.contains(row) ?? false
             }
             

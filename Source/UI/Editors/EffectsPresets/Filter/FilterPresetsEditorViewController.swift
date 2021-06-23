@@ -45,8 +45,11 @@ class FilterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     private var filterChartBands: [FilterBand] {
         
-        let selection = selectedPresetNames
-        return selection.isNonEmpty ? filterUnit.presets.preset(named: selection[0])?.bands ?? [] : []
+        if let preset = firstSelectedPreset as? FilterPreset {
+            return preset.bands
+        }
+        
+        return []
     }
 }
 

@@ -53,14 +53,20 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     private var filterChartBands: [FilterBand] {
         
-        let selection = selectedPresetNames
-        return selection.isEmpty ? [] : masterPresets.preset(named: selection[0])?.filter.bands ?? []
+        if let preset = firstSelectedPreset as? MasterPreset {
+            return preset.filter.bands
+        }
+        
+        return []
     }
     
     private var presetFilterUnitState: EffectsUnitState {
         
-        let selection = selectedPresetNames
-        return selection.isEmpty ? .active : masterPresets.preset(named: selection[0])?.filter.state ?? .active
+        if let preset = firstSelectedPreset {
+            return masterPresets.preset(named: preset.name)?.state ?? .active
+        }
+        
+        return .active
     }
     
     override func viewDidAppear() {
@@ -102,10 +108,12 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
     
     @IBAction func chooseEQTypeAction(_ sender: AnyObject) {
         
-        if let preset = masterPresets.preset(named: firstSelectedPresetName)?.eq {
+        if let firstSelectedPreset = self.firstSelectedPreset as? MasterPreset {
             
-            eqSubPreview.setUnitState(preset.state)
-            eqSubPreview.typeChanged(preset.bands, preset.globalGain)
+            let eqPreset = firstSelectedPreset.eq
+            
+            eqSubPreview.setUnitState(eqPreset.state)
+            eqSubPreview.typeChanged(eqPreset.bands, eqPreset.globalGain)
         }
     }
     
@@ -127,10 +135,13 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         
         // If there is a user-chosen master preset to be applied on app startup, and that preset
         // is being deleted, reset the user preference value.
-        if let startupPreset = preferences.soundPreferences.masterPresetOnStartup_name,
-           selectedPresetNames.contains(startupPreset) {
-           
-            preferences.soundPreferences.masterPresetOnStartup_name = nil
+        if let startupPreset = preferences.soundPreferences.masterPresetOnStartup_name {
+            
+            let selectedPresetNames = selectedPresets.map {$0.name}
+            
+            if selectedPresetNames.contains(startupPreset) {
+                preferences.soundPreferences.masterPresetOnStartup_name = nil
+            }
         }
         
         super.deleteSelectedPresets()
@@ -143,10 +154,10 @@ class MasterPresetsEditorViewController: FXPresetsEditorGenericViewController {
         let numRows: Int = editorView.numberOfSelectedRows
         previewBox.showIf(numRows == 1)
         
-        if numRows == 1 {
+        if numRows == 1, let preset = firstSelectedPreset {
             
-            let presetName = firstSelectedPresetName
-            if let masterPreset = masterPresets.preset(named: presetName) {
+            let presetName = preset.name
+            if let masterPreset = preset as? MasterPreset {
 
                 bandsDataSource.preset = masterPreset.filter
                 renderPreview(masterPreset)
