@@ -10,7 +10,7 @@
             <connections>
                 <outlet property="btnApply" destination="htq-Lq-qTq" id="8Xk-22-epf"/>
                 <outlet property="btnDelete" destination="54W-bE-CZ4" id="DTl-UE-ZlT"/>
-                <outlet property="presetsTableView" destination="fkE-tG-QQj" id="GI2-aA-D8C"/>
+                <outlet property="tableView" destination="fkE-tG-QQj" id="3q9-6F-Nbr"/>
                 <outlet property="view" destination="Ovo-SL-XF4" id="EeS-wy-vgv"/>
             </connections>
         </customObject>

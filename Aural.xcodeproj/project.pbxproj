@@ -162,7 +162,7 @@
 		3E6C119525CEBD6D00BF0D07 /* FlexibleFilterNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C111425CEB98700BF0D07 /* FlexibleFilterNode.swift */; };
 		3E6C119625CEBD6D00BF0D07 /* FavoritesDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1525CEB98500BF0D07 /* FavoritesDelegateProtocol.swift */; };
 		3E6C119725CEBD6D00BF0D07 /* BookmarksDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10B325CEB98700BF0D07 /* BookmarksDelegateProtocol.swift */; };
-		3E6C119825CEBD6D00BF0D07 /* AudioEngineHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110F25CEB98700BF0D07 /* AudioEngineHelper.swift */; };
+		3E6C119825CEBD6D00BF0D07 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110F25CEB98700BF0D07 /* AudioEngine.swift */; };
 		3E6C119925CEBD6D00BF0D07 /* MasterUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112725CEB98700BF0D07 /* MasterUnitDelegate.swift */; };
 		3E6C119A25CEBD6D00BF0D07 /* TimeUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112325CEB98700BF0D07 /* TimeUnitDelegate.swift */; };
 		3E6C119B25CEBD6D00BF0D07 /* DeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C111025CEB98700BF0D07 /* DeviceManager.swift */; };
@@ -1133,7 +1133,7 @@
 		3E6C110B25CEB98700BF0D07 /* TimePresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePresets.swift; sourceTree = "<group>"; };
 		3E6C110C25CEB98700BF0D07 /* FXPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXPresets.swift; sourceTree = "<group>"; };
 		3E6C110E25CEB98700BF0D07 /* AudioDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDevice.swift; sourceTree = "<group>"; };
-		3E6C110F25CEB98700BF0D07 /* AudioEngineHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngineHelper.swift; sourceTree = "<group>"; };
+		3E6C110F25CEB98700BF0D07 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		3E6C111025CEB98700BF0D07 /* DeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceManager.swift; sourceTree = "<group>"; };
 		3E6C111325CEB98700BF0D07 /* VariableRateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableRateNode.swift; sourceTree = "<group>"; };
 		3E6C111425CEB98700BF0D07 /* FlexibleFilterNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleFilterNode.swift; sourceTree = "<group>"; };
@@ -2714,6 +2714,7 @@
 			isa = PBXGroup;
 			children = (
 				3E6C110025CEB98700BF0D07 /* AudioGraph.swift */,
+				3E6C110F25CEB98700BF0D07 /* AudioEngine.swift */,
 				3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */,
 				3E6C111625CEB98700BF0D07 /* FXUnits */,
 				3E5623C82619FA8600D55E43 /* AudioUnits */,
@@ -2750,7 +2751,6 @@
 			isa = PBXGroup;
 			children = (
 				3E6C110E25CEB98700BF0D07 /* AudioDevice.swift */,
-				3E6C110F25CEB98700BF0D07 /* AudioEngineHelper.swift */,
 				3E6C111025CEB98700BF0D07 /* DeviceManager.swift */,
 				3E5F943F25E5736F002DEF80 /* DeviceList.swift */,
 				3E5F944225E5738E002DEF80 /* AUExtensions.swift */,
@@ -3944,7 +3944,7 @@
 				3EDB33F225E8AE09004DF7DE /* FFmpegChapter.swift in Sources */,
 				3E5F944325E5738E002DEF80 /* AUExtensions.swift in Sources */,
 				3EDB346D25E8BABC004DF7DE /* AVFPlaybackContext.swift in Sources */,
-				3E6C119825CEBD6D00BF0D07 /* AudioEngineHelper.swift in Sources */,
+				3E6C119825CEBD6D00BF0D07 /* AudioEngine.swift in Sources */,
 				3E6C129725CEBE2700BF0D07 /* TintedIconMenuItem.swift in Sources */,
 				3E6C11F325CEBDD100BF0D07 /* PlaylistPreferences.swift in Sources */,
 				3E09D0CF26805C19008ECB8C /* GeneralColorSchemePersistentState.swift in Sources */,

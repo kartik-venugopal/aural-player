@@ -39,8 +39,13 @@ class AuralPlayerNode: AVAudioPlayerNode {
     // If false, the newer APIs will be used.
     var useLegacyAPI: Bool
     
-    init(useLegacyAPI: Bool) {
+    init(useLegacyAPI: Bool, volume: Float, pan: Float) {
+        
         self.useLegacyAPI = useLegacyAPI
+        super.init()
+        
+        self.volume = volume
+        self.pan = pan
     }
     
     // Retrieves the current seek position, in seconds

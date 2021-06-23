@@ -1,5 +1,14 @@
 import AVFoundation
 
+extension AVAudioMixerNode {
+    
+    convenience init(volume: Float) {
+        
+        self.init()
+        self.volume = volume
+    }
+}
+
 extension AVAudioFramePosition {
     
     static func fromTrackTime(_ trackTime: Double, _ sampleRate: Double) -> AVAudioFramePosition {

@@ -11,8 +11,8 @@
                 <outlet property="btnApply" destination="YPX-14-Fxu" id="EnB-W3-u8J"/>
                 <outlet property="btnDelete" destination="szp-ub-SI6" id="4CG-ke-TrR"/>
                 <outlet property="btnRename" destination="uCZ-yn-8Ek" id="BuA-0G-b3k"/>
-                <outlet property="presetsTableView" destination="xaM-J6-SUQ" id="sj3-Vt-0jW"/>
                 <outlet property="previewView" destination="i6x-3D-IWL" id="pzh-CZ-co1"/>
+                <outlet property="tableView" destination="xaM-J6-SUQ" id="GPi-Fh-KAO"/>
                 <outlet property="view" destination="c22-O7-iKe" id="NuL-qB-Lk6"/>
             </connections>
         </customObject>

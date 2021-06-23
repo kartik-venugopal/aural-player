@@ -1,46 +1,19 @@
-import Cocoa
 import AVFoundation
 
 /*
     Wrapper around AVAudioEngine. Manages the AVAudioEngine audio graph.
  */
-class AudioGraph: AudioGraphProtocol, PersistentModelObject {
+class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObject {
     
-    var availableDevices: AudioDeviceList {
-        return deviceManager.allDevices
-    }
+    private let audioEngine: AudioEngine
     
-    var systemDevice: AudioDevice {
-        return deviceManager.systemDevice
-    }
-    
-    var outputDevice: AudioDevice {
-        
-        get {return deviceManager.outputDevice}
-        
-        set(newDevice) {
-            deviceManager.outputDevice = newDevice
-        }
-    }
-    
-    var outputDeviceBufferSize: Int {
-        
-        get {deviceManager.outputDeviceBufferSize}
-        set {deviceManager.outputDeviceBufferSize = newValue}
-    }
-    
-    var outputDeviceSampleRate: Double {deviceManager.outputDeviceSampleRate}
-    
-    private let audioEngine: AVAudioEngine
-    
-    internal let outputNode: AVAudioOutputNode
-    internal let playerNode: AuralPlayerNode
-    internal let nodeForRecorderTap: AVAudioNode
-    private let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
+    let outputNode: AVAudioOutputNode
+    let playerNode: AuralPlayerNode
+    let nodeForRecorderTap: AVAudioNode
+    let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     
     private let audioUnitsManager: AudioUnitsManager
     private let deviceManager: DeviceManager
-    private let audioEngineHelper: AudioEngineHelper
     
     // FX units
     var masterUnit: MasterUnit
@@ -57,21 +30,25 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     // Sets up the audio engine
     init(_ audioUnitsManager: AudioUnitsManager, _ persistentState: AudioGraphPersistentState?) {
         
-        self.audioUnitsManager = audioUnitsManager
-        audioEngine = AVAudioEngine()
-        outputNode = audioEngine.outputNode
+        audioEngine = AudioEngine()
+        
+        let volume = persistentState?.volume ?? AudioGraphDefaults.volume
+        let pan = persistentState?.balance ?? AudioGraphDefaults.balance
         
         // If running on 10.12 Sierra or older, use the legacy AVAudioPlayerNode APIs
         if #available(OSX 10.13, *) {
-            playerNode = AuralPlayerNode(useLegacyAPI: false)
+            playerNode = AuralPlayerNode(useLegacyAPI: false, volume: volume, pan: pan)
         } else {
-            playerNode = AuralPlayerNode(useLegacyAPI: true)
+            playerNode = AuralPlayerNode(useLegacyAPI: true, volume: volume, pan: pan)
         }
         
-        nodeForRecorderTap = audioEngine.mainMixerNode
-        auxMixer = AVAudioMixerNode()
+        muted = persistentState?.muted ?? AudioGraphDefaults.muted
+        auxMixer = AVAudioMixerNode(volume: muted ? 0 : 1)
         
-        deviceManager = DeviceManager(outputAudioUnit: audioEngine.outputNode.audioUnit!)
+        outputNode = audioEngine.outputNode
+        nodeForRecorderTap = audioEngine.mainMixerNode
+        
+        deviceManager = DeviceManager(outputAudioUnit: outputNode.audioUnit!)
         
         eqUnit = EQUnit(persistentState: persistentState?.eqUnit)
         pitchUnit = PitchUnit(persistentState: persistentState?.pitchUnit)
@@ -80,7 +57,8 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
         filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
         
-        self.audioUnits = []
+        self.audioUnitsManager = audioUnitsManager
+        audioUnits = []
         for auState in persistentState?.audioUnits ?? [] {
             
             if let component = audioUnitsManager.component(ofType: auState.componentType, andSubType: auState.componentSubType) {
@@ -93,34 +71,41 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
 
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
         let removableNodes = audioUnits.flatMap {$0.avNodes}
-        
-        audioEngineHelper = AudioEngineHelper(engine: audioEngine, permanentNodes: permanentNodes, removableNodes: removableNodes)
-        
-        playerNode.volume = persistentState?.volume ?? AudioGraphDefaults.volume
-        muted = persistentState?.muted ?? AudioGraphDefaults.muted
-        auxMixer.volume = muted ? 0 : 1
-        playerNode.pan = persistentState?.balance ?? AudioGraphDefaults.balance
+        audioEngine.connectNodes(permanentNodes: permanentNodes, removableNodes: removableNodes)
         
         soundProfiles = SoundProfiles(persistentState?.soundProfiles ?? [])
         
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
-        NotificationCenter.default.addObserver(self, selector: #selector(outputChanged), name: NSNotification.Name.AVAudioEngineConfigurationChange, object: audioEngine)
-        
-        audioEngineHelper.connectNodes()
+        Messenger.subscribe(self, .AVAudioEngineConfigurationChange, self.outputDeviceChanged)
         
         deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
-        
-        audioEngineHelper.prepareAndStart()
+        audioEngine.start()
     }
     
-    @objc func outputChanged() {
-        
-        deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
-        audioEngineHelper.start()
-        
-        // Send out a notification
-        Messenger.publish(.audioGraph_outputDeviceChanged)
+    // MARK: Audio engine functions ----------------------------------
+    
+    func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
+        audioEngine.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
     }
+    
+    func clearSoundTails() {
+        
+        // Clear sound tails from reverb and delay nodes, if they're active
+        if delayUnit.isActive {delayUnit.reset()}
+        if reverbUnit.isActive {reverbUnit.reset()}
+    }
+    
+    func restartAudioEngine() {
+        audioEngine.restart()
+    }
+    
+    func tearDown() {
+        
+        // Release the audio engine resources
+        audioEngine.stop()
+    }
+    
+    // MARK: Player node properties ----------------------------------
     
     var volume: Float {
         
@@ -138,6 +123,37 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         didSet {auxMixer.volume = muted ? 0 : 1}
     }
     
+    // MARK: Device management ----------------------------------
+    
+    var availableDevices: AudioDeviceList {deviceManager.allDevices}
+    
+    var systemDevice: AudioDevice {deviceManager.systemDevice}
+    
+    var outputDevice: AudioDevice {
+        
+        get {deviceManager.outputDevice}
+        set(newDevice) {deviceManager.outputDevice = newDevice}
+    }
+    
+    var outputDeviceSampleRate: Double {deviceManager.outputDeviceSampleRate}
+    
+    var outputDeviceBufferSize: Int {
+        
+        get {deviceManager.outputDeviceBufferSize}
+        set {deviceManager.outputDeviceBufferSize = newValue}
+    }
+    
+    func outputDeviceChanged() {
+        
+        deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
+        audioEngine.start()
+        
+        // Send out a notification
+        Messenger.publish(.audioGraph_outputDeviceChanged)
+    }
+    
+    // MARK: Audio Units management ----------------------------------
+    
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
         
         if let auComponent = audioUnitsManager.component(ofType: type, andSubType: subType) {
@@ -148,9 +164,7 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
             
             let context = AudioGraphChangeContext()
             Messenger.publish(PreAudioGraphChangeNotification(context: context))
-            
-            audioEngineHelper.insertNode(newUnit.avNodes[0])
-            
+            audioEngine.insertNode(newUnit.avNodes[0])
             Messenger.publish(AudioGraphChangedNotification(context: context))
             
             return (audioUnit: newUnit, index: audioUnits.lastIndex)
@@ -171,30 +185,14 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         
         let context = AudioGraphChangeContext()
         Messenger.publish(PreAudioGraphChangeNotification(context: context))
-        
-        audioEngineHelper.removeNodes(descendingIndices)
-        
+        audioEngine.removeNodes(descendingIndices)
         Messenger.publish(AudioGraphChangedNotification(context: context))
     }
     
-    var settingsAsMasterPreset: MasterPreset {
-        return masterUnit.settingsAsPreset
-    }
+    // MARK: Miscellaneous properties / functions ------------------------
+    
+    var settingsAsMasterPreset: MasterPreset {masterUnit.settingsAsPreset}
 
-    func reconnectPlayerNodeWithFormat(_ format: AVAudioFormat) {
-        audioEngineHelper.reconnectNodes(playerNode, outputNode: auxMixer, format: format)
-    }
-    
-    // MARK: Miscellaneous functions
-    
-    func clearSoundTails() {
-        
-        // Clear sound tails from reverb and delay nodes, if they're active
-        [delayUnit, reverbUnit].forEach {
-            if $0.isActive {$0.reset()}
-        }
-    }
-    
     var persistentState: AudioGraphPersistentState {
         
         let state: AudioGraphPersistentState = AudioGraphPersistentState()
@@ -219,16 +217,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         state.soundProfiles = self.soundProfiles.all().map {SoundProfilePersistentState(file: $0.file, volume: $0.volume, balance: $0.balance, effects: MasterPresetPersistentState(preset: $0.effects))}
         
         return state
-    }
-    
-    func restartAudioEngine() {
-        audioEngineHelper.restart()
-    }
-    
-    func tearDown() {
-        
-        // Release the audio engine resources
-        audioEngine.stop()
     }
 }
 
