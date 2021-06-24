@@ -11,8 +11,8 @@ import Cocoa
 
 class TimeView: NSView {
     
-    @IBOutlet weak var timeSlider: EffectsUnitSlider!
-    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
+    @IBOutlet weak var timeSlider: FXUnitSlider!
+    @IBOutlet weak var timeOverlapSlider: FXUnitSlider!
     
     @IBOutlet weak var btnShiftPitch: NSButton!
     
@@ -20,7 +20,7 @@ class TimeView: NSView {
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
     @IBOutlet weak var lblTimeOverlapValue: NSTextField!
     
-    private var sliders: [EffectsUnitSlider] = []
+    private var sliders: [FXUnitSlider] = []
     
     var rate: Float {
         return timeSlider.floatValue
@@ -38,7 +38,7 @@ class TimeView: NSView {
         sliders = [timeSlider, timeOverlapSlider]
     }
     
-    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
+    func initialize(_ stateFunction: (() -> FXUnitState)?) {
         
         sliders.forEach({
             $0.stateFunction = stateFunction
@@ -46,7 +46,7 @@ class TimeView: NSView {
         })
     }
     
-    func setUnitState(_ state: EffectsUnitState) {
+    func setUnitState(_ state: FXUnitState) {
         sliders.forEach({$0.setUnitState(state)})
     }
     
@@ -91,7 +91,7 @@ class TimeView: NSView {
         btnShiftPitch.onIf(preset.shiftPitch)
         
         // TODO: Move this calculation to a new util functions class/file
-        let shiftPitch = (preset.shiftPitch ? 1200 * log2(preset.rate) : 0) * AppConstants.ValueConversions.pitch_audioGraphToUI
+        let shiftPitch = (preset.shiftPitch ? 1200 * log2(preset.rate) : 0) * ValueConversions.pitch_audioGraphToUI
         lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(shiftPitch)
         
         timeSlider.floatValue = preset.rate

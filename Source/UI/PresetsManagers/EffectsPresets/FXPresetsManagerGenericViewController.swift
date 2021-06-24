@@ -17,22 +17,22 @@ class FXPresetsManagerGenericViewController: NSViewController, NSTableViewDataSo
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     var fxUnit: FXUnitDelegateProtocol!
     var presetsWrapper: PresetsWrapperProtocol!
-    var unitType: EffectsUnit!
+    var unitType: FXUnitType!
     
     override func viewDidLoad() {
         
-        let unitTypeFilter: (EffectsUnit) -> Bool = {[weak self] (unit: EffectsUnit) in unit == self?.unitType}
+        let unitTypeFilter: (FXUnitType) -> Bool = {[weak self] (unit: FXUnitType) in unit == self?.unitType}
         
-        Messenger.subscribe(self, .fxPresetsManager_reload, {[weak self] (EffectsUnit) in self?.doViewDidAppear()},
+        Messenger.subscribe(self, .fxPresetsManager_reload, {[weak self] (FXUnit) in self?.doViewDidAppear()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsManager_apply, {[weak self] (EffectsUnit) in self?.applySelectedPreset()},
+        Messenger.subscribe(self, .fxPresetsManager_apply, {[weak self] (FXUnit) in self?.applySelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsManager_rename, {[weak self] (EffectsUnit) in self?.renameSelectedPreset()},
+        Messenger.subscribe(self, .fxPresetsManager_rename, {[weak self] (FXUnit) in self?.renameSelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsManager_delete, {[weak self] (EffectsUnit) in self?.deleteSelectedPresets()},
+        Messenger.subscribe(self, .fxPresetsManager_delete, {[weak self] (FXUnit) in self?.deleteSelectedPresets()},
                             filter: unitTypeFilter)
     }
     
@@ -66,11 +66,11 @@ class FXPresetsManagerGenericViewController: NSViewController, NSTableViewDataSo
         Messenger.publish(.presetsManager_selectionChanged, payload: Int(0))
     }
     
-    var selectedPresets: [EffectsUnitPreset] {
+    var selectedPresets: [FXUnitPreset] {
         tableView.selectedRowIndexes.map {presetsWrapper.userDefinedPresets[$0]}
     }
     
-    var firstSelectedPreset: EffectsUnitPreset? {selectedPresets.first}
+    var firstSelectedPreset: FXUnitPreset? {selectedPresets.first}
     
     func renameSelectedPreset() {
         

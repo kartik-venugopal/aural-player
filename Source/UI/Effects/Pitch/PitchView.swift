@@ -11,12 +11,12 @@ import Cocoa
 
 class PitchView: NSView {
 
-    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
-    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
+    @IBOutlet weak var pitchSlider: FXUnitSlider!
+    @IBOutlet weak var pitchOverlapSlider: FXUnitSlider!
     @IBOutlet weak var lblPitchValue: NSTextField!
     @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
-    private var sliders: [EffectsUnitSlider] = []
+    private var sliders: [FXUnitSlider] = []
     
     var pitch: Float {
         return pitchSlider.floatValue
@@ -30,7 +30,7 @@ class PitchView: NSView {
         sliders = [pitchSlider, pitchOverlapSlider]
     }
     
-    func initialize(_ stateFunction: @escaping () -> EffectsUnitState) {
+    func initialize(_ stateFunction: @escaping () -> FXUnitState) {
         
         sliders.forEach({
             $0.stateFunction = stateFunction
@@ -44,7 +44,7 @@ class PitchView: NSView {
         setPitchOverlap(overlap, overlapString)
     }
     
-    func setUnitState(_ state: EffectsUnitState) {
+    func setUnitState(_ state: FXUnitState) {
         sliders.forEach({$0.setUnitState(state)})
     }
     
@@ -66,7 +66,7 @@ class PitchView: NSView {
     
     func applyPreset(_ preset: PitchPreset) {
         
-        let pitch = preset.pitch * AppConstants.ValueConversions.pitch_audioGraphToUI
+        let pitch = preset.pitch * ValueConversions.pitch_audioGraphToUI
         setPitch(pitch, ValueFormatter.formatPitch(pitch))
         setPitchOverlap(preset.overlap, ValueFormatter.formatOverlap(preset.overlap))
         setUnitState(preset.state)

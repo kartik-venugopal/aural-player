@@ -95,7 +95,7 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
                 
                 btnToggle.onIf(boolVal)
                 
-            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self], let gradientType = lastChange.undoValue as? GradientType {
+            } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self], let gradientType = lastChange.undoValue as? ColorSchemeGradientType {
                 
                 btnGroup.gradientType = gradientType
                 
@@ -137,7 +137,7 @@ class ColorSchemeViewController: NSViewController, NSMenuDelegate, ColorSchemesV
                 btnToggle.onIf(boolVal)
                 
             } else if let btnGroup = controlsMap[lastChange.tag, GradientOptionsRadioButtonGroup.self],
-                let gradientType = lastChange.redoValue as? GradientType {
+                let gradientType = lastChange.redoValue as? ColorSchemeGradientType {
                     
                 btnGroup.gradientType = gradientType
                 

@@ -29,7 +29,7 @@ class ReverbPresetsManagerViewController: FXPresetsManagerGenericViewController 
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        reverbView.initialize({() -> EffectsUnitState in .active})
+        reverbView.initialize({() -> FXUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

@@ -11,7 +11,7 @@ import Cocoa
 
 class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, NotificationSubscriber, Destroyable {
     
-    @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnBypass: FXUnitTriStateBypassButton!
     
     @IBOutlet weak var lblCaption: VALabel!
     
@@ -33,10 +33,10 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     var fxUnit: FXUnitDelegateProtocol!
-    var unitStateFunction: EffectsUnitStateFunction!
+    var unitStateFunction: FXUnitStateFunction!
     var presetsWrapper: PresetsWrapperProtocol!
     
-    var unitType: EffectsUnit!
+    var unitType: FXUnitType!
     
     override func viewDidLoad() {
         
@@ -85,8 +85,8 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         // Subscribe to notifications
         Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
         
-        Messenger.subscribe(self, .fx_updateFXUnitView, {[weak self] (EffectsUnit) in self?.initControls()},
-                            filter: {[weak self] (unit: EffectsUnit) in unit == .master || (unit == self?.unitType)})
+        Messenger.subscribe(self, .fx_updateFXUnitView, {[weak self] (FXUnit) in self?.initControls()},
+                            filter: {[weak self] (unitType: FXUnitType) in unitType == .master || (unitType == self?.unitType)})
         
         Messenger.subscribe(self, .fx_changeSliderColors, self.changeSliderColors)
         

@@ -11,12 +11,12 @@ import Cocoa
 
 class DelayView: NSView {
     
-    @IBOutlet weak var timeSlider: EffectsUnitSlider!
-    @IBOutlet weak var amountSlider: EffectsUnitSlider!
+    @IBOutlet weak var timeSlider: FXUnitSlider!
+    @IBOutlet weak var amountSlider: FXUnitSlider!
     @IBOutlet weak var cutoffSlider: CutoffFrequencySlider!
-    @IBOutlet weak var feedbackSlider: EffectsUnitSlider!
+    @IBOutlet weak var feedbackSlider: FXUnitSlider!
     
-    private var sliders: [EffectsUnitSlider] = []
+    private var sliders: [FXUnitSlider] = []
     
     @IBOutlet weak var lblTime: NSTextField!
     @IBOutlet weak var lblAmount: NSTextField!
@@ -43,7 +43,7 @@ class DelayView: NSView {
         sliders = [timeSlider, amountSlider, cutoffSlider, feedbackSlider]
     }
     
-    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
+    func initialize(_ stateFunction: (() -> FXUnitState)?) {
         
         sliders.forEach({
             $0.stateFunction = stateFunction
@@ -61,7 +61,7 @@ class DelayView: NSView {
         setCutoff(cutoff, cutoffString)
     }
     
-    func setUnitState(_ state: EffectsUnitState) {
+    func setUnitState(_ state: FXUnitState) {
         sliders.forEach({$0.setUnitState(state)})
     }
     

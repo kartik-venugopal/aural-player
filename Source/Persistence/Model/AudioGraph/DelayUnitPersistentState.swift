@@ -29,7 +29,7 @@ class DelayUnitPersistentState: FXUnitPersistentState<DelayPresetPersistentState
     }
 }
 
-class DelayPresetPersistentState: EffectsUnitPresetPersistentState {
+class DelayPresetPersistentState: FXUnitPresetPersistentState {
     
     let amount: Float
     let time: Double

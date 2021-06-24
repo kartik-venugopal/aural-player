@@ -9,16 +9,16 @@
 //
 import Foundation
 
-class FXUnitPersistentState<T: EffectsUnitPresetPersistentState>: PersistentStateProtocol {
+class FXUnitPersistentState<T: FXUnitPresetPersistentState>: PersistentStateProtocol {
     
-    var state: EffectsUnitState?
+    var state: FXUnitState?
     var userPresets: [T]?
     
     init() {}
     
     required init?(_ map: NSDictionary) {
         
-        self.state = map.enumValue(forKey: "state", ofType: EffectsUnitState.self)
+        self.state = map.enumValue(forKey: "state", ofType: FXUnitState.self)
         self.userPresets = map.persistentObjectArrayValue(forKey: "userPresets", ofType: T.self)
     }
 }

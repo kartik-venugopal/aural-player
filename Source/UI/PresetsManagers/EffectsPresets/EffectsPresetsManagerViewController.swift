@@ -60,8 +60,8 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
         [btnApply, btnRename, btnDelete].forEach({$0.disable()})
         tabViewAction(masterPresetsTabViewButton)
         
-        for unit: EffectsUnit in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
-            Messenger.publish(.fxPresetsManager_reload, payload: unit)
+        for unitType: FXUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
+            Messenger.publish(.fxPresetsManager_reload, payload: unitType)
         }
     }
     
@@ -133,7 +133,7 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
         return GenericTableRowView()
     }
     
-    private var effectsUnit: EffectsUnit {
+    private var effectsUnit: FXUnitType {
         
         let id = fxPresetsTabView.selectedTabViewItem!.identifier as! String
         let selItem = Int(id)

@@ -18,12 +18,12 @@ class ReverbPresets: FXPresets<ReverbPreset> {
     }
 }
 
-class ReverbPreset: EffectsUnitPreset {
+class ReverbPreset: FXUnitPreset {
     
     let space: ReverbSpaces
     let amount: Float
     
-    init(_ name: String, _ state: EffectsUnitState, _ space: ReverbSpaces, _ amount: Float, _ systemDefined: Bool) {
+    init(_ name: String, _ state: FXUnitState, _ space: ReverbSpaces, _ amount: Float, _ systemDefined: Bool) {
         
         self.space = space
         self.amount = amount

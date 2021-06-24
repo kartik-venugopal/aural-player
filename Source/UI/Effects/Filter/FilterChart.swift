@@ -14,7 +14,7 @@ class FilterChart: NSView {
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     
     var bandsDataFunction: (() -> [FilterBand]) = {() -> [FilterBand] in return []}
-    var filterUnitStateFunction: (() -> EffectsUnitState) = {() -> EffectsUnitState in return .active}
+    var filterUnitStateFunction: (() -> FXUnitState) = {() -> FXUnitState in return .active}
     
     var bandStopColor: NSColor = Colors.Effects.bypassedUnitStateColor
     var bandPassColor: NSColor = Colors.Effects.activeUnitStateColor
@@ -41,7 +41,7 @@ class FilterChart: NSView {
     
     override func draw(_ dirtyRect: NSRect) {
         
-        let unitState: EffectsUnitState = filterUnitStateFunction()
+        let unitState: FXUnitState = filterUnitStateFunction()
         
         var drawPath = NSBezierPath.init(rect: dirtyRect)
         backgroundColor.setFill()

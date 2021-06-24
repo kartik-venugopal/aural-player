@@ -29,7 +29,7 @@ class DelayPresetsManagerViewController: FXPresetsManagerGenericViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        delayView.initialize({() -> EffectsUnitState in .active})
+        delayView.initialize({() -> FXUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

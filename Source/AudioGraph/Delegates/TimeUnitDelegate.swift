@@ -41,7 +41,7 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
     
     var pitch: Float {return unit.pitch}
     
-    var formattedPitch: String {return ValueFormatter.formatPitch(pitch * AppConstants.ValueConversions.pitch_audioGraphToUI)}
+    var formattedPitch: String {return ValueFormatter.formatPitch(pitch * ValueConversions.pitch_audioGraphToUI)}
     
     var presets: TimePresets {return unit.presets}
     

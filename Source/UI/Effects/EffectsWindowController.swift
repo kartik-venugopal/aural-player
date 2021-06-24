@@ -35,17 +35,17 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
 
     @IBOutlet weak var fxTabView: NSTabView!
 
-    @IBOutlet weak var masterTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var eqTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var pitchTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var timeTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var reverbTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var delayTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var masterTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var eqTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var pitchTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var timeTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var reverbTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var delayTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var filterTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var auTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var recorderTabViewButton: FXUnitTabButton!
 
-    private var fxTabViewButtons: [EffectsUnitTabButton] = []
+    private var fxTabViewButtons: [FXUnitTabButton] = []
     
     @IBOutlet weak var btnClose: TintedImageButton!
 
@@ -243,9 +243,11 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         fxTabViewButtons.forEach {$0.updateState()}
     }
     
-    func showTab(_ fxUnit: EffectsUnit) {
+    func showTab(_ fxUnitType: FXUnitType) {
         
-        switch fxUnit {
+        switch fxUnitType {
+        
+        case .master: tabViewAction(masterTabViewButton)
 
         case .eq: tabViewAction(eqTabViewButton)
 
@@ -261,10 +263,6 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
             
         case .au: tabViewAction(auTabViewButton)
 
-        case .recorder: tabViewAction(recorderTabViewButton)
-            
-        case .master: tabViewAction(masterTabViewButton)
-            
         }
     }
 }

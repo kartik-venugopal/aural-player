@@ -18,10 +18,10 @@ class EffectsColorSchemePersistentState: PersistentStateProtocol {
     var functionValueTextColor: ColorPersistentState?
     
     var sliderBackgroundColor: ColorPersistentState?
-    var sliderBackgroundGradientType: GradientType?
+    var sliderBackgroundGradientType: ColorSchemeGradientType?
     var sliderBackgroundGradientAmount: Int?
     
-    var sliderForegroundGradientType: GradientType?
+    var sliderForegroundGradientType: ColorSchemeGradientType?
     var sliderForegroundGradientAmount: Int?
     
     var sliderKnobColor: ColorPersistentState?
@@ -65,12 +65,12 @@ class EffectsColorSchemePersistentState: PersistentStateProtocol {
         self.sliderBackgroundColor = map.persistentColorValue(forKey: "sliderBackgroundColor")
         
         self.sliderBackgroundGradientType = map.enumValue(forKey: "sliderBackgroundGradientType",
-                                                          ofType: GradientType.self)
+                                                          ofType: ColorSchemeGradientType.self)
         
         self.sliderBackgroundGradientAmount = map["sliderBackgroundGradientAmount", Int.self]
         
         self.sliderForegroundGradientType = map.enumValue(forKey: "sliderForegroundGradientType",
-                                                          ofType: GradientType.self)
+                                                          ofType: ColorSchemeGradientType.self)
         
         self.sliderForegroundGradientAmount = map["sliderForegroundGradientAmount", Int.self]
         

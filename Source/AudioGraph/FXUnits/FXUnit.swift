@@ -12,13 +12,13 @@ import AVFoundation
 
 class FXUnit {
     
-    var unitType: EffectsUnit
+    var unitType: FXUnitType
     
-    var state: EffectsUnitState {
+    var state: FXUnitState {
         didSet {stateChanged()}
     }
     
-    var stateFunction: EffectsUnitStateFunction {
+    var stateFunction: FXUnitStateFunction {
         return {return self.state}
     }
     
@@ -26,7 +26,7 @@ class FXUnit {
     
     var isActive: Bool {return state == .active}
     
-    init(_ unitType: EffectsUnit, _ state: EffectsUnitState) {
+    init(_ unitType: FXUnitType, _ state: FXUnitState) {
         
         self.unitType = unitType
         self.state = state
@@ -41,7 +41,7 @@ class FXUnit {
     }
     
     // Toggles the state of the effects unit, and returns its new state
-    func toggleState() -> EffectsUnitState {
+    func toggleState() -> FXUnitState {
         
         state = state == .active ? .bypassed : .active
         return state
@@ -73,19 +73,3 @@ class FXUnit {
     
     func applyPreset(_ presetName: String) {}
 }
-
-// Enumeration of all the effects units
-enum EffectsUnit {
-
-    case master
-    case eq
-    case pitch
-    case time
-    case reverb
-    case delay
-    case filter
-    case au
-    case recorder
-}
-
-typealias EffectsUnitStateFunction = () -> EffectsUnitState

@@ -11,16 +11,16 @@ import Cocoa
 
 class EQSubview: NSView {
     
-    @IBOutlet weak var globalGainSlider: EffectsUnitSlider!
+    @IBOutlet weak var globalGainSlider: FXUnitSlider!
     
-    var bandSliders: [EffectsUnitSlider] = []
-    var allSliders: [EffectsUnitSlider] = []
+    var bandSliders: [FXUnitSlider] = []
+    var allSliders: [FXUnitSlider] = []
     
     override func awakeFromNib() {
         
         for subView in self.subviews {
             
-            if let slider = subView as? EffectsUnitSlider {
+            if let slider = subView as? FXUnitSlider {
                 
                 if slider.tag >= 0 {bandSliders.append(slider)}
                 allSliders.append(slider)
@@ -28,7 +28,7 @@ class EQSubview: NSView {
         }
     }
     
-    func initialize(_ stateFunction: @escaping EffectsUnitStateFunction, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
+    func initialize(_ stateFunction: @escaping FXUnitStateFunction, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
         
         allSliders.forEach({$0.stateFunction = stateFunction})
         
@@ -58,7 +58,7 @@ class EQSubview: NSView {
         allSliders.forEach({$0.redraw()})
     }
     
-    func setState(_ state: EffectsUnitState) {
+    func setState(_ state: FXUnitState) {
         allSliders.forEach({$0.setUnitState(state)})
     }
     
@@ -69,7 +69,7 @@ class EQSubview: NSView {
         // If number of bands doesn't match, need to perform a mapping
         if bands.count != bandSliders.count {
             
-            let mappedBands = bands.count == 10 ? EQMapper.map10BandsTo15Bands(bands, AppConstants.Sound.eq15BandFrequencies) : EQMapper.map15BandsTo10Bands(bands, AppConstants.Sound.eq10BandFrequencies)
+            let mappedBands = bands.count == 10 ? EQMapper.map10BandsTo15Bands(bands, SoundConstants.eq15BandFrequencies) : EQMapper.map15BandsTo10Bands(bands, SoundConstants.eq10BandFrequencies)
             self.updateBands(mappedBands, globalGain)
             return
         }

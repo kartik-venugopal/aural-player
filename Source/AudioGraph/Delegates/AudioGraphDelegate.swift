@@ -112,8 +112,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var volume: Float {
         
-        get {round(graph.volume * AppConstants.ValueConversions.volume_audioGraphToUI)}
-        set {graph.volume = newValue * AppConstants.ValueConversions.volume_UIToAudioGraph}
+        get {round(graph.volume * ValueConversions.volume_audioGraphToUI)}
+        set {graph.volume = newValue * ValueConversions.volume_UIToAudioGraph}
     }
     
     var formattedVolume: String {return ValueFormatter.formatVolume(volume)}
@@ -126,8 +126,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var balance: Float {
         
-        get {round(graph.balance * AppConstants.ValueConversions.pan_audioGraphToUI)}
-        set {graph.balance = newValue * AppConstants.ValueConversions.pan_UIToAudioGraph}
+        get {round(graph.balance * ValueConversions.pan_audioGraphToUI)}
+        set {graph.balance = newValue * ValueConversions.pan_UIToAudioGraph}
     }
     
     var formattedBalance: String {return ValueFormatter.formatPan(balance)}

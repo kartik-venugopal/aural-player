@@ -22,13 +22,13 @@ class TimePresets: FXPresets<TimePreset> {
     override var defaultPreset: TimePreset {systemDefinedPreset(named: SystemDefinedTimePresetParams.normal.rawValue)!}
 }
 
-class TimePreset: EffectsUnitPreset {
+class TimePreset: FXUnitPreset {
     
     let rate: Float
     let overlap: Float
     let shiftPitch: Bool
     
-    init(_ name: String, _ state: EffectsUnitState, _ rate: Float, _ overlap: Float, _ shiftPitch: Bool, _ systemDefined: Bool) {
+    init(_ name: String, _ state: FXUnitState, _ rate: Float, _ overlap: Float, _ shiftPitch: Bool, _ systemDefined: Bool) {
         
         self.rate = rate
         self.overlap = overlap
@@ -108,7 +108,7 @@ fileprivate enum SystemDefinedTimePresetParams: String, CaseIterable {
         return true
     }
     
-    var state: EffectsUnitState {
+    var state: FXUnitState {
         return .active
     }
     

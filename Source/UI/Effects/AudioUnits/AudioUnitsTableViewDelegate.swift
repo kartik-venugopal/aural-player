@@ -167,7 +167,7 @@ class AudioUnitNameCellView: NSTableCellView {
 @IBDesignable
 class AudioUnitSwitchCellView: NSTableCellView {
     
-    @IBOutlet weak var btnSwitch: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnSwitch: FXUnitTriStateBypassButton!
     
     var action: (() -> ())! {
         

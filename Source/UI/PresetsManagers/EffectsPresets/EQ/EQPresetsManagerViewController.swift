@@ -29,7 +29,7 @@ class EQPresetsManagerViewController: FXPresetsManagerGenericViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        eqView.initialize(nil, nil, {() -> EffectsUnitState in .active})
+        eqView.initialize(nil, nil, {() -> FXUnitState in .active})
         eqView.chooseType(.tenBand)
     }
     

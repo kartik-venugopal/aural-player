@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class CutoffFrequencySlider: EffectsUnitSlider {
+class CutoffFrequencySlider: FXUnitSlider {
     
     var frequency: Float {
         return 20 * powf(10, (floatValue - 20) / 6660)

@@ -22,12 +22,12 @@ class PitchPresets: FXPresets<PitchPreset> {
     override var defaultPreset: PitchPreset {systemDefinedPreset(named: SystemDefinedPitchPresetParams.normal.rawValue)!}
 }
 
-class PitchPreset: EffectsUnitPreset {
+class PitchPreset: FXUnitPreset {
     
     let pitch: Float
     let overlap: Float
     
-    init(_ name: String, _ state: EffectsUnitState, _ pitch: Float, _ overlap: Float, _ systemDefined: Bool) {
+    init(_ name: String, _ state: FXUnitState, _ pitch: Float, _ overlap: Float, _ systemDefined: Bool) {
         
         self.pitch = pitch
         self.overlap = overlap
@@ -69,21 +69,21 @@ fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
             
         case .normal:   return 0
             
-        case .happyLittleGirl: return 0.3 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .happyLittleGirl: return 0.3 * ValueConversions.pitch_UIToAudioGraph
             
-        case .chipmunk: return 0.5 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .chipmunk: return 0.5 * ValueConversions.pitch_UIToAudioGraph
             
-        case .oneOctaveUp:  return 1 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .oneOctaveUp:  return 1 * ValueConversions.pitch_UIToAudioGraph
             
-        case .twoOctavesUp: return 2 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .twoOctavesUp: return 2 * ValueConversions.pitch_UIToAudioGraph
             
-        case .deep: return -0.3 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .deep: return -0.3 * ValueConversions.pitch_UIToAudioGraph
             
-        case .robocop:  return -0.5 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .robocop:  return -0.5 * ValueConversions.pitch_UIToAudioGraph
             
-        case .oneOctaveDown:    return -1 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .oneOctaveDown:    return -1 * ValueConversions.pitch_UIToAudioGraph
             
-        case .twoOctavesDown:   return -2 * AppConstants.ValueConversions.pitch_UIToAudioGraph
+        case .twoOctavesDown:   return -2 * ValueConversions.pitch_UIToAudioGraph
             
         }
     }
@@ -92,7 +92,7 @@ fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
         return 8
     }
     
-    var state: EffectsUnitState {
+    var state: FXUnitState {
         return .active
     }
     

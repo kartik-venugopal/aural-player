@@ -462,7 +462,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playerSliderForegroundGradientType: GradientType {
+    var playerSliderForegroundGradientType: ColorSchemeGradientType {
         
         switch self {
             
@@ -531,7 +531,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var playerSliderBackgroundGradientType: GradientType {
+    var playerSliderBackgroundGradientType: ColorSchemeGradientType {
         
         switch self {
             
@@ -941,7 +941,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
   
-    var effectsSliderBackgroundGradientType: GradientType {
+    var effectsSliderBackgroundGradientType: ColorSchemeGradientType {
         
         switch self {
             
@@ -1106,7 +1106,7 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var effectsSliderForegroundGradientType: GradientType {
+    var effectsSliderForegroundGradientType: ColorSchemeGradientType {
         
         switch self {
             

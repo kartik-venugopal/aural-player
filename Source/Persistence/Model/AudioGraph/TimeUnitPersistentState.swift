@@ -27,7 +27,7 @@ class TimeUnitPersistentState: FXUnitPersistentState<TimePresetPersistentState> 
     }
 }
 
-class TimePresetPersistentState: EffectsUnitPresetPersistentState {
+class TimePresetPersistentState: FXUnitPresetPersistentState {
     
     let rate: Float
     let overlap: Float?

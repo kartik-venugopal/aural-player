@@ -18,7 +18,7 @@ class MasterPresets: FXPresets<MasterPreset> {
     }
 }
 
-class MasterPreset: EffectsUnitPreset {
+class MasterPreset: FXUnitPreset {
     
     let eq: EQPreset
     let pitch: PitchPreset

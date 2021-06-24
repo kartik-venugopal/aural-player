@@ -1,5 +1,5 @@
 //
-//  EffectsUnitPresetPersistentState.swift
+//  FXUnitPresetPersistentState.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,12 +9,12 @@
 //
 import Foundation
 
-class EffectsUnitPresetPersistentState: PersistentStateProtocol {
+class FXUnitPresetPersistentState: PersistentStateProtocol {
     
     let name: String
-    let state: EffectsUnitState
+    let state: FXUnitState
     
-    init(preset: EffectsUnitPreset) {
+    init(preset: FXUnitPreset) {
         
         self.name = preset.name
         self.state = preset.state
@@ -23,7 +23,7 @@ class EffectsUnitPresetPersistentState: PersistentStateProtocol {
     required init?(_ map: NSDictionary) {
       
         guard let name = map.nonEmptyStringValue(forKey: "name"),
-              let state = map.enumValue(forKey: "state", ofType: EffectsUnitState.self) else {return nil}
+              let state = map.enumValue(forKey: "state", ofType: FXUnitState.self) else {return nil}
         
         self.name = name
         self.state = state

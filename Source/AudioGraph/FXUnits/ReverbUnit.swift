@@ -9,6 +9,13 @@
 //
 import AVFoundation
 
+protocol ReverbUnitProtocol: FXUnitProtocol {
+    
+    var space: ReverbSpaces {get set}
+    
+    var amount: Float {get set}
+}
+
 class ReverbUnit: FXUnit, ReverbUnitProtocol {
     
     private let node: AVAudioUnitReverb = AVAudioUnitReverb()

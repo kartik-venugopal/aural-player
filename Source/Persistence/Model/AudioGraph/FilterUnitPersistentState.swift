@@ -61,7 +61,7 @@ class FilterBandPersistentState: PersistentStateProtocol {
     }
 }
 
-class FilterPresetState: EffectsUnitPresetPersistentState {
+class FilterPresetState: FXUnitPresetPersistentState {
     
     let bands: [FilterBandPersistentState]
     

@@ -29,7 +29,7 @@ class TimePresetsManagerViewController: FXPresetsManagerGenericViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        timeView.initialize({() -> EffectsUnitState in .active})
+        timeView.initialize({() -> FXUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

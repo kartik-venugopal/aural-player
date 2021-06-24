@@ -29,7 +29,7 @@ class PitchPresetsManagerViewController: FXPresetsManagerGenericViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        pitchView.initialize({() -> EffectsUnitState in .active})
+        pitchView.initialize({() -> FXUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

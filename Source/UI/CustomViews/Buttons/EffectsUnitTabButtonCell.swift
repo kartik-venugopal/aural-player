@@ -1,5 +1,5 @@
 //
-//  EffectsUnitTabButtonCell.swift
+//  FXUnitTabButtonCell.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,11 +10,11 @@
 import Cocoa
 
 @IBDesignable
-class EffectsUnitTabButtonCell: NSButtonCell {
+class FXUnitTabButtonCell: NSButtonCell {
     
     private var selectionBoxColor: NSColor {return Colors.selectedTabButtonColor}
     
-    var unitState: EffectsUnitState = .bypassed
+    var unitState: FXUnitState = .bypassed
 
     @IBInspectable var imgWidth: Int = 14
     @IBInspectable var imgHeight: Int = 14

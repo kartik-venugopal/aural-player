@@ -36,7 +36,7 @@ class FilterPresetsManagerViewController: FXPresetsManagerGenericViewController 
         
         let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
         
-        filterView.initialize({() -> EffectsUnitState in .active}, bandsDataFunction, bandsDataSource, false)
+        filterView.initialize({() -> FXUnitState in .active}, bandsDataFunction, bandsDataSource, false)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false

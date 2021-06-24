@@ -54,7 +54,7 @@ class MasterPresetsManagerViewController: FXPresetsManagerGenericViewController 
         eqSubPreview.chooseType(.tenBand)
         
         let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
-        filterSubPreview.initialize({[weak self] () -> EffectsUnitState in self?.presetFilterUnitState ?? .active}, bandsDataFunction, bandsDataSource, false)
+        filterSubPreview.initialize({[weak self] () -> FXUnitState in self?.presetFilterUnitState ?? .active}, bandsDataFunction, bandsDataSource, false)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false
@@ -69,7 +69,7 @@ class MasterPresetsManagerViewController: FXPresetsManagerGenericViewController 
         return []
     }
     
-    private var presetFilterUnitState: EffectsUnitState {
+    private var presetFilterUnitState: FXUnitState {
         
         if let preset = firstSelectedPreset {
             return masterPresets.preset(named: preset.name)?.state ?? .active

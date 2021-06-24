@@ -38,7 +38,7 @@ class FilterBandViewController: NSViewController {
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
-    var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(AppConstants.Sound.audibleRangeMin).withMaxFreq(AppConstants.Sound.subBass_max)
+    var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(SoundConstants.audibleRangeMin).withMaxFreq(SoundConstants.subBass_max)
     var bandIndex: Int!
     
     var bandChangedCallback: (() -> Void) = {() -> Void in
@@ -82,7 +82,7 @@ class FilterBandViewController: NSViewController {
             freqRangeSlider.setFrequencyRange(band.minFreq!, band.maxFreq!)
             lblFrequencies.stringValue = String(format: "[ %@ - %@ ]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
             
-            cutoffSlider.setFrequency(AppConstants.Sound.audibleRangeMin)
+            cutoffSlider.setFrequency(SoundConstants.audibleRangeMin)
             
         } else {
             
@@ -92,7 +92,7 @@ class FilterBandViewController: NSViewController {
             cutoffSlider.redraw()
             lblFrequencies.stringValue = formatFrequency(cutoffSlider.frequency)
             
-            freqRangeSlider.setFrequencyRange(AppConstants.Sound.audibleRangeMin, AppConstants.Sound.subBass_max)
+            freqRangeSlider.setFrequencyRange(SoundConstants.audibleRangeMin, SoundConstants.subBass_max)
         }
         
         freqRangeSlider.updateState()
@@ -261,6 +261,6 @@ class FilterBandViewController: NSViewController {
 @IBDesignable
 class FrequencyRangeMenuItem: NSMenuItem {
     
-    @IBInspectable var minFreq: Float = AppConstants.Sound.audibleRangeMin
-    @IBInspectable var maxFreq: Float = AppConstants.Sound.audibleRangeMax
+    @IBInspectable var minFreq: Float = SoundConstants.audibleRangeMin
+    @IBInspectable var maxFreq: Float = SoundConstants.audibleRangeMax
 }

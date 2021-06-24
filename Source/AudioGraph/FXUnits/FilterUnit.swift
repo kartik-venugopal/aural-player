@@ -9,6 +9,21 @@
 //
 import AVFoundation
 
+protocol FilterUnitProtocol: FXUnitProtocol {
+    
+    var bands: [FilterBand] {get set}
+    
+    func getBand(_ index: Int) -> FilterBand
+    
+    func addBand(_ band: FilterBand) -> Int
+    
+    func updateBand(_ index: Int, _ band: FilterBand)
+    
+    func removeBands(_ indexSet: IndexSet)
+    
+    func removeAllBands()
+}
+
 class FilterUnit: FXUnit, FilterUnitProtocol {
     
     private let node: FlexibleFilterNode = FlexibleFilterNode()

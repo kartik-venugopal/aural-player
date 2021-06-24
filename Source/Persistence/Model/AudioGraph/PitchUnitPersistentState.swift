@@ -25,7 +25,7 @@ class PitchUnitPersistentState: FXUnitPersistentState<PitchPresetPersistentState
     }
 }
 
-class PitchPresetPersistentState: EffectsUnitPresetPersistentState {
+class PitchPresetPersistentState: FXUnitPresetPersistentState {
     
     let pitch: Float
     let overlap: Float?

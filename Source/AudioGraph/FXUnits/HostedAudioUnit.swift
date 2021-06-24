@@ -9,7 +9,25 @@
 //
 import AVFoundation
 
-class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
+protocol HostedAudioUnitProtocol: FXUnitProtocol {
+    
+    var name: String {get}
+    
+    var componentType: OSType {get}
+    var componentSubType: OSType {get}
+    
+    var params: [AUParameterAddress: Float] {get}
+    
+    var auAudioUnit: AUAudioUnit {get}
+    
+    var factoryPresets: [AudioUnitFactoryPreset] {get}
+    
+    func applyFactoryPreset(_ preset: AudioUnitFactoryPreset)
+    
+    func applyFactoryPreset(_ presetName: String)
+}
+
+class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol, AUNodeBypassStateObserver {
     
     private let node: HostedAUNode
     
@@ -41,7 +59,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         set(newParams) {node.params = newParams}
     }
     
-    override var avNodes: [AVAudioNode] {return [node]}
+    override var avNodes: [AVAudioNode] {[node]}
     
     // Called when the user adds a new audio unit.
     init(forComponent component: AVAudioUnitComponent) {
@@ -72,6 +90,12 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
         self.node.addBypassStateObserver(self)
     }
     
+    // A flag indicating whether or not the node's bypass state should be updated
+    // as a result of unit state being changed. This will always be true, unless
+    // the node itself initiated the state change (eg. the user bypassing
+    // the node directly from the AU's custom view).
+    private var shouldUpdateNodeBypassState: Bool = true
+    
     func nodeBypassStateChanged(_ nodeIsBypassed: Bool) {
         
         // This will be true if and only if the state change occurred as a result of the user
@@ -85,12 +109,6 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol {
             Messenger.publish(.fx_unitStateChanged)
         }
     }
-    
-    // A flag indicating whether or not the node's bypass state should be updated
-    // as a result of unit state being changed. This will always be true, unless
-    // the node itself initiated the state change (eg. the user bypassing
-    // the node directly from the AU's custom view).
-    private var shouldUpdateNodeBypassState: Bool = true
     
     override func stateChanged() {
 

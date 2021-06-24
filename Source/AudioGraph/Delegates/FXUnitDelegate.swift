@@ -17,13 +17,13 @@ class FXUnitDelegate<T: FXUnit>: FXUnitDelegateProtocol {
         self.unit = unit
     }
     
-    var state: EffectsUnitState {return unit.state}
+    var state: FXUnitState {return unit.state}
     
-    var stateFunction: EffectsUnitStateFunction {return unit.stateFunction}
+    var stateFunction: FXUnitStateFunction {return unit.stateFunction}
     
     var isActive: Bool {return unit.isActive}
     
-    func toggleState() -> EffectsUnitState {
+    func toggleState() -> FXUnitState {
         return unit.toggleState()
     }
     

@@ -11,7 +11,7 @@ import Foundation
 
 protocol FXPresetsProtocol {
     
-    associatedtype T: EffectsUnitPreset
+    associatedtype T: FXUnitPreset
     
     var userDefinedPresets: [T] {get}
     var systemDefinedPresets: [T] {get}
@@ -27,5 +27,35 @@ protocol FXPresetsProtocol {
     func presetExists(named name: String) -> Bool
 }
 
-class FXPresets<T: EffectsUnitPreset>: MappedPresets<T>, FXPresetsProtocol {
+class FXPresets<T: FXUnitPreset>: MappedPresets<T>, FXPresetsProtocol {
+}
+
+class FXUnitPreset: MappedPreset {
+    
+    var name: String
+    
+    var key: String {
+        
+        get {name}
+        set {name = newValue}
+    }
+    
+    var userDefined: Bool {!systemDefined}
+    
+    let systemDefined: Bool
+    var state: FXUnitState
+    
+    init(_ name: String, _ state: FXUnitState, _ systemDefined: Bool) {
+        
+        self.name = name
+        self.state = state
+        self.systemDefined = systemDefined
+    }
+    
+    init(persistentState: FXUnitPresetPersistentState) {
+        
+        self.name = persistentState.name
+        self.state = persistentState.state
+        self.systemDefined = false
+    }
 }

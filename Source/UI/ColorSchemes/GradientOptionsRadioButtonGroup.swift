@@ -23,7 +23,7 @@ class GradientOptionsRadioButtonGroup: NSControl {
     @IBOutlet weak var btnGradientDarken: NSButton!
     @IBOutlet weak var btnGradientBrighten: NSButton!
     
-    var gradientType: GradientType {
+    var gradientType: ColorSchemeGradientType {
         
         get {
             

@@ -45,7 +45,7 @@ class MasterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         
-        let auStateFunction: EffectsUnitStateFunction = {[weak self] in
+        let auStateFunction: FXUnitStateFunction = {[weak self] in
             
             for unit in self?.graph.audioUnits ?? [] {
             
@@ -103,7 +103,7 @@ class MasterViewController: FXUnitViewController {
     @IBAction override func presetsAction(_ sender: AnyObject) {
         
         super.presetsAction(sender)
-        Messenger.publish(.fx_updateFXUnitView, payload: EffectsUnit.master)
+        Messenger.publish(.fx_updateFXUnitView, payload: FXUnitType.master)
     }
     
     private func updateButtons() {
@@ -172,7 +172,7 @@ class MasterViewController: FXUnitViewController {
         if let newTrack = notification.endTrack, soundProfiles.hasFor(newTrack) {
             
             updateButtons()
-            Messenger.publish(.fx_updateFXUnitView, payload: EffectsUnit.master)
+            Messenger.publish(.fx_updateFXUnitView, payload: FXUnitType.master)
         }
     }
     
@@ -182,7 +182,7 @@ class MasterViewController: FXUnitViewController {
         
         functionLabels.forEach {
             
-            $0.font = $0 is EffectsUnitTriStateLabel ? fontSchemesManager.systemScheme.effects.masterUnitFunctionFont :
+            $0.font = $0 is FXUnitTriStateLabel ? fontSchemesManager.systemScheme.effects.masterUnitFunctionFont :
                 fontSchemesManager.systemScheme.effects.unitCaptionFont
         }
         

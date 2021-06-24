@@ -228,15 +228,3 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         return state
     }
 }
-
-enum EffectsUnitState: String {
-    
-    // Master unit on, and effects unit on
-    case active
-    
-    // Effects unit off
-    case bypassed
-    
-    // Master unit off, and effects unit on
-    case suppressed
-}

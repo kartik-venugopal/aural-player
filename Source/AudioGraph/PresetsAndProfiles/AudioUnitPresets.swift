@@ -23,14 +23,14 @@ class AudioUnitPresets: FXPresets<AudioUnitPreset> {
     }
 }
 
-class AudioUnitPreset: EffectsUnitPreset {
+class AudioUnitPreset: FXUnitPreset {
     
     var componentType: OSType
     var componentSubType: OSType
     
     var number: Int
     
-    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool, componentType: OSType, componentSubType: OSType, number: Int) {
+    init(_ name: String, _ state: FXUnitState, _ systemDefined: Bool, componentType: OSType, componentSubType: OSType, number: Int) {
         
         self.componentType = componentType
         self.componentSubType = componentSubType

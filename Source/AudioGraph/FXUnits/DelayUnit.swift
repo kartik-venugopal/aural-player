@@ -9,6 +9,17 @@
 //
 import AVFoundation
 
+protocol DelayUnitProtocol: FXUnitProtocol {
+    
+    var amount: Float {get set}
+    
+    var time: Double {get set}
+    
+    var feedback: Float {get set}
+    
+    var lowPassCutoff: Float {get set}
+}
+
 class DelayUnit: FXUnit, DelayUnitProtocol {
     
     private let node: AVAudioUnitDelay = AVAudioUnitDelay()

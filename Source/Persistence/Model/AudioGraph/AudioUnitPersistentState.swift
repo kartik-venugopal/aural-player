@@ -15,7 +15,7 @@ class AudioUnitPersistentState: FXUnitPersistentState<AudioUnitPresetPersistentS
     let componentSubType: OSType
     let params: [AudioUnitParameterPersistentState]
     
-    init(componentType: OSType, componentSubType: OSType, params: [AudioUnitParameterPersistentState], state: EffectsUnitState, userPresets: [AudioUnitPresetPersistentState]) {
+    init(componentType: OSType, componentSubType: OSType, params: [AudioUnitParameterPersistentState], state: FXUnitState, userPresets: [AudioUnitPresetPersistentState]) {
         
         self.componentType = componentType
         self.componentSubType = componentSubType
@@ -60,7 +60,7 @@ class AudioUnitParameterPersistentState: PersistentStateProtocol {
     }
 }
 
-class AudioUnitPresetPersistentState: EffectsUnitPresetPersistentState {
+class AudioUnitPresetPersistentState: FXUnitPresetPersistentState {
     
     let componentType: OSType
     let componentSubType: OSType

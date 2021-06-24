@@ -13,7 +13,7 @@
 
 import Cocoa
 
-class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
+class EQSliderCell: NSSliderCell, FXUnitSliderCellProtocol {
     
     let barRadius: CGFloat = 0.75
     let barInsetX: CGFloat = 0
@@ -23,7 +23,7 @@ class EQSliderCell: NSSliderCell, EffectsUnitSliderCellProtocol {
     let knobRadius: CGFloat = 1
     let knobWidthOutsideBar: CGFloat = 1.5
     
-    var unitState: EffectsUnitState = .bypassed
+    var unitState: FXUnitState = .bypassed
     
     var foregroundGradient: NSGradient {
     

@@ -25,7 +25,7 @@ class ReverbUnitPersistentState: FXUnitPersistentState<ReverbPresetPersistentSta
     }
 }
 
-class ReverbPresetPersistentState: EffectsUnitPresetPersistentState {
+class ReverbPresetPersistentState: FXUnitPresetPersistentState {
     
     let space: ReverbSpaces
     let amount: Float

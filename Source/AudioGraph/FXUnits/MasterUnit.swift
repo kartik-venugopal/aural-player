@@ -9,6 +9,8 @@
 //
 import Foundation
 
+protocol MasterUnitProtocol: FXUnitProtocol {}
+
 class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
     
     let presets: MasterPresets
@@ -42,7 +44,7 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
         Messenger.subscribe(self, .fx_unitActivated, self.ensureActive)
     }
     
-    override func toggleState() -> EffectsUnitState {
+    override func toggleState() -> FXUnitState {
         
         if super.toggleState() == .bypassed {
 

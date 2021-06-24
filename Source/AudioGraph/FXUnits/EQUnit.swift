@@ -9,6 +9,36 @@
 //
 import AVFoundation
 
+protocol EQUnitProtocol: FXUnitProtocol {
+    
+    var type: EQType {get set}
+    
+    var globalGain: Float {get set}
+    
+    var bands: [Float] {get set}
+    
+    // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
+    func setBand(_ index: Int, gain: Float)
+    
+    // Increases the equalizer bass band gains by a small increment. Returns all EQ band gain values, mapped by index.
+    func increaseBass(_ increment: Float) -> [Float]
+    
+    // Decreases the equalizer bass band gains by a small decrement. Returns all EQ band gain values, mapped by index.
+    func decreaseBass(_ decrement: Float) -> [Float]
+    
+    // Increases the equalizer mid-frequency band gains by a small increment. Returns all EQ band gain values, mapped by index.
+    func increaseMids(_ increment: Float) -> [Float]
+    
+    // Decreases the equalizer mid-frequency band gains by a small decrement. Returns all EQ band gain values, mapped by index.
+    func decreaseMids(_ decrement: Float) -> [Float]
+    
+    // Increases the equalizer treble band gains by a small increment. Returns all EQ band gain values, mapped by index.
+    func increaseTreble(_ increment: Float) -> [Float]
+    
+    // Decreases the equalizer treble band gains by a small decrement. Returns all EQ band gain values, mapped by index.
+    func decreaseTreble(_ decrement: Float) -> [Float]
+}
+
 class EQUnit: FXUnit, EQUnitProtocol {
     
     private let node: ParametricEQ

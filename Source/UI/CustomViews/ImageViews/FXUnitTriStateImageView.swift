@@ -13,7 +13,7 @@ import Cocoa
  A special case On/Off image button used as a bypass switch for Effects units, with preset images
  */
 @IBDesignable
-class EffectsUnitBypassImage: NSImageView, Tintable {
+class FXUnitBypassImage: NSImageView, Tintable {
     
     var offStateTintFunction: () -> NSColor = {return Colors.Effects.bypassedUnitStateColor} {
         
@@ -84,11 +84,11 @@ class EffectsUnitBypassImage: NSImageView, Tintable {
 /*
  A special case On/Off image button used as a bypass switch for Effects units, with preset images
  */
-class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
+class FXUnitTriStateBypassImage: FXUnitBypassImage {
     
-    var stateFunction: (() -> EffectsUnitState)?
+    var stateFunction: (() -> FXUnitState)?
     
-    var unitState: EffectsUnitState {
+    var unitState: FXUnitState {
         return stateFunction?() ?? .bypassed
     }
     
@@ -115,7 +115,7 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
         }
     }
     
-    func setUnitState(_ state: EffectsUnitState) {
+    func setUnitState(_ state: FXUnitState) {
         
         switch state {
             
@@ -137,7 +137,7 @@ class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     }
 }
 
-class EffectsUnitTriStateBypassPreviewImage: EffectsUnitTriStateBypassImage {
+class FXUnitTriStateBypassPreviewImage: FXUnitTriStateBypassImage {
     
     override func awakeFromNib() {
         

@@ -11,7 +11,7 @@ import Foundation
 
 class MasterUnitPersistentState: FXUnitPersistentState<MasterPresetPersistentState> {}
 
-class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
+class MasterPresetPersistentState: FXUnitPresetPersistentState {
     
     let eq: EQPresetPersistentState
     let pitch: PitchPresetPersistentState

@@ -22,11 +22,11 @@ class FilterPresets: FXPresets<FilterPreset> {
     override var defaultPreset: FilterPreset {systemDefinedPreset(named: SystemDefinedFilterPresetParams.passThrough.rawValue)!}
 }
 
-class FilterPreset: EffectsUnitPreset {
+class FilterPreset: FXUnitPreset {
     
     let bands: [FilterBand]
     
-    init(_ name: String, _ state: EffectsUnitState, _ bands: [FilterBand], _ systemDefined: Bool) {
+    init(_ name: String, _ state: FXUnitState, _ bands: [FilterBand], _ systemDefined: Bool) {
         
         self.bands = bands
         super.init(name, state, systemDefined)
@@ -83,9 +83,9 @@ fileprivate enum SystemDefinedFilterPresetParams: String, CaseIterable {
 fileprivate struct FilterPresetsBands {
     
     static let passThrough: [FilterBand] = []
-    static let nothingButBass: [FilterBand] = [FilterBand.bandPassBand(AppConstants.Sound.bass_min, AppConstants.Sound.bass_max)]
-    static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(AppConstants.Sound.mid_min, AppConstants.Sound.mid_max)]
-    static let noBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.Sound.bass_min, AppConstants.Sound.bass_max)]
-    static let noSubBass: [FilterBand] = [FilterBand.bandStopBand(AppConstants.Sound.subBass_min, AppConstants.Sound.subBass_max)]
-    static let karaoke: [FilterBand] = [FilterBand.bandStopBand(AppConstants.Sound.mid_min, AppConstants.Sound.mid_max)]
+    static let nothingButBass: [FilterBand] = [FilterBand.bandPassBand(SoundConstants.bass_min, SoundConstants.bass_max)]
+    static let emphasizedVocals: [FilterBand] = [FilterBand.bandPassBand(SoundConstants.mid_min, SoundConstants.mid_max)]
+    static let noBass: [FilterBand] = [FilterBand.bandStopBand(SoundConstants.bass_min, SoundConstants.bass_max)]
+    static let noSubBass: [FilterBand] = [FilterBand.bandStopBand(SoundConstants.subBass_min, SoundConstants.subBass_max)]
+    static let karaoke: [FilterBand] = [FilterBand.bandStopBand(SoundConstants.mid_min, SoundConstants.mid_max)]
 }

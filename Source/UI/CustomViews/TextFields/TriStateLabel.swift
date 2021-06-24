@@ -60,11 +60,11 @@ class OnOffLabel: CenterTextLabel {
 /*
  A special case On/Off image button used as a bypass switch for Effects units, with preset images
  */
-class EffectsUnitTriStateLabel: OnOffLabel {
+class FXUnitTriStateLabel: OnOffLabel {
     
-    var stateFunction: (() -> EffectsUnitState)?
+    var stateFunction: (() -> FXUnitState)?
     
-    var unitState: EffectsUnitState {
+    var unitState: FXUnitState {
         return stateFunction?() ?? .bypassed
     }
     
@@ -85,7 +85,7 @@ class EffectsUnitTriStateLabel: OnOffLabel {
         }
     }
     
-    func setUnitState(_ state: EffectsUnitState) {
+    func setUnitState(_ state: FXUnitState) {
         
         switch state {
             
@@ -107,7 +107,7 @@ class EffectsUnitTriStateLabel: OnOffLabel {
     }
 }
 
-class EffectsUnitTriStatePreviewLabel: EffectsUnitTriStateLabel {
+class FXUnitTriStatePreviewLabel: FXUnitTriStateLabel {
     
     override var offStateColor: NSColor {
         return Colors.Effects.defaultBypassedUnitColor

@@ -9,6 +9,21 @@
 //
 import AVFoundation
 
+protocol TimeUnitProtocol: FXUnitProtocol {
+    
+    // The playback rate, specified as a value between 1/32 and 32
+    var rate: Float {get set}
+    
+    // The amount of overlap between segments of the input audio signal into the time effects unit, specified as a value between 3 and 32
+    var overlap: Float {get set}
+    
+    // An option to alter the pitch of the sound, along with the rate
+    var shiftPitch: Bool {get set}
+    
+    // Returns the pitch offset of the time audio effects unit. If the pitch shift option of the unit is enabled, this value will range between -2400 and +2400 cents. It will be 0 otherwise (i.e. pitch unaltered).
+    var pitch: Float {get}
+}
+
 class TimeUnit: FXUnit, TimeUnitProtocol {
     
     private let node: VariableRateNode = VariableRateNode()

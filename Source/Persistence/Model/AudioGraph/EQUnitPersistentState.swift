@@ -27,7 +27,7 @@ class EQUnitPersistentState: FXUnitPersistentState<EQPresetPersistentState> {
     }
 }
 
-class EQPresetPersistentState: EffectsUnitPresetPersistentState {
+class EQPresetPersistentState: FXUnitPresetPersistentState {
     
     let bands: [Float]
     let globalGain: Float?

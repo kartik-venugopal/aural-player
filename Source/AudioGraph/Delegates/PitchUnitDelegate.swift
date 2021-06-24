@@ -15,8 +15,8 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
     
     var pitch: Float {
         
-        get {unit.pitch * AppConstants.ValueConversions.pitch_audioGraphToUI}
-        set {unit.pitch = newValue * AppConstants.ValueConversions.pitch_UIToAudioGraph}
+        get {unit.pitch * ValueConversions.pitch_audioGraphToUI}
+        set {unit.pitch = newValue * ValueConversions.pitch_UIToAudioGraph}
     }
     
     var formattedPitch: String {

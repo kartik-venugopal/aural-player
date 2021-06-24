@@ -29,7 +29,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
     var pitchDelta: Int
     var timeDelta: Float
     
-    var effectsSettingsOnStartupOption: EffectsSettingsStartupOptions
+    var effectsSettingsOnStartupOption: FXSettingsStartupOptions
     var masterPresetOnStartup_name: String?
     
     var rememberEffectsSettingsOption: RememberSettingsForTrackOptions
@@ -94,7 +94,7 @@ class SoundPreferences: PersistentPreferencesProtocol {
         pitchDelta = dict[Self.key_pitchDelta, Int.self] ?? Defaults.pitchDelta
         timeDelta = dict[Self.key_timeDelta, Float.self] ?? Defaults.timeDelta
         
-        effectsSettingsOnStartupOption = dict.enumValue(forKey: Self.key_effectsSettingsOnStartupOption, ofType: EffectsSettingsStartupOptions.self) ?? Defaults.effectsSettingsOnStartupOption
+        effectsSettingsOnStartupOption = dict.enumValue(forKey: Self.key_effectsSettingsOnStartupOption, ofType: FXSettingsStartupOptions.self) ?? Defaults.effectsSettingsOnStartupOption
         
         masterPresetOnStartup_name = dict[Self.key_masterPresetOnStartup_name, String.self] ?? Defaults.masterPresetOnStartup_name
         
@@ -157,7 +157,7 @@ enum VolumeStartupOptions: String {
     case specific
 }
 
-enum EffectsSettingsStartupOptions: String {
+enum FXSettingsStartupOptions: String {
     
     case rememberFromLastAppLaunch
     case applyMasterPreset

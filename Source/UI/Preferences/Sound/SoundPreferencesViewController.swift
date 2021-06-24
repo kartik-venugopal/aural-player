@@ -75,7 +75,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         // Volume increment / decrement
         
-        let volumeDelta = Int(round(soundPrefs.volumeDelta * AppConstants.ValueConversions.volume_audioGraphToUI))
+        let volumeDelta = Int(round(soundPrefs.volumeDelta * ValueConversions.volume_audioGraphToUI))
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
@@ -84,14 +84,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         btnSpecifyVolume.onIf(soundPrefs.volumeOnStartupOption == .specific)
         
         startupVolumeSlider.enableIf(btnSpecifyVolume.isOn)
-        startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * AppConstants.ValueConversions.volume_audioGraphToUI))
+        startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * ValueConversions.volume_audioGraphToUI))
         
         lblStartupVolume.enableIf(btnSpecifyVolume.isOn)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         // Balance increment / decrement
         
-        let panDelta = Int(round(soundPrefs.panDelta * AppConstants.ValueConversions.pan_audioGraphToUI))
+        let panDelta = Int(round(soundPrefs.panDelta * ValueConversions.pan_audioGraphToUI))
         panDeltaStepper.integerValue = panDelta
         panDeltaAction(self)
         
@@ -234,12 +234,12 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
             soundPrefs.outputDeviceOnStartup.preferredDeviceUID = prefDevice.uid
         }
         
-        soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * AppConstants.ValueConversions.volume_UIToAudioGraph
+        soundPrefs.volumeDelta = volumeDeltaStepper.floatValue * ValueConversions.volume_UIToAudioGraph
         
         soundPrefs.volumeOnStartupOption = btnRememberVolume.isOn ? .rememberFromLastAppLaunch : .specific
-        soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * AppConstants.ValueConversions.volume_UIToAudioGraph
+        soundPrefs.startupVolumeValue = Float(startupVolumeSlider.integerValue) * ValueConversions.volume_UIToAudioGraph
         
-        soundPrefs.panDelta = panDeltaStepper.floatValue * AppConstants.ValueConversions.pan_UIToAudioGraph
+        soundPrefs.panDelta = panDeltaStepper.floatValue * ValueConversions.pan_UIToAudioGraph
         
         soundPrefs.eqDelta = eqDeltaStepper.floatValue
         soundPrefs.pitchDelta = pitchDeltaStepper.integerValue

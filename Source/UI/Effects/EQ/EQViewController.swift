@@ -71,12 +71,12 @@ class EQViewController: FXUnitViewController {
         eqView.stateChanged()
     }
     
-    @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
+    @IBAction func eqGlobalGainAction(_ sender: FXUnitSlider) {
         eqUnit.globalGain = sender.floatValue
     }
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
-    @IBAction func eqSliderAction(_ sender: EffectsUnitSlider) {
+    @IBAction func eqSliderAction(_ sender: FXUnitSlider) {
         eqUnit.setBand(sender.tag, gain: sender.floatValue)
     }
     
