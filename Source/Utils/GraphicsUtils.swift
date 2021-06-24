@@ -1,3 +1,12 @@
+//
+//  GraphicsUtils.swift
+//  Aural
+//
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
 /*
     Provides a set of handy graphics functions that are reused across the app.
 */

@@ -1,3 +1,12 @@
+//
+//  PlaybackSegment.swift
+//  Aural
+//
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
 import AVFoundation
 
 // Encapsulates all data required to schedule one audio file segment for playback. Can be passed around between functions and can be cached for reuse (when playing a segment loop).

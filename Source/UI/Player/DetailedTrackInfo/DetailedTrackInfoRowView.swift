@@ -1,3 +1,12 @@
+//
+//  DetailedTrackInfoRowView.swift
+//  Aural
+//
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
 /*
     Custom view for a single NSTableView row that displays a single piece of track info. Creates table cells with the necessary track information.
 */

@@ -1,3 +1,12 @@
+//
+//  ChangeListenerProtocols.swift
+//  Aural
+//
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
 /*
     Contract for an observer responding to changes in the playlist, e.g. the playback sequence needs to be recomputed when the playlist is sorted and shuffle mode is on.
  */

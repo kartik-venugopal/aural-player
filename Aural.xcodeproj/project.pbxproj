@@ -1205,6 +1205,8 @@
 		3E9CA7EE261A0DEA006133B6 /* HostedAudioUnitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitDelegate.swift; sourceTree = "<group>"; };
 		3E9CA7F1261A21E8006133B6 /* AudioUnitEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioUnitEditorDialog.xib; sourceTree = "<group>"; };
 		3E9CA7F3261A2209006133B6 /* AudioUnitEditorDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitEditorDialogController.swift; sourceTree = "<group>"; };
+		3E9E36232684958B008DAC00 /* copyright.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = copyright.sh; sourceTree = "<group>"; };
+		3E9E36242684A21C008DAC00 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBarAppModeController.swift; sourceTree = "<group>"; };
 		3E9E590025DB6B150064EB5F /* AppModeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModeManager.swift; sourceTree = "<group>"; };
 		3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowedAppModeController.swift; sourceTree = "<group>"; };
@@ -1652,6 +1654,7 @@
 				3E427EC525D9065F00465569 /* Documentation */,
 				3E6C0EC025CEB3ED00BF0D07 /* Products */,
 				3E6C0EC925CEB3EE00BF0D07 /* Info.plist */,
+				3E9E36242684A21C008DAC00 /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2875,6 +2878,7 @@
 				3E4590F22679433F00C5BFB7 /* releaseAutomation */,
 				3E6C114D25CEB9C100BF0D07 /* ffmpeg */,
 				3E6C115325CEB9C100BF0D07 /* Assets.xcassets */,
+				3E9E36232684958B008DAC00 /* copyright.sh */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -3303,6 +3307,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
+				ORGANIZATIONNAME = "Kartik Venugopal";
 				TargetAttributes = {
 					3E6C0EBE25CEB3ED00BF0D07 = {
 						CreatedOnToolsVersion = 12.4;

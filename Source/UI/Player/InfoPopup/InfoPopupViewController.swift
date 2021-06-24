@@ -1,3 +1,12 @@
+//
+//  InfoPopupViewController.swift
+//  Aural
+//
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
 /*
     View controller for the popover that displays a brief information message when a track is added to or removed from the Favorites list
  */

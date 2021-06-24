@@ -1,3 +1,12 @@
+//
+//  SeekTimeFormats.swift
+//  Aural
+//
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
 // Enumeration of all possible formats in which the elapsed seek time is displayed.
 public enum TimeElapsedDisplayType: String {
 
