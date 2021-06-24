@@ -24,6 +24,7 @@ Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the la
   * [Contact and conversation](#contact-and-conversation)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
+  * [License](#license)
 
 ## Overview
 
@@ -235,3 +236,7 @@ Of course, you may also file issues right here on GitHub as needed. I'm usually 
 App user [yougotwill](https://github.com/yougotwill) made numerous suggestions for improvements and features, provided a lot of valuable feedback, and designed the Poolside.fm theme.
 
 Fellow GitHub member [dun198](https://github.com/dun198) made significant contributions towards this project - performance optimizations, UX improvements, etc.
+
+## License
+
+Aural Player in both forms, source code and binary, is avaiable under the [MIT license](https://github.com/maculateConception/aural-player/blob/master/LICENSE).
