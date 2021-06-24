@@ -20,7 +20,7 @@ extension URL {
     }
     
     var isNativelySupported: Bool {
-        AppConstants.SupportedTypes.nativeAudioExtensions.contains(lowerCasedExtension)
+        SupportedTypes.nativeAudioExtensions.contains(lowerCasedExtension)
     }
     
     // Checks if a file exists

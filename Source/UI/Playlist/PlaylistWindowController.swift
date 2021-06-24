@@ -73,9 +73,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
-    private lazy var fileOpenDialog = DialogsAndAlerts.openDialog
-    private lazy var saveDialog = DialogsAndAlerts.savePlaylistDialog
-    
     override var windowNibName: String? {"Playlist"}
     
     private var childContainerBoxes: [NSBox] = []
@@ -213,6 +210,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         guard !checkIfPlaylistIsBeingModified() else {return}
         
+        let fileOpenDialog = DialogsAndAlerts.openFilesAndFoldersDialog
+        
         if fileOpenDialog.runModal() == NSApplication.ModalResponse.OK {
             playlist.addFiles(fileOpenDialog.urls)
         }
@@ -243,7 +242,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         // This needs to be done async. Otherwise, the add files dialog hangs.
         DispatchQueue.main.async {
-            _ = DialogsAndAlerts.tracksNotAddedAlertWithErrors(errors).showModal()
+            _ = DialogsAndAlerts.tracksNotAddedAlert(errors: errors).showModal()
         }
     }
     
@@ -300,11 +299,15 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
     @IBAction func savePlaylistAction(_ sender: AnyObject) {
+
+        // Make sure there is at least one track to save.
+        guard playlist.size > 0, !checkIfPlaylistIsBeingModified() else {return}
         
-        guard !checkIfPlaylistIsBeingModified() else {return}
+        let saveDialog = DialogsAndAlerts.savePlaylistDialog
         
-        // Make sure there is at least one track to save
-        if playlist.size > 0 && saveDialog.runModal() == NSApplication.ModalResponse.OK, let newFileURL = saveDialog.url {
+        if saveDialog.runModal() == NSApplication.ModalResponse.OK,
+           let newFileURL = saveDialog.url {
+            
             playlist.savePlaylist(newFileURL)
         }
     }

@@ -32,8 +32,8 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
     
     init(persistentState: PlaybackSequencePersistentState?, _ playlist: PlaylistAccessorProtocol, _ playlistType: PlaylistType) {
         
-        let repeatMode = persistentState?.repeatMode ?? SequencerDefaults.repeatMode
-        let shuffleMode = persistentState?.shuffleMode ?? SequencerDefaults.shuffleMode
+        let repeatMode = persistentState?.repeatMode ?? .defaultMode
+        let shuffleMode = persistentState?.shuffleMode ?? .defaultMode
         
         self.sequence = PlaybackSequence(repeatMode, shuffleMode)
         self.playlist = playlist
@@ -480,10 +480,4 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
         // Updates the instance variable playlistType, with the new playlistType value
         self.playlistType = newPlaylistType
     }
-}
-
-struct SequencerDefaults {
-    
-    static let repeatMode: RepeatMode = .off
-    static let shuffleMode: ShuffleMode = .off
 }

@@ -7,12 +7,11 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+import Cocoa
+
 /*
     Entry point for the Aural Player application. Performs high-level (application-level) operations.
  */
-import Cocoa
-import AVFoundation
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -39,11 +38,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Make sure all logging is done to the app's log file
     private func configureLogging() {
-        freopen(AppConstants.FilesAndPaths.logFile.path.cString(using: String.Encoding.ascii)!, "a+", stderr)
+        
+        if let logFileCString = FilesAndPaths.logFile.path.cString(using: String.Encoding.ascii) {
+            freopen(logFileCString, "a+", stderr)
+        }
     }
 
     // Opens the application with a single file (audio file or playlist)
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+        
         self.application(sender, openFiles: [filename])
         return true
     }

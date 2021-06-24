@@ -51,7 +51,7 @@ class RecordingSession {
     static func start(_ format: RecordingFormat) -> RecordingSession {
         
         let nowString = Date().serializableString_hms()
-        let tempFilePath = String(format: "%@/aural-tempRecording_%@.%@", AppConstants.FilesAndPaths.recordingsDir.path, nowString, format.fileExtension)
+        let tempFilePath = String(format: "%@/aural-tempRecording_%@.%@", FilesAndPaths.recordingsDir.path, nowString, format.fileExtension)
         let tempFile = URL(fileURLWithPath: tempFilePath)
         
         currentSession = RecordingSession(format, tempFile)

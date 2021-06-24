@@ -111,12 +111,22 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
             $0!.enableIf(btnLoadTracksFromFolder.isOn)
         })
         
-        if (btnLoadPlaylistFromFile.isOff && !errorIcon_1.isHidden) {
-            hideError_playlistFile()
+        if btnLoadPlaylistFromFile.isOff {
+            
+            if errorIcon_1.isShown {
+                hideError_playlistFile()
+            }
+            
+            lblPlaylistFile.stringValue = ""
         }
         
-        if (btnLoadTracksFromFolder.isOff && !errorIcon_2.isHidden) {
-            hideError_tracksFolder()
+        if btnLoadTracksFromFolder.isOff {
+            
+            if errorIcon_2.isShown {
+                hideError_tracksFolder()
+            }
+            
+            lblFolder.stringValue = ""
         }
     
         if btnLoadPlaylistFromFile.isOn && String.isEmpty(lblPlaylistFile.stringValue) {
@@ -191,7 +201,7 @@ class PlaylistPreferencesViewController: NSViewController, PreferencesViewProtoc
     
     @IBAction func choosePlaylistFileAction(_ sender: Any) {
         
-        let dialog = DialogsAndAlerts.openPlaylistDialog
+        let dialog = DialogsAndAlerts.openPlaylistFileDialog
         
         let modalResponse = dialog.runModal()
         

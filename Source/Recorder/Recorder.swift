@@ -23,7 +23,7 @@ class Recorder: RecorderProtocol {
     init(_ graph: RecorderGraphProtocol) {
         
         self.graph = graph
-        AppConstants.FilesAndPaths.recordingsDir.createDirectory()
+        FilesAndPaths.recordingsDir.createDirectory()
     }
     
     // TODO: What if creating the audio file fails ? Return a Bool to indicate success ?

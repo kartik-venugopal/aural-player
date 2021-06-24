@@ -12,6 +12,8 @@ import Foundation
 // Enumeration of all possible playback repeat modes
 enum RepeatMode: String, CaseIterable {
     
+    static let defaultMode: RepeatMode = .off
+    
     // Play all tracks once, in sequence order
     case off
     
@@ -43,6 +45,8 @@ enum RepeatMode: String, CaseIterable {
 
 // Enumeration of all possible playback shuffle modes
 enum ShuffleMode: String, CaseIterable {
+    
+    static let defaultMode: ShuffleMode = .off
     
     // Play tracks in random order
     case on

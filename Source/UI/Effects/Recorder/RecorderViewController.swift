@@ -130,7 +130,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     // Prompts the user to save the new recording
     private func saveRecording(_ format: RecordingFormat) {
         
-        let dialog = DialogsAndAlerts.saveRecordingPanel(format.fileExtension)
+        let dialog = DialogsAndAlerts.saveRecordingDialog(fileExtension: format.fileExtension)
         let modalResponse = dialog.runModal()
         
         if (modalResponse == NSApplication.ModalResponse.OK) {
@@ -239,4 +239,12 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
             request.acceptResponse(okToExit: true)
         }
     }
+}
+
+// Enumeration of all possible responses in the save/discard ongoing recording alert (possibly) displayed when exiting the app
+enum RecordingAlertResponse: Int {
+    
+    case saveAndExit = 1000
+    case discardAndExit = 1001
+    case dontExit = 1002
 }

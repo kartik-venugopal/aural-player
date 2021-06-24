@@ -23,7 +23,7 @@ class AppModeManager {
             presentMode(lastPresentedAppMode)
             
         } else {    // Specific mode
-            presentMode(AppMode(rawValue: preferences.appModeOnStartup.modeName) ?? AppDefaults.appMode)
+            presentMode(AppMode(rawValue: preferences.appModeOnStartup.modeName) ?? AppMode.defaultMode)
         }
     }
     
@@ -57,6 +57,8 @@ class AppModeManager {
 }
 
 enum AppMode: String {
+    
+    static let defaultMode: AppMode = .windowed
     
     case windowed
     case menuBar

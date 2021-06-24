@@ -415,11 +415,9 @@ class WindowLayoutDefaults {
 
 // Convenient accessor for information about the current appearance settings for the app's main windows.
 class WindowAppearanceState {
-    static var cornerRadius: CGFloat = WindowAppearanceStateDefaults.cornerRadius
-}
-
-class WindowAppearanceStateDefaults {
-    static let cornerRadius: CGFloat = 3
+    
+    static let defaultCornerRadius: CGFloat = 3
+    static var cornerRadius: CGFloat = defaultCornerRadius
 }
 
 // A snapshot of WindowAppearanceState

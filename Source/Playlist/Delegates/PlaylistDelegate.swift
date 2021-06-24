@@ -207,13 +207,13 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
                 // Single file - playlist or track
                 let fileExtension = resolvedFile.lowerCasedExtension
 
-                if AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension) {
+                if SupportedTypes.playlistExtensions.contains(fileExtension) {
 
                     // Playlist
                     if !isRecursiveCall {addSession.addHistoryItem(resolvedFile)}
                     expandPlaylist(resolvedFile)
                     
-                } else if AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension),
+                } else if SupportedTypes.allAudioExtensions.contains(fileExtension),
                     !playlist.hasTrackForFile(resolvedFile) {
                     
                     // Track

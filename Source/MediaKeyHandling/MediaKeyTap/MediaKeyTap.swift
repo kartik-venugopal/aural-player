@@ -1,14 +1,5 @@
 //
 //  MediaKeyTap.swift
-//  Aural
-//
-//  Copyright © 2021 Kartik Venugopal. All rights reserved.
-//
-//  This software is licensed under the MIT software license.
-//  See the file "LICENSE" in the project root directory for license terms.
-//
-//
-//  MediaKeyTap.swift
 //  Castle
 //
 //  Created by Nicholas Hurden on 16/02/2016.

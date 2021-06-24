@@ -14,267 +14,209 @@ import Cocoa
 */
 struct DialogsAndAlerts {
     
-    // TODO: Reuse some of these alerts/panels
+    // MARK: NSOpenPanel ------------------------------------------
     
-    // Used to add tracks/playlists
-    static let openDialog: NSOpenPanel = createOpenDialog()
+    private static let openPanel: NSOpenPanel = NSOpenPanel()
     
-    // Used to load a single playlist file (on startup)
-    static let openPlaylistDialog: NSOpenPanel = createOpenPlaylistDialog()
+    // Used to add tracks/playlists.
+    static var openFilesAndFoldersDialog: NSOpenPanel {
+        
+        configureOpenPanel(title: String(format: "Choose audio files, playlists (.%@/.%@), or directories",
+                                                    SupportedTypes.m3u, SupportedTypes.m3u8),
+                               canChooseFiles: true,
+                               canChooseDirectories: true,
+                               allowsMultipleSelection: true,
+                               allowedFileTypes: SupportedTypes.all)
+        
+        return openPanel
+    }
     
-    // Used to load a single playlist file (on startup)
-    static let openFolderDialog: NSOpenPanel = createOpenFolderDialog()
+    // Used to load a single playlist file (on startup).
+    static var openPlaylistFileDialog: NSOpenPanel {
+        
+        configureOpenPanel(title: String(format: "Choose a (.%@/.%@) playlist file", SupportedTypes.m3u, SupportedTypes.m3u8),
+                               canChooseFiles: true,
+                               canChooseDirectories: false,
+                               allowsMultipleSelection: false,
+                               allowedFileTypes: SupportedTypes.playlistExtensions)
+        
+        return openPanel
+    }
+    
+    // Used to load a single folder (on startup).
+    static var openFolderDialog: NSOpenPanel {
+        
+        configureOpenPanel(title: "Choose a folder containing tracks",
+                               canChooseFiles: false,
+                               canChooseDirectories: true,
+                               allowsMultipleSelection: false,
+                               allowedFileTypes: nil)
+        
+        return openPanel
+    }
+    
+    private static func configureOpenPanel(title: String, canChooseFiles: Bool, canChooseDirectories: Bool,
+                                        allowsMultipleSelection: Bool, allowedFileTypes: [String]?) {
+        
+        openPanel.message = title
+        
+        openPanel.showsResizeIndicator = true
+        openPanel.showsHiddenFiles = true
+        
+        openPanel.canChooseFiles = canChooseFiles
+        openPanel.allowedFileTypes = allowedFileTypes
+        openPanel.canChooseDirectories = canChooseDirectories
+        openPanel.allowsMultipleSelection = allowsMultipleSelection
+        
+        openPanel.canCreateDirectories = false
+        openPanel.resolvesAliases = true;
+        openPanel.directoryURL = FilesAndPaths.musicDir
+    }
+    
+    // MARK: NSSavePanel ------------------------------------------
+    
+    private static let savePanel: NSSavePanel = NSSavePanel()
     
     // Used to save current playlist to a file
-    static let savePlaylistDialog: NSSavePanel = createSavePlaylistDialog()
+    static var savePlaylistDialog: NSSavePanel {
+        
+        configureSavePanel(title: String(format: "Save current playlist as a (.%@) file", SupportedTypes.m3u8),
+                           allowedFileTypes: [SupportedTypes.m3u8])
+        
+        return savePanel
+    }
     
     // Used to save a recording to a file
-    private static let saveDialog: NSSavePanel = createSaveDialog()
-    
-    // Used to prompt the user, when exiting the app, that a recording is ongoing, and give the user options to save/discard that recording
-    static let saveRecordingAlert: NSAlert = createSaveRecordingAlert()
-    
-    // Used to inform the user of an error condition
-    private static let errorAlert: NSAlert = createErrorAlert()
-    
-    // Used to warn the user that certain files were not added to the playlist
-    private static let tracksNotAddedAlert: NSAlert = createTracksNotAddedAlert()
-    
-    private static func createOpenDialog() -> NSOpenPanel {
+    static func saveRecordingDialog(fileExtension: String) -> NSSavePanel {
         
-        let dialog = NSOpenPanel()
+        configureSavePanel(title: String(format: "Save recording as a (.%@) file", fileExtension),
+                           allowedFileTypes: [fileExtension])
         
-        dialog.message = String(format: "Choose media, playlists (.%@/.%@), or directories", AppConstants.SupportedTypes.m3u, AppConstants.SupportedTypes.m3u8)
-        
-        dialog.showsResizeIndicator    = true
-        dialog.showsHiddenFiles        = true
-        
-        dialog.canChooseDirectories    = true
-        
-        dialog.canCreateDirectories    = false
-        dialog.allowsMultipleSelection = true
-        dialog.allowedFileTypes        = AppConstants.SupportedTypes.all
-        
-        dialog.resolvesAliases = true;
-        
-        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
-        
-        return dialog
+        return savePanel
     }
     
-    private static func createSavePlaylistDialog() -> NSSavePanel {
+    // Used when exporting track metadata / cover art to an HTML / JPEG / PNG file.
+    static func exportMetadataDialog(fileName: String, fileExtension: String) -> NSSavePanel {
         
-        let dialog = NSSavePanel()
+        configureSavePanel(title: String(format: "Export metadata as a (.%@) file", fileExtension),
+                           allowedFileTypes: [fileExtension], nameField: "\(fileName).\(fileExtension)")
         
-        dialog.title                   = String(format: "Save current playlist as a (.%@) file", AppConstants.SupportedTypes.m3u8)
-        dialog.showsResizeIndicator    = true
-        dialog.showsHiddenFiles        = true
-        
-        dialog.canCreateDirectories    = true
-        dialog.allowedFileTypes        = [AppConstants.SupportedTypes.m3u8]
-        
-        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
-        
-        return dialog
+        return savePanel
     }
     
-    private static func createOpenPlaylistDialog() -> NSOpenPanel {
+    private static func configureSavePanel(title: String, allowedFileTypes: [String]?, nameField: String? = nil) {
         
-        let dialog = NSOpenPanel()
+        savePanel.title = title
+        savePanel.showsResizeIndicator = true
+        savePanel.showsHiddenFiles = true
         
-        dialog.message = String(format: "Choose a (.%@/.%@) playlist file", AppConstants.SupportedTypes.m3u, AppConstants.SupportedTypes.m3u8)
+        savePanel.canCreateDirectories = true
+        savePanel.allowedFileTypes = allowedFileTypes
         
-        dialog.showsResizeIndicator    = true
-        dialog.showsHiddenFiles        = true
+        if let theNameField = nameField {
+            savePanel.nameFieldStringValue = theNameField
+        }
         
-        dialog.canChooseDirectories    = false
-        
-        dialog.canCreateDirectories    = false
-        dialog.allowsMultipleSelection = false
-        dialog.allowedFileTypes        = AppConstants.SupportedTypes.playlistExtensions
-        
-        dialog.resolvesAliases = true;
-        
-        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
-        
-        return dialog
+        savePanel.directoryURL = FilesAndPaths.musicDir
     }
     
-    private static func createOpenFolderDialog() -> NSOpenPanel {
-        
-        let dialog = NSOpenPanel()
-        
-        dialog.message = "Choose a folder containing tracks"
-        
-        dialog.showsResizeIndicator    = true
-        dialog.showsHiddenFiles        = true
-        
-        dialog.canChooseDirectories    = true
-        dialog.canChooseFiles = false
-        
-        dialog.canCreateDirectories    = false
-        dialog.allowsMultipleSelection = false
-        
-        dialog.resolvesAliases = true;
-        
-        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
-        
-        return dialog
-    }
+    // MARK: NSAlert ------------------------------------------
     
-    private static func createSaveDialog() -> NSSavePanel {
-        
-        let dialog = NSSavePanel()
-        
-        dialog.showsResizeIndicator    = true
-        dialog.showsHiddenFiles        = false
-        
-        dialog.canCreateDirectories    = true
-        
-        dialog.directoryURL = AppConstants.FilesAndPaths.musicDir
-        
-        return dialog
-    }
+    static let alert: NSAlert = NSAlert()
     
-    static func saveRecordingPanel(_ fileExtension: String) -> NSSavePanel {
-        
-        saveDialog.message = String(format: "Save recording as a (.%@) file", fileExtension)
-        saveDialog.allowedFileTypes = [fileExtension]
-        
-        return saveDialog
-    }
-    
-    static func exportMetadataPanel(_ fileName: String, _ fileExtension: String) -> NSSavePanel {
-        
-        saveDialog.nameFieldStringValue = fileName + "." + fileExtension
-        
-        saveDialog.message = String(format: "Export metadata as a (.%@) file", fileExtension)
-        saveDialog.allowedFileTypes = [fileExtension]
-        
-        return saveDialog
-    }
-    
-    private static func createSaveRecordingAlert() -> NSAlert {
+    // Used to prompt the user, when exiting the app, that a recording is ongoing,
+    // and give the user options to save/discard that recording
+    static let saveRecordingAlert: NSAlert = {
         
         let alert = NSAlert()
         
-        alert.window.title = "Save/discard ongoing recording"
-        
-        alert.messageText = "You have an ongoing recording. Would you like to save it before exiting the app ?"
-        alert.alertStyle = .warning
-        alert.icon = Images.imgWarning
-        
-        alert.addButton(withTitle: "Save recording and exit")
-        alert.addButton(withTitle: "Discard recording and exit")
-        alert.addButton(withTitle: "Don't exit")
+        configureAlert(alert, title: "Save/discard ongoing recording",
+                       message: "You have an ongoing recording. Would you like to save it before exiting the app ?",
+                       info: "",
+                       icon: Images.imgWarning,
+                       buttonTitles: ["Save recording and exit",
+                                      "Discard recording and exit",
+                                      "Don't exit"])
         
         return alert
-    }
-    
-    private static func createErrorAlert() -> NSAlert {
-        
-        let alert = NSAlert()
-        
-        alert.alertStyle = .warning
-        alert.icon = Images.imgError
-
-        alert.addButton(withTitle: "OK")
-        
-        return alert
-    }
+    }()
     
     static func genericErrorAlert(_ title: String, _ message: String, _ info: String) -> NSAlert {
         
-        let alert = errorAlert
-        
-        alert.window.title = title
-        alert.messageText = message
-        alert.informativeText = info
+        configureAlert(alert, title: title,
+                       message: message,
+                       info: info,
+                       icon: Images.imgError,
+                       buttonTitles: ["OK"])
         
         return alert
     }
     
     static func trackNotPlayedAlertWithError(_ error: InvalidTrackError) -> NSAlert {
         
-        let alert = errorAlert
-        
-        alert.window.title = "Track not played"
-        alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
-        
-        alert.informativeText = error.message
+        configureAlert(alert, title: "Track not played",
+                       message: String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent),
+                       info: error.message,
+                       icon: Images.imgError,
+                       buttonTitles: ["OK"])
         
         return alert
     }
     
     static func trackNotPlayedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
         
-        // TODO: Check center alignment in track name label.
-        
-        let alert = errorAlert
-        
-        alert.window.title = "Track not played"
-        alert.messageText = String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent)
-        alert.informativeText = error.message
-        
-        if let msg = actionMessage {
-            alert.buttons[0].title = msg
-        }
+        configureAlert(alert, title: "Track not played",
+                       message: String(format: "The track '%@' cannot be played back !", error.file.lastPathComponent),
+                       info: error.message,
+                       icon: Images.imgError,
+                       buttonTitles: [actionMessage ?? "OK"])
         
         return alert
     }
     
     static func historyItemNotAddedAlertWithError(_ error: FileNotFoundError, _ actionMessage: String?) -> NSAlert {
         
-        let alert = errorAlert
-        
-        alert.window.title = "History item not found"
-        alert.messageText = String(format: "The history item '%@' cannot be added to the playlist !", error.file.lastPathComponent)
-        alert.informativeText = error.message
-        
-        if let msg = actionMessage {
-            alert.buttons[0].title = msg
-        }
+        configureAlert(alert, title: "History item not found",
+                       message: String(format: "The history item '%@' cannot be added to the playlist !", error.file.lastPathComponent),
+                       info: error.message,
+                       icon: Images.imgError,
+                       buttonTitles: [actionMessage ?? "OK"])
         
         return alert
     }
     
-    private static func createTracksNotAddedAlert() -> NSAlert {
+    // Used to warn the user that certain files were not added to the playlist
+    static func tracksNotAddedAlert(errors: [DisplayableError]) -> NSAlert {
         
-        let alert = NSAlert()
+        configureAlert(alert, title: "File(s) not added",
+                       message: String(format: "%d of your chosen files were not added to the playlist. Possible reasons are listed below.", errors.count),
+                       info: "- File(s) point to missing/broken paths.\n- Playlist file(s) point to audio file(s) with missing/broken paths.\n- File(s) are corrupted/damaged.",
+                       icon: Images.imgWarning,
+                       buttonTitles: ["OK"])
         
-        alert.window.title = "File(s) not added"
-        
-        let infoText: String = "- File(s) point to missing/broken paths.\n- Playlist file(s) point to audio file(s) with missing/broken paths.\n- File(s) are corrupted/damaged."
-        
-        alert.informativeText = infoText
-        
-        alert.alertStyle = .warning
-        alert.icon = Images.imgWarning
-        
-        let rect: NSRect = NSRect(x: alert.window.frame.origin.x, y: alert.window.frame.origin.y, width: alert.window.width, height: 150)
+        let rect: NSRect = NSRect(x: alert.window.x, y: alert.window.y, width: alert.window.width, height: 150)
         alert.window.setFrame(rect, display: true)
         
-        alert.addButton(withTitle: "Ok")
-        
         return alert
     }
     
-    static func tracksNotAddedAlertWithErrors(_ errors: [DisplayableError]) -> NSAlert {
+    private static func configureAlert(_ alert: NSAlert, title: String, message: String, info: String,
+                                       icon: NSImage, buttonTitles: [String] = []) {
         
-        let alert = tracksNotAddedAlert
+        alert.window.title = title
+        alert.messageText = message
+        alert.informativeText = info
         
-        let numErrors = errors.count
+        alert.alertStyle = .warning
+        alert.icon = icon
         
-        alert.messageText = String(format: "%d of your chosen files were not added to the playlist. Possible reasons are listed below.", numErrors)
-        
-        return alert
-    }
-}
+        for (index, buttonTitle) in buttonTitles.enumerated() {
 
-// Enumeration of all possible responses in the save/discard ongoing recording alert (possibly) displayed when exiting the app
-enum RecordingAlertResponse: Int {
-    
-    case saveAndExit = 1000
-    case discardAndExit = 1001
-    case dontExit = 1002
+            if index >= alert.buttons.count {
+                alert.addButton(withTitle: buttonTitle)
+            } else {
+                alert.buttons[index].title = buttonTitle
+            }
+        }
+    }
 }

@@ -16,7 +16,7 @@ class ObjectGraph {
     
     static let persistentState: PersistentAppState = PersistentStateIO.load() ?? PersistentAppState.defaults
     
-    static let lastPresentedAppMode: AppMode = persistentState.ui?.appMode ?? AppDefaults.appMode
+    static let lastPresentedAppMode: AppMode = persistentState.ui?.appMode ?? AppMode.defaultMode
     
     static let preferences: Preferences = Preferences.instance
     
@@ -140,9 +140,9 @@ class ObjectGraph {
     ///
     private static func cleanUpTranscoderFolders() {
         
-        let transcoderDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("transcoderStore", isDirectory: true)
+        let transcoderDir: URL = URL(fileURLWithPath: FilesAndPaths.baseDir.path).appendingPathComponent("transcoderStore", isDirectory: true)
         
-        let artDir: URL = URL(fileURLWithPath: AppConstants.FilesAndPaths.baseDir.path).appendingPathComponent("albumArt", isDirectory: true)
+        let artDir: URL = URL(fileURLWithPath: FilesAndPaths.baseDir.path).appendingPathComponent("albumArt", isDirectory: true)
         
         for folder in [transcoderDir, artDir] {
             folder.delete()

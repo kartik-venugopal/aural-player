@@ -197,7 +197,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         if let track = DetailedTrackInfoViewController.shownTrack, let image = track.art?.image {
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-coverArt", fileExtension)
+            let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-coverArt", fileExtension: fileExtension)
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                     
@@ -234,7 +234,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             dict["audio"] = audioDict
             dict["fileSystem"] = fileSystemDict
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-metadata", "json")
+            let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "json")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 
@@ -286,7 +286,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             let audioHTML = tableToHTML(audioTable)
             let fileSystemHTML = tableToHTML(fileSystemTable)
             
-            let dialog = DialogsAndAlerts.exportMetadataPanel(track.displayName + "-metadata", "html")
+            let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "html")
             
             if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
                 

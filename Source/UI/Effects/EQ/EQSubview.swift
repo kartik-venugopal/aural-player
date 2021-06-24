@@ -64,6 +64,8 @@ class EQSubview: NSView {
     
     func updateBands(_ bands: [Float], _ globalGain: Float) {
         
+        // TODO: Simplify this (see if it can be done in the Delegate layer).
+        
         // If number of bands doesn't match, need to perform a mapping
         if bands.count != bandSliders.count {
             
@@ -73,9 +75,9 @@ class EQSubview: NSView {
         }
         
         // Slider tag = index. Default gain value, if bands array doesn't contain gain for index, is 0
-        bandSliders.forEach({
-            $0.floatValue = $0.tag < bands.count ? bands[$0.tag] : AppDefaults.eqBandGain
-        })
+        bandSliders.forEach {
+            $0.floatValue = $0.tag < bands.count ? bands[$0.tag] : AudioGraphDefaults.eqBandGain
+        }
         
         globalGainSlider.floatValue = globalGain
     }

@@ -85,6 +85,6 @@ enum ReverbSpaces: String {
  
     // Constructs a ReverPresets object from a description string
     static func fromDescription(_ description: String) -> ReverbSpaces {
-        return ReverbSpaces(rawValue: description.camelCased()) ?? AppDefaults.reverbSpace
+        return ReverbSpaces(rawValue: description.camelCased()) ?? AudioGraphDefaults.reverbSpace
     }
 }

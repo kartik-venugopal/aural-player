@@ -20,7 +20,7 @@ class MusicBrainzCache: NotificationSubscriber {
     var onDiskReleasesCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     var onDiskRecordingsCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     
-    private let baseDir: URL = AppConstants.FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache",
+    private let baseDir: URL = FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache",
                                                                                          isDirectory: true)
     
     private let diskIOOpQueue: OperationQueue = {

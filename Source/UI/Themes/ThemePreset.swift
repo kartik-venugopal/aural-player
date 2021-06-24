@@ -61,7 +61,7 @@ enum ThemePreset: String, CaseIterable {
 
         switch self {
 
-        case .poolsideFM:   return AppDefaults.windowCornerRadius
+        case .poolsideFM:   return WindowAppearanceState.defaultCornerRadius
 
         }
     }

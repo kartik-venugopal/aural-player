@@ -14,11 +14,11 @@ import AVFoundation
 
 class PersistentStateIO {
     
-    static let persistentStateFile: URL = AppConstants.FilesAndPaths.persistentStateFile
+    static let persistentStateFile: URL = FilesAndPaths.persistentStateFile
     
     static func save(_ state: PersistentAppState) {
         
-        AppConstants.FilesAndPaths.baseDir.createDirectory()
+        FilesAndPaths.baseDir.createDirectory()
         
         let jsonObject = JSONMapper.map(state)
         

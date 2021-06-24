@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double MediaKeyTapVersionNumber;
 FOUNDATION_EXPORT const unsigned char MediaKeyTapVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <MediaKeyTap/PublicHeader.h>
-
-

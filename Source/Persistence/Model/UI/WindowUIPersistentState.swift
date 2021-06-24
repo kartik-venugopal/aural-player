@@ -25,7 +25,7 @@ class WindowUIPersistentState: PersistentStateProtocol {
 extension WindowAppearanceState {
     
     static func initialize(_ persistentState: WindowUIPersistentState?) {
-        Self.cornerRadius = persistentState?.cornerRadius ?? WindowAppearanceStateDefaults.cornerRadius
+        Self.cornerRadius = persistentState?.cornerRadius ?? WindowAppearanceState.defaultCornerRadius
     }
     
     static var persistentState: WindowUIPersistentState {

@@ -44,7 +44,7 @@ class ParametricEQ: ParametricEQProtocol {
         
         self.type = type
         self.bypass = false
-        self.globalGain = AppDefaults.eqGlobalGain
+        self.globalGain = AudioGraphDefaults.eqGlobalGain
     }
     
     func chooseType(_ type: EQType) {

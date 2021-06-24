@@ -28,10 +28,10 @@ class VariableRateNode {
         timePitchNode = AVAudioUnitTimePitch()
         variNode = AVAudioUnitVarispeed()
         
-        bypass = AppDefaults.timeState != .active
-        rate = AppDefaults.timeStretchRate
-        shiftPitch = AppDefaults.timeShiftPitch
-        overlap = AppDefaults.timeOverlap
+        bypass = AudioGraphDefaults.timeState != .active
+        rate = AudioGraphDefaults.timeStretchRate
+        shiftPitch = AudioGraphDefaults.timeShiftPitch
+        overlap = AudioGraphDefaults.timeOverlap
     }
     
     var bypass: Bool {

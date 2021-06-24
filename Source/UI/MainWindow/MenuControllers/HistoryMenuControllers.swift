@@ -66,14 +66,14 @@ fileprivate func artForFile(_ _file: URL) -> NSImage? {
         // Single file - playlist or track
         let fileExtension = file.lowerCasedExtension
         
-        if AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension) {
+        if SupportedTypes.playlistExtensions.contains(fileExtension) {
             
             // Playlist
             // Display name is last path component
             // Art is playlist icon
             return Images.imgHistory_playlist_padded
             
-        } else if AppConstants.SupportedTypes.allAudioExtensions.contains(fileExtension) {
+        } else if SupportedTypes.allAudioExtensions.contains(fileExtension) {
             
             return (playlist.findFile(file)?.art?.image ?? fileReader.getArt(for: file)?.image)?.imageCopy()
         }

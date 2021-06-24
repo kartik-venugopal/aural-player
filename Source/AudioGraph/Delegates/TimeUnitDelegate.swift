@@ -80,7 +80,7 @@ class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
             _ = toggleState()
             
             // If the time unit is currently inactive, start at default playback rate, before the increase
-            rate = AppDefaults.timeStretchRate
+            rate = AudioGraphDefaults.timeStretchRate
         }
     }
 }

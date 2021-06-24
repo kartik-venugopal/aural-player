@@ -26,8 +26,8 @@ import Foundation
  */
 class PlaybackSequence {
     
-    private var repeatMode: RepeatMode = .off
-    private var shuffleMode: ShuffleMode = .off
+    private var repeatMode: RepeatMode = .defaultMode
+    private var shuffleMode: ShuffleMode = .defaultMode
     
     // Total size of sequence (i.e. number of tracks)
     private(set) var size: Int = 0

@@ -108,7 +108,7 @@ class AddedItem: HistoryItem {
             // Single file - playlist or track
             let fileExtension = file.lowerCasedExtension
             
-            if AppConstants.SupportedTypes.playlistExtensions.contains(fileExtension) {
+            if SupportedTypes.playlistExtensions.contains(fileExtension) {
                 
                 // Playlist
                 // Display name is last path component

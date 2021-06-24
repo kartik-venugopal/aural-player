@@ -530,17 +530,16 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         }
     }
     
-    // TODO: How to display errors in menu bar mode ???
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
         updateTrackInfo()
         stateChanged(player.state)
         
-        if let invalidTrackError = notification.error as? InvalidTrackError {
-            alertDialog.showAlert(.error, "Track not played", invalidTrackError.file.lastPathComponent, notification.error.message)
-        } else {
-            alertDialog.showAlert(.error, "Track not played", "", notification.error.message)
-        }
+        let errorDialog = DialogsAndAlerts.genericErrorAlert("Track not played",
+                                                             notification.errorTrack.file.lastPathComponent,
+                                                             notification.error.message)
+            
+        errorDialog.runModal()
     }
     
     @IBAction func windowedModeAction(_ sender: AnyObject) {

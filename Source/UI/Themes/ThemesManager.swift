@@ -24,7 +24,7 @@ class ThemesManager: MappedPresets<Theme> {
         let userDefinedThemes: [Theme] = (persistentState?.userThemes ?? []).map {Theme(name: $0.name,
                                                                                     fontScheme: FontScheme($0.fontScheme, false),
                                                                                     colorScheme: ColorScheme($0.colorScheme, false),
-                                                                                    windowAppearance: WindowAppearance(cornerRadius: $0.windowAppearance?.cornerRadius ?? WindowAppearanceStateDefaults.cornerRadius), userDefined: true)}
+                                                                                    windowAppearance: WindowAppearance(cornerRadius: $0.windowAppearance?.cornerRadius ?? WindowAppearanceState.defaultCornerRadius), userDefined: true)}
         
         super.init(systemDefinedPresets: systemDefinedThemes, userDefinedPresets: userDefinedThemes)
     }

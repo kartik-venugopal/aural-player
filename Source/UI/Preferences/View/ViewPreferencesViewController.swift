@@ -125,7 +125,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         let viewPrefs = preferences.viewPreferences
         
         viewPrefs.appModeOnStartup.option = btnStartWithAppMode.isOn ? .specific : .rememberFromLastAppLaunch
-        viewPrefs.appModeOnStartup.modeName = (appModeMenu.selectedItem?.representedObject as? AppMode)?.rawValue ?? AppDefaults.appMode.rawValue
+        viewPrefs.appModeOnStartup.modeName = (appModeMenu.selectedItem?.representedObject as? AppMode)?.rawValue ?? AppMode.defaultMode.rawValue
         
         viewPrefs.layoutOnStartup.option = btnStartWithLayout.isOn ? .specific : .rememberFromLastAppLaunch
         viewPrefs.layoutOnStartup.layoutName = layoutMenu.selectedItem!.title

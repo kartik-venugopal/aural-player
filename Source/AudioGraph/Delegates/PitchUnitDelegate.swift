@@ -62,7 +62,7 @@ class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
         if state != .active {
             
             _ = unit.toggleState()
-            unit.pitch = AppDefaults.pitch
+            unit.pitch = AudioGraphDefaults.pitch
         }
     }
 }

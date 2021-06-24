@@ -16,26 +16,6 @@ import AVFoundation
 */
 struct AppConstants {
     
-    struct SupportedTypes {
-        
-        // Supported playlist file types
-        static let m3u: String = "m3u"
-        static let m3u8: String = "m3u8"
-        static let playlistExtensions: [String] = [m3u, m3u8]
-        
-        // Supported audio file types/formats
-        
-        static let nativeAudioExtensions: [String] = ["aac", "adts", "aif", "aiff", "aifc", "caf", "mp1", "mp2", "mp3", "m4a", "m4b", "m4r", "snd", "au", "sd2", "wav", "ac3", "amr"]
-        static let nonNativeAudioExtensions: [String] = ["flac", "oga", "opus", "wma", "dsf", "dsd", "dff", "mpc", "ape", "wv", "mka", "ogg", "tta", "tak", "ra", "rm"]
-
-        static let allAudioExtensions: [String] = {nativeAudioExtensions + nonNativeAudioExtensions}()
-        
-        static let avfFileTypes: [String] = [AVFileType.mp3.rawValue, AVFileType.m4a.rawValue, AVFileType.aiff.rawValue, AVFileType.aifc.rawValue, AVFileType.caf.rawValue, AVFileType.wav.rawValue, AVFileType.ac3.rawValue]
-        
-        // File types allowed in the Open file dialog (extensions and UTIs)
-        static let all: [String] = {allAudioExtensions + playlistExtensions + avfFileTypes}()
-    }
-    
     struct Sound {
 
         // Audible range (frequencies)
@@ -68,22 +48,5 @@ struct AppConstants {
         
         static let pitch_UIToAudioGraph: Float = 1200     // Multiply by 1200
         static let pitch_audioGraphToUI: Float = (1/1200) // Divide by 1200
-    }
-    
-    struct FilesAndPaths {
-        
-        // Default user's music directory (default place to look in, when opening/saving files)
-        static let musicDir: URL = URL(fileURLWithPath: NSHomeDirectory() + "/Music").resolvedURL
-        static let baseDir: URL = musicDir.appendingPathComponent("aural", isDirectory: true)
-        
-        // App state/log files
-        static let persistentStateFileName = "state.json"
-        static let persistentStateFile: URL = baseDir.appendingPathComponent(persistentStateFileName)
-        
-        static let logFileName = "aural.log"
-        static let logFile: URL = baseDir.appendingPathComponent(logFileName)
-        
-        // Directory where recordings are temporarily stored, till the user defines the location
-        static let recordingsDir: URL = baseDir.appendingPathComponent("recordings", isDirectory: true)
     }
 }

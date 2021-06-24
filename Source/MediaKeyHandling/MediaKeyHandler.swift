@@ -45,7 +45,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
     init(_ preferences: MediaKeysControlsPreferences) {
         
         self.preferences = preferences
-        Messenger.subscribe(self, .application_launched, self.startMonitoring, filter: {preferences.enabled})
+        Messenger.subscribe(self, .application_launched, self.startMonitoring, filter: {[weak self] in self?.preferences.enabled ?? false})
     }
     
     func startMonitoring() {
@@ -122,21 +122,24 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
                 repeatExecutor?.startOrResume()
             }
             
-        } else // Only do this on keyUp, if the last key event was keyDown, and was not a repeat
-            if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && !lastEvent.keyRepeat {
+        } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed {
+            
+            if lastEvent.keyRepeat {
+                
+                // Key up after repeating ... invalidate the repeating task
+                repeatExecutor?.stop()
+                repeatExecutor = nil
+                
+            } else {
+                
+                // Only do this on keyUp, if the last key event was keyDown, and was not a repeat
                 
                 // Change track
                 DispatchQueue.main.async {
                     Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
                 }
-                
-            } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {
-                
-                // Key up after repeating ... invalidate the repeating task
-                repeatExecutor?.stop()
-                repeatExecutor = nil
+            }
         }
-        
         
         lastEvent = event
     }

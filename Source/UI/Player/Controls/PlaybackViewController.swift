@@ -171,11 +171,11 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
         
         self.trackChanged(nil)
         
-        if let invalidTrackError = notification.error as? InvalidTrackError {
-            alertDialog.showAlert(.error, "Track not played", invalidTrackError.file.lastPathComponent, notification.error.message)
-        } else {
-            alertDialog.showAlert(.error, "Track not played", "", notification.error.message)
-        }
+        let errorDialog = DialogsAndAlerts.genericErrorAlert("Track not played",
+                                                             notification.errorTrack.file.lastPathComponent,
+                                                             notification.error.message)
+            
+        errorDialog.runModal()
     }
     
     // MARK: Seeking actions/functions ------------------------------------------------------------
