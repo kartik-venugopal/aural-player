@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0012EF2684858A00F3880C /* AudioGraphDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0012EE2684858A00F3880C /* AudioGraphDefaults.swift */; };
 		3E09D09C26805AB6008ECB8C /* DictionaryFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D09B26805AB6008ECB8C /* DictionaryFunctions.swift */; };
 		3E09D0C626805C19008ECB8C /* MusicBrainzCachePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D09D26805C18008ECB8C /* MusicBrainzCachePersistentState.swift */; };
 		3E09D0C726805C19008ECB8C /* PlaybackProfilePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D09E26805C18008ECB8C /* PlaybackProfilePersistentState.swift */; };
@@ -674,6 +675,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E0012EE2684858A00F3880C /* AudioGraphDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphDefaults.swift; sourceTree = "<group>"; };
 		3E09D09B26805AB6008ECB8C /* DictionaryFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryFunctions.swift; sourceTree = "<group>"; };
 		3E09D09D26805C18008ECB8C /* MusicBrainzCachePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicBrainzCachePersistentState.swift; sourceTree = "<group>"; };
 		3E09D09E26805C18008ECB8C /* PlaybackProfilePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaybackProfilePersistentState.swift; sourceTree = "<group>"; };
@@ -2715,6 +2717,7 @@
 			children = (
 				3E6C110025CEB98700BF0D07 /* AudioGraph.swift */,
 				3E6C110F25CEB98700BF0D07 /* AudioEngine.swift */,
+				3E0012EE2684858A00F3880C /* AudioGraphDefaults.swift */,
 				3E4D18F025D5626C00A22E09 /* MockAudioGraph.swift */,
 				3E6C111625CEB98700BF0D07 /* FXUnits */,
 				3E5623C82619FA8600D55E43 /* AudioUnits */,
@@ -3829,6 +3832,7 @@
 				3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */,
 				3E6C131925CEBEA000BF0D07 /* Size.swift in Sources */,
 				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsManagerViewController.swift in Sources */,
+				3E0012EF2684858A00F3880C /* AudioGraphDefaults.swift in Sources */,
 				3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */,
 				3E09D0E326805C19008ECB8C /* TimeUnitPersistentState.swift in Sources */,
 				3EDB345725E8B75D004DF7DE /* ITunesSpec.swift in Sources */,
