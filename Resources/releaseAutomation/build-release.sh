@@ -44,6 +44,7 @@ export archive="${releaseDir}/Aural.xcarchive"
 export bundle="${releaseDir}/Aural.app"
 export installer="./AuralPlayer-${releaseVersion}.dmg"
 export releaseNotesFile="../../Documentation/Release Notes.md"
+export licenseFile="../../LICENSE"
 
 function buildAppBundle {
 
@@ -84,11 +85,12 @@ function buildDMG {
       --background "assets/dmg-background.png" \
       --window-pos 200 120 \
       --window-size 800 400 \
-      --icon-size 90 \
-      --icon "Aural.app" 200 175 \
+      --icon-size 70 \
+      --icon "Aural.app" 230 150 \
       --hide-extension "Aural.app" \
-      --app-drop-link 620 170 \
-      --add-file "Release Notes.md" "${releaseNotesFile}" 390 270 \
+      --app-drop-link 590 150 \
+      --add-file "Release Notes.md" "${releaseNotesFile}" 470 270 \
+      --add-file "LICENSE.txt" "${licenseFile}" 320 270 \
       "${installer}" \
       "${releaseDir}"
       
