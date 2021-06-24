@@ -1,5 +1,22 @@
 #!/bin/sh
 
+#
+#  build-ffmpeg.sh
+#  Aural
+#
+#  Copyright © 2021 Kartik Venugopal. All rights reserved.
+#
+#  This software is licensed under the MIT software license.
+#  See the file "LICENSE" in the project root directory for license terms.
+#
+
+#
+# This script builds FFmpeg shared libraries (.dylib) suitable for use by Aural Player.
+#
+# Please see "README.txt" (in the same directory as this script) for detailed instructions and notes
+# related to the use of this script.
+#
+
 # FFmpeg release version
 export ffmpegVersion="4.4"
 

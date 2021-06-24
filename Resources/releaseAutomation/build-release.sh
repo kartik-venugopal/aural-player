@@ -1,6 +1,16 @@
 #!/bin/sh
 
 #
+#  build-release.sh
+#  Aural
+#
+#  Copyright © 2021 Kartik Venugopal. All rights reserved.
+#
+#  This software is licensed under the MIT software license.
+#  See the file "LICENSE" in the project root directory for license terms.
+#
+
+#
 # Builds an Aural Player app bundle and optionally packages it in a compressed read-only DMG disk image suitable
 # for distribution as a product release.
 #
