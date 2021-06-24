@@ -715,6 +715,7 @@
 		3E09D0C526805C19008ECB8C /* FavoritePersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritePersistentState.swift; sourceTree = "<group>"; };
 		3E09D0EB26805C50008ECB8C /* PersistentAppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentAppState.swift; sourceTree = "<group>"; };
 		3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlManager.swift; sourceTree = "<group>"; };
+		3E0E0D2D2684BD6E005121A1 /* xml-copyright.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "xml-copyright.sh"; sourceTree = "<group>"; };
 		3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandManager.swift; sourceTree = "<group>"; };
 		3E1454F22680B5000034056E /* NotificationSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubscriber.swift; sourceTree = "<group>"; };
 		3E1454F42680C6DC0034056E /* FXUnitPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitPersistentState.swift; sourceTree = "<group>"; };
@@ -2879,6 +2880,7 @@
 				3E6C114D25CEB9C100BF0D07 /* ffmpeg */,
 				3E6C115325CEB9C100BF0D07 /* Assets.xcassets */,
 				3E9E36232684958B008DAC00 /* copyright.sh */,
+				3E0E0D2D2684BD6E005121A1 /* xml-copyright.sh */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    AboutDialog.xib
+    Aural
+
+    Copyright © 2021 Kartik Venugopal. All rights reserved.
+
+    This software is licensed under the MIT software license.
+    See the file "LICENSE" in the project root directory for license terms.
+
+-->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>

@@ -1,5 +1,10 @@
 //
-//  Use this file to import your target's public headers that you would like to expose to Swift.
+//  Aural-Bridging-Header.h
+//  Aural
 //
-
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
 #import "ffmpeg.h"
