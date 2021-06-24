@@ -239,4 +239,4 @@ Fellow GitHub member [dun198](https://github.com/dun198) made significant contri
 
 ## License
 
-Aural Player in both forms, source code and binary, is avaiable under the [MIT license](https://github.com/maculateConception/aural-player/blob/master/LICENSE).
+Aural Player (in both forms - source code and binary) is available for use under the [MIT license](https://github.com/maculateConception/aural-player/blob/master/LICENSE).
