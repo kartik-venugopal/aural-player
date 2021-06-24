@@ -4,7 +4,7 @@
 
 ### Update (June 16, 2021)
 
-**Machines with Apple silicon are now supported !**
+**Machines with Apple silicon (M1) are now supported !**
 
 [Try it out](https://github.com/maculateConception/aural-player/releases/latest).
 
