@@ -47,10 +47,7 @@ class FontSchemesManagerViewController: GenericPresetsManagerViewController {
     override func applyPreset(atIndex index: Int) {
         
         let selScheme = fontSchemesManager.userDefinedPresets[index]
-        let updatedScheme = fontSchemesManager.applyScheme(selScheme)
-        
-        // TODO: This should really be in FontSchemesManager, not here. Same for other preset managers.
-        Messenger.publish(.applyFontScheme, payload: updatedScheme)
+        fontSchemesManager.applyScheme(selScheme)
     }
     
     override func renamePreset(named name: String, to newName: String) {

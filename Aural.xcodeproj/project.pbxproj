@@ -594,12 +594,22 @@
 		3EAFB611267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB610267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift */; };
 		3EAFB613267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB612267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift */; };
 		3EAFB615267FF47200F0DC96 /* FilterBandSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */; };
-		3EAFB617267FF4C200F0DC96 /* EffectsTickedSliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB616267FF4C200F0DC96 /* EffectsTickedSliderPreviewCell.swift */; };
+		3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */; };
 		3EAFB619267FF68C00F0DC96 /* CGFloatExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */; };
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
 		3EBABCBE262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */; };
 		3EBF2923268653B100D87021 /* AudioDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF2922268653B100D87021 /* AudioDeviceList.swift */; };
+		3EBF29252686940600D87021 /* EQSelectorButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */; };
+		3EBF29272686944000D87021 /* PlaylistViewsButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29262686944000D87021 /* PlaylistViewsButtonCell.swift */; };
+		3EBF29292686947700D87021 /* FilterBandsTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */; };
+		3EBF292B268695B700D87021 /* EffectsUnitTriStateBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */; };
+		3EBF292D2686961300D87021 /* EffectsUnitTabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292C2686961300D87021 /* EffectsUnitTabButton.swift */; };
+		3EBF292F2686965400D87021 /* RecorderToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF292E2686965400D87021 /* RecorderToggleButton.swift */; };
+		3EBF2931268696FA00D87021 /* TrackInfoPopoverTabButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF2930268696FA00D87021 /* TrackInfoPopoverTabButtonCell.swift */; };
+		3EBF29332686979700D87021 /* EffectsTextButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */; };
+		3EBF293526869A1200D87021 /* PreferencesPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */; };
+		3EBF293726869A9300D87021 /* EffectsUnitPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
 		3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E725E552A1002259C4 /* shufen.regular.ttf */; };
 		3ECB54EE25E559E5002259C4 /* futura light bt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54EC25E559DE002259C4 /* futura light bt.ttf */; };
@@ -1310,12 +1320,22 @@
 		3EAFB610267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarSeekSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB612267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarVolumeSliderCell.swift; sourceTree = "<group>"; };
 		3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandSlider.swift; sourceTree = "<group>"; };
-		3EAFB616267FF4C200F0DC96 /* EffectsTickedSliderPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsTickedSliderPreviewCell.swift; sourceTree = "<group>"; };
+		3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsSliderPreviewCell.swift; sourceTree = "<group>"; };
 		3EAFB618267FF68C00F0DC96 /* CGFloatExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtensions.swift; sourceTree = "<group>"; };
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerSettingsViewController.swift; sourceTree = "<group>"; };
 		3EBF2922268653B100D87021 /* AudioDeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceList.swift; sourceTree = "<group>"; };
+		3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSelectorButtonCell.swift; sourceTree = "<group>"; };
+		3EBF29262686944000D87021 /* PlaylistViewsButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewsButtonCell.swift; sourceTree = "<group>"; };
+		3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandsTabButtonCell.swift; sourceTree = "<group>"; };
+		3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTriStateBypassButton.swift; sourceTree = "<group>"; };
+		3EBF292C2686961300D87021 /* EffectsUnitTabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitTabButton.swift; sourceTree = "<group>"; };
+		3EBF292E2686965400D87021 /* RecorderToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderToggleButton.swift; sourceTree = "<group>"; };
+		3EBF2930268696FA00D87021 /* TrackInfoPopoverTabButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackInfoPopoverTabButtonCell.swift; sourceTree = "<group>"; };
+		3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsTextButtonCell.swift; sourceTree = "<group>"; };
+		3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPopupMenuCell.swift; sourceTree = "<group>"; };
+		3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitPopupMenuCell.swift; sourceTree = "<group>"; };
 		3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ragingredlotus-bb.regular.ttf"; sourceTree = "<group>"; };
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
 		3ECB54EC25E559DE002259C4 /* futura light bt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "futura light bt.ttf"; sourceTree = "<group>"; };
@@ -1897,7 +1917,7 @@
 				3E9C120F2622204F00D90EA4 /* Themes */,
 				3E2ED4A325DBAD6200732E79 /* FontSchemes */,
 				3E6C0F9925CEB98600BF0D07 /* ColorSchemes */,
-				3E9E590225DB6B150064EB5F /* MenuBarMode */,
+				3E9E590225DB6B150064EB5F /* MenuBarPlayer */,
 				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
 				3EAFB5EA267FEC4500F0DC96 /* Extensions */,
@@ -1925,6 +1945,7 @@
 			children = (
 				3E6C0F2C25CEB98500BF0D07 /* Preferences.xib */,
 				3E6C0F2B25CEB98500BF0D07 /* PreferencesWindowController.swift */,
+				3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */,
 				3E3DFFCC260D9B950092F0BF /* Metadata */,
 				3E6C0F2525CEB98500BF0D07 /* Playlist */,
 				3E6C0F2D25CEB98500BF0D07 /* Playback */,
@@ -1932,6 +1953,7 @@
 				3E6C0F3525CEB98600BF0D07 /* View */,
 				3E6C0F3225CEB98500BF0D07 /* History */,
 				3E6C0F2825CEB98500BF0D07 /* Controls */,
+				3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -2009,6 +2031,7 @@
 				3E6C0F6525CEB98600BF0D07 /* PlaylistGestureHandler.swift */,
 				3E6C0F6625CEB98600BF0D07 /* FlatPlaylistTableViews.swift */,
 				3E6C0F6725CEB98600BF0D07 /* PlaylistViewState.swift */,
+				3EBF29262686944000D87021 /* PlaylistViewsButtonCell.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -2316,12 +2339,10 @@
 			children = (
 				3E6C0FB625CEB98600BF0D07 /* ModalDialogButtonCells.swift */,
 				3E6C0FB725CEB98600BF0D07 /* MultiStateImageButton.swift */,
-				3E6C0FB825CEB98600BF0D07 /* EffectsUnitTabButtonCell.swift */,
 				3E6C0FB925CEB98600BF0D07 /* OnOffImageButtons.swift */,
 				3E6C0FBA25CEB98600BF0D07 /* TabGroupButtonCells.swift */,
 				3E6C0FBB25CEB98600BF0D07 /* CheckRadioButtonCell.swift */,
 				3E6C0FBC25CEB98600BF0D07 /* TintedImageButton.swift */,
-				3E6C0FBD25CEB98600BF0D07 /* TrackPeekingButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -2362,17 +2383,6 @@
 				3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCell.swift */,
 				3E6C0FD325CEB98600BF0D07 /* TickedSliderCell.swift */,
 				3E6C0FD425CEB98600BF0D07 /* RangeSlider.swift */,
-				3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */,
-				3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */,
-				3EAFB606267FF24900F0DC96 /* SeekSliderCell.swift */,
-				3EAFB608267FF29300F0DC96 /* VolumeSliderCell.swift */,
-				3EAFB60A267FF2B900F0DC96 /* PreferencesSliderCell.swift */,
-				3EAFB60C267FF2F300F0DC96 /* PanSliderCell.swift */,
-				3EAFB60E267FF35900F0DC96 /* EffectsSliderCell.swift */,
-				3EAFB610267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift */,
-				3EAFB612267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift */,
-				3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */,
-				3EAFB616267FF4C200F0DC96 /* EffectsTickedSliderPreviewCell.swift */,
 			);
 			path = Sliders;
 			sourceTree = "<group>";
@@ -2416,6 +2426,13 @@
 				3E6C0FF325CEB98600BF0D07 /* EffectsWindowController.swift */,
 				3E3633E12685FB2C006A88ED /* EffectsUnitViewController.swift */,
 				3E6C0FFC25CEB98600BF0D07 /* PresetsWrapper.swift */,
+				3EBF292C2686961300D87021 /* EffectsUnitTabButton.swift */,
+				3E6C0FB825CEB98600BF0D07 /* EffectsUnitTabButtonCell.swift */,
+				3EBF292A268695B700D87021 /* EffectsUnitTriStateBypassButton.swift */,
+				3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */,
+				3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */,
+				3EAFB616267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift */,
+				3EAFB60E267FF35900F0DC96 /* EffectsSliderCell.swift */,
 				3E6C100525CEB98600BF0D07 /* Master */,
 				3E6C0FF725CEB98600BF0D07 /* EQ */,
 				3E6C0FEE25CEB98600BF0D07 /* Pitch */,
@@ -2425,6 +2442,7 @@
 				3E6C100D25CEB98600BF0D07 /* Filter */,
 				3ECBF3042619D55F00AD5C30 /* AudioUnits */,
 				3E6C100A25CEB98600BF0D07 /* Recorder */,
+				3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -2446,6 +2464,8 @@
 				3E6C0FF825CEB98600BF0D07 /* EQViewController.swift */,
 				3E6C0FF925CEB98600BF0D07 /* EQView.swift */,
 				3E6C0FFB25CEB98600BF0D07 /* EQSubview.swift */,
+				3EBF29242686940600D87021 /* EQSelectorButtonCell.swift */,
+				3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */,
 			);
 			path = EQ;
 			sourceTree = "<group>";
@@ -2486,6 +2506,7 @@
 			children = (
 				3E6C100B25CEB98600BF0D07 /* Recorder.xib */,
 				3E6C100C25CEB98600BF0D07 /* RecorderViewController.swift */,
+				3EBF292E2686965400D87021 /* RecorderToggleButton.swift */,
 			);
 			path = Recorder;
 			sourceTree = "<group>";
@@ -2499,7 +2520,9 @@
 				3E6C100F25CEB98600BF0D07 /* CutoffFrequencySlider.swift */,
 				3E6C101025CEB98600BF0D07 /* FilterView.swift */,
 				3E6C101125CEB98600BF0D07 /* FilterChart.swift */,
+				3EAFB614267FF47200F0DC96 /* FilterBandSlider.swift */,
 				3E6C101425CEB98600BF0D07 /* FilterViewController.swift */,
+				3EBF29282686947700D87021 /* FilterBandsTabButtonCell.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -2527,6 +2550,7 @@
 				3E6C103625CEB98600BF0D07 /* DetailedTrackInfo */,
 				3E6C104325CEB98600BF0D07 /* Controls */,
 				3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */,
+				3E6C0FBD25CEB98600BF0D07 /* TrackPeekingButton.swift */,
 				3E6C104C25CEB98600BF0D07 /* JumpToTime */,
 			);
 			path = Player;
@@ -2574,6 +2598,7 @@
 				3E6C103B25CEB98600BF0D07 /* FileSystemDataSource.swift */,
 				3E6C103C25CEB98600BF0D07 /* CoverArtDataSource.swift */,
 				3E6C103E25CEB98600BF0D07 /* AudioDataSource.swift */,
+				3EBF2930268696FA00D87021 /* TrackInfoPopoverTabButtonCell.swift */,
 			);
 			path = DetailedTrackInfo;
 			sourceTree = "<group>";
@@ -2582,6 +2607,9 @@
 			isa = PBXGroup;
 			children = (
 				3E6C104425CEB98600BF0D07 /* SeekSliderView.swift */,
+				3EAFB606267FF24900F0DC96 /* SeekSliderCell.swift */,
+				3EAFB608267FF29300F0DC96 /* VolumeSliderCell.swift */,
+				3EAFB60C267FF2F300F0DC96 /* PanSliderCell.swift */,
 				3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */,
 				3E6C104625CEB98600BF0D07 /* PlaybackView.swift */,
 				3E6C104725CEB98600BF0D07 /* PlaybackViewController.swift */,
@@ -3080,15 +3108,17 @@
 			path = AppModeManagement;
 			sourceTree = "<group>";
 		};
-		3E9E590225DB6B150064EB5F /* MenuBarMode */ = {
+		3E9E590225DB6B150064EB5F /* MenuBarPlayer */ = {
 			isa = PBXGroup;
 			children = (
 				3E824A4125DB74840089F217 /* MenuBarPlayer.xib */,
 				3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */,
 				3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */,
 				3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */,
+				3EAFB610267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift */,
+				3EAFB612267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift */,
 			);
-			path = MenuBarMode;
+			path = MenuBarPlayer;
 			sourceTree = "<group>";
 		};
 		3EA3CE6525E3FD5300BC7D07 /* FontSchemes */ = {
@@ -3614,6 +3644,7 @@
 				3E5F942E25E57190002DEF80 /* FFT.swift in Sources */,
 				3E6C126C25CEBE0600BF0D07 /* CustomPresetsManagerViews.swift in Sources */,
 				3E6C121825CEBDE500BF0D07 /* PreferencesWindowController.swift in Sources */,
+				3EBF29252686940600D87021 /* EQSelectorButtonCell.swift in Sources */,
 				3E6C12DB25CEBE8100BF0D07 /* RecorderViewController.swift in Sources */,
 				3E61D144260EF53500C86BB2 /* CoverArtReader.swift in Sources */,
 				3E6C133325CEBEA000BF0D07 /* Stack.swift in Sources */,
@@ -3653,6 +3684,7 @@
 				3E3633EA2686281D006A88ED /* ReverbUnitDelegateProtocol.swift in Sources */,
 				3E5F942D25E57190002DEF80 /* SpectrogramFFTData.swift in Sources */,
 				3E6C11F525CEBDD100BF0D07 /* SearchQuery.swift in Sources */,
+				3EBF29272686944000D87021 /* PlaylistViewsButtonCell.swift in Sources */,
 				3E09D0E526805C19008ECB8C /* EQUnitPersistentState.swift in Sources */,
 				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCell.swift in Sources */,
 				3E363406268639A5006A88ED /* FilterBand.swift in Sources */,
@@ -3763,6 +3795,7 @@
 				3E6C12E225CEBE8100BF0D07 /* PlayingTrackSubview.swift in Sources */,
 				3E6C120325CEBDD100BF0D07 /* ControlsPreferences.swift in Sources */,
 				3E7572F42609E83B00CA3F85 /* MusicBrainzArtistCredit.swift in Sources */,
+				3EBF293526869A1200D87021 /* PreferencesPopupMenuCell.swift in Sources */,
 				3EFB1C6025EFCFAC00EF7F0F /* AtomicCounter.swift in Sources */,
 				3E6C122625CEBDE600BF0D07 /* GestureHandler.swift in Sources */,
 				3E6C125825CEBE0600BF0D07 /* LayoutsManagerViewController.swift in Sources */,
@@ -3799,6 +3832,7 @@
 				3E145503268107910034056E /* MirrorExtensions.swift in Sources */,
 				3E6C11B125CEBDA200BF0D07 /* AudioIO.swift in Sources */,
 				3E09D0D626805C19008ECB8C /* PlayerFontSchemePersistentState.swift in Sources */,
+				3EBF2931268696FA00D87021 /* TrackInfoPopoverTabButtonCell.swift in Sources */,
 				3E6C11C525CEBDB400BF0D07 /* PlaybackSequence.swift in Sources */,
 				3E6C118925CEBD6D00BF0D07 /* AudioGraphDelegate.swift in Sources */,
 				3E6C125525CEBE0600BF0D07 /* ColorSchemePreviewView.swift in Sources */,
@@ -3829,7 +3863,7 @@
 				3E6C11AF25CEBDA200BF0D07 /* CueSheetIO.swift in Sources */,
 				3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */,
 				3E3633E02685FB10006A88ED /* EffectsPresetsManagerGenericViewController.swift in Sources */,
-				3EAFB617267FF4C200F0DC96 /* EffectsTickedSliderPreviewCell.swift in Sources */,
+				3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */,
 				3E6C11F425CEBDD100BF0D07 /* RecorderDelegateProtocol.swift in Sources */,
 				3E6C128F25CEBE1800BF0D07 /* CheckRadioButtonCell.swift in Sources */,
 				3E6C120E25CEBDD100BF0D07 /* PlaybackPreferences.swift in Sources */,
@@ -3865,6 +3899,7 @@
 				3E6C12E425CEBE8100BF0D07 /* CutoffFrequencySlider.swift in Sources */,
 				3E6C12D825CEBE8100BF0D07 /* SeekTimerTaskQueue.swift in Sources */,
 				3E35AC9F25E6254500EBCCEB /* VisualizerContainer.swift in Sources */,
+				3EBF292D2686961300D87021 /* EffectsUnitTabButton.swift in Sources */,
 				3EDB345025E8B75D004DF7DE /* WMParser.swift in Sources */,
 				3E6C12FF25CEBE8F00BF0D07 /* PlayerViewPopupMenuController.swift in Sources */,
 				3EDB346725E8B75D004DF7DE /* TrackReader.swift in Sources */,
@@ -3874,6 +3909,7 @@
 				3EAFB605267FF1E700F0DC96 /* NSRectExtensions.swift in Sources */,
 				3EDB33FF25E8AE09004DF7DE /* FFmpegChannelLayoutsMapper.swift in Sources */,
 				3E6C121C25CEBDE600BF0D07 /* SoundPreferencesViewController.swift in Sources */,
+				3EBF292B268695B700D87021 /* EffectsUnitTriStateBypassButton.swift in Sources */,
 				3E09D0D326805C19008ECB8C /* MenuBarPlayerUIPersistentState.swift in Sources */,
 				3E6C120F25CEBDD100BF0D07 /* GroupingPlaylist.swift in Sources */,
 				3E6C116325CEBD6000BF0D07 /* FilterPresets.swift in Sources */,
@@ -3934,6 +3970,7 @@
 				3E6C125125CEBDF400BF0D07 /* PlaylistViewState.swift in Sources */,
 				3E09D0E026805C19008ECB8C /* PitchUnitPersistentState.swift in Sources */,
 				3E09D0EC26805C50008ECB8C /* PersistentAppState.swift in Sources */,
+				3EBF293726869A9300D87021 /* EffectsUnitPopupMenuCell.swift in Sources */,
 				3E7572F32609E83B00CA3F85 /* MusicBrainzRecording.swift in Sources */,
 				3E63620426850B13006F5A2A /* EffectsFontScheme.swift in Sources */,
 				3EAFB5F0267FEDD700F0DC96 /* NSMenuItemExtensions.swift in Sources */,
@@ -3964,6 +4001,7 @@
 				3E6C120125CEBDD100BF0D07 /* RecorderDelegate.swift in Sources */,
 				3E6C11A925CEBD9E00BF0D07 /* HistoryItems.swift in Sources */,
 				3E11B2D7267BFDEF00AB7DC9 /* RemoteCommandManager.swift in Sources */,
+				3EBF29332686979700D87021 /* EffectsTextButtonCell.swift in Sources */,
 				3E6C11F625CEBDD100BF0D07 /* ViewPreferences.swift in Sources */,
 				3E6C123125CEBDF400BF0D07 /* GroupingPlaylistTableViews.swift in Sources */,
 				3E1454FF268103070034056E /* UserDefaultsExtensions.swift in Sources */,
@@ -4053,10 +4091,12 @@
 				3E6C11A525CEBD9E00BF0D07 /* LRUArray.swift in Sources */,
 				3E6C121725CEBDE500BF0D07 /* HistoryPreferencesViewController.swift in Sources */,
 				3EDB33EB25E8AE09004DF7DE /* FFmpegMetadataReader.swift in Sources */,
+				3EBF292F2686965400D87021 /* RecorderToggleButton.swift in Sources */,
 				3E6C129F25CEBE2700BF0D07 /* TickedSliderCell.swift in Sources */,
 				3E6C11A725CEBD9E00BF0D07 /* HistoryDelegate.swift in Sources */,
 				3E6C12A225CEBE2700BF0D07 /* SnappingWindow.swift in Sources */,
 				3E5F943125E571A6002DEF80 /* VisualizerUtils.swift in Sources */,
+				3EBF29292686947700D87021 /* FilterBandsTabButtonCell.swift in Sources */,
 				3E6C128B25CEBE1800BF0D07 /* PlayerColorSchemeViewController.swift in Sources */,
 				3E6C11AC25CEBDA200BF0D07 /* M3UPlaylistIO.swift in Sources */,
 				3E6C11B025CEBDA200BF0D07 /* PlaylistIO.swift in Sources */,

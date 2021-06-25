@@ -16,11 +16,7 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
         Colors.windowBackgroundColor.setFill()
         cellFrame.fill()
         
-        let attrsDict: [NSAttributedString.Key: Any] = [
-            .font: Fonts.Playlist.chaptersListHeaderFont,
-            .foregroundColor: Colors.Playlist.summaryInfoColor]
-        
-        let size: CGSize = stringValue.size(withAttributes: attrsDict)
+        let size: CGSize = stringValue.size(withFont: Fonts.Playlist.chaptersListHeaderFont)
         
         // Calculate the x co-ordinate for text rendering, according to its intended aligment
         var x: CGFloat = 0
@@ -48,6 +44,7 @@ class ChaptersListTableHeaderCell: NSTableHeaderCell {
         }
     
         let rect = NSRect(x: x, y: cellFrame.minY, width: size.width, height: cellFrame.height)
-        stringValue.draw(in: rect, withAttributes: attrsDict)
+        stringValue.draw(in: rect, withFont: Fonts.Playlist.chaptersListHeaderFont,
+                         andColor: Colors.Playlist.summaryInfoColor)
     }
 }

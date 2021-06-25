@@ -32,19 +32,17 @@ class FontSchemesManager: MappedPresets<FontScheme> {
         super.init(systemDefinedPresets: systemDefinedSchemes, userDefinedPresets: userDefinedSchemes)
     }
     
-    func applyScheme(named name: String) -> FontScheme? {
+    func applyScheme(named name: String) {
         
         if let scheme = preset(named: name) {
-            return applyScheme(scheme)
+            applyScheme(scheme)
         }
-        
-        return nil
     }
     
-    func applyScheme(_ fontScheme: FontScheme) -> FontScheme {
+    func applyScheme(_ fontScheme: FontScheme) {
 
         systemScheme = FontScheme("_system_", true, fontScheme)
-        return systemScheme
+        Messenger.publish(.applyFontScheme, payload: systemScheme)
     }
     
     // State to be persisted to disk.

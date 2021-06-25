@@ -151,9 +151,11 @@ class TimeViewController: EffectsUnitViewController {
         super.applyColorScheme(scheme)
         changeSliderColors()
         
-        btnShiftPitch.attributedTitle = NSAttributedString(string: btnShiftPitch.title, attributes: [NSAttributedString.Key.foregroundColor: scheme.effects.functionCaptionTextColor])
+        btnShiftPitch.attributedTitle = NSAttributedString(string: btnShiftPitch.title,
+                                                           attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
         
-        btnShiftPitch.attributedAlternateTitle = NSAttributedString(string: btnShiftPitch.title, attributes: [NSAttributedString.Key.foregroundColor: scheme.effects.functionCaptionTextColor])
+        btnShiftPitch.attributedAlternateTitle = NSAttributedString(string: btnShiftPitch.title,
+                                                                    attributes: [.foregroundColor: scheme.effects.functionCaptionTextColor])
     }
     
     override func changeSliderColors() {

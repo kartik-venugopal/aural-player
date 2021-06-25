@@ -13,13 +13,8 @@ class PresetsManagerTableHeaderCell: NSTableHeaderCell {
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        let attrs: [String: AnyObject] = [
-            NSAttributedString.Key.font.rawValue: Fonts.presetsManagerTableHeaderTextFont,
-            NSAttributedString.Key.foregroundColor.rawValue: Colors.presetsManagerTableHeaderTextColor]
-        
-        let dict = Dictionary(uniqueKeysWithValues: attrs.map {key, value in (NSAttributedString.Key(rawValue: key), value)})
-        
-        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withAttributes: dict)
+        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withFont: Fonts.presetsManagerTableHeaderTextFont,
+                         andColor: Colors.presetsManagerTableHeaderTextColor)
 
         // Right Partition line
         let lineColor = Colors.Constants.white30Percent

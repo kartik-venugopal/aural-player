@@ -38,10 +38,7 @@ class ColorSchemePopupMenuController: GenericPresetPopupMenuController {
     }
     
     override func applyPreset(named name: String) {
-        
-        if let scheme = colorSchemesManager.applyScheme(named: name) {
-            Messenger.publish(.applyColorScheme, payload: scheme)
-        }
+        colorSchemesManager.applyScheme(named: name)
     }
     
     @IBAction func customizeSchemeAction(_ sender: NSMenuItem) {

@@ -99,27 +99,3 @@ class ColorAwareButtonCell: ModalDialogButtonCell {
     override var backgroundFillGradient: NSGradient {return Colors.textButtonMenuGradient}
     override var backgroundFillGradient_disabled: NSGradient {return Colors.textButtonMenuGradient}
 }
-
-class EffectsTextButtonCell: ColorAwareButtonCell {
-    
-    override var textFont: NSFont {Fonts.Effects.unitFunctionFont}
-    
-    override var yOffset: CGFloat {
-        
-        return -1
-        
-//        if isOff {
-//            return -1
-//        }
-//
-//        switch EffectsViewState.textSize {
-//
-//        case .normal:   return -1
-//
-//        case .larger:   return -1
-//
-//        case .largest:  return -2
-//
-//        }
-    }
-}

@@ -12,7 +12,6 @@
 -->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,7 +65,7 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TOj-41-uRm" userLabel="Media Keys tab button">
                     <rect key="frame" x="189" y="437" width="95" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Media Keys" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gbB-NR-LTO" customClass="ContrastedPrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Media Keys" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="gbB-NR-LTO" customClass="ContrastedModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
@@ -74,7 +73,7 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="9An-oe-jjK" userLabel="Gestures tab button">
                     <rect key="frame" x="294" y="437" width="82" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Gestures" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="VTf-XO-bfx" customClass="ContrastedPrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Gestures" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="VTf-XO-bfx" customClass="ContrastedModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>
@@ -82,7 +81,7 @@
                 <button verticalHuggingPriority="750" fixedFrame="YES" tag="2" translatesAutoresizingMaskIntoConstraints="NO" id="Wdi-BN-Zaq" userLabel="Remote Control tab button">
                     <rect key="frame" x="379" y="437" width="117" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" title="Remote Control" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Uhw-2s-yf3" customClass="ContrastedPrefsTabButtonCell" customModule="Aural" customModuleProvider="target">
+                    <buttonCell key="cell" type="square" title="Remote Control" bezelStyle="shadowlessSquare" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" id="Uhw-2s-yf3" customClass="ContrastedModalDialogTabButtonCell" customModule="Aural" customModuleProvider="target">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" size="13" name="Play-Regular"/>
                     </buttonCell>

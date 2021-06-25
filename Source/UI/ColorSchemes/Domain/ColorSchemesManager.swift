@@ -48,22 +48,20 @@ class ColorSchemesManager: MappedPresets<ColorScheme> {
     }
     
     // Applies a color scheme to the system color scheme and returns the modified system scheme.
-    func applyScheme(_ scheme: ColorScheme) -> ColorScheme {
+    func applyScheme(_ scheme: ColorScheme) {
         
         systemScheme.applyScheme(scheme)
         systemSchemeChanged()
         
-        return systemScheme
+        Messenger.publish(.applyColorScheme, payload: systemScheme)
     }
     
     // Attempts to apply a color scheme to the system color scheme, looking up the scheme by the given display name, and if found, returns the modified system scheme.
-    func applyScheme(named name: String) -> ColorScheme? {
+    func applyScheme(named name: String) {
         
         if let scheme = preset(named: name) {
-            return applyScheme(scheme)
+            applyScheme(scheme)
         }
-        
-        return nil
     }
     
     // State to be persisted to disk.

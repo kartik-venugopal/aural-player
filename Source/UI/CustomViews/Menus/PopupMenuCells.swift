@@ -51,13 +51,8 @@ class PopupMenuCell: NSPopUpButtonCell {
         let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         textStyle.alignment = NSTextAlignment.center
         
-        let textFontAttributes = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): titleFont,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): titleColor,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): textStyle
-        ]
-        
-        title.string.draw(in: withFrame.offsetBy(dx: textOffsetX, dy: textOffsetY), withAttributes: convertToOptionalNSAttributedStringKeyDictionary(textFontAttributes))
+        title.string.draw(in: withFrame.offsetBy(dx: textOffsetX, dy: textOffsetY), withFont: titleFont,
+                          andColor: titleColor, style: textStyle)
         
         return withFrame
     }
@@ -71,64 +66,6 @@ class NicerPopupMenuCell: PopupMenuCell {
     override var arrowXMargin: CGFloat {return 10}
     override var arrowYMargin: CGFloat {return 4}
     override var arrowHeight: CGFloat {return 4}
-}
-
-class EffectsUnitPopupMenuCell: NicerPopupMenuCell {
-    
-    override var cellInsetY: CGFloat {return 1}
-    override var rectRadius: CGFloat {return 2}
-    override var arrowXMargin: CGFloat {return 10}
-    override var arrowYMargin: CGFloat {return 7}
-    override var arrowColor: NSColor {return Colors.buttonMenuTextColor}
-    
-    override var arrowWidth: CGFloat {return 3}
-    override var arrowHeight: CGFloat {return 4}
-    override var arrowLineWidth: CGFloat {return 1}
-    
-    override var menuGradient: NSGradient {return Colors.textButtonMenuGradient}
-    
-    override var titleFont: NSFont {Fonts.Effects.unitFunctionFont}
-    override var titleColor: NSColor {Colors.buttonMenuTextColor}
-    
-    override func drawTitle(_ title: NSAttributedString, withFrame: NSRect, in inView: NSView) -> NSRect {
-        
-        let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-        textStyle.alignment = NSTextAlignment.center
-        
-        let textFontAttributes = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): titleFont,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): titleColor,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.paragraphStyle): textStyle
-        ]
-        
-        let attrsDict = convertToOptionalNSAttributedStringKeyDictionary(textFontAttributes)
-        
-        // Compute size and origin
-        let size: CGSize = title.string.size(withAttributes: attrsDict)
-        let sx = (withFrame.width - size.width) / 2
-        let sy = (withFrame.height - size.height) / 2 - 2
-        
-        title.string.draw(in: NSRect(x: sx, y: sy, width: size.width, height: size.height), withAttributes: attrsDict)
-        
-        return withFrame
-    }
-    
-    override func titleRect(forBounds cellFrame: NSRect) -> NSRect {
-        return cellFrame.offsetBy(dx: 0, dy: -1)
-    }
-}
-
-// Cell for all preferences popup menus
-class PreferencesPopupMenuCell: PopupMenuCell {
-    
-    override var cellInsetY: CGFloat {return 5}
-    override var rectRadius: CGFloat {return 2}
-    override var arrowXMargin: CGFloat {return 10}
-    override var arrowYMargin: CGFloat {return 6}
-    override var arrowHeight: CGFloat {return 4}
-    override var arrowColor: NSColor {return Colors.lightPopupMenuArrowColor}
-    
-    override var menuGradient: NSGradient {return Colors.popupMenuGradient}
 }
 
 class FontsPopupMenuCell: PopupMenuCell {
@@ -152,15 +89,4 @@ class EffectsPreviewPopupMenuCell: NicerPopupMenuCell {
     override var titleColor: NSColor {return Colors.Effects.defaultPopupMenuTextColor}
     
     override var arrowColor: NSColor {return titleColor}
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

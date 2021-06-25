@@ -141,15 +141,15 @@ class FilterChart: NSView {
             }
             
             let tw = text.size(withFont: textFont).width
-            let tx = offset + x * scale - tw / 2
+            let tx = offset + (x * scale) - (tw / 2)
             
             let trect = NSRect(x: tx, y: bottomMargin + height / 2 + 2, width: tw + 10, height: 15)
-            
-            GraphicsUtils.drawTextInRect(trect, text, textColor, textFont)
+            text.draw(in: trect, withFont: textFont, andColor: textColor)
             
             if (sx != offset && sx != offset + width) {
                 
-                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin + height / 2), pt2: NSPoint(x: sx, y: bottomMargin + height / 2 + 5), width: 1.5)
+                GraphicsUtils.drawLine(NSColor.gray, pt1: NSPoint(x: sx, y: bottomMargin + height / 2), pt2:
+                                        NSPoint(x: sx, y: bottomMargin + height / 2 + 5), width: 1.5)
             }
         }
     }

@@ -104,10 +104,12 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         let undoValue: FontScheme = fontSchemesManager.systemScheme.clone()
         
         let context = FontSchemeChangeContext()
-        generalView.applyFontScheme(context, to: fontSchemesManager.systemScheme)
+        let newScheme = FontScheme("_temp", FontSchemePreset.standard)
         
-        [playerView, playlistView, effectsView].forEach {$0.applyFontScheme(context, to: fontSchemesManager.systemScheme)}
-        Messenger.publish(.applyFontScheme, payload: fontSchemesManager.systemScheme)
+        generalView.applyFontScheme(context, to: newScheme)
+        
+        [playerView, playlistView, effectsView].forEach {$0.applyFontScheme(context, to: newScheme)}
+        fontSchemesManager.applyScheme(newScheme)
         
         let redoValue: FontScheme = fontSchemesManager.systemScheme.clone()
         history.noteChange(undoValue, redoValue)
@@ -128,9 +130,10 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     
     private func applyFontScheme(_ fontScheme: FontScheme) {
         
-        let systemFontScheme = fontSchemesManager.applyScheme(fontScheme)
+        fontSchemesManager.applyScheme(fontScheme)
+        let systemFontScheme = fontSchemesManager.systemScheme
+        
         subViews.forEach {$0.resetFields(systemFontScheme)}
-        Messenger.publish(.applyFontScheme, payload: systemFontScheme)
         
         updateButtonStates()
     }

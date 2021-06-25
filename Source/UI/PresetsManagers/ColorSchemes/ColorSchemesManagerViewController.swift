@@ -47,10 +47,7 @@ class ColorSchemesManagerViewController: GenericPresetsManagerViewController {
     override func applyPreset(atIndex index: Int) {
         
         let selScheme = colorSchemesManager.userDefinedPresets[index]
-        let updatedScheme = colorSchemesManager.applyScheme(selScheme)
-        
-        // TODO: This should really be in ColorSchemesManager, not here. Same for other preset managers.
-        Messenger.publish(.applyColorScheme, payload: updatedScheme)
+        colorSchemesManager.applyScheme(selScheme)
     }
     
     override func renamePreset(named name: String, to newName: String) {

@@ -43,10 +43,7 @@ class ThemePopupMenuController: GenericPresetPopupMenuController {
     }
     
     override func applyPreset(named name: String) {
-        
-        if themesManager.applyTheme(named: name) {
-            Messenger.publish(.applyTheme)
-        }
+        themesManager.applyTheme(named: name)
     }
     
     @IBAction func createThemeAction(_ sender: NSMenuItem) {

@@ -128,7 +128,6 @@ extension String {
         return newString
     }
     
-    
     func lowerCasedAndTrimmed() -> String {self.lowercased().trim()}
     
     // Checks if the string 1 - is non-null, 2 - has characters, 3 - not all characters are whitespace
@@ -222,6 +221,14 @@ extension String {
     
     func encodedAsURLComponent() -> String {
         self.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? self.replacingOccurrences(of: " ", with: "%20")
+    }
+    
+    func draw(in rect: NSRect, withFont font: NSFont, andColor color: NSColor) {
+        self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color])
+    }
+    
+    func draw(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, style: NSParagraphStyle) {
+        self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color, .paragraphStyle: style])
     }
 }
 

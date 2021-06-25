@@ -47,9 +47,6 @@ class ThemesManagerViewController: GenericPresetsManagerViewController {
         
         let selTheme = themesManager.userDefinedPresets[index]
         themesManager.applyTheme(selTheme)
-        
-        // TODO: This should really be in ThemesManager, not here. Same for other preset managers.
-        Messenger.publish(.applyTheme)
     }
     
     override func renamePreset(named name: String, to newName: String) {

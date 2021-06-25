@@ -259,7 +259,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
             let paraStyle = NSMutableParagraphStyle()
             paraStyle.lineSpacing = spacing
             
-            attributes[NSAttributedString.Key.paragraphStyle] = paraStyle
+            attributes[.paragraphStyle] = paraStyle
             
             // Add a newline character to the text to create a line break
             str += "\n"

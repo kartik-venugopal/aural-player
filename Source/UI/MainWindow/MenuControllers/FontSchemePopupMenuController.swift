@@ -38,10 +38,7 @@ class FontSchemePopupMenuController: GenericPresetPopupMenuController {
     }
     
     override func applyPreset(named name: String) {
-        
-        if let fontScheme = fontSchemesManager.applyScheme(named: name) {
-            Messenger.publish(.applyFontScheme, payload: fontScheme)
-        }
+        fontSchemesManager.applyScheme(named: name)
     }
     
     @IBAction func customizeFontSchemeAction(_ sender: NSMenuItem) {

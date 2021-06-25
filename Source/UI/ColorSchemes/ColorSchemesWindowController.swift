@@ -135,15 +135,15 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         let undoValue: ColorScheme = colorSchemesManager.systemScheme.clone()
         
         // Apply the user-selected scheme
-        if let scheme = colorSchemesManager.applyScheme(named: sender.title) {
+        colorSchemesManager.applyScheme(named: sender.title)
             
-            // Capture the new scheme (for potentially redoing changes later)
-            let redoValue: ColorScheme = scheme.clone()
-            history.noteChange(1, undoValue, redoValue, .applyScheme)
+        // Capture the new scheme (for potentially redoing changes later)
+        let newScheme = colorSchemesManager.systemScheme
+        let redoValue: ColorScheme = newScheme.clone()
+        history.noteChange(1, undoValue, redoValue, .applyScheme)
             
-            // Notify UI components of the scheme change
-            schemeUpdated(scheme)
-        }
+        // Notify UI components of the scheme change
+        schemeUpdated(newScheme)
     }
     
     @IBAction func saveSchemeAction(_ sender: Any) {
@@ -172,14 +172,15 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     
     // Apply a given color scheme to the system scheme
     private func applyScheme(_ scheme: ColorScheme) {
-        schemeUpdated(colorSchemesManager.applyScheme(scheme))
+        
+        colorSchemesManager.applyScheme(scheme)
+        schemeUpdated(colorSchemesManager.systemScheme)
     }
     
     // Notify UI components of a scheme update
-    private func schemeUpdated(_ systemScheme: ColorScheme) {
+    private func schemeUpdated(_ scheme: ColorScheme) {
         
-        subViews.forEach({$0.resetFields(systemScheme, history, clipboard)})
-        Messenger.publish(.applyColorScheme, payload: systemScheme)
+        subViews.forEach {$0.resetFields(scheme, history, clipboard)}
         updateButtonStates()
     }
     

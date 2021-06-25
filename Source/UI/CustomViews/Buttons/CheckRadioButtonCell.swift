@@ -12,10 +12,9 @@
  */
 import Cocoa
 
-private func attributedString(_ text: String, _ font: NSFont, _ color: NSColor) -> NSAttributedString {
-        
-        return NSAttributedString(string: text, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
-    }
+fileprivate func attributedString(_ text: String, _ font: NSFont, _ color: NSColor) -> NSAttributedString {
+    NSAttributedString(string: text, attributes: [.font: font, .foregroundColor: color])
+}
 
 /*
     Custom check box / radio button that can custom-color its title.
@@ -45,34 +44,17 @@ class CheckRadioButtonCell: NSButtonCell {
     
     override func drawTitle(_ title: NSAttributedString, withFrame frame: NSRect, in controlView: NSView) -> NSRect {
         
-        let attrs: [String: AnyObject] = [
-            convertFromNSAttributedStringKey(NSAttributedString.Key.font): textFont,
-            convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): textColor]
-        
         let titleText = title.string
         
-        let attrDict = convertToOptionalNSAttributedStringKeyDictionary(attrs)
-        
-        let size: CGSize = titleText.size(withAttributes: attrDict)
+        let size: CGSize = titleText.size(withFont: textFont)
         let sx = frame.minX + xOffset
         let sy = frame.minY + (frame.height - size.height) / 2 - yOffset
         
         let textRect = NSRect(x: sx, y: sy, width: size.width, height: size.height)
-        titleText.draw(in: textRect, withAttributes: attrDict)
+        titleText.draw(in: textRect, withFont: textFont, andColor: textColor)
         
         return frame
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
-	return input.rawValue
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }
 
 class EffectsFunctionCheckRadioButtonCell: CheckRadioButtonCell {

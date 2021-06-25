@@ -11,20 +11,18 @@ import Cocoa
 
 extension NSControl {
     
-    var isDisabled: Bool {
-        return !isEnabled
-    }
+    var isDisabled: Bool {!isEnabled}
     
     // TODO: Why not just set the flag to true/false here ???
     // Is there an overriden function somewhere in a subview ?
     @objc func enable() {
-        self.enableIf(true)
+        self.isEnabled = true
     }
     
     // TODO: Why not just set the flag to true/false here ???
     // Is there an overriden function somewhere in a subview ?
     @objc func disable() {
-        self.enableIf(false)
+        self.isEnabled = false
     }
     
     @objc func enableIf(_ condition: Bool) {
