@@ -10,6 +10,9 @@
 
 import Foundation
 
+///
+/// An enumeration of file and directory paths (URL constants) used by the application.
+///
 struct FilesAndPaths {
     
     // Default user's music directory (default place to look in, when opening/saving files)

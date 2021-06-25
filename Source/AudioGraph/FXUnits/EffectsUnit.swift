@@ -10,6 +10,13 @@
 import Foundation
 import AVFoundation
 
+///
+/// An abstract representation of (base class for) an effects unit that processes audio. It contains
+/// properties and functions common to all effects units - eg. unit state.
+///
+/// No instances of this type are to be used directly, as this class is only intended to be used as a base
+/// class for concrete effects unit classes.
+///
 class EffectsUnit {
     
     var unitType: EffectsUnitType

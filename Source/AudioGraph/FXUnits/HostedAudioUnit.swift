@@ -9,6 +9,12 @@
 //
 import AVFoundation
 
+///
+/// A functional contract for an effects unit that wraps an Audio Units (AU) plug-in that is "hosted" by the application.
+///
+/// AU plug-ins can be used for applying effects or to monitor, analyze, or visualize
+/// audio signals.
+///
 protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
     
     var name: String {get}
@@ -27,6 +33,11 @@ protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
     func applyFactoryPreset(_ presetName: String)
 }
 
+///
+/// An effects unit that wraps an Audio Units (AU) plug-in that is "hosted" by the application.
+///
+/// - SeeAlso: `HostedAudioUnitProtocol`
+///
 class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateObserver {
     
     private let node: HostedAUNode

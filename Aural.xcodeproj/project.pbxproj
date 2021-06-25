@@ -1558,11 +1558,11 @@
 				3E3633D02685FAD0006A88ED /* EffectsUnitType.swift */,
 				3E3633C62685FAD0006A88ED /* HostedAudioUnit.swift */,
 				3E3633C72685FAD0006A88ED /* PitchUnit.swift */,
+				3E3633CC2685FAD0006A88ED /* TimeUnit.swift */,
 				3E3633C82685FAD0006A88ED /* FilterUnit.swift */,
 				3E3633C92685FAD0006A88ED /* ReverbUnit.swift */,
 				3E3633CA2685FAD0006A88ED /* EQUnit.swift */,
 				3E3633CB2685FAD0006A88ED /* DelayUnit.swift */,
-				3E3633CC2685FAD0006A88ED /* TimeUnit.swift */,
 				3E3633CD2685FAD0006A88ED /* MasterUnit.swift */,
 			);
 			path = FXUnits;

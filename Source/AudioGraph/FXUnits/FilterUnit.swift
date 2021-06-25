@@ -9,6 +9,9 @@
 //
 import AVFoundation
 
+///
+/// A functional contract for an effects unit that eliminates certain frequencies from the input audio signal.
+///
 protocol FilterUnitProtocol: EffectsUnitProtocol {
     
     var bands: [FilterBand] {get set}
@@ -24,6 +27,11 @@ protocol FilterUnitProtocol: EffectsUnitProtocol {
     func removeAllBands()
 }
 
+///
+/// An effects unit that eliminates certain frequencies from the input audio signal.
+///
+/// - SeeAlso: `FilterUnitProtocol`
+///
 class FilterUnit: EffectsUnit, FilterUnitProtocol {
     
     private let node: FlexibleFilterNode = FlexibleFilterNode()

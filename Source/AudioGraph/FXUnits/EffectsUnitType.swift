@@ -10,7 +10,9 @@
 
 import Foundation
 
-// Enumeration of all the effects unit types.
+///
+/// An enumeration of all the effects unit types.
+///
 enum EffectsUnitType {
 
     case master

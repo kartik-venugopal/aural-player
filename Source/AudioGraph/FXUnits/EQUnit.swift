@@ -9,6 +9,11 @@
 //
 import AVFoundation
 
+///
+/// A functional contract for an Equalizer effects unit that controls the volume of sound in
+/// different frequency bands. So, it can emphasize or suppress bass (low frequencies),
+/// vocals (mid frequencies), or treble (high frequencies).
+///
 protocol EQUnitProtocol: EffectsUnitProtocol {
     
     var type: EQType {get set}
@@ -39,6 +44,11 @@ protocol EQUnitProtocol: EffectsUnitProtocol {
     func decreaseTreble(_ decrement: Float) -> [Float]
 }
 
+///
+/// An Equalizer effects unit that controls the volume of sound in
+/// different frequency bands. So, it can emphasize or suppress bass (low frequencies),
+/// vocals (mid frequencies), or treble (high frequencies).
+///
 class EQUnit: EffectsUnit, EQUnitProtocol {
     
     private let node: ParametricEQ

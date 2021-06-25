@@ -9,9 +9,20 @@
 //
 import AVFoundation
 
-/*
-    Wrapper around AVAudioEngine. Manages the AVAudioEngine audio graph.
- */
+///
+/// The Audio Graph is one of the core components of the app and is responsible for all audio output. It serves as the infrastructure for playback,
+/// recording, and visualization, and also controls player volume, stereo pan, and all sound effects, including any Audio Units (AU) plug-ins configured by the user.
+///
+/// It encapsulates an audio engine implemented using the **AVAudioEngine** framework and manages a "graph" of nodes attached to that
+/// engine. Each node in the graph performs a distinct function, such as playback, mixing, or an effect such as equalization or reverb. Each
+/// node exposes configurable properties, eg. volume, playback rate, or equalizer band gain, that determine how the node manipulates audio.
+/// For instance, when the user manipulates the volume slider in the player window, it modifies the volume property of the player node in the audio graph.
+///
+/// The nodes in the graph are connected so as to form a signal processing chain where audio is processed by a node and then
+/// passed as input to the next node, which itself processes the audio, then passes it on to the next node, and so on, till the engine's output
+/// node sends the audio to the audio output hardware device. So, the audio that is output by the app is a function of the cumulative audio
+/// processing performed sequentially by each node in in the chain.
+///
 class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObject {
     
     private let audioEngine: AudioEngine

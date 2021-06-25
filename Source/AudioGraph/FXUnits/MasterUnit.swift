@@ -11,6 +11,14 @@ import Foundation
 
 protocol MasterUnitProtocol: EffectsUnitProtocol {}
 
+///
+/// A "master" effects unit that does not directly manipulate audio, but
+/// controls all other ("slave") effects units that do manipulate audio.
+///
+/// This unit provides 2 main functions:
+/// 1. Acts as a "master on/off switch" to enable / disable all effects at once.
+/// 2. Provides a way to capture all audio effects in a single preset object that can be saved and reused.
+///
 class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
     
     let presets: MasterPresets

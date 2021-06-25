@@ -11,7 +11,7 @@ import Foundation
 
 class MasterUnitDelegate: EffectsUnitDelegate<MasterUnit>, MasterUnitDelegateProtocol {
     
-    var presets: MasterPresets {return unit.presets}
+    var presets: MasterPresets {unit.presets}
     
     func applyPreset(_ preset: MasterPreset) {
         unit.applyPreset(preset)

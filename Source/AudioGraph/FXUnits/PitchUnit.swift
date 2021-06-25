@@ -9,6 +9,9 @@
 //
 import AVFoundation
 
+///
+/// A functional contract for an effects unit that applies a "pitch shift" effect to an audio signal, i.e. changes the pitch of the signal.
+///
 protocol PitchShiftUnitProtocol: EffectsUnitProtocol {
     
     // The pitch shift value, in cents, specified as a value between -2400 and 2400
@@ -18,6 +21,11 @@ protocol PitchShiftUnitProtocol: EffectsUnitProtocol {
     var overlap: Float {get set}
 }
 
+///
+/// An effects unit that applies a "pitch shift" effect to an audio signal, i.e. changes the pitch of the signal.
+///
+/// - SeeAlso: `PitchShiftUnitProtocol`
+///
 class PitchUnit: EffectsUnit, PitchShiftUnitProtocol {
     
     private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()

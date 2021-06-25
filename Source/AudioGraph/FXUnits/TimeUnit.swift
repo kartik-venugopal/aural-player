@@ -9,6 +9,11 @@
 //
 import AVFoundation
 
+///
+/// A functional contract for an effects unit that applies a "time stretch" effect to an audio signal,
+/// i.e. changes the playback rate of the signal. Optionally, the pitch of the input signal can also be
+/// adjusted, thus syncing the pitch and playback rate.
+///
 protocol TimeUnitProtocol: EffectsUnitProtocol {
     
     // The playback rate, specified as a value between 1/32 and 32
@@ -24,6 +29,11 @@ protocol TimeUnitProtocol: EffectsUnitProtocol {
     var pitch: Float {get}
 }
 
+///
+/// An effects unit that applies a "time stretch" effect to an audio signal,
+/// i.e. changes the playback rate of the signal. Optionally, the pitch of the input signal can also be
+/// adjusted, thus syncing the pitch and playback rate.
+///
 class TimeUnit: EffectsUnit, TimeUnitProtocol {
     
     private let node: VariableRateNode = VariableRateNode()

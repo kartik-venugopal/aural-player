@@ -9,9 +9,12 @@
 //
 import Foundation
 
-/*
-    Takes care of loading all persistent app state from disk, and constructing the critical objects in the app's object tree - player, playlist, audio graph (i.e., "the back end"), and all delegates (middlemen/facades) for interaction between the UI and the "back end".
- */
+///
+/// (Lazily) Initializes all the core objects and state required by the application (mostly singletons), and exposes them for application-wide
+/// use as dependencies.
+///
+/// Acts as a simple alternative to a dependency injection framework / container.
+///
 class ObjectGraph {
     
     static let persistentState: PersistentAppState = PersistentStateIO.load() ?? PersistentAppState.defaults

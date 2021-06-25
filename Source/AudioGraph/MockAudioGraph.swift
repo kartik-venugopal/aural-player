@@ -10,9 +10,9 @@
 //import Cocoa
 //import AVFoundation
 //
-///*
-//    Mock for debugging without starting an audio engine.
-// */
+///
+/// Mock for **AudioGraph** to be used when debugging the application without actually starting an audio engine.
+///
 //class MockAudioGraph: AudioGraphProtocol, PersistentModelObject {
 //
 //    var _state: AudioGraphState

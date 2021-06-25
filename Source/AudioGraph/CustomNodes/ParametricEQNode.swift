@@ -114,7 +114,7 @@ class ParametricEQ: ParametricEQProtocol {
 
 class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
     
-    var frequencies: [Float] {return SoundConstants.eq10BandFrequencies}
+    var frequencies: [Float] {return SoundConstants.ISOStandard10BandEQFrequencies}
     var bandwidth: Float {return 1}
     
     var bassBandIndexes: [Int] {return [0, 1, 2]}
@@ -248,7 +248,7 @@ class ParametricEQNode: AVAudioUnitEQ, ParametricEQProtocol {
 
 class FifteenBandEQNode: ParametricEQNode {
     
-    override var frequencies: [Float] {return SoundConstants.eq15BandFrequencies}
+    override var frequencies: [Float] {return SoundConstants.ISOStandard15BandEQFrequencies}
     override var bandwidth: Float {return 2/3}
     
     override var bassBandIndexes: [Int] {return [0, 1, 2, 3, 4]}

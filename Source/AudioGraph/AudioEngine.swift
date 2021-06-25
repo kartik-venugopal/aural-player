@@ -10,9 +10,11 @@
 import Cocoa
 import AVFoundation
 
-/*
-    Encapsulates an AVAudioEngine and provides convenient audio engine lifecycle functions.
-*/
+///
+/// Encapsulates an **AVAudioEngine** and provides convenient audio engine lifecycle functions.
+/// It also provides functions to add or remove audio processing nodes and manage their connections
+/// to each other.
+///
 class AudioEngine {
     
     private let engine: AVAudioEngine

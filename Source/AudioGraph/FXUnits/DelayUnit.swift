@@ -9,6 +9,11 @@
 //
 import AVFoundation
 
+///
+/// A functional contract for an effects unit that produces an echo effect by repeatedly
+/// replaying the original input signal after a configurable delay. Each replayed
+/// signal decays over time, creating a repeating and decaying echo.
+///
 protocol DelayUnitProtocol: EffectsUnitProtocol {
     
     var amount: Float {get set}
@@ -20,6 +25,11 @@ protocol DelayUnitProtocol: EffectsUnitProtocol {
     var lowPassCutoff: Float {get set}
 }
 
+///
+/// An effects unit that produces an echo effect by repeatedly
+/// replaying the original input signal after a configurable delay. Each replayed
+/// signal decays over time, creating a repeating and decaying echo.
+///
 class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
     private let node: AVAudioUnitDelay = AVAudioUnitDelay()

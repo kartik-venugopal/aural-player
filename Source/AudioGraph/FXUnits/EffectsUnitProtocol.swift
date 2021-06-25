@@ -9,6 +9,9 @@
 //
 import AVFoundation
 
+///
+/// A functional contract for an effects unit that processes audio.
+///
 protocol EffectsUnitProtocol {
     
     var state: EffectsUnitState {get}

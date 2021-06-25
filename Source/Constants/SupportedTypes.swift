@@ -10,6 +10,9 @@
 
 import AVFoundation
 
+///
+/// An enumeration of all file types / formats supported by the application.
+///
 struct SupportedTypes {
     
     // Supported playlist file types

@@ -10,6 +10,9 @@
 
 import Foundation
 
+///
+/// An enumeration of all possible states an effects unit can be in.
+///
 enum EffectsUnitState: String {
     
     // Master unit on, and effects unit on

@@ -9,6 +9,10 @@
 //
 import Foundation
 
+///
+/// An enumeration of constants that are used as default values by the audio graph upon initialization when no
+/// user-configured value is available.
+///
 struct AudioGraphDefaults {
     
     static let volume: Float = 0.5
