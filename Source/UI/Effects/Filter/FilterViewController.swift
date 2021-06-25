@@ -151,7 +151,7 @@ class FilterViewController: EffectsUnitViewController {
         bandCon.tabButton.setFrameOrigin(NSPoint(x: btnWidth * CGFloat(index), y: 0))
         
         // Button state
-        bandCon.tabButton.state = .offState
+        bandCon.tabButton.state = .off
     }
     
     private func initBandController(_ bandCon: FilterBandViewController, _ index: Int) {
@@ -267,7 +267,7 @@ class FilterViewController: EffectsUnitViewController {
             
             selTab = index
             filterView.selectTab(index)
-            tabButtons.forEach({$0.state = $0.tag == selTab ? .onState : .offState})
+            tabButtons.forEach {$0.state = $0.tag == selTab ? .on : .off}
         }
     }
     

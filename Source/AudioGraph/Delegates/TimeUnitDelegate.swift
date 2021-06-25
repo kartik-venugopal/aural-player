@@ -65,8 +65,7 @@ class TimeUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretchUnitDel
         ensureActiveAndResetRate()
         
         // Rate is increased by an amount set in the user preferences
-        // TODO: Put this value in a constant
-        rate = min(4, rate + preferences.timeDelta)
+        rate = min(TimeStretchUnit.maxRate, rate + preferences.timeDelta)
         
         return (rate, formattedRate)
     }
@@ -76,8 +75,7 @@ class TimeUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretchUnitDel
         ensureActiveAndResetRate()
         
         // Rate is decreased by an amount set in the user preferences
-        // TODO: Put this value in a constant
-        rate = max(0.25, rate - preferences.timeDelta)
+        rate = max(TimeStretchUnit.minRate, rate - preferences.timeDelta)
         
         return (rate, formattedRate)
     }

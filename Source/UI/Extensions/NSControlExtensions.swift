@@ -35,9 +35,3 @@ extension NSControl {
         self.isEnabled = !condition
     }
 }
-
-extension NSControl.StateValue {
- 
-    static let offState: NSControl.StateValue = NSControl.StateValue(rawValue: 0)
-    static let onState: NSControl.StateValue = NSControl.StateValue(rawValue: 1)
-}

@@ -23,6 +23,8 @@ class VariableRateNode {
     let timePitchNode: AVAudioUnitTimePitch
     let variNode: AVAudioUnitVarispeed
     
+    private static let octavesToCents: Float = 1200
+    
     init() {
         
         timePitchNode = AVAudioUnitTimePitch()
@@ -69,8 +71,7 @@ class VariableRateNode {
     }
     
     var pitch: Float {
-        // TODO: Put this value in a constant
-        return self.shiftPitch ? 1200 * log2(self.rate) : 0
+        return self.shiftPitch ? Self.octavesToCents * log2(self.rate) : 0
     }
     
     var overlap: Float {

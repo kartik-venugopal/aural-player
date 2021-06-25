@@ -154,13 +154,11 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     }
 
     // Switches the tab group to a particular tab
-    @IBAction func tabViewAction(_ sender: NSButton) {
+    @IBAction func tabViewAction(_ sender: EffectsUnitTabButton) {
 
         // Set sender button state, reset all other button states
-        
-        // TODO: Add a field "isSelected" to the tab button control to distinguish between "state" (on/off) and "selected"
-        effectsTabViewButtons.forEach {$0.state = convertToNSControlStateValue(0)}
-        sender.state = convertToNSControlStateValue(1)
+        effectsTabViewButtons.forEach {$0.unSelect()}
+        sender.select()
 
         // Button tag is the tab index
         effectsTabView.selectTabViewItem(at: sender.tag)

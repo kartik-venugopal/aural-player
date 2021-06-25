@@ -25,8 +25,10 @@ class PlaybackView: NSView, ColorSchemeable {
     @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
     @IBOutlet weak var btnNextTrack: TrackPeekingButton!
     
-    @IBOutlet weak var btnSeekBackward: NSButton!
-    @IBOutlet weak var btnSeekForward: NSButton!
+    @IBOutlet weak var btnSeekBackward: TintedImageButton!
+    @IBOutlet weak var btnSeekForward: TintedImageButton!
+    
+    private var functionButtons: [Tintable] = []
     
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let sequencer: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
@@ -88,6 +90,8 @@ class PlaybackView: NSView, ColorSchemeable {
         } else {
             btnLoop.switchState(LoopState.none)
         }
+        
+        functionButtons = [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward]
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
@@ -150,12 +154,7 @@ class PlaybackView: NSView, ColorSchemeable {
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {
-        
-        // TODO: Put these buttons in an array on initialization and refer to the array here
-        
-        [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach({
-            ($0 as? Tintable)?.reTint()
-        })
+        functionButtons.forEach {$0.reTint()}
     }
     
     func changeToggleButtonOffStateColor(_ color: NSColor) {

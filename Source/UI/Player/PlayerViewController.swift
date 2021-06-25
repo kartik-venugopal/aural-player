@@ -59,7 +59,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
         
         // Only respond if the playing track was updated
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.playingTrackInfoUpdated(_:),
-                                 filter: {msg in msg.updatedTrack == self.player.currentTrack &&
+                                 filter: {msg in msg.updatedTrack == self.player.playingTrack &&
                                     msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         

@@ -319,6 +319,16 @@ class EffectsUnitTabButton: OnOffImageButton {
     var unitState: EffectsUnitState {
         return stateFunction?() ?? .bypassed
     }
+    
+    func select() {
+        self.state = .on
+    }
+    
+    func unSelect() {
+        self.state = .off
+    }
+    
+    var isSelected: Bool {self.state == .on}
 }
 
 // Special button used in the effects presets manager.

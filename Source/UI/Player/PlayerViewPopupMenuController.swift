@@ -66,7 +66,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         var hasAlbum: Bool = false
         var hasChapters: Bool = false
         
-        if let track = player.currentTrack {
+        if let track = player.playingTrack {
             
             hasArtist = track.artist != nil
             hasAlbum = track.album != nil

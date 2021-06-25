@@ -54,7 +54,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
 
     func menuWillOpen(_ menu: NSMenu) {
         
-        if let playingTrackFile = playbackInfo.currentTrack?.file {
+        if let playingTrackFile = playbackInfo.playingTrack?.file {
             addRemoveFavoritesMenuItem.onIf(favorites.favoriteWithFileExists(playingTrackFile))
         } else {
             addRemoveFavoritesMenuItem.off()

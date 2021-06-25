@@ -399,7 +399,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     // Selects the currently playing track, within the playlist view
     private func showPlayingTrack() {
         
-        if let playingTrack = playbackInfo.currentTrack, let groupingInfo = playlist.groupingInfoForTrack(self.groupType, playingTrack) {
+        if let playingTrack = playbackInfo.playingTrack, let groupingInfo = playlist.groupingInfoForTrack(self.groupType, playingTrack) {
             selectTrack(groupingInfo)
         }
     }
@@ -624,7 +624,7 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
-        if let playingTrack = playbackInfo.currentTrack {
+        if let playingTrack = playbackInfo.playingTrack {
             playlistView.reloadItem(playingTrack)
         }
     }

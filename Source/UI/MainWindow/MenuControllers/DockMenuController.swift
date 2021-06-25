@@ -104,7 +104,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
         }
         
         // Update the toggle menu item
-        if let plTrack = playbackInfo.currentTrack, plTrack.file.path == trackFile.path {
+        if let plTrack = playbackInfo.playingTrack, plTrack.file.path == trackFile.path {
             favoritesMenuItem.on()
         }
     }
@@ -123,7 +123,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
         }
         
         // Update the toggle menu item
-        if let plTrack = playbackInfo.currentTrack, removedFavoritesFiles.contains(plTrack.file) {
+        if let plTrack = playbackInfo.playingTrack, removedFavoritesFiles.contains(plTrack.file) {
             favoritesMenuItem.off()
         }
     }

@@ -98,7 +98,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     @IBAction func moreInfoAction(_ sender: AnyObject) {
         
         // If there is a track currently playing, load detailed track info and toggle the popover view
-        if let playingTrack = player.currentTrack {
+        if let playingTrack = player.playingTrack {
             
             if detailedInfoPopover.isShown {
                 
@@ -135,7 +135,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     // Adds/removes the currently playing track to/from the "Favorites" list
     @IBAction func favoriteAction(_ sender: Any) {
         
-        if let playingTrack = player.currentTrack {
+        if let playingTrack = player.playingTrack {
             
             // Toggle the button state
             btnFavorite.toggle()
@@ -231,7 +231,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     private func favoritesUpdated(_ updatedFavoritesFiles: Set<URL>, _ added: Bool) {
         
         // Do this only if the track in the message is the playing track
-        if let playingTrack = player.currentTrack, updatedFavoritesFiles.contains(playingTrack.file) {
+        if let playingTrack = player.playingTrack, updatedFavoritesFiles.contains(playingTrack.file) {
             
             // TODO: Is this really required ???
             WindowManager.instance.mainWindow.makeKeyAndOrderFront(self)

@@ -287,7 +287,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     // Shows the currently playing track, within the playlist view
     private func showPlayingTrack() {
         
-        if let playingTrack = playbackInfo.currentTrack, let playingTrackIndex = playlist.indexOfTrack(playingTrack) {
+        if let playingTrack = playbackInfo.playingTrack, let playingTrackIndex = playlist.indexOfTrack(playingTrack) {
             selectTrack(playingTrackIndex)
         }
     }
@@ -478,7 +478,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     
     private func changePlayingTrackIconColor(_ color: NSColor) {
         
-        if let playingTrack = self.playbackInfo.currentTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack) {
+        if let playingTrack = self.playbackInfo.playingTrack, let playingTrackIndex = self.playlist.indexOfTrack(playingTrack) {
             playlistView.reloadData(forRowIndexes: IndexSet(integer: playingTrackIndex), columnIndexes: IndexSet(integer: 0))
         }
     }

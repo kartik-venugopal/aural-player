@@ -12,11 +12,11 @@ import Cocoa
 extension NSButton {
     
     @objc func off() {
-        self.state = .offState
+        self.state = .off
     }
     
     @objc func on() {
-        self.state = .onState
+        self.state = .on
     }
     
     @objc func onIf(_ condition: Bool) {
@@ -24,11 +24,11 @@ extension NSButton {
     }
     
     @objc var isOn: Bool {
-        return self.state == .onState
+        return self.state == .on
     }
     
     @objc var isOff: Bool {
-        return self.state == .offState
+        return self.state == .off
     }
     
     @objc func toggle() {
@@ -47,11 +47,11 @@ extension NSButton {
 extension NSButtonCell {
 
     @objc func off() {
-        self.state = .offState
+        self.state = .off
     }
 
     @objc func on() {
-        self.state = .onState
+        self.state = .on
     }
 
     @objc func onIf(_ condition: Bool) {
@@ -59,11 +59,11 @@ extension NSButtonCell {
     }
 
     @objc var isOn: Bool {
-        return self.state == .onState
+        return self.state == .on
     }
 
     @objc var isOff: Bool {
-        return self.state == .offState
+        return self.state == .off
     }
 
     @objc func toggle() {

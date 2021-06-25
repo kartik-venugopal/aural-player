@@ -21,6 +21,9 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     private let node: VariableRateNode = VariableRateNode()
     let presets: TimePresets
     
+    static let minRate: Float = 1.0/4
+    static let maxRate: Float = 4
+    
     init(persistentState: TimeUnitPersistentState?) {
         
         presets = TimePresets(persistentState: persistentState)

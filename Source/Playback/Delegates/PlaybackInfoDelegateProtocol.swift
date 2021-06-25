@@ -20,10 +20,6 @@ protocol PlaybackInfoDelegateProtocol {
     // Returns the current seek position of the player, for the current track, i.e. time elapsed, in terms of seconds and percentage (of the total duration), and the total track duration (also in seconds)
     var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {get}
     
-    // TODO: This is no longer required because there is no waiting / transcoding state. REMOVE IT !!!
-    // Returns the current track, if there is one
-    var currentTrack: Track? {get}
-    
     // Returns the currently playing (or paused) track, if there is one
     var playingTrack: Track? {get}
     

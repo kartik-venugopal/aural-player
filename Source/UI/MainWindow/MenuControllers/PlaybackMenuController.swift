@@ -104,7 +104,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
         rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPositionOption == .individualTracks)
         
-        if let playingTrack = playbackInfo.currentTrack {
+        if let playingTrack = playbackInfo.playingTrack {
             rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))
         }
     }

@@ -120,7 +120,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // Captures the current player state and proceeds with playback according to the playback sequence
     func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
         
-        let trackBeforeChange = currentTrack
+        let trackBeforeChange = playingTrack
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed
         
@@ -140,14 +140,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // theCurrentTrack points to the (precomputed) current track before this stop operation.
     // It is required because sometimes, the sequence will have been cleared before stop() is called,
     // making it impossible to capture the current track before stopping playback.
-    // If nil, the current track can be computed normally (by calling currentTrack).
+    // If nil, the current track can be computed normally (by calling playingTrack).
     func doStop(_ theCurrentTrack: Track? = nil) {
         
         let stateBeforeChange = state
         
         if stateBeforeChange != .noTrack {
             
-            let trackBeforeChange = theCurrentTrack ?? currentTrack
+            let trackBeforeChange = theCurrentTrack ?? playingTrack
             let seekPositionBeforeChange = seekPosition.timeElapsed
             
             let requestContext = PlaybackRequestContext(stateBeforeChange, trackBeforeChange, seekPositionBeforeChange, nil, PlaybackParams.defaultParams())
@@ -323,10 +323,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         return (0, 0, 0)
     }
     
-    var currentTrack: Track? {
-        return sequencer.currentTrack
-    }
-    
     var playingTrack: Track? {
         return state.isPlayingOrPaused ? sequencer.currentTrack : nil
     }
@@ -390,7 +386,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     // Continues playback when a track finishes playing.
     func doTrackPlaybackCompleted() {
         
-        let trackBeforeChange = currentTrack
+        let trackBeforeChange = playingTrack
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed
         
@@ -430,7 +426,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     func tracksRemoved(_ removeResults: TrackRemovalResults) {
         
         // Capture current track before the sequence is ended.
-        let trackBeforeChange = currentTrack
+        let trackBeforeChange = playingTrack
         
         sequencer.tracksRemoved(removeResults)
         
@@ -444,7 +440,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     func playlistCleared() {
         
         // Capture current track before the sequence is cleared
-        let trackBeforeChange = currentTrack
+        let trackBeforeChange = playingTrack
         
         sequencer.playlistCleared()
         

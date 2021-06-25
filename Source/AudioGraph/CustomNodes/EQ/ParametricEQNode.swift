@@ -33,9 +33,7 @@ class ParametricEQNode: AVAudioUnitEQ {
     
     var numberOfBands: Int {bands.count}
 
-    // TODO: Use these values to validate gain values in setBand(index, gain)
-    private static let maxGain: Float = 20
-    private static let minGain: Float = -20
+    private static let validGainRange: ClosedRange<Float> = -20...20
     
     override private init() {super.init()}
     
@@ -58,8 +56,22 @@ class ParametricEQNode: AVAudioUnitEQ {
         }
     }
     
-    func bandAtFrequency(_ freq: Float) -> AVAudioUnitEQFilterParameters? {
-        bands.first(where: {$0.frequency == freq})
+    var bandGains: [Float] {
+        
+        get {bands.map {$0.gain}}
+        
+        set(newGains) {
+            
+            for index in 0..<newGains.count {
+                bands[index].gain = newGains[index]
+            }
+        }
+    }
+    
+    subscript(_ index: Int) -> Float {
+        
+        get {bands[index].gain}
+        set {bands[index].gain = newValue}
     }
     
     func increaseBass(_ increment: Float) -> [Float] {
@@ -100,38 +112,20 @@ class ParametricEQNode: AVAudioUnitEQ {
     
     private func increaseBandGains(_ bandIndexes: [Int], _ increment: Float) {
         
-        bandIndexes.forEach({
+        bandIndexes.forEach {
             
             let band = bands[$0]
-            band.gain = min(band.gain + increment, Self.maxGain)
-        })
+            band.gain = (band.gain + increment).clamp(to: Self.validGainRange)
+        }
     }
     
     private func decreaseBandGains(_ bandIndexes: [Int], _ decrement: Float) {
         
-        bandIndexes.forEach({
+        bandIndexes.forEach {
             
             let band = bands[$0]
-            band.gain = max(band.gain - decrement, Self.minGain)
-        })
-    }
-    
-    var bandGains: [Float] {
-        
-        get {bands.map {$0.gain}}
-        
-        set(newGains) {
-            
-            for index in 0..<newGains.count {
-                bands[index].gain = newGains[index]
-            }
+            band.gain = (band.gain - decrement).clamp(to: Self.validGainRange)
         }
-    }
-    
-    subscript(_ index: Int) -> Float {
-        
-        get {bands[index].gain}
-        set {bands[index].gain = newValue}
     }
 }
 

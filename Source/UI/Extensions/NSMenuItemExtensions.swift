@@ -12,11 +12,11 @@ import Cocoa
 extension NSMenuItem {
     
     @objc func off() {
-        self.state = .offState
+        self.state = .off
     }
     
     @objc func on() {
-        self.state = .onState
+        self.state = .on
     }
     
     @objc func onIf(_ condition: Bool) {
@@ -24,11 +24,11 @@ extension NSMenuItem {
     }
     
     @objc var isOn: Bool {
-        return self.state == .onState
+        return self.state == .on
     }
     
     @objc var isOff: Bool {
-        return self.state == .offState
+        return self.state == .off
     }
     
     @objc func toggle() {

@@ -98,7 +98,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(!WindowManager.instance.isShowingModalComponent)})
-        rememberSettingsMenuItem.enableIf(player.currentTrack != nil)
+        rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -130,7 +130,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             masterBypassMenuItem.onIf(!graph.masterUnit.isActive)
             rememberSettingsMenuItem.showIf_elseHide(preferences.rememberEffectsSettingsOption == .individualTracks)
             
-            if let playingTrack = player.currentTrack {
+            if let playingTrack = player.playingTrack {
                 rememberSettingsMenuItem.onIf(soundProfiles.hasFor(playingTrack))
             }
         }
