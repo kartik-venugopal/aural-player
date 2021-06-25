@@ -62,7 +62,10 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
   * Fully customizable fonts and colors with built-in and custom schemes.
   * Menu bar mode to run the app in the macOS menu bar.
   * Window layouts (built-in and custom), window snapping, collapsible UI components.
-* **Usability:** Configurable media keys support, swipe/scroll gesture recognition, Control Center integration (remote control)
+* **Usability:** 
+  * Configurable media keys support
+  * Swipe/scroll gesture recognition
+  * Remote control (control the app from Control Center, headphones, or other media control devices / apps)
 
 ## Download
 
