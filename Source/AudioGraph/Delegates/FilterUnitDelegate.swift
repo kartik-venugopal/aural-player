@@ -9,7 +9,7 @@
 //
 import AVFoundation
 
-class FilterUnitDelegate: FXUnitDelegate<FilterUnit>, FilterUnitDelegateProtocol {
+class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegateProtocol {
 
     var presets: FilterPresets {return unit.presets}
     

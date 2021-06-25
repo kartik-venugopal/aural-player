@@ -67,7 +67,7 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             cell.action = {
                 
                 _ = audioUnit.toggleState()
-                Messenger.publish(.fx_unitStateChanged)
+                Messenger.publish(.effects_unitStateChanged)
             }
             
             return cell

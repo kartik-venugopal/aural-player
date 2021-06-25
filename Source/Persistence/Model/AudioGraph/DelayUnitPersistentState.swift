@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class DelayUnitPersistentState: FXUnitPersistentState<DelayPresetPersistentState> {
+class DelayUnitPersistentState: EffectsUnitPersistentState<DelayPresetPersistentState> {
     
     var amount: Float?
     var time: Double?
@@ -29,7 +29,7 @@ class DelayUnitPersistentState: FXUnitPersistentState<DelayPresetPersistentState
     }
 }
 
-class DelayPresetPersistentState: FXUnitPresetPersistentState {
+class DelayPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let amount: Float
     let time: Double

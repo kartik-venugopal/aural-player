@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class DelayPresetsManagerViewController: FXPresetsManagerGenericViewController {
+class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var delayView: DelayView!
     
@@ -22,14 +22,14 @@ class DelayPresetsManagerViewController: FXPresetsManagerGenericViewController {
         super.awakeFromNib()
         
         unitType = .delay
-        fxUnit = delayUnit
+        effectsUnit = delayUnit
         presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
     }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        delayView.initialize({() -> FXUnitState in .active})
+        delayView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

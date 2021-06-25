@@ -1,5 +1,5 @@
 //
-//  FXUnit.swift
+//  EffectsUnit.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,15 +10,15 @@
 import Foundation
 import AVFoundation
 
-class FXUnit {
+class EffectsUnit {
     
-    var unitType: FXUnitType
+    var unitType: EffectsUnitType
     
-    var state: FXUnitState {
+    var state: EffectsUnitState {
         didSet {stateChanged()}
     }
     
-    var stateFunction: FXUnitStateFunction {
+    var stateFunction: EffectsUnitStateFunction {
         return {return self.state}
     }
     
@@ -26,7 +26,7 @@ class FXUnit {
     
     var isActive: Bool {return state == .active}
     
-    init(_ unitType: FXUnitType, _ state: FXUnitState) {
+    init(_ unitType: EffectsUnitType, _ state: EffectsUnitState) {
         
         self.unitType = unitType
         self.state = state
@@ -36,12 +36,12 @@ class FXUnit {
     func stateChanged() {
         
         if isActive && unitType != .master {
-            Messenger.publish(.fx_unitActivated)
+            Messenger.publish(.effects_unitActivated)
         }
     }
     
     // Toggles the state of the effects unit, and returns its new state
-    func toggleState() -> FXUnitState {
+    func toggleState() -> EffectsUnitState {
         
         state = state == .active ? .bypassed : .active
         return state

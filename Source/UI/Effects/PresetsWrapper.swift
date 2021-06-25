@@ -11,10 +11,10 @@ import Foundation
 
 protocol PresetsWrapperProtocol {
     
-    var userDefinedPresets: [FXUnitPreset] {get}
-    var systemDefinedPresets: [FXUnitPreset] {get}
+    var userDefinedPresets: [EffectsUnitPreset] {get}
+    var systemDefinedPresets: [EffectsUnitPreset] {get}
     
-    func preset(named name: String) -> FXUnitPreset?
+    func preset(named name: String) -> EffectsUnitPreset?
     
     func deletePresets(atIndices indices: IndexSet)
     
@@ -23,7 +23,7 @@ protocol PresetsWrapperProtocol {
     func presetExists(named name: String) -> Bool
 }
 
-class PresetsWrapper<T: FXUnitPreset, U: FXPresets<T>>: PresetsWrapperProtocol {
+class PresetsWrapper<T: EffectsUnitPreset, U: EffectsPresets<T>>: PresetsWrapperProtocol {
     
     private let presets: U
     
@@ -31,14 +31,14 @@ class PresetsWrapper<T: FXUnitPreset, U: FXPresets<T>>: PresetsWrapperProtocol {
         self.presets = presets
     }
     
-    var userDefinedPresets: [FXUnitPreset] {
+    var userDefinedPresets: [EffectsUnitPreset] {
         return presets.userDefinedPresets
     }
-    var systemDefinedPresets: [FXUnitPreset] {
+    var systemDefinedPresets: [EffectsUnitPreset] {
         return presets.systemDefinedPresets
     }
     
-    func preset(named name: String) -> FXUnitPreset? {
+    func preset(named name: String) -> EffectsUnitPreset? {
         return presets.preset(named: name)
     }
     

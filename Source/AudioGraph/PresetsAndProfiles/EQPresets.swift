@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class EQPresets: FXPresets<EQPreset> {
+class EQPresets: EffectsPresets<EQPreset> {
     
     init(persistentState: EQUnitPersistentState?) {
         
@@ -22,12 +22,12 @@ class EQPresets: FXPresets<EQPreset> {
     override var defaultPreset: EQPreset {systemDefinedPreset(named: SystemDefinedEQPresetParams.flat.rawValue)!}
 }
 
-class EQPreset: FXUnitPreset {
+class EQPreset: EffectsUnitPreset {
     
     let bands: [Float]
     let globalGain: Float
     
-    init(_ name: String, _ state: FXUnitState, _ bands: [Float], _ globalGain: Float, _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ bands: [Float], _ globalGain: Float, _ systemDefined: Bool) {
         
         self.bands = bands
         self.globalGain = globalGain
@@ -101,7 +101,7 @@ fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
         return 0
     }
     
-    var state: FXUnitState {
+    var state: EffectsUnitState {
         return .active
     }
     

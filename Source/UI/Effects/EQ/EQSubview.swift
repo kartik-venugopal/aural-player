@@ -11,16 +11,16 @@ import Cocoa
 
 class EQSubview: NSView {
     
-    @IBOutlet weak var globalGainSlider: FXUnitSlider!
+    @IBOutlet weak var globalGainSlider: EffectsUnitSlider!
     
-    var bandSliders: [FXUnitSlider] = []
-    var allSliders: [FXUnitSlider] = []
+    var bandSliders: [EffectsUnitSlider] = []
+    var allSliders: [EffectsUnitSlider] = []
     
     override func awakeFromNib() {
         
         for subView in self.subviews {
             
-            if let slider = subView as? FXUnitSlider {
+            if let slider = subView as? EffectsUnitSlider {
                 
                 if slider.tag >= 0 {bandSliders.append(slider)}
                 allSliders.append(slider)
@@ -28,7 +28,7 @@ class EQSubview: NSView {
         }
     }
     
-    func initialize(_ stateFunction: @escaping FXUnitStateFunction, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
+    func initialize(_ stateFunction: @escaping EffectsUnitStateFunction, _ sliderAction: Selector?, _ sliderActionTarget: AnyObject?) {
         
         allSliders.forEach({$0.stateFunction = stateFunction})
         
@@ -58,7 +58,7 @@ class EQSubview: NSView {
         allSliders.forEach({$0.redraw()})
     }
     
-    func setState(_ state: FXUnitState) {
+    func setState(_ state: EffectsUnitState) {
         allSliders.forEach({$0.setUnitState(state)})
     }
     

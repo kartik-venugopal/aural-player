@@ -9,14 +9,14 @@
 //
 import AVFoundation
 
-protocol ReverbUnitProtocol: FXUnitProtocol {
+protocol ReverbUnitProtocol: EffectsUnitProtocol {
     
     var space: ReverbSpaces {get set}
     
     var amount: Float {get set}
 }
 
-class ReverbUnit: FXUnit, ReverbUnitProtocol {
+class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
     private let node: AVAudioUnitReverb = AVAudioUnitReverb()
     let presets: ReverbPresets

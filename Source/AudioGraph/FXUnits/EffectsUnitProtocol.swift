@@ -1,5 +1,5 @@
 //
-//  FXUnitProtocols.swift
+//  EffectsUnitProtocol.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,12 +9,12 @@
 //
 import AVFoundation
 
-protocol FXUnitProtocol {
+protocol EffectsUnitProtocol {
     
-    var state: FXUnitState {get}
+    var state: EffectsUnitState {get}
     
     // Toggles the state of the effects unit, and returns its new state
-    func toggleState() -> FXUnitState
+    func toggleState() -> EffectsUnitState
     
     func suppress()
     
@@ -22,8 +22,8 @@ protocol FXUnitProtocol {
     
     var avNodes: [AVAudioNode] {get}
     
-    associatedtype PresetType: FXUnitPreset
-    associatedtype PresetsType: FXPresetsProtocol
+    associatedtype PresetType: EffectsUnitPreset
+    associatedtype PresetsType: EffectsPresetsProtocol
     
     var presets: PresetsType {get}
     

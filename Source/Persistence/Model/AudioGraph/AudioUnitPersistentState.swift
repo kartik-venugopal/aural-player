@@ -9,13 +9,13 @@
 //
 import Foundation
 
-class AudioUnitPersistentState: FXUnitPersistentState<AudioUnitPresetPersistentState> {
+class AudioUnitPersistentState: EffectsUnitPersistentState<AudioUnitPresetPersistentState> {
     
     let componentType: OSType
     let componentSubType: OSType
     let params: [AudioUnitParameterPersistentState]
     
-    init(componentType: OSType, componentSubType: OSType, params: [AudioUnitParameterPersistentState], state: FXUnitState, userPresets: [AudioUnitPresetPersistentState]) {
+    init(componentType: OSType, componentSubType: OSType, params: [AudioUnitParameterPersistentState], state: EffectsUnitState, userPresets: [AudioUnitPresetPersistentState]) {
         
         self.componentType = componentType
         self.componentSubType = componentSubType
@@ -60,7 +60,7 @@ class AudioUnitParameterPersistentState: PersistentStateProtocol {
     }
 }
 
-class AudioUnitPresetPersistentState: FXUnitPresetPersistentState {
+class AudioUnitPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let componentType: OSType
     let componentSubType: OSType

@@ -58,12 +58,10 @@ class AudioEngine {
         }
         
         // Connect last node to main mixer
-        engine.connect(allNodes.last!, to: engine.mainMixerNode, format: nil)
+        engine.connect(allNodes.last!, to: mainMixerNode, format: nil)
     }
     
     func insertNode(_ node: AVAudioNode) {
-        
-        let allNodes = permanentNodes + removableNodes
         
         if let lastNode = allNodes.last {
             
@@ -75,7 +73,7 @@ class AudioEngine {
             engine.attach(node)
             
             engine.connect(lastNode, to: node, format: nil)
-            engine.connect(node, to: engine.mainMixerNode, format: nil)
+            engine.connect(node, to: mainMixerNode, format: nil)
         }
     }
     

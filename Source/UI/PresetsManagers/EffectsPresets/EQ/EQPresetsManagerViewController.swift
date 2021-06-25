@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class EQPresetsManagerViewController: FXPresetsManagerGenericViewController {
+class EQPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var eqView: EQView!
     
@@ -22,14 +22,14 @@ class EQPresetsManagerViewController: FXPresetsManagerGenericViewController {
         super.awakeFromNib()
         
         unitType = .eq
-        fxUnit = eqUnit
+        effectsUnit = eqUnit
         presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
     }
     
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        eqView.initialize(nil, nil, {() -> FXUnitState in .active})
+        eqView.initialize(nil, nil, {() -> EffectsUnitState in .active})
         eqView.chooseType(.tenBand)
     }
     

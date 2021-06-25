@@ -9,7 +9,7 @@
 //
 import AVFoundation
 
-protocol FilterUnitProtocol: FXUnitProtocol {
+protocol FilterUnitProtocol: EffectsUnitProtocol {
     
     var bands: [FilterBand] {get set}
     
@@ -24,7 +24,7 @@ protocol FilterUnitProtocol: FXUnitProtocol {
     func removeAllBands()
 }
 
-class FilterUnit: FXUnit, FilterUnitProtocol {
+class FilterUnit: EffectsUnit, FilterUnitProtocol {
     
     private let node: FlexibleFilterNode = FlexibleFilterNode()
     let presets: FilterPresets

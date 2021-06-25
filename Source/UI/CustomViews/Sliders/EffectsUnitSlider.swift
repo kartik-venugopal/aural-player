@@ -1,5 +1,5 @@
 //
-//  FXUnitSlider.swift
+//  EffectsUnitSlider.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,23 +9,23 @@
 //
 import Cocoa
 
-protocol FXUnitSliderProtocol {
+protocol EffectsUnitSliderProtocol {
     
-    var unitState: FXUnitState {get set}
-    var stateFunction: (() -> FXUnitState)? {get set}
+    var unitState: EffectsUnitState {get set}
+    var stateFunction: (() -> EffectsUnitState)? {get set}
     
     func updateState()
 }
 
-protocol FXUnitSliderCellProtocol {
+protocol EffectsUnitSliderCellProtocol {
     
-    var unitState: FXUnitState {get set}
+    var unitState: EffectsUnitState {get set}
 }
 
-class FXUnitSlider: NSSlider, FXUnitSliderProtocol {
+class EffectsUnitSlider: NSSlider, EffectsUnitSliderProtocol {
     
-    var unitState: FXUnitState = .bypassed
-    var stateFunction: (() -> FXUnitState)?
+    var unitState: EffectsUnitState = .bypassed
+    var stateFunction: (() -> EffectsUnitState)?
     
     func updateState() {
         
@@ -33,7 +33,7 @@ class FXUnitSlider: NSSlider, FXUnitSliderProtocol {
             
             unitState = function()
             
-            if var cell = self.cell as? FXUnitSliderCellProtocol {
+            if var cell = self.cell as? EffectsUnitSliderCellProtocol {
                 cell.unitState = unitState
             }
             
@@ -41,11 +41,11 @@ class FXUnitSlider: NSSlider, FXUnitSliderProtocol {
         }
     }
     
-    func setUnitState(_ state: FXUnitState) {
+    func setUnitState(_ state: EffectsUnitState) {
         
         self.unitState = state
         
-        if var cell = self.cell as? FXUnitSliderCellProtocol {
+        if var cell = self.cell as? EffectsUnitSliderCellProtocol {
             cell.unitState = unitState
         }
         

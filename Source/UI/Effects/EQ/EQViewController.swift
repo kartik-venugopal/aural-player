@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the EQ (Equalizer) effects unit
  */
-class EQViewController: FXUnitViewController {
+class EQViewController: EffectsUnitViewController {
     
     @IBOutlet weak var eqView: EQView!
     
@@ -25,7 +25,7 @@ class EQViewController: FXUnitViewController {
         super.awakeFromNib()
         
         self.unitType = .eq
-        self.fxUnit = graph.eqUnit
+        self.effectsUnit = graph.eqUnit
         self.presetsWrapper = PresetsWrapper<EQPreset, EQPresets>(eqUnit.presets)
     }
     
@@ -39,14 +39,14 @@ class EQViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .eqFXUnit_decreaseBass, self.decreaseBass)
-        Messenger.subscribe(self, .eqFXUnit_increaseBass, self.increaseBass)
+        Messenger.subscribe(self, .eqEffectsUnit_decreaseBass, self.decreaseBass)
+        Messenger.subscribe(self, .eqEffectsUnit_increaseBass, self.increaseBass)
         
-        Messenger.subscribe(self, .eqFXUnit_decreaseMids, self.decreaseMids)
-        Messenger.subscribe(self, .eqFXUnit_increaseMids, self.increaseMids)
+        Messenger.subscribe(self, .eqEffectsUnit_decreaseMids, self.decreaseMids)
+        Messenger.subscribe(self, .eqEffectsUnit_increaseMids, self.increaseMids)
         
-        Messenger.subscribe(self, .eqFXUnit_decreaseTreble, self.decreaseTreble)
-        Messenger.subscribe(self, .eqFXUnit_increaseTreble, self.increaseTreble)
+        Messenger.subscribe(self, .eqEffectsUnit_decreaseTreble, self.decreaseTreble)
+        Messenger.subscribe(self, .eqEffectsUnit_increaseTreble, self.increaseTreble)
 
         Messenger.subscribe(self, .changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
         Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
@@ -71,12 +71,12 @@ class EQViewController: FXUnitViewController {
         eqView.stateChanged()
     }
     
-    @IBAction func eqGlobalGainAction(_ sender: FXUnitSlider) {
+    @IBAction func eqGlobalGainAction(_ sender: EffectsUnitSlider) {
         eqUnit.globalGain = sender.floatValue
     }
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
-    @IBAction func eqSliderAction(_ sender: FXUnitSlider) {
+    @IBAction func eqSliderAction(_ sender: EffectsUnitSlider) {
         eqUnit.setBand(sender.tag, gain: sender.floatValue)
     }
     
@@ -115,7 +115,7 @@ class EQViewController: FXUnitViewController {
         stateChanged()
         eqView.bandsUpdated(bands, eqUnit.globalGain)
         
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
         showThisTab()
     }
     

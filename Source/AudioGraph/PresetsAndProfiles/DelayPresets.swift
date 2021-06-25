@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class DelayPresets: FXPresets<DelayPreset> {
+class DelayPresets: EffectsPresets<DelayPreset> {
     
     init(persistentState: DelayUnitPersistentState?) {
         
@@ -22,14 +22,14 @@ class DelayPresets: FXPresets<DelayPreset> {
     override var defaultPreset: DelayPreset {systemDefinedPreset(named: SystemDefinedDelayPresetParams.oneSecond.rawValue)!}
 }
 
-class DelayPreset: FXUnitPreset {
+class DelayPreset: EffectsUnitPreset {
     
     let amount: Float
     let time: Double
     let feedback: Float
     let lowPassCutoff: Float
     
-    init(_ name: String, _ state: FXUnitState, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float, _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ amount: Float, _ time: Double, _ feedback: Float, _ cutoff: Float, _ systemDefined: Bool) {
         
         self.amount = amount
         self.time = time
@@ -99,7 +99,7 @@ fileprivate enum SystemDefinedDelayPresetParams: String, CaseIterable {
         return 15000
     }
     
-    var state: FXUnitState {
+    var state: EffectsUnitState {
         return .active
     }
     

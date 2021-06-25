@@ -9,7 +9,7 @@
 //
 import AVFoundation
 
-protocol PitchShiftUnitProtocol: FXUnitProtocol {
+protocol PitchShiftUnitProtocol: EffectsUnitProtocol {
     
     // The pitch shift value, in cents, specified as a value between -2400 and 2400
     var pitch: Float {get set}
@@ -18,7 +18,7 @@ protocol PitchShiftUnitProtocol: FXUnitProtocol {
     var overlap: Float {get set}
 }
 
-class PitchUnit: FXUnit, PitchShiftUnitProtocol {
+class PitchUnit: EffectsUnit, PitchShiftUnitProtocol {
     
     private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     let presets: PitchPresets

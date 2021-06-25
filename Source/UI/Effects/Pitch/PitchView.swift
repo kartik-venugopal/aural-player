@@ -11,12 +11,12 @@ import Cocoa
 
 class PitchView: NSView {
 
-    @IBOutlet weak var pitchSlider: FXUnitSlider!
-    @IBOutlet weak var pitchOverlapSlider: FXUnitSlider!
+    @IBOutlet weak var pitchSlider: EffectsUnitSlider!
+    @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!
     @IBOutlet weak var lblPitchValue: NSTextField!
     @IBOutlet weak var lblPitchOverlapValue: NSTextField!
     
-    private var sliders: [FXUnitSlider] = []
+    private var sliders: [EffectsUnitSlider] = []
     
     var pitch: Float {
         return pitchSlider.floatValue
@@ -30,7 +30,7 @@ class PitchView: NSView {
         sliders = [pitchSlider, pitchOverlapSlider]
     }
     
-    func initialize(_ stateFunction: @escaping () -> FXUnitState) {
+    func initialize(_ stateFunction: @escaping () -> EffectsUnitState) {
         
         sliders.forEach({
             $0.stateFunction = stateFunction
@@ -44,7 +44,7 @@ class PitchView: NSView {
         setPitchOverlap(overlap, overlapString)
     }
     
-    func setUnitState(_ state: FXUnitState) {
+    func setUnitState(_ state: EffectsUnitState) {
         sliders.forEach({$0.setUnitState(state)})
     }
     

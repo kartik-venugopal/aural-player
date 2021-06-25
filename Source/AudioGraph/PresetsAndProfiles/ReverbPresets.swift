@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class ReverbPresets: FXPresets<ReverbPreset> {
+class ReverbPresets: EffectsPresets<ReverbPreset> {
     
     init(persistentState: ReverbUnitPersistentState?) {
         
@@ -18,12 +18,12 @@ class ReverbPresets: FXPresets<ReverbPreset> {
     }
 }
 
-class ReverbPreset: FXUnitPreset {
+class ReverbPreset: EffectsUnitPreset {
     
     let space: ReverbSpaces
     let amount: Float
     
-    init(_ name: String, _ state: FXUnitState, _ space: ReverbSpaces, _ amount: Float, _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ space: ReverbSpaces, _ amount: Float, _ systemDefined: Bool) {
         
         self.space = space
         self.amount = amount

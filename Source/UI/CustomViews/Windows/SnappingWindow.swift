@@ -89,7 +89,7 @@ class SnappingWindow: NoTitleBarWindow {
         return false
     }
     
-    // Top edge of FX vs Bottom edge of main (i.e. below main window)
+    // Top edge of Effects vs Bottom edge of main (i.e. below main window)
     private func checkForSnap_bottom(to mate: NSWindow) -> SnapToWindowType {
         
         // Left edges
@@ -117,7 +117,7 @@ class SnappingWindow: NoTitleBarWindow {
         return .none
     }
     
-    // Top edge of FX vs Bottom edge of main (i.e. below main window)
+    // Top edge of Effects vs Bottom edge of main (i.e. below main window)
     private func checkForSnap_top(to mate: NSWindow) -> SnapToWindowType {
         
         // Left edges
@@ -145,7 +145,7 @@ class SnappingWindow: NoTitleBarWindow {
         return .none
     }
     
-    // Left edge of FX vs Right edge of main (i.e. to the right of the main window)
+    // Left edge of Effects vs Right edge of main (i.e. to the right of the main window)
     private func checkForSnap_right(to mate: NSWindow) -> SnapToWindowType {
         
         let snapMinX = mate.maxX - snapProximity
@@ -173,7 +173,7 @@ class SnappingWindow: NoTitleBarWindow {
         return .none
     }
     
-    // Right edge of FX vs Left edge of main (i.e. to the left of the main window)
+    // Right edge of Effects vs Left edge of main (i.e. to the left of the main window)
     private func checkForSnap_left(to mate: NSWindow) -> SnapToWindowType {
         
         let snapMinX = mate.x - width - snapProximity

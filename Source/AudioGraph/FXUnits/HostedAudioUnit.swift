@@ -9,7 +9,7 @@
 //
 import AVFoundation
 
-protocol HostedAudioUnitProtocol: FXUnitProtocol {
+protocol HostedAudioUnitProtocol: EffectsUnitProtocol {
     
     var name: String {get}
     
@@ -27,7 +27,7 @@ protocol HostedAudioUnitProtocol: FXUnitProtocol {
     func applyFactoryPreset(_ presetName: String)
 }
 
-class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol, AUNodeBypassStateObserver {
+class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateObserver {
     
     private let node: HostedAUNode
     
@@ -106,7 +106,7 @@ class HostedAudioUnit: FXUnit, HostedAudioUnitProtocol, AUNodeBypassStateObserve
             self.state = nodeIsBypassed ? .bypassed : .active
             shouldUpdateNodeBypassState = true
             
-            Messenger.publish(.fx_unitStateChanged)
+            Messenger.publish(.effects_unitStateChanged)
         }
     }
     

@@ -24,7 +24,7 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
     private let audioUnitsManager: AudioUnitsManager
     private let deviceManager: DeviceManager
     
-    // FX units
+    // Effects units
     var masterUnit: MasterUnit
     var eqUnit: EQUnit
     var pitchUnit: PitchUnit

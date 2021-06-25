@@ -17,7 +17,7 @@
 //
 //    var _state: AudioGraphState
 //    
-//    // FX units
+//    // Effects units
 //    var masterUnit: MasterUnit
 //    var eqUnit: EQUnit
 //    var pitchUnit: PitchUnit

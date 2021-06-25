@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class ReverbUnitPersistentState: FXUnitPersistentState<ReverbPresetPersistentState> {
+class ReverbUnitPersistentState: EffectsUnitPersistentState<ReverbPresetPersistentState> {
     
     var space: ReverbSpaces?
     var amount: Float?
@@ -25,7 +25,7 @@ class ReverbUnitPersistentState: FXUnitPersistentState<ReverbPresetPersistentSta
     }
 }
 
-class ReverbPresetPersistentState: FXUnitPresetPersistentState {
+class ReverbPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let space: ReverbSpaces
     let amount: Float

@@ -43,7 +43,7 @@ class ThemePreviewView: NSView {
     @IBOutlet weak var playlistSelectionBox: NSBox!
     
     @IBOutlet weak var btnBypass: TintedImageView!
-    @IBOutlet weak var lblFxCaption: NSTextField!
+    @IBOutlet weak var lblEffectsCaption: NSTextField!
     
     @IBOutlet weak var eqSlider_1: NSSlider!
     @IBOutlet weak var eqSlider_2: NSSlider!
@@ -190,7 +190,7 @@ class ThemePreviewView: NSView {
                 eqSliders.forEach({$0.redraw()})
                 
                 activeUnitColor = colorScheme.effects.activeUnitStateColor
-                fxCaptionColor = colorScheme.general.mainCaptionTextColor
+                effectsCaptionColor = colorScheme.general.mainCaptionTextColor
                 
                 playlistTrackTitleColor = colorScheme.playlist.trackNameTextColor
                 playlistTrackIndexDurationColor = colorScheme.playlist.indexDurationTextColor
@@ -218,7 +218,7 @@ class ThemePreviewView: NSView {
                 
                 (playlistIndexDurationLabels + playlistTrackTitleLabels + [lblPlaylistSelectedDuration, lblPlaylistSelectedTitle]).forEach {$0.font = fontScheme.playlist.trackTextFont}
                 
-                lblFxCaption.font = fontScheme.effects.unitCaptionFont
+                lblEffectsCaption.font = fontScheme.effects.unitCaptionFont
             }
             
             if let windowAppearance = theme?.windowAppearance {
@@ -300,10 +300,10 @@ class ThemePreviewView: NSView {
         }
     }
     
-    var fxCaptionColor: NSColor = Colors.Constants.white50Percent {
+    var effectsCaptionColor: NSColor = Colors.Constants.white50Percent {
         
         didSet {
-            lblFxCaption.textColor = fxCaptionColor
+            lblEffectsCaption.textColor = effectsCaptionColor
         }
     }
     

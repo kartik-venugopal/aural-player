@@ -12,7 +12,7 @@ import Cocoa
 class ReverbView: NSView {
     
     @IBOutlet weak var reverbSpaceMenu: NSPopUpButton!
-    @IBOutlet weak var reverbAmountSlider: FXUnitSlider!
+    @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
@@ -25,7 +25,7 @@ class ReverbView: NSView {
         return reverbAmountSlider.floatValue
     }
     
-    func initialize(_ stateFunction: (() -> FXUnitState)?) {
+    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
         reverbAmountSlider.stateFunction = stateFunction
         reverbAmountSlider.updateState()
     }
@@ -35,7 +35,7 @@ class ReverbView: NSView {
         setAmount(amount, amountString)
     }
     
-    func setUnitState(_ state: FXUnitState) {
+    func setUnitState(_ state: EffectsUnitState) {
         reverbAmountSlider.setUnitState(state)
     }
     

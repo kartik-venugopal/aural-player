@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class DelayUnitDelegate: FXUnitDelegate<DelayUnit>, DelayUnitDelegateProtocol {
+class DelayUnitDelegate: EffectsUnitDelegate<DelayUnit>, DelayUnitDelegateProtocol {
     
     var presets: DelayPresets {return unit.presets}
     

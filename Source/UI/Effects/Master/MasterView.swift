@@ -11,33 +11,33 @@ import Cocoa
 
 class MasterView: NSView {
     
-    @IBOutlet weak var btnEQBypass: FXUnitTriStateBypassButton!
-    @IBOutlet weak var btnPitchBypass: FXUnitTriStateBypassButton!
-    @IBOutlet weak var btnTimeBypass: FXUnitTriStateBypassButton!
-    @IBOutlet weak var btnReverbBypass: FXUnitTriStateBypassButton!
-    @IBOutlet weak var btnDelayBypass: FXUnitTriStateBypassButton!
-    @IBOutlet weak var btnFilterBypass: FXUnitTriStateBypassButton!
+    @IBOutlet weak var btnEQBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnPitchBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnTimeBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnReverbBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnDelayBypass: EffectsUnitTriStateBypassButton!
+    @IBOutlet weak var btnFilterBypass: EffectsUnitTriStateBypassButton!
     
-    @IBOutlet weak var imgEQBypass: FXUnitTriStateBypassImage!
-    @IBOutlet weak var imgPitchBypass: FXUnitTriStateBypassImage!
-    @IBOutlet weak var imgTimeBypass: FXUnitTriStateBypassImage!
-    @IBOutlet weak var imgReverbBypass: FXUnitTriStateBypassImage!
-    @IBOutlet weak var imgDelayBypass: FXUnitTriStateBypassImage!
-    @IBOutlet weak var imgFilterBypass: FXUnitTriStateBypassImage!
-    @IBOutlet weak var imgAUBypass: FXUnitTriStateBypassImage!
+    @IBOutlet weak var imgEQBypass: EffectsUnitTriStateBypassImage!
+    @IBOutlet weak var imgPitchBypass: EffectsUnitTriStateBypassImage!
+    @IBOutlet weak var imgTimeBypass: EffectsUnitTriStateBypassImage!
+    @IBOutlet weak var imgReverbBypass: EffectsUnitTriStateBypassImage!
+    @IBOutlet weak var imgDelayBypass: EffectsUnitTriStateBypassImage!
+    @IBOutlet weak var imgFilterBypass: EffectsUnitTriStateBypassImage!
+    @IBOutlet weak var imgAUBypass: EffectsUnitTriStateBypassImage!
     
-    @IBOutlet weak var lblEQ: FXUnitTriStateLabel!
-    @IBOutlet weak var lblPitch: FXUnitTriStateLabel!
-    @IBOutlet weak var lblTime: FXUnitTriStateLabel!
-    @IBOutlet weak var lblReverb: FXUnitTriStateLabel!
-    @IBOutlet weak var lblDelay: FXUnitTriStateLabel!
-    @IBOutlet weak var lblFilter: FXUnitTriStateLabel!
+    @IBOutlet weak var lblEQ: EffectsUnitTriStateLabel!
+    @IBOutlet weak var lblPitch: EffectsUnitTriStateLabel!
+    @IBOutlet weak var lblTime: EffectsUnitTriStateLabel!
+    @IBOutlet weak var lblReverb: EffectsUnitTriStateLabel!
+    @IBOutlet weak var lblDelay: EffectsUnitTriStateLabel!
+    @IBOutlet weak var lblFilter: EffectsUnitTriStateLabel!
     
-    @IBOutlet weak var lblAudioUnits: FXUnitTriStateLabel!
+    @IBOutlet weak var lblAudioUnits: EffectsUnitTriStateLabel!
     
-    var buttons: [FXUnitTriStateBypassButton] = []
-    var images: [FXUnitTriStateBypassImage] = []
-    var labels: [FXUnitTriStateLabel] = []
+    var buttons: [EffectsUnitTriStateBypassButton] = []
+    var images: [EffectsUnitTriStateBypassImage] = []
+    var labels: [EffectsUnitTriStateLabel] = []
     
     override func awakeFromNib() {
         buttons = [btnEQBypass, btnPitchBypass, btnTimeBypass, btnReverbBypass, btnDelayBypass, btnFilterBypass]
@@ -45,7 +45,7 @@ class MasterView: NSView {
         labels = [lblEQ, lblPitch, lblTime, lblReverb, lblDelay, lblFilter, lblAudioUnits]
     }
     
-    func initialize(_ eqStateFunction: @escaping FXUnitStateFunction, _ pitchStateFunction: @escaping FXUnitStateFunction, _ timeStateFunction: @escaping FXUnitStateFunction, _ reverbStateFunction: @escaping FXUnitStateFunction, _ delayStateFunction: @escaping FXUnitStateFunction, _ filterStateFunction: @escaping FXUnitStateFunction, _ auStateFunction: @escaping FXUnitStateFunction) {
+    func initialize(_ eqStateFunction: @escaping EffectsUnitStateFunction, _ pitchStateFunction: @escaping EffectsUnitStateFunction, _ timeStateFunction: @escaping EffectsUnitStateFunction, _ reverbStateFunction: @escaping EffectsUnitStateFunction, _ delayStateFunction: @escaping EffectsUnitStateFunction, _ filterStateFunction: @escaping EffectsUnitStateFunction, _ auStateFunction: @escaping EffectsUnitStateFunction) {
         
         btnEQBypass.stateFunction = eqStateFunction
         btnPitchBypass.stateFunction = pitchStateFunction
@@ -82,7 +82,7 @@ class MasterView: NSView {
         labels.forEach({$0.updateState()})
     }
     
-    private func changeUnitStateColorForState(_ unitState: FXUnitState) {
+    private func changeUnitStateColorForState(_ unitState: EffectsUnitState) {
         
         buttons.forEach({
             

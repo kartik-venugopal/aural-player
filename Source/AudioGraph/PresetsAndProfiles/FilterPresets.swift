@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class FilterPresets: FXPresets<FilterPreset> {
+class FilterPresets: EffectsPresets<FilterPreset> {
     
     init(persistentState: FilterUnitPersistentState?) {
         
@@ -22,11 +22,11 @@ class FilterPresets: FXPresets<FilterPreset> {
     override var defaultPreset: FilterPreset {systemDefinedPreset(named: SystemDefinedFilterPresetParams.passThrough.rawValue)!}
 }
 
-class FilterPreset: FXUnitPreset {
+class FilterPreset: EffectsUnitPreset {
     
     let bands: [FilterBand]
     
-    init(_ name: String, _ state: FXUnitState, _ bands: [FilterBand], _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ bands: [FilterBand], _ systemDefined: Bool) {
         
         self.bands = bands
         super.init(name, state, systemDefined)

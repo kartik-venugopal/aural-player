@@ -73,7 +73,7 @@ class NicerPopupMenuCell: PopupMenuCell {
     override var arrowHeight: CGFloat {return 4}
 }
 
-class FXUnitPopupMenuCell: NicerPopupMenuCell {
+class EffectsUnitPopupMenuCell: NicerPopupMenuCell {
     
     override var cellInsetY: CGFloat {return 1}
     override var rectRadius: CGFloat {return 2}
@@ -145,7 +145,7 @@ class FontsPopupMenuCell: PopupMenuCell {
     override var textOffsetY: CGFloat {3}
 }
 
-class FXPreviewPopupMenuCell: NicerPopupMenuCell {
+class EffectsPreviewPopupMenuCell: NicerPopupMenuCell {
     
     override var menuGradient: NSGradient {return Colors.Effects.defaultPopupMenuGradient}
     

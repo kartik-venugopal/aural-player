@@ -15,37 +15,37 @@ struct AudioGraphDefaults {
     static let balance: Float = 0
     static let muted: Bool = false
     
-    static let masterState: FXUnitState = .active
+    static let masterState: EffectsUnitState = .active
     
-    static let eqState: FXUnitState = .bypassed
+    static let eqState: EffectsUnitState = .bypassed
     static let eqType: EQType = .tenBand
     static let eqGlobalGain: Float = 0
     static let eqBands: [Float] = Array(repeating: Float(0), count: 10)
     static let eqBandGain: Float = 0
     
-    static let pitchState: FXUnitState = .bypassed
+    static let pitchState: EffectsUnitState = .bypassed
     static let pitch: Float = 0
     static let pitchOverlap: Float = 8
     
-    static let timeState: FXUnitState = .bypassed
+    static let timeState: EffectsUnitState = .bypassed
     static let timeStretchRate: Float = 1
     static let timeShiftPitch: Bool = false
     static let timeOverlap: Float = 8
     
-    static let reverbState: FXUnitState = .bypassed
+    static let reverbState: EffectsUnitState = .bypassed
     static let reverbSpace: ReverbSpaces = .mediumHall
     static let reverbAmount: Float = 50
     
-    static let delayState: FXUnitState = .bypassed
+    static let delayState: EffectsUnitState = .bypassed
     static let delayAmount: Float = 100
     static let delayTime: Double = 1
     static let delayFeedback: Float = 50
     static let delayLowPassCutoff: Float = 15000
 
-    static let filterState: FXUnitState = .bypassed
+    static let filterState: EffectsUnitState = .bypassed
     static let filterBandType: FilterBandType = .bandStop
     static let filterBandMinFreq: Float = SoundConstants.audibleRangeMin
     static let filterBandMaxFreq: Float = SoundConstants.subBass_max
     
-    static let auState: FXUnitState = .active
+    static let auState: EffectsUnitState = .active
 }

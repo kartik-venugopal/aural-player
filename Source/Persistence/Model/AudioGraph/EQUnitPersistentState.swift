@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class EQUnitPersistentState: FXUnitPersistentState<EQPresetPersistentState> {
+class EQUnitPersistentState: EffectsUnitPersistentState<EQPresetPersistentState> {
     
     var type: EQType?
     var globalGain: Float?
@@ -27,7 +27,7 @@ class EQUnitPersistentState: FXUnitPersistentState<EQPresetPersistentState> {
     }
 }
 
-class EQPresetPersistentState: FXUnitPresetPersistentState {
+class EQPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let bands: [Float]
     let globalGain: Float?

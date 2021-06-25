@@ -1,5 +1,5 @@
 //
-//  FXPresetsManagerGenericViewController.swift
+//  EffectsPresetsManagerGenericViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,30 +9,30 @@
 //
 import Cocoa
 
-class FXPresetsManagerGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NotificationSubscriber, Destroyable {
+class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var previewBox: NSBox!
     
     let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
-    var fxUnit: FXUnitDelegateProtocol!
+    var effectsUnit: EffectsUnitDelegateProtocol!
     var presetsWrapper: PresetsWrapperProtocol!
-    var unitType: FXUnitType!
+    var unitType: EffectsUnitType!
     
     override func viewDidLoad() {
         
-        let unitTypeFilter: (FXUnitType) -> Bool = {[weak self] (unit: FXUnitType) in unit == self?.unitType}
+        let unitTypeFilter: (EffectsUnitType) -> Bool = {[weak self] (unit: EffectsUnitType) in unit == self?.unitType}
         
-        Messenger.subscribe(self, .fxPresetsManager_reload, {[weak self] (FXUnit) in self?.doViewDidAppear()},
+        Messenger.subscribe(self, .effectsPresetsManager_reload, {[weak self] (EffectsUnit) in self?.doViewDidAppear()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsManager_apply, {[weak self] (FXUnit) in self?.applySelectedPreset()},
+        Messenger.subscribe(self, .effectsPresetsManager_apply, {[weak self] (EffectsUnit) in self?.applySelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsManager_rename, {[weak self] (FXUnit) in self?.renameSelectedPreset()},
+        Messenger.subscribe(self, .effectsPresetsManager_rename, {[weak self] (EffectsUnit) in self?.renameSelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .fxPresetsManager_delete, {[weak self] (FXUnit) in self?.deleteSelectedPresets()},
+        Messenger.subscribe(self, .effectsPresetsManager_delete, {[weak self] (EffectsUnit) in self?.deleteSelectedPresets()},
                             filter: unitTypeFilter)
     }
     
@@ -66,11 +66,11 @@ class FXPresetsManagerGenericViewController: NSViewController, NSTableViewDataSo
         Messenger.publish(.presetsManager_selectionChanged, payload: Int(0))
     }
     
-    var selectedPresets: [FXUnitPreset] {
+    var selectedPresets: [EffectsUnitPreset] {
         tableView.selectedRowIndexes.map {presetsWrapper.userDefinedPresets[$0]}
     }
     
-    var firstSelectedPreset: FXUnitPreset? {selectedPresets.first}
+    var firstSelectedPreset: EffectsUnitPreset? {selectedPresets.first}
     
     func renameSelectedPreset() {
         
@@ -86,8 +86,8 @@ class FXPresetsManagerGenericViewController: NSViewController, NSTableViewDataSo
         
         if let preset = firstSelectedPreset {
             
-            fxUnit.applyPreset(preset.name)
-            Messenger.publish(.fx_updateFXUnitView, payload: self.unitType!)
+            effectsUnit.applyPreset(preset.name)
+            Messenger.publish(.effects_updateEffectsUnitView, payload: self.unitType!)
         }
     }
     

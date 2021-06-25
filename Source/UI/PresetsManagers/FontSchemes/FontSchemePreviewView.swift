@@ -48,8 +48,8 @@ class FontSchemePreviewView: NSView {
                 playlistHeadingFont = theScheme.playlist.tabButtonTextFont
                 playlistTrackTextFont = theScheme.playlist.trackTextFont
                 
-                fxCaptionFont = theScheme.effects.unitCaptionFont
-                fxFunctionFont = theScheme.effects.unitFunctionFont
+                effectsCaptionFont = theScheme.effects.unitCaptionFont
+                effectsFunctionFont = theScheme.effects.unitFunctionFont
                 
                 containerBox.show()
             }
@@ -84,18 +84,18 @@ class FontSchemePreviewView: NSView {
         }
     }
     
-    var fxCaptionFont: NSFont = Fonts.Standard.mainFont_12 {
+    var effectsCaptionFont: NSFont = Fonts.Standard.mainFont_12 {
         
         didSet {
-            lblFxCaption.font = fxCaptionFont
+            lblFxCaption.font = effectsCaptionFont
         }
     }
     
-    var fxFunctionFont: NSFont = Fonts.Standard.mainFont_12 {
+    var effectsFunctionFont: NSFont = Fonts.Standard.mainFont_12 {
         
         didSet {
-            lblPitchCaption.font = fxFunctionFont
-            lblPitchValue.font = fxFunctionFont
+            lblPitchCaption.font = effectsFunctionFont
+            lblPitchValue.font = effectsFunctionFont
         }
     }
     

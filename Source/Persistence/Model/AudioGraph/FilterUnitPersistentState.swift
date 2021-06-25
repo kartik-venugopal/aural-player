@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class FilterUnitPersistentState: FXUnitPersistentState<FilterPresetState> {
+class FilterUnitPersistentState: EffectsUnitPersistentState<FilterPresetState> {
     
     var bands: [FilterBandPersistentState]?
     
@@ -61,7 +61,7 @@ class FilterBandPersistentState: PersistentStateProtocol {
     }
 }
 
-class FilterPresetState: FXUnitPresetPersistentState {
+class FilterPresetState: EffectsUnitPresetPersistentState {
     
     let bands: [FilterBandPersistentState]
     

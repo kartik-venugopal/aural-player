@@ -9,9 +9,9 @@
 //
 import Foundation
 
-protocol MasterUnitProtocol: FXUnitProtocol {}
+protocol MasterUnitProtocol: EffectsUnitProtocol {}
 
-class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
+class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
     
     let presets: MasterPresets
     
@@ -22,10 +22,10 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
     var delayUnit: DelayUnit
     var filterUnit: FilterUnit
     
-    var nativeSlaveUnits: [FXUnit]
+    var nativeSlaveUnits: [EffectsUnit]
     var audioUnits: [HostedAudioUnit]
 
-    init(persistentState: MasterUnitPersistentState?, nativeSlaveUnits: [FXUnit], audioUnits: [HostedAudioUnit]) {
+    init(persistentState: MasterUnitPersistentState?, nativeSlaveUnits: [EffectsUnit], audioUnits: [HostedAudioUnit]) {
         
         self.nativeSlaveUnits = nativeSlaveUnits
         
@@ -41,10 +41,10 @@ class MasterUnit: FXUnit, MasterUnitProtocol, NotificationSubscriber {
         
         super.init(.master, persistentState?.state ?? AudioGraphDefaults.masterState)
         
-        Messenger.subscribe(self, .fx_unitActivated, self.ensureActive)
+        Messenger.subscribe(self, .effects_unitActivated, self.ensureActive)
     }
     
-    override func toggleState() -> FXUnitState {
+    override func toggleState() -> EffectsUnitState {
         
         if super.toggleState() == .bypassed {
 

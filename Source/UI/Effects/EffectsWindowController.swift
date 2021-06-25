@@ -33,19 +33,19 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
 
     // Tab view and its buttons
 
-    @IBOutlet weak var fxTabView: NSTabView!
+    @IBOutlet weak var effectsTabView: NSTabView!
 
-    @IBOutlet weak var masterTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var eqTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var pitchTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var timeTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var reverbTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var delayTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var filterTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var auTabViewButton: FXUnitTabButton!
-    @IBOutlet weak var recorderTabViewButton: FXUnitTabButton!
+    @IBOutlet weak var masterTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var eqTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var pitchTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var timeTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var reverbTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var delayTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
+    @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
 
-    private var fxTabViewButtons: [FXUnitTabButton] = []
+    private var effectsTabViewButtons: [EffectsUnitTabButton] = []
     
     @IBOutlet weak var btnClose: TintedImageButton!
 
@@ -81,10 +81,10 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         
         for (index, viewController) in [masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController, recorderViewController].enumerated() {
             
-            fxTabView.tabViewItem(at: index).view?.addSubview(viewController.view)
+            effectsTabView.tabViewItem(at: index).view?.addSubview(viewController.view)
         }
 
-        fxTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, auTabViewButton, recorderTabViewButton]
+        effectsTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, auTabViewButton, recorderTabViewButton]
         
         masterTabViewButton.stateFunction = graph.masterUnit.stateFunction
         eqTabViewButton.stateFunction = graph.eqUnit.stateFunction
@@ -116,7 +116,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     }
 
     private func initUnits() {
-        fxTabViewButtons.forEach {$0.updateState()}
+        effectsTabViewButtons.forEach {$0.updateState()}
     }
 
     private func initTabGroup() {
@@ -127,11 +127,11 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
 
     private func initSubscriptions() {
 
-        Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
+        Messenger.subscribe(self, .effects_unitStateChanged, self.stateChanged)
         
         // MARK: Commands ----------------------------------------------------------------------------------------
         
-        Messenger.subscribe(self, .fx_showFXUnitTab, self.showTab(_:))
+        Messenger.subscribe(self, .effects_showEffectsUnitTab, self.showTab(_:))
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
@@ -140,9 +140,9 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
         Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
         
-        Messenger.subscribe(self, .fx_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
-        Messenger.subscribe(self, .fx_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
-        Messenger.subscribe(self, .fx_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
+        Messenger.subscribe(self, .effects_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
+        Messenger.subscribe(self, .effects_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
+        Messenger.subscribe(self, .effects_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
     }
     
     func destroy() {
@@ -159,11 +159,11 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         // Set sender button state, reset all other button states
         
         // TODO: Add a field "isSelected" to the tab button control to distinguish between "state" (on/off) and "selected"
-        fxTabViewButtons.forEach {$0.state = convertToNSControlStateValue(0)}
+        effectsTabViewButtons.forEach {$0.state = convertToNSControlStateValue(0)}
         sender.state = convertToNSControlStateValue(1)
 
         // Button tag is the tab index
-        fxTabView.selectTabViewItem(at: sender.tag)
+        effectsTabView.selectTabViewItem(at: sender.tag)
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -181,7 +181,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         changeBackgroundColor(scheme.general.backgroundColor)
         changeViewControlButtonColor(scheme.general.viewControlButtonColor)
         
-        fxTabViewButtons.forEach({$0.reTint()})
+        effectsTabViewButtons.forEach({$0.reTint()})
     }
     
     private func changeBackgroundColor(_ color: NSColor) {
@@ -189,7 +189,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         rootContainerBox.fillColor = color
         tabButtonsBox.fillColor = color
         
-        fxTabViewButtons.forEach({$0.redraw()})
+        effectsTabViewButtons.forEach({$0.redraw()})
     }
     
     private func changeViewControlButtonColor(_ color: NSColor) {
@@ -198,7 +198,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     
     private func changeActiveUnitStateColor(_ color: NSColor) {
         
-        fxTabViewButtons.forEach({
+        effectsTabViewButtons.forEach({
             
             if $0.unitState == .active {
                 $0.reTint()
@@ -208,7 +208,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     
     private func changeBypassedUnitStateColor(_ color: NSColor) {
         
-        fxTabViewButtons.forEach({
+        effectsTabViewButtons.forEach({
             
             if $0.unitState == .bypassed {
                 $0.reTint()
@@ -218,7 +218,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     
     private func changeSuppressedUnitStateColor(_ color: NSColor) {
         
-        fxTabViewButtons.forEach({
+        effectsTabViewButtons.forEach({
             
             if $0.unitState == .suppressed {
                 $0.reTint()
@@ -227,7 +227,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     }
     
     private func changeSelectedTabButtonColor(_ color: NSColor) {
-        fxTabViewButtons[fxTabView.selectedIndex].redraw()
+        effectsTabViewButtons[effectsTabView.selectedIndex].redraw()
     }
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
@@ -240,12 +240,12 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     func stateChanged() {
 
         // Update the tab button states
-        fxTabViewButtons.forEach {$0.updateState()}
+        effectsTabViewButtons.forEach {$0.updateState()}
     }
     
-    func showTab(_ fxUnitType: FXUnitType) {
+    func showTab(_ effectsUnitType: EffectsUnitType) {
         
-        switch fxUnitType {
+        switch effectsUnitType {
         
         case .master: tabViewAction(masterTabViewButton)
 

@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class PitchPresetsManagerViewController: FXPresetsManagerGenericViewController {
+class PitchPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var pitchView: PitchView!
     
@@ -22,14 +22,14 @@ class PitchPresetsManagerViewController: FXPresetsManagerGenericViewController {
         super.awakeFromNib()
         
         unitType = .pitch
-        fxUnit = pitchUnit
+        effectsUnit = pitchUnit
         presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
     }
     
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        pitchView.initialize({() -> FXUnitState in .active})
+        pitchView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

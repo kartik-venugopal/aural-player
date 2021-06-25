@@ -184,7 +184,7 @@ class SeekSliderView: NSView, ColorSchemeable {
         [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
     }
     
-    // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
+    // When the playback rate changes (caused by the Time Stretch effects unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     func playbackRateChanged(_ rate: Float, _ playbackState: PlaybackState) {
         
         let interval = (1000 / (2 * rate)).roundedInt

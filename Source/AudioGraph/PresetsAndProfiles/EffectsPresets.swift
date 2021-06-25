@@ -1,5 +1,5 @@
 //
-//  FXPresets.swift
+//  EffectsPresets.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,9 +9,9 @@
 //
 import Foundation
 
-protocol FXPresetsProtocol {
+protocol EffectsPresetsProtocol {
     
-    associatedtype T: FXUnitPreset
+    associatedtype T: EffectsUnitPreset
     
     var userDefinedPresets: [T] {get}
     var systemDefinedPresets: [T] {get}
@@ -27,10 +27,10 @@ protocol FXPresetsProtocol {
     func presetExists(named name: String) -> Bool
 }
 
-class FXPresets<T: FXUnitPreset>: MappedPresets<T>, FXPresetsProtocol {
+class EffectsPresets<T: EffectsUnitPreset>: MappedPresets<T>, EffectsPresetsProtocol {
 }
 
-class FXUnitPreset: MappedPreset {
+class EffectsUnitPreset: MappedPreset {
     
     var name: String
     
@@ -43,16 +43,16 @@ class FXUnitPreset: MappedPreset {
     var userDefined: Bool {!systemDefined}
     
     let systemDefined: Bool
-    var state: FXUnitState
+    var state: EffectsUnitState
     
-    init(_ name: String, _ state: FXUnitState, _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ systemDefined: Bool) {
         
         self.name = name
         self.state = state
         self.systemDefined = systemDefined
     }
     
-    init(persistentState: FXUnitPresetPersistentState) {
+    init(persistentState: EffectsUnitPresetPersistentState) {
         
         self.name = persistentState.name
         self.state = persistentState.state

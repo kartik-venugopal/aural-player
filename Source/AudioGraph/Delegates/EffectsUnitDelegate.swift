@@ -1,5 +1,5 @@
 //
-//  FXUnitDelegate.swift
+//  EffectsUnitDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class FXUnitDelegate<T: FXUnit>: FXUnitDelegateProtocol {
+class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
     
     var unit: T
     
@@ -17,13 +17,13 @@ class FXUnitDelegate<T: FXUnit>: FXUnitDelegateProtocol {
         self.unit = unit
     }
     
-    var state: FXUnitState {return unit.state}
+    var state: EffectsUnitState {return unit.state}
     
-    var stateFunction: FXUnitStateFunction {return unit.stateFunction}
+    var stateFunction: EffectsUnitStateFunction {return unit.stateFunction}
     
     var isActive: Bool {return unit.isActive}
     
-    func toggleState() -> FXUnitState {
+    func toggleState() -> EffectsUnitState {
         return unit.toggleState()
     }
     

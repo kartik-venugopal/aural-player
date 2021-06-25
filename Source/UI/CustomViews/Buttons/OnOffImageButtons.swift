@@ -135,13 +135,13 @@ class OnOffImageButton: NSButton, Tintable {
 }
 
 /*
- A special case On/Off image button used as a bypass switch for Effects units, with preset images
+ A special case On/Off image button used as a bypass switch for effects units, with preset images
  */
-class FXUnitTriStateBypassButton: OnOffImageButton {
+class EffectsUnitTriStateBypassButton: OnOffImageButton {
     
-    var stateFunction: (() -> FXUnitState)?
+    var stateFunction: (() -> EffectsUnitState)?
     
-    var unitState: FXUnitState {
+    var unitState: EffectsUnitState {
         return stateFunction?() ?? .bypassed
     }
     
@@ -189,7 +189,7 @@ class FXUnitTriStateBypassButton: OnOffImageButton {
         }
     }
     
-    func setUnitState(_ state: FXUnitState) {
+    func setUnitState(_ state: EffectsUnitState) {
         
         switch state {
             
@@ -230,9 +230,9 @@ class FXUnitTriStateBypassButton: OnOffImageButton {
 }
 
 @IBDesignable
-class FXUnitTabButton: OnOffImageButton {
+class EffectsUnitTabButton: OnOffImageButton {
     
-    var stateFunction: (() -> FXUnitState)?
+    var stateFunction: (() -> EffectsUnitState)?
     
     @IBInspectable var mixedStateTooltip: String?
     
@@ -256,7 +256,7 @@ class FXUnitTabButton: OnOffImageButton {
         self.toolTip = offStateTooltip
         _isOn = false
         
-        if let cell = self.cell as? FXUnitTabButtonCell {
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.unitState = .bypassed
             redraw()
         }
@@ -268,7 +268,7 @@ class FXUnitTabButton: OnOffImageButton {
         self.toolTip = onStateTooltip
         _isOn = true
         
-        if let cell = self.cell as? FXUnitTabButtonCell {
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.unitState = .active
             redraw()
         }
@@ -279,7 +279,7 @@ class FXUnitTabButton: OnOffImageButton {
         self.image = self.image?.filledWithColor(mixedStateTintFunction())
         self.toolTip = mixedStateTooltip
         
-        if let cell = self.cell as? FXUnitTabButtonCell {
+        if let cell = self.cell as? EffectsUnitTabButtonCell {
             cell.unitState = .suppressed
             redraw()
         }
@@ -316,13 +316,13 @@ class FXUnitTabButton: OnOffImageButton {
         }
     }
     
-    var unitState: FXUnitState {
+    var unitState: EffectsUnitState {
         return stateFunction?() ?? .bypassed
     }
 }
 
 // Special button used in the effects presets manager.
-class FXUnitTriStateBypassPreviewButton: FXUnitTriStateBypassButton {
+class EffectsUnitTriStateBypassPreviewButton: EffectsUnitTriStateBypassButton {
     
     override func awakeFromNib() {
         

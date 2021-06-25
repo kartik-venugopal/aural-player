@@ -1,5 +1,5 @@
 //
-//  FXUnitState.swift
+//  EffectsUnitState.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,7 +10,7 @@
 
 import Foundation
 
-enum FXUnitState: String {
+enum EffectsUnitState: String {
     
     // Master unit on, and effects unit on
     case active
@@ -22,4 +22,4 @@ enum FXUnitState: String {
     case suppressed
 }
 
-typealias FXUnitStateFunction = () -> FXUnitState
+typealias EffectsUnitStateFunction = () -> EffectsUnitState

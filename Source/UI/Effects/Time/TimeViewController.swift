@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the Time effects unit
  */
-class TimeViewController: FXUnitViewController {
+class TimeViewController: EffectsUnitViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
@@ -38,7 +38,7 @@ class TimeViewController: FXUnitViewController {
         super.awakeFromNib()
         
         unitType = .time
-        fxUnit = graph.timeUnit
+        effectsUnit = graph.timeUnit
         presetsWrapper = PresetsWrapper<TimePreset, TimePresets>(timeUnit.presets)
     }
     
@@ -46,9 +46,9 @@ class TimeViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .timeFXUnit_decreaseRate, self.decreaseRate)
-        Messenger.subscribe(self, .timeFXUnit_increaseRate, self.increaseRate)
-        Messenger.subscribe(self, .timeFXUnit_setRate, self.setRate(_:))
+        Messenger.subscribe(self, .timeEffectsUnit_decreaseRate, self.decreaseRate)
+        Messenger.subscribe(self, .timeEffectsUnit_increaseRate, self.increaseRate)
+        Messenger.subscribe(self, .timeEffectsUnit_setRate, self.setRate(_:))
     }
     
     override func oneTimeSetup() {
@@ -75,7 +75,7 @@ class TimeViewController: FXUnitViewController {
         super.bypassAction(sender)
         
         // The playback rate may have changed, send out a notification
-        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
     }
 
     // Toggles the "pitch shift" option of the Time stretch effects unit
@@ -93,7 +93,7 @@ class TimeViewController: FXUnitViewController {
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeUnit.isActive {
-            Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.rate)
+            Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.rate)
         }
     }
 
@@ -118,14 +118,14 @@ class TimeViewController: FXUnitViewController {
     // Changes the playback rate to a specific value
     private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
 
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
 
         timeView.setRate(rateInfo.rate, rateInfo.rateString, timeUnit.formattedPitch)
         stateChanged()
 
         showThisTab()
 
-        Messenger.publish(.fx_playbackRateChanged, payload: rateInfo.rate)
+        Messenger.publish(.effects_playbackRateChanged, payload: rateInfo.rate)
     }
 
     // Updates the Overlap parameter of the Time stretch effects unit

@@ -9,7 +9,7 @@
 //
 import AVFoundation
 
-protocol TimeUnitProtocol: FXUnitProtocol {
+protocol TimeUnitProtocol: EffectsUnitProtocol {
     
     // The playback rate, specified as a value between 1/32 and 32
     var rate: Float {get set}
@@ -24,7 +24,7 @@ protocol TimeUnitProtocol: FXUnitProtocol {
     var pitch: Float {get}
 }
 
-class TimeUnit: FXUnit, TimeUnitProtocol {
+class TimeUnit: EffectsUnit, TimeUnitProtocol {
     
     private let node: VariableRateNode = VariableRateNode()
     let presets: TimePresets

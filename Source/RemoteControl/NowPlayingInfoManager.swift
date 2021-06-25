@@ -69,7 +69,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         Messenger.subscribeAsync(self, .player_playbackStateChanged, self.playbackStateChanged, queue: .main)
         Messenger.subscribeAsync(self, .player_seekPerformed, self.seekPerformed, queue: .main)
         Messenger.subscribeAsync(self, .player_loopRestarted, self.seekPerformed, queue: .main)
-        Messenger.subscribeAsync(self, .fx_playbackRateChanged, self.playbackRateChanged(_:), queue: .main)
+        Messenger.subscribeAsync(self, .effects_playbackRateChanged, self.playbackRateChanged(_:), queue: .main)
         
         activated = true
     }

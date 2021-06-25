@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class PitchUnitPersistentState: FXUnitPersistentState<PitchPresetPersistentState> {
+class PitchUnitPersistentState: EffectsUnitPersistentState<PitchPresetPersistentState> {
     
     var pitch: Float?
     var overlap: Float?
@@ -25,7 +25,7 @@ class PitchUnitPersistentState: FXUnitPersistentState<PitchPresetPersistentState
     }
 }
 
-class PitchPresetPersistentState: FXUnitPresetPersistentState {
+class PitchPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let pitch: Float
     let overlap: Float?

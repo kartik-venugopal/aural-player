@@ -1,5 +1,5 @@
 //
-//  FXUnitViewController.swift
+//  EffectsUnitViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,9 +9,9 @@
 //
 import Cocoa
 
-class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, NotificationSubscriber, Destroyable {
+class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, NotificationSubscriber, Destroyable {
     
-    @IBOutlet weak var btnBypass: FXUnitTriStateBypassButton!
+    @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     
     @IBOutlet weak var lblCaption: VALabel!
     
@@ -32,15 +32,15 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
-    var fxUnit: FXUnitDelegateProtocol!
-    var unitStateFunction: FXUnitStateFunction!
+    var effectsUnit: EffectsUnitDelegateProtocol!
+    var unitStateFunction: EffectsUnitStateFunction!
     var presetsWrapper: PresetsWrapperProtocol!
     
-    var unitType: FXUnitType!
+    var unitType: EffectsUnitType!
     
     override func viewDidLoad() {
         
-        self.unitStateFunction = fxUnit.stateFunction
+        self.unitStateFunction = effectsUnit.stateFunction
         
         oneTimeSetup()
         initControls()
@@ -83,12 +83,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     func initSubscriptions() {
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .fx_unitStateChanged, self.stateChanged)
+        Messenger.subscribe(self, .effects_unitStateChanged, self.stateChanged)
         
-        Messenger.subscribe(self, .fx_updateFXUnitView, {[weak self] (FXUnit) in self?.initControls()},
-                            filter: {[weak self] (unitType: FXUnitType) in unitType == .master || (unitType == self?.unitType)})
+        Messenger.subscribe(self, .effects_updateEffectsUnitView, {[weak self] (EffectsUnit) in self?.initControls()},
+                            filter: {[weak self] (unitType: EffectsUnitType) in unitType == .master || (unitType == self?.unitType)})
         
-        Messenger.subscribe(self, .fx_changeSliderColors, self.changeSliderColors)
+        Messenger.subscribe(self, .effects_changeSliderColors, self.changeSliderColors)
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
@@ -96,12 +96,12 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         
-        Messenger.subscribe(self, .fx_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
-        Messenger.subscribe(self, .fx_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+        Messenger.subscribe(self, .effects_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
+        Messenger.subscribe(self, .effects_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
         
-        Messenger.subscribe(self, .fx_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
-        Messenger.subscribe(self, .fx_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
-        Messenger.subscribe(self, .fx_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
+        Messenger.subscribe(self, .effects_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
+        Messenger.subscribe(self, .effects_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
+        Messenger.subscribe(self, .effects_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
     }
     
     func destroy() {
@@ -119,21 +119,21 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     }
     
     func showThisTab() {
-        Messenger.publish(.fx_showFXUnitTab, payload: self.unitType!)
+        Messenger.publish(.effects_showEffectsUnitTab, payload: self.unitType!)
     }
     
     @IBAction func bypassAction(_ sender: AnyObject) {
 
-        _ = fxUnit.toggleState()
+        _ = effectsUnit.toggleState()
         stateChanged()
         
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
     }
     
     // Applies a preset to the effects unit
     @IBAction func presetsAction(_ sender: AnyObject) {
         
-        fxUnit.applyPreset(presetsMenu.titleOfSelectedItem!)
+        effectsUnit.applyPreset(presetsMenu.titleOfSelectedItem!)
         initControls()
     }
     
@@ -182,21 +182,21 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     func changeActiveUnitStateColor(_ color: NSColor) {
         
-        if fxUnit.state == .active {
+        if effectsUnit.state == .active {
             btnBypass.reTint()
         }
     }
     
     func changeBypassedUnitStateColor(_ color: NSColor) {
         
-        if fxUnit.state == .bypassed {
+        if effectsUnit.state == .bypassed {
             btnBypass.reTint()
         }
     }
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
         
-        if fxUnit.state == .suppressed {
+        if effectsUnit.state == .suppressed {
             btnBypass.reTint()
         }
     }
@@ -232,7 +232,7 @@ class FXUnitViewController: NSViewController, NSMenuDelegate, StringInputReceive
     
     // Receives a new EQ preset name and saves the new preset
     func acceptInput(_ string: String) {
-        fxUnit.savePreset(string)
+        effectsUnit.savePreset(string)
     }
     
     // MARK: Menu delegate

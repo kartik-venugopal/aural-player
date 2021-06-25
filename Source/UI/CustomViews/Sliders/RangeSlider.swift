@@ -44,7 +44,7 @@ fileprivate let bypassedColor: NSColor = Colors.Constants.white35Percent
 fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
 
 @IBDesignable
-class RangeSlider: NSControl, FXUnitSliderProtocol {
+class RangeSlider: NSControl, EffectsUnitSliderProtocol {
     
     //****************************************************************************//
     //****************************************************************************//
@@ -60,14 +60,14 @@ class RangeSlider: NSControl, FXUnitSliderProtocol {
     
     @IBInspectable var index: Int = 0
     
-    var unitState: FXUnitState = .bypassed {
+    var unitState: EffectsUnitState = .bypassed {
         
         didSet {
             redraw()
         }
     }
     
-    var stateFunction: (() -> FXUnitState)?
+    var stateFunction: (() -> EffectsUnitState)?
     
     func updateState() {
         

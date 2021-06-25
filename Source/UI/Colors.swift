@@ -280,7 +280,7 @@ struct Colors {
             return colorSchemesManager.systemScheme.effects.sliderBackgroundColor
         }
         
-        static func sliderKnobColorForState(_ state: FXUnitState) -> NSColor {
+        static func sliderKnobColorForState(_ state: EffectsUnitState) -> NSColor {
             
             let useForegroundColor: Bool = colorSchemesManager.systemScheme.effects.sliderKnobColorSameAsForeground
             let staticKnobColor: NSColor = colorSchemesManager.systemScheme.effects.sliderKnobColor

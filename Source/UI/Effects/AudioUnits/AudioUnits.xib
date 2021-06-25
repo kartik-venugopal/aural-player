@@ -62,7 +62,7 @@
                                                 <rect key="frame" x="1" y="0.0" width="25" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <button wantsLayer="YES" id="uQG-Ce-H9z" userLabel="Bypass button" customClass="FXUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
+                                                    <button wantsLayer="YES" id="uQG-Ce-H9z" userLabel="Bypass button" customClass="EffectsUnitTriStateBypassButton" customModule="Aural" customModuleProvider="target">
                                                         <rect key="frame" x="5" y="6" width="12" height="12"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="LOY-8z-ckX">

@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class MasterUnitDelegate: FXUnitDelegate<MasterUnit>, MasterUnitDelegateProtocol {
+class MasterUnitDelegate: EffectsUnitDelegate<MasterUnit>, MasterUnitDelegateProtocol {
     
     var presets: MasterPresets {return unit.presets}
     

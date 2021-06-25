@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class ReverbUnitDelegate: FXUnitDelegate<ReverbUnit>, ReverbUnitDelegateProtocol {
+class ReverbUnitDelegate: EffectsUnitDelegate<ReverbUnit>, ReverbUnitDelegateProtocol {
     
     var presets: ReverbPresets {return unit.presets}
     

@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class TimePresetsManagerViewController: FXPresetsManagerGenericViewController {
+class TimePresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
@@ -22,14 +22,14 @@ class TimePresetsManagerViewController: FXPresetsManagerGenericViewController {
         super.awakeFromNib()
         
         unitType = .time
-        fxUnit = timeUnit
+        effectsUnit = timeUnit
         presetsWrapper = PresetsWrapper<TimePreset, TimePresets>(timeUnit.presets)
     }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        timeView.initialize({() -> FXUnitState in .active})
+        timeView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

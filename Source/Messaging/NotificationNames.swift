@@ -58,22 +58,22 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Notifications published by FX (effects processing) components.
+    // MARK: Notifications published by Effects (effects processing) components.
     
-    // Signifies that an fx unit has just been activated
-    static let fx_unitActivated = Notification.Name("fx_unitActivated")
+    // Signifies that an effects unit has just been activated
+    static let effects_unitActivated = Notification.Name("effects_unitActivated")
     
-    // Signifies that the bypass state of an fx unit has changed
-    static let fx_unitStateChanged = Notification.Name("fx_unitStateChanged")
+    // Signifies that the bypass state of an effects unit has changed
+    static let effects_unitStateChanged = Notification.Name("effects_unitStateChanged")
     
-    // Signifies that the playback rate (of the time stretch fx unit) has changed.
-    static let fx_playbackRateChanged = Notification.Name("fx_playbackRateChanged")
+    // Signifies that the playback rate (of the time stretch effects unit) has changed.
+    static let effects_playbackRateChanged = Notification.Name("effects_playbackRateChanged")
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Notifications published by the Audio Units FX unit.
+    // MARK: Notifications published by the Audio Units effects unit.
     
-    static let auFXUnit_audioUnitsAddedOrRemoved = Notification.Name("auFXUnit_audioUnitsAddedOrRemoved")
+    static let auEffectsUnit_audioUnitsAddedOrRemoved = Notification.Name("auEffectsUnit_audioUnitsAddedOrRemoved")
     
     // ----------------------------------------------------------------------------------------
     
@@ -411,80 +411,80 @@ extension Notification.Name {
 
     // ----------------------------------------------------------------------------------------
     
-    // MARK: FX commands
+    // MARK: Effects commands
     
     // Commands the effects panel to switch the tab group to a specfic tab (to reveal a specific effects unit).
-    static let fx_showFXUnitTab = Notification.Name("fx_showFXUnitTab")
+    static let effects_showEffectsUnitTab = Notification.Name("effects_showEffectsUnitTab")
 
     // Commands a particular effects unit to update its view
-    static let fx_updateFXUnitView = Notification.Name("fx_updateFXUnitView")
+    static let effects_updateEffectsUnitView = Notification.Name("effects_updateEffectsUnitView")
     
     // Commands the audio graph to save the current sound settings (i.e. volume, pan, and effects) in a sound profile for the current track
-    static let fx_saveSoundProfile = Notification.Name("fx_saveSoundProfile")
+    static let effects_saveSoundProfile = Notification.Name("effects_saveSoundProfile")
 
     // Commands the audio graph to delete the saved sound profile for the current track.
-    static let fx_deleteSoundProfile = Notification.Name("fx_deleteSoundProfile")
+    static let effects_deleteSoundProfile = Notification.Name("effects_deleteSoundProfile")
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Master FX unit commands
+    // MARK: Master effects unit commands
 
-    // Commands the Master FX unit to toggle (i.e. disable/enable) all effects.
-    static let masterFXUnit_toggleEffects = Notification.Name("masterFXUnit_toggleEffects")
+    // Commands the Master effects unit to toggle (i.e. disable/enable) all effects.
+    static let masterEffectsUnit_toggleEffects = Notification.Name("masterEffectsUnit_toggleEffects")
 
     // ----------------------------------------------------------------------------------------
     
-    // MARK: EQ FX unit commands
+    // MARK: EQ effects unit commands
     
-    // Commands the Equalizer FX unit to decrease gain for each of the bass bands by a certain preset decrement
-    static let eqFXUnit_decreaseBass = Notification.Name("eqFXUnit_decreaseBass")
+    // Commands the Equalizer effects unit to decrease gain for each of the bass bands by a certain preset decrement
+    static let eqEffectsUnit_decreaseBass = Notification.Name("eqEffectsUnit_decreaseBass")
 
-    // Commands the Equalizer FX unit to provide a "bass boost", i.e. increase gain for each of the bass bands by a certain preset increment.
-    static let eqFXUnit_increaseBass = Notification.Name("eqFXUnit_increaseBass")
+    // Commands the Equalizer effects unit to provide a "bass boost", i.e. increase gain for each of the bass bands by a certain preset increment.
+    static let eqEffectsUnit_increaseBass = Notification.Name("eqEffectsUnit_increaseBass")
 
-    // Commands the Equalizer FX unit to decrease gain for each of the mid-frequency bands by a certain preset decrement
-    static let eqFXUnit_decreaseMids = Notification.Name("eqFXUnit_decreaseMids")
+    // Commands the Equalizer effects unit to decrease gain for each of the mid-frequency bands by a certain preset decrement
+    static let eqEffectsUnit_decreaseMids = Notification.Name("eqEffectsUnit_decreaseMids")
     
-    // Commands the Equalizer FX unit to increase gain for each of the mid-frequency bands by a certain preset increment
-    static let eqFXUnit_increaseMids = Notification.Name("eqFXUnit_increaseMids")
+    // Commands the Equalizer effects unit to increase gain for each of the mid-frequency bands by a certain preset increment
+    static let eqEffectsUnit_increaseMids = Notification.Name("eqEffectsUnit_increaseMids")
 
-    // Commands the Equalizer FX unit to decrease gain for each of the treble bands by a certain preset decrement
-    static let eqFXUnit_decreaseTreble = Notification.Name("eqFXUnit_decreaseTreble")
+    // Commands the Equalizer effects unit to decrease gain for each of the treble bands by a certain preset decrement
+    static let eqEffectsUnit_decreaseTreble = Notification.Name("eqEffectsUnit_decreaseTreble")
     
-    // Commands the Equalizer FX unit to increase gain for each of the treble bands by a certain preset increment
-    static let eqFXUnit_increaseTreble = Notification.Name("eqFXUnit_increaseTreble")
+    // Commands the Equalizer effects unit to increase gain for each of the treble bands by a certain preset increment
+    static let eqEffectsUnit_increaseTreble = Notification.Name("eqEffectsUnit_increaseTreble")
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Pitch Shift FX unit commands
+    // MARK: Pitch Shift effects unit commands
     
-    // Commands the Pitch Shift FX unit to decrease the pitch by a certain preset decrement
-    static let pitchFXUnit_decreasePitch = Notification.Name("pitchFXUnit_decreasePitch")
+    // Commands the Pitch Shift effects unit to decrease the pitch by a certain preset decrement
+    static let pitchEffectsUnit_decreasePitch = Notification.Name("pitchEffectsUnit_decreasePitch")
 
-    // Commands the Pitch Shift FX unit to increase the pitch by a certain preset increment
-    static let pitchFXUnit_increasePitch = Notification.Name("pitchFXUnit_increasePitch")
+    // Commands the Pitch Shift effects unit to increase the pitch by a certain preset increment
+    static let pitchEffectsUnit_increasePitch = Notification.Name("pitchEffectsUnit_increasePitch")
 
-    // Commands the Pitch Shift FX unit to set the pitch to a specific value
-    static let pitchFXUnit_setPitch = Notification.Name("pitchFXUnit_setPitch")
+    // Commands the Pitch Shift effects unit to set the pitch to a specific value
+    static let pitchEffectsUnit_setPitch = Notification.Name("pitchEffectsUnit_setPitch")
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Time Stretch FX unit commands
+    // MARK: Time Stretch effects unit commands
     
-    // Commands the Time Stretch FX unit to decrease the playback rate by a certain preset decrement
-    static let timeFXUnit_decreaseRate = Notification.Name("timeFXUnit_decreaseRate")
+    // Commands the Time Stretch effects unit to decrease the playback rate by a certain preset decrement
+    static let timeEffectsUnit_decreaseRate = Notification.Name("timeEffectsUnit_decreaseRate")
 
-    // Commands the Time Stretch FX unit to increase the playback rate by a certain preset increment
-    static let timeFXUnit_increaseRate = Notification.Name("timeFXUnit_increaseRate")
+    // Commands the Time Stretch effects unit to increase the playback rate by a certain preset increment
+    static let timeEffectsUnit_increaseRate = Notification.Name("timeEffectsUnit_increaseRate")
 
-    // Commands the Time Stretch FX unit to set the playback rate to a specific value
-    static let timeFXUnit_setRate = Notification.Name("timeFXUnit_setRate")
+    // Commands the Time Stretch effects unit to set the playback rate to a specific value
+    static let timeEffectsUnit_setRate = Notification.Name("timeEffectsUnit_setRate")
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: Audio Units FX unit commands
+    // MARK: Audio Units effects unit commands
     
-    static let auFXUnit_showEditor = Notification.Name("auFXUnit_showEditor")
+    static let auEffectsUnit_showEditor = Notification.Name("auEffectsUnit_showEditor")
     
     // ----------------------------------------------------------------------------------------
     
@@ -498,19 +498,19 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
-    // MARK: FX presets manager commands
+    // MARK: Effects presets manager commands
 
-    // Commands the FX presets manager to reload all available FX presets for its currently selected tab
-    static let fxPresetsManager_reload = Notification.Name("fxPresetsManager_reload")
+    // Commands the Effects presets manager to reload all available Effects presets for its currently selected tab
+    static let effectsPresetsManager_reload = Notification.Name("effectsPresetsManager_reload")
 
-    // Commands the FX presets manager to rename the single selected FX preset in its currently selected tab
-    static let fxPresetsManager_rename = Notification.Name("fxPresetsManager_rename")
+    // Commands the Effects presets manager to rename the single selected Effects preset in its currently selected tab
+    static let effectsPresetsManager_rename = Notification.Name("effectsPresetsManager_rename")
 
-    // Commands the FX presets manager to delete all selected FX presets in its currently selected tab
-    static let fxPresetsManager_delete = Notification.Name("fxPresetsManager_delete")
+    // Commands the Effects presets manager to delete all selected Effects presets in its currently selected tab
+    static let effectsPresetsManager_delete = Notification.Name("effectsPresetsManager_delete")
 
-    // Commands the FX presets manager to apply the single selected FX preset in its currently selected tab
-    static let fxPresetsManager_apply = Notification.Name("fxPresetsManager_apply")
+    // Commands the Effects presets manager to apply the single selected Effects preset in its currently selected tab
+    static let effectsPresetsManager_apply = Notification.Name("effectsPresetsManager_apply")
     
     // ----------------------------------------------------------------------------------------
     
@@ -615,25 +615,25 @@ extension Notification.Name {
     // Commands all playlist views to change the color of their playing track marker icons.
     static let playlist_changePlayingTrackIconColor = Notification.Name("playlist_changePlayingTrackIconColor")
     
-    // MARK: Color scheme commands sent to the FX UI
+    // MARK: Color scheme commands sent to the Effects UI
     
-    // Commands all FX views to change the text color of their function caption labels.
-    static let fx_changeFunctionCaptionTextColor = Notification.Name("fx_changeFunctionCaptionTextColor")
+    // Commands all Effects views to change the text color of their function caption labels.
+    static let effects_changeFunctionCaptionTextColor = Notification.Name("effects_changeFunctionCaptionTextColor")
 
-    // Commands all FX views to change the text color of their function value labels.
-    static let fx_changeFunctionValueTextColor = Notification.Name("fx_changeFunctionValueTextColor")
+    // Commands all Effects views to change the text color of their function value labels.
+    static let effects_changeFunctionValueTextColor = Notification.Name("effects_changeFunctionValueTextColor")
 
-    // Commands all FX views to redraw their slider controls.
-    static let fx_changeSliderColors = Notification.Name("fx_changeSliderColors")
+    // Commands all Effects views to redraw their slider controls.
+    static let effects_changeSliderColors = Notification.Name("effects_changeSliderColors")
 
-    // Commands FX views corresponding to "active" FX units, to redraw all their controls.
-    static let fx_changeActiveUnitStateColor = Notification.Name("fx_changeActiveUnitStateColor")
+    // Commands Effects views corresponding to "active" effects units, to redraw all their controls.
+    static let effects_changeActiveUnitStateColor = Notification.Name("effects_changeActiveUnitStateColor")
 
-    // Commands FX views corresponding to "bypassed" FX units, to redraw all their controls.
-    static let fx_changeBypassedUnitStateColor = Notification.Name("fx_changeBypassedUnitStateColor")
+    // Commands Effects views corresponding to "bypassed" effects units, to redraw all their controls.
+    static let effects_changeBypassedUnitStateColor = Notification.Name("effects_changeBypassedUnitStateColor")
 
-    // Commands FX views corresponding to "suppressed" FX units, to redraw all their controls.
-    static let fx_changeSuppressedUnitStateColor = Notification.Name("fx_changeSuppressedUnitStateColor")
+    // Commands Effects views corresponding to "suppressed" effects units, to redraw all their controls.
+    static let effects_changeSuppressedUnitStateColor = Notification.Name("effects_changeSuppressedUnitStateColor")
     
     // MARK: Window appearance commands sent to all app windows
     

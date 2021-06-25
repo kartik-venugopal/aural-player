@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class MasterViewController: FXUnitViewController {
+class MasterViewController: EffectsUnitViewController {
     
     @IBOutlet weak var masterView: MasterView!
     
@@ -37,7 +37,7 @@ class MasterViewController: FXUnitViewController {
         super.awakeFromNib()
         
         unitType = .master
-        fxUnit = masterUnit
+        effectsUnit = masterUnit
         presetsWrapper = PresetsWrapper<MasterPreset, MasterPresets>(masterUnit.presets)
     }
     
@@ -45,7 +45,7 @@ class MasterViewController: FXUnitViewController {
         
         super.oneTimeSetup()
         
-        let auStateFunction: FXUnitStateFunction = {[weak self] in
+        let auStateFunction: EffectsUnitStateFunction = {[weak self] in
             
             for unit in self?.graph.audioUnits ?? [] {
             
@@ -72,8 +72,8 @@ class MasterViewController: FXUnitViewController {
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
-        Messenger.subscribe(self, .masterFXUnit_toggleEffects, self.toggleEffects)
-        Messenger.subscribe(self, .auFXUnit_audioUnitsAddedOrRemoved, self.refreshAUTable)
+        Messenger.subscribe(self, .masterEffectsUnit_toggleEffects, self.toggleEffects)
+        Messenger.subscribe(self, .auEffectsUnit_audioUnitsAddedOrRemoved, self.refreshAUTable)
         
         Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
     }
@@ -91,7 +91,7 @@ class MasterViewController: FXUnitViewController {
         updateButtons()
         broadcastStateChangeNotification()
         
-        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
         
         audioUnitsTable.reloadData()
     }
@@ -103,7 +103,7 @@ class MasterViewController: FXUnitViewController {
     @IBAction override func presetsAction(_ sender: AnyObject) {
         
         super.presetsAction(sender)
-        Messenger.publish(.fx_updateFXUnitView, payload: FXUnitType.master)
+        Messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
     }
     
     private func updateButtons() {
@@ -113,7 +113,7 @@ class MasterViewController: FXUnitViewController {
     
     private func broadcastStateChangeNotification() {
         // Update the bypass buttons for the effects units
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
@@ -136,7 +136,7 @@ class MasterViewController: FXUnitViewController {
         
         _ = timeUnit.toggleState()
         
-        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
         
         updateButtons()
         broadcastStateChangeNotification()
@@ -172,7 +172,7 @@ class MasterViewController: FXUnitViewController {
         if let newTrack = notification.endTrack, soundProfiles.hasFor(newTrack) {
             
             updateButtons()
-            Messenger.publish(.fx_updateFXUnitView, payload: FXUnitType.master)
+            Messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
         }
     }
     
@@ -182,7 +182,7 @@ class MasterViewController: FXUnitViewController {
         
         functionLabels.forEach {
             
-            $0.font = $0 is FXUnitTriStateLabel ? fontSchemesManager.systemScheme.effects.masterUnitFunctionFont :
+            $0.font = $0 is EffectsUnitTriStateLabel ? fontSchemesManager.systemScheme.effects.masterUnitFunctionFont :
                 fontSchemesManager.systemScheme.effects.unitCaptionFont
         }
         
@@ -241,7 +241,7 @@ class MasterViewController: FXUnitViewController {
     override func stateChanged() {
         
         updateButtons()
-        Messenger.publish(.fx_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
         
         audioUnitsTable.reloadData()
     }

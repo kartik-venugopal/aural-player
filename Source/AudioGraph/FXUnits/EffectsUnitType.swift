@@ -1,5 +1,5 @@
 //
-//  FXUnitType.swift
+//  EffectsUnitType.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,8 +10,8 @@
 
 import Foundation
 
-// Enumeration of all the effects units.
-enum FXUnitType {
+// Enumeration of all the effects unit types.
+enum EffectsUnitType {
 
     case master
     case eq

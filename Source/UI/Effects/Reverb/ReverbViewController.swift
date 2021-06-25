@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the Reverb effects unit
  */
-class ReverbViewController: FXUnitViewController {
+class ReverbViewController: EffectsUnitViewController {
     
     @IBOutlet weak var reverbView: ReverbView!
     
@@ -25,7 +25,7 @@ class ReverbViewController: FXUnitViewController {
         super.awakeFromNib()
         
         unitType = .reverb
-        fxUnit = graph.reverbUnit
+        effectsUnit = graph.reverbUnit
         presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(reverbUnit.presets)
     }
     

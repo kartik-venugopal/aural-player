@@ -11,8 +11,8 @@ import Cocoa
 
 class TimeView: NSView {
     
-    @IBOutlet weak var timeSlider: FXUnitSlider!
-    @IBOutlet weak var timeOverlapSlider: FXUnitSlider!
+    @IBOutlet weak var timeSlider: EffectsUnitSlider!
+    @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!
     
     @IBOutlet weak var btnShiftPitch: NSButton!
     
@@ -20,7 +20,7 @@ class TimeView: NSView {
     @IBOutlet weak var lblPitchShiftValue: NSTextField!
     @IBOutlet weak var lblTimeOverlapValue: NSTextField!
     
-    private var sliders: [FXUnitSlider] = []
+    private var sliders: [EffectsUnitSlider] = []
     
     var rate: Float {
         return timeSlider.floatValue
@@ -38,7 +38,7 @@ class TimeView: NSView {
         sliders = [timeSlider, timeOverlapSlider]
     }
     
-    func initialize(_ stateFunction: (() -> FXUnitState)?) {
+    func initialize(_ stateFunction: (() -> EffectsUnitState)?) {
         
         sliders.forEach({
             $0.stateFunction = stateFunction
@@ -46,7 +46,7 @@ class TimeView: NSView {
         })
     }
     
-    func setUnitState(_ state: FXUnitState) {
+    func setUnitState(_ state: EffectsUnitState) {
         sliders.forEach({$0.setUnitState(state)})
     }
     

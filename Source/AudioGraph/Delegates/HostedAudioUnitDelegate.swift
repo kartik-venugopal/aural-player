@@ -13,7 +13,7 @@ import CoreAudioKit
 import AudioToolbox
 import CoreAudio
 
-class HostedAudioUnitDelegate: FXUnitDelegate<HostedAudioUnit>, HostedAudioUnitDelegateProtocol {
+class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudioUnitDelegateProtocol {
     
     var id: String
     

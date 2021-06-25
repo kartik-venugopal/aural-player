@@ -100,7 +100,7 @@ class ColorAwareButtonCell: ModalDialogButtonCell {
     override var backgroundFillGradient_disabled: NSGradient {return Colors.textButtonMenuGradient}
 }
 
-class FXTextButtonCell: ColorAwareButtonCell {
+class EffectsTextButtonCell: ColorAwareButtonCell {
     
     override var textFont: NSFont {Fonts.Effects.unitFunctionFont}
     

@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class TimeUnitDelegate: FXUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
+class TimeUnitDelegate: EffectsUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     

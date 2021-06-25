@@ -9,7 +9,7 @@
 //
 import AVFoundation
 
-protocol EQUnitProtocol: FXUnitProtocol {
+protocol EQUnitProtocol: EffectsUnitProtocol {
     
     var type: EQType {get set}
     
@@ -39,7 +39,7 @@ protocol EQUnitProtocol: FXUnitProtocol {
     func decreaseTreble(_ decrement: Float) -> [Float]
 }
 
-class EQUnit: FXUnit, EQUnitProtocol {
+class EQUnit: EffectsUnit, EQUnitProtocol {
     
     private let node: ParametricEQ
     let presets: EQPresets

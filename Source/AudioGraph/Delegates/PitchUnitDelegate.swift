@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class PitchUnitDelegate: FXUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
+class PitchUnitDelegate: EffectsUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     

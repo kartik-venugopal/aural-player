@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: FXUnitViewController {
+class PitchViewController: EffectsUnitViewController {
     
     @IBOutlet weak var pitchView: PitchView!
     @IBOutlet weak var box: NSBox!
@@ -37,7 +37,7 @@ class PitchViewController: FXUnitViewController {
         
         // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
         unitType = .pitch
-        fxUnit = pitchUnit
+        effectsUnit = pitchUnit
         presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
     }
     
@@ -45,9 +45,9 @@ class PitchViewController: FXUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .pitchFXUnit_decreasePitch, self.decreasePitch)
-        Messenger.subscribe(self, .pitchFXUnit_increasePitch, self.increasePitch)
-        Messenger.subscribe(self, .pitchFXUnit_setPitch, self.setPitch(_:))
+        Messenger.subscribe(self, .pitchEffectsUnit_decreasePitch, self.decreasePitch)
+        Messenger.subscribe(self, .pitchEffectsUnit_increasePitch, self.increasePitch)
+        Messenger.subscribe(self, .pitchEffectsUnit_setPitch, self.setPitch(_:))
     }
     
     override func oneTimeSetup() {
@@ -90,7 +90,7 @@ class PitchViewController: FXUnitViewController {
         btnBypass.updateState()
         pitchView.stateChanged()
         
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
         
         // Show the Pitch tab
         showThisTab()
@@ -120,7 +120,7 @@ class PitchViewController: FXUnitViewController {
     // Changes the pitch to a specified value
     private func pitchChange(_ pitch: Float, _ pitchString: String) {
         
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
         
         pitchView.setPitch(pitch, pitchString)
         pitchView.stateChanged()

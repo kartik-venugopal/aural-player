@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class PitchPresets: FXPresets<PitchPreset> {
+class PitchPresets: EffectsPresets<PitchPreset> {
     
     init(persistentState: PitchUnitPersistentState?) {
         
@@ -22,12 +22,12 @@ class PitchPresets: FXPresets<PitchPreset> {
     override var defaultPreset: PitchPreset {systemDefinedPreset(named: SystemDefinedPitchPresetParams.normal.rawValue)!}
 }
 
-class PitchPreset: FXUnitPreset {
+class PitchPreset: EffectsUnitPreset {
     
     let pitch: Float
     let overlap: Float
     
-    init(_ name: String, _ state: FXUnitState, _ pitch: Float, _ overlap: Float, _ systemDefined: Bool) {
+    init(_ name: String, _ state: EffectsUnitState, _ pitch: Float, _ overlap: Float, _ systemDefined: Bool) {
         
         self.pitch = pitch
         self.overlap = overlap
@@ -92,7 +92,7 @@ fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
         return 8
     }
     
-    var state: FXUnitState {
+    var state: EffectsUnitState {
         return .active
     }
     

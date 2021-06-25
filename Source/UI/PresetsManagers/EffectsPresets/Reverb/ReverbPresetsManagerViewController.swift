@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class ReverbPresetsManagerViewController: FXPresetsManagerGenericViewController {
+class ReverbPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var reverbView: ReverbView!
     
@@ -22,14 +22,14 @@ class ReverbPresetsManagerViewController: FXPresetsManagerGenericViewController 
         super.awakeFromNib()
         
         unitType = .reverb
-        fxUnit = reverbUnit
+        effectsUnit = reverbUnit
         presetsWrapper = PresetsWrapper<ReverbPreset, ReverbPresets>(reverbUnit.presets)
     }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        reverbView.initialize({() -> FXUnitState in .active})
+        reverbView.initialize({() -> EffectsUnitState in .active})
     }
     
     override func renderPreview(_ presetName: String) {

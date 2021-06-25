@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class TimeUnitPersistentState: FXUnitPersistentState<TimePresetPersistentState> {
+class TimeUnitPersistentState: EffectsUnitPersistentState<TimePresetPersistentState> {
     
     var rate: Float?
     var shiftPitch: Bool?
@@ -27,7 +27,7 @@ class TimeUnitPersistentState: FXUnitPersistentState<TimePresetPersistentState> 
     }
 }
 
-class TimePresetPersistentState: FXUnitPresetPersistentState {
+class TimePresetPersistentState: EffectsUnitPresetPersistentState {
     
     let rate: Float
     let overlap: Float?

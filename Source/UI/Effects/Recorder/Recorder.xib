@@ -12,8 +12,7 @@
 -->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -54,7 +53,7 @@
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qaf-yf-lNI" userLabel="Format menu">
                                 <rect key="frame" x="78" y="99" width="280" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Advanced Audio Codec (AAC)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="jhR-BW-tvM" id="lmd-sX-DNj" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                <popUpButtonCell key="cell" type="push" title="Advanced Audio Codec (AAC)" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" altersStateOfSelectedItem="NO" selectedItem="jhR-BW-tvM" id="lmd-sX-DNj" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="10" name="Play-Regular"/>
                                     <menu key="menu" id="75D-kU-77g">
@@ -87,7 +86,7 @@
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wuf-0D-YHR" userLabel="Quality menu">
                                 <rect key="frame" x="78" y="70" width="132" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="2" inset="2" altersStateOfSelectedItem="NO" selectedItem="btF-rD-zlK" id="DBf-ik-tT5" customClass="FXUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
+                                <popUpButtonCell key="cell" type="push" title="Medium" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" tag="2" inset="2" altersStateOfSelectedItem="NO" selectedItem="btF-rD-zlK" id="DBf-ik-tT5" customClass="EffectsUnitPopupMenuCell" customModule="Aural" customModuleProvider="target">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="10" name="Play-Regular"/>
                                     <menu key="menu" id="rZz-Qj-eR9">

@@ -21,9 +21,9 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
     
     // Tab view and its buttons
     
-    @IBOutlet weak var fxPresetsTabView: NSTabView!
+    @IBOutlet weak var tabView: NSTabView!
     
-    private var fxPresetsTabViewButtons: [NSButton]?
+    private var tabViewButtons: [NSButton]?
     
     @IBOutlet weak var masterPresetsTabViewButton: NSButton!
     @IBOutlet weak var eqPresetsTabViewButton: NSButton!
@@ -60,29 +60,29 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
         [btnApply, btnRename, btnDelete].forEach({$0.disable()})
         tabViewAction(masterPresetsTabViewButton)
         
-        for unitType: FXUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
-            Messenger.publish(.fxPresetsManager_reload, payload: unitType)
+        for unitType: EffectsUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
+            Messenger.publish(.effectsPresetsManager_reload, payload: unitType)
         }
     }
     
     private func addSubViews() {
         
         for (index, viewController) in viewControllers.enumerated() {
-            fxPresetsTabView.tabViewItem(at: index).view?.addSubview(viewController.view)
+            tabView.tabViewItem(at: index).view?.addSubview(viewController.view)
         }
         
-        fxPresetsTabViewButtons = [masterPresetsTabViewButton, eqPresetsTabViewButton, pitchPresetsTabViewButton, timePresetsTabViewButton, reverbPresetsTabViewButton, delayPresetsTabViewButton, filterPresetsTabViewButton]
+        tabViewButtons = [masterPresetsTabViewButton, eqPresetsTabViewButton, pitchPresetsTabViewButton, timePresetsTabViewButton, reverbPresetsTabViewButton, delayPresetsTabViewButton, filterPresetsTabViewButton]
     }
     
     // Switches the tab group to a particular tab
     @IBAction func tabViewAction(_ sender: NSButton) {
         
         // Set sender button state, reset all other button states
-        fxPresetsTabViewButtons!.forEach({$0.off()})
+        tabViewButtons!.forEach({$0.off()})
         sender.on()
         
         // Button tag is the tab index
-        fxPresetsTabView.selectTabViewItem(at: sender.tag)
+        tabView.selectTabViewItem(at: sender.tag)
         
         // Reset button states when switching to a new tab.
         updateButtonStates(0)
@@ -90,32 +90,32 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
     
     @IBAction func previousTabAction(_ sender: Any) {
         
-        fxPresetsTabView.previousTab(self)
+        tabView.previousTab(self)
         
-        fxPresetsTabViewButtons!.forEach({
-            $0.onIf($0.tag == fxPresetsTabView.selectedIndex)
+        tabViewButtons!.forEach({
+            $0.onIf($0.tag == tabView.selectedIndex)
         })
     }
     
     @IBAction func nextTabAction(_ sender: Any) {
         
-        fxPresetsTabView.nextTab(self)
+        tabView.nextTab(self)
         
-        fxPresetsTabViewButtons!.forEach({
-            $0.onIf($0.tag == fxPresetsTabView.selectedIndex)
+        tabViewButtons!.forEach({
+            $0.onIf($0.tag == tabView.selectedIndex)
         })
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
-        Messenger.publish(.fxPresetsManager_rename, payload: effectsUnit)
+        Messenger.publish(.effectsPresetsManager_rename, payload: effectsUnit)
     }
     
     @IBAction func deletePresetsAction(_ sender: AnyObject) {
-        Messenger.publish(.fxPresetsManager_delete, payload: effectsUnit)
+        Messenger.publish(.effectsPresetsManager_delete, payload: effectsUnit)
     }
     
     @IBAction func applyPresetAction(_ sender: AnyObject) {
-        Messenger.publish(.fxPresetsManager_apply, payload: effectsUnit)
+        Messenger.publish(.effectsPresetsManager_apply, payload: effectsUnit)
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {
@@ -133,9 +133,9 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
         return GenericTableRowView()
     }
     
-    private var effectsUnit: FXUnitType {
+    private var effectsUnit: EffectsUnitType {
         
-        let id = fxPresetsTabView.selectedTabViewItem!.identifier as! String
+        let id = tabView.selectedTabViewItem!.identifier as! String
         let selItem = Int(id)
         
         switch selItem {

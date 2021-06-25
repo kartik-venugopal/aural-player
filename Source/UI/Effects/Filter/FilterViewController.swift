@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the Filter effects unit
  */
-class FilterViewController: FXUnitViewController {
+class FilterViewController: EffectsUnitViewController {
     
     @IBOutlet weak var filterView: FilterView!
     
@@ -39,7 +39,7 @@ class FilterViewController: FXUnitViewController {
         super.awakeFromNib()
         
         unitType = .filter
-        fxUnit = filterUnit
+        effectsUnit = filterUnit
         presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
     }
     

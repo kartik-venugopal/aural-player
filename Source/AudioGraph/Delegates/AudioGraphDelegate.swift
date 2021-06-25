@@ -102,8 +102,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         Messenger.subscribe(self, .player_preTrackPlayback, self.preTrackPlayback(_:))
         
-        Messenger.subscribe(self, .fx_saveSoundProfile, self.saveSoundProfile)
-        Messenger.subscribe(self, .fx_deleteSoundProfile, self.deleteSoundProfile)
+        Messenger.subscribe(self, .effects_saveSoundProfile, self.saveSoundProfile)
+        Messenger.subscribe(self, .effects_deleteSoundProfile, self.deleteSoundProfile)
     }
     
     var settingsAsMasterPreset: MasterPreset {

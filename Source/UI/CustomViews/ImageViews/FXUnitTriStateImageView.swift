@@ -1,5 +1,5 @@
 //
-//  FXUnitTriStateImageView.swift
+//  EffectsUnitTriStateImageView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -10,10 +10,10 @@
 import Cocoa
 
 /*
- A special case On/Off image button used as a bypass switch for Effects units, with preset images
+ A special case On/Off image button used as a bypass switch for effects units, with preset images
  */
 @IBDesignable
-class FXUnitBypassImage: NSImageView, Tintable {
+class EffectsUnitBypassImage: NSImageView, Tintable {
     
     var offStateTintFunction: () -> NSColor = {return Colors.Effects.bypassedUnitStateColor} {
         
@@ -82,13 +82,13 @@ class FXUnitBypassImage: NSImageView, Tintable {
 }
 
 /*
- A special case On/Off image button used as a bypass switch for Effects units, with preset images
+ A special case On/Off image button used as a bypass switch for effects units, with preset images
  */
-class FXUnitTriStateBypassImage: FXUnitBypassImage {
+class EffectsUnitTriStateBypassImage: EffectsUnitBypassImage {
     
-    var stateFunction: (() -> FXUnitState)?
+    var stateFunction: (() -> EffectsUnitState)?
     
-    var unitState: FXUnitState {
+    var unitState: EffectsUnitState {
         return stateFunction?() ?? .bypassed
     }
     
@@ -115,7 +115,7 @@ class FXUnitTriStateBypassImage: FXUnitBypassImage {
         }
     }
     
-    func setUnitState(_ state: FXUnitState) {
+    func setUnitState(_ state: EffectsUnitState) {
         
         switch state {
             
@@ -137,7 +137,7 @@ class FXUnitTriStateBypassImage: FXUnitBypassImage {
     }
 }
 
-class FXUnitTriStateBypassPreviewImage: FXUnitTriStateBypassImage {
+class EffectsUnitTriStateBypassPreviewImage: EffectsUnitTriStateBypassImage {
     
     override func awakeFromNib() {
         

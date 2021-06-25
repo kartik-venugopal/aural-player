@@ -72,14 +72,14 @@ protocol AudioGraphDelegateProtocol {
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
 }
 
-protocol FXUnitDelegateProtocol {
+protocol EffectsUnitDelegateProtocol {
     
-    var state: FXUnitState {get}
+    var state: EffectsUnitState {get}
     
-    var stateFunction: FXUnitStateFunction {get}
+    var stateFunction: EffectsUnitStateFunction {get}
     
     // Toggles the state of the pitch shift audio effects unit, and returns its new state
-    func toggleState() -> FXUnitState
+    func toggleState() -> EffectsUnitState
     
     var isActive: Bool {get}
     
@@ -90,14 +90,14 @@ protocol FXUnitDelegateProtocol {
     func applyPreset(_ presetName: String)
 }
 
-protocol MasterUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol MasterUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var presets: MasterPresets {get}
     
     func applyPreset(_ preset: MasterPreset)
 }
 
-protocol EQUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol EQUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var type: EQType {get set}
     
@@ -129,7 +129,7 @@ protocol EQUnitDelegateProtocol: FXUnitDelegateProtocol {
     var presets: EQPresets {get}
 }
 
-protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol PitchUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     // The pitch shift value, in cents, specified as a value between -2400 and 2400
     var pitch: Float {get set}
@@ -150,7 +150,7 @@ protocol PitchUnitDelegateProtocol: FXUnitDelegateProtocol {
     var presets: PitchPresets {get}
 }
 
-protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol HostedAudioUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var id: String {get}
     
@@ -173,7 +173,7 @@ protocol HostedAudioUnitDelegateProtocol: FXUnitDelegateProtocol {
     func presentView(_ handler: @escaping (NSView) -> ())
 }
 
-protocol TimeUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol TimeUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var rate: Float {get set}
     
@@ -200,7 +200,7 @@ protocol TimeUnitDelegateProtocol: FXUnitDelegateProtocol {
     var presets: TimePresets {get}
 }
 
-protocol ReverbUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol ReverbUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var space: ReverbSpaces {get set}
     
@@ -211,7 +211,7 @@ protocol ReverbUnitDelegateProtocol: FXUnitDelegateProtocol {
     var presets: ReverbPresets {get}
 }
 
-protocol DelayUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol DelayUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     
     var amount: Float {get set}
     
@@ -232,7 +232,7 @@ protocol DelayUnitDelegateProtocol: FXUnitDelegateProtocol {
     var presets: DelayPresets {get}
 }
 
-protocol FilterUnitDelegateProtocol: FXUnitDelegateProtocol {
+protocol FilterUnitDelegateProtocol: EffectsUnitDelegateProtocol {
 
     var bands: [FilterBand] {get set}
     

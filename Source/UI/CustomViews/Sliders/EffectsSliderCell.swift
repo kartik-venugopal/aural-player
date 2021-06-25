@@ -10,7 +10,7 @@
 import Cocoa
 
 // Cell for all ticked effects sliders
-class EffectsSliderCell: TickedSliderCell, FXUnitSliderCellProtocol {
+class EffectsSliderCell: TickedSliderCell, EffectsUnitSliderCellProtocol {
     
     override var barRadius: CGFloat {1.5}
     override var barInsetY: CGFloat {SystemUtils.isBigSur ? 0 : 0.5}
@@ -44,7 +44,7 @@ class EffectsSliderCell: TickedSliderCell, FXUnitSliderCellProtocol {
         }
     }
     
-    var unitState: FXUnitState = .bypassed
+    var unitState: EffectsUnitState = .bypassed
     
     override func barRect(flipped: Bool) -> NSRect {
         

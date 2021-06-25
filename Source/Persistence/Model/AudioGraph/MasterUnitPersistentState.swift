@@ -9,9 +9,9 @@
 //
 import Foundation
 
-class MasterUnitPersistentState: FXUnitPersistentState<MasterPresetPersistentState> {}
+class MasterUnitPersistentState: EffectsUnitPersistentState<MasterPresetPersistentState> {}
 
-class MasterPresetPersistentState: FXUnitPresetPersistentState {
+class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let eq: EQPresetPersistentState
     let pitch: PitchPresetPersistentState

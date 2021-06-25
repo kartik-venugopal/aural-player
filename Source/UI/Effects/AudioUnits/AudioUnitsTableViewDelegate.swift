@@ -63,7 +63,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             cell.action = {
                 
                 _ = audioUnit.toggleState()
-                Messenger.publish(.fx_unitStateChanged)
+                Messenger.publish(.effects_unitStateChanged)
             }
             
             return cell
@@ -167,7 +167,7 @@ class AudioUnitNameCellView: NSTableCellView {
 @IBDesignable
 class AudioUnitSwitchCellView: NSTableCellView {
     
-    @IBOutlet weak var btnSwitch: FXUnitTriStateBypassButton!
+    @IBOutlet weak var btnSwitch: EffectsUnitTriStateBypassButton!
     
     var action: (() -> ())! {
         

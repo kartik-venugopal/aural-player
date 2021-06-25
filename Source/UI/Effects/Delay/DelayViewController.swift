@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the Delay effects unit
  */
-class DelayViewController: FXUnitViewController {
+class DelayViewController: EffectsUnitViewController {
     
     @IBOutlet weak var delayView: DelayView!
     
@@ -25,7 +25,7 @@ class DelayViewController: FXUnitViewController {
         super.awakeFromNib()
         
         unitType = .delay
-        fxUnit = delayUnit
+        effectsUnit = delayUnit
         presetsWrapper = PresetsWrapper<DelayPreset, DelayPresets>(delayUnit.presets)
     }
     

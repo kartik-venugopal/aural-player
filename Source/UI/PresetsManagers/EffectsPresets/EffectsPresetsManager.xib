@@ -12,6 +12,7 @@
 -->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,10 +25,10 @@
                 <outlet property="delayPresetsTabViewButton" destination="GUy-2I-b2H" id="aBk-gW-ebW"/>
                 <outlet property="eqPresetsTabViewButton" destination="OQt-GU-kfk" id="dk7-JP-uDl"/>
                 <outlet property="filterPresetsTabViewButton" destination="mfC-ob-AmW" id="At4-fT-pR4"/>
-                <outlet property="fxPresetsTabView" destination="iWI-sf-5uJ" id="9dl-fQ-Bp9"/>
                 <outlet property="masterPresetsTabViewButton" destination="3Ce-Zb-I2E" id="NcT-WI-nC6"/>
                 <outlet property="pitchPresetsTabViewButton" destination="206-SJ-LsE" id="9NU-nz-D8R"/>
                 <outlet property="reverbPresetsTabViewButton" destination="Uko-mV-7bH" id="zwj-p9-azX"/>
+                <outlet property="tabView" destination="iWI-sf-5uJ" id="9dl-fQ-Bp9"/>
                 <outlet property="timePresetsTabViewButton" destination="JG6-F7-pN8" id="Mjs-tN-TOp"/>
                 <outlet property="view" destination="oWz-jY-6vg" id="kyJ-fj-iPY"/>
             </connections>

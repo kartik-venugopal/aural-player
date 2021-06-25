@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class MasterPresets: FXPresets<MasterPreset> {
+class MasterPresets: EffectsPresets<MasterPreset> {
     
     init(persistentState: MasterUnitPersistentState?) {
         
@@ -18,7 +18,7 @@ class MasterPresets: FXPresets<MasterPreset> {
     }
 }
 
-class MasterPreset: FXUnitPreset {
+class MasterPreset: EffectsUnitPreset {
     
     let eq: EQPreset
     let pitch: PitchPreset

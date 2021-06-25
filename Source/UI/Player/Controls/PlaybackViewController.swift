@@ -29,7 +29,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
         
-        Messenger.subscribe(self, .fx_playbackRateChanged, self.playbackRateChanged(_:))
+        Messenger.subscribe(self, .effects_playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
         
         // MARK: Commands --------------------------------------------------------------
@@ -332,7 +332,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
         trackChanged(notification.endTrack)
     }
     
-    // When the playback rate changes (caused by the Time Stretch fx unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
+    // When the playback rate changes (caused by the Time Stretch effects unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     func playbackRateChanged(_ newPlaybackRate: Float) {
         playbackView.playbackRateChanged(newPlaybackRate, player.state)
     }

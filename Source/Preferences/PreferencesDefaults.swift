@@ -48,7 +48,7 @@ struct PreferencesDefaults {
         static let pitchDelta: Int = 100
         static let timeDelta: Float = 0.05
         
-        static let effectsSettingsOnStartupOption: FXSettingsStartupOptions = .rememberFromLastAppLaunch
+        static let effectsSettingsOnStartupOption: EffectsSettingsStartupOptions = .rememberFromLastAppLaunch
         static let masterPresetOnStartup_name: String? = nil
         
         static let rememberEffectsSettingsOption: RememberSettingsForTrackOptions = .individualTracks

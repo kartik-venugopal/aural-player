@@ -190,7 +190,7 @@ class ColorSchemePreviewView: NSView {
                 eqSliders.forEach {$0.redraw()}
                 
                 activeUnitColor = theScheme.effects.activeUnitStateColor
-                fxCaptionColor = theScheme.general.mainCaptionTextColor
+                effectsCaptionColor = theScheme.general.mainCaptionTextColor
                 
                 playlistTrackTitleColor = theScheme.playlist.trackNameTextColor
                 playlistTrackIndexDurationColor = theScheme.playlist.indexDurationTextColor
@@ -281,10 +281,10 @@ class ColorSchemePreviewView: NSView {
         }
     }
     
-    var fxCaptionColor: NSColor = Colors.Constants.white50Percent {
+    var effectsCaptionColor: NSColor = Colors.Constants.white50Percent {
         
         didSet {
-            lblFxCaption.textColor = fxCaptionColor
+            lblFxCaption.textColor = effectsCaptionColor
         }
     }
     

@@ -66,8 +66,8 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
         Messenger.subscribe(self, .changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
         
-        Messenger.subscribe(self, .fx_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
-        Messenger.subscribe(self, .fx_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+        Messenger.subscribe(self, .effects_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
+        Messenger.subscribe(self, .effects_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
     }
     
     func destroy() {
@@ -108,7 +108,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.show()
         
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
     }
     
     // Stops the current recording
@@ -124,7 +124,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         saveRecording(recordingInfo!.format)
         recordingInfoBox.hide()
         
-        Messenger.publish(.fx_unitStateChanged)
+        Messenger.publish(.effects_unitStateChanged)
     }
     
     // Prompts the user to save the new recording

@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class FilterPresetsManagerViewController: FXPresetsManagerGenericViewController {
+class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var filterView: FilterView!
     private var bandsDataSource: PresetFilterBandsDataSource = PresetFilterBandsDataSource()
@@ -26,7 +26,7 @@ class FilterPresetsManagerViewController: FXPresetsManagerGenericViewController 
         super.awakeFromNib()
         
         unitType = .filter
-        fxUnit = filterUnit
+        effectsUnit = filterUnit
         presetsWrapper = PresetsWrapper<FilterPreset, FilterPresets>(filterUnit.presets)
     }
     
@@ -36,7 +36,7 @@ class FilterPresetsManagerViewController: FXPresetsManagerGenericViewController 
         
         let bandsDataFunction = {[weak self] () -> [FilterBand] in self?.filterChartBands ?? []}
         
-        filterView.initialize({() -> FXUnitState in .active}, bandsDataFunction, bandsDataSource, false)
+        filterView.initialize({() -> EffectsUnitState in .active}, bandsDataFunction, bandsDataSource, false)
         
         tableViewDelegate.dataSource = bandsDataSource
         tableViewDelegate.allowSelection = false

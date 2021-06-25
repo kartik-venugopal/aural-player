@@ -14,7 +14,7 @@ class FilterView: NSView {
     @IBOutlet weak var chart: FilterChart!
     @IBOutlet weak var bandsView: NSTabView!
     
-    func initialize(_ stateFunction: @escaping () -> FXUnitState, _ bandsDataFunction: @escaping () -> [FilterBand], _ tableDataSource: FilterBandsDataSource, _ allowTableRowSelection: Bool = true) {
+    func initialize(_ stateFunction: @escaping () -> EffectsUnitState, _ bandsDataFunction: @escaping () -> [FilterBand], _ tableDataSource: FilterBandsDataSource, _ allowTableRowSelection: Bool = true) {
         
         chart.filterUnitStateFunction = stateFunction
         chart.bandsDataFunction = bandsDataFunction
