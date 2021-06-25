@@ -7,32 +7,11 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Cocoa
 import AVFoundation
 
-public class AudioDeviceList {
-    
-    static let unknown: AudioDeviceList = AudioDeviceList(allDevices: [], outputDeviceId: kAudioObjectUnknown, systemDeviceId: kAudioObjectUnknown)
-    
-    let allDevices: [AudioDevice]
-    
-    let systemDevice: AudioDevice
-    let outputDevice: AudioDevice
-    
-    init(allDevices: [AudioDevice], outputDeviceId: AudioDeviceID, systemDeviceId: AudioDeviceID) {
-        
-        self.allDevices = allDevices
-        
-        let systemDevice = allDevices.first(where: {$0.id == systemDeviceId})!
-        self.systemDevice = systemDevice
-        
-        self.outputDevice = allDevices.first(where: {$0.id == outputDeviceId}) ?? systemDevice
-    }
-}
-
-/*
-    Encapsulates a single audio hardware device
- */
+///
+/// Encapsulates a single audio hardware device.
+///
 public class AudioDevice {
     
     static var deviceUIDPropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyDeviceUID)

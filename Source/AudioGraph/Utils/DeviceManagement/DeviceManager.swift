@@ -7,14 +7,14 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Cocoa
 import AVFoundation
 
-/*
-    Encapsulates low-level logic required to interact with the system's audio output hardware
- 
-    Serves as a helper class to AudioGraph to get/set the current audio output device
- */
+///
+/// Utility class that provides a simple facade of operations dealing with audio output hardware devices,
+/// hiding interactions with low-level CoreAudio functions.
+///
+/// Used as a helper by the Audio Graph to get/set the current audio output device for the app.
+///
 public class DeviceManager {
     
     private let systemAudioObjectId: AudioObjectID = .systemAudioObject
@@ -22,12 +22,12 @@ public class DeviceManager {
     // The AudioUnit underlying AVAudioEngine's output node (used to set the output device)
     var outputAudioUnit: AudioUnit
     
-    let list: DeviceList
+    private let list: InternalDeviceList
     
     init(outputAudioUnit: AudioUnit) {
         
         self.outputAudioUnit = outputAudioUnit
-        self.list = DeviceList()
+        self.list = InternalDeviceList()
         self.outputDeviceId = systemDeviceId
     }
     

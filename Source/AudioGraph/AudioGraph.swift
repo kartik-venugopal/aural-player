@@ -83,7 +83,7 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         audioUnits = []
         for auState in persistentState?.audioUnits ?? [] {
             
-            if let component = audioUnitsManager.component(ofType: auState.componentType, andSubType: auState.componentSubType) {
+            if let component = audioUnitsManager.audioUnit(ofType: auState.componentType, andSubType: auState.componentSubType) {
                 audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState))
             }
         }
@@ -178,7 +178,7 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
     
     func addAudioUnit(ofType type: OSType, andSubType subType: OSType) -> (audioUnit: HostedAudioUnit, index: Int)? {
         
-        if let auComponent = audioUnitsManager.component(ofType: type, andSubType: subType) {
+        if let auComponent = audioUnitsManager.audioUnit(ofType: type, andSubType: subType) {
             
             let newUnit: HostedAudioUnit = HostedAudioUnit(forComponent: auComponent)
             audioUnits.append(newUnit)

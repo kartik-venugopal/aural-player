@@ -1,5 +1,5 @@
 //
-//  DeviceList.swift
+//  InternalDeviceList.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,6 +12,8 @@ import AudioToolbox
 ///
 /// Encapsulates a collection of audio output hardware devices available on the local system, and provides
 /// functions for convenient searching of devices.
+///
+/// This class is for internal use by **DeviceManager** and is not exposed to clients of **DeviceManager**.
 ///
 class InternalDeviceList {
     

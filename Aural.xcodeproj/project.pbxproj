@@ -147,7 +147,7 @@
 		3E5F943625E571A6002DEF80 /* DiscoBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941E25E570A9002DEF80 /* DiscoBall.swift */; };
 		3E5F943725E571A6002DEF80 /* SpectrogramBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F941A25E570A9002DEF80 /* SpectrogramBar.swift */; };
 		3E5F943C25E571F7002DEF80 /* AudioGraphCallbacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F943925E571F0002DEF80 /* AudioGraphCallbacks.swift */; };
-		3E5F944025E5736F002DEF80 /* DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F943F25E5736F002DEF80 /* DeviceList.swift */; };
+		3E5F944025E5736F002DEF80 /* InternalDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F943F25E5736F002DEF80 /* InternalDeviceList.swift */; };
 		3E5F944325E5738E002DEF80 /* AUExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5F944225E5738E002DEF80 /* AUExtensions.swift */; };
 		3E61D144260EF53500C86BB2 /* CoverArtReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E61D143260EF53500C86BB2 /* CoverArtReader.swift */; };
 		3E61D146260EFBA400C86BB2 /* FileCoverArtReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E61D145260EFBA400C86BB2 /* FileCoverArtReader.swift */; };
@@ -599,6 +599,7 @@
 		3EB5108C25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */; };
 		3EB88E772629DA9500C8D230 /* ThemePopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */; };
 		3EBABCBE262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */; };
+		3EBF2923268653B100D87021 /* AudioDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF2922268653B100D87021 /* AudioDeviceList.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
 		3ECB54EA25E552AC002259C4 /* shufen.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E725E552A1002259C4 /* shufen.regular.ttf */; };
 		3ECB54EE25E559E5002259C4 /* futura light bt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54EC25E559DE002259C4 /* futura light bt.ttf */; };
@@ -851,7 +852,7 @@
 		3E5F941E25E570A9002DEF80 /* DiscoBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoBall.swift; sourceTree = "<group>"; };
 		3E5F941F25E570A9002DEF80 /* Supernova.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Supernova.swift; sourceTree = "<group>"; };
 		3E5F943925E571F0002DEF80 /* AudioGraphCallbacks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioGraphCallbacks.swift; sourceTree = "<group>"; };
-		3E5F943F25E5736F002DEF80 /* DeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceList.swift; sourceTree = "<group>"; };
+		3E5F943F25E5736F002DEF80 /* InternalDeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalDeviceList.swift; sourceTree = "<group>"; };
 		3E5F944225E5738E002DEF80 /* AUExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AUExtensions.swift; sourceTree = "<group>"; };
 		3E61D143260EF53500C86BB2 /* CoverArtReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArtReader.swift; sourceTree = "<group>"; };
 		3E61D145260EFBA400C86BB2 /* FileCoverArtReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCoverArtReader.swift; sourceTree = "<group>"; };
@@ -1314,6 +1315,7 @@
 		3EB5108B25DC2C3C0075F8AF /* FontSchemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EB88E762629DA9500C8D230 /* ThemePopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePopupMenuController.swift; sourceTree = "<group>"; };
 		3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerSettingsViewController.swift; sourceTree = "<group>"; };
+		3EBF2922268653B100D87021 /* AudioDeviceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDeviceList.swift; sourceTree = "<group>"; };
 		3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ragingredlotus-bb.regular.ttf"; sourceTree = "<group>"; };
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
 		3ECB54EC25E559DE002259C4 /* futura light bt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "futura light bt.ttf"; sourceTree = "<group>"; };
@@ -2890,10 +2892,8 @@
 		3E6C110D25CEB98700BF0D07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3EBF29212686539A00D87021 /* DeviceManagement */,
 				3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */,
-				3E6C111025CEB98700BF0D07 /* DeviceManager.swift */,
-				3E5F943F25E5736F002DEF80 /* DeviceList.swift */,
-				3E6C110E25CEB98700BF0D07 /* AudioDevice.swift */,
 				3E5F944225E5738E002DEF80 /* AUExtensions.swift */,
 			);
 			path = Utils;
@@ -3186,6 +3186,17 @@
 				3EAFB5FF267FF0D400F0DC96 /* NoTitleBarWindow.swift */,
 			);
 			path = Windows;
+			sourceTree = "<group>";
+		};
+		3EBF29212686539A00D87021 /* DeviceManagement */ = {
+			isa = PBXGroup;
+			children = (
+				3E6C111025CEB98700BF0D07 /* DeviceManager.swift */,
+				3E5F943F25E5736F002DEF80 /* InternalDeviceList.swift */,
+				3EBF2922268653B100D87021 /* AudioDeviceList.swift */,
+				3E6C110E25CEB98700BF0D07 /* AudioDevice.swift */,
+			);
+			path = DeviceManagement;
 			sourceTree = "<group>";
 		};
 		3ECBF3042619D55F00AD5C30 /* AudioUnits */ = {
@@ -3710,7 +3721,7 @@
 				3E6C12EB25CEBE8100BF0D07 /* BookmarkNameInputReceiver.swift in Sources */,
 				3EAFB5DB267FE81A00F0DC96 /* Chapter.swift in Sources */,
 				3EDB344D25E8B75D004DF7DE /* FFmpegMappedMetadata.swift in Sources */,
-				3E5F944025E5736F002DEF80 /* DeviceList.swift in Sources */,
+				3E5F944025E5736F002DEF80 /* InternalDeviceList.swift in Sources */,
 				3E6C118025CEBD6D00BF0D07 /* PitchShiftUnitDelegate.swift in Sources */,
 				3E6C12B425CEBE5800BF0D07 /* PlaybackMenuController.swift in Sources */,
 				3E9CA7EF261A0DEA006133B6 /* HostedAudioUnitDelegate.swift in Sources */,
@@ -4033,6 +4044,7 @@
 				3E6C132925CEBEA000BF0D07 /* ConcurrentCollections.swift in Sources */,
 				3EDD2C532684FA320090BAF7 /* SoundConstants.swift in Sources */,
 				3E7572F22609E83B00CA3F85 /* MusicBrainzArtist.swift in Sources */,
+				3EBF2923268653B100D87021 /* AudioDeviceList.swift in Sources */,
 				3E1454F72680C7280034056E /* FXUnitPresetPersistentState.swift in Sources */,
 				3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */,
 				3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */,

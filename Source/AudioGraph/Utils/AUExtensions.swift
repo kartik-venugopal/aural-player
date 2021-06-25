@@ -9,6 +9,11 @@
 //
 import AudioToolbox
 
+///
+/// An assortment of extensions to make it easier for clients to work with audio output hardware devices
+/// and register for notifications such as render callbacks and changes in device properties.
+///
+
 let sizeOfDouble: UInt32 = UInt32(MemoryLayout<Double>.size)
 
 extension AudioUnit {
