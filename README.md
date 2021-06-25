@@ -131,8 +131,6 @@ Some pages to get you started:
 [Building and running Aural Player (quick start guide)](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide))
 
 [Developer reference](https://github.com/maculateConception/aural-player/wiki/Developer-reference)
-
-NOTE - The documentation is incomplete and is a work in progress.
      
 ## Screenshots
 
