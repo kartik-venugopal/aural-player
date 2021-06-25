@@ -20,7 +20,7 @@ Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the la
     + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
   * [Documentation](#documentation)
   * [Screenshots](#screenshots)
-  * [Known issues](#known-issues)
+  * [Known issues](#known-issues-and-solutions)
   * [Contact and conversation](#contact-and-conversation)
   * [Third party code attributions](#third-party-code-attributions)
   * [Contributor attributions](#contributor-attributions)
