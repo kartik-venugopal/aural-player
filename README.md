@@ -200,7 +200,7 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ## Contact and conversation
 
-I encourage you to provide feedback or start a conversation about features you'd like to see or bugs you've encountered (in addition to GitHub issues, of course). There are multiple ways to start a conversation.
+I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement. If you just wanna tell me you love Aural Player, I'd love to hear that too 😊.
 
 **Twitter:** https://twitter.com/AuralPlayer. I will try to post informal updates there.
 
