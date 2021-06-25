@@ -13,6 +13,14 @@
 import Cocoa
 import AVFoundation
 
+///
+/// A functional contract for a delegate representing the Audio Graph.
+///
+/// Acts as a middleman between the Effects UI and the Audio Graph,
+/// providing a simplified interface / facade for the UI layer to manipulate the Audio Graph.
+///
+/// - SeeAlso: `AudioGraph`
+///
 protocol AudioGraphDelegateProtocol {
     
     var availableDevices: AudioDeviceList {get}
@@ -56,8 +64,8 @@ protocol AudioGraphDelegateProtocol {
     
     var masterUnit: MasterUnitDelegateProtocol {get set}
     var eqUnit: EQUnitDelegateProtocol {get set}
-    var pitchUnit: PitchUnitDelegateProtocol {get set}
-    var timeUnit: TimeUnitDelegateProtocol {get set}
+    var pitchUnit: PitchShiftUnitDelegateProtocol {get set}
+    var timeUnit: TimeStretchUnitDelegateProtocol {get set}
     var reverbUnit: ReverbUnitDelegateProtocol {get set}
     var delayUnit: DelayUnitDelegateProtocol {get set}
     var filterUnit: FilterUnitDelegateProtocol {get set}
@@ -70,181 +78,4 @@ protocol AudioGraphDelegateProtocol {
     
     func registerRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
     func removeRenderObserver(_ observer: AudioGraphRenderObserverProtocol)
-}
-
-protocol EffectsUnitDelegateProtocol {
-    
-    var state: EffectsUnitState {get}
-    
-    var stateFunction: EffectsUnitStateFunction {get}
-    
-    // Toggles the state of the pitch shift audio effects unit, and returns its new state
-    func toggleState() -> EffectsUnitState
-    
-    var isActive: Bool {get}
-    
-    func ensureActive()
-    
-    func savePreset(_ presetName: String)
-    
-    func applyPreset(_ presetName: String)
-}
-
-protocol MasterUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-    
-    var presets: MasterPresets {get}
-    
-    func applyPreset(_ preset: MasterPreset)
-}
-
-protocol EQUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-    
-    var type: EQType {get set}
-    
-    var globalGain: Float {get set}
-    
-    var bands: [Float] {get set}
-    
-    // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
-    func setBand(_ index: Int, gain: Float)
-    
-    // Increases the equalizer bass band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func increaseBass() -> [Float]
-    
-    // Decreases the equalizer bass band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func decreaseBass() -> [Float]
-    
-    // Increases the equalizer mid-frequency band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func increaseMids() -> [Float]
-    
-    // Decreases the equalizer mid-frequency band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func decreaseMids() -> [Float]
-    
-    // Increases the equalizer treble band gains by a small increment, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func increaseTreble() -> [Float]
-    
-    // Decreases the equalizer treble band gains by a small decrement, activating and resetting the EQ unit if it is inactive. Returns all EQ band gain values, mapped by index.
-    func decreaseTreble() -> [Float]
-    
-    var presets: EQPresets {get}
-}
-
-protocol PitchUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-    
-    // The pitch shift value, in cents, specified as a value between -2400 and 2400
-    var pitch: Float {get set}
-    
-    var formattedPitch: String {get}
-    
-    // the amount of overlap between segments of the input audio signal into the pitch effects unit, specified as a value between 3 and 32
-    var overlap: Float {get set}
-    
-    var formattedOverlap: String {get}
-    
-    // Increases the pitch shift by a small increment. Returns the new pitch shift value.
-    func increasePitch() -> (pitch: Float, pitchString: String)
-    
-    // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
-    func decreasePitch() -> (pitch: Float, pitchString: String)
-    
-    var presets: PitchPresets {get}
-}
-
-protocol HostedAudioUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-    
-    var id: String {get}
-    
-    var name: String {get}
-    var version: String {get}
-    var manufacturerName: String {get}
-    
-    var componentType: OSType {get}
-    var componentSubType: OSType {get}
-    
-    var params: [AUParameterAddress: Float] {get}
-
-    var presets: AudioUnitPresets {get}
-    var supportsUserPresets: Bool {get}
-    
-    var factoryPresets: [AudioUnitFactoryPreset] {get}
-    
-    func applyFactoryPreset(_ presetName: String)
-    
-    func presentView(_ handler: @escaping (NSView) -> ())
-}
-
-protocol TimeUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-    
-    var rate: Float {get set}
-    
-    var effectiveRate: Float {get}
-    
-    var formattedRate: String {get}
-    
-    var overlap: Float {get set}
-    
-    var formattedOverlap: String {get}
-    
-    var shiftPitch: Bool {get set}
-    
-    var pitch: Float {get}
-    
-    var formattedPitch: String {get}
-    
-    // Increases the playback rate by a small increment. Returns the new playback rate value.
-    func increaseRate() -> (rate: Float, rateString: String)
-    
-    // Decreases the playback rate by a small decrement. Returns the new playback rate value.
-    func decreaseRate() -> (rate: Float, rateString: String)
-    
-    var presets: TimePresets {get}
-}
-
-protocol ReverbUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-    
-    var space: ReverbSpaces {get set}
-    
-    var amount: Float {get set}
-    
-    var formattedAmount: String {get}
-    
-    var presets: ReverbPresets {get}
-}
-
-protocol DelayUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-    
-    var amount: Float {get set}
-    
-    var formattedAmount: String {get}
-    
-    var time: Double {get set}
-    
-    var formattedTime: String {get}
-    
-    var feedback: Float {get set}
-    
-    var formattedFeedback: String {get}
-    
-    var lowPassCutoff: Float {get set}
-    
-    var formattedLowPassCutoff: String {get}
-    
-    var presets: DelayPresets {get}
-}
-
-protocol FilterUnitDelegateProtocol: EffectsUnitDelegateProtocol {
-
-    var bands: [FilterBand] {get set}
-    
-    func addBand(_ band: FilterBand) -> Int
-    
-    func updateBand(_ index: Int, _ band: FilterBand)
-    
-    func removeBands(_ indexSet: IndexSet)
-    
-    func removeAllBands()
-    
-    func getBand(_ index: Int) -> FilterBand
-    
-    var presets: FilterPresets {get}
 }

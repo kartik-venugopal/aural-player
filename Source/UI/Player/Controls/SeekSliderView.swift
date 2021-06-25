@@ -33,7 +33,7 @@ class SeekSliderView: NSView, ColorSchemeable {
     private var seekTimer: RepeatingTaskExecutor?
     
     // Delegate representing the Time effects unit
-    private let timeUnit: TimeUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
+    private let timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate

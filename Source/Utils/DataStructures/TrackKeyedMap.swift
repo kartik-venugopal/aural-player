@@ -1,36 +1,14 @@
 //
-//  SoundProfile.swift
+//  TrackKeyedMap.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
-//
+//  
+
 import Foundation
-
-class SoundProfiles: TrackKeyedMap<SoundProfile> {
-    
-    init(_ profiles: [SoundProfilePersistentState]) {
-        
-        super.init()
-        
-        for profile in profiles {
-            
-            add(profile.file, SoundProfile(file: profile.file, volume: profile.volume, balance: profile.balance, effects: MasterPreset(persistentState: profile.effects)))
-        }
-    }
-}
-
-struct SoundProfile {
-    
-    let file: URL
-    
-    let volume: Float
-    let balance: Float
-    
-    let effects: MasterPreset
-}
 
 class TrackKeyedMap<T> {
 

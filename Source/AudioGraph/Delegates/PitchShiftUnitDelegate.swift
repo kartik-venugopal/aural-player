@@ -1,5 +1,5 @@
 //
-//  PitchUnitDelegate.swift
+//  PitchShiftUnitDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,16 @@
 //
 import Foundation
 
-class PitchUnitDelegate: EffectsUnitDelegate<PitchUnit>, PitchUnitDelegateProtocol {
+///
+/// A delegate representing the Pitch Shift effects unit.
+///
+/// Acts as a middleman between the Effects UI and the Pitch Shift effects unit,
+/// providing a simplified interface / facade for the UI layer to control the Pitch Shift effects unit.
+///
+/// - SeeAlso: `PitchShiftUnit`
+/// - SeeAlso: `PitchUnitDelegateProtocol`
+///
+class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     
@@ -35,7 +44,7 @@ class PitchUnitDelegate: EffectsUnitDelegate<PitchUnit>, PitchUnitDelegateProtoc
     
     var presets: PitchPresets {return unit.presets}
     
-    init(_ unit: PitchUnit, _ preferences: SoundPreferences) {
+    init(_ unit: PitchShiftUnit, _ preferences: SoundPreferences) {
         
         self.preferences = preferences
         super.init(unit)

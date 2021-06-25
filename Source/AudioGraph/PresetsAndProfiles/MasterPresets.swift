@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Manages a mapped collection of presets that can be applied to the Master effects unit.
+///
 class MasterPresets: EffectsPresets<MasterPreset> {
     
     init(persistentState: MasterUnitPersistentState?) {
@@ -18,6 +21,10 @@ class MasterPresets: EffectsPresets<MasterPreset> {
     }
 }
 
+///
+/// Represents a single Master effects unit preset, i.e. encapsulates
+/// all effects settings in a single preset.
+///
 class MasterPreset: EffectsUnitPreset {
     
     let eq: EQPreset

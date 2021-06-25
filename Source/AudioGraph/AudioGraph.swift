@@ -23,6 +23,8 @@ import AVFoundation
 /// node sends the audio to the audio output hardware device. So, the audio that is output by the app is a function of the cumulative audio
 /// processing performed sequentially by each node in in the chain.
 ///
+/// - SeeAlso: `AudioGraphProtocol`
+///
 class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObject {
     
     private let audioEngine: AudioEngine
@@ -38,8 +40,8 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
     // Effects units
     var masterUnit: MasterUnit
     var eqUnit: EQUnit
-    var pitchUnit: PitchUnit
-    var timeUnit: TimeUnit
+    var pitchUnit: PitchShiftUnit
+    var timeUnit: TimeStretchUnit
     var reverbUnit: ReverbUnit
     var delayUnit: DelayUnit
     var filterUnit: FilterUnit
@@ -71,8 +73,8 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         deviceManager = DeviceManager(outputAudioUnit: outputNode.audioUnit!)
         
         eqUnit = EQUnit(persistentState: persistentState?.eqUnit)
-        pitchUnit = PitchUnit(persistentState: persistentState?.pitchUnit)
-        timeUnit = TimeUnit(persistentState: persistentState?.timeUnit)
+        pitchUnit = PitchShiftUnit(persistentState: persistentState?.pitchUnit)
+        timeUnit = TimeStretchUnit(persistentState: persistentState?.timeUnit)
         reverbUnit = ReverbUnit(persistentState: persistentState?.reverbUnit)
         delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
         filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)

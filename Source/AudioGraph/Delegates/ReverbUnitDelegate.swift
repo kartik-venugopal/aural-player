@@ -9,6 +9,15 @@
 //
 import Foundation
 
+///
+/// A delegate representing the Reverb effects unit.
+///
+/// Acts as a middleman between the Effects UI and the Reverb effects unit,
+/// providing a simplified interface / facade for the UI layer to control the Reverb effects unit.
+///
+/// - SeeAlso: `ReverbUnit`
+/// - SeeAlso: `ReverbUnitDelegateProtocol`
+///
 class ReverbUnitDelegate: EffectsUnitDelegate<ReverbUnit>, ReverbUnitDelegateProtocol {
     
     var presets: ReverbPresets {return unit.presets}

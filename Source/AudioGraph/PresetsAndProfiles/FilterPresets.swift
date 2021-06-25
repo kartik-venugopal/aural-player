@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Manages a mapped collection of presets that can be applied to the Filter effects unit.
+///
 class FilterPresets: EffectsPresets<FilterPreset> {
     
     init(persistentState: FilterUnitPersistentState?) {
@@ -22,6 +25,9 @@ class FilterPresets: EffectsPresets<FilterPreset> {
     override var defaultPreset: FilterPreset {systemDefinedPreset(named: SystemDefinedFilterPresetParams.passThrough.rawValue)!}
 }
 
+///
+/// Represents a single Filter effects unit preset.
+///
 class FilterPreset: EffectsUnitPreset {
     
     let bands: [FilterBand]
@@ -39,9 +45,9 @@ class FilterPreset: EffectsUnitPreset {
     }
 }
 
-/*
-    An enumeration of built-in delay presets the user can choose from
- */
+///
+/// An enumeration of system-defined (built-in) Filter presets the user can choose from.
+///
 fileprivate enum SystemDefinedFilterPresetParams: String, CaseIterable {
     
     case passThrough = "Pass through"   // default

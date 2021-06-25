@@ -10,21 +10,11 @@
 import AVFoundation
 
 ///
-/// A functional contract for an effects unit that applies a "reverb" effect, i.e. reverberation. The result
-/// is that the output audio is perceived as being more roomy, as if it has traveled a distance, bounced
-/// off walls and other barriers, i.e. that the sound has "reverberated".
-///
-protocol ReverbUnitProtocol: EffectsUnitProtocol {
-    
-    var space: ReverbSpaces {get set}
-    
-    var amount: Float {get set}
-}
-
-///
 /// An effects unit that applies a "reverb" effect, i.e. reverberation. The result
 /// is that the output audio is perceived as being more roomy, as if it has traveled a distance,
 /// bounced off walls and other barriers, i.e. that the sound has "reverberated".
+///
+/// - SeeAlso: `ReverbUnitProtocol`
 ///
 class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     

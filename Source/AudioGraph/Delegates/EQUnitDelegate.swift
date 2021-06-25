@@ -9,6 +9,15 @@
 //
 import Foundation
 
+///
+/// A delegate representing the Equalizer effects unit.
+///
+/// Acts as a middleman between the Effects UI and the Equalizer effects unit,
+/// providing a simplified interface / facade for the UI layer to control the Equalizer effects unit.
+///
+/// - SeeAlso: `EQUnitDelegateProtocol`
+/// - SeeAlso: `EQUnit`
+///
 class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     
     let preferences: SoundPreferences

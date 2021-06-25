@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Manages a mapped collection of presets that can be applied to the Time Stretch effects unit.
+///
 class TimePresets: EffectsPresets<TimePreset> {
     
     init(persistentState: TimeUnitPersistentState?) {
@@ -22,6 +25,9 @@ class TimePresets: EffectsPresets<TimePreset> {
     override var defaultPreset: TimePreset {systemDefinedPreset(named: SystemDefinedTimePresetParams.normal.rawValue)!}
 }
 
+///
+/// Represents a single Time Stretch effects unit preset.
+///
 class TimePreset: EffectsUnitPreset {
     
     let rate: Float
@@ -46,9 +52,9 @@ class TimePreset: EffectsUnitPreset {
     }
 }
 
-/*
-    An enumeration of built-in pitch presets the user can choose from
- */
+///
+/// An enumeration of system-defined (built-in) Time Stretch presets the user can choose from.
+///
 fileprivate enum SystemDefinedTimePresetParams: String, CaseIterable {
     
     case normal = "Normal (1x)"  // default

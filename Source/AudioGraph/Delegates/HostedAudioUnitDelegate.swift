@@ -13,6 +13,15 @@ import CoreAudioKit
 import AudioToolbox
 import CoreAudio
 
+///
+/// A delegate representing a hosted AU effects unit.
+///
+/// Acts as a middleman between the Effects UI and a hosted AU effects unit,
+/// providing a simplified interface / facade for the UI layer to control a hosted AU effects unit.
+///
+/// - SeeAlso: `HostedAudioUnit`
+/// - SeeAlso: `HostedAudioUnitDelegateProtocol`
+///
 class HostedAudioUnitDelegate: EffectsUnitDelegate<HostedAudioUnit>, HostedAudioUnitDelegateProtocol {
     
     var id: String

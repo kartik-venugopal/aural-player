@@ -9,6 +9,15 @@
 //
 import Foundation
 
+///
+/// A delegate representing the Delay effects unit.
+///
+/// Acts as a middleman between the Effects UI and the Delay effects unit,
+/// providing a simplified interface / facade for the UI layer to control the Delay effects unit.
+///
+/// - SeeAlso: `DelayUnit`
+/// - SeeAlso: `DelayUnitDelegateProtocol`
+///
 class DelayUnitDelegate: EffectsUnitDelegate<DelayUnit>, DelayUnitDelegateProtocol {
     
     var presets: DelayPresets {return unit.presets}

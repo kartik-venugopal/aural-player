@@ -10,9 +10,9 @@
 import Foundation
 import AVFoundation
 
-/*
-    Enumeration of all possible reverb effect presets
- */
+///
+/// An enumeration of presets that represent simulated spaces that can be applied to the Reverb effects unit.
+///
 enum ReverbSpaces: String {
     
     case smallRoom

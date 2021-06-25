@@ -13,6 +13,15 @@
 
 import AVFoundation
 
+///
+/// A delegate representing the Audio Graph.
+///
+/// Acts as a middleman between the Effects UI and the Audio Graph,
+/// providing a simplified interface / facade for the UI layer to manipulate the Audio Graph.
+///
+/// - SeeAlso: `AudioGraphDelegateProtocol`
+/// - SeeAlso: `AudioGraph`
+///
 class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var availableDevices: AudioDeviceList {graph.availableDevices}
@@ -35,8 +44,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol
-    var pitchUnit: PitchUnitDelegateProtocol
-    var timeUnit: TimeUnitDelegateProtocol
+    var pitchUnit: PitchShiftUnitDelegateProtocol
+    var timeUnit: TimeStretchUnitDelegateProtocol
     var reverbUnit: ReverbUnitDelegateProtocol
     var delayUnit: DelayUnitDelegateProtocol
     var filterUnit: FilterUnitDelegateProtocol
@@ -59,7 +68,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         
         masterUnit = MasterUnitDelegate(graph.masterUnit)
         eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
-        pitchUnit = PitchUnitDelegate(graph.pitchUnit, preferences)
+        pitchUnit = PitchShiftUnitDelegate(graph.pitchUnit, preferences)
         timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
         reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
         delayUnit = DelayUnitDelegate(graph.delayUnit)

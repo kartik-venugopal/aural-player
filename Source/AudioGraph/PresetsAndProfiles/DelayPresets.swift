@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Manages a mapped collection of presets that can be applied to the Delay effects unit.
+///
 class DelayPresets: EffectsPresets<DelayPreset> {
     
     init(persistentState: DelayUnitPersistentState?) {
@@ -22,6 +25,9 @@ class DelayPresets: EffectsPresets<DelayPreset> {
     override var defaultPreset: DelayPreset {systemDefinedPreset(named: SystemDefinedDelayPresetParams.oneSecond.rawValue)!}
 }
 
+///
+/// Represents a single Delay effects unit preset.
+///
 class DelayPreset: EffectsUnitPreset {
     
     let amount: Float
@@ -50,9 +56,9 @@ class DelayPreset: EffectsUnitPreset {
     }
 }
 
-/*
-    An enumeration of built-in delay presets the user can choose from
- */
+///
+/// An enumeration of system-defined (built-in) Delay presets the user can choose from.
+///
 fileprivate enum SystemDefinedDelayPresetParams: String, CaseIterable {
     
     case quarterSecond = "1/4 second delay"

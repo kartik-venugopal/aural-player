@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Manages a mapped collection of presets that can be applied to the Equalizer effects unit.
+///
 class EQPresets: EffectsPresets<EQPreset> {
     
     init(persistentState: EQUnitPersistentState?) {
@@ -22,6 +25,9 @@ class EQPresets: EffectsPresets<EQPreset> {
     override var defaultPreset: EQPreset {systemDefinedPreset(named: SystemDefinedEQPresetParams.flat.rawValue)!}
 }
 
+///
+/// Represents a single Equalizer effects unit preset.
+///
 class EQPreset: EffectsUnitPreset {
     
     let bands: [Float]
@@ -43,9 +49,9 @@ class EQPreset: EffectsUnitPreset {
     }
 }
 
-/*
-    An enumeration of Equalizer presets the user can choose from
- */
+///
+/// An enumeration of system-defined (built-in) Equalizer presets the user can choose from.
+///
 fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
     
     case flat = "Flat" // default

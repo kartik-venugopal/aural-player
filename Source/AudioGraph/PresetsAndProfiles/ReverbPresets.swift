@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Manages a mapped collection of presets that can be applied to the Reverb effects unit.
+///
 class ReverbPresets: EffectsPresets<ReverbPreset> {
     
     init(persistentState: ReverbUnitPersistentState?) {
@@ -18,6 +21,9 @@ class ReverbPresets: EffectsPresets<ReverbPreset> {
     }
 }
 
+///
+/// Represents a single Reverb effects unit preset.
+///
 class ReverbPreset: EffectsUnitPreset {
     
     let space: ReverbSpaces

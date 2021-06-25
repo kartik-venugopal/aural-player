@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// A functional contract for a mapped collection of presets that can be applied to an effects unit.
+///
 protocol EffectsPresetsProtocol {
     
     associatedtype T: EffectsUnitPreset
@@ -27,9 +30,18 @@ protocol EffectsPresetsProtocol {
     func presetExists(named name: String) -> Bool
 }
 
+///
+/// A base class for a mapped collection of presets that can be applied to an effects unit.
+///
+/// No instances of this type are to be used directly, as this class is only intended to be used as a base
+/// class for concrete effects unit presets collections.
+///
 class EffectsPresets<T: EffectsUnitPreset>: MappedPresets<T>, EffectsPresetsProtocol {
 }
 
+///
+/// A base class for a single preset that can be applied to an effects unit.
+///
 class EffectsUnitPreset: MappedPreset {
     
     var name: String

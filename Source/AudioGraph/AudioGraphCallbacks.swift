@@ -9,60 +9,13 @@
 //
 import AVFoundation
 
-fileprivate var renderObserver: AudioGraphRenderObserverProtocol?
-
-fileprivate func renderCallback(inRefCon: UnsafeMutableRawPointer,
-                                ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-                                inTimeStamp: UnsafePointer<AudioTimeStamp>,
-                                inBusNumber: UInt32,
-                                inNumberFrames: UInt32,
-                                ioData: UnsafeMutablePointer<AudioBufferList>?) -> OSStatus {
-    
-    if ioActionFlags.pointee == .unitRenderAction_PostRender {
-    
-        if let bufferList = ioData?.pointee, let observer = renderObserver {
-            
-            DispatchQueue.global(qos: .userInteractive).async {
-                observer.rendered(timeStamp: inTimeStamp.pointee, frameCount: inNumberFrames, audioBuffer: bufferList)
-            }
-        }
-    }
-    
-    return noErr
-}
-
-func deviceChanged(inRefCon: UnsafeMutableRawPointer,
-                   inUnit: AudioUnit,
-                   inID: AudioUnitPropertyID,
-                   inScope: AudioUnitScope,
-                   inElement: AudioUnitElement) {
-    
-    if let observer = renderObserver {
-        
-        let graph = unsafeBitCast(inRefCon, to: AudioGraph.self)
-        
-        DispatchQueue.global(qos: .userInteractive).async {
-            observer.deviceChanged(newDeviceBufferSize: graph.outputDeviceBufferSize, newDeviceSampleRate: graph.outputDeviceSampleRate)
-        }
-    }
-}
-
-func sampleRateChanged(inRefCon: UnsafeMutableRawPointer,
-                       inUnit: AudioUnit,
-                       inID: AudioUnitPropertyID,
-                       inScope: AudioUnitScope,
-                       inElement: AudioUnitElement) {
-    
-    if let observer = renderObserver {
-        
-        let graph = unsafeBitCast(inRefCon, to: AudioGraph.self)
-        
-        DispatchQueue.global(qos: .userInteractive).async {
-            observer.deviceSampleRateChanged(newSampleRate: graph.outputDeviceSampleRate)
-        }
-    }
-}
-
+///
+/// An **AudioGraph** extension providing functions to register / unregister observers in order to respond to audio graph render events,
+/// i.e. every time an audio buffer has been rendered to the audio output hardware device.
+///
+/// Example - The Visualizer uses the render callback notifications to receive the rendered audio samples, in order to
+/// render visualizations.
+///
 extension AudioGraph {
     
     var outputAudioUnit: AudioUnit {outputNode.audioUnit!}
@@ -85,5 +38,59 @@ extension AudioGraph {
         outputAudioUnit.removeRenderCallback(inProc: renderCallback, inProcUserData: unmanagedReferenceToSelf)
         outputAudioUnit.removeDeviceChangeCallback(inProc: deviceChanged, inProcUserData: unmanagedReferenceToSelf)
         outputAudioUnit.removeSampleRateChangeCallback(inProc: sampleRateChanged, inProcUserData: unmanagedReferenceToSelf)
+    }
+}
+
+fileprivate var renderObserver: AudioGraphRenderObserverProtocol?
+
+fileprivate func renderCallback(inRefCon: UnsafeMutableRawPointer,
+                                ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
+                                inTimeStamp: UnsafePointer<AudioTimeStamp>,
+                                inBusNumber: UInt32,
+                                inNumberFrames: UInt32,
+                                ioData: UnsafeMutablePointer<AudioBufferList>?) -> OSStatus {
+    
+    if ioActionFlags.pointee == .unitRenderAction_PostRender {
+    
+        if let bufferList = ioData?.pointee, let observer = renderObserver {
+            
+            DispatchQueue.global(qos: .userInteractive).async {
+                observer.rendered(timeStamp: inTimeStamp.pointee, frameCount: inNumberFrames, audioBuffer: bufferList)
+            }
+        }
+    }
+    
+    return noErr
+}
+
+fileprivate func deviceChanged(inRefCon: UnsafeMutableRawPointer,
+                   inUnit: AudioUnit,
+                   inID: AudioUnitPropertyID,
+                   inScope: AudioUnitScope,
+                   inElement: AudioUnitElement) {
+    
+    if let observer = renderObserver {
+        
+        let graph = unsafeBitCast(inRefCon, to: AudioGraph.self)
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            observer.deviceChanged(newDeviceBufferSize: graph.outputDeviceBufferSize, newDeviceSampleRate: graph.outputDeviceSampleRate)
+        }
+    }
+}
+
+fileprivate func sampleRateChanged(inRefCon: UnsafeMutableRawPointer,
+                       inUnit: AudioUnit,
+                       inID: AudioUnitPropertyID,
+                       inScope: AudioUnitScope,
+                       inElement: AudioUnitElement) {
+    
+    if let observer = renderObserver {
+        
+        let graph = unsafeBitCast(inRefCon, to: AudioGraph.self)
+        
+        DispatchQueue.global(qos: .userInteractive).async {
+            observer.deviceSampleRateChanged(newSampleRate: graph.outputDeviceSampleRate)
+        }
     }
 }

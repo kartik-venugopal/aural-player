@@ -9,6 +9,18 @@
 //
 import Foundation
 
+///
+/// An abstract delegate representing an effects unit.
+///
+/// Acts as a middleman between the Effects UI and an effects unit,
+/// providing a simplified interface / facade for the UI layer to control an effects unit.
+///
+/// No instances of this type are to be used directly, as this class is only intended to be used as a base
+/// class for concrete effects units delegates.
+///
+/// - SeeAlso: `EffectsUnitDelegateProtocol`
+/// - SeeAlso: `EffectsUnit`
+///
 class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
     
     var unit: T
@@ -17,14 +29,14 @@ class EffectsUnitDelegate<T: EffectsUnit>: EffectsUnitDelegateProtocol {
         self.unit = unit
     }
     
-    var state: EffectsUnitState {return unit.state}
+    var state: EffectsUnitState {unit.state}
     
-    var stateFunction: EffectsUnitStateFunction {return unit.stateFunction}
+    var stateFunction: EffectsUnitStateFunction {unit.stateFunction}
     
-    var isActive: Bool {return unit.isActive}
+    var isActive: Bool {unit.isActive}
     
     func toggleState() -> EffectsUnitState {
-        return unit.toggleState()
+        unit.toggleState()
     }
     
     func ensureActive() {

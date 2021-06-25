@@ -24,8 +24,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
     let presets: MasterPresets
     
     var eqUnit: EQUnit
-    var pitchUnit: PitchUnit
-    var timeUnit: TimeUnit
+    var pitchUnit: PitchShiftUnit
+    var timeUnit: TimeStretchUnit
     var reverbUnit: ReverbUnit
     var delayUnit: DelayUnit
     var filterUnit: FilterUnit
@@ -38,8 +38,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
         self.nativeSlaveUnits = nativeSlaveUnits
         
         eqUnit = nativeSlaveUnits.first(where: {$0 is EQUnit})! as! EQUnit
-        pitchUnit = nativeSlaveUnits.first(where: {$0 is PitchUnit})! as! PitchUnit
-        timeUnit = nativeSlaveUnits.first(where: {$0 is TimeUnit})! as! TimeUnit
+        pitchUnit = nativeSlaveUnits.first(where: {$0 is PitchShiftUnit})! as! PitchShiftUnit
+        timeUnit = nativeSlaveUnits.first(where: {$0 is TimeStretchUnit})! as! TimeStretchUnit
         reverbUnit = nativeSlaveUnits.first(where: {$0 is ReverbUnit})! as! ReverbUnit
         delayUnit = nativeSlaveUnits.first(where: {$0 is DelayUnit})! as! DelayUnit
         filterUnit = nativeSlaveUnits.first(where: {$0 is FilterUnit})! as! FilterUnit

@@ -15,7 +15,7 @@ class PitchPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
     
     override var nibName: String? {"PitchPresetsManager"}
     
-    var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
+    var pitchUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
     
     override func awakeFromNib() {
         

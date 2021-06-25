@@ -9,7 +9,16 @@
 //
 import Foundation
 
-class TimeUnitDelegate: EffectsUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol {
+///
+/// A delegate representing the Time Stretch effects unit.
+///
+/// Acts as a middleman between the Effects UI and the Time Stretch effects unit,
+/// providing a simplified interface / facade for the UI layer to control the Time Stretch effects unit.
+///
+/// - SeeAlso: `TimeStretchUnit`
+/// - SeeAlso: `TimeStretchUnitDelegateProtocol`
+///
+class TimeUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretchUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     
@@ -45,7 +54,7 @@ class TimeUnitDelegate: EffectsUnitDelegate<TimeUnit>, TimeUnitDelegateProtocol 
     
     var presets: TimePresets {return unit.presets}
     
-    init(_ unit: TimeUnit, _ preferences: SoundPreferences) {
+    init(_ unit: TimeStretchUnit, _ preferences: SoundPreferences) {
         
         self.preferences = preferences
         super.init(unit)

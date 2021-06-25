@@ -10,9 +10,12 @@
 import Cocoa
 import AVFoundation
 
-/*
-    Contract for operations to alter the audio graph, i.e. tune the sound output - volume, panning, equalizer (EQ), and other sound effects
- */
+///
+/// A functional contract for the Audio Graph.
+///
+/// The Audio Graph is one of the core components of the app and is responsible for all audio output. It serves as the infrastructure for playback,
+/// recording, and visualization, and also controls player volume, stereo pan, and all sound effects, including any Audio Units (AU) plug-ins configured by the user.
+///
 protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
     var availableDevices: AudioDeviceList {get}
@@ -27,8 +30,8 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
     var masterUnit: MasterUnit {get}
     var eqUnit: EQUnit {get}
-    var pitchUnit: PitchUnit {get}
-    var timeUnit: TimeUnit {get}
+    var pitchUnit: PitchShiftUnit {get}
+    var timeUnit: TimeStretchUnit {get}
     var reverbUnit: ReverbUnit {get}
     var delayUnit: DelayUnit {get}
     var filterUnit: FilterUnit {get}

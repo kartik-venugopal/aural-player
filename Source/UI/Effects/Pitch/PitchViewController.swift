@@ -29,7 +29,7 @@ class PitchViewController: EffectsUnitViewController {
     
     override var nibName: String? {"Pitch"}
     
-    private var pitchUnit: PitchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
+    private var pitchUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
  
     override func awakeFromNib() {
         

@@ -22,8 +22,8 @@ class MasterViewController: EffectsUnitViewController {
     
     private var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
     private var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}
-    private var pitchUnit: PitchUnitDelegateProtocol {return graph.pitchUnit}
-    private var timeUnit: TimeUnitDelegateProtocol {return graph.timeUnit}
+    private var pitchUnit: PitchShiftUnitDelegateProtocol {return graph.pitchUnit}
+    private var timeUnit: TimeStretchUnitDelegateProtocol {return graph.timeUnit}
     private var reverbUnit: ReverbUnitDelegateProtocol {return graph.reverbUnit}
     private var delayUnit: DelayUnitDelegateProtocol {return graph.delayUnit}
     private var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}

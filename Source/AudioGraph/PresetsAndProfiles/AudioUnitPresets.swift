@@ -10,6 +10,9 @@
 import Foundation
 import AVFoundation
 
+///
+/// Manages a mapped collection of presets that can be applied to a hosted AU effects unit.
+///
 class AudioUnitPresets: EffectsPresets<AudioUnitPreset> {
     
     init() {
@@ -23,6 +26,9 @@ class AudioUnitPresets: EffectsPresets<AudioUnitPreset> {
     }
 }
 
+///
+/// Represents a single hosted AU effects unit preset.
+///
 class AudioUnitPreset: EffectsUnitPreset {
     
     var componentType: OSType
@@ -49,6 +55,9 @@ class AudioUnitPreset: EffectsUnitPreset {
     }
 }
 
+///
+/// Represents a single factory preset provided by an AU plug-in.
+///
 struct AudioUnitFactoryPreset {
     
     let name: String

@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Manages a mapped collection of presets that can be applied to the Pitch Shift effects unit.
+///
 class PitchPresets: EffectsPresets<PitchPreset> {
     
     init(persistentState: PitchUnitPersistentState?) {
@@ -22,6 +25,9 @@ class PitchPresets: EffectsPresets<PitchPreset> {
     override var defaultPreset: PitchPreset {systemDefinedPreset(named: SystemDefinedPitchPresetParams.normal.rawValue)!}
 }
 
+///
+/// Represents a single Pitch Shift effects unit preset.
+///
 class PitchPreset: EffectsUnitPreset {
     
     let pitch: Float
@@ -42,9 +48,9 @@ class PitchPreset: EffectsUnitPreset {
     }
 }
 
-/*
-    An enumeration of built-in pitch presets the user can choose from
- */
+///
+/// An enumeration of system-defined (built-in) Pitch Shift presets the user can choose from.
+///
 fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
     
     case normal = "Normal"  // default

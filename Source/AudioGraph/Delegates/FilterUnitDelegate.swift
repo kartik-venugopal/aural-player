@@ -9,6 +9,15 @@
 //
 import AVFoundation
 
+///
+/// A delegate representing the Filter effects unit.
+///
+/// Acts as a middleman between the Effects UI and the Filter effects unit,
+/// providing a simplified interface / facade for the UI layer to control the Filter effects unit.
+///
+/// - SeeAlso: `FilterUnit`
+/// - SeeAlso: `FilterUnitDelegateProtocol`
+///
 class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegateProtocol {
 
     var presets: FilterPresets {return unit.presets}
