@@ -144,7 +144,7 @@ class FilterViewController: EffectsUnitViewController {
     private func addBandView(_ index: Int) {
         
         let bandCon = FilterBandViewController()
-        bandCon.band = filterUnit.getBand(index)
+        bandCon.band = filterUnit[index]
         initBandController(bandCon, index)
         
         let btnWidth = bandCon.tabButton.width

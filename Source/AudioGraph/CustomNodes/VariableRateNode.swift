@@ -10,14 +10,14 @@
 import Foundation
 import AVFoundation
 
-/*
-    Custom audio graph node that encapsulates all logic for variable playback rate.
- 
-    The node offers 2 variable rate modes:
- 
-    - Variable rate without pitch shift (i.e. playback rate is altered, without change in pitch)
-    - Variable rate with pitch shift (i.e. both playback rate and pitch are altered simultaneously and in sync)
- */
+///
+/// Custom audio graph node that encapsulates all logic for variable playback rate.
+///
+/// The node offers 2 variable rate modes:
+///
+/// - Variable rate without pitch shift (i.e. playback rate is altered, without change in pitch)
+/// - Variable rate with pitch shift (i.e. both playback rate and pitch are altered simultaneously and in sync)
+///
 class VariableRateNode {
  
     let timePitchNode: AVAudioUnitTimePitch

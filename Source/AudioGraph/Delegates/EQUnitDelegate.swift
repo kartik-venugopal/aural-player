@@ -48,8 +48,11 @@ class EQUnitDelegate: EffectsUnitDelegate<EQUnit>, EQUnitDelegateProtocol {
     
     var presets: EQPresets {return unit.presets}
     
-    func setBand(_ index: Int, gain: Float) {
-        unit.setBand(index, gain: gain)
+    /// Gets / sets the gain for the band at the given index.
+    subscript(_ index: Int) -> Float {
+        
+        get {unit[index]}
+        set {unit[index] = newValue}
     }
     
     func increaseBass() -> [Float] {

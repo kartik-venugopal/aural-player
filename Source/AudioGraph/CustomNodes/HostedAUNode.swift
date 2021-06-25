@@ -11,6 +11,11 @@ import AVFoundation
 import CoreAudioKit
 import Cocoa
 
+///
+/// A specialized subclass of **AVAudioUnitEffect** that represents an Audio Units (AU) plug-in.
+///
+/// Provides convenient access to various properties / functions of the plug-in (eg. name, version, manufacturer).
+///
 class HostedAUNode: AVAudioUnitEffect {
     
     private var avComponent: AVAudioUnitComponent!
@@ -97,6 +102,9 @@ class HostedAUNode: AVAudioUnitEffect {
     }
 }
 
+///
+/// Contract for observers that observe the bypass state of a hosted AU node.
+///
 protocol AUNodeBypassStateObserver {
     
     func nodeBypassStateChanged(_ nodeIsBypassed: Bool)

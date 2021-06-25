@@ -23,7 +23,7 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     
     init(persistentState: EQUnitPersistentState?) {
         
-        node = ParametricEQ(persistentState?.type ?? AudioGraphDefaults.eqType)
+        node = ParametricEQ(type: persistentState?.type ?? AudioGraphDefaults.eqType)
         presets = EQPresets(persistentState: persistentState)
         super.init(.eq, persistentState?.state ?? AudioGraphDefaults.eqState)
         
@@ -51,16 +51,19 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     
     var bands: [Float] {
         
-        get {return node.allBands()}
-        set {node.setBands(newValue)}
+        get {node.bands}
+        set(newBands) {node.bands = newBands}
     }
     
     override var avNodes: [AVAudioNode] {
         return node.allNodes
     }
     
-    func setBand(_ index: Int , gain: Float) {
-        node.setBand(index, gain: gain)
+    /// Gets / sets the gain for the band at the given index.
+    subscript(_ index: Int) -> Float {
+        
+        get {node[index]}
+        set {node[index] = newValue}
     }
     
     func increaseBass(_ increment: Float) -> [Float] {

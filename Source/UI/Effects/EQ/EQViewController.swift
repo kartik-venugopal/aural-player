@@ -77,7 +77,7 @@ class EQViewController: EffectsUnitViewController {
     
     // Updates the gain value of a single frequency band (specified by the slider parameter) of the Equalizer
     @IBAction func eqSliderAction(_ sender: EffectsUnitSlider) {
-        eqUnit.setBand(sender.tag, gain: sender.floatValue)
+        eqUnit[sender.tag] = sender.floatValue
     }
     
     // Provides a "bass boost". Increases each of the EQ bass bands by a certain preset increment.

@@ -16,11 +16,9 @@ protocol FilterUnitProtocol: EffectsUnitProtocol {
     
     var bands: [FilterBand] {get set}
     
-    func getBand(_ index: Int) -> FilterBand
+    subscript(_ index: Int) -> FilterBand {get set}
     
     func addBand(_ band: FilterBand) -> Int
-    
-    func updateBand(_ index: Int, _ band: FilterBand)
     
     func removeBands(_ indexSet: IndexSet)
     

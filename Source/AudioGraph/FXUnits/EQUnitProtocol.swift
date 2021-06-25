@@ -23,7 +23,7 @@ protocol EQUnitProtocol: EffectsUnitProtocol {
     var bands: [Float] {get set}
     
     // Sets the gain value of a single equalizer band identified by index (the lowest frequency band has an index of 0).
-    func setBand(_ index: Int, gain: Float)
+    subscript(_ index: Int) -> Float {get set}
     
     // Increases the equalizer bass band gains by a small increment. Returns all EQ band gain values, mapped by index.
     func increaseBass(_ increment: Float) -> [Float]

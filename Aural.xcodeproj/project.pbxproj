@@ -107,6 +107,9 @@
 		3E36340026863135006A88ED /* FilterUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633FF26863135006A88ED /* FilterUnitProtocol.swift */; };
 		3E36340226863150006A88ED /* HostedAudioUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36340126863150006A88ED /* HostedAudioUnitProtocol.swift */; };
 		3E363404268636ED006A88ED /* TrackKeyedMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363403268636ED006A88ED /* TrackKeyedMap.swift */; };
+		3E363406268639A5006A88ED /* FilterBand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363405268639A5006A88ED /* FilterBand.swift */; };
+		3E363408268639DC006A88ED /* FilterBandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363407268639DC006A88ED /* FilterBandType.swift */; };
+		3E36340A26863C63006A88ED /* ParametricEQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36340926863C63006A88ED /* ParametricEQ.swift */; };
 		3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */; };
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */; };
@@ -802,6 +805,9 @@
 		3E3633FF26863135006A88ED /* FilterUnitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUnitProtocol.swift; sourceTree = "<group>"; };
 		3E36340126863150006A88ED /* HostedAudioUnitProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitProtocol.swift; sourceTree = "<group>"; };
 		3E363403268636ED006A88ED /* TrackKeyedMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackKeyedMap.swift; sourceTree = "<group>"; };
+		3E363405268639A5006A88ED /* FilterBand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBand.swift; sourceTree = "<group>"; };
+		3E363407268639DC006A88ED /* FilterBandType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandType.swift; sourceTree = "<group>"; };
+		3E36340926863C63006A88ED /* ParametricEQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametricEQ.swift; sourceTree = "<group>"; };
 		3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyViewLoader.swift; sourceTree = "<group>"; };
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
 		3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferences.swift; sourceTree = "<group>"; };
@@ -1607,6 +1613,25 @@
 				3E3633C62685FAD0006A88ED /* HostedAudioUnit.swift */,
 			);
 			path = FXUnits;
+			sourceTree = "<group>";
+		};
+		3E36340B26863EC7006A88ED /* EQ */ = {
+			isa = PBXGroup;
+			children = (
+				3E6C111525CEB98700BF0D07 /* ParametricEQNode.swift */,
+				3E36340926863C63006A88ED /* ParametricEQ.swift */,
+			);
+			path = EQ;
+			sourceTree = "<group>";
+		};
+		3E36340C26863ECC006A88ED /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				3E6C111425CEB98700BF0D07 /* FlexibleFilterNode.swift */,
+				3E363405268639A5006A88ED /* FilterBand.swift */,
+				3E363407268639DC006A88ED /* FilterBandType.swift */,
+			);
+			path = Filter;
 			sourceTree = "<group>";
 		};
 		3E3DFFCC260D9B950092F0BF /* Metadata */ = {
@@ -2877,9 +2902,9 @@
 		3E6C111125CEB98700BF0D07 /* CustomNodes */ = {
 			isa = PBXGroup;
 			children = (
+				3E36340B26863EC7006A88ED /* EQ */,
+				3E36340C26863ECC006A88ED /* Filter */,
 				3E6C111325CEB98700BF0D07 /* VariableRateNode.swift */,
-				3E6C111425CEB98700BF0D07 /* FlexibleFilterNode.swift */,
-				3E6C111525CEB98700BF0D07 /* ParametricEQNode.swift */,
 				3ECBF3022619CD4500AD5C30 /* HostedAUNode.swift */,
 			);
 			path = CustomNodes;
@@ -3619,6 +3644,7 @@
 				3E6C11F525CEBDD100BF0D07 /* SearchQuery.swift in Sources */,
 				3E09D0E526805C19008ECB8C /* EQUnitPersistentState.swift in Sources */,
 				3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCell.swift in Sources */,
+				3E363406268639A5006A88ED /* FilterBand.swift in Sources */,
 				3ECBF30A2619DF7200AD5C30 /* AudioUnitsTableViewDelegate.swift in Sources */,
 				3E6C11AD25CEBDA200BF0D07 /* PersistentStateIO.swift in Sources */,
 				3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */,
@@ -4029,6 +4055,7 @@
 				3E3633DB2685FAD0006A88ED /* EffectsUnitProtocol.swift in Sources */,
 				3E6C12C025CEBE6700BF0D07 /* PresetsWrapper.swift in Sources */,
 				3E6C131425CEBE8F00BF0D07 /* AudioDataSource.swift in Sources */,
+				3E36340A26863C63006A88ED /* ParametricEQ.swift in Sources */,
 				3E6C12F825CEBE8F00BF0D07 /* DetailedTrackInfoRowView.swift in Sources */,
 				3E1454F32680B5000034056E /* NotificationSubscriber.swift in Sources */,
 				3E09D0C826805C19008ECB8C /* PlaylistPersistentState.swift in Sources */,
@@ -4063,6 +4090,7 @@
 				3E09D09C26805AB6008ECB8C /* DictionaryFunctions.swift in Sources */,
 				3E6C11AB25CEBDA200BF0D07 /* TrackIOErrors.swift in Sources */,
 				3EAFB5EE267FECEE00F0DC96 /* NSButtonExtensions.swift in Sources */,
+				3E363408268639DC006A88ED /* FilterBandType.swift in Sources */,
 				3E6C127425CEBE1800BF0D07 /* EffectsUnitTabButtonCell.swift in Sources */,
 				3EAFB600267FF0D400F0DC96 /* NoTitleBarWindow.swift in Sources */,
 				3E09D0EA26805C19008ECB8C /* FavoritePersistentState.swift in Sources */,

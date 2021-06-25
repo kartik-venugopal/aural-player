@@ -86,6 +86,9 @@ fileprivate enum SystemDefinedFilterPresetParams: String, CaseIterable {
     }
 }
 
+///
+/// An enumeration of Filter bands arrays for all system-defined Filter presets.
+///
 fileprivate struct FilterPresetsBands {
     
     static let passThrough: [FilterBand] = []

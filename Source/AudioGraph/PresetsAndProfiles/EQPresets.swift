@@ -116,7 +116,9 @@ fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
     }
 }
 
-// Container for specific frequency->gain mappings for different EQ presets
+///
+/// An enumeration of Equalizer band gain values for all system-defined EQ presets.
+///
 fileprivate struct EQPresetsBands {
     
     static let flatBands: [Float] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

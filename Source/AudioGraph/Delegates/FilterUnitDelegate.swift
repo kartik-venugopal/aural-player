@@ -32,8 +32,10 @@ class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegatePro
         return unit.addBand(band)
     }
     
-    func updateBand(_ index: Int, _ band: FilterBand) {
-        unit.updateBand(index, band)
+    subscript(_ index: Int) -> FilterBand {
+        
+        get {unit[index]}
+        set(newBand) {unit[index] = newBand}
     }
     
     func removeBands(_ indexSet: IndexSet) {
@@ -42,9 +44,5 @@ class FilterUnitDelegate: EffectsUnitDelegate<FilterUnit>, FilterUnitDelegatePro
     
     func removeAllBands() {
         unit.removeAllBands()
-    }
-    
-    func getBand(_ index: Int) -> FilterBand {
-        return unit.getBand(index)
     }
 }

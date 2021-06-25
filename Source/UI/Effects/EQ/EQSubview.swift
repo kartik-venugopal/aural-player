@@ -69,7 +69,10 @@ class EQSubview: NSView {
         // If number of bands doesn't match, need to perform a mapping
         if bands.count != bandSliders.count {
             
-            let mappedBands = bands.count == 10 ? EQMapper.map10BandsTo15Bands(bands, SoundConstants.ISOStandard15BandEQFrequencies) : EQMapper.map15BandsTo10Bands(bands, SoundConstants.ISOStandard10BandEQFrequencies)
+            let mappedBands = bands.count == 10 ?
+                ParametricEQ.map10BandsTo15Bands(bands) :
+                ParametricEQ.map15BandsTo10Bands(bands)
+            
             self.updateBands(mappedBands, globalGain)
             return
         }
@@ -80,20 +83,5 @@ class EQSubview: NSView {
         }
         
         globalGainSlider.floatValue = globalGain
-    }
-    
-    func updateBands(_ bands: [Float: Float], _ globalGain: Float) {
-        
-        var sortedBands: [Float] = []
-        let sortedBandsMap = bands.sorted(by: {r1, r2 -> Bool in r1.key < r2.key})
-        
-        var index = 0
-        for (_, gain) in sortedBandsMap {
-            
-            sortedBands.append(gain)
-            index.increment()
-        }
-        
-        updateBands(sortedBands, globalGain)
     }
 }

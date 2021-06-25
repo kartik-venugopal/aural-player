@@ -22,15 +22,13 @@ protocol FilterUnitDelegateProtocol: EffectsUnitDelegateProtocol {
 
     var bands: [FilterBand] {get set}
     
-    func addBand(_ band: FilterBand) -> Int
+    subscript(_ index: Int) -> FilterBand {get set}
     
-    func updateBand(_ index: Int, _ band: FilterBand)
+    func addBand(_ band: FilterBand) -> Int
     
     func removeBands(_ indexSet: IndexSet)
     
     func removeAllBands()
-    
-    func getBand(_ index: Int) -> FilterBand
     
     var presets: FilterPresets {get}
 }

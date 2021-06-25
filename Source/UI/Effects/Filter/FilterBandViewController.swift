@@ -33,7 +33,7 @@ class FilterBandViewController: NSViewController {
     
     private var functionLabels: [NSTextField] = []
     
-    private let filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
+    private var filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
@@ -128,7 +128,7 @@ class FilterBandViewController: NSViewController {
             band.maxFreq = filterType == .lowPass ? cutoffSlider.frequency : nil
         }
         
-        filterUnit.updateBand(bandIndex, band)
+        filterUnit[bandIndex] = band
         
         bandChangedCallback()
     }
@@ -138,7 +138,7 @@ class FilterBandViewController: NSViewController {
         band.minFreq = freqRangeSlider.startFrequency
         band.maxFreq = freqRangeSlider.endFrequency
         
-        filterUnit.updateBand(bandIndex, band)
+        filterUnit[bandIndex] = band
         
         lblFrequencies.stringValue = String(format: "[ %@ - %@ ]", formatFrequency(freqRangeSlider.startFrequency), formatFrequency(freqRangeSlider.endFrequency))
         
@@ -150,7 +150,7 @@ class FilterBandViewController: NSViewController {
         band.minFreq = band.type == .lowPass ? nil : cutoffSlider.frequency
         band.maxFreq = band.type == .lowPass ? cutoffSlider.frequency : nil
         
-        filterUnit.updateBand(bandIndex, band)
+        filterUnit[bandIndex] = band
         
         lblFrequencies.stringValue = formatFrequency(cutoffSlider.frequency)
         

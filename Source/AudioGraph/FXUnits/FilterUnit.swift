@@ -31,8 +31,8 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
     
     var bands: [FilterBand] {
         
-        get {node.allBands()}
-        set {node.setBands(newValue)}
+        get {node.activeBands}
+        set(newBands) {node.activeBands = newBands}
     }
     
     override func stateChanged() {
@@ -41,16 +41,14 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         node.bypass = !isActive
     }
     
-    func getBand(_ index: Int) -> FilterBand {
-        return node.getBand(index)
+    subscript(_ index: Int) -> FilterBand {
+        
+        get {node[index]}
+        set(newBand) {node[index] = newBand}
     }
     
     func addBand(_ band: FilterBand) -> Int {
         return node.addBand(band)
-    }
-    
-    func updateBand(_ index: Int, _ band: FilterBand) {
-        node.updateBand(index, band)
     }
     
     func removeBands(_ indexSet: IndexSet) {
