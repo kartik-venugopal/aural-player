@@ -4,7 +4,7 @@
 
 ### Update (June 16, 2021)
 
-**Machines with Apple silicon are now supported !**
+**Machines with Apple silicon (M1) are now supported !**
 
 [Try it out](https://github.com/maculateConception/aural-player/releases/latest).
 
@@ -122,6 +122,8 @@ Some pages to get you started:
 [How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
 
 [Handy keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts)
+
+[Building and running Aural Player (quick start guide)](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide))
 
 [Developer reference](https://github.com/maculateConception/aural-player/wiki/Developer-reference)
 
