@@ -9,9 +9,9 @@
 //
 import Foundation
 
-private typealias Favorites = MappedPresets<Favorite>
-
 class FavoritesDelegate: FavoritesDelegateProtocol {
+    
+    private typealias Favorites = MappedPresets<Favorite>
     
     private let favorites: Favorites
     

@@ -18,11 +18,9 @@ class AudioIO {
     static func createAudioFileForWriting(_ url: URL, _ settings: [String: Any]) -> AVAudioFile? {
         
         // Create the output file with the specified format
-        var audioFile: AVAudioFile?
         do {
             
-            audioFile = try AVAudioFile(forWriting: url, settings: settings)
-            return audioFile
+            return try AVAudioFile(forWriting: url, settings: settings)
             
         } catch let error as NSError {
             

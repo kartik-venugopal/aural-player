@@ -25,11 +25,12 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
     
     var lastPlayedTrack: Track?
     
-    let backgroundQueue: DispatchQueue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+    let backgroundQueue: DispatchQueue = .global(qos: .background)
     
     let subscriberId: String = "HistoryDelegate"
     
-    init(persistentState: HistoryPersistentState?, _ history: HistoryProtocol, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
+    init(persistentState: HistoryPersistentState?, _ history: HistoryProtocol,
+         _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.history = history
         self.playlist = playlist
@@ -109,8 +110,8 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
         
         let allHistory = history.allRecentlyPlayedItems()
         
-        let index1 = allHistory.firstIndex(where: {$0.file.path == track1.path})
-        let index2 = allHistory.firstIndex(where: {$0.file.path == track2.path})
+        let index1 = allHistory.firstIndex(where: {$0.file == track1})
+        let index2 = allHistory.firstIndex(where: {$0.file == track2})
         
         if index1 == nil && index2 == nil {
             return .orderedSame

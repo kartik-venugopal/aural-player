@@ -9,9 +9,9 @@
 //
 import Foundation
 
-fileprivate typealias Bookmarks = MappedPresets<Bookmark>
-
 class BookmarksDelegate: BookmarksDelegateProtocol {
+    
+    private typealias Bookmarks = MappedPresets<Bookmark>
     
     private let bookmarks: Bookmarks
     
