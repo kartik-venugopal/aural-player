@@ -189,33 +189,11 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true)
 
-## Known issues
+## Known issues (and solutions)
 
-### 1 - The text is too small on my high resolution Mac screen !!!
+* [The text is too small on my Mac screen.](https://github.com/maculateConception/aural-player/wiki/App-text-is-too-small-on-my-Mac-screen)
 
-The fix for this is easy. 
-
-#### On v2.5.0 or newer versions: 
-
-Go to the menu **View > Font scheme > Customize**, and either increase the font sizes of the various UI textual elements, and/or choose different font faces, per your preference.
-
-#### On v2.4.0 or older versions: 
-
-Go to the menu **View > Text Size**, and choose the ***Larger*** or ***Largest*** text size preset, per your preference.
-
-### 2 - Bad audio quality when connecting Bluetooth headphones
-
-If you notice poor audio quality when you first connect Bluetooth headphones, try the following:
-
-**Fix# 1 - Set your system's input device to the built-in device**
-
-When you connect Bluetooth headphones to your Mac, if your headphones have a microphone, the OS will typically switch to using your Bluetooth microphone as its input device. Simply go to **System Preferences > Sound > Input**, and change the input device back to your Mac's built-in input device.
-
-This should fix the problem. If not, try Fix# 2.
-
-**Fix# 2 - Change your system's Bluetooth audio codec settings**
-
-Follow the steps clearly detailed [here](https://www.macrumors.com/how-to/enable-aptx-aac-bluetooth-audio-codecs-macos/).
+* [Poor audio quality when using Bluetooth headsets.](https://github.com/maculateConception/aural-player/wiki/Poor-audio-quality-when-using-Bluetooth-headsets)
 
 ## Contact and conversation
 
