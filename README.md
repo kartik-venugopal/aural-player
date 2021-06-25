@@ -146,7 +146,7 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ![Menu Bar Player screenshot](/Documentation/Screenshots/MenuBarPlayer.png?raw=true)
 
-### Control Center integration
+### Control Center integration (macOS Big Sur)
 
 ![Control Center integration 1 screenshot](/Documentation/Screenshots/ControlCenter1.png?raw=true)
 
