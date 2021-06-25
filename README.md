@@ -200,13 +200,15 @@ NOTE - The documentation is incomplete and is a work in progress.
 
 ## Contact and conversation
 
-Aural Player is now on Twitter: https://twitter.com/AuralPlayer ! Follow me there for informal updates or to provide feedback or start a conversation about features you'd like to see or bugs you've encountered (in addition to GitHub issues, of course).
+I encourage you to provide feedback or start a conversation about features you'd like to see or bugs you've encountered (in addition to GitHub issues, of course). There are multiple ways to start a conversation.
 
-You can also contact me via email: [aural.student@gmail.com](mailto:aural.student@gmail.com).
+**Twitter:** https://twitter.com/AuralPlayer. I will try to post informal updates there.
 
-Any feedback, questions, issues, suggestions, or other comments related to the project are welcome ... spam is not :)
+**Email:** [aural.student@gmail.com](mailto:aural.student@gmail.com)
 
-Of course, you may also file issues right here on GitHub as needed. I'm usually pretty good at responding to them, even if I'm not always able to fix them.
+**GitHub Issues** https://github.com/maculateConception/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
+
+Any feedback, questions, issues, suggestions, or other comments related to the project are welcome. I look forward to hearing from you !
 
 ## Third party code attributions
 
