@@ -7,6 +7,8 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+import Cocoa
+
 /*
     View controller that handles the assembly of the player view tree from its multiple pieces, and switches between high-level views depending on current player state (i.e. playing / stopped, etc).
  
@@ -20,8 +22,6 @@
  
         - Functions toolbar (detailed track info / favorite / bookmark, etc)
  */
-import Cocoa
-
 class PlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
 
     @IBOutlet weak var playbackViewController: PlaybackViewController!
@@ -86,7 +86,8 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     
     func destroy() {
         
-        ([playbackViewController, playerAudioViewController, playerSequencingViewController, playingTrackFunctionsViewController] as? [Destroyable])?.forEach {$0.destroy()}
+        [playbackViewController, playerAudioViewController, playerSequencingViewController,
+          playingTrackFunctionsViewController].forEach {($0 as? Destroyable)?.destroy()}
         
         Messenger.unsubscribeAll(for: self)
     }

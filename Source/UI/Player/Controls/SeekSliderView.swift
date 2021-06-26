@@ -27,13 +27,13 @@ class SeekSliderView: NSView {
     @IBOutlet weak var seekSliderCloneCell: SeekSliderCell!
     
     // Timer that periodically updates the seek position slider and label
-    fileprivate var seekTimer: RepeatingTaskExecutor?
+    var seekTimer: RepeatingTaskExecutor?
     
     // Delegate representing the Time effects unit
-    fileprivate let timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
+    let timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    fileprivate let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
     var seekSliderValue: Double {seekSlider.doubleValue}
     
@@ -113,8 +113,6 @@ class SeekSliderView: NSView {
         let seekPosn = player.seekPosition
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
-        print("USP: \(seekPosn)")
-        
         let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
@@ -125,7 +123,7 @@ class SeekSliderView: NSView {
         }
     }
     
-    fileprivate func setSeekTimerState(_ timerOn: Bool) {
+    func setSeekTimerState(_ timerOn: Bool) {
         timerOn ? seekTimer?.startOrResume() : seekTimer?.pause()
     }
     
@@ -191,65 +189,5 @@ class SeekSliderView: NSView {
             
             setSeekTimerState(playbackState == .playing)
         }
-    }
-}
-
-class MenuBarModeSeekSliderView: SeekSliderView {
-    
-    func stopUpdatingSeekPosition() {
-        setSeekTimerState(false)
-    }
-    
-    func resumeUpdatingSeekPosition() {
-        
-        updateSeekPosition()
-        setSeekTimerState(true)
-    }
-}
-
-class WindowedModeSeekSliderView: SeekSliderView, ColorSchemeable {
-    
-    // Used to display the bookmark name prompt popover
-    @IBOutlet weak var seekPositionMarker: NSView!
-    
-    fileprivate let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    fileprivate let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
-    
-    override func awakeFromNib() {
-        
-        super.awakeFromNib()
-        
-        applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(colorSchemesManager.systemScheme)
-    }
-    
-    func applyFontScheme(_ fontScheme: FontScheme) {
-        
-        lblTimeElapsed.font = fontSchemesManager.systemScheme.player.trackTimesFont
-        lblTimeRemaining.font = fontSchemesManager.systemScheme.player.trackTimesFont
-    }
-    
-    func applyColorScheme(_ scheme: ColorScheme) {
-        
-        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
-        changeSliderColors()
-    }
-    
-    func changeSliderValueTextColor(_ color: NSColor) {
-        
-        lblTimeElapsed.textColor = Colors.Player.trackTimesTextColor
-        lblTimeRemaining.textColor = Colors.Player.trackTimesTextColor
-    }
-    
-    func changeSliderColors() {
-        seekSlider.redraw()
-    }
-    
-    // Positions the "seek position marker" view at the center of the seek slider knob.
-    func positionSeekPositionMarkerView() {
-        
-        // Slider knob position
-        let knobRect = seekSliderCell.knobRect(flipped: false)
-        seekPositionMarker.setFrameOrigin(NSPoint(x: seekSlider.frame.minX + knobRect.minX, y: seekSlider.frame.minY + knobRect.minY))
     }
 }

@@ -69,7 +69,7 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     
     // The displayed track title
     private var title: String? {
-        return trackInfo?.displayName
+        return trackInfo?.title
     }
     
     // The displayed track artist (displayed only if user setting allows it)

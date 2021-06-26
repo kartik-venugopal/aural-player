@@ -34,7 +34,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
-    // TODO: Implement this for volume control / seeking, etc ?
+    // TODO: Implement this for volume control / seeking, etc ???
 //    private var gestureHandler: GestureHandler?
     
     // Delegate that conveys all playback requests to the player / playback sequencer

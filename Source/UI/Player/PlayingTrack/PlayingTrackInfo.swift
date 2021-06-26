@@ -33,7 +33,7 @@ struct PlayingTrackInfo {
         return track.album
     }
     
-    var displayName: String? {
+    var title: String? {
         return track.title ?? track.defaultDisplayName
     }
 }
