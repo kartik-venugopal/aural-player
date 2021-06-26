@@ -14,6 +14,8 @@ import Cocoa
 
 class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destroyable {
     
+    fileprivate var showsPanControl: Bool {true}
+    
     // Volume/pan controls
     @IBOutlet weak var btnVolume: TintedImageButton!
     @IBOutlet weak var volumeSlider: NSSlider!
@@ -24,24 +26,24 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     @IBOutlet weak var lblPan: VALabel!
     
     // Wrappers around the feedback labels that automatically hide them after showing them for a brief interval
-    private var autoHidingVolumeLabel: AutoHidingView!
-    private var autoHidingPanLabel: AutoHidingView!
+    fileprivate var autoHidingVolumeLabel: AutoHidingView!
+    fileprivate var autoHidingPanLabel: AutoHidingView!
     
     @IBOutlet weak var lblPanCaption: VALabel!
     @IBOutlet weak var lblPanCaption2: VALabel!
     
     // Delegate that conveys all volume/pan adjustments to the audio graph
-    private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
-    private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
-    private let soundPreferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
+    fileprivate var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    fileprivate let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
+    fileprivate let soundPreferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    fileprivate let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    fileprivate let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     // Numerical ranges
-    private let highVolumeRange: ClosedRange<Float> = 200.0/3...100
-    private let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
-    private let lowVolumeRange: Range<Float> = 1..<100.0/3
+    fileprivate let highVolumeRange: ClosedRange<Float> = 200.0/3...100
+    fileprivate let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
+    fileprivate let lowVolumeRange: Range<Float> = 1..<100.0/3
     
     // Time intervals for which feedback labels or views that are to be auto-hidden are displayed, before being hidden
     static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
@@ -49,46 +51,25 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     override func viewDidLoad() {
         
         // Ugly hack to properly align pan slider on Big Sur.
-        if SystemUtils.isBigSur {
+        if SystemUtils.isBigSur, showsPanControl {
             panSlider.moveUp(distance: 3)
         }
         
         autoHidingVolumeLabel = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
-        autoHidingPanLabel = AutoHidingView(lblPan, Self.feedbackLabelAutoHideIntervalSeconds)
-        
         volumeSlider.floatValue = audioGraph.volume
         volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
         
-        panSlider.floatValue = audioGraph.balance
-        panChanged(audioGraph.balance, false)
+        if showsPanControl {
+            
+            autoHidingPanLabel = AutoHidingView(lblPan, Self.feedbackLabelAutoHideIntervalSeconds)
+            panSlider.floatValue = audioGraph.balance
+            panChanged(audioGraph.balance, false)
+        }
         
-        applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(colorSchemesManager.systemScheme)
-
         initSubscriptions()
     }
     
-    private func initSubscriptions() {
-        
-        // Subscribe to notifications
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged},
-                                 queue: .main)
-        
-        Messenger.subscribe(self, .player_muteOrUnmute, self.muteOrUnmute)
-        Messenger.subscribe(self, .player_decreaseVolume, self.decreaseVolume(_:))
-        Messenger.subscribe(self, .player_increaseVolume, self.increaseVolume(_:))
-        
-        Messenger.subscribe(self, .player_panLeft, self.panLeft)
-        Messenger.subscribe(self, .player_panRight, self.panRight)
-        
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
-        Messenger.subscribe(self, .player_changeSliderValueTextColor, self.changeSliderValueTextColor(_:))
-    }
+    fileprivate func initSubscriptions() {}
     
     func destroy() {
         Messenger.unsubscribeAll(for: self)
@@ -106,28 +87,14 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
         muteOrUnmute()
     }
     
-    private func muteOrUnmute() {
+    fileprivate func muteOrUnmute() {
         
         audioGraph.muted.toggle()
         updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
     }
     
-    // Decreases the volume by a certain preset decrement
-    private func decreaseVolume(_ inputMode: UserInputMode) {
-        
-        let newVolume = audioGraph.decreaseVolume(inputMode)
-        volumeChanged(newVolume, audioGraph.muted)
-    }
-    
-    // Increases the volume by a certain preset increment
-    private func increaseVolume(_ inputMode: UserInputMode) {
-        
-        let newVolume = audioGraph.increaseVolume(inputMode)
-        volumeChanged(newVolume, audioGraph.muted)
-    }
-    
     // updateSlider should be true if the action was not triggered by the slider in the first place.
-    private func volumeChanged(_ volume: Float, _ muted: Bool, _ updateSlider: Bool = true, _ showFeedback: Bool = true) {
+    fileprivate func volumeChanged(_ volume: Float, _ muted: Bool, _ updateSlider: Bool = true, _ showFeedback: Bool = true) {
         
         if updateSlider {
             volumeSlider.floatValue = volume
@@ -143,7 +110,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
         }
     }
     
-    private func updateVolumeMuteButtonImage(_ volume: Float, _ muted: Bool) {
+    fileprivate func updateVolumeMuteButtonImage(_ volume: Float, _ muted: Bool) {
 
         if muted {
             
@@ -182,20 +149,20 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     }
     
     // Pans the sound towards the left channel, by a certain preset value
-    private func panLeft() {
+    fileprivate func panLeft() {
         
         panChanged(audioGraph.panLeft())
         panSlider.floatValue = audioGraph.balance
     }
     
     // Pans the sound towards the right channel, by a certain preset value
-    private func panRight() {
+    fileprivate func panRight() {
         
         panChanged(audioGraph.panRight())
         panSlider.floatValue = audioGraph.balance
     }
     
-    private func panChanged(_ pan: Float, _ showFeedback: Bool = true) {
+    fileprivate func panChanged(_ pan: Float, _ showFeedback: Bool = true) {
         
         lblPan.stringValue = ValueFormatter.formatPan(pan)
         
@@ -203,6 +170,74 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
         if showFeedback {
             autoHidingPanLabel.showView()
         }
+    }
+    
+    fileprivate func trackChanged(_ newTrack: Track?) {
+        
+        // Apply sound profile if there is one for the new track and the preferences allow it
+        if let theNewTrack = newTrack, soundProfiles.hasFor(theNewTrack) {
+
+            volumeChanged(audioGraph.volume, audioGraph.muted)
+            
+            if showsPanControl {
+                panChanged(audioGraph.balance)
+            }
+        }
+    }
+    
+    // MARK: Message handling
+    
+    func trackTransitioned(_ notification: TrackTransitionNotification) {
+        trackChanged(notification.endTrack)
+    }
+}
+
+class WindowedModePlayerAudioViewController: PlayerAudioViewController {
+    
+    override fileprivate var showsPanControl: Bool {true}
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        applyFontScheme(fontSchemesManager.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
+    }
+    
+    override fileprivate func initSubscriptions() {
+        
+        // Subscribe to notifications
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+                                 filter: {msg in msg.trackChanged},
+                                 queue: .main)
+        
+        Messenger.subscribe(self, .player_muteOrUnmute, self.muteOrUnmute)
+        Messenger.subscribe(self, .player_decreaseVolume, self.decreaseVolume(_:))
+        Messenger.subscribe(self, .player_increaseVolume, self.increaseVolume(_:))
+        
+        Messenger.subscribe(self, .player_panLeft, self.panLeft)
+        Messenger.subscribe(self, .player_panRight, self.panRight)
+        
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
+        Messenger.subscribe(self, .player_changeSliderValueTextColor, self.changeSliderValueTextColor(_:))
+    }
+    
+    // Decreases the volume by a certain preset decrement
+    fileprivate func decreaseVolume(_ inputMode: UserInputMode) {
+        
+        let newVolume = audioGraph.decreaseVolume(inputMode)
+        volumeChanged(newVolume, audioGraph.muted)
+    }
+    
+    // Increases the volume by a certain preset increment
+    fileprivate func increaseVolume(_ inputMode: UserInputMode) {
+        
+        let newVolume = audioGraph.increaseVolume(inputMode)
+        volumeChanged(newVolume, audioGraph.muted)
     }
     
     private func applyTheme() {
@@ -239,20 +274,24 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
         lblVolume.textColor = Colors.Player.feedbackTextColor
         lblPan.textColor = Colors.Player.feedbackTextColor
     }
-    
-    private func trackChanged(_ newTrack: Track?) {
-        
-        // Apply sound profile if there is one for the new track and the preferences allow it
-        if let theNewTrack = newTrack, soundProfiles.hasFor(theNewTrack) {
+}
 
-            volumeChanged(audioGraph.volume, audioGraph.muted)
-            panChanged(audioGraph.balance)
-        }
+class MenuBarPlayerAudioViewController: PlayerAudioViewController {
+    
+    override fileprivate var showsPanControl: Bool {false}
+    
+    override func viewDidLoad() {
+        
+        btnVolume.tintFunction = {Colors.Constants.white70Percent}
+        btnVolume.reTint()
+        
+        super.viewDidLoad()
     }
     
-    // MARK: Message handling
-    
-    func trackTransitioned(_ notification: TrackTransitionNotification) {
-        trackChanged(notification.endTrack)
+    override fileprivate func initSubscriptions() {
+        
+        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+                                 filter: {msg in msg.trackChanged},
+                                 queue: .main)
     }
 }

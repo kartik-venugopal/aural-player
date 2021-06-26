@@ -44,3 +44,5 @@ protocol Tintable {
     
     func reTint()
 }
+
+typealias TintFunction = () -> NSColor

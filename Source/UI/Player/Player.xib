@@ -46,7 +46,7 @@
             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Wuq-H7-8ix" customClass="SeekSliderCell" customModule="Aural" customModuleProvider="target"/>
             <point key="canvasLocation" x="-2884" y="682"/>
         </slider>
-        <customObject id="bbe-2a-cSz" customClass="PlayerAudioViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="bbe-2a-cSz" customClass="WindowedModePlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnVolume" destination="TDX-6H-xzc" id="aKC-Wy-MKo"/>
                 <outlet property="lblPan" destination="02u-ld-jAl" id="UKa-6E-34Y"/>
@@ -58,7 +58,7 @@
                 <outlet property="volumeSlider" destination="cwg-dx-g0W" id="a3W-1D-UVU"/>
             </connections>
         </customObject>
-        <customObject id="BqW-FI-x6I" customClass="PlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="BqW-FI-x6I" customClass="WindowedModePlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnRepeat" destination="Ej8-94-UBa" id="i74-hI-Kp8"/>
                 <outlet property="btnShuffle" destination="Uj9-rY-xm0" id="Is0-zP-nc3"/>

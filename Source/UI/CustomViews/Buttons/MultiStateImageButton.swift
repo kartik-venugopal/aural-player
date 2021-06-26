@@ -15,7 +15,7 @@ import Cocoa
 class MultiStateImageButton: NSButton, Tintable {
  
     // 1-1 mappings of a particular state to a particular image. Intended to be set by code using this button.
-    var stateImageMappings: [(state: Any, imageAndTintFunction: (image: NSImage, tintFunction: () -> NSColor))]! {
+    var stateImageMappings: [(state: Any, imageAndTintFunction: (image: NSImage, tintFunction: TintFunction))]! {
         
         didSet {
             // Each state value is converted to a String representation for storing in a lookup map (map keys needs to be Hashable)

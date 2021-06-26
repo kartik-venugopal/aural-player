@@ -13,7 +13,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,17 +27,13 @@
                 <outlet property="btnPreviousTrack" destination="rru-Ww-H57" id="fLW-hW-vUg"/>
                 <outlet property="btnQuit" destination="D5e-Eq-c87" id="W9N-98-Y2T"/>
                 <outlet property="btnRegularMode" destination="GS3-VZ-nPx" id="1he-Yy-8mg"/>
-                <outlet property="btnRepeat" destination="oIU-fy-2aj" id="oLq-IW-EcE"/>
                 <outlet property="btnSeekBackward" destination="9dh-O3-hsB" id="IU0-kI-0mF"/>
                 <outlet property="btnSeekForward" destination="G2a-Rd-K5w" id="S5s-qR-WeA"/>
                 <outlet property="btnSettings" destination="8UO-59-iT0" id="YE7-BV-Zxd"/>
-                <outlet property="btnShuffle" destination="CGV-J4-5aK" id="qjY-dM-xrL"/>
-                <outlet property="btnVolume" destination="P5p-7u-pjj" id="Uhl-L9-FyY"/>
                 <outlet property="imgArt" destination="4dk-EH-BOI" id="cpf-qA-qGH"/>
                 <outlet property="infoBox" destination="vrX-Nw-abT" id="UMp-4M-mG7"/>
                 <outlet property="lblTimeElapsed" destination="WYU-tl-It4" id="JyC-79-Q6m"/>
                 <outlet property="lblTimeRemaining" destination="tuQ-Mc-uU0" id="2x8-FY-WQq"/>
-                <outlet property="lblVolume" destination="ifp-dM-R5z" id="Eng-E8-Fy5"/>
                 <outlet property="seekSlider" destination="cMO-ue-ceg" id="kVV-63-x6U"/>
                 <outlet property="seekSliderCell" destination="UsT-W0-Z4w" id="9yx-f6-hh1"/>
                 <outlet property="seekSliderClone" destination="1Kq-UT-L4a" id="lJy-Lc-qXo"/>
@@ -45,7 +41,6 @@
                 <outlet property="settingsBox" destination="Prg-DV-9kD" id="SJh-9G-KG7"/>
                 <outlet property="trackInfoView" destination="RjK-18-fyJ" id="WQ1-Cc-2d0"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="7Tk-vw-vqd"/>
-                <outlet property="volumeSlider" destination="LQL-m8-1KN" id="kcc-oV-tss"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -140,7 +135,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="repeatAction:" target="-2" id="4lJ-1m-DGd"/>
+                                <action selector="repeatAction:" target="CIt-5z-Hlz" id="bda-jo-mpx"/>
                             </connections>
                         </button>
                         <button toolTip="Shuffle" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CGV-J4-5aK" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -151,7 +146,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="shuffleAction:" target="-2" id="2YH-PH-fQC"/>
+                                <action selector="shuffleAction:" target="CIt-5z-Hlz" id="9tJ-Dn-sHW"/>
                             </connections>
                         </button>
                         <button toolTip="A-&gt;B Segment loop" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cut-80-aL8" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
@@ -176,7 +171,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="VolumeMedium"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="muteOrUnmuteAction:" target="-2" id="iAj-x5-WPd"/>
+                                <action selector="muteOrUnmuteAction:" target="c56-oI-v2n" id="j5Z-Gj-mee"/>
                             </connections>
                         </button>
                         <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m2Q-Qd-juj" userLabel="PlayPause Button" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
@@ -268,7 +263,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="gbw-fl-UMB" customClass="MenuBarVolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
-                                <action selector="volumeAction:" target="-2" id="3cV-Xu-u1z"/>
+                                <action selector="volumeAction:" target="c56-oI-v2n" id="soM-tQ-XXe"/>
                             </connections>
                         </slider>
                         <textField hidden="YES" wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYU-tl-It4" userLabel="Lbl Time Elapsed" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
@@ -435,6 +430,21 @@
                 <outlet property="settingsBox" destination="Prg-DV-9kD" id="kfA-gq-jgs"/>
                 <outlet property="trackInfoView" destination="RjK-18-fyJ" id="bt3-Dk-LjT"/>
                 <outlet property="view" destination="Prg-DV-9kD" id="mTz-nN-uX2"/>
+            </connections>
+        </customObject>
+        <customObject id="CIt-5z-Hlz" customClass="MenuBarModePlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnRepeat" destination="oIU-fy-2aj" id="i2k-o2-Y4b"/>
+                <outlet property="btnShuffle" destination="CGV-J4-5aK" id="tNj-6p-0fI"/>
+                <outlet property="view" destination="A8P-gF-rZh" id="Gfk-6D-0gi"/>
+            </connections>
+        </customObject>
+        <customObject id="c56-oI-v2n" customClass="MenuBarPlayerAudioViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="btnVolume" destination="P5p-7u-pjj" id="T1X-br-huH"/>
+                <outlet property="lblVolume" destination="ifp-dM-R5z" id="Qsp-bN-9fE"/>
+                <outlet property="view" destination="A8P-gF-rZh" id="KoY-nE-tpV"/>
+                <outlet property="volumeSlider" destination="LQL-m8-1KN" id="IlP-oD-Ld4"/>
             </connections>
         </customObject>
     </objects>

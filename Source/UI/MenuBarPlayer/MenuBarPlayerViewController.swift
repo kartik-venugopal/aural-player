@@ -26,8 +26,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     @IBOutlet weak var btnSeekBackward: TintedImageButton!
     @IBOutlet weak var btnSeekForward: TintedImageButton!
     
-    @IBOutlet weak var btnRepeat: MultiStateImageButton!
-    @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnLoop: MultiStateImageButton!
     
     // Buttons whose tool tips may change
@@ -52,11 +50,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     @IBOutlet weak var lblTimeElapsed: VALabel!
     @IBOutlet weak var lblTimeRemaining: VALabel!
     
-    @IBOutlet weak var btnVolume: TintedImageButton!
-    @IBOutlet weak var volumeSlider: NSSlider!
-    @IBOutlet weak var lblVolume: VALabel!
-    private var autoHidingVolumeLabel: AutoHidingView!
-    
     @IBOutlet weak var btnSettings: TintedImageButton!
     @IBOutlet weak var settingsBox: NSBox!
     
@@ -72,14 +65,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
-    // Numerical ranges
-    private let highVolumeRange: ClosedRange<Float> = 200.0/3...100
-    private let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
-    private let lowVolumeRange: Range<Float> = 1..<100.0/3
-    
-    // Time intervals for which feedback labels or views that are to be auto-hidden are displayed, before being hidden
-    static let feedbackLabelAutoHideIntervalSeconds: TimeInterval = 1
-    
     override func awakeFromNib() {
         
         btnPlayPause.off()
@@ -91,16 +76,9 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
         let onStateTintFunction = {Colors.Constants.white70Percent}
         
-        btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeatOff, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeatAll, onStateTintFunction))]
-
-        btnShuffle.stateImageMappings = [(ShuffleMode.off, (Images.imgShuffleOff, offStateTintFunction)), (ShuffleMode.on, (Images.imgShuffleOn, onStateTintFunction))]
-
         btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoopOff, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
         
-        updateRepeatAndShuffleControls(sequencer.repeatAndShuffleModes)
-        [btnRepeat, btnShuffle, btnLoop].forEach {
-            $0?.reTint()
-        }
+        btnLoop.reTint()
 
         // Play/pause button does not really have an "off" state
         btnPlayPause.onStateTintFunction = onStateTintFunction
@@ -125,7 +103,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
             return nil
         }
         
-        [btnQuit, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward, btnVolume].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
+        [btnQuit, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
         
         appLogo.tintFunction = {Colors.Constants.white70Percent}
 
@@ -134,13 +112,9 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         // MARK: Notification subscriptions
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
-        
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
-        
         Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
-        
         Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
-        
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
     }
     
@@ -149,11 +123,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     }
     
     override func viewDidLoad() {
-        
-        autoHidingVolumeLabel = AutoHidingView(lblVolume, Self.feedbackLabelAutoHideIntervalSeconds)
-        
-        volumeSlider.floatValue = audioGraph.volume
-        volumeChanged(audioGraph.volume, audioGraph.muted, true, false)
         
         let seekTimerInterval = (1000 / (2 * audioGraph.timeUnit.effectiveRate)).roundedInt
         
@@ -329,22 +298,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         player.stop()
     }
     
-    // Toggles the repeat mode
-    @IBAction func repeatAction(_ sender: AnyObject) {
-        updateRepeatAndShuffleControls(sequencer.toggleRepeatMode())
-    }
-    
-    // Toggles the shuffle mode
-    @IBAction func shuffleAction(_ sender: AnyObject) {
-        updateRepeatAndShuffleControls(sequencer.toggleShuffleMode())
-    }
-    
-    private func updateRepeatAndShuffleControls(_ modes: (repeatMode: RepeatMode, shuffleMode: ShuffleMode)) {
-
-        btnShuffle.switchState(modes.shuffleMode)
-        btnRepeat.switchState(modes.repeatMode)
-    }
-    
     // Toggles the state of the segment playback loop for the currently playing track
     @IBAction func toggleLoopAction(_ sender: AnyObject) {
         toggleLoop()
@@ -394,71 +347,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         updateSeekPosition()
     }
     
-    @IBAction func volumeAction(_ sender: AnyObject) {
-        
-        audioGraph.volume = volumeSlider.floatValue
-        volumeChanged(audioGraph.volume, audioGraph.muted, false)
-    }
-    
-    // Mutes or unmutes the player
-    @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        muteOrUnmute()
-    }
-    
-    private func muteOrUnmute() {
-        
-        audioGraph.muted.toggle()
-        updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
-    }
-    
-    // updateSlider should be true if the action was not triggered by the slider in the first place.
-    private func volumeChanged(_ volume: Float, _ muted: Bool, _ updateSlider: Bool = true, _ showFeedback: Bool = true) {
-        
-        if updateSlider {
-            volumeSlider.floatValue = volume
-        }
-        
-        lblVolume.stringValue = ValueFormatter.formatVolume(volume)
-        
-        updateVolumeMuteButtonImage(volume, muted)
-        
-        // Shows and automatically hides the volume label after a preset time interval
-        if showFeedback {
-            autoHidingVolumeLabel.showView()
-        }
-    }
-    
-    private func updateVolumeMuteButtonImage(_ volume: Float, _ muted: Bool) {
-
-        if muted {
-            
-            btnVolume.baseImage = Images.imgMute
-            
-        } else {
-
-            // Zero / Low / Medium / High (different images)
-            
-            switch volume {
-                
-            case highVolumeRange:
-                
-                btnVolume.baseImage = Images.imgVolumeHigh
-                
-            case mediumVolumeRange:
-                
-                btnVolume.baseImage = Images.imgVolumeMedium
-                
-            case lowVolumeRange:
-                
-                btnVolume.baseImage = Images.imgVolumeLow
-                
-            default:
-                
-                btnVolume.baseImage = Images.imgVolumeZero
-            }
-        }
-    }
-    
     @IBAction func showOrHideSettingsAction(_ sender: NSButton) {
         
         if settingsBox.isHidden {
@@ -506,13 +394,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         
         updateTrackInfo()
         stateChanged(player.state)
-        
-        if let newTrack = notification.endTrack, audioGraph.soundProfiles.hasFor(newTrack) {
-            
-            // As a result of a sound profile for this track, volume may have changed.
-            volumeSlider.floatValue = audioGraph.volume
-            volumeChanged(audioGraph.volume, audioGraph.muted, true, true)
-        }
     }
     
     // When track info for the playing track changes, display fields need to be updated

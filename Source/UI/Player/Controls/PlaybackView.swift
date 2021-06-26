@@ -43,10 +43,10 @@ class PlaybackView: NSView, ColorSchemeable {
     override func awakeFromNib() {
         
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
-        let offStateTintFunction = {return Colors.toggleButtonOffStateColor}
+        let offStateTintFunction = {Colors.toggleButtonOffStateColor}
         
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
-        let onStateTintFunction = {return Colors.functionButtonColor}
+        let onStateTintFunction = {Colors.functionButtonColor}
 
         btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoopOff, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
 
