@@ -9,20 +9,27 @@
 //
 import AVFoundation
 
-/*
-     Represents a playback session, which begins with either the user requesting a new track (by clicking Play/Next track/Previous track/Play selected track) or the player plays the next track in the sequence upon completion of the previous one. The session ends when a new request is received or playback of the current session completes.
-     
-     The lifecycle of a session is as follows:
-     
-     start() -> Session is now current
-     end() -> Session is no longer current. There is no current session.
-     
-     If a new session is started while the current one is still active (playing), the old one is implicitly ended, and the new session becomes both current. In other words, the following code will start session1, then start session2, ending session1 ...
-     
-     start() -> starts session1
-     start() -> starts session2, ending session1
- 
- */
+///
+/// Represents a playback session, which begins with either the user requesting a new track
+/// (by clicking Play/Next track/Previous track/Play selected track) or the player plays the next
+/// track in the sequence upon completion of the previous one. The session ends when a new
+/// request is received or playback of the current session completes.
+///
+/// The lifecycle of a session is as follows:
+///
+/// start() -> Session is now current.
+/// end() -> Session is no longer current. There is no current session.
+///
+/// If a new session is started while the current one is still active (playing), the old one is implicitly
+/// ended, and the new session becomes current. In other words, the following code will start
+/// session1, then start session2, ending session1 ...
+///
+/// start() -> starts session1
+/// start() -> starts session2, ending session1
+///
+/// This class is used by the Player and schedulers to keep track of contextual information
+/// pertaining to the currently playing track, such as a segment loop (if defined).
+///
 class PlaybackSession: Hashable {
     
     // Holds the current playback session

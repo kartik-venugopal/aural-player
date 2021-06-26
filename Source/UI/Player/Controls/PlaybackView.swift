@@ -48,7 +48,7 @@ class PlaybackView: NSView, ColorSchemeable {
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
         let onStateTintFunction = {return Colors.functionButtonColor}
 
-        btnLoop.stateImageMappings = [(LoopState.none, (Images.imgLoopOff, offStateTintFunction)), (LoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (LoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
+        btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoopOff, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
 
         // Play/pause button does not really have an "off" state
         btnPlayPause.offStateTintFunction = onStateTintFunction
@@ -86,9 +86,9 @@ class PlaybackView: NSView, ColorSchemeable {
         btnPlayPause.onIf(player.state == .playing)
         
         if let loop = player.playbackLoop {
-            btnLoop.switchState(loop.isComplete ? LoopState.complete : LoopState.started)
+            btnLoop.switchState(loop.isComplete ? PlaybackLoopState.complete : PlaybackLoopState.started)
         } else {
-            btnLoop.switchState(LoopState.none)
+            btnLoop.switchState(PlaybackLoopState.none)
         }
         
         functionButtons = [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward]
@@ -106,10 +106,10 @@ class PlaybackView: NSView, ColorSchemeable {
 
         // Update loop button image
         if let loop = playbackLoop {
-            btnLoop.switchState(loop.isComplete ? LoopState.complete: LoopState.started)
+            btnLoop.switchState(loop.isComplete ? PlaybackLoopState.complete: PlaybackLoopState.started)
 
         } else {
-            btnLoop.switchState(LoopState.none)
+            btnLoop.switchState(PlaybackLoopState.none)
         }
         
         sliderView.playbackLoopChanged(playbackLoop, trackDuration)
@@ -118,7 +118,7 @@ class PlaybackView: NSView, ColorSchemeable {
     func trackChanged(_ playbackState: PlaybackState, _ loop: PlaybackLoop?, _ newTrack: Track?) {
         
         btnPlayPause.onIf(playbackState == .playing)
-        btnLoop.switchState(loop != nil ? LoopState.complete : LoopState.none)
+        btnLoop.switchState(loop != nil ? PlaybackLoopState.complete : PlaybackLoopState.none)
         [btnPreviousTrack, btnNextTrack].forEach({$0?.updateTooltip()})
         
         sliderView.trackChanged(loop, newTrack)

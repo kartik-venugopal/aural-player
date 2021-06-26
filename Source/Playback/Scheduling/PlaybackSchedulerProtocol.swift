@@ -9,9 +9,9 @@
 //
 import Foundation
 
-/*
-    A contract for a scheduler that schedules audio data for playback.
- */
+///
+/// A functional contract for scheduling audio data from tracks for playback.
+///
 protocol PlaybackSchedulerProtocol {
     
     // Schedule and play the track (specified by the given playback session), starting at the given start position

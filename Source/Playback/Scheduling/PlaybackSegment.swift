@@ -9,7 +9,12 @@
 //
 import AVFoundation
 
-// Encapsulates all data required to schedule one audio file segment for playback. Can be passed around between functions and can be cached for reuse (when playing a segment loop).
+///
+/// An immutable value object that encapsulates all data required by **AuralPlayerNode** to schedule one
+/// audio file segment for playback.
+/// 
+/// Can be cached for reuse (eg. when playing a segment loop).
+///
 struct PlaybackSegment {
 
     let session: PlaybackSession

@@ -44,22 +44,3 @@ enum RepeatMode: String, CaseIterable {
         }
     }
 }
-
-///
-/// An enumeration of all possible playback shuffle modes.
-///
-enum ShuffleMode: String, CaseIterable {
-    
-    static let defaultMode: ShuffleMode = .off
-    
-    // Play tracks in random order
-    case on
-    
-    // Don't shuffle
-    case off
-    
-    // Returns a ShuffleMode that is the result of toggling this ShuffleMode.
-    func toggled() -> ShuffleMode {
-        return self == .on ? .off : .on
-    }
-}

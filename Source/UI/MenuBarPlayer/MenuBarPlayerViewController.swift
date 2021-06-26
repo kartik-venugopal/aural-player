@@ -83,7 +83,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     override func awakeFromNib() {
         
         btnPlayPause.off()
-        btnLoop.switchState(LoopState.none)
+        btnLoop.switchState(PlaybackLoopState.none)
 
         // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
         let offStateTintFunction = {Colors.Constants.white40Percent}
@@ -95,7 +95,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
 
         btnShuffle.stateImageMappings = [(ShuffleMode.off, (Images.imgShuffleOff, offStateTintFunction)), (ShuffleMode.on, (Images.imgShuffleOn, onStateTintFunction))]
 
-        btnLoop.stateImageMappings = [(LoopState.none, (Images.imgLoopOff, offStateTintFunction)), (LoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (LoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
+        btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoopOff, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
         
         updateRepeatAndShuffleControls(sequencer.repeatAndShuffleModes)
         [btnRepeat, btnShuffle, btnLoop].forEach {
@@ -369,7 +369,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
             // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
             if let loop = player.playbackLoop {
                 
-                btnLoop.switchState(loop.isComplete ? LoopState.complete: LoopState.started)
+                btnLoop.switchState(loop.isComplete ? PlaybackLoopState.complete: PlaybackLoopState.started)
                 
                 // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
                 
@@ -385,7 +385,7 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
                 
             } else {
                 
-                btnLoop.switchState(LoopState.none)
+                btnLoop.switchState(PlaybackLoopState.none)
                 seekSliderCell.removeLoop()
             }
         }

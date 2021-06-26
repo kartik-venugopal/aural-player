@@ -9,9 +9,11 @@
 //
 import Cocoa
 
-/*
-    Contract for an audio player that performs track playback
- */
+///
+/// A functional contract for the Player.
+///
+/// The Player is responsible for initiating playback, pause / resume / stop, seeking, and segment looping.
+///
 protocol PlayerProtocol {
     
     // Plays a given track, starting from a given position (used for bookmarks)
@@ -74,19 +76,4 @@ protocol PlayerProtocol {
         The TimeInterval is relative to the last system start time, i.e. it is the systemUpTime. See ProcessInfo.processInfo.systemUpTime.
      */
     var playingTrackStartTime: TimeInterval? {get}
-}
-
-// Defines objects that encapsulate the result of a seek operation.
-struct PlayerSeekResult {
-    
-    // The potentially adjusted seek position (eg. if attempted seek time was < 0, it will be adjusted to 0).
-    // This is the seek position actually used in the seek operation.
-    // If no adjustment took place, this will be equal to the attempted seek position.
-    let actualSeekPosition: Double
-    
-    // Whether or not a previously defined segment loop was removed as a result of the seek.
-    let loopRemoved: Bool
-    
-    // Whether or not the seek resulted in track playback completion (i.e. reached the end of the track).
-    let trackPlaybackCompleted: Bool
 }

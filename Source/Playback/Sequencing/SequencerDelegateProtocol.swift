@@ -14,11 +14,7 @@ import Foundation
 /// functions to control the playback sequence.
 ///
 /// Acts as a middleman between clients and the Sequencer, providing a simplified
-/// interface / facade for clients to access information from the Sequencer.
-///
-/// This contract only defines accessors, no mutators, so clients of this protocol cannot make
-/// any changes to the Sequencer's state. It is intended to be used by components that display
-/// Player information.
+/// interface / facade for clients to control the playback sequence.
 ///
 /// - SeeAlso: `Sequencer`
 ///

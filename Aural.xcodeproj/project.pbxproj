@@ -224,7 +224,7 @@
 		3E6C11BF25CEBDB400BF0D07 /* SequencerDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105C25CEB98600BF0D07 /* SequencerDelegateProtocol.swift */; };
 		3E6C11C025CEBDB400BF0D07 /* SequencerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106225CEB98600BF0D07 /* SequencerProtocol.swift */; };
 		3E6C11C125CEBDB400BF0D07 /* SequenceScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106125CEB98600BF0D07 /* SequenceScope.swift */; };
-		3E6C11C225CEBDB400BF0D07 /* RepeatAndShuffleModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105F25CEB98600BF0D07 /* RepeatAndShuffleModes.swift */; };
+		3E6C11C225CEBDB400BF0D07 /* RepeatMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105F25CEB98600BF0D07 /* RepeatMode.swift */; };
 		3E6C11C425CEBDB400BF0D07 /* ShuffleSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105D25CEB98600BF0D07 /* ShuffleSequence.swift */; };
 		3E6C11C525CEBDB400BF0D07 /* PlaybackSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106025CEB98600BF0D07 /* PlaybackSequence.swift */; };
 		3E6C11C625CEBDB400BF0D07 /* SequencerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106325CEB98600BF0D07 /* SequencerDelegate.swift */; };
@@ -691,6 +691,9 @@
 		3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */; };
 		3EE7CB9F25E22D6C0075F1DD /* EffectsFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */; };
 		3EEC040B26874041004478CE /* SequencerInfoDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */; };
+		3EEC040D26876E4D004478CE /* ShuffleMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC040C26876E4D004478CE /* ShuffleMode.swift */; };
+		3EEC040F268773B4004478CE /* PlayerSeekResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC040E268773B4004478CE /* PlayerSeekResult.swift */; };
+		3EEC04112687745F004478CE /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC04102687745F004478CE /* PlaybackState.swift */; };
 		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
 		3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
@@ -1128,7 +1131,7 @@
 		3E6C105C25CEB98600BF0D07 /* SequencerDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E6C105D25CEB98600BF0D07 /* ShuffleSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleSequence.swift; sourceTree = "<group>"; };
 		3E6C105E25CEB98600BF0D07 /* Sequencer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequencer.swift; sourceTree = "<group>"; };
-		3E6C105F25CEB98600BF0D07 /* RepeatAndShuffleModes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatAndShuffleModes.swift; sourceTree = "<group>"; };
+		3E6C105F25CEB98600BF0D07 /* RepeatMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatMode.swift; sourceTree = "<group>"; };
 		3E6C106025CEB98600BF0D07 /* PlaybackSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSequence.swift; sourceTree = "<group>"; };
 		3E6C106125CEB98600BF0D07 /* SequenceScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceScope.swift; sourceTree = "<group>"; };
 		3E6C106225CEB98600BF0D07 /* SequencerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerProtocol.swift; sourceTree = "<group>"; };
@@ -1448,6 +1451,9 @@
 		3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsFontScheme.xib; sourceTree = "<group>"; };
 		3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerInfoDelegateProtocol.swift; sourceTree = "<group>"; };
+		3EEC040C26876E4D004478CE /* ShuffleMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleMode.swift; sourceTree = "<group>"; };
+		3EEC040E268773B4004478CE /* PlayerSeekResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSeekResult.swift; sourceTree = "<group>"; };
+		3EEC04102687745F004478CE /* PlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTheme.xib; sourceTree = "<group>"; };
 		3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeDialogController.swift; sourceTree = "<group>"; };
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
@@ -2652,6 +2658,8 @@
 				3E6C106525CEB98600BF0D07 /* Scheduling */,
 				3E6C107225CEB98600BF0D07 /* PlayerProtocol.swift */,
 				3E6C108C25CEB98600BF0D07 /* Player.swift */,
+				3EEC040E268773B4004478CE /* PlayerSeekResult.swift */,
+				3EEC04102687745F004478CE /* PlaybackState.swift */,
 				3E6C108D25CEB98600BF0D07 /* PlaybackProfiles.swift */,
 				3E6C108E25CEB98600BF0D07 /* PlaybackLoop.swift */,
 				3E6C108F25CEB98600BF0D07 /* PlaybackSession.swift */,
@@ -2671,10 +2679,11 @@
 				3E6C106025CEB98600BF0D07 /* PlaybackSequence.swift */,
 				3E6C105D25CEB98600BF0D07 /* ShuffleSequence.swift */,
 				3E6C106125CEB98600BF0D07 /* SequenceScope.swift */,
-				3E6C105F25CEB98600BF0D07 /* RepeatAndShuffleModes.swift */,
 				3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */,
 				3E6C105C25CEB98600BF0D07 /* SequencerDelegateProtocol.swift */,
 				3E6C106325CEB98600BF0D07 /* SequencerDelegate.swift */,
+				3E6C105F25CEB98600BF0D07 /* RepeatMode.swift */,
+				3EEC040C26876E4D004478CE /* ShuffleMode.swift */,
 			);
 			path = Sequencing;
 			sourceTree = "<group>";
@@ -3989,7 +3998,7 @@
 				3E6C117325CEBD6000BF0D07 /* ReverbPresets.swift in Sources */,
 				3E6C120225CEBDD100BF0D07 /* SearchResults.swift in Sources */,
 				3E09D0E826805C19008ECB8C /* PlaybackSequencePersistentState.swift in Sources */,
-				3E6C11C225CEBDB400BF0D07 /* RepeatAndShuffleModes.swift in Sources */,
+				3E6C11C225CEBDB400BF0D07 /* RepeatMode.swift in Sources */,
 				3E6C12EF25CEBE8100BF0D07 /* DelayView.swift in Sources */,
 				3E3633FE26863109006A88ED /* DelayUnitProtocol.swift in Sources */,
 				3E6C120425CEBDD100BF0D07 /* FlatPlaylist.swift in Sources */,
@@ -4063,6 +4072,7 @@
 				3E6C11E825CEBDC400BF0D07 /* PlaybackProfiles.swift in Sources */,
 				3E5623C72619F8BA00D55E43 /* AudioUnitsManager.swift in Sources */,
 				3E6C122A25CEBDE600BF0D07 /* PlaylistPreferencesViewController.swift in Sources */,
+				3EEC040F268773B4004478CE /* PlayerSeekResult.swift in Sources */,
 				3E6C127E25CEBE1800BF0D07 /* MultiStateImageButton.swift in Sources */,
 				3E6C12DD25CEBE8100BF0D07 /* MouseTrackingView.swift in Sources */,
 				3E36340026863135006A88ED /* FilterUnitProtocol.swift in Sources */,
@@ -4072,6 +4082,7 @@
 				3E7572F12609E83B00CA3F85 /* MusicBrainzCoverArtArchive.swift in Sources */,
 				3E6C119D25CEBD6D00BF0D07 /* AudioDevice.swift in Sources */,
 				3E6C120B25CEBDD100BF0D07 /* Playlist.swift in Sources */,
+				3EEC04112687745F004478CE /* PlaybackState.swift in Sources */,
 				3E09D0D226805C19008ECB8C /* EffectsColorSchemePersistentState.swift in Sources */,
 				3E6C122D25CEBDE600BF0D07 /* TracksPlaylistViewDelegate.swift in Sources */,
 				3E6C129E25CEBE2700BF0D07 /* EQSliderCell.swift in Sources */,
@@ -4165,6 +4176,7 @@
 				3E6C12F025CEBE8100BF0D07 /* DelayViewController.swift in Sources */,
 				3E6C130425CEBE8F00BF0D07 /* PlaybackViewController.swift in Sources */,
 				3E3633E6268627D4006A88ED /* PitchShiftUnitDelegateProtocol.swift in Sources */,
+				3EEC040D26876E4D004478CE /* ShuffleMode.swift in Sources */,
 				3E6C124F25CEBDF400BF0D07 /* AlbumsPlaylistSortViewController.swift in Sources */,
 				3E6C132825CEBEA000BF0D07 /* RepeatingTaskExecutor.swift in Sources */,
 				3EDB344F25E8B75D004DF7DE /* ApeV2Parser.swift in Sources */,

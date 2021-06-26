@@ -9,16 +9,25 @@
 //
 import AVFoundation
 
+///
+/// An alias for a callback function that is invoked by the player node upon completion of a scheduled
+/// file segment or audio buffer.
+///
 typealias SessionCompletionHandler = (PlaybackSession) -> Void
 
-/*
-    A custom AVAudioPlayerNode that provides:
- 
-    1 - Convenient scheduling functions that convert seek times to audio frame positions. Callers can schedule segments
-    in terms of seek times and do not need to compute segments in terms of audio frames.
- 
-    2 - Computation of the current track seek position (by converting playerNode's sampleTime).
- */
+///
+/// A custom AVAudioPlayerNode that provides a simplified interface for scheduling file segments and buffers.
+///
+/// Acts as a middleman between schedulers and **AVAudioPlayerNode**, providing the following functions:
+///
+/// 1. Convenient scheduling functions that convert seek times (in seconds) to audio frame positions.
+/// Callers can schedule segments in terms of seek times and do not need to compute segments in
+/// terms of audio frames.
+///
+/// 2. Computation of the current track seek position in seconds (by converting from the node's sampleTime).
+///
+/// - SeeAlso: `AVAudioPlayerNode`
+///
 class AuralPlayerNode: AVAudioPlayerNode {
 
     // This property will have no effect on macOS 10.12 or older systems.

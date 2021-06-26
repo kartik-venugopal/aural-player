@@ -10,14 +10,12 @@
 import Cocoa
 import AVFoundation
 
-/*
-    Subclass of AVFScheduler that handles scheduling of native tracks on systems that
-    do not use the newer completion callback APIs provided by AVAudioPlayerNode.
-    Uses polling to detect track playback completion.
- 
-    NOTE - This class is only used on macOS 10.12 and older systems. It will be deprecated and/or decommissioned at some
-    point in the future.
- */
+///
+/// Subclass of AVFScheduler that handles scheduling of native tracks on systems (eg. Sierra) that do not use the
+/// newer completion callback APIs provided by **AVAudioPlayerNode**. Uses polling to detect track playback completion.
+///
+/// NOTE - This class is only used on macOS 10.12 Sierra and older systems. It will be deprecated and/or decommissioned at some point in the future.
+///
 class LegacyAVFScheduler: AVFScheduler {
 
     // A timer used to check if track playback has completed. This is required because the playerNode sends completion notifications prematurely, before track

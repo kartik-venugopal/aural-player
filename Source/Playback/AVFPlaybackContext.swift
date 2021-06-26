@@ -10,7 +10,7 @@
 import AVFoundation
 
 ///
-/// Provides information necessary for playback of a natively supported track using AVFoundation.
+/// Provides information necessary for scheduling and playback of a natively supported track using AVFoundation.
 ///
 class AVFPlaybackContext: PlaybackContextProtocol {
     

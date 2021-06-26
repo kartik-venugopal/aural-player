@@ -9,9 +9,15 @@
 //
 import Foundation
 
-/*
-    Concrete implementation of PlaybackSequencerInfoDelegateProtocol
- */
+///
+/// A delegate that represents the Sequencer and provides
+/// functions to control the playback sequence.
+///
+/// Acts as a middleman between clients and the Sequencer, providing a simplified
+/// interface / facade for clients to control the playback sequence.
+///
+/// - SeeAlso: `Sequencer`
+///
 class SequencerDelegate: SequencerDelegateProtocol {
     
     private let sequencer: SequencerProtocol

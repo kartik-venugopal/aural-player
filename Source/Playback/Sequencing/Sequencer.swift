@@ -340,7 +340,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
     
     func tracksAdded(_ addResults: [TrackAddResult]) {
         
-        guard !addResults.isEmpty else {return}
+        guard addResults.isNonEmpty else {return}
         
         if let group = scope.group {
             

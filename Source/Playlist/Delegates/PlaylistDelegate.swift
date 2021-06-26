@@ -162,7 +162,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             // TODO: Reordering will mean that results will not be in the correct order when this notification
             // is sent out. But currently, it has no impact (Sequencer does not care about results order).
             // Notify change listeners
-            self.changeListeners.forEach({$0.tracksAdded(results)})
+            self.changeListeners.forEach {$0.tracksAdded(results)}
             
             Messenger.publish(.playlist_doneAddingTracks, payload: reorderGroupingPlaylists)
             
@@ -336,14 +336,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
         Messenger.publish(.playlist_tracksRemoved, payload: results)
-        changeListeners.forEach({$0.tracksRemoved(results)})
+        changeListeners.forEach {$0.tracksRemoved(results)}
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
         let results: TrackRemovalResults = playlist.removeTracksAndGroups(tracks, groups, groupType)
         Messenger.publish(.playlist_tracksRemoved, payload: results)
-        changeListeners.forEach({$0.tracksRemoved(results)})
+        changeListeners.forEach {$0.tracksRemoved(results)}
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {

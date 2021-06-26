@@ -10,9 +10,11 @@
 import Cocoa
 import AVFoundation
 
-/*
-    Manages audio scheduling and playback for native tracks (supported by AVFoundation). See PlaybackSchedulerProtocol for more details on all the functions provided.
- */
+///
+/// Manages scheduling and initiating playback for native tracks (supported by AVFoundation).
+///
+/// - SeeAlso: `PlaybackSchedulerProtocol`
+///
 class AVFScheduler: PlaybackSchedulerProtocol {
     
     // Player node used for actual playback

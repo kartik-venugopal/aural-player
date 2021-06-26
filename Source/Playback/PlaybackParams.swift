@@ -9,9 +9,9 @@
 //
 import Foundation
 
-/*
-    Encapsulates request parameters related to the playback of a track
- */
+///
+/// Encapsulates request parameters related to the playback of a track.
+///
 class PlaybackParams {
     
     // An optional seek time at which playback will start for the relevant track.

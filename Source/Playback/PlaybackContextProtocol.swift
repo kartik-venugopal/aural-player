@@ -10,7 +10,7 @@
 import AVFoundation
 
 ///
-/// A contract for an object that provides information (i.e. a "context") necessary for playback of a track.
+/// A contract for an object that provides information (i.e. a "context") necessary for scheduling and playback of a track.
 ///
 protocol PlaybackContextProtocol {
     

@@ -9,7 +9,9 @@
 //
 import Foundation
 
-// A->B track segment playback loop defined on a particular track (the currently playing track)
+///
+/// Represents an A->B track segment playback loop defined on a particular track (the currently playing track).
+///
 struct PlaybackLoop: Equatable {
     
     // Starting point for the playback loop, expressed in seconds relative to the start of a track
@@ -82,8 +84,10 @@ struct PlaybackLoop: Equatable {
     }
 }
 
-// Enumeration of all possible states of an A->B segment playback loop
-enum LoopState: String, CaseIterable {
+///
+/// An enumeration of all possible states of an A->B segment playback loop.
+///
+enum PlaybackLoopState: String, CaseIterable {
     
     case none
     case started

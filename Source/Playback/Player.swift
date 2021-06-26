@@ -14,6 +14,11 @@
 import Cocoa
 import AVFoundation
 
+///
+/// The Player, responsible for initiating playback, pause / resume / stop, seeking, and segment looping.
+///
+/// - SeeAlso: `PlayerProtocol`
+///
 class Player: PlayerProtocol, NotificationSubscriber {
     
     // The underlying audio graph used to perform playback
@@ -313,21 +318,5 @@ class Player: PlayerProtocol, NotificationSubscriber {
     
     func tearDown() {
         stop()
-    }
-}
-
-// Enumeration of all possible playback states of the player
-enum PlaybackState {
-    
-    case playing
-    case paused
-    case noTrack
-    
-    var isPlayingOrPaused: Bool {
-        return self == .playing || self == .paused
-    }
-    
-    var isNotPlayingOrPaused: Bool {
-        return !isPlayingOrPaused
     }
 }
