@@ -208,7 +208,7 @@ I encourage you to provide feedback or start a conversation about features you'd
 
 **GitHub Issues** https://github.com/maculateConception/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
 
-Any feedback, questions, issues, suggestions, or other comments related to the project are welcome. I look forward to hearing from you !
+I look forward to hearing from you !
 
 ## Third party code attributions
 
