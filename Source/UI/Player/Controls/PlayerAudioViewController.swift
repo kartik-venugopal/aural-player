@@ -276,7 +276,7 @@ class WindowedModePlayerAudioViewController: PlayerAudioViewController {
     }
 }
 
-class MenuBarPlayerAudioViewController: PlayerAudioViewController {
+class MenuBarModePlayerAudioViewController: PlayerAudioViewController {
     
     override fileprivate var showsPanControl: Bool {false}
     

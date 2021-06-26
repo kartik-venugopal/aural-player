@@ -22,39 +22,19 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     @IBOutlet weak var imgArt: NSImageView!
     @IBOutlet weak var artOverlayBox: NSBox!
     
-    @IBOutlet weak var btnPlayPause: OnOffImageButton!
-    @IBOutlet weak var btnSeekBackward: TintedImageButton!
-    @IBOutlet weak var btnSeekForward: TintedImageButton!
-    
-    @IBOutlet weak var btnLoop: MultiStateImageButton!
-    
-    // Buttons whose tool tips may change
-    @IBOutlet weak var btnPreviousTrack: TrackPeekingButton!
-    @IBOutlet weak var btnNextTrack: TrackPeekingButton!
-    
-    // Shows the time elapsed for the currently playing track, and allows arbitrary seeking within the track
-    @IBOutlet weak var seekSlider: NSSlider!
-    @IBOutlet weak var seekSliderCell: SeekSliderCell!
-    
-    var seekSliderValue: Double {
-        return seekSlider.doubleValue
-    }
-    
-    // A clone of the seek slider, used to render the segment playback loop
-    @IBOutlet weak var seekSliderClone: NSSlider!
-    @IBOutlet weak var seekSliderCloneCell: SeekSliderCell!
-    
-    // Timer that periodically updates the seek position slider and label
-    private var seekTimer: RepeatingTaskExecutor?
-    
-    @IBOutlet weak var lblTimeElapsed: VALabel!
-    @IBOutlet weak var lblTimeRemaining: VALabel!
+    @IBOutlet weak var playbackView: MenuBarModePlaybackView!
+    @IBOutlet weak var seekSliderView: MenuBarModeSeekSliderView!
     
     @IBOutlet weak var btnSettings: TintedImageButton!
     @IBOutlet weak var settingsBox: NSBox!
     
+    @IBOutlet weak var playbackViewController: MenuBarModePlaybackViewController!
+    @IBOutlet weak var playerAudioViewController: MenuBarModePlayerAudioViewController!
+    @IBOutlet weak var playerSequencingViewController: MenuBarModePlayerSequencingViewController!
+    
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
+    // TODO: Implement this for volume control / seeking, etc ?
 //    private var gestureHandler: GestureHandler?
     
     // Delegate that conveys all playback requests to the player / playback sequencer
@@ -67,93 +47,39 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     
     override func awakeFromNib() {
         
-        btnPlayPause.off()
-        btnLoop.switchState(PlaybackLoopState.none)
-
-        // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
-        let offStateTintFunction = {Colors.Constants.white40Percent}
-        
-        // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
-        let onStateTintFunction = {Colors.Constants.white70Percent}
-        
-        btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoopOff, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
-        
-        btnLoop.reTint()
-
-        // Play/pause button does not really have an "off" state
-        btnPlayPause.onStateTintFunction = onStateTintFunction
-        btnPlayPause.offStateTintFunction = onStateTintFunction
-        
-        // Button tool tips
-        btnPreviousTrack.toolTipFunction = {[weak self] () -> String? in
-
-            if let prevTrack = self?.sequencer.peekPrevious() {
-                return String(format: "Previous track: '%@'", prevTrack.displayName)
-            }
-
-            return nil
-        }
-        
-        btnNextTrack.toolTipFunction = {[weak self] () -> String? in
-
-            if let nextTrack = self?.sequencer.peekNext() {
-                return String(format: "Next track: '%@'", nextTrack.displayName)
-            }
-
-            return nil
-        }
-        
-        [btnQuit, btnRegularMode, btnSettings, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
+        [btnQuit, btnRegularMode, btnSettings].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
         
         appLogo.tintFunction = {Colors.Constants.white70Percent}
 
-        [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
-        
         // MARK: Notification subscriptions
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
-        Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
         Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
     }
     
     func destroy() {
+        
+        [playbackViewController, playerAudioViewController, playerSequencingViewController].forEach {
+            ($0 as? Destroyable)?.destroy()
+        }
+        
         Messenger.unsubscribeAll(for: self)
     }
     
     override func viewDidLoad() {
         
-        let seekTimerInterval = (1000 / (2 * audioGraph.timeUnit.effectiveRate)).roundedInt
-        
-        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
-            self?.updateSeekPosition()
-        }, queue: .main)
-        
         updateTrackInfo()
-        btnPlayPause.onIf(player.state == .playing)
-        setSeekTimerState(false)
+
+        // When the view first loads, the menu bar's menu is closed (not visible), so
+        // don't bother updating the seek position unnecessarily.
+        if view.superview == nil {
+            seekSliderView.stopUpdatingSeekPosition()
+        }
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
-    
-    // Plays, pauses, or resumes playback
-    @IBAction func playPauseAction(_ sender: AnyObject) {
-        playOrPause()
-    }
-    
-    func playOrPause() {
-        
-        player.togglePlayPause()
-        stateChanged(player.state)
-        updateTrackInfo()
-    }
-    
-    func stateChanged(_ newState: PlaybackState) {
-        
-        btnPlayPause.onIf(newState == .playing)
-        setSeekTimerState(newState == .playing)
-    }
     
     private func updateTrackInfo() {
         
@@ -161,190 +87,19 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
             
             trackInfoView.trackInfo = PlayingTrackInfo(theTrack, player.playingChapter?.chapter.title)
             
-            seekSlider.enable()
-            seekSlider.show()
-            
-            [lblTimeElapsed, lblTimeRemaining].forEach {$0?.show()}
-            
-            if theTrack.hasChapters {
-                beginPollingForChapterChange()
-            }
-            
         } else {
             
             trackInfoView.trackInfo = nil
-            stopPollingForChapterChange()
-            
-            NSView.hideViews(lblTimeElapsed, lblTimeRemaining, seekSlider)
-            
-            seekSliderCell.removeLoop()
-            seekSlider.doubleValue = 0
-            seekSlider.disable()
         }
         
         imgArt.image = player.playingTrack?.art?.image
         [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && MenuBarPlayerViewState.showAlbumArt)}
-        
-        [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
-        playbackLoopChanged()
         
         infoBox.bringToFront()
         
         if settingsBox.isShown {
             settingsBox.bringToFront()
         }
-    }
-    
-    private var curChapter: IndexedChapter? = nil
-    
-    // Creates a recurring task that polls the player to detect a change in the currently playing track chapter.
-    // This only occurs when the currently playing track actually has chapters.
-    private func beginPollingForChapterChange() {
-        
-        SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {[weak self] () -> Void in
-            
-            guard let nonNilSelf = self else {return}
-            
-            let playingChapter: IndexedChapter? = nonNilSelf.player.playingChapter
-            
-            // Compare the current chapter with the last known value of current chapter
-            if nonNilSelf.curChapter != playingChapter, let theTrack = nonNilSelf.player.playingTrack {
-                
-                // There has been a change ... notify observers and update the variable
-                nonNilSelf.trackInfoView.trackInfo = PlayingTrackInfo(theTrack, playingChapter?.chapter.title)
-                nonNilSelf.curChapter = playingChapter
-            }
-        })
-    }
-    
-    // Disables the chapter change polling task
-    private func stopPollingForChapterChange() {
-        SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
-    }
-   
-    // Plays the previous track in the current playback sequence
-    @IBAction func previousTrackAction(_ sender: AnyObject) {
-        previousTrack()
-    }
-    
-    func previousTrack() {
-        
-        player.previousTrack()
-        updateTrackInfo()
-        stateChanged(player.state)
-    }
-    
-    // Plays the next track in the current playback sequence
-    @IBAction func nextTrackAction(_ sender: AnyObject) {
-        nextTrack()
-    }
-
-    func nextTrack() {
-        
-        player.nextTrack()
-        updateTrackInfo()
-        stateChanged(player.state)
-    }
-    
-    // Moving the seek slider results in seeking the track to the new slider position
-    @IBAction func seekSliderAction(_ sender: AnyObject) {
-        
-        player.seekToPercentage(seekSliderValue)
-        updateSeekPosition()
-    }
-    
-    // Seeks backward within the currently playing track
-    @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        seekBackward(.discrete)
-    }
-    
-    func seekBackward(_ inputMode: UserInputMode) {
-        
-        player.seekBackward(inputMode)
-        updateSeekPosition()
-    }
-    
-    func updateSeekPosition() {
-        
-        let seekPosn = player.seekPosition
-        seekSlider.doubleValue = seekPosn.percentageElapsed
-        
-        let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, .formatted, .formatted)
-        
-        lblTimeElapsed.stringValue = trackTimes.elapsed
-        lblTimeRemaining.stringValue = trackTimes.remaining
-        
-        for task in SeekTimerTaskQueue.tasksArray {
-            task()
-        }
-    }
-    
-    // Seeks forward within the currently playing track
-    @IBAction func seekForwardAction(_ sender: AnyObject) {
-        seekForward(.discrete)
-    }
-    
-    func seekForward(_ inputMode: UserInputMode) {
-        
-        player.seekForward(inputMode)
-        updateSeekPosition()
-    }
-    
-    private func setSeekTimerState(_ timerOn: Bool) {
-        timerOn ? seekTimer?.startOrResume() : seekTimer?.pause()
-    }
-    
-    func stop() {
-        player.stop()
-    }
-    
-    // Toggles the state of the segment playback loop for the currently playing track
-    @IBAction func toggleLoopAction(_ sender: AnyObject) {
-        toggleLoop()
-    }
-    
-    func toggleLoop() {
-        
-        if player.state.isPlayingOrPaused {
-            
-            _ = player.toggleLoop()
-            playbackLoopChanged()
-            
-            Messenger.publish(.player_playbackLoopChanged)
-        }
-    }
-    
-    // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
-    func playbackLoopChanged() {
-        
-        if let playingTrack = player.playingTrack {
-            
-            // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state
-            if let loop = player.playbackLoop {
-                
-                btnLoop.switchState(loop.isComplete ? PlaybackLoopState.complete: PlaybackLoopState.started)
-                
-                // If loop start has not yet been marked, mark it (e.g. when marking chapter loops)
-                
-                seekSliderClone.doubleValue = loop.startTime * 100 / playingTrack.duration
-                seekSliderCell.markLoopStart(seekSliderCloneCell.knobCenter)
-                
-                // Use the seek slider clone to mark the exact position of the center of the slider knob, at both the start and end points of the playback loop (for rendering)
-                if let loopEndTime = loop.endTime {
-                    
-                    seekSliderClone.doubleValue = loopEndTime * 100 / playingTrack.duration
-                    seekSliderCell.markLoopEnd(seekSliderCloneCell.knobCenter)
-                }
-                
-            } else {
-                
-                btnLoop.switchState(PlaybackLoopState.none)
-                seekSliderCell.removeLoop()
-            }
-        }
-        
-        seekSlider.redraw()
-        updateSeekPosition()
     }
     
     @IBAction func showOrHideSettingsAction(_ sender: NSButton) {
@@ -369,10 +124,10 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
             infoBox.bringToFront()
         }
         
+        // If the player is playing, we need to resume updating the seek
+        // position as the view is now visible.
         if player.state == .playing {
-            
-            updateSeekPosition()
-            setSeekTimerState(true)
+            seekSliderView.resumeUpdatingSeekPosition()
         }
     }
     
@@ -385,15 +140,13 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
         }
         
         // Updating seek position is not necessary when the view has been closed.
-        setSeekTimerState(false)
+        seekSliderView.stopUpdatingSeekPosition()
     }
     
     // MARK: Message handling
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
-        
         updateTrackInfo()
-        stateChanged(player.state)
     }
     
     // When track info for the playing track changes, display fields need to be updated
@@ -414,7 +167,6 @@ class MenuBarPlayerViewController: NSViewController, MenuBarMenuObserver, Notifi
     func trackNotPlayed(_ notification: TrackNotPlayedNotification) {
         
         updateTrackInfo()
-        stateChanged(player.state)
         
         let errorDialog = DialogsAndAlerts.genericErrorAlert("Track not played",
                                                              notification.errorTrack.file.lastPathComponent,

@@ -12,7 +12,7 @@ import Cocoa
 /*
     View that encapsulates all playback-related controls (play/pause, prev/next track, seeking, segment looping).
 */
-class PlaybackView: NSView, ColorSchemeable {
+class PlaybackView: NSView {
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var sliderView: SeekSliderView!
@@ -28,26 +28,19 @@ class PlaybackView: NSView, ColorSchemeable {
     @IBOutlet weak var btnSeekBackward: TintedImageButton!
     @IBOutlet weak var btnSeekForward: TintedImageButton!
     
-    private var functionButtons: [Tintable] = []
-    
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let sequencer: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
+    fileprivate var offStateTintFunction: TintFunction {{.gray}}
     
-    var seekSliderValue: Double {
-        return sliderView.seekSliderValue
-    }
+    // When the buttons are in an "On" state, they should be tinted according to the system color scheme's function button color.
+    fileprivate var onStateTintFunction: TintFunction {{.white}}
+    
+    var seekSliderValue: Double {sliderView.seekSliderValue}
     
     override func awakeFromNib() {
         
-        // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
-        let offStateTintFunction = {Colors.toggleButtonOffStateColor}
-        
-        // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's function button color.
-        let onStateTintFunction = {Colors.functionButtonColor}
-
         btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoopOff, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
 
         // Play/pause button does not really have an "off" state
@@ -76,9 +69,6 @@ class PlaybackView: NSView, ColorSchemeable {
 
         [btnPreviousTrack, btnNextTrack].forEach {$0?.updateTooltip()}
         
-        applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(colorSchemesManager.systemScheme)
-        
         // MARK: Update controls based on current player state
         
         let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -90,8 +80,6 @@ class PlaybackView: NSView, ColorSchemeable {
         } else {
             btnLoop.switchState(PlaybackLoopState.none)
         }
-        
-        functionButtons = [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward]
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
@@ -128,6 +116,53 @@ class PlaybackView: NSView, ColorSchemeable {
         sliderView.showOrHideTimeElapsedRemaining()
     }
     
+    func updateSeekPosition() {
+        sliderView.updateSeekPosition()
+    }
+    
+    func playbackRateChanged(_ rate: Float, _ playbackState: PlaybackState) {
+        sliderView.playbackRateChanged(rate, playbackState)
+    }
+    
+    func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
+        sliderView.setTimeElapsedDisplayFormat(format)
+    }
+    
+    func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
+        sliderView.setTimeRemainingDisplayFormat(format)
+    }
+}
+
+class MenuBarModePlaybackView: PlaybackView {
+    
+    // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
+    override fileprivate var offStateTintFunction: TintFunction {{Colors.Constants.white40Percent}}
+
+    // When the buttons are in an "On" state, they should be tinted according to the system color scheme's function button color.
+    override fileprivate var onStateTintFunction: TintFunction {{Colors.Constants.white70Percent}}
+}
+
+class WindowedModePlaybackView: PlaybackView, ColorSchemeable {
+    
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
+    // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
+    override fileprivate var offStateTintFunction: TintFunction {{Colors.toggleButtonOffStateColor}}
+
+    // When the buttons are in an "On" state, they should be tinted according to the system color scheme's function button color.
+    override fileprivate var onStateTintFunction: TintFunction {{Colors.functionButtonColor}}
+    
+    private var functionButtons: [Tintable] = []
+    
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        applyTheme()
+        
+        functionButtons = [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward]
+    }
+    
     func applyTheme() {
         
         applyFontScheme(fontSchemesManager.systemScheme)
@@ -135,22 +170,22 @@ class PlaybackView: NSView, ColorSchemeable {
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
-        sliderView.applyFontScheme(fontScheme)
+        (sliderView as? WindowedModeSeekSliderView)?.applyFontScheme(fontScheme)
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {
         
         // This call will also take care of toggle buttons
         changeFunctionButtonColor(scheme.general.functionButtonColor)
-        sliderView.applyColorScheme(scheme)
+        (sliderView as? WindowedModeSeekSliderView)?.applyColorScheme(scheme)
     }
     
     func changeSliderColors() {
-        sliderView.changeSliderColors()
+        (sliderView as? WindowedModeSeekSliderView)?.changeSliderColors()
     }
     
     func changeSliderValueTextColor(_ color: NSColor) {
-        sliderView.changeSliderValueTextColor(color)
+        (sliderView as? WindowedModeSeekSliderView)?.changeSliderValueTextColor(color)
     }
     
     func changeFunctionButtonColor(_ color: NSColor) {
@@ -165,26 +200,8 @@ class PlaybackView: NSView, ColorSchemeable {
     
     // Positions the "seek position marker" view at the center of the seek slider knob.
     func positionSeekPositionMarkerView() {
-        sliderView.positionSeekPositionMarkerView()
+        (sliderView as? WindowedModeSeekSliderView)?.positionSeekPositionMarkerView()
     }
     
-    func updateSeekPosition() {
-        sliderView.updateSeekPosition()
-    }
-    
-    var seekPositionMarker: NSView! {
-        return sliderView.seekPositionMarker
-    }
-    
-    func playbackRateChanged(_ rate: Float, _ playbackState: PlaybackState) {
-        sliderView.playbackRateChanged(rate, playbackState)
-    }
-    
-    func setTimeElapsedDisplayFormat(_ format: TimeElapsedDisplayType) {
-        sliderView.setTimeElapsedDisplayFormat(format)
-    }
-    
-    func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
-        sliderView.setTimeRemainingDisplayFormat(format)
-    }
+    var seekPositionMarker: NSView! {(sliderView as? WindowedModeSeekSliderView)?.seekPositionMarker}
 }

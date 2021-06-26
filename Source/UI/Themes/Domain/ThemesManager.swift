@@ -32,8 +32,8 @@ class ThemesManager: MappedPresets<Theme> {
     // Applies a theme to the system theme and returns the modified system scheme.
     func applyTheme(_ theme: Theme) {
         
-        _ = fontSchemesManager.applyScheme(theme.fontScheme)
-        _ = colorSchemesManager.applyScheme(theme.colorScheme)
+        fontSchemesManager.applyScheme(theme.fontScheme)
+        colorSchemesManager.applyScheme(theme.colorScheme)
         WindowAppearanceState.cornerRadius = theme.windowAppearance.cornerRadius
         
         Messenger.publish(.applyTheme)

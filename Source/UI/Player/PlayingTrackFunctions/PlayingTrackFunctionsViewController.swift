@@ -26,7 +26,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     // Button to bookmark current track and position
     @IBOutlet weak var btnBookmark: TintedImageButton!
     
-    @IBOutlet weak var sliderView: SeekSliderView!
+    @IBOutlet weak var sliderView: WindowedModeSeekSliderView!
     @IBOutlet weak var seekPositionMarkerView: NSView!
     
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: TintedImageButton!

@@ -21,23 +21,16 @@
             <connections>
                 <outlet property="appLogo" destination="Z1q-TO-pG6" id="eWD-M2-jx4"/>
                 <outlet property="artOverlayBox" destination="xSV-wz-vgQ" id="l62-4K-E7e"/>
-                <outlet property="btnLoop" destination="Cut-80-aL8" id="Lko-ak-ETv"/>
-                <outlet property="btnNextTrack" destination="taN-kK-eEV" id="jmG-RA-8Zc"/>
-                <outlet property="btnPlayPause" destination="m2Q-Qd-juj" id="c91-fV-ANI"/>
-                <outlet property="btnPreviousTrack" destination="rru-Ww-H57" id="fLW-hW-vUg"/>
                 <outlet property="btnQuit" destination="D5e-Eq-c87" id="W9N-98-Y2T"/>
                 <outlet property="btnRegularMode" destination="GS3-VZ-nPx" id="1he-Yy-8mg"/>
-                <outlet property="btnSeekBackward" destination="9dh-O3-hsB" id="IU0-kI-0mF"/>
-                <outlet property="btnSeekForward" destination="G2a-Rd-K5w" id="S5s-qR-WeA"/>
                 <outlet property="btnSettings" destination="8UO-59-iT0" id="YE7-BV-Zxd"/>
                 <outlet property="imgArt" destination="4dk-EH-BOI" id="cpf-qA-qGH"/>
                 <outlet property="infoBox" destination="vrX-Nw-abT" id="UMp-4M-mG7"/>
-                <outlet property="lblTimeElapsed" destination="WYU-tl-It4" id="JyC-79-Q6m"/>
-                <outlet property="lblTimeRemaining" destination="tuQ-Mc-uU0" id="2x8-FY-WQq"/>
-                <outlet property="seekSlider" destination="cMO-ue-ceg" id="kVV-63-x6U"/>
-                <outlet property="seekSliderCell" destination="UsT-W0-Z4w" id="9yx-f6-hh1"/>
-                <outlet property="seekSliderClone" destination="1Kq-UT-L4a" id="lJy-Lc-qXo"/>
-                <outlet property="seekSliderCloneCell" destination="zPk-jS-dUE" id="wXa-Q7-uNK"/>
+                <outlet property="playbackView" destination="A8P-gF-rZh" id="Xic-43-gMQ"/>
+                <outlet property="playbackViewController" destination="AjS-bO-E7r" id="m8y-NY-qBw"/>
+                <outlet property="playerAudioViewController" destination="c56-oI-v2n" id="R5S-Yb-vY1"/>
+                <outlet property="playerSequencingViewController" destination="CIt-5z-Hlz" id="gWu-Ps-D7I"/>
+                <outlet property="seekSliderView" destination="GcZ-Bp-Dug" id="Ofi-Ox-mgM"/>
                 <outlet property="settingsBox" destination="Prg-DV-9kD" id="SJh-9G-KG7"/>
                 <outlet property="trackInfoView" destination="RjK-18-fyJ" id="WQ1-Cc-2d0"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="7Tk-vw-vqd"/>
@@ -45,11 +38,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view appearanceType="aqua" id="A8P-gF-rZh" userLabel="Menu Bar Player View">
+        <view appearanceType="aqua" id="A8P-gF-rZh" userLabel="Menu Bar Player View" customClass="MenuBarModePlaybackView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="300" height="170"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view id="GcZ-Bp-Dug">
+                <view id="GcZ-Bp-Dug" customClass="MenuBarModeSeekSliderView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="-1" width="300" height="172"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -157,7 +150,7 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="toggleLoopAction:" target="-2" id="rgg-l5-Oxi"/>
+                                <action selector="toggleLoopAction:" target="AjS-bO-E7r" id="IR9-0P-dIR"/>
                             </connections>
                         </button>
                         <button toolTip="Mute / Unmute" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P5p-7u-pjj" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -188,7 +181,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="Pause"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="playPauseAction:" target="-2" id="02X-kG-K0d"/>
+                                <action selector="playPauseAction:" target="AjS-bO-E7r" id="k5h-pP-Oud"/>
                             </connections>
                         </button>
                         <button toolTip="Seek backward" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9dh-O3-hsB" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -202,7 +195,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SeekBackward"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="seekBackwardAction:" target="-2" id="C0I-c5-BrZ"/>
+                                <action selector="seekBackwardAction:" target="AjS-bO-E7r" id="mHv-ES-cBE"/>
                             </connections>
                         </button>
                         <button toolTip="Previous track" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rru-Ww-H57" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
@@ -217,7 +210,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="PreviousTrack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="previousTrackAction:" target="-2" id="OAr-5V-R1K"/>
+                                <action selector="previousTrackAction:" target="AjS-bO-E7r" id="dmX-g1-gJz"/>
                             </connections>
                         </button>
                         <button toolTip="Next track" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="taN-kK-eEV" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
@@ -232,7 +225,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="NextTrack"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="nextTrackAction:" target="-2" id="NZb-HM-miL"/>
+                                <action selector="nextTrackAction:" target="AjS-bO-E7r" id="bsu-3C-K10"/>
                             </connections>
                         </button>
                         <button toolTip="Seek forward" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G2a-Rd-K5w" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -246,7 +239,7 @@
                                 <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="SeekForward"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="seekForwardAction:" target="-2" id="Rqa-5p-vXv"/>
+                                <action selector="seekForwardAction:" target="AjS-bO-E7r" id="TbN-QZ-KhK"/>
                             </connections>
                         </button>
                         <textField hidden="YES" wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-dM-R5z" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
@@ -295,7 +288,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="UsT-W0-Z4w" customClass="MenuBarSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                             <connections>
-                                <action selector="seekSliderAction:" target="-2" id="doe-Gi-XHs"/>
+                                <action selector="seekSliderAction:" target="AjS-bO-E7r" id="j5y-Lx-QIb"/>
                             </connections>
                         </slider>
                         <box wantsLayer="YES" fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" titlePosition="noTitle" transparent="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrX-Nw-abT" userLabel="Playing Track Info Box">
@@ -408,8 +401,25 @@
                             <color key="fillColor" white="0.19642884581239073" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
                     </subviews>
+                    <connections>
+                        <outlet property="lblTimeElapsed" destination="WYU-tl-It4" id="uLn-j5-00Q"/>
+                        <outlet property="lblTimeRemaining" destination="tuQ-Mc-uU0" id="p6s-hT-whP"/>
+                        <outlet property="seekSlider" destination="cMO-ue-ceg" id="EYC-Ja-o7A"/>
+                        <outlet property="seekSliderCell" destination="UsT-W0-Z4w" id="2Lc-p4-JOq"/>
+                        <outlet property="seekSliderClone" destination="1Kq-UT-L4a" id="Vrw-yd-aR5"/>
+                        <outlet property="seekSliderCloneCell" destination="zPk-jS-dUE" id="qZz-8A-Amp"/>
+                    </connections>
                 </view>
             </subviews>
+            <connections>
+                <outlet property="btnLoop" destination="Cut-80-aL8" id="guS-IW-s40"/>
+                <outlet property="btnNextTrack" destination="taN-kK-eEV" id="gGQ-vo-0Kl"/>
+                <outlet property="btnPlayPause" destination="m2Q-Qd-juj" id="QPX-5S-Dhd"/>
+                <outlet property="btnPreviousTrack" destination="rru-Ww-H57" id="bnt-fD-EsB"/>
+                <outlet property="btnSeekBackward" destination="9dh-O3-hsB" id="Hip-8D-eH1"/>
+                <outlet property="btnSeekForward" destination="G2a-Rd-K5w" id="sUe-TP-Vtq"/>
+                <outlet property="sliderView" destination="GcZ-Bp-Dug" id="hP4-5N-TE5"/>
+            </connections>
             <point key="canvasLocation" x="49" y="48"/>
         </view>
         <slider verticalHuggingPriority="750" id="1Kq-UT-L4a" userLabel="Seek Slider Clone">
@@ -439,12 +449,18 @@
                 <outlet property="view" destination="A8P-gF-rZh" id="Gfk-6D-0gi"/>
             </connections>
         </customObject>
-        <customObject id="c56-oI-v2n" customClass="MenuBarPlayerAudioViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="c56-oI-v2n" customClass="MenuBarModePlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnVolume" destination="P5p-7u-pjj" id="T1X-br-huH"/>
                 <outlet property="lblVolume" destination="ifp-dM-R5z" id="Qsp-bN-9fE"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="KoY-nE-tpV"/>
                 <outlet property="volumeSlider" destination="LQL-m8-1KN" id="IlP-oD-Ld4"/>
+            </connections>
+        </customObject>
+        <customObject id="AjS-bO-E7r" customClass="MenuBarModePlaybackViewController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="playbackView" destination="A8P-gF-rZh" id="8Qd-sB-ZNf"/>
+                <outlet property="view" destination="A8P-gF-rZh" id="b3w-eF-hML"/>
             </connections>
         </customObject>
     </objects>

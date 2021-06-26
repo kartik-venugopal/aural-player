@@ -12,7 +12,7 @@ import Cocoa
 /*
    View that encapsulates the seek slider and seek time labels.
 */
-class SeekSliderView: NSView, ColorSchemeable {
+class SeekSliderView: NSView {
     
     // Fields that display/control seek position within the playing track
     @IBOutlet weak var lblTimeElapsed: VALabel!
@@ -26,24 +26,16 @@ class SeekSliderView: NSView, ColorSchemeable {
     @IBOutlet weak var seekSliderClone: NSSlider!
     @IBOutlet weak var seekSliderCloneCell: SeekSliderCell!
     
-    // Used to display the bookmark name prompt popover
-    @IBOutlet weak var seekPositionMarker: NSView!
-    
     // Timer that periodically updates the seek position slider and label
-    private var seekTimer: RepeatingTaskExecutor?
+    fileprivate var seekTimer: RepeatingTaskExecutor?
     
     // Delegate representing the Time effects unit
-    private let timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
+    fileprivate let timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    fileprivate let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
-    
-    var seekSliderValue: Double {
-        return seekSlider.doubleValue
-    }
+    var seekSliderValue: Double {seekSlider.doubleValue}
     
     override func awakeFromNib() {
         
@@ -51,8 +43,6 @@ class SeekSliderView: NSView, ColorSchemeable {
         lblTimeElapsed.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction)))
         
         lblTimeRemaining.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
-        
-        applyColorScheme(colorSchemesManager.systemScheme)
         
         // MARK: Update controls based on current player state
         
@@ -123,6 +113,8 @@ class SeekSliderView: NSView, ColorSchemeable {
         let seekPosn = player.seekPosition
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
+        print("USP: \(seekPosn)")
+        
         let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
         
         lblTimeElapsed.stringValue = trackTimes.elapsed
@@ -133,7 +125,7 @@ class SeekSliderView: NSView, ColorSchemeable {
         }
     }
     
-    private func setSeekTimerState(_ timerOn: Bool) {
+    fileprivate func setSeekTimerState(_ timerOn: Bool) {
         timerOn ? seekTimer?.startOrResume() : seekTimer?.pause()
     }
     
@@ -181,7 +173,7 @@ class SeekSliderView: NSView, ColorSchemeable {
     }
     
     func showOrHideTimeElapsedRemaining() {
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
+        [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(PlayerViewState.showTimeElapsedRemaining)}
     }
     
     // When the playback rate changes (caused by the Time Stretch effects unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
@@ -199,6 +191,36 @@ class SeekSliderView: NSView, ColorSchemeable {
             
             setSeekTimerState(playbackState == .playing)
         }
+    }
+}
+
+class MenuBarModeSeekSliderView: SeekSliderView {
+    
+    func stopUpdatingSeekPosition() {
+        setSeekTimerState(false)
+    }
+    
+    func resumeUpdatingSeekPosition() {
+        
+        updateSeekPosition()
+        setSeekTimerState(true)
+    }
+}
+
+class WindowedModeSeekSliderView: SeekSliderView, ColorSchemeable {
+    
+    // Used to display the bookmark name prompt popover
+    @IBOutlet weak var seekPositionMarker: NSView!
+    
+    fileprivate let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    fileprivate let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        applyFontScheme(fontSchemesManager.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
