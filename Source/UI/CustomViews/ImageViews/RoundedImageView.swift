@@ -19,26 +19,26 @@ class RoundedImageView: NSImageView {
     /// The corner rounding radius of the image view. Can be edited in Interface Builder.
     ///
     @IBInspectable var roundingRadius: CGFloat = 2 {
-        didSet {self.layer?.cornerRadius = roundingRadius}
+        didSet {layer?.cornerRadius = roundingRadius}
     }
     
     override init(frame frameRect: NSRect) {
         
         super.init(frame: frameRect)
         
-        self.wantsLayer = true
-        self.layer?.masksToBounds = true
+        wantsLayer = true
+        layer?.masksToBounds = true
     }
     
     required init?(coder: NSCoder) {
         
         super.init(coder: coder)
         
-        self.wantsLayer = true
-        self.layer?.masksToBounds = true
+        wantsLayer = true
+        layer?.masksToBounds = true
     }
     
     override func awakeFromNib() {
-        self.layer?.cornerRadius = roundingRadius
+        layer?.cornerRadius = roundingRadius
     }
 }

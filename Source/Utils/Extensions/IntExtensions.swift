@@ -14,17 +14,21 @@ extension Int {
     static let ascendingIntComparator: (Int, Int) -> Bool = {$0 < $1}
     static let descendingIntComparator: (Int, Int) -> Bool = {$0 > $1}
     
+}
+
+extension SignedInteger {
+    
     mutating func increment() {
         self += 1
     }
     
-    mutating func incrementAndGet() -> Int {
+    mutating func incrementAndGet() -> Self {
         
         self += 1
         return self
     }
     
-    mutating func getAndIncrement() -> Int {
+    mutating func getAndIncrement() -> Self {
         
         let returnValue = self
         self += 1
@@ -35,13 +39,13 @@ extension Int {
         self -= 1
     }
     
-    mutating func decrementAndGet() -> Int {
+    mutating func decrementAndGet() -> Self {
         
         self -= 1
         return self
     }
     
-    mutating func getAndDecrement() -> Int {
+    mutating func getAndDecrement() -> Self {
         
         let returnValue = self
         self -= 1

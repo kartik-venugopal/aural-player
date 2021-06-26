@@ -39,7 +39,7 @@ class RepeatingTaskExecutor {
         
         self.state = .notStarted
         
-        timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags.strict, queue: queue)
+        timer = DispatchSource.makeTimerSource(flags: .strict, queue: queue)
         
         // Allow a 10% time leeway
         let interval = DispatchTimeInterval.milliseconds(intervalMillis)
@@ -47,7 +47,7 @@ class RepeatingTaskExecutor {
         
         timer.schedule(deadline: .now(), repeating: interval, leeway: leeway)
         
-        timer.setEventHandler { [weak self] in
+        timer.setEventHandler {[weak self] in
             self?.task()
         }
     }
@@ -72,13 +72,9 @@ class RepeatingTaskExecutor {
         }
     }
     
-    var isRunning: Bool {
-        return state == .running
-    }
+    var isRunning: Bool {state == .running}
     
-    var interval: Int {
-        return intervalMillis
-    }
+    var interval: Int {intervalMillis}
     
     func stop() {
         

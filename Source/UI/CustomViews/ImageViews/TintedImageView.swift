@@ -13,17 +13,11 @@ import Cocoa
 class TintedImageView: NSImageView, Tintable {
     
     @IBInspectable var baseImage: NSImage? {
-        
-        didSet {
-            reTint()
-        }
+        didSet {reTint()}
     }
     
-    var tintFunction: () -> NSColor = {return Colors.functionButtonColor} {
-        
-        didSet {
-            reTint()
-        }
+    var tintFunction: () -> NSColor = {Colors.functionButtonColor} {
+        didSet {reTint()}
     }
     
     func reTint() {
