@@ -70,10 +70,3 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate, Not
         controller = nil
     }
 }
-
-protocol MenuBarMenuObserver {
-    
-    func menuBarMenuOpened()
-    
-    func menuBarMenuClosed()
-}

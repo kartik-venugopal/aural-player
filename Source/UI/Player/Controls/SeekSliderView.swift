@@ -40,9 +40,9 @@ class SeekSliderView: NSView {
     override func awakeFromNib() {
         
         // Allow clicks on the seek time display labels to switch to different display formats.
-        lblTimeElapsed.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction)))
+        lblTimeElapsed?.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction)))
         
-        lblTimeRemaining.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
+        lblTimeRemaining?.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
         
         // MARK: Update controls based on current player state
         
@@ -100,7 +100,11 @@ class SeekSliderView: NSView {
     
     func noTrackPlaying() {
         
-        NSView.hideViews(lblTimeElapsed, lblTimeRemaining, seekSlider)
+        if lblTimeElapsed != nil {
+            NSView.hideViews(lblTimeElapsed, lblTimeRemaining, seekSlider)
+        } else {
+            seekSlider.hide()
+        }
         
         seekSliderCell.removeLoop()
         seekSlider.doubleValue = 0
@@ -115,8 +119,8 @@ class SeekSliderView: NSView {
         
         let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
         
-        lblTimeElapsed.stringValue = trackTimes.elapsed
-        lblTimeRemaining.stringValue = trackTimes.remaining
+        lblTimeElapsed?.stringValue = trackTimes.elapsed
+        lblTimeRemaining?.stringValue = trackTimes.remaining
         
         for task in SeekTimerTaskQueue.tasksArray {
             task()

@@ -176,6 +176,10 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         AppModeManager.presentMode(.menuBar)
     }
     
+    @IBAction func controlBarModeAction(_ sender: AnyObject) {
+        AppModeManager.presentMode(.controlBar)
+    }
+    
     private func applyTheme() {
         
         applyColorScheme(colorSchemesManager.systemScheme)

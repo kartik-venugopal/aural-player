@@ -17,6 +17,8 @@ class AppModeManager {
     
     private static var menuBarMode: MenuBarAppModeController = MenuBarAppModeController()
     
+    private static var controlBarMode: ControlBarAppModeController = ControlBarAppModeController()
+    
     static func presentApp(lastPresentedAppMode: AppMode, preferences: ViewPreferences) {
         
         if preferences.appModeOnStartup.option == .rememberFromLastAppLaunch {
@@ -36,6 +38,8 @@ class AppModeManager {
         case .windowed:  windowedMode.presentMode(transitioningFromMode: mode)
         
         case .menuBar: menuBarMode.presentMode(transitioningFromMode: mode)
+            
+        case .controlBar:   controlBarMode.presentMode(transitioningFromMode: mode)
         
         }
         
@@ -52,6 +56,8 @@ class AppModeManager {
             
         case .menuBar: menuBarMode.dismissMode()
             
+        case .controlBar:   controlBarMode.dismissMode()
+            
         }
     }
 }
@@ -62,6 +68,7 @@ enum AppMode: String {
     
     case windowed
     case menuBar
+    case controlBar
 }
 
 protocol AppModeController {

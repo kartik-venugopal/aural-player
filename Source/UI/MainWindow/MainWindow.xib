@@ -95,6 +95,20 @@
                                         <action selector="menuBarModeAction:" target="-2" id="YuQ-CY-KEJ"/>
                                     </connections>
                                 </button>
+                                <button toolTip="Switch to control bar mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-XT-x3a" userLabel="Control Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="57" y="204" width="10" height="10"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ControlBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Okb-Nw-ztF">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="ControlBarMode"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="controlBarModeAction:" target="-2" id="hrx-CF-fOP"/>
+                                    </connections>
+                                </button>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efk-uj-yYR" userLabel="Title view" customClass="TintedImageView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="238" y="202" width="54" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -2096,6 +2110,7 @@ CA
         <image name="Close" width="18" height="18"/>
         <image name="CollapseGroups" width="15" height="15"/>
         <image name="ColorScheme" width="13" height="14"/>
+        <image name="ControlBarMode" width="15" height="15"/>
         <image name="CropSelection-Small" width="14" height="14"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>

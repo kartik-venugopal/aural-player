@@ -1,36 +1,28 @@
 //
-//  MenuBarPlayerViewController.swift
+//  ControlBarPlayerViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
-//
+//  
 import Cocoa
 
-class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
-
-    override var nibName: String? {"MenuBarPlayer"}
+class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
     
-    @IBOutlet weak var appLogo: TintedImageView!
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnRegularMode: TintedImageButton!
     
-    @IBOutlet weak var infoBox: NSBox!
-    @IBOutlet weak var trackInfoView: MenuBarPlayingTrackTextView!
+    @IBOutlet weak var textView: ScrollingTextView!
     @IBOutlet weak var imgArt: NSImageView!
-    @IBOutlet weak var artOverlayBox: NSBox!
     
-    @IBOutlet weak var playbackView: MenuBarModePlaybackView!
-    @IBOutlet weak var seekSliderView: MenuBarModeSeekSliderView!
+    @IBOutlet weak var playbackView: ControlBarModePlaybackView!
+    @IBOutlet weak var seekSliderView: ControlBarModeSeekSliderView!
     
-    @IBOutlet weak var btnSettings: TintedImageButton!
-    @IBOutlet weak var settingsBox: NSBox!
-    
-    @IBOutlet weak var playbackViewController: MenuBarModePlaybackViewController!
-    @IBOutlet weak var playerAudioViewController: MenuBarModePlayerAudioViewController!
-    @IBOutlet weak var playerSequencingViewController: MenuBarModePlayerSequencingViewController!
+    @IBOutlet weak var playbackViewController: ControlBarModePlaybackViewController!
+    @IBOutlet weak var playerAudioViewController: ControlBarModePlayerAudioViewController!
+    @IBOutlet weak var playerSequencingViewController: ControlBarModePlayerSequencingViewController!
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
@@ -45,17 +37,22 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
+    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    
     override func awakeFromNib() {
         
-        [btnQuit, btnRegularMode, btnSettings].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
+        [btnQuit, btnRegularMode].forEach {
+            $0?.tintFunction = {self.colorSchemesManager.systemScheme.general.viewControlButtonColor}
+        }
         
-        appLogo.tintFunction = {Colors.Constants.white70Percent}
-
+        textView.font = fontSchemesManager.systemScheme.player.infoBoxArtistAlbumFont
+        textView.textColor = colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor
+        
         // MARK: Notification subscriptions
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
-        Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
     }
     
@@ -69,14 +66,7 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     }
     
     override func viewDidLoad() {
-        
         updateTrackInfo()
-
-        // When the view first loads, the menu bar's menu is closed (not visible), so
-        // don't bother updating the seek position unnecessarily.
-        if view.superview == nil {
-            seekSliderView.stopUpdatingSeekPosition()
-        }
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -84,63 +74,14 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     private func updateTrackInfo() {
         
         if let theTrack = player.playingTrack {
-            
-            trackInfoView.trackInfo = PlayingTrackInfo(theTrack, player.playingChapter?.chapter.title)
+            textView.setup(string: theTrack.displayName)
             
         } else {
-            
-            trackInfoView.trackInfo = nil
+            textView.setup(string: "")
         }
         
         imgArt.image = player.playingTrack?.art?.image
-        [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && MenuBarPlayerViewState.showAlbumArt)}
-        
-        infoBox.bringToFront()
-        
-        if settingsBox.isShown {
-            settingsBox.bringToFront()
-        }
-    }
-    
-    @IBAction func showOrHideSettingsAction(_ sender: NSButton) {
-        
-        if settingsBox.isHidden {
-
-            settingsBox.show()
-            settingsBox.bringToFront()
-
-        } else {
-            
-            settingsBox.hide()
-            infoBox.bringToFront()
-        }
-    }
-    
-    func menuBarMenuOpened() {
-        
-        if settingsBox.isShown {
-            
-            settingsBox.hide()
-            infoBox.bringToFront()
-        }
-        
-        // If the player is playing, we need to resume updating the seek
-        // position as the view is now visible.
-        if player.state == .playing {
-            seekSliderView.resumeUpdatingSeekPosition()
-        }
-    }
-    
-    func menuBarMenuClosed() {
-        
-        if settingsBox.isShown {
-            
-            settingsBox.hide()
-            infoBox.bringToFront()
-        }
-        
-        // Updating seek position is not necessary when the view has been closed.
-        seekSliderView.stopUpdatingSeekPosition()
+        imgArt.showIf(imgArt.image != nil)
     }
     
     // MARK: Message handling
@@ -154,13 +95,6 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
         
         if notification.updatedTrack == player.playingTrack {
             updateTrackInfo()
-        }
-    }
-    
-    func chapterChanged(_ notification: ChapterChangedNotification) {
-        
-        if let playingTrack = player.playingTrack {
-            trackInfoView.trackInfo = PlayingTrackInfo(playingTrack, notification.newChapter?.chapter.title)
         }
     }
     

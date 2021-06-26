@@ -17,6 +17,8 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
     
     @IBOutlet weak var playbackView: PlaybackView!
     
+    var displaysChapterIndicator: Bool {true}
+    
     // Delegate that conveys all playback requests to the player / playback sequencer
     let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
@@ -71,6 +73,8 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
     func trackChanged(_ newTrack: Track?) {
         
         playbackView.trackChanged(player.state, player.playbackLoop, newTrack)
+        
+        guard displaysChapterIndicator else {return}
         
         if let track = newTrack, track.hasChapters {
             beginPollingForChapterChange()
