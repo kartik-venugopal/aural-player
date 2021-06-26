@@ -26,7 +26,7 @@ fileprivate typealias TrackProducer = () -> Track?
 ///
 /// - SeeAlso: `Player`
 ///
-class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, NotificationSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol, NotificationSubscriber {
     
     // The actual player
     let player: PlayerProtocol
@@ -60,6 +60,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         // Subscribe to notifications
         Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
         Messenger.subscribeAsync(self, .player_trackPlaybackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
+        Messenger.subscribe(self, .sequencer_playingTrackRemoved, self.doStop(_:))
 
         // Commands
         Messenger.subscribeAsync(self, .player_autoplay, self.autoplay(_:), queue: .main)
@@ -394,6 +395,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         }
     }
     
+    func playingTrackRemoved(_ playingTrack: Track) {
+        doStop(playingTrack)
+    }
+    
     // Continues playback when a track finishes playing.
     func doTrackPlaybackCompleted() {
         
@@ -416,48 +421,5 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         // Proceed with exit
         request.acceptResponse(okToExit: true)
-    }
-    
-    // ------------------- PlaylistChangeListenerProtocol methods ---------------------
-    
-    // TODO: Revisit all these functions
-    
-    func tracksAdded(_ addResults: [TrackAddResult]) {
-        sequencer.tracksAdded(addResults)
-    }
-    
-    func tracksReordered(_ moveResults: ItemMoveResults) {
-        sequencer.tracksReordered(moveResults)
-    }
-    
-    func playlistSorted(_ sortResults: SortResults) {
-        sequencer.playlistSorted(sortResults)
-    }
-    
-    func tracksRemoved(_ removeResults: TrackRemovalResults) {
-        
-        // Capture current track before the sequence is ended.
-        let trackBeforeChange = playingTrack
-        
-        sequencer.tracksRemoved(removeResults)
-        
-        let removedTracksSet: Set<Track> = Set(removeResults.tracks)
-        
-        // If the playing track was removed, need to stop playback.
-        if let playingTrack = trackBeforeChange, removedTracksSet.contains(playingTrack) {
-            doStop(playingTrack)
-        }
-    }
-    
-    // Stop playback when the playlist is cleared.
-    func playlistCleared() {
-        
-        // Capture current track before the sequence is cleared
-        let trackBeforeChange = playingTrack
-        
-        sequencer.playlistCleared()
-        
-        // Stop playback
-        doStop(trackBeforeChange)
     }
 }

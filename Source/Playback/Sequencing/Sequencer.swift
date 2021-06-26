@@ -405,6 +405,8 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
         guard !removeResults.tracks.isEmpty else {return}
         
         if let thePlayingTrack = currentTrack, !playlist.hasTrack(thePlayingTrack) {
+            
+            Messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
             end()
         }
         
@@ -423,6 +425,10 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
     }
     
     func playlistCleared() {
+        
+        if let thePlayingTrack = currentTrack {
+            Messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
+        }
         
         end()
         sequence.clear()

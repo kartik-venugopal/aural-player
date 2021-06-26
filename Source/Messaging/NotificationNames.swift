@@ -141,6 +141,14 @@ extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------
     
+    // MARK: Notifications published by the sequencer.
+    
+    // Signifies that the currently playing track has been removed from the playlist, suggesting
+    // that playback should stop.
+    static let sequencer_playingTrackRemoved = Notification.Name("sequencer_playingTrackRemoved")
+    
+    // ----------------------------------------------------------------------------------------
+    
     // MARK: Notifications published by the audio graph (i.e. audio engine).
     
     // Signifies that the audio output device for the audio engine has changed.

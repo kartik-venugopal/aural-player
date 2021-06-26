@@ -27,7 +27,7 @@ class ObjectGraph {
                                                                  [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
     
     static let playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist, trackReader, preferences,
-                                                                             [playbackDelegate as! PlaybackDelegate])
+                                                                             [sequencer])
     
     static var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {playlistDelegate}
     
