@@ -14,15 +14,12 @@ import Cocoa
  */
 class HelpMenuController: NSObject {
     
-//    private lazy var workspace: NSWorkspace = NSWorkspace.shared
+    private lazy var workspace: NSWorkspace = NSWorkspace.shared
     
-    // Opens the online (HTML) user guide
-    @IBAction func onlineUserGuideAction(_ sender: Any) {
-//        workspace.open(AppConstants.onlineUserGuideURL)
-    }
+    private static let supportURL: URL = URL(string: "https://github.com/maculateConception/aural-player/wiki")!
     
-    // Opens the bundled (PDF) user guide
-    @IBAction func pdfUserGuideAction(_ sender: Any) {
-//        workspace.openFile(AppConstants.pdfUserGuidePath)
+    // Opens the online (Wiki) support documentation
+    @IBAction func onlineSupportAction(_ sender: Any) {
+        workspace.open(Self.supportURL)
     }
 }

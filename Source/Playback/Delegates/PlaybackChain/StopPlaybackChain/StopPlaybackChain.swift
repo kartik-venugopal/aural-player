@@ -9,9 +9,12 @@
 //
 import Foundation
 
-/*
-    A playback chain specifically for stopping playback.
- */
+///
+/// A chain of responsibility that initiates the stopping of playback of the currently playing track.
+///
+/// It is composed of several actions that perform any required
+/// pre / post-processing or notifications.
+///
 class StopPlaybackChain: PlaybackChain {
     
     init(_ player: PlayerProtocol, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences) {

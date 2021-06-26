@@ -9,15 +9,27 @@
 //
 import Foundation
 
-// A function that produces an optional Track (used when deciding which track will play next)
-typealias TrackProducer = () -> Track?
+///
+/// A "producer" (or factory) function that produces an optional Track (used when deciding which track will play next).
+///
+fileprivate typealias TrackProducer = () -> Track?
 
+///
+/// A delegate that represents the Player.
+///
+/// Acts as a middleman between the Player UI and the Player, providing a simplified
+/// interface / facade for the UI layer to control the Player.
+///
+/// Translates high-level user commands to low-level Player operations, delegating to
+/// the Sequencer to determine the current playback sequence.
+/// For example, "Play next track" -> "Play 'track1.mp3'".
+///
+/// - SeeAlso: `Player`
+///
 class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol, NotificationSubscriber {
     
     // The actual player
     let player: PlayerProtocol
-    
-    let playlist: PlaylistAccessorProtocol
     
     // The playback sequence
     let sequencer: SequencerProtocol
@@ -33,11 +45,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     let stopPlaybackChain: StopPlaybackChain
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
-    init(_ player: PlayerProtocol, _ playlist: PlaylistAccessorProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
+    init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
          _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {
         
         self.player = player
-        self.playlist = playlist
         self.sequencer = sequencer
         self.preferences = preferences
         self.profiles = profiles
@@ -88,37 +99,37 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
     }
     
     private func beginPlayback() {
-        doPlay({return sequencer.begin()}, PlaybackParams.defaultParams())
+        doPlay({sequencer.begin()}, PlaybackParams.defaultParams())
     }
     
     func previousTrack() {
         
         if state != .noTrack {
-            doPlay({return sequencer.previous()})
+            doPlay({sequencer.previous()})
         }
     }
     
     func nextTrack() {
         
         if state != .noTrack {
-            doPlay({return sequencer.next()})
+            doPlay({sequencer.next()})
         }
     }
     
     func play(_ index: Int, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(index)}, params)
+        doPlay({sequencer.select(index)}, params)
     }
     
     func play(_ track: Track, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(track)}, params)
+        doPlay({sequencer.select(track)}, params)
     }
     
     func play(_ group: Group, _ params: PlaybackParams) {
-        doPlay({return sequencer.select(group)}, params)
+        doPlay({sequencer.select(group)}, params)
     }
     
     // Captures the current player state and proceeds with playback according to the playback sequence
-    func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
+    private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
         
         let trackBeforeChange = playingTrack
         let stateBeforeChange = state
@@ -430,9 +441,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol, PlaylistChangeListenerProtocol
         
         sequencer.tracksRemoved(removeResults)
         
-        // Playing track was removed, need to stop playback
-        if let thePlayingTrack = trackBeforeChange, !playlist.hasTrack(thePlayingTrack) {
-            doStop(thePlayingTrack)
+        let removedTracksSet: Set<Track> = Set(removeResults.tracks)
+        
+        // If the playing track was removed, need to stop playback.
+        if let playingTrack = trackBeforeChange, removedTracksSet.contains(playingTrack) {
+            doStop(playingTrack)
         }
     }
     

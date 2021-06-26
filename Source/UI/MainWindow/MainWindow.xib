@@ -2070,20 +2070,14 @@ CA
                         </connections>
                     </menu>
                 </menuItem>
-                <menuItem title="Help" hidden="YES" enabled="NO" id="xt3-i6-Lh1">
+                <menuItem title="Help" id="xt3-i6-Lh1">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Help" id="pj7-dG-ToA">
+                    <menu key="submenu" title="Help" autoenablesItems="NO" id="pj7-dG-ToA">
                         <items>
-                            <menuItem title=" User guide (pdf)" image="UserGuide" enabled="NO" id="LyZ-xR-Gq7" userLabel="User Guide (pdf)">
+                            <menuItem title="Support documentation (online)" image="UserGuide" id="wRe-Ki-rh6" userLabel="User Guide (online HTML)">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="pdfUserGuideAction:" target="Ejb-cE-J2S" id="jay-uo-knY"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title=" User guide (online, HTML)" image="UserGuide" enabled="NO" id="wRe-Ki-rh6" userLabel="User Guide (online HTML)">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="onlineUserGuideAction:" target="Ejb-cE-J2S" id="Qto-2b-bFR"/>
+                                    <action selector="onlineSupportAction:" target="Ejb-cE-J2S" id="S1B-i4-7rL"/>
                                 </connections>
                             </menuItem>
                         </items>

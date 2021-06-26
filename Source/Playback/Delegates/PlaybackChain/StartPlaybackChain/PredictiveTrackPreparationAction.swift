@@ -10,12 +10,12 @@
 import Foundation
 
 ///
-/// Tries to predict which track might play next, and prepares all those candidate tracks ahead of time,
-/// in anticipation of their playback.
+/// Chain of responsibility action that tries to predict which track might play next, and prepares all
+/// those candidate tracks ahead of time, in anticipation of their playback.
  
 /// The advantage of doing this is that when one of those tracks is actually selected for playback,
 /// there will be no time required to prep it for playback since this has already been done, and
-/// the user-audible gap between tracks will be greatly reduced.
+/// the user-audible gap between tracks will be reduced.
 ///
 class PredictiveTrackPreparationAction: PlaybackChainAction {
     

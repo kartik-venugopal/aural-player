@@ -9,7 +9,9 @@
 //
 import Foundation
 
-// Enumeration of all possible playback repeat modes
+///
+/// An enumeration of all possible playback repeat modes.
+///
 enum RepeatMode: String, CaseIterable {
     
     static let defaultMode: RepeatMode = .off
@@ -43,7 +45,9 @@ enum RepeatMode: String, CaseIterable {
     }
 }
 
-// Enumeration of all possible playback shuffle modes
+///
+/// An enumeration of all possible playback shuffle modes.
+///
 enum ShuffleMode: String, CaseIterable {
     
     static let defaultMode: ShuffleMode = .off
@@ -58,12 +62,4 @@ enum ShuffleMode: String, CaseIterable {
     func toggled() -> ShuffleMode {
         return self == .on ? .off : .on
     }
-}
-
-// Enumeration of all possible states of an A->B segment playback loop
-enum LoopState: String, CaseIterable {
-    
-    case none
-    case started
-    case complete
 }

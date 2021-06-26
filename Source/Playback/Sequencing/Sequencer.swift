@@ -9,9 +9,16 @@
 //
 import Foundation
 
-/*
-    See SequencerProtocol.
- */
+///
+/// Provides convenient CRUD access to the playback sequence
+/// to select tracks/groups for playback and/or determine which track will play next.
+///
+/// The Sequencer is what enables the Player to keep track of which track
+/// is currently playing.
+///
+/// - SeeAlso: `SequencerProtocol`
+/// - SeeAlso: `PlaybackSequence`
+///
 class Sequencer: SequencerProtocol, NotificationSubscriber {
     
     // The underlying linear sequence of tracks for the current playback scope

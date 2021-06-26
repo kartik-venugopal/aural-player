@@ -9,21 +9,27 @@
 //
 import Foundation
 
-/*
-    Contains the logic that determines the order in which tracks will be selected for playback.
-    The order depends on:
- 
-    - the order of tracks in the playlist from which the sequence was created (i.e. the playback scope)
-    - the repeat and shuffle modes
- 
-    This is a linear playback sequence that is unaware of the scope (entire playlist or specific group) from which the sequence was created. The size of the sequence will equal the number of tracks in the playback scope, and the indexes will represent absolute indexes within the sequence, that do not necessarily correspond to playlist indexes.
- 
-    Examples: 
- 
-         - If the scope was "All tracks" and there were 5 tracks in the playlist, the sequence might look like [0, 1, 2, 3, 4] or if shuffle is selected, maybe [2, 4, 3, 0, 1]
- 
-        - If the scope was "Artist: Madonna" and there were 3 tracks in the Madonna artist group, the sequence might look like [0, 1, 2] or if shuffle is selected, maybe [2, 0, 1] ... regardless of how many total tracks or groups there are in the entire playlist.
- */
+///
+/// Encapsulates the logic that determines the order in which tracks will be selected for playback.
+///
+/// Track playback order depends on:
+/// * the order of tracks in the playlist from which the sequence was created (i.e. the playback scope)
+/// * the repeat and shuffle modes
+///
+/// This is a linear playback sequence that is unaware of the scope (entire playlist or specific group) from
+/// which the sequence was created. The size of the sequence will equal the number of tracks in the
+/// playback scope, and the indexes will represent absolute indexes within the sequence, that do not necessarily
+/// correspond to playlist indexes.
+///
+/// Examples:
+///
+/// * If the scope was "All tracks" and there were 5 tracks in the playlist, the sequence might
+/// look like [0, 1, 2, 3, 4] or if shuffle is selected, maybe [2, 4, 3, 0, 1]
+///
+/// * If the scope was "Artist: Madonna" and there were 3 tracks in the Madonna artist group,
+/// the sequence might look like [0, 1, 2] or if shuffle is selected, maybe [2, 0, 1] ... regardless
+/// of how many total tracks or groups there are in the entire playlist.
+///
 class PlaybackSequence {
     
     private var repeatMode: RepeatMode = .defaultMode

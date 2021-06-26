@@ -690,6 +690,7 @@
 		3EE7CB9825E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */; };
 		3EE7CB9C25E22D5D0075F1DD /* EffectsFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */; };
 		3EE7CB9F25E22D6C0075F1DD /* EffectsFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */; };
+		3EEC040B26874041004478CE /* SequencerInfoDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */; };
 		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
 		3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
@@ -1446,6 +1447,7 @@
 		3EE7CB9725E21FAE0075F1DD /* PlaylistFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3EE7CB9B25E22D5D0075F1DD /* EffectsFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EffectsFontScheme.xib; sourceTree = "<group>"; };
 		3EE7CB9E25E22D6B0075F1DD /* EffectsFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsFontSchemeViewController.swift; sourceTree = "<group>"; };
+		3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequencerInfoDelegateProtocol.swift; sourceTree = "<group>"; };
 		3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTheme.xib; sourceTree = "<group>"; };
 		3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeDialogController.swift; sourceTree = "<group>"; };
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
@@ -2670,6 +2672,7 @@
 				3E6C105D25CEB98600BF0D07 /* ShuffleSequence.swift */,
 				3E6C106125CEB98600BF0D07 /* SequenceScope.swift */,
 				3E6C105F25CEB98600BF0D07 /* RepeatAndShuffleModes.swift */,
+				3EEC040A26874041004478CE /* SequencerInfoDelegateProtocol.swift */,
 				3E6C105C25CEB98600BF0D07 /* SequencerDelegateProtocol.swift */,
 				3E6C106325CEB98600BF0D07 /* SequencerDelegate.swift */,
 			);
@@ -3870,6 +3873,7 @@
 				3E6C127F25CEBE1800BF0D07 /* GradientOptionsRadioButtonGroup.swift in Sources */,
 				3EDB33FB25E8AE09004DF7DE /* FFmpegFrameBuffer.swift in Sources */,
 				3E803E23260A228200B705AA /* MusicBrainzCache.swift in Sources */,
+				3EEC040B26874041004478CE /* SequencerInfoDelegateProtocol.swift in Sources */,
 				3E6C12E625CEBE8100BF0D07 /* FilterBandViewController.swift in Sources */,
 				3E6C12C425CEBE6700BF0D07 /* EQView.swift in Sources */,
 				3E6C123C25CEBDF400BF0D07 /* ArtistsPlaylistSortViewController.swift in Sources */,

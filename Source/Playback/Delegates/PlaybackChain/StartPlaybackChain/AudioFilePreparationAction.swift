@@ -9,10 +9,9 @@
 //
 import Foundation
 
-/*
-    Prepares a track for playback:
-    - reading audio metadata
- */
+///
+/// Chain of responsibility action that prepares a track for playback:
+///
 class AudioFilePreparationAction: PlaybackChainAction {
     
     private let trackReader: TrackReader
@@ -29,24 +28,19 @@ class AudioFilePreparationAction: PlaybackChainAction {
             return
         }
         
-        prepareTrackAndProceed(newTrack, context, chain)
-    }
-    
-    func prepareTrackAndProceed(_ track: Track, _ context: PlaybackRequestContext, _ chain: PlaybackChain) {
-        
         do {
             
-            try trackReader.prepareForPlayback(track: track)
+            try trackReader.prepareForPlayback(track: newTrack)
 
             // Proceed if not waiting
             chain.proceed(context)
     
         } catch {
             
-            NSLog("Unable to prepare track \(track.file.lastPathComponent) for playback: \(error)")
+            NSLog("Unable to prepare track \(newTrack.file.lastPathComponent) for playback: \(error)")
             
             // Track preparation failed, terminate the chain.
-            chain.terminate(context, track.preparationError ?? TrackNotPlayableError(track.file))
+            chain.terminate(context, newTrack.preparationError ?? TrackNotPlayableError(newTrack.file))
         }
     }
 }

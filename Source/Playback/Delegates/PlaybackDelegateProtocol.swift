@@ -9,9 +9,14 @@
 //
 import Foundation
 
-/*
-    Contract for a middleman/delegate that relays all necessary playback operations to the player, and allows manipulation of the playback sequence
- */
+///
+/// A functional contract for a delegate that represents the Player.
+///
+/// Acts as a middleman between the Player UI and the Player, providing a simplified
+/// interface / facade for the UI layer to control the Player.
+///
+/// - SeeAlso: `Player`
+///
 protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     
     /*

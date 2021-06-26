@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    The scope defines the set of tracks that constitute the playback sequence. It could either be one of the playlists (for ex, all tracks or all genres), or a single specific group (for ex, Artist "Madonna" or Genre "Pop").
- */
+///
+/// A sequence scope defines the set of tracks that constitute the playback sequence. It could
+/// either be one of the playlists (for ex, all tracks or all genres), or a single specific group
+/// (for ex, Artist "Madonna" or Genre "Pop").
+///
 class SequenceScope {
     
     // The type of the scope (ex, "All tracks", or "Album")
@@ -25,7 +27,9 @@ class SequenceScope {
     }
 }
 
-// Enumerates all possible types of sequence scopes
+///
+/// An enumeration of all possible types of sequence scopes.
+///
 enum SequenceScopeType: String {
     
     // All tracks will be played from the "Tracks" playlist

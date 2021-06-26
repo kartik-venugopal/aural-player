@@ -9,10 +9,9 @@
 //
 import Foundation
 
-/*
-    Actually starts playback of a requested track, after all the necessary pre-processing has been completed.
-    This is the terminal (last) action in a StartPlaybackChain.
- */
+///
+/// Chain of responsibility action that initiates playback of a requested track.
+///
 class StartPlaybackAction: PlaybackChainAction {
     
     private let player: PlayerProtocol

@@ -9,12 +9,13 @@
 //
 import Foundation
 
-/*
-    Saves a playback profile (i.e. current playback settings, e.g. seek position) for a track
-    before playback continues with another track (or stops).
- 
-    This is done so that the next time this track plays, it can resume from the seek position where it stopped now.
-*/
+///
+/// Chain of responsibility action that saves a playback profile (i.e. current playback settings,
+/// e.g. seek position) for a track before playback continues with another track (or stops).
+///
+/// This is done so that the next time this track plays, it can resume from the seek
+/// position where it stopped now.
+///
 class SavePlaybackProfileAction: PlaybackChainAction {
     
     private let profiles: PlaybackProfiles

@@ -9,13 +9,14 @@
 //
 import Foundation
 
-/*
-    A playback chain that responds to the completion of playback of a track.
-    It either plays the subsequent track in the current playback sequence, if there is one,
-    or stops playback, if no further tracks are available to play.
- 
-    NOTE - This playback chain delegates to StartPlaybackChain and StopPlaybackChain to do most of its work.
- */
+///
+/// A chain of responsibility that responds to the completion of playback of a track. It either plays the
+/// subsequent track in the current playback sequence, if there is one, or stops playback, if no further
+/// tracks are available to play.
+///
+/// NOTE - This playback chain delegates to **StartPlaybackChain** and **StopPlaybackChain**
+/// to do its work.
+///
 class TrackPlaybackCompletedChain: PlaybackChain {
     
     // The playback chains that are used to continue/stop playback

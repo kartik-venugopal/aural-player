@@ -9,9 +9,10 @@
 //
 import Foundation
 
-/*
-   Action that ends the sequencer's playback sequence and notifies observers.
-*/
+///
+/// Chain of responsibility action that ends the sequencer's playback sequence
+/// and notifies observers of the track change.
+///
 class EndPlaybackSequenceAction: PlaybackChainAction {
     
     private let sequencer: SequencerProtocol

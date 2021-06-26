@@ -81,3 +81,11 @@ struct PlaybackLoop: Equatable {
         return (lhs.startTime == rhs.startTime) && (lhs.endTime == rhs.endTime)
     }
 }
+
+// Enumeration of all possible states of an A->B segment playback loop
+enum LoopState: String, CaseIterable {
+    
+    case none
+    case started
+    case complete
+}

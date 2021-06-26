@@ -9,11 +9,12 @@
 //
 import Foundation
 
-/*
-    A PlaybackChain that starts playback of a specific track.
-    It is composed of several actions that perform any required
-    pre-processing or notifications.
- */
+///
+/// A chain of responsibility that initiates playback of a specific track.
+/// 
+/// It is composed of several actions that perform any required
+/// pre-processing or notifications.
+///
 class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
 
     private let player: PlayerProtocol

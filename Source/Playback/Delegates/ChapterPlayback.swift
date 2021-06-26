@@ -9,11 +9,15 @@
 //
 import Foundation
 
-// A small margin of time that is added to the start time of a chapter to prevent an
-// "overlap" with the previous chapter.
+///
+/// A small margin of time that is added to the start time of a chapter to prevent an
+/// "overlap" with the previous chapter.
+///
 fileprivate let chapterPlaybackStartTimeMargin: Double = 0.001
 
-// Chapter playback functions
+///
+/// Extension of `PlaybackDelegate` that provides Chapter playback properties and functions.
+///
 extension PlaybackDelegate {
     
     func playChapter(_ index: Int) {

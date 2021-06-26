@@ -9,10 +9,10 @@
 //
 import Foundation
 
-/*
-    Encapsulates request parameters and other information pertinent to the
-    execution of a playback request (eg. starting/stopping track playback).
- */
+///
+/// Encapsulates request parameters and other information pertinent to the
+/// execution of a playback request (eg. starting/stopping track playback).
+///
 class PlaybackRequestContext {
     
     // The state of the player prior to execution of this reqeust.

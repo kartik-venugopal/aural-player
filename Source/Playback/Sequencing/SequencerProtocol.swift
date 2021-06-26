@@ -9,9 +9,16 @@
 //
 import Foundation
 
-/*
-    Contract for a sequencer that provides convenient CRUD access to the playback sequence to select tracks/groups for playback and/or determine which track will play next.
- */
+///
+/// A functional contract that provides convenient CRUD access to the playback sequence
+/// to select tracks/groups for playback and/or determine which track will play next.
+///
+/// This protocol extends `PlaylistChangeListenerProtocol` because the
+/// sequencer needs to observe changes to the playlist (such as tracks being added
+/// or removed). Any changes to the playlist will affect the playback sequence.
+///
+/// NOTE - This is not to be confused with a "music / audio sequencer".
+///
 protocol SequencerProtocol: PlaylistChangeListenerProtocol {
     
     /*  

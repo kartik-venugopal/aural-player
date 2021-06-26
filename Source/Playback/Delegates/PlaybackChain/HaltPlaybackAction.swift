@@ -9,9 +9,9 @@
 //
 import Foundation
 
-/*
-    Actually stops playback by commanding the player.
- */
+///
+/// Chain of responsibility action that stops playback.
+///
 class HaltPlaybackAction: PlaybackChainAction {
     
     private let player: PlayerProtocol

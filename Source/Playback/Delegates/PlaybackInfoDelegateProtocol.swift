@@ -9,9 +9,19 @@
 //
 import Foundation
 
-/*
-    Contract for a middleman/delegate that retrieves information about current playback state
- */
+///
+/// A functional contract for a delegate that represents the Player and retrieves information
+/// about the Player, including its playback state, which track is playing, etc.
+///
+/// Acts as a middleman between the Player UI and the Player, providing a simplified
+/// interface / facade for the UI layer to access information from the Player.
+///
+/// This contract only defines accessors, no mutators, so clients of this protocol cannot make
+/// any changes to the Player's state. It is intended to be used by components that display
+/// Player information.
+///
+/// - SeeAlso: `Player`
+///
 protocol PlaybackInfoDelegateProtocol {
     
     // Returns the current playback state of the player. See PlaybackState for more details

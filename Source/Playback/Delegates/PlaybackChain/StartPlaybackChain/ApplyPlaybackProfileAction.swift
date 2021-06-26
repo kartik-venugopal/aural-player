@@ -9,10 +9,15 @@
 //
 import Foundation
 
-/*
-    Applies a playback profile for a track (i.e. any previously remembered playback settings, e.g. seek position)
-    to an executing playback chain.
- */
+///
+/// Chain of responsibility action that applies a playback profile for a track (i.e. any previously
+/// remembered playback settings, e.g. seek position) to the current playback request context.
+/// This action implements the "remember last playback position" feature.
+///
+/// For example, if a track has a playback profile associated with it, containing a seek position
+/// of 30.5 seconds, this action will ensure that when playback for the track begins, it will resume
+/// from 30.5 seconds.
+///
 class ApplyPlaybackProfileAction: PlaybackChainAction {
     
     private let profiles: PlaybackProfiles

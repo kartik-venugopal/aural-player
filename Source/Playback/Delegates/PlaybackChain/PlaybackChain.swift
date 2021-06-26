@@ -9,10 +9,10 @@
 //
 import Foundation
 
-/*
-    Implements the "chain of responsibility" design pattern.
-    Performs a sequence (or "chain") of actions related to playback (e.g. stopping/starting playback).
- */
+///
+/// Implements the "chain of responsibility" design pattern. Performs a sequence (or "chain")
+/// of actions related to playback (e.g. stopping/starting playback).
+///
 class PlaybackChain {
     
     // The (ordered) actions that constitute the "links" of the "chain"
