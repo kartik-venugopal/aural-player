@@ -24,7 +24,7 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     /// Only one thread should be able to perform a MusicBrainz REST API call at any given time.
     /// This is because MusicBrainz performs rate-limiting (1 request per second).
     ///
-    private let apiCallsLock: DispatchSemaphore = DispatchSemaphore(value: 1)
+    private let apiCallsLock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
     init(preferences: MusicBrainzPreferences, cache: MusicBrainzCache) {
 
@@ -68,38 +68,39 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         }
 
         // Acquire the lock for the API call.
-        apiCallsLock.wait()
-        defer {apiCallsLock.signal()}
-        
-        // Look for cover art in the cache again (if we waited, another thread may have added cover art for the same release during the wait time).
-        if let coverArtResult = cache.getForRelease(artist: artist, title: releaseTitle) {
-            return coverArtResult.art
-        }
-        
-        do {
+        return apiCallsLock.produceValueAfterWait {() -> CoverArt? in
             
-            if let coverArt = try restAPIClient.getCoverArt(forArtist: artist, andReleaseTitle: releaseTitle) {
-                
-                // Add this entry to the cache.
-                cache.putForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
-                return coverArt
-                
-            } else {
-                cache.putForRelease(artist: artist, title: releaseTitle, coverArt: nil)
+            // Look for cover art in the cache again (if we waited, another thread may have
+            // added cover art for the same release during the wait time).
+            if let coverArtResult = cache.getForRelease(artist: artist, title: releaseTitle) {
+                return coverArtResult.art
             }
             
-        } catch {
-            
-            if let httpError = error as? HTTPError {
+            do {
                 
-                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
+                if let coverArt = try restAPIClient.getCoverArt(forArtist: artist, andReleaseTitle: releaseTitle) {
+                    
+                    // Add this entry to the cache.
+                    cache.putForRelease(artist: artist, title: releaseTitle, coverArt: coverArt)
+                    return coverArt
+                    
+                } else {
+                    cache.putForRelease(artist: artist, title: releaseTitle, coverArt: nil)
+                }
                 
-            } else {
-                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: \(error.localizedDescription)")
+            } catch {
+                
+                if let httpError = error as? HTTPError {
+                    
+                    NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
+                    
+                } else {
+                    NSLog("Error querying MusicBrainz for cover art with artist=\(artist), releaseTitle=\(releaseTitle). Error: \(error.localizedDescription)")
+                }
             }
+            
+            return nil
         }
-        
-        return nil
     }
     
     private func searchRecordings(forArtist artist: String, andRecordingTitle recordingTitle: String, from album: String?) -> CoverArt? {
@@ -110,37 +111,38 @@ class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
         }
         
         // Acquire the lock for the API call.
-        apiCallsLock.wait()
-        defer {apiCallsLock.signal()}
-        
-        // Look for cover art in the cache again (if we waited, another thread may have added cover art for the same recording during the wait time).
-        if let coverArtResult = cache.getForRecording(artist: artist, title: recordingTitle) {
-            return coverArtResult.art
-        }
-        
-        do {
+        return apiCallsLock.produceValueAfterWait {() -> CoverArt? in
             
-            if let coverArt = try restAPIClient.getCoverArt(forArtist: artist, andRecordingTitle: recordingTitle, from: album) {
-                
-                // Add this entry to the cache.
-                cache.putForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
-                return coverArt
-                
-            } else {
-                cache.putForRecording(artist: artist, title: recordingTitle, coverArt: nil)
+            // Look for cover art in the cache again (if we waited, another thread may have
+            // added cover art for the same recording during the wait time).
+            if let coverArtResult = cache.getForRecording(artist: artist, title: recordingTitle) {
+                return coverArtResult.art
             }
             
-        } catch {
-            
-            if let httpError = error as? HTTPError {
+            do {
                 
-                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
+                if let coverArt = try restAPIClient.getCoverArt(forArtist: artist, andRecordingTitle: recordingTitle, from: album) {
+                    
+                    // Add this entry to the cache.
+                    cache.putForRecording(artist: artist, title: recordingTitle, coverArt: coverArt)
+                    return coverArt
+                    
+                } else {
+                    cache.putForRecording(artist: artist, title: recordingTitle, coverArt: nil)
+                }
                 
-            } else {
-                NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: \(error.localizedDescription)")
+            } catch {
+                
+                if let httpError = error as? HTTPError {
+                    
+                    NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: HTTP error code=\(httpError.code), description='\(httpError.description)'")
+                    
+                } else {
+                    NSLog("Error querying MusicBrainz for cover art with artist=\(artist), recordingTitle=\(recordingTitle). Error: \(error.localizedDescription)")
+                }
             }
+            
+            return nil
         }
-        
-        return nil
     }
 }

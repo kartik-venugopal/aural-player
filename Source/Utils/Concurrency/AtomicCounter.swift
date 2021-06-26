@@ -14,7 +14,7 @@ import Foundation
 ///
 public final class AtomicCounter<T> where T: SignedInteger {
     
-    private let semaphore = DispatchSemaphore(value: 1)
+    private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     private var _value: T
     
     var isNonNegative: Bool {value >= 0}
@@ -33,52 +33,52 @@ public final class AtomicCounter<T> where T: SignedInteger {
     public var value: T {
         
         get {
-            semaphore.wait()
-            defer { semaphore.signal() }
-            return _value
+
+            lock.produceValueAfterWait {
+                _value
+            }
         }
         
         set {
-            semaphore.wait()
-            defer { semaphore.signal() }
-            _value = newValue
+
+            lock.executeAfterWait {
+                _value = newValue
+            }
         }
     }
     
     public func decrementAndGet() -> T {
         
-        semaphore.wait()
-        defer { semaphore.signal() }
-        _value -= 1
-        return _value
+        lock.produceValueAfterWait {
+            _value.decrementAndGet()
+        }
     }
     
     public func decrement() {
         
-        semaphore.wait()
-        defer { semaphore.signal() }
-        _value -= 1
+        lock.executeAfterWait {
+            _value.decrement()
+        }
     }
     
     public func incrementAndGet() -> T {
         
-        semaphore.wait()
-        defer { semaphore.signal() }
-        _value += 1
-        return _value
+        lock.produceValueAfterWait {
+            _value.incrementAndGet()
+        }
     }
     
     public func increment() {
-        
-        semaphore.wait()
-        defer { semaphore.signal() }
-        _value += 1
+
+        lock.executeAfterWait {
+            _value.increment()
+        }
     }
     
     public func add(_ addend: T) {
-        
-        semaphore.wait()
-        defer { semaphore.signal() }
-        _value += addend
+
+        lock.executeAfterWait {
+            _value += addend
+        }
     }
 }

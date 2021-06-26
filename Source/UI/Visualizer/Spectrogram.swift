@@ -29,23 +29,23 @@ class Spectrogram: SKView, VisualizerViewProtocol {
         
         didSet {
             
-            updateSemaphore.wait()
-            defer {updateSemaphore.signal()}
-            
-            data.numberOfBands = numberOfBands
-            
-            // TODO: Be more careful setting/resetting this flag
-            SpectrogramBar.numberOfBands = numberOfBands
-            spacing = numberOfBands == 10 ? spacing_10Band : spacing_31Band
-            
-            bars.removeAll()
-            scene?.removeAllChildren()
-            
-            for i in 0..<numberOfBands {
-            
-                let bar = SpectrogramBar(position: NSPoint(x: (CGFloat(i) * (SpectrogramBar.barWidth + spacing)) + xMargin, y: yMargin))
-                bars.append(bar)
-                scene?.addChild(bar)
+            updateSemaphore.executeAfterWait {
+                
+                data.numberOfBands = numberOfBands
+                
+                // TODO: Be more careful setting/resetting this flag
+                SpectrogramBar.numberOfBands = numberOfBands
+                spacing = numberOfBands == 10 ? spacing_10Band : spacing_31Band
+                
+                bars.removeAll()
+                scene?.removeAllChildren()
+                
+                for i in 0..<numberOfBands {
+                    
+                    let bar = SpectrogramBar(position: NSPoint(x: (CGFloat(i) * (SpectrogramBar.barWidth + spacing)) + xMargin, y: yMargin))
+                    bars.append(bar)
+                    scene?.addChild(bar)
+                }
             }
         }
     }
@@ -91,17 +91,17 @@ class Spectrogram: SKView, VisualizerViewProtocol {
         SpectrogramBar.setColors(startColor: startColor, endColor: endColor)
     }
     
-    private let updateSemaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
+    private let updateSemaphore: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     
     func update(with fft: FFT) {
         
         data.update(with: fft)
         
-        updateSemaphore.wait()
-        defer {updateSemaphore.signal()}
-        
-        for i in bars.indices {
-            bars[i].magnitude = CGFloat(data.bands[i].maxVal)
+        updateSemaphore.executeAfterWait {
+            
+            for i in bars.indices {
+                bars[i].magnitude = CGFloat(data.bands[i].maxVal)
+            }
         }
     }
 }

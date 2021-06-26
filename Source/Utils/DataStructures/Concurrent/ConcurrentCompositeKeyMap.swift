@@ -1,44 +1,47 @@
 //
-//  AtomicBool.swift
+//  ConcurrentCompositeKeyMap.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
-//
+//  
 import Foundation
 
-///
-/// A thread-safe boolean value.
-///
-public final class AtomicBool {
+class ConcurrentCompositeKeyMap<T: Hashable, U: Any> {
     
+    private var map: CompositeKeyMap<T, U> = CompositeKeyMap()
     private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
-    private var _value: Bool
     
-    public init(value initialValue: Bool = false) {
-        _value = initialValue
-    }
-    
-    func setValue(_ value: Bool) {
-        self.value = value
-    }
-    
-    public var value: Bool {
+    subscript(_ key1: T, _ key2: T) -> U? {
         
         get {
             
             lock.produceValueAfterWait {
-                _value
+                map[key1, key2]
             }
         }
         
         set {
             
             lock.executeAfterWait {
-                _value = newValue
+                map[key1, key2] = newValue
             }
+        }
+    }
+    
+    var entries: [(T, T, U)] {
+        
+        lock.produceValueAfterWait {
+            return map.entries
+        }
+    }
+    
+    func removeAll() {
+        
+        lock.executeAfterWait {
+            map.removeAll()
         }
     }
 }
