@@ -9,6 +9,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="ControlBarPlayerWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnQuit" destination="Ll7-4b-FN9" id="bMh-DH-wIW"/>
+                <outlet property="cornerRadiusStepper" destination="EPl-ya-Gzc" id="36A-6P-nQa"/>
+                <outlet property="lblCornerRadius" destination="NIT-Qi-ob2" id="HFf-ek-ONH"/>
                 <outlet property="optionsMenuItem" destination="ELr-fq-JoS" id="EEN-lH-Qyc"/>
                 <outlet property="rootContainerBox" destination="cl4-0e-ANP" id="bhf-gH-CQS"/>
                 <outlet property="viewController" destination="VLj-aK-Baf" id="7x1-d8-6tZ"/>
@@ -35,7 +37,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ll7-4b-FN9" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="5" y="25" width="10" height="10"/>
+                                    <rect key="frame" x="7" y="25" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yvy-bI-r2e">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -49,7 +51,7 @@
                                     </connections>
                                 </button>
                                 <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XQX-EX-Rmk" userLabel="Options Menu">
-                                    <rect key="frame" x="-4" y="2" width="23" height="15"/>
+                                    <rect key="frame" x="-2" y="2" width="23" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="ZS3-2f-8Sb">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -251,8 +253,14 @@
                                                 <menuItem isSeparatorItem="YES" id="odw-a7-vTG"/>
                                                 <menuItem title="Window corner radius" id="orA-xV-bwD">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <outlet property="view" destination="Rk7-Wu-WQ0" id="tei-XG-kOi"/>
+                                                    </connections>
                                                 </menuItem>
                                             </items>
+                                            <connections>
+                                                <outlet property="delegate" destination="-2" id="y1I-TQ-4Sv"/>
+                                            </connections>
                                         </menu>
                                     </popUpButtonCell>
                                 </popUpButton>
@@ -556,6 +564,39 @@
                 <outlet property="theMenu" destination="fJM-mv-Ttp" id="ZbZ-5A-io6"/>
             </connections>
         </customObject>
+        <customView id="Rk7-Wu-WQ0" userLabel="Window corner radius editor view (in window)">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HT1-mk-btU">
+                    <rect key="frame" x="29" y="5" width="138" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Window corner radius" id="y7y-6a-Ofb">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NIT-Qi-ob2">
+                    <rect key="frame" x="151" y="5" width="39" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="3px" id="7fz-R5-8JK">
+                        <font key="font" size="11" name="Play-Regular"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EPl-ya-Gzc" userLabel="Radius Stepper">
+                    <rect key="frame" x="193" y="0.0" width="15" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <stepperCell key="cell" controlSize="small" continuous="YES" alignment="left" maxValue="20" doubleValue="3" id="j0O-OU-Mq6"/>
+                    <connections>
+                        <action selector="cornerRadiusStepperAction:" target="-2" id="FWP-iy-6QX"/>
+                    </connections>
+                </stepper>
+            </subviews>
+            <point key="canvasLocation" x="-16" y="271.5"/>
+        </customView>
     </objects>
     <resources>
         <image name="Close" width="18" height="18"/>

@@ -12,4 +12,7 @@ import Cocoa
 class ControlBarPlayerViewState {
     
     static var windowFrame: NSRect?
+    
+    static let defaultCornerRadius: CGFloat = 3
+    static var cornerRadius: CGFloat = defaultCornerRadius
 }

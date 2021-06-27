@@ -9,13 +9,16 @@
 //  
 import Cocoa
 
-class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NotificationSubscriber, Destroyable {
+class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NSMenuDelegate, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var viewController: ControlBarPlayerViewController!
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var optionsMenuItem: TintedIconMenuItem!
+    
+    @IBOutlet weak var cornerRadiusStepper: NSStepper!
+    @IBOutlet weak var lblCornerRadius: NSTextField!
     
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
@@ -45,6 +48,9 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, No
         btnQuit.tintFunction = {Colors.viewControlButtonColor}
         optionsMenuItem.tintFunction = {Colors.viewControlButtonColor}
         
+        cornerRadiusStepper.integerValue = ControlBarPlayerViewState.cornerRadius.roundedInt
+        lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
+        
         applyTheme()
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
@@ -54,13 +60,19 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, No
     func applyTheme() {
         
         applyColorScheme(colorSchemesManager.systemScheme)
-        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
+        rootContainerBox.cornerRadius = ControlBarPlayerViewState.cornerRadius
     }
     
     func applyColorScheme(_ colorScheme: ColorScheme) {
         
         rootContainerBox.fillColor = colorScheme.general.backgroundColor
         [btnQuit, optionsMenuItem].forEach {($0 as? Tintable)?.reTint()}
+    }
+    
+    @IBAction func cornerRadiusStepperAction(_ sender: NSStepper) {
+        
+        lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
+        rootContainerBox.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
     }
     
     // MARK: Window delegate functions --------------------------------
@@ -131,13 +143,27 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, No
     
     @IBAction func windowedModeAction(_ sender: AnyObject) {
         
-        ControlBarPlayerViewState.windowFrame = theWindow.frame
+        transferViewState()
         AppModeManager.presentMode(.windowed)
     }
 
     @IBAction func quitAction(_ sender: AnyObject) {
+
+        transferViewState()
+        NSApp.terminate(self)
+    }
+    
+    private func transferViewState() {
         
         ControlBarPlayerViewState.windowFrame = theWindow.frame
-        NSApp.terminate(self)
+        ControlBarPlayerViewState.cornerRadius = rootContainerBox.cornerRadius
+    }
+    
+    // MARK: Menu delegate functions -----------------------------
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        cornerRadiusStepper.integerValue = rootContainerBox.cornerRadius.roundedInt
+        lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
     }
 }
