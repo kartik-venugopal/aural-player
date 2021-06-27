@@ -14,7 +14,9 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, No
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var viewController: ControlBarPlayerViewController!
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    @IBOutlet weak var btnQuit: TintedImageButton!
+    @IBOutlet weak var optionsMenuItem: TintedIconMenuItem!
+    
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     private var snappingWindow: SnappingWindow!
@@ -30,10 +32,38 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, No
         window?.level = NSWindow.Level(Int(CGWindowLevelForKey(.floatingWindow)))
         
         snappingWindow = window as? SnappingWindow
+
+        if let persistentWindowFrame = ControlBarPlayerViewState.windowFrame {
+            window?.setFrame(persistentWindowFrame, display: true, animate: true)
+        } else {
+            
+            // Dock to top left if persistent window frame not available (the first time
+            // control bar mode is presented).
+            dockTopLeftAction(self)
+        }
         
-        rootContainerBox.fillColor = colorSchemesManager.systemScheme.general.backgroundColor
-        rootContainerBox.cornerRadius = 6
+        btnQuit.tintFunction = {Colors.viewControlButtonColor}
+        optionsMenuItem.tintFunction = {Colors.viewControlButtonColor}
+        
+        applyTheme()
+        
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
     }
+    
+    func applyTheme() {
+        
+        applyColorScheme(colorSchemesManager.systemScheme)
+        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
+    }
+    
+    func applyColorScheme(_ colorScheme: ColorScheme) {
+        
+        rootContainerBox.fillColor = colorScheme.general.backgroundColor
+        [btnQuit, optionsMenuItem].forEach {($0 as? Tintable)?.reTint()}
+    }
+    
+    // MARK: Window delegate functions --------------------------------
     
     func windowDidResize(_ notification: Notification) {
         viewController.windowResized()
@@ -42,6 +72,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, No
     func windowDidMove(_ notification: Notification) {
         snappingWindow.checkForSnapToVisibleFrame()
     }
+    
+    // MARK: Window docking functions --------------------------------
     
     private var computedVisibleFrame: NSRect {NSScreen.main!.visibleFrame}
     
@@ -98,10 +130,14 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, No
     }
     
     @IBAction func windowedModeAction(_ sender: AnyObject) {
+        
+        ControlBarPlayerViewState.windowFrame = theWindow.frame
         AppModeManager.presentMode(.windowed)
     }
 
     @IBAction func quitAction(_ sender: AnyObject) {
+        
+        ControlBarPlayerViewState.windowFrame = theWindow.frame
         NSApp.terminate(self)
     }
 }

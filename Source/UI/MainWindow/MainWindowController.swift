@@ -75,12 +75,13 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         containerBox.addSubview(playerViewController.view)
         
-        [btnQuit, btnMinimize, btnMenuBarMode].forEach({$0?.tintFunction = {return Colors.viewControlButtonColor}})
+        [btnQuit, btnMinimize, btnMenuBarMode].forEach {$0?.tintFunction = {Colors.viewControlButtonColor}}
         
-        [btnToggleEffects, btnTogglePlaylist].forEach({
-            $0?.onStateTintFunction = {return Colors.viewControlButtonColor}
-            $0?.offStateTintFunction = {return Colors.toggleButtonOffStateColor}
-        })
+        [btnToggleEffects, btnTogglePlaylist].forEach {
+            
+            $0?.onStateTintFunction = {Colors.viewControlButtonColor}
+            $0?.offStateTintFunction = {Colors.toggleButtonOffStateColor}
+        }
         
         logoImage.tintFunction = {return Colors.appLogoColor}
         

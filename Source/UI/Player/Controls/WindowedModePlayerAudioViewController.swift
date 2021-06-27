@@ -56,39 +56,4 @@ class WindowedModePlayerAudioViewController: PlayerAudioViewController {
         let newVolume = audioGraph.increaseVolume(inputMode)
         volumeChanged(newVolume, audioGraph.muted)
     }
-    
-    private func applyTheme() {
-        
-        applyFontScheme(fontSchemesManager.systemScheme)
-        applyColorScheme(colorSchemesManager.systemScheme)
-    }
-    
-    private func applyFontScheme(_ fontScheme: FontScheme) {
-        [lblVolume, lblPan, lblPanCaption, lblPanCaption2].forEach {$0.font = fontSchemesManager.systemScheme.player.feedbackFont}
-    }
-    
-    private func applyColorScheme(_ scheme: ColorScheme) {
-        
-        changeFunctionButtonColor(scheme.general.functionButtonColor)   // This call will also take care of toggle buttons.
-        changeSliderColors()
-        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
-    }
-    
-    private func changeFunctionButtonColor(_ color: NSColor) {
-        
-        btnVolume.reTint()
-        
-        lblPanCaption.textColor = color
-        lblPanCaption2.textColor = color
-    }
-    
-    private func changeSliderColors() {
-        [volumeSlider, panSlider].forEach({$0?.redraw()})
-    }
-    
-    private func changeSliderValueTextColor(_ color: NSColor) {
-        
-        lblVolume.textColor = Colors.Player.feedbackTextColor
-        lblPan.textColor = Colors.Player.feedbackTextColor
-    }
 }

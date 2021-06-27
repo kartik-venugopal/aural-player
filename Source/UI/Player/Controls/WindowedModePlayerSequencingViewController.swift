@@ -33,24 +33,4 @@ class WindowedModePlayerSequencingViewController: PlayerSequencingViewController
         Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
         Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
     }
-    
-    private func applyTheme() {
-        applyColorScheme(colorSchemesManager.systemScheme)
-    }
-    
-    private func applyColorScheme(_ scheme: ColorScheme) {
-        redrawButtons()
-    }
-    
-    private func changeFunctionButtonColor(_ color: NSColor) {
-        redrawButtons()
-    }
-    
-    private func changeToggleButtonOffStateColor(_ color: NSColor) {
-        redrawButtons()
-    }
-    
-    private func redrawButtons() {
-        [btnRepeat, btnShuffle].forEach {$0.reTint()}
-    }
 }

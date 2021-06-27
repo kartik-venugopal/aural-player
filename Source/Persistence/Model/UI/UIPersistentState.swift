@@ -25,6 +25,7 @@ class UIPersistentState: PersistentStateProtocol {
     var windowAppearance: WindowUIPersistentState?
     
     var menuBarPlayer: MenuBarPlayerUIPersistentState?
+    var controlBarPlayer: ControlBarPlayerUIPersistentState?
     
     init() {}
     
@@ -41,5 +42,6 @@ class UIPersistentState: PersistentStateProtocol {
         self.visualizer = map.persistentObjectValue(forKey: "visualizer", ofType: VisualizerUIPersistentState.self)
         self.windowAppearance = map.persistentObjectValue(forKey: "windowAppearance", ofType: WindowUIPersistentState.self)
         self.menuBarPlayer = map.persistentObjectValue(forKey: "menuBarPlayer", ofType: MenuBarPlayerUIPersistentState.self)
+        self.controlBarPlayer = map.persistentObjectValue(forKey: "controlBarPlayer", ofType: ControlBarPlayerUIPersistentState.self)
     }
 }

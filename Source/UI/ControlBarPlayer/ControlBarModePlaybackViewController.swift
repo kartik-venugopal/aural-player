@@ -28,5 +28,9 @@ class ControlBarModePlaybackViewController: PlaybackViewController {
         
         Messenger.subscribe(self, .effects_playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
+        
+        Messenger.subscribe(self, .applyTheme, (playbackView as! ControlBarModePlaybackView).applyTheme)
+        Messenger.subscribe(self, .applyFontScheme, playbackView.applyFontScheme(_:))
+        Messenger.subscribe(self, .applyColorScheme, playbackView.applyColorScheme(_:))
     }
 }

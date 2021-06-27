@@ -190,4 +190,43 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     func trackTransitioned(_ notification: TrackTransitionNotification) {
         trackChanged(notification.endTrack)
     }
+    
+    func applyTheme() {
+        
+        applyFontScheme(fontSchemesManager.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
+    }
+    
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        
+        [lblVolume, lblPan, lblPanCaption, lblPanCaption2].forEach {$0?.font = fontSchemesManager.systemScheme.player.feedbackFont}
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeFunctionButtonColor(scheme.general.functionButtonColor)   // This call will also take care of toggle buttons.
+        changeSliderColors()
+        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
+    }
+    
+    func changeFunctionButtonColor(_ color: NSColor) {
+        
+        btnVolume.reTint()
+        
+        if showsPanControl {
+            
+            lblPanCaption.textColor = color
+            lblPanCaption2.textColor = color
+        }
+    }
+    
+    func changeSliderColors() {
+        [volumeSlider, panSlider].forEach {$0?.redraw()}
+    }
+    
+    func changeSliderValueTextColor(_ color: NSColor) {
+        
+        lblVolume.textColor = color
+        lblPan?.textColor = color
+    }
 }

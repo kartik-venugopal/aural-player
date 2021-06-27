@@ -6,18 +6,25 @@ import Cocoa
 open class ScrollingTextView: NSView {
     // MARK: - Open variables
     
-    var artist: String?
+    private var artist: String?
     
-    var title: String = ""
+    private var title: String = ""
 
     /// Text to scroll
-    open var text: NSString = ""
+    private var text: NSString = ""
 
     /// Font for scrolling text
-    open var font: NSFont = Fonts.Standard.mainFont_12
+    open var font: NSFont = Fonts.Standard.mainFont_12 {
+        
+        didSet {
+            update(artist: self.artist, title: self.title, layoutRequired: true)
+        }
+    }
 
     /// Scrolling text color
-    open var textColor: NSColor = .white
+    open var textColor: NSColor = .white {
+        didSet {redraw()}
+    }
     
     /// Whether the text should be scrolled (true) or just truncated (false).
     open var scrollingEnabled: Bool = true {
@@ -65,11 +72,16 @@ open class ScrollingTextView: NSView {
 
      - Parameters:
      - string: The string that will be used as the text in the view
+     - layoutRequired:  Whether or not the view needs layout (required when the text font has changed).
      */
-    func update(artist: String?, title: String) {
+    func update(artist: String?, title: String, layoutRequired: Bool = false) {
         
         updateText(artist: artist, title: title)
         stringSize = text.size(withAttributes: textFontAttributes)
+        
+        if layoutRequired {
+            self.needsLayout = true
+        }
         
         redraw()
         updateTraits()

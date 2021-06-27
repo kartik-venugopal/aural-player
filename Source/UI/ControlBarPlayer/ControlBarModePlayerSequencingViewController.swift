@@ -11,11 +11,15 @@ import Foundation
 
 class ControlBarModePlayerSequencingViewController: PlayerSequencingViewController {
     
-    override func initSubscriptions() {}
-    
     // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
     override var offStateTintFunction: TintFunction {{Colors.toggleButtonOffStateColor}}
     
     // When the buttons are in an "On" state, they should be tinted according to the system color scheme's function button color.
     override var onStateTintFunction: TintFunction {{Colors.functionButtonColor}}
+    
+    override func initSubscriptions() {
+        
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+    }
 }

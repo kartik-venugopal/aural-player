@@ -45,12 +45,11 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     override func awakeFromNib() {
         
         [btnQuit, btnRegularMode].forEach {
-            $0?.tintFunction = {self.colorSchemesManager.systemScheme.general.viewControlButtonColor}
+            $0?.tintFunction = {Colors.viewControlButtonColor}
         }
         
         textView.scrollingEnabled = true
-        textView.font = fontSchemesManager.systemScheme.player.infoBoxArtistAlbumFont
-        textView.textColor = colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor
+        applyTheme()
         
         let textViewLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .leading, relatedBy: .equal,
                                                                             toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
@@ -77,6 +76,10 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
+        
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
     }
     
     func destroy() {
@@ -137,5 +140,21 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         if player.playingTrack != nil {
             textView.resized()
         }
+    }
+    
+    // MARK: Appearance ----------------------------------------
+    
+    func applyTheme() {
+        
+        applyColorScheme(colorSchemesManager.systemScheme)
+        applyFontScheme(fontSchemesManager.systemScheme)
+    }
+    
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        textView.font = fontScheme.player.infoBoxArtistAlbumFont
+    }
+    
+    func applyColorScheme(_ colorScheme: ColorScheme) {
+        textView.textColor = colorScheme.player.trackInfoPrimaryTextColor
     }
 }

@@ -8,6 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ControlBarPlayerWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnQuit" destination="Ll7-4b-FN9" id="bMh-DH-wIW"/>
+                <outlet property="optionsMenuItem" destination="ELr-fq-JoS" id="EEN-lH-Qyc"/>
                 <outlet property="rootContainerBox" destination="cl4-0e-ANP" id="bhf-gH-CQS"/>
                 <outlet property="viewController" destination="VLj-aK-Baf" id="7x1-d8-6tZ"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="A6E-Dx-qZU"/>
@@ -46,7 +48,7 @@
                                         <action selector="quitAction:" target="-2" id="tjv-tv-Pvt"/>
                                     </connections>
                                 </button>
-                                <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XQX-EX-Rmk" userLabel="Settings Menu">
+                                <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XQX-EX-Rmk" userLabel="Options Menu">
                                     <rect key="frame" x="-4" y="2" width="23" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="ZS3-2f-8Sb">
@@ -65,6 +67,148 @@
                                                     <connections>
                                                         <action selector="windowedModeAction:" target="-2" id="uzR-XL-iFa"/>
                                                     </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="23m-sy-aRI"/>
+                                                <menuItem title="         Theme" id="q0l-RJ-1Ji" userLabel="Theme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="         Theme" showsStateColumn="NO" id="26P-Bm-FwK">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="3Ry-EU-24t"/>
+                                                            <menuItem title="Poolside.fm" state="mixed" indentationLevel="1" id="4as-0l-6kg">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="jjz-yr-7y3" id="iHz-F1-Qi0"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="jjz-yr-7y3" id="s5U-DS-w2H"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="         Font scheme" id="P5O-pW-4ws">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="         Font scheme" showsStateColumn="NO" id="fJM-mv-Ttp">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="6oN-SH-ySy"/>
+                                                            <menuItem title="Standard" indentationLevel="1" id="JnL-OV-1aV">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="N62-jE-hUa"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Rounded" indentationLevel="1" id="JjG-95-EAH">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="ST6-xp-IMc"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Programmer" indentationLevel="1" id="SNi-me-bwh">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="1pL-U8-toR"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Futuristic" indentationLevel="1" id="dc4-zZ-Kv3">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="SkB-gb-m6U"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Novelist" indentationLevel="1" id="km1-Ht-cxE">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="2Zf-Wl-jJm"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Soy Sauce" indentationLevel="1" id="67I-IN-cKw">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="qqr-QX-PT1"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Gothic" indentationLevel="1" id="cl3-7m-YqP">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="qWI-0S-s1q"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Papyrus" indentationLevel="1" id="asR-vk-5Ez">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="Rb7-Tq-evg"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="TN7-Rv-IJA">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="9gC-9U-u2q" id="qgc-mq-08S"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="9gC-9U-u2q" id="BnX-fD-bAj"/>
+                                                        </connections>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem title="         Color scheme" id="7VP-Km-xXd" userLabel="Color scheme">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="         Color scheme" showsStateColumn="NO" id="CpD-Vf-gir">
+                                                        <items>
+                                                            <menuItem isSeparatorItem="YES" id="zTR-y3-ExR"/>
+                                                            <menuItem title="Black attack (default)" indentationLevel="1" id="3KU-o9-2y2">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="cgq-9t-dsz"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Black &amp; aqua" indentationLevel="1" id="oFD-Gh-JsU">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="fJH-32-viw"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Lava" indentationLevel="1" id="pdQ-0V-4KE">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="h8g-A4-NSU"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="White blight" indentationLevel="1" id="0Ni-Wd-rqo">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="XSb-Ln-zsI"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Gloomy day" indentationLevel="1" id="wK7-PS-ICA">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="b0y-KS-KDH"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Brownie" indentationLevel="1" id="ItJ-Pz-pZx">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="kWB-uk-qiA"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="The blues" indentationLevel="1" id="uEb-hU-uUZ">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="YqO-Dm-FeR"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Poolside.fm" indentationLevel="1" id="Utr-8w-duN">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="applyPresetAction:" target="kZG-Ff-6JH" id="5Ow-Vx-AAf"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="kZG-Ff-6JH" id="nqF-t2-piX"/>
+                                                        </connections>
+                                                    </menu>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="VaY-OO-BFg"/>
                                                 <menuItem title="  Dock to top left" image="DockTopLeft" id="0cT-Sq-9dX" userLabel="Dock to top left">
@@ -103,6 +247,10 @@
                                                     <connections>
                                                         <action selector="dockBottomRightAction:" target="-2" id="U1r-hY-Noy"/>
                                                     </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="odw-a7-vTG"/>
+                                                <menuItem title="Window corner radius" id="orA-xV-bwD">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
                                                 </menuItem>
                                             </items>
                                         </menu>
@@ -391,6 +539,21 @@
                 <outlet property="lblVolume" destination="5Wc-og-czo" id="B1y-ys-c2z"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="MB0-Nr-bC7"/>
                 <outlet property="volumeSlider" destination="WoE-gv-TJl" id="ste-G8-sg2"/>
+            </connections>
+        </customObject>
+        <customObject id="jjz-yr-7y3" customClass="ThemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="26P-Bm-FwK" id="wuY-2H-evR"/>
+            </connections>
+        </customObject>
+        <customObject id="kZG-Ff-6JH" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="CpD-Vf-gir" id="Yrt-0U-X3m"/>
+            </connections>
+        </customObject>
+        <customObject id="9gC-9U-u2q" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="fJM-mv-Ttp" id="ZbZ-5A-io6"/>
             </connections>
         </customObject>
     </objects>

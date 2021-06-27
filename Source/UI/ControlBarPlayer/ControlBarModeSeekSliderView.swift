@@ -18,6 +18,14 @@ class ControlBarModeSeekSliderView: SeekSliderView {
         
         super.awakeFromNib()
         seekSlider.redraw()
+        
+        applyTheme()
+    }
+    
+    func applyTheme() {
+        
+        applyFontScheme(fontSchemesManager.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state

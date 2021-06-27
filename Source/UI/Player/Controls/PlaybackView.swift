@@ -39,6 +39,8 @@ class PlaybackView: NSView {
     
     var seekSliderValue: Double {sliderView.seekSliderValue}
     
+    var functionButtons: [Tintable] = []
+    
     override func awakeFromNib() {
         
         btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoop, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoop, onStateTintFunction))]
@@ -80,6 +82,8 @@ class PlaybackView: NSView {
         } else {
             btnLoop.switchState(PlaybackLoopState.none)
         }
+        
+        functionButtons = [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward]
     }
     
     // When the playback state changes (e.g. playing -> paused), fields may need to be updated
@@ -130,5 +134,34 @@ class PlaybackView: NSView {
     
     func setTimeRemainingDisplayFormat(_ format: TimeRemainingDisplayType) {
         sliderView.setTimeRemainingDisplayFormat(format)
+    }
+    
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        sliderView.applyFontScheme(fontScheme)
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        // This call will also take care of toggle buttons
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
+        sliderView.applyColorScheme(scheme)
+    }
+    
+    func changeSliderColors() {
+        sliderView.changeSliderColors()
+    }
+    
+    func changeSliderValueTextColor(_ color: NSColor) {
+        sliderView.changeSliderValueTextColor(color)
+    }
+    
+    func changeFunctionButtonColor(_ color: NSColor) {
+        functionButtons.forEach {$0.reTint()}
+    }
+    
+    func changeToggleButtonOffStateColor(_ color: NSColor) {
+        
+        // Only these buttons have off states that look different from their on states
+        btnLoop.reTint()
     }
 }

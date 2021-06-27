@@ -23,8 +23,12 @@ class ControlBarModePlaybackView: PlaybackView {
     override func awakeFromNib() {
         
         super.awakeFromNib()
+        applyTheme()
+    }
+    
+    func applyTheme() {
         
-        [btnLoop, btnPlayPause, btnPreviousTrack, btnNextTrack, btnSeekBackward,
-         btnSeekForward].forEach {($0 as? Tintable)?.reTint()}
+        applyFontScheme(fontSchemesManager.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
 }

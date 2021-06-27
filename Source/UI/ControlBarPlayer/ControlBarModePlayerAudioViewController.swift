@@ -26,5 +26,9 @@ class ControlBarModePlayerAudioViewController: PlayerAudioViewController {
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
+        
+        Messenger.subscribe(self, .applyTheme, self.applyTheme)
+        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
+        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
     }
 }

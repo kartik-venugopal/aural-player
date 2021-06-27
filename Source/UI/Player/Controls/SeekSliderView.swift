@@ -194,4 +194,26 @@ class SeekSliderView: NSView {
             setSeekTimerState(playbackState == .playing)
         }
     }
+    
+    func applyFontScheme(_ fontScheme: FontScheme) {
+        
+        lblTimeElapsed?.font = fontScheme.player.trackTimesFont
+        lblTimeRemaining?.font = fontScheme.player.trackTimesFont
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        
+        changeSliderValueTextColor(scheme.player.sliderValueTextColor)
+        changeSliderColors()
+    }
+    
+    func changeSliderValueTextColor(_ color: NSColor) {
+        
+        lblTimeElapsed?.textColor = color
+        lblTimeRemaining?.textColor = color
+    }
+    
+    func changeSliderColors() {
+        seekSlider.redraw()
+    }
 }

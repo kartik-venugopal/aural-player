@@ -132,6 +132,7 @@ class ObjectGraph {
         VisualizerViewState.initialize(persistentState.ui?.visualizer)
         WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
         MenuBarPlayerViewState.initialize(persistentState.ui?.menuBarPlayer)
+        ControlBarPlayerViewState.initialize(persistentState.ui?.controlBarPlayer)
         
         DispatchQueue.global(qos: .background).async {
             cleanUpTranscoderFolders()
@@ -186,6 +187,7 @@ class ObjectGraph {
         uiState.visualizer = VisualizerViewState.persistentState
         uiState.windowAppearance = WindowAppearanceState.persistentState
         uiState.menuBarPlayer = MenuBarPlayerViewState.persistentState
+        uiState.controlBarPlayer = ControlBarPlayerViewState.persistentState
         
         persistentState.ui = uiState
         

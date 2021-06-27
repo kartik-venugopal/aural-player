@@ -69,4 +69,24 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber, 
         btnShuffle.switchState(modes.shuffleMode)
         btnRepeat.switchState(modes.repeatMode)
     }
+    
+    func applyTheme() {
+        applyColorScheme(colorSchemesManager.systemScheme)
+    }
+    
+    func applyColorScheme(_ scheme: ColorScheme) {
+        redrawButtons()
+    }
+    
+    func changeFunctionButtonColor(_ color: NSColor) {
+        redrawButtons()
+    }
+    
+    func changeToggleButtonOffStateColor(_ color: NSColor) {
+        redrawButtons()
+    }
+    
+    func redrawButtons() {
+        [btnRepeat, btnShuffle].forEach {$0.reTint()}
+    }
 }

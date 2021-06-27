@@ -113,6 +113,8 @@
 		3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */; };
 		3E3975462688894C0055887E /* ControlBarSeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */; };
 		3E397548268900C60055887E /* ControlBarVolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */; };
+		3E39754A268924110055887E /* ControlBarPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */; };
+		3E39754E26892C890055887E /* ControlBarPlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39754D26892C890055887E /* ControlBarPlayerViewState.swift */; };
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
@@ -850,6 +852,8 @@
 		3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyViewLoader.swift; sourceTree = "<group>"; };
 		3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarSeekSliderCell.swift; sourceTree = "<group>"; };
 		3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarVolumeSliderCell.swift; sourceTree = "<group>"; };
+		3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerUIPersistentState.swift; sourceTree = "<group>"; };
+		3E39754D26892C890055887E /* ControlBarPlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerViewState.swift; sourceTree = "<group>"; };
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
 		3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferences.swift; sourceTree = "<group>"; };
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -1552,6 +1556,7 @@
 				3E09D0A426805C18008ECB8C /* UIPersistentState.swift */,
 				3E09D0A526805C18008ECB8C /* ColorSchemes */,
 				3E09D0AC26805C18008ECB8C /* MenuBarPlayerUIPersistentState.swift */,
+				3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */,
 				3E09D0AD26805C18008ECB8C /* ThemesPersistentState.swift */,
 				3E09D0AE26805C18008ECB8C /* WindowLayoutPersistentState.swift */,
 				3E09D0AF26805C18008ECB8C /* FontSchemes */,
@@ -1744,6 +1749,7 @@
 				3E43228A2687E313009E8ADB /* ControlBarModeSeekSliderView.swift */,
 				3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */,
 				3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */,
+				3E39754D26892C890055887E /* ControlBarPlayerViewState.swift */,
 			);
 			path = ControlBarPlayer;
 			sourceTree = "<group>";
@@ -3732,6 +3738,7 @@
 				3E9C12152622259500D90EA4 /* ThemePreset.swift in Sources */,
 				3E6C124125CEBDF400BF0D07 /* ArtistsPlaylistViewController.swift in Sources */,
 				3E6C120025CEBDD100BF0D07 /* PreferencesDefaults.swift in Sources */,
+				3E39754E26892C890055887E /* ControlBarPlayerViewState.swift in Sources */,
 				3E6C12F925CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */,
 				3E6C129225CEBE1800BF0D07 /* ColorSchemeViewController.swift in Sources */,
 				3E6C129925CEBE2700BF0D07 /* AuralTabView.swift in Sources */,
@@ -4210,6 +4217,7 @@
 				3E6C124C25CEBDF400BF0D07 /* AlbumsPlaylistViewController.swift in Sources */,
 				3E6C11A425CEBD9E00BF0D07 /* History.swift in Sources */,
 				3E6C11A525CEBD9E00BF0D07 /* LRUArray.swift in Sources */,
+				3E39754A268924110055887E /* ControlBarPlayerUIPersistentState.swift in Sources */,
 				3E6C121725CEBDE500BF0D07 /* HistoryPreferencesViewController.swift in Sources */,
 				3EDB33EB25E8AE09004DF7DE /* FFmpegMetadataReader.swift in Sources */,
 				3EBF292F2686965400D87021 /* RecorderToggleButton.swift in Sources */,
