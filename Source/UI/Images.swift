@@ -24,16 +24,13 @@ struct Images {
     static let imgVolumeHigh: NSImage = NSImage(named: "VolumeHigh")!
     static let imgMute: NSImage = NSImage(named: "Mute")!
     
-    static let imgRepeatOff: NSImage = NSImage(named: "RepeatOff")!
     static let imgRepeatOne: NSImage = NSImage(named: "RepeatOne")!
-    static let imgRepeatAll: NSImage = NSImage(named: "RepeatAll")!
+    static let imgRepeat: NSImage = NSImage(named: "Repeat")!
     
-    static let imgShuffleOff: NSImage = NSImage(named: "ShuffleOff")!
-    static let imgShuffleOn: NSImage = NSImage(named: "ShuffleOn")!
+    static let imgShuffle: NSImage = NSImage(named: "Shuffle")!
     
-    static let imgLoopOff: NSImage = NSImage(named: "LoopOff")!
+    static let imgLoop: NSImage = NSImage(named: "Loop")!
     static let imgLoopStarted: NSImage = NSImage(named: "LoopStarted")!
-    static let imgLoopComplete: NSImage = NSImage(named: "LoopComplete")!
     
     static let imgSwitch: NSImage = NSImage(named: "Switch")!
     

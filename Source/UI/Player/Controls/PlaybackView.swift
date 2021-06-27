@@ -41,7 +41,7 @@ class PlaybackView: NSView {
     
     override func awakeFromNib() {
         
-        btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoopOff, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoopComplete, onStateTintFunction))]
+        btnLoop.stateImageMappings = [(PlaybackLoopState.none, (Images.imgLoop, offStateTintFunction)), (PlaybackLoopState.started, (Images.imgLoopStarted, onStateTintFunction)), (PlaybackLoopState.complete, (Images.imgLoop, onStateTintFunction))]
 
         // Play/pause button does not really have an "off" state
         btnPlayPause.offStateTintFunction = onStateTintFunction

@@ -31,9 +31,9 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber, 
     
     override func viewDidLoad() {
         
-        btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeatOff, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeatAll, onStateTintFunction))]
+        btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeat, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeat, onStateTintFunction))]
 
-        btnShuffle.stateImageMappings = [(ShuffleMode.off, (Images.imgShuffleOff, offStateTintFunction)), (ShuffleMode.on, (Images.imgShuffleOn, onStateTintFunction))]
+        btnShuffle.stateImageMappings = [(ShuffleMode.off, (Images.imgShuffle, offStateTintFunction)), (ShuffleMode.on, (Images.imgShuffle, onStateTintFunction))]
         
         updateRepeatAndShuffleControls(sequencer.repeatAndShuffleModes)
         

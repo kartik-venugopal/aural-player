@@ -23,9 +23,10 @@ class ControlBarPlayerWindowController: NSWindowController, NotificationSubscrib
         
         window?.isMovableByWindowBackground = true
         window?.delegate = viewController
+        window?.level = NSWindow.Level(Int(CGWindowLevelForKey(.floatingWindow)))
         
         rootContainerBox.fillColor = colorSchemesManager.systemScheme.general.backgroundColor
-        rootContainerBox.cornerRadius = 4
+        rootContainerBox.cornerRadius = 6
     }
     
     func destroy() {

@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Player.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
@@ -413,10 +402,10 @@ G1BhbiBTbGlkZXI
                                             <action selector="seekBackwardAction:" target="W5O-7l-xTa" id="dDh-wJ-m6m"/>
                                         </connections>
                                     </button>
-                                    <button toolTip="A-&gt;B Segment loop" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-4P-n2t" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="53" y="13" width="17" height="13"/>
+                                    <button toolTip="A ⇋ B Segment loop" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hgz-4P-n2t" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                                        <rect key="frame" x="55" y="14" width="38" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="LoopOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tHw-2c-h8N">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Loop" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="tHw-2c-h8N">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -425,9 +414,9 @@ G1BhbiBTbGlkZXI
                                         </connections>
                                     </button>
                                     <button toolTip="Shuffle" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uj9-rY-xm0" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="33" y="11" width="17" height="17"/>
+                                        <rect key="frame" x="35" y="13" width="14" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ShuffleOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ykS-tm-ycX">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Shuffle" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="ykS-tm-ycX">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -436,9 +425,9 @@ G1BhbiBTbGlkZXI
                                         </connections>
                                     </button>
                                     <button toolTip="Repeat" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ej8-94-UBa" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="14" y="3" width="14" height="24"/>
+                                        <rect key="frame" x="14" y="13" width="14" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RepeatOff" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="S9Y-2f-Bsq">
+                                        <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Repeat" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="S9Y-2f-Bsq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -607,18 +596,18 @@ G1BhbiBTbGlkZXI
         <image name="Bookmark" width="27" height="27"/>
         <image name="Favorites-Off" width="26" height="26"/>
         <image name="Favorites-On" width="26" height="26"/>
-        <image name="LoopOff" width="31" height="26"/>
+        <image name="Loop" width="42" height="15"/>
         <image name="MoreInfo" width="25" height="25"/>
         <image name="NextTrack" width="31" height="35"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
         <image name="PlayingArt" width="237" height="237"/>
         <image name="PreviousTrack" width="31" height="35"/>
-        <image name="RepeatOff" width="43" height="71"/>
+        <image name="Repeat" width="30" height="30"/>
         <image name="SeekBackward" width="46" height="34"/>
         <image name="SeekForward" width="46" height="34"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
-        <image name="ShuffleOff" width="26" height="26"/>
+        <image name="Shuffle" width="120" height="120"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>
 </document>
