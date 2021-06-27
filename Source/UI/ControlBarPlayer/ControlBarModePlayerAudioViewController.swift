@@ -16,7 +16,7 @@ class ControlBarModePlayerAudioViewController: PlayerAudioViewController {
     override func viewDidLoad() {
         
         btnVolume.tintFunction = {Colors.functionButtonColor}
-        btnVolume.reTint()
+        lblVolume.textColor = Colors.functionButtonColor
         
         super.viewDidLoad()
     }

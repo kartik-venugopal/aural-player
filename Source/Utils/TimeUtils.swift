@@ -1,5 +1,5 @@
 //
-//  DebuggingUtils.swift
+//  TimeUtils.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -17,14 +17,16 @@ import Foundation
 ///
 func measureExecutionTime(_ task: () -> Void) -> Double {
     
-    let startTime = CFAbsoluteTimeGetCurrent()
+    let startTime = now()
     task()
-    return CFAbsoluteTimeGetCurrent() - startTime
+    return now() - startTime
 }
 
 func measureTimeTry(_ task: () throws -> Void) throws -> Double {
     
-    let startTime = CFAbsoluteTimeGetCurrent()
+    let startTime = now()
     try task()
-    return CFAbsoluteTimeGetCurrent() - startTime
+    return now() - startTime
 }
+
+func now() -> Double {CFAbsoluteTimeGetCurrent()}

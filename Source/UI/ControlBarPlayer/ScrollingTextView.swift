@@ -5,15 +5,27 @@ import Cocoa
 ///
 open class ScrollingTextView: NSView {
     // MARK: - Open variables
+    
+    var artist: String?
+    
+    var title: String = ""
 
     /// Text to scroll
-    open var text: NSString?
+    open var text: NSString = ""
 
     /// Font for scrolling text
-    open var font: NSFont?
+    open var font: NSFont = Fonts.Standard.mainFont_12
 
     /// Scrolling text color
-    open var textColor: NSColor = .headerTextColor
+    open var textColor: NSColor = .white
+    
+    /// Whether the text should be scrolled (true) or just truncated (false).
+    open var scrollingEnabled: Bool = true {
+        
+        didSet {
+            update(artist: self.artist, title: self.title)
+        }
+    }
 
     /// Determines if the text should be delayed before starting scroll
     open var isDelayed: Bool = true
@@ -27,7 +39,7 @@ open class ScrollingTextView: NSView {
     }
 
     /// Speed at which the text scrolls. This number is divided by 100.
-    open var speed: Double = 3 {
+    open var speed: Double = 4 {
         didSet {updateTraits()}
     }
 
@@ -37,15 +49,14 @@ open class ScrollingTextView: NSView {
     private var timeInterval: TimeInterval?
 
     private(set) var stringSize = NSSize(width: 0, height: 0) {
-        
-        didSet {
-            point.x = 0
-        }
+        didSet {point.x = 0}
     }
 
     private var timerSpeed: Double? {speed / 100}
 
-    private lazy var textFontAttributes: [NSAttributedString.Key: Any] = [.font: font ?? .systemFont(ofSize: 14)]
+    private var textFontAttributes: [NSAttributedString.Key: Any] {
+        [.font: font, .foregroundColor: textColor]
+    }
 
     // MARK: - Open functions
 
@@ -55,12 +66,93 @@ open class ScrollingTextView: NSView {
      - Parameters:
      - string: The string that will be used as the text in the view
      */
-    open func setup(string: String) {
+    func update(artist: String?, title: String) {
         
-        text = string as NSString
-        stringSize = text?.size(withAttributes: textFontAttributes) ?? NSSize(width: 0, height: 0)
+        updateText(artist: artist, title: title)
+        stringSize = text.size(withAttributes: textFontAttributes)
+        
         redraw()
         updateTraits()
+    }
+    
+    func clear() {
+        
+        self.text = ""
+        clearTimer()
+        redraw()
+        toolTip = nil
+    }
+    
+    private func updateText(artist: String?, title: String) {
+        
+        self.artist = artist
+        self.title = title
+        
+        if scrollingEnabled {
+            
+            if let theArtist = artist {
+                self.text = String(format: "%@ - %@", theArtist, title) as NSString
+                
+            } else {
+                self.text = title as NSString
+            }
+            
+            toolTip = self.text as String
+            
+        } else {
+            
+            var truncatedString: String
+            
+            let font: NSFont = textFontAttributes[.font] as! NSFont
+            
+            if let theArtist = artist {
+                
+                let fullLengthString = String(format: "%@ - %@", theArtist, title)
+                truncatedString = String.truncateCompositeString(font, width, fullLengthString, theArtist, title, " - ")
+                toolTip = fullLengthString
+                
+            } else {
+                
+                truncatedString = title.truncate(font: font, maxWidth: width)
+                toolTip = title
+            }
+            
+            self.text = truncatedString as NSString
+        }
+    }
+    
+    func resized() {
+        
+        if scrollingEnabled {
+            
+            redraw()
+            updateTraits()
+            
+        } else {
+            update(artist: self.artist, title: self.title)
+        }
+    }
+    
+    // MARK: Mouse handling ---------------------------------
+    
+    private var mouseBeingDragged: Bool = false
+    
+    open override func mouseDragged(with event: NSEvent) {
+        mouseBeingDragged = true
+    }
+    
+    open override func mouseUp(with event: NSEvent) {
+        
+        if mouseBeingDragged {
+            
+            mouseBeingDragged = false
+            super.mouseUp(with: event)
+            
+            return
+        }
+        
+        scrollingEnabled.toggle()
+        super.mouseUp(with: event)
     }
 }
 
@@ -74,9 +166,9 @@ private extension ScrollingTextView {
 
         guard let timeInterval = timeInterval else {return}
         
-        if timer == nil, timeInterval > 0.0, text != nil {
+        if timer == nil, timeInterval > 0.0, !((text as String).isEmptyAfterTrimming) {
             
-            timer = Timer.scheduledTimer(timeInterval: newInterval, target: self, selector: #selector(update(_:)),
+            timer = Timer.scheduledTimer(timeInterval: newInterval, target: self, selector: #selector(scrollText(_:)),
                                          userInfo: nil, repeats: true)
             
             guard let timer = timer else {return}
@@ -93,13 +185,13 @@ private extension ScrollingTextView {
         
         clearTimer()
         
-        if stringSize.width > (width - 5) {
+        if scrollingEnabled && stringSize.width > width {
             
             guard let speed = timerSpeed else { return }
             
             if isDelayed {
                 
-                timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: { [weak self] timer in
+                timer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false, block: {[weak self] timer in
                     self?.setSpeed(newInterval: speed)
                 })
                 
@@ -108,7 +200,7 @@ private extension ScrollingTextView {
             }
             
         } else {
-            setSpeed(newInterval: 0.0)
+            setSpeed(newInterval: 0)
         }
     }
     
@@ -118,9 +210,9 @@ private extension ScrollingTextView {
         timer = nil
     }
 
-    @objc func update(_ sender: Timer) {
+    @objc func scrollText(_ sender: Timer) {
         
-        point.x = point.x - 1
+        point.x -= 1
         redraw()
     }
 }
@@ -130,25 +222,25 @@ extension ScrollingTextView {
     
     override open func draw(_ dirtyRect: NSRect) {
         
-        
+        guard !((text as String).isEmptyAfterTrimming) else {return}
+
         if point.x + stringSize.width < 0 {
             point.x += stringSize.width + spacing
         }
 
-        textFontAttributes[NSAttributedString.Key.foregroundColor] = textColor
-        text?.draw(at: point, withAttributes: textFontAttributes)
+        text.draw(at: point, withAttributes: textFontAttributes)
 
         if point.x < 0 {
-            
+
             var otherPoint = point
             otherPoint.x += stringSize.width + spacing
-            text?.draw(at: otherPoint, withAttributes: textFontAttributes)
+            text.draw(at: otherPoint, withAttributes: textFontAttributes)
         }
     }
 
     override open func layout() {
 
         super.layout()
-        point.y = (frame.height - stringSize.height) / 2
+        point.y = (height - stringSize.height) / 2
     }
 }

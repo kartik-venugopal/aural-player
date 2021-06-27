@@ -111,6 +111,7 @@
 		3E363408268639DC006A88ED /* FilterBandType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E363407268639DC006A88ED /* FilterBandType.swift */; };
 		3E36340A26863C63006A88ED /* ParametricEQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E36340926863C63006A88ED /* ParametricEQ.swift */; };
 		3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */; };
+		3E3975462688894C0055887E /* ControlBarSeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */; };
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
@@ -132,7 +133,7 @@
 		3E51F346262AFDCA0048452F /* ThemesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E51F345262AFDCA0048452F /* ThemesManager.xib */; };
 		3E51F348262AFDF80048452F /* ThemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F347262AFDF80048452F /* ThemePreviewView.swift */; };
 		3E51F34A262AFF310048452F /* ThemesManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E51F349262AFF300048452F /* ThemesManagerViewController.swift */; };
-		3E53ACBE267FDE4C00B5AF52 /* DebuggingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */; };
+		3E53ACBE267FDE4C00B5AF52 /* TimeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */; };
 		3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */; };
 		3E53C41325E2E06E00B30A03 /* neo-latina-demo-FFP.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */; };
 		3E5623C72619F8BA00D55E43 /* AudioUnitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */; };
@@ -846,6 +847,7 @@
 		3E363407268639DC006A88ED /* FilterBandType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBandType.swift; sourceTree = "<group>"; };
 		3E36340926863C63006A88ED /* ParametricEQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametricEQ.swift; sourceTree = "<group>"; };
 		3E380DAD262F4D6500BDF7B4 /* LazyViewLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyViewLoader.swift; sourceTree = "<group>"; };
+		3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarSeekSliderCell.swift; sourceTree = "<group>"; };
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
 		3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferences.swift; sourceTree = "<group>"; };
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -871,7 +873,7 @@
 		3E51F347262AFDF80048452F /* ThemePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreviewView.swift; sourceTree = "<group>"; };
 		3E51F349262AFF300048452F /* ThemesManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesManagerViewController.swift; sourceTree = "<group>"; };
 		3E525C00261E3330001D9186 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingUtils.swift; sourceTree = "<group>"; };
+		3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtils.swift; sourceTree = "<group>"; };
 		3E53C40F25E2E05900B30A03 /* neo-latina-demo-FFP.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "neo-latina-demo-FFP.ttf"; sourceTree = "<group>"; };
 		3E53C41025E2E05900B30A03 /* control-freak.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "control-freak.regular.ttf"; sourceTree = "<group>"; };
 		3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitsManager.swift; sourceTree = "<group>"; };
@@ -1738,6 +1740,7 @@
 				3E4322862687E24A009E8ADB /* ControlBarModePlayerAudioViewController.swift */,
 				3E4322882687E303009E8ADB /* ControlBarModePlaybackView.swift */,
 				3E43228A2687E313009E8ADB /* ControlBarModeSeekSliderView.swift */,
+				3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */,
 			);
 			path = ControlBarPlayer;
 			sourceTree = "<group>";
@@ -2901,7 +2904,7 @@
 				3EAFB5E4267FE9B300F0DC96 /* SystemUtils.swift */,
 				3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */,
 				3E6C10F025CEB98700BF0D07 /* GraphicsUtils.swift */,
-				3E53ACBD267FDE4C00B5AF52 /* DebuggingUtils.swift */,
+				3E53ACBD267FDE4C00B5AF52 /* TimeUtils.swift */,
 				3E5F3DF42681702000E826F0 /* MappedPresets.swift */,
 			);
 			path = Utils;
@@ -3941,6 +3944,7 @@
 				3EAFB60B267FF2B900F0DC96 /* PreferencesSliderCell.swift in Sources */,
 				3E43227B2687D531009E8ADB /* ScrollingTextView.swift in Sources */,
 				3E6C132625CEBEA000BF0D07 /* AVFExtensions.swift in Sources */,
+				3E3975462688894C0055887E /* ControlBarSeekSliderCell.swift in Sources */,
 				3E6C123F25CEBDF400BF0D07 /* ChaptersListViewDelegate.swift in Sources */,
 				3E6C11E925CEBDC400BF0D07 /* PlaybackLoop.swift in Sources */,
 				3E6C119625CEBD6D00BF0D07 /* FavoritesDelegateProtocol.swift in Sources */,
@@ -3994,7 +3998,7 @@
 				3E6C11BD25CEBDB000BF0D07 /* NotificationDefinitions.swift in Sources */,
 				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,
 				3E6C119F25CEBD6D00BF0D07 /* AudioGraphProtocols.swift in Sources */,
-				3E53ACBE267FDE4C00B5AF52 /* DebuggingUtils.swift in Sources */,
+				3E53ACBE267FDE4C00B5AF52 /* TimeUtils.swift in Sources */,
 				3EDB33EC25E8AE09004DF7DE /* FFmpegFrame.swift in Sources */,
 				3E6C11C725CEBDB400BF0D07 /* Sequencer.swift in Sources */,
 				3E6C117725CEBD6000BF0D07 /* MasterPresets.swift in Sources */,

@@ -48,23 +48,29 @@ class ControlBarPlayerViewController: NSViewController, NSWindowDelegate, Notifi
             $0?.tintFunction = {self.colorSchemesManager.systemScheme.general.viewControlButtonColor}
         }
         
+        textView.scrollingEnabled = true
         textView.font = fontSchemesManager.systemScheme.player.infoBoxArtistAlbumFont
         textView.textColor = colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor
         
         let textViewLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .leading, relatedBy: .equal,
-                                                                            toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
+                                                                            toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 7)
         
         let textViewTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .trailing, relatedBy: .equal,
                                                                                 toItem: playerSequencingViewController.btnRepeat, attribute: .leading, multiplier: 1, constant: -22)
         
-        let textViewTopConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .top, relatedBy: .equal,
-                                                                              toItem: containerBox, attribute: .top, multiplier: 1, constant: -5)
-        
-        let textViewHeightConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .height, relatedBy: .equal,
-                                                                              toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30)
-        
         textView.translatesAutoresizingMaskIntoConstraints = false
-        containerBox.activateAndAddConstraints(textViewLeadingConstraint, textViewTrailingConstraint, textViewHeightConstraint, textViewTopConstraint)
+        textView.superview?.activateAndAddConstraints(textViewLeadingConstraint, textViewTrailingConstraint)
+        
+        let seekSlider = seekSliderView.seekSlider!
+        
+        let seekSliderLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: seekSlider, attribute: .leading, relatedBy: .equal,
+                                                                            toItem: textView, attribute: .leading, multiplier: 1, constant: -1)
+        
+        let seekSliderTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: seekSlider, attribute: .trailing, relatedBy: .equal,
+                                                                                toItem: textView, attribute: .trailing, multiplier: 1, constant: 1)
+        
+        seekSlider.translatesAutoresizingMaskIntoConstraints = false
+        seekSlider.superview?.activateAndAddConstraints(seekSliderLeadingConstraint, seekSliderTrailingConstraint)
         
         // MARK: Notification subscriptions
         
@@ -91,18 +97,13 @@ class ControlBarPlayerViewController: NSViewController, NSWindowDelegate, Notifi
     private func updateTrackInfo() {
         
         if let theTrack = player.playingTrack {
-            
-            textView.setup(string: theTrack.displayName)
-            textView.toolTip = theTrack.displayName
+            textView.update(artist: theTrack.artist, title: theTrack.title ?? theTrack.defaultDisplayName)
             
         } else {
-            
-            textView.setup(string: "")
-            textView.toolTip = nil
+            textView.clear()
         }
         
-        imgArt.image = player.playingTrack?.art?.image
-        imgArt.showIf(imgArt.image != nil)
+        imgArt.image = player.playingTrack?.art?.image ?? Images.imgPlayingArt
     }
     
     // MARK: Message handling
@@ -131,9 +132,10 @@ class ControlBarPlayerViewController: NSViewController, NSWindowDelegate, Notifi
     }
     
     func windowDidResize(_ notification: Notification) {
-        
-        if let theTrack = player.playingTrack {
-            textView.setup(string: theTrack.displayName)
+    
+        // If a track is playing, 
+        if player.playingTrack != nil {
+            textView.resized()
         }
     }
     

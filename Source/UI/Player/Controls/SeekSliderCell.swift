@@ -69,7 +69,7 @@ class SeekSliderCell: HorizontalSliderCell {
         backgroundGradient.draw(in: path, angle: gradientDegrees)
     }
     
-    override internal func drawBar(inside aRect: NSRect, flipped: Bool) {
+    override func drawBar(inside aRect: NSRect, flipped: Bool) {
         
         let knobFrame = knobRect(flipped: false)
         
@@ -125,7 +125,7 @@ class SeekSliderCell: HorizontalSliderCell {
         return NSRect(x: newX, y: newY, width: knobWidth, height: knobHeightOutsideBar * 2 + bar.height)
     }
     
-    override internal func drawKnob(_ knobRect: NSRect) {
+    override func drawKnob(_ knobRect: NSRect) {
         
         let bar = barRect(flipped: true)
         
