@@ -32,7 +32,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="570" height="40"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Switch to regular view" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Fd-1VF" userLabel="Regular Mode" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="Switch to windowed mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Fd-1VF" userLabel="Regular Mode" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="5" y="5" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0J7-m7-qRl">
@@ -195,7 +195,7 @@
                                         <constraint firstAttribute="height" constant="13" id="7Di-bS-mTc"/>
                                         <constraint firstAttribute="width" constant="40" id="xcD-qx-ihZ"/>
                                     </constraints>
-                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="vfc-ab-d4E" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
+                                    <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="vfc-ab-d4E" customClass="ControlBarVolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
                                         <action selector="volumeAction:" target="khd-7d-e1B" id="fiu-S9-cyn"/>
                                     </connections>
@@ -282,8 +282,6 @@
                             <connections>
                                 <outlet property="seekSlider" destination="oBR-SZ-2k2" id="F4W-yv-Xo5"/>
                                 <outlet property="seekSliderCell" destination="ovd-HG-pIx" id="ghM-zZ-Pnd"/>
-                                <outlet property="seekSliderClone" destination="mWe-u3-2FR" id="rKN-vF-TWX"/>
-                                <outlet property="seekSliderCloneCell" destination="MYK-RS-y7z" id="MuJ-bX-9gX"/>
                             </connections>
                         </view>
                         <color key="fillColor" white="0.11666483274647887" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -312,12 +310,6 @@
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="79" y="147"/>
         </window>
-        <slider verticalHuggingPriority="750" id="mWe-u3-2FR" userLabel="Seek Slider Clone">
-            <rect key="frame" x="0.0" y="0.0" width="282" height="15"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <sliderCell key="cell" controlSize="small" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="MYK-RS-y7z" customClass="ControlBarSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
-            <point key="canvasLocation" x="-2884" y="682"/>
-        </slider>
         <customObject id="VLj-aK-Baf" customClass="ControlBarPlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnQuit" destination="Ll7-4b-FN9" id="Vtx-Hs-3Gv"/>
