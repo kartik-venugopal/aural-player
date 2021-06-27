@@ -15,6 +15,12 @@ class MenuBarModePlaybackViewController: PlaybackViewController {
         
         // MARK: Notifications --------------------------------------------------------------
         
+        Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
+        Messenger.subscribe(self, .player_previousTrack, self.previousTrack)
+        Messenger.subscribe(self, .player_nextTrack, self.nextTrack)
+        Messenger.subscribe(self, .player_seekBackward, self.seekBackward(_:))
+        Messenger.subscribe(self, .player_seekForward, self.seekForward(_:))
+        
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
         
