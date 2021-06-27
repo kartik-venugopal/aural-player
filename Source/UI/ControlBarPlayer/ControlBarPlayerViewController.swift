@@ -9,7 +9,7 @@
 //  
 import Cocoa
 
-class ControlBarPlayerViewController: NSViewController, NSWindowDelegate, NotificationSubscriber, Destroyable {
+class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var containerBox: NSBox!
     
@@ -131,19 +131,11 @@ class ControlBarPlayerViewController: NSViewController, NSWindowDelegate, Notifi
         errorDialog.runModal()
     }
     
-    func windowDidResize(_ notification: Notification) {
+    func windowResized() {
     
         // If a track is playing, 
         if player.playingTrack != nil {
             textView.resized()
         }
-    }
-    
-    @IBAction func windowedModeAction(_ sender: AnyObject) {
-        AppModeManager.presentMode(.windowed)
-    }
-
-    @IBAction func quitAction(_ sender: AnyObject) {
-        NSApp.terminate(self)
     }
 }

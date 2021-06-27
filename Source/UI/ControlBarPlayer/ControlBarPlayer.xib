@@ -32,20 +32,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="570" height="40"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <button toolTip="Switch to windowed mode" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Fd-1VF" userLabel="Regular Mode" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="5" y="5" width="10" height="10"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0J7-m7-qRl">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="RegularMode"/>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="windowedModeAction:" target="VLj-aK-Baf" id="cJI-UH-QsM"/>
-                                    </connections>
-                                </button>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ll7-4b-FN9" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="5" y="25" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -57,9 +43,71 @@
                                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Close"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="quitAction:" target="VLj-aK-Baf" id="PMw-0e-jqo"/>
+                                        <action selector="quitAction:" target="-2" id="tjv-tv-Pvt"/>
                                     </connections>
                                 </button>
+                                <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XQX-EX-Rmk" userLabel="Settings Menu">
+                                    <rect key="frame" x="-4" y="2" width="23" height="15"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="ZS3-2f-8Sb">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" size="11" name="Play-Regular"/>
+                                        <menu key="menu" autoenablesItems="NO" id="PdB-cO-xbh">
+                                            <items>
+                                                <menuItem image="Settings-Small" hidden="YES" id="ELr-fq-JoS" customClass="TintedIconMenuItem" customModule="Aural" customModuleProvider="target">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings-Small"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </menuItem>
+                                                <menuItem title="  Switch to windowed mode" image="RegularMode-Small" id="4cF-e2-ta6" userLabel="Switch to windowed mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="windowedModeAction:" target="-2" id="uzR-XL-iFa"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="VaY-OO-BFg"/>
+                                                <menuItem title="  Dock to top left" image="DockTopLeft" id="0cT-Sq-9dX" userLabel="Dock to top left">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="dockTopLeftAction:" target="-2" id="msb-yn-bAt"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Dock to top center" image="DockTopCenter" id="ncI-cT-fL6">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="dockTopCenterAction:" target="-2" id="Fva-2T-LyE"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Dock to top right" image="DockTopRight" id="Iqv-rL-4j8">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="dockTopRightAction:" target="-2" id="LxW-ns-tHl"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="K6k-Mo-FNT"/>
+                                                <menuItem title="  Dock to bottom left" image="DockBottomLeft" id="LYp-Yz-nh6">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="dockBottomLeftAction:" target="-2" id="d2i-hu-wdg"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Dock to bottom center" image="DockBottomCenter" id="N5A-IY-Ujd" userLabel="Dock to bottom center">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="dockBottomCenterAction:" target="-2" id="f12-GW-q77"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Dock to bottom right" image="DockBottomRight" id="kgn-Fh-0kN" userLabel="Dock to bottom right">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="dockBottomRightAction:" target="-2" id="U1r-hY-Noy"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </popUpButtonCell>
+                                </popUpButton>
                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="YWm-98-S2W" customClass="RoundedImageView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="25" y="2" width="36" height="36"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -313,7 +361,6 @@
         <customObject id="VLj-aK-Baf" customClass="ControlBarPlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnQuit" destination="Ll7-4b-FN9" id="Vtx-Hs-3Gv"/>
-                <outlet property="btnRegularMode" destination="nLe-Fd-1VF" id="dSH-hu-pO3"/>
                 <outlet property="containerBox" destination="cl4-0e-ANP" id="vr5-N2-lEu"/>
                 <outlet property="imgArt" destination="YWm-98-S2W" id="DuX-EC-9mV"/>
                 <outlet property="playbackView" destination="EiT-Mj-1SZ" id="cli-B4-j9e"/>
@@ -349,15 +396,22 @@
     </objects>
     <resources>
         <image name="Close" width="18" height="18"/>
+        <image name="DockBottomCenter" width="14" height="12"/>
+        <image name="DockBottomLeft" width="14" height="12"/>
+        <image name="DockBottomRight" width="14" height="12"/>
+        <image name="DockTopCenter" width="14" height="12"/>
+        <image name="DockTopLeft" width="14" height="12"/>
+        <image name="DockTopRight" width="14" height="12"/>
         <image name="Loop" width="42" height="15"/>
         <image name="NextTrack" width="21" height="23"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
         <image name="PreviousTrack" width="21" height="23"/>
-        <image name="RegularMode" width="32" height="32"/>
+        <image name="RegularMode-Small" width="14" height="14"/>
         <image name="Repeat" width="30" height="30"/>
         <image name="SeekBackward" width="16" height="12"/>
         <image name="SeekForward" width="16" height="12"/>
+        <image name="Settings-Small" width="8" height="7"/>
         <image name="Shuffle" width="120" height="120"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>

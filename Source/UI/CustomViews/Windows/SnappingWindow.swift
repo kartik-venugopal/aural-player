@@ -18,7 +18,7 @@ class SnappingWindow: NoTitleBarWindow {
     
     var userMovingWindow: Bool = false
     
-    private static let snapProximity: CGFloat = 15
+    private static let snapProximity: CGFloat = 20
     
     private var snapProximity: CGFloat {Self.snapProximity}
 
