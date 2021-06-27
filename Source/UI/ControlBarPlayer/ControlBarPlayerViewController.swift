@@ -53,10 +53,10 @@ class ControlBarPlayerViewController: NSViewController, NSWindowDelegate, Notifi
         textView.textColor = colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor
         
         let textViewLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .leading, relatedBy: .equal,
-                                                                            toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 7)
+                                                                            toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
         
         let textViewTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .trailing, relatedBy: .equal,
-                                                                                toItem: playerSequencingViewController.btnRepeat, attribute: .leading, multiplier: 1, constant: -22)
+                                                                                toItem: playerSequencingViewController.btnRepeat, attribute: .leading, multiplier: 1, constant: -21)
         
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.superview?.activateAndAddConstraints(textViewLeadingConstraint, textViewTrailingConstraint)

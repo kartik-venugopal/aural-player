@@ -71,11 +71,11 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <customView id="lNe-zj-5jU" customClass="ScrollingTextView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="66" y="10" width="196" height="25"/>
+                                    <rect key="frame" x="66" y="12" width="205" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
                                 <slider hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" id="oBR-SZ-2k2" userLabel="Seek Slider">
-                                    <rect key="frame" x="66" y="0.0" width="196" height="14"/>
+                                    <rect key="frame" x="66" y="0.0" width="205" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <sliderCell key="cell" controlSize="mini" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ovd-HG-pIx" customClass="ControlBarSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
@@ -83,7 +83,7 @@
                                     </connections>
                                 </slider>
                                 <button toolTip="Seek forward" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtZ-rZ-MnJ" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="458" y="15" width="12" height="9"/>
+                                    <rect key="frame" x="465" y="15" width="12" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="9" id="iNN-2d-Fqh"/>
                                         <constraint firstAttribute="width" constant="12" id="jTm-kX-vva"/>
@@ -100,10 +100,10 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next track" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iaY-fV-voY" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="440" y="14" width="14" height="11"/>
+                                    <rect key="frame" x="447" y="15" width="13" height="10"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="14" id="HyY-vC-ha3"/>
-                                        <constraint firstAttribute="height" constant="11" id="Z0d-G1-T97"/>
+                                        <constraint firstAttribute="width" constant="13" id="HyY-vC-ha3"/>
+                                        <constraint firstAttribute="height" constant="10" id="Z0d-G1-T97"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="DPM-rC-GE6">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -118,7 +118,7 @@
                                     </connections>
                                 </button>
                                 <button wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sFw-RL-2ra" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="419" y="12" width="16" height="16"/>
+                                    <rect key="frame" x="426" y="12" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="9Lp-hG-deF"/>
                                         <constraint firstAttribute="width" constant="16" id="OLg-9P-3PF"/>
@@ -138,10 +138,10 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Previous track" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8py-2V-iWJ" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="398" y="14" width="14" height="11"/>
+                                    <rect key="frame" x="405" y="15" width="13" height="10"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="14" id="gcV-E3-itD"/>
-                                        <constraint firstAttribute="height" constant="11" id="qZL-nq-Cnf"/>
+                                        <constraint firstAttribute="width" constant="13" id="gcV-E3-itD"/>
+                                        <constraint firstAttribute="height" constant="10" id="qZL-nq-Cnf"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PreviousTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Jmr-Xb-im2">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -156,7 +156,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Seek backward" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rMK-zd-YvE" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="382" y="15" width="12" height="9"/>
+                                    <rect key="frame" x="387" y="15" width="12" height="9"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="12" id="AdY-ah-fAj"/>
                                         <constraint firstAttribute="height" constant="9" id="gPy-pO-OSz"/>
@@ -173,7 +173,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Mute / Unmute" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cQe-K3-rAJ" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="489" y="13" width="13" height="13"/>
+                                    <rect key="frame" x="505" y="13" width="13" height="13"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="13" id="FIj-Vt-sk0"/>
                                         <constraint firstAttribute="height" constant="13" id="sUR-kR-zEq"/>
@@ -190,10 +190,10 @@
                                     </connections>
                                 </button>
                                 <slider toolTip="Volume" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WoE-gv-TJl" userLabel="Volume Slider">
-                                    <rect key="frame" x="506" y="12" width="50" height="15"/>
+                                    <rect key="frame" x="522" y="12" width="40" height="15"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="7Di-bS-mTc"/>
-                                        <constraint firstAttribute="width" constant="50" id="xcD-qx-ihZ"/>
+                                        <constraint firstAttribute="width" constant="40" id="xcD-qx-ihZ"/>
                                     </constraints>
                                     <sliderCell key="cell" controlSize="small" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="vfc-ab-d4E" customClass="VolumeSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
@@ -201,10 +201,10 @@
                                     </connections>
                                 </slider>
                                 <button toolTip="Repeat" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-q5-DoC" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="282" y="13" width="14" height="14"/>
+                                    <rect key="frame" x="292" y="13" width="12" height="12"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="14" id="R7a-bR-159"/>
-                                        <constraint firstAttribute="width" constant="14" id="RuZ-5O-J2z"/>
+                                        <constraint firstAttribute="height" constant="12" id="R7a-bR-159"/>
+                                        <constraint firstAttribute="width" constant="12" id="RuZ-5O-J2z"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Repeat" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="2gi-bY-1f7">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -215,10 +215,10 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Shuffle" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-OP-WNr" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="303" y="13" width="14" height="14"/>
+                                    <rect key="frame" x="310" y="13" width="12" height="12"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="14" id="BVT-Xa-7cT"/>
-                                        <constraint firstAttribute="width" constant="14" id="TiD-eC-ybh"/>
+                                        <constraint firstAttribute="height" constant="12" id="BVT-Xa-7cT"/>
+                                        <constraint firstAttribute="width" constant="12" id="TiD-eC-ybh"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Shuffle" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="saS-rv-Llg">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -229,10 +229,10 @@
                                     </connections>
                                 </button>
                                 <button toolTip="A-&gt;B Segment loop" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Ju-N8p" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="324" y="14" width="38" height="12"/>
+                                    <rect key="frame" x="328" y="14" width="31" height="10"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="12" id="dDc-cs-DvB"/>
-                                        <constraint firstAttribute="width" constant="38" id="n0k-JH-IGz"/>
+                                        <constraint firstAttribute="height" constant="10" id="dDc-cs-DvB"/>
+                                        <constraint firstAttribute="width" constant="31" id="n0k-JH-IGz"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Loop" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yEv-IC-0ff">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -243,7 +243,7 @@
                                     </connections>
                                 </button>
                                 <textField hidden="YES" wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Wc-og-czo" userLabel="Volume Value Label" customClass="BottomTextLabel" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="505" y="24" width="50" height="20"/>
+                                    <rect key="frame" x="510" y="24" width="50" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="46" id="K1x-sl-Zyz"/>
                                         <constraint firstAttribute="height" constant="20" id="Qzg-zb-9ks"/>
@@ -258,25 +258,25 @@
                             <constraints>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="leading" secondItem="cQe-K3-rAJ" secondAttribute="trailing" constant="4" id="2b7-hb-XbR"/>
                                 <constraint firstItem="iaY-fV-voY" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="30D-oh-kIm"/>
-                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="4fI-fP-STo"/>
-                                <constraint firstItem="Hat-OP-WNr" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="13" id="Kac-u9-EMS"/>
-                                <constraint firstItem="4qN-q5-DoC" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="13" id="SGi-Ic-iIr"/>
+                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="16" id="4fI-fP-STo"/>
+                                <constraint firstItem="Hat-OP-WNr" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="Kac-u9-EMS"/>
+                                <constraint firstItem="4qN-q5-DoC" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="SGi-Ic-iIr"/>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="Tdl-1g-g0H"/>
-                                <constraint firstItem="Hat-OP-WNr" firstAttribute="leading" secondItem="4qN-q5-DoC" secondAttribute="trailing" constant="7" id="Vbs-5L-Fz8"/>
-                                <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="leading" secondItem="iaY-fV-voY" secondAttribute="trailing" constant="4" id="X04-PO-MUr"/>
-                                <constraint firstItem="sFw-RL-2ra" firstAttribute="leading" secondItem="8py-2V-iWJ" secondAttribute="trailing" constant="7" id="c6d-zI-zhF"/>
+                                <constraint firstItem="Hat-OP-WNr" firstAttribute="leading" secondItem="4qN-q5-DoC" secondAttribute="trailing" constant="6" id="Vbs-5L-Fz8"/>
+                                <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="leading" secondItem="iaY-fV-voY" secondAttribute="trailing" constant="5" id="X04-PO-MUr"/>
+                                <constraint firstItem="sFw-RL-2ra" firstAttribute="leading" secondItem="8py-2V-iWJ" secondAttribute="trailing" constant="8" id="c6d-zI-zhF"/>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="top" secondItem="5Wc-og-czo" secondAttribute="bottom" constant="-2" id="dDV-lH-Ydn"/>
                                 <constraint firstItem="sFw-RL-2ra" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="12" id="dJx-LV-Nw1"/>
                                 <constraint firstItem="rMK-zd-YvE" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="16" id="e6N-GS-1t5"/>
                                 <constraint firstItem="iaY-fV-voY" firstAttribute="leading" secondItem="sFw-RL-2ra" secondAttribute="trailing" constant="5" id="hZT-AO-29u"/>
-                                <constraint firstAttribute="trailing" secondItem="WoE-gv-TJl" secondAttribute="trailing" constant="14" id="j2J-cV-pJn"/>
-                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="leading" secondItem="KtZ-rZ-MnJ" secondAttribute="trailing" constant="19" id="jQk-T0-EgG"/>
-                                <constraint firstAttribute="trailing" secondItem="5Wc-og-czo" secondAttribute="trailing" constant="17" id="mDT-8Z-6OB"/>
-                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="leading" secondItem="Hat-OP-WNr" secondAttribute="trailing" constant="7" id="nuW-dj-Unr"/>
-                                <constraint firstItem="8py-2V-iWJ" firstAttribute="leading" secondItem="rMK-zd-YvE" secondAttribute="trailing" constant="4" id="poS-gU-yuK"/>
+                                <constraint firstAttribute="trailing" secondItem="WoE-gv-TJl" secondAttribute="trailing" constant="8" id="j2J-cV-pJn"/>
+                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="leading" secondItem="KtZ-rZ-MnJ" secondAttribute="trailing" constant="28" id="jQk-T0-EgG"/>
+                                <constraint firstAttribute="trailing" secondItem="5Wc-og-czo" secondAttribute="trailing" constant="12" id="mDT-8Z-6OB"/>
+                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="leading" secondItem="Hat-OP-WNr" secondAttribute="trailing" constant="6" id="nuW-dj-Unr"/>
+                                <constraint firstItem="8py-2V-iWJ" firstAttribute="leading" secondItem="rMK-zd-YvE" secondAttribute="trailing" constant="6" id="poS-gU-yuK"/>
                                 <constraint firstItem="8py-2V-iWJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="u4G-TC-WOK"/>
                                 <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="16" id="vyb-wg-JwH"/>
-                                <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="20" id="x29-1E-zNF"/>
+                                <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="28" id="x29-1E-zNF"/>
                                 <constraint firstItem="cQe-K3-rAJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="yXp-Fj-qAl"/>
                             </constraints>
                             <connections>
@@ -358,14 +358,14 @@
     <resources>
         <image name="Close" width="18" height="18"/>
         <image name="Loop" width="42" height="15"/>
-        <image name="NextTrack" width="31" height="35"/>
+        <image name="NextTrack" width="21" height="23"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
-        <image name="PreviousTrack" width="31" height="35"/>
+        <image name="PreviousTrack" width="21" height="23"/>
         <image name="RegularMode" width="32" height="32"/>
         <image name="Repeat" width="30" height="30"/>
-        <image name="SeekBackward" width="46" height="34"/>
-        <image name="SeekForward" width="46" height="34"/>
+        <image name="SeekBackward" width="16" height="12"/>
+        <image name="SeekForward" width="16" height="12"/>
         <image name="Shuffle" width="120" height="120"/>
         <image name="VolumeMedium" width="26" height="26"/>
     </resources>

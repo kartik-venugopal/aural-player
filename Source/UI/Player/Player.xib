@@ -328,7 +328,7 @@ G1BhbiBTbGlkZXI
                                         </connections>
                                     </slider>
                                     <button toolTip="Seek forward" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pow-8G-nbs" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="302" y="15" width="12" height="9"/>
+                                        <rect key="frame" x="305" y="14" width="16" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="pBB-Nu-vSz">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -342,7 +342,7 @@ G1BhbiBTbGlkZXI
                                         </connections>
                                     </button>
                                     <button toolTip="Next track" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aec-et-Tmc" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="279" y="14" width="14" height="11"/>
+                                        <rect key="frame" x="283" y="14" width="12" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NextTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Bm2-YO-1Cg">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -357,7 +357,7 @@ G1BhbiBTbGlkZXI
                                         </connections>
                                     </button>
                                     <button wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EYM-Js-juo" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="256" y="12" width="16" height="16"/>
+                                        <rect key="frame" x="254" y="10" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Play" imagePosition="overlaps" alignment="center" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="zZA-ND-66e">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -374,7 +374,7 @@ G1BhbiBTbGlkZXI
                                         </connections>
                                     </button>
                                     <button toolTip="Previous track" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yu0-D8-EJF" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="231" y="14" width="14" height="11"/>
+                                        <rect key="frame" x="229" y="14" width="12" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="PreviousTrack" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="HOJ-KJ-LXS">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -389,7 +389,7 @@ G1BhbiBTbGlkZXI
                                         </connections>
                                     </button>
                                     <button toolTip="Seek backward" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HEV-Fm-d6c" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="210" y="15" width="12" height="9"/>
+                                        <rect key="frame" x="203" y="14" width="16" height="12"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="m0n-Xl-uWL">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -598,14 +598,14 @@ G1BhbiBTbGlkZXI
         <image name="Favorites-On" width="26" height="26"/>
         <image name="Loop" width="42" height="15"/>
         <image name="MoreInfo" width="25" height="25"/>
-        <image name="NextTrack" width="31" height="35"/>
+        <image name="NextTrack" width="21" height="23"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
         <image name="PlayingArt" width="237" height="237"/>
-        <image name="PreviousTrack" width="31" height="35"/>
+        <image name="PreviousTrack" width="21" height="23"/>
         <image name="Repeat" width="30" height="30"/>
-        <image name="SeekBackward" width="46" height="34"/>
-        <image name="SeekForward" width="46" height="34"/>
+        <image name="SeekBackward" width="80" height="60"/>
+        <image name="SeekForward" width="80" height="60"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
         <image name="Shuffle" width="120" height="120"/>
         <image name="VolumeMedium" width="26" height="26"/>
