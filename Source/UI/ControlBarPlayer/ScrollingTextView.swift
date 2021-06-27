@@ -59,7 +59,7 @@ open class ScrollingTextView: NSView {
         
         text = string as NSString
         stringSize = text?.size(withAttributes: textFontAttributes) ?? NSSize(width: 0, height: 0)
-        setNeedsDisplay(NSRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        redraw()
         updateTraits()
     }
 }
@@ -121,7 +121,7 @@ private extension ScrollingTextView {
     @objc func update(_ sender: Timer) {
         
         point.x = point.x - 1
-        setNeedsDisplay(NSRect(x: 0, y: 0, width: frame.width, height: frame.height))
+        redraw()
     }
 }
 
@@ -129,6 +129,7 @@ private extension ScrollingTextView {
 extension ScrollingTextView {
     
     override open func draw(_ dirtyRect: NSRect) {
+        
         
         if point.x + stringSize.width < 0 {
             point.x += stringSize.width + spacing
@@ -146,7 +147,7 @@ extension ScrollingTextView {
     }
 
     override open func layout() {
-        
+
         super.layout()
         point.y = (frame.height - stringSize.height) / 2
     }

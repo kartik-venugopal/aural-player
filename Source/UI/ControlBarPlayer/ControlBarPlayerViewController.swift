@@ -9,7 +9,9 @@
 //  
 import Cocoa
 
-class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
+class ControlBarPlayerViewController: NSViewController, NSWindowDelegate, NotificationSubscriber, Destroyable {
+    
+    @IBOutlet weak var containerBox: NSBox!
     
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnRegularMode: TintedImageButton!
@@ -49,6 +51,21 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         textView.font = fontSchemesManager.systemScheme.player.infoBoxArtistAlbumFont
         textView.textColor = colorSchemesManager.systemScheme.player.trackInfoPrimaryTextColor
         
+        let textViewLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .leading, relatedBy: .equal,
+                                                                            toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
+        
+        let textViewTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .trailing, relatedBy: .equal,
+                                                                                toItem: playerSequencingViewController.btnRepeat, attribute: .leading, multiplier: 1, constant: -22)
+        
+        let textViewTopConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .top, relatedBy: .equal,
+                                                                              toItem: containerBox, attribute: .top, multiplier: 1, constant: -5)
+        
+        let textViewHeightConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .height, relatedBy: .equal,
+                                                                              toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30)
+        
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        containerBox.activateAndAddConstraints(textViewLeadingConstraint, textViewTrailingConstraint, textViewHeightConstraint, textViewTopConstraint)
+        
         // MARK: Notification subscriptions
         
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
@@ -74,10 +91,14 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     private func updateTrackInfo() {
         
         if let theTrack = player.playingTrack {
+            
             textView.setup(string: theTrack.displayName)
+            textView.toolTip = theTrack.displayName
             
         } else {
+            
             textView.setup(string: "")
+            textView.toolTip = nil
         }
         
         imgArt.image = player.playingTrack?.art?.image
@@ -107,6 +128,13 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
                                                              notification.error.message)
             
         errorDialog.runModal()
+    }
+    
+    func windowDidResize(_ notification: Notification) {
+        
+        if let theTrack = player.playingTrack {
+            textView.setup(string: theTrack.displayName)
+        }
     }
     
     @IBAction func windowedModeAction(_ sender: AnyObject) {

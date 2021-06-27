@@ -22,6 +22,7 @@ class ControlBarPlayerWindowController: NSWindowController, NotificationSubscrib
     override func windowDidLoad() {
         
         window?.isMovableByWindowBackground = true
+        window?.delegate = viewController
         
         rootContainerBox.fillColor = colorSchemesManager.systemScheme.general.backgroundColor
         rootContainerBox.cornerRadius = 4
