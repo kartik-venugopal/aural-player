@@ -29,8 +29,8 @@ The new **Support** menu provides:
 
 Added lots of new documentation to the wiki, including:
 
-* A page listing [common keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts), 
-* A new ["Troubleshooting"](https://github.com/maculateConception/aural-player/wiki/Troubleshooting) section
+* A page listing [common keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts).
+* A new ["Troubleshooting"](https://github.com/maculateConception/aural-player/wiki/Troubleshooting) section.
 * A new ["Developer reference"](https://github.com/maculateConception/aural-player/wiki/Developer-reference) section for people interested in developing Aural Player or understanding how it works.
  
 ### Source code improvements
