@@ -11,7 +11,7 @@ import Cocoa
 
 class AppModeManager {
     
-    static var mode: AppMode!
+    static var mode: AppMode = .windowed
     
     private static var windowedMode: WindowedAppModeController = WindowedAppModeController()
     
@@ -48,9 +48,7 @@ class AppModeManager {
     
     private static func dismissCurrentMode() {
         
-        guard let currentMode = self.mode else {return}
-        
-        switch currentMode {
+        switch mode {
             
         case .windowed:  windowedMode.dismissMode()
             

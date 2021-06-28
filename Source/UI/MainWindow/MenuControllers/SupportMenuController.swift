@@ -1,5 +1,5 @@
 //
-//  HelpMenuController.swift
+//  SupportMenuController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,7 +12,7 @@ import Cocoa
 /*
     Provides actions for the Help menu
  */
-class HelpMenuController: NSObject {
+class SupportMenuController: NSObject {
     
     private lazy var workspace: NSWorkspace = NSWorkspace.shared
     

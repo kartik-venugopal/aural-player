@@ -762,7 +762,7 @@
                 <outlet property="theMenu" destination="RnV-uZ-lTa" id="GKK-ne-MAz"/>
             </connections>
         </customObject>
-        <customObject id="Ejb-cE-J2S" customClass="HelpMenuController" customModule="Aural" customModuleProvider="target"/>
+        <customObject id="Ejb-cE-J2S" customClass="SupportMenuController" customModule="Aural" customModuleProvider="target"/>
         <customObject id="gF1-jg-yeJ" customClass="PlayerViewPopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playerDefaultViewMenuItem" destination="KXZ-Ro-nbz" id="0pr-QG-a9m"/>
@@ -2074,17 +2074,20 @@ CA
                         </connections>
                     </menu>
                 </menuItem>
-                <menuItem title="Help" id="xt3-i6-Lh1">
+                <menuItem title="Support" id="oTr-bv-dne" userLabel="Support">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Help" autoenablesItems="NO" id="pj7-dG-ToA">
+                    <menu key="submenu" title="Support" autoenablesItems="NO" id="hXI-BF-y0R">
                         <items>
-                            <menuItem title="Support documentation (online)" image="UserGuide" id="wRe-Ki-rh6" userLabel="User Guide (online HTML)">
+                            <menuItem title="    Online documentation" image="UserGuide" id="V6g-EV-mZF" userLabel="Create new theme">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="onlineSupportAction:" target="Ejb-cE-J2S" id="S1B-i4-7rL"/>
+                                    <action selector="onlineSupportAction:" target="Ejb-cE-J2S" id="3dX-jC-yec"/>
                                 </connections>
                             </menuItem>
                         </items>
+                        <connections>
+                            <outlet property="delegate" destination="7y7-Z8-Sp0" id="Loj-w3-dWc"/>
+                        </connections>
                     </menu>
                 </menuItem>
             </items>

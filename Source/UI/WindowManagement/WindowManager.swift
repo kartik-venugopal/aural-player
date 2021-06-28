@@ -151,6 +151,8 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
             
             mainWindow.makeKeyAndOrderFront(self)
             Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: WindowLayoutState.showPlaylist, showingEffectsWindow: WindowLayoutState.showEffects))
+            
+            (mainWindow as? SnappingWindow)?.ensureOnScreen()
         }
     }
     
@@ -185,8 +187,11 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         
         if layout.showEffects {
             
-            mainWindow.addChildWindow(_effectsWindow, ordered: NSWindow.OrderingMode.below)
-            _effectsWindow.setFrameOrigin(layout.effectsWindowOrigin!)
+            // TODO: Replace .zero with proper computation of a default origin.
+            let origin = layout.effectsWindowOrigin ?? .zero
+            
+            mainWindow.addChildWindow(_effectsWindow, ordered: .below)
+            _effectsWindow.setFrameOrigin(origin)
             _effectsWindow.show()
             
         } else {
@@ -195,15 +200,19 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         
         if layout.showPlaylist {
             
-            mainWindow.addChildWindow(_playlistWindow, ordered: NSWindow.OrderingMode.below)
-            _playlistWindow.setFrame(layout.playlistWindowFrame!, display: true)
+            // TODO: Replace .zero with proper computation of a default frame.
+            let frame = layout.playlistWindowFrame ?? .zero
+            
+            mainWindow.addChildWindow(_playlistWindow, ordered: .below)
+            _playlistWindow.setFrame(frame, display: true)
             _playlistWindow.show()
             
         } else {
             hidePlaylist()
         }
         
-        Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: layout.showPlaylist, showingEffectsWindow: layout.showEffects))
+        Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: layout.showPlaylist,
+                                                          showingEffectsWindow: layout.showEffects))
     }
     
     var currentWindowLayout: WindowLayout {

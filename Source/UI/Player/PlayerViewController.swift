@@ -37,6 +37,8 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
+    
     override var nibName: String? {"Player"}
     
     override func viewDidLoad() {
@@ -121,6 +123,19 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     // MARK: Message handling
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
+        
         trackChanged(notification.endTrack)
+        
+        // If the playlist window has not yet been loaded, we need to handle this notification on behalf of the playlist window.
+        guard !WindowManager.instance.playlistWindowLoaded else {return}
+        
+        // New track has no chapters, or there is no new track
+        if player.chapterCount == 0 {
+            WindowManager.instance.hideChaptersList()
+            
+        } // Only show chapters list if preferred by user
+        else if playlistPreferences.showChaptersList {
+            WindowManager.instance.showChaptersList()
+        }
     }
 }

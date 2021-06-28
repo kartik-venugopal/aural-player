@@ -18,6 +18,7 @@ class ControlBarAppModeController: NSObject, AppModeController, NSMenuDelegate, 
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)
+        NSApp.menu = nil
         
         controller = ControlBarPlayerWindowController()
         controller?.showWindow(self)

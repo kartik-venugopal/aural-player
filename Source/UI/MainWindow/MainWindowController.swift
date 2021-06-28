@@ -43,8 +43,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
-    
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
     override var windowNibName: String? {"MainWindow"}
@@ -58,6 +56,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     // One-time setup
     override func windowDidLoad() {
         
+        // TODO: Clean this up
         theWindow.setIsVisible(false)
         initWindow()
         theWindow.setIsVisible(false)
@@ -84,7 +83,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
             $0?.offStateTintFunction = {Colors.toggleButtonOffStateColor}
         }
         
-        logoImage.tintFunction = {return Colors.appLogoColor}
+        logoImage.tintFunction = {Colors.appLogoColor}
         
         btnToggleEffects.onIf(WindowLayoutState.showEffects)
         btnTogglePlaylist.onIf(WindowLayoutState.showPlaylist)
@@ -123,9 +122,6 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         Messenger.subscribe(self, .windowManager_layoutChanged, self.windowLayoutChanged(_:))
         
         Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
-        
-        // If the playlist window has not yet been loaded, we need to handle this notification on behalf of the playlist window.
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, filter: {!WindowManager.instance.playlistWindowLoaded}, queue: .main)
     }
     
     func destroy() {
@@ -138,6 +134,14 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         InfoPopupViewController.destroy()
         AlertWindowController.destroy()
         PresetsManagerWindowController.destroy()
+        
+        mainMenu.items.forEach {$0.hide()}
+        
+        if let auralMenu = mainMenu.item(withTitle: "Aural") {
+            
+            auralMenu.menu?.items.forEach {$0.disable()}
+            auralMenu.show()
+        }
         
         NSApp.mainMenu = nil
     }
@@ -231,17 +235,5 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
         rootContainerBox.cornerRadius = radius
-    }
-    
-    func trackChanged() {
-        
-        // New track has no chapters, or there is no new track
-        if playbackInfo.chapterCount == 0 {
-            WindowManager.instance.hideChaptersList()
-            
-        } // Only show chapters list if preferred by user
-        else if playlistPreferences.showChaptersList {
-            WindowManager.instance.showChaptersList()
-        }
     }
 }

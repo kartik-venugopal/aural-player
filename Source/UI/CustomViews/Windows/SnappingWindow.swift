@@ -413,6 +413,34 @@ class SnappingWindow: NoTitleBarWindow {
         
         return .none
     }
+    
+    func ensureOnScreen() {
+        
+        let myFrame = self.frame
+        let visibleFrame = computedVisibleFrame
+        
+        if !visibleFrame.contains(myFrame) {
+            
+            // Determine if it is partially contained.
+            if myFrame.corners.contains(where: {visibleFrame.contains($0)}) {
+                return
+            }
+            
+            // Not partially contained, fully off screen.
+            var x: CGFloat = myFrame.minX
+            var y: CGFloat = myFrame.minY
+            
+            if myFrame.minX > visibleFrame.maxX {
+                x = visibleFrame.maxX - width
+            }
+            
+            if myFrame.minY > visibleFrame.maxY {
+                y = visibleFrame.maxY - height
+            }
+            
+            setFrameOrigin(NSMakePoint(x, y))
+        }
+    }
 }
 
 class SnappingNonKeyWindow: SnappingWindow {

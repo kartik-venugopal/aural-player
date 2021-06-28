@@ -55,6 +55,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        
+        snappingWindow.ensureOnScreen()
     }
     
     func applyTheme() {

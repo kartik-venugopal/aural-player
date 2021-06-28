@@ -18,6 +18,20 @@ extension NSRect {
     var centerY: CGFloat {
         return self.minY + (self.height / 2)
     }
+    
+    var topLeftPoint: NSPoint {
+        NSMakePoint(minX, maxY)
+    }
+    
+    var topRightPoint: NSPoint {
+        NSMakePoint(maxX, maxY)
+    }
+    
+    var bottomRightPoint: NSPoint {
+        NSMakePoint(maxX, minY)
+    }
+    
+    var corners: [NSPoint] {[origin, topLeftPoint, topRightPoint, bottomRightPoint]}
 }
 
 extension NSPoint {

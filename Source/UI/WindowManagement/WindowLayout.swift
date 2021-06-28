@@ -30,6 +30,9 @@ class WindowLayout {
         self.effectsWindowOrigin = effectsWindowOrigin
         self.playlistWindowFrame = playlistWindowFrame
         self.systemDefined = systemDefined
+        
+        // TODO: Validate that 1 - if showEffects is true, effectsOrigin is present, and 2 - if showPlaylist is true,
+        // playlistFrame is present.
     }
 }
 
