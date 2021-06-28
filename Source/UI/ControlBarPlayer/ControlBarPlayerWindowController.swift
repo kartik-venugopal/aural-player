@@ -110,6 +110,13 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         moveWindowTo(visibleFrame.maxX - theWindow.width, visibleFrame.maxY - theWindow.height)
     }
     
+    @IBAction func dockTopAction(_ sender: AnyObject) {
+        
+        let visibleFrame = computedVisibleFrame
+        moveWindowTo(visibleFrame.minX, visibleFrame.maxY - theWindow.height)
+        theWindow.resize(visibleFrame.width, theWindow.height)
+    }
+    
     @IBAction func dockBottomLeftAction(_ sender: AnyObject) {
         
         let visibleFrame = computedVisibleFrame
@@ -127,6 +134,13 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         let visibleFrame = computedVisibleFrame
         moveWindowTo(visibleFrame.maxX - theWindow.width, visibleFrame.minY)
+    }
+    
+    @IBAction func dockBottomAction(_ sender: AnyObject) {
+        
+        let visibleFrame = computedVisibleFrame
+        moveWindowTo(visibleFrame.minX, visibleFrame.minY)
+        theWindow.resize(visibleFrame.width, theWindow.height)
     }
     
     private func moveWindowTo(_ x: CGFloat, _ y: CGFloat) {

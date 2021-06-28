@@ -2,13 +2,13 @@
 
 ## Control bar
 
-The control bar is a new app mode with a minimalistic user interface consisting of a single compact window containing only player controls, playing track info, and some options to change appearance (theming). 
+The control bar is a new app mode with a minimalistic user interface consisting of a single compact window containing only player controls, playing track info, and some options to change appearance (theming). It is comparable to Winamp's "Windowshade mode".
 
 The control bar window is floating, i.e. always on top of other windows, and can be moved around, resized horizontally, and/or docked to different locations on-screen.
 
 This feature is useful when intending to run the app in the background and working on other applications while still having quick and easy access to player controls to change tracks or perform other player functions.
 
-The control bar is an alternative to the menu bar mode or controlling the app through media keys or from Control Center.
+The control bar is an alternative to the menu bar mode, media keys, and the macOS Control Center, providing yet another way to control playback of your music.
 
 ### Media keys / Remote control now available in menu bar mode
 
@@ -18,13 +18,20 @@ Fixed a bug that prevented media keys and remote control commands from working w
 
 Previously, Remote control was enabled by default only on macOS Big Sur. Now, it will be enabled by default on all operating systems.
 
-### Support (wiki) link in Help menu
+### New "Support" menu
 
-The **Help** menu is now enabled and has a link that takes users to Aural Player's wiki home page that contains all the documentation for the app.
+The new **Support** menu provides:
+
+* A link to Aural Player's wiki home page that contains all the documentation for the app.
+* An option to check for updates to the app. If a newer app version is available, a link to get the latest release version is displayed.
 
 ### Added lots of documentation
 
-Added lots of new documentation to the wiki, including a page listing [common keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts), a new ["Troubleshooting"](https://github.com/maculateConception/aural-player/wiki/Troubleshooting) section, and a new ["Developer reference"](https://github.com/maculateConception/aural-player/wiki/Developer-reference) section for people interested in developing Aural Player or understanding how it works.
+Added lots of new documentation to the wiki, including:
+
+* A page listing [common keyboard shortcuts](https://github.com/maculateConception/aural-player/wiki/Handy-keyboard-shortcuts), 
+* A new ["Troubleshooting"](https://github.com/maculateConception/aural-player/wiki/Troubleshooting) section
+* A new ["Developer reference"](https://github.com/maculateConception/aural-player/wiki/Developer-reference) section for people interested in developing Aural Player or understanding how it works.
  
 ### Source code improvements
 
