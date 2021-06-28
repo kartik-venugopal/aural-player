@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    MainWindow.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
@@ -19,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainWindowController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="btnControlBarMode" destination="dyE-XT-x3a" id="ytx-7b-cJB"/>
                 <outlet property="btnMenuBarMode" destination="TuI-sH-f9K" id="byh-7S-Eqt"/>
                 <outlet property="btnMinimize" destination="L4p-3A-TgZ" id="gVO-Qi-bKj"/>
                 <outlet property="btnQuit" destination="zFi-Se-R21" id="qaB-7L-gbg"/>
@@ -82,7 +72,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Switch to menu bar mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuI-sH-f9K" userLabel="Menu Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="43" y="204" width="10" height="10"/>
+                                    <rect key="frame" x="45" y="204" width="12" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="MenuBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="KFK-iW-kM5">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -96,7 +86,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Switch to control bar mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dyE-XT-x3a" userLabel="Control Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="57" y="204" width="10" height="10"/>
+                                    <rect key="frame" x="62" y="203" width="24" height="12"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ControlBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="Okb-Nw-ztF">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2110,7 +2100,7 @@ CA
         <image name="Close" width="18" height="18"/>
         <image name="CollapseGroups" width="15" height="15"/>
         <image name="ColorScheme" width="13" height="14"/>
-        <image name="ControlBarMode" width="15" height="15"/>
+        <image name="ControlBarMode" width="38" height="16"/>
         <image name="CropSelection-Small" width="14" height="14"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
@@ -2125,7 +2115,7 @@ CA
         <image name="InvertSelection-Small" width="15" height="15"/>
         <image name="LoopOff-Small" width="15" height="13"/>
         <image name="MasterTab-Small" width="14" height="14"/>
-        <image name="MenuBarMode" width="51" height="51"/>
+        <image name="MenuBarMode" width="16" height="16"/>
         <image name="MoreInfo-Small" width="12" height="12"/>
         <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack-Small" width="10" height="11"/>

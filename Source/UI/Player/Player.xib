@@ -259,7 +259,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button toolTip="Mute / Unmute" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TDX-6H-xzc" userLabel="Volume Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                        <rect key="frame" x="377" y="13" width="13" height="13"/>
+                                        <rect key="frame" x="376" y="12" width="15" height="15"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="VolumeMedium" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="m75-AN-odg">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -604,8 +604,8 @@ G1BhbiBTbGlkZXI
         <image name="PlayingArt" width="237" height="237"/>
         <image name="PreviousTrack" width="21" height="23"/>
         <image name="Repeat" width="30" height="30"/>
-        <image name="SeekBackward" width="80" height="60"/>
-        <image name="SeekForward" width="80" height="60"/>
+        <image name="SeekBackward" width="16" height="12"/>
+        <image name="SeekForward" width="16" height="12"/>
         <image name="ShowPlayingTrack" width="72" height="72"/>
         <image name="Shuffle" width="120" height="120"/>
         <image name="VolumeMedium" width="26" height="26"/>

@@ -25,6 +25,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     @IBOutlet weak var btnQuit: TintedImageButton!
     @IBOutlet weak var btnMinimize: TintedImageButton!
     @IBOutlet weak var btnMenuBarMode: TintedImageButton!
+    @IBOutlet weak var btnControlBarMode: TintedImageButton!
     
     // Buttons to toggle the playlist/effects views
     @IBOutlet weak var btnToggleEffects: OnOffImageButton!
@@ -75,7 +76,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         
         containerBox.addSubview(playerViewController.view)
         
-        [btnQuit, btnMinimize, btnMenuBarMode].forEach {$0?.tintFunction = {Colors.viewControlButtonColor}}
+        [btnQuit, btnMinimize, btnMenuBarMode, btnControlBarMode].forEach {$0?.tintFunction = {Colors.viewControlButtonColor}}
         
         [btnToggleEffects, btnTogglePlaylist].forEach {
             
@@ -201,17 +202,19 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     private func changeViewControlButtonColor(_ color: NSColor) {
         
-        [btnQuit, btnMinimize, btnMenuBarMode, btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach({
+        [btnQuit, btnMinimize, btnMenuBarMode, btnControlBarMode,
+         btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach {
+            
             ($0 as? Tintable)?.reTint()
-        })
+        }
     }
     
     private func changeToggleButtonOffStateColor(_ color: NSColor) {
         
         // These are the only 2 buttons that have off states
-        [btnTogglePlaylist, btnToggleEffects].forEach({
+        [btnTogglePlaylist, btnToggleEffects].forEach {
             $0.reTint()
-        })
+        }
     }
     
     private func changeAppLogoColor(_ color: NSColor) {
