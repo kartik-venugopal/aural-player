@@ -1,20 +1,39 @@
+//
+//  ScrollingTextView.swift
+//  Aural
+//
+//  Copyright © 2021 Kartik Venugopal. All rights reserved.
+//
+//  This software is licensed under the MIT software license.
+//  See the file "LICENSE" in the project root directory for license terms.
+//
+//  NOTE - This is a modified version of code borrowed from:
+//  https://gist.github.com/NicholasBellucci/b5e9d31c47f335c36aa043f5f39eedb2
+//
 import Cocoa
 
 ///
-/// Original author of this class: https://gist.github.com/NicholasBellucci/b5e9d31c47f335c36aa043f5f39eedb2
+/// A view that displays a text "marquee" in which text, if longer than the width of the view,
+/// scrolls across the view in an animation in order to display the entire text in a single line.
 ///
-open class ScrollingTextView: NSView {
+class ScrollingTextView: NSView {
     // MARK: - Open variables
     
+    ///
+    /// (Optional) Name of the artist of the track whose info is currently displayed in the text view.
+    ///
     private var artist: String?
     
+    ///
+    /// Title of the track whose info is currently displayed in the text view.
+    ///
     private var title: String = ""
 
     /// Text to scroll
     private var text: NSString = ""
 
     /// Font for scrolling text
-    open var font: NSFont = Fonts.Standard.mainFont_12 {
+    var font: NSFont = Fonts.Standard.mainFont_12 {
         
         didSet {
             update(artist: self.artist, title: self.title, layoutRequired: true)
@@ -22,12 +41,14 @@ open class ScrollingTextView: NSView {
     }
 
     /// Scrolling text color
-    open var textColor: NSColor = .white {
+    var textColor: NSColor = .white {
         didSet {redraw()}
     }
     
+    ///
     /// Whether the text should be scrolled (true) or just truncated (false).
-    open var scrollingEnabled: Bool = true {
+    ///
+    var scrollingEnabled: Bool = true {
         
         didSet {
             update(artist: self.artist, title: self.title)
@@ -35,25 +56,24 @@ open class ScrollingTextView: NSView {
     }
 
     /// Determines if the text should be delayed before starting scroll
-    open var isDelayed: Bool = true
+    var isDelayed: Bool = true
 
     /// Spacing between the tail and head of the scrolling text
-    open lazy var spacing: CGFloat = 50
+    let spacing: CGFloat = 50
     
     /// Amount of time the text is delayed before scrolling
-    open var delay: TimeInterval = 2 {
+    var delay: TimeInterval = 2 {
         didSet {updateTraits()}
     }
 
     /// Speed at which the text scrolls. This number is divided by 100.
-    open var speed: Double = 4 {
+    var speed: Double = 4 {
         didSet {updateTraits()}
     }
 
     // MARK: - Private variables
     private var timer: Timer?
     private var point = NSPoint(x: 0, y: 0)
-    private var timeInterval: TimeInterval?
 
     private(set) var stringSize = NSSize(width: 0, height: 0) {
         didSet {point.x = 0}
@@ -174,17 +194,15 @@ private extension ScrollingTextView {
     func setSpeed(newInterval: TimeInterval) {
         
         clearTimer()
-        timeInterval = newInterval
 
-        guard let timeInterval = timeInterval else {return}
-        
-        if timer == nil, timeInterval > 0.0, !((text as String).isEmptyAfterTrimming) {
+        if timer == nil, newInterval > 0.0, !((text as String).isEmptyAfterTrimming) {
             
             timer = Timer.scheduledTimer(timeInterval: newInterval, target: self, selector: #selector(scrollText(_:)),
                                          userInfo: nil, repeats: true)
             
-            guard let timer = timer else {return}
-            RunLoop.main.add(timer, forMode: .common)
+            if let theTimer = timer {
+                RunLoop.main.add(theTimer, forMode: .common)
+            }
             
         } else {
             
