@@ -123,7 +123,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
             
             if WindowLayoutState.showEffects {
                 
-                mainWindow.addChildWindow(_effectsWindow, ordered: NSWindow.OrderingMode.below)
+                mainWindow.addChildWindow(_effectsWindow, ordered: .below)
                 
                 if let effectsWindowOrigin = WindowLayoutState.effectsWindowOrigin {
                     
@@ -137,7 +137,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
             
             if WindowLayoutState.showPlaylist {
                 
-                mainWindow.addChildWindow(_playlistWindow, ordered: NSWindow.OrderingMode.below)
+                mainWindow.addChildWindow(_playlistWindow, ordered: .below)
                 
                 if let playlistWindowFrame = WindowLayoutState.playlistWindowFrame {
                     

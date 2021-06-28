@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    MainWindow.xib
+    Aural
+
+    Copyright © 2021 Kartik Venugopal. All rights reserved.
+
+    This software is licensed under the MIT software license.
+    See the file "LICENSE" in the project root directory for license terms.
+
+-->
+
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
@@ -2078,10 +2090,16 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Support" autoenablesItems="NO" id="hXI-BF-y0R">
                         <items>
-                            <menuItem title="    Online documentation" image="UserGuide" id="V6g-EV-mZF" userLabel="Create new theme">
+                            <menuItem title="    Online documentation" image="UserGuide" id="V6g-EV-mZF" userLabel="Online documentation">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="onlineSupportAction:" target="Ejb-cE-J2S" id="3dX-jC-yec"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="    Check for updates" image="Update" id="wbF-Ay-tMo" userLabel="Check for updates">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdatesAction:" target="Ejb-cE-J2S" id="cWa-gD-KTC"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -2155,6 +2173,7 @@ CA
         <image name="TogglePlaylistView-Small" width="14" height="12"/>
         <image name="ToggleVisualizer-Small" width="14" height="14"/>
         <image name="Up-Small" width="10" height="14"/>
+        <image name="Update" width="15" height="15"/>
         <image name="UserGuide" width="16" height="14"/>
         <image name="VolumeHigh-Small" width="14" height="14"/>
         <image name="VolumeLow-Small" width="14" height="14"/>

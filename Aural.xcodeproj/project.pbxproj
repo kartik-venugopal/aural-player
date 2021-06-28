@@ -71,6 +71,9 @@
 		3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A425DBAD8400732E79 /* FontScheme.swift */; };
 		3E2ED4A725DBB24F00732E79 /* FontSchemePreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */; };
 		3E2ED4A925DBC50500732E79 /* FontSchemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */; };
+		3E308D18268A2E4A00B0FD60 /* NSApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D17268A2E4A00B0FD60 /* NSApplicationExtensions.swift */; };
+		3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */; };
+		3E308D1D268A356300B0FD60 /* UpdatesDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */; };
 		3E3579D026835A6A009522A0 /* GenericPresetPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */; };
 		3E3579D226837D3D009522A0 /* GenericPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579D126837D3D009522A0 /* GenericPresetsManagerViewController.swift */; };
 		3E35AC9F25E6254500EBCCEB /* VisualizerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */; };
@@ -810,6 +813,9 @@
 		3E2ED4A425DBAD8400732E79 /* FontScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontScheme.swift; sourceTree = "<group>"; };
 		3E2ED4A625DBB24F00732E79 /* FontSchemePreset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemePreset.swift; sourceTree = "<group>"; };
 		3E2ED4A825DBC50500732E79 /* FontSchemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesManager.swift; sourceTree = "<group>"; };
+		3E308D17268A2E4A00B0FD60 /* NSApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplicationExtensions.swift; sourceTree = "<group>"; };
+		3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatesDialog.xib; sourceTree = "<group>"; };
+		3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesDialogController.swift; sourceTree = "<group>"; };
 		3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPresetPopupMenuController.swift; sourceTree = "<group>"; };
 		3E3579D126837D3D009522A0 /* GenericPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPresetsManagerViewController.swift; sourceTree = "<group>"; };
 		3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerContainer.swift; sourceTree = "<group>"; };
@@ -1672,6 +1678,15 @@
 			path = FontSchemes;
 			sourceTree = "<group>";
 		};
+		3E308D19268A333D00B0FD60 /* UpdatesDialog */ = {
+			isa = PBXGroup;
+			children = (
+				3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */,
+				3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */,
+			);
+			path = UpdatesDialog;
+			sourceTree = "<group>";
+		};
 		3E3633C42685FAD0006A88ED /* FXUnits */ = {
 			isa = PBXGroup;
 			children = (
@@ -2000,6 +2015,7 @@
 				3E9E590225DB6B150064EB5F /* MenuBarPlayer */,
 				3E4322792687D519009E8ADB /* ControlBarPlayer */,
 				3E6C0FDA25CEB98600BF0D07 /* AboutDialog */,
+				3E308D19268A333D00B0FD60 /* UpdatesDialog */,
 				3E6C0FB125CEB98600BF0D07 /* CustomViews */,
 				3EAFB5EA267FEC4500F0DC96 /* Extensions */,
 				3E6C0F9825CEB98600BF0D07 /* Fonts.swift */,
@@ -2471,8 +2487,8 @@
 		3E6C0FDA25CEB98600BF0D07 /* AboutDialog */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FDB25CEB98600BF0D07 /* AboutDialogController.swift */,
 				3E6C0FDC25CEB98600BF0D07 /* AboutDialog.xib */,
+				3E6C0FDB25CEB98600BF0D07 /* AboutDialogController.swift */,
 			);
 			path = AboutDialog;
 			sourceTree = "<group>";
@@ -2946,6 +2962,7 @@
 				3E145502268107910034056E /* MirrorExtensions.swift */,
 				3EE2CC3026810D6F002C1B29 /* ArrayExtensions.swift */,
 				3EE2CC3426811814002C1B29 /* JSONSerializationExtensions.swift */,
+				3E308D17268A2E4A00B0FD60 /* NSApplicationExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3627,6 +3644,7 @@
 			files = (
 				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
+				3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */,
 				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */,
 				3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */,
@@ -3937,6 +3955,7 @@
 				3EAFB611267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift in Sources */,
 				3EDB345125E8B75D004DF7DE /* VorbisCommentParser.swift in Sources */,
 				3EEC04172687A982004478CE /* MenuBarModePlayerSequencingViewController.swift in Sources */,
+				3E308D18268A2E4A00B0FD60 /* NSApplicationExtensions.swift in Sources */,
 				3E6C12B525CEBE5800BF0D07 /* BookmarksMenuController.swift in Sources */,
 				3E1454FB2680F9DF0034056E /* GesturesControlsPreferences.swift in Sources */,
 				3E6C12EC25CEBE8100BF0D07 /* PlayingTrackView.swift in Sources */,
@@ -4195,6 +4214,7 @@
 				3E6C119D25CEBD6D00BF0D07 /* AudioDevice.swift in Sources */,
 				3E6C120B25CEBDD100BF0D07 /* Playlist.swift in Sources */,
 				3EEC04112687745F004478CE /* PlaybackState.swift in Sources */,
+				3E308D1D268A356300B0FD60 /* UpdatesDialogController.swift in Sources */,
 				3E09D0D226805C19008ECB8C /* EffectsColorSchemePersistentState.swift in Sources */,
 				3E6C122D25CEBDE600BF0D07 /* TracksPlaylistViewDelegate.swift in Sources */,
 				3E6C129E25CEBE2700BF0D07 /* EQSliderCell.swift in Sources */,

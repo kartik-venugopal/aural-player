@@ -15,6 +15,10 @@ import Cocoa
 ///
 class HTTPClient {
     
+    static let shared: HTTPClient = HTTPClient()
+    
+    private init() {}
+    
     ///
     /// Performs a HTTP GET request to the specified URL, with the given request headers and connection timeout interval (specified in seconds).
     ///
@@ -27,7 +31,7 @@ class HTTPClient {
         // Construct a request object with the specified URL and headers.
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = headers
-        request.httpMethod = "GET"
+        request.httpMethod = URLRequest.GETMethod
         request.timeoutInterval = TimeInterval(timeout)
         
         var response: URLResponse?
@@ -56,6 +60,27 @@ class HTTPClient {
     func performGETForJSON(toURL url: URL, withHeaders headers: [String: String], timeout: Int = 5) throws -> NSDictionary? {
         return try performGET(toURL: url, withHeaders: headers, timeout: timeout).toJSONObject()
     }
+    
+    func performGETForRedirect(toURL url: URL, timeout: Int = 5) throws -> URL? {
+        
+        // Construct a request object with the specified URL and headers.
+        var request = URLRequest(url: url)
+        request.allHTTPHeaderFields = [:]
+        request.httpMethod = URLRequest.GETMethod
+        request.timeoutInterval = TimeInterval(timeout)
+        
+        var response: URLResponse?
+        
+        // Even though this function is deprecated, it is the best and cleanest solution for our use case.
+        _ = try NSURLConnection.sendSynchronousRequest(request, returning: &response)
+        
+        return response?.url
+    }
+}
+
+extension URLRequest {
+    
+    static let GETMethod: String = "GET"
 }
 
 extension HTTPURLResponse {

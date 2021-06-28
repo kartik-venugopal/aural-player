@@ -11,7 +11,7 @@ import Cocoa
 
 extension URL {
     
-    private static let fileManager: FileManager = FileManager.default
+    private static let fileManager: FileManager = .default
     
     private var fileManager: FileManager {Self.fileManager}
     

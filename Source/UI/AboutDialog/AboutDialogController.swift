@@ -16,9 +16,7 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
     @IBOutlet weak var versionLabel: NSTextField! {
         
         didSet {
-            
-            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "1.0.0"
-            versionLabel.stringValue = appVersion
+            versionLabel.stringValue = NSApp.appVersion
         }
     }
     

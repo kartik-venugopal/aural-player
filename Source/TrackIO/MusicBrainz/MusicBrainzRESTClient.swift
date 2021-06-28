@@ -28,7 +28,7 @@ class MusicBrainzRESTClient {
     /// A helper client object that performs HTTP requests and deals with the specifics of the HTTP protocol.
     /// All MusicBrainz requests will be delegated to this object.
     ///
-    private let httpClient: HTTPClient = HTTPClient()
+    private let httpClient: HTTPClient = .shared
     
     ///
     /// The headers that will be present in every request sent to MusicBrainz.
@@ -42,7 +42,7 @@ class MusicBrainzRESTClient {
     /// We should set this header to "gzip" to inform the server to compress the response payload using gzip.
     /// Compression will reduce the transit time of the payload.
     ///
-    private let standardHeaders: [String: String] = ["User-Agent": "Aural Player/\(appVersion) ( \(appContact) )",
+    private let standardHeaders: [String: String] = ["User-Agent": "Aural Player/\(NSApp.appVersion) ( \(appContact) )",
                                                              "Accept-Encoding": "gzip"]
     
     ///
@@ -252,11 +252,6 @@ class MusicBrainzRESTClient {
         return nil
     }
 }
-
-///
-/// The version number of this application (used in a request header for all requests sent to MusicBrainz). Used to idenfity this app to MusicBrainz.
-///
-fileprivate let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "2.9.0"
 
 ///
 /// Contact info for the developer of this application (used in a request header for all requests sent to MusicBrainz).
