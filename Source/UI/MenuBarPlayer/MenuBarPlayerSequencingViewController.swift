@@ -1,5 +1,5 @@
 //
-//  MenuBarModePlayerSequencingViewController.swift
+//  MenuBarPlayerSequencingViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -8,7 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
-class MenuBarModePlayerSequencingViewController: PlayerSequencingViewController {
+class MenuBarPlayerSequencingViewController: PlayerSequencingViewController {
     
     override func initSubscriptions() {}
     

@@ -15,22 +15,23 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     
     @IBOutlet weak var appLogo: TintedImageView!
     @IBOutlet weak var btnQuit: TintedImageButton!
-    @IBOutlet weak var btnRegularMode: TintedImageButton!
+    @IBOutlet weak var btnWindowedMode: TintedImageButton!
+    @IBOutlet weak var btnControlBarMode: TintedImageButton!
     
     @IBOutlet weak var infoBox: NSBox!
     @IBOutlet weak var trackInfoView: MenuBarPlayingTrackTextView!
     @IBOutlet weak var imgArt: NSImageView!
     @IBOutlet weak var artOverlayBox: NSBox!
     
-    @IBOutlet weak var playbackView: MenuBarModePlaybackView!
-    @IBOutlet weak var seekSliderView: MenuBarModeSeekSliderView!
+    @IBOutlet weak var playbackView: MenuBarPlaybackView!
+    @IBOutlet weak var seekSliderView: MenuBarSeekSliderView!
     
     @IBOutlet weak var btnSettings: TintedImageButton!
     @IBOutlet weak var settingsBox: NSBox!
     
-    @IBOutlet weak var playbackViewController: MenuBarModePlaybackViewController!
-    @IBOutlet weak var playerAudioViewController: MenuBarModePlayerAudioViewController!
-    @IBOutlet weak var playerSequencingViewController: MenuBarModePlayerSequencingViewController!
+    @IBOutlet weak var playbackViewController: MenuBarPlaybackViewController!
+    @IBOutlet weak var audioViewController: MenuBarPlayerAudioViewController!
+    @IBOutlet weak var sequencingViewController: MenuBarPlayerSequencingViewController!
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
@@ -47,7 +48,7 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     
     override func awakeFromNib() {
         
-        [btnQuit, btnRegularMode, btnSettings].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
+        [btnQuit, btnWindowedMode, btnControlBarMode, btnSettings].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
         
         appLogo.tintFunction = {Colors.Constants.white70Percent}
 
@@ -61,7 +62,7 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     
     func destroy() {
         
-        [playbackViewController, playerAudioViewController, playerSequencingViewController].forEach {
+        [playbackViewController, audioViewController, sequencingViewController].forEach {
             ($0 as? Destroyable)?.destroy()
         }
         
@@ -177,6 +178,10 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     
     @IBAction func windowedModeAction(_ sender: AnyObject) {
         AppModeManager.presentMode(.windowed)
+    }
+    
+    @IBAction func controlBarModeAction(_ sender: AnyObject) {
+        AppModeManager.presentMode(.controlBar)
     }
 
     @IBAction func quitAction(_ sender: AnyObject) {

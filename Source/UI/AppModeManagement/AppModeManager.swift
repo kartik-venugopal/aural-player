@@ -73,7 +73,7 @@ protocol AppModeController {
     
     var mode: AppMode {get}
     
-    func presentMode(transitioningFromMode previousMode: AppMode?)
+    func presentMode(transitioningFromMode previousMode: AppMode)
     
     func dismissMode()
 }

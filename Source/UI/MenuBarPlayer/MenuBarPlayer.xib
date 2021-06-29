@@ -21,16 +21,17 @@
             <connections>
                 <outlet property="appLogo" destination="Z1q-TO-pG6" id="eWD-M2-jx4"/>
                 <outlet property="artOverlayBox" destination="xSV-wz-vgQ" id="l62-4K-E7e"/>
+                <outlet property="audioViewController" destination="c56-oI-v2n" id="R5S-Yb-vY1"/>
+                <outlet property="btnControlBarMode" destination="Kux-Gm-zXa" id="FGe-8U-GaN"/>
                 <outlet property="btnQuit" destination="D5e-Eq-c87" id="W9N-98-Y2T"/>
-                <outlet property="btnRegularMode" destination="GS3-VZ-nPx" id="1he-Yy-8mg"/>
                 <outlet property="btnSettings" destination="8UO-59-iT0" id="YE7-BV-Zxd"/>
+                <outlet property="btnWindowedMode" destination="GS3-VZ-nPx" id="1he-Yy-8mg"/>
                 <outlet property="imgArt" destination="4dk-EH-BOI" id="cpf-qA-qGH"/>
                 <outlet property="infoBox" destination="vrX-Nw-abT" id="UMp-4M-mG7"/>
                 <outlet property="playbackView" destination="A8P-gF-rZh" id="Xic-43-gMQ"/>
                 <outlet property="playbackViewController" destination="AjS-bO-E7r" id="m8y-NY-qBw"/>
-                <outlet property="playerAudioViewController" destination="c56-oI-v2n" id="R5S-Yb-vY1"/>
-                <outlet property="playerSequencingViewController" destination="CIt-5z-Hlz" id="gWu-Ps-D7I"/>
                 <outlet property="seekSliderView" destination="GcZ-Bp-Dug" id="Ofi-Ox-mgM"/>
+                <outlet property="sequencingViewController" destination="CIt-5z-Hlz" id="gWu-Ps-D7I"/>
                 <outlet property="settingsBox" destination="Prg-DV-9kD" id="SJh-9G-KG7"/>
                 <outlet property="trackInfoView" destination="RjK-18-fyJ" id="WQ1-Cc-2d0"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="7Tk-vw-vqd"/>
@@ -38,11 +39,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <view appearanceType="aqua" id="A8P-gF-rZh" userLabel="Menu Bar Player View" customClass="MenuBarModePlaybackView" customModule="Aural" customModuleProvider="target">
+        <view appearanceType="aqua" id="A8P-gF-rZh" userLabel="Menu Bar Player View" customClass="MenuBarPlaybackView" customModule="Aural" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="300" height="170"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view id="GcZ-Bp-Dug" customClass="MenuBarModeSeekSliderView" customModule="Aural" customModuleProvider="target">
+                <view id="GcZ-Bp-Dug" customClass="MenuBarSeekSliderView" customModule="Aural" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="-1" width="300" height="172"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -78,20 +79,6 @@
                             <color key="borderColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
                             <color key="fillColor" white="0.077583793159965039" alpha="0.69647465919961737" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </box>
-                        <button toolTip="Switch to windowed mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Windowed Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="23" y="151" width="8" height="8"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="RegularMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NS8-FO-e8A">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="RegularMode"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="windowedModeAction:" target="-2" id="qnv-td-oSf"/>
-                            </connections>
-                        </button>
                         <button toolTip="Quit application" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D5e-Eq-c87" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="9" y="150" width="10" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -104,6 +91,34 @@
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="quitAction:" target="-2" id="yes-cl-mha"/>
+                            </connections>
+                        </button>
+                        <button toolTip="Switch to windowed mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GS3-VZ-nPx" userLabel="Windowed Mode button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="23" y="151" width="8" height="8"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="WindowedMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="NS8-FO-e8A">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="WindowedMode"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="windowedModeAction:" target="-2" id="qnv-td-oSf"/>
+                            </connections>
+                        </button>
+                        <button toolTip="Switch to control bar mode" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kux-Gm-zXa" userLabel="Control Bar Mode Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
+                            <rect key="frame" x="36" y="151" width="11" height="8"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="ControlBarMode" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="aKC-tP-QWF">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="ControlBarMode"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="controlBarModeAction:" target="-2" id="mEe-QJ-Gc9"/>
                             </connections>
                         </button>
                         <button toolTip="View settings" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8UO-59-iT0" userLabel="Settings Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
@@ -121,7 +136,7 @@
                             </connections>
                         </button>
                         <button toolTip="Repeat" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oIU-fy-2aj" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="13" y="17" width="14" height="14"/>
+                            <rect key="frame" x="13" y="18" width="12" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Repeat" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="0Mq-Jc-mU8">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -132,7 +147,7 @@
                             </connections>
                         </button>
                         <button toolTip="Shuffle" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CGV-J4-5aK" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="33" y="17" width="14" height="14"/>
+                            <rect key="frame" x="31" y="18" width="12" height="12"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Shuffle" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="bjo-WW-06u">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -143,7 +158,7 @@
                             </connections>
                         </button>
                         <button toolTip="A-&gt;B Segment loop" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cut-80-aL8" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="52" y="18" width="38" height="12"/>
+                            <rect key="frame" x="48" y="19" width="32" height="10"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Loop" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="cSQ-A9-aeR">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -185,7 +200,7 @@
                             </connections>
                         </button>
                         <button toolTip="Seek backward" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9dh-O3-hsB" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="109" y="19" width="12" height="9"/>
+                            <rect key="frame" x="103" y="18" width="15" height="11"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="lvE-eG-2sc">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -229,7 +244,7 @@
                             </connections>
                         </button>
                         <button toolTip="Seek forward" wantsLayer="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G2a-Rd-K5w" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                            <rect key="frame" x="179" y="19" width="12" height="9"/>
+                            <rect key="frame" x="182" y="18" width="15" height="11"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="e4C-Uc-XHG">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -442,14 +457,14 @@
                 <outlet property="view" destination="Prg-DV-9kD" id="mTz-nN-uX2"/>
             </connections>
         </customObject>
-        <customObject id="CIt-5z-Hlz" customClass="MenuBarModePlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="CIt-5z-Hlz" customClass="MenuBarPlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnRepeat" destination="oIU-fy-2aj" id="i2k-o2-Y4b"/>
                 <outlet property="btnShuffle" destination="CGV-J4-5aK" id="tNj-6p-0fI"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="Gfk-6D-0gi"/>
             </connections>
         </customObject>
-        <customObject id="c56-oI-v2n" customClass="MenuBarModePlayerAudioViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="c56-oI-v2n" customClass="MenuBarPlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnVolume" destination="P5p-7u-pjj" id="T1X-br-huH"/>
                 <outlet property="lblVolume" destination="ifp-dM-R5z" id="Qsp-bN-9fE"/>
@@ -457,7 +472,7 @@
                 <outlet property="volumeSlider" destination="LQL-m8-1KN" id="IlP-oD-Ld4"/>
             </connections>
         </customObject>
-        <customObject id="AjS-bO-E7r" customClass="MenuBarModePlaybackViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="AjS-bO-E7r" customClass="MenuBarPlaybackViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playbackView" destination="A8P-gF-rZh" id="8Qd-sB-ZNf"/>
                 <outlet property="view" destination="A8P-gF-rZh" id="b3w-eF-hML"/>
@@ -467,17 +482,18 @@
     <resources>
         <image name="AppTitle" width="117" height="32"/>
         <image name="Close" width="18" height="18"/>
+        <image name="ControlBarMode" width="17" height="12"/>
         <image name="Loop" width="42" height="15"/>
-        <image name="NextTrack" width="31" height="35"/>
+        <image name="NextTrack" width="21" height="23"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
-        <image name="PreviousTrack" width="31" height="35"/>
-        <image name="RegularMode" width="32" height="32"/>
+        <image name="PreviousTrack" width="21" height="23"/>
         <image name="Repeat" width="30" height="30"/>
-        <image name="SeekBackward" width="46" height="34"/>
-        <image name="SeekForward" width="46" height="34"/>
+        <image name="SeekBackward" width="16" height="12"/>
+        <image name="SeekForward" width="16" height="12"/>
         <image name="Settings" width="10" height="7"/>
         <image name="Shuffle" width="120" height="120"/>
         <image name="VolumeMedium" width="26" height="26"/>
+        <image name="WindowedMode" width="32" height="32"/>
     </resources>
 </document>

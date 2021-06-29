@@ -18,7 +18,7 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate, Not
     
     private lazy var appIcon: NSImage = NSImage(named: "AppIcon-MenuBar")!
     
-    func presentMode(transitioningFromMode previousMode: AppMode?) {
+    func presentMode(transitioningFromMode previousMode: AppMode) {
         
         controller = MenuBarPlayerViewController()
 

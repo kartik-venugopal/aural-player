@@ -1,5 +1,5 @@
 //
-//  ControlBarModeSeekSliderView.swift
+//  ControlBarSeekSliderView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //  
 import Foundation
 
-class ControlBarModeSeekSliderView: SeekSliderView {
+class ControlBarSeekSliderView: SeekSliderView {
  
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager

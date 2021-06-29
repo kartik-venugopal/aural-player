@@ -1,5 +1,5 @@
 //
-//  ControlBarModePlayerAudioViewController.swift
+//  MenuBarPlayerAudioViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,14 +9,14 @@
 //  
 import Cocoa
 
-class ControlBarModePlayerAudioViewController: PlayerAudioViewController {
+class MenuBarPlayerAudioViewController: PlayerAudioViewController {
     
     override var showsPanControl: Bool {false}
     
     override func viewDidLoad() {
         
-        btnVolume.tintFunction = {Colors.functionButtonColor}
-        lblVolume.textColor = Colors.functionButtonColor
+        btnVolume.tintFunction = {Colors.Constants.white70Percent}
+        btnVolume.reTint()
         
         super.viewDidLoad()
     }
@@ -26,9 +26,5 @@ class ControlBarModePlayerAudioViewController: PlayerAudioViewController {
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
-        
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
     }
 }

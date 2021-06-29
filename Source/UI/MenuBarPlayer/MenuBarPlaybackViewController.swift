@@ -1,5 +1,5 @@
 //
-//  ControlBarModePlaybackViewController.swift
+//  MenuBarPlaybackViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -7,12 +7,10 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
-import Cocoa
+import Foundation
 
-class ControlBarModePlaybackViewController: PlaybackViewController {
-    
-    override var displaysChapterIndicator: Bool {false}
-    
+class MenuBarPlaybackViewController: PlaybackViewController {
+ 
     override func initSubscriptions() {
         
         // MARK: Notifications --------------------------------------------------------------
@@ -28,9 +26,5 @@ class ControlBarModePlaybackViewController: PlaybackViewController {
         
         Messenger.subscribe(self, .effects_playbackRateChanged, self.playbackRateChanged(_:))
         Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
-        
-        Messenger.subscribe(self, .applyTheme, (playbackView as! ControlBarModePlaybackView).applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, playbackView.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, playbackView.applyColorScheme(_:))
     }
 }

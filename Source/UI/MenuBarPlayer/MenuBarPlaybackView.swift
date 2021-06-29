@@ -1,5 +1,5 @@
 //
-//  MenuBarModePlaybackView.swift
+//  MenuBarPlaybackView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,11 +9,19 @@
 //  
 import Foundation
 
-class MenuBarModePlaybackView: PlaybackView {
+class MenuBarPlaybackView: PlaybackView {
     
     // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
     override var offStateTintFunction: TintFunction {{Colors.Constants.white40Percent}}
 
     // When the buttons are in an "On" state, they should be tinted according to the system color scheme's function button color.
     override var onStateTintFunction: TintFunction {{Colors.Constants.white70Percent}}
+    
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        btnPlayPause.onStateTintFunction = {Colors.Constants.white70Percent}
+        [btnPreviousTrack, btnNextTrack, btnSeekBackward, btnSeekForward].forEach {$0?.tintFunction = {Colors.Constants.white70Percent}}
+    }
 }

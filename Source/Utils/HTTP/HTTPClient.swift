@@ -61,6 +61,14 @@ class HTTPClient {
         return try performGET(toURL: url, withHeaders: headers, timeout: timeout).toJSONObject()
     }
     
+    ///
+    /// Performs a HTTP GET request to the specified URL, with the given request headers and connection timeout interval (specified in seconds),
+    /// and returns the URL from the response. This function assumes that an HTTP redirect will occur, so the function returns the redirect URL.
+    ///
+    /// - Returns: The response URL (redirect URL). May be nil.
+    ///
+    /// - throws an error if one occurred while making the request.
+    ///
     func performGETForRedirect(toURL url: URL, timeout: Int = 5) throws -> URL? {
         
         // Construct a request object with the specified URL and headers.

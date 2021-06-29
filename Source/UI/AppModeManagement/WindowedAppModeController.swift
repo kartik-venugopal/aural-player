@@ -13,15 +13,15 @@ class WindowedAppModeController: AppModeController {
     
     var mode: AppMode {return .windowed}
     
-    func presentMode(transitioningFromMode previousMode: AppMode?) {
+    func presentMode(transitioningFromMode previousMode: AppMode) {
         
         NSApp.setActivationPolicy(.regular)
         
         WindowManager.createInstance(layoutsManager: ObjectGraph.windowLayoutsManager,
                                      preferences: ObjectGraph.preferences.viewPreferences).loadWindows()
         
-        // If this is not a transition from another app mode, we don't need to execute the hack below.
-        if previousMode == nil {return}
+        // If this is not a transition from a different app mode, we don't need to execute the hack below.
+        if previousMode == .windowed {return}
         
         // HACK - Because of an Apple bug, the main menu will not be usable until the app loses and then regains focus.
         // The following code simulates the user action of activating another app and then activating this app after a

@@ -13,18 +13,15 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     
     @IBOutlet weak var containerBox: NSBox!
     
-    @IBOutlet weak var btnQuit: TintedImageButton!
-    @IBOutlet weak var btnRegularMode: TintedImageButton!
-    
-    @IBOutlet weak var textView: ScrollingTextView!
+    @IBOutlet weak var textView: ScrollingTrackInfoView!
     @IBOutlet weak var imgArt: NSImageView!
     
-    @IBOutlet weak var playbackView: ControlBarModePlaybackView!
-    @IBOutlet weak var seekSliderView: ControlBarModeSeekSliderView!
+    @IBOutlet weak var playbackView: ControlBarPlaybackView!
+    @IBOutlet weak var seekSliderView: ControlBarSeekSliderView!
     
-    @IBOutlet weak var playbackViewController: ControlBarModePlaybackViewController!
-    @IBOutlet weak var playerAudioViewController: ControlBarModePlayerAudioViewController!
-    @IBOutlet weak var playerSequencingViewController: ControlBarModePlayerSequencingViewController!
+    @IBOutlet weak var playbackViewController: ControlBarPlaybackViewController!
+    @IBOutlet weak var audioViewController: ControlBarPlayerAudioViewController!
+    @IBOutlet weak var sequencingViewController: ControlBarPlayerSequencingViewController!
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
@@ -44,10 +41,6 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     
     override func awakeFromNib() {
         
-        [btnQuit, btnRegularMode].forEach {
-            $0?.tintFunction = {Colors.viewControlButtonColor}
-        }
-        
         textView.scrollingEnabled = true
         applyTheme()
         
@@ -55,7 +48,7 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
                                                                             toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
         
         let textViewTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .trailing, relatedBy: .equal,
-                                                                                toItem: playerSequencingViewController.btnRepeat, attribute: .leading, multiplier: 1, constant: -21)
+                                                                                toItem: sequencingViewController.btnRepeat, attribute: .leading, multiplier: 1, constant: -21)
         
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.superview?.activateAndAddConstraints(textViewLeadingConstraint, textViewTrailingConstraint)
@@ -84,7 +77,7 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     
     func destroy() {
         
-        [playbackViewController, playerAudioViewController, playerSequencingViewController].forEach {
+        [playbackViewController, audioViewController, sequencingViewController].forEach {
             ($0 as? Destroyable)?.destroy()
         }
         
@@ -146,8 +139,8 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     
     func applyTheme() {
         
-        applyColorScheme(colorSchemesManager.systemScheme)
         applyFontScheme(fontSchemesManager.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

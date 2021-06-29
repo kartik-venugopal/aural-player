@@ -37,13 +37,13 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="570" height="40"/>
             <value key="maxSize" type="size" width="10000" height="40"/>
-            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ControlBarModePlaybackView" customModule="Aural" customModuleProvider="target">
+            <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ControlBarPlaybackView" customModule="Aural" customModuleProvider="target">
                 <rect key="frame" x="0.0" y="0.0" width="570" height="40"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <box boxType="custom" borderType="none" borderWidth="0.0" cornerRadius="5" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cl4-0e-ANP" userLabel="Background Box">
                         <rect key="frame" x="0.0" y="0.0" width="570" height="40"/>
-                        <view key="contentView" id="Aqe-re-gbP" customClass="ControlBarModeSeekSliderView" customModule="Aural" customModuleProvider="target">
+                        <view key="contentView" id="Aqe-re-gbP" customClass="ControlBarSeekSliderView" customModule="Aural" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="570" height="40"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
@@ -75,10 +75,16 @@
                                                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings-Small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </menuItem>
-                                                <menuItem title="  Switch to windowed mode" image="RegularMode-Small" id="4cF-e2-ta6" userLabel="Switch to windowed mode">
+                                                <menuItem title="  Switch to windowed mode" image="WindowedMode-Small" id="4cF-e2-ta6" userLabel="Switch to windowed mode">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="windowedModeAction:" target="-2" id="uzR-XL-iFa"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Switch to menu bar mode" image="MenuBarMode" id="Uub-O4-NqJ" userLabel="Switch to menu bar mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="menuBarModeAction:" target="-2" id="VOp-3E-gIP"/>
                                                     </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="23m-sy-aRI"/>
@@ -297,7 +303,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
-                                <customView id="lNe-zj-5jU" customClass="ScrollingTextView" customModule="Aural" customModuleProvider="target">
+                                <customView id="lNe-zj-5jU" customClass="ScrollingTrackInfoView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="66" y="12" width="205" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
@@ -310,10 +316,10 @@
                                     </connections>
                                 </slider>
                                 <button toolTip="Seek forward" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtZ-rZ-MnJ" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="465" y="15" width="12" height="9"/>
+                                    <rect key="frame" x="465" y="15" width="13" height="10"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="9" id="iNN-2d-Fqh"/>
-                                        <constraint firstAttribute="width" constant="12" id="jTm-kX-vva"/>
+                                        <constraint firstAttribute="height" constant="10" id="iNN-2d-Fqh"/>
+                                        <constraint firstAttribute="width" constant="13" id="jTm-kX-vva"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekForward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="g8z-N6-MM4">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -383,10 +389,10 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Seek backward" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rMK-zd-YvE" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="387" y="15" width="12" height="9"/>
+                                    <rect key="frame" x="387" y="15" width="13" height="10"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="12" id="AdY-ah-fAj"/>
-                                        <constraint firstAttribute="height" constant="9" id="gPy-pO-OSz"/>
+                                        <constraint firstAttribute="width" constant="13" id="AdY-ah-fAj"/>
+                                        <constraint firstAttribute="height" constant="10" id="gPy-pO-OSz"/>
                                     </constraints>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="SeekBackward" imagePosition="only" alignment="center" continuous="YES" imageScaling="proportionallyUpOrDown" inset="2" id="kCE-Fr-eDh">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -428,7 +434,7 @@
                                     </connections>
                                 </slider>
                                 <button toolTip="Repeat" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4qN-q5-DoC" userLabel="Repeat Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="292" y="13" width="12" height="12"/>
+                                    <rect key="frame" x="292" y="14" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="R7a-bR-159"/>
                                         <constraint firstAttribute="width" constant="12" id="RuZ-5O-J2z"/>
@@ -442,7 +448,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Shuffle" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-OP-WNr" userLabel="Shuffle Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="310" y="13" width="12" height="12"/>
+                                    <rect key="frame" x="310" y="14" width="12" height="12"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="12" id="BVT-Xa-7cT"/>
                                         <constraint firstAttribute="width" constant="12" id="TiD-eC-ybh"/>
@@ -456,7 +462,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="A-&gt;B Segment loop" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Ju-N8p" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="328" y="14" width="31" height="10"/>
+                                    <rect key="frame" x="327" y="15" width="31" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="10" id="dDc-cs-DvB"/>
                                         <constraint firstAttribute="width" constant="31" id="n0k-JH-IGz"/>
@@ -485,25 +491,25 @@
                             <constraints>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="leading" secondItem="cQe-K3-rAJ" secondAttribute="trailing" constant="4" id="2b7-hb-XbR"/>
                                 <constraint firstItem="iaY-fV-voY" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="30D-oh-kIm"/>
-                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="16" id="4fI-fP-STo"/>
-                                <constraint firstItem="Hat-OP-WNr" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="Kac-u9-EMS"/>
-                                <constraint firstItem="4qN-q5-DoC" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="SGi-Ic-iIr"/>
+                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="4fI-fP-STo"/>
+                                <constraint firstItem="Hat-OP-WNr" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="Kac-u9-EMS"/>
+                                <constraint firstItem="4qN-q5-DoC" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="SGi-Ic-iIr"/>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="Tdl-1g-g0H"/>
                                 <constraint firstItem="Hat-OP-WNr" firstAttribute="leading" secondItem="4qN-q5-DoC" secondAttribute="trailing" constant="6" id="Vbs-5L-Fz8"/>
                                 <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="leading" secondItem="iaY-fV-voY" secondAttribute="trailing" constant="5" id="X04-PO-MUr"/>
                                 <constraint firstItem="sFw-RL-2ra" firstAttribute="leading" secondItem="8py-2V-iWJ" secondAttribute="trailing" constant="8" id="c6d-zI-zhF"/>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="top" secondItem="5Wc-og-czo" secondAttribute="bottom" constant="-2" id="dDV-lH-Ydn"/>
                                 <constraint firstItem="sFw-RL-2ra" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="12" id="dJx-LV-Nw1"/>
-                                <constraint firstItem="rMK-zd-YvE" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="16" id="e6N-GS-1t5"/>
+                                <constraint firstItem="rMK-zd-YvE" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="e6N-GS-1t5"/>
                                 <constraint firstItem="iaY-fV-voY" firstAttribute="leading" secondItem="sFw-RL-2ra" secondAttribute="trailing" constant="5" id="hZT-AO-29u"/>
                                 <constraint firstAttribute="trailing" secondItem="WoE-gv-TJl" secondAttribute="trailing" constant="8" id="j2J-cV-pJn"/>
-                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="leading" secondItem="KtZ-rZ-MnJ" secondAttribute="trailing" constant="28" id="jQk-T0-EgG"/>
+                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="leading" secondItem="KtZ-rZ-MnJ" secondAttribute="trailing" constant="27" id="jQk-T0-EgG"/>
                                 <constraint firstAttribute="trailing" secondItem="5Wc-og-czo" secondAttribute="trailing" constant="12" id="mDT-8Z-6OB"/>
-                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="leading" secondItem="Hat-OP-WNr" secondAttribute="trailing" constant="6" id="nuW-dj-Unr"/>
-                                <constraint firstItem="8py-2V-iWJ" firstAttribute="leading" secondItem="rMK-zd-YvE" secondAttribute="trailing" constant="6" id="poS-gU-yuK"/>
+                                <constraint firstItem="8tt-Ju-N8p" firstAttribute="leading" secondItem="Hat-OP-WNr" secondAttribute="trailing" constant="5" id="nuW-dj-Unr"/>
+                                <constraint firstItem="8py-2V-iWJ" firstAttribute="leading" secondItem="rMK-zd-YvE" secondAttribute="trailing" constant="5" id="poS-gU-yuK"/>
                                 <constraint firstItem="8py-2V-iWJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="u4G-TC-WOK"/>
-                                <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="16" id="vyb-wg-JwH"/>
-                                <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="28" id="x29-1E-zNF"/>
+                                <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="vyb-wg-JwH"/>
+                                <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="29" id="x29-1E-zNF"/>
                                 <constraint firstItem="cQe-K3-rAJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="yXp-Fj-qAl"/>
                             </constraints>
                             <connections>
@@ -539,32 +545,31 @@
         </window>
         <customObject id="VLj-aK-Baf" customClass="ControlBarPlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
-                <outlet property="btnQuit" destination="Ll7-4b-FN9" id="Vtx-Hs-3Gv"/>
+                <outlet property="audioViewController" destination="khd-7d-e1B" id="WB5-4w-V8E"/>
                 <outlet property="containerBox" destination="cl4-0e-ANP" id="vr5-N2-lEu"/>
                 <outlet property="imgArt" destination="YWm-98-S2W" id="DuX-EC-9mV"/>
                 <outlet property="playbackView" destination="EiT-Mj-1SZ" id="cli-B4-j9e"/>
                 <outlet property="playbackViewController" destination="SuS-L4-zP8" id="g6O-hk-xtg"/>
-                <outlet property="playerAudioViewController" destination="khd-7d-e1B" id="WB5-4w-V8E"/>
-                <outlet property="playerSequencingViewController" destination="3w7-fX-EBl" id="clA-zc-wu3"/>
                 <outlet property="seekSliderView" destination="Aqe-re-gbP" id="4aJ-Z3-rXC"/>
+                <outlet property="sequencingViewController" destination="3w7-fX-EBl" id="clA-zc-wu3"/>
                 <outlet property="textView" destination="lNe-zj-5jU" id="X0y-Ps-po3"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="dSF-qc-mTt"/>
             </connections>
         </customObject>
-        <customObject id="SuS-L4-zP8" customClass="ControlBarModePlaybackViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="SuS-L4-zP8" customClass="ControlBarPlaybackViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="playbackView" destination="EiT-Mj-1SZ" id="waJ-gM-9S6"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="T4H-YQ-WZ6"/>
             </connections>
         </customObject>
-        <customObject id="3w7-fX-EBl" customClass="ControlBarModePlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="3w7-fX-EBl" customClass="ControlBarPlayerSequencingViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnRepeat" destination="4qN-q5-DoC" id="3mA-r1-8Y6"/>
                 <outlet property="btnShuffle" destination="Hat-OP-WNr" id="Wdt-Mw-te4"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="g1t-4Z-DoN"/>
             </connections>
         </customObject>
-        <customObject id="khd-7d-e1B" customClass="ControlBarModePlayerAudioViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="khd-7d-e1B" customClass="ControlBarPlayerAudioViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnVolume" destination="cQe-K3-rAJ" id="Bng-oz-ffB"/>
                 <outlet property="lblVolume" destination="5Wc-og-czo" id="B1y-ys-c2z"/>
@@ -632,16 +637,17 @@
         <image name="DockTopLeft" width="14" height="12"/>
         <image name="DockTopRight" width="14" height="12"/>
         <image name="Loop" width="42" height="15"/>
+        <image name="MenuBarMode" width="14" height="10"/>
         <image name="NextTrack" width="21" height="23"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
         <image name="PreviousTrack" width="21" height="23"/>
-        <image name="RegularMode-Small" width="14" height="14"/>
         <image name="Repeat" width="30" height="30"/>
         <image name="SeekBackward" width="16" height="12"/>
         <image name="SeekForward" width="16" height="12"/>
         <image name="Settings-Small" width="8" height="7"/>
         <image name="Shuffle" width="120" height="120"/>
         <image name="VolumeMedium" width="26" height="26"/>
+        <image name="WindowedMode-Small" width="13" height="13"/>
     </resources>
 </document>

@@ -1,5 +1,5 @@
 //
-//  ScrollingTextView.swift
+//  ScrollingTrackInfoView.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -13,11 +13,10 @@
 import Cocoa
 
 ///
-/// A view that displays a text "marquee" in which text, if longer than the width of the view,
-/// scrolls across the view in an animation in order to display the entire text in a single line.
+/// A view that displays a text "marquee" for current track info. If the text is longer than the width of the view,
+/// the text scrolls across the view in an animation in order to display the entire text in a single line.
 ///
-class ScrollingTextView: NSView {
-    // MARK: - Open variables
+class ScrollingTrackInfoView: NSView {
     
     ///
     /// (Optional) Name of the artist of the track whose info is currently displayed in the text view.
@@ -189,7 +188,7 @@ class ScrollingTextView: NSView {
 }
 
 // MARK: - Private extension
-private extension ScrollingTextView {
+private extension ScrollingTrackInfoView {
     
     func setSpeed(newInterval: TimeInterval) {
         
@@ -248,7 +247,7 @@ private extension ScrollingTextView {
 }
 
 // MARK: - Overrides
-extension ScrollingTextView {
+extension ScrollingTrackInfoView {
     
     override open func draw(_ dirtyRect: NSRect) {
         

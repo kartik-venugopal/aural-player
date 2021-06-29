@@ -1661,13 +1661,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="efi-tn-whz"/>
-                            <menuItem title="   Switch to menu bar mode" indentationLevel="1" id="zS7-7O-5lF" userLabel="Switch to menu bar mode">
+                            <menuItem title=" Switch to menu bar mode" image="MenuBarMode" id="zS7-7O-5lF" userLabel="Switch to menu bar mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="menuBarModeAction:" target="-2" id="InE-5b-LPh"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="   Switch to control bar mode" indentationLevel="1" id="ht9-cb-4uj" userLabel="Switch to control bar mode">
+                            <menuItem title=" Switch to control bar mode" image="ControlBarMode" id="ht9-cb-4uj" userLabel="Switch to control bar mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="controlBarModeAction:" target="-2" id="f8J-3w-Zy6"/>
@@ -2133,7 +2133,7 @@ CA
         <image name="Close" width="18" height="18"/>
         <image name="CollapseGroups" width="15" height="15"/>
         <image name="ColorScheme" width="13" height="14"/>
-        <image name="ControlBarMode" width="17" height="12"/>
+        <image name="ControlBarMode" width="14" height="10"/>
         <image name="CropSelection-Small" width="14" height="14"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
