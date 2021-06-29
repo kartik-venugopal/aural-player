@@ -28,7 +28,7 @@ protocol PlaybackInfoDelegateProtocol {
     var state: PlaybackState {get}
     
     // Returns the current seek position of the player, for the current track, i.e. time elapsed, in terms of seconds and percentage (of the total duration), and the total track duration (also in seconds)
-    var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {get}
+    var seekPosition: PlaybackPosition {get}
     
     // Returns the currently playing (or paused) track, if there is one
     var playingTrack: Track? {get}
@@ -50,4 +50,16 @@ protocol PlaybackInfoDelegateProtocol {
     
     // Retrieves information about the playback loop defined on a segment of the currently playing track, if there is a playing track and a loop for it
     var playbackLoop: PlaybackLoop? {get}
+}
+
+///
+/// Encapsulates information about the playback position of the currently playing track.
+///
+struct PlaybackPosition {
+    
+    let timeElapsed: Double
+    let percentageElapsed: Double
+    let trackDuration: Double
+    
+    static let zero: PlaybackPosition = PlaybackPosition(timeElapsed: 0, percentageElapsed: 0, trackDuration: 0)
 }

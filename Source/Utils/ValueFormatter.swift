@@ -47,9 +47,7 @@ class ValueFormatter {
         elapsedString = String(format: "%@ sec", secStr)
 
         case .percentage:
-
             elapsedString = String(format: "%d%%", percentageElapsed.floorInt)
-
         }
 
         switch timeRemainingDisplayType {

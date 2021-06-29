@@ -12,12 +12,16 @@ import Cocoa
 class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var containerBox: NSBox!
-    
-    @IBOutlet weak var textView: ScrollingTrackInfoView!
+
     @IBOutlet weak var imgArt: NSImageView!
+    @IBOutlet weak var textView: ScrollingTrackInfoView!
+    @IBOutlet weak var lblSeekPosition: CenterTextLabel!
     
     @IBOutlet weak var playbackView: ControlBarPlaybackView!
     @IBOutlet weak var seekSliderView: ControlBarSeekSliderView!
+    
+    @IBOutlet weak var seekSlider: NSSlider!
+    @IBOutlet weak var btnRepeat: NSButton!
     
     @IBOutlet weak var playbackViewController: ControlBarPlaybackViewController!
     @IBOutlet weak var audioViewController: ControlBarPlayerAudioViewController!
@@ -39,30 +43,42 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private var textViewSuperview: NSView!
+    private var seekSliderSuperview: NSView!
+    
+    private let minWindowWidth: CGFloat = 570
+    private let seekPosLabelWidth: CGFloat = 50
+    private lazy var minWindowWidthForShowingSeekPos: CGFloat = minWindowWidth + seekPosLabelWidth + 5
+    
     override func awakeFromNib() {
         
         textView.scrollingEnabled = true
         applyTheme()
         
-        let textViewLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .leading, relatedBy: .equal,
-                                                                            toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
-        
-        let textViewTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .trailing, relatedBy: .equal,
-                                                                                toItem: sequencingViewController.btnRepeat, attribute: .leading, multiplier: 1, constant: -21)
-        
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.superview?.activateAndAddConstraints(textViewLeadingConstraint, textViewTrailingConstraint)
-        
-        let seekSlider = seekSliderView.seekSlider!
-        
-        let seekSliderLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: seekSlider, attribute: .leading, relatedBy: .equal,
-                                                                            toItem: textView, attribute: .leading, multiplier: 1, constant: -1)
-        
-        let seekSliderTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: seekSlider, attribute: .trailing, relatedBy: .equal,
-                                                                                toItem: textView, attribute: .trailing, multiplier: 1, constant: 1)
-        
         seekSlider.translatesAutoresizingMaskIntoConstraints = false
-        seekSlider.superview?.activateAndAddConstraints(seekSliderLeadingConstraint, seekSliderTrailingConstraint)
+        lblSeekPosition.translatesAutoresizingMaskIntoConstraints = false
+        
+        textViewSuperview = textView.superview
+        seekSliderSuperview = seekSlider.superview
+        
+        let textViewLeadingConstraint = NSLayoutConstraint(item: textView!, attribute: .leading, relatedBy: .equal,
+                                                           toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
+        
+        textViewSuperview.activateAndAddConstraint(textViewLeadingConstraint)
+        seekSliderView.okToShowSeekPosition = {[weak self] in self?.view.window?.width ?? 0 >= self?.minWindowWidthForShowingSeekPos ?? 0}
+        layoutTextView()
+        
+        // Seek slider
+        
+        let seekSliderLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: seekSlider!, attribute: .leading, relatedBy: .equal,
+                                                                                 toItem: textView, attribute: .leading, multiplier: 1, constant: -1)
+        
+        let seekSliderTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: seekSlider!, attribute: .trailing, relatedBy: .equal,
+                                                                                  toItem: btnRepeat, attribute: .leading,
+                                                                                  multiplier: 1, constant: -21)
+        
+        seekSliderSuperview.activateAndAddConstraints(seekSliderLeadingConstraint, seekSliderTrailingConstraint)
         
         // MARK: Notification subscriptions
         
@@ -73,6 +89,57 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+    }
+    
+    private var isShowingSeekPosition: Bool = false
+    
+    func layoutTextView() {
+        
+        let showSeekPosition: Bool = view.window!.width >= minWindowWidthForShowingSeekPos
+        guard isShowingSeekPosition != showSeekPosition else {return}
+        
+        isShowingSeekPosition = showSeekPosition
+        
+        // Seek Position label
+        
+        showSeekPosition ? seekSliderView.showSeekPositionLabels() : seekSliderView.hideSeekPositionLabels()
+        
+        lblSeekPosition.superview?.constraints.filter {$0.firstItem === lblSeekPosition}.forEach {[weak self] in self?.lblSeekPosition.superview?.deactivateAndRemoveConstraint($0)}
+        
+        if showSeekPosition {
+            
+            let lblWidthConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .width, relatedBy: .equal,
+                                                          toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: seekPosLabelWidth)
+            
+            let lblHeightConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .height, relatedBy: .equal,
+                                                          toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 25)
+            
+            let lblBottomConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .bottom, relatedBy: .equal,
+                                                          toItem: seekSlider, attribute: .top, multiplier: 1, constant: 2)
+            
+            let lblTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .trailing, relatedBy: .equal,
+                                                                               toItem: btnRepeat, attribute: .leading, multiplier: 1, constant: -21)
+            
+            lblSeekPosition.superview?.activateAndAddConstraints(lblWidthConstraint, lblTrailingConstraint,
+                                                                 lblBottomConstraint, lblHeightConstraint)
+        }
+        
+        // Text view
+        
+        textViewSuperview.constraints.filter {$0.firstItem === textView && $0.firstAttribute == .trailing}.forEach {[weak self] in self?.textViewSuperview.deactivateAndRemoveConstraint($0)}
+            
+        let textViewTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .trailing,
+                                                                                relatedBy: .equal,
+                                                                                toItem: btnRepeat, attribute: .leading,
+                                                                                multiplier: 1,
+                                                                                constant: showSeekPosition ? -(21 + seekPosLabelWidth) : -21)
+        
+        textViewSuperview.activateAndAddConstraint(textViewTrailingConstraint)
+    }
+    
+    @IBAction func printFrames(_ sender: Any) {
+        
+        print("Showing SeekPos ? \(isShowingSeekPosition), windowFrame: \(self.view.window!.frame), width: \(lblSeekPosition.width), frame: \(lblSeekPosition.frame), tvFrame: \(textView.frame)")
     }
     
     func destroy() {
@@ -133,6 +200,8 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         if player.playingTrack != nil {
             textView.resized()
         }
+        
+        layoutTextView()
     }
     
     // MARK: Appearance ----------------------------------------

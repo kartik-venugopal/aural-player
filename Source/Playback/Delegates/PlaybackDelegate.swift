@@ -318,21 +318,19 @@ class PlaybackDelegate: PlaybackDelegateProtocol, NotificationSubscriber {
     
     // MARK: Variables that indicate the current player state
     
-    var state: PlaybackState {
-        return player.state
-    }
+    var state: PlaybackState {player.state}
     
-    var seekPosition: (timeElapsed: Double, percentageElapsed: Double, trackDuration: Double) {
+    var seekPosition: PlaybackPosition {
         
         if let track = playingTrack {
             
             let elapsedTime: Double = player.seekPosition
             let duration: Double = track.duration
             
-            return (elapsedTime, elapsedTime * 100 / duration, duration)
+            return PlaybackPosition(timeElapsed: elapsedTime, percentageElapsed: elapsedTime * 100 / duration, trackDuration: duration)
         }
         
-        return (0, 0, 0)
+        return .zero
     }
     
     var playingTrack: Track? {

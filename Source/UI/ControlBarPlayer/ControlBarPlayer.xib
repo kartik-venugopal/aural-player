@@ -307,6 +307,15 @@
                                     <rect key="frame" x="66" y="12" width="205" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
+                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="70" translatesAutoresizingMaskIntoConstraints="NO" id="DjW-nr-vXJ" userLabel="Seek Position" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                    <rect key="frame" x="203" y="12" width="70" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="-957:59:59" id="ZHT-Ag-PgS">
+                                        <font key="font" size="12" name="Exo-Medium"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
                                 <slider hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" id="oBR-SZ-2k2" userLabel="Seek Slider">
                                     <rect key="frame" x="66" y="0.0" width="205" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -487,6 +496,17 @@
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </textFieldCell>
                                 </textField>
+                                <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTS-dn-ulP">
+                                    <rect key="frame" x="332" y="-3" width="81" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fOu-dV-lvq">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="printFrames:" target="VLj-aK-Baf" id="3o5-Ns-MHp"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="leading" secondItem="cQe-K3-rAJ" secondAttribute="trailing" constant="4" id="2b7-hb-XbR"/>
@@ -513,6 +533,7 @@
                                 <constraint firstItem="cQe-K3-rAJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="yXp-Fj-qAl"/>
                             </constraints>
                             <connections>
+                                <outlet property="lblSeekPosition" destination="DjW-nr-vXJ" id="HT3-S6-Xk6"/>
                                 <outlet property="seekSlider" destination="oBR-SZ-2k2" id="F4W-yv-Xo5"/>
                                 <outlet property="seekSliderCell" destination="ovd-HG-pIx" id="ghM-zZ-Pnd"/>
                             </connections>
@@ -546,10 +567,13 @@
         <customObject id="VLj-aK-Baf" customClass="ControlBarPlayerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="audioViewController" destination="khd-7d-e1B" id="WB5-4w-V8E"/>
+                <outlet property="btnRepeat" destination="4qN-q5-DoC" id="7VB-K5-sTt"/>
                 <outlet property="containerBox" destination="cl4-0e-ANP" id="vr5-N2-lEu"/>
                 <outlet property="imgArt" destination="YWm-98-S2W" id="DuX-EC-9mV"/>
+                <outlet property="lblSeekPosition" destination="DjW-nr-vXJ" id="zah-AU-uxU"/>
                 <outlet property="playbackView" destination="EiT-Mj-1SZ" id="cli-B4-j9e"/>
                 <outlet property="playbackViewController" destination="SuS-L4-zP8" id="g6O-hk-xtg"/>
+                <outlet property="seekSlider" destination="oBR-SZ-2k2" id="vpD-ju-zWN"/>
                 <outlet property="seekSliderView" destination="Aqe-re-gbP" id="4aJ-Z3-rXC"/>
                 <outlet property="sequencingViewController" destination="3w7-fX-EBl" id="clA-zc-wu3"/>
                 <outlet property="textView" destination="lNe-zj-5jU" id="X0y-Ps-po3"/>

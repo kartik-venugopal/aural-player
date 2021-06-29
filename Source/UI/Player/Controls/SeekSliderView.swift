@@ -39,33 +39,30 @@ class SeekSliderView: NSView {
     
     override func awakeFromNib() {
         
+        initSeekPositionLabels()
+        
+        // MARK: Update controls based on current player state
+        
+        initSeekTimer()
+        trackChanged(player.playbackLoop, player.playingTrack)
+    }
+    
+    func initSeekPositionLabels() {
+        
         // Allow clicks on the seek time display labels to switch to different display formats.
         lblTimeElapsed?.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeElapsedDisplayAction)))
         
         lblTimeRemaining?.addGestureRecognizer(NSClickGestureRecognizer(target: self, action: #selector(self.switchTimeRemainingDisplayAction)))
-        
-        // MARK: Update controls based on current player state
+    }
+    
+    func initSeekTimer() {
         
         let seekTimerInterval = (1000 / (2 * timeUnit.effectiveRate)).roundedInt
         
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
             self?.updateSeekPosition()
+            
         }, queue: .main)
-        
-        let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
-        
-        if let track = player.playingTrack {
-            
-            playbackLoopChanged(player.playbackLoop, track.duration)
-            seekSlider.enable()
-            seekSlider.show()
-            
-            [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
-            setSeekTimerState(player.state == .playing)
-            
-        } else {
-            noTrackPlaying()
-        }
     }
     
     @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {
@@ -94,22 +91,29 @@ class SeekSliderView: NSView {
         seekSlider.enable()
         seekSlider.show()
         
-        [lblTimeElapsed, lblTimeRemaining].forEach({$0?.showIf(PlayerViewState.showTimeElapsedRemaining)})
+        showSeekPositionLabels()
+    }
+    
+    func showSeekPositionLabels() {
+        
+        [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(PlayerViewState.showTimeElapsedRemaining)}
         setSeekTimerState(true)
+    }
+    
+    func hideSeekPositionLabels() {
+        
+        NSView.hideViews(lblTimeElapsed, lblTimeRemaining)
+        setSeekTimerState(false)
     }
     
     func noTrackPlaying() {
         
-        if lblTimeElapsed != nil {
-            NSView.hideViews(lblTimeElapsed, lblTimeRemaining, seekSlider)
-        } else {
-            seekSlider.hide()
-        }
-        
+        hideSeekPositionLabels()
+
+        seekSlider.hide()
         seekSliderCell.removeLoop()
         seekSlider.doubleValue = 0
         seekSlider.disable()
-        setSeekTimerState(false)
     }
     
     func updateSeekPosition() {
@@ -117,14 +121,19 @@ class SeekSliderView: NSView {
         let seekPosn = player.seekPosition
         seekSlider.doubleValue = seekPosn.percentageElapsed
         
-        let trackTimes = ValueFormatter.formatTrackTimes(seekPosn.timeElapsed, seekPosn.trackDuration, seekPosn.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
-        
-        lblTimeElapsed?.stringValue = trackTimes.elapsed
-        lblTimeRemaining?.stringValue = trackTimes.remaining
+        updateSeekPositionLabels(seekPosn)
         
         for task in SeekTimerTaskQueue.tasksArray {
             task()
         }
+    }
+    
+    func updateSeekPositionLabels(_ seekPos: PlaybackPosition) {
+        
+        let trackTimes = ValueFormatter.formatTrackTimes(seekPos.timeElapsed, seekPos.trackDuration, seekPos.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
+        
+        lblTimeElapsed?.stringValue = trackTimes.elapsed
+        lblTimeRemaining?.stringValue = trackTimes.remaining
     }
     
     func setSeekTimerState(_ timerOn: Bool) {
@@ -169,7 +178,6 @@ class SeekSliderView: NSView {
             trackStartedPlaying()
             
         } else {
-            
             noTrackPlaying()
         }
     }
@@ -180,13 +188,13 @@ class SeekSliderView: NSView {
     
     // When the playback rate changes (caused by the Time Stretch effects unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     func playbackRateChanged(_ rate: Float, _ playbackState: PlaybackState) {
-            
-            let interval = (1000 / (2 * rate)).roundedInt
-            
-            if interval != seekTimer?.interval {
-                seekTimer?.interval = interval
-            }
+        
+        let interval = (1000 / (2 * rate)).roundedInt
+        
+        if interval != seekTimer?.interval {
+            seekTimer?.interval = interval
         }
+    }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         

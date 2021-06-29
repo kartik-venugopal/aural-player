@@ -111,15 +111,8 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
         if event.keyPressed && event.keyRepeat {
             
             // Seeking (repeated)
-            if repeatExecutor == nil {
-                
-                repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
-                    
-                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
-                    
-                }, queue: .main)
-                
-                repeatExecutor?.startOrResume()
+            initTimerIfRequired {
+                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed {
@@ -157,15 +150,8 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
             // Only do this on keyDown, if it is being repeated
         } else if event.keyPressed && event.keyRepeat {
             
-            if repeatExecutor == nil {
-                
-                repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
-                    
-                    Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
-                    
-                }, queue: .main)
-                
-                repeatExecutor?.startOrResume()
+            initTimerIfRequired {
+                Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {
@@ -188,18 +174,12 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
                 Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
             }
             
-            // Only do this on keyDown, if it is being repeated
+        // Only do this on keyDown, if it is being repeated
         } else if event.keyPressed && event.keyRepeat {
             
-            if repeatExecutor == nil {
-                
-                repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: {
-                    
-                    Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
-                    
-                }, queue: .main)
-                
-                repeatExecutor?.startOrResume()
+            // Seeking (repeated)
+            initTimerIfRequired {
+                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {
@@ -210,5 +190,15 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
         }
         
         lastEvent = event
+    }
+    
+    /// Initializes a repeating task timer with the given task.
+    private func initTimerIfRequired(_ task: @escaping () -> Void) {
+        
+        if repeatExecutor == nil {
+            
+            repeatExecutor = RepeatingTaskExecutor(intervalMillis: keyRepeatInterval_msecs, task: task, queue: .main)
+            repeatExecutor?.startOrResume()
+        }
     }
 }
