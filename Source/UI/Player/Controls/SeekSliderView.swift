@@ -180,20 +180,13 @@ class SeekSliderView: NSView {
     
     // When the playback rate changes (caused by the Time Stretch effects unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.
     func playbackRateChanged(_ rate: Float, _ playbackState: PlaybackState) {
-        
-        let interval = (1000 / (2 * rate)).roundedInt
-        
-        if interval != seekTimer?.interval {
             
-            seekTimer?.stop()
+            let interval = (1000 / (2 * rate)).roundedInt
             
-            seekTimer = RepeatingTaskExecutor(intervalMillis: interval, task: {[weak self] in
-                self?.updateSeekPosition()
-            }, queue: .main)
-            
-            setSeekTimerState(playbackState == .playing)
+            if interval != seekTimer?.interval {
+                seekTimer?.interval = interval
+            }
         }
-    }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
         

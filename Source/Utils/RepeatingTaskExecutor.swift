@@ -20,11 +20,13 @@ class RepeatingTaskExecutor {
     // GCD dispatch source timer
     private var timer: DispatchSourceTimer
     
-    // The task will pause for this duration between consecutive executions
-    private var intervalMillis: Int
-    
     // The code block to be executed
     private var task: () -> Void
+    
+    // The task will pause for this duration between consecutive executions
+    var interval: Int {
+        didSet {scheduleTimerTask()}
+    }
     
     // The queue on which the task will be put
     private var queue: DispatchQueue
@@ -33,23 +35,24 @@ class RepeatingTaskExecutor {
     
     init(intervalMillis: Int, task: @escaping () -> Void, queue: DispatchQueue) {
         
-        self.intervalMillis = intervalMillis
+        self.interval = intervalMillis
         self.task = task
         self.queue = queue
         
         self.state = .notStarted
         
         timer = DispatchSource.makeTimerSource(flags: .strict, queue: queue)
+        timer.setEventHandler {[weak self] in self?.task()}
+        scheduleTimerTask()
+    }
+    
+    func scheduleTimerTask() {
         
         // Allow a 10% time leeway
-        let interval = DispatchTimeInterval.milliseconds(intervalMillis)
-        let leeway = DispatchTimeInterval.milliseconds(intervalMillis / 10)
-        
+        let interval = DispatchTimeInterval.milliseconds(self.interval)
+        let leeway = DispatchTimeInterval.milliseconds(self.interval / 10)
+
         timer.schedule(deadline: .now(), repeating: interval, leeway: leeway)
-        
-        timer.setEventHandler {[weak self] in
-            self?.task()
-        }
     }
 
     // Start/resume task execution
@@ -73,8 +76,6 @@ class RepeatingTaskExecutor {
     }
     
     var isRunning: Bool {state == .running}
-    
-    var interval: Int {intervalMillis}
     
     func stop() {
         
