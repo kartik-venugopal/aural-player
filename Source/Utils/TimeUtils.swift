@@ -19,14 +19,14 @@ func measureExecutionTime(_ task: () -> Void) -> Double {
     
     let startTime = now()
     task()
-    return now() - startTime
+    return (now() - startTime) * 1000
 }
 
 func measureTimeTry(_ task: () throws -> Void) throws -> Double {
     
     let startTime = now()
     try task()
-    return now() - startTime
+    return (now() - startTime) * 1000
 }
 
 func now() -> Double {CFAbsoluteTimeGetCurrent()}

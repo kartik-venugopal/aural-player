@@ -42,6 +42,23 @@ extension String {
         size(withAttributes: [.font: font])
     }
     
+    static func widthOfWidestNumber(forFont font: NSFont) -> CGFloat {
+        
+        var maxWidth: CGFloat = 0
+        
+        for number in 0...9 {
+            
+            let numString = String(number)
+            let width = numString.size(withFont: font).width
+            
+            if width > maxWidth {
+                maxWidth = width
+            }
+        }
+        
+        return maxWidth
+    }
+    
     // For a given piece of text rendered in a certain font, and a given line width, calculates the number of lines the text will occupy (e.g. in a multi-line label)
     func numberOfLines(font: NSFont, lineWidth: CGFloat) -> Int {
         

@@ -15,32 +15,13 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
 
     @IBOutlet weak var imgArt: NSImageView!
     
-    @IBOutlet weak var textView: ScrollingTrackInfoView! {
-        
-        didSet {
-            textViewConstraints = LayoutConstraintsManager(for: textView)
-        }
-    }
-    
-    
-    @IBOutlet weak var lblSeekPosition: CenterTextLabel! {
-        
-        didSet {
-            lblSeekPositionConstraints = LayoutConstraintsManager(for: lblSeekPosition)
-        }
-    }
+    @IBOutlet weak var textView: ScrollingTrackInfoView!
+    @IBOutlet weak var lblSeekPosition: CenterTextLabel!
+    @IBOutlet weak var seekSlider: NSSlider!
+    @IBOutlet weak var btnRepeat: NSButton!
     
     @IBOutlet weak var playbackView: ControlBarPlaybackView!
     @IBOutlet weak var seekSliderView: ControlBarSeekSliderView!
-    
-    @IBOutlet weak var seekSlider: NSSlider! {
-        
-        didSet {
-            seekSliderConstraints = LayoutConstraintsManager(for: seekSlider)
-        }
-    }
-    
-    @IBOutlet weak var btnRepeat: NSButton!
     
     @IBOutlet weak var playbackViewController: ControlBarPlaybackViewController!
     @IBOutlet weak var audioViewController: ControlBarPlayerAudioViewController!
@@ -66,21 +47,23 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     private var lblSeekPositionConstraints: LayoutConstraintsManager!
     private var seekSliderConstraints: LayoutConstraintsManager!
     
-    private let minWindowWidth: CGFloat = 570
-    private let seekPosLabelWidth: CGFloat = 50
-    private lazy var minWindowWidthForShowingSeekPos: CGFloat = minWindowWidth + seekPosLabelWidth + 5
+    private let minWindowWidthForShowingSeekPos: CGFloat = 610
     
     override func awakeFromNib() {
         
-        textView.scrollingEnabled = true
-        applyTheme()
+        lblSeekPositionConstraints = LayoutConstraintsManager(for: lblSeekPosition)
+        seekSliderConstraints = LayoutConstraintsManager(for: seekSlider)
+        textViewConstraints = LayoutConstraintsManager(for: textView)
         
-        textViewConstraints.setLeading(relatedToTrailingOf: imgArt, offset: 10)
-        layoutTextView()
+        applyTheme()
         
         // Seek slider
         seekSliderConstraints.setLeading(relatedToLeadingOf: textView, offset: -1)
         seekSliderConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -21)
+        
+        textViewConstraints.setLeading(relatedToTrailingOf: imgArt, offset: 10)
+        layoutTextView()
+        textView.scrollingEnabled = true
         
         // MARK: Notification subscriptions
         
@@ -95,23 +78,24 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     
     private var isShowingSeekPosition: Bool = false
     
-    func layoutTextView() {
+    func layoutTextView(forceChange: Bool = true) {
         
         let showSeekPosition: Bool = view.window!.width >= minWindowWidthForShowingSeekPos
-        guard isShowingSeekPosition != showSeekPosition else {return}
-        
-        isShowingSeekPosition = showSeekPosition
+        guard forceChange || (isShowingSeekPosition != showSeekPosition) else {return}
         
         // Seek Position label
-        
+        isShowingSeekPosition = showSeekPosition
         seekSliderView.showSeekPosition = showSeekPosition
+        
+        var labelWidth: CGFloat = 0
         
         if showSeekPosition {
             
             lblSeekPositionConstraints.removeAll()
+            labelWidth = widthForSeekPosLabel() + 5 // Compute the required width and add some padding.
             
-            lblSeekPositionConstraints.setWidth(seekPosLabelWidth)
-            lblSeekPositionConstraints.setHeight(25)
+            lblSeekPositionConstraints.setWidth(labelWidth)
+            lblSeekPositionConstraints.setHeight(textView.height)
             lblSeekPositionConstraints.setBottom(relatedToTopOf: seekSlider)
             lblSeekPositionConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -21)
         }
@@ -120,7 +104,26 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         
         textViewConstraints.removeAll(withAttributes: [.trailing])
         textViewConstraints.setTrailing(relatedToLeadingOf: btnRepeat,
-                                        offset: showSeekPosition ? -(21 + seekPosLabelWidth) : -21)
+                                        offset: showSeekPosition ? -(21 + labelWidth) : -21)
+    }
+    
+    ///
+    /// Computes the maximum required width for the seek position label, given
+    /// 1. the duration of the track currently playing, and
+    /// 2. the current font scheme.
+    ///
+    func widthForSeekPosLabel() -> CGFloat {
+        
+        guard let track = player.playingTrack else {return 0}
+        
+        let widthOfWidestNumber = String.widthOfWidestNumber(forFont: fontSchemesManager.systemScheme.player.trackTimesFont)
+        let duration = track.duration
+        
+        let trackTimes = ValueFormatter.formatTrackTimes(0, duration, 0)
+        let widthOfTimeRemainingString = CGFloat(trackTimes.remaining.count)
+        let maxPossibleWidth = widthOfTimeRemainingString * widthOfWidestNumber
+        
+        return maxPossibleWidth
     }
     
     func destroy() {
@@ -153,6 +156,8 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     // MARK: Message handling
 
     func trackTransitioned(_ notification: TrackTransitionNotification) {
+        
+        layoutTextView()
         updateTrackInfo()
     }
     
@@ -160,6 +165,11 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     func trackInfoUpdated(_ notification: TrackInfoUpdatedNotification) {
         
         if notification.updatedTrack == player.playingTrack {
+            
+            if notification.updatedFields.contains(.duration) {
+                layoutTextView()
+            }
+            
             updateTrackInfo()
         }
     }
@@ -182,7 +192,7 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
             textView.resized()
         }
         
-        layoutTextView()
+        layoutTextView(forceChange: false)
     }
     
     // MARK: Appearance ----------------------------------------
@@ -194,7 +204,9 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {
+        
         textView.font = fontScheme.player.infoBoxArtistAlbumFont
+        layoutTextView()
     }
     
     func applyColorScheme(_ colorScheme: ColorScheme) {
