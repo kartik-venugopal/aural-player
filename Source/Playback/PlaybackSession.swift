@@ -38,7 +38,7 @@ class PlaybackSession: Hashable {
     // The track associated with this session
     let track: Track
     
-    // A->B playback loop, if there is one
+    // A ⇋ B playback loop, if there is one
     private(set) var loop: PlaybackLoop?
     
     // Time interval since last boot (i.e. system uptime), at start of track playback (i.e. 0 seconds elapsed). Used to determine when track began playing.

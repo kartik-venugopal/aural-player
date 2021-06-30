@@ -1229,7 +1229,7 @@ CA
                                     <action selector="replayTrackAction:" target="xhs-xH-OCR" id="ftu-hv-oKc"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Toggle A-&gt;B segment loop" image="LoopOff-Small" keyEquivalent="l" id="f0Y-hK-dW6" userLabel="Toggle A-&gt;B loop">
+                            <menuItem title=" Toggle A ⇋ B segment loop" image="LoopOff-Small" keyEquivalent="l" id="f0Y-hK-dW6" userLabel="Toggle A ⇋ B loop">
                                 <connections>
                                     <action selector="toggleLoopAction:" target="xhs-xH-OCR" id="i56-uo-qLS"/>
                                 </connections>
@@ -1253,7 +1253,7 @@ CA
                                     <action selector="replayChapterAction:" target="xhs-xH-OCR" id="ke7-yk-pdN"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Toggle current chapter loop" image="LoopOff-Small" keyEquivalent="l" id="YIn-M2-NRz" userLabel="Toggle A-&gt;B loop">
+                            <menuItem title=" Toggle current chapter loop" image="LoopOff-Small" keyEquivalent="l" id="YIn-M2-NRz" userLabel="Toggle A ⇋ B loop">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="toggleChapterLoopAction:" target="xhs-xH-OCR" id="jnD-AY-Xyx"/>

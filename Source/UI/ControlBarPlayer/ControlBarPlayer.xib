@@ -518,7 +518,7 @@
                                         <action selector="shuffleAction:" target="3w7-fX-EBl" id="Y0S-RP-HN9"/>
                                     </connections>
                                 </button>
-                                <button toolTip="A-&gt;B Segment loop" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Ju-N8p" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
+                                <button toolTip="A ⇋ B Segment loop" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8tt-Ju-N8p" userLabel="Loop Button" customClass="MultiStateImageButton" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="327" y="15" width="31" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="10" id="dDc-cs-DvB"/>
@@ -544,14 +544,6 @@
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </textFieldCell>
                                 </textField>
-                                <button hidden="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UTS-dn-ulP">
-                                    <rect key="frame" x="332" y="-3" width="81" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fOu-dV-lvq">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="WoE-gv-TJl" firstAttribute="leading" secondItem="cQe-K3-rAJ" secondAttribute="trailing" constant="4" id="2b7-hb-XbR"/>
@@ -717,7 +709,7 @@
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
         <image name="PreviousTrack" width="21" height="23"/>
-        <image name="Repeat" width="30" height="30"/>
+        <image name="Repeat" width="18" height="18"/>
         <image name="SeekBackward" width="16" height="12"/>
         <image name="SeekForward" width="16" height="12"/>
         <image name="Settings-Small" width="8" height="7"/>

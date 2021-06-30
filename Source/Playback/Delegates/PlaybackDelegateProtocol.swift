@@ -95,7 +95,7 @@ protocol PlaybackDelegateProtocol: PlaybackInfoDelegateProtocol {
     func seekToTime(_ seconds: Double)
     
     /*
-        Toggles the state of an A->B playback loop for the currently playing track. There are 3 possible states:
+        Toggles the state of an A ⇋ B playback loop for the currently playing track. There are 3 possible states:
      
         1 - loop started: the start of the loop has been marked
         2 - loop ended: the end (and start) of the loop has been marked, completing the definition of the playback loop. Any subsequent playback will now proceed within the scope of the loop, i.e. between the 2 loop points: start and end

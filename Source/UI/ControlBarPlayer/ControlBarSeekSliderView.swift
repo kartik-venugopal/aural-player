@@ -19,8 +19,6 @@ class ControlBarSeekSliderView: SeekSliderView {
             
             ControlBarPlayerViewState.seekPositionDisplayType = seekPositionDisplayType
             updateSeekPositionLabels(player.seekPosition)
-            
-            setSeekTimerState(showSeekPosition && player.state == .playing && seekPositionDisplayType != .duration)
         }
     }
  
@@ -73,7 +71,7 @@ class ControlBarSeekSliderView: SeekSliderView {
     override func showSeekPositionLabels() {
         
         lblSeekPosition.showIf(showSeekPosition)
-        setSeekTimerState(showSeekPosition && player.state == .playing && seekPositionDisplayType != .duration)
+        setSeekTimerState(showSeekPosition && player.state == .playing)
     }
     
     override func hideSeekPositionLabels() {
@@ -103,7 +101,7 @@ class ControlBarSeekSliderView: SeekSliderView {
     }
     
     override func playbackStateChanged(_ newState: PlaybackState) {
-        setSeekTimerState(showSeekPosition && newState == .playing && seekPositionDisplayType != .duration)
+        setSeekTimerState(showSeekPosition && newState == .playing)
     }
     
     func applyTheme() {

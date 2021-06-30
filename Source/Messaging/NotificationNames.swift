@@ -207,7 +207,7 @@ extension Notification.Name {
     // Commands the player to seek to a specific position within the currently playing track
     static let player_jumpToTime = Notification.Name("player_jumpToTime")
     
-    // Commands the player to toggle A->B segment playback loop
+    // Commands the player to toggle A ⇋ B segment playback loop
     static let player_toggleLoop = Notification.Name("player_toggleLoop")
     
     // ----------------------------------------------------------------------------------------

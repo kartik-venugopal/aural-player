@@ -135,7 +135,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         Messenger.publish(.player_replayTrack)
     }
     
-    // Toggles A->B playback loop
+    // Toggles A ⇋ B playback loop
     @IBAction func toggleLoopAction(_ sender: AnyObject) {
         Messenger.publish(.player_toggleLoop)
     }
