@@ -98,7 +98,7 @@ class AuralPlayerNode: AVAudioPlayerNode {
     
     override func pause() {
 
-        // Force an update before pausing.
+        // Force an update before pausing (so that the current seek position is available to clients even when paused).
         cachedSeekPosn = seekPosition
         super.pause()
     }

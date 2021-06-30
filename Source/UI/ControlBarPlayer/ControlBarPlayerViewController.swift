@@ -111,7 +111,7 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
             
             let lblHeightConstraint = NSLayoutConstraint.heightConstraint(forItem: lblSeekPosition!, equalTo: 25)
             
-            let lblBottomConstraint = NSLayoutConstraint.bottomTopConstraint(forItem: lblSeekPosition!, relatedTo: seekSlider!, offset: 2)
+            let lblBottomConstraint = NSLayoutConstraint.bottomTopConstraint(forItem: lblSeekPosition!, relatedTo: seekSlider!)
             
             let lblTrailingConstraint = NSLayoutConstraint.trailingLeadingConstraint(forItem: lblSeekPosition!,
                                                                                      relatedTo: btnRepeat!, offset: -21)
@@ -128,11 +128,6 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
                                                                                       offset: showSeekPosition ? -(21 + seekPosLabelWidth) : -21)
         
         textViewSuperview.activateAndAddConstraint(textViewTrailingConstraint)
-    }
-    
-    @IBAction func printFrames(_ sender: Any) {
-        
-        print("Showing SeekPos ? \(isShowingSeekPosition), windowFrame: \(self.view.window!.frame), width: \(lblSeekPosition.width), frame: \(lblSeekPosition.frame), tvFrame: \(textView.frame)")
     }
     
     func destroy() {

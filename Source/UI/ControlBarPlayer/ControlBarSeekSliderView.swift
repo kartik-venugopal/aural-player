@@ -17,8 +17,12 @@ class ControlBarSeekSliderView: SeekSliderView {
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    ///
+    /// Determines whether or not the seek position needs to be displayed (when a track is playing).
+    ///
     var showSeekPosition: Bool = false {
-        
+       
+        // When the value is updated, need to show / hide the label and update its displayed text.
         didSet {
             
             if player.playingTrack != nil {
@@ -35,8 +39,6 @@ class ControlBarSeekSliderView: SeekSliderView {
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        seekSlider.redraw()
-        
         applyTheme()
     }
     
@@ -103,7 +105,9 @@ class ControlBarSeekSliderView: SeekSliderView {
     }
     
     override func applyColorScheme(_ colorScheme: ColorScheme) {
+        
         lblSeekPosition.textColor = colorScheme.player.trackInfoPrimaryTextColor
+        seekSlider.redraw()
     }
     
     // When the playback loop for the current playing track is changed, the seek slider needs to be updated (redrawn) to show the current loop state

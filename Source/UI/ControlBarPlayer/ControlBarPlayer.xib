@@ -61,7 +61,7 @@
                                         <action selector="quitAction:" target="-2" id="tjv-tv-Pvt"/>
                                     </connections>
                                 </button>
-                                <popUpButton toolTip="Global and player view settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XQX-EX-Rmk" userLabel="Options Menu">
+                                <popUpButton toolTip="View settings" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" id="XQX-EX-Rmk" userLabel="Options Menu">
                                     <rect key="frame" x="-2" y="2" width="23" height="15"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <popUpButtonCell key="cell" type="disclosure" bezelStyle="roundedDisclosure" alignment="center" lineBreakMode="truncatingTail" imageScaling="proportionallyDown" inset="2" pullsDown="YES" arrowPosition="noArrow" preferredEdge="maxX" autoenablesItems="NO" altersStateOfSelectedItem="NO" id="ZS3-2f-8Sb">
@@ -307,10 +307,10 @@
                                     <rect key="frame" x="66" y="12" width="205" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
-                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="70" translatesAutoresizingMaskIntoConstraints="NO" id="DjW-nr-vXJ" userLabel="Seek Position" customClass="CenterTextLabel" customModule="Aural" customModuleProvider="target">
+                                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="70" translatesAutoresizingMaskIntoConstraints="NO" id="DjW-nr-vXJ" userLabel="Seek Position">
                                     <rect key="frame" x="203" y="12" width="70" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="-957:59:59" id="ZHT-Ag-PgS">
+                                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="-957:59:59" id="ZHT-Ag-PgS" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="12" name="Exo-Medium"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -503,9 +503,6 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
-                                    <connections>
-                                        <action selector="printFrames:" target="VLj-aK-Baf" id="3o5-Ns-MHp"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
