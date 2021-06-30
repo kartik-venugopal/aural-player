@@ -51,6 +51,8 @@ class ScrollingTrackInfoView: NSView {
     var scrollingEnabled: Bool = true {
         
         didSet {
+            
+            ControlBarPlayerViewState.trackInfoScrollingEnabled = scrollingEnabled
             update(artist: self.artist, title: self.title)
         }
     }

@@ -14,7 +14,12 @@ class ControlBarSeekSliderView: SeekSliderView {
     @IBOutlet weak var lblSeekPosition: CenterTextLabel!
     
     var seekPositionDisplayType: SeekPositionDisplayType = .timeElapsed {
-        didSet {updateSeekPositionLabels(player.seekPosition)}
+        
+        didSet {
+            
+            ControlBarPlayerViewState.seekPositionDisplayType = seekPositionDisplayType
+            updateSeekPositionLabels(player.seekPosition)
+        }
     }
  
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager

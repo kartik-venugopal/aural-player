@@ -52,7 +52,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     private var lblSeekPositionConstraints: LayoutConstraintsManager!
     private var seekSliderConstraints: LayoutConstraintsManager!
     
-    private let minWindowWidthForShowingSeekPos: CGFloat = 610
+    private let minWindowWidthToShowSeekPosition: CGFloat = 610
     
     override func awakeFromNib() {
         
@@ -96,7 +96,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     
     func layoutTextView(forceChange: Bool = true) {
         
-        let showSeekPosition: Bool = view.window!.width >= minWindowWidthForShowingSeekPos
+        let showSeekPosition: Bool = view.window!.width >= minWindowWidthToShowSeekPosition
         guard forceChange || (seekSliderView.showSeekPosition != showSeekPosition) else {return}
         
         // Seek Position label
@@ -243,20 +243,11 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     
     func destroy() {
         
-        ControlBarPlayerViewState.trackInfoScrollingEnabled = textView.scrollingEnabled
-        ControlBarPlayerViewState.seekPositionDisplayType = seekSliderView.seekPositionDisplayType
-        
         [playbackViewController, audioViewController, sequencingViewController].forEach {
             ($0 as? Destroyable)?.destroy()
         }
         
         Messenger.unsubscribeAll(for: self)
-    }
-    
-    func onAppExit() {
-        
-        ControlBarPlayerViewState.trackInfoScrollingEnabled = textView.scrollingEnabled
-        ControlBarPlayerViewState.seekPositionDisplayType = seekSliderView.seekPositionDisplayType
     }
 }
 

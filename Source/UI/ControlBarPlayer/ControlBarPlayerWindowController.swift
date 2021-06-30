@@ -75,6 +75,7 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
         rootContainerBox.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
+        ControlBarPlayerViewState.cornerRadius = rootContainerBox.cornerRadius
     }
     
     // MARK: Window delegate functions --------------------------------
@@ -172,15 +173,11 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     @IBAction func quitAction(_ sender: AnyObject) {
 
         transferViewState()
-        viewController.onAppExit()
-        
         NSApp.terminate(self)
     }
     
     private func transferViewState() {
-        
         ControlBarPlayerViewState.windowFrame = theWindow.frame
-        ControlBarPlayerViewState.cornerRadius = rootContainerBox.cornerRadius
     }
     
     // MARK: Menu delegate functions -----------------------------
