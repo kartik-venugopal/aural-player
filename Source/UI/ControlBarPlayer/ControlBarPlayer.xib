@@ -75,7 +75,7 @@
                                                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings-Small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </menuItem>
-                                                <menuItem title="Scroll track info text" state="on" indentationLevel="2" id="Kmj-co-2pl" userLabel="Switch to menu bar mode">
+                                                <menuItem title="Scroll track info text" state="on" indentationLevel="2" id="Kmj-co-2pl">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="toggleTrackInfoScrollingAction:" target="VLj-aK-Baf" id="fcH-bk-wlm"/>
@@ -105,19 +105,6 @@
                                                             </menuItem>
                                                         </items>
                                                     </menu>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="K7h-oW-lF5"/>
-                                                <menuItem title="  Switch to windowed mode" image="WindowedMode-Small" id="4cF-e2-ta6" userLabel="Switch to windowed mode">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="windowedModeAction:" target="-2" id="uzR-XL-iFa"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Switch to menu bar mode" image="MenuBarMode" id="Uub-O4-NqJ" userLabel="Switch to menu bar mode">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="menuBarModeAction:" target="-2" id="VOp-3E-gIP"/>
-                                                    </connections>
                                                 </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="23m-sy-aRI"/>
                                                 <menuItem title="         Theme" id="q0l-RJ-1Ji" userLabel="Theme">
@@ -261,61 +248,84 @@
                                                         </connections>
                                                     </menu>
                                                 </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="VaY-OO-BFg"/>
-                                                <menuItem title="  Dock to top left" image="DockTopLeft" id="0cT-Sq-9dX" userLabel="Dock to top left">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockTopLeftAction:" target="-2" id="msb-yn-bAt"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Dock to top center" image="DockTopCenter" id="ncI-cT-fL6">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockTopCenterAction:" target="-2" id="Fva-2T-LyE"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Dock to top right" image="DockTopRight" id="Iqv-rL-4j8">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockTopRightAction:" target="-2" id="LxW-ns-tHl"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Dock to top (span across screen)" image="DockTop" id="kus-SD-590" userLabel="Dock to top left">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockTopAction:" target="-2" id="Bwq-HY-LtT"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem isSeparatorItem="YES" id="K6k-Mo-FNT"/>
-                                                <menuItem title="  Dock to bottom left" image="DockBottomLeft" id="LYp-Yz-nh6">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockBottomLeftAction:" target="-2" id="d2i-hu-wdg"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Dock to bottom center" image="DockBottomCenter" id="N5A-IY-Ujd" userLabel="Dock to bottom center">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockBottomCenterAction:" target="-2" id="f12-GW-q77"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Dock to bottom right" image="DockBottomRight" id="kgn-Fh-0kN" userLabel="Dock to bottom right">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockBottomRightAction:" target="-2" id="U1r-hY-Noy"/>
-                                                    </connections>
-                                                </menuItem>
-                                                <menuItem title="  Dock to bottom (span across screen)" image="DockBottom" id="dU8-Vp-Upu" userLabel="Dock to top left">
-                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                    <connections>
-                                                        <action selector="dockBottomAction:" target="-2" id="fb6-fL-mfq"/>
-                                                    </connections>
-                                                </menuItem>
                                                 <menuItem isSeparatorItem="YES" id="odw-a7-vTG"/>
                                                 <menuItem title="Window corner radius" id="orA-xV-bwD">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <outlet property="view" destination="Rk7-Wu-WQ0" id="tei-XG-kOi"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="VaY-OO-BFg"/>
+                                                <menuItem title="  Dock window" image="DockTopLeft" id="Xyb-45-B3D" userLabel="Dock window">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" id="byG-WM-Ywa">
+                                                        <items>
+                                                            <menuItem title="  Dock to top left" image="DockTopLeft" id="0cT-Sq-9dX" userLabel="Dock to top left">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopLeftAction:" target="-2" id="msb-yn-bAt"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to top right" image="DockTopRight" id="Iqv-rL-4j8">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopRightAction:" target="-2" id="LxW-ns-tHl"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to top center" image="DockTopCenter" id="ncI-cT-fL6">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopCenterAction:" target="-2" id="Fva-2T-LyE"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to top (span across screen)" image="DockTop" id="kus-SD-590" userLabel="Dock to top">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockTopAction:" target="-2" id="Bwq-HY-LtT"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem isSeparatorItem="YES" id="K6k-Mo-FNT"/>
+                                                            <menuItem title="  Dock to bottom left" image="DockBottomLeft" id="LYp-Yz-nh6">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomLeftAction:" target="-2" id="d2i-hu-wdg"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to bottom right" image="DockBottomRight" id="kgn-Fh-0kN" userLabel="Dock to bottom right">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomRightAction:" target="-2" id="U1r-hY-Noy"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to bottom center" image="DockBottomCenter" id="N5A-IY-Ujd" userLabel="Dock to bottom center">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomCenterAction:" target="-2" id="f12-GW-q77"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="  Dock to bottom (span across screen)" image="DockBottom" id="dU8-Vp-Upu" userLabel="Dock to bottom">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="dockBottomAction:" target="-2" id="fb6-fL-mfq"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                    <connections>
+                                                        <action selector="dockTopLeftAction:" target="-2" id="r4u-Ma-vua"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="K7h-oW-lF5"/>
+                                                <menuItem title="  Switch to windowed mode" image="WindowedMode-Small" id="4cF-e2-ta6" userLabel="Switch to windowed mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="windowedModeAction:" target="-2" id="uzR-XL-iFa"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="  Switch to menu bar mode" image="MenuBarMode" id="Uub-O4-NqJ" userLabel="Switch to menu bar mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="menuBarModeAction:" target="-2" id="VOp-3E-gIP"/>
                                                     </connections>
                                                 </menuItem>
                                             </items>
