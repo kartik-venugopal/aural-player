@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Make sure all logging is done to the app's log file
     private func configureLogging() {
         
-        if let logFileCString = FilesAndPaths.logFile.path.cString(using: String.Encoding.ascii) {
+        if let logFileCString = FilesAndPaths.logFile.path.cString(using: .ascii) {
             freopen(logFileCString, "a+", stderr)
         }
     }
