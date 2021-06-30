@@ -8,20 +8,18 @@ The control bar window is floating, i.e. always on top of other windows, and can
 
 This feature is useful when intending to run the app in the background and working on other applications while still having quick and easy access to player controls to change tracks or perform other player functions. The control bar is an alternative to the menu bar mode, media keys, and the macOS Control Center, providing yet another way to control playback of your music.
 
-### Media keys / Remote control now available in menu bar mode
-
-Fixed a bug that prevented media keys and remote control commands from working while the app was running in menu bar mode.
-
-### Remote control enabled by default on all systems
-
-Previously, Remote control was enabled by default only on macOS Big Sur. Now, it will be enabled by default on all operating systems.
-
 ### New "Support" menu
 
 The new **Support** menu provides:
 
 * A link to Aural Player's wiki home page that contains all the documentation for the app.
 * An option to check for updates to the app. If a newer app version is available, a link to get the latest release version is displayed.
+
+### Bug fixes / improvements 
+
+* **Media keys / Remote control** -  Fixed a bug that prevented media keys and remote control commands from working while the app was running in menu bar mode.
+* Previously, Remote control was enabled by default only on macOS Big Sur. Now, it will be enabled by default on all operating systems.
+* **Sorting when adding folders to playlist** - Fixed a bug that caused files to not be added in alphanumeric order when their parent folder was added to the playlist.
 
 ### Added more documentation
 

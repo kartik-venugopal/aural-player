@@ -142,7 +142,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             
             Messenger.publish(.playlist_startedAddingTracks)
             
-            self.collectTracks(files, false)
+            if userAction {
+                self.collectTracks(files.sorted(by: URL.ascendingPathComparator), false)
+            } else {
+                self.collectTracks(files, false)
+            }
+            
             self.addSessionTracks()
             
             if reorderGroupingPlaylists, let persistentState = self.persistentState {
@@ -184,7 +189,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
      */
     private func collectTracks(_ files: [URL], _ isRecursiveCall: Bool) {
         
-        for file in files.sorted(by: URL.ascendingPathComparator) {
+        for file in files {
             
             // Playlists might contain broken file references
             if !file.exists {
@@ -240,7 +245,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         if let dirContents = dir.children {
             
             addSession.totalTracks += dirContents.count - 1
-            collectTracks(dirContents, true)
+            collectTracks(dirContents.sorted(by: URL.ascendingPathComparator), true)
         }
     }
     
