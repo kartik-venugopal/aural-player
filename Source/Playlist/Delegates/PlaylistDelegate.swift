@@ -184,7 +184,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
      */
     private func collectTracks(_ files: [URL], _ isRecursiveCall: Bool) {
         
-        for file in files {
+        for file in files.sorted(by: URL.ascendingPathComparator) {
             
             // Playlists might contain broken file references
             if !file.exists {
