@@ -31,10 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     override init() {
         
         super.init()
-        
-        // Configuration and initialization
         configureLogging()
-        ObjectGraph.initialize()
     }
     
     /// Make sure all logging is done to the app's log file
@@ -45,6 +42,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    func applicationWillFinishLaunching(_ notification: Notification) {
+
+        ObjectGraph.initialize()
+        
+        // Disable the "Enter Full Screen" menu item that is otherwise automatically added to the View menu
+        UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
+    }
+
+    /// Presents the application's user interface upon app startup.
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+        AppModeManager.presentApp(lastPresentedAppMode: ObjectGraph.lastPresentedAppMode,
+                                  preferences: ObjectGraph.preferences.viewPreferences)
+        
+        // Update the appLaunched flag
+        appLaunched = true
+        
+        // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
+        Messenger.publish(.application_launched, payload: filesToOpen)
+    }
+    
     /// Opens the application with a single file (audio file or playlist)
     public func application(_ sender: NSApplication, openFile filename: String) -> Bool {
         
@@ -75,25 +93,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Update the lastFileOpenTime timestamp to the current time
         lastFileOpenTime = now
-    }
-    
-    func applicationWillFinishLaunching(_ notification: Notification) {
-        
-        // Disable the "Enter Full Screen" menu item that is otherwise automatically added to the View menu
-        UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
-    }
-
-    /// Presents the application's user interface upon app startup.
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
-        AppModeManager.presentApp(lastPresentedAppMode: ObjectGraph.lastPresentedAppMode,
-                                  preferences: ObjectGraph.preferences.viewPreferences)
-        
-        // Update the appLaunched flag
-        appLaunched = true
-        
-        // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
-        Messenger.publish(.application_launched, payload: filesToOpen)
     }
     
     /// Makes a decision whether or not the application can safely terminate without the user losing any unsaved changes (eg. ongoing recordings).

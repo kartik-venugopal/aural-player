@@ -3647,7 +3647,6 @@
 			files = (
 				3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */,
 				3E25558725DE49EF00CD7938 /* Exo-Medium.ttf in Resources */,
-				3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */,
 				3E25558525DE49E400CD7938 /* CarroisGothicSC-Regular.ttf in Resources */,
 				3E25559125DE49FA00CD7938 /* monaco.ttf in Resources */,
 				3E53C41125E2E06C00B30A03 /* control-freak.regular.ttf in Resources */,
@@ -3672,6 +3671,7 @@
 				3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */,
 				3E6C125A25CEBE0600BF0D07 /* EQPresetsManager.xib in Resources */,
 				3E6C12BD25CEBE6700BF0D07 /* EQ.xib in Resources */,
+				3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */,
 				3E6C124925CEBDF400BF0D07 /* PlaylistSortDialog.xib in Resources */,
 				3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */,
 				3E6C12CB25CEBE6700BF0D07 /* Time.xib in Resources */,
