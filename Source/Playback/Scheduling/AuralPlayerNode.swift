@@ -96,6 +96,13 @@ class AuralPlayerNode: AVAudioPlayerNode {
         }
     }
     
+    override func pause() {
+
+        // Force an update before pausing.
+        cachedSeekPosn = seekPosition
+        super.pause()
+    }
+    
     func scheduleSegment(_ session: PlaybackSession, _ completionHandler: @escaping SessionCompletionHandler, _ startTime: Double, _ endTime: Double? = nil, _ startFrame: AVAudioFramePosition? = nil, _ immediatePlayback: Bool = true) -> PlaybackSegment? {
 
         guard let segment = computeSegment(session, startTime, endTime, startFrame) else {return nil}

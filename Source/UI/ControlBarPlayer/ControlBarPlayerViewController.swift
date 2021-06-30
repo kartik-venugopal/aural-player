@@ -55,9 +55,7 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         textView.scrollingEnabled = true
         applyTheme()
         
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        seekSlider.translatesAutoresizingMaskIntoConstraints = false
-        lblSeekPosition.translatesAutoresizingMaskIntoConstraints = false
+        [textView, seekSlider, lblSeekPosition].forEach {$0?.translatesAutoresizingMaskIntoConstraints = false}
         
         textViewSuperview = textView.superview
         seekSliderSuperview = seekSlider.superview
@@ -66,7 +64,6 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
                                                            toItem: imgArt, attribute: .trailing, multiplier: 1, constant: 10)
         
         textViewSuperview.activateAndAddConstraint(textViewLeadingConstraint)
-        seekSliderView.okToShowSeekPosition = {[weak self] in self?.view.window?.width ?? 0 >= self?.minWindowWidthForShowingSeekPos ?? 0}
         layoutTextView()
         
         // Seek slider
@@ -102,23 +99,22 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         
         // Seek Position label
         
-        showSeekPosition ? seekSliderView.showSeekPositionLabels() : seekSliderView.hideSeekPositionLabels()
+        seekSliderView.showSeekPosition = showSeekPosition
         
-        lblSeekPosition.superview?.constraints.filter {$0.firstItem === lblSeekPosition}.forEach {[weak self] in self?.lblSeekPosition.superview?.deactivateAndRemoveConstraint($0)}
+        lblSeekPosition.removeAllConstraintsFromSuperview()
         
         if showSeekPosition {
             
-            let lblWidthConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .width, relatedBy: .equal,
-                                                          toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: seekPosLabelWidth)
+            // TODO: Create a struct LayoutConstraintSet to simplify this kind of code. Maybe with builder pattern: LCSet(for: view).removingExistingConstraints(attributes?).withWidth().withBottomTop().activate()
             
-            let lblHeightConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .height, relatedBy: .equal,
-                                                          toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 25)
+            let lblWidthConstraint = NSLayoutConstraint.widthConstraint(forItem: lblSeekPosition!, equalTo: seekPosLabelWidth)
             
-            let lblBottomConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .bottom, relatedBy: .equal,
-                                                          toItem: seekSlider, attribute: .top, multiplier: 1, constant: 2)
+            let lblHeightConstraint = NSLayoutConstraint.heightConstraint(forItem: lblSeekPosition!, equalTo: 25)
             
-            let lblTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: lblSeekPosition!, attribute: .trailing, relatedBy: .equal,
-                                                                               toItem: btnRepeat, attribute: .leading, multiplier: 1, constant: -21)
+            let lblBottomConstraint = NSLayoutConstraint.bottomTopConstraint(forItem: lblSeekPosition!, relatedTo: seekSlider!, offset: 2)
+            
+            let lblTrailingConstraint = NSLayoutConstraint.trailingLeadingConstraint(forItem: lblSeekPosition!,
+                                                                                     relatedTo: btnRepeat!, offset: -21)
             
             lblSeekPosition.superview?.activateAndAddConstraints(lblWidthConstraint, lblTrailingConstraint,
                                                                  lblBottomConstraint, lblHeightConstraint)
@@ -126,13 +122,10 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         
         // Text view
         
-        textViewSuperview.constraints.filter {$0.firstItem === textView && $0.firstAttribute == .trailing}.forEach {[weak self] in self?.textViewSuperview.deactivateAndRemoveConstraint($0)}
+        textView.removeAllConstraintsFromSuperview(attributes: [.trailing])
             
-        let textViewTrailingConstraint: NSLayoutConstraint = NSLayoutConstraint(item: textView!, attribute: .trailing,
-                                                                                relatedBy: .equal,
-                                                                                toItem: btnRepeat, attribute: .leading,
-                                                                                multiplier: 1,
-                                                                                constant: showSeekPosition ? -(21 + seekPosLabelWidth) : -21)
+        let textViewTrailingConstraint = NSLayoutConstraint.trailingLeadingConstraint(forItem: textView!, relatedTo: btnRepeat!,
+                                                                                      offset: showSeekPosition ? -(21 + seekPosLabelWidth) : -21)
         
         textViewSuperview.activateAndAddConstraint(textViewTrailingConstraint)
     }

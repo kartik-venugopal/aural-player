@@ -17,23 +17,18 @@ class ControlBarSeekSliderView: SeekSliderView {
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
-    var okToShowSeekPosition: () -> Bool = {true} {
+    var showSeekPosition: Bool = false {
         
         didSet {
             
-            if player.playingTrack != nil && lblSeekPosition.isHidden {
+            if player.playingTrack != nil {
                 
+                updateSeekPosition()
                 showSeekPositionLabels()
                 return
             }
             
-            let shouldShowLabels: Bool = okToShowSeekPosition()
-            
-            if !shouldShowLabels || player.playingTrack == nil, lblSeekPosition.isShown {
-                
-                hideSeekPositionLabels()
-                return
-            }
+            hideSeekPositionLabels()
         }
     }
     
@@ -63,8 +58,8 @@ class ControlBarSeekSliderView: SeekSliderView {
     
     override func showSeekPositionLabels() {
         
-        lblSeekPosition.showIf(okToShowSeekPosition())
-        setSeekTimerState(true)
+        lblSeekPosition.showIf(showSeekPosition)
+        setSeekTimerState(showSeekPosition && player.state == .playing)
     }
     
     override func hideSeekPositionLabels() {
@@ -91,6 +86,10 @@ class ControlBarSeekSliderView: SeekSliderView {
             
             lblSeekPosition.stringValue = ValueFormatter.formatSecondsToHMS(seekPos.trackDuration)
         }
+    }
+    
+    override func playbackStateChanged(_ newState: PlaybackState) {
+        setSeekTimerState(showSeekPosition && newState == .playing)
     }
     
     func applyTheme() {

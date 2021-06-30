@@ -147,4 +147,11 @@ extension NSView {
         constraint.isActive = false
         self.removeConstraint(constraint)
     }
+    
+    func removeAllConstraintsFromSuperview(attributes: [NSLayoutConstraint.Attribute]? = nil) {
+        
+        guard let superview = self.superview else {return}
+            
+        superview.constraints.filter {$0.firstItem === self && attributes?.contains($0.firstAttribute) ?? true}.forEach {superview.deactivateAndRemoveConstraint($0)}
+    }
 }

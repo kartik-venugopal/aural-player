@@ -182,6 +182,7 @@ class SeekSliderView: NSView {
         }
     }
     
+    // TODO: Should disable / re-enable the timer when labels are hidden / shown (unnecessary CPU usage).
     func showOrHideTimeElapsedRemaining() {
         [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(PlayerViewState.showTimeElapsedRemaining)}
     }
