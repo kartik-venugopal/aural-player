@@ -12,7 +12,10 @@ import Cocoa
 class ControlBarSeekSliderView: SeekSliderView {
     
     @IBOutlet weak var lblSeekPosition: CenterTextLabel!
-    private var seekPositionDisplayType: SeekPositionDisplayType = .timeElapsed
+    
+    var seekPositionDisplayType: SeekPositionDisplayType = .timeElapsed {
+        didSet {updateSeekPositionLabels(player.seekPosition)}
+    }
  
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
@@ -137,7 +140,7 @@ class ControlBarSeekSliderView: SeekSliderView {
     }
 }
 
-fileprivate enum SeekPositionDisplayType {
+enum SeekPositionDisplayType: String {
     
     case timeElapsed
     case timeRemaining

@@ -172,6 +172,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     @IBAction func quitAction(_ sender: AnyObject) {
 
         transferViewState()
+        viewController.onAppExit()
+        
         NSApp.terminate(self)
     }
     

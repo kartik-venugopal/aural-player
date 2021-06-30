@@ -42,6 +42,9 @@ extension String {
         size(withAttributes: [.font: font])
     }
     
+    ///
+    /// For a given font, computes the width of the widest numerical character.
+    ///
     static func widthOfWidestNumber(forFont font: NSFont) -> CGFloat {
         
         var maxWidth: CGFloat = 0

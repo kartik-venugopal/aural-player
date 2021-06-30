@@ -75,6 +75,38 @@
                                                         <userDefinedRuntimeAttribute type="image" keyPath="baseImage" value="Settings-Small"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </menuItem>
+                                                <menuItem title="Scroll track info text" state="on" indentationLevel="2" id="Kmj-co-2pl" userLabel="Switch to menu bar mode">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="toggleTrackInfoScrollingAction:" target="VLj-aK-Baf" id="fcH-bk-wlm"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="Seek position display" indentationLevel="2" id="1kM-98-n5Y">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menu key="submenu" title="Seek position display" id="TBs-tP-j8q">
+                                                        <items>
+                                                            <menuItem title="Time elapsed" state="on" id="Fax-Qw-7a9" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="Y65-hs-tqJ"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Time remaining" tag="1" id="4M7-PM-McI" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="076-kA-Kba"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                            <menuItem title="Track duration" tag="2" id="2Uw-dq-NqZ" customClass="SeekPositionDisplayTypeMenuItem" customModule="Aural" customModuleProvider="target">
+                                                                <modifierMask key="keyEquivalentModifierMask"/>
+                                                                <connections>
+                                                                    <action selector="changeSeekPositionDisplayTypeAction:" target="VLj-aK-Baf" id="FxZ-Aa-MPl"/>
+                                                                </connections>
+                                                            </menuItem>
+                                                        </items>
+                                                    </menu>
+                                                </menuItem>
+                                                <menuItem isSeparatorItem="YES" id="K7h-oW-lF5"/>
                                                 <menuItem title="  Switch to windowed mode" image="WindowedMode-Small" id="4cF-e2-ta6" userLabel="Switch to windowed mode">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
@@ -288,7 +320,7 @@
                                                 </menuItem>
                                             </items>
                                             <connections>
-                                                <outlet property="delegate" destination="-2" id="y1I-TQ-4Sv"/>
+                                                <outlet property="delegate" destination="VLj-aK-Baf" id="ZXN-VM-5vv"/>
                                             </connections>
                                         </menu>
                                     </popUpButtonCell>
@@ -570,10 +602,14 @@
                 <outlet property="lblSeekPosition" destination="DjW-nr-vXJ" id="zah-AU-uxU"/>
                 <outlet property="playbackView" destination="EiT-Mj-1SZ" id="cli-B4-j9e"/>
                 <outlet property="playbackViewController" destination="SuS-L4-zP8" id="g6O-hk-xtg"/>
+                <outlet property="scrollingEnabledMenuItem" destination="Kmj-co-2pl" id="i9p-jZ-Gu7"/>
                 <outlet property="seekSlider" destination="oBR-SZ-2k2" id="vpD-ju-zWN"/>
                 <outlet property="seekSliderView" destination="Aqe-re-gbP" id="4aJ-Z3-rXC"/>
                 <outlet property="sequencingViewController" destination="3w7-fX-EBl" id="clA-zc-wu3"/>
                 <outlet property="textView" destination="lNe-zj-5jU" id="X0y-Ps-po3"/>
+                <outlet property="timeElapsedMenuItem" destination="Fax-Qw-7a9" id="7e8-uP-lt7"/>
+                <outlet property="timeRemainingMenuItem" destination="4M7-PM-McI" id="ZqS-Mp-exb"/>
+                <outlet property="trackDurationMenuItem" destination="2Uw-dq-NqZ" id="Wqf-0Z-ajG"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="dSF-qc-mTt"/>
             </connections>
         </customObject>
@@ -603,14 +639,14 @@
                 <outlet property="theMenu" destination="26P-Bm-FwK" id="wuY-2H-evR"/>
             </connections>
         </customObject>
-        <customObject id="kZG-Ff-6JH" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
-            <connections>
-                <outlet property="theMenu" destination="CpD-Vf-gir" id="Yrt-0U-X3m"/>
-            </connections>
-        </customObject>
         <customObject id="9gC-9U-u2q" customClass="FontSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="theMenu" destination="fJM-mv-Ttp" id="ZbZ-5A-io6"/>
+            </connections>
+        </customObject>
+        <customObject id="kZG-Ff-6JH" customClass="ColorSchemePopupMenuController" customModule="Aural" customModuleProvider="target">
+            <connections>
+                <outlet property="theMenu" destination="CpD-Vf-gir" id="Yrt-0U-X3m"/>
             </connections>
         </customObject>
         <customView id="Rk7-Wu-WQ0" userLabel="Window corner radius editor view (in window)">

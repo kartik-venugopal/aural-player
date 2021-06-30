@@ -9,7 +9,7 @@
 //  
 import Cocoa
 
-class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
+class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, NotificationSubscriber, Destroyable {
     
     @IBOutlet weak var containerBox: NSBox!
 
@@ -23,14 +23,19 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     @IBOutlet weak var playbackView: ControlBarPlaybackView!
     @IBOutlet weak var seekSliderView: ControlBarSeekSliderView!
     
+    @IBOutlet weak var scrollingEnabledMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var timeElapsedMenuItem: SeekPositionDisplayTypeMenuItem!
+    @IBOutlet weak var timeRemainingMenuItem: SeekPositionDisplayTypeMenuItem!
+    @IBOutlet weak var trackDurationMenuItem: SeekPositionDisplayTypeMenuItem!
+    
+    private var seekPositionDisplayTypeItems: [NSMenuItem] = []
+    
     @IBOutlet weak var playbackViewController: ControlBarPlaybackViewController!
     @IBOutlet weak var audioViewController: ControlBarPlayerAudioViewController!
     @IBOutlet weak var sequencingViewController: ControlBarPlayerSequencingViewController!
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
-    
-    // TODO: Implement this for volume control / seeking, etc ???
-//    private var gestureHandler: GestureHandler?
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -51,6 +56,7 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     
     override func awakeFromNib() {
         
+        // Constraint managers
         lblSeekPositionConstraints = LayoutConstraintsManager(for: lblSeekPosition)
         seekSliderConstraints = LayoutConstraintsManager(for: seekSlider)
         textViewConstraints = LayoutConstraintsManager(for: textView)
@@ -60,10 +66,22 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         // Seek slider
         seekSliderConstraints.setLeading(relatedToLeadingOf: textView, offset: -1)
         seekSliderConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -21)
+        seekSliderView.seekPositionDisplayType = ControlBarPlayerViewState.seekPositionDisplayType
+        seekSliderView.showSeekPosition = false
         
+        // Text view
         textViewConstraints.setLeading(relatedToTrailingOf: imgArt, offset: 10)
         layoutTextView()
-        textView.scrollingEnabled = true
+        textView.scrollingEnabled = ControlBarPlayerViewState.trackInfoScrollingEnabled
+        
+        updateTrackInfo()
+        
+        // View settings menu items
+        timeElapsedMenuItem.displayType = .timeElapsed
+        timeRemainingMenuItem.displayType = .timeRemaining
+        trackDurationMenuItem.displayType = .duration
+        
+        seekPositionDisplayTypeItems = [timeElapsedMenuItem, timeRemainingMenuItem, trackDurationMenuItem]
         
         // MARK: Notification subscriptions
         
@@ -76,15 +94,12 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
     }
     
-    private var isShowingSeekPosition: Bool = false
-    
     func layoutTextView(forceChange: Bool = true) {
         
         let showSeekPosition: Bool = view.window!.width >= minWindowWidthForShowingSeekPos
-        guard forceChange || (isShowingSeekPosition != showSeekPosition) else {return}
+        guard forceChange || (seekSliderView.showSeekPosition != showSeekPosition) else {return}
         
         // Seek Position label
-        isShowingSeekPosition = showSeekPosition
         seekSliderView.showSeekPosition = showSeekPosition
         
         var labelWidth: CGFloat = 0
@@ -101,7 +116,6 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         }
         
         // Text view
-        
         textViewConstraints.removeAll(withAttributes: [.trailing])
         textViewConstraints.setTrailing(relatedToLeadingOf: btnRepeat,
                                         offset: showSeekPosition ? -(21 + labelWidth) : -21)
@@ -121,22 +135,8 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
         
         let trackTimes = ValueFormatter.formatTrackTimes(0, duration, 0)
         let widthOfTimeRemainingString = CGFloat(trackTimes.remaining.count)
-        let maxPossibleWidth = widthOfTimeRemainingString * widthOfWidestNumber
-        
-        return maxPossibleWidth
-    }
-    
-    func destroy() {
-        
-        [playbackViewController, audioViewController, sequencingViewController].forEach {
-            ($0 as? Destroyable)?.destroy()
-        }
-        
-        Messenger.unsubscribeAll(for: self)
-    }
-    
-    override func viewDidLoad() {
-        updateTrackInfo()
+
+        return widthOfTimeRemainingString * widthOfWidestNumber
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -186,12 +186,6 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     }
     
     func windowResized() {
-    
-        // If a track is playing, 
-        if player.playingTrack != nil {
-            textView.resized()
-        }
-        
         layoutTextView(forceChange: false)
     }
     
@@ -212,4 +206,60 @@ class ControlBarPlayerViewController: NSViewController, NotificationSubscriber, 
     func applyColorScheme(_ colorScheme: ColorScheme) {
         textView.textColor = colorScheme.player.trackInfoPrimaryTextColor
     }
+    
+    // MARK: View settings menu delegate functions and action handlers -----------------
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        
+        scrollingEnabledMenuItem.onIf(textView.scrollingEnabled)
+        
+        seekPositionDisplayTypeItems.forEach {$0.off()}
+        
+        switch seekSliderView.seekPositionDisplayType {
+        
+        case .timeElapsed:
+            
+            timeElapsedMenuItem.on()
+            
+        case .timeRemaining:
+            
+            timeRemainingMenuItem.on()
+            
+        case .duration:
+            
+            trackDurationMenuItem.on()
+        }
+    }
+    
+    @IBAction func toggleTrackInfoScrollingAction(_ sender: NSMenuItem) {
+        textView.scrollingEnabled.toggle()
+    }
+    
+    @IBAction func changeSeekPositionDisplayTypeAction(_ sender: SeekPositionDisplayTypeMenuItem) {
+        seekSliderView.seekPositionDisplayType = sender.displayType
+    }
+    
+    // MARK: Tear down ------------------------------------------
+    
+    func destroy() {
+        
+        ControlBarPlayerViewState.trackInfoScrollingEnabled = textView.scrollingEnabled
+        ControlBarPlayerViewState.seekPositionDisplayType = seekSliderView.seekPositionDisplayType
+        
+        [playbackViewController, audioViewController, sequencingViewController].forEach {
+            ($0 as? Destroyable)?.destroy()
+        }
+        
+        Messenger.unsubscribeAll(for: self)
+    }
+    
+    func onAppExit() {
+        
+        ControlBarPlayerViewState.trackInfoScrollingEnabled = textView.scrollingEnabled
+        ControlBarPlayerViewState.seekPositionDisplayType = seekSliderView.seekPositionDisplayType
+    }
+}
+
+class SeekPositionDisplayTypeMenuItem: NSMenuItem {
+    var displayType: SeekPositionDisplayType = .timeElapsed
 }

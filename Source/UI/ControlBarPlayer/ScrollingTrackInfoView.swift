@@ -18,6 +18,10 @@ import Cocoa
 ///
 class ScrollingTrackInfoView: NSView {
     
+    override var frame: NSRect {
+        didSet {resized()}
+    }
+    
     ///
     /// (Optional) Name of the artist of the track whose info is currently displayed in the text view.
     ///
@@ -33,10 +37,7 @@ class ScrollingTrackInfoView: NSView {
 
     /// Font for scrolling text
     var font: NSFont = Fonts.Standard.mainFont_12 {
-        
-        didSet {
-            update(artist: self.artist, title: self.title, layoutRequired: true)
-        }
+        didSet {fontUpdated()}
     }
 
     /// Scrolling text color
@@ -82,6 +83,10 @@ class ScrollingTrackInfoView: NSView {
 
     private var textFontAttributes: [NSAttributedString.Key: Any] {
         [.font: font, .foregroundColor: textColor]
+    }
+    
+    override func awakeFromNib() {
+        self.postsFrameChangedNotifications = true
     }
 
     // MARK: - Open functions
@@ -162,6 +167,10 @@ class ScrollingTrackInfoView: NSView {
         } else {
             update(artist: self.artist, title: self.title)
         }
+    }
+    
+    func fontUpdated() {
+        update(artist: self.artist, title: self.title, layoutRequired: true)
     }
     
     // MARK: Mouse handling ---------------------------------
