@@ -24,6 +24,8 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     @IBOutlet weak var seekSliderView: ControlBarSeekSliderView!
     
     @IBOutlet weak var scrollingEnabledMenuItem: NSMenuItem!
+    @IBOutlet weak var showSeekPositionMenuItem: NSMenuItem!
+    @IBOutlet weak var seekPositionDisplayTypeMenuItem: NSMenuItem!
     
     @IBOutlet weak var timeElapsedMenuItem: SeekPositionDisplayTypeMenuItem!
     @IBOutlet weak var timeRemainingMenuItem: SeekPositionDisplayTypeMenuItem!
@@ -66,7 +68,6 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         // Seek slider
         seekSliderConstraints.setLeading(relatedToLeadingOf: textView, offset: -1)
         seekSliderConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -21)
-        seekSliderView.seekPositionDisplayType = ControlBarPlayerViewState.seekPositionDisplayType
         seekSliderView.showSeekPosition = false
         
         // Text view
@@ -94,9 +95,14 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
     }
     
+    var windowWideEnoughForSeekPosition: Bool {
+        view.window!.width >= minWindowWidthToShowSeekPosition
+    }
+    
     func layoutTextView(forceChange: Bool = true) {
         
-        let showSeekPosition: Bool = view.window!.width >= minWindowWidthToShowSeekPosition
+        let showSeekPosition: Bool = ControlBarPlayerViewState.showSeekPosition && windowWideEnoughForSeekPosition
+        
         guard forceChange || (seekSliderView.showSeekPosition != showSeekPosition) else {return}
         
         // Seek Position label
@@ -118,7 +124,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         // Text view
         textViewConstraints.removeAll(withAttributes: [.trailing])
         textViewConstraints.setTrailing(relatedToLeadingOf: btnRepeat,
-                                        offset: showSeekPosition ? -(21 + labelWidth) : -21)
+                                        offset: showSeekPosition ? -(21 + labelWidth) : -22)
     }
     
     ///
@@ -213,6 +219,15 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         
         scrollingEnabledMenuItem.onIf(textView.scrollingEnabled)
         
+        let windowWideEnoughForSeekPosition = self.windowWideEnoughForSeekPosition
+        showSeekPositionMenuItem.showIf(windowWideEnoughForSeekPosition)
+        seekPositionDisplayTypeMenuItem.showIf(windowWideEnoughForSeekPosition && ControlBarPlayerViewState.showSeekPosition)
+        
+        guard windowWideEnoughForSeekPosition else {return}
+        
+        showSeekPositionMenuItem.onIf(ControlBarPlayerViewState.showSeekPosition)
+        guard ControlBarPlayerViewState.showSeekPosition else {return}
+        
         seekPositionDisplayTypeItems.forEach {$0.off()}
         
         switch seekSliderView.seekPositionDisplayType {
@@ -233,6 +248,12 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     
     @IBAction func toggleTrackInfoScrollingAction(_ sender: NSMenuItem) {
         textView.scrollingEnabled.toggle()
+    }
+    
+    @IBAction func toggleShowSeekPositionAction(_ sender: NSMenuItem) {
+        
+        ControlBarPlayerViewState.showSeekPosition.toggle()
+        layoutTextView()
     }
     
     @IBAction func changeSeekPositionDisplayTypeAction(_ sender: SeekPositionDisplayTypeMenuItem) {

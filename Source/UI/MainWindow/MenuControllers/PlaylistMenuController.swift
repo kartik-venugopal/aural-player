@@ -117,10 +117,10 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let playlistNotEmpty = playlist.size > 0
         
-        expandSelectedGroupsMenuItem.hideIf_elseShow(PlaylistViewState.currentView == .tracks)
-        collapseSelectedItemsMenuItem.hideIf_elseShow(PlaylistViewState.currentView == .tracks)
+        expandSelectedGroupsMenuItem.hideIf(PlaylistViewState.currentView == .tracks)
+        collapseSelectedItemsMenuItem.hideIf(PlaylistViewState.currentView == .tracks)
         
-        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf_elseShow(!(PlaylistViewState.currentView != .tracks && playlistNotEmpty))})
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf(!(PlaylistViewState.currentView != .tracks && playlistNotEmpty))})
     }
     
     private var areOnlyGroupsSelected: Bool {!PlaylistViewState.selectedItems.contains(where: {$0.type != .group})}

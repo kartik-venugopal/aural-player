@@ -112,7 +112,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         let numberOfUserDefinedSchemes: Int = fontSchemesManager.numberOfUserDefinedPresets
         
         for index in 0...2 {
-            fontSchemesMenu.item(at: index)?.showIf_elseHide(numberOfUserDefinedSchemes > 0)
+            fontSchemesMenu.item(at: index)?.showIf(numberOfUserDefinedSchemes > 0)
         }
         
         btnFontSchemesMenu.select(fontSchemesMenu.item(withTitle: FontSchemePreset.standard.name))
@@ -134,7 +134,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         }
         
         for index in 0...2 {
-            colorSchemesMenu.item(at: index)?.showIf_elseHide(colorSchemesManager.numberOfUserDefinedPresets > 0)
+            colorSchemesMenu.item(at: index)?.showIf(colorSchemesManager.numberOfUserDefinedPresets > 0)
         }
         
         btnColorSchemesMenu.select(colorSchemesMenu.item(withTitle: ColorSchemePreset.blackAttack.name))

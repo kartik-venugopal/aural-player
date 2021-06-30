@@ -55,7 +55,7 @@ class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputRec
         }
 
         for index in 0...2 {
-            menu.item(at: index)?.showIf_elseHide(numberOfUserDefinedPresets > 0)
+            menu.item(at: index)?.showIf(numberOfUserDefinedPresets > 0)
         }
     }
     

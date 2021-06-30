@@ -16,6 +16,7 @@ class ControlBarPlayerViewState {
     static let defaultCornerRadius: CGFloat = 3
     static var cornerRadius: CGFloat = defaultCornerRadius
     
+    static var showSeekPosition: Bool = true
     static var seekPositionDisplayType: SeekPositionDisplayType = .timeElapsed
     static var trackInfoScrollingEnabled: Bool = true
 }

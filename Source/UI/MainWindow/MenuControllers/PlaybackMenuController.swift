@@ -102,7 +102,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         
         // Play/pause enabled if at least one track available
         playOrPauseMenuItem.onIf(playbackInfo.state == .playing)
-        rememberLastPositionMenuItem.showIf_elseHide(preferences.rememberLastPositionOption == .individualTracks)
+        rememberLastPositionMenuItem.showIf(preferences.rememberLastPositionOption == .individualTracks)
         
         if let playingTrack = playbackInfo.playingTrack {
             rememberLastPositionMenuItem.onIf(playbackProfiles.hasFor(playingTrack))

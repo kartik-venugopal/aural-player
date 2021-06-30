@@ -58,7 +58,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
         playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
         
-        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf_elseShow(PlayerViewState.viewType == .expandedArt)})
+        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf(PlayerViewState.viewType == .expandedArt)})
         
         let trackInfoVisible: Bool = PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo
         
@@ -73,19 +73,19 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             hasChapters = track.hasChapters
         }
         
-        showArtistMenuItem.showIf_elseHide(trackInfoVisible && hasArtist)
+        showArtistMenuItem.showIf(trackInfoVisible && hasArtist)
         showArtistMenuItem.onIf(PlayerViewState.showArtist)
         
-        showAlbumMenuItem.showIf_elseHide(trackInfoVisible && hasAlbum)
+        showAlbumMenuItem.showIf(trackInfoVisible && hasAlbum)
         showAlbumMenuItem.onIf(PlayerViewState.showAlbum)
         
-        showCurrentChapterMenuItem.showIf_elseHide(trackInfoVisible && hasChapters)
+        showCurrentChapterMenuItem.showIf(trackInfoVisible && hasChapters)
         showCurrentChapterMenuItem.onIf(PlayerViewState.showCurrentChapter)
         
-        showTrackInfoMenuItem.hideIf_elseShow(PlayerViewState.viewType == .defaultView)
+        showTrackInfoMenuItem.hideIf(PlayerViewState.viewType == .defaultView)
         
         let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
-        showTimeElapsedRemainingMenuItem.showIf_elseHide(defaultViewAndShowingControls)
+        showTimeElapsedRemainingMenuItem.showIf(defaultViewAndShowingControls)
         
         showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
         showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
@@ -94,8 +94,8 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         showMainControlsMenuItem.onIf(PlayerViewState.showControls)
         showTimeElapsedRemainingMenuItem.onIf(PlayerViewState.showTimeElapsedRemaining)
         
-        timeElapsedFormatMenuItem.showIf_elseHide(defaultViewAndShowingControls)
-        timeRemainingFormatMenuItem.showIf_elseHide(defaultViewAndShowingControls)
+        timeElapsedFormatMenuItem.showIf(defaultViewAndShowingControls)
+        timeRemainingFormatMenuItem.showIf(defaultViewAndShowingControls)
         
         if defaultViewAndShowingControls {
             

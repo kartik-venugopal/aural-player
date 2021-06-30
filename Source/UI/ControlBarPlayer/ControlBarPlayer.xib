@@ -81,6 +81,12 @@
                                                         <action selector="toggleTrackInfoScrollingAction:" target="VLj-aK-Baf" id="fcH-bk-wlm"/>
                                                     </connections>
                                                 </menuItem>
+                                                <menuItem title="Show seek position" state="on" indentationLevel="2" id="h7t-6S-pQK">
+                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <connections>
+                                                        <action selector="toggleShowSeekPositionAction:" target="VLj-aK-Baf" id="yvM-Sw-Lzn"/>
+                                                    </connections>
+                                                </menuItem>
                                                 <menuItem title="Seek position display" indentationLevel="2" id="1kM-98-n5Y">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <menu key="submenu" title="Seek position display" id="TBs-tP-j8q">
@@ -613,9 +619,11 @@
                 <outlet property="playbackView" destination="EiT-Mj-1SZ" id="cli-B4-j9e"/>
                 <outlet property="playbackViewController" destination="SuS-L4-zP8" id="g6O-hk-xtg"/>
                 <outlet property="scrollingEnabledMenuItem" destination="Kmj-co-2pl" id="i9p-jZ-Gu7"/>
+                <outlet property="seekPositionDisplayTypeMenuItem" destination="1kM-98-n5Y" id="s8q-hS-hkV"/>
                 <outlet property="seekSlider" destination="oBR-SZ-2k2" id="vpD-ju-zWN"/>
                 <outlet property="seekSliderView" destination="Aqe-re-gbP" id="4aJ-Z3-rXC"/>
                 <outlet property="sequencingViewController" destination="3w7-fX-EBl" id="clA-zc-wu3"/>
+                <outlet property="showSeekPositionMenuItem" destination="h7t-6S-pQK" id="CEp-p1-RQc"/>
                 <outlet property="textView" destination="lNe-zj-5jU" id="X0y-Ps-po3"/>
                 <outlet property="timeElapsedMenuItem" destination="Fax-Qw-7a9" id="7e8-uP-lt7"/>
                 <outlet property="timeRemainingMenuItem" destination="4M7-PM-McI" id="ZqS-Mp-exb"/>

@@ -113,7 +113,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(theClickedTrack.file))
             
             let isPlayingTrack: Bool = playbackInfo.playingTrack == theClickedTrack
-            viewChaptersMenuItem.showIf_elseHide(isPlayingTrack && theClickedTrack.hasChapters && !WindowManager.instance.isShowingChaptersList)
+            viewChaptersMenuItem.showIf(isPlayingTrack && theClickedTrack.hasChapters && !WindowManager.instance.isShowingChaptersList)
             
         case .group:
             

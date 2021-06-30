@@ -181,8 +181,8 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         let hasImage: Bool = DetailedTrackInfoViewController.shownTrack?.art?.image != nil
         
-        exportArtMenuItem.showIf_elseHide(hasImage)
-        exportHTMLWithArtMenuItem.showIf_elseHide(hasImage)
+        exportArtMenuItem.showIf(hasImage)
+        exportHTMLWithArtMenuItem.showIf(hasImage)
     }
     
     @IBAction func exportJPEGAction(_ sender: AnyObject) {

@@ -47,12 +47,12 @@ extension NSMenuItem {
         self.isHidden = false
     }
     
-    func hideIf_elseShow(_ condition: Bool) {
-        self.isHidden = condition
+    func hideIf(_ condition: Bool) {
+        condition ? hide() : show()
     }
     
-    func showIf_elseHide(_ condition: Bool) {
-        self.isHidden = !condition
+    func showIf(_ condition: Bool) {
+        condition ? show() : hide()
     }
     
     var isDisabled: Bool {
