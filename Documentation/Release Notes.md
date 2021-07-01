@@ -18,7 +18,7 @@ The new **Support** menu provides:
 ### Bug fixes / improvements 
 
 * **Media keys / Remote control** -  Fixed a bug that prevented media keys and remote control commands from working while the app was running in menu bar mode.
-* Previously, Remote control was enabled by default only on macOS Big Sur. Now, it will be enabled by default on all operating systems.
+* Previously, Remote control was disabled by default on systems older than macOS Big Sur. Now, it will be enabled by default on all operating systems.
 * **Sorting when adding folders to playlist** - Fixed a bug that caused files to not be added in alphanumeric order when their parent folder was added to the playlist.
 
 ### Added more documentation
