@@ -39,6 +39,9 @@ class AudioEngine {
     
     private func addNodes(permanentNodes: [AVAudioNode], removableNodes: [AVAudioNode]) {
         
+        self.permanentNodes = permanentNodes
+        self.removableNodes = removableNodes
+        
         allNodes = permanentNodes + removableNodes
         allNodes.forEach {engine.attach($0)}
     }
@@ -70,7 +73,7 @@ class AudioEngine {
             engine.disconnectNodeOutput(lastNode)
             
             removableNodes.append(node)
-            self.allNodes = permanentNodes + removableNodes
+            allNodes = permanentNodes + removableNodes
             
             engine.attach(node)
             
