@@ -4,9 +4,11 @@
 
 The control bar is a new app mode with a minimalistic user interface consisting of a single compact window containing only player controls, playing track info, and some options to change the displayed info and appearance (theme). It is similar to Winamp's "Windowshade mode".
 
-The control bar window is floating, i.e. always on top of other windows, and can be moved around, resized horizontally, and/or docked to different locations on-screen.
+The control bar window is floating, i.e. always on top of other windows, and can be moved around, resized horizontally, snapped to screen edges, and docked to different locations on-screen with one click through the provided view settings menu.
 
-This feature is useful when intending to run the app in the background and working on other applications while still having quick and easy access to player controls to change tracks or perform other player functions. The control bar is an alternative to the menu bar mode, media keys, and the macOS Control Center, providing yet another way to control playback of your music.
+This app mode is useful when intending to run the app in the background (after setting up a playlist) and working on other applications while still having quick and easy access to player controls to change tracks or perform basic player functions. The control bar is an alternative to the menu bar mode, media keys, and the macOS Control Center, providing yet another way to control playback of your music.
+
+**NOTE** - The main application menu in the macOS menu bar will not be available in Control Bar mode, by design, as the app mode is intended for limited user interaction through essential player controls. The dock menu is available in this mode, however, and provides additional functionality, such as accessing recently played tracks and the **Favorites** list.
 
 ### New "Support" menu
 
@@ -17,11 +19,11 @@ The new **Support** menu provides:
 
 ### Bug fixes / improvements
 
-* **Media keys / Remote control** -  Fixed a bug that prevented media keys and remote control commands from working while the app was running in menu bar mode.
+* **Media keys / Remote control in menu bar mode** -  Fixed a bug that prevented media keys and remote control commands from working while the app was running in menu bar mode.
 * Previously, Remote control was disabled by default on systems older than macOS Big Sur. Now, it will be enabled by default on all operating systems.
-* **Sorting when adding folders to playlist** - Fixed a bug that caused files to not be added in alphanumeric order when their parent folder was added to the playlist.
+* **Sorting when adding folders to playlist** - Fixed a bug (issue #29) that caused files to not be added in alphanumeric order when their parent folder was added to the playlist.
 
-### Added more documentation
+### Added more documentation (wiki)
 
 Added several new pages to the wiki, including:
 
@@ -33,7 +35,7 @@ Added several new pages to the wiki, including:
 
 #### Significant refactoring, restructuring, and cleanup
 
-* Persistence layer significantly improved with extensions replacing lots of boilerplate code.
+* Persistence layer significantly improved with consistent protocol conformance and extensions replacing lots of boilerplate code.
 * Improved lazy loading of objects on app startup.
 * Much more efficient computation of window layout presets.
 * Improved code reuse with new extensions replacing clunky Util classes.
