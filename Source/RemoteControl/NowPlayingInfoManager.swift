@@ -65,6 +65,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         //
         Messenger.subscribeAsync(self, .player_preTrackChange, self.handlePreTrackChange, queue: .main)
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, queue: .main)
+        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackChanged, queue: .main)
         Messenger.subscribeAsync(self, .player_playbackStateChanged, self.playbackStateChanged, queue: .main)
         Messenger.subscribeAsync(self, .player_seekPerformed, self.seekPerformed, queue: .main)
@@ -152,6 +153,10 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         
         updateNowPlayingInfo()
         preTrackChange = false
+    }
+    
+    private func trackInfoUpdated(_ notif: TrackInfoUpdatedNotification) {
+        updateNowPlayingInfo()
     }
     
     ///
