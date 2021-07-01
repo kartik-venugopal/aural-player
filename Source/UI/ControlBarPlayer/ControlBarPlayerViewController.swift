@@ -77,10 +77,10 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         // Text view
         textViewConstraints.setLeading(relatedToTrailingOf: imgArt, offset: 10)
         textViewConstraints.setHeight(26)
-        textViewConstraints.centerVerticallyInSuperview(offset: -1)
+        textViewConstraints.centerVerticallyInSuperview(offset: -2)
         
         lblSeekPositionConstraints.setHeight(textView.height)
-        lblSeekPositionConstraints.centerVerticallyInSuperview(offset: -1)
+        lblSeekPositionConstraints.centerVerticallyInSuperview(offset: -2)
         
         layoutTextView()
         textView.scrollingEnabled = ControlBarPlayerViewState.trackInfoScrollingEnabled
