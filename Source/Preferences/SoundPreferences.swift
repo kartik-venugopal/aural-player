@@ -82,17 +82,17 @@ class SoundPreferences: PersistentPreferencesProtocol {
             outputDeviceOnStartup.preferredDeviceUID = deviceUID
         }
         
-        volumeDelta = dict[Self.key_volumeDelta, Float.self] ?? Defaults.volumeDelta
+        volumeDelta = dict.floatValue(forKey: Self.key_volumeDelta) ?? Defaults.volumeDelta
         
         volumeOnStartupOption = dict.enumValue(forKey: Self.key_volumeOnStartupOption, ofType: VolumeStartupOptions.self) ?? Defaults.volumeOnStartupOption
         
-        startupVolumeValue = dict[Self.key_volumeOnStartupOption, Float.self] ?? Defaults.startupVolumeValue
+        startupVolumeValue = dict.floatValue(forKey: Self.key_volumeOnStartupOption) ?? Defaults.startupVolumeValue
         
-        panDelta = dict[Self.key_panDelta, Float.self] ?? Defaults.panDelta
+        panDelta = dict.floatValue(forKey: Self.key_panDelta) ?? Defaults.panDelta
         
-        eqDelta = dict[Self.key_eqDelta, Float.self] ?? Defaults.eqDelta
-        pitchDelta = dict[Self.key_pitchDelta, Int.self] ?? Defaults.pitchDelta
-        timeDelta = dict[Self.key_timeDelta, Float.self] ?? Defaults.timeDelta
+        eqDelta = dict.floatValue(forKey: Self.key_eqDelta) ?? Defaults.eqDelta
+        pitchDelta = dict.intValue(forKey: Self.key_pitchDelta) ?? Defaults.pitchDelta
+        timeDelta = dict.floatValue(forKey: Self.key_timeDelta) ?? Defaults.timeDelta
         
         effectsSettingsOnStartupOption = dict.enumValue(forKey: Self.key_effectsSettingsOnStartupOption, ofType: EffectsSettingsStartupOptions.self) ?? Defaults.effectsSettingsOnStartupOption
         

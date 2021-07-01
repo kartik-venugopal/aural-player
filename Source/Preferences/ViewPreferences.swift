@@ -59,7 +59,7 @@ class ViewPreferences: PersistentPreferencesProtocol {
         }
         
         snapToWindows = dict[Self.key_snapToWindows, Bool.self] ?? Defaults.snapToWindows
-        windowGap = dict[Self.key_windowGap, Float.self] ?? Defaults.windowGap
+        windowGap = dict.floatValue(forKey: Self.key_windowGap) ?? Defaults.windowGap
         snapToScreen = dict[Self.key_snapToScreen, Bool.self] ?? Defaults.snapToScreen
     }
     

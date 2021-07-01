@@ -28,8 +28,8 @@ class AudioUnitPersistentState: EffectsUnitPersistentState<AudioUnitPresetPersis
     
     required init?(_ map: NSDictionary) {
         
-        guard let componentType = map["componentType", UInt32.self],
-              let componentSubType = map["componentSubType", UInt32.self] else {return nil}
+        guard let componentType = map.uint32Value(forKey: "componentType"),
+              let componentSubType = map.uint32Value(forKey: "componentSubType") else {return nil}
         
         self.componentType = componentType
         self.componentSubType = componentSubType
@@ -52,8 +52,8 @@ class AudioUnitParameterPersistentState: PersistentStateProtocol {
     
     required init?(_ map: NSDictionary) {
         
-        guard let address = map["address", UInt64.self],
-              let value = map["value", Float.self] else {return nil}
+        guard let address = map.uint64Value(forKey: "address"),
+              let value = map.floatValue(forKey: "value") else {return nil}
         
         self.address = address
         self.value = value
@@ -77,9 +77,9 @@ class AudioUnitPresetPersistentState: EffectsUnitPresetPersistentState {
     
     required init?(_ map: NSDictionary) {
         
-        guard let componentType = map["componentType", UInt32.self],
-              let componentSubType = map["componentSubType", UInt32.self],
-              let number = map["number", Int.self] else {return nil}
+        guard let componentType = map.uint32Value(forKey: "componentType"),
+              let componentSubType = map.uint32Value(forKey: "componentSubType"),
+              let number = map.intValue(forKey: "number") else {return nil}
         
         self.componentType = componentType
         self.componentSubType = componentSubType

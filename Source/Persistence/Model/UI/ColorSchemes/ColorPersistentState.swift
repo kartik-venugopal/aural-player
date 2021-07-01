@@ -29,7 +29,7 @@ class ColorPersistentState: PersistentStateProtocol, PersistentStateFactoryProto
     
     required init?(_ map: NSDictionary) {
         
-        guard let colorSpace = map["colorSpace", Int.self],
+        guard let colorSpace = map.intValue(forKey: "colorSpace"),
               let alpha = map.cgFloatValue(forKey: "alpha") else {return nil}
         
         self.colorSpace = colorSpace
@@ -68,7 +68,7 @@ class ColorPersistentState: PersistentStateProtocol, PersistentStateFactoryProto
     static func deserialize(_ map: NSDictionary) -> ColorPersistentState? {
         
         // Depending on the color space of the color, construct different objects.
-        if let colorSpace = map["colorSpace", Int.self] {
+        if let colorSpace = map.intValue(forKey: "colorSpace") {
             
             switch colorSpace {
                 

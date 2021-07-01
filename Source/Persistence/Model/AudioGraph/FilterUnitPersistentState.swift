@@ -41,8 +41,8 @@ class FilterBandPersistentState: PersistentStateProtocol {
         guard let type = map.enumValue(forKey: "type", ofType: FilterBandType.self) else {return nil}
         self.type = type
         
-        self.minFreq = map["minFreq", Float.self]
-        self.maxFreq = map["maxFreq", Float.self]
+        self.minFreq = map.floatValue(forKey: "minFreq")
+        self.maxFreq = map.floatValue(forKey: "maxFreq")
         
         switch type {
         

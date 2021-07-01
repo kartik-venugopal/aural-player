@@ -19,7 +19,7 @@ class ReverbUnitPersistentState: EffectsUnitPersistentState<ReverbPresetPersiste
     required init?(_ map: NSDictionary) {
         
         self.space = map.enumValue(forKey: "space", ofType: ReverbSpaces.self)
-        self.amount = map["amount", Float.self]
+        self.amount = map.floatValue(forKey: "amount")
         
         super.init(map)
     }
@@ -41,7 +41,7 @@ class ReverbPresetPersistentState: EffectsUnitPresetPersistentState {
     required init?(_ map: NSDictionary) {
         
         guard let space = map.enumValue(forKey: "space", ofType: ReverbSpaces.self),
-              let amount = map["amount", Float.self] else {return nil}
+              let amount = map.floatValue(forKey: "amount") else {return nil}
         
         self.space = space
         self.amount = amount

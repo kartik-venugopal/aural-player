@@ -38,7 +38,7 @@ class MusicBrainzPreferences: PersistentPreferencesProtocol {
     
     required init(_ dict: [String : Any]) {
         
-        httpTimeout = dict[Self.key_httpTimeout, Int.self] ?? Defaults.httpTimeout
+        httpTimeout = dict.intValue(forKey: Self.key_httpTimeout) ?? Defaults.httpTimeout
         
         enableCoverArtSearch = dict[Self.key_enableCoverArtSearch, Bool.self] ?? Defaults.enableCoverArtSearch
         

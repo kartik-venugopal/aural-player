@@ -20,8 +20,8 @@ class PitchUnitPersistentState: EffectsUnitPersistentState<PitchPresetPersistent
         
         super.init(map)
         
-        self.pitch = map["pitch", Float.self]
-        self.overlap = map["overlap", Float.self]
+        self.pitch = map.floatValue(forKey: "pitch")
+        self.overlap = map.floatValue(forKey: "overlap")
     }
 }
 
@@ -40,10 +40,10 @@ class PitchPresetPersistentState: EffectsUnitPresetPersistentState {
     
     required init?(_ map: NSDictionary) {
         
-        guard let pitch = map["pitch", Float.self] else {return nil}
+        guard let pitch = map.floatValue(forKey: "pitch") else {return nil}
         
         self.pitch = pitch
-        self.overlap = map["overlap", Float.self]
+        self.overlap = map.floatValue(forKey: "overlap")
         
         super.init(map)
     }

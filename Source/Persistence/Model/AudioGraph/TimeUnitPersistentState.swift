@@ -21,8 +21,8 @@ class TimeUnitPersistentState: EffectsUnitPersistentState<TimePresetPersistentSt
         
         super.init(map)
         
-        self.rate = map["rate", Float.self]
-        self.overlap = map["overlap", Float.self]
+        self.rate = map.floatValue(forKey: "rate")
+        self.overlap = map.floatValue(forKey: "overlap")
         self.shiftPitch = map["shiftPitch", Bool.self]
     }
 }
@@ -44,10 +44,10 @@ class TimePresetPersistentState: EffectsUnitPresetPersistentState {
     
     required init?(_ map: NSDictionary) {
         
-        guard let rate = map["rate", Float.self] else {return nil}
+        guard let rate = map.floatValue(forKey: "rate") else {return nil}
         
         self.rate = rate
-        self.overlap = map["overlap", Float.self]
+        self.overlap = map.floatValue(forKey: "overlap")
         self.shiftPitch = map["shiftPitch", Bool.self]
         
         super.init(map)

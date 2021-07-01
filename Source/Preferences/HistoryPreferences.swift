@@ -23,8 +23,8 @@ class HistoryPreferences: PersistentPreferencesProtocol {
     
     internal required init(_ dict: [String: Any]) {
         
-        recentlyAddedListSize = dict[Self.key_recentlyAddedListSize, Int.self] ?? Defaults.recentlyAddedListSize
-        recentlyPlayedListSize = dict[Self.key_recentlyPlayedListSize, Int.self] ?? Defaults.recentlyPlayedListSize
+        recentlyAddedListSize = dict.intValue(forKey: Self.key_recentlyAddedListSize) ?? Defaults.recentlyAddedListSize
+        recentlyPlayedListSize = dict.intValue(forKey: Self.key_recentlyPlayedListSize) ?? Defaults.recentlyPlayedListSize
     }
     
     func persist(to defaults: UserDefaults) {

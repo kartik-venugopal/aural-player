@@ -28,11 +28,11 @@ class BookmarkPersistentState: PersistentStateProtocol {
         
         guard let name = map["name", String.self],
               let file = map.urlValue(forKey: "file"),
-              let startPosition = map["startPosition", Double.self] else {return nil}
+              let startPosition = map.doubleValue(forKey: "startPosition") else {return nil}
             
         self.name = name
         self.file = file
         self.startPosition = startPosition
-        self.endPosition = map["endPosition", Double.self]
+        self.endPosition = map.doubleValue(forKey: "endPosition")
     }
 }

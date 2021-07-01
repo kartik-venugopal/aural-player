@@ -23,7 +23,7 @@ class PlaybackProfilePersistentState: PersistentStateProtocol {
     required init?(_ map: NSDictionary) {
         
         guard let file = map.urlValue(forKey: "file"),
-              let lastPosition = map["lastPosition", Double.self] else {return nil}
+              let lastPosition = map.doubleValue(forKey: "lastPosition") else {return nil}
         
         self.file = file
         self.lastPosition = lastPosition

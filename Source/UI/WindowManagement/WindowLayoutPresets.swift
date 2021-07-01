@@ -79,8 +79,7 @@ enum WindowLayoutPresets: String, CaseIterable {
     }
     
     private var gapBetweenWindows: CGFloat {
-        
-        return CGFloat(ObjectGraph.preferences.viewPreferences.windowGap)
+        CGFloat(ObjectGraph.preferences.viewPreferences.windowGap)
     }
     
     var layout: WindowLayout {
@@ -106,8 +105,11 @@ enum WindowLayoutPresets: String, CaseIterable {
             
         case .verticalFullStack:
             
+            playlistHeight = min(playlistHeight_verticalFullStack,
+                                 visibleFrame.height - (Self.mainWindowHeight + Self.effectsWindowHeight + twoGaps))
+            
             let xPadding = visibleFrame.width - Self.mainWindowWidth
-            let totalStackHeight = Self.mainWindowHeight + Self.effectsWindowHeight + twoGaps + playlistHeight_verticalFullStack
+            let totalStackHeight = Self.mainWindowHeight + Self.effectsWindowHeight + twoGaps + playlistHeight
             let yPadding = visibleFrame.height - totalStackHeight
             
             mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2),
@@ -115,10 +117,9 @@ enum WindowLayoutPresets: String, CaseIterable {
             
             effectsWindowOrigin = NSMakePoint(mainWindowOrigin.x, mainWindowOrigin.y - gap - Self.effectsWindowHeight)
             
-            playlistHeight = playlistHeight_verticalFullStack
             playlistWidth = Self.mainWindowWidth
             
-            playlistWindowOrigin = NSMakePoint(mainWindowOrigin.x, mainWindowOrigin.y - Self.effectsWindowHeight - twoGaps - playlistHeight)
+            playlistWindowOrigin = NSMakePoint(mainWindowOrigin.x, effectsWindowOrigin.y - gap - playlistHeight)
             
         case .horizontalFullStack:
             

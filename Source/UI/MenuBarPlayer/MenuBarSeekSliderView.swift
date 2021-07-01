@@ -10,6 +10,8 @@
 
 class MenuBarSeekSliderView: SeekSliderView {
     
+    override func initSeekPositionLabels() {}
+    
     func stopUpdatingSeekPosition() {
         setSeekTimerState(false)
     }

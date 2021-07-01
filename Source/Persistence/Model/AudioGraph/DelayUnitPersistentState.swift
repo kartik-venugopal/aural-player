@@ -22,10 +22,10 @@ class DelayUnitPersistentState: EffectsUnitPersistentState<DelayPresetPersistent
         
         super.init(map)
         
-        self.amount = map["amount", Float.self]
-        self.time = map["time", Double.self]
-        self.feedback = map["feedback", Float.self]
-        self.lowPassCutoff = map["lowPassCutoff", Float.self]
+        self.amount = map.floatValue(forKey: "amount")
+        self.time = map.doubleValue(forKey: "time")
+        self.feedback = map.floatValue(forKey: "feedback")
+        self.lowPassCutoff = map.floatValue(forKey: "lowPassCutoff")
     }
 }
 
@@ -48,10 +48,10 @@ class DelayPresetPersistentState: EffectsUnitPresetPersistentState {
     
     required init?(_ map: NSDictionary) {
         
-        guard let amount = map["amount", Float.self],
-              let time = map["time", Double.self],
-              let feedback = map["feedback", Float.self],
-              let lowPassCutoff = map["lowPassCutoff", Float.self] else {return nil}
+        guard let amount = map.floatValue(forKey: "amount"),
+              let time = map.doubleValue(forKey: "time"),
+              let feedback = map.floatValue(forKey: "feedback"),
+              let lowPassCutoff = map.floatValue(forKey: "lowPassCutoff") else {return nil}
         
         self.amount = amount
         self.time = time

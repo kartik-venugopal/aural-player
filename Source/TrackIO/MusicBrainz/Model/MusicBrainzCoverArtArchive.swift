@@ -51,12 +51,12 @@ class MusicBrainzCoverArtArchive {
         guard let artwork = dict["artwork", Bool.self],
               let back = dict["back", Bool.self],
               let front = dict["front", Bool.self],
-              let count = dict["count", NSNumber.self] else {return nil}
+              let count = dict.intValue(forKey: "count") else {return nil}
        
         self.artwork = artwork
         self.back = back
         self.front = front
-        self.count = count.intValue
+        self.count = count
     }
 }
 

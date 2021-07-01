@@ -37,8 +37,8 @@ class AudioGraphPersistentState: PersistentStateProtocol {
         
         self.outputDevice = map.persistentObjectValue(forKey: "outputDevice", ofType: AudioDevicePersistentState.self)
         
-        self.volume = map["volume", Float.self]
-        self.balance = map["balance", Float.self]
+        self.volume = map.floatValue(forKey: "volume")
+        self.balance = map.floatValue(forKey: "balance")
         self.muted = map["muted", Bool.self]
         
         self.masterUnit = map.persistentObjectValue(forKey: "masterUnit", ofType: MasterUnitPersistentState.self)

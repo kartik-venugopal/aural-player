@@ -29,8 +29,8 @@ class SoundProfilePersistentState: PersistentStateProtocol {
     required init?(_ map: NSDictionary) {
         
         guard let file = map.urlValue(forKey: "file"),
-              let volume = map["volume", Float.self],
-              let balance = map["balance", Float.self],
+              let volume = map.floatValue(forKey: "volume"),
+              let balance = map.floatValue(forKey: "balance"),
               let effects = map.persistentObjectValue(forKey: "effects", ofType: MasterPresetPersistentState.self) else {return nil}
         
         self.file = file

@@ -159,7 +159,7 @@ class FFmpegFileContext {
         do {
             
             let fileAttributes = try FileManager.default.attributesOfItem(atPath: filePath)
-            return fileAttributes[FileAttributeKey.size, UInt64.self] ?? 0
+            return fileAttributes.uint64Value(forKey: FileAttributeKey.size) ?? 0
             
         } catch let error as NSError {
             

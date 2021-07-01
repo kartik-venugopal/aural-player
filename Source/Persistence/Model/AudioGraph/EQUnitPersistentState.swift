@@ -22,8 +22,8 @@ class EQUnitPersistentState: EffectsUnitPersistentState<EQPresetPersistentState>
         super.init(map)
         
         self.type = map.enumValue(forKey: "type", ofType: EQType.self)
-        self.bands = map["bands", [Float].self]
-        self.globalGain = map["globalGain", Float.self]
+        self.bands = map.floatArrayValue(forKey: "bands")
+        self.globalGain = map.floatValue(forKey: "globalGain")
     }
 }
 
@@ -42,10 +42,10 @@ class EQPresetPersistentState: EffectsUnitPresetPersistentState {
     
     required init?(_ map: NSDictionary) {
 
-        guard let bands = map["bands", [Float].self] else {return nil}
+        guard let bands = map.floatArrayValue(forKey: "bands") else {return nil}
         
         self.bands = bands
-        self.globalGain = map["globalGain", Float.self]
+        self.globalGain = map.floatValue(forKey: "globalGain")
         
         super.init(map)
     }

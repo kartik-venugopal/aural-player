@@ -78,7 +78,7 @@ extension URL {
         do {
 
             let attr = try fileManager.attributesOfItem(atPath: path)
-            fileSize = Size(sizeBytes: attr[FileAttributeKey.size, UInt.self]!)
+            fileSize = Size(sizeBytes: attr.uintValue(forKey: FileAttributeKey.size)!)
             
             if let modDate = attr[FileAttributeKey.modificationDate, Date.self] {
                 lastModified = modDate
@@ -221,7 +221,7 @@ extension URL {
             // NSURLPathKey contains the target path.
             let resourceValues = URL.resourceValues(forKeys: [.pathKey], fromBookmarkData: data)
             
-            if let targetPath = (resourceValues?.allValues[.pathKey, String.self]) {
+            if let targetPath = resourceValues?.allValues[.pathKey, String.self] {
                 return URL(fileURLWithPath: targetPath)
             }
             

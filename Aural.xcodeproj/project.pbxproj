@@ -2385,8 +2385,8 @@
 		3E6C0FA425CEB98600BF0D07 /* Effects */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0FA525CEB98600BF0D07 /* EffectsColorSchemeViewController.swift */,
 				3E6C0FA625CEB98600BF0D07 /* EffectsColorScheme.xib */,
+				3E6C0FA525CEB98600BF0D07 /* EffectsColorSchemeViewController.swift */,
 			);
 			path = Effects;
 			sourceTree = "<group>";

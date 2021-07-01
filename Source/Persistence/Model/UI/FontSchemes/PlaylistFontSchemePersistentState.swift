@@ -48,9 +48,9 @@ class PlaylistFontSchemePersistentState: PersistentStateProtocol {
     required init?(_ map: NSDictionary) {
         
         self.trackTextSize = map.cgFloatValue(forKey: "trackTextSize")
-        self.trackTextYOffset = map["trackTextYOffset", Int.self]
+        self.trackTextYOffset = map.intValue(forKey: "trackTextYOffset")
         self.groupTextSize = map.cgFloatValue(forKey: "groupTextSize")
-        self.groupTextYOffset = map["groupTextYOffset", Int.self]
+        self.groupTextYOffset = map.intValue(forKey: "groupTextYOffset")
         self.summarySize = map.cgFloatValue(forKey: "summarySize")
         self.tabButtonTextSize = map.cgFloatValue(forKey: "tabButtonTextSize")
         self.chaptersListHeaderSize = map.cgFloatValue(forKey: "chaptersListHeaderSize")

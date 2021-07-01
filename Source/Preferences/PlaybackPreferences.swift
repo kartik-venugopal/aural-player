@@ -63,14 +63,14 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
         primarySeekLengthOption = dict.enumValue(forKey: Self.key_primarySeekLengthOption,
                                                  ofType: SeekLengthOptions.self) ?? Defaults.primarySeekLengthOption
         
-        primarySeekLengthConstant = dict[Self.key_primarySeekLengthConstant, Int.self] ?? Defaults.primarySeekLengthConstant
-        primarySeekLengthPercentage = dict[Self.key_primarySeekLengthPercentage, Int.self] ?? Defaults.primarySeekLengthPercentage
+        primarySeekLengthConstant = dict.intValue(forKey: Self.key_primarySeekLengthConstant) ?? Defaults.primarySeekLengthConstant
+        primarySeekLengthPercentage = dict.intValue(forKey: Self.key_primarySeekLengthPercentage) ?? Defaults.primarySeekLengthPercentage
         
         secondarySeekLengthOption = dict.enumValue(forKey: Self.key_secondarySeekLengthOption,
                                                    ofType: SeekLengthOptions.self) ?? Defaults.secondarySeekLengthOption
         
-        secondarySeekLengthConstant = dict[Self.key_secondarySeekLengthConstant, Int.self] ?? Defaults.secondarySeekLengthConstant
-        secondarySeekLengthPercentage = dict[Self.key_secondarySeekLengthPercentage, Int.self] ?? Defaults.secondarySeekLengthPercentage
+        secondarySeekLengthConstant = dict.intValue(forKey: Self.key_secondarySeekLengthConstant) ?? Defaults.secondarySeekLengthConstant
+        secondarySeekLengthPercentage = dict.intValue(forKey: Self.key_secondarySeekLengthPercentage) ?? Defaults.secondarySeekLengthPercentage
         
         autoplayOnStartup = dict[Self.key_autoplayOnStartup, Bool.self] ?? Defaults.autoplayOnStartup
         

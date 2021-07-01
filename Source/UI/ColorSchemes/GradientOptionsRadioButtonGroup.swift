@@ -61,7 +61,9 @@ class GradientOptionsRadioButtonGroup: NSControl {
                 btnGradientBrighten.on()
             }
             
-            [btnGradientDarken, btnGradientBrighten].forEach({$0?.enableIf(btnGradientEnabled.isOn)})
+            // Need to disable this line because it causes a problem in Sierra and High Sierra.
+            // Text disappears when the button is disabled.
+//            [btnGradientDarken, btnGradientBrighten].forEach({$0?.enableIf(btnGradientEnabled.isOn)})
         }
     }
 }

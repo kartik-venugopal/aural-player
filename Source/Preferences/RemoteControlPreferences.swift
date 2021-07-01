@@ -22,10 +22,11 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
     private typealias Defaults = PreferencesDefaults.Controls.RemoteControl
     
     internal required init(_ dict: [String: Any]) {
-
+        
         enabled = dict[Self.key_enabled, Bool.self] ?? Defaults.enabled
         
-        trackChangeOrSeekingOption = dict.enumValue(forKey: Self.key_trackChangeOrSeekingOption, ofType: TrackChangeOrSeekingOptions.self) ?? Defaults.trackChangeOrSeekingOption
+        trackChangeOrSeekingOption = dict.enumValue(forKey: Self.key_trackChangeOrSeekingOption,
+                                                    ofType: TrackChangeOrSeekingOptions.self) ?? Defaults.trackChangeOrSeekingOption
     }
     
     func persist(to defaults: UserDefaults) {

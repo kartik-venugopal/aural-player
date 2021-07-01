@@ -64,12 +64,12 @@ class PlayerColorSchemePersistentState: PersistentStateProtocol {
         self.sliderBackgroundColor = map.persistentColorValue(forKey: "sliderBackgroundColor")
         self.sliderBackgroundGradientType = map.enumValue(forKey: "sliderBackgroundGradientType",
                                                           ofType: ColorSchemeGradientType.self)
-        self.sliderBackgroundGradientAmount = map["sliderBackgroundGradientAmount", Int.self]
+        self.sliderBackgroundGradientAmount = map.intValue(forKey: "sliderBackgroundGradientAmount")
         
         self.sliderForegroundColor = map.persistentColorValue(forKey: "sliderForegroundColor")
         self.sliderForegroundGradientType = map.enumValue(forKey: "sliderForegroundGradientType",
                                                           ofType: ColorSchemeGradientType.self)
-        self.sliderForegroundGradientAmount = map["sliderForegroundGradientAmount", Int.self]
+        self.sliderForegroundGradientAmount = map.intValue(forKey: "sliderForegroundGradientAmount")
         
         self.sliderKnobColor = map.persistentColorValue(forKey: "sliderKnobColor")
         self.sliderKnobColorSameAsForeground = map["sliderKnobColorSameAsForeground", Bool.self]

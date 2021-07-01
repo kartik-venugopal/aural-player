@@ -41,7 +41,7 @@
             <windowCollectionBehavior key="collectionBehavior" fullScreenNone="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="335" y="100" width="530" height="230"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="530" height="230"/>
             <value key="maxSize" type="size" width="530" height="230"/>
             <view key="contentView" id="W7v-UI-tl4">
@@ -1661,13 +1661,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="efi-tn-whz"/>
-                            <menuItem title=" Switch to menu bar mode" image="MenuBarMode" id="zS7-7O-5lF" userLabel="Switch to menu bar mode">
+                            <menuItem title=" Switch to menu bar mode" image="MenuBarMode-Small" id="zS7-7O-5lF" userLabel="Switch to menu bar mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="menuBarModeAction:" target="-2" id="InE-5b-LPh"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Switch to control bar mode" image="ControlBarMode" id="ht9-cb-4uj" userLabel="Switch to control bar mode">
+                            <menuItem title=" Switch to control bar mode" image="ControlBarMode-Small" id="ht9-cb-4uj" userLabel="Switch to control bar mode">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="controlBarModeAction:" target="-2" id="f8J-3w-Zy6"/>
@@ -2134,6 +2134,7 @@ CA
         <image name="CollapseGroups" width="15" height="15"/>
         <image name="ColorScheme" width="13" height="14"/>
         <image name="ControlBarMode" width="14" height="10"/>
+        <image name="ControlBarMode-Small" width="14" height="10"/>
         <image name="CropSelection-Small" width="14" height="14"/>
         <image name="Down-Small" width="10" height="14"/>
         <image name="EQ" width="14" height="14"/>
@@ -2149,6 +2150,7 @@ CA
         <image name="LoopOff-Small" width="15" height="13"/>
         <image name="MasterTab-Small" width="14" height="14"/>
         <image name="MenuBarMode" width="14" height="10"/>
+        <image name="MenuBarMode-Small" width="14" height="10"/>
         <image name="MoreInfo-Small" width="12" height="12"/>
         <image name="Mute-Small" width="14" height="14"/>
         <image name="NextTrack-Small" width="10" height="11"/>

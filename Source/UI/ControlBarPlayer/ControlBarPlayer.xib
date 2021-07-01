@@ -34,7 +34,7 @@
             <windowStyleMask key="styleMask" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="570" height="40"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="570" height="40"/>
             <value key="maxSize" type="size" width="10000" height="40"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ControlBarPlaybackView" customModule="Aural" customModuleProvider="target">
@@ -328,7 +328,7 @@
                                                         <action selector="windowedModeAction:" target="-2" id="uzR-XL-iFa"/>
                                                     </connections>
                                                 </menuItem>
-                                                <menuItem title="  Switch to menu bar mode" image="MenuBarMode" id="Uub-O4-NqJ" userLabel="Switch to menu bar mode">
+                                                <menuItem title="  Switch to menu bar mode" image="MenuBarMode-Small" id="Uub-O4-NqJ" userLabel="Switch to menu bar mode">
                                                     <modifierMask key="keyEquivalentModifierMask"/>
                                                     <connections>
                                                         <action selector="menuBarModeAction:" target="-2" id="VOp-3E-gIP"/>
@@ -480,7 +480,7 @@
                                     </connections>
                                 </button>
                                 <slider toolTip="Volume" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WoE-gv-TJl" userLabel="Volume Slider">
-                                    <rect key="frame" x="522" y="12" width="40" height="15"/>
+                                    <rect key="frame" x="520" y="11" width="44" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="7Di-bS-mTc"/>
                                         <constraint firstAttribute="width" constant="40" id="xcD-qx-ihZ"/>
@@ -705,7 +705,7 @@
         <image name="DockTopLeft" width="14" height="12"/>
         <image name="DockTopRight" width="14" height="12"/>
         <image name="Loop" width="42" height="15"/>
-        <image name="MenuBarMode" width="14" height="10"/>
+        <image name="MenuBarMode-Small" width="14" height="10"/>
         <image name="NextTrack" width="21" height="23"/>
         <image name="Pause" width="38" height="36"/>
         <image name="Play" width="31" height="35"/>
