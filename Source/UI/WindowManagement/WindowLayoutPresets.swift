@@ -193,7 +193,7 @@ enum WindowLayoutPresets: String, CaseIterable {
             let xPadding = visibleFrame.width - Self.mainWindowWidth
             
             playlistHeight = playlistHeight_verticalPlayerAndPlaylist
-            let yPadding = (visibleFrame.height - Self.mainWindowHeight - playlistHeight)
+            let yPadding = (visibleFrame.height - Self.mainWindowHeight - playlistHeight - gap)
             let halfYPadding = yPadding / 2
             
             mainWindowOrigin = NSMakePoint(visibleFrame.minX + (xPadding / 2),
