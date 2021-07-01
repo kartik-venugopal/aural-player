@@ -19,6 +19,9 @@ class ControlBarPlayerSequencingViewController: PlayerSequencingViewController {
     
     override func initSubscriptions() {
         
+        Messenger.subscribe(self, .player_setRepeatMode, self.setRepeatMode(_:))
+        Messenger.subscribe(self, .player_setShuffleMode, self.setShuffleMode(_:))
+        
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
     }

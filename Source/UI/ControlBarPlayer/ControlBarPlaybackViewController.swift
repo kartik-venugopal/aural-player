@@ -18,6 +18,8 @@ class ControlBarPlaybackViewController: PlaybackViewController {
         // MARK: Notifications --------------------------------------------------------------
         
         Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
+        Messenger.subscribe(self, .player_stop, self.stop)
+        Messenger.subscribe(self, .player_replayTrack, self.replayTrack)
         Messenger.subscribe(self, .player_previousTrack, self.previousTrack)
         Messenger.subscribe(self, .player_nextTrack, self.nextTrack)
         Messenger.subscribe(self, .player_seekBackward, self.seekBackward(_:))

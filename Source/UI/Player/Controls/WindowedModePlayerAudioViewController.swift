@@ -42,18 +42,4 @@ class WindowedModePlayerAudioViewController: PlayerAudioViewController {
         Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
         Messenger.subscribe(self, .player_changeSliderValueTextColor, self.changeSliderValueTextColor(_:))
     }
-    
-    // Decreases the volume by a certain preset decrement
-    func decreaseVolume(_ inputMode: UserInputMode) {
-        
-        let newVolume = audioGraph.decreaseVolume(inputMode)
-        volumeChanged(newVolume, audioGraph.muted)
-    }
-    
-    // Increases the volume by a certain preset increment
-    func increaseVolume(_ inputMode: UserInputMode) {
-        
-        let newVolume = audioGraph.increaseVolume(inputMode)
-        volumeChanged(newVolume, audioGraph.muted)
-    }
 }

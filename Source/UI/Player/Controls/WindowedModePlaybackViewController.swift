@@ -94,19 +94,6 @@ class WindowedModePlaybackViewController: PlaybackViewController {
         player.play(group, PlaybackParams.defaultParams())
     }
     
-    // Replays the currently playing track, from the beginning, if there is one
-    func replayTrack() {
-        
-        let wasPaused: Bool = player.state == .paused
-        
-        player.replay()
-        playbackView.updateSeekPosition()
-        
-        if wasPaused {
-            playbackView.playbackStateChanged(player.state)
-        }
-    }
-    
     func seekBackward_secondary() {
         
         player.seekBackwardSecondary()

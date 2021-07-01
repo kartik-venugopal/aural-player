@@ -58,8 +58,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
             menu.removeItem(at: 4)
         }
         
-        // Recreate the bookmarks menu
-        bookmarks.allBookmarks.forEach({menu.addItem(createBookmarkMenuItem($0))})
+        // Recreate the bookmarks menu (reverse so that newer items appear first).
+        bookmarks.allBookmarks.reversed().forEach {menu.addItem(createBookmarkMenuItem($0))}
     }
     
     func menuDidClose(_ menu: NSMenu) {

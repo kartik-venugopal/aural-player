@@ -34,7 +34,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     // Delegate that provides info about the playing track
     private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
-    // Delegate that provides access to History information
+    // Delegate that provides access to the Favorites track list.
     private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
     private lazy var trackReader: TrackReader = ObjectGraph.trackReader

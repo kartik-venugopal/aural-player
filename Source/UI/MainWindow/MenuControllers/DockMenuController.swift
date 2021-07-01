@@ -68,14 +68,14 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
         
         recreateHistoryMenus()
         
-        // Fav menu
-        favorites.allFavorites.forEach({
+        // Favorites menu
+        favorites.allFavorites.reversed().forEach {
             
             let item = FavoritesMenuItem(title: $0.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
             item.target = self
             item.favorite = $0
             favoritesMenu.addItem(item)
-        })
+        }
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -100,7 +100,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
             item.target = self
             item.favorite = fav
             
-            favoritesMenu.addItem(item)
+            favoritesMenu.insertItem(item, at: 0)
         }
         
         // Update the toggle menu item

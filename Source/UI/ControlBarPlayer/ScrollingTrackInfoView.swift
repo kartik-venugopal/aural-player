@@ -115,7 +115,10 @@ class ScrollingTrackInfoView: NSView {
     
     func clear() {
         
+        self.artist = nil
+        self.title = ""
         self.text = ""
+        
         clearTimer()
         redraw()
         toolTip = nil

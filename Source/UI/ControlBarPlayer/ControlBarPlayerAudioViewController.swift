@@ -27,6 +27,10 @@ class ControlBarPlayerAudioViewController: PlayerAudioViewController {
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
+        Messenger.subscribe(self, .player_muteOrUnmute, self.muteOrUnmute)
+        Messenger.subscribe(self, .player_decreaseVolume, self.decreaseVolume(_:))
+        Messenger.subscribe(self, .player_increaseVolume, self.increaseVolume(_:))
+        
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
         Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))

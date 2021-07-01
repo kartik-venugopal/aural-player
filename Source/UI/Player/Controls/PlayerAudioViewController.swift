@@ -93,6 +93,20 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
         updateVolumeMuteButtonImage(audioGraph.volume, audioGraph.muted)
     }
     
+    // Decreases the volume by a certain preset decrement
+    func decreaseVolume(_ inputMode: UserInputMode) {
+        
+        let newVolume = audioGraph.decreaseVolume(inputMode)
+        volumeChanged(newVolume, audioGraph.muted)
+    }
+    
+    // Increases the volume by a certain preset increment
+    func increaseVolume(_ inputMode: UserInputMode) {
+        
+        let newVolume = audioGraph.increaseVolume(inputMode)
+        volumeChanged(newVolume, audioGraph.muted)
+    }
+    
     // updateSlider should be true if the action was not triggered by the slider in the first place.
     func volumeChanged(_ volume: Float, _ muted: Bool, _ updateSlider: Bool = true, _ showFeedback: Bool = true) {
         

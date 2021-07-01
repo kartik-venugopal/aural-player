@@ -42,6 +42,9 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
     
+    // Delegate that provides access to the Favorites track list.
+    private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    
     // Delegate that retrieves playback sequencing info (previous/next track)
     private let sequencer: SequencerDelegateProtocol = ObjectGraph.sequencerDelegate
     
@@ -89,6 +92,8 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
         Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
+        
+        Messenger.subscribe(self, .favoritesList_addOrRemove, self.addOrRemoveFavorite)
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
@@ -193,6 +198,21 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     
     func windowResized() {
         layoutTextView(forceChange: false)
+    }
+    
+    // Required for dock menu function "Add/Remove playing track to/from Favorites".
+    private func addOrRemoveFavorite() {
+        
+        if let playingTrack = player.playingTrack {
+            
+            let file = playingTrack.file
+            
+            if favorites.favoriteWithFileExists(file) {
+                favorites.deleteFavoriteWithFile(file)
+            } else {
+                _ = favorites.addFavorite(playingTrack)
+            }
+        }
     }
     
     // MARK: Appearance ----------------------------------------

@@ -65,8 +65,8 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
             favoritesMenu.removeItem(at: 3)
         }
         
-        // Recreate the menu
-        favorites.allFavorites.forEach({favoritesMenu.addItem(createFavoritesMenuItem($0))})
+        // Recreate the menu (reverse so that newer items appear first).
+        favorites.allFavorites.reversed().forEach {favoritesMenu.addItem(createFavoritesMenuItem($0))}
     }
     
     func menuDidClose(_ menu: NSMenu) {
