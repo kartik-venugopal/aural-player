@@ -15,10 +15,10 @@ class ControlBarPlayerAudioViewController: PlayerAudioViewController {
     
     override func viewDidLoad() {
         
-        btnVolume.tintFunction = {Colors.functionButtonColor}
-        lblVolume.textColor = Colors.functionButtonColor
-        
         super.viewDidLoad()
+        
+        applyFontScheme(fontSchemesManager.systemScheme)
+        applyColorScheme(colorSchemesManager.systemScheme)
     }
     
     override func initSubscriptions() {

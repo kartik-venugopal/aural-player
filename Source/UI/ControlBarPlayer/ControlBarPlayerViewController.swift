@@ -23,6 +23,8 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     @IBOutlet weak var playbackView: ControlBarPlaybackView!
     @IBOutlet weak var seekSliderView: ControlBarSeekSliderView!
     
+    @IBOutlet weak var viewSettingsMenuButton: NSPopUpButton!
+    
     @IBOutlet weak var scrollingEnabledMenuItem: NSMenuItem!
     @IBOutlet weak var showSeekPositionMenuItem: NSMenuItem!
     @IBOutlet weak var seekPositionDisplayTypeMenuItem: NSMenuItem!
@@ -61,6 +63,11 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     private let distanceBetweenControlsAndInfo: CGFloat = 31
     
     override func awakeFromNib() {
+        
+        // Hack to properly align the view settings menu button.
+        if !SystemUtils.isBigSur {
+            viewSettingsMenuButton.moveLeft(distance: 2)
+        }
         
         // Constraint managers
         lblSeekPositionConstraints = LayoutConstraintsManager(for: lblSeekPosition)

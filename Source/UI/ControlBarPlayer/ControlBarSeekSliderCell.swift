@@ -45,7 +45,7 @@ class ControlBarSeekSliderCell: SeekSliderCell {
         let superRect = super.barRect(flipped: false)
         let isBigSur: Bool = SystemUtils.isBigSur
         
-        return NSMakeRect(superRect.minX, isBigSur ? 6 : 0, superRect.width, superRect.height)
+        return NSMakeRect(superRect.minX, isBigSur ? 6 : 2, superRect.width, superRect.height)
     }
     
     override func drawBar(inside aRect: NSRect, flipped: Bool) {
