@@ -12,6 +12,14 @@ class MenuBarSeekSliderView: SeekSliderView {
     
     override func initSeekPositionLabels() {}
     
+    override func updateSeekPositionLabels(_ seekPos: PlaybackPosition) {
+        
+        let trackTimes = ValueFormatter.formatTrackTimes(seekPos.timeElapsed, seekPos.trackDuration, seekPos.percentageElapsed, .formatted, .formatted)
+        
+        lblTimeElapsed?.stringValue = trackTimes.elapsed
+        lblTimeRemaining?.stringValue = trackTimes.remaining
+    }
+    
     func stopUpdatingSeekPosition() {
         setSeekTimerState(false)
     }
