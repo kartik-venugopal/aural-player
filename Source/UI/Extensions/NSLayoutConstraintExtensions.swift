@@ -34,6 +34,10 @@ extension NSLayoutConstraint {
     static func bottomTopConstraint(forItem item: Any, relatedTo otherItem: Any, offset: CGFloat = 0) -> NSLayoutConstraint {
         NSLayoutConstraint(item: item, attribute: .bottom, relatedBy: .equal, toItem: otherItem, attribute: .top, multiplier: 1, constant: offset)
     }
+    
+    static func bottomBottomConstraint(forItem item: Any, relatedTo otherItem: Any, offset: CGFloat = 0) -> NSLayoutConstraint {
+        NSLayoutConstraint(item: item, attribute: .bottom, relatedBy: .equal, toItem: otherItem, attribute: .bottom, multiplier: 1, constant: offset)
+    }
 }
 
 class LayoutConstraintsManager {
@@ -91,6 +95,21 @@ class LayoutConstraintsManager {
         
         let constraint = NSLayoutConstraint.bottomTopConstraint(forItem: view,
                                                                 relatedTo: otherView, offset: offset)
+        
+        superview?.activateAndAddConstraint(constraint)
+    }
+    
+    func setBottom(equalToBottomOf otherView: NSView) {
+        
+        let constraint = NSLayoutConstraint.bottomBottomConstraint(forItem: view,
+                                                                   relatedTo: otherView, offset: 0)
+        
+        superview?.activateAndAddConstraint(constraint)
+    }
+    
+    func centerVerticallyInSuperview(offset: CGFloat = 0) {
+        
+        let constraint = NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: view.superview, attribute: .centerY, multiplier: 1, constant: offset)
         
         superview?.activateAndAddConstraint(constraint)
     }

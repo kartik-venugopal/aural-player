@@ -11,7 +11,7 @@ import Cocoa
 
 class ControlBarSeekSliderCell: SeekSliderCell {
     
-    override var barInsetY: CGFloat {0}
+    override var barInsetY: CGFloat {SystemUtils.isBigSur ? -0.5 : 0}
     override var barRadius: CGFloat {1}
     
     private let loopMarkerWidth: CGFloat = 8
@@ -30,10 +30,22 @@ class ControlBarSeekSliderCell: SeekSliderCell {
     // Don't draw the knob
     override func drawKnob(_ knobRect: NSRect) {}
     
+    // Limit the tracking rect so that events don't conflict with clicks outside the (visible) slider.
+    override func trackMouse(with event: NSEvent, in cellFrame: NSRect, of controlView: NSView, untilMouseUp flag: Bool) -> Bool {
+        
+        if event.locationInWindow.y <= 6 {
+            return super.trackMouse(with: event, in: cellFrame, of: controlView, untilMouseUp: flag)
+        }
+        
+        return false
+    }
+    
     override func barRect(flipped: Bool) -> NSRect {
         
-        let superRect = super.barRect(flipped: flipped)
-        return NSMakeRect(superRect.minX, 5, superRect.width, superRect.height)
+        let superRect = super.barRect(flipped: false)
+        let isBigSur: Bool = SystemUtils.isBigSur
+        
+        return NSMakeRect(superRect.minX, isBigSur ? 6 : 0, superRect.width, superRect.height)
     }
     
     override func drawBar(inside aRect: NSRect, flipped: Bool) {

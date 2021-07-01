@@ -15,7 +15,7 @@ The new **Support** menu provides:
 * A link to Aural Player's wiki home page that contains all the documentation for the app.
 * An option to check for updates to the app. If a newer app version is available, a link to get the latest release version is displayed.
 
-### Bug fixes / improvements 
+### Bug fixes / improvements
 
 * **Media keys / Remote control** -  Fixed a bug that prevented media keys and remote control commands from working while the app was running in menu bar mode.
 * Previously, Remote control was disabled by default on systems older than macOS Big Sur. Now, it will be enabled by default on all operating systems.

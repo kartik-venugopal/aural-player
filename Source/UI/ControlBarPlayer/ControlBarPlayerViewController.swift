@@ -58,6 +58,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     private var seekSliderConstraints: LayoutConstraintsManager!
     
     private let minWindowWidthToShowSeekPosition: CGFloat = 610
+    private let distanceBetweenControlsAndInfo: CGFloat = 31
     
     override func awakeFromNib() {
         
@@ -70,11 +71,17 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         
         // Seek slider
         seekSliderConstraints.setLeading(relatedToLeadingOf: textView, offset: -1)
-        seekSliderConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -21)
+        seekSliderConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -distanceBetweenControlsAndInfo)
         seekSliderView.showSeekPosition = false
         
         // Text view
         textViewConstraints.setLeading(relatedToTrailingOf: imgArt, offset: 10)
+        textViewConstraints.setHeight(26)
+        textViewConstraints.centerVerticallyInSuperview(offset: -1)
+        
+        lblSeekPositionConstraints.setHeight(textView.height)
+        lblSeekPositionConstraints.centerVerticallyInSuperview(offset: -1)
+        
         layoutTextView()
         textView.scrollingEnabled = ControlBarPlayerViewState.trackInfoScrollingEnabled
         
@@ -117,19 +124,17 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         
         if showSeekPosition {
             
-            lblSeekPositionConstraints.removeAll()
+            lblSeekPositionConstraints.removeAll(withAttributes: [.width, .trailing])
             labelWidth = widthForSeekPosLabel() + 5 // Compute the required width and add some padding.
             
             lblSeekPositionConstraints.setWidth(labelWidth)
-            lblSeekPositionConstraints.setHeight(textView.height)
-            lblSeekPositionConstraints.setBottom(relatedToTopOf: seekSlider)
-            lblSeekPositionConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -21)
+            lblSeekPositionConstraints.setTrailing(relatedToLeadingOf: btnRepeat, offset: -distanceBetweenControlsAndInfo)
         }
         
         // Text view
         textViewConstraints.removeAll(withAttributes: [.trailing])
         textViewConstraints.setTrailing(relatedToLeadingOf: btnRepeat,
-                                        offset: showSeekPosition ? -(21 + labelWidth) : -22)
+                                        offset: -(distanceBetweenControlsAndInfo + (showSeekPosition ? labelWidth : 1)))
     }
     
     ///

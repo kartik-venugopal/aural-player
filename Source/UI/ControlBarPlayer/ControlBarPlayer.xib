@@ -34,7 +34,7 @@
             <windowStyleMask key="styleMask" closable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="570" height="40"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="570" height="40"/>
             <value key="maxSize" type="size" width="10000" height="40"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ" customClass="ControlBarPlaybackView" customModule="Aural" customModuleProvider="target">
@@ -48,7 +48,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button toolTip="Quit application" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ll7-4b-FN9" userLabel="Close Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="7" y="25" width="10" height="10"/>
+                                    <rect key="frame" x="5" y="25" width="10" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="Close" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="yvy-bI-r2e">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -352,11 +352,11 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <customView id="lNe-zj-5jU" customClass="ScrollingTrackInfoView" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="66" y="12" width="205" height="25"/>
+                                    <rect key="frame" x="66" y="7" width="205" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </customView>
                                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" preferredMaxLayoutWidth="70" translatesAutoresizingMaskIntoConstraints="NO" id="DjW-nr-vXJ" userLabel="Seek Position">
-                                    <rect key="frame" x="203" y="12" width="70" height="25"/>
+                                    <rect key="frame" x="203" y="7" width="70" height="26"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="-957:59:59" id="ZHT-Ag-PgS" customClass="VCenteredLabelCell" customModule="Aural" customModuleProvider="target">
                                         <font key="font" size="12" name="Exo-Medium"/>
@@ -365,7 +365,7 @@
                                     </textFieldCell>
                                 </textField>
                                 <slider hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" id="oBR-SZ-2k2" userLabel="Seek Slider">
-                                    <rect key="frame" x="66" y="0.0" width="205" height="14"/>
+                                    <rect key="frame" x="66" y="-5" width="205" height="14"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <sliderCell key="cell" controlSize="mini" continuous="YES" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="ovd-HG-pIx" customClass="ControlBarSeekSliderCell" customModule="Aural" customModuleProvider="target"/>
                                     <connections>
@@ -373,7 +373,7 @@
                                     </connections>
                                 </slider>
                                 <button toolTip="Seek forward" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KtZ-rZ-MnJ" userLabel="Seek Fwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="465" y="15" width="13" height="10"/>
+                                    <rect key="frame" x="464" y="15" width="13" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="10" id="iNN-2d-Fqh"/>
                                         <constraint firstAttribute="width" constant="13" id="jTm-kX-vva"/>
@@ -390,7 +390,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Next track" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iaY-fV-voY" userLabel="NextTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="447" y="15" width="13" height="10"/>
+                                    <rect key="frame" x="446" y="15" width="13" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="13" id="HyY-vC-ha3"/>
                                         <constraint firstAttribute="height" constant="10" id="Z0d-G1-T97"/>
@@ -408,7 +408,7 @@
                                     </connections>
                                 </button>
                                 <button wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sFw-RL-2ra" customClass="OnOffImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="426" y="12" width="16" height="16"/>
+                                    <rect key="frame" x="425" y="12" width="16" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="9Lp-hG-deF"/>
                                         <constraint firstAttribute="width" constant="16" id="OLg-9P-3PF"/>
@@ -428,7 +428,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Previous track" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8py-2V-iWJ" userLabel="PrevTrack Button" customClass="TrackPeekingButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="405" y="15" width="13" height="10"/>
+                                    <rect key="frame" x="404" y="15" width="13" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="13" id="gcV-E3-itD"/>
                                         <constraint firstAttribute="height" constant="10" id="qZL-nq-Cnf"/>
@@ -446,7 +446,7 @@
                                     </connections>
                                 </button>
                                 <button toolTip="Seek backward" wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rMK-zd-YvE" userLabel="Seek Bwd Button" customClass="TintedImageButton" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="387" y="15" width="13" height="10"/>
+                                    <rect key="frame" x="386" y="15" width="13" height="10"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="13" id="AdY-ah-fAj"/>
                                         <constraint firstAttribute="height" constant="10" id="gPy-pO-OSz"/>
@@ -480,7 +480,7 @@
                                     </connections>
                                 </button>
                                 <slider toolTip="Volume" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WoE-gv-TJl" userLabel="Volume Slider">
-                                    <rect key="frame" x="522" y="12" width="40" height="15"/>
+                                    <rect key="frame" x="520" y="11" width="44" height="17"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="13" id="7Di-bS-mTc"/>
                                         <constraint firstAttribute="width" constant="40" id="xcD-qx-ihZ"/>
@@ -560,13 +560,13 @@
                                 <constraint firstItem="rMK-zd-YvE" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="e6N-GS-1t5"/>
                                 <constraint firstItem="iaY-fV-voY" firstAttribute="leading" secondItem="sFw-RL-2ra" secondAttribute="trailing" constant="5" id="hZT-AO-29u"/>
                                 <constraint firstAttribute="trailing" secondItem="WoE-gv-TJl" secondAttribute="trailing" constant="8" id="j2J-cV-pJn"/>
-                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="leading" secondItem="KtZ-rZ-MnJ" secondAttribute="trailing" constant="27" id="jQk-T0-EgG"/>
+                                <constraint firstItem="cQe-K3-rAJ" firstAttribute="leading" secondItem="KtZ-rZ-MnJ" secondAttribute="trailing" constant="28" id="jQk-T0-EgG"/>
                                 <constraint firstAttribute="trailing" secondItem="5Wc-og-czo" secondAttribute="trailing" constant="12" id="mDT-8Z-6OB"/>
                                 <constraint firstItem="8tt-Ju-N8p" firstAttribute="leading" secondItem="Hat-OP-WNr" secondAttribute="trailing" constant="5" id="nuW-dj-Unr"/>
                                 <constraint firstItem="8py-2V-iWJ" firstAttribute="leading" secondItem="rMK-zd-YvE" secondAttribute="trailing" constant="5" id="poS-gU-yuK"/>
                                 <constraint firstItem="8py-2V-iWJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="u4G-TC-WOK"/>
                                 <constraint firstItem="KtZ-rZ-MnJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="15" id="vyb-wg-JwH"/>
-                                <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="29" id="x29-1E-zNF"/>
+                                <constraint firstItem="rMK-zd-YvE" firstAttribute="leading" secondItem="8tt-Ju-N8p" secondAttribute="trailing" constant="28" id="x29-1E-zNF"/>
                                 <constraint firstItem="cQe-K3-rAJ" firstAttribute="top" secondItem="Aqe-re-gbP" secondAttribute="top" constant="14" id="yXp-Fj-qAl"/>
                             </constraints>
                             <connections>
