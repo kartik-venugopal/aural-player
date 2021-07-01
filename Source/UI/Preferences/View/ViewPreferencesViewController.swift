@@ -17,6 +17,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     @IBOutlet weak var windowedAppModeMenuItem: NSMenuItem!
     @IBOutlet weak var menuBarAppModeMenuItem: NSMenuItem!
+    @IBOutlet weak var controlBarAppModeMenuItem: NSMenuItem!
     
     @IBOutlet weak var btnStartWithLayout: NSButton!
     @IBOutlet weak var btnRememberLayout: NSButton!
@@ -32,14 +33,13 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
     
     override var nibName: String? {"ViewPreferences"}
     
-    var preferencesView: NSView {
-        return self.view
-    }
+    var preferencesView: NSView {self.view}
     
     override func viewDidLoad() {
         
         windowedAppModeMenuItem.representedObject = AppMode.windowed
         menuBarAppModeMenuItem.representedObject = AppMode.menuBar
+        controlBarAppModeMenuItem.representedObject = AppMode.controlBar
     }
     
     func resetFields(_ preferences: Preferences) {
@@ -52,11 +52,26 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
             btnRememberAppMode.on()
         }
         
-        if viewPrefs.appModeOnStartup.modeName == AppMode.menuBar.rawValue {
+        switch viewPrefs.appModeOnStartup.modeName {
+        
+        case AppMode.windowed.rawValue:
+            
+            appModeMenu.select(windowedAppModeMenuItem)
+            
+        case AppMode.menuBar.rawValue:
+            
             appModeMenu.select(menuBarAppModeMenuItem)
-        } else {
+            
+        case AppMode.controlBar.rawValue:
+            
+            appModeMenu.select(controlBarAppModeMenuItem)
+            
+        default:
+            
             appModeMenu.select(windowedAppModeMenuItem)
         }
+        
+        appModeMenu.enableIf(btnStartWithAppMode.isOn)
      
         if viewPrefs.layoutOnStartup.option == .specific {
             btnStartWithLayout.on()
