@@ -106,12 +106,6 @@ class WindowedModePlaybackViewController: PlaybackViewController {
         playbackView.updateSeekPosition()
     }
     
-    func jumpToTime(_ time: Double) {
-        
-        player.seekToTime(time)
-        playbackView.updateSeekPosition()
-    }
-    
     // Returns a view that marks the current position of the seek slider knob.
     var seekPositionMarkerView: NSView! {
         

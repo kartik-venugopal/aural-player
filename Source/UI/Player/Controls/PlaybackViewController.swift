@@ -138,6 +138,12 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
         playbackView.updateSeekPosition()
     }
     
+    func jumpToTime(_ time: Double) {
+        
+        player.seekToTime(time)
+        playbackView.updateSeekPosition()
+    }
+    
     // MARK: Segment looping actions/functions ------------------------------------------------------------
     
     // Toggles the state of the segment playback loop for the currently playing track
