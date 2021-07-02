@@ -91,37 +91,20 @@ class TimeStretchUnitPersistenceTests: AuralTestCase {
     
     // MARK: Helper functions --------------------------------------------
     
-    private let rateRange: ClosedRange<Float> = 0.25...4
-    
-    private func randomRate() -> Float {Float.random(in: rateRange)}
+    private func randomRate() -> Float {Float.random(in: 0.25...4)}
     
     private func randomNillableRate() -> Float? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return randomRate()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.randomRate()}
     }
     
     private func randomNillableShiftPitch() -> Bool? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return Bool.random()
-        } else {
-            return nil
-        }
+        randomNillableValue {Bool.random()}
     }
     
     private func randomOverlap() -> Float {Float.random(in: 3...32)}
     
     private func randomNillableOverlap() -> Float? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return randomOverlap()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.randomOverlap()}
     }
     
     private func doTestDeserialization(state: EffectsUnitState?, userPresets: [TimeStretchPresetPersistentState]?,

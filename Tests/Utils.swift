@@ -43,9 +43,13 @@ extension CaseIterable where Self: RawRepresentable, AllCases == [Self] {
 func randomUnitState() -> EffectsUnitState {EffectsUnitState.randomCase()}
 
 func randomNillableUnitState() -> EffectsUnitState? {
+    randomNillableValue {randomUnitState()}
+}
+
+func randomNillableValue<T>(_ producer: @escaping () -> T) -> T? where T: Any {
     
     if Float.random(in: 0...1) < 0.5 {
-        return randomUnitState()
+        return producer()
     } else {
         return nil
     }

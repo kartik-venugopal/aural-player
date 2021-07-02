@@ -102,17 +102,10 @@ class PitchShiftUnitPersistenceTests: AuralTestCase {
     
     // MARK: Helper functions --------------------------------------------
     
-    private let pitchRange: ClosedRange<Float> = -2400...2400
-    
-    private func randomPitch() -> Float {Float.random(in: pitchRange)}
+    private func randomPitch() -> Float {Float.random(in: -2400...2400)}
     
     private func randomNillablePitch() -> Float? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return randomPitch()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.randomPitch()}
     }
     
     private func randomPositivePitch() -> Float {Float.random(in: 0...2400)}
@@ -122,12 +115,7 @@ class PitchShiftUnitPersistenceTests: AuralTestCase {
     private func randomOverlap() -> Float {Float.random(in: 3...32)}
     
     private func randomNillableOverlap() -> Float? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return randomOverlap()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.randomOverlap()}
     }
     
     private func doTestDeserialization(state: EffectsUnitState?, userPresets: [PitchShiftPresetPersistentState]?,

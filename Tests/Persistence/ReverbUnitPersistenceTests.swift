@@ -131,17 +131,10 @@ class ReverbUnitPersistenceTests: AuralTestCase {
 
     private func randomSpace() -> ReverbSpaces {ReverbSpaces.randomCase()}
 
-    private let amountRange: ClosedRange<Float> = 0...100
-
-    private func randomAmount() -> Float {Float.random(in: amountRange)}
+    private func randomAmount() -> Float {Float.random(in: 0...100)}
 
     private func randomNillableAmount() -> Float? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return randomAmount()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.randomAmount()}
     }
 }
 

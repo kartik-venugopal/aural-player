@@ -166,39 +166,19 @@ class EQUnitPersistenceTests: AuralTestCase {
     private func randomEQType() -> EQType {EQType.randomCase()}
     
     private func randomNillableEQType() -> EQType? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return randomEQType()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.randomEQType()}
     }
     
     private func randomNillableGlobalGain() -> Float? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return randomGlobalGain()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.randomGlobalGain()}
     }
     
     private func randomNillableTenBands() -> [Float]? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return tenRandomBands()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.tenRandomBands()}
     }
     
     private func randomNillableFifteenBands() -> [Float]? {
-        
-        if Float.random(in: 0...1) < 0.5 {
-            return fifteenRandomBands()
-        } else {
-            return nil
-        }
+        randomNillableValue {self.fifteenRandomBands()}
     }
     
     private let validGainRange: ClosedRange<Float> = -20...20
