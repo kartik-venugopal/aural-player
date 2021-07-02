@@ -9,13 +9,6 @@
 //
 import Foundation
 
-// A contract for payload objects dispatched by Messenger.
-protocol NotificationPayload {
-    
-    // The name of the associated Notification.
-    var notificationName: Notification.Name {get}
-}
-
 /*
     Signifies that a track transition has occurred, i.e. either the playback state, the current
     track, or both, have changed. eg. when changing tracks or when a playing track is stopped.

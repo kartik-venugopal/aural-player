@@ -37,13 +37,4 @@ extension NSDictionary {
         
         return nil
     }
-    
-    func persistentColorValue(forKey key: String) -> ColorPersistentState? {
-        
-        if let dict = self[key, NSDictionary.self] {
-            return ColorPersistentState.deserialize(dict)
-        }
-        
-        return nil
-    }
 }

@@ -301,3 +301,18 @@ class Playlist: PlaylistCRUDProtocol {
         reorderOpQueue.waitUntilAllOperationsAreFinished()
     }
 }
+
+extension Playlist: PersistentModelObject {
+    
+    // Returns all state for this playlist that needs to be persisted to disk
+    var persistentState: PlaylistPersistentState {
+        
+        var groupingPlaylists: [String: GroupingPlaylistPersistentState] = [:]
+        
+        for (type, playlist) in self.groupingPlaylists {
+            groupingPlaylists[type.rawValue] = (playlist as! GroupingPlaylist).persistentState
+        }
+        
+        return PlaylistPersistentState(tracks: self.tracks.map {$0.file}, groupingPlaylists: groupingPlaylists)
+    }
+}

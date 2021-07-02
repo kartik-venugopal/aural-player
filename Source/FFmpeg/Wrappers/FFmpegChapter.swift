@@ -42,3 +42,12 @@ class FFmpegChapter {
         self.title = titleInMetadata ?? "Chapter \(index + 1)"
     }
 }
+
+extension Chapter {
+    
+    convenience init(_ ffmpegChapter: FFmpegChapter) {
+        
+        self.init(ffmpegChapter.title, ffmpegChapter.startTime, ffmpegChapter.endTime,
+                  max(ffmpegChapter.endTime - ffmpegChapter.startTime, 0))
+    }
+}

@@ -97,11 +97,11 @@ class Messenger_AsynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, 
     
     private func doTestAsynchronousNotification_withEquatablePayload<P>(_ valueProducer: () -> P, repetitionCount: Int = 10000) where P: Hashable {
      
-        let receivedNotifCount: AtomicCounter = AtomicCounter()
+        let receivedNotifCount: AtomicCounter<Int> = AtomicCounter()
         let notifName: Notification.Name = Notification.Name("doTestSynchronousNotification_withEquatablePayload")
         
-        let sentPayloads: ConcurrentSet<P> = ConcurrentSet<P>("doTestSynchronousNotification_withEquatablePayload-sent")
-        let receivedPayloads: ConcurrentSet<P> = ConcurrentSet<P>("doTestSynchronousNotification_withEquatablePayload-received")
+        let sentPayloads: ConcurrentSet<P> = ConcurrentSet()
+        let receivedPayloads: ConcurrentSet<P> = ConcurrentSet()
         
         Messenger.subscribeAsync(self, notifName, {(thePayload: P) in
             

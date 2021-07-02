@@ -10,8 +10,6 @@
 import Cocoa
 import AVFoundation
 
-let visualizationAnalysisBufferSize: Int = 2048
-
 class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverProtocol, NSWindowDelegate, NotificationSubscriber, Destroyable {
     
     override var windowNibName: String? {"Visualizer"}

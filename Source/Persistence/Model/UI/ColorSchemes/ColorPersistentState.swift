@@ -200,3 +200,15 @@ class CMYKColorPersistentState: ColorPersistentState {
         self.black = black
     }
 }
+
+extension NSDictionary {
+    
+    func persistentColorValue(forKey key: String) -> ColorPersistentState? {
+        
+        if let dict = self[key, NSDictionary.self] {
+            return ColorPersistentState.deserialize(dict)
+        }
+        
+        return nil
+    }
+}

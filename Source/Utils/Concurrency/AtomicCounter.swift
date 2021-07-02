@@ -68,6 +68,16 @@ public final class AtomicCounter<T> where T: SignedInteger {
         }
     }
     
+    public func getAndIncrement() -> T {
+        
+        lock.produceValueAfterWait {
+            
+            let valueBeforeIncrement = _value
+            _value.increment()
+            return valueBeforeIncrement
+        }
+    }
+    
     public func increment() {
 
         lock.executeAfterWait {

@@ -16,39 +16,39 @@ class MathUtilsTests: XCTestCase {
 
     func testRoundedInt_Float() {
         
-        XCTAssertEqual(roundedInt(Float(5.5)), 6)
-        XCTAssertEqual(roundedInt(Float(5)), 5)
-        XCTAssertEqual(roundedInt(Float(5.0000001)), 5)
-        XCTAssertEqual(roundedInt(Float(4.99)), 5)
-        XCTAssertEqual(roundedInt(Float(4.499999)), 4)
+        XCTAssertEqual(Float(5.5).roundedInt, 6)
+        XCTAssertEqual(Float(5).roundedInt, 5)
+        XCTAssertEqual(Float(5.0000001).roundedInt, 5)
+        XCTAssertEqual(Float(4.99).roundedInt, 5)
+        XCTAssertEqual(Float(4.499999).roundedInt, 4)
     }
     
     func testRoundedInt_Double() {
         
-        XCTAssertEqual(roundedInt(5.5), 6)
-        XCTAssertEqual(roundedInt(5.0), 5)
-        XCTAssertEqual(roundedInt(5.0000001), 5)
-        XCTAssertEqual(roundedInt(4.99), 5)
-        XCTAssertEqual(roundedInt(4.499999), 4)
+        XCTAssertEqual(Double(5.5).roundedInt, 6)
+        XCTAssertEqual(Double(5.0).roundedInt, 5)
+        XCTAssertEqual(Double(5.0000001).roundedInt, 5)
+        XCTAssertEqual(Double(4.99).roundedInt, 5)
+        XCTAssertEqual(Double(4.499999).roundedInt, 4)
     }
     
     func testFloorInt_Float() {
         
-        XCTAssertEqual(floorInt(Float(5.5)), 5)
-        XCTAssertEqual(floorInt(Float(5.75)), 5)
-        XCTAssertEqual(floorInt(Float(5)), 5)
-        XCTAssertEqual(floorInt(Float(5.0000001)), 5)
-        XCTAssertEqual(floorInt(Float(4.999999)), 4)
-        XCTAssertEqual(floorInt(Float(4.499999)), 4)
+        XCTAssertEqual(Float(5.5).floorInt, 5)
+        XCTAssertEqual(Float(5.75).floorInt, 5)
+        XCTAssertEqual(Float(5).floorInt, 5)
+        XCTAssertEqual(Float(5.0000001).floorInt, 5)
+        XCTAssertEqual(Float(4.999999).floorInt, 4)
+        XCTAssertEqual(Float(4.499999).floorInt, 4)
     }
     
     func testFloorInt_Double() {
         
-        XCTAssertEqual(floorInt(5.5), 5)
-        XCTAssertEqual(floorInt(5.75), 5)
-        XCTAssertEqual(floorInt(5.0), 5)
-        XCTAssertEqual(floorInt(5.0000001), 5)
-        XCTAssertEqual(floorInt(4.999999), 4)
-        XCTAssertEqual(floorInt(4.499999), 4)
+        XCTAssertEqual(Double(5.5).floorInt, 5)
+        XCTAssertEqual(Double(5.75).floorInt, 5)
+        XCTAssertEqual(Double(5.0).floorInt, 5)
+        XCTAssertEqual(Double(5.0000001).floorInt, 5)
+        XCTAssertEqual(Double(4.999999).floorInt, 4)
+        XCTAssertEqual(Double(4.499999).floorInt, 4)
     }
 }

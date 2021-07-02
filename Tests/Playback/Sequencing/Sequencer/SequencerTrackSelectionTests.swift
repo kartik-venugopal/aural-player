@@ -147,15 +147,15 @@ class SequencerTrackSelectionTests: SequencerTests {
                     
                 case .artist:
                     
-                    XCTAssertEqual(playingTrack?.groupingInfo.artist, parentGroup.name)
+                    XCTAssertEqual(playingTrack?.artist, parentGroup.name)
                     
                 case .album:
                     
-                    XCTAssertEqual(playingTrack?.groupingInfo.album, parentGroup.name)
+                    XCTAssertEqual(playingTrack?.album, parentGroup.name)
                     
                 case .genre:
                     
-                    XCTAssertEqual(playingTrack?.groupingInfo.genre, parentGroup.name)
+                    XCTAssertEqual(playingTrack?.genre, parentGroup.name)
                 }
             }
         }
@@ -263,15 +263,15 @@ class SequencerTrackSelectionTests: SequencerTests {
                 
             case .artist:
                 
-                XCTAssertEqual(playingTrack?.groupingInfo.artist, group.name)
+                XCTAssertEqual(playingTrack?.artist, group.name)
                 
             case .album:
                 
-                XCTAssertEqual(playingTrack?.groupingInfo.album, group.name)
+                XCTAssertEqual(playingTrack?.album, group.name)
                 
             case .genre:
                 
-                XCTAssertEqual(playingTrack?.groupingInfo.genre, group.name)
+                XCTAssertEqual(playingTrack?.genre, group.name)
             }
         }
     }

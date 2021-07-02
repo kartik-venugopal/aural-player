@@ -18,17 +18,6 @@ extension AVAudioMixerNode {
     }
 }
 
-extension AVAudioFramePosition {
-    
-    static func fromTrackTime(_ trackTime: Double, _ sampleRate: Double) -> AVAudioFramePosition {
-        return AVAudioFramePosition(round(trackTime * sampleRate))
-    }
-    
-    func toTrackTime(_ sampleRate: Double) -> Double {
-        return Double(self) / sampleRate
-    }
-}
-
 extension AVAudioChannelLayout {
     
     static let stereo: AVAudioChannelLayout = AVAudioChannelLayout(layoutTag: kAudioChannelLayoutTag_Stereo)!

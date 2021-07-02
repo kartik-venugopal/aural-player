@@ -32,7 +32,7 @@ class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, N
     }
     
     func testSynchronousNotification_StringPayload() {
-        doTestSynchronousNotification_withEquatablePayload({return randomString(length: Int.random(in: 0..<1000))})
+        doTestSynchronousNotification_withEquatablePayload({randomString(length: Int.random(in: 0..<1000))})
     }
     
     func testSynchronousNotification_URLArrayPayload() {
@@ -62,7 +62,7 @@ class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, N
     }
     
     func testSynchronousNotification_EnumPayload() {
-        doTestSynchronousNotification_withEquatablePayload({return TestEnum.allCases.randomElement() ?? .lofotenIslands})
+        doTestSynchronousNotification_withEquatablePayload({TestEnum.allCases.randomElement() ?? .lofotenIslands})
     }
     
     struct TestPayloadStruct: Equatable {
@@ -75,7 +75,7 @@ class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, N
     }
     
     func testSynchronousNotification_StructPayload() {
-        doTestSynchronousNotification_withEquatablePayload({return TestPayloadStruct()})
+        doTestSynchronousNotification_withEquatablePayload({TestPayloadStruct()})
     }
     
     class TestPayloadClass: NSObject {
@@ -88,7 +88,7 @@ class Messenger_SynchronousNotifications_ArbitraryPayloadTests: AuralTestCase, N
     }
     
     func testSynchronousNotification_ClassPayload() {
-        doTestSynchronousNotification_withEquatablePayload({return TestPayloadClass()})
+        doTestSynchronousNotification_withEquatablePayload({TestPayloadClass()})
     }
     
     private func doTestSynchronousNotification_withEquatablePayload<P>(_ valueProducer: () -> P, repetitionCount: Int = 10000) where P: Equatable {

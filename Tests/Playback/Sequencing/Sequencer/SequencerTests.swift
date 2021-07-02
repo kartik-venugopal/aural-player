@@ -85,7 +85,9 @@ class SequencerTests: AuralTestCase {
             let genresPlaylist = GroupingPlaylist(.genres)
             
             playlist = Playlist(flatPlaylist, [artistsPlaylist, albumsPlaylist, genresPlaylist])
-            sequencer = Sequencer(playlist, .off, .off, .tracks)
+            
+            let persistentState = PlaybackSequencePersistentState(repeatMode: .off, shuffleMode: .off)
+            sequencer = Sequencer(persistentState: persistentState, playlist, .tracks)
         }
         
         playlist.clear()
@@ -106,7 +108,7 @@ class SequencerTests: AuralTestCase {
     func createAndAddTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil) -> Track {
         
         let track = Track(URL(fileURLWithPath: String(format: "/Dummy/%@.mp3", title)))
-        track.setPrimaryMetadata(artist, title, album, genre, duration)
+//        track.setPlaylistMetadata(artist, title, album, genre, duration)
         
         _ = playlist.addTrack(track)
         
@@ -126,7 +128,7 @@ class SequencerTests: AuralTestCase {
             let theGenre = genre ?? randomGenre()
         
             let track = Track(URL(fileURLWithPath: String(format: "/Dummy/%@.mp3", title)))
-            track.setPrimaryMetadata(theArtist, title, theAlbum, theGenre, Double.random(in: 60...600))
+//            track.setPrimaryMetadata(theArtist, title, theAlbum, theGenre, Double.random(in: 60...600))
             
             tracks.append(playlist.addTrack(track)!)
         }

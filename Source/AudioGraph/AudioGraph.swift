@@ -9,6 +9,8 @@
 //
 import AVFoundation
 
+let visualizationAnalysisBufferSize: Int = 2048
+
 ///
 /// The Audio Graph is one of the core components of the app and is responsible for all audio output. It serves as the infrastructure for playback,
 /// recording, and visualization, and also controls player volume, stereo pan, and all sound effects, including any Audio Units (AU) plug-ins configured by the user.
