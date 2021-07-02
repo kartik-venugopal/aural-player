@@ -31,6 +31,10 @@ extension URL {
         fileManager.fileExists(atPath: self.path)
     }
     
+    var parentDir: URL {
+        self.deletingLastPathComponent()
+    }
+    
     // Checks if a file exists
     static func exists(path: String) -> Bool {
         fileManager.fileExists(atPath: path)

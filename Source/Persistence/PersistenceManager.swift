@@ -22,7 +22,7 @@ class PersistenceManager {
     
     func save<S>(_ state: S) where S: PersistentStateProtocol {
         
-        FilesAndPaths.baseDir.createDirectory()
+        persistentStateFile.parentDir.createDirectory()
         
         let jsonObject = JSONMapper.map(state)
         
