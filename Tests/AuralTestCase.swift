@@ -51,6 +51,21 @@ class AuralTestCase: XCTestCase {
         wait(for: [theExpectation], timeout: timeSeconds + 1)
     }
     
+    func fileMetadata(_ title: String, _ artist: String?, _ album: String?, _ genre: String?, _ duration: Double) -> FileMetadata {
+        
+        let fileMetadata: FileMetadata = FileMetadata()
+        var playlistMetadata: PlaylistMetadata = PlaylistMetadata()
+        
+        playlistMetadata.artist = artist
+        playlistMetadata.album = album
+        playlistMetadata.genre = genre
+        playlistMetadata.duration = duration
+        
+        fileMetadata.playlist = playlistMetadata
+        
+        return fileMetadata
+    }
+    
 //    func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil, isValid: Bool = true) -> Track {
 //        return createTrack(title, "mp3", duration, artist, album, genre, isValid: isValid)
 //    }

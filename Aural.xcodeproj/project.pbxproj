@@ -659,6 +659,12 @@
 		3EA1BE1C268F629100A5D81B /* PlaybackSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025FF268E830900C5A1C5 /* PlaybackSessionTests.swift */; };
 		3EA1BE1E268F629F00A5D81B /* PlaybackLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C108E25CEB98600BF0D07 /* PlaybackLoop.swift */; };
 		3EA1BE20268F62C100A5D81B /* PlaybackLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E902601268E830900C5A1C5 /* PlaybackLoopTests.swift */; };
+		3EA1BE29268F6A3200A5D81B /* SequencerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025CA268E830800C5A1C5 /* SequencerTests.swift */; };
+		3EA1BE2B268F6A3900A5D81B /* Sequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105E25CEB98600BF0D07 /* Sequencer.swift */; };
+		3EA1BE2D268F6A4200A5D81B /* SequencerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C106225CEB98600BF0D07 /* SequencerProtocol.swift */; };
+		3EA1BE2F268F6A4700A5D81B /* ChangeListenerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F0125CEB98500BF0D07 /* ChangeListenerProtocols.swift */; };
+		3EA1BE31268F6A5B00A5D81B /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F0B25CEB98500BF0D07 /* Playlist.swift */; };
+		3EA1BE33268F6A6700A5D81B /* FlatPlaylistProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1125CEB98500BF0D07 /* FlatPlaylistProtocols.swift */; };
 		3EA3CE6725E3FD9E00BC7D07 /* FontSchemesManager.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6625E3FD9E00BC7D07 /* FontSchemesManager.xib */; };
 		3EA3CE6A25E3FDE000BC7D07 /* FontSchemesManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6925E3FDE000BC7D07 /* FontSchemesManagerViewController.swift */; };
 		3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */; };
@@ -810,6 +816,22 @@
 		3EEC04272687B397004478CE /* ExclusiveAccessSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC04262687B397004478CE /* ExclusiveAccessSemaphore.swift */; };
 		3EEC042A2687B727004478CE /* ConcurrentCompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC04292687B727004478CE /* ConcurrentCompositeKeyMap.swift */; };
 		3EEC042C2687B76D004478CE /* ConcurrentSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC042B2687B76D004478CE /* ConcurrentSet.swift */; };
+		3EEF3730268F6AC9002EA77F /* PlaybackSequencePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0C326805C18008ECB8C /* PlaybackSequencePersistentState.swift */; };
+		3EEF3732268F6AE2002EA77F /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C109225CEB98700BF0D07 /* NotificationNames.swift */; };
+		3EEF3735268F6B0F002EA77F /* FlatPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EFF25CEB98500BF0D07 /* FlatPlaylist.swift */; };
+		3EEF3737268F6B3C002EA77F /* SequencerBeginAndEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C4268E830800C5A1C5 /* SequencerBeginAndEndTests.swift */; };
+		3EEF3739268F6B5A002EA77F /* SequencerPlaylistTypeChangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C5268E830800C5A1C5 /* SequencerPlaylistTypeChangeTests.swift */; };
+		3EEF373B268F6B68002EA77F /* SequencerRepeatAndShuffleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025CB268E830800C5A1C5 /* SequencerRepeatAndShuffleTests.swift */; };
+		3EEF373D268F6B83002EA77F /* SequencerPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025CC268E830800C5A1C5 /* SequencerPersistenceTests.swift */; };
+		3EEF373F268F6B96002EA77F /* SequencerTrackSelectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025CD268E830800C5A1C5 /* SequencerTrackSelectionTests.swift */; };
+		3EEF3741268F6CD6002EA77F /* SequencerPeeking_GroupingPlaylists_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025CE268E830800C5A1C5 /* SequencerPeeking_GroupingPlaylists_Tests.swift */; };
+		3EEF3743268F6D5D002EA77F /* SequencerPlaylistReorderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C1268E830800C5A1C5 /* SequencerPlaylistReorderingTests.swift */; };
+		3EEF3744268F6D5D002EA77F /* SequencerPeeking_Group_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C9268E830800C5A1C5 /* SequencerPeeking_Group_Tests.swift */; };
+		3EEF3745268F6D5D002EA77F /* SequencerIteration_TracksPlaylist_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C6268E830800C5A1C5 /* SequencerIteration_TracksPlaylist_Tests.swift */; };
+		3EEF3746268F6D5D002EA77F /* SequencerPeeking_TracksPlaylist_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C2268E830800C5A1C5 /* SequencerPeeking_TracksPlaylist_Tests.swift */; };
+		3EEF3747268F6D5D002EA77F /* SequencerIteration_GroupingPlaylists_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C3268E830800C5A1C5 /* SequencerIteration_GroupingPlaylists_Tests.swift */; };
+		3EEF3748268F6D5D002EA77F /* SequencerIteration_Group_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C7268E830800C5A1C5 /* SequencerIteration_Group_Tests.swift */; };
+		3EEF3749268F6D5D002EA77F /* SequencerPlaylistResizingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025C8268E830800C5A1C5 /* SequencerPlaylistResizingTests.swift */; };
 		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
 		3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
@@ -4784,9 +4806,11 @@
 				3E21ECD6268F4A4600731E4C /* SearchQuery.swift in Sources */,
 				3E21ECBF268F49B900731E4C /* TrackIOErrors.swift in Sources */,
 				3EA1BE08268F609A00A5D81B /* ShuffleSequenceTests.swift in Sources */,
+				3EEF3735268F6B0F002EA77F /* FlatPlaylist.swift in Sources */,
 				3E5ECA3C268F4BD9000AE8B7 /* PlaylistPersistentState.swift in Sources */,
 				3E21ECB0268F493C00731E4C /* GroupingPlaylistProtocols.swift in Sources */,
 				3EA1BE15268F60DA00A5D81B /* ShuffleSequenceIterationTests.swift in Sources */,
+				3EA1BE33268F6A6700A5D81B /* FlatPlaylistProtocols.swift in Sources */,
 				3EA1BDF4268F509300A5D81B /* ConcurrentSet.swift in Sources */,
 				3E21ECCD268F4A1900731E4C /* AuxiliaryMetadata.swift in Sources */,
 				3E21ECC8268F4A1900731E4C /* FileMetadata.swift in Sources */,
@@ -4796,15 +4820,24 @@
 				3E5ECA48268F4D99000AE8B7 /* ValueFormatterTests.swift in Sources */,
 				3E21ECCC268F4A1900731E4C /* MetadataFormat.swift in Sources */,
 				3E21ECCF268F4A1900731E4C /* Chapter.swift in Sources */,
+				3EEF3741268F6CD6002EA77F /* SequencerPeeking_GroupingPlaylists_Tests.swift in Sources */,
 				3EA1BE12268F60DA00A5D81B /* PlaybackSequencePeekingTests.swift in Sources */,
+				3EEF3745268F6D5D002EA77F /* SequencerIteration_TracksPlaylist_Tests.swift in Sources */,
 				3EA1BE14268F60DA00A5D81B /* PlaybackSequenceIterationTests.swift in Sources */,
 				3E21ECB9268F49AA00731E4C /* Group.swift in Sources */,
+				3EEF3744268F6D5D002EA77F /* SequencerPeeking_Group_Tests.swift in Sources */,
 				3E21ECE7268F4B1B00731E4C /* DictionaryExtensions.swift in Sources */,
+				3EA1BE2D268F6A4200A5D81B /* SequencerProtocol.swift in Sources */,
 				3E21ECE0268F4ABE00731E4C /* GroupingPlaylistPersistentState.swift in Sources */,
 				3E21ECD5268F4A4600731E4C /* SortComparator.swift in Sources */,
+				3EEF3739268F6B5A002EA77F /* SequencerPlaylistTypeChangeTests.swift in Sources */,
 				3E21ECE5268F4B1700731E4C /* PersistentStateProtocols.swift in Sources */,
+				3EA1BE2F268F6A4700A5D81B /* ChangeListenerProtocols.swift in Sources */,
 				3EA1BE1A268F628E00A5D81B /* PlaybackSession.swift in Sources */,
+				3EA1BE2B268F6A3900A5D81B /* Sequencer.swift in Sources */,
+				3EEF3732268F6AE2002EA77F /* NotificationNames.swift in Sources */,
 				3E21ECB4268F498A00731E4C /* GroupType.swift in Sources */,
+				3EEF3749268F6D5D002EA77F /* SequencerPlaylistResizingTests.swift in Sources */,
 				3E21ECD8268F4A4600731E4C /* Sort.swift in Sources */,
 				3E21ECAE268F493600731E4C /* GroupingPlaylist.swift in Sources */,
 				3E21ECCB268F4A1900731E4C /* PlaylistMetadata.swift in Sources */,
@@ -4818,6 +4851,7 @@
 				3EA1BDED268F507D00A5D81B /* Messenger_SynchronousNotifications_ArbitraryPayloadTests.swift in Sources */,
 				3E21ECB5268F498A00731E4C /* PlaylistType.swift in Sources */,
 				3E5ECA3E268F4BEE000AE8B7 /* DictionaryFunctions.swift in Sources */,
+				3EEF373B268F6B68002EA77F /* SequencerRepeatAndShuffleTests.swift in Sources */,
 				3E21ECC2268F49F900731E4C /* ParserUtils.swift in Sources */,
 				3E5ECA4A268F4DA5000AE8B7 /* SeekTimeFormats.swift in Sources */,
 				3E21ECB7268F499000731E4C /* SequenceScope.swift in Sources */,
@@ -4835,19 +4869,29 @@
 				3EA1BDEB268F507600A5D81B /* Messenger_SynchronousNotificationsTests.swift in Sources */,
 				3E5ECA43268F4C46000AE8B7 /* DateExtensions.swift in Sources */,
 				3E21ECCE268F4A1900731E4C /* AudioInfo.swift in Sources */,
+				3EEF3748268F6D5D002EA77F /* SequencerIteration_Group_Tests.swift in Sources */,
 				3EA1BDEF268F507D00A5D81B /* NotificationSubscriberTests.swift in Sources */,
+				3EEF3743268F6D5D002EA77F /* SequencerPlaylistReorderingTests.swift in Sources */,
+				3EEF373D268F6B83002EA77F /* SequencerPersistenceTests.swift in Sources */,
+				3EEF3747268F6D5D002EA77F /* SequencerIteration_GroupingPlaylists_Tests.swift in Sources */,
 				3E21ECBD268F49B400731E4C /* PlaybackContextProtocol.swift in Sources */,
+				3EA1BE29268F6A3200A5D81B /* SequencerTests.swift in Sources */,
 				3E5ECA38268F4B96000AE8B7 /* SizeUnit.swift in Sources */,
 				3EA1BE10268F60DA00A5D81B /* PlaybackSequenceRepeatAndShuffleTests.swift in Sources */,
+				3EEF373F268F6B96002EA77F /* SequencerTrackSelectionTests.swift in Sources */,
 				3EA1BDE0268F4F5900A5D81B /* Messenger_UnsubscribeTests.swift in Sources */,
 				3E5ECA40268F4BFB000AE8B7 /* SupportedTypes.swift in Sources */,
+				3EEF3737268F6B3C002EA77F /* SequencerBeginAndEndTests.swift in Sources */,
 				3E21ECC9268F4A1900731E4C /* CoverArt.swift in Sources */,
 				3EA1BE0E268F60B000A5D81B /* ShuffleMode.swift in Sources */,
 				3E5ECA4E268F4DCC000AE8B7 /* FloatingPointExtensions.swift in Sources */,
+				3EA1BE31268F6A5B00A5D81B /* Playlist.swift in Sources */,
+				3EEF3746268F6D5D002EA77F /* SequencerPeeking_TracksPlaylist_Tests.swift in Sources */,
 				3E21ECE3268F4B0A00731E4C /* PlaylistProtocols.swift in Sources */,
 				3E21ECBB268F49B000731E4C /* Track.swift in Sources */,
 				3EA1BDF0268F507D00A5D81B /* Messenger_AsynchronousNotifications_ArbitraryPayloadTests.swift in Sources */,
 				3EA1BE06268F5F6200A5D81B /* MathUtilsTests.swift in Sources */,
+				3EEF3730268F6AC9002EA77F /* PlaybackSequencePersistentState.swift in Sources */,
 				3E21ECCA268F4A1900731E4C /* MetadataEntry.swift in Sources */,
 				3EA1BE20268F62C100A5D81B /* PlaybackLoopTests.swift in Sources */,
 				3EA1BDE2268F4F6500A5D81B /* Messenger.swift in Sources */,

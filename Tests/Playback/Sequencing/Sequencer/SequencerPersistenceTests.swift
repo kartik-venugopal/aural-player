@@ -24,13 +24,8 @@ class SequencerPersistenceTests: SequencerTests {
             XCTAssertEqual(modes.shuffleMode, shuffleMode)
             
             let persistentState = sequencer.persistentState
-//            XCTAssertTrue(persistentState is PlaybackSequencePersistentState)
-            
-//            if let state = persistentState as? PlaybackSequencePersistentState {
-                
-                XCTAssertEqual(persistentState.repeatMode, modes.repeatMode)
-                XCTAssertEqual(persistentState.shuffleMode, modes.shuffleMode)
-//            }
+            XCTAssertEqual(persistentState.repeatMode, modes.repeatMode)
+            XCTAssertEqual(persistentState.shuffleMode, modes.shuffleMode)
         }
     }
 }
