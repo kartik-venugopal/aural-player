@@ -17,7 +17,9 @@ import Foundation
 ///
 class ObjectGraph {
     
-    static let persistentState: PersistentAppState = PersistentStateIO.load() ?? PersistentAppState.defaults
+    private static let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
+    
+    static let persistentState: PersistentAppState = persistenceManager.load(type: PersistentAppState.self) ?? PersistentAppState.defaults
     
     static let lastPresentedAppMode: AppMode = persistentState.ui?.appMode ?? AppMode.defaultMode
     
@@ -201,7 +203,7 @@ class ObjectGraph {
         
         // App state persistence to disk
         tearDownOpQueue.addOperation {
-            PersistentStateIO.save(persistentState)
+            persistenceManager.save(persistentState)
         }
 
         // Tear down the audio engine

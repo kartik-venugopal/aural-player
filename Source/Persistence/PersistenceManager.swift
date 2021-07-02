@@ -1,5 +1,5 @@
 //
-//  PersistentStateIO.swift
+//  PersistenceManager.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -7,16 +7,20 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+import Foundation
+
 /*
     Handles persistence to/from disk for application state.
 */
-import AVFoundation
-
-class PersistentStateIO {
+class PersistenceManager {
     
-    static let persistentStateFile: URL = FilesAndPaths.persistentStateFile
+    let persistentStateFile: URL
     
-    static func save(_ state: PersistentAppState) {
+    init(persistentStateFile: URL) {
+        self.persistentStateFile = persistentStateFile
+    }
+    
+    func save<S>(_ state: S) where S: PersistentStateProtocol {
         
         FilesAndPaths.baseDir.createDirectory()
         
@@ -31,7 +35,7 @@ class PersistentStateIO {
         }
     }
     
-    static func load() -> PersistentAppState? {
+    func load<S>(type: S.Type) -> S? where S: PersistentStateProtocol {
         
         guard let inputStream = InputStream(url: persistentStateFile) else {return nil}
             
@@ -43,7 +47,7 @@ class PersistentStateIO {
             let data = try JSONSerialization.jsonObject(with: inputStream, options: JSONSerialization.ReadingOptions())
             
             if let dictionary = data as? NSDictionary {
-                return PersistentAppState(dictionary)
+                return S.init(dictionary)
             }
             
         } catch let error as NSError {

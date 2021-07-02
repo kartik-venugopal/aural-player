@@ -36,19 +36,19 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "playback"
     
-    private static let key_primarySeekLengthOption: String = "\(keyPrefix).seekLength.primary.option"
-    private static let key_primarySeekLengthConstant: String = "\(keyPrefix).seekLength.primary.constant"
-    private static let key_primarySeekLengthPercentage: String = "\(keyPrefix).seekLength.primary.percentage"
+    static let key_primarySeekLengthOption: String = "\(keyPrefix).seekLength.primary.option"
+    static let key_primarySeekLengthConstant: String = "\(keyPrefix).seekLength.primary.constant"
+    static let key_primarySeekLengthPercentage: String = "\(keyPrefix).seekLength.primary.percentage"
     
-    private static let key_secondarySeekLengthOption: String = "\(keyPrefix).seekLength.secondary.option"
-    private static let key_secondarySeekLengthConstant: String = "\(keyPrefix).seekLength.secondary.constant"
-    private static let key_secondarySeekLengthPercentage: String = "\(keyPrefix).seekLength.secondary.percentage"
+    static let key_secondarySeekLengthOption: String = "\(keyPrefix).seekLength.secondary.option"
+    static let key_secondarySeekLengthConstant: String = "\(keyPrefix).seekLength.secondary.constant"
+    static let key_secondarySeekLengthPercentage: String = "\(keyPrefix).seekLength.secondary.percentage"
     
-    private static let key_autoplayOnStartup: String = "\(keyPrefix).autoplayOnStartup"
-    private static let key_autoplayAfterAddingTracks: String = "\(keyPrefix).autoplayAfterAddingTracks"
-    private static let key_autoplayAfterAddingOption: String = "\(keyPrefix).autoplayAfterAddingTracks.option"
+    static let key_autoplayOnStartup: String = "\(keyPrefix).autoplayOnStartup"
+    static let key_autoplayAfterAddingTracks: String = "\(keyPrefix).autoplayAfterAddingTracks"
+    static let key_autoplayAfterAddingOption: String = "\(keyPrefix).autoplayAfterAddingTracks.option"
     
-    private static let key_rememberLastPositionOption: String = "\(keyPrefix).rememberLastPosition.option"
+    static let key_rememberLastPositionOption: String = "\(keyPrefix).rememberLastPosition.option"
     
     convenience init(_ dict: [String: Any], _ controlsPreferences: GesturesControlsPreferences) {
         
