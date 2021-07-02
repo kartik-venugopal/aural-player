@@ -1,5 +1,5 @@
 //
-//  PitchUnitPersistentState.swift
+//  PitchShiftUnitPersistentState.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.

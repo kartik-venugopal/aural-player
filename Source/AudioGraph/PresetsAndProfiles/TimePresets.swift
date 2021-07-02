@@ -14,7 +14,7 @@ import Foundation
 ///
 class TimePresets: EffectsPresets<TimePreset> {
     
-    init(persistentState: TimeUnitPersistentState?) {
+    init(persistentState: TimeStretchUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedTimePresetParams.allCases.map {$0.preset}
         let userDefinedPresets = (persistentState?.userPresets ?? []).map {TimePreset(persistentState: $0)}
@@ -42,7 +42,7 @@ class TimePreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: TimePresetPersistentState) {
+    init(persistentState: TimeStretchPresetPersistentState) {
         
         self.rate = persistentState.rate
         self.overlap = persistentState.overlap ?? AudioGraphDefaults.timeOverlap

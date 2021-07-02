@@ -24,7 +24,7 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     static let minRate: Float = 1.0/4
     static let maxRate: Float = 4
     
-    init(persistentState: TimeUnitPersistentState?) {
+    init(persistentState: TimeStretchUnitPersistentState?) {
         
         presets = TimePresets(persistentState: persistentState)
         super.init(.time, persistentState?.state ?? AudioGraphDefaults.timeState)
@@ -86,15 +86,15 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
         return TimePreset("timeSettings", state, rate, overlap, shiftPitch, false)
     }
     
-    var persistentState: TimeUnitPersistentState {
+    var persistentState: TimeStretchUnitPersistentState {
 
-        let unitState = TimeUnitPersistentState()
+        let unitState = TimeStretchUnitPersistentState()
 
         unitState.state = state
         unitState.rate = rate
         unitState.overlap = overlap
         unitState.shiftPitch = shiftPitch
-        unitState.userPresets = presets.userDefinedPresets.map {TimePresetPersistentState(preset: $0)}
+        unitState.userPresets = presets.userDefinedPresets.map {TimeStretchPresetPersistentState(preset: $0)}
 
         return unitState
     }

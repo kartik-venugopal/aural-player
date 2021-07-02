@@ -1,5 +1,5 @@
 //
-//  TimeUnitPersistentState.swift
+//  TimeStretchUnitPersistentState.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class TimeUnitPersistentState: EffectsUnitPersistentState<TimePresetPersistentState> {
+class TimeStretchUnitPersistentState: EffectsUnitPersistentState<TimeStretchPresetPersistentState> {
     
     var rate: Float?
     var shiftPitch: Bool?
@@ -27,7 +27,7 @@ class TimeUnitPersistentState: EffectsUnitPersistentState<TimePresetPersistentSt
     }
 }
 
-class TimePresetPersistentState: EffectsUnitPresetPersistentState {
+class TimeStretchPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let rate: Float
     let overlap: Float?
