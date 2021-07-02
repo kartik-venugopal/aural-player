@@ -60,10 +60,11 @@ If you're interested in a bit of background, read about [how Aural Player came t
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
 * **UI:** 
-  * Winamp-like modular interface. 
+  * Winamp-like modular interface with 3 different app modes.
   * Fully customizable fonts and colors with built-in and custom schemes.
-  * Menu bar mode to run the app in the macOS menu bar.
   * Window layouts (built-in and custom), window snapping, collapsible UI components.
+  * Menu bar mode to run the app in the macOS menu bar.
+  * Control bar mode to run the app as a floating widget with essential controls.
 * **Usability:** 
   * Configurable media keys support
   * Swipe/scroll gesture recognition
@@ -145,6 +146,10 @@ Some pages to get you started:
 ### Running in Menu Bar mode
 
 ![Menu Bar Player screenshot](/Documentation/Screenshots/MenuBarPlayer.png?raw=true)
+
+### Running in Control Bar mode
+
+![Control Bar Player screenshot](/Documentation/Screenshots/ControlBar1.png?raw=true)
 
 ### Control Center integration (macOS Big Sur)
 
