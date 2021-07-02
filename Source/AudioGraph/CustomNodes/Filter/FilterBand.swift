@@ -69,6 +69,6 @@ class FilterBand {
     }
     
     static func highPassBand(_ minFreq: Float) -> FilterBand {
-        return FilterBand(.lowPass, minFreq, nil)
+        return FilterBand(.highPass, minFreq, nil)
     }
 }

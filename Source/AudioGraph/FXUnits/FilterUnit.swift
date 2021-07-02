@@ -94,7 +94,7 @@ class FilterUnit: EffectsUnit, FilterUnitProtocol {
         
         filterState.state = state
         filterState.bands = bands.map {FilterBandPersistentState(band: $0)}
-        filterState.userPresets = presets.userDefinedPresets.map {FilterPresetState(preset: $0)}
+        filterState.userPresets = presets.userDefinedPresets.map {FilterPresetPersistentState(preset: $0)}
         
         return filterState
     }

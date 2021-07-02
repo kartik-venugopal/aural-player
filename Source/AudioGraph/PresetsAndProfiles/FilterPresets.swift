@@ -38,7 +38,7 @@ class FilterPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: FilterPresetState) {
+    init(persistentState: FilterPresetPersistentState) {
         
         self.bands = persistentState.bands.map {FilterBand(persistentState: $0)}
         super.init(persistentState.name, persistentState.state, false)

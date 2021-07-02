@@ -18,7 +18,7 @@ class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
     let time: TimeStretchPresetPersistentState
     let reverb: ReverbPresetPersistentState
     let delay: DelayPresetPersistentState
-    let filter: FilterPresetState
+    let filter: FilterPresetPersistentState
     
     init(preset: MasterPreset) {
         
@@ -27,7 +27,7 @@ class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
         self.time = TimeStretchPresetPersistentState(preset: preset.time)
         self.reverb = ReverbPresetPersistentState(preset: preset.reverb)
         self.delay = DelayPresetPersistentState(preset: preset.delay)
-        self.filter = FilterPresetState(preset: preset.filter)
+        self.filter = FilterPresetPersistentState(preset: preset.filter)
         
         super.init(preset: preset)
     }
@@ -39,7 +39,7 @@ class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
               let time = map.persistentObjectValue(forKey: "time", ofType: TimeStretchPresetPersistentState.self),
               let reverb = map.persistentObjectValue(forKey: "reverb", ofType: ReverbPresetPersistentState.self),
               let delay = map.persistentObjectValue(forKey: "delay", ofType: DelayPresetPersistentState.self),
-              let filter = map.persistentObjectValue(forKey: "filter", ofType: FilterPresetState.self) else {return nil}
+              let filter = map.persistentObjectValue(forKey: "filter", ofType: FilterPresetPersistentState.self) else {return nil}
         
         self.eq = eq
         self.pitch = pitch
