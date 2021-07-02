@@ -14,7 +14,7 @@ class MasterUnitPersistentState: EffectsUnitPersistentState<MasterPresetPersiste
 class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
     
     let eq: EQPresetPersistentState
-    let pitch: PitchPresetPersistentState
+    let pitch: PitchShiftPresetPersistentState
     let time: TimePresetPersistentState
     let reverb: ReverbPresetPersistentState
     let delay: DelayPresetPersistentState
@@ -23,7 +23,7 @@ class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
     init(preset: MasterPreset) {
         
         self.eq = EQPresetPersistentState(preset: preset.eq)
-        self.pitch = PitchPresetPersistentState(preset: preset.pitch)
+        self.pitch = PitchShiftPresetPersistentState(preset: preset.pitch)
         self.time = TimePresetPersistentState(preset: preset.time)
         self.reverb = ReverbPresetPersistentState(preset: preset.reverb)
         self.delay = DelayPresetPersistentState(preset: preset.delay)
@@ -35,7 +35,7 @@ class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
     required init?(_ map: NSDictionary) {
 
         guard let eq = map.persistentObjectValue(forKey: "eq", ofType: EQPresetPersistentState.self),
-              let pitch = map.persistentObjectValue(forKey: "pitch", ofType: PitchPresetPersistentState.self),
+              let pitch = map.persistentObjectValue(forKey: "pitch", ofType: PitchShiftPresetPersistentState.self),
               let time = map.persistentObjectValue(forKey: "time", ofType: TimePresetPersistentState.self),
               let reverb = map.persistentObjectValue(forKey: "reverb", ofType: ReverbPresetPersistentState.self),
               let delay = map.persistentObjectValue(forKey: "delay", ofType: DelayPresetPersistentState.self),

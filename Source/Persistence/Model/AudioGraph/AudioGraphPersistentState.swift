@@ -22,7 +22,7 @@ class AudioGraphPersistentState: PersistentStateProtocol {
     
     var masterUnit: MasterUnitPersistentState?
     var eqUnit: EQUnitPersistentState?
-    var pitchUnit: PitchUnitPersistentState?
+    var pitchUnit: PitchShiftUnitPersistentState?
     var timeUnit: TimeUnitPersistentState?
     var reverbUnit: ReverbUnitPersistentState?
     var delayUnit: DelayUnitPersistentState?
@@ -43,7 +43,7 @@ class AudioGraphPersistentState: PersistentStateProtocol {
         
         self.masterUnit = map.persistentObjectValue(forKey: "masterUnit", ofType: MasterUnitPersistentState.self)
         self.eqUnit = map.persistentObjectValue(forKey: "eqUnit", ofType: EQUnitPersistentState.self)
-        self.pitchUnit = map.persistentObjectValue(forKey: "pitchUnit", ofType: PitchUnitPersistentState.self)
+        self.pitchUnit = map.persistentObjectValue(forKey: "pitchUnit", ofType: PitchShiftUnitPersistentState.self)
         self.timeUnit = map.persistentObjectValue(forKey: "timeUnit", ofType: TimeUnitPersistentState.self)
         self.reverbUnit = map.persistentObjectValue(forKey: "reverbUnit", ofType: ReverbUnitPersistentState.self)
         self.delayUnit = map.persistentObjectValue(forKey: "delayUnit", ofType: DelayUnitPersistentState.self)

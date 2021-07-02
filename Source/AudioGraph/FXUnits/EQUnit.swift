@@ -124,9 +124,3 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         return unitState
     }
 }
-
-enum EQType: String {
-    
-    case tenBand
-    case fifteenBand
-}

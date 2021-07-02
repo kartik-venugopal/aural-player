@@ -19,7 +19,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
     let presets: PitchPresets
     
-    init(persistentState: PitchUnitPersistentState?) {
+    init(persistentState: PitchShiftUnitPersistentState?) {
         
         presets = PitchPresets(persistentState: persistentState)
         super.init(.pitch, persistentState?.state ?? AudioGraphDefaults.pitchState)
@@ -69,14 +69,14 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         return PitchPreset("pitchSettings", state, pitch, overlap, false)
     }
     
-    var persistentState: PitchUnitPersistentState {
+    var persistentState: PitchShiftUnitPersistentState {
         
-        let unitState = PitchUnitPersistentState()
+        let unitState = PitchShiftUnitPersistentState()
         
         unitState.state = state
         unitState.pitch = pitch
         unitState.overlap = overlap
-        unitState.userPresets = presets.userDefinedPresets.map {PitchPresetPersistentState(preset: $0)}
+        unitState.userPresets = presets.userDefinedPresets.map {PitchShiftPresetPersistentState(preset: $0)}
         
         return unitState
     }

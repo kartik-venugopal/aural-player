@@ -93,7 +93,46 @@
                   Identifier = "PlaylistItemArrayTests">
                </Test>
                <Test
+                  Identifier = "SequencerBeginAndEndTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerIteration_Group_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerIteration_GroupingPlaylists_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerIteration_TracksPlaylist_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPeeking_Group_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPeeking_GroupingPlaylists_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPeeking_TracksPlaylist_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPersistenceTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPlaylistReorderingTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPlaylistResizingTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPlaylistTypeChangeTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerRepeatAndShuffleTests">
+               </Test>
+               <Test
                   Identifier = "SequencerTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerTrackSelectionTests">
                </Test>
                <Test
                   Identifier = "ShuffleSequenceIterationTests">
