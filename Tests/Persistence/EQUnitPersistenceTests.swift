@@ -23,7 +23,6 @@ class EQUnitPersistenceTests: AuralTestCase {
     }
     
     func testDeserialization_noValuesAvailable() {
-        
         doTestDeserialization(state: nil, userPresets: nil, type: nil, globalGain: nil, bands: nil)
     }
     
@@ -35,6 +34,9 @@ class EQUnitPersistenceTests: AuralTestCase {
         doTestDeserialization(state: .bypassed, userPresets: nil, type: nil,
                               globalGain: nil, bands: nil)
         
+        doTestDeserialization(state: .suppressed, userPresets: nil, type: nil,
+                              globalGain: nil, bands: nil)
+        
         doTestDeserialization(state: .active, userPresets: nil, type: nil,
                               globalGain: nil, bands: tenRandomBands())
         
@@ -42,88 +44,173 @@ class EQUnitPersistenceTests: AuralTestCase {
                               globalGain: nil, bands: fifteenRandomBands())
         
         doTestDeserialization(state: .bypassed, userPresets: [], type: .tenBand,
-                              globalGain: nil, bands: nil)
+                              globalGain: randomGlobalGain(), bands: nil)
         
         doTestDeserialization(state: .suppressed, userPresets: [], type: .fifteenBand,
-                              globalGain: 2.435, bands: nil)
+                              globalGain: randomGlobalGain(), bands: nil)
+        
+        for _ in 0..<100 {
+            
+            let eqType = randomNillableEQType()
+            
+            doTestDeserialization(state: randomNillableUnitState(), userPresets: [],
+                                  type: eqType,
+                                  globalGain: randomNillableGlobalGain(),
+                                  bands: eqType == EQType.tenBand ?
+                                    randomNillableTenBands() : randomNillableFifteenBands())
+        }
     }
+    
+    // TODO:
+//    func testEQBandsAndTypeMismatch() {
+//
+//    }
     
     // MARK: 10 band EQ tests --------------------------------------------
     
     func testDeserialization_10BandEQ_active_noPresets() {
         
-        doTestDeserialization(state: .active, userPresets: [], type: .tenBand, globalGain: 5.678,
-                              bands: tenRandomBands())
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .active, userPresets: [], type: .tenBand, globalGain: randomGlobalGain(),
+                                  bands: tenRandomBands())
+            
+        }
     }
     
     func testDeserialization_10BandEQ_bypassed_noPresets() {
         
-        doTestDeserialization(state: .bypassed, userPresets: [], type: .tenBand, globalGain: -6.817,
-                              bands: tenRandomBands())
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .bypassed, userPresets: [], type: .tenBand, globalGain: randomGlobalGain(),
+                                  bands: tenRandomBands())
+        }
     }
     
     func testDeserialization_10BandEQ_suppressed_noPresets() {
         
-        doTestDeserialization(state: .suppressed, userPresets: [], type: .tenBand, globalGain: 9.2235345,
-                              bands: tenRandomBands())
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .suppressed, userPresets: [], type: .tenBand, globalGain: randomGlobalGain(),
+                                  bands: tenRandomBands())
+        }
     }
     
     func testDeserialization_10BandEQ_active_withPresets() {
         
-        let preset1 = EQPresetPersistentState(preset: EQPreset("preset1", .active,
-                                                               tenRandomBands(), 7.1111,
-                                                               false))
-        
-        let preset2 = EQPresetPersistentState(preset: EQPreset("preset2", .active,
-                                                               tenRandomBands(), 3.0932934,
-                                                               false))
-        
-        doTestDeserialization(state: .active, userPresets: [preset1, preset2], type: .tenBand, globalGain: 2.59438,
-                              bands: tenRandomBands())
+        for _ in 0..<100 {
+            
+            let numPresets = Int.random(in: 1...10)
+            let presets: [EQPresetPersistentState] = (0..<numPresets).map {index in
+                
+                
+                EQPresetPersistentState(preset: EQPreset("preset-\(index)", .active,
+                                                         tenRandomBands(), randomGlobalGain(),
+                                                         false))
+            }
+            
+            doTestDeserialization(state: .active, userPresets: presets, type: .tenBand,
+                                  globalGain: randomGlobalGain(), bands: tenRandomBands())
+        }
     }
     
     // MARK: 15 band EQ tests --------------------------------------------
     
     func testDeserialization_15BandEQ_active_noPresets() {
         
-        doTestDeserialization(state: .active, userPresets: [], type: .fifteenBand, globalGain: 5.678,
-                              bands: fifteenRandomBands())
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .active, userPresets: [], type: .fifteenBand,
+                                  globalGain: randomGlobalGain(), bands: fifteenRandomBands())
+        }
     }
     
     func testDeserialization_15BandEQ_bypassed_noPresets() {
         
-        doTestDeserialization(state: .bypassed, userPresets: [], type: .fifteenBand, globalGain: -6.817,
-                              bands: fifteenRandomBands())
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .bypassed, userPresets: [], type: .fifteenBand,
+                                  globalGain: randomGlobalGain(), bands: fifteenRandomBands())
+        }
     }
     
     func testDeserialization_15BandEQ_suppressed_noPresets() {
         
-        doTestDeserialization(state: .suppressed, userPresets: [], type: .fifteenBand, globalGain: 3.66456,
-                              bands: fifteenRandomBands())
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .suppressed, userPresets: [], type: .fifteenBand,
+                                  globalGain: randomGlobalGain(), bands: fifteenRandomBands())
+        }
     }
     
     func testDeserialization_15BandEQ_active_withPresets() {
         
-        let preset1 = EQPresetPersistentState(preset: EQPreset("preset1", .active,
-                                                               fifteenRandomBands(), 7.1111,
-                                                               false))
-        
-        let preset2 = EQPresetPersistentState(preset: EQPreset("preset2", .active,
-                                                               fifteenRandomBands(), 3.0932934,
-                                                               false))
-        
-        doTestDeserialization(state: .active, userPresets: [preset1, preset2], type: .fifteenBand, globalGain: 8.23425,
-                              bands: fifteenRandomBands())
+        for _ in 0..<100 {
+            
+            let numPresets = Int.random(in: 1...10)
+            let presets: [EQPresetPersistentState] = (0..<numPresets).map {index in
+                
+                
+                EQPresetPersistentState(preset: EQPreset("preset-\(index)", .active,
+                                                         fifteenRandomBands(), randomGlobalGain(),
+                                                         false))
+            }
+            
+            doTestDeserialization(state: .active, userPresets: presets, type: .fifteenBand,
+                                  globalGain: randomGlobalGain(), bands: fifteenRandomBands())
+        }
     }
     
     // MARK: Helper functions --------------------------------------------
     
+    private func randomEQType() -> EQType {EQType.randomCase()}
+    
+    private func randomNillableEQType() -> EQType? {
+        
+        if Float.random(in: 0...1) < 0.5 {
+            return randomEQType()
+        } else {
+            return nil
+        }
+    }
+    
+    private func randomNillableGlobalGain() -> Float? {
+        
+        if Float.random(in: 0...1) < 0.5 {
+            return randomGlobalGain()
+        } else {
+            return nil
+        }
+    }
+    
+    private func randomNillableTenBands() -> [Float]? {
+        
+        if Float.random(in: 0...1) < 0.5 {
+            return tenRandomBands()
+        } else {
+            return nil
+        }
+    }
+    
+    private func randomNillableFifteenBands() -> [Float]? {
+        
+        if Float.random(in: 0...1) < 0.5 {
+            return fifteenRandomBands()
+        } else {
+            return nil
+        }
+    }
+    
+    private let validGainRange: ClosedRange<Float> = -20...20
+    
+    private func randomGlobalGain() -> Float {Float.random(in: validGainRange)}
+    
     private func tenRandomBands() -> [Float] {
-        (0..<10).map {_ in Float.random(in: -20...20)}
+        (0..<10).map {_ in Float.random(in: validGainRange)}
     }
     
     private func fifteenRandomBands() -> [Float] {
-        (0..<15).map {_ in Float.random(in: -20...20)}
+        (0..<15).map {_ in Float.random(in: validGainRange)}
     }
     
     private func doTestDeserialization(state: EffectsUnitState?, userPresets: [EQPresetPersistentState]?,
@@ -137,8 +224,6 @@ class EQUnitPersistenceTests: AuralTestCase {
         dict["type"] = type?.rawValue
         dict["globalGain"] = globalGain
         dict["bands"] = bands
-        
-        print("dict is: \(dict)")
         
         let optionalPersistentState = EQUnitPersistentState(dict)
         

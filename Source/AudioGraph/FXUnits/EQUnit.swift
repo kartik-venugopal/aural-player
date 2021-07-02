@@ -26,7 +26,8 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
         node = ParametricEQ(type: persistentState?.type ?? AudioGraphDefaults.eqType)
         presets = EQPresets(persistentState: persistentState)
         super.init(.eq, persistentState?.state ?? AudioGraphDefaults.eqState)
-        
+
+        // TODO: Validate persistent bands array ... if not 10 or 15 values, fix it.
         bands = persistentState?.bands ?? AudioGraphDefaults.eqBands
         globalGain = persistentState?.globalGain ?? AudioGraphDefaults.eqGlobalGain
     }

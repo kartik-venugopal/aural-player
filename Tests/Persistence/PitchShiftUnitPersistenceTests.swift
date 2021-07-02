@@ -27,10 +27,107 @@ class PitchShiftUnitPersistenceTests: AuralTestCase {
     
     func testDeserialization_someValuesAvailable() {
         
-        doTestDeserialization(state: .active, userPresets: [], pitch: nil, overlap: 7.345)
-        doTestDeserialization(state: .bypassed, userPresets: nil, pitch: 1.12314, overlap: 17.345)
-        doTestDeserialization(state: nil, userPresets: [], pitch: nil, overlap: 21.5673)
-        doTestDeserialization(state: nil, userPresets: nil, pitch: 1.12314, overlap: nil)
+        doTestDeserialization(state: .active, userPresets: [], pitch: nil, overlap: randomOverlap())
+        doTestDeserialization(state: .bypassed, userPresets: nil, pitch: randomPitch(), overlap: randomOverlap())
+        doTestDeserialization(state: nil, userPresets: [], pitch: nil, overlap: randomOverlap())
+        doTestDeserialization(state: nil, userPresets: nil, pitch: randomPitch(), overlap: nil)
+        
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: randomNillableUnitState(),
+                                  userPresets: [],
+                                  pitch: randomNillablePitch(),
+                                  overlap: randomNillableOverlap())
+        }
+    }
+    
+    func testDeserialization_active_noPresets() {
+        
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .active, userPresets: [],
+                                  pitch: randomPositivePitch(),
+                                  overlap: randomOverlap())
+            
+            doTestDeserialization(state: .active, userPresets: [],
+                                  pitch: randomNegativePitch(),
+                                  overlap: randomOverlap())
+        }
+    }
+    
+    func testDeserialization_bypassed_noPresets() {
+        
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .bypassed, userPresets: [],
+                                  pitch: randomPositivePitch(),
+                                  overlap: randomOverlap())
+            
+            doTestDeserialization(state: .suppressed, userPresets: [],
+                                  pitch: randomNegativePitch(),
+                                  overlap: randomOverlap())
+        }
+    }
+    
+    func testDeserialization_suppressed_noPresets() {
+        
+        for _ in 0..<100 {
+            
+            doTestDeserialization(state: .suppressed, userPresets: [],
+                                  pitch: randomPositivePitch(),
+                                  overlap: randomOverlap())
+            
+            doTestDeserialization(state: .suppressed, userPresets: [],
+                                  pitch: randomNegativePitch(),
+                                  overlap: randomOverlap())
+        }
+    }
+    
+    func testDeserialization_active_withPresets() {
+        
+        for _ in 0..<100 {
+            
+            let numPresets = Int.random(in: 1...10)
+            let presets: [PitchShiftPresetPersistentState] = (0..<numPresets).map {index in
+                
+                PitchShiftPresetPersistentState(preset: PitchPreset("preset-\(index)", .active,
+                                                         randomPitch(), randomOverlap(),
+                                                         false))
+            }
+            
+            doTestDeserialization(state: .active, userPresets: presets,
+                                  pitch: randomPitch(), overlap: randomOverlap())
+        }
+    }
+    
+    // MARK: Helper functions --------------------------------------------
+    
+    private let pitchRange: ClosedRange<Float> = -2400...2400
+    
+    private func randomPitch() -> Float {Float.random(in: pitchRange)}
+    
+    private func randomNillablePitch() -> Float? {
+        
+        if Float.random(in: 0...1) < 0.5 {
+            return randomPitch()
+        } else {
+            return nil
+        }
+    }
+    
+    private func randomPositivePitch() -> Float {Float.random(in: 0...2400)}
+    
+    private func randomNegativePitch() -> Float {Float.random(in: -2400..<0)}
+    
+    private func randomOverlap() -> Float {Float.random(in: 3...32)}
+    
+    private func randomNillableOverlap() -> Float? {
+        
+        if Float.random(in: 0...1) < 0.5 {
+            return randomOverlap()
+        } else {
+            return nil
+        }
     }
     
     private func doTestDeserialization(state: EffectsUnitState?, userPresets: [PitchShiftPresetPersistentState]?,

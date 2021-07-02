@@ -32,3 +32,21 @@ func randomString(length: Int) -> String {
 
     return randomString
 }
+
+extension CaseIterable where Self: RawRepresentable, AllCases == [Self] {
+    
+    static func randomCase() -> Self {
+        return allCases[Int.random(in: allCases.indices)]
+    }
+}
+
+func randomUnitState() -> EffectsUnitState {EffectsUnitState.randomCase()}
+
+func randomNillableUnitState() -> EffectsUnitState? {
+    
+    if Float.random(in: 0...1) < 0.5 {
+        return randomUnitState()
+    } else {
+        return nil
+    }
+}

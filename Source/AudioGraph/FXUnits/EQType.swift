@@ -9,7 +9,7 @@
 //  
 import Foundation
 
-enum EQType: String {
+enum EQType: String, CaseIterable {
     
     case tenBand
     case fifteenBand
