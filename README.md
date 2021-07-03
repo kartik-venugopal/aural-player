@@ -203,6 +203,8 @@ Some pages to get you started:
 
 * [Poor audio quality when using Bluetooth headsets.](https://github.com/maculateConception/aural-player/wiki/Poor-audio-quality-when-using-Bluetooth-headsets)
 
+* [My media keys don't work with Aural Player](https://github.com/maculateConception/aural-player/wiki/My-media-keys-don't-work-with-Aural-Player)
+
 ## Contact and conversation
 
 I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement. If you just wanna tell me you love Aural Player, I'd love to hear that too 😊.
