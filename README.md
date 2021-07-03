@@ -30,17 +30,33 @@ Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the la
 
 Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and powerful sound tuning capabilities for audio enthusiasts.
 
-#### Goals:
-* To have a simple drag-drop-play player for the music collection on your local drives, that is able to play a wide variety of audio formats.
-* To *allow* customization/configuration, but not to *require* it out of the box.
-* To make sound tuning an integral part of the listening experience and to have it within quick and easy reach at all times.
-* To have a decent macOS Winamp counterpart.
+#### Winamp-like Modularity
 
-#### Limitations:
-* Does not play protected content (e.g. Apple's M4P or Audible's AAX).
-* No streaming / scrobbling, etc.
+<img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="800" />
 
-If you're interested in a bit of background, read about [how Aural Player came to be](https://github.com/maculateConception/aural-player/wiki/How-Aural-Player-came-to-be).
+With Winamp-like modularity and flexibility, and multiple app presentation modes, you can lay out the app in whatever way suits your desktop workspace or tuck it away in the macOS menu bar.
+
+#### Extensive Audio Formats Support
+
+<img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-AudioFormats.png" width="300" />
+
+By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats.
+
+#### Personalization
+
+<img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="400" />
+
+Personalize Aural Player with exactly the colors and fonts that define your creative tastes.
+
+#### Sound tweaking and monitoring
+  
+<img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="400" />
+
+With several built-in effects and support for Audio Units (AU) plug-ins, tweak and monitor/visualize your sound just the way you want.
+
+#### Usability
+
+Control Aural Player with touch/swipe gestures, any device with media keys, through the macOS Control Center, or any app capable of sending remote playback commands.
 
 ## Summary of features
 
