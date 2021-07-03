@@ -48,6 +48,9 @@
                   Identifier = "DelayUnitPersistenceTests">
                </Test>
                <Test
+                  Identifier = "EQUnitPersistenceTests">
+               </Test>
+               <Test
                   Identifier = "EQUnitPersistentStateTests">
                </Test>
                <Test
@@ -157,9 +160,6 @@
                </Test>
                <Test
                   Identifier = "ShuffleSequenceTests">
-               </Test>
-               <Test
-                  Identifier = "TimeStretchUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "ValueFormatterTests">

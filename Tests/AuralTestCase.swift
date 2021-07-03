@@ -13,6 +13,8 @@ class AuralTestCase: XCTestCase {
 
     var runLongRunningTests: Bool {return false}
     
+    var tempDirectory: URL {FileManager.default.temporaryDirectory}
+    
     var numSkippedTests: Int = 0
     
     override func perform(_ run: XCTestRun) {
