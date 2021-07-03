@@ -33,7 +33,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 | Flexibility  | Personalization |
 | :-- | --: |
 |  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="500" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="300" /> |
-| With Winamp-like modularity and multiple app presentation modes, you can lay out the app in whatever way suits your workspace or tuck it away in the macOS menu bar. | Personalize Aural Player with exactly the colors and fonts that define your creative tastes. |
+| With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace or tuck it away in the macOS menu bar. | Personalize Aural Player with exactly the colors and fonts that define your creative tastes. |
 
 | Extensive Audio Formats Support  | Sound tweaking and monitoring |
 | :-- | --: |
