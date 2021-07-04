@@ -16,8 +16,8 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "controls.remoteControl"
     
-    private static let key_enabled: String = "\(keyPrefix).enabled"
-    private static let key_trackChangeOrSeekingOption: String = "\(keyPrefix).trackChangeOrSeekingOption"
+    static let key_enabled: String = "\(keyPrefix).enabled"
+    static let key_trackChangeOrSeekingOption: String = "\(keyPrefix).trackChangeOrSeekingOption"
     
     private typealias Defaults = PreferencesDefaults.Controls.RemoteControl
     
@@ -36,7 +36,7 @@ class RemoteControlPreferences: PersistentPreferencesProtocol {
     }
 }
 
-enum TrackChangeOrSeekingOptions: String {
+enum TrackChangeOrSeekingOptions: String, CaseIterable {
     
     case trackChange
     case seeking

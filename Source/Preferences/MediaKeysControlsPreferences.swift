@@ -17,13 +17,13 @@ class MediaKeysControlsPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "controls.mediaKeys"
     
-    private static let key_enabled: String = "\(keyPrefix).enabled"
-    private static let key_skipKeyBehavior: String = "\(keyPrefix).skipKeyBehavior"
-    private static let key_repeatSpeed: String = "\(keyPrefix).repeatSpeed"
+    static let key_enabled: String = "\(keyPrefix).enabled"
+    static let key_skipKeyBehavior: String = "\(keyPrefix).skipKeyBehavior"
+    static let key_repeatSpeed: String = "\(keyPrefix).repeatSpeed"
     
     private typealias Defaults = PreferencesDefaults.Controls.MediaKeys
     
-    internal required init(_ dict: [String: Any]) {
+    required init(_ dict: [String: Any]) {
         
         enabled = dict[Self.key_enabled, Bool.self] ?? Defaults.enabled
         skipKeyBehavior = dict.enumValue(forKey: Self.key_skipKeyBehavior, ofType: SkipKeyBehavior.self) ?? Defaults.skipKeyBehavior
@@ -38,14 +38,14 @@ class MediaKeysControlsPreferences: PersistentPreferencesProtocol {
     }
 }
 
-enum SkipKeyBehavior: String {
+enum SkipKeyBehavior: String, CaseIterable {
     
     case hybrid
     case trackChangesOnly
     case seekingOnly
 }
 
-enum SkipKeyRepeatSpeed: String {
+enum SkipKeyRepeatSpeed: String, CaseIterable {
     
     case slow
     case medium
