@@ -16,8 +16,8 @@ class HistoryPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "history"
     
-    private static let key_recentlyAddedListSize: String = "\(keyPrefix).recentlyAddedListSize"
-    private static let key_recentlyPlayedListSize: String = "\(keyPrefix).recentlyPlayedListSize"
+    static let key_recentlyAddedListSize: String = "\(keyPrefix).recentlyAddedListSize"
+    static let key_recentlyPlayedListSize: String = "\(keyPrefix).recentlyPlayedListSize"
     
     private typealias Defaults = PreferencesDefaults.History
     

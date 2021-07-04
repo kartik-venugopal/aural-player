@@ -17,7 +17,8 @@ class PlaybackPreferencesTests: AuralTestCase {
     
     func testInit_noValues() {
         
-        doTestInit(primarySeekLengthOption: nil,
+        doTestInit(userDefs: UserDefaults(),
+                   primarySeekLengthOption: nil,
                    primarySeekLengthConstant: nil,
                    primarySeekLengthPercentage: nil,
                    secondarySeekLengthOption: nil,
@@ -33,7 +34,8 @@ class PlaybackPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
-            doTestInit(primarySeekLengthOption: randomNillableSeekLengthOption(),
+            doTestInit(userDefs: UserDefaults(),
+                       primarySeekLengthOption: randomNillableSeekLengthOption(),
                        primarySeekLengthConstant: randomNillableSeekLengthConstant(),
                        primarySeekLengthPercentage: randomNillablePercentage(),
                        secondarySeekLengthOption: randomNillableSeekLengthOption(),
@@ -51,7 +53,8 @@ class PlaybackPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
-            doTestInit(primarySeekLengthOption: randomSeekLengthOption(),
+            doTestInit(userDefs: UserDefaults(),
+                       primarySeekLengthOption: randomSeekLengthOption(),
                        primarySeekLengthConstant: randomSeekLengthConstant(),
                        primarySeekLengthPercentage: randomPercentage(),
                        secondarySeekLengthOption: randomSeekLengthOption(),
@@ -62,30 +65,6 @@ class PlaybackPreferencesTests: AuralTestCase {
                        autoplayAfterAddingOption: randomAutoplayAfterAddingOption(),
                        rememberLastPositionOption: randomRememberLastPositionOption())
         }
-    }
-    
-    private func doTestInit(primarySeekLengthOption: SeekLengthOptions?,
-                            primarySeekLengthConstant: Int?,
-                            primarySeekLengthPercentage: Int?,
-                            secondarySeekLengthOption: SeekLengthOptions?,
-                            secondarySeekLengthConstant: Int?,
-                            secondarySeekLengthPercentage: Int?,
-                            autoplayOnStartup: Bool?,
-                            autoplayAfterAddingTracks: Bool?,
-                            autoplayAfterAddingOption: AutoplayAfterAddingOptions?,
-                            rememberLastPositionOption: RememberSettingsForTrackOptions?) {
-        
-        doTestInit(userDefs: UserDefaults(),
-                   primarySeekLengthOption: primarySeekLengthOption,
-                   primarySeekLengthConstant: primarySeekLengthConstant,
-                   primarySeekLengthPercentage: primarySeekLengthPercentage,
-                   secondarySeekLengthOption: secondarySeekLengthOption,
-                   secondarySeekLengthConstant: secondarySeekLengthConstant,
-                   secondarySeekLengthPercentage: secondarySeekLengthPercentage,
-                   autoplayOnStartup: autoplayOnStartup,
-                   autoplayAfterAddingTracks: autoplayAfterAddingTracks,
-                   autoplayAfterAddingOption: autoplayAfterAddingOption,
-                   rememberLastPositionOption: rememberLastPositionOption)
     }
     
     private func doTestInit(userDefs: UserDefaults,
