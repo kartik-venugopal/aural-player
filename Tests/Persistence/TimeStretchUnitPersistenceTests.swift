@@ -14,6 +14,8 @@ import XCTest
 ///
 class TimeStretchUnitPersistenceTests: PersistenceTestCase {
     
+    // MARK: init() tests -------------------------------------------
+    
     func testInit_defaultSettings() {
         
         doTestInit(unitState: AudioGraphDefaults.timeState, userPresets: [],
@@ -97,13 +99,13 @@ class TimeStretchUnitPersistenceTests: PersistenceTestCase {
         
         persistenceManager.save(serializedState)
         
-        guard let persistentState = persistenceManager.load(type: TimeStretchUnitPersistentState.self) else {
+        guard let deserializedState = persistenceManager.load(type: TimeStretchUnitPersistentState.self) else {
             
-            XCTFail("persistentState is nil, deserialization of TimeStretchUnit state failed.")
+            XCTFail("deserializedState is nil, deserialization of TimeStretchUnit state failed.")
             return
         }
         
-        validatePersistentState(persistentState: persistentState, unitState: unitState,
+        validatePersistentState(persistentState: deserializedState, unitState: unitState,
                                 userPresets: userPresets, rate: rate,
                                 shiftPitch: shiftPitch, overlap: overlap)
     }
@@ -164,9 +166,9 @@ class TimeStretchUnitPersistenceTests: PersistenceTestCase {
             XCTAssertNil(persistentState.userPresets)
         }
         
-        XCTAssertEqual(persistentState.rate, rate)
+        AssertEqual(persistentState.rate, rate, accuracy: 0.001)
         XCTAssertEqual(persistentState.shiftPitch, shiftPitch)
-        XCTAssertEqual(persistentState.overlap, overlap)
+        AssertEqual(persistentState.overlap, overlap, accuracy: 0.001)
     }
 }
 
@@ -176,7 +178,9 @@ extension TimeStretchPresetPersistentState: Equatable {
     
     static func == (lhs: TimeStretchPresetPersistentState, rhs: TimeStretchPresetPersistentState) -> Bool {
         
-        lhs.name == rhs.name && lhs.state == rhs.state && lhs.rate == rhs.rate &&
-            lhs.shiftPitch == rhs.shiftPitch && lhs.overlap == rhs.overlap
+        lhs.name == rhs.name && lhs.state == rhs.state &&
+            lhs.rate.approxEquals(rhs.rate, accuracy: 0.001) &&
+            lhs.shiftPitch == rhs.shiftPitch &&
+            Float.approxEquals(lhs.overlap, rhs.overlap, accuracy: 0.001)
     }
 }

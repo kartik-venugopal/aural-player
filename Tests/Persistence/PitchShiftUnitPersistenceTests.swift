@@ -133,7 +133,7 @@ class PitchShiftUnitPersistenceTests: PersistenceTestCase {
         
         guard let deserializedState = persistenceManager.load(type: PitchShiftUnitPersistentState.self) else {
             
-            XCTFail("persistentState is nil, deserialization of PitchShiftUnit state failed.")
+            XCTFail("deserializedState is nil, deserialization of PitchShiftUnit state failed.")
             return
         }
         
@@ -163,8 +163,8 @@ class PitchShiftUnitPersistenceTests: PersistenceTestCase {
             XCTAssertNil(persistentState.userPresets)
         }
         
-        XCTAssertEqual(persistentState.pitch, pitch)
-        XCTAssertEqual(persistentState.overlap, overlap)
+        AssertEqual(persistentState.pitch, pitch, accuracy: 0.001)
+        AssertEqual(persistentState.overlap, overlap, accuracy: 0.001)
     }
 }
 
@@ -173,6 +173,9 @@ class PitchShiftUnitPersistenceTests: PersistenceTestCase {
 extension PitchShiftPresetPersistentState: Equatable {
     
     static func == (lhs: PitchShiftPresetPersistentState, rhs: PitchShiftPresetPersistentState) -> Bool {
-        lhs.name == rhs.name && lhs.state == rhs.state && lhs.pitch == rhs.pitch && lhs.overlap == rhs.overlap
+        
+        lhs.name == rhs.name && lhs.state == rhs.state &&
+            lhs.pitch.approxEquals(rhs.pitch, accuracy: 0.001) &&
+            Float.approxEquals(lhs.overlap, rhs.overlap, accuracy: 0.001)
     }
 }

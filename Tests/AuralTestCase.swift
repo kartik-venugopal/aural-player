@@ -87,4 +87,65 @@ extension XCTestCase {
     func XCTAssertAllNil(_ expressions: Any?...) {
         expressions.forEach({XCTAssertNil($0)})
     }
+    
+    func AssertEqual(_ val1: Float?, _ val2: Float?, accuracy: Float) {
+
+        if val1 == nil {
+
+            XCTAssertNil(val2)
+            return
+        }
+
+        XCTAssertNotNil(val2)
+
+        guard let theVal1 = val1, let theVal2 = val2 else {
+
+            XCTFail("Something went wrong. One of the Float values is nil but shouldn't be.")
+            return
+        }
+
+        XCTAssertEqual(theVal1, theVal2, accuracy: accuracy)
+    }
+    
+    func AssertEqual(_ val1: Double?, _ val2: Double?, accuracy: Double) {
+
+        if val1 == nil {
+
+            XCTAssertNil(val2)
+            return
+        }
+
+        XCTAssertNotNil(val2)
+
+        guard let theVal1 = val1, let theVal2 = val2 else {
+
+            XCTFail("Something went wrong. One of the Double values is nil but shouldn't be.")
+            return
+        }
+
+        XCTAssertEqual(theVal1, theVal2, accuracy: accuracy)
+    }
+    
+    func AssertEqual(_ arr1: [Float]?, _ arr2: [Float]?, accuracy: Float) {
+
+        if arr1 == nil {
+
+            XCTAssertNil(arr2)
+            return
+        }
+
+        XCTAssertNotNil(arr2)
+
+        guard let theArr1 = arr1, let theArr2 = arr2 else {
+
+            XCTFail("Something went wrong. One of the [Float] values is nil but shouldn't be.")
+            return
+        }
+        
+        XCTAssertEqual(theArr1.count, theArr2.count)
+        
+        for (elm1, elm2) in zip(theArr1, theArr2) {
+            XCTAssertEqual(elm1, elm2, accuracy: accuracy)
+        }
+    }
 }

@@ -9,56 +9,55 @@
 //  
 import XCTest
 
-class FilterUnitPersistenceTests: AuralTestCase {
+class FilterUnitPersistenceTests: PersistenceTestCase {
     
-    func testDeserialization_defaultSettings() {
+    // MARK: init() tests -------------------------------------------
+    
+    func testInit_defaultSettings() {
         
-        doTestDeserialization(state: AudioGraphDefaults.filterState, userPresets: [],
-                              bands: [])
+        doTestInit(unitState: AudioGraphDefaults.filterState, userPresets: [],
+                   bands: [])
     }
     
-    func testDeserialization_noValuesAvailable() {
-        doTestDeserialization(state: nil, userPresets: nil, bands: nil)
+    func testInit_noValuesAvailable() {
+        doTestInit(unitState: nil, userPresets: nil, bands: nil)
     }
     
-    func testDeserialization_someValuesAvailable() {
+    func testInit_someValuesAvailable() {
         
         for state in EffectsUnitState.allCases {
             
-            doTestDeserialization(state: state, userPresets: [],
-                                  bands: nil)
+            doTestInit(unitState: state, userPresets: randomNillablePresets(),
+                       bands: randomNillableBands())
         }
         
         for _ in 0..<100 {
-
-            doTestDeserialization(state: randomNillableUnitState(), userPresets: [],
-                                  bands: randomNillableBands())
+            
+            doTestInit(unitState: randomNillableUnitState(), userPresets: randomNillablePresets(),
+                       bands: randomNillableBands())
         }
     }
     
-    func testDeserialization_withPresets() {
+    func testInit() {
         
         for state in EffectsUnitState.allCases {
             
-            doTestDeserialization(state: state, userPresets: [],
-                                  bands: nil)
-        }
-        
-        for _ in 0..<100 {
-
-            doTestDeserialization(state: randomNillableUnitState(), userPresets: randomPresets(),
-                                  bands: randomNillableBands())
+            for _ in 0..<100 {
+                
+                doTestInit(unitState: state, userPresets: randomPresets(),
+                           bands: randomBands())
+            }
         }
     }
     
-    private func doTestDeserialization(state: EffectsUnitState?, userPresets: [FilterPresetPersistentState]?,
-                                       bands: [FilterBandPersistentState]?) {
+    private func doTestInit(unitState: EffectsUnitState?, userPresets: [FilterPresetPersistentState]?,
+                            bands: [FilterBandPersistentState]?) {
         
         let dict = NSMutableDictionary()
         
-        dict["state"] = state?.rawValue
+        dict["state"] = unitState?.rawValue
         dict["userPresets"] = userPresets == nil ? nil : NSArray(array: userPresets!.map {JSONMapper.map($0)})
-
+        
         dict["bands"] = bands == nil ? nil : NSArray(array: bands!.map {JSONMapper.map($0)})
         
         let optionalPersistentState = FilterUnitPersistentState(dict)
@@ -69,7 +68,144 @@ class FilterUnitPersistenceTests: AuralTestCase {
             return
         }
         
-        XCTAssertEqual(persistentState.state, state)
+        validatePersistentState(persistentState: persistentState, unitState: unitState,
+                                userPresets: userPresets, bands: bands)
+    }
+    
+    // MARK: Persistence tests -------------------------------------------
+    
+    func testPersistence() {
+        
+        for state in EffectsUnitState.allCases {
+            
+            for _ in 0..<100 {
+                
+                doTestPersistence(unitState: state, userPresets: randomPresets(),
+                           bands: randomBands())
+            }
+        }
+    }
+    
+    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [FilterPresetPersistentState],
+                            bands: [FilterBandPersistentState]) {
+        
+        defer {persistentStateFile.delete()}
+        
+        let serializedState = FilterUnitPersistentState()
+        
+        serializedState.state = unitState
+        serializedState.userPresets = userPresets
+        
+        serializedState.bands = bands
+        
+        persistenceManager.save(serializedState)
+        
+        guard let deserializedState = persistenceManager.load(type: FilterUnitPersistentState.self) else {
+            
+            XCTFail("persistentState is nil, deserialization of FilterUnit state failed.")
+            return
+        }
+        
+        validatePersistentState(persistentState: deserializedState, unitState: unitState, userPresets: userPresets,
+                                bands: bands)
+    }
+    
+    // MARK: Helper functions --------------------------------------------
+    
+    private func randomBandType() -> FilterBandType {FilterBandType.randomCase()}
+    
+    private func randomFrequency() -> Float {
+        Float.random(in: SoundConstants.audibleRangeMin...SoundConstants.audibleRangeMax)
+    }
+    
+    private func randomBands() -> [FilterBandPersistentState] {
+        
+        let numBands = Int.random(in: 1...10)
+        return (0..<numBands).map {_ in
+            
+            let type = randomBandType()
+            
+            switch type {
+            
+            case .bandStop:
+                
+                let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
+                let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
+                
+                return FilterBandPersistentState(band: FilterBand.bandStopBand(minFreq, maxFreq))
+                
+            case .bandPass:
+                
+                let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
+                let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
+                
+                return FilterBandPersistentState(band: FilterBand.bandPassBand(minFreq, maxFreq))
+                
+            case .lowPass:
+                
+                return FilterBandPersistentState(band: FilterBand.lowPassBand(randomFrequency()))
+                
+            case .highPass:
+                
+                return FilterBandPersistentState(band: FilterBand.highPassBand(randomFrequency()))
+            }
+        }
+    }
+    
+    private func randomNillableBands() -> [FilterBandPersistentState]? {
+        randomNillableValue {self.randomBands()}
+    }
+    
+    private func randomPresets() -> [FilterPresetPersistentState] {
+        
+        let numPresets = Int.random(in: 0...10)
+        
+        return numPresets == 0 ? [] : (0..<numPresets).map {index in
+            
+            let numBands = Int.random(in: 1...10)
+            let bands = (0..<numBands).map {(_: Int) -> FilterBand in
+                
+                let type = self.randomBandType()
+                
+                switch type {
+                
+                case .bandStop:
+                    
+                    let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
+                    let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
+                    
+                    return FilterBand.bandStopBand(minFreq, maxFreq)
+                    
+                case .bandPass:
+                    
+                    let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
+                    let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
+                    
+                    return FilterBand.bandPassBand(minFreq, maxFreq)
+                    
+                case .lowPass:
+                    
+                    return FilterBand.lowPassBand(randomFrequency())
+                    
+                case .highPass:
+                    
+                    return FilterBand.highPassBand(randomFrequency())
+                }
+            }
+            
+            return FilterPresetPersistentState(preset: FilterPreset("preset-\(index)", .active, bands, false))
+        }
+    }
+    
+    private func randomNillablePresets() -> [FilterPresetPersistentState]? {
+        randomNillableValue {self.randomPresets()}
+    }
+    
+    private func validatePersistentState(persistentState: FilterUnitPersistentState,
+                                         unitState: EffectsUnitState?, userPresets: [FilterPresetPersistentState]?,
+                                         bands: [FilterBandPersistentState]?) {
+        
+        XCTAssertEqual(persistentState.state, unitState)
         
         if let theUserPresets = userPresets {
             
@@ -89,92 +225,6 @@ class FilterUnitPersistenceTests: AuralTestCase {
         
         XCTAssertEqual(persistentState.bands, bands)
     }
-    
-    // MARK: Helper functions --------------------------------------------
-    
-    private func randomBandType() -> FilterBandType {FilterBandType.randomCase()}
-    
-    private func randomFrequency() -> Float {
-        Float.random(in: SoundConstants.audibleRangeMin...SoundConstants.audibleRangeMax)
-    }
-
-    private func randomBands() -> [FilterBandPersistentState] {
-        
-        let numBands = Int.random(in: 1...10)
-        return (0..<numBands).map {_ in
-            
-            let type = randomBandType()
-            
-            switch type {
-            
-            case .bandStop:
-                
-                let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
-                let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
-                
-                return FilterBandPersistentState(band: FilterBand.bandStopBand(minFreq, maxFreq))
-                
-            case .bandPass:
-                
-            let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
-            let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
-            
-            return FilterBandPersistentState(band: FilterBand.bandPassBand(minFreq, maxFreq))
-            
-            case .lowPass:
-                
-                return FilterBandPersistentState(band: FilterBand.lowPassBand(randomFrequency()))
-                
-            case .highPass:
-                
-                return FilterBandPersistentState(band: FilterBand.highPassBand(randomFrequency()))
-            }
-        }
-    }
-    
-    private func randomNillableBands() -> [FilterBandPersistentState]? {
-        randomNillableValue {self.randomBands()}
-    }
-    
-    private func randomPresets() -> [FilterPresetPersistentState] {
-        
-        let numPresets = Int.random(in: 1...10)
-        return (0..<numPresets).map {index in
-            
-            let numBands = Int.random(in: 1...10)
-            let bands = (0..<numBands).map {(_: Int) -> FilterBand in
-                
-                let type = self.randomBandType()
-                
-                switch type {
-                
-                case .bandStop:
-                    
-                    let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
-                    let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
-                    
-                    return FilterBand.bandStopBand(minFreq, maxFreq)
-                    
-                case .bandPass:
-                    
-                let minFreq = Float.random(in: SoundConstants.audibleRangeMin...(SoundConstants.audibleRangeMax / 2))
-                let maxFreq = Float.random(in: minFreq...SoundConstants.audibleRangeMax)
-                
-                return FilterBand.bandPassBand(minFreq, maxFreq)
-                
-                case .lowPass:
-                    
-                    return FilterBand.lowPassBand(randomFrequency())
-                    
-                case .highPass:
-                    
-                    return FilterBand.highPassBand(randomFrequency())
-                }
-            }
-            
-            return FilterPresetPersistentState(preset: FilterPreset("preset-\(index)", .active, bands, false))
-        }
-    }
 }
 
 // MARK: Equality comparison for model objects -----------------------------
@@ -189,6 +239,9 @@ extension FilterPresetPersistentState: Equatable {
 extension FilterBandPersistentState: Equatable {
     
     static func == (lhs: FilterBandPersistentState, rhs: FilterBandPersistentState) -> Bool {
-        lhs.type == rhs.type && lhs.minFreq == rhs.minFreq && lhs.maxFreq == rhs.maxFreq
+        
+        lhs.type == rhs.type &&
+            Float.approxEquals(lhs.minFreq, rhs.minFreq, accuracy: 0.001) &&
+            Float.approxEquals(lhs.maxFreq, rhs.maxFreq, accuracy: 0.001)
     }
 }

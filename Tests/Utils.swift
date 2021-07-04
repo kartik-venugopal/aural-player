@@ -54,3 +54,56 @@ func randomNillableValue<T>(_ producer: @escaping () -> T) -> T? where T: Any {
         return nil
     }
 }
+
+extension Float {
+    
+    static func approxEquals(_ op1: Float?, _ op2: Float?, accuracy: Float) -> Bool {
+        
+        if op1 == nil {return op2 == nil}
+        if op2 == nil {return false}
+        
+        guard let theOp1 = op1, let theOp2 = op2 else {return false}
+        
+        return theOp1.approxEquals(theOp2, accuracy: accuracy)
+    }
+    
+    func approxEquals(_ other: Float, accuracy: Float) -> Bool {
+        fabsf(self - other) <= accuracy
+    }
+}
+
+extension Array where Element == Float {
+    
+    func approxEquals(_ other: [Float], accuracy: Float) -> Bool {
+        
+        if count != other.count {return false}
+        
+        if count == 0 {return true}
+        
+        for index in indices {
+            
+            if !self[index].approxEquals(other[index], accuracy: accuracy) {
+                return false
+            }
+        }
+        
+        return true
+    }
+}
+
+extension Double {
+    
+    func approxEquals(_ other: Double, accuracy: Double) -> Bool {
+        fabs(self - other) <= accuracy
+    }
+    
+    static func approxEquals(_ op1: Double?, _ op2: Double?, accuracy: Double) -> Bool {
+        
+        if op1 == nil {return op2 == nil}
+        if op2 == nil {return false}
+        
+        guard let theOp1 = op1, let theOp2 = op2 else {return false}
+        
+        return theOp1.approxEquals(theOp2, accuracy: accuracy)
+    }
+}

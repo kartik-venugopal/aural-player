@@ -9,89 +9,62 @@
 //  
 import XCTest
 
-class ReverbUnitPersistenceTests: AuralTestCase {
+class ReverbUnitPersistenceTests: PersistenceTestCase {
     
-    func testDeserialization_defaultSettings() {
+    // MARK: init() tests -------------------------------------------
+    
+    func testInit_defaultSettings() {
         
-        doTestDeserialization(state: AudioGraphDefaults.reverbState, userPresets: [],
-                              space: AudioGraphDefaults.reverbSpace,
-                              amount: AudioGraphDefaults.reverbAmount)
+        doTestInit(unitState: AudioGraphDefaults.reverbState, userPresets: [],
+                   space: AudioGraphDefaults.reverbSpace,
+                   amount: AudioGraphDefaults.reverbAmount)
     }
     
-    func testDeserialization_noValuesAvailable() {
-        doTestDeserialization(state: nil, userPresets: nil, space: nil, amount: nil)
+    func testInit_noValuesAvailable() {
+        doTestInit(unitState: nil, userPresets: nil, space: nil, amount: nil)
     }
-
-    func testDeserialization_someValuesAvailable() {
-
-        doTestDeserialization(state: .active, userPresets: [], space: randomSpace(), amount: nil)
-        doTestDeserialization(state: .active, userPresets: [], space: nil, amount: randomAmount())
+    
+    func testInit_someValuesAvailable() {
         
-        doTestDeserialization(state: .bypassed, userPresets: [], space: randomSpace(), amount: nil)
-        doTestDeserialization(state: .bypassed, userPresets: [], space: nil, amount: randomAmount())
+        doTestInit(unitState: .active, userPresets: [], space: randomSpace(), amount: nil)
+        doTestInit(unitState: .active, userPresets: [], space: nil, amount: randomAmount())
         
-        doTestDeserialization(state: .suppressed, userPresets: [], space: randomSpace(), amount: nil)
-        doTestDeserialization(state: .suppressed, userPresets: [], space: nil, amount: randomAmount())
+        doTestInit(unitState: .bypassed, userPresets: [], space: randomSpace(), amount: nil)
+        doTestInit(unitState: .bypassed, userPresets: [], space: nil, amount: randomAmount())
+        
+        doTestInit(unitState: .suppressed, userPresets: [], space: randomSpace(), amount: nil)
+        doTestInit(unitState: .suppressed, userPresets: [], space: nil, amount: randomAmount())
         
         for _ in 0..<100 {
-
-            doTestDeserialization(state: randomNillableUnitState(),
-                                  userPresets: [],
-                                  space: randomSpace(),
-                                  amount: randomAmount())
+            
+            doTestInit(unitState: randomNillableUnitState(),
+                       userPresets: randomNillablePresets(),
+                       space: randomNillableSpace(),
+                       amount: randomNillableAmount())
         }
     }
     
-    func testDeserialization_active_noPresets() {
-
-        for space in ReverbSpaces.allCases {
-
-            doTestDeserialization(state: .active, userPresets: [],
-                                  space: space, amount: randomAmount())
-        }
-    }
-
-    func testDeserialization_bypassed_noPresets() {
-
-        for space in ReverbSpaces.allCases {
-
-            doTestDeserialization(state: .bypassed, userPresets: [],
-                                  space: space, amount: randomAmount())
-        }
-    }
-
-    func testDeserialization_suppressed_noPresets() {
-
-        for space in ReverbSpaces.allCases {
-
-            doTestDeserialization(state: .suppressed, userPresets: [],
-                                  space: space, amount: randomAmount())
-        }
-    }
-    
-    func testDeserialization_active_withPresets() {
-
-        for space in ReverbSpaces.allCases {
-
-            let numPresets = Int.random(in: 1...10)
-            let presets: [ReverbPresetPersistentState] = (0..<numPresets).map {index in
-
-                ReverbPresetPersistentState(preset: ReverbPreset("preset-\(index)", .active,
-                                                                 randomSpace(), randomAmount(),
-                                                                 false))
+    func testInit() {
+        
+        for unitState in EffectsUnitState.allCases {
+            
+            for space in ReverbSpaces.allCases {
+                
+                for _ in 0..<100 {
+                    
+                    doTestInit(unitState: unitState, userPresets: randomPresets(),
+                               space: space, amount: randomAmount())
+                }
             }
-
-            doTestDeserialization(state: .active, userPresets: presets,
-                                  space: space, amount: randomAmount())
         }
     }
     
-    private func doTestDeserialization(state: EffectsUnitState?, userPresets: [ReverbPresetPersistentState]?,
-                                       space: ReverbSpaces?, amount: Float?) {
+    private func doTestInit(unitState: EffectsUnitState?, userPresets: [ReverbPresetPersistentState]?,
+                            space: ReverbSpaces?, amount: Float?) {
         
         let dict = NSMutableDictionary()
         
-        dict["state"] = state?.rawValue
+        dict["state"] = unitState?.rawValue
         dict["userPresets"] = userPresets == nil ? nil : NSArray(array: userPresets!.map {JSONMapper.map($0)})
         
         dict["space"] = space?.rawValue
@@ -105,7 +78,7 @@ class ReverbUnitPersistenceTests: AuralTestCase {
             return
         }
         
-        XCTAssertEqual(persistentState.state, state)
+        XCTAssertEqual(persistentState.state, unitState)
         
         if let theUserPresets = userPresets {
             
@@ -127,14 +100,103 @@ class ReverbUnitPersistenceTests: AuralTestCase {
         XCTAssertEqual(persistentState.amount, amount)
     }
     
+    // MARK:Persistence tests --------------------------------------------
+    
+    func testPersistence() {
+        
+        for unitState in EffectsUnitState.allCases {
+            
+            for space in ReverbSpaces.allCases {
+                
+                for _ in 0..<100 {
+                    
+                    doTestInit(unitState: unitState, userPresets: randomPresets(),
+                               space: space, amount: randomAmount())
+                }
+            }
+        }
+    }
+    
+    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [ReverbPresetPersistentState],
+                                   space: ReverbSpaces, amount: Float) {
+        
+        defer {persistentStateFile.delete()}
+        
+        let serializedState = ReverbUnitPersistentState()
+        
+        serializedState.state = unitState
+        serializedState.userPresets = userPresets
+        
+        serializedState.space = space
+        serializedState.amount = amount
+        
+        persistenceManager.save(serializedState)
+        
+        guard let deserializedState = persistenceManager.load(type: ReverbUnitPersistentState.self) else {
+            
+            XCTFail("deserializedState is nil, deserialization of ReverbUnit state failed.")
+            return
+        }
+        
+        validatePersistentState(persistentState: deserializedState, unitState: unitState,
+                                userPresets: userPresets,
+                                space: space, amount: amount)
+    }
+    
     // MARK: Helper functions --------------------------------------------
-
+    
+    private func randomNillablePresets() -> [ReverbPresetPersistentState]? {
+        randomNillableValue {self.randomPresets()}
+    }
+    
+    private func randomPresets() -> [ReverbPresetPersistentState] {
+        
+        let numPresets = Int.random(in: 0...10)
+        
+        return numPresets == 0 ? [] : (1...numPresets).map {index in
+            
+            ReverbPresetPersistentState(preset: ReverbPreset("preset-\(index)", .active,
+                                                             randomSpace(), randomAmount(),
+                                                             false))
+        }
+    }
+    
     private func randomSpace() -> ReverbSpaces {ReverbSpaces.randomCase()}
-
+    
+    private func randomNillableSpace() -> ReverbSpaces? {
+        randomNillableValue {self.randomSpace()}
+    }
+    
     private func randomAmount() -> Float {Float.random(in: 0...100)}
-
+    
     private func randomNillableAmount() -> Float? {
         randomNillableValue {self.randomAmount()}
+    }
+    
+    private func validatePersistentState(persistentState: ReverbUnitPersistentState,
+                                         unitState: EffectsUnitState?, userPresets: [ReverbPresetPersistentState]?,
+                                         space: ReverbSpaces?, amount: Float?) {
+        
+        XCTAssertEqual(persistentState.state, unitState)
+        
+        if let theUserPresets = userPresets {
+            
+            guard let persistedUserPresets = persistentState.userPresets else {
+                
+                XCTFail("persisted user presets is nil, deserialization of ReverbUnit state failed.")
+                return
+            }
+            
+            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
+            XCTAssertEqual(persistedUserPresets, theUserPresets)
+            
+        } else {
+            
+            XCTAssertNil(persistentState.userPresets)
+        }
+        
+        XCTAssertEqual(persistentState.space, space)
+        AssertEqual(persistentState.amount, amount, accuracy: 0.001)
     }
 }
 
@@ -143,6 +205,8 @@ class ReverbUnitPersistenceTests: AuralTestCase {
 extension ReverbPresetPersistentState: Equatable {
     
     static func == (lhs: ReverbPresetPersistentState, rhs: ReverbPresetPersistentState) -> Bool {
-        lhs.name == rhs.name && lhs.state == rhs.state && lhs.space == rhs.space && lhs.amount == rhs.amount
+        
+        lhs.name == rhs.name && lhs.state == rhs.state && lhs.space == rhs.space &&
+            lhs.amount.approxEquals(rhs.amount, accuracy: 0.001)
     }
 }

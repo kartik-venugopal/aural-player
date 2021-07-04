@@ -795,6 +795,7 @@
 		3EDD2C512684DE2E0090BAF7 /* FilesAndPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C502684DE2E0090BAF7 /* FilesAndPaths.swift */; };
 		3EDD2C532684FA320090BAF7 /* SoundConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C522684FA320090BAF7 /* SoundConstants.swift */; };
 		3EDD2C552684FAD70090BAF7 /* ValueConversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C542684FAD70090BAF7 /* ValueConversions.swift */; };
+		3EDDEFC5269156B200219BDA /* PlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9025D7268E830800C5A1C5 /* PlayerTests.swift */; };
 		3EDE74E425DE9190007F16A5 /* Play-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EDE74E325DE9168007F16A5 /* Play-Regular.ttf */; };
 		3EE2CC3126810D6F002C1B29 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2CC3026810D6F002C1B29 /* ArrayExtensions.swift */; };
 		3EE2CC3326811074002C1B29 /* NSTableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE2CC3226811074002C1B29 /* NSTableViewExtensions.swift */; };
@@ -5028,6 +5029,7 @@
 				3EA1BE20268F62C100A5D81B /* PlaybackLoopTests.swift in Sources */,
 				3EA1BDE2268F4F6500A5D81B /* Messenger.swift in Sources */,
 				3EEF3751268F703F002EA77F /* EQType.swift in Sources */,
+				3EDDEFC5269156B200219BDA /* PlayerTests.swift in Sources */,
 				3E5ECA53268F4E46000AE8B7 /* AVAudioExtensionsTests.swift in Sources */,
 				3E21ECC4268F49FD00731E4C /* GenreMap.swift in Sources */,
 				3E5ECA4C268F4DBA000AE8B7 /* ValueFormatter.swift in Sources */,

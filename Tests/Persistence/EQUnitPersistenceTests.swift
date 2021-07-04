@@ -136,7 +136,7 @@ class EQUnitPersistenceTests: PersistenceTestCase {
         
         guard let deserializedState = persistenceManager.load(type: EQUnitPersistentState.self) else {
             
-            XCTFail("persistentState is nil, deserialization of EQUnit state failed.")
+            XCTFail("deserializedState is nil, deserialization of EQUnit state failed.")
             return
         }
         
@@ -215,8 +215,8 @@ class EQUnitPersistenceTests: PersistenceTestCase {
         }
         
         XCTAssertEqual(persistentState.type, type)
-        XCTAssertEqual(persistentState.globalGain, globalGain)
-        XCTAssertEqual(persistentState.bands, bands)
+        AssertEqual(persistentState.globalGain, globalGain, accuracy: 0.001)
+        AssertEqual(persistentState.bands, bands, accuracy: 0.001)
     }
 }
 
@@ -225,6 +225,9 @@ class EQUnitPersistenceTests: PersistenceTestCase {
 extension EQPresetPersistentState: Equatable {
     
     static func == (lhs: EQPresetPersistentState, rhs: EQPresetPersistentState) -> Bool {
-        lhs.state == rhs.state && lhs.name == rhs.name && lhs.bands == rhs.bands && lhs.globalGain == rhs.globalGain
+        
+        lhs.state == rhs.state && lhs.name == rhs.name &&
+            lhs.bands.approxEquals(rhs.bands, accuracy: 0.001) &&
+            Float.approxEquals(lhs.globalGain, rhs.globalGain, accuracy: 0.001)
     }
 }
