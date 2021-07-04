@@ -55,6 +55,10 @@ func randomNillableValue<T>(_ producer: @escaping () -> T) -> T? where T: Any {
     }
 }
 
+func randomNillableBool() -> Bool? {
+    randomNillableValue {Bool.random()}
+}
+
 extension Float {
     
     static func approxEquals(_ op1: Float?, _ op2: Float?, accuracy: Float) -> Bool {

@@ -29,7 +29,6 @@ struct PreferencesDefaults {
         
         static let autoplayAfterAddingOption: AutoplayAfterAddingOptions = .ifNotPlaying
         
-        static let rememberLastPosition: Bool = false
         static let rememberLastPositionOption: RememberSettingsForTrackOptions = .individualTracks
     }
     

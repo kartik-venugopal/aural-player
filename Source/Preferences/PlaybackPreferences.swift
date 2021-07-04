@@ -101,20 +101,20 @@ class PlaybackPreferences: PersistentPreferencesProtocol {
     }
 }
 
-enum SeekLengthOptions: String {
+enum SeekLengthOptions: String, CaseIterable {
     
     case constant
     case percentage
 }
 
 // Possible options for the "autoplay afer adding tracks" user preference
-enum AutoplayAfterAddingOptions: String {
+enum AutoplayAfterAddingOptions: String, CaseIterable {
     
     case ifNotPlaying
     case always
 }
 
-enum RememberSettingsForTrackOptions: String {
+enum RememberSettingsForTrackOptions: String, CaseIterable {
     
     case allTracks
     case individualTracks
