@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class DelayUnitPersistenceTests: PersistenceTestCase {
+class DelayUnitPersistenceTests: AudioGraphPersistenceTestCase {
     
     // MARK: init() tests -------------------------------------------
     
@@ -32,18 +32,18 @@ class DelayUnitPersistenceTests: PersistenceTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            doTestInit(unitState: unitState, userPresets: randomNillablePresets(),
-                       amount: randomNillableAmount(),
-                       time: randomNillableTime(), feedback: randomNillableFeedback(),
-                       lowPassCutoff: randomNillableLowPassCutoff())
+            doTestInit(unitState: unitState, userPresets: randomNillableDelayPresets(unitState: .active),
+                       amount: randomNillableDelayAmount(),
+                       time: randomNillableDelayTime(), feedback: randomNillableDelayFeedback(),
+                       lowPassCutoff: randomNillableDelayLowPassCutoff())
         }
         
         for _ in 0..<100 {
             
-            doTestInit(unitState: randomNillableUnitState(), userPresets: randomNillablePresets(),
-                       amount: randomNillableAmount(),
-                       time: randomNillableTime(), feedback: randomNillableFeedback(),
-                       lowPassCutoff: randomNillableLowPassCutoff())
+            doTestInit(unitState: randomNillableUnitState(), userPresets: randomNillableDelayPresets(unitState: .active),
+                       amount: randomNillableDelayAmount(),
+                       time: randomNillableDelayTime(), feedback: randomNillableDelayFeedback(),
+                       lowPassCutoff: randomNillableDelayLowPassCutoff())
         }
     }
     
@@ -53,9 +53,9 @@ class DelayUnitPersistenceTests: PersistenceTestCase {
             
             for _ in 0..<100 {
                 
-                doTestInit(unitState: unitState, userPresets: randomPresets(),
-                           amount: randomAmount(), time: randomTime(),
-                           feedback: randomFeedback(), lowPassCutoff: randomLowPassCutoff())
+                doTestInit(unitState: unitState, userPresets: randomDelayPresets(unitState: .active),
+                           amount: randomDelayAmount(), time: randomDelayTime(),
+                           feedback: randomDelayFeedback(), lowPassCutoff: randomDelayLowPassCutoff())
             }
         }
     }
@@ -82,7 +82,7 @@ class DelayUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        validatePersistentState(persistentState: persistentState, unitState: unitState, userPresets: userPresets,
+        validateDelayUnitPersistentState(persistentState, unitState: unitState, userPresets: userPresets,
                                 amount: amount, time: time, feedback: feedback, lowPassCutoff: lowPassCutoff)
     }
     
@@ -94,9 +94,9 @@ class DelayUnitPersistenceTests: PersistenceTestCase {
             
             for _ in 0..<100 {
                 
-                doTestPersistence(unitState: unitState, userPresets: randomPresets(),
-                           amount: randomAmount(), time: randomTime(),
-                           feedback: randomFeedback(), lowPassCutoff: randomLowPassCutoff())
+                doTestPersistence(unitState: unitState, userPresets: randomDelayPresets(unitState: .active),
+                           amount: randomDelayAmount(), time: randomDelayTime(),
+                           feedback: randomDelayFeedback(), lowPassCutoff: randomDelayLowPassCutoff())
             }
         }
     }
@@ -125,80 +125,8 @@ class DelayUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        validatePersistentState(persistentState: persistentState, unitState: unitState, userPresets: userPresets,
+        validateDelayUnitPersistentState(persistentState, unitState: unitState, userPresets: userPresets,
                                 amount: amount, time: time, feedback: feedback, lowPassCutoff: lowPassCutoff)
-    }
-    
-    // MARK: Helper functions --------------------------------------------
-    
-    private func randomNillablePresets() -> [DelayPresetPersistentState]? {
-        randomNillableValue {self.randomPresets()}
-    }
-    
-    private func randomPresets() -> [DelayPresetPersistentState] {
-        
-        let numPresets = Int.random(in: 0...10)
-        
-        return numPresets == 0 ? [] : (1...numPresets).map {index in
-            
-            DelayPresetPersistentState(preset: DelayPreset("preset-\(index)", .active,
-                                                           randomAmount(), randomTime(),
-                                                           randomFeedback(), randomLowPassCutoff(),
-                                                           false))
-        }
-    }
-    
-    private func randomAmount() -> Float {Float.random(in: 0...100)}
-    
-    private func randomNillableAmount() -> Float? {
-        randomNillableValue {self.randomAmount()}
-    }
-    
-    private func randomTime() -> Double {Double.random(in: 0...2)}
-    
-    private func randomNillableTime() -> Double? {
-        randomNillableValue {self.randomTime()}
-    }
-    
-    private func randomFeedback() -> Float {Float.random(in: -100...100)}
-    
-    private func randomNillableFeedback() -> Float? {
-        randomNillableValue {self.randomFeedback()}
-    }
-    
-    private func randomLowPassCutoff() -> Float {Float.random(in: 10...20000)}
-    
-    private func randomNillableLowPassCutoff() -> Float? {
-        randomNillableValue {self.randomLowPassCutoff()}
-    }
-    
-    private func validatePersistentState(persistentState: DelayUnitPersistentState,
-                                         unitState: EffectsUnitState?, userPresets: [DelayPresetPersistentState]?,
-                                         amount: Float?, time: Double?,
-                                         feedback: Float?, lowPassCutoff: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of DelayUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        AssertEqual(persistentState.amount, amount, accuracy: 0.001)
-        AssertEqual(persistentState.time, time, accuracy: 0.001)
-        AssertEqual(persistentState.feedback, feedback, accuracy: 0.001)
-        AssertEqual(persistentState.lowPassCutoff, lowPassCutoff, accuracy: 0.001)
     }
 }
 

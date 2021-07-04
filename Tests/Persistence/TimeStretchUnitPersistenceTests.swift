@@ -12,42 +12,55 @@ import XCTest
 ///
 /// Unit tests for **TimeStretchUnitPersistentState**.
 ///
-class TimeStretchUnitPersistenceTests: PersistenceTestCase {
+class TimeStretchUnitPersistenceTests: AudioGraphPersistenceTestCase {
     
     // MARK: init() tests -------------------------------------------
     
     func testInit_defaultSettings() {
         
         doTestInit(unitState: AudioGraphDefaults.timeState, userPresets: [],
-                              rate: AudioGraphDefaults.timeStretchRate,
-                              shiftPitch: AudioGraphDefaults.timeShiftPitch,
-                              overlap: AudioGraphDefaults.timeOverlap)
+                   rate: AudioGraphDefaults.timeStretchRate,
+                   shiftPitch: AudioGraphDefaults.timeShiftPitch,
+                   overlap: AudioGraphDefaults.timeOverlap)
     }
     
     func testInit_noValuesAvailable() {
         doTestInit(unitState: nil, userPresets: nil, rate: nil, shiftPitch: nil, overlap: nil)
     }
-
+    
     func testInit_someValuesAvailable() {
-
-        doTestInit(unitState: .active, userPresets: [], rate: randomRate(), shiftPitch: nil, overlap: nil)
+        
+        doTestInit(unitState: .active, userPresets: [], rate: randomTimeStretchRate(), shiftPitch: nil, overlap: nil)
         
         doTestInit(unitState: .bypassed, userPresets: nil, rate: nil, shiftPitch: Bool.random(),
-                              overlap: randomOverlap())
+                   overlap: randomOverlap())
         
-        doTestInit(unitState: .suppressed, userPresets: [], rate: randomRate(), shiftPitch: nil,
-                              overlap: randomOverlap())
-
+        doTestInit(unitState: .suppressed, userPresets: [], rate: randomTimeStretchRate(), shiftPitch: nil,
+                   overlap: randomOverlap())
+        
         for _ in 0..<100 {
-
+            
             doTestInit(unitState: randomNillableUnitState(),
-                       userPresets: randomNillablePresets(), rate: randomNillableRate(),
-                       shiftPitch: randomNillableShiftPitch(), overlap: randomNillableOverlap())
+                       userPresets: randomNillableTimeStretchPresets(unitState: .active), rate: randomNillableTimeStretchRate(),
+                       shiftPitch: randomNillableTimeStretchShiftPitch(), overlap: randomNillableOverlap())
+        }
+    }
+    
+    func testInit() {
+        
+        for unitState in EffectsUnitState.allCases {
+            
+            for _ in 0..<100 {
+                
+                doTestInit(unitState: unitState, userPresets: randomTimeStretchPresets(unitState: .active),
+                           rate: randomTimeStretchRate(),
+                           shiftPitch: randomTimeStretchShiftPitch(), overlap: randomOverlap())
+            }
         }
     }
     
     private func doTestInit(unitState: EffectsUnitState?, userPresets: [TimeStretchPresetPersistentState]?,
-                                       rate: Float?, shiftPitch: Bool?, overlap: Float?) {
+                            rate: Float?, shiftPitch: Bool?, overlap: Float?) {
         
         let dict = NSMutableDictionary()
         
@@ -66,19 +79,22 @@ class TimeStretchUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        validatePersistentState(persistentState: persistentState, unitState: unitState,
-                                userPresets: userPresets, rate: rate,
-                                shiftPitch: shiftPitch, overlap: overlap)
+        validateTimeStretchUnitPersistentState(persistentState, unitState: unitState,
+                                               userPresets: userPresets, rate: rate,
+                                               shiftPitch: shiftPitch, overlap: overlap)
     }
-
+    
+    // MARK: Persistence tests -------------------------------------------
+    
     func testPersistence() {
         
         for unitState in EffectsUnitState.allCases {
             
             for _ in 0..<100 {
                 
-                doTestPersistence(unitState: unitState, userPresets: randomPresets(), rate: randomRate(),
-                                  shiftPitch: Bool.random(), overlap: randomOverlap())
+                doTestPersistence(unitState: unitState, userPresets: randomTimeStretchPresets(unitState: .active),
+                                  rate: randomTimeStretchRate(),
+                                  shiftPitch: randomTimeStretchShiftPitch(), overlap: randomOverlap())
             }
         }
     }
@@ -105,70 +121,9 @@ class TimeStretchUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        validatePersistentState(persistentState: deserializedState, unitState: unitState,
-                                userPresets: userPresets, rate: rate,
-                                shiftPitch: shiftPitch, overlap: overlap)
-    }
-    
-    // MARK: Helper functions --------------------------------------------
-    
-    private func randomNillablePresets() -> [TimeStretchPresetPersistentState]? {
-        randomNillableValue {self.randomPresets()}
-    }
-    
-    private func randomPresets() -> [TimeStretchPresetPersistentState] {
-        
-        let numPresets = Int.random(in: 0...10)
-        
-        return numPresets == 0 ? [] : (1...numPresets).map {index in
-
-            TimeStretchPresetPersistentState(preset: TimePreset("preset-\(index)", .active,
-                                                                 randomRate(), randomOverlap(),
-                                                                 Bool.random(), false))
-        }
-    }
-    
-    private func randomRate() -> Float {Float.random(in: 0.25...4)}
-    
-    private func randomNillableRate() -> Float? {
-        randomNillableValue {self.randomRate()}
-    }
-    
-    private func randomNillableShiftPitch() -> Bool? {
-        randomNillableValue {Bool.random()}
-    }
-    
-    private func randomOverlap() -> Float {Float.random(in: 3...32)}
-    
-    private func randomNillableOverlap() -> Float? {
-        randomNillableValue {self.randomOverlap()}
-    }
-    
-    private func validatePersistentState(persistentState: TimeStretchUnitPersistentState,
-                                         unitState: EffectsUnitState?, userPresets: [TimeStretchPresetPersistentState]?,
-                                         rate: Float?, shiftPitch: Bool?, overlap: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of TimeStretchUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        AssertEqual(persistentState.rate, rate, accuracy: 0.001)
-        XCTAssertEqual(persistentState.shiftPitch, shiftPitch)
-        AssertEqual(persistentState.overlap, overlap, accuracy: 0.001)
+        validateTimeStretchUnitPersistentState(deserializedState, unitState: unitState,
+                                               userPresets: userPresets, rate: rate,
+                                               shiftPitch: shiftPitch, overlap: overlap)
     }
 }
 

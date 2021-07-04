@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class ReverbUnitPersistenceTests: PersistenceTestCase {
+class ReverbUnitPersistenceTests: AudioGraphPersistenceTestCase {
     
     // MARK: init() tests -------------------------------------------
     
@@ -26,21 +26,21 @@ class ReverbUnitPersistenceTests: PersistenceTestCase {
     
     func testInit_someValuesAvailable() {
         
-        doTestInit(unitState: .active, userPresets: [], space: randomSpace(), amount: nil)
-        doTestInit(unitState: .active, userPresets: [], space: nil, amount: randomAmount())
+        doTestInit(unitState: .active, userPresets: [], space: randomReverbSpace(), amount: nil)
+        doTestInit(unitState: .active, userPresets: [], space: nil, amount: randomReverbAmount())
         
-        doTestInit(unitState: .bypassed, userPresets: [], space: randomSpace(), amount: nil)
-        doTestInit(unitState: .bypassed, userPresets: [], space: nil, amount: randomAmount())
+        doTestInit(unitState: .bypassed, userPresets: [], space: randomReverbSpace(), amount: nil)
+        doTestInit(unitState: .bypassed, userPresets: [], space: nil, amount: randomReverbAmount())
         
-        doTestInit(unitState: .suppressed, userPresets: [], space: randomSpace(), amount: nil)
-        doTestInit(unitState: .suppressed, userPresets: [], space: nil, amount: randomAmount())
+        doTestInit(unitState: .suppressed, userPresets: [], space: randomReverbSpace(), amount: nil)
+        doTestInit(unitState: .suppressed, userPresets: [], space: nil, amount: randomReverbAmount())
         
         for _ in 0..<100 {
             
             doTestInit(unitState: randomNillableUnitState(),
-                       userPresets: randomNillablePresets(),
-                       space: randomNillableSpace(),
-                       amount: randomNillableAmount())
+                       userPresets: randomNillableReverbPresets(unitState: .active),
+                       space: randomNillableReverbSpace(),
+                       amount: randomNillableReverbAmount())
         }
     }
     
@@ -52,8 +52,8 @@ class ReverbUnitPersistenceTests: PersistenceTestCase {
                 
                 for _ in 0..<100 {
                     
-                    doTestInit(unitState: unitState, userPresets: randomPresets(),
-                               space: space, amount: randomAmount())
+                    doTestInit(unitState: unitState, userPresets: randomReverbPresets(unitState: .active),
+                               space: space, amount: randomReverbAmount())
                 }
             }
         }
@@ -78,26 +78,8 @@ class ReverbUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of ReverbUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        XCTAssertEqual(persistentState.space, space)
-        XCTAssertEqual(persistentState.amount, amount)
+        validateReverbUnitPersistentState(persistentState, unitState: unitState, userPresets: userPresets,
+                                          space: space, amount: amount)
     }
     
     // MARK:Persistence tests --------------------------------------------
@@ -110,8 +92,8 @@ class ReverbUnitPersistenceTests: PersistenceTestCase {
                 
                 for _ in 0..<100 {
                     
-                    doTestInit(unitState: unitState, userPresets: randomPresets(),
-                               space: space, amount: randomAmount())
+                    doTestInit(unitState: unitState, userPresets: randomReverbPresets(unitState: .active),
+                               space: space, amount: randomReverbAmount())
                 }
             }
         }
@@ -138,65 +120,9 @@ class ReverbUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        validatePersistentState(persistentState: deserializedState, unitState: unitState,
+        validateReverbUnitPersistentState(deserializedState, unitState: unitState,
                                 userPresets: userPresets,
                                 space: space, amount: amount)
-    }
-    
-    // MARK: Helper functions --------------------------------------------
-    
-    private func randomNillablePresets() -> [ReverbPresetPersistentState]? {
-        randomNillableValue {self.randomPresets()}
-    }
-    
-    private func randomPresets() -> [ReverbPresetPersistentState] {
-        
-        let numPresets = Int.random(in: 0...10)
-        
-        return numPresets == 0 ? [] : (1...numPresets).map {index in
-            
-            ReverbPresetPersistentState(preset: ReverbPreset("preset-\(index)", .active,
-                                                             randomSpace(), randomAmount(),
-                                                             false))
-        }
-    }
-    
-    private func randomSpace() -> ReverbSpaces {ReverbSpaces.randomCase()}
-    
-    private func randomNillableSpace() -> ReverbSpaces? {
-        randomNillableValue {self.randomSpace()}
-    }
-    
-    private func randomAmount() -> Float {Float.random(in: 0...100)}
-    
-    private func randomNillableAmount() -> Float? {
-        randomNillableValue {self.randomAmount()}
-    }
-    
-    private func validatePersistentState(persistentState: ReverbUnitPersistentState,
-                                         unitState: EffectsUnitState?, userPresets: [ReverbPresetPersistentState]?,
-                                         space: ReverbSpaces?, amount: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of ReverbUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        XCTAssertEqual(persistentState.space, space)
-        AssertEqual(persistentState.amount, amount, accuracy: 0.001)
     }
 }
 

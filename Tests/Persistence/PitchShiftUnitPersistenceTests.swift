@@ -12,15 +12,15 @@ import XCTest
 ///
 /// Unit tests for **PitchShiftUnitPersistentState**.
 ///
-class PitchShiftUnitPersistenceTests: PersistenceTestCase {
+class PitchShiftUnitPersistenceTests: AudioGraphPersistenceTestCase {
     
     // MARK: init() tests -------------------------------------------
     
     func testInit_defaultSettings() {
         
         doTestInit(unitState: AudioGraphDefaults.pitchState, userPresets: [],
-                              pitch: AudioGraphDefaults.pitch,
-                              overlap: AudioGraphDefaults.pitchOverlap)
+                   pitch: AudioGraphDefaults.pitch,
+                   overlap: AudioGraphDefaults.pitchOverlap)
     }
     
     func testInit_noValuesAvailable() {
@@ -39,62 +39,26 @@ class PitchShiftUnitPersistenceTests: PersistenceTestCase {
         for _ in 0..<100 {
             
             doTestInit(unitState: randomNillableUnitState(),
-                                  userPresets: randomNillablePresets(),
-                                  pitch: randomNillablePitch(),
-                                  overlap: randomNillableOverlap())
+                       userPresets: randomNillablePitchShiftPresets(unitState: .active),
+                       pitch: randomNillablePitch(),
+                       overlap: randomNillableOverlap())
         }
     }
     
-    // MARK: Persistence tests ---------------------------------
-    
-    func testPersistence() {
+    func testInit() {
         
         for unitState in EffectsUnitState.allCases {
             
             for _ in 0..<100 {
                 
-                doTestPersistence(unitState: unitState, userPresets: randomPresets(),
-                                  pitch: randomPitch(), overlap: randomOverlap())
+                doTestInit(unitState: unitState, userPresets: randomPitchShiftPresets(unitState: .active),
+                           pitch: randomPitch(), overlap: randomOverlap())
             }
         }
     }
     
-    // MARK: Helper functions --------------------------------------------
-    
-    private func randomNillablePresets() -> [PitchShiftPresetPersistentState]? {
-        randomNillableValue {self.randomPresets()}
-    }
-    
-    private func randomPresets() -> [PitchShiftPresetPersistentState] {
-        
-        let numPresets = Int.random(in: 0...10)
-        
-        return numPresets == 0 ? [] : (1...numPresets).map {index in
-            
-            PitchShiftPresetPersistentState(preset: PitchPreset("preset-\(index)", .active,
-                                                                randomPitch(), randomOverlap(),
-                                                                false))
-        }
-    }
-    
-    private func randomPitch() -> Float {Float.random(in: -2400...2400)}
-    
-    private func randomNillablePitch() -> Float? {
-        randomNillableValue {self.randomPitch()}
-    }
-    
-    private func randomPositivePitch() -> Float {Float.random(in: 0...2400)}
-    
-    private func randomNegativePitch() -> Float {Float.random(in: -2400..<0)}
-    
-    private func randomOverlap() -> Float {Float.random(in: 3...32)}
-    
-    private func randomNillableOverlap() -> Float? {
-        randomNillableValue {self.randomOverlap()}
-    }
-    
     private func doTestInit(unitState: EffectsUnitState?, userPresets: [PitchShiftPresetPersistentState]?,
-                                       pitch: Float?, overlap: Float?) {
+                            pitch: Float?, overlap: Float?) {
         
         let dict = NSMutableDictionary()
         
@@ -112,8 +76,22 @@ class PitchShiftUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        validatePersistentState(persistentState: persistentState, unitState: unitState,
-                                userPresets: userPresets, pitch: pitch, overlap: overlap)
+        validatePitchShiftUnitPersistentState(persistentState, unitState: unitState,
+                                              userPresets: userPresets, pitch: pitch, overlap: overlap)
+    }
+    
+    // MARK: Persistence tests ---------------------------------
+    
+    func testPersistence() {
+        
+        for unitState in EffectsUnitState.allCases {
+            
+            for _ in 0..<100 {
+                
+                doTestPersistence(unitState: unitState, userPresets: randomPitchShiftPresets(unitState: .active),
+                                  pitch: randomPitch(), overlap: randomOverlap())
+            }
+        }
     }
     
     private func doTestPersistence(unitState: EffectsUnitState, userPresets: [PitchShiftPresetPersistentState],
@@ -137,34 +115,8 @@ class PitchShiftUnitPersistenceTests: PersistenceTestCase {
             return
         }
         
-        validatePersistentState(persistentState: deserializedState, unitState: unitState,
-                                userPresets: userPresets, pitch: pitch, overlap: overlap)
-    }
-    
-    private func validatePersistentState(persistentState: PitchShiftUnitPersistentState,
-                                         unitState: EffectsUnitState?, userPresets: [PitchShiftPresetPersistentState]?,
-                                         pitch: Float?, overlap: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of PitchShiftUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        AssertEqual(persistentState.pitch, pitch, accuracy: 0.001)
-        AssertEqual(persistentState.overlap, overlap, accuracy: 0.001)
+        validatePitchShiftUnitPersistentState(deserializedState, unitState: unitState,
+                                              userPresets: userPresets, pitch: pitch, overlap: overlap)
     }
 }
 

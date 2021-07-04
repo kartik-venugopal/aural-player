@@ -66,7 +66,7 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         self.node = HostedAUNode(forComponent: component)
         
         var nodeParams: [AUParameterAddress: Float] = [:]
-        for param in persistentState.params {
+        for param in persistentState.params ?? [] {
             nodeParams[param.address] = param.value
         }
         self.node.params = nodeParams

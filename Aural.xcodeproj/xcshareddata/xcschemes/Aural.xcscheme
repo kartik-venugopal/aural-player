@@ -45,18 +45,6 @@
                   Identifier = "AuralTestCase">
                </Test>
                <Test
-                  Identifier = "DelayUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "EQUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "EQUnitPersistentStateTests">
-               </Test>
-               <Test
-                  Identifier = "FilterUnitPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "GroupingPlaylistTests">
                </Test>
                <Test
@@ -79,9 +67,6 @@
                </Test>
                <Test
                   Identifier = "NotificationSubscriberTests">
-               </Test>
-               <Test
-                  Identifier = "PitchShiftUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "PlaybackLoopTests">
@@ -109,9 +94,6 @@
                </Test>
                <Test
                   Identifier = "PlaylistItemArrayTests">
-               </Test>
-               <Test
-                  Identifier = "ReverbUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "SequencerBeginAndEndTests">

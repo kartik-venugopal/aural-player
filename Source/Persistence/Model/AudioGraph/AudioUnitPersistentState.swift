@@ -13,7 +13,7 @@ class AudioUnitPersistentState: EffectsUnitPersistentState<AudioUnitPresetPersis
     
     let componentType: OSType
     let componentSubType: OSType
-    let params: [AudioUnitParameterPersistentState]
+    let params: [AudioUnitParameterPersistentState]?
     
     init(componentType: OSType, componentSubType: OSType, params: [AudioUnitParameterPersistentState], state: EffectsUnitState, userPresets: [AudioUnitPresetPersistentState]) {
         
@@ -33,7 +33,7 @@ class AudioUnitPersistentState: EffectsUnitPersistentState<AudioUnitPresetPersis
         
         self.componentType = componentType
         self.componentSubType = componentSubType
-        self.params = map.persistentObjectArrayValue(forKey: "params", ofType: AudioUnitParameterPersistentState.self) ?? []
+        self.params = map.persistentObjectArrayValue(forKey: "params", ofType: AudioUnitParameterPersistentState.self)
         
         super.init(map)
     }
