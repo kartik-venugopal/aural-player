@@ -672,6 +672,7 @@
 		3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6C25E3FE2000BC7D07 /* FontSchemePreviewView.swift */; };
 		3EA3CE7025E420DE00BC7D07 /* Papyrus.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE6F25E4208500BC7D07 /* Papyrus.ttf */; };
 		3EA3CE7325E420EC00BC7D07 /* AnironRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3EA3CE7225E420E700BC7D07 /* AnironRegular.ttf */; };
+		3EA62F312693A7B6004A780A /* PersistentModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12677026937A1300B4DBA5 /* PersistentModelObject.swift */; };
 		3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */; };
 		3EAFB5D3267FE79200F0DC96 /* CoverArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5D2267FE79200F0DC96 /* CoverArt.swift */; };
 		3EAFB5D5267FE7CC00F0DC96 /* FileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5D4267FE7CC00F0DC96 /* FileMetadata.swift */; };
@@ -4958,6 +4959,7 @@
 				3E21ECE7268F4B1B00731E4C /* DictionaryExtensions.swift in Sources */,
 				3EA1BE2D268F6A4200A5D81B /* SequencerProtocol.swift in Sources */,
 				3E21ECE0268F4ABE00731E4C /* GroupingPlaylistPersistentState.swift in Sources */,
+				3EA62F312693A7B6004A780A /* PersistentModelObject.swift in Sources */,
 				3EFDA971268F727400CFF785 /* ReverbSpaces.swift in Sources */,
 				3E21ECD5268F4A4600731E4C /* SortComparator.swift in Sources */,
 				3EEF3739268F6B5A002EA77F /* SequencerPlaylistTypeChangeTests.swift in Sources */,
@@ -5232,7 +5234,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.2.0;
+				CURRENT_PROJECT_VERSION = 3.3.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
@@ -5243,7 +5245,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";
@@ -5263,7 +5265,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3.2.0;
+				CURRENT_PROJECT_VERSION = 3.3.0;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				HEADER_SEARCH_PATHS = "${SOURCE_ROOT}/**";
@@ -5274,7 +5276,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 3.2.0;
+				MARKETING_VERSION = 3.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kv.Aural;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Source/Aural-Bridging-Header.h";

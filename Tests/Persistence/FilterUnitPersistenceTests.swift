@@ -10,70 +10,7 @@
 import XCTest
 
 class FilterUnitPersistenceTests: AudioGraphPersistenceTestCase {
-    
-    // MARK: init() tests -------------------------------------------
-    
-    func testInit_defaultSettings() {
-        
-        doTestInit(unitState: AudioGraphDefaults.filterState, userPresets: [],
-                   bands: [])
-    }
-    
-    func testInit_noValuesAvailable() {
-        doTestInit(unitState: nil, userPresets: nil, bands: nil)
-    }
-    
-    func testInit_someValuesAvailable() {
-        
-        for state in EffectsUnitState.allCases {
-            
-            doTestInit(unitState: state, userPresets: randomNillableFilterPresets(unitState: .active),
-                       bands: randomNillableFilterBands())
-        }
-        
-        for _ in 0..<100 {
-            
-            doTestInit(unitState: randomNillableUnitState(), userPresets: randomNillableFilterPresets(unitState: .active),
-                       bands: randomNillableFilterBands())
-        }
-    }
-    
-    func testInit() {
-        
-        for state in EffectsUnitState.allCases {
-            
-            for _ in 0..<100 {
-                
-                doTestInit(unitState: state, userPresets: randomFilterPresets(unitState: .active),
-                           bands: randomFilterBands())
-            }
-        }
-    }
-    
-    private func doTestInit(unitState: EffectsUnitState?, userPresets: [FilterPresetPersistentState]?,
-                            bands: [FilterBandPersistentState]?) {
-        
-        let dict = NSMutableDictionary()
-        
-        dict["state"] = unitState?.rawValue
-        dict["userPresets"] = userPresets == nil ? nil : NSArray(array: userPresets!.map {JSONMapper.map($0)})
-        
-        dict["bands"] = bands == nil ? nil : NSArray(array: bands!.map {JSONMapper.map($0)})
-        
-        let optionalPersistentState = FilterUnitPersistentState(dict)
-        
-        guard let persistentState = optionalPersistentState else {
-            
-            XCTFail("persistentState is nil, deserialization of FilterUnit state failed.")
-            return
-        }
-        
-        validateFilterUnitPersistentState(persistentState: persistentState, unitState: unitState,
-                                          userPresets: userPresets, bands: bands)
-    }
-    
-    // MARK: Persistence tests -------------------------------------------
-    
+
     func testPersistence() {
         
         for state in EffectsUnitState.allCases {
@@ -91,12 +28,9 @@ class FilterUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         defer {persistentStateFile.delete()}
         
-        let serializedState = FilterUnitPersistentState()
-        
-        serializedState.state = unitState
-        serializedState.userPresets = userPresets
-        
-        serializedState.bands = bands
+        let serializedState = FilterUnitPersistentState(state: unitState,
+                                                        userPresets: userPresets,
+                                                        bands: bands)
         
         persistenceManager.save(serializedState)
         

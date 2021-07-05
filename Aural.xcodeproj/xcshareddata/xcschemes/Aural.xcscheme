@@ -45,28 +45,22 @@
                   Identifier = "AudioGraphPersistenceTestCase">
                </Test>
                <Test
-                  Identifier = "AudioUnitPersistenceTests">
-               </Test>
-               <Test
                   Identifier = "AuralTestCase">
                </Test>
                <Test
-                  Identifier = "DelayUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "EQUnitPersistenceTests">
-               </Test>
-               <Test
-                  Identifier = "FilterUnitPersistenceTests">
+                  Identifier = "FlatPlaylistTests">
                </Test>
                <Test
                   Identifier = "GroupingPlaylistTests">
                </Test>
                <Test
-                  Identifier = "MasterUnitPersistenceTests">
+                  Identifier = "HistoryPreferencesTests">
                </Test>
                <Test
                   Identifier = "MathUtilsTests">
+               </Test>
+               <Test
+                  Identifier = "MediaKeysControlsPreferencesTests">
                </Test>
                <Test
                   Identifier = "Messenger_AsynchronousNotificationsTests">
@@ -84,16 +78,19 @@
                   Identifier = "Messenger_UnsubscribeTests">
                </Test>
                <Test
+                  Identifier = "MusicBrainzPreferencesTests">
+               </Test>
+               <Test
                   Identifier = "NotificationSubscriberTests">
                </Test>
                <Test
                   Identifier = "PersistenceTestCase">
                </Test>
                <Test
-                  Identifier = "PitchShiftUnitPersistenceTests">
+                  Identifier = "PlaybackLoopTests">
                </Test>
                <Test
-                  Identifier = "PlaybackLoopTests">
+                  Identifier = "PlaybackPreferencesTests">
                </Test>
                <Test
                   Identifier = "PlaybackSequenceCreationTests">
@@ -117,7 +114,10 @@
                   Identifier = "PlaylistItemArrayTests">
                </Test>
                <Test
-                  Identifier = "ReverbUnitPersistenceTests">
+                  Identifier = "PlaylistTestCase">
+               </Test>
+               <Test
+                  Identifier = "RemoteControlPreferencesTests">
                </Test>
                <Test
                   Identifier = "SequencerBeginAndEndTests">
@@ -166,9 +166,6 @@
                </Test>
                <Test
                   Identifier = "ShuffleSequenceTests">
-               </Test>
-               <Test
-                  Identifier = "TimeStretchUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "ValueFormatterTests">

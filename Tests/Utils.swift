@@ -78,7 +78,30 @@ extension Float {
 
 extension Array where Element == Float {
     
-    func approxEquals(_ other: [Float], accuracy: Float) -> Bool {
+    static func approxEquals(_ array: [Float]?, _ other: [Float]?, accuracy: Float) -> Bool {
+        
+        if array == nil {return other == nil}
+        if other == nil {return false}
+        
+        guard let array1 = array, let array2 = other else {return false}
+        
+        if array1.count != array2.count {return false}
+        
+        if array1.count == 0 {return true}
+        
+        for index in array1.indices {
+            
+            if !array1[index].approxEquals(array2[index], accuracy: accuracy) {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    func approxEquals(_ other: [Float]?, accuracy: Float) -> Bool {
+        
+        guard let other = other else {return false}
         
         if count != other.count {return false}
         

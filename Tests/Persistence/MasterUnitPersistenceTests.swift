@@ -11,45 +11,30 @@ import XCTest
 
 class MasterUnitPersistenceTests: AudioGraphPersistenceTestCase {
     
-    // MARK: init() tests -------------------------------------------
-    
-    func testInit_defaultSettings() {
-        doTestInit(unitState: AudioGraphDefaults.masterState, userPresets: [])
-    }
-    
-    func testInit_noValuesAvailable() {
-        doTestInit(unitState: nil, userPresets: nil)
-    }
-    
-    func testInit_someValuesAvailable() {
-        doTestInit(unitState: randomNillableUnitState(), userPresets: randomNillablePresets())
-    }
-    
-    func testInit() {
+    func testPersistence() {
         
         for state in EffectsUnitState.allCases {
             
             for _ in 0..<100 {
-                
-                doTestInit(unitState: state, userPresets: randomPresets())
+                doTestPersistence(unitState: state, userPresets: randomPresets())
             }
         }
     }
     
-    private func doTestInit(unitState: EffectsUnitState?, userPresets: [MasterPresetPersistentState]?) {
+    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [MasterPresetPersistentState]) {
         
-        let dict = NSMutableDictionary()
+        defer {persistenceManager.persistentStateFile.delete()}
         
-        dict["state"] = unitState?.rawValue
-        dict["userPresets"] = userPresets == nil ? nil : NSArray(array: userPresets!.map {JSONMapper.map($0)})
+        let serializedState = MasterUnitPersistentState(state: unitState, userPresets: userPresets)
+        persistenceManager.save(serializedState)
         
-        guard let persistentState = MasterUnitPersistentState(dict) else {
+        guard let deserializedState = persistenceManager.load(type: MasterUnitPersistentState.self) else {
             
             XCTFail("persistentState is nil, init of EQUnit state failed.")
             return
         }
         
-        validatePersistentState(persistentState: persistentState, unitState: unitState,
+        validatePersistentState(persistentState: deserializedState, unitState: unitState,
                                 userPresets: userPresets)
     }
     
@@ -60,21 +45,21 @@ class MasterUnitPersistenceTests: AudioGraphPersistenceTestCase {
         let numPresets = Int.random(in: 0...10)
         if numPresets == 0 {return []}
         
-        let eqPresets = randomEQPresets(count: numPresets)
-        let pitchShiftPresets = randomPitchShiftPresets(count: numPresets)
-        let timeStretchPresets = randomTimeStretchPresets(count: numPresets)
-        let reverbPresets = randomReverbPresets(count: numPresets)
-        let delayPresets = randomDelayPresets(count: numPresets)
-        let filterPresets = randomFilterPresets(count: numPresets)
+        let eqPresets = randomEQPresets(count: numPresets).compactMap {EQPreset(persistentState: $0)}
+        let pitchShiftPresets = randomPitchShiftPresets(count: numPresets).compactMap {PitchPreset(persistentState: $0)}
+        let timeStretchPresets = randomTimeStretchPresets(count: numPresets).compactMap {TimePreset(persistentState: $0)}
+        let reverbPresets = randomReverbPresets(count: numPresets).compactMap {ReverbPreset(persistentState: $0)}
+        let delayPresets = randomDelayPresets(count: numPresets).compactMap {DelayPreset(persistentState: $0)}
+        let filterPresets = randomFilterPresets(count: numPresets).compactMap {FilterPreset(persistentState: $0)}
         
         return (0..<numPresets).map {index in
             
-            let preset = MasterPreset("preset-\(index + 1)", EQPreset(persistentState: eqPresets[index]),
-                                      PitchPreset(persistentState: pitchShiftPresets[index]),
-                                      TimePreset(persistentState: timeStretchPresets[index]),
-                                      ReverbPreset(persistentState: reverbPresets[index]),
-                                      DelayPreset(persistentState: delayPresets[index]),
-                                      FilterPreset(persistentState: filterPresets[index]),
+            let preset = MasterPreset("preset-\(index + 1)", eqPresets[index],
+                                      pitchShiftPresets[index],
+                                      timeStretchPresets[index],
+                                      reverbPresets[index],
+                                      delayPresets[index],
+                                      filterPresets[index],
                                       false)
             
             return MasterPresetPersistentState(preset: preset)

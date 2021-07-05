@@ -11,79 +11,6 @@ import XCTest
 
 class AudioUnitPersistenceTests: PersistenceTestCase {
     
-    // MARK: init() tests -------------------------------------------
-    
-    func testInit_noValuesAvailable() {
-        
-        doTestInit(unitState: nil, userPresets: nil,
-                   componentType: nil, componentSubType: nil,
-                   params: nil)
-    }
-    
-    func testInit_someValuesAvailable() {
-        
-        for unitState in EffectsUnitState.allCases {
-            
-            doTestInit(unitState: unitState, userPresets: randomNillablePresets(),
-                       componentType: randomNillableOSType(), componentSubType: randomNillableOSType(),
-                       params: randomNillableParams())
-        }
-        
-        doTestInit(unitState: randomNillableUnitState(), userPresets: randomNillablePresets(),
-                   componentType: randomNillableOSType(), componentSubType: randomNillableOSType(),
-                   params: randomNillableParams())
-    }
-    
-    func testInit() {
-        
-        for unitState in EffectsUnitState.allCases {
-            
-            doTestInit(unitState: unitState, userPresets: randomPresets(),
-                       componentType: randomOSType(), componentSubType: randomOSType(),
-                       params: randomParams())
-        }
-        
-        for _ in 0..<100 {
-            
-            doTestInit(unitState: randomUnitState(), userPresets: randomPresets(),
-                       componentType: randomOSType(), componentSubType: randomOSType(),
-                       params: randomParams())
-        }
-    }
-    
-    private func doTestInit(unitState: EffectsUnitState?, userPresets: [AudioUnitPresetPersistentState]?,
-                            componentType: OSType?, componentSubType: OSType?,
-                            params: [AudioUnitParameterPersistentState]?) {
-        
-        let dict = NSMutableDictionary()
-        
-        dict["state"] = unitState?.rawValue
-        dict["userPresets"] = userPresets == nil ? nil : NSArray(array: userPresets!.map {JSONMapper.map($0)})
-        
-        dict["componentType"] = componentType
-        dict["componentSubType"] = componentSubType
-        dict["params"] = params == nil ? nil : NSArray(array: params!.map {JSONMapper.map($0)})
-        
-        // componentType and componentSubType are both required for AudioUnitPersistentState.
-        if componentType == nil || componentSubType == nil {
-            
-            XCTAssertNil(AudioUnitPersistentState(dict))
-            return
-        }
-        
-        guard let persistentState = AudioUnitPersistentState(dict) else {
-            
-            XCTFail("persistentState is nil, init of AudioUnit state failed.")
-            return
-        }
-        
-        validatePersistentState(persistentState: persistentState, unitState: unitState,
-                                userPresets: userPresets, componentType: componentType,
-                                componentSubType: componentSubType, params: params)
-    }
-    
-    // MARK: Persistence tests -------------------------------------------
-    
     func testPersistence() {
         
         for unitState in EffectsUnitState.allCases {
@@ -107,8 +34,8 @@ class AudioUnitPersistenceTests: PersistenceTestCase {
         
         defer {persistentStateFile.delete()}
         
-        let serializedState = AudioUnitPersistentState(componentType: componentType, componentSubType: componentSubType,
-                                             params: params, state: unitState, userPresets: userPresets)
+        let serializedState = AudioUnitPersistentState(state: unitState, userPresets: userPresets,
+                                                       componentType: componentType, componentSubType: componentSubType, params: params)
         
         persistenceManager.save(serializedState)
         
@@ -143,7 +70,7 @@ class AudioUnitPersistenceTests: PersistenceTestCase {
     }
     
     private func randomParamValue() -> Float {
-        Float.random(in: -10000000...Float.greatestFiniteMagnitude)
+        Float.random(in: -100000...100000)
     }
 
     private func randomNillableOSType() -> OSType? {
@@ -216,6 +143,6 @@ extension AudioUnitPresetPersistentState: Equatable {
 extension AudioUnitParameterPersistentState: Equatable {
     
     static func == (lhs: AudioUnitParameterPersistentState, rhs: AudioUnitParameterPersistentState) -> Bool {
-        lhs.address == rhs.address && lhs.value.approxEquals(rhs.value, accuracy: 0.000001)
+        lhs.address == rhs.address && Float.approxEquals(lhs.value, rhs.value, accuracy: 0.000001)
     }
 }
