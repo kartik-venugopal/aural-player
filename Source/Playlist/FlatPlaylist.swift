@@ -21,7 +21,7 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     var size: Int {tracks.count}
     
     var duration: Double {
-        return tracks.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
+        tracks.reduce(0.0, {(totalSoFar: Double, track: Track) -> Double in totalSoFar + track.duration})
     }
     
     func displayNameForTrack(_ track: Track) -> String {

@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Measures the execution time of a code block, in seconds.
+/// Measures the execution time of a code block, in milliseconds.
 /// Useful for estimating performance of a function or code block.
 ///
 /// - Parameter task: The code block whose execution time is to be measured.

@@ -68,18 +68,21 @@ class AuralTestCase: XCTestCase {
         return fileMetadata
     }
     
-//    func createTrack(_ title: String, _ duration: Double, _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil, isValid: Bool = true) -> Track {
-//        return createTrack(title, "mp3", duration, artist, album, genre, isValid: isValid)
-//    }
-//
-//    func createTrack(_ title: String, _ fileExtension: String, _ duration: Double,
-//                     _ artist: String? = nil, _ album: String? = nil, _ genre: String? = nil, isValid: Bool = true) -> Track {
-//
-//        let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.%@", title, fileExtension)), isValid)
-////        track.setPrimaryMetadata(artist, title, album, genre, duration)
-//
-//        return track
-//    }
+    func createTrack(title: String, duration: Double, artist: String? = nil, album: String? = nil, genre: String? = nil,
+                     isValid: Bool = true) -> Track {
+        
+        return createTrack(title: title, fileExtension: "mp3", duration: duration, artist: artist, album: album, genre: genre, isValid: isValid)
+    }
+
+    func createTrack(title: String, fileExtension: String, duration: Double,
+                     artist: String? = nil, album: String? = nil, genre: String? = nil, isValid: Bool = true) -> Track {
+
+        let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.%@", title, fileExtension)), isValid)
+        let metadata = fileMetadata(title, artist, album, genre, duration)
+        track.setPlaylistMetadata(from: metadata)
+
+        return track
+    }
 }
 
 extension XCTestCase {
@@ -108,18 +111,14 @@ extension XCTestCase {
     }
     
     func AssertEqual(_ val1: Double?, _ val2: Double?, accuracy: Double) {
-
-        if val1 == nil {
-
-            XCTAssertNil(val2)
-            return
-        }
-
-        XCTAssertNotNil(val2)
-
+        
         guard let theVal1 = val1, let theVal2 = val2 else {
+            
+            if val1 == nil && val2 == nil {
+                return
+            }
 
-            XCTFail("Something went wrong. One of the Double values is nil but shouldn't be.")
+            XCTFail("One of the Double values is nil but shouldn't be.")
             return
         }
 

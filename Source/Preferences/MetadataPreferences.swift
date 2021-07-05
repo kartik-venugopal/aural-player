@@ -30,9 +30,9 @@ class MusicBrainzPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "metadata.musicBrainz"
     
-    private static let key_httpTimeout: String = "\(keyPrefix).httpTimeout"
-    private static let key_enableCoverArtSearch: String = "\(keyPrefix).enableCoverArtSearch"
-    private static let key_enableOnDiskCoverArtCache: String = "\(keyPrefix).enableOnDiskCoverArtCache"
+    static let key_httpTimeout: String = "\(keyPrefix).httpTimeout"
+    static let key_enableCoverArtSearch: String = "\(keyPrefix).enableCoverArtSearch"
+    static let key_enableOnDiskCoverArtCache: String = "\(keyPrefix).enableOnDiskCoverArtCache"
     
     private typealias Defaults = PreferencesDefaults.Metadata.MusicBrainz
     
