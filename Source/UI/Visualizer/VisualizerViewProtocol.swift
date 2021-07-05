@@ -41,7 +41,7 @@ class AuralSCNView: SCNView {
     }
 }
 
-enum VisualizationType: String, CaseIterable {
+enum VisualizationType: String, CaseIterable, Codable {
     
     case spectrogram, supernova, discoBall
 }

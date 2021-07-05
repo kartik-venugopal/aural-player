@@ -147,7 +147,7 @@ class ControlBarSeekSliderView: SeekSliderView {
     }
 }
 
-enum SeekPositionDisplayType: String {
+enum SeekPositionDisplayType: String, CaseIterable, Codable {
     
     case timeElapsed
     case timeRemaining

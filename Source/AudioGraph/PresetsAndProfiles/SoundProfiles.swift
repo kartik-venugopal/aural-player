@@ -16,13 +16,18 @@ import Foundation
 ///
 class SoundProfiles: TrackKeyedMap<SoundProfile> {
     
-    init(_ profiles: [SoundProfilePersistentState]) {
+    init(persistentState: [SoundProfilePersistentState]?) {
         
         super.init()
         
-        for profile in profiles {
+        for profile in persistentState ?? [] {
             
-            add(profile.file, SoundProfile(file: profile.file, volume: profile.volume, balance: profile.balance, effects: MasterPreset(persistentState: profile.effects)))
+            guard let file = profile.file, let volume = profile.volume,
+                  let balance = profile.balance, let effects = profile.effects,
+                  let masterPreset = MasterPreset(persistentState: effects) else {continue}
+            
+            add(file, SoundProfile(file: file, volume: volume,
+                                   balance: balance, effects: masterPreset))
         }
     }
 }

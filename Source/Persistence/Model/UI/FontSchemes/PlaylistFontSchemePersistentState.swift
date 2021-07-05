@@ -12,22 +12,20 @@ import Foundation
 /*
     Encapsulates persistent app state for a single PlaylistFontScheme.
  */
-class PlaylistFontSchemePersistentState: PersistentStateProtocol {
+struct PlaylistFontSchemePersistentState: Codable {
 
-    var trackTextSize: CGFloat?
-    var trackTextYOffset: Int?
+    let trackTextSize: CGFloat?
+    let trackTextYOffset: Int?
     
-    var groupTextSize: CGFloat?
-    var groupTextYOffset: Int?
+    let groupTextSize: CGFloat?
+    let groupTextYOffset: Int?
     
-    var summarySize: CGFloat?
-    var tabButtonTextSize: CGFloat?
+    let summarySize: CGFloat?
+    let tabButtonTextSize: CGFloat?
     
-    var chaptersListHeaderSize: CGFloat?
-    var chaptersListSearchSize: CGFloat?
-    var chaptersListCaptionSize: CGFloat?
-
-    init() {}
+    let chaptersListHeaderSize: CGFloat?
+    let chaptersListSearchSize: CGFloat?
+    let chaptersListCaptionSize: CGFloat?
 
     init(_ scheme: PlaylistFontScheme) {
 
@@ -43,18 +41,5 @@ class PlaylistFontSchemePersistentState: PersistentStateProtocol {
         self.chaptersListHeaderSize = scheme.chaptersListHeaderFont.pointSize
         self.chaptersListCaptionSize = scheme.chaptersListCaptionFont.pointSize
         self.chaptersListSearchSize = scheme.chaptersListSearchFont.pointSize
-    }
-
-    required init?(_ map: NSDictionary) {
-        
-        self.trackTextSize = map.cgFloatValue(forKey: "trackTextSize")
-        self.trackTextYOffset = map.intValue(forKey: "trackTextYOffset")
-        self.groupTextSize = map.cgFloatValue(forKey: "groupTextSize")
-        self.groupTextYOffset = map.intValue(forKey: "groupTextYOffset")
-        self.summarySize = map.cgFloatValue(forKey: "summarySize")
-        self.tabButtonTextSize = map.cgFloatValue(forKey: "tabButtonTextSize")
-        self.chaptersListHeaderSize = map.cgFloatValue(forKey: "chaptersListHeaderSize")
-        self.chaptersListCaptionSize = map.cgFloatValue(forKey: "chaptersListCaptionSize")
-        self.chaptersListSearchSize = map.cgFloatValue(forKey: "chaptersListSearchSize")
     }
 }

@@ -60,7 +60,7 @@ class AppModeManager {
     }
 }
 
-enum AppMode: String {
+enum AppMode: String, CaseIterable, Codable {
     
     static let defaultMode: AppMode = .windowed
     

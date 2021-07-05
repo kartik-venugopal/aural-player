@@ -93,15 +93,11 @@ class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
     var persistentState: DelayUnitPersistentState {
 
-        let unitState = DelayUnitPersistentState()
-
-        unitState.state = state
-        unitState.time = time
-        unitState.amount = amount
-        unitState.feedback = feedback
-        unitState.lowPassCutoff = lowPassCutoff
-        unitState.userPresets = presets.userDefinedPresets.map {DelayPresetPersistentState(preset: $0)}
-
-        return unitState
+        DelayUnitPersistentState(state: state,
+                                 userPresets: presets.userDefinedPresets.map {DelayPresetPersistentState(preset: $0)},
+                                 amount: amount,
+                                 time: time,
+                                 feedback: feedback,
+                                 lowPassCutoff: lowPassCutoff)
     }
 }

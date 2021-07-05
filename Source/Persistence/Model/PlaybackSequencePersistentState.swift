@@ -12,22 +12,10 @@ import Foundation
 /*
     Encapsulates playback sequence state
  */
-class PlaybackSequencePersistentState: PersistentStateProtocol {
+struct PlaybackSequencePersistentState: Codable {
     
     let repeatMode: RepeatMode?
     let shuffleMode: ShuffleMode?
-    
-    init(repeatMode: RepeatMode, shuffleMode: ShuffleMode) {
-        
-        self.repeatMode = repeatMode
-        self.shuffleMode = shuffleMode
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.repeatMode = map.enumValue(forKey: "repeatMode", ofType: RepeatMode.self)
-        self.shuffleMode = map.enumValue(forKey: "shuffleMode", ofType: ShuffleMode.self)
-    }
 }
 
 extension Sequencer: PersistentModelObject {

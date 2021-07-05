@@ -26,7 +26,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         self.player = player
         self.playlist = playlist
         
-        let allFavorites = persistentState?.map {Favorite($0.file, $0.name)} ?? []
+        let allFavorites = persistentState?.compactMap {Favorite(persistentState: $0)} ?? []
         self.favorites = Favorites(systemDefinedPresets: [], userDefinedPresets: allFavorites)
     }
     

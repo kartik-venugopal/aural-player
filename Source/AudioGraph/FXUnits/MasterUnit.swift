@@ -146,11 +146,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
     
     var persistentState: MasterUnitPersistentState {
 
-        let unitState = MasterUnitPersistentState()
-
-        unitState.state = state
-        unitState.userPresets = presets.userDefinedPresets.map {MasterPresetPersistentState(preset: $0)}
-
-        return unitState
+        MasterUnitPersistentState(state: state,
+                                  userPresets: presets.userDefinedPresets.map {MasterPresetPersistentState(preset: $0)})
     }
 }

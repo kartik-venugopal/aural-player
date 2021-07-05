@@ -71,13 +71,9 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     
     var persistentState: PitchShiftUnitPersistentState {
         
-        let unitState = PitchShiftUnitPersistentState()
-        
-        unitState.state = state
-        unitState.pitch = pitch
-        unitState.overlap = overlap
-        unitState.userPresets = presets.userDefinedPresets.map {PitchShiftPresetPersistentState(preset: $0)}
-        
-        return unitState
+        PitchShiftUnitPersistentState(state: state,
+                                      userPresets: presets.userDefinedPresets.map {PitchShiftPresetPersistentState(preset: $0)},
+                                      pitch: pitch,
+                                      overlap: overlap)
     }
 }

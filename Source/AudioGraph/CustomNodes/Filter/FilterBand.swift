@@ -35,11 +35,28 @@ class FilterBand {
         self.maxFreq = maxFreq
     }
     
-    init(persistentState: FilterBandPersistentState) {
+    init?(persistentState: FilterBandPersistentState) {
         
-        self.type = persistentState.type
+        guard let type = persistentState.type else {return nil}
+        self.type = type
+        
         self.minFreq = persistentState.minFreq
         self.maxFreq = persistentState.maxFreq
+        
+        switch type {
+        
+        case .bandPass, .bandStop:
+            
+            guard self.minFreq != nil && self.maxFreq != nil else {return nil}
+            
+        case .lowPass:
+            
+            if maxFreq == nil {return nil}
+            
+        case .highPass:
+            
+            if minFreq == nil {return  nil}
+        }
     }
     
     func withMinFreq(_ freq: Float) -> FilterBand {

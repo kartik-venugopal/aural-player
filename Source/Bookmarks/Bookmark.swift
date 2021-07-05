@@ -63,4 +63,16 @@ class Bookmark: MappedPreset {
         self.startPosition = startPosition
         self.endPosition = endPosition
     }
+    
+    init?(persistentState: BookmarkPersistentState) {
+        
+        guard let file = persistentState.file,
+              let startPosition = persistentState.startPosition else {return nil}
+        
+        self.file = file
+        self._name = persistentState.name ?? file.lastPathComponent
+        
+        self.startPosition = startPosition
+        self.endPosition = persistentState.endPosition
+    }
 }

@@ -16,12 +16,14 @@ import Foundation
 ///
 class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
     
-    init(persistentState: [PlaybackProfilePersistentState]) {
+    init(persistentState: [PlaybackProfilePersistentState]?) {
         
         super.init()
         
-        for profile in persistentState {
-            self.add(profile.file, PlaybackProfile(profile.file, profile.lastPosition))
+        for profile in persistentState ?? [] {
+            
+            guard let file = profile.file, let lastPosition = profile.lastPosition else {continue}
+            self.add(file, PlaybackProfile(file, lastPosition))
         }
     }
     

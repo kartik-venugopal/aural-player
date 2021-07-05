@@ -9,28 +9,15 @@
 //  
 import Foundation
 
-class ControlBarPlayerUIPersistentState: PersistentStateProtocol {
+struct ControlBarPlayerUIPersistentState: Codable {
     
-    var windowFrame: NSRect?
-    var cornerRadius: CGFloat?
+    let windowFrame: NSRect?
+    let cornerRadius: CGFloat?
     
-    var trackInfoScrollingEnabled: Bool?
+    let trackInfoScrollingEnabled: Bool?
     
-    var showSeekPosition: Bool?
-    var seekPositionDisplayType: SeekPositionDisplayType?
-    
-    init() {}
-    
-    required init?(_ map: NSDictionary) {
-        
-        windowFrame = map.nsRectValue(forKey: "windowFrame")
-        cornerRadius = map.cgFloatValue(forKey: "cornerRadius")
-        
-        trackInfoScrollingEnabled = map["trackInfoScrollingEnabled", Bool.self]
-        
-        showSeekPosition = map["showSeekPosition", Bool.self]
-        seekPositionDisplayType = map.enumValue(forKey: "seekPositionDisplayType", ofType: SeekPositionDisplayType.self)
-    }
+    let showSeekPosition: Bool?
+    let seekPositionDisplayType: SeekPositionDisplayType?
 }
 
 extension ControlBarPlayerViewState {
@@ -48,16 +35,10 @@ extension ControlBarPlayerViewState {
     
     static var persistentState: ControlBarPlayerUIPersistentState {
         
-        let state = ControlBarPlayerUIPersistentState()
-        
-        state.windowFrame = windowFrame
-        state.cornerRadius = cornerRadius
-        
-        state.trackInfoScrollingEnabled = trackInfoScrollingEnabled
-        
-        state.showSeekPosition = showSeekPosition
-        state.seekPositionDisplayType = seekPositionDisplayType
-        
-        return state
+        ControlBarPlayerUIPersistentState(windowFrame: windowFrame,
+                                          cornerRadius: cornerRadius,
+                                          trackInfoScrollingEnabled: trackInfoScrollingEnabled,
+                                          showSeekPosition: showSeekPosition,
+                                          seekPositionDisplayType: seekPositionDisplayType)
     }
 }

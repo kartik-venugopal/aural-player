@@ -15,40 +15,49 @@ import Foundation
 class PersistenceManager {
     
     let persistentStateFile: URL
+
+    private let decoder = JSONDecoder()
+    private lazy var encoder = JSONEncoder()
     
     init(persistentStateFile: URL) {
         self.persistentStateFile = persistentStateFile
     }
     
-    func save<S>(_ state: S) where S: PersistentStateProtocol {
+    func save<S>(_ state: S) where S: Codable {
         
         persistentStateFile.parentDir.createDirectory()
         
-        let jsonObject = JSONMapper.map(state)
-        
         do {
             
-            try JSONSerialization.writeObject(jsonObject, toFile: persistentStateFile, failSilently: true)
+            guard let outputStream = OutputStream(url: persistentStateFile, append: false) else {
+                
+                NSLog("Error saving app state config file: Unable to open output file.")
+                return
+            }
+            
+            outputStream.open()
+            defer {outputStream.close()}
+            
+            let data = try encoder.encode(state)
+            
+            JSONSerialization.writeJSONObject(data, to: outputStream, options: .prettyPrinted, error: nil)
             
         } catch let error as NSError {
            NSLog("Error saving app state config file: %@", error.description)
         }
     }
     
-    func load<S>(type: S.Type) -> S? where S: PersistentStateProtocol {
-        
-        guard let inputStream = InputStream(url: persistentStateFile) else {return nil}
-            
-        inputStream.open()
-        defer {inputStream.close()}
+    func load<S>(type: S.Type) -> S? where S: Codable {
         
         do {
             
-            let data = try JSONSerialization.jsonObject(with: inputStream, options: JSONSerialization.ReadingOptions())
-            
-            if let dictionary = data as? NSDictionary {
-                return S.init(dictionary)
+            guard let json = try String(contentsOf: persistentStateFile, encoding: .utf8).data(using: .utf8) else {
+                
+                NSLog("Error loading app state config file.")
+                return nil
             }
+            
+            return try decoder.decode(S.self, from: json)
             
         } catch let error as NSError {
             NSLog("Error loading app state config file: %@", error.description)

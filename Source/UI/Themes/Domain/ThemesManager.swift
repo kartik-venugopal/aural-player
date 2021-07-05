@@ -21,10 +21,7 @@ class ThemesManager: MappedPresets<Theme> {
         
         let systemDefinedThemes = ThemePreset.allCases.map {$0.theme}
         
-        let userDefinedThemes: [Theme] = (persistentState?.userThemes ?? []).map {Theme(name: $0.name,
-                                                                                    fontScheme: FontScheme($0.fontScheme, false),
-                                                                                    colorScheme: ColorScheme($0.colorScheme, false),
-                                                                                    windowAppearance: WindowAppearance(cornerRadius: $0.windowAppearance?.cornerRadius ?? WindowAppearanceState.defaultCornerRadius), userDefined: true)}
+        let userDefinedThemes: [Theme] = (persistentState?.userThemes ?? []).compactMap {Theme(persistentState: $0, systemDefined: false)}
         
         super.init(systemDefinedPresets: systemDefinedThemes, userDefinedPresets: userDefinedThemes)
     }
@@ -49,6 +46,6 @@ class ThemesManager: MappedPresets<Theme> {
     
     // State to be persisted to disk.
     var persistentState: ThemesPersistentState {
-        ThemesPersistentState(userDefinedPresets.map {ThemePersistentState($0)})
+        ThemesPersistentState(userThemes: userDefinedPresets.map {ThemePersistentState($0)})
     }
 }

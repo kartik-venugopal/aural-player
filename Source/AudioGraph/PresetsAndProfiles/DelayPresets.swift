@@ -17,7 +17,7 @@ class DelayPresets: EffectsPresets<DelayPreset> {
     init(persistentState: DelayUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedDelayPresetParams.allCases.map {$0.preset}
-        let userDefinedPresets = (persistentState?.userPresets ?? []).map {DelayPreset(persistentState: $0)}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {DelayPreset(persistentState: $0)}
         
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
@@ -45,14 +45,20 @@ class DelayPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: DelayPresetPersistentState) {
+    init?(persistentState: DelayPresetPersistentState) {
         
-        self.amount = persistentState.amount
-        self.time = persistentState.time
-        self.feedback = persistentState.feedback
-        self.lowPassCutoff = persistentState.lowPassCutoff
+        guard let name = persistentState.name, let unitState = persistentState.state,
+              let amount = persistentState.amount,
+              let time = persistentState.time,
+              let feedback = persistentState.feedback,
+              let lowPassCutoff = persistentState.lowPassCutoff else {return nil}
         
-        super.init(persistentState: persistentState)
+        self.amount = amount
+        self.time = time
+        self.feedback = feedback
+        self.lowPassCutoff = lowPassCutoff
+        
+        super.init(name, unitState, false)
     }
 }
 

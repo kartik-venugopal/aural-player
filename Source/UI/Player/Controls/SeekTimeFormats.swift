@@ -8,7 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 // Enumeration of all possible formats in which the elapsed seek time is displayed.
-public enum TimeElapsedDisplayType: String {
+public enum TimeElapsedDisplayType: String, CaseIterable, Codable {
 
     // Displayed as hh:mm:ss
     case formatted
@@ -34,7 +34,7 @@ public enum TimeElapsedDisplayType: String {
 }
 
 // Enumeration of all possible formats in which the remaining seek time is displayed.
-public enum TimeRemainingDisplayType: String {
+public enum TimeRemainingDisplayType: String, CaseIterable, Codable {
 
     // Remaining seek time is displayed as "- hh:mm:ss"
     case formatted

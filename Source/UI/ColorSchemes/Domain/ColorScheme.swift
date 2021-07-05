@@ -106,7 +106,7 @@ class ColorScheme: MappedPreset {
 /*
     Enumerates all different types of gradients that can be applied to colors in a color scheme.
  */
-enum ColorSchemeGradientType: String {
+enum ColorSchemeGradientType: String, CaseIterable, Codable {
     
     case none
     case darken

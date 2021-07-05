@@ -51,7 +51,7 @@ struct PlayerViewDefaults {
     static let timeRemainingDisplayType: TimeRemainingDisplayType = .formatted
 }
 
-enum PlayerViewType: String {
+enum PlayerViewType: String, CaseIterable, Codable {
     
     case defaultView
     case expandedArt

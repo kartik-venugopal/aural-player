@@ -9,43 +9,29 @@
 //
 import Foundation
 
-class ReverbUnitPersistentState: EffectsUnitPersistentState<ReverbPresetPersistentState> {
+struct ReverbUnitPersistentState: Codable {
     
-    var space: ReverbSpaces?
-    var amount: Float?
+    let state: EffectsUnitState?
+    let userPresets: [ReverbPresetPersistentState]?
     
-    override init() {super.init()}
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.space = map.enumValue(forKey: "space", ofType: ReverbSpaces.self)
-        self.amount = map.floatValue(forKey: "amount")
-        
-        super.init(map)
-    }
+    let space: ReverbSpaces?
+    let amount: Float?
 }
 
-class ReverbPresetPersistentState: EffectsUnitPresetPersistentState {
+struct ReverbPresetPersistentState: Codable {
     
-    let space: ReverbSpaces
-    let amount: Float
+    let name: String?
+    let state: EffectsUnitState?
+    
+    let space: ReverbSpaces?
+    let amount: Float?
     
     init(preset: ReverbPreset) {
         
+        self.name = preset.name
+        self.state = preset.state
+        
         self.space = preset.space
         self.amount = preset.amount
-        
-        super.init(preset: preset)
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let space = map.enumValue(forKey: "space", ofType: ReverbSpaces.self),
-              let amount = map.floatValue(forKey: "amount") else {return nil}
-        
-        self.space = space
-        self.amount = amount
-        
-        super.init(map)
     }
 }

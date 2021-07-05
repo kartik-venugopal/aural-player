@@ -42,10 +42,28 @@
                   Identifier = "AVAudioExtensionsTests">
                </Test>
                <Test
+                  Identifier = "AudioGraphPersistenceTestCase">
+               </Test>
+               <Test
+                  Identifier = "AudioUnitPersistenceTests">
+               </Test>
+               <Test
                   Identifier = "AuralTestCase">
                </Test>
                <Test
+                  Identifier = "DelayUnitPersistenceTests">
+               </Test>
+               <Test
+                  Identifier = "EQUnitPersistenceTests">
+               </Test>
+               <Test
+                  Identifier = "FilterUnitPersistenceTests">
+               </Test>
+               <Test
                   Identifier = "GroupingPlaylistTests">
+               </Test>
+               <Test
+                  Identifier = "MasterUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "MathUtilsTests">
@@ -69,10 +87,13 @@
                   Identifier = "NotificationSubscriberTests">
                </Test>
                <Test
-                  Identifier = "PlaybackLoopTests">
+                  Identifier = "PersistenceTestCase">
                </Test>
                <Test
-                  Identifier = "PlaybackPreferencesTests">
+                  Identifier = "PitchShiftUnitPersistenceTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackLoopTests">
                </Test>
                <Test
                   Identifier = "PlaybackSequenceCreationTests">
@@ -94,6 +115,9 @@
                </Test>
                <Test
                   Identifier = "PlaylistItemArrayTests">
+               </Test>
+               <Test
+                  Identifier = "ReverbUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "SequencerBeginAndEndTests">
@@ -142,6 +166,9 @@
                </Test>
                <Test
                   Identifier = "ShuffleSequenceTests">
+               </Test>
+               <Test
+                  Identifier = "TimeStretchUnitPersistenceTests">
                </Test>
                <Test
                   Identifier = "ValueFormatterTests">

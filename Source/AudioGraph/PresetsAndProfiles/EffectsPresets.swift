@@ -9,6 +9,8 @@
 //
 import Foundation
 
+// TODO: Fix inconsistent naming: "EffectsUnitXYZ" vs "EffectsXYZ".
+
 ///
 /// A functional contract for a mapped collection of presets that can be applied to an effects unit.
 ///
@@ -62,12 +64,5 @@ class EffectsUnitPreset: MappedPreset {
         self.name = name
         self.state = state
         self.systemDefined = systemDefined
-    }
-    
-    init(persistentState: EffectsUnitPresetPersistentState) {
-        
-        self.name = persistentState.name
-        self.state = persistentState.state
-        self.systemDefined = false
     }
 }

@@ -9,22 +9,17 @@
 //
 import Foundation
 
-class FilterUnitPersistentState: EffectsUnitPersistentState<FilterPresetPersistentState> {
+struct FilterUnitPersistentState: Codable {
     
-    var bands: [FilterBandPersistentState]?
+    let state: EffectsUnitState?
+    let userPresets: [FilterPresetPersistentState]?
     
-    override init() {super.init()}
-    
-    required init?(_ map: NSDictionary) {
-
-        self.bands = map.persistentObjectArrayValue(forKey: "bands", ofType: FilterBandPersistentState.self)
-        super.init(map)
-    }
+    let bands: [FilterBandPersistentState]?
 }
 
-class FilterBandPersistentState: PersistentStateProtocol {
+struct FilterBandPersistentState: Codable {
     
-    let type: FilterBandType
+    let type: FilterBandType?
     
     let minFreq: Float?     // Used for highPass, bandPass, and bandStop
     let maxFreq: Float?
@@ -35,47 +30,20 @@ class FilterBandPersistentState: PersistentStateProtocol {
         self.minFreq = band.minFreq
         self.maxFreq = band.maxFreq
     }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let type = map.enumValue(forKey: "type", ofType: FilterBandType.self) else {return nil}
-        self.type = type
-        
-        self.minFreq = map.floatValue(forKey: "minFreq")
-        self.maxFreq = map.floatValue(forKey: "maxFreq")
-        
-        switch type {
-        
-        case .bandPass, .bandStop:
-            
-            guard self.minFreq != nil && self.maxFreq != nil else {return nil}
-            
-        case .lowPass:
-            
-            if maxFreq == nil {return nil}
-            
-        case .highPass:
-            
-            if minFreq == nil {return  nil}
-        }
-    }
 }
 
-class FilterPresetPersistentState: EffectsUnitPresetPersistentState {
+struct FilterPresetPersistentState: Codable {
     
-    let bands: [FilterBandPersistentState]
+    let name: String?
+    let state: EffectsUnitState?
+    
+    let bands: [FilterBandPersistentState]?
     
     init(preset: FilterPreset) {
         
+        self.name = preset.name
+        self.state = preset.state
+        
         self.bands = preset.bands.map {FilterBandPersistentState(band: $0)}
-        super.init(preset: preset)
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let bands = map.persistentObjectArrayValue(forKey: "bands", ofType: FilterBandPersistentState.self) else {return nil}
-        self.bands = bands
-        
-        super.init(map)
     }
 }

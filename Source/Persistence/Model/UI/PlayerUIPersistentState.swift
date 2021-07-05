@@ -9,46 +9,23 @@
 //
 import Foundation
 
-class PlayerUIPersistentState: PersistentStateProtocol {
+struct PlayerUIPersistentState: Codable {
     
-    var viewType: PlayerViewType?
+    let viewType: PlayerViewType?
     
-    var showAlbumArt: Bool?
-    var showArtist: Bool?
-    var showAlbum: Bool?
-    var showCurrentChapter: Bool?
+    let showAlbumArt: Bool?
+    let showArtist: Bool?
+    let showAlbum: Bool?
+    let showCurrentChapter: Bool?
     
-    var showTrackInfo: Bool?
-    var showSequenceInfo: Bool?
+    let showTrackInfo: Bool?
     
-    var showPlayingTrackFunctions: Bool?
-    var showControls: Bool?
-    var showTimeElapsedRemaining: Bool?
+    let showPlayingTrackFunctions: Bool?
+    let showControls: Bool?
+    let showTimeElapsedRemaining: Bool?
     
-    var timeElapsedDisplayType: TimeElapsedDisplayType?
-    var timeRemainingDisplayType: TimeRemainingDisplayType?
-    
-    init() {}
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.viewType = map.enumValue(forKey: "viewType", ofType: PlayerViewType.self)
-        
-        self.showAlbumArt = map["showAlbumArt", Bool.self]
-        self.showArtist = map["showArtist", Bool.self]
-        self.showAlbum = map["showAlbum", Bool.self]
-        self.showCurrentChapter = map["showCurrentChapter", Bool.self]
-        
-        self.showTrackInfo = map["showTrackInfo", Bool.self]
-        self.showSequenceInfo = map["showSequenceInfo", Bool.self]
-        
-        self.showControls = map["showControls", Bool.self]
-        self.showTimeElapsedRemaining = map["showTimeElapsedRemaining", Bool.self]
-        self.showPlayingTrackFunctions = map["showPlayingTrackFunctions", Bool.self]
-        
-        self.timeElapsedDisplayType = map.enumValue(forKey: "timeElapsedDisplayType", ofType: TimeElapsedDisplayType.self)
-        self.timeRemainingDisplayType = map.enumValue(forKey: "timeRemainingDisplayType", ofType: TimeRemainingDisplayType.self)
-    }
+    let timeElapsedDisplayType: TimeElapsedDisplayType?
+    let timeRemainingDisplayType: TimeRemainingDisplayType?
 }
 
 extension PlayerViewState {
@@ -74,24 +51,16 @@ extension PlayerViewState {
     
     static var persistentState: PlayerUIPersistentState {
         
-        let state = PlayerUIPersistentState()
-        
-        state.viewType = viewType
-        
-        state.showAlbumArt = showAlbumArt
-        state.showArtist = showArtist
-        state.showAlbum = showAlbum
-        state.showCurrentChapter = showCurrentChapter
-        
-        state.showTrackInfo = showTrackInfo
-        
-        state.showPlayingTrackFunctions = showPlayingTrackFunctions
-        state.showControls = showControls
-        state.showTimeElapsedRemaining = showTimeElapsedRemaining
-        
-        state.timeElapsedDisplayType = timeElapsedDisplayType
-        state.timeRemainingDisplayType = timeRemainingDisplayType
-        
-        return state
+        PlayerUIPersistentState(viewType: viewType,
+            showAlbumArt: showAlbumArt,
+            showArtist: showArtist,
+            showAlbum: showAlbum,
+            showCurrentChapter: showCurrentChapter,
+            showTrackInfo: showTrackInfo,
+            showPlayingTrackFunctions: showPlayingTrackFunctions,
+            showControls: showControls,
+            showTimeElapsedRemaining: showTimeElapsedRemaining,
+            timeElapsedDisplayType: timeElapsedDisplayType,
+            timeRemainingDisplayType: timeRemainingDisplayType)
     }
 }

@@ -122,8 +122,10 @@ class Group: Hashable, PlaylistItem {
         var tracksMap: [URL: Track] = [:]
         self.tracks.forEach {tracksMap[$0.file] = $0}
         
-        // Re-order thr group by replacing the existing tracks array with an ordered collection created
+        // Re-order the group by replacing the existing tracks array with an ordered collection created
         // by mapping URLs from state to their corresponding tracks (by using the lookup map).
-        self.tracks = state.tracks.compactMap {tracksMap[$0]}
+        if let tracks = state.tracks, tracks.count == self.tracks.count {
+            self.tracks = tracks.compactMap {tracksMap[$0]}
+        }
     }
 }

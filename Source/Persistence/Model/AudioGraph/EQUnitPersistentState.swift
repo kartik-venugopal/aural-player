@@ -9,44 +9,30 @@
 //
 import Foundation
 
-class EQUnitPersistentState: EffectsUnitPersistentState<EQPresetPersistentState> {
+struct EQUnitPersistentState: Codable {
     
-    var type: EQType?
-    var globalGain: Float?
-    var bands: [Float]?
+    let state: EffectsUnitState?
+    let userPresets: [EQPresetPersistentState]?
     
-    override init() {super.init()}
-    
-    required init?(_ map: NSDictionary) {
-        
-        super.init(map)
-        
-        self.type = map.enumValue(forKey: "type", ofType: EQType.self)
-        self.bands = map.floatArrayValue(forKey: "bands")
-        self.globalGain = map.floatValue(forKey: "globalGain")
-    }
+    let type: EQType?
+    let globalGain: Float?
+    let bands: [Float]?
 }
 
-class EQPresetPersistentState: EffectsUnitPresetPersistentState {
+struct EQPresetPersistentState: Codable {
+
+    let name: String?
+    let state: EffectsUnitState?
     
-    let bands: [Float]
+    let bands: [Float]?
     let globalGain: Float?
     
     init(preset: EQPreset) {
         
+        self.name = preset.name
+        self.state = preset.state
+        
         self.bands = preset.bands
         self.globalGain = preset.globalGain
-        
-        super.init(preset: preset)
-    }
-    
-    required init?(_ map: NSDictionary) {
-
-        guard let bands = map.floatArrayValue(forKey: "bands") else {return nil}
-        
-        self.bands = bands
-        self.globalGain = map.floatValue(forKey: "globalGain")
-        
-        super.init(map)
     }
 }

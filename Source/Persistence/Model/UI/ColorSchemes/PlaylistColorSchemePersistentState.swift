@@ -12,55 +12,38 @@ import Foundation
 /*
     Encapsulates persistent app state for a single PlaylistColorScheme.
  */
-class PlaylistColorSchemePersistentState: PersistentStateProtocol {
+struct PlaylistColorSchemePersistentState: Codable {
     
-    var trackNameTextColor: ColorPersistentState?
-    var groupNameTextColor: ColorPersistentState?
-    var indexDurationTextColor: ColorPersistentState?
+    let trackNameTextColor: ColorPersistentState?
+    let groupNameTextColor: ColorPersistentState?
+    let indexDurationTextColor: ColorPersistentState?
     
-    var trackNameSelectedTextColor: ColorPersistentState?
-    var groupNameSelectedTextColor: ColorPersistentState?
-    var indexDurationSelectedTextColor: ColorPersistentState?
+    let trackNameSelectedTextColor: ColorPersistentState?
+    let groupNameSelectedTextColor: ColorPersistentState?
+    let indexDurationSelectedTextColor: ColorPersistentState?
 
-    var summaryInfoColor: ColorPersistentState?
+    let summaryInfoColor: ColorPersistentState?
     
-    var playingTrackIconColor: ColorPersistentState?
-    var selectionBoxColor: ColorPersistentState?
-    var groupIconColor: ColorPersistentState?
-    var groupDisclosureTriangleColor: ColorPersistentState?
-    
-    init() {}
+    let playingTrackIconColor: ColorPersistentState?
+    let selectionBoxColor: ColorPersistentState?
+    let groupIconColor: ColorPersistentState?
+    let groupDisclosureTriangleColor: ColorPersistentState?
     
     init(_ scheme: PlaylistColorScheme) {
         
-        self.trackNameTextColor = ColorPersistentState.fromColor(scheme.trackNameTextColor)
-        self.groupNameTextColor = ColorPersistentState.fromColor(scheme.groupNameTextColor)
-        self.indexDurationTextColor = ColorPersistentState.fromColor(scheme.indexDurationTextColor)
+        self.trackNameTextColor = ColorPersistentState(color: scheme.trackNameTextColor)
+        self.groupNameTextColor = ColorPersistentState(color: scheme.groupNameTextColor)
+        self.indexDurationTextColor = ColorPersistentState(color: scheme.indexDurationTextColor)
         
-        self.trackNameSelectedTextColor = ColorPersistentState.fromColor(scheme.trackNameSelectedTextColor)
-        self.groupNameSelectedTextColor = ColorPersistentState.fromColor(scheme.groupNameSelectedTextColor)
-        self.indexDurationSelectedTextColor = ColorPersistentState.fromColor(scheme.indexDurationSelectedTextColor)
+        self.trackNameSelectedTextColor = ColorPersistentState(color: scheme.trackNameSelectedTextColor)
+        self.groupNameSelectedTextColor = ColorPersistentState(color: scheme.groupNameSelectedTextColor)
+        self.indexDurationSelectedTextColor = ColorPersistentState(color: scheme.indexDurationSelectedTextColor)
         
-        self.groupIconColor = ColorPersistentState.fromColor(scheme.groupIconColor)
-        self.groupDisclosureTriangleColor = ColorPersistentState.fromColor(scheme.groupDisclosureTriangleColor)
-        self.selectionBoxColor = ColorPersistentState.fromColor(scheme.selectionBoxColor)
-        self.playingTrackIconColor = ColorPersistentState.fromColor(scheme.playingTrackIconColor)
+        self.groupIconColor = ColorPersistentState(color: scheme.groupIconColor)
+        self.groupDisclosureTriangleColor = ColorPersistentState(color: scheme.groupDisclosureTriangleColor)
+        self.selectionBoxColor = ColorPersistentState(color: scheme.selectionBoxColor)
+        self.playingTrackIconColor = ColorPersistentState(color: scheme.playingTrackIconColor)
         
-        self.summaryInfoColor = ColorPersistentState.fromColor(scheme.summaryInfoColor)
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.trackNameTextColor = map.persistentColorValue(forKey: "trackNameTextColor")
-        self.groupNameTextColor = map.persistentColorValue(forKey: "groupNameTextColor")
-        self.indexDurationTextColor = map.persistentColorValue(forKey: "indexDurationTextColor")
-        self.trackNameSelectedTextColor = map.persistentColorValue(forKey: "trackNameSelectedTextColor")
-        self.groupNameSelectedTextColor = map.persistentColorValue(forKey: "groupNameSelectedTextColor")
-        self.indexDurationSelectedTextColor = map.persistentColorValue(forKey: "indexDurationSelectedTextColor")
-        self.groupIconColor = map.persistentColorValue(forKey: "groupIconColor")
-        self.groupDisclosureTriangleColor = map.persistentColorValue(forKey: "groupDisclosureTriangleColor")
-        self.selectionBoxColor = map.persistentColorValue(forKey: "selectionBoxColor")
-        self.playingTrackIconColor = map.persistentColorValue(forKey: "playingTrackIconColor")
-        self.summaryInfoColor = map.persistentColorValue(forKey: "summaryInfoColor")
+        self.summaryInfoColor = ColorPersistentState(color: scheme.summaryInfoColor)
     }
 }

@@ -9,33 +9,19 @@
 //
 import Foundation
 
-class SoundProfilePersistentState: PersistentStateProtocol {
+struct SoundProfilePersistentState: Codable {
     
-    let file: URL
+    let file: URL?
     
-    let volume: Float
-    let balance: Float
+    let volume: Float?
+    let balance: Float?
+    let effects: MasterPresetPersistentState?
     
-    let effects: MasterPresetPersistentState
-    
-    init(file: URL, volume: Float, balance: Float, effects: MasterPresetPersistentState) {
+    init(profile: SoundProfile) {
         
-        self.file = file
-        self.volume = volume
-        self.balance = balance
-        self.effects = effects
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let file = map.urlValue(forKey: "file"),
-              let volume = map.floatValue(forKey: "volume"),
-              let balance = map.floatValue(forKey: "balance"),
-              let effects = map.persistentObjectValue(forKey: "effects", ofType: MasterPresetPersistentState.self) else {return nil}
-        
-        self.file = file
-        self.volume = volume
-        self.balance = balance
-        self.effects = effects
+        self.file = profile.file
+        self.volume = profile.volume
+        self.balance = profile.balance
+        self.effects = MasterPresetPersistentState(preset: profile.effects)
     }
 }

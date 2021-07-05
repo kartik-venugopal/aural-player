@@ -313,7 +313,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         // Iterate through all groups, inserting each one at insertionIndex ... 0, 1, 2, and so on.
         for groupState in state.groups ?? [] {
             
-            if let group = groupsByName[groupState.name], let index = indexOfGroup(group) {
+            if let name = groupState.name, let group = groupsByName[name], let index = indexOfGroup(group) {
                 
                 // No need to reorder the group if it is already in the correct position.
                 if index != insertionIndex {

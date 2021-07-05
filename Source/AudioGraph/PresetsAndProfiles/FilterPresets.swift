@@ -17,7 +17,7 @@ class FilterPresets: EffectsPresets<FilterPreset> {
     init(persistentState: FilterUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedFilterPresetParams.allCases.map {$0.preset}
-        let userDefinedPresets = (persistentState?.userPresets ?? []).map {FilterPreset(persistentState: $0)}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {FilterPreset(persistentState: $0)}
         
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
@@ -38,10 +38,13 @@ class FilterPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: FilterPresetPersistentState) {
+    init?(persistentState: FilterPresetPersistentState) {
         
-        self.bands = persistentState.bands.map {FilterBand(persistentState: $0)}
-        super.init(persistentState.name, persistentState.state, false)
+        guard let name = persistentState.name, let unitState = persistentState.state,
+              let bands = persistentState.bands else {return nil}
+        
+        self.bands = bands.compactMap {FilterBand(persistentState: $0)}
+        super.init(name, unitState, false)
     }
 }
 

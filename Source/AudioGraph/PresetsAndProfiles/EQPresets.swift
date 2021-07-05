@@ -17,7 +17,7 @@ class EQPresets: EffectsPresets<EQPreset> {
     init(persistentState: EQUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedEQPresetParams.allCases.map {$0.preset}
-        let userDefinedPresets = (persistentState?.userPresets ?? []).map {EQPreset(persistentState: $0)}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {EQPreset(persistentState: $0)}
         
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
@@ -40,12 +40,15 @@ class EQPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: EQPresetPersistentState) {
+    init?(persistentState: EQPresetPersistentState) {
         
-        self.bands = persistentState.bands
+        guard let name = persistentState.name, let unitState = persistentState.state,
+              let bands = persistentState.bands else {return nil}
+        
+        self.bands = bands
         self.globalGain = persistentState.globalGain ?? AudioGraphDefaults.eqGlobalGain
         
-        super.init(persistentState: persistentState)
+        super.init(name, unitState, false)
     }
 }
 

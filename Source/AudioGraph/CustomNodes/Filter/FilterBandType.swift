@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// An enumeration of all possible filter band types.
 ///
-enum FilterBandType: String, CaseIterable {
+enum FilterBandType: String, CaseIterable, Codable {
     
     // TODO: Look into adding more filter types (lowShelf, highShelf, resonantLowPass/HighPass, etc).
     

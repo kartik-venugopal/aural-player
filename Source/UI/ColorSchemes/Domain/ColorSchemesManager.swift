@@ -66,6 +66,8 @@ class ColorSchemesManager: MappedPresets<ColorScheme> {
     
     // State to be persisted to disk.
     var persistentState: ColorSchemesPersistentState {
-        return ColorSchemesPersistentState(ColorSchemePersistentState(systemScheme), userDefinedPresets.map {ColorSchemePersistentState($0)})
+        
+        ColorSchemesPersistentState(systemScheme: ColorSchemePersistentState(systemScheme),
+                                    userSchemes: userDefinedPresets.map {ColorSchemePersistentState($0)})
     }
 }

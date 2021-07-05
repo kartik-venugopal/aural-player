@@ -17,7 +17,7 @@ class TimePresets: EffectsPresets<TimePreset> {
     init(persistentState: TimeStretchUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedTimePresetParams.allCases.map {$0.preset}
-        let userDefinedPresets = (persistentState?.userPresets ?? []).map {TimePreset(persistentState: $0)}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {TimePreset(persistentState: $0)}
         
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
@@ -42,13 +42,16 @@ class TimePreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: TimeStretchPresetPersistentState) {
+    init?(persistentState: TimeStretchPresetPersistentState) {
         
-        self.rate = persistentState.rate
+        guard let name = persistentState.name, let unitState = persistentState.state,
+              let rate = persistentState.rate else {return nil}
+        
+        self.rate = rate
         self.overlap = persistentState.overlap ?? AudioGraphDefaults.timeOverlap
         self.shiftPitch = persistentState.shiftPitch ?? AudioGraphDefaults.timeShiftPitch
         
-        super.init(persistentState: persistentState)
+        super.init(name, unitState, false)
     }
 }
 

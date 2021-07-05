@@ -80,14 +80,10 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     }
     
     var persistentState: ReverbUnitPersistentState {
-
-        let unitState = ReverbUnitPersistentState()
-
-        unitState.state = state
-        unitState.space = space
-        unitState.amount = amount
-        unitState.userPresets = presets.userDefinedPresets.map {ReverbPresetPersistentState(preset: $0)}
-
-        return unitState
+        
+        ReverbUnitPersistentState(state: state,
+                                  userPresets: presets.userDefinedPresets.map {ReverbPresetPersistentState(preset: $0)},
+                                  space: space,
+                                  amount: amount)
     }
 }

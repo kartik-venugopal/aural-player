@@ -88,14 +88,10 @@ class TimeStretchUnit: EffectsUnit, TimeStretchUnitProtocol {
     
     var persistentState: TimeStretchUnitPersistentState {
 
-        let unitState = TimeStretchUnitPersistentState()
-
-        unitState.state = state
-        unitState.rate = rate
-        unitState.overlap = overlap
-        unitState.shiftPitch = shiftPitch
-        unitState.userPresets = presets.userDefinedPresets.map {TimeStretchPresetPersistentState(preset: $0)}
-
-        return unitState
+        TimeStretchUnitPersistentState(state: state,
+                                       userPresets: presets.userDefinedPresets.map {TimeStretchPresetPersistentState(preset: $0)},
+                                       rate: rate,
+                                       shiftPitch: shiftPitch,
+                                       overlap: overlap)
     }
 }

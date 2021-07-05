@@ -9,41 +9,16 @@
 //
 import Cocoa
 
-class VisualizerUIPersistentState: PersistentStateProtocol {
+struct VisualizerUIPersistentState: Codable {
     
     let type: VisualizationType?
     let options: VisualizerOptionsPersistentState?
-    
-    init(type: VisualizationType?, options: VisualizerOptionsPersistentState?) {
-        
-        self.type = type
-        self.options = options
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.type = map.enumValue(forKey: "type", ofType: VisualizationType.self)
-        self.options = map.persistentObjectValue(forKey: "options", ofType: VisualizerOptionsPersistentState.self)
-    }
 }
 
-class VisualizerOptionsPersistentState: PersistentStateProtocol {
+struct VisualizerOptionsPersistentState: Codable {
     
-    var lowAmplitudeColor: ColorPersistentState?
-    var highAmplitudeColor: ColorPersistentState?
-    
-    init() {}
-    
-    required init?(_ map: NSDictionary) {
-        
-        if let lowAmpColorDict = map["lowAmplitudeColor", NSDictionary.self] {
-            self.lowAmplitudeColor = ColorPersistentState.deserialize(lowAmpColorDict)
-        }
-        
-        if let highAmpColorDict = map["highAmplitudeColor", NSDictionary.self] {
-            self.highAmplitudeColor = ColorPersistentState.deserialize(highAmpColorDict)
-        }
-    }
+    let lowAmplitudeColor: ColorPersistentState?
+    let highAmplitudeColor: ColorPersistentState?
 }
 
 extension VisualizerViewState {
@@ -60,9 +35,8 @@ extension VisualizerViewState {
     
     static var persistentState: VisualizerUIPersistentState {
         
-        let visOptions = VisualizerOptionsPersistentState()
-        visOptions.lowAmplitudeColor = ColorPersistentState.fromColor(options.lowAmplitudeColor)
-        visOptions.highAmplitudeColor = ColorPersistentState.fromColor(options.highAmplitudeColor)
+        let visOptions = VisualizerOptionsPersistentState(lowAmplitudeColor: ColorPersistentState(color: options.lowAmplitudeColor),
+                                                          highAmplitudeColor: ColorPersistentState(color: options.highAmplitudeColor))
         
         return VisualizerUIPersistentState(type: type, options: visOptions)
     }

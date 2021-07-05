@@ -27,7 +27,7 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         self.player = player
         
         // Restore the bookmarks model object from persistent state
-        let allBookmarks: [Bookmark] = persistentState?.map {Bookmark($0.name, $0.file, $0.startPosition, $0.endPosition)} ?? []
+        let allBookmarks: [Bookmark] = persistentState?.compactMap {Bookmark(persistentState: $0)} ?? []
         self.bookmarks = Bookmarks(systemDefinedPresets: [], userDefinedPresets: allBookmarks)
     }
     
@@ -89,6 +89,6 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     }
     
     var persistentState: [BookmarkPersistentState] {
-        allBookmarks.map {BookmarkPersistentState($0.name, $0.file, $0.startPosition, $0.endPosition)}
+        allBookmarks.map {BookmarkPersistentState(name: $0.name, file: $0.file, startPosition: $0.startPosition, endPosition: $0.endPosition)}
     }
 }

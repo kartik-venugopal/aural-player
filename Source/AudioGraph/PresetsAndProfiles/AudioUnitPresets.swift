@@ -21,7 +21,7 @@ class AudioUnitPresets: EffectsPresets<AudioUnitPreset> {
     
     init(persistentState: AudioUnitPersistentState?) {
         
-        let userDefinedPresets = (persistentState?.userPresets ?? []).map {AudioUnitPreset(persistentState: $0)}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {AudioUnitPreset(persistentState: $0)}
         super.init(systemDefinedPresets: [], userDefinedPresets: userDefinedPresets)
     }
 }
@@ -45,13 +45,18 @@ class AudioUnitPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: AudioUnitPresetPersistentState) {
+    init?(persistentState: AudioUnitPresetPersistentState) {
         
-        self.componentType = persistentState.componentType
-        self.componentSubType = persistentState.componentSubType
-        self.number = persistentState.number
+        guard let name = persistentState.name, let unitState = persistentState.state,
+              let componentType = persistentState.componentType,
+              let componentSubType = persistentState.componentSubType,
+              let number = persistentState.number else {return nil}
         
-        super.init(persistentState.name, persistentState.state, false)
+        self.componentType = componentType
+        self.componentSubType = componentSubType
+        self.number = number
+        
+        super.init(name, unitState, false)
     }
 }
 

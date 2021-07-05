@@ -168,7 +168,7 @@ class ObjectGraph {
     static func tearDown() {
         
         // Gather all pieces of persistent state into the persistentState object
-        let persistentState: PersistentAppState = PersistentAppState()
+        var persistentState: PersistentAppState = PersistentAppState()
         
         persistentState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "1.0.0"
         
@@ -177,21 +177,17 @@ class ObjectGraph {
         persistentState.playbackSequence = (sequencer as! Sequencer).persistentState
         persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(file: $0.file, lastPosition: $0.lastPosition)}
         
-        let uiState = UIPersistentState()
-        
-        uiState.appMode = AppModeManager.mode
-        uiState.windowLayout = WindowLayoutState.persistentState
-        uiState.themes = themesManager.persistentState
-        uiState.fontSchemes = fontSchemesManager.persistentState
-        uiState.colorSchemes = colorSchemesManager.persistentState
-        uiState.player = PlayerViewState.persistentState
-        uiState.playlist = PlaylistViewState.persistentState
-        uiState.visualizer = VisualizerViewState.persistentState
-        uiState.windowAppearance = WindowAppearanceState.persistentState
-        uiState.menuBarPlayer = MenuBarPlayerViewState.persistentState
-        uiState.controlBarPlayer = ControlBarPlayerViewState.persistentState
-        
-        persistentState.ui = uiState
+        persistentState.ui = UIPersistentState(appMode: AppModeManager.mode,
+                                               windowLayout: WindowLayoutState.persistentState,
+                                               themes: themesManager.persistentState,
+                                               fontSchemes: fontSchemesManager.persistentState,
+                                               colorSchemes: colorSchemesManager.persistentState,
+                                               player: PlayerViewState.persistentState,
+                                               playlist: PlaylistViewState.persistentState,
+                                               visualizer: VisualizerViewState.persistentState,
+                                               windowAppearance: WindowAppearanceState.persistentState,
+                                               menuBarPlayer: MenuBarPlayerViewState.persistentState,
+                                               controlBarPlayer: ControlBarPlayerViewState.persistentState)
         
         persistentState.history = (historyDelegate as! HistoryDelegate).persistentState
         persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

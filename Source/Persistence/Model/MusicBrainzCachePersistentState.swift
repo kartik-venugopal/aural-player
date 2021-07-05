@@ -9,47 +9,17 @@
 //
 import Foundation
 
-class MusicBrainzCachePersistentState: PersistentStateProtocol {
+struct MusicBrainzCachePersistentState: Codable {
 
     let releases: [MusicBrainzCacheEntryPersistentState]?
     let recordings: [MusicBrainzCacheEntryPersistentState]?
-    
-    init(releases: [MusicBrainzCacheEntryPersistentState], recordings: [MusicBrainzCacheEntryPersistentState]) {
-        
-        self.releases = releases
-        self.recordings = recordings
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.releases = map.persistentObjectArrayValue(forKey: "releases", ofType: MusicBrainzCacheEntryPersistentState.self)
-        self.recordings = map.persistentObjectArrayValue(forKey: "recordings", ofType: MusicBrainzCacheEntryPersistentState.self)
-    }
 }
 
-class MusicBrainzCacheEntryPersistentState: PersistentStateProtocol {
+struct MusicBrainzCacheEntryPersistentState: Codable {
     
-    let artist: String
-    let title: String
-    let file: URL
-    
-    init(artist: String, title: String, file: URL) {
-        
-        self.artist = artist
-        self.title = title
-        self.file = file
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let artist = map.nonEmptyStringValue(forKey: "artist"),
-           let title = map.nonEmptyStringValue(forKey: "title"),
-           let file = map.urlValue(forKey: "file") else {return nil}
-        
-        self.artist = artist
-        self.title = title
-        self.file = file
-    }
+    let artist: String?
+    let title: String?
+    let file: URL?
 }
 
 extension MusicBrainzCache: PersistentModelObject {

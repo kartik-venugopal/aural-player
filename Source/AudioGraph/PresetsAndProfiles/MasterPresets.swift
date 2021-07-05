@@ -17,7 +17,7 @@ class MasterPresets: EffectsPresets<MasterPreset> {
     init(persistentState: MasterUnitPersistentState?) {
         
         super.init(systemDefinedPresets: [],
-                   userDefinedPresets: (persistentState?.userPresets ?? []).map {MasterPreset(persistentState: $0)})
+                   userDefinedPresets: (persistentState?.userPresets ?? []).compactMap {MasterPreset(persistentState: $0)})
     }
 }
 
@@ -46,15 +46,24 @@ class MasterPreset: EffectsUnitPreset {
         super.init(name, .active, systemDefined)
     }
     
-    init(persistentState: MasterPresetPersistentState) {
+    init?(persistentState: MasterPresetPersistentState) {
         
-        self.eq = EQPreset(persistentState: persistentState.eq)
-        self.pitch = PitchPreset(persistentState: persistentState.pitch)
-        self.time = TimePreset(persistentState: persistentState.time)
-        self.reverb = ReverbPreset(persistentState: persistentState.reverb)
-        self.delay = DelayPreset(persistentState: persistentState.delay)
-        self.filter = FilterPreset(persistentState: persistentState.filter)
+        guard let name = persistentState.name, let unitState = persistentState.state,
+              let eq = persistentState.eq, let eqPreset = EQPreset(persistentState: eq),
+              let pitch = persistentState.pitch, let pitchPreset = PitchPreset(persistentState: pitch),
+              let time = persistentState.time, let timePreset = TimePreset(persistentState: time),
+              let reverb = persistentState.reverb, let reverbPreset = ReverbPreset(persistentState: reverb),
+              let delay = persistentState.delay, let delayPreset = DelayPreset(persistentState: delay),
+              let filter = persistentState.filter, let filterPreset = FilterPreset(persistentState: filter)
+        else {return nil}
         
-        super.init(persistentState: persistentState)
+        self.eq = eqPreset
+        self.pitch = pitchPreset
+        self.time = timePreset
+        self.reverb = reverbPreset
+        self.delay = delayPreset
+        self.filter = filterPreset
+        
+        super.init(name, unitState, false)
     }
 }

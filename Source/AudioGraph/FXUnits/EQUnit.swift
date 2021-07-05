@@ -114,14 +114,10 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     
     var persistentState: EQUnitPersistentState {
 
-        let unitState = EQUnitPersistentState()
-
-        unitState.state = state
-        unitState.type = type
-        unitState.bands = bands
-        unitState.globalGain = globalGain
-        unitState.userPresets = presets.userDefinedPresets.map {EQPresetPersistentState(preset: $0)}
-
-        return unitState
+        EQUnitPersistentState(state: state,
+                              userPresets: presets.userDefinedPresets.map {EQPresetPersistentState(preset: $0)},
+                              type: type,
+                              globalGain: globalGain,
+                              bands: bands)
     }
 }

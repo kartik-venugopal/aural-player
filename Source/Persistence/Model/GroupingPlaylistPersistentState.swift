@@ -10,53 +10,22 @@
 
 import Foundation
 
-class GroupingPlaylistPersistentState: PersistentStateProtocol {
+struct GroupingPlaylistPersistentState: Codable {
     
-    let type: String
+    let type: PlaylistType?
     let groups: [GroupPersistentState]?
-    
-    init(type: String, groups: [GroupPersistentState]) {
-        
-        self.type = type
-        self.groups = groups
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let type = map.nonEmptyStringValue(forKey: "type") else {return nil}
-        
-        self.type = type
-        self.groups = map.persistentObjectArrayValue(forKey: "groups", ofType: GroupPersistentState.self)
-    }
 }
 
-class GroupPersistentState: PersistentStateProtocol {
+struct GroupPersistentState: Codable {
     
-    let name: String
-
-    // List of track files
-    let tracks: [URL]
-    
-    init(name: String, tracks: [URL]) {
-        
-        self.name = name
-        self.tracks = tracks
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let name = map.nonEmptyStringValue(forKey: "name"),
-              let tracks = map.urlArrayValue(forKey: "tracks") else {return nil}
-        
-        self.name = name
-        self.tracks = tracks
-    }
+    let name: String?
+    let tracks: [URL]?
 }
 
 extension GroupingPlaylist: PersistentModelObject {
     
     var persistentState: GroupingPlaylistPersistentState {
-        GroupingPlaylistPersistentState(type: self.playlistType.rawValue, groups: self.groups.map {$0.persistentState})
+        GroupingPlaylistPersistentState(type: self.playlistType, groups: self.groups.map {$0.persistentState})
     }
 }
 

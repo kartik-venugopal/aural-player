@@ -9,18 +9,28 @@
 //
 import Foundation
 
-class MasterUnitPersistentState: EffectsUnitPersistentState<MasterPresetPersistentState> {}
-
-class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
+struct MasterUnitPersistentState: Codable {
     
-    let eq: EQPresetPersistentState
-    let pitch: PitchShiftPresetPersistentState
-    let time: TimeStretchPresetPersistentState
-    let reverb: ReverbPresetPersistentState
-    let delay: DelayPresetPersistentState
-    let filter: FilterPresetPersistentState
+    let state: EffectsUnitState?
+    let userPresets: [MasterPresetPersistentState]?
+}
+
+struct MasterPresetPersistentState: Codable {
+    
+    let name: String?
+    let state: EffectsUnitState?
+    
+    let eq: EQPresetPersistentState?
+    let pitch: PitchShiftPresetPersistentState?
+    let time: TimeStretchPresetPersistentState?
+    let reverb: ReverbPresetPersistentState?
+    let delay: DelayPresetPersistentState?
+    let filter: FilterPresetPersistentState?
     
     init(preset: MasterPreset) {
+        
+        self.name = preset.name
+        self.state = preset.state
         
         self.eq = EQPresetPersistentState(preset: preset.eq)
         self.pitch = PitchShiftPresetPersistentState(preset: preset.pitch)
@@ -28,26 +38,5 @@ class MasterPresetPersistentState: EffectsUnitPresetPersistentState {
         self.reverb = ReverbPresetPersistentState(preset: preset.reverb)
         self.delay = DelayPresetPersistentState(preset: preset.delay)
         self.filter = FilterPresetPersistentState(preset: preset.filter)
-        
-        super.init(preset: preset)
-    }
-    
-    required init?(_ map: NSDictionary) {
-
-        guard let eq = map.persistentObjectValue(forKey: "eq", ofType: EQPresetPersistentState.self),
-              let pitch = map.persistentObjectValue(forKey: "pitch", ofType: PitchShiftPresetPersistentState.self),
-              let time = map.persistentObjectValue(forKey: "time", ofType: TimeStretchPresetPersistentState.self),
-              let reverb = map.persistentObjectValue(forKey: "reverb", ofType: ReverbPresetPersistentState.self),
-              let delay = map.persistentObjectValue(forKey: "delay", ofType: DelayPresetPersistentState.self),
-              let filter = map.persistentObjectValue(forKey: "filter", ofType: FilterPresetPersistentState.self) else {return nil}
-        
-        self.eq = eq
-        self.pitch = pitch
-        self.time = time
-        self.reverb = reverb
-        self.delay = delay
-        self.filter = filter
-        
-        super.init(map)
     }
 }

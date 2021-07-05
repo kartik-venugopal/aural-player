@@ -67,7 +67,9 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
         
         var nodeParams: [AUParameterAddress: Float] = [:]
         for param in persistentState.params ?? [] {
-            nodeParams[param.address] = param.value
+            
+            guard let address = param.address, let value = param.value else {continue}
+            nodeParams[address] = value
         }
         self.node.params = nodeParams
         
@@ -149,8 +151,10 @@ class HostedAudioUnit: EffectsUnit, HostedAudioUnitProtocol, AUNodeBypassStateOb
     
     var persistentState: AudioUnitPersistentState {
 
-        return AudioUnitPersistentState(componentType: node.componentType, componentSubType: node.componentSubType,
-                                       params: self.params.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)}, state: self.state,
-                                       userPresets: presets.userDefinedPresets.map {AudioUnitPresetPersistentState(preset: $0)})
+        AudioUnitPersistentState(state: self.state,
+                                 userPresets: presets.userDefinedPresets.map {AudioUnitPresetPersistentState(preset: $0)},
+                                 componentType: self.componentType,
+                                 componentSubType: self.componentSubType,
+                                 params: self.params.map {AudioUnitParameterPersistentState(address: $0.key, value: $0.value)})
     }
 }

@@ -34,6 +34,33 @@ class WindowLayout {
         // TODO: Validate that 1 - if showEffects is true, effectsOrigin is present, and 2 - if showPlaylist is true,
         // playlistFrame is present.
     }
+    
+    init?(persistentState: UserWindowLayoutPersistentState) {
+        
+        guard let name = persistentState.name,
+              let showEffects = persistentState.showEffects,
+              let showPlaylist = persistentState.showPlaylist,
+              let mainWindowOrigin = persistentState.mainWindowOrigin else {return nil}
+        
+        if showEffects {
+            
+            guard let effectsWindowOrigin = persistentState.effectsWindowOrigin else {return nil}
+            self.effectsWindowOrigin = effectsWindowOrigin
+        }
+        
+        if showPlaylist {
+            
+            guard let playlistWindowFrame = persistentState.playlistWindowFrame else {return nil}
+            self.playlistWindowFrame = playlistWindowFrame
+        }
+        
+        self.name = name
+        self.systemDefined = false
+        
+        self.mainWindowOrigin = mainWindowOrigin
+        self.showEffects = showEffects
+        self.showPlaylist = showPlaylist
+    }
 }
 
 extension WindowLayout: MappedPreset {

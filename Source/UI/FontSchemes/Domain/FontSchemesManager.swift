@@ -48,7 +48,7 @@ class FontSchemesManager: MappedPresets<FontScheme> {
     // State to be persisted to disk.
     var persistentState: FontSchemesPersistentState {
         
-        FontSchemesPersistentState(FontSchemePersistentState(systemScheme),
-                                   userDefinedPresets.map {FontSchemePersistentState($0)})
+        FontSchemesPersistentState(systemScheme: FontSchemePersistentState(systemScheme),
+                                   userSchemes: userDefinedPresets.map {FontSchemePersistentState($0)})
     }
 }

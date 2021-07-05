@@ -17,7 +17,7 @@ class PitchPresets: EffectsPresets<PitchPreset> {
     init(persistentState: PitchShiftUnitPersistentState?) {
         
         let systemDefinedPresets = SystemDefinedPitchPresetParams.allCases.map {$0.preset}
-        let userDefinedPresets = (persistentState?.userPresets ?? []).map {PitchPreset(persistentState: $0)}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {PitchPreset(persistentState: $0)}
         
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
@@ -40,11 +40,15 @@ class PitchPreset: EffectsUnitPreset {
         super.init(name, state, systemDefined)
     }
     
-    init(persistentState: PitchShiftPresetPersistentState) {
+    init?(persistentState: PitchShiftPresetPersistentState) {
         
-        self.pitch = persistentState.pitch
+        guard let name = persistentState.name, let unitState = persistentState.state,
+              let pitch = persistentState.pitch else {return nil}
+        
+        self.pitch = pitch
         self.overlap = persistentState.overlap ?? AudioGraphDefaults.pitchOverlap
-        super.init(persistentState.name, persistentState.state, false)
+        
+        super.init(name, unitState, false)
     }
 }
 

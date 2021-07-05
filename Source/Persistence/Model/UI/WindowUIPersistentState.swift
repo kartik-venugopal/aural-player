@@ -9,16 +9,12 @@
 //
 import Foundation
 
-class WindowUIPersistentState: PersistentStateProtocol {
+struct WindowUIPersistentState: Codable {
     
     var cornerRadius: CGFloat?
     
     init(cornerRadius: CGFloat) {
         self.cornerRadius = cornerRadius
-    }
-    
-    required init?(_ map: NSDictionary) {
-        self.cornerRadius = map.cgFloatValue(forKey: "cornerRadius")
     }
 }
 

@@ -9,47 +9,32 @@
 //
 import Foundation
 
-class TimeStretchUnitPersistentState: EffectsUnitPersistentState<TimeStretchPresetPersistentState> {
+struct TimeStretchUnitPersistentState: Codable {
     
-    var rate: Float?
-    var shiftPitch: Bool?
-    var overlap: Float?
+    let state: EffectsUnitState?
+    let userPresets: [TimeStretchPresetPersistentState]?
     
-    override init() {super.init()}
-    
-    required init?(_ map: NSDictionary) {
-        
-        super.init(map)
-        
-        self.rate = map.floatValue(forKey: "rate")
-        self.overlap = map.floatValue(forKey: "overlap")
-        self.shiftPitch = map["shiftPitch", Bool.self]
-    }
+    let rate: Float?
+    let shiftPitch: Bool?
+    let overlap: Float?
 }
 
-class TimeStretchPresetPersistentState: EffectsUnitPresetPersistentState {
+struct TimeStretchPresetPersistentState: Codable {
     
-    let rate: Float
+    let name: String?
+    let state: EffectsUnitState?
+    
+    let rate: Float?
     let overlap: Float?
     let shiftPitch: Bool?
     
     init(preset: TimePreset) {
         
+        self.name = preset.name
+        self.state = preset.state
+        
         self.rate = preset.rate
         self.overlap = preset.overlap
         self.shiftPitch = preset.shiftPitch
-        
-        super.init(preset: preset)
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let rate = map.floatValue(forKey: "rate") else {return nil}
-        
-        self.rate = rate
-        self.overlap = map.floatValue(forKey: "overlap")
-        self.shiftPitch = map["shiftPitch", Bool.self]
-        
-        super.init(map)
     }
 }

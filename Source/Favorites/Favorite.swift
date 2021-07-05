@@ -45,4 +45,12 @@ class Favorite: MappedPreset {
         self.file = file
         self._name = name
     }
+    
+    init?(persistentState: FavoritePersistentState) {
+        
+        guard let file = persistentState.file, let name = persistentState.name else {return nil}
+        
+        self.file = file
+        self._name = name
+    }
 }

@@ -12,28 +12,16 @@ import Cocoa
 /*
     Encapsulates all persistent app state for color schemes.
  */
-class ColorSchemesPersistentState: PersistentStateProtocol {
+struct ColorSchemesPersistentState: Codable {
 
-    let userSchemes: [ColorSchemePersistentState]?
     let systemScheme: ColorSchemePersistentState?
-    
-    init(_ systemScheme: ColorSchemePersistentState, _ userSchemes: [ColorSchemePersistentState]) {
-        
-        self.systemScheme = systemScheme
-        self.userSchemes = userSchemes
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.userSchemes = map.persistentObjectArrayValue(forKey: "userSchemes", ofType: ColorSchemePersistentState.self)
-        self.systemScheme = map.persistentObjectValue(forKey: "systemScheme", ofType: ColorSchemePersistentState.self)
-    }
+    let userSchemes: [ColorSchemePersistentState]?
 }
 
 /*
     Encapsulates persistent app state for a single color scheme.
  */
-class ColorSchemePersistentState: PersistentStateProtocol {
+struct ColorSchemePersistentState: Codable {
     
     let name: String
     
@@ -51,16 +39,5 @@ class ColorSchemePersistentState: PersistentStateProtocol {
         self.player = PlayerColorSchemePersistentState(scheme.player)
         self.playlist = PlaylistColorSchemePersistentState(scheme.playlist)
         self.effects = EffectsColorSchemePersistentState(scheme.effects)
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let name = map.nonEmptyStringValue(forKey: "name") else {return nil}
-        self.name = name
-        
-        self.general = map.persistentObjectValue(forKey: "general", ofType: GeneralColorSchemePersistentState.self)
-        self.player = map.persistentObjectValue(forKey: "player", ofType: PlayerColorSchemePersistentState.self)
-        self.playlist = map.persistentObjectValue(forKey: "playlist", ofType: PlaylistColorSchemePersistentState.self)
-        self.effects = map.persistentObjectValue(forKey: "effects", ofType: EffectsColorSchemePersistentState.self)
     }
 }

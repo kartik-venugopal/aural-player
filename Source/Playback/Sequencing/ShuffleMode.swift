@@ -12,7 +12,7 @@ import Foundation
 ///
 /// An enumeration of all possible playback shuffle modes.
 ///
-enum ShuffleMode: String, CaseIterable {
+enum ShuffleMode: String, CaseIterable, Codable {
     
     static let defaultMode: ShuffleMode = .off
     

@@ -13,7 +13,7 @@ import AVFoundation
 ///
 /// An enumeration of presets that represent simulated spaces that can be applied to the Reverb effects unit.
 ///
-enum ReverbSpaces: String, CaseIterable {
+enum ReverbSpaces: String, CaseIterable, Codable {
     
     case smallRoom
     

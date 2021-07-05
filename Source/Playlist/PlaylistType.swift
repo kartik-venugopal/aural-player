@@ -10,7 +10,7 @@
 import Foundation
 
 // Enumeration of each of the playlist types
-enum PlaylistType: String, CaseIterable {
+enum PlaylistType: String, CaseIterable, Codable {
     
     // Flat playlist listing all tracks
     case tracks

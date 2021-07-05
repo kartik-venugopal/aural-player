@@ -12,15 +12,13 @@ import Foundation
 /*
     Encapsulates persistent app state for a single PlayerFontScheme.
  */
-class PlayerFontSchemePersistentState: PersistentStateProtocol {
+struct PlayerFontSchemePersistentState: Codable {
 
-    var titleSize: CGFloat?
-    var artistAlbumSize: CGFloat?
-    var chapterTitleSize: CGFloat?
-    var trackTimesSize: CGFloat?
-    var feedbackTextSize: CGFloat?
-
-    init() {}
+    let titleSize: CGFloat?
+    let artistAlbumSize: CGFloat?
+    let chapterTitleSize: CGFloat?
+    let trackTimesSize: CGFloat?
+    let feedbackTextSize: CGFloat?
 
     init(_ scheme: PlayerFontScheme) {
 
@@ -29,14 +27,5 @@ class PlayerFontSchemePersistentState: PersistentStateProtocol {
         self.chapterTitleSize = scheme.infoBoxChapterTitleFont.pointSize
         self.trackTimesSize = scheme.trackTimesFont.pointSize
         self.feedbackTextSize = scheme.feedbackFont.pointSize
-    }
-
-    required init?(_ map: NSDictionary) {
-
-        self.titleSize = map.cgFloatValue(forKey: "titleSize")
-        self.artistAlbumSize = map.cgFloatValue(forKey: "artistAlbumSize")
-        self.chapterTitleSize = map.cgFloatValue(forKey: "chapterTitleSize")
-        self.trackTimesSize = map.cgFloatValue(forKey: "trackTimesSize")
-        self.feedbackTextSize = map.cgFloatValue(forKey: "feedbackTextSize")
     }
 }

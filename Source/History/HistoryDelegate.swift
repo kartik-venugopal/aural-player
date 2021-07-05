@@ -38,8 +38,18 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
         
         // Restore the history model object from persistent state
         
-        persistentState?.recentlyAdded?.reversed().forEach({history.addRecentlyAddedItem($0.file, $0.name, $0.time)})
-        persistentState?.recentlyPlayed?.reversed().forEach({history.addRecentlyPlayedItem($0.file, $0.name, $0.time)})
+        persistentState?.recentlyAdded?.reversed().forEach {item in
+            
+            guard let file = item.file, let time = item.time else {return}
+            history.addRecentlyAddedItem(file, item.name ?? file.lastPathComponent, time)
+        }
+        
+        persistentState?.recentlyPlayed?.reversed().forEach {item in
+            
+            guard let file = item.file, let time = item.time else {return}
+            history.addRecentlyPlayedItem(file, item.name ?? file.lastPathComponent, time)
+        }
+        
         Messenger.publish(.history_updated)
         
         Messenger.subscribeAsync(self, .history_itemsAdded, self.itemsAdded(_:), queue: backgroundQueue)

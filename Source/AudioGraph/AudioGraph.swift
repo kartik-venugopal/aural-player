@@ -85,7 +85,10 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         audioUnits = []
         for auState in persistentState?.audioUnits ?? [] {
             
-            if let component = audioUnitsManager.audioUnit(ofType: auState.componentType, andSubType: auState.componentSubType) {
+            guard let componentType = auState.componentType,
+                  let componentSubType = auState.componentSubType else {continue}
+            
+            if let component = audioUnitsManager.audioUnit(ofType: componentType, andSubType: componentSubType) {
                 audioUnits.append(HostedAudioUnit(forComponent: component, persistentState: auState))
             }
         }
@@ -97,7 +100,7 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         let removableNodes = audioUnits.flatMap {$0.avNodes}
         audioEngine.connectNodes(permanentNodes: permanentNodes, removableNodes: removableNodes)
         
-        soundProfiles = SoundProfiles(persistentState?.soundProfiles ?? [])
+        soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
         
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
         Messenger.subscribe(self, .AVAudioEngineConfigurationChange, self.outputDeviceChanged)
@@ -219,27 +222,18 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
 
     var persistentState: AudioGraphPersistentState {
         
-        let state: AudioGraphPersistentState = AudioGraphPersistentState()
-        
-        let outputDevice = self.outputDevice
-        state.outputDevice = AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid)
-        
-        // Volume and pan (balance)
-        state.volume = playerNode.volume
-        state.muted = muted
-        state.balance = playerNode.pan
-        
-        state.masterUnit = masterUnit.persistentState
-        state.eqUnit = eqUnit.persistentState
-        state.pitchUnit = pitchUnit.persistentState
-        state.timeUnit = timeUnit.persistentState
-        state.reverbUnit = reverbUnit.persistentState
-        state.delayUnit = delayUnit.persistentState
-        state.filterUnit = filterUnit.persistentState
-        state.audioUnits = audioUnits.map {$0.persistentState}
-        
-        state.soundProfiles = self.soundProfiles.all().map {SoundProfilePersistentState(file: $0.file, volume: $0.volume, balance: $0.balance, effects: MasterPresetPersistentState(preset: $0.effects))}
-        
-        return state
+        return AudioGraphPersistentState(outputDevice: AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid),
+                                         volume: volume,
+                                         muted: muted,
+                                         balance: balance,
+                                         masterUnit: masterUnit.persistentState,
+                                         eqUnit: eqUnit.persistentState,
+                                         pitchUnit: pitchUnit.persistentState,
+                                         timeUnit: timeUnit.persistentState,
+                                         reverbUnit: reverbUnit.persistentState,
+                                         delayUnit: delayUnit.persistentState,
+                                         filterUnit: filterUnit.persistentState,
+                                         audioUnits: audioUnits.map {$0.persistentState},
+                                         soundProfiles: self.soundProfiles.all().map {SoundProfilePersistentState(profile: $0)})
     }
 }

@@ -33,4 +33,26 @@ class Theme: MappedPreset {
         self.windowAppearance = windowAppearance
         self.userDefined = userDefined
     }
+    
+    init?(persistentState: ThemePersistentState, systemDefined: Bool) {
+        
+        guard let persistentFontScheme = persistentState.fontScheme,
+              let persistentColorScheme = persistentState.colorScheme else {return nil}
+        
+        if systemDefined {
+            
+            self.name = persistentState.name ?? "_system_"
+            
+        } else {
+            
+            guard let name = persistentState.name else {return nil}
+            self.name = name
+        }
+        
+        self.userDefined = !systemDefined
+        
+        self.fontScheme = FontScheme(persistentFontScheme, systemDefined)
+        self.colorScheme = ColorScheme(persistentColorScheme, systemDefined)
+        self.windowAppearance = WindowAppearance(cornerRadius: persistentState.windowAppearance?.cornerRadius ?? WindowAppearanceState.defaultCornerRadius)
+    }
 }

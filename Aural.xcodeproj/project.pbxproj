@@ -49,8 +49,6 @@
 		3E0DF3D0267E6EE60035FE29 /* RemoteControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */; };
 		3E11B2D7267BFDEF00AB7DC9 /* RemoteCommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */; };
 		3E1454F32680B5000034056E /* NotificationSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F22680B5000034056E /* NotificationSubscriber.swift */; };
-		3E1454F52680C6DC0034056E /* FXUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F42680C6DC0034056E /* FXUnitPersistentState.swift */; };
-		3E1454F72680C7280034056E /* FXUnitPresetPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F62680C7280034056E /* FXUnitPresetPersistentState.swift */; };
 		3E1454F92680F9C50034056E /* MediaKeysControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F82680F9C50034056E /* MediaKeysControlsPreferences.swift */; };
 		3E1454FB2680F9DF0034056E /* GesturesControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */; };
 		3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */; };
@@ -884,8 +882,6 @@
 		3EEF3751268F703F002EA77F /* EQType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF3750268F703F002EA77F /* EQType.swift */; };
 		3EEF3753268F706D002EA77F /* EffectsUnitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633C52685FAD0006A88ED /* EffectsUnitState.swift */; };
 		3EEF3755268F70E6002EA77F /* EQUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0C026805C18008ECB8C /* EQUnitPersistentState.swift */; };
-		3EEF3757268F70EE002EA77F /* FXUnitPresetPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F62680C7280034056E /* FXUnitPresetPersistentState.swift */; };
-		3EEF3759268F70F4002EA77F /* FXUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F42680C6DC0034056E /* FXUnitPersistentState.swift */; };
 		3EF0C3E5262A9EF30042C720 /* CreateTheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */; };
 		3EF0C3E7262AA1830042C720 /* CreateThemeDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
@@ -979,8 +975,6 @@
 		3E0E0D2D2684BD6E005121A1 /* xml-copyright.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "xml-copyright.sh"; sourceTree = "<group>"; };
 		3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandManager.swift; sourceTree = "<group>"; };
 		3E1454F22680B5000034056E /* NotificationSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubscriber.swift; sourceTree = "<group>"; };
-		3E1454F42680C6DC0034056E /* FXUnitPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitPersistentState.swift; sourceTree = "<group>"; };
-		3E1454F62680C7280034056E /* FXUnitPresetPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FXUnitPresetPersistentState.swift; sourceTree = "<group>"; };
 		3E1454F82680F9C50034056E /* MediaKeysControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysControlsPreferences.swift; sourceTree = "<group>"; };
 		3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesControlsPreferences.swift; sourceTree = "<group>"; };
 		3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferences.swift; sourceTree = "<group>"; };
@@ -1862,12 +1856,12 @@
 				3E09D0A226805C18008ECB8C /* VisualizerUIPersistentState.swift */,
 				3E09D0A326805C18008ECB8C /* PlaylistUIPersistentState.swift */,
 				3E09D0A426805C18008ECB8C /* UIPersistentState.swift */,
+				3E09D0AF26805C18008ECB8C /* FontSchemes */,
 				3E09D0A526805C18008ECB8C /* ColorSchemes */,
 				3E09D0AC26805C18008ECB8C /* MenuBarPlayerUIPersistentState.swift */,
 				3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */,
 				3E09D0AD26805C18008ECB8C /* ThemesPersistentState.swift */,
 				3E09D0AE26805C18008ECB8C /* WindowLayoutPersistentState.swift */,
-				3E09D0AF26805C18008ECB8C /* FontSchemes */,
 				3E09D0B426805C18008ECB8C /* PlayerUIPersistentState.swift */,
 			);
 			path = UI;
@@ -1909,8 +1903,6 @@
 				3E09D0BC26805C18008ECB8C /* DelayUnitPersistentState.swift */,
 				3E09D0B926805C18008ECB8C /* FilterUnitPersistentState.swift */,
 				3E09D0C126805C18008ECB8C /* AudioUnitPersistentState.swift */,
-				3E1454F42680C6DC0034056E /* FXUnitPersistentState.swift */,
-				3E1454F62680C7280034056E /* FXUnitPresetPersistentState.swift */,
 				3E09D0BF26805C18008ECB8C /* SoundProfilePersistentState.swift */,
 				3E09D0B826805C18008ECB8C /* AudioDevicePersistentState.swift */,
 			);
@@ -4777,7 +4769,6 @@
 				3EDD2C532684FA320090BAF7 /* SoundConstants.swift in Sources */,
 				3E7572F22609E83B00CA3F85 /* MusicBrainzArtist.swift in Sources */,
 				3EBF2923268653B100D87021 /* AudioDeviceList.swift in Sources */,
-				3E1454F72680C7280034056E /* FXUnitPresetPersistentState.swift in Sources */,
 				3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */,
 				3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */,
 				3E6C124C25CEBDF400BF0D07 /* AlbumsPlaylistViewController.swift in Sources */,
@@ -4894,7 +4885,6 @@
 				3E6C12AA25CEBE2700BF0D07 /* AboutDialogController.swift in Sources */,
 				3E6C12A325CEBE2700BF0D07 /* StringInputPopoverViewController.swift in Sources */,
 				3E6C118125CEBD6D00BF0D07 /* ParametricEQNode.swift in Sources */,
-				3E1454F52680C6DC0034056E /* FXUnitPersistentState.swift in Sources */,
 				3E6C116625CEBD6000BF0D07 /* TimePresets.swift in Sources */,
 				3EAFB5DF267FE86000F0DC96 /* FileSystemInfo.swift in Sources */,
 				3E6C120D25CEBDD100BF0D07 /* Recorder.swift in Sources */,
@@ -4945,7 +4935,6 @@
 				3EE4B86B268FBF0C006BDEB2 /* ControlsPreferences.swift in Sources */,
 				3EFDA978268F792A00CFF785 /* MirrorExtensions.swift in Sources */,
 				3E21ECAA268F484E00731E4C /* AuralTestCase.swift in Sources */,
-				3EEF3759268F70F4002EA77F /* FXUnitPersistentState.swift in Sources */,
 				3EA1BE13268F60DA00A5D81B /* PlaybackSequenceCreationTests.swift in Sources */,
 				3EE4B86D268FBF0C006BDEB2 /* SoundPreferences.swift in Sources */,
 				3EA1BE03268F577900A5D81B /* Messenger_AsynchronousNotificationsTests.swift in Sources */,
@@ -5053,7 +5042,6 @@
 				3EE4B871268FBF0C006BDEB2 /* ViewPreferences.swift in Sources */,
 				3EA3ADB5269221D00066A918 /* AudioGraphPersistenceTestCase.swift in Sources */,
 				3EE4B875268FD5A9006BDEB2 /* EQUnitPersistenceTests.swift in Sources */,
-				3EEF3757268F70EE002EA77F /* FXUnitPresetPersistentState.swift in Sources */,
 				3E5ECA4E268F4DCC000AE8B7 /* FloatingPointExtensions.swift in Sources */,
 				3EFDA97B268F7F1200CFF785 /* PitchShiftUnitPersistenceTests.swift in Sources */,
 				3ECA54F8268F9166002813E0 /* TimePresets.swift in Sources */,

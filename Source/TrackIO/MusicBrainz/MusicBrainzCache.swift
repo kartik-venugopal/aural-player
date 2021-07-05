@@ -49,30 +49,36 @@ class MusicBrainzCache: NotificationSubscriber {
             
         for entry in state?.releases ?? [] {
             
+            guard let file = entry.file, let artist = entry.artist,
+                  let title = entry.title else {continue}
+            
             diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if entry.file.exists, let coverArt = CoverArt(imageFile: entry.file) {
+                if file.exists, let coverArt = CoverArt(imageFile: file) {
                     
                     // Entry is valid, enter it into the cache.
                     
-                    self.releasesCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskReleasesCache[entry.artist, entry.title] = entry.file
+                    self.releasesCache[artist, title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskReleasesCache[artist, title] = file
                 }
             }
         }
             
         for entry in state?.recordings ?? [] {
             
+            guard let file = entry.file, let artist = entry.artist,
+                  let title = entry.title else {continue}
+            
             diskIOOpQueue.addOperation {
                 
                 // Ensure that the image file exists and that it contains a valid image.
-                if entry.file.exists, let coverArt = CoverArt(imageFile: entry.file) {
+                if file.exists, let coverArt = CoverArt(imageFile: file) {
                     
                     // Entry is valid, enter it into the cache.
                     
-                    self.recordingsCache[entry.artist, entry.title] = CachedCoverArtResult(art: coverArt)
-                    self.onDiskRecordingsCache[entry.artist, entry.title] = entry.file
+                    self.recordingsCache[artist, title] = CachedCoverArtResult(art: coverArt)
+                    self.onDiskRecordingsCache[artist, title] = file
                 }
             }
         }

@@ -12,7 +12,7 @@ import Foundation
 ///
 /// An enumeration of all possible playback repeat modes.
 ///
-enum RepeatMode: String, CaseIterable {
+enum RepeatMode: String, CaseIterable, Codable {
     
     static let defaultMode: RepeatMode = .off
     

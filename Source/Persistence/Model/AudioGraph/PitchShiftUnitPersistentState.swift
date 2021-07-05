@@ -9,42 +9,29 @@
 //
 import Foundation
 
-class PitchShiftUnitPersistentState: EffectsUnitPersistentState<PitchShiftPresetPersistentState> {
+struct PitchShiftUnitPersistentState: Codable {
     
-    var pitch: Float?
-    var overlap: Float?
+    let state: EffectsUnitState?
+    let userPresets: [PitchShiftPresetPersistentState]?
     
-    override init() {super.init()}
-    
-    required init?(_ map: NSDictionary) {
-        
-        super.init(map)
-        
-        self.pitch = map.floatValue(forKey: "pitch")
-        self.overlap = map.floatValue(forKey: "overlap")
-    }
+    let pitch: Float?
+    let overlap: Float?
 }
 
-class PitchShiftPresetPersistentState: EffectsUnitPresetPersistentState {
+struct PitchShiftPresetPersistentState: Codable {
     
-    let pitch: Float
+    let name: String?
+    let state: EffectsUnitState?
+    
+    let pitch: Float?
     let overlap: Float?
     
     init(preset: PitchPreset) {
         
+        self.name = preset.name
+        self.state = preset.state
+        
         self.pitch = preset.pitch
         self.overlap = preset.overlap
-        
-        super.init(preset: preset)
-    }
-    
-    required init?(_ map: NSDictionary) {
-        
-        guard let pitch = map.floatValue(forKey: "pitch") else {return nil}
-        
-        self.pitch = pitch
-        self.overlap = map.floatValue(forKey: "overlap")
-        
-        super.init(map)
     }
 }

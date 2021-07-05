@@ -9,22 +9,12 @@
 //
 import Foundation
 
-class MenuBarPlayerUIPersistentState: PersistentStateProtocol {
+struct MenuBarPlayerUIPersistentState: Codable {
     
-    var showAlbumArt: Bool?
-    var showArtist: Bool?
-    var showAlbum: Bool?
-    var showCurrentChapter: Bool?
-    
-    init() {}
-    
-    required init?(_ map: NSDictionary) {
-        
-        self.showAlbumArt = map["showAlbumArt", Bool.self]
-        self.showArtist = map["showArtist", Bool.self]
-        self.showAlbum = map["showAlbum", Bool.self]
-        self.showCurrentChapter = map["showCurrentChapter", Bool.self]
-    }
+    let showAlbumArt: Bool?
+    let showArtist: Bool?
+    let showAlbum: Bool?
+    let showCurrentChapter: Bool?
 }
 
 extension MenuBarPlayerViewState {
@@ -39,14 +29,10 @@ extension MenuBarPlayerViewState {
     
     static var persistentState: MenuBarPlayerUIPersistentState {
         
-        let state = MenuBarPlayerUIPersistentState()
-        
-        state.showAlbumArt = showAlbumArt
-        state.showArtist = showArtist
-        state.showAlbum = showAlbum
-        state.showCurrentChapter = showCurrentChapter
-        
-        return state
+        MenuBarPlayerUIPersistentState(showAlbumArt: showAlbumArt,
+                                       showArtist: showArtist,
+                                       showAlbum: showAlbum,
+                                       showCurrentChapter: showCurrentChapter)
     }
 }
 

@@ -9,17 +9,9 @@
 //
 import Foundation
 
-class PlaylistUIPersistentState: PersistentStateProtocol {
+struct PlaylistUIPersistentState: Codable {
     
-    var view: PlaylistType?
-    
-    init(view: PlaylistType) {
-        self.view = view
-    }
-    
-    required init?(_ map: NSDictionary) {
-        self.view = map.enumValue(forKey: "view", ofType: PlaylistType.self)
-    }
+    let view: PlaylistType?
 }
 
 extension PlaylistViewState {
