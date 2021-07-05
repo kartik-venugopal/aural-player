@@ -14,7 +14,7 @@ import Foundation
  */
 struct PlaylistPersistentState: Codable {
     
-    // List of track files
-    let tracks: [URL]?
-    let groupingPlaylists: [PlaylistType: GroupingPlaylistPersistentState]?
+    // List of track files (as URL paths).
+    let tracks: [URLPath]?
+    let groupingPlaylists: [String: GroupingPlaylistPersistentState]?
 }

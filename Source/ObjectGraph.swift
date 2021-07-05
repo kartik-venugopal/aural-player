@@ -175,7 +175,7 @@ class ObjectGraph {
         persistentState.audioGraph = (audioGraph as! AudioGraph).persistentState
         persistentState.playlist = (playlist as! Playlist).persistentState
         persistentState.playbackSequence = (sequencer as! Sequencer).persistentState
-        persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(file: $0.file, lastPosition: $0.lastPosition)}
+        persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
         
         persistentState.ui = UIPersistentState(appMode: AppModeManager.mode,
                                                windowLayout: WindowLayoutState.persistentState,

@@ -16,6 +16,8 @@ fileprivate let oneDay: TimeInterval = 24 * oneHour
 fileprivate let oneWeek: TimeInterval = 7 * oneDay
 fileprivate let thirtyDays: TimeInterval = 30 * oneDay
 
+typealias DateString = String
+
 // Convenience utility functions
 extension Date {
     
@@ -53,21 +55,23 @@ extension Date {
         return String(format: "%d_%d_%d_%d_%d_%d", year, month, day, hour, minute, second)
     }
     
-    // Constructs a Date from a String of the format: YYYY_MM_DD_hh_mm (created by the serializableString() function)
-    static func fromString(_ string: String) -> Date {
+    // Constructs a Date from a String of the format: YYYY_MM_DD_hh_mm (created by the serializableString() function).
+    static func fromString(_ string: String) -> Date? {
         
-        // Parse the String into individual date components
+        // Parse the String into individual date components.
         let dateStringComponents = string.components(separatedBy: "_")
         
-        let year = Int(dateStringComponents[0])!
-        let month = Int(dateStringComponents[1])!
-        let day = Int(dateStringComponents[2])!
-        let hour = Int(dateStringComponents[3])!
-        let minute = Int(dateStringComponents[4])!
+        guard dateStringComponents.count == 5,
+              let year = Int(dateStringComponents[0]),
+              let month = Int(dateStringComponents[1]),
+              let day = Int(dateStringComponents[2]),
+              let hour = Int(dateStringComponents[3]),
+              let minute = Int(dateStringComponents[4]) else {return nil}
         
-        let components = DateComponents(year: year, month: month, day: day, hour: hour, minute: minute, second: 0)
+        let components = DateComponents(year: year, month: month, day: day,
+                                        hour: hour, minute: minute, second: 0)
         
-        return Calendar(identifier: .gregorian).date(from: components)!
+        return Calendar(identifier: .gregorian).date(from: components)
     }
     
     // Returns the minute component of this Date

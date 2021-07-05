@@ -194,7 +194,9 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
             volumeChanged(audioGraph.volume, audioGraph.muted)
             
             if showsPanControl {
+                
                 panChanged(audioGraph.balance)
+                panSlider.floatValue = audioGraph.balance
             }
         }
     }

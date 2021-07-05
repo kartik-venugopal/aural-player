@@ -49,10 +49,12 @@ class MusicBrainzCache: NotificationSubscriber {
             
         for entry in state?.releases ?? [] {
             
-            guard let file = entry.file, let artist = entry.artist,
+            guard let path = entry.file, let artist = entry.artist,
                   let title = entry.title else {continue}
             
             diskIOOpQueue.addOperation {
+                
+                let file = URL(fileURLWithPath: path)
                 
                 // Ensure that the image file exists and that it contains a valid image.
                 if file.exists, let coverArt = CoverArt(imageFile: file) {
@@ -67,10 +69,12 @@ class MusicBrainzCache: NotificationSubscriber {
             
         for entry in state?.recordings ?? [] {
             
-            guard let file = entry.file, let artist = entry.artist,
+            guard let path = entry.file, let artist = entry.artist,
                   let title = entry.title else {continue}
             
             diskIOOpQueue.addOperation {
+                
+                let file = URL(fileURLWithPath: path)
                 
                 // Ensure that the image file exists and that it contains a valid image.
                 if file.exists, let coverArt = CoverArt(imageFile: file) {

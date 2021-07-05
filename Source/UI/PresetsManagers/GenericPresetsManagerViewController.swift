@@ -72,7 +72,9 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
         let rowView = tableView.rowView(atRow: rowIndex, makeIfNecessary: true)
         
         if let editedTextField = (rowView?.view(atColumn: 0) as? NSTableCellView)?.textField {
+            
             self.view.window?.makeFirstResponder(editedTextField)
+            btnDelete.disable()
         }
     }
     
@@ -162,6 +164,8 @@ class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSour
     
     // Renames the selected preset.
     func controlTextDidEndEditing(_ obj: Notification) {
+        
+        defer {btnDelete.enable()}
         
         let rowIndex = tableView.selectedRow
         let rowView = tableView.rowView(atRow: rowIndex, makeIfNecessary: true)

@@ -285,7 +285,7 @@ class Playlist: PlaylistCRUDProtocol {
         
         for (type, playlist) in groupingPlaylists {
             
-            if let playlistState = state.groupingPlaylists?[type] {
+            if let playlistState = state.groupingPlaylists?[type.rawValue] {
 
                 // The different grouping playlists can be reordered in parallel,
                 // because the reorder operations are independent of each other.
@@ -307,12 +307,13 @@ extension Playlist: PersistentModelObject {
     // Returns all state for this playlist that needs to be persisted to disk
     var persistentState: PlaylistPersistentState {
         
-        var groupingPlaylists: [PlaylistType: GroupingPlaylistPersistentState] = [:]
+        var groupingPlaylists: [String: GroupingPlaylistPersistentState] = [:]
         
         for (type, playlist) in self.groupingPlaylists {
-            groupingPlaylists[type] = (playlist as! GroupingPlaylist).persistentState
+            groupingPlaylists[type.rawValue] = (playlist as! GroupingPlaylist).persistentState
         }
         
-        return PlaylistPersistentState(tracks: self.tracks.map {$0.file}, groupingPlaylists: groupingPlaylists)
+        return PlaylistPersistentState(tracks: self.tracks.map {$0.file.path},
+                                       groupingPlaylists: groupingPlaylists)
     }
 }

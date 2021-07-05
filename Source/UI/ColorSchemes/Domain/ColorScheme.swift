@@ -33,11 +33,6 @@ class ColorScheme: MappedPreset {
     var playlist: PlaylistColorScheme
     var effects: EffectsColorScheme
     
-    // Utility function (for debugging purposes only)
-    func toString() -> String {
-        return String(describing: JSONMapper.map(ColorSchemePersistentState(self)))
-    }
-    
     // Copy constructor ... creates a copy of the given scheme (used when creating a user-defined preset)
     init(_ name: String, _ systemDefined: Bool, _ scheme: ColorScheme) {
     

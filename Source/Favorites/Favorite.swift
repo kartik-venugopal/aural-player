@@ -48,9 +48,9 @@ class Favorite: MappedPreset {
     
     init?(persistentState: FavoritePersistentState) {
         
-        guard let file = persistentState.file, let name = persistentState.name else {return nil}
+        guard let path = persistentState.file, let name = persistentState.name else {return nil}
         
-        self.file = file
+        self.file = URL(fileURLWithPath: path)
         self._name = name
     }
 }

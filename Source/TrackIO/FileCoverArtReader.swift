@@ -23,7 +23,11 @@ class FileCoverArtReader: CoverArtReaderProtocol {
         
         if searchedTracks.contains(track) {return nil}
         
-        searchedTracks.insert(track)
-        return fileReader.getArt(for: track.file)
+        let art = fileReader.getArt(for: track.file)
+        if art == nil {
+            searchedTracks.insert(track)
+        }
+        
+        return art
     }
 }

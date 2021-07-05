@@ -40,14 +40,20 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
         
         persistentState?.recentlyAdded?.reversed().forEach {item in
             
-            guard let file = item.file, let time = item.time else {return}
-            history.addRecentlyAddedItem(file, item.name ?? file.lastPathComponent, time)
+            guard let path = item.file, let timeString = item.time,
+                  let date = Date.fromString(timeString) else {return}
+            
+            let file = URL(fileURLWithPath: path)
+            history.addRecentlyAddedItem(file, item.name ?? file.lastPathComponent, date)
         }
         
         persistentState?.recentlyPlayed?.reversed().forEach {item in
             
-            guard let file = item.file, let time = item.time else {return}
-            history.addRecentlyPlayedItem(file, item.name ?? file.lastPathComponent, time)
+            guard let path = item.file, let timeString = item.time,
+                  let date = Date.fromString(timeString) else {return}
+            
+            let file = URL(fileURLWithPath: path)
+            history.addRecentlyPlayedItem(file, item.name ?? file.lastPathComponent, date)
         }
         
         Messenger.publish(.history_updated)

@@ -58,7 +58,6 @@ struct ColorPersistentState: Codable {
             
         default:
             
-//            fatalError("Unsupported color type with colorSpace=\(color.colorSpace.colorSpaceModel)")
             return nil
         }
     }

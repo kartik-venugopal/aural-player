@@ -422,7 +422,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
             addFiles_async(filesToOpen, AutoplayOptions(true), userAction: false)
 
-        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch, let tracks = self.persistentState?.tracks {
+        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch,
+                  let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) {
 
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
             addFiles_async(tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)

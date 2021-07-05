@@ -14,9 +14,9 @@ struct WindowLayoutsPersistentState: Codable {
     let showEffects: Bool?
     let showPlaylist: Bool?
     
-    let mainWindowOrigin: NSPoint?
-    let effectsWindowOrigin: NSPoint?
-    let playlistWindowFrame: NSRect?
+    let mainWindowOrigin: NSPointPersistentState?
+    let effectsWindowOrigin: NSPointPersistentState?
+    let playlistWindowFrame: NSRectPersistentState?
     
     let userLayouts: [UserWindowLayoutPersistentState]?
 }
@@ -27,18 +27,28 @@ struct UserWindowLayoutPersistentState: Codable {
     let showEffects: Bool?
     let showPlaylist: Bool?
     
-    let mainWindowOrigin: NSPoint?
-    let effectsWindowOrigin: NSPoint?
-    let playlistWindowFrame: NSRect?
+    let mainWindowOrigin: NSPointPersistentState?
+    let effectsWindowOrigin: NSPointPersistentState?
+    let playlistWindowFrame: NSRectPersistentState?
     
     init(layout: WindowLayout) {
         
         self.name = layout.name
         self.showEffects = layout.showEffects
         self.showPlaylist = layout.showPlaylist
-        self.mainWindowOrigin = layout.mainWindowOrigin
-        self.effectsWindowOrigin = layout.effectsWindowOrigin
-        self.playlistWindowFrame = layout.playlistWindowFrame
+        self.mainWindowOrigin = NSPointPersistentState(point: layout.mainWindowOrigin)
+        
+        if let effectsWindowOrigin = layout.effectsWindowOrigin {
+            self.effectsWindowOrigin = NSPointPersistentState(point: effectsWindowOrigin)
+        } else {
+            self.effectsWindowOrigin = nil
+        }
+        
+        if let playlistWindowFrame = layout.playlistWindowFrame {
+            self.playlistWindowFrame = NSRectPersistentState(rect: playlistWindowFrame)
+        } else {
+            self.playlistWindowFrame = nil
+        }
     }
 }
 
@@ -49,31 +59,50 @@ extension WindowLayoutState {
         Self.showPlaylist = persistentState?.showPlaylist ?? WindowLayoutDefaults.showPlaylist
         Self.showEffects = persistentState?.showEffects ?? WindowLayoutDefaults.showEffects
         
-        Self.mainWindowOrigin = persistentState?.mainWindowOrigin ?? WindowLayoutDefaults.mainWindowOrigin
-        Self.playlistWindowFrame = persistentState?.playlistWindowFrame ?? WindowLayoutDefaults.playlistWindowFrame
-        Self.effectsWindowOrigin = persistentState?.effectsWindowOrigin ?? WindowLayoutDefaults.effectsWindowOrigin
+        Self.mainWindowOrigin = persistentState?.mainWindowOrigin?.toNSPoint() ?? WindowLayoutDefaults.mainWindowOrigin
+        Self.playlistWindowFrame = persistentState?.playlistWindowFrame?.toNSRect() ?? WindowLayoutDefaults.playlistWindowFrame
+        Self.effectsWindowOrigin = persistentState?.effectsWindowOrigin?.toNSPoint() ?? WindowLayoutDefaults.effectsWindowOrigin
     }
     
     static var persistentState: WindowLayoutsPersistentState {
         
         let userLayouts = ObjectGraph.windowLayoutsManager.userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)}
         
+        var effectsWindowOrigin: NSPointPersistentState? = nil
+        var playlistWindowFrame: NSRectPersistentState? = nil
+        
         if let windowManager = WindowManager.instance {
+            
+            if let origin = windowManager.effectsWindow?.origin {
+                effectsWindowOrigin = NSPointPersistentState(point: origin)
+            }
+            
+            if let frame = windowManager.playlistWindow?.frame {
+                playlistWindowFrame = NSRectPersistentState(rect: frame)
+            }
             
             return WindowLayoutsPersistentState(showEffects: windowManager.isShowingEffects,
                 showPlaylist: windowManager.isShowingPlaylist,
-                mainWindowOrigin: windowManager.mainWindowFrame.origin,
-                effectsWindowOrigin: windowManager.effectsWindow?.origin,
-                playlistWindowFrame: windowManager.playlistWindow?.frame,
+                mainWindowOrigin: NSPointPersistentState(point: windowManager.mainWindowFrame.origin),
+                effectsWindowOrigin: effectsWindowOrigin,
+                playlistWindowFrame: playlistWindowFrame,
                 userLayouts: userLayouts)
             
         } else {
             
+            if let origin = WindowLayoutState.effectsWindowOrigin {
+                effectsWindowOrigin = NSPointPersistentState(point: origin)
+            }
+            
+            if let frame = WindowLayoutState.playlistWindowFrame {
+                playlistWindowFrame = NSRectPersistentState(rect: frame)
+            }
+            
             return WindowLayoutsPersistentState(showEffects: WindowLayoutState.showEffects,
                 showPlaylist: WindowLayoutState.showPlaylist,
-                mainWindowOrigin: WindowLayoutState.mainWindowOrigin,
-                effectsWindowOrigin: WindowLayoutState.effectsWindowOrigin,
-                playlistWindowFrame: WindowLayoutState.playlistWindowFrame,
+                mainWindowOrigin: NSPointPersistentState(point: WindowLayoutState.mainWindowOrigin),
+                effectsWindowOrigin: effectsWindowOrigin,
+                playlistWindowFrame: playlistWindowFrame,
                 userLayouts: userLayouts)
         }
     }

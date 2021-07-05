@@ -9,6 +9,8 @@
 //
 import Cocoa
 
+typealias URLPath = String
+
 extension URL {
     
     static let ascendingPathComparator: (URL, URL) -> Bool = {$0.path < $1.path}

@@ -16,8 +16,20 @@ class PersistenceManager {
     
     let persistentStateFile: URL
 
-    private let decoder = JSONDecoder()
-    private lazy var encoder = JSONEncoder()
+    private let decoder: JSONDecoder = JSONDecoder()
+    
+    private lazy var encoder: JSONEncoder = {
+        
+        let encoder = JSONEncoder()
+        
+        if #available(OSX 10.13, *) {
+            encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        } else {
+            encoder.outputFormatting = [.prettyPrinted]
+        }
+        
+        return encoder
+    }()
     
     init(persistentStateFile: URL) {
         self.persistentStateFile = persistentStateFile
@@ -29,18 +41,13 @@ class PersistenceManager {
         
         do {
             
-            guard let outputStream = OutputStream(url: persistentStateFile, append: false) else {
-                
-                NSLog("Error saving app state config file: Unable to open output file.")
-                return
-            }
-            
-            outputStream.open()
-            defer {outputStream.close()}
-            
             let data = try encoder.encode(state)
             
-            JSONSerialization.writeJSONObject(data, to: outputStream, options: .prettyPrinted, error: nil)
+            if let jsonString = String(data: data, encoding: .utf8) {
+                try jsonString.write(to: persistentStateFile, atomically: true, encoding: .utf8)
+            } else {
+                NSLog("Error saving app state config file: Unable to create String from JSON data.")
+            }
             
         } catch let error as NSError {
            NSLog("Error saving app state config file: %@", error.description)

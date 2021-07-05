@@ -11,7 +11,7 @@ import Foundation
 
 struct ControlBarPlayerUIPersistentState: Codable {
     
-    let windowFrame: NSRect?
+    let windowFrame: NSRectPersistentState?
     let cornerRadius: CGFloat?
     
     let trackInfoScrollingEnabled: Bool?
@@ -24,7 +24,7 @@ extension ControlBarPlayerViewState {
     
     static func initialize(_ persistentState: ControlBarPlayerUIPersistentState?) {
         
-        windowFrame = persistentState?.windowFrame
+        windowFrame = persistentState?.windowFrame?.toNSRect()
         cornerRadius = persistentState?.cornerRadius ?? defaultCornerRadius
         
         trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
@@ -35,10 +35,16 @@ extension ControlBarPlayerViewState {
     
     static var persistentState: ControlBarPlayerUIPersistentState {
         
-        ControlBarPlayerUIPersistentState(windowFrame: windowFrame,
-                                          cornerRadius: cornerRadius,
-                                          trackInfoScrollingEnabled: trackInfoScrollingEnabled,
-                                          showSeekPosition: showSeekPosition,
-                                          seekPositionDisplayType: seekPositionDisplayType)
+        var windowFrame: NSRectPersistentState? = nil
+        
+        if let frame = self.windowFrame {
+            windowFrame = NSRectPersistentState(rect: frame)
+        }
+        
+        return ControlBarPlayerUIPersistentState(windowFrame: windowFrame,
+                                                 cornerRadius: cornerRadius,
+                                                 trackInfoScrollingEnabled: trackInfoScrollingEnabled,
+                                                 showSeekPosition: showSeekPosition,
+                                                 seekPositionDisplayType: seekPositionDisplayType)
     }
 }

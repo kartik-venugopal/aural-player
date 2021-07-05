@@ -106,6 +106,6 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     }
     
     var persistentState: [FavoritePersistentState] {
-        allFavorites.map {FavoritePersistentState(file: $0.file, name: $0.name)}
+        allFavorites.map {FavoritePersistentState(favorite: $0)}
     }
 }

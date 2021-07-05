@@ -89,6 +89,6 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     }
     
     var persistentState: [BookmarkPersistentState] {
-        allBookmarks.map {BookmarkPersistentState(name: $0.name, file: $0.file, startPosition: $0.startPosition, endPosition: $0.endPosition)}
+        allBookmarks.map {BookmarkPersistentState(bookmark: $0)}
     }
 }

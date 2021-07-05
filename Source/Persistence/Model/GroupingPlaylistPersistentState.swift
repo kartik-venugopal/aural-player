@@ -19,7 +19,7 @@ struct GroupingPlaylistPersistentState: Codable {
 struct GroupPersistentState: Codable {
     
     let name: String?
-    let tracks: [URL]?
+    let tracks: [URLPath]?
 }
 
 extension GroupingPlaylist: PersistentModelObject {
@@ -32,6 +32,6 @@ extension GroupingPlaylist: PersistentModelObject {
 extension Group: PersistentModelObject {
     
     var persistentState: GroupPersistentState {
-        GroupPersistentState(name: self.name, tracks: self.tracks.map {$0.file})
+        GroupPersistentState(name: self.name, tracks: self.tracks.map {$0.file.path})
     }
 }

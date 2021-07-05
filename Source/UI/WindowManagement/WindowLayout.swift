@@ -40,17 +40,17 @@ class WindowLayout {
         guard let name = persistentState.name,
               let showEffects = persistentState.showEffects,
               let showPlaylist = persistentState.showPlaylist,
-              let mainWindowOrigin = persistentState.mainWindowOrigin else {return nil}
+              let mainWindowOrigin = persistentState.mainWindowOrigin?.toNSPoint() else {return nil}
         
         if showEffects {
             
-            guard let effectsWindowOrigin = persistentState.effectsWindowOrigin else {return nil}
+            guard let effectsWindowOrigin = persistentState.effectsWindowOrigin?.toNSPoint() else {return nil}
             self.effectsWindowOrigin = effectsWindowOrigin
         }
         
         if showPlaylist {
             
-            guard let playlistWindowFrame = persistentState.playlistWindowFrame else {return nil}
+            guard let playlistWindowFrame = persistentState.playlistWindowFrame?.toNSRect() else {return nil}
             self.playlistWindowFrame = playlistWindowFrame
         }
         

@@ -17,17 +17,24 @@ struct HistoryPersistentState: Codable {
 
 struct HistoryItemPersistentState: Codable {
     
-    let file: URL?
+    let file: URLPath?
     let name: String?
-    let time: Date?
+    let time: DateString?
+    
+    init(item: HistoryItem) {
+        
+        self.file = item.file.path
+        self.name = item.displayName
+        self.time = item.time.serializableString()
+    }
 }
 
 extension HistoryDelegate: PersistentModelObject {
     
     var persistentState: HistoryPersistentState {
         
-        let recentlyAdded = allRecentlyAddedItems().map {HistoryItemPersistentState(file: $0.file, name: $0.displayName, time: $0.time)}
-        let recentlyPlayed = allRecentlyPlayedItems().map {HistoryItemPersistentState(file: $0.file, name: $0.displayName, time: $0.time)}
+        let recentlyAdded = allRecentlyAddedItems().map {HistoryItemPersistentState(item: $0)}
+        let recentlyPlayed = allRecentlyPlayedItems().map {HistoryItemPersistentState(item: $0)}
         
         return HistoryPersistentState(recentlyAdded: recentlyAdded, recentlyPlayed: recentlyPlayed)
     }
