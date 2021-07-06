@@ -9,15 +9,11 @@
 //  
 import Cocoa
 
-fileprivate var screenVisibleFrame: NSRect {
-    return NSScreen.main!.visibleFrame
-}
-
 class ControlBarPlayerUIPersistenceTests: PersistenceTestCase {
     
     func testPersistence_typicalSettings() {
         
-        let visibleFrame = screenVisibleFrame
+        let visibleFrame = visibleFrameRect
         let windowFrame = NSRectPersistentState(rect: NSMakeRect(visibleFrame.minX, visibleFrame.maxY - 40,
                                                                  610, 40))
         
@@ -34,7 +30,7 @@ class ControlBarPlayerUIPersistenceTests: PersistenceTestCase {
         
         for _ in 1...1000 {
             
-            let state = ControlBarPlayerUIPersistentState(windowFrame: NSRectPersistentState(rect: randomWindowFrame()),
+            let state = ControlBarPlayerUIPersistentState(windowFrame: NSRectPersistentState(rect: randomControlBarPlayerWindowFrame()),
                                                           cornerRadius: CGFloat.random(in: 0...20),
                                                           trackInfoScrollingEnabled: Bool.random(),
                                                           showSeekPosition: Bool.random(),
@@ -42,13 +38,6 @@ class ControlBarPlayerUIPersistenceTests: PersistenceTestCase {
             
             doTestPersistence(serializedState: state)
         }
-    }
-    
-    private func randomWindowFrame() -> NSRect {
-        
-        let visibleFrame = screenVisibleFrame
-        return visibleFrame.randomContainedRect(width: CGFloat.random(in: 600...visibleFrame.width),
-                                                height: 40)
     }
 }
 

@@ -193,3 +193,251 @@ func randomCMYKColor() -> ColorPersistentState {
                                         black: randomColorComponent(),
                                         alpha: randomColorComponent()))
 }
+
+func randomFontSchemes(count: Int? = nil) -> [FontSchemePersistentState] {
+    
+    let numSchemes = count ?? Int.random(in: 0...10)
+    
+    return numSchemes == 0 ? [] : (1...numSchemes).map {index in
+        randomFontScheme(named: "FontScheme-\(index)")
+    }
+}
+
+func randomFontScheme(named name: String) -> FontSchemePersistentState {
+    
+    let player = PlayerFontSchemePersistentState(titleSize: randomFontSize(),
+                                                 artistAlbumSize: randomFontSize(),
+                                                 chapterTitleSize: randomFontSize(),
+                                                 trackTimesSize: randomFontSize(),
+                                                 feedbackTextSize: randomFontSize())
+    
+    let playlist = PlaylistFontSchemePersistentState(trackTextSize: randomFontSize(),
+                                                     trackTextYOffset: randomTextYOffset(),
+                                                     groupTextSize: randomFontSize(),
+                                                     groupTextYOffset: randomTextYOffset(),
+                                                     summarySize: randomFontSize(),
+                                                     tabButtonTextSize: randomFontSize(),
+                                                     chaptersListHeaderSize: randomFontSize(),
+                                                     chaptersListSearchSize: randomFontSize(),
+                                                     chaptersListCaptionSize: randomFontSize())
+    
+    let effects = EffectsFontSchemePersistentState(unitCaptionSize: randomFontSize(),
+                                                   unitFunctionSize: randomFontSize(),
+                                                   masterUnitFunctionSize: randomFontSize(),
+                                                   filterChartSize: randomFontSize(),
+                                                   auRowTextYOffset: randomTextYOffset())
+    
+    return FontSchemePersistentState(name: name,
+                                     textFontName: randomFontName(),
+                                     headingFontName: randomFontName(),
+                                     player: player,
+                                     playlist: playlist,
+                                     effects: effects)
+}
+
+let allFonts: [String] = {
+    
+    var fontNames: [String] = []
+    
+    for family in NSFontManager.shared.availableFontFamilies {
+        
+        if let members = NSFontManager.shared.availableMembers(ofFontFamily: family) {
+            
+            for member in members {
+                
+                if member.count >= 2, let fontName = member[0] as? String, let weight = member[1] as? String {
+                    fontNames.append(String(format: "%@ %@", family, weight))
+                }
+            }
+        }
+    }
+    
+    return fontNames
+}()
+
+func randomFontName() -> String {
+    
+    let randomIndex = Int.random(in: allFonts.indices)
+    return allFonts[randomIndex]
+}
+
+func randomFontSize() -> CGFloat {
+    CGFloat.random(in: 10...20)
+}
+
+func randomTextYOffset() -> CGFloat {
+    CGFloat.random(in: -3...3)
+}
+
+func randomColorSchemes(count: Int? = nil) -> [ColorSchemePersistentState] {
+    
+    let numSchemes = count ?? Int.random(in: 0...10)
+    
+    return numSchemes == 0 ? [] : (1...numSchemes).map {index in
+        randomColorScheme(named: "ColorScheme-\(index)")
+    }
+}
+
+func randomColorScheme(named name: String) -> ColorSchemePersistentState {
+    
+    let general = GeneralColorSchemePersistentState(appLogoColor: randomColor(),
+                                                    backgroundColor: randomColor(),
+                                                    viewControlButtonColor: randomColor(),
+                                                    functionButtonColor: randomColor(),
+                                                    textButtonMenuColor: randomColor(),
+                                                    toggleButtonOffStateColor: randomColor(),
+                                                    selectedTabButtonColor: randomColor(),
+                                                    mainCaptionTextColor: randomColor(),
+                                                    tabButtonTextColor: randomColor(),
+                                                    selectedTabButtonTextColor: randomColor(),
+                                                    buttonMenuTextColor: randomColor())
+    
+    let player = PlayerColorSchemePersistentState(trackInfoPrimaryTextColor: randomColor(),
+                                                  trackInfoSecondaryTextColor: randomColor(),
+                                                  trackInfoTertiaryTextColor: randomColor(),
+                                                  sliderValueTextColor: randomColor(),
+                                                  sliderBackgroundColor: randomColor(),
+                                                  sliderBackgroundGradientType: .randomCase(),
+                                                  sliderBackgroundGradientAmount: Int.random(in: 1...100),
+                                                  sliderForegroundColor: randomColor(),
+                                                  sliderForegroundGradientType: .randomCase(),
+                                                  sliderForegroundGradientAmount: Int.random(in: 1...100),
+                                                  sliderKnobColor: randomColor(),
+                                                  sliderKnobColorSameAsForeground: Bool.random(),
+                                                  sliderLoopSegmentColor: randomColor())
+    
+    let playlist = PlaylistColorSchemePersistentState(trackNameTextColor: randomColor(),
+                                                      groupNameTextColor: randomColor(),
+                                                      indexDurationTextColor: randomColor(),
+                                                      trackNameSelectedTextColor: randomColor(),
+                                                      groupNameSelectedTextColor: randomColor(),
+                                                      indexDurationSelectedTextColor: randomColor(),
+                                                      summaryInfoColor: randomColor(),
+                                                      playingTrackIconColor: randomColor(),
+                                                      selectionBoxColor: randomColor(),
+                                                      groupIconColor: randomColor(),
+                                                      groupDisclosureTriangleColor: randomColor())
+    
+    let effects = EffectsColorSchemePersistentState(functionCaptionTextColor: randomColor(),
+                                                    functionValueTextColor: randomColor(),
+                                                    sliderBackgroundColor: randomColor(),
+                                                    sliderBackgroundGradientType: .randomCase(),
+                                                    sliderBackgroundGradientAmount: .random(in: 1...100),
+                                                    sliderForegroundGradientType: .randomCase(),
+                                                    sliderForegroundGradientAmount: .random(in: 1...100),
+                                                    sliderKnobColor: randomColor(),
+                                                    sliderKnobColorSameAsForeground: .random(),
+                                                    sliderTickColor: randomColor(),
+                                                    activeUnitStateColor: randomColor(),
+                                                    bypassedUnitStateColor: randomColor(),
+                                                    suppressedUnitStateColor: randomColor())
+    
+    return ColorSchemePersistentState(name: name,
+                                      general: general,
+                                      player: player,
+                                      playlist: playlist,
+                                      effects: effects)
+}
+
+func randomTheme(named name: String) -> ThemePersistentState {
+    
+    let windowCornerRadius = CGFloat.random(in: 0...25)
+    let fontScheme = randomFontScheme(named: "Font scheme for theme '\(name)'")
+    let colorScheme = randomColorScheme(named: "Color scheme for theme '\(name)'")
+    
+    return ThemePersistentState(name: name,
+                                fontScheme: fontScheme,
+                                colorScheme: colorScheme,
+                                windowAppearance: WindowUIPersistentState(cornerRadius: windowCornerRadius))
+                                
+}
+
+func randomThemes(count: Int? = nil) -> [ThemePersistentState] {
+    
+    let numThemes = count ?? Int.random(in: 0...10)
+    
+    return numThemes == 0 ? [] : (1...numThemes).map {index in
+        randomTheme(named: "Theme-\(index)")
+    }
+}
+
+func randomUserLayouts(count: Int? = nil) -> [UserWindowLayoutPersistentState] {
+    
+    let numLayouts = count ?? Int.random(in: 0...10)
+    
+    return numLayouts == 0 ? [] : (1...numLayouts).map {index in
+        
+        let layout = randomLayout(name: "Layout-\(index)", systemDefined: false)
+        return UserWindowLayoutPersistentState(layout: layout)
+    }
+}
+
+func randomLayout(name: String, systemDefined: Bool,
+                          showPlaylist: Bool? = nil, showEffects: Bool? = nil) -> WindowLayout {
+    
+    let visibleFrame = visibleFrameRect
+    
+    let randomNum = Int.random(in: 1...100)
+    
+    // 70% probability that the playlist window is shown.
+    let showPlaylist: Bool = showPlaylist ?? (randomNum > 30)
+    
+    // 50% probability that the effects window is shown.
+    let showEffects: Bool = showEffects ?? (randomNum > 50)
+    
+    var effectsWindowOrigin: NSPoint? = nil
+    var playlistWindowFrame: NSRect? = nil
+    
+    let mainWindowOrigin = visibleFrame.randomContainedRect(width: WindowLayoutPresets.mainWindowWidth,
+                                                            height: WindowLayoutPresets.mainWindowHeight).origin
+    
+    if showEffects {
+        
+        let effectsWindowFrame = visibleFrame.randomContainedRect(width: WindowLayoutPresets.effectsWindowWidth,
+                                                                  height: WindowLayoutPresets.effectsWindowHeight)
+        
+        effectsWindowOrigin = effectsWindowFrame.origin
+    }
+    
+    if showPlaylist {
+        
+        let playlistWidth = CGFloat.random(in: WindowLayoutPresets.mainWindowWidth...visibleFrame.width)
+        let playlistHeight = CGFloat.random(in: WindowLayoutPresets.mainWindowHeight...visibleFrame.height)
+        
+        playlistWindowFrame = visibleFrame.randomContainedRect(width: playlistWidth,
+                                                               height: playlistHeight)
+    }
+    
+    return WindowLayout(name, showEffects, showPlaylist,
+                        mainWindowOrigin, effectsWindowOrigin, playlistWindowFrame,
+                        systemDefined)
+}
+
+var visibleFrameRect: NSRect {
+    return NSScreen.main!.visibleFrame
+}
+
+func moveLayoutToRandomLocation(layout: WindowLayout) -> WindowLayout {
+    
+    let visibleFrame = visibleFrameRect
+    
+    let layoutBoundingBox = layout.boundingBox
+    let movedBoundingBox = visibleFrame.randomContainedRect(width: layoutBoundingBox.width,
+                                                            height: layoutBoundingBox.height)
+    
+    let distanceMovedX = movedBoundingBox.minX - layoutBoundingBox.minX
+    let distanceMovedY = movedBoundingBox.minY - layoutBoundingBox.minY
+    
+    let movedMainWindowOrigin = layout.mainWindowOrigin.translating(distanceMovedX, distanceMovedY)
+    let movedEffectsWindowOrigin = layout.effectsWindowOrigin?.translating(distanceMovedX, distanceMovedY)
+    let movedPlaylistWindowFrame = layout.playlistWindowFrame?.offsetBy(dx: distanceMovedX, dy: distanceMovedY)
+    
+    return WindowLayout(layout.name, layout.showEffects, layout.showPlaylist, movedMainWindowOrigin, movedEffectsWindowOrigin, movedPlaylistWindowFrame, layout.systemDefined)
+}
+
+func randomControlBarPlayerWindowFrame() -> NSRect {
+    
+    let visibleFrame = visibleFrameRect
+    return visibleFrame.randomContainedRect(width: CGFloat.random(in: 600...visibleFrame.width),
+                                            height: 40)
+}

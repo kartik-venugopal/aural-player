@@ -60,15 +60,6 @@ class AppModeManager {
     }
 }
 
-enum AppMode: String, CaseIterable, Codable {
-    
-    static let defaultMode: AppMode = .windowed
-    
-    case windowed
-    case menuBar
-    case controlBar
-}
-
 protocol AppModeController {
     
     var mode: AppMode {get}

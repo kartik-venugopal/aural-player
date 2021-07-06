@@ -30,10 +30,3 @@ struct ThemePersistentState: Codable {
         self.windowAppearance = WindowUIPersistentState(cornerRadius: theme.windowAppearance.cornerRadius)
     }
 }
-
-extension Theme: PersistentModelObject {
-    
-    var persistentState: ThemePersistentState {
-        ThemePersistentState(self)
-    }
-}

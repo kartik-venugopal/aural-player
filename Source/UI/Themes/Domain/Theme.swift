@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class Theme: MappedPreset {
+class Theme: MappedPreset, PersistentModelObject {
     
     var name: String
     
@@ -54,5 +54,9 @@ class Theme: MappedPreset {
         self.fontScheme = FontScheme(persistentFontScheme, systemDefined)
         self.colorScheme = ColorScheme(persistentColorScheme, systemDefined)
         self.windowAppearance = WindowAppearance(cornerRadius: persistentState.windowAppearance?.cornerRadius ?? WindowAppearanceState.defaultCornerRadius)
+    }
+    
+    var persistentState: ThemePersistentState {
+        ThemePersistentState(self)
     }
 }

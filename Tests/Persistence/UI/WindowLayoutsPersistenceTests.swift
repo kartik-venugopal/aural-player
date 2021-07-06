@@ -9,10 +9,6 @@
 //  
 import Cocoa
 
-fileprivate var screenVisibleFrame: NSRect {
-    return NSScreen.main!.visibleFrame
-}
-
 class WindowLayoutsPersistenceTests: PersistenceTestCase {
     
     private static let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout}
@@ -53,76 +49,6 @@ class WindowLayoutsPersistenceTests: PersistenceTestCase {
                 }
             }
         }
-    }
-    
-    private func randomUserLayouts(count: Int? = nil) -> [UserWindowLayoutPersistentState] {
-        
-        let numLayouts = count ?? Int.random(in: 0...10)
-        
-        return numLayouts == 0 ? [] : (1...numLayouts).map {index in
-            
-            let layout = randomLayout(name: "Layout-\(index)", systemDefined: false)
-            return UserWindowLayoutPersistentState(layout: layout)
-        }
-    }
-    
-    private func randomLayout(name: String, systemDefined: Bool,
-                              showPlaylist: Bool? = nil, showEffects: Bool? = nil) -> WindowLayout {
-        
-        let visibleFrame = screenVisibleFrame
-        
-        let randomNum = Int.random(in: 1...100)
-        
-        // 70% probability that the playlist window is shown.
-        let showPlaylist: Bool = showPlaylist ?? (randomNum > 30)
-        
-        // 50% probability that the effects window is shown.
-        let showEffects: Bool = showEffects ?? (randomNum > 50)
-        
-        var effectsWindowOrigin: NSPoint? = nil
-        var playlistWindowFrame: NSRect? = nil
-        
-        let mainWindowOrigin = visibleFrame.randomContainedRect(width: WindowLayoutPresets.mainWindowWidth,
-                                                                height: WindowLayoutPresets.mainWindowHeight).origin
-        
-        if showEffects {
-            
-            let effectsWindowFrame = visibleFrame.randomContainedRect(width: WindowLayoutPresets.effectsWindowWidth,
-                                                                      height: WindowLayoutPresets.effectsWindowHeight)
-            
-            effectsWindowOrigin = effectsWindowFrame.origin
-        }
-        
-        if showPlaylist {
-            
-            let playlistWidth = CGFloat.random(in: WindowLayoutPresets.mainWindowWidth...visibleFrame.width)
-            let playlistHeight = CGFloat.random(in: WindowLayoutPresets.mainWindowHeight...visibleFrame.height)
-            
-            playlistWindowFrame = visibleFrame.randomContainedRect(width: playlistWidth,
-                                                                   height: playlistHeight)
-        }
-        
-        return WindowLayout(name, showEffects, showPlaylist,
-                            mainWindowOrigin, effectsWindowOrigin, playlistWindowFrame,
-                            systemDefined)
-    }
-    
-    private func moveLayoutToRandomLocation(layout: WindowLayout) -> WindowLayout {
-        
-        let visibleFrame = screenVisibleFrame
-        
-        let layoutBoundingBox = layout.boundingBox
-        let movedBoundingBox = visibleFrame.randomContainedRect(width: layoutBoundingBox.width,
-                                                                height: layoutBoundingBox.height)
-        
-        let distanceMovedX = movedBoundingBox.minX - layoutBoundingBox.minX
-        let distanceMovedY = movedBoundingBox.minY - layoutBoundingBox.minY
-        
-        let movedMainWindowOrigin = layout.mainWindowOrigin.translating(distanceMovedX, distanceMovedY)
-        let movedEffectsWindowOrigin = layout.effectsWindowOrigin?.translating(distanceMovedX, distanceMovedY)
-        let movedPlaylistWindowFrame = layout.playlistWindowFrame?.offsetBy(dx: distanceMovedX, dy: distanceMovedY)
-        
-        return WindowLayout(layout.name, layout.showEffects, layout.showPlaylist, movedMainWindowOrigin, movedEffectsWindowOrigin, movedPlaylistWindowFrame, layout.systemDefined)
     }
 }
 
