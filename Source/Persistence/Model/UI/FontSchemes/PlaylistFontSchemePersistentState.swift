@@ -13,12 +13,12 @@ import Foundation
     Encapsulates persistent app state for a single PlaylistFontScheme.
  */
 struct PlaylistFontSchemePersistentState: Codable {
-
+    
     let trackTextSize: CGFloat?
-    let trackTextYOffset: Int?
+    let trackTextYOffset: CGFloat?
     
     let groupTextSize: CGFloat?
-    let groupTextYOffset: Int?
+    let groupTextYOffset: CGFloat?
     
     let summarySize: CGFloat?
     let tabButtonTextSize: CGFloat?
@@ -30,10 +30,10 @@ struct PlaylistFontSchemePersistentState: Codable {
     init(_ scheme: PlaylistFontScheme) {
 
         self.trackTextSize = scheme.trackTextFont.pointSize
-        self.trackTextYOffset = scheme.trackTextYOffset.roundedInt
+        self.trackTextYOffset = scheme.trackTextYOffset
         
         self.groupTextSize = scheme.groupTextFont.pointSize
-        self.groupTextYOffset = scheme.groupTextYOffset.roundedInt
+        self.groupTextYOffset = scheme.groupTextYOffset
         
         self.summarySize = scheme.summaryFont.pointSize
         self.tabButtonTextSize = scheme.tabButtonTextFont.pointSize

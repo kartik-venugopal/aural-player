@@ -76,7 +76,7 @@ class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
     override var cellInsetX: CGFloat {return 1}
     override var cellInsetY: CGFloat {return 0}
     
-    override var textFont: NSFont {return Fonts.Standard.mainFont_10}
+    override var textFont: NSFont {return FontConstants.Standard.mainFont_10}
 }
 
 // Cell for search results navigation buttons (next/previous)

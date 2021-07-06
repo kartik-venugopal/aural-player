@@ -36,7 +36,7 @@ class ScrollingTrackInfoView: NSView {
     private var text: NSString = ""
 
     /// Font for scrolling text
-    var font: NSFont = Fonts.Standard.mainFont_12 {
+    var font: NSFont = FontConstants.Standard.mainFont_12 {
         didSet {fontUpdated()}
     }
 

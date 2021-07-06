@@ -60,7 +60,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         didSet {
             
-            lyricsView.font = Fonts.Standard.mainFont_13
+            lyricsView.font = FontConstants.Standard.mainFont_13
             lyricsView.alignment = .center
             lyricsView.backgroundColor = Colors.popoverBackgroundColor
             lyricsView.textColor = Colors.boxTextColor

@@ -67,5 +67,5 @@ class EffectsFunctionCheckRadioButtonCell: CheckRadioButtonCell {
 
 class ColorSchemesDialogCheckBoxCell: CheckRadioButtonCell {
     
-    override var textFont: NSFont {return Fonts.Standard.mainFont_12}
+    override var textFont: NSFont {return FontConstants.Standard.mainFont_12}
 }

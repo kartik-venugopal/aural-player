@@ -64,8 +64,8 @@ class BasicTableCellView: NSTableCellView {
     
     var rowSelectionStateFunction: () -> Bool = {false}
     
-    var textFont: NSFont = Fonts.Standard.mainFont_10
-    var selectedTextFont: NSFont = Fonts.Standard.mainFont_10
+    var textFont: NSFont = FontConstants.Standard.mainFont_10
+    var selectedTextFont: NSFont = FontConstants.Standard.mainFont_10
     
     var textColor: NSColor = Colors.defaultLightTextColor
     var selectedTextColor: NSColor = Colors.defaultSelectedLightTextColor

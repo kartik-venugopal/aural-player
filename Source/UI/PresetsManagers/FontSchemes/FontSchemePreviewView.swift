@@ -56,42 +56,42 @@ class FontSchemePreviewView: NSView {
         }
     }
     
-    var playerTitleFont: NSFont = Fonts.Standard.mainFont_12 {
+    var playerTitleFont: NSFont = FontConstants.Standard.mainFont_12 {
         
         didSet {
             lblPlayerTrackTitle.font = playerTitleFont
         }
     }
     
-    var playerArtistAlbumFont: NSFont = Fonts.Standard.mainFont_12 {
+    var playerArtistAlbumFont: NSFont = FontConstants.Standard.mainFont_12 {
         
         didSet {
             lblPlayerArtistAlbum.font = playerArtistAlbumFont
         }
     }
     
-    var playlistHeadingFont: NSFont = Fonts.Standard.mainFont_12 {
+    var playlistHeadingFont: NSFont = FontConstants.Standard.mainFont_12 {
         
         didSet {
             lblPlaylistHeading.font = playlistHeadingFont
         }
     }
     
-    var playlistTrackTextFont: NSFont = Fonts.Standard.mainFont_12 {
+    var playlistTrackTextFont: NSFont = FontConstants.Standard.mainFont_12 {
         
         didSet {
             playlistLabels.forEach {$0.font = playlistTrackTextFont}
         }
     }
     
-    var effectsCaptionFont: NSFont = Fonts.Standard.mainFont_12 {
+    var effectsCaptionFont: NSFont = FontConstants.Standard.mainFont_12 {
         
         didSet {
             lblFxCaption.font = effectsCaptionFont
         }
     }
     
-    var effectsFunctionFont: NSFont = Fonts.Standard.mainFont_12 {
+    var effectsFunctionFont: NSFont = FontConstants.Standard.mainFont_12 {
         
         didSet {
             lblPitchCaption.font = effectsFunctionFont

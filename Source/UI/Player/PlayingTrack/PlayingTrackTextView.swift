@@ -236,15 +236,15 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 class MenuBarPlayingTrackTextView: PlayingTrackTextView {
     
     override var titleFont: NSFont {
-        Fonts.Standard.mainFont_13
+        FontConstants.Standard.mainFont_13
     }
     
     override var artistAlbumFont: NSFont {
-        Fonts.Standard.mainFont_11
+        FontConstants.Standard.mainFont_11
     }
     
     override var chapterTitleFont: NSFont {
-        Fonts.Standard.mainFont_10
+        FontConstants.Standard.mainFont_10
     }
     
     override var titleColor: NSColor {

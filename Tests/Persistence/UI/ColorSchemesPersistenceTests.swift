@@ -25,9 +25,9 @@ class ColorSchemesPersistenceTests: PersistenceTestCase {
     
     private func randomColorSchemes(count: Int? = nil) -> [ColorSchemePersistentState] {
         
-        let numPresets = count ?? Int.random(in: 0...10)
+        let numSchemes = count ?? Int.random(in: 0...10)
         
-        return numPresets == 0 ? [] : (1...numPresets).map {index in
+        return numSchemes == 0 ? [] : (1...numSchemes).map {index in
             randomColorScheme(named: "Preset-\(index)")
         }
     }
