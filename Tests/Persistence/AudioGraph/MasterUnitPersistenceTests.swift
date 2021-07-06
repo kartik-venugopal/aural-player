@@ -15,54 +15,11 @@ class MasterUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for state in EffectsUnitState.allCases {
             
-            for _ in 0..<100 {
-                doTestPersistence(unitState: state, userPresets: randomMasterPresets())
-            }
-        }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [MasterPresetPersistentState]) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = MasterUnitPersistentState(state: unitState, userPresets: userPresets)
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: MasterUnitPersistentState.self) else {
-            
-            XCTFail("persistentState is nil, init of EQUnit state failed.")
-            return
-        }
-        
-        validatePersistentState(persistentState: deserializedState, unitState: unitState,
-                                userPresets: userPresets)
-    }
-    
-    // MARK: Helper functions ---------------------------------------
-    
-    private func randomNillablePresets() -> [MasterPresetPersistentState]? {
-        randomNillableValue {self.randomMasterPresets()}
-    }
-    
-    private func validatePersistentState(persistentState: MasterUnitPersistentState,
-                                         unitState: EffectsUnitState?, userPresets: [MasterPresetPersistentState]?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
+            for _ in 1...100 {
                 
-                XCTFail("persisted user presets is nil, deserialization of EQUnit state failed.")
-                return
+                let serializedState = MasterUnitPersistentState(state: state, userPresets: randomMasterPresets())
+                doTestPersistence(serializedState: serializedState)
             }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, userPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
         }
     }
 }

@@ -14,25 +14,10 @@ class AudioDevicePersistenceTests: AudioGraphPersistenceTestCase {
     func testPersistence() {
         
         for _ in 1...100 {
-            doTestPersistence(name: randomDeviceName(), uid: randomDeviceUID())
-        }
-    }
-    
-    private func doTestPersistence(name: String, uid: String) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = AudioDevicePersistentState(name: name, uid: uid)
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: AudioDevicePersistentState.self) else {
             
-            XCTFail("persistentState is nil, deserialization of AudioDevice state failed.")
-            return
+            doTestPersistence(serializedState: AudioDevicePersistentState(name: randomDeviceName(),
+                                                                           uid: randomDeviceUID()))
         }
-        
-        XCTAssertEqual(deserializedState.name, name)
-        XCTAssertEqual(deserializedState.uid, uid)
     }
 }
 

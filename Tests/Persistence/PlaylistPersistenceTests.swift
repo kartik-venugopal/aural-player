@@ -46,22 +46,6 @@ class PlaylistPersistenceTests: PersistenceTestCase {
         }
     }
     
-    private func doTestPersistence(serializedState: PlaylistPersistentState) {
-        
-        defer {persistentStateFile.delete()}
-        
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: PlaylistPersistentState.self) else {
-            
-            XCTFail("deserializedState is nil, deserialization of Playlist state failed.")
-            return
-        }
-        
-        XCTAssertEqual(deserializedState.tracks, serializedState.tracks)
-        XCTAssertEqual(deserializedState.groupingPlaylists, serializedState.groupingPlaylists)
-    }
-    
     private func createNTracks(numTracks: Int) -> (tracks: [Track], artistGroups: [String: [Track]],
                                                    albumGroups: [String: [Track]],
                                                    genreGroups: [String: [Track]]) {
@@ -146,6 +130,13 @@ class PlaylistPersistenceTests: PersistenceTestCase {
 }
 
 // MARK: Equality comparison for model objects -----------------------------
+
+extension PlaylistPersistentState: Equatable {
+    
+    static func == (lhs: PlaylistPersistentState, rhs: PlaylistPersistentState) -> Bool {
+        lhs.tracks == rhs.tracks && lhs.groupingPlaylists == rhs.groupingPlaylists
+    }
+}
 
 extension GroupingPlaylistPersistentState: Equatable {
     

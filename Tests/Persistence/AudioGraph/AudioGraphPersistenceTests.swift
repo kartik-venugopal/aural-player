@@ -72,76 +72,47 @@ class AudioGraphPersistenceTests: AudioGraphPersistenceTestCase {
             let numProfiles = Int.random(in: 0..<20)
             let soundProfiles: [SoundProfilePersistentState]? = numProfiles == 0 ? [] : (0..<numProfiles).map {_ in
                 
-                SoundProfilePersistentState(file: randomFile(), volume: randomVolume(), balance: randomBalance(),
+                SoundProfilePersistentState(file: randomAudioFile(), volume: randomVolume(), balance: randomBalance(),
                                             effects: randomMasterPresets(count: 1)[0])
             }
             
-            doTestPersistence(outputDevice: outputDevice,
-                              volume: volume,
-                              muted: muted,
-                              balance: balance,
-                              masterUnit: masterUnit,
-                              eqUnit: eqUnit,
-                              pitchUnit: pitchUnit,
-                              timeUnit: timeUnit,
-                              reverbUnit: reverbUnit,
-                              delayUnit: delayUnit,
-                              filterUnit: filterUnit,
-                              audioUnits: audioUnits,
-                              soundProfiles: soundProfiles)
+            let serializedState = AudioGraphPersistentState(outputDevice: outputDevice,
+                                                            volume: volume,
+                                                            muted: muted,
+                                                            balance: balance,
+                                                            masterUnit: masterUnit,
+                                                            eqUnit: eqUnit,
+                                                            pitchUnit: pitchUnit,
+                                                            timeUnit: timeUnit,
+                                                            reverbUnit: reverbUnit,
+                                                            delayUnit: delayUnit,
+                                                            filterUnit: filterUnit,
+                                                            audioUnits: audioUnits,
+                                                            soundProfiles: soundProfiles)
+            
+            doTestPersistence(serializedState: serializedState)
             
         }
     }
+}
+
+// MARK: Equality comparison for model objects -----------------------------
+
+extension AudioGraphPersistentState: Equatable {
     
-    private func doTestPersistence(outputDevice: AudioDevicePersistentState,
-                                   volume: Float?,
-                                   muted: Bool?,
-                                   balance: Float?,
-                                   masterUnit: MasterUnitPersistentState?,
-                                   eqUnit: EQUnitPersistentState?,
-                                   pitchUnit: PitchShiftUnitPersistentState?,
-                                   timeUnit: TimeStretchUnitPersistentState?,
-                                   reverbUnit: ReverbUnitPersistentState?,
-                                   delayUnit: DelayUnitPersistentState?,
-                                   filterUnit: FilterUnitPersistentState?,
-                                   audioUnits: [AudioUnitPersistentState]?,
-                                   soundProfiles: [SoundProfilePersistentState]?) {
+    static func == (lhs: AudioGraphPersistentState, rhs: AudioGraphPersistentState) -> Bool {
         
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = AudioGraphPersistentState(outputDevice: outputDevice,
-                                                        volume: volume,
-                                                        muted: muted,
-                                                        balance: balance,
-                                                        masterUnit: masterUnit,
-                                                        eqUnit: eqUnit,
-                                                        pitchUnit: pitchUnit,
-                                                        timeUnit: timeUnit,
-                                                        reverbUnit: reverbUnit,
-                                                        delayUnit: delayUnit,
-                                                        filterUnit: filterUnit,
-                                                        audioUnits: audioUnits,
-                                                        soundProfiles: soundProfiles)
-        
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: AudioGraphPersistentState.self) else {
-            
-            XCTFail("persistentState is nil, deserialization of AudioGraph state failed.")
-            return
-        }
-        
-        XCTAssertEqual(deserializedState.outputDevice, outputDevice)
-        XCTAssertEqual(deserializedState.volume, volume)
-        XCTAssertEqual(deserializedState.balance, balance)
-        XCTAssertEqual(deserializedState.masterUnit, masterUnit)
-        XCTAssertEqual(deserializedState.eqUnit, eqUnit)
-        XCTAssertEqual(deserializedState.pitchUnit, pitchUnit)
-        XCTAssertEqual(deserializedState.timeUnit, timeUnit)
-        XCTAssertEqual(deserializedState.reverbUnit, reverbUnit)
-        XCTAssertEqual(deserializedState.delayUnit, delayUnit)
-        XCTAssertEqual(deserializedState.filterUnit, filterUnit)
-        XCTAssertEqual(deserializedState.audioUnits, audioUnits)
-        XCTAssertEqual(deserializedState.soundProfiles, soundProfiles)
+        lhs.outputDevice == rhs.outputDevice &&
+        Float.approxEquals(lhs.volume, rhs.volume, accuracy: 0.001) &&
+            lhs.muted == rhs.muted &&
+            Float.approxEquals(lhs.balance, rhs.balance, accuracy: 0.001) &&
+            lhs.masterUnit == rhs.masterUnit &&
+            lhs.pitchUnit == rhs.pitchUnit &&
+            lhs.timeUnit == rhs.timeUnit &&
+            lhs.reverbUnit == rhs.reverbUnit &&
+            lhs.delayUnit == rhs.delayUnit &&
+            lhs.filterUnit == rhs.filterUnit &&
+            lhs.audioUnits == rhs.audioUnits &&
+            lhs.soundProfiles == rhs.soundProfiles
     }
 }

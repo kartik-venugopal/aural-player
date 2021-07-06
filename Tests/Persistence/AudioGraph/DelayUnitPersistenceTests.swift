@@ -15,38 +15,18 @@ class DelayUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            for _ in 0..<100 {
+            for _ in 1...100 {
                 
-                doTestPersistence(unitState: unitState, userPresets: randomDelayPresets(unitState: .active),
-                           amount: randomDelayAmount(), time: randomDelayTime(),
-                           feedback: randomDelayFeedback(), lowPassCutoff: randomDelayLowPassCutoff())
+                let serializedState = DelayUnitPersistentState(state: unitState,
+                                                               userPresets: randomDelayPresets(unitState: .active),
+                                                               amount: randomDelayAmount(),
+                                                               time: randomDelayTime(),
+                                                               feedback: randomDelayFeedback(),
+                                                               lowPassCutoff: randomDelayLowPassCutoff())
+                
+                doTestPersistence(serializedState: serializedState)
             }
         }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState?, userPresets: [DelayPresetPersistentState],
-                                   amount: Float, time: Double,
-                                   feedback: Float, lowPassCutoff: Float) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = DelayUnitPersistentState(state: unitState,
-                                                       userPresets: userPresets,
-                                                       amount: amount,
-                                                       time: time,
-                                                       feedback: feedback,
-                                                       lowPassCutoff: lowPassCutoff)
-        
-        persistenceManager.save(serializedState)
-        
-        guard let persistentState = persistenceManager.load(type: DelayUnitPersistentState.self) else {
-            
-            XCTFail("persistentState is nil, deserialization of DelayUnit state failed.")
-            return
-        }
-        
-        validateDelayUnitPersistentState(persistentState, unitState: unitState, userPresets: userPresets,
-                                amount: amount, time: time, feedback: feedback, lowPassCutoff: lowPassCutoff)
     }
 }
 

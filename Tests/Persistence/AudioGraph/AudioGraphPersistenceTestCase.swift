@@ -548,16 +548,4 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
     func randomBalance() -> Float {
         Float.random(in: -1...1)
     }
-    
-    func randomFileExtension() -> URLPath {
-        
-        let randomIndex = Int.random(in: 0..<SupportedTypes.allAudioExtensions.count)
-        return SupportedTypes.allAudioExtensions[randomIndex]
-    }
-    
-    func randomFile() -> URLPath {
-        
-        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
-        return "/\(pathComponents.joined(separator: "/")).\(randomFileExtension())"
-    }
 }

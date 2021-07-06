@@ -18,34 +18,15 @@ class PitchShiftUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            for _ in 0..<100 {
+            for _ in 1...100 {
                 
-                doTestPersistence(unitState: unitState, userPresets: randomPitchShiftPresets(unitState: .active),
-                                  pitch: randomPitch(), overlap: randomOverlap())
+                let serializedState = PitchShiftUnitPersistentState(state: unitState,
+                                                                    userPresets: randomPitchShiftPresets(unitState: .active),
+                                                                    pitch: randomPitch(), overlap: randomOverlap())
+                
+                doTestPersistence(serializedState: serializedState)
             }
         }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [PitchShiftPresetPersistentState],
-                                   pitch: Float, overlap: Float) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = PitchShiftUnitPersistentState(state: unitState,
-                                                            userPresets: userPresets,
-                                                            pitch: pitch,
-                                                            overlap: overlap)
-        
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: PitchShiftUnitPersistentState.self) else {
-            
-            XCTFail("deserializedState is nil, deserialization of PitchShiftUnit state failed.")
-            return
-        }
-        
-        validatePitchShiftUnitPersistentState(deserializedState, unitState: unitState,
-                                              userPresets: userPresets, pitch: pitch, overlap: overlap)
     }
 }
 

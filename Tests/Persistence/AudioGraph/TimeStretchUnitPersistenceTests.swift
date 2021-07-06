@@ -18,37 +18,17 @@ class TimeStretchUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            for _ in 0..<100 {
+            for _ in 1...100 {
                 
-                doTestPersistence(unitState: unitState, userPresets: randomTimeStretchPresets(unitState: .active),
-                                  rate: randomTimeStretchRate(),
-                                  shiftPitch: randomTimeStretchShiftPitch(), overlap: randomOverlap())
+                let serializedState = TimeStretchUnitPersistentState(state: unitState,
+                                                                     userPresets: randomTimeStretchPresets(unitState: .active),
+                                                                     rate: randomTimeStretchRate(),
+                                                                     shiftPitch: randomTimeStretchShiftPitch(),
+                                                                     overlap: randomOverlap())
+                
+                doTestPersistence(serializedState: serializedState)
             }
         }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [TimeStretchPresetPersistentState],
-                                   rate: Float, shiftPitch: Bool, overlap: Float) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = TimeStretchUnitPersistentState(state: unitState,
-                                                             userPresets: userPresets,
-                                                             rate: rate,
-                                                             shiftPitch: shiftPitch,
-                                                             overlap: overlap)
-        
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: TimeStretchUnitPersistentState.self) else {
-            
-            XCTFail("deserializedState is nil, deserialization of TimeStretchUnit state failed.")
-            return
-        }
-        
-        validateTimeStretchUnitPersistentState(deserializedState, unitState: unitState,
-                                               userPresets: userPresets, rate: rate,
-                                               shiftPitch: shiftPitch, overlap: overlap)
     }
 }
 

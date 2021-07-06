@@ -83,6 +83,30 @@ class AuralTestCase: XCTestCase {
 
         return track
     }
+    
+    func randomAudioFileExtension() -> URLPath {
+        
+        let randomIndex = Int.random(in: 0..<SupportedTypes.allAudioExtensions.count)
+        return SupportedTypes.allAudioExtensions[randomIndex]
+    }
+    
+    func randomAudioFile() -> URLPath {
+        
+        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+        return "/\(pathComponents.joined(separator: "/")).\(randomAudioFileExtension())"
+    }
+    
+    func randomPlaylistFile() -> URLPath {
+        
+        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+        return "/\(pathComponents.joined(separator: "/")).m3u"
+    }
+    
+    func randomFolder() -> URLPath {
+        
+        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+        return "/\(pathComponents.joined(separator: "/"))"
+    }
 }
 
 extension XCTestCase {

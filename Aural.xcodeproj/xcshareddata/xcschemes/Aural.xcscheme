@@ -37,6 +37,134 @@
                BlueprintName = "Tests"
                ReferencedContainer = "container:Aural.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AVAudioExtensionsTests">
+               </Test>
+               <Test
+                  Identifier = "AudioDevicePersistenceTests">
+               </Test>
+               <Test
+                  Identifier = "FlatPlaylistTests">
+               </Test>
+               <Test
+                  Identifier = "GroupingPlaylistTests">
+               </Test>
+               <Test
+                  Identifier = "HistoryPreferencesTests">
+               </Test>
+               <Test
+                  Identifier = "MathUtilsTests">
+               </Test>
+               <Test
+                  Identifier = "MediaKeysControlsPreferencesTests">
+               </Test>
+               <Test
+                  Identifier = "Messenger_AsynchronousNotificationsTests">
+               </Test>
+               <Test
+                  Identifier = "Messenger_AsynchronousNotifications_ArbitraryPayloadTests">
+               </Test>
+               <Test
+                  Identifier = "Messenger_SynchronousNotificationsTests">
+               </Test>
+               <Test
+                  Identifier = "Messenger_SynchronousNotifications_ArbitraryPayloadTests">
+               </Test>
+               <Test
+                  Identifier = "Messenger_UnsubscribeTests">
+               </Test>
+               <Test
+                  Identifier = "MusicBrainzPreferencesTests">
+               </Test>
+               <Test
+                  Identifier = "NotificationSubscriberTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackLoopTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackPreferencesTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequenceCreationTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequenceIterationTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequencePeekingTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequenceRepeatAndShuffleTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSequenceTests">
+               </Test>
+               <Test
+                  Identifier = "PlaybackSessionTests">
+               </Test>
+               <Test
+                  Identifier = "PlaylistItemArrayTests">
+               </Test>
+               <Test
+                  Identifier = "PlaylistPersistenceTests">
+               </Test>
+               <Test
+                  Identifier = "PlaylistTestCase">
+               </Test>
+               <Test
+                  Identifier = "RemoteControlPreferencesTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerBeginAndEndTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerIteration_Group_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerIteration_GroupingPlaylists_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerIteration_TracksPlaylist_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPeeking_Group_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPeeking_GroupingPlaylists_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPeeking_TracksPlaylist_Tests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPlaylistReorderingTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPlaylistResizingTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerPlaylistTypeChangeTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerRepeatAndShuffleTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerTests">
+               </Test>
+               <Test
+                  Identifier = "SequencerTrackSelectionTests">
+               </Test>
+               <Test
+                  Identifier = "ShuffleSequenceIterationTests">
+               </Test>
+               <Test
+                  Identifier = "ShuffleSequenceTests">
+               </Test>
+               <Test
+                  Identifier = "ValueFormatterTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

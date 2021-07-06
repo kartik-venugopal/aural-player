@@ -177,4 +177,12 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
         
         Messenger.publish(.history_updated)
     }
+    
+    var persistentState: HistoryPersistentState {
+        
+        let recentlyAdded = allRecentlyAddedItems().map {HistoryItemPersistentState(item: $0)}
+        let recentlyPlayed = allRecentlyPlayedItems().map {HistoryItemPersistentState(item: $0)}
+        
+        return HistoryPersistentState(recentlyAdded: recentlyAdded, recentlyPlayed: recentlyPlayed)
+    }
 }

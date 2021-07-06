@@ -14,6 +14,12 @@ struct PlaybackProfilePersistentState: Codable {
     let file: URLPath?
     let lastPosition: Double?
     
+    init(file: URLPath?, lastPosition: Double?) {
+        
+        self.file = file
+        self.lastPosition = lastPosition
+    }
+    
     init(profile: PlaybackProfile) {
         
         self.file = profile.file.path

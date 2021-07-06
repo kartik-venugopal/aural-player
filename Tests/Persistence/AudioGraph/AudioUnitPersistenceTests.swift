@@ -15,71 +15,21 @@ class AudioUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            doTestPersistence(unitState: unitState, userPresets: randomAUPresets(),
-                              componentType: randomAUOSType(), componentSubType: randomAUOSType(),
-                              params: randomAUParams())
+            let serializedState = AudioUnitPersistentState(state: unitState, userPresets: randomAUPresets(),
+                                                           componentType: randomAUOSType(), componentSubType: randomAUOSType(),
+                                                           params: randomAUParams())
+            
+            doTestPersistence(serializedState: serializedState)
         }
         
-        for _ in 0..<100 {
+        for _ in 1...100 {
             
-            doTestPersistence(unitState: randomUnitState(), userPresets: randomAUPresets(),
-                              componentType: randomAUOSType(), componentSubType: randomAUOSType(),
-                              params: randomAUParams())
+            let serializedState = AudioUnitPersistentState(state: randomUnitState(), userPresets: randomAUPresets(),
+                                                           componentType: randomAUOSType(), componentSubType: randomAUOSType(),
+                                                           params: randomAUParams())
+            
+            doTestPersistence(serializedState: serializedState)
         }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [AudioUnitPresetPersistentState],
-                                   componentType: OSType, componentSubType: OSType,
-                                   params: [AudioUnitParameterPersistentState]) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = AudioUnitPersistentState(state: unitState, userPresets: userPresets,
-                                                       componentType: componentType,
-                                                       componentSubType: componentSubType,
-                                                       params: params)
-        
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: AudioUnitPersistentState.self) else {
-            
-            XCTFail("persistentState is nil, init of AudioUnit state failed.")
-            return
-        }
-        
-        validatePersistentState(persistentState: deserializedState, unitState: unitState,
-                                userPresets: userPresets, componentType: componentType,
-                                componentSubType: componentSubType, params: params)
-    }
-    
-    // MARK: Helper functions --------------------------------------------
-    
-    private func validatePersistentState(persistentState: AudioUnitPersistentState, unitState: EffectsUnitState?,
-                                         userPresets: [AudioUnitPresetPersistentState]?,
-                                         componentType: OSType?, componentSubType: OSType?,
-                                         params: [AudioUnitParameterPersistentState]?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of AudioUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        XCTAssertEqual(persistentState.componentType, componentType)
-        XCTAssertEqual(persistentState.componentSubType, componentSubType)
-        XCTAssertEqual(persistentState.params, params)
     }
 }
 

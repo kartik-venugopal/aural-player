@@ -17,36 +17,17 @@ class ReverbUnitPersistenceTests: AudioGraphPersistenceTestCase {
             
             for space in ReverbSpaces.allCases {
                 
-                for _ in 0..<100 {
+                for _ in 1...100 {
                     
-                    doTestPersistence(unitState: unitState, userPresets: randomReverbPresets(unitState: .active),
-                               space: space, amount: randomReverbAmount())
+                    let serializedState = ReverbUnitPersistentState(state: unitState,
+                                                                    userPresets: randomReverbPresets(unitState: .active),
+                                                                    space: space,
+                                                                    amount: randomReverbAmount())
+                    
+                    doTestPersistence(serializedState: serializedState)
                 }
             }
         }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [ReverbPresetPersistentState],
-                                   space: ReverbSpaces, amount: Float) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = ReverbUnitPersistentState(state: unitState,
-                                                        userPresets: userPresets,
-                                                        space: space,
-                                                        amount: amount)
-        
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: ReverbUnitPersistentState.self) else {
-            
-            XCTFail("deserializedState is nil, deserialization of ReverbUnit state failed.")
-            return
-        }
-        
-        validateReverbUnitPersistentState(deserializedState, unitState: unitState,
-                                userPresets: userPresets,
-                                space: space, amount: amount)
     }
 }
 

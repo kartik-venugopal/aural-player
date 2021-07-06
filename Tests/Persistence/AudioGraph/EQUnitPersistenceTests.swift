@@ -18,12 +18,14 @@ class EQUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for state in EffectsUnitState.allCases {
             
-            for _ in 0..<100 {
+            for _ in 1...100 {
                 
-                doTestPersistence(unitState: state, userPresets: randomEQPresets(unitState: .active),
-                                  type: .tenBand, globalGain: randomEQGlobalGain(),
-                                  bands: randomEQ10Bands())
+                let serializedState = EQUnitPersistentState(state: state,
+                                                            userPresets: randomEQPresets(unitState: .active),
+                                                            type: .tenBand, globalGain: randomEQGlobalGain(),
+                                                            bands: randomEQ10Bands())
                 
+                doTestPersistence(serializedState: serializedState)
             }
         }
     }
@@ -32,36 +34,16 @@ class EQUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for state in EffectsUnitState.allCases {
             
-            for _ in 0..<100 {
+            for _ in 1...100 {
                 
-                doTestPersistence(unitState: state, userPresets: randomEQPresets(unitState: .active),
-                                  type: .fifteenBand, globalGain: randomEQGlobalGain(),
-                                  bands: randomEQ15Bands())
+                let serializedState = EQUnitPersistentState(state: state,
+                                                            userPresets: randomEQPresets(unitState: .active),
+                                                            type: .fifteenBand, globalGain: randomEQGlobalGain(),
+                                                            bands: randomEQ15Bands())
+                
+                doTestPersistence(serializedState: serializedState)
             }
         }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [EQPresetPersistentState],
-                                   type: EQType, globalGain: Float, bands: [Float]) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = EQUnitPersistentState(state: unitState,
-            userPresets: userPresets,
-            type: type,
-            globalGain: globalGain,
-            bands: bands)
-
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: EQUnitPersistentState.self) else {
-            
-            XCTFail("deserializedState is nil, deserialization of EQUnit state failed.")
-            return
-        }
-        
-        validateEQUnitPersistentState(deserializedState, unitState: unitState,
-                                      userPresets: userPresets, type: type, globalGain: globalGain, bands: bands)
     }
 }
 

@@ -15,33 +15,15 @@ class FilterUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for state in EffectsUnitState.allCases {
             
-            for _ in 0..<100 {
+            for _ in 1...100 {
                 
-                doTestPersistence(unitState: state, userPresets: randomFilterPresets(unitState: .active),
-                                  bands: randomFilterBands())
+                let serializedState = FilterUnitPersistentState(state: state,
+                                                                userPresets: randomFilterPresets(unitState: .active),
+                                                                bands: randomFilterBands())
+                
+                doTestPersistence(serializedState: serializedState)
             }
         }
-    }
-    
-    private func doTestPersistence(unitState: EffectsUnitState, userPresets: [FilterPresetPersistentState],
-                                   bands: [FilterBandPersistentState]) {
-        
-        defer {persistentStateFile.delete()}
-        
-        let serializedState = FilterUnitPersistentState(state: unitState,
-                                                        userPresets: userPresets,
-                                                        bands: bands)
-        
-        persistenceManager.save(serializedState)
-        
-        guard let deserializedState = persistenceManager.load(type: FilterUnitPersistentState.self) else {
-            
-            XCTFail("persistentState is nil, deserialization of FilterUnit state failed.")
-            return
-        }
-        
-        validateFilterUnitPersistentState(persistentState: deserializedState, unitState: unitState,
-                                          userPresets: userPresets, bands: bands)
     }
 }
 
