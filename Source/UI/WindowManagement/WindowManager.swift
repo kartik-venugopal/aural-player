@@ -401,35 +401,3 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         return []
     }
 }
-
-class WindowLayoutState {
-    
-    static var showEffects: Bool = WindowLayoutDefaults.showEffects
-    static var showPlaylist: Bool = WindowLayoutDefaults.showPlaylist
-    
-    static var mainWindowOrigin: NSPoint = WindowLayoutDefaults.mainWindowOrigin
-    static var effectsWindowOrigin: NSPoint? = WindowLayoutDefaults.effectsWindowOrigin
-    static var playlistWindowFrame: NSRect? = WindowLayoutDefaults.playlistWindowFrame
-}
-
-class WindowLayoutDefaults {
-    
-    static let showEffects: Bool = true
-    static let showPlaylist: Bool = true
-    
-    static let mainWindowOrigin: NSPoint = NSPoint.zero
-    static let effectsWindowOrigin: NSPoint? = nil
-    static let playlistWindowFrame: NSRect? = nil
-}
-
-// Convenient accessor for information about the current appearance settings for the app's main windows.
-class WindowAppearanceState {
-    
-    static let defaultCornerRadius: CGFloat = 3
-    static var cornerRadius: CGFloat = defaultCornerRadius
-}
-
-// A snapshot of WindowAppearanceState
-struct WindowAppearance {
-    let cornerRadius: CGFloat
-}

@@ -45,10 +45,10 @@ enum WindowLayoutPresets: String, CaseIterable {
     
     // TODO: Should also check the screen and recompute when the screen changes
     // Recomputes the layout (useful when the window gap preference changes)
-    static func recompute(_ layout: WindowLayout) {
+    static func recompute(layout: WindowLayout, gap: CGFloat) {
         
         let preset = WindowLayoutPresets.fromDisplayName(layout.name)
-        let recomputedLayout = preset.layout
+        let recomputedLayout = preset.layout(gap: gap)
         
         layout.mainWindowOrigin = recomputedLayout.mainWindowOrigin
         layout.effectsWindowOrigin = recomputedLayout.effectsWindowOrigin
@@ -74,17 +74,11 @@ enum WindowLayoutPresets: String, CaseIterable {
         default:
             
             return true
-            
         }
     }
     
-    private var gapBetweenWindows: CGFloat {
-        CGFloat(ObjectGraph.preferences.viewPreferences.windowGap)
-    }
-    
-    var layout: WindowLayout {
+    func layout(gap: CGFloat) -> WindowLayout {
         
-        let gap = gapBetweenWindows
         let twoGaps = 2 * gap
         
         // Compute this only once

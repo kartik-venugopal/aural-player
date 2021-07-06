@@ -134,3 +134,21 @@ extension Double {
         return theOp1.approxEquals(theOp2, accuracy: accuracy)
     }
 }
+
+extension CGFloat {
+    
+    static func approxEquals(_ op1: CGFloat?, _ op2: CGFloat?, accuracy: CGFloat) -> Bool {
+        
+        if op1 == nil {return op2 == nil}
+        if op2 == nil {return false}
+        
+        guard let theOp1 = op1, let theOp2 = op2 else {return false}
+        
+        return theOp1.approxEquals(theOp2, accuracy: accuracy)
+    }
+    
+    func approxEquals(_ other: CGFloat, accuracy: CGFloat) -> Bool {
+        abs(self - other) <= accuracy
+    }
+}
+

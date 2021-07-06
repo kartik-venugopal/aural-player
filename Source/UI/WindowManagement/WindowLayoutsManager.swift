@@ -11,9 +11,13 @@ import Cocoa
 
 class WindowLayoutsManager: MappedPresets<WindowLayout> {
     
-    init(persistentState: WindowLayoutsPersistentState?) {
+    private let viewPreferences: ViewPreferences
+    
+    init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
         
-        let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout}
+        self.viewPreferences = viewPreferences
+        
+        let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout(gap: CGFloat(viewPreferences.windowGap))}
         let userDefinedLayouts: [WindowLayout] = persistentState?.userLayouts?.compactMap
         {WindowLayout(persistentState: $0)} ?? []
         
@@ -25,6 +29,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout> {
     }
     
     func recomputeSystemDefinedLayouts() {
-        systemDefinedPresets.forEach {WindowLayoutPresets.recompute($0)}
+        systemDefinedPresets.forEach {WindowLayoutPresets.recompute(layout: $0, gap: CGFloat(viewPreferences.windowGap))}
     }
 }

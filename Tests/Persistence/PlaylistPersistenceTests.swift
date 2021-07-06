@@ -11,6 +11,19 @@ import XCTest
 
 class PlaylistPersistenceTests: PersistenceTestCase {
     
+    func testPersistence_emptyPlaylist() {
+        
+        let groupingPlaylists: [String: GroupingPlaylistPersistentState] = [
+        
+            "artists": GroupingPlaylistPersistentState(type: .artists, groups: []),
+            "albums": GroupingPlaylistPersistentState(type: .albums, groups: []),
+            "genres": GroupingPlaylistPersistentState(type: .genres, groups: []),
+        ]
+        
+        let playlistState = PlaylistPersistentState(tracks: [], groupingPlaylists: groupingPlaylists)
+        doTestPersistence(serializedState: playlistState)
+    }
+    
     func testPersistence() {
         
         for _ in 1...100 {

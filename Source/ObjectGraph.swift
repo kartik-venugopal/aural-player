@@ -21,7 +21,7 @@ class ObjectGraph {
     
     static let persistentState: PersistentAppState = persistenceManager.load(type: PersistentAppState.self) ?? PersistentAppState.defaults
     
-    static let lastPresentedAppMode: AppMode = persistentState.ui?.appMode ?? AppMode.defaultMode
+    static var lastPresentedAppMode: AppMode {persistentState.ui?.appMode ?? AppMode.defaultMode}
     
     static let preferences: Preferences = Preferences.instance
     
@@ -105,7 +105,9 @@ class ObjectGraph {
     static let musicBrainzCache: MusicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache,
                                                                      preferences: preferences.metadataPreferences.musicBrainz)
     
-    static let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout)
+    static let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
+                                                                                 viewPreferences: preferences.viewPreferences)
+    
     static let themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     static let fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
     static let colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
