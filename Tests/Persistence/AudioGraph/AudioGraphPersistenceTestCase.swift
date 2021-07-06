@@ -11,6 +11,34 @@ import XCTest
 
 class AudioGraphPersistenceTestCase: PersistenceTestCase {
     
+    // MARK: Master unit --------------------------------------------
+    
+    func randomMasterPresets(count: Int? = nil) -> [MasterPresetPersistentState] {
+        
+        let numPresets = count ?? Int.random(in: 0...10)
+        if numPresets == 0 {return []}
+        
+        let eqPresets = randomEQPresets(count: numPresets).compactMap {EQPreset(persistentState: $0)}
+        let pitchShiftPresets = randomPitchShiftPresets(count: numPresets).compactMap {PitchPreset(persistentState: $0)}
+        let timeStretchPresets = randomTimeStretchPresets(count: numPresets).compactMap {TimePreset(persistentState: $0)}
+        let reverbPresets = randomReverbPresets(count: numPresets).compactMap {ReverbPreset(persistentState: $0)}
+        let delayPresets = randomDelayPresets(count: numPresets).compactMap {DelayPreset(persistentState: $0)}
+        let filterPresets = randomFilterPresets(count: numPresets).compactMap {FilterPreset(persistentState: $0)}
+        
+        return (0..<numPresets).map {index in
+            
+            let preset = MasterPreset("preset-\(index + 1)", eqPresets[index],
+                                      pitchShiftPresets[index],
+                                      timeStretchPresets[index],
+                                      reverbPresets[index],
+                                      delayPresets[index],
+                                      filterPresets[index],
+                                      false)
+            
+            return MasterPresetPersistentState(preset: preset)
+        }
+    }
+    
     // MARK: EQ unit --------------------------------------------
     
     func randomNillableEQPresets(unitState: EffectsUnitState? = nil) -> [EQPresetPersistentState]? {
@@ -383,7 +411,7 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         
         let numPresets = count ?? Int.random(in: 0...10)
         
-        return numPresets == 0 ? [] : (0..<numPresets).map {index in
+        return numPresets == 0 ? [] : (1...numPresets).map {index in
             
             let numBands = Int.random(in: 1...10)
             let bands = (0..<numBands).map {(_: Int) -> FilterBand in
@@ -447,5 +475,89 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         }
         
         XCTAssertEqual(persistentState.bands, bands)
+    }
+    
+    // MARK: Audio Unit -------------------------------------------
+    
+    func randomNillableAUParams() -> [AudioUnitParameterPersistentState]? {
+        randomNillableValue {self.randomAUParams()}
+    }
+    
+    func randomAUParams() -> [AudioUnitParameterPersistentState] {
+        
+        let numParams = Int.random(in: 1...100)
+        
+        return (1...numParams).map {_ in
+            AudioUnitParameterPersistentState(address: randomAUParamAddress(), value: randomAUParamValue())
+        }
+    }
+    
+    func randomAUParamAddress() -> UInt64 {
+        UInt64.random(in: 1...UInt64.max)
+    }
+    
+    func randomAUParamValue() -> Float {
+        Float.random(in: -100000...100000)
+    }
+
+    func randomNillableAUOSType() -> OSType? {
+        randomNillableValue {self.randomAUOSType()}
+    }
+    
+    func randomAUOSType() -> OSType {
+        OSType.random(in: OSType.min...OSType.max)
+    }
+    
+    func randomAUPresetNumber() -> Int {
+        Int.random(in: 0...Int.max)
+    }
+    
+    func randomNillableAUPresets() -> [AudioUnitPresetPersistentState]? {
+        randomNillableValue {self.randomAUPresets()}
+    }
+    
+    func randomAUPresets() -> [AudioUnitPresetPersistentState] {
+        
+        let numPresets = Int.random(in: 0...10)
+        
+        return numPresets == 0 ? [] : (1...numPresets).map {index in
+
+            AudioUnitPresetPersistentState(preset: AudioUnitPreset("preset-\(index)", .active, false,
+                                                                 componentType: randomAUOSType(),
+                                                                 componentSubType: randomAUOSType(),
+                                                                 number: randomAUPresetNumber()))
+        }
+    }
+    
+    // MARK: Audio Device -----------------------------------------
+    
+    func randomDeviceName() -> String {
+        randomString(length: Int.random(in: 10...30))
+    }
+    
+    func randomDeviceUID() -> String {
+        UUID().uuidString
+    }
+    
+    // MARK: Sound Profile ----------------------------------------
+    
+    func randomVolume() -> Float {
+        Float.random(in: 0...1)
+    }
+    
+    func randomBalance() -> Float {
+        Float.random(in: -1...1)
+    }
+    
+    func randomFileExtension() -> URLPath {
+        
+        let randomIndex = Int.random(in: 0..<SupportedTypes.allAudioExtensions.count)
+        return SupportedTypes.allAudioExtensions[randomIndex]
+    }
+    
+    func randomFile() -> URLPath {
+        
+        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+        return "/\(pathComponents.joined(separator: "/")).\(randomFileExtension())"
     }
 }

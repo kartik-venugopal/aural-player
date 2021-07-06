@@ -9,22 +9,22 @@
 //  
 import XCTest
 
-class AudioUnitPersistenceTests: PersistenceTestCase {
+class AudioUnitPersistenceTests: AudioGraphPersistenceTestCase {
     
     func testPersistence() {
         
         for unitState in EffectsUnitState.allCases {
             
-            doTestPersistence(unitState: unitState, userPresets: randomPresets(),
-                              componentType: randomOSType(), componentSubType: randomOSType(),
-                              params: randomParams())
+            doTestPersistence(unitState: unitState, userPresets: randomAUPresets(),
+                              componentType: randomAUOSType(), componentSubType: randomAUOSType(),
+                              params: randomAUParams())
         }
         
         for _ in 0..<100 {
             
-            doTestPersistence(unitState: randomUnitState(), userPresets: randomPresets(),
-                              componentType: randomOSType(), componentSubType: randomOSType(),
-                              params: randomParams())
+            doTestPersistence(unitState: randomUnitState(), userPresets: randomAUPresets(),
+                              componentType: randomAUOSType(), componentSubType: randomAUOSType(),
+                              params: randomAUParams())
         }
     }
     
@@ -35,7 +35,9 @@ class AudioUnitPersistenceTests: PersistenceTestCase {
         defer {persistentStateFile.delete()}
         
         let serializedState = AudioUnitPersistentState(state: unitState, userPresets: userPresets,
-                                                       componentType: componentType, componentSubType: componentSubType, params: params)
+                                                       componentType: componentType,
+                                                       componentSubType: componentSubType,
+                                                       params: params)
         
         persistenceManager.save(serializedState)
         
@@ -51,54 +53,6 @@ class AudioUnitPersistenceTests: PersistenceTestCase {
     }
     
     // MARK: Helper functions --------------------------------------------
-    
-    private func randomNillableParams() -> [AudioUnitParameterPersistentState]? {
-        randomNillableValue {self.randomParams()}
-    }
-    
-    private func randomParams() -> [AudioUnitParameterPersistentState] {
-        
-        let numParams = Int.random(in: 1...100)
-        
-        return (1...numParams).map {_ in
-            AudioUnitParameterPersistentState(address: randomParamAddress(), value: randomParamValue())
-        }
-    }
-    
-    private func randomParamAddress() -> UInt64 {
-        UInt64.random(in: 1...UInt64.max)
-    }
-    
-    private func randomParamValue() -> Float {
-        Float.random(in: -100000...100000)
-    }
-
-    private func randomNillableOSType() -> OSType? {
-        randomNillableValue {self.randomOSType()}
-    }
-    
-    private func randomOSType() -> OSType {
-        OSType.random(in: OSType.min...OSType.max)
-    }
-    
-    private func randomPresetNumber() -> Int {
-        Int.random(in: 0...Int.max)
-    }
-    
-    private func randomNillablePresets() -> [AudioUnitPresetPersistentState]? {
-        randomNillableValue {self.randomPresets()}
-    }
-    
-    private func randomPresets() -> [AudioUnitPresetPersistentState] {
-        
-        let numPresets = Int.random(in: 0...10)
-        
-        return numPresets == 0 ? [] : (1...numPresets).map {index in
-
-            AudioUnitPresetPersistentState(preset: AudioUnitPreset("preset-\(index)", .active,
-                                                                 false, componentType: randomOSType(), componentSubType: randomOSType(), number: randomPresetNumber()))
-        }
-    }
     
     private func validatePersistentState(persistentState: AudioUnitPersistentState, unitState: EffectsUnitState?,
                                          userPresets: [AudioUnitPresetPersistentState]?,
@@ -130,6 +84,17 @@ class AudioUnitPersistenceTests: PersistenceTestCase {
 }
 
 // MARK: Equality comparison for model objects -----------------------------
+
+extension AudioUnitPersistentState: Equatable {
+    
+    static func == (lhs: AudioUnitPersistentState, rhs: AudioUnitPersistentState) -> Bool {
+        
+        lhs.userPresets == rhs.userPresets && lhs.state == rhs.state &&
+            lhs.componentType == rhs.componentType &&
+            lhs.componentSubType == rhs.componentSubType &&
+            lhs.params == rhs.params
+    }
+}
 
 extension AudioUnitPresetPersistentState: Equatable {
     

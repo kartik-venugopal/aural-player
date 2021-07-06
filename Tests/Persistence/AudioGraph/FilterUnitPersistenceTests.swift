@@ -47,6 +47,13 @@ class FilterUnitPersistenceTests: AudioGraphPersistenceTestCase {
 
 // MARK: Equality comparison for model objects -----------------------------
 
+extension FilterUnitPersistentState: Equatable {
+    
+    static func == (lhs: FilterUnitPersistentState, rhs: FilterUnitPersistentState) -> Bool {
+        lhs.userPresets == rhs.userPresets && lhs.state == rhs.state && lhs.bands == rhs.bands
+    }
+}
+
 extension FilterPresetPersistentState: Equatable {
     
     static func == (lhs: FilterPresetPersistentState, rhs: FilterPresetPersistentState) -> Bool {

@@ -16,14 +16,14 @@ class MasterUnitPersistenceTests: AudioGraphPersistenceTestCase {
         for state in EffectsUnitState.allCases {
             
             for _ in 0..<100 {
-                doTestPersistence(unitState: state, userPresets: randomPresets())
+                doTestPersistence(unitState: state, userPresets: randomMasterPresets())
             }
         }
     }
     
     private func doTestPersistence(unitState: EffectsUnitState, userPresets: [MasterPresetPersistentState]) {
         
-        defer {persistenceManager.persistentStateFile.delete()}
+        defer {persistentStateFile.delete()}
         
         let serializedState = MasterUnitPersistentState(state: unitState, userPresets: userPresets)
         persistenceManager.save(serializedState)
@@ -40,34 +40,8 @@ class MasterUnitPersistenceTests: AudioGraphPersistenceTestCase {
     
     // MARK: Helper functions ---------------------------------------
     
-    private func randomPresets() -> [MasterPresetPersistentState] {
-        
-        let numPresets = Int.random(in: 0...10)
-        if numPresets == 0 {return []}
-        
-        let eqPresets = randomEQPresets(count: numPresets).compactMap {EQPreset(persistentState: $0)}
-        let pitchShiftPresets = randomPitchShiftPresets(count: numPresets).compactMap {PitchPreset(persistentState: $0)}
-        let timeStretchPresets = randomTimeStretchPresets(count: numPresets).compactMap {TimePreset(persistentState: $0)}
-        let reverbPresets = randomReverbPresets(count: numPresets).compactMap {ReverbPreset(persistentState: $0)}
-        let delayPresets = randomDelayPresets(count: numPresets).compactMap {DelayPreset(persistentState: $0)}
-        let filterPresets = randomFilterPresets(count: numPresets).compactMap {FilterPreset(persistentState: $0)}
-        
-        return (0..<numPresets).map {index in
-            
-            let preset = MasterPreset("preset-\(index + 1)", eqPresets[index],
-                                      pitchShiftPresets[index],
-                                      timeStretchPresets[index],
-                                      reverbPresets[index],
-                                      delayPresets[index],
-                                      filterPresets[index],
-                                      false)
-            
-            return MasterPresetPersistentState(preset: preset)
-        }
-    }
-    
     private func randomNillablePresets() -> [MasterPresetPersistentState]? {
-        randomNillableValue {self.randomPresets()}
+        randomNillableValue {self.randomMasterPresets()}
     }
     
     private func validatePersistentState(persistentState: MasterUnitPersistentState,
@@ -94,6 +68,13 @@ class MasterUnitPersistenceTests: AudioGraphPersistenceTestCase {
 }
 
 // MARK: Equality comparison for model objects -----------------------------
+
+extension MasterUnitPersistentState: Equatable {
+    
+    static func == (lhs: MasterUnitPersistentState, rhs: MasterUnitPersistentState) -> Bool {
+        lhs.state == rhs.state && lhs.userPresets == rhs.userPresets
+    }
+}
 
 extension MasterPresetPersistentState: Equatable {
     

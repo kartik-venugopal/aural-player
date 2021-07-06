@@ -17,4 +17,19 @@ class PersistenceTestCase: AuralTestCase {
     override func tearDown() {
         persistentStateFile.delete()
     }
+    
+    func doTestPersistence<T>(serializedState: T) where T: Codable, T: Equatable {
+        
+        defer {persistentStateFile.delete()}
+        
+        persistenceManager.save(serializedState)
+        
+        guard let deserializedState = persistenceManager.load(type: T.self) else {
+            
+            XCTFail("deserializedState is nil, deserialization of \(T.self) failed.")
+            return
+        }
+        
+        XCTAssertEqual(deserializedState, serializedState)
+    }
 }

@@ -52,6 +52,15 @@ class ReverbUnitPersistenceTests: AudioGraphPersistenceTestCase {
 
 // MARK: Equality comparison for model objects -----------------------------
 
+extension ReverbUnitPersistentState: Equatable {
+    
+    static func == (lhs: ReverbUnitPersistentState, rhs: ReverbUnitPersistentState) -> Bool {
+        
+        lhs.userPresets == rhs.userPresets && lhs.state == rhs.state && lhs.space == rhs.space &&
+            Float.approxEquals(lhs.amount, rhs.amount, accuracy: 0.001)
+    }
+}
+
 extension ReverbPresetPersistentState: Equatable {
     
     static func == (lhs: ReverbPresetPersistentState, rhs: ReverbPresetPersistentState) -> Bool {

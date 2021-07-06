@@ -52,6 +52,18 @@ class DelayUnitPersistenceTests: AudioGraphPersistenceTestCase {
 
 // MARK: Equality comparison for model objects -----------------------------
 
+extension DelayUnitPersistentState: Equatable {
+    
+    static func == (lhs: DelayUnitPersistentState, rhs: DelayUnitPersistentState) -> Bool {
+        
+        lhs.userPresets == rhs.userPresets && lhs.state == rhs.state &&
+            Float.approxEquals(lhs.amount, rhs.amount, accuracy: 0.001) &&
+            Double.approxEquals(lhs.time, rhs.time, accuracy: 0.001) &&
+            Float.approxEquals(lhs.feedback, rhs.feedback, accuracy: 0.001) &&
+            Float.approxEquals(lhs.lowPassCutoff, rhs.lowPassCutoff, accuracy: 0.001)
+    }
+}
+
 extension DelayPresetPersistentState: Equatable {
     
     static func == (lhs: DelayPresetPersistentState, rhs: DelayPresetPersistentState) -> Bool {

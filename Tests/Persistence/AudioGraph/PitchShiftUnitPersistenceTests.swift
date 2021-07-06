@@ -51,6 +51,16 @@ class PitchShiftUnitPersistenceTests: AudioGraphPersistenceTestCase {
 
 // MARK: Equality comparison for model objects -----------------------------
 
+extension PitchShiftUnitPersistentState: Equatable {
+    
+    static func == (lhs: PitchShiftUnitPersistentState, rhs: PitchShiftUnitPersistentState) -> Bool {
+        
+        lhs.userPresets == rhs.userPresets && lhs.state == rhs.state &&
+            Float.approxEquals(lhs.pitch, rhs.pitch, accuracy: 0.001) &&
+            Float.approxEquals(lhs.overlap, rhs.overlap, accuracy: 0.001)
+    }
+}
+
 extension PitchShiftPresetPersistentState: Equatable {
     
     static func == (lhs: PitchShiftPresetPersistentState, rhs: PitchShiftPresetPersistentState) -> Bool {

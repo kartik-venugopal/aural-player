@@ -67,6 +67,17 @@ class EQUnitPersistenceTests: AudioGraphPersistenceTestCase {
 
 // MARK: Equality comparison for model objects -----------------------------
 
+extension EQUnitPersistentState: Equatable {
+    
+    static func == (lhs: EQUnitPersistentState, rhs: EQUnitPersistentState) -> Bool {
+        
+        lhs.state == rhs.state && lhs.userPresets == rhs.userPresets &&
+            lhs.type == rhs.type &&
+            [Float].approxEquals(lhs.bands, rhs.bands, accuracy: 0.001) &&
+            Float.approxEquals(lhs.globalGain, rhs.globalGain, accuracy: 0.001)
+    }
+}
+
 extension EQPresetPersistentState: Equatable {
     
     static func == (lhs: EQPresetPersistentState, rhs: EQPresetPersistentState) -> Bool {

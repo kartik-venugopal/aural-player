@@ -54,6 +54,17 @@ class TimeStretchUnitPersistenceTests: AudioGraphPersistenceTestCase {
 
 // MARK: Equality comparison for model objects -----------------------------
 
+extension TimeStretchUnitPersistentState: Equatable {
+    
+    static func == (lhs: TimeStretchUnitPersistentState, rhs: TimeStretchUnitPersistentState) -> Bool {
+        
+        lhs.userPresets == rhs.userPresets && lhs.state == rhs.state &&
+            Float.approxEquals(lhs.rate, rhs.rate, accuracy: 0.001) &&
+            lhs.shiftPitch == rhs.shiftPitch &&
+            Float.approxEquals(lhs.overlap, rhs.overlap, accuracy: 0.001)
+    }
+}
+
 extension TimeStretchPresetPersistentState: Equatable {
     
     static func == (lhs: TimeStretchPresetPersistentState, rhs: TimeStretchPresetPersistentState) -> Bool {
