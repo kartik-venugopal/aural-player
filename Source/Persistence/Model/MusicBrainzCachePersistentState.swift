@@ -21,22 +21,3 @@ struct MusicBrainzCacheEntryPersistentState: Codable {
     let title: String?
     let file: URLPath?
 }
-
-extension MusicBrainzCache: PersistentModelObject {
-    
-    var persistentState: MusicBrainzCachePersistentState {
-        
-        var releases: [MusicBrainzCacheEntryPersistentState] = []
-        var recordings: [MusicBrainzCacheEntryPersistentState] = []
-        
-        for (artist, title, file) in self.onDiskReleasesCache.entries {
-            releases.append(MusicBrainzCacheEntryPersistentState(artist: artist, title: title, file: file.path))
-        }
-        
-        for (artist, title, file) in self.onDiskRecordingsCache.entries {
-            recordings.append(MusicBrainzCacheEntryPersistentState(artist: artist, title: title, file: file.path))
-        }
-        
-        return MusicBrainzCachePersistentState(releases: releases, recordings: recordings)
-    }
-}

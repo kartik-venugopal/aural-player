@@ -693,6 +693,11 @@
 		3EA62F602693E1D3004A780A /* FavoritePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0C526805C19008ECB8C /* FavoritePersistentState.swift */; };
 		3EA62F622693E1DD004A780A /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F1725CEB98500BF0D07 /* Favorite.swift */; };
 		3EA7633C260639F800CD9F81 /* CloseFileHandlesAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */; };
+		3EABDD8B2694824A008066E8 /* BookmarkPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0B526805C18008ECB8C /* BookmarkPersistentState.swift */; };
+		3EABDD8E26948258008066E8 /* BookmarksPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDD8D26948258008066E8 /* BookmarksPersistenceTests.swift */; };
+		3EABDD91269483E7008066E8 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10B525CEB98700BF0D07 /* Bookmark.swift */; };
+		3EABDD9426948657008066E8 /* MusicBrainzCachePersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDD9326948657008066E8 /* MusicBrainzCachePersistenceTests.swift */; };
+		3EABDD9626948686008066E8 /* MusicBrainzCachePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D09D26805C18008ECB8C /* MusicBrainzCachePersistentState.swift */; };
 		3EAFB5D3267FE79200F0DC96 /* CoverArt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5D2267FE79200F0DC96 /* CoverArt.swift */; };
 		3EAFB5D5267FE7CC00F0DC96 /* FileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5D4267FE7CC00F0DC96 /* FileMetadata.swift */; };
 		3EAFB5D7267FE7E400F0DC96 /* PlaylistMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5D6267FE7E400F0DC96 /* PlaylistMetadata.swift */; };
@@ -1636,6 +1641,8 @@
 		3EA65334267B22D100BF1F24 /* codec_desc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = codec_desc.h; sourceTree = "<group>"; };
 		3EA65337267B2F8200BF1F24 /* opt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = opt.h; sourceTree = "<group>"; };
 		3EA7633B260639F800CD9F81 /* CloseFileHandlesAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseFileHandlesAction.swift; sourceTree = "<group>"; };
+		3EABDD8D26948258008066E8 /* BookmarksPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksPersistenceTests.swift; sourceTree = "<group>"; };
+		3EABDD9326948657008066E8 /* MusicBrainzCachePersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCachePersistenceTests.swift; sourceTree = "<group>"; };
 		3EAFB5D2267FE79200F0DC96 /* CoverArt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverArt.swift; sourceTree = "<group>"; };
 		3EAFB5D4267FE7CC00F0DC96 /* FileMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetadata.swift; sourceTree = "<group>"; };
 		3EAFB5D6267FE7E400F0DC96 /* PlaylistMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistMetadata.swift; sourceTree = "<group>"; };
@@ -4126,6 +4133,8 @@
 				3EA62F4F2693D86A004A780A /* PlaybackProfilesPersistenceTests.swift */,
 				3EA62F562693DAF9004A780A /* HistoryPersistenceTests.swift */,
 				3EA62F5D2693E180004A780A /* FavoritesPersistenceTests.swift */,
+				3EABDD8D26948258008066E8 /* BookmarksPersistenceTests.swift */,
+				3EABDD9326948657008066E8 /* MusicBrainzCachePersistenceTests.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -4962,6 +4971,7 @@
 				3EA62F542693D977004A780A /* PlaybackProfiles.swift in Sources */,
 				3E21ECD6268F4A4600731E4C /* SearchQuery.swift in Sources */,
 				3E21ECBF268F49B900731E4C /* TrackIOErrors.swift in Sources */,
+				3EABDD8B2694824A008066E8 /* BookmarkPersistentState.swift in Sources */,
 				3EA3ADAF26921E3E0066A918 /* MasterUnitPersistenceTests.swift in Sources */,
 				3EA3ADB226921F4A0066A918 /* MasterUnitPersistentState.swift in Sources */,
 				3EA1BE08268F609A00A5D81B /* ShuffleSequenceTests.swift in Sources */,
@@ -4971,6 +4981,7 @@
 				3EA1BE15268F60DA00A5D81B /* ShuffleSequenceIterationTests.swift in Sources */,
 				3EA1BE33268F6A6700A5D81B /* FlatPlaylistProtocols.swift in Sources */,
 				3ED6D905269268D6007DA433 /* MockTrack.swift in Sources */,
+				3EABDD8E26948258008066E8 /* BookmarksPersistenceTests.swift in Sources */,
 				3EA1BDF4268F509300A5D81B /* ConcurrentSet.swift in Sources */,
 				3EFDA96F268F726900CFF785 /* AudioGraphDefaults.swift in Sources */,
 				3EFDA96B268F724B00CFF785 /* MappedPresets.swift in Sources */,
@@ -5011,6 +5022,7 @@
 				3E21ECD5268F4A4600731E4C /* SortComparator.swift in Sources */,
 				3EEF3739268F6B5A002EA77F /* SequencerPlaylistTypeChangeTests.swift in Sources */,
 				3EE4B846268F95A3006BDEB2 /* ReverbUnitPersistentState.swift in Sources */,
+				3EABDD91269483E7008066E8 /* Bookmark.swift in Sources */,
 				3EA1BE2F268F6A4700A5D81B /* ChangeListenerProtocols.swift in Sources */,
 				3EA1BE1A268F628E00A5D81B /* PlaybackSession.swift in Sources */,
 				3EE4B84C268F99BC006BDEB2 /* DelayPresets.swift in Sources */,
@@ -5070,6 +5082,7 @@
 				3EE9BBE9268F90BE0073321A /* TimeStretchUnitPersistenceTests.swift in Sources */,
 				3E21ECCE268F4A1900731E4C /* AudioInfo.swift in Sources */,
 				3EE4B87B268FD734006BDEB2 /* PersistenceManager.swift in Sources */,
+				3EABDD9426948657008066E8 /* MusicBrainzCachePersistenceTests.swift in Sources */,
 				3EEF3748268F6D5D002EA77F /* SequencerIteration_Group_Tests.swift in Sources */,
 				3EA1BDEF268F507D00A5D81B /* NotificationSubscriberTests.swift in Sources */,
 				3EA62F462693BE3D004A780A /* AudioGraphPersistentState.swift in Sources */,
@@ -5122,6 +5135,7 @@
 				3E21ECCA268F4A1900731E4C /* MetadataEntry.swift in Sources */,
 				3EA62F592693DB69004A780A /* HistoryPersistentState.swift in Sources */,
 				3EA1BE20268F62C100A5D81B /* PlaybackLoopTests.swift in Sources */,
+				3EABDD9626948686008066E8 /* MusicBrainzCachePersistentState.swift in Sources */,
 				3EA1BDE2268F4F6500A5D81B /* Messenger.swift in Sources */,
 				3EEF3751268F703F002EA77F /* EQType.swift in Sources */,
 				3EDDEFC5269156B200219BDA /* PlayerTests.swift in Sources */,

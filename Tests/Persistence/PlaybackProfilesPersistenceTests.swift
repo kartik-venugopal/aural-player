@@ -24,15 +24,11 @@ class PlaybackProfilesPersistenceTests: PersistenceTestCase {
             let profiles = (1...numProfiles).map {_ in
                 
                 PlaybackProfilePersistentState(file: randomAudioFile(),
-                                                           lastPosition: randomPlaybackPosition())
+                                               lastPosition: randomPlaybackPosition())
             }
             
             doTestPersistence(serializedState: profiles)
         }
-    }
-    
-    private func randomPlaybackPosition() -> Double {
-        Double.random(in: 0...36000)
     }
 }
 

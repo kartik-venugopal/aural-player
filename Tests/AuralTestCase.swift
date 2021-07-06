@@ -90,6 +90,14 @@ class AuralTestCase: XCTestCase {
         return SupportedTypes.allAudioExtensions[randomIndex]
     }
     
+    private let imageFileExtensions: [String] = ["jpg", "png", "tiff", "bmp"]
+    
+    func randomImageFileExtension() -> URLPath {
+        
+        let randomIndex = Int.random(in: 0..<imageFileExtensions.count)
+        return imageFileExtensions[randomIndex]
+    }
+    
     func randomAudioFile() -> URLPath {
         
         let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
@@ -102,10 +110,49 @@ class AuralTestCase: XCTestCase {
         return "/\(pathComponents.joined(separator: "/")).m3u"
     }
     
+    func randomImageFile() -> URLPath {
+        
+        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+        return "/\(pathComponents.joined(separator: "/")).\(randomImageFileExtension())"
+    }
+    
     func randomFolder() -> URLPath {
         
         let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
         return "/\(pathComponents.joined(separator: "/"))"
+    }
+    
+    func randomPlaybackPosition() -> Double {
+        Double.random(in: 0...36000)
+    }
+    
+    // TODO: Run a program to list all unique artists / albums / genres from Music folder and put them into a text/json file.
+    // Then load them up in one place (a Utils class) and reuse the Util across unit tests.
+    
+    let artists: [String] = ["Conjure One", "Grimes", "Madonna", "Pink Floyd", "Dire Straits", "Ace of Base", "Delerium", "Blue Stone", "Jaia", "Paul Van Dyk", "Balligomingo", "Michael Jackson", "ATB"]
+    
+    let albums: [String] = ["Exilarch", "Halfaxa", "Vogue", "The Wall", "Brothers in Arms", "The Sign", "Music Box Opera", "Messages", "Mai Mai", "Reflections"]
+    
+    let genres: [String] = ["Electronica", "Pop", "Rock", "Dance", "International", "Jazz", "Ambient", "House", "Trance", "Techno", "Psybient", "PsyTrance", "Classical", "Opera"]
+    
+    func randomTitle() -> String {
+        randomString(length: Int.random(in: 3...50))
+    }
+    
+    func randomDuration() -> Double {
+        Double.random(in: 60...10800)
+    }
+    
+    func randomArtist() -> String {
+        return artists[Int.random(in: 0..<artists.count)]
+    }
+    
+    func randomAlbum() -> String {
+        return albums[Int.random(in: 0..<albums.count)]
+    }
+    
+    func randomGenre() -> String {
+        return genres[Int.random(in: 0..<genres.count)]
     }
 }
 
