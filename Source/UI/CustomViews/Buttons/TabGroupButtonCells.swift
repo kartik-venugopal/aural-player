@@ -65,10 +65,10 @@ class ModalDialogTabButtonCell: TabGroupButtonCell {
 
 class ContrastedModalDialogTabButtonCell: TabGroupButtonCell {
     
-    override var selectionBoxColor: NSColor {Colors.Constants.white70Percent}
+    override var selectionBoxColor: NSColor {ColorConstants.white70Percent}
     override var selectedTextColor: NSColor {.black}
 }
 
 class EQPreviewTabButtonCell: TabGroupButtonCell {
-    override var selectionBoxColor: NSColor {return Colors.Constants.white15Percent}
+    override var selectionBoxColor: NSColor {return ColorConstants.white15Percent}
 }

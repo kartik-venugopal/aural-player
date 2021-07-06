@@ -232,7 +232,7 @@ class ColorSchemePreviewView: NSView {
         }
     }
     
-    var playlistTrackTitleColor: NSColor = Colors.Constants.white70Percent {
+    var playlistTrackTitleColor: NSColor = ColorConstants.white70Percent {
         
         didSet {
             playlistTrackTitleLabels.forEach({$0.textColor = playlistTrackTitleColor})
@@ -253,35 +253,35 @@ class ColorSchemePreviewView: NSView {
         }
     }
     
-    var playlistSelectedDurationColor: NSColor = Colors.Constants.white70Percent {
+    var playlistSelectedDurationColor: NSColor = ColorConstants.white70Percent {
         
         didSet {
             lblPlaylistSelectedDuration.textColor = playlistSelectedDurationColor
         }
     }
     
-    var playlistSelectionBoxColor: NSColor = Colors.Constants.white15Percent {
+    var playlistSelectionBoxColor: NSColor = ColorConstants.white15Percent {
         
         didSet {
             playlistSelectionBox.fillColor = playlistSelectionBoxColor
         }
     }
     
-    var playingTrackIconColor: NSColor = Colors.Constants.green75Percent {
+    var playingTrackIconColor: NSColor = ColorConstants.green75Percent {
         
         didSet {
             imgPlayingTrack.reTint()
         }
     }
     
-    var activeUnitColor: NSColor = Colors.Constants.green75Percent {
+    var activeUnitColor: NSColor = ColorConstants.green75Percent {
         
         didSet {
             btnBypass.reTint()
         }
     }
     
-    var effectsCaptionColor: NSColor = Colors.Constants.white50Percent {
+    var effectsCaptionColor: NSColor = ColorConstants.white50Percent {
         
         didSet {
             lblFxCaption.textColor = effectsCaptionColor
@@ -366,7 +366,7 @@ class PlaylistPreviewTabButtonCell: PlaylistViewsButtonCell {
     
     var tabButtonTextColor: NSColor = NSColor.white
     var selectedTabButtonTextColor: NSColor = NSColor.white
-    var _selectionBoxColor: NSColor = Colors.Constants.white15Percent
+    var _selectionBoxColor: NSColor = ColorConstants.white15Percent
     
     override var unselectedTextColor: NSColor {tabButtonTextColor}
     override var selectedTextColor: NSColor {selectedTabButtonTextColor}

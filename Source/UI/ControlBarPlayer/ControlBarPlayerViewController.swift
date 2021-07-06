@@ -305,5 +305,5 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
 }
 
 class SeekPositionDisplayTypeMenuItem: NSMenuItem {
-    var displayType: SeekPositionDisplayType = .timeElapsed
+    var displayType: ControlBarSeekPositionDisplayType = .timeElapsed
 }

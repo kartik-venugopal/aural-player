@@ -7,7 +7,7 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Foundation
+import Cocoa
 
 func executionTimeFor(_ task: () -> Void) -> Double {
     
@@ -152,3 +152,44 @@ extension CGFloat {
     }
 }
 
+func randomColor() -> ColorPersistentState {
+    
+    let randomNum = Int.random(in: 1...3)
+    
+    switch randomNum {
+    
+    case 1:     return randomGrayscaleColor()
+        
+    case 2:     return randomRGBColor()
+        
+    case 3:     return randomCMYKColor()
+        
+    default:    return randomRGBColor()
+    
+    }
+}
+
+func randomColorComponent() -> CGFloat {
+    CGFloat.random(in: 0...1)
+}
+
+func randomGrayscaleColor() -> ColorPersistentState {
+    ColorPersistentState(color: NSColor(white: randomColorComponent(), alpha: randomColorComponent()))
+}
+
+func randomRGBColor() -> ColorPersistentState {
+    
+    ColorPersistentState(color: NSColor(red: randomColorComponent(),
+                                        green: randomColorComponent(),
+                                        blue: randomColorComponent(),
+                                        alpha: randomColorComponent()))
+}
+
+func randomCMYKColor() -> ColorPersistentState {
+    
+    ColorPersistentState(color: NSColor(deviceCyan: randomColorComponent(),
+                                        magenta: randomColorComponent(),
+                                        yellow: randomColorComponent(),
+                                        black: randomColorComponent(),
+                                        alpha: randomColorComponent()))
+}

@@ -13,8 +13,8 @@ class MenuBarPlayerSequencingViewController: PlayerSequencingViewController {
     override func initSubscriptions() {}
     
     // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
-    override var offStateTintFunction: TintFunction {{Colors.Constants.white40Percent}}
+    override var offStateTintFunction: TintFunction {{ColorConstants.white40Percent}}
     
     // When the buttons are in an "On" state, they should be tinted according to the system color scheme's function button color.
-    override var onStateTintFunction: TintFunction {{Colors.Constants.white70Percent}}
+    override var onStateTintFunction: TintFunction {{ColorConstants.white70Percent}}
 }

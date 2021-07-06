@@ -13,7 +13,7 @@ class TrackInfoPopoverTabButtonCell: TabGroupButtonCell {
     
     private let _selectionBoxColor: NSColor = NSColor.black
     
-    override var unselectedTextColor: NSColor {return Colors.Constants.white70Percent}
+    override var unselectedTextColor: NSColor {return ColorConstants.white70Percent}
     
     override var textFont: NSFont {return Fonts.largeTabButtonFont}
     override var boldTextFont: NSFont {return Fonts.largeTabButtonFont}

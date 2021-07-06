@@ -17,6 +17,32 @@ class ControlBarPlayerViewState {
     static var cornerRadius: CGFloat = defaultCornerRadius
     
     static var showSeekPosition: Bool = true
-    static var seekPositionDisplayType: SeekPositionDisplayType = .timeElapsed
+    static var seekPositionDisplayType: ControlBarSeekPositionDisplayType = .timeElapsed
     static var trackInfoScrollingEnabled: Bool = true
+    
+    static func initialize(_ persistentState: ControlBarPlayerUIPersistentState?) {
+        
+        windowFrame = persistentState?.windowFrame?.toNSRect()
+        cornerRadius = persistentState?.cornerRadius ?? defaultCornerRadius
+        
+        trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
+        
+        showSeekPosition = persistentState?.showSeekPosition ?? true
+        seekPositionDisplayType = persistentState?.seekPositionDisplayType ?? .timeElapsed
+    }
+    
+    static var persistentState: ControlBarPlayerUIPersistentState {
+        
+        var windowFrame: NSRectPersistentState? = nil
+        
+        if let frame = self.windowFrame {
+            windowFrame = NSRectPersistentState(rect: frame)
+        }
+        
+        return ControlBarPlayerUIPersistentState(windowFrame: windowFrame,
+                                                 cornerRadius: cornerRadius,
+                                                 trackInfoScrollingEnabled: trackInfoScrollingEnabled,
+                                                 showSeekPosition: showSeekPosition,
+                                                 seekPositionDisplayType: seekPositionDisplayType)
+    }
 }

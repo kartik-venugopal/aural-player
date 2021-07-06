@@ -31,26 +31,26 @@ class GeneralColorScheme {
     
     init(_ persistentState: GeneralColorSchemePersistentState?) {
         
-        self.appLogoColor = persistentState?.appLogoColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.appLogoColor
-        self.backgroundColor = persistentState?.backgroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.backgroundColor
+        self.appLogoColor = persistentState?.appLogoColor?.toColor() ?? ColorScheme.defaultScheme.general.appLogoColor
+        self.backgroundColor = persistentState?.backgroundColor?.toColor() ?? ColorScheme.defaultScheme.general.backgroundColor
         
-        self.viewControlButtonColor = persistentState?.viewControlButtonColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.viewControlButtonColor
+        self.viewControlButtonColor = persistentState?.viewControlButtonColor?.toColor() ?? ColorScheme.defaultScheme.general.viewControlButtonColor
         
-        self.functionButtonColor = persistentState?.functionButtonColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.functionButtonColor
+        self.functionButtonColor = persistentState?.functionButtonColor?.toColor() ?? ColorScheme.defaultScheme.general.functionButtonColor
         
-        self.textButtonMenuColor = persistentState?.textButtonMenuColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.textButtonMenuColor
+        self.textButtonMenuColor = persistentState?.textButtonMenuColor?.toColor() ?? ColorScheme.defaultScheme.general.textButtonMenuColor
         
-        self.toggleButtonOffStateColor = persistentState?.toggleButtonOffStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.toggleButtonOffStateColor
+        self.toggleButtonOffStateColor = persistentState?.toggleButtonOffStateColor?.toColor() ?? ColorScheme.defaultScheme.general.toggleButtonOffStateColor
         
-        self.selectedTabButtonColor = persistentState?.selectedTabButtonColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.selectedTabButtonColor
+        self.selectedTabButtonColor = persistentState?.selectedTabButtonColor?.toColor() ?? ColorScheme.defaultScheme.general.selectedTabButtonColor
         
-        self.mainCaptionTextColor = persistentState?.mainCaptionTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.mainCaptionTextColor
+        self.mainCaptionTextColor = persistentState?.mainCaptionTextColor?.toColor() ?? ColorScheme.defaultScheme.general.mainCaptionTextColor
         
-        self.tabButtonTextColor = persistentState?.tabButtonTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.tabButtonTextColor
+        self.tabButtonTextColor = persistentState?.tabButtonTextColor?.toColor() ?? ColorScheme.defaultScheme.general.tabButtonTextColor
         
-        self.selectedTabButtonTextColor = persistentState?.selectedTabButtonTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.selectedTabButtonTextColor
+        self.selectedTabButtonTextColor = persistentState?.selectedTabButtonTextColor?.toColor() ?? ColorScheme.defaultScheme.general.selectedTabButtonTextColor
         
-        self.buttonMenuTextColor = persistentState?.buttonMenuTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.general.buttonMenuTextColor
+        self.buttonMenuTextColor = persistentState?.buttonMenuTextColor?.toColor() ?? ColorScheme.defaultScheme.general.buttonMenuTextColor
     }
     
     init(_ scheme: GeneralColorScheme) {

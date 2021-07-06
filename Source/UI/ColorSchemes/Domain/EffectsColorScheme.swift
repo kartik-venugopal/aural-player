@@ -36,24 +36,24 @@ class EffectsColorScheme {
     
     init(_ persistentState: EffectsColorSchemePersistentState?) {
         
-        self.functionCaptionTextColor = persistentState?.functionCaptionTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.functionCaptionTextColor
-        self.functionValueTextColor = persistentState?.functionValueTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.functionValueTextColor
+        self.functionCaptionTextColor = persistentState?.functionCaptionTextColor?.toColor() ?? ColorScheme.defaultScheme.effects.functionCaptionTextColor
+        self.functionValueTextColor = persistentState?.functionValueTextColor?.toColor() ?? ColorScheme.defaultScheme.effects.functionValueTextColor
         
-        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.sliderBackgroundColor
-        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorSchemesManager.defaultScheme.effects.sliderBackgroundGradientType
-        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorSchemesManager.defaultScheme.effects.sliderBackgroundGradientAmount
+        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorScheme.defaultScheme.effects.sliderBackgroundColor
+        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorScheme.defaultScheme.effects.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorScheme.defaultScheme.effects.sliderBackgroundGradientAmount
         
-        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorSchemesManager.defaultScheme.effects.sliderForegroundGradientType
-        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorSchemesManager.defaultScheme.effects.sliderForegroundGradientAmount
+        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorScheme.defaultScheme.effects.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorScheme.defaultScheme.effects.sliderForegroundGradientAmount
         
-        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.sliderKnobColor
-        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorSchemesManager.defaultScheme.effects.sliderKnobColorSameAsForeground
+        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorScheme.defaultScheme.effects.sliderKnobColor
+        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorScheme.defaultScheme.effects.sliderKnobColorSameAsForeground
         
-        self.sliderTickColor = persistentState?.sliderTickColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.sliderTickColor
+        self.sliderTickColor = persistentState?.sliderTickColor?.toColor() ?? ColorScheme.defaultScheme.effects.sliderTickColor
         
-        self.activeUnitStateColor = persistentState?.activeUnitStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.activeUnitStateColor
-        self.bypassedUnitStateColor = persistentState?.bypassedUnitStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.bypassedUnitStateColor
-        self.suppressedUnitStateColor = persistentState?.suppressedUnitStateColor?.toColor() ?? ColorSchemesManager.defaultScheme.effects.suppressedUnitStateColor
+        self.activeUnitStateColor = persistentState?.activeUnitStateColor?.toColor() ?? ColorScheme.defaultScheme.effects.activeUnitStateColor
+        self.bypassedUnitStateColor = persistentState?.bypassedUnitStateColor?.toColor() ?? ColorScheme.defaultScheme.effects.bypassedUnitStateColor
+        self.suppressedUnitStateColor = persistentState?.suppressedUnitStateColor?.toColor() ?? ColorScheme.defaultScheme.effects.suppressedUnitStateColor
     }
     
     init(_ scheme: EffectsColorScheme) {

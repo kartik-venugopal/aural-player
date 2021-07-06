@@ -17,7 +17,7 @@ class PresetsManagerTableHeaderCell: NSTableHeaderCell {
                          andColor: Colors.presetsManagerTableHeaderTextColor)
 
         // Right Partition line
-        let lineColor = Colors.Constants.white30Percent
+        let lineColor = ColorConstants.white30Percent
         let cw = cellFrame.width
         let pline = cellFrame.insetBy(dx: cw / 2 - 0.5, dy: 5).offsetBy(dx: cw / 2 - 3, dy: -3)
         

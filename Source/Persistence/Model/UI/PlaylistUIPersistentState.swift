@@ -13,14 +13,3 @@ struct PlaylistUIPersistentState: Codable {
     
     let view: PlaylistType?
 }
-
-extension PlaylistViewState {
-    
-    static func initialize(_ persistentState: PlaylistUIPersistentState?) {
-        currentView = persistentState?.view ?? PlaylistViewDefaults.currentView
-    }
-    
-    static var persistentState: PlaylistUIPersistentState {
-        PlaylistUIPersistentState(view: currentView)
-    }
-}

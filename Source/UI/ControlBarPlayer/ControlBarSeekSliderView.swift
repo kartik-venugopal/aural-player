@@ -13,7 +13,7 @@ class ControlBarSeekSliderView: SeekSliderView {
     
     @IBOutlet weak var lblSeekPosition: CenterTextLabel!
     
-    var seekPositionDisplayType: SeekPositionDisplayType = .timeElapsed {
+    var seekPositionDisplayType: ControlBarSeekPositionDisplayType = .timeElapsed {
         
         didSet {
             
@@ -144,25 +144,5 @@ class ControlBarSeekSliderView: SeekSliderView {
 
         seekSlider.redraw()
         updateSeekPosition()
-    }
-}
-
-enum SeekPositionDisplayType: String, CaseIterable, Codable {
-    
-    case timeElapsed
-    case timeRemaining
-    case duration
-    
-    func toggle() -> SeekPositionDisplayType {
-        
-        switch self {
-        
-        case .timeElapsed:  return .timeRemaining
-            
-        case .timeRemaining:    return .duration
-            
-        case .duration:     return .timeElapsed
-            
-        }
     }
 }

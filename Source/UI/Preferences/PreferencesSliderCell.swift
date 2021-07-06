@@ -18,5 +18,5 @@ class PreferencesSliderCell: HorizontalSliderCell {
     override var backgroundGradient: NSGradient {Colors.Effects.defaultSliderBackgroundGradient}
     override var foregroundGradient: NSGradient {Colors.Effects.defaultSliderBackgroundGradient}
     
-    override var knobColor: NSColor {Colors.Constants.white80Percent}
+    override var knobColor: NSColor {ColorConstants.white80Percent}
 }

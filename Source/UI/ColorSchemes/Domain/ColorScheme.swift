@@ -14,6 +14,9 @@ import Cocoa
  */
 class ColorScheme: MappedPreset {
     
+    // Default color scheme (uses colors from the default system-defined preset)
+    static let defaultScheme: ColorScheme = ColorScheme("_default_", ColorSchemePreset.defaultScheme)
+    
     // Displayed name
     var name: String
     

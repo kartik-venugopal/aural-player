@@ -20,24 +20,3 @@ struct VisualizerOptionsPersistentState: Codable {
     let lowAmplitudeColor: ColorPersistentState?
     let highAmplitudeColor: ColorPersistentState?
 }
-
-extension VisualizerViewState {
-    
-    static func initialize(_ persistentState: VisualizerUIPersistentState?) {
-        
-        type = persistentState?.type ?? .spectrogram
-        
-        options = VisualizerViewOptions()
-        
-        options.setColors(lowAmplitudeColor: persistentState?.options?.lowAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.lowAmplitudeColor,
-                          highAmplitudeColor: persistentState?.options?.highAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.highAmplitudeColor)
-    }
-    
-    static var persistentState: VisualizerUIPersistentState {
-        
-        let visOptions = VisualizerOptionsPersistentState(lowAmplitudeColor: ColorPersistentState(color: options.lowAmplitudeColor),
-                                                          highAmplitudeColor: ColorPersistentState(color: options.highAmplitudeColor))
-        
-        return VisualizerUIPersistentState(type: type, options: visOptions)
-    }
-}

@@ -17,34 +17,5 @@ struct ControlBarPlayerUIPersistentState: Codable {
     let trackInfoScrollingEnabled: Bool?
     
     let showSeekPosition: Bool?
-    let seekPositionDisplayType: SeekPositionDisplayType?
-}
-
-extension ControlBarPlayerViewState {
-    
-    static func initialize(_ persistentState: ControlBarPlayerUIPersistentState?) {
-        
-        windowFrame = persistentState?.windowFrame?.toNSRect()
-        cornerRadius = persistentState?.cornerRadius ?? defaultCornerRadius
-        
-        trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
-        
-        showSeekPosition = persistentState?.showSeekPosition ?? true
-        seekPositionDisplayType = persistentState?.seekPositionDisplayType ?? .timeElapsed
-    }
-    
-    static var persistentState: ControlBarPlayerUIPersistentState {
-        
-        var windowFrame: NSRectPersistentState? = nil
-        
-        if let frame = self.windowFrame {
-            windowFrame = NSRectPersistentState(rect: frame)
-        }
-        
-        return ControlBarPlayerUIPersistentState(windowFrame: windowFrame,
-                                                 cornerRadius: cornerRadius,
-                                                 trackInfoScrollingEnabled: trackInfoScrollingEnabled,
-                                                 showSeekPosition: showSeekPosition,
-                                                 seekPositionDisplayType: seekPositionDisplayType)
-    }
+    let seekPositionDisplayType: ControlBarSeekPositionDisplayType?
 }

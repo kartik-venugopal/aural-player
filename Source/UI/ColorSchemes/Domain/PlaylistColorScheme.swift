@@ -26,43 +26,34 @@ class PlaylistColorScheme {
     var summaryInfoColor: NSColor
     
     var playingTrackIconColor: NSColor
-//    var playingTrackIconSelectedRowsColor: NSColor
     
     var selectionBoxColor: NSColor
     
     var groupIconColor: NSColor
-//    var groupIconSelectedRowsColor: NSColor
     
     var groupDisclosureTriangleColor: NSColor
-//    var groupDisclosureTriangleSelectedRowsColor: NSColor
     
     init(_ persistentState: PlaylistColorSchemePersistentState?) {
         
-        self.trackNameTextColor = persistentState?.trackNameTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.trackNameTextColor
-        self.groupNameTextColor = persistentState?.groupNameTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupNameTextColor
-        self.indexDurationTextColor = persistentState?.indexDurationTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.indexDurationTextColor
+        self.trackNameTextColor = persistentState?.trackNameTextColor?.toColor() ?? ColorScheme.defaultScheme.playlist.trackNameTextColor
+        self.groupNameTextColor = persistentState?.groupNameTextColor?.toColor() ?? ColorScheme.defaultScheme.playlist.groupNameTextColor
+        self.indexDurationTextColor = persistentState?.indexDurationTextColor?.toColor() ?? ColorScheme.defaultScheme.playlist.indexDurationTextColor
         
-        self.trackNameSelectedTextColor = persistentState?.trackNameSelectedTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.trackNameSelectedTextColor
+        self.trackNameSelectedTextColor = persistentState?.trackNameSelectedTextColor?.toColor() ?? ColorScheme.defaultScheme.playlist.trackNameSelectedTextColor
         
-        self.groupNameSelectedTextColor = persistentState?.groupNameSelectedTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupNameSelectedTextColor
+        self.groupNameSelectedTextColor = persistentState?.groupNameSelectedTextColor?.toColor() ?? ColorScheme.defaultScheme.playlist.groupNameSelectedTextColor
         
-        self.indexDurationSelectedTextColor = persistentState?.indexDurationSelectedTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.indexDurationSelectedTextColor
+        self.indexDurationSelectedTextColor = persistentState?.indexDurationSelectedTextColor?.toColor() ?? ColorScheme.defaultScheme.playlist.indexDurationSelectedTextColor
         
-        self.summaryInfoColor = persistentState?.summaryInfoColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.summaryInfoColor
+        self.summaryInfoColor = persistentState?.summaryInfoColor?.toColor() ?? ColorScheme.defaultScheme.playlist.summaryInfoColor
         
-        self.selectionBoxColor = persistentState?.selectionBoxColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.selectionBoxColor
+        self.selectionBoxColor = persistentState?.selectionBoxColor?.toColor() ?? ColorScheme.defaultScheme.playlist.selectionBoxColor
         
-        self.playingTrackIconColor = persistentState?.playingTrackIconColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.playingTrackIconColor
+        self.playingTrackIconColor = persistentState?.playingTrackIconColor?.toColor() ?? ColorScheme.defaultScheme.playlist.playingTrackIconColor
         
-//        self.playingTrackIconSelectedRowsColor = persistentState?.playingTrackIconSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.playingTrackIconSelectedRowsColor
+        self.groupIconColor = persistentState?.groupIconColor?.toColor() ?? ColorScheme.defaultScheme.playlist.groupIconColor
         
-        self.groupIconColor = persistentState?.groupIconColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupIconColor
-        
-//        self.groupIconSelectedRowsColor = persistentState?.groupIconSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupIconSelectedRowsColor
-        
-        self.groupDisclosureTriangleColor = persistentState?.groupDisclosureTriangleColor?.toColor() ?? ColorSchemesManager.defaultScheme.playlist.groupDisclosureTriangleColor
-        
-//        self.groupDisclosureTriangleSelectedRowsColor = persistentState?.groupDisclosureTriangleSelectedRowsColor?.toColor() ?? ColorSchemes.defaultScheme.playlist.groupDisclosureTriangleSelectedRowsColor
+        self.groupDisclosureTriangleColor = persistentState?.groupDisclosureTriangleColor?.toColor() ?? ColorScheme.defaultScheme.playlist.groupDisclosureTriangleColor
     }
     
     init(_ scheme: PlaylistColorScheme) {
@@ -79,13 +70,9 @@ class PlaylistColorScheme {
         
         self.selectionBoxColor = scheme.selectionBoxColor
         self.playingTrackIconColor = scheme.playingTrackIconColor
-//        self.playingTrackIconSelectedRowsColor = scheme.playingTrackIconSelectedRowsColor
         
         self.groupIconColor = scheme.groupIconColor
-//        self.groupIconSelectedRowsColor = scheme.groupIconSelectedRowsColor
-        
         self.groupDisclosureTriangleColor = scheme.groupDisclosureTriangleColor
-//        self.groupDisclosureTriangleSelectedRowsColor = scheme.groupDisclosureTriangleSelectedRowsColor
     }
     
     init(_ preset: ColorSchemePreset) {
@@ -102,13 +89,9 @@ class PlaylistColorScheme {
         
         self.selectionBoxColor = preset.playlistSelectionBoxColor
         self.playingTrackIconColor = preset.playlistPlayingTrackIconColor
-//        self.playingTrackIconSelectedRowsColor = preset.playlistPlayingTrackIconSelectedRowsColor
         
         self.groupIconColor = preset.playlistGroupIconColor
-//        self.groupIconSelectedRowsColor = preset.playlistGroupIconSelectedRowsColor
-        
         self.groupDisclosureTriangleColor = preset.playlistGroupDisclosureTriangleColor
-//        self.groupDisclosureTriangleSelectedRowsColor = preset.playlistGroupDisclosureTriangleSelectedRowsColor
     }
     
     func applyPreset(_ preset: ColorSchemePreset) {

@@ -14,9 +14,6 @@ import Cocoa
  */
 class ColorSchemesManager: MappedPresets<ColorScheme> {
     
-    // Default color scheme (uses colors from the default system-defined preset)
-    static let defaultScheme: ColorScheme = ColorScheme("_default_", ColorSchemePreset.defaultScheme)
-    
     // The current system color scheme. It is initialized with the default scheme.
     private(set) var systemScheme: ColorScheme = ColorScheme("_system_", ColorSchemePreset.defaultScheme) {
         didSet {systemSchemeChanged()}

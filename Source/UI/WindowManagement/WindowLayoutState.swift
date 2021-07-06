@@ -81,15 +81,3 @@ class WindowLayoutDefaults {
     static let effectsWindowOrigin: NSPoint? = nil
     static let playlistWindowFrame: NSRect? = nil
 }
-
-// Convenient accessor for information about the current appearance settings for the app's main windows.
-class WindowAppearanceState {
-    
-    static let defaultCornerRadius: CGFloat = 3
-    static var cornerRadius: CGFloat = defaultCornerRadius
-}
-
-// A snapshot of WindowAppearanceState
-struct WindowAppearance {
-    let cornerRadius: CGFloat
-}

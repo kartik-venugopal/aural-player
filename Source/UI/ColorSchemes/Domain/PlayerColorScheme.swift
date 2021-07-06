@@ -34,28 +34,28 @@ class PlayerColorScheme {
     
     init(_ persistentState: PlayerColorSchemePersistentState?) {
         
-        self.trackInfoPrimaryTextColor = persistentState?.trackInfoPrimaryTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.trackInfoPrimaryTextColor
+        self.trackInfoPrimaryTextColor = persistentState?.trackInfoPrimaryTextColor?.toColor() ?? ColorScheme.defaultScheme.player.trackInfoPrimaryTextColor
         
-        self.trackInfoSecondaryTextColor = persistentState?.trackInfoSecondaryTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.trackInfoSecondaryTextColor
+        self.trackInfoSecondaryTextColor = persistentState?.trackInfoSecondaryTextColor?.toColor() ?? ColorScheme.defaultScheme.player.trackInfoSecondaryTextColor
         
-        self.trackInfoTertiaryTextColor = persistentState?.trackInfoTertiaryTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.trackInfoTertiaryTextColor
+        self.trackInfoTertiaryTextColor = persistentState?.trackInfoTertiaryTextColor?.toColor() ?? ColorScheme.defaultScheme.player.trackInfoTertiaryTextColor
         
-        self.sliderValueTextColor = persistentState?.sliderValueTextColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderValueTextColor
+        self.sliderValueTextColor = persistentState?.sliderValueTextColor?.toColor() ?? ColorScheme.defaultScheme.player.sliderValueTextColor
         
-        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderBackgroundColor
+        self.sliderBackgroundColor = persistentState?.sliderBackgroundColor?.toColor() ?? ColorScheme.defaultScheme.player.sliderBackgroundColor
         
-        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorSchemesManager.defaultScheme.player.sliderBackgroundGradientType
-        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorSchemesManager.defaultScheme.player.sliderBackgroundGradientAmount
+        self.sliderBackgroundGradientType = persistentState?.sliderBackgroundGradientType ?? ColorScheme.defaultScheme.player.sliderBackgroundGradientType
+        self.sliderBackgroundGradientAmount = persistentState?.sliderBackgroundGradientAmount ?? ColorScheme.defaultScheme.player.sliderBackgroundGradientAmount
         
-        self.sliderForegroundColor = persistentState?.sliderForegroundColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderForegroundColor
+        self.sliderForegroundColor = persistentState?.sliderForegroundColor?.toColor() ?? ColorScheme.defaultScheme.player.sliderForegroundColor
         
-        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorSchemesManager.defaultScheme.player.sliderForegroundGradientType
-        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorSchemesManager.defaultScheme.player.sliderForegroundGradientAmount
+        self.sliderForegroundGradientType = persistentState?.sliderForegroundGradientType ?? ColorScheme.defaultScheme.player.sliderForegroundGradientType
+        self.sliderForegroundGradientAmount = persistentState?.sliderForegroundGradientAmount ?? ColorScheme.defaultScheme.player.sliderForegroundGradientAmount
         
-        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderKnobColor
-        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorSchemesManager.defaultScheme.player.sliderKnobColorSameAsForeground
+        self.sliderKnobColor = persistentState?.sliderKnobColor?.toColor() ?? ColorScheme.defaultScheme.player.sliderKnobColor
+        self.sliderKnobColorSameAsForeground = persistentState?.sliderKnobColorSameAsForeground ?? ColorScheme.defaultScheme.player.sliderKnobColorSameAsForeground
         
-        self.sliderLoopSegmentColor = persistentState?.sliderLoopSegmentColor?.toColor() ?? ColorSchemesManager.defaultScheme.player.sliderLoopSegmentColor
+        self.sliderLoopSegmentColor = persistentState?.sliderLoopSegmentColor?.toColor() ?? ColorScheme.defaultScheme.player.sliderLoopSegmentColor
     }
     
     init(_ scheme: PlayerColorScheme) {

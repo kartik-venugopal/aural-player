@@ -32,7 +32,7 @@ struct ColorPersistentState: Codable {
     private static let defaultAlpha: CGFloat = 1.0
     
     // Maps an NSColor to a ColorPersistentState object that can be persisted.
-    init?(color: NSColor) {
+    init(color: NSColor) {
         
         self.colorSpace = color.colorSpace.colorSpaceModel.rawValue
         self.alpha = color.alphaComponent
@@ -58,7 +58,16 @@ struct ColorPersistentState: Codable {
             
         default:
             
-            return nil
+            self.white = color.whiteComponent
+            
+            self.red = color.redComponent
+            self.green = color.greenComponent
+            self.blue = color.blueComponent
+            
+            self.cyan = color.cyanComponent
+            self.magenta = color.magentaComponent
+            self.yellow = color.yellowComponent
+            self.black = color.blackComponent
         }
     }
     

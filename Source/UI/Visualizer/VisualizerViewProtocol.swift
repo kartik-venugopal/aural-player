@@ -40,35 +40,3 @@ class AuralSCNView: SCNView {
         }
     }
 }
-
-enum VisualizationType: String, CaseIterable, Codable {
-    
-    case spectrogram, supernova, discoBall
-}
-
-class VisualizerViewOptions {
-    
-    var lowAmplitudeColor: NSColor = .blue
-    var highAmplitudeColor: NSColor = .red
-    
-    func setColors(lowAmplitudeColor: NSColor, highAmplitudeColor: NSColor) {
-        
-        self.lowAmplitudeColor = lowAmplitudeColor
-        self.highAmplitudeColor = highAmplitudeColor
-    }
-}
-
-class VisualizerViewState {
-    
-    static var type: VisualizationType = .spectrogram
-    static var options: VisualizerViewOptions = VisualizerViewOptions()
-}
-
-class VisualizerViewStateDefaults {
-    
-    static let type: VisualizationType = .spectrogram
-    static let options: VisualizerViewOptions = VisualizerViewOptions()
-    
-    static let lowAmplitudeColor: NSColor = .blue
-    static let highAmplitudeColor: NSColor = .red
-}

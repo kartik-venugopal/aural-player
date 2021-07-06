@@ -15,6 +15,14 @@ class PlaylistViewState {
     // The current playlist view type displayed within the playlist tab group
     static var currentView: PlaylistType = .tracks
     
+    static func initialize(_ persistentState: PlaylistUIPersistentState?) {
+        currentView = persistentState?.view ?? PlaylistViewDefaults.currentView
+    }
+    
+    static var persistentState: PlaylistUIPersistentState {
+        PlaylistUIPersistentState(view: currentView)
+    }
+    
     // The current playlist view displayed within the playlist tab group
     static weak var currentTableView: NSTableView!
     
