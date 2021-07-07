@@ -4210,11 +4210,11 @@
 				3E65199026955F7500BD5AAD /* PreferencesTestCase.swift */,
 				3E65198826953F7E00BD5AAD /* PlaylistPreferencesTests.swift */,
 				3EE4B85C268FBD7C006BDEB2 /* PlaybackPreferencesTests.swift */,
+				3E65198D26955D4500BD5AAD /* SoundPreferencesTests.swift */,
 				3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */,
 				3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */,
 				3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */,
 				3ED6D8F726925E4C007DA433 /* MusicBrainzPreferencesTests.swift */,
-				3E65198D26955D4500BD5AAD /* SoundPreferencesTests.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";

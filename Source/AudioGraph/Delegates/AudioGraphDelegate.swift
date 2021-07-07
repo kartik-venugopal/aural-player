@@ -81,7 +81,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
 
             // Check if remembered device is available (based on name and UID)
             if let prefDevice: AudioDevicePersistentState = graphState?.outputDevice,
-               let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDevice.name && $0.uid == prefDevice.uid}) {
+               let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDevice.name &&
+                                                                            $0.uid == prefDevice.uid}) {
                 
                 self.graph.outputDevice = foundDevice
             }
@@ -91,7 +92,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
             let prefDeviceUID = preferences.outputDeviceOnStartup.preferredDeviceUID {
 
             // Check if preferred device is available (based on name and UID)
-            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDeviceName && $0.uid == prefDeviceUID}) {
+            if let foundDevice = graph.availableDevices.allDevices.first(where: {$0.name == prefDeviceName &&
+                                                                            $0.uid == prefDeviceUID}) {
                 self.graph.outputDevice = foundDevice
             }
         }

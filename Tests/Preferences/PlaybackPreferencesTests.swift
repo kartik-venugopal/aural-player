@@ -13,23 +13,6 @@ class PlaybackPreferencesTests: PreferencesTestCase {
     
     private typealias Defaults = PreferencesDefaults.Playback
     
-    override func setUp() {
-        
-        UserDefaults.standard[PlaybackPreferences.key_primarySeekLengthOption] = nil
-        UserDefaults.standard[PlaybackPreferences.key_primarySeekLengthConstant] = nil
-        UserDefaults.standard[PlaybackPreferences.key_primarySeekLengthPercentage] = nil
-        
-        UserDefaults.standard[PlaybackPreferences.key_secondarySeekLengthOption] = nil
-        UserDefaults.standard[PlaybackPreferences.key_secondarySeekLengthConstant] = nil
-        UserDefaults.standard[PlaybackPreferences.key_secondarySeekLengthPercentage] = nil
-        
-        UserDefaults.standard[PlaybackPreferences.key_autoplayOnStartup] = nil
-        UserDefaults.standard[PlaybackPreferences.key_autoplayAfterAddingTracks] = nil
-        UserDefaults.standard[PlaybackPreferences.key_autoplayAfterAddingOption] = nil
-        
-        UserDefaults.standard[PlaybackPreferences.key_rememberLastPositionOption] = nil
-    }
-    
     // MARK: init() tests ------------------------------
     
     func testInit_noValues() {
