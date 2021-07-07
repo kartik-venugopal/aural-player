@@ -22,7 +22,7 @@ class AppStatePersistenceTests: AudioGraphPersistenceTestCase {
             // Window layouts
             
             let layout = randomLayout(name: "_system_", systemDefined: true,
-                                      showPlaylist: Bool.random(), showEffects: Bool.random())
+                                      showPlaylist: .random(), showEffects: .random())
             
             let windowLayouts = WindowLayoutsPersistentState(layout: layout, userLayouts: randomUserLayouts())
             
@@ -47,14 +47,14 @@ class AppStatePersistenceTests: AudioGraphPersistenceTestCase {
             // Player
             
             let player = PlayerUIPersistentState(viewType: .randomCase(),
-                                                 showAlbumArt: Bool.random(),
-                                                 showArtist: Bool.random(),
-                                                 showAlbum: Bool.random(),
-                                                 showCurrentChapter: Bool.random(),
-                                                 showTrackInfo: Bool.random(),
-                                                 showPlayingTrackFunctions: Bool.random(),
-                                                 showControls: Bool.random(),
-                                                 showTimeElapsedRemaining: Bool.random(),
+                                                 showAlbumArt: .random(),
+                                                 showArtist: .random(),
+                                                 showAlbum: .random(),
+                                                 showCurrentChapter: .random(),
+                                                 showTrackInfo: .random(),
+                                                 showPlayingTrackFunctions: .random(),
+                                                 showControls: .random(),
+                                                 showTimeElapsedRemaining: .random(),
                                                  timeElapsedDisplayType: .randomCase(),
                                                  timeRemainingDisplayType: .randomCase())
             
@@ -85,8 +85,8 @@ class AppStatePersistenceTests: AudioGraphPersistenceTestCase {
             
             let controlBarPlayer = ControlBarPlayerUIPersistentState(windowFrame: NSRectPersistentState(rect: randomControlBarPlayerWindowFrame()),
                                                                      cornerRadius: CGFloat.random(in: 0...20),
-                                                                     trackInfoScrollingEnabled: Bool.random(),
-                                                                     showSeekPosition: Bool.random(),
+                                                                     trackInfoScrollingEnabled: .random(),
+                                                                     showSeekPosition: .random(),
                                                                      seekPositionDisplayType: .randomCase())
             
             let ui = UIPersistentState(appMode: .randomCase(),
@@ -137,7 +137,7 @@ class AppStatePersistenceTests: AudioGraphPersistenceTestCase {
                                                           uid: randomDeviceUID())
             
             let volume: Float? = randomVolume()
-            let muted: Bool? = Bool.random()
+            let muted: Bool? = .random()
             let balance: Float? = randomBalance()
             
             let masterUnit: MasterUnitPersistentState? = MasterUnitPersistentState(state: randomUnitState(),

@@ -23,7 +23,7 @@ class ObjectGraph {
     
     static var lastPresentedAppMode: AppMode? {persistentState.ui?.appMode}
     
-    static let preferences: Preferences = Preferences.instance
+    static let preferences: Preferences = Preferences(defaults: .standard)
     
     private static let playlist: PlaylistCRUDProtocol = Playlist(FlatPlaylist(),
                                                                  [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])

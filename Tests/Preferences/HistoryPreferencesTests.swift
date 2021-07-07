@@ -26,8 +26,6 @@ class HistoryPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        recentlyAddedListSize: randomNillableHistoryListSize(),
                        recentlyPlayedListSize: randomNillableHistoryListSize())
@@ -37,8 +35,6 @@ class HistoryPreferencesTests: PreferencesTestCase {
     func testInit() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        recentlyAddedListSize: randomHistoryListSize(),
@@ -64,9 +60,7 @@ class HistoryPreferencesTests: PreferencesTestCase {
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomHistoryPreferences())
         }
     }
     
@@ -74,13 +68,12 @@ class HistoryPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomHistoryPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
             let deserializedPrefs = HistoryPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -93,28 +86,4 @@ class HistoryPreferencesTests: PreferencesTestCase {
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
     }
-    
-    private func compare(prefs: HistoryPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.integer(forKey: HistoryPreferences.key_recentlyAddedListSize), prefs.recentlyAddedListSize)
-        XCTAssertEqual(userDefs.integer(forKey: HistoryPreferences.key_recentlyPlayedListSize), prefs.recentlyPlayedListSize)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> HistoryPreferences {
-        
-        let prefs = HistoryPreferences([:])
-        
-        prefs.recentlyAddedListSize = randomHistoryListSize()
-        prefs.recentlyPlayedListSize = randomHistoryListSize()
-        
-        return prefs
-    }
-    
-    private func randomNillableHistoryListSize() -> Int? {
-        randomNillableValue {self.randomHistoryListSize()}
-    }
-    
-    private func randomHistoryListSize() -> Int {Int.random(in: 10...100)}
 }

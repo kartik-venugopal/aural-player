@@ -810,6 +810,8 @@
 		3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */; };
 		3ECE4BEE26960A140017DD25 /* ViewPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BED26960A140017DD25 /* ViewPreferencesTests.swift */; };
 		3ECE4BF1269613D10017DD25 /* GesturesControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */; };
+		3ECE4BF526961ECB0017DD25 /* MetadataPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF426961ECB0017DD25 /* MetadataPreferencesTests.swift */; };
+		3ECE4BF8269620F70017DD25 /* ControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF7269620F70017DD25 /* ControlsPreferencesTests.swift */; };
 		3ED6D8EF26924FDC007DA433 /* HistoryPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */; };
 		3ED6D8F2269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */; };
 		3ED6D8F526925710007DA433 /* RemoteControlPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */; };
@@ -937,6 +939,7 @@
 		3EEC04272687B397004478CE /* ExclusiveAccessSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC04262687B397004478CE /* ExclusiveAccessSemaphore.swift */; };
 		3EEC042A2687B727004478CE /* ConcurrentCompositeKeyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC04292687B727004478CE /* ConcurrentCompositeKeyMap.swift */; };
 		3EEC042C2687B76D004478CE /* ConcurrentSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEC042B2687B76D004478CE /* ConcurrentSet.swift */; };
+		3EED0C0F269629C40027B7E1 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EED0C0E269629C40027B7E1 /* PreferencesTests.swift */; };
 		3EEF3730268F6AC9002EA77F /* PlaybackSequencePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0C326805C18008ECB8C /* PlaybackSequencePersistentState.swift */; };
 		3EEF3732268F6AE2002EA77F /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C109225CEB98700BF0D07 /* NotificationNames.swift */; };
 		3EEF3735268F6B0F002EA77F /* FlatPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EFF25CEB98500BF0D07 /* FlatPlaylist.swift */; };
@@ -1794,6 +1797,8 @@
 		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
 		3ECE4BED26960A140017DD25 /* ViewPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreferencesTests.swift; sourceTree = "<group>"; };
 		3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesControlsPreferencesTests.swift; sourceTree = "<group>"; };
+		3ECE4BF426961ECB0017DD25 /* MetadataPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesTests.swift; sourceTree = "<group>"; };
+		3ECE4BF7269620F70017DD25 /* ControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesTests.swift; sourceTree = "<group>"; };
 		3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPreferencesTests.swift; sourceTree = "<group>"; };
 		3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysControlsPreferencesTests.swift; sourceTree = "<group>"; };
 		3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferencesTests.swift; sourceTree = "<group>"; };
@@ -1924,6 +1929,7 @@
 		3EEC04262687B397004478CE /* ExclusiveAccessSemaphore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveAccessSemaphore.swift; sourceTree = "<group>"; };
 		3EEC04292687B727004478CE /* ConcurrentCompositeKeyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentCompositeKeyMap.swift; sourceTree = "<group>"; };
 		3EEC042B2687B76D004478CE /* ConcurrentSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentSet.swift; sourceTree = "<group>"; };
+		3EED0C0E269629C40027B7E1 /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		3EEF3750268F703F002EA77F /* EQType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQType.swift; sourceTree = "<group>"; };
 		3EF0C3E4262A9EF30042C720 /* CreateTheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTheme.xib; sourceTree = "<group>"; };
 		3EF0C3E6262AA1830042C720 /* CreateThemeDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateThemeDialogController.swift; sourceTree = "<group>"; };
@@ -4007,6 +4013,26 @@
 			path = AudioUnits;
 			sourceTree = "<group>";
 		};
+		3ECE4BFA2696246D0017DD25 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */,
+				3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */,
+				3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */,
+				3ECE4BF7269620F70017DD25 /* ControlsPreferencesTests.swift */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		3ECE4BFB2696247F0017DD25 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				3ED6D8F726925E4C007DA433 /* MusicBrainzPreferencesTests.swift */,
+				3ECE4BF426961ECB0017DD25 /* MetadataPreferencesTests.swift */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
 		3ED983F72626157700E3A936 /* UnusedCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -4212,15 +4238,14 @@
 			isa = PBXGroup;
 			children = (
 				3E65199026955F7500BD5AAD /* PreferencesTestCase.swift */,
+				3EED0C0E269629C40027B7E1 /* PreferencesTests.swift */,
 				3E65198826953F7E00BD5AAD /* PlaylistPreferencesTests.swift */,
 				3EE4B85C268FBD7C006BDEB2 /* PlaybackPreferencesTests.swift */,
 				3E65198D26955D4500BD5AAD /* SoundPreferencesTests.swift */,
 				3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */,
-				3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */,
-				3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */,
-				3ED6D8F726925E4C007DA433 /* MusicBrainzPreferencesTests.swift */,
 				3ECE4BED26960A140017DD25 /* ViewPreferencesTests.swift */,
-				3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */,
+				3ECE4BFA2696246D0017DD25 /* Controls */,
+				3ECE4BFB2696247F0017DD25 /* Metadata */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -5249,6 +5274,7 @@
 				3EABDE132694CA62008066E8 /* PlaylistColorSchemePersistentState.swift in Sources */,
 				3EABDDE32694BC1E008066E8 /* VisualizationType.swift in Sources */,
 				3EABDE1A2694CFD4008066E8 /* ColorConstants.swift in Sources */,
+				3ECE4BF526961ECB0017DD25 /* MetadataPreferencesTests.swift in Sources */,
 				3EABDDC72694B7B9008066E8 /* PlaylistUIPersistentState.swift in Sources */,
 				3EA1BDEB268F507600A5D81B /* Messenger_SynchronousNotificationsTests.swift in Sources */,
 				3E5ECA43268F4C46000AE8B7 /* DateExtensions.swift in Sources */,
@@ -5319,6 +5345,7 @@
 				3E21ECBB268F49B000731E4C /* Track.swift in Sources */,
 				3EE4B868268FBEFB006BDEB2 /* PreferencesDefaults.swift in Sources */,
 				3EABDE0B2694C9BB008066E8 /* PlaylistColorScheme.swift in Sources */,
+				3EED0C0F269629C40027B7E1 /* PreferencesTests.swift in Sources */,
 				3EE4B864268FBE5F006BDEB2 /* UserDefaultsExtensions.swift in Sources */,
 				3EA1BDF0268F507D00A5D81B /* Messenger_AsynchronousNotifications_ArbitraryPayloadTests.swift in Sources */,
 				3EABDDAA26949044008066E8 /* WindowLayout.swift in Sources */,
@@ -5344,6 +5371,7 @@
 				3E5ECA4C268F4DBA000AE8B7 /* ValueFormatter.swift in Sources */,
 				3E5ECA36268F4B89000AE8B7 /* URLExtensions.swift in Sources */,
 				3EFDA97D268F7F5400CFF785 /* PitchShiftUnitPersistentState.swift in Sources */,
+				3ECE4BF8269620F70017DD25 /* ControlsPreferencesTests.swift in Sources */,
 				3EE4B86C268FBF0C006BDEB2 /* PlaylistPreferences.swift in Sources */,
 				3EA62F522693D89E004A780A /* PlaybackProfilePersistentState.swift in Sources */,
 				3EABDE072694C9AD008066E8 /* GeneralColorScheme.swift in Sources */,

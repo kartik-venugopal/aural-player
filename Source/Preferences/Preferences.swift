@@ -23,23 +23,27 @@ protocol PersistentPreferencesProtocol {
 
 class Preferences {
     
-    static let instance: Preferences = Preferences()
-    
-    private let defaults: UserDefaults = UserDefaults.standard
+    let defaults: UserDefaults
     
     // The (cached) user preferences.
     
-    let playbackPreferences: PlaybackPreferences
-    let soundPreferences: SoundPreferences
-    let playlistPreferences: PlaylistPreferences
-    let viewPreferences: ViewPreferences
-    let historyPreferences: HistoryPreferences
-    let controlsPreferences: ControlsPreferences
-    let metadataPreferences: MetadataPreferences
+    var playlistPreferences: PlaylistPreferences
+    var playbackPreferences: PlaybackPreferences
+    var soundPreferences: SoundPreferences
+    var viewPreferences: ViewPreferences
+    var historyPreferences: HistoryPreferences
+    var controlsPreferences: ControlsPreferences
+    var metadataPreferences: MetadataPreferences
     
-    private let allPreferences: [PersistentPreferencesProtocol]
+    var allPreferences: [PersistentPreferencesProtocol] {
+        
+        [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences,
+                          historyPreferences, controlsPreferences, metadataPreferences]
+    }
     
-    private init() {
+    init(defaults: UserDefaults) {
+        
+        self.defaults = defaults
         
         let defaultsDictionary: [String: Any] = defaults.dictionaryRepresentation()
         
@@ -51,15 +55,9 @@ class Preferences {
         viewPreferences = ViewPreferences(defaultsDictionary)
         historyPreferences = HistoryPreferences(defaultsDictionary)
         metadataPreferences = MetadataPreferences(defaultsDictionary)
-        
-        allPreferences = [playbackPreferences, soundPreferences, playlistPreferences, viewPreferences,
-                          historyPreferences, controlsPreferences, metadataPreferences]
     }
     
     func persist() {
-        
-        DispatchQueue.global(qos: .utility).async {
-            self.allPreferences.forEach {$0.persist(to: self.defaults)}
-        }
+        allPreferences.forEach {$0.persist(to: defaults)}
     }
 }

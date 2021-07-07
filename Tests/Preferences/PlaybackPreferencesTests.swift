@@ -34,8 +34,6 @@ class PlaybackPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        primarySeekLengthOption: randomNillableSeekLengthOption(),
                        primarySeekLengthConstant: randomNillableSeekLengthConstant(),
@@ -55,8 +53,6 @@ class PlaybackPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        primarySeekLengthOption: randomSeekLengthOption(),
                        primarySeekLengthConstant: randomSeekLengthConstant(),
@@ -64,8 +60,8 @@ class PlaybackPreferencesTests: PreferencesTestCase {
                        secondarySeekLengthOption: randomSeekLengthOption(),
                        secondarySeekLengthConstant: randomSeekLengthConstant(),
                        secondarySeekLengthPercentage: randomPercentage(),
-                       autoplayOnStartup: Bool.random(),
-                       autoplayAfterAddingTracks: Bool.random(),
+                       autoplayOnStartup: .random(),
+                       autoplayAfterAddingTracks: .random(),
                        autoplayAfterAddingOption: randomAutoplayAfterAddingOption(),
                        rememberLastPositionOption: randomRememberLastPositionOption())
         }
@@ -119,9 +115,7 @@ class PlaybackPreferencesTests: PreferencesTestCase {
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomPlaybackPreferences())
         }
     }
     
@@ -129,13 +123,12 @@ class PlaybackPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomPlaybackPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
             let deserializedPrefs = PlaybackPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -147,72 +140,5 @@ class PlaybackPreferencesTests: PreferencesTestCase {
         
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
-    }
-    
-    private func compare(prefs: PlaybackPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.string(forKey: PlaybackPreferences.key_primarySeekLengthOption), prefs.primarySeekLengthOption.rawValue)
-        XCTAssertEqual(userDefs.integer(forKey: PlaybackPreferences.key_primarySeekLengthConstant), prefs.primarySeekLengthConstant)
-        XCTAssertEqual(userDefs.integer(forKey: PlaybackPreferences.key_primarySeekLengthPercentage), prefs.primarySeekLengthPercentage)
-        
-        XCTAssertEqual(userDefs.string(forKey: PlaybackPreferences.key_secondarySeekLengthOption), prefs.secondarySeekLengthOption.rawValue)
-        XCTAssertEqual(userDefs.integer(forKey: PlaybackPreferences.key_secondarySeekLengthConstant), prefs.secondarySeekLengthConstant)
-        XCTAssertEqual(userDefs.integer(forKey: PlaybackPreferences.key_secondarySeekLengthPercentage), prefs.secondarySeekLengthPercentage)
-        
-        XCTAssertEqual(userDefs.bool(forKey: PlaybackPreferences.key_autoplayOnStartup), prefs.autoplayOnStartup)
-        XCTAssertEqual(userDefs.bool(forKey: PlaybackPreferences.key_autoplayAfterAddingTracks), prefs.autoplayAfterAddingTracks)
-        XCTAssertEqual(userDefs.string(forKey: PlaybackPreferences.key_autoplayAfterAddingOption), prefs.autoplayAfterAddingOption.rawValue)
-        
-        XCTAssertEqual(userDefs.string(forKey: PlaybackPreferences.key_rememberLastPositionOption), prefs.rememberLastPositionOption.rawValue)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> PlaybackPreferences {
-        
-        let prefs = PlaybackPreferences([:])
-        
-        prefs.primarySeekLengthOption = randomSeekLengthOption()
-        prefs.primarySeekLengthConstant = randomSeekLengthConstant()
-        prefs.primarySeekLengthPercentage = randomPercentage()
-        prefs.secondarySeekLengthOption = randomSeekLengthOption()
-        prefs.secondarySeekLengthConstant = randomSeekLengthConstant()
-        prefs.secondarySeekLengthPercentage = randomPercentage()
-        prefs.autoplayOnStartup = Bool.random()
-        prefs.autoplayAfterAddingTracks = Bool.random()
-        prefs.autoplayAfterAddingOption = randomAutoplayAfterAddingOption()
-        prefs.rememberLastPositionOption = randomRememberLastPositionOption()
-        
-        return prefs
-    }
-    
-    private func randomNillableSeekLengthConstant() -> Int? {
-        randomNillableValue {self.randomSeekLengthConstant()}
-    }
-    
-    private func randomSeekLengthConstant() -> Int {Int.random(in: 1...3600)}
-    
-    private func randomPercentage() -> Int {Int.random(in: 1...100)}
-    
-    private func randomNillablePercentage() -> Int? {
-        randomNillableValue {self.randomPercentage()}
-    }
-    
-    private func randomSeekLengthOption() -> SeekLengthOptions {SeekLengthOptions.randomCase()}
-    
-    private func randomNillableSeekLengthOption() -> SeekLengthOptions? {
-        randomNillableValue {self.randomSeekLengthOption()}
-    }
-    
-    private func randomAutoplayAfterAddingOption() -> AutoplayAfterAddingOptions {AutoplayAfterAddingOptions.randomCase()}
-    
-    private func randomNillableAutoplayAfterAddingOption() -> AutoplayAfterAddingOptions? {
-        randomNillableValue {self.randomAutoplayAfterAddingOption()}
-    }
-    
-    private func randomRememberLastPositionOption() -> RememberSettingsForTrackOptions {RememberSettingsForTrackOptions.randomCase()}
-    
-    private func randomNillableRememberLastPositionOption() -> RememberSettingsForTrackOptions? {
-        randomNillableValue {self.randomRememberLastPositionOption()}
     }
 }

@@ -19,7 +19,7 @@ class AudioGraphPersistenceTests: AudioGraphPersistenceTestCase {
                                                           uid: randomDeviceUID())
             
             let volume: Float? = randomVolume()
-            let muted: Bool? = Bool.random()
+            let muted: Bool? = .random()
             let balance: Float? = randomBalance()
             
             let masterUnit: MasterUnitPersistentState? = MasterUnitPersistentState(state: randomUnitState(),

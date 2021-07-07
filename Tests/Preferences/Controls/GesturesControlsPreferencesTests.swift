@@ -31,8 +31,6 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        allowVolumeControl: randomNillableBool(),
                        allowSeeking: randomNillableBool(),
@@ -47,8 +45,6 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
     func testInit() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        allowVolumeControl: .random(),
@@ -98,9 +94,7 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomGesturesPreferences())
         }
     }
     
@@ -108,13 +102,12 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomGesturesPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
             let deserializedPrefs = GesturesControlsPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -126,51 +119,5 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
         
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
-    }
-    
-    private func compare(prefs: GesturesControlsPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.bool(forKey: GesturesControlsPreferences.key_allowPlaylistNavigation),
-                       prefs.allowPlaylistNavigation)
-        
-        XCTAssertEqual(userDefs.bool(forKey: GesturesControlsPreferences.key_allowPlaylistTabToggle),
-                       prefs.allowPlaylistTabToggle)
-        
-        XCTAssertEqual(userDefs.bool(forKey: GesturesControlsPreferences.key_allowSeeking),
-                       prefs.allowSeeking)
-        
-        XCTAssertEqual(userDefs.bool(forKey: GesturesControlsPreferences.key_allowTrackChange),
-                       prefs.allowTrackChange)
-        
-        XCTAssertEqual(userDefs.bool(forKey: GesturesControlsPreferences.key_allowVolumeControl),
-                       prefs.allowVolumeControl)
-        
-        XCTAssertEqual(userDefs.string(forKey: GesturesControlsPreferences.key_seekSensitivity),
-                       prefs.seekSensitivity.rawValue)
-        
-        XCTAssertEqual(userDefs.string(forKey: GesturesControlsPreferences.key_volumeControlSensitivity),
-                       prefs.volumeControlSensitivity.rawValue)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> GesturesControlsPreferences {
-        
-        let prefs = GesturesControlsPreferences([:])
-        
-        prefs.allowPlaylistNavigation = .random()
-        prefs.allowPlaylistTabToggle = .random()
-        prefs.allowSeeking = .random()
-        prefs.allowTrackChange = .random()
-        prefs.allowVolumeControl = .random()
-        
-        prefs.seekSensitivity = .randomCase()
-        prefs.volumeControlSensitivity = .randomCase()
-        
-        return prefs
-    }
-    
-    private func randomNillableScrollSensitivity() -> ScrollSensitivity? {
-        randomNillableValue {.randomCase()}
     }
 }

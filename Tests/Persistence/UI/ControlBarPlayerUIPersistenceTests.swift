@@ -32,8 +32,8 @@ class ControlBarPlayerUIPersistenceTests: PersistenceTestCase {
             
             let state = ControlBarPlayerUIPersistentState(windowFrame: NSRectPersistentState(rect: randomControlBarPlayerWindowFrame()),
                                                           cornerRadius: CGFloat.random(in: 0...20),
-                                                          trackInfoScrollingEnabled: Bool.random(),
-                                                          showSeekPosition: Bool.random(),
+                                                          trackInfoScrollingEnabled: .random(),
+                                                          showSeekPosition: .random(),
                                                           seekPositionDisplayType: .randomCase())
             
             doTestPersistence(serializedState: state)

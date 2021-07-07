@@ -26,8 +26,6 @@ class RemoteControlPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        enabled: randomNillableBool(),
                        trackChangeOrSeekingOption: randomNillableTrackChangeOrSeekingOption())
@@ -39,10 +37,8 @@ class RemoteControlPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
-                       enabled: Bool.random(),
+                       enabled: .random(),
                        trackChangeOrSeekingOption: randomTrackChangeOrSeekingOption())
         }
     }
@@ -65,9 +61,7 @@ class RemoteControlPreferencesTests: PreferencesTestCase {
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomRemoteControlPreferences())
         }
     }
     
@@ -75,13 +69,12 @@ class RemoteControlPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomRemoteControlPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
             let deserializedPrefs = RemoteControlPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -93,29 +86,5 @@ class RemoteControlPreferencesTests: PreferencesTestCase {
         
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
-    }
-    
-    private func compare(prefs: RemoteControlPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.bool(forKey: RemoteControlPreferences.key_enabled), prefs.enabled)
-        XCTAssertEqual(userDefs.string(forKey: RemoteControlPreferences.key_trackChangeOrSeekingOption), prefs.trackChangeOrSeekingOption.rawValue)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> RemoteControlPreferences {
-        
-        let prefs = RemoteControlPreferences([:])
-        
-        prefs.enabled = Bool.random()
-        prefs.trackChangeOrSeekingOption = randomTrackChangeOrSeekingOption()
-        
-        return prefs
-    }
-    
-    private func randomTrackChangeOrSeekingOption() -> TrackChangeOrSeekingOptions {TrackChangeOrSeekingOptions.randomCase()}
-    
-    private func randomNillableTrackChangeOrSeekingOption() -> TrackChangeOrSeekingOptions? {
-        randomNillableValue {self.randomTrackChangeOrSeekingOption()}
     }
 }

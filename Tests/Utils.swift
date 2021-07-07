@@ -56,7 +56,7 @@ func randomNillableValue<T>(_ producer: @escaping () -> T) -> T? where T: Any {
 }
 
 func randomNillableBool() -> Bool? {
-    randomNillableValue {Bool.random()}
+    randomNillableValue {.random()}
 }
 
 extension Float {
@@ -303,7 +303,7 @@ func randomColorScheme(named name: String) -> ColorSchemePersistentState {
                                                   sliderForegroundGradientType: .randomCase(),
                                                   sliderForegroundGradientAmount: Int.random(in: 1...100),
                                                   sliderKnobColor: randomColor(),
-                                                  sliderKnobColorSameAsForeground: Bool.random(),
+                                                  sliderKnobColorSameAsForeground: .random(),
                                                   sliderLoopSegmentColor: randomColor())
     
     let playlist = PlaylistColorSchemePersistentState(trackNameTextColor: randomColor(),

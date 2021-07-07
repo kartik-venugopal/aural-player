@@ -27,8 +27,6 @@ class MediaKeysControlsPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        enabled: randomNillableBool(),
                        skipKeyBehavior: randomNillableSkipKeyBehavior(),
@@ -41,10 +39,8 @@ class MediaKeysControlsPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
-                       enabled: Bool.random(),
+                       enabled: .random(),
                        skipKeyBehavior: randomSkipKeyBehavior(),
                        repeatSpeed: randomRepeatSpeed())
         }
@@ -71,9 +67,7 @@ class MediaKeysControlsPreferencesTests: PreferencesTestCase {
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomMediaKeysPreferences())
         }
     }
     
@@ -81,13 +75,12 @@ class MediaKeysControlsPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomMediaKeysPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
             let deserializedPrefs = MediaKeysControlsPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -99,37 +92,5 @@ class MediaKeysControlsPreferencesTests: PreferencesTestCase {
         
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
-    }
-    
-    private func compare(prefs: MediaKeysControlsPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.bool(forKey: MediaKeysControlsPreferences.key_enabled), prefs.enabled)
-        XCTAssertEqual(userDefs.string(forKey: MediaKeysControlsPreferences.key_skipKeyBehavior), prefs.skipKeyBehavior.rawValue)
-        XCTAssertEqual(userDefs.string(forKey: MediaKeysControlsPreferences.key_repeatSpeed), prefs.repeatSpeed.rawValue)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> MediaKeysControlsPreferences {
-        
-        let prefs = MediaKeysControlsPreferences([:])
-        
-        prefs.enabled = Bool.random()
-        prefs.skipKeyBehavior = randomSkipKeyBehavior()
-        prefs.repeatSpeed = randomRepeatSpeed()
-        
-        return prefs
-    }
-    
-    private func randomSkipKeyBehavior() -> SkipKeyBehavior {SkipKeyBehavior.randomCase()}
-    
-    private func randomNillableSkipKeyBehavior() -> SkipKeyBehavior? {
-        randomNillableValue {self.randomSkipKeyBehavior()}
-    }
-    
-    private func randomRepeatSpeed() -> SkipKeyRepeatSpeed {SkipKeyRepeatSpeed.randomCase()}
-    
-    private func randomNillableRepeatSpeed() -> SkipKeyRepeatSpeed? {
-        randomNillableValue {self.randomRepeatSpeed()}
     }
 }

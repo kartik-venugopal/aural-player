@@ -38,14 +38,14 @@ class PlayerUIPersistenceTests: PersistenceTestCase {
             for _ in 1...1000 {
                 
                 let state = PlayerUIPersistentState(viewType: viewType,
-                                                    showAlbumArt: Bool.random(),
-                                                    showArtist: Bool.random(),
-                                                    showAlbum: Bool.random(),
-                                                    showCurrentChapter: Bool.random(),
-                                                    showTrackInfo: Bool.random(),
-                                                    showPlayingTrackFunctions: Bool.random(),
-                                                    showControls: Bool.random(),
-                                                    showTimeElapsedRemaining: Bool.random(),
+                                                    showAlbumArt: .random(),
+                                                    showArtist: .random(),
+                                                    showAlbum: .random(),
+                                                    showCurrentChapter: .random(),
+                                                    showTrackInfo: .random(),
+                                                    showPlayingTrackFunctions: .random(),
+                                                    showControls: .random(),
+                                                    showTimeElapsedRemaining: .random(),
                                                     timeElapsedDisplayType: .randomCase(),
                                                     timeRemainingDisplayType: .randomCase())
                 

@@ -135,7 +135,7 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
             
             TimeStretchPresetPersistentState(preset: TimePreset("preset-\(index)", unitState ?? randomUnitState(),
                                                                 randomTimeStretchRate(), randomOverlap(),
-                                                                Bool.random(), false))
+                                                                .random(), false))
         }
     }
     
@@ -146,7 +146,7 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
     }
     
     func randomTimeStretchShiftPitch() -> Bool {
-        Bool.random()
+        .random()
     }
     
     func randomNillableTimeStretchShiftPitch() -> Bool? {

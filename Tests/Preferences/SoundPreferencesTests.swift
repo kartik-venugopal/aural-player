@@ -35,8 +35,6 @@ class SoundPreferencesTests: PreferencesTestCase {
 
         for _ in 1...100 {
 
-            resetDefaults()
-
             doTestInit(userDefs: UserDefaults(),
                        outputDeviceOnStartup: randomNillableOutputDevice(),
                        volumeDelta: randomNillableVolumeDelta(),
@@ -124,8 +122,6 @@ class SoundPreferencesTests: PreferencesTestCase {
     func testInit() {
 
         for _ in 1...100 {
-
-            resetDefaults()
 
             doTestInit(userDefs: UserDefaults(),
                        outputDeviceOnStartup: randomOutputDevice(),
@@ -221,9 +217,7 @@ class SoundPreferencesTests: PreferencesTestCase {
     func testPersist() {
 
         for _ in 1...100 {
-
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomSoundPreferences())
         }
     }
 
@@ -231,13 +225,12 @@ class SoundPreferencesTests: PreferencesTestCase {
 
         for _ in 1...100 {
 
-            resetDefaults()
-
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomSoundPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
 
             let deserializedPrefs = SoundPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -249,157 +242,5 @@ class SoundPreferencesTests: PreferencesTestCase {
         
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
-    }
-    
-    private func compare(prefs: SoundPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.string(forKey: SoundPreferences.key_outputDeviceOnStartup_option),
-                       prefs.outputDeviceOnStartup.option.rawValue)
-        
-        XCTAssertEqual(userDefs.string(forKey: SoundPreferences.key_outputDeviceOnStartup_preferredDeviceName),
-                       prefs.outputDeviceOnStartup.preferredDeviceName)
-        
-        XCTAssertEqual(userDefs.string(forKey: SoundPreferences.key_outputDeviceOnStartup_preferredDeviceUID),
-                       prefs.outputDeviceOnStartup.preferredDeviceUID)
-        
-        XCTAssertEqual(userDefs.float(forKey: SoundPreferences.key_volumeDelta), prefs.volumeDelta)
-        
-        XCTAssertEqual(userDefs.string(forKey: SoundPreferences.key_volumeOnStartup_option),
-                       prefs.volumeOnStartupOption.rawValue)
-        
-        XCTAssertEqual(userDefs.float(forKey: SoundPreferences.key_volumeOnStartup_value),
-                       prefs.startupVolumeValue)
-        
-        XCTAssertEqual(userDefs.float(forKey: SoundPreferences.key_panDelta), prefs.panDelta)
-        
-        XCTAssertEqual(userDefs.float(forKey: SoundPreferences.key_eqDelta), prefs.eqDelta)
-        XCTAssertEqual(userDefs.integer(forKey: SoundPreferences.key_pitchDelta), prefs.pitchDelta)
-        XCTAssertEqual(userDefs.float(forKey: SoundPreferences.key_timeDelta), prefs.timeDelta)
-        
-        XCTAssertEqual(userDefs.string(forKey: SoundPreferences.key_effectsSettingsOnStartup_option),
-                       prefs.effectsSettingsOnStartupOption.rawValue)
-        
-        XCTAssertEqual(userDefs.string(forKey: SoundPreferences.key_effectsSettingsOnStartup_masterPreset),
-                       prefs.masterPresetOnStartup_name)
-        
-        XCTAssertEqual(userDefs.string(forKey: SoundPreferences.key_rememberEffectsSettingsOption),
-                       prefs.rememberEffectsSettingsOption.rawValue)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> SoundPreferences {
-        
-        let prefs = SoundPreferences([:])
-        
-        prefs.outputDeviceOnStartup = randomOutputDevice()
-        
-        prefs.volumeDelta = randomVolumeDelta()
-        prefs.volumeOnStartupOption = .randomCase()
-        prefs.startupVolumeValue = randomStartupVolumeValue()
-        
-        prefs.panDelta = randomPanDelta()
-        
-        prefs.eqDelta = randomEQDelta()
-        prefs.pitchDelta = randomPitchDelta()
-        prefs.timeDelta = randomTimeDelta()
-        
-        prefs.effectsSettingsOnStartupOption = .randomCase()
-        prefs.masterPresetOnStartup_name = randomMasterPresetName()
-        
-        prefs.rememberEffectsSettingsOption = .randomCase()
-        
-        return prefs
-    }
-    
-    private func randomOutputDevice() -> OutputDeviceOnStartup {
-        
-        let device = OutputDeviceOnStartup()
-        
-        device.option = .randomCase()
-        device.preferredDeviceName = randomDeviceName()
-        device.preferredDeviceUID = randomDeviceUID()
-        
-        return device
-    }
-    
-    private func randomDeviceName() -> String {
-        randomString(length: Int.random(in: 10...30))
-    }
-    
-    private func randomDeviceUID() -> String {
-        UUID().uuidString
-    }
-    
-    private func randomNillableOutputDevice() -> OutputDeviceOnStartup? {
-        randomNillableValue {self.randomOutputDevice()}
-    }
-    
-    private func randomNillableVolumeStartupOptions() -> VolumeStartupOptions? {
-        randomNillableValue {.randomCase()}
-    }
-    
-    private func randomNillableEffectsSettingsStartupOptions() -> EffectsSettingsStartupOptions? {
-        randomNillableValue {.randomCase()}
-    }
-    
-    private func randomNillableRememberSettingsForTrackOptions() -> RememberSettingsForTrackOptions? {
-        randomNillableValue {.randomCase()}
-    }
-
-    private func randomVolumeDelta() -> Float {
-        Float.random(in: 1...25) * ValueConversions.volume_UIToAudioGraph
-    }
-    
-    private func randomNillableVolumeDelta() -> Float? {
-        randomNillableValue {self.randomVolumeDelta()}
-    }
-    
-    private func randomStartupVolumeValue() -> Float {
-        Float.random(in: 0...1)
-    }
-    
-    private func randomNillableStartupVolumeValue() -> Float? {
-        randomNillableValue {self.randomStartupVolumeValue()}
-    }
-    
-    private func randomPanDelta() -> Float {
-        Float.random(in: 1...25) * ValueConversions.pan_UIToAudioGraph
-    }
-    
-    private func randomNillablePanDelta() -> Float? {
-        randomNillableValue {self.randomPanDelta()}
-    }
-    
-    private func randomEQDelta() -> Float {
-        Float.random(in: 0.1...5)
-    }
-    
-    private func randomNillableEQDelta() -> Float? {
-        randomNillableValue {self.randomEQDelta()}
-    }
-    
-    private func randomPitchDelta() -> Int {
-        Int.random(in: 5...2400)
-    }
-    
-    private func randomNillablePitchDelta() -> Int? {
-        randomNillableValue {self.randomPitchDelta()}
-    }
-    
-    private func randomTimeDelta() -> Float {
-        Float.random(in: 0.01...1)
-    }
-    
-    private func randomNillableTimeDelta() -> Float? {
-        randomNillableValue {self.randomTimeDelta()}
-    }
-    
-    private func randomMasterPresetName() -> String {
-        randomString(length: Int.random(in: 5...25))
-    }
-    
-    private func randomNillableMasterPresetName() -> String? {
-        randomNillableValue {self.randomMasterPresetName()}
     }
 }

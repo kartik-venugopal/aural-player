@@ -30,8 +30,6 @@ class PlaylistPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        playlistOnStartup: randomNillablePlaylistStartupOptions(),
                        playlistFile: randomNillablePlaylistFile(),
@@ -45,8 +43,6 @@ class PlaylistPreferencesTests: PreferencesTestCase {
     func testInit() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
             
             let playlistStartupOptions = randomPlaylistStartupOptions()
             
@@ -153,14 +149,25 @@ class PlaylistPreferencesTests: PreferencesTestCase {
         XCTAssertEqual(prefs.showChaptersList, showChaptersList ?? Defaults.showChaptersList)
     }
     
+    func populateWithNilPlaylistPreferences(userDefs: UserDefaults) {
+        
+        userDefs[PlaylistPreferences.key_viewOnStartupOption] = nil
+        userDefs[PlaylistPreferences.key_viewOnStartupViewName] = nil
+        
+        userDefs[PlaylistPreferences.key_playlistOnStartup] = nil
+        userDefs[PlaylistPreferences.key_playlistFile] = nil
+        userDefs[PlaylistPreferences.key_tracksFolder] = nil
+        
+        userDefs[PlaylistPreferences.key_showNewTrackInPlaylist] = nil
+        userDefs[PlaylistPreferences.key_showChaptersList] = nil
+    }
+    
     // MARK: persist() tests ------------------------------
     
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomPlaylistPreferences())
         }
     }
     
@@ -168,13 +175,12 @@ class PlaylistPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
+            let defaults = UserDefaults()
+            let serializedPrefs = randomPlaylistPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
-            
-            let deserializedPrefs = PlaylistPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            let deserializedPrefs = PlaylistPreferences(defaults.dictionaryRepresentation())
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -186,92 +192,5 @@ class PlaylistPreferencesTests: PreferencesTestCase {
         
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
-    }
-    
-    private func compare(prefs: PlaylistPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.string(forKey: PlaylistPreferences.key_playlistOnStartup), prefs.playlistOnStartup.rawValue)
-        XCTAssertEqual(userDefs.string(forKey: PlaylistPreferences.key_playlistFile), prefs.playlistFile?.path)
-        XCTAssertEqual(userDefs.string(forKey: PlaylistPreferences.key_tracksFolder), prefs.tracksFolder?.path)
-        
-        XCTAssertEqual(userDefs.string(forKey: PlaylistPreferences.key_viewOnStartupOption), prefs.viewOnStartup.option.rawValue)
-        XCTAssertEqual(userDefs.string(forKey: PlaylistPreferences.key_viewOnStartupViewName), prefs.viewOnStartup.viewName)
-        
-        XCTAssertEqual(userDefs.bool(forKey: PlaylistPreferences.key_showNewTrackInPlaylist), prefs.showNewTrackInPlaylist)
-        XCTAssertEqual(userDefs.bool(forKey: PlaylistPreferences.key_showChaptersList), prefs.showChaptersList)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> PlaylistPreferences {
-        
-        let prefs = PlaylistPreferences([:])
-        
-        let playlistStartupOptions = randomPlaylistStartupOptions()
-        
-        prefs.playlistOnStartup = playlistStartupOptions.option
-        prefs.playlistFile = playlistStartupOptions.playlistFile
-        prefs.tracksFolder = playlistStartupOptions.tracksFolder
-        
-        prefs.viewOnStartup = randomPlaylistViewOnStartup()
-        
-        prefs.showNewTrackInPlaylist = .random()
-        prefs.showChaptersList = .random()
-        
-        return prefs
-    }
-    
-    private func randomPlaylistStartupOptions() -> (option: PlaylistStartupOptions, playlistFile: URL?, tracksFolder: URL?) {
-        
-        let playlistOnStartup: PlaylistStartupOptions = .randomCase()
-        
-        var playlistFile: URL? = nil
-        var tracksFolder: URL? = nil
-        
-        switch playlistOnStartup {
-        
-        case .loadFile:
-            
-            playlistFile = URL(fileURLWithPath: randomPlaylistFile())
-            
-        case .loadFolder:
-            
-            tracksFolder = URL(fileURLWithPath: randomFolder())
-            
-        default:
-            
-            playlistFile = nil
-            tracksFolder = nil
-        }
-        
-        return (playlistOnStartup, playlistFile, tracksFolder)
-    }
-    
-    private func randomNillablePlaylistStartupOptions() -> PlaylistStartupOptions? {
-        randomNillableValue {.randomCase()}
-    }
-    
-    private func randomNillablePlaylistFile() -> URL? {
-        randomNillableValue {URL(fileURLWithPath: randomPlaylistFile())}
-    }
-    
-    private func randomNillableTracksFolder() -> URL? {
-        randomNillableValue {URL(fileURLWithPath: randomFolder())}
-    }
-    
-    private static let playlistViewNames: [String] = ["Tracks", "Artists", "Albums", "Genres"]
-    
-    private func randomPlaylistViewOnStartup() -> PlaylistViewOnStartup {
-        
-        let viewOnStartup = PlaylistViewOnStartup()
-        
-        viewOnStartup.option = .randomCase()
-        viewOnStartup.viewName = Self.playlistViewNames.randomElement()
-        
-        return viewOnStartup
-    }
-    
-    private func randomNillablePlaylistViewOnStartup() -> PlaylistViewOnStartup? {
-        randomNillableValue {self.randomPlaylistViewOnStartup()}
     }
 }

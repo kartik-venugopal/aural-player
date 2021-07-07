@@ -29,8 +29,6 @@ class ViewPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        appModeOnStartup: randomNillableAppModeOnStartup(),
                        layoutOnStartup: randomNillableLayoutOnStartup(),
@@ -87,8 +85,6 @@ class ViewPreferencesTests: PreferencesTestCase {
     func testInit() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        appModeOnStartup: randomAppModeOnStartup(),
@@ -152,9 +148,7 @@ class ViewPreferencesTests: PreferencesTestCase {
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomViewPreferences())
         }
     }
     
@@ -162,13 +156,12 @@ class ViewPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomViewPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
             let deserializedPrefs = ViewPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -180,84 +173,5 @@ class ViewPreferencesTests: PreferencesTestCase {
         
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
-    }
-    
-    private func compare(prefs: ViewPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.string(forKey: ViewPreferences.key_appModeOnStartup_option),
-                       prefs.appModeOnStartup.option.rawValue)
-        
-        XCTAssertEqual(userDefs.string(forKey: ViewPreferences.key_appModeOnStartup_modeName),
-                       prefs.appModeOnStartup.modeName)
-        
-        XCTAssertEqual(userDefs.string(forKey: ViewPreferences.key_layoutOnStartup_option),
-                       prefs.layoutOnStartup.option.rawValue)
-        
-        XCTAssertEqual(userDefs.string(forKey: ViewPreferences.key_layoutOnStartup_layoutName),
-                       prefs.layoutOnStartup.layoutName)
-        
-        XCTAssertEqual(userDefs.bool(forKey: ViewPreferences.key_snapToWindows), prefs.snapToWindows)
-        XCTAssertEqual(userDefs.bool(forKey: ViewPreferences.key_snapToScreen), prefs.snapToScreen)
-        XCTAssertEqual(userDefs.float(forKey: ViewPreferences.key_windowGap), prefs.windowGap)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> ViewPreferences {
-        
-        let prefs = ViewPreferences([:])
-        
-        prefs.appModeOnStartup = randomAppModeOnStartup()
-        prefs.layoutOnStartup = randomLayoutOnStartup()
-        
-        prefs.snapToWindows = .random()
-        prefs.snapToScreen = .random()
-        prefs.windowGap = randomWindowGap()
-        
-        return prefs
-    }
-    
-    private func randomAppModeOnStartup() -> AppModeOnStartup {
-        
-        let appMode = AppModeOnStartup()
-        
-        appMode.option = .randomCase()
-        appMode.modeName = randomAppModeName()
-        
-        return appMode
-    }
-    
-    private func randomLayoutOnStartup() -> LayoutOnStartup {
-        
-        let layout = LayoutOnStartup()
-        
-        layout.option = .randomCase()
-        layout.layoutName = randomLayoutName()
-        
-        return layout
-    }
-    
-    private func randomAppModeName() -> String {
-        randomString(length: Int.random(in: 10...30))
-    }
-    
-    private func randomLayoutName() -> String {
-        randomString(length: Int.random(in: 10...30))
-    }
-    
-    private func randomNillableAppModeOnStartup() -> AppModeOnStartup? {
-        randomNillableValue {self.randomAppModeOnStartup()}
-    }
-    
-    private func randomNillableLayoutOnStartup() -> LayoutOnStartup? {
-        randomNillableValue {self.randomLayoutOnStartup()}
-    }
-    
-    private func randomWindowGap() -> Float {
-        Float.random(in: 0...25)
-    }
-    
-    private func randomNillableWindowGap() -> Float? {
-        randomNillableValue {self.randomWindowGap()}
     }
 }

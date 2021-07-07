@@ -27,8 +27,6 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        httpTimeout: randomNillableHTTPTimeout(),
                        enableCoverArtSearch: randomNillableBool(),
@@ -41,12 +39,10 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
             doTestInit(userDefs: UserDefaults(),
                        httpTimeout: randomHTTPTimeout(),
-                       enableCoverArtSearch: Bool.random(),
-                       enableOnDiskCoverArtCache: Bool.random())
+                       enableCoverArtSearch: .random(),
+                       enableOnDiskCoverArtCache: .random())
         }
     }
     
@@ -71,9 +67,7 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
     func testPersist() {
         
         for _ in 1...100 {
-            
-            resetDefaults()
-            doTestPersist(prefs: randomPreferences())
+            doTestPersist(prefs: randomMusicBrainzPreferences())
         }
     }
     
@@ -81,13 +75,12 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
         
         for _ in 1...100 {
             
-            resetDefaults()
-            
-            let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
+            let defaults = UserDefaults()
+            let serializedPrefs = randomMusicBrainzPreferences()
+            doTestPersist(prefs: serializedPrefs, userDefs: defaults)
             
             let deserializedPrefs = MusicBrainzPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: .standard)
+            compare(prefs: deserializedPrefs, userDefs: defaults)
         }
     }
     
@@ -100,30 +93,4 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
         prefs.persist(to: userDefs)
         compare(prefs: prefs, userDefs: userDefs)
     }
-    
-    private func compare(prefs: MusicBrainzPreferences, userDefs: UserDefaults) {
-        
-        XCTAssertEqual(userDefs.integer(forKey: MusicBrainzPreferences.key_httpTimeout), prefs.httpTimeout)
-        XCTAssertEqual(userDefs.bool(forKey: MusicBrainzPreferences.key_enableCoverArtSearch), prefs.enableCoverArtSearch)
-        XCTAssertEqual(userDefs.bool(forKey: MusicBrainzPreferences.key_enableOnDiskCoverArtCache), prefs.enableOnDiskCoverArtCache)
-    }
-    
-    // MARK: Helper functions ------------------------------
-    
-    private func randomPreferences() -> MusicBrainzPreferences {
-        
-        let prefs = MusicBrainzPreferences([:])
-        
-        prefs.httpTimeout = randomHTTPTimeout()
-        prefs.enableCoverArtSearch = Bool.random()
-        prefs.enableOnDiskCoverArtCache = Bool.random()
-        
-        return prefs
-    }
-    
-    private func randomNillableHTTPTimeout() -> Int? {
-        randomNillableValue {self.randomHTTPTimeout()}
-    }
-    
-    private func randomHTTPTimeout() -> Int {Int.random(in: 1...60)}
 }

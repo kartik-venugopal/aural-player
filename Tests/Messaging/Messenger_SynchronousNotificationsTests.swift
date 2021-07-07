@@ -135,7 +135,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
         for _ in 1...100 {
             
             receivedNotif = false
-            filterCondition = Bool.random()
+            filterCondition = .random()
             
             publisherIsBlocked = true
             Messenger.publish(notifName)
@@ -336,7 +336,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             let sentFloatVal: Float = Float.random(in: 0...3600000)
             let payload = TestPayload<Float>(notificationName: notifName, equatableValue: sentFloatVal)
             
-            filterCondition = Bool.random()
+            filterCondition = .random()
             receivedFloatVal = -1
             
             publisherIsBlocked = true
@@ -539,7 +539,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
             let sentFloatVal: Float = Float.random(in: 0...3600000)
             
-            filterCondition = Bool.random()
+            filterCondition = .random()
             receivedFloatVal = -1
             
             publisherIsBlocked = true

@@ -20,7 +20,7 @@ class UIPersistenceTests: PersistenceTestCase {
                 // Window layouts
                 
                 let layout = randomLayout(name: "_system_", systemDefined: true,
-                                          showPlaylist: Bool.random(), showEffects: Bool.random())
+                                          showPlaylist: .random(), showEffects: .random())
                 
                 let windowLayouts = WindowLayoutsPersistentState(layout: layout, userLayouts: randomUserLayouts())
                 
@@ -45,14 +45,14 @@ class UIPersistenceTests: PersistenceTestCase {
                 // Player
                 
                 let player = PlayerUIPersistentState(viewType: .randomCase(),
-                                                     showAlbumArt: Bool.random(),
-                                                     showArtist: Bool.random(),
-                                                     showAlbum: Bool.random(),
-                                                     showCurrentChapter: Bool.random(),
-                                                     showTrackInfo: Bool.random(),
-                                                     showPlayingTrackFunctions: Bool.random(),
-                                                     showControls: Bool.random(),
-                                                     showTimeElapsedRemaining: Bool.random(),
+                                                     showAlbumArt: .random(),
+                                                     showArtist: .random(),
+                                                     showAlbum: .random(),
+                                                     showCurrentChapter: .random(),
+                                                     showTrackInfo: .random(),
+                                                     showPlayingTrackFunctions: .random(),
+                                                     showControls: .random(),
+                                                     showTimeElapsedRemaining: .random(),
                                                      timeElapsedDisplayType: .randomCase(),
                                                      timeRemainingDisplayType: .randomCase())
                 
@@ -83,8 +83,8 @@ class UIPersistenceTests: PersistenceTestCase {
                 
                 let controlBarPlayer = ControlBarPlayerUIPersistentState(windowFrame: NSRectPersistentState(rect: randomControlBarPlayerWindowFrame()),
                                                                          cornerRadius: CGFloat.random(in: 0...20),
-                                                                         trackInfoScrollingEnabled: Bool.random(),
-                                                                         showSeekPosition: Bool.random(),
+                                                                         trackInfoScrollingEnabled: .random(),
+                                                                         showSeekPosition: .random(),
                                                                          seekPositionDisplayType: .randomCase())
                 
                 let state = UIPersistentState(appMode: appMode,
