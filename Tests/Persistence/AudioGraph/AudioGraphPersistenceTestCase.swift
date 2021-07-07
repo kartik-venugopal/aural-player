@@ -87,33 +87,6 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         (0..<15).map {_ in Float.random(in: validEQGainRange)}
     }
     
-    func validateEQUnitPersistentState(_ persistentState: EQUnitPersistentState,
-                                       unitState: EffectsUnitState?, userPresets: [EQPresetPersistentState]?,
-                                       type: EQType?, globalGain: Float?, bands: [Float]?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of EQUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, userPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        XCTAssertEqual(persistentState.type, type)
-        AssertEqual(persistentState.globalGain, globalGain, accuracy: 0.001)
-        AssertEqual(persistentState.bands, bands, accuracy: 0.001)
-    }
-    
     // MARK: Pitch Shift unit --------------------------------------------
     
     func randomNillablePitchShiftPresets(unitState: EffectsUnitState? = nil) -> [PitchShiftPresetPersistentState]? {
@@ -148,32 +121,6 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         randomNillableValue {self.randomOverlap()}
     }
     
-    func validatePitchShiftUnitPersistentState(_ persistentState: PitchShiftUnitPersistentState,
-                                               unitState: EffectsUnitState?, userPresets: [PitchShiftPresetPersistentState]?,
-                                               pitch: Float?, overlap: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of PitchShiftUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        AssertEqual(persistentState.pitch, pitch, accuracy: 0.001)
-        AssertEqual(persistentState.overlap, overlap, accuracy: 0.001)
-    }
-    
     // MARK: Time Stretch unit --------------------------------------------
     
     func randomNillableTimeStretchPresets(unitState: EffectsUnitState? = nil) -> [TimeStretchPresetPersistentState]? {
@@ -206,33 +153,6 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         randomNillableValue {self.randomTimeStretchShiftPitch()}
     }
     
-    func validateTimeStretchUnitPersistentState(_ persistentState: TimeStretchUnitPersistentState,
-                                                unitState: EffectsUnitState?, userPresets: [TimeStretchPresetPersistentState]?,
-                                                rate: Float?, shiftPitch: Bool?, overlap: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of TimeStretchUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        AssertEqual(persistentState.rate, rate, accuracy: 0.001)
-        XCTAssertEqual(persistentState.shiftPitch, shiftPitch)
-        AssertEqual(persistentState.overlap, overlap, accuracy: 0.001)
-    }
-    
     // MARK: Reverb unit --------------------------------------------
     
     func randomNillableReverbPresets(unitState: EffectsUnitState? = nil) -> [ReverbPresetPersistentState]? {
@@ -261,32 +181,6 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
     
     func randomNillableReverbAmount() -> Float? {
         randomNillableValue {self.randomReverbAmount()}
-    }
-    
-    func validateReverbUnitPersistentState(_ persistentState: ReverbUnitPersistentState,
-                                                   unitState: EffectsUnitState?, userPresets: [ReverbPresetPersistentState]?,
-                                                   space: ReverbSpaces?, amount: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of ReverbUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        XCTAssertEqual(persistentState.space, space)
-        AssertEqual(persistentState.amount, amount, accuracy: 0.001)
     }
     
     // MARK: Delay unit --------------------------------------------
@@ -330,35 +224,6 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
     
     func randomNillableDelayLowPassCutoff() -> Float? {
         randomNillableValue {self.randomDelayLowPassCutoff()}
-    }
-    
-    func validateDelayUnitPersistentState(_ persistentState: DelayUnitPersistentState,
-                                         unitState: EffectsUnitState?, userPresets: [DelayPresetPersistentState]?,
-                                         amount: Float?, time: Double?,
-                                         feedback: Float?, lowPassCutoff: Float?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of DelayUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        AssertEqual(persistentState.amount, amount, accuracy: 0.001)
-        AssertEqual(persistentState.time, time, accuracy: 0.001)
-        AssertEqual(persistentState.feedback, feedback, accuracy: 0.001)
-        AssertEqual(persistentState.lowPassCutoff, lowPassCutoff, accuracy: 0.001)
     }
     
     // MARK: Filter unit --------------------------------------------
@@ -450,31 +315,6 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
     
     func randomNillableFilterPresets(unitState: EffectsUnitState? = nil) -> [FilterPresetPersistentState]? {
         randomNillableValue {self.randomFilterPresets(unitState: unitState)}
-    }
-    
-    func validateFilterUnitPersistentState(persistentState: FilterUnitPersistentState,
-                                         unitState: EffectsUnitState?, userPresets: [FilterPresetPersistentState]?,
-                                         bands: [FilterBandPersistentState]?) {
-        
-        XCTAssertEqual(persistentState.state, unitState)
-        
-        if let theUserPresets = userPresets {
-            
-            guard let persistedUserPresets = persistentState.userPresets else {
-                
-                XCTFail("persisted user presets is nil, deserialization of FilterUnit state failed.")
-                return
-            }
-            
-            XCTAssertTrue(persistedUserPresets.count == theUserPresets.count)
-            XCTAssertEqual(persistedUserPresets, theUserPresets)
-            
-        } else {
-            
-            XCTAssertNil(persistentState.userPresets)
-        }
-        
-        XCTAssertEqual(persistentState.bands, bands)
     }
     
     // MARK: Audio Unit -------------------------------------------

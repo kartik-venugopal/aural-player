@@ -441,3 +441,108 @@ func randomControlBarPlayerWindowFrame() -> NSRect {
     return visibleFrame.randomContainedRect(width: CGFloat.random(in: 600...visibleFrame.width),
                                             height: 40)
 }
+
+func randomRecentlyPlayedItems() -> [HistoryItemPersistentState] {
+    
+    let numItems = Int.random(in: 10...100)
+    
+    return (1...numItems).map {_ in
+        
+        let file = randomAudioFile()
+        let name = randomString(length: Int.random(in: 10...50))
+        let time = Date.init(timeIntervalSinceNow: -randomTimeBeforeNow())
+        
+        return HistoryItemPersistentState(file: file, name: name, time: time.serializableString())
+    }
+}
+
+func randomRecentlyAddedItems() -> [HistoryItemPersistentState] {
+    
+    let numItems = Int.random(in: 10...100)
+    
+    return (1...numItems).map {_ in
+        
+        let file = randomRecentlyAddedItemFilePath()
+        let name = randomString(length: Int.random(in: 10...50))
+        let time = Date.init(timeIntervalSinceNow: -randomTimeBeforeNow())
+        
+        return HistoryItemPersistentState(file: file, name: name, time: time.serializableString())
+    }
+}
+
+func randomTimeBeforeNow() -> Double {
+    
+    // 1 minute to 60 days.
+    Double.random(in: 65...5184000)
+}
+
+func randomRecentlyAddedItemFilePath() -> URLPath {
+    
+    let randomNum = Int.random(in: 1...3)
+    
+    switch randomNum {
+    
+    case 1:     // Audio file
+                return randomAudioFile()
+    
+    case 2:     // Playlist file
+                return randomPlaylistFile()
+    
+    case 3:     // Folder
+                return randomFolder()
+        
+    default:    return randomAudioFile()
+        
+    }
+}
+
+func randomAudioFileExtension() -> URLPath {
+    
+    let randomIndex = Int.random(in: 0..<SupportedTypes.allAudioExtensions.count)
+    return SupportedTypes.allAudioExtensions[randomIndex]
+}
+
+private let imageFileExtensions: [String] = ["jpg", "png", "tiff", "bmp"]
+
+func randomImageFileExtension() -> URLPath {
+    
+    let randomIndex = Int.random(in: 0..<imageFileExtensions.count)
+    return imageFileExtensions[randomIndex]
+}
+
+func randomAudioFile() -> URLPath {
+    
+    let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+    return "/\(pathComponents.joined(separator: "/")).\(randomAudioFileExtension())"
+}
+
+func randomPlaylistFile() -> URLPath {
+    
+    let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+    return "/\(pathComponents.joined(separator: "/")).m3u"
+}
+
+func randomImageFile() -> URLPath {
+    
+    let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+    return "/\(pathComponents.joined(separator: "/")).\(randomImageFileExtension())"
+}
+
+func randomFolder() -> URLPath {
+    
+    let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
+    return "/\(pathComponents.joined(separator: "/"))"
+}
+
+func randomPlaybackPosition() -> Double {
+    Double.random(in: 0...36000)
+}
+
+extension Array {
+    
+    func randomElement() -> Element {
+        
+        let randomIndex: Int = Int.random(in: self.indices)
+        return self[randomIndex]
+    }
+}

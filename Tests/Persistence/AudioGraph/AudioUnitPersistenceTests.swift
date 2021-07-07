@@ -15,20 +15,14 @@ class AudioUnitPersistenceTests: AudioGraphPersistenceTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            let serializedState = AudioUnitPersistentState(state: unitState, userPresets: randomAUPresets(),
-                                                           componentType: randomAUOSType(), componentSubType: randomAUOSType(),
-                                                           params: randomAUParams())
-            
-            doTestPersistence(serializedState: serializedState)
-        }
-        
-        for _ in 1...100 {
-            
-            let serializedState = AudioUnitPersistentState(state: randomUnitState(), userPresets: randomAUPresets(),
-                                                           componentType: randomAUOSType(), componentSubType: randomAUOSType(),
-                                                           params: randomAUParams())
-            
-            doTestPersistence(serializedState: serializedState)
+            for _ in 1...100 {
+                
+                let serializedState = AudioUnitPersistentState(state: unitState, userPresets: randomAUPresets(),
+                                                               componentType: randomAUOSType(), componentSubType: randomAUOSType(),
+                                                               params: randomAUParams())
+                
+                doTestPersistence(serializedState: serializedState)
+            }
         }
     }
 }

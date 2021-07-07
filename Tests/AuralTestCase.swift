@@ -84,48 +84,6 @@ class AuralTestCase: XCTestCase {
         return track
     }
     
-    func randomAudioFileExtension() -> URLPath {
-        
-        let randomIndex = Int.random(in: 0..<SupportedTypes.allAudioExtensions.count)
-        return SupportedTypes.allAudioExtensions[randomIndex]
-    }
-    
-    private let imageFileExtensions: [String] = ["jpg", "png", "tiff", "bmp"]
-    
-    func randomImageFileExtension() -> URLPath {
-        
-        let randomIndex = Int.random(in: 0..<imageFileExtensions.count)
-        return imageFileExtensions[randomIndex]
-    }
-    
-    func randomAudioFile() -> URLPath {
-        
-        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
-        return "/\(pathComponents.joined(separator: "/")).\(randomAudioFileExtension())"
-    }
-    
-    func randomPlaylistFile() -> URLPath {
-        
-        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
-        return "/\(pathComponents.joined(separator: "/")).m3u"
-    }
-    
-    func randomImageFile() -> URLPath {
-        
-        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
-        return "/\(pathComponents.joined(separator: "/")).\(randomImageFileExtension())"
-    }
-    
-    func randomFolder() -> URLPath {
-        
-        let pathComponents: [String] = (0..<Int.random(in: 2...10)).map {_ in randomString(length: Int.random(in: 5...20))}
-        return "/\(pathComponents.joined(separator: "/"))"
-    }
-    
-    func randomPlaybackPosition() -> Double {
-        Double.random(in: 0...36000)
-    }
-    
     // TODO: Run a program to list all unique artists / albums / genres from Music folder and put them into a text/json file.
     // Then load them up in one place (a Utils class) and reuse the Util across unit tests.
     
