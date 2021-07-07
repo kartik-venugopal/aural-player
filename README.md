@@ -155,10 +155,6 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ![Control Center integration 2 screenshot](/Documentation/Screenshots/ControlCenter2.png?raw=true)
 
-### Visualizer
-
-<img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
-
 ### Changing the font scheme
 
 ![Changing the font scheme demo](/Documentation/Demos/FontSchemes.gif?raw=true)
@@ -171,13 +167,13 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ![Player view](/Documentation/Demos/playerView.gif?raw=true)
 
-### Segment loop playback
-
-![Segment loop playback demo](/Documentation/Demos/ABLoop.gif?raw=true)
-
 ### Enabling and disabling effects
 
 ![Enabling and disabling effects demo](/Documentation/Demos/UsingFXUnit.gif?raw=true)
+
+### Segment loop playback
+
+![Segment loop playback demo](/Documentation/Demos/ABLoop.gif?raw=true)
 
 ### Detailed track info
 
@@ -187,13 +183,9 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ![Changing the window layout demo](/Documentation/Demos/WindowLayout.gif?raw=true)
 
-### Searching the playlist
+### Visualizer
 
-![Searching the playlist demo](/Documentation/Demos/PlaylistSearch.gif?raw=true)
-
-### Chapters support
-
-![Chapters support demo](/Documentation/Demos/ChaptersDemo.gif?raw=true)
+<img width="530" src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Visualizer.gif"/>
 
 ## Known issues (and solutions)
 
