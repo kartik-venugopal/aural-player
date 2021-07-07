@@ -76,11 +76,13 @@ class AuralTestCase: XCTestCase {
 
     func createTrack(title: String, fileExtension: String, duration: Double,
                      artist: String? = nil, album: String? = nil, genre: String? = nil, isValid: Bool = true) -> Track {
+        
+        let parentFolder = randomFolder()
 
-        let track = MockTrack(URL(fileURLWithPath: String(format: "/Dummy/%@.%@", title, fileExtension)), isValid)
+        let track = MockTrack(URL(fileURLWithPath: String(format: "%@/%@.%@", parentFolder, title, fileExtension)), isValid)
         let metadata = fileMetadata(title, artist, album, genre, duration)
         track.setPlaylistMetadata(from: metadata)
-
+        
         return track
     }
     

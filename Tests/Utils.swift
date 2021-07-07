@@ -546,3 +546,10 @@ extension Array {
         return self[randomIndex]
     }
 }
+
+extension Array where Element: FloatingPoint {
+    
+    func sum() -> Element {
+        self.reduce(Element.init(0), {$0 + $1})
+    }
+}

@@ -26,5 +26,13 @@ class PlaylistTestCase: AuralTestCase {
         
         return sizes
     }
+    
+    func createRandomTrack() -> Track {
+        return createTrack(title: randomTitle(), duration: randomDuration())
+    }
+    
+    func createNRandomTracks(count: Int) -> [Track] {
+        return (1...count).map {_ in createRandomTrack()}
+    }
 }
 

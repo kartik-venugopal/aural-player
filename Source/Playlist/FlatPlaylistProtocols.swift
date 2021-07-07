@@ -32,10 +32,10 @@ protocol FlatPlaylistAccessorProtocol {
     // Determines the index of a given track, within the playlist. Returns nil if the track doesn't exist within the playlist.
     func indexOfTrack(_ track: Track) -> Int?
     
-    // Searches the playlist, given certain query parameters, and returns all matching results
+    // Searches the playlist, given certain query parameters, and returns all matching results.
     func search(_ searchQuery: SearchQuery) -> SearchResults
     
-    // Returns the display name for a track within the playlist
+    // Returns the display name for a track within the playlist.
     func displayNameForTrack(_ track: Track) -> String
 }
 
