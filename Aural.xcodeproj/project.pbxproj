@@ -808,6 +808,8 @@
 		3ECC310F26908A08001A5CA7 /* PersistenceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECC310E26908A08001A5CA7 /* PersistenceTestCase.swift */; };
 		3ECD7DEE25DFE23500A61753 /* AlmendraSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */; };
 		3ECD7DF025DFE23700A61753 /* WalterTurncoat.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */; };
+		3ECE4BEE26960A140017DD25 /* ViewPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BED26960A140017DD25 /* ViewPreferencesTests.swift */; };
+		3ECE4BF1269613D10017DD25 /* GesturesControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */; };
 		3ED6D8EF26924FDC007DA433 /* HistoryPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */; };
 		3ED6D8F2269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */; };
 		3ED6D8F526925710007DA433 /* RemoteControlPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */; };
@@ -1790,6 +1792,8 @@
 		3ECC310E26908A08001A5CA7 /* PersistenceTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTestCase.swift; sourceTree = "<group>"; };
 		3ECD7DEB25DFE1E900A61753 /* AlmendraSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AlmendraSC-Regular.ttf"; sourceTree = "<group>"; };
 		3ECD7DEC25DFE1E900A61753 /* WalterTurncoat.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = WalterTurncoat.ttf; sourceTree = "<group>"; };
+		3ECE4BED26960A140017DD25 /* ViewPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPreferencesTests.swift; sourceTree = "<group>"; };
+		3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesControlsPreferencesTests.swift; sourceTree = "<group>"; };
 		3ED6D8EE26924FDC007DA433 /* HistoryPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryPreferencesTests.swift; sourceTree = "<group>"; };
 		3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysControlsPreferencesTests.swift; sourceTree = "<group>"; };
 		3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferencesTests.swift; sourceTree = "<group>"; };
@@ -4215,6 +4219,8 @@
 				3ED6D8F1269253BB007DA433 /* MediaKeysControlsPreferencesTests.swift */,
 				3ED6D8F426925710007DA433 /* RemoteControlPreferencesTests.swift */,
 				3ED6D8F726925E4C007DA433 /* MusicBrainzPreferencesTests.swift */,
+				3ECE4BED26960A140017DD25 /* ViewPreferencesTests.swift */,
+				3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */,
 			);
 			path = Preferences;
 			sourceTree = "<group>";
@@ -5186,6 +5192,7 @@
 				3EE4B866268FBEF6006BDEB2 /* GesturesControlsPreferences.swift in Sources */,
 				3EF28DA82694DDC8005D5B43 /* FontConstants.swift in Sources */,
 				3E21ECB4268F498A00731E4C /* GroupType.swift in Sources */,
+				3ECE4BEE26960A140017DD25 /* ViewPreferencesTests.swift in Sources */,
 				3EA62F602693E1D3004A780A /* FavoritePersistentState.swift in Sources */,
 				3EA62F5B2693DDE6004A780A /* HistoryItems.swift in Sources */,
 				3EEF3749268F6D5D002EA77F /* SequencerPlaylistResizingTests.swift in Sources */,
@@ -5208,6 +5215,7 @@
 				3E5ECA55268F4E4A000AE8B7 /* AVAudioFramePositionExtensions.swift in Sources */,
 				3EA1BDF2268F508C00A5D81B /* AtomicCounter.swift in Sources */,
 				3E21EC6D268F42C900731E4C /* ArrayExtensions.swift in Sources */,
+				3ECE4BF1269613D10017DD25 /* GesturesControlsPreferencesTests.swift in Sources */,
 				3EE4B856268FA459006BDEB2 /* FilterPresets.swift in Sources */,
 				3E5ECA46268F4CB8000AE8B7 /* GroupingPlaylistTests.swift in Sources */,
 				3EA1BDDE268F4F5000A5D81B /* NotificationSubscriber.swift in Sources */,

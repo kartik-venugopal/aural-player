@@ -23,15 +23,15 @@ class GesturesControlsPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "controls.gestures"
     
-    private static let key_allowVolumeControl: String = "\(keyPrefix).allowVolumeControl"
-    private static let key_allowSeeking: String = "\(keyPrefix).allowSeeking"
-    private static let key_allowTrackChange: String = "\(keyPrefix).allowTrackChange"
+    static let key_allowVolumeControl: String = "\(keyPrefix).allowVolumeControl"
+    static let key_allowSeeking: String = "\(keyPrefix).allowSeeking"
+    static let key_allowTrackChange: String = "\(keyPrefix).allowTrackChange"
     
-    private static let key_allowPlaylistNavigation: String = "\(keyPrefix).allowPlaylistNavigation"
-    private static let key_allowPlaylistTabToggle: String = "\(keyPrefix).allowPlaylistTabToggle"
+    static let key_allowPlaylistNavigation: String = "\(keyPrefix).allowPlaylistNavigation"
+    static let key_allowPlaylistTabToggle: String = "\(keyPrefix).allowPlaylistTabToggle"
     
-    private static let key_volumeControlSensitivity: String = "\(keyPrefix).volumeControlSensitivity"
-    private static let key_seekSensitivity: String = "\(keyPrefix).seekSensitivity"
+    static let key_volumeControlSensitivity: String = "\(keyPrefix).volumeControlSensitivity"
+    static let key_seekSensitivity: String = "\(keyPrefix).seekSensitivity"
     
     private typealias Defaults = PreferencesDefaults.Controls.Gestures
     

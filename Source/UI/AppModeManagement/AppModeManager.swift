@@ -19,13 +19,15 @@ class AppModeManager {
     
     private static var controlBarMode: ControlBarAppModeController = ControlBarAppModeController()
     
-    static func presentApp(lastPresentedAppMode: AppMode, preferences: ViewPreferences) {
+    static func presentApp(lastPresentedAppMode: AppMode?, preferences: ViewPreferences) {
         
-        if preferences.appModeOnStartup.option == .rememberFromLastAppLaunch {
-            presentMode(lastPresentedAppMode)
+        if preferences.appModeOnStartup.option == .specific,
+           let appMode = preferences.appModeOnStartup.mode {
             
-        } else {    // Specific mode
-            presentMode(AppMode(rawValue: preferences.appModeOnStartup.modeName) ?? AppMode.defaultMode)
+            presentMode(appMode)
+            
+        } else {    // Remember from last app launch.
+            presentMode(lastPresentedAppMode ?? .defaultMode)
         }
     }
     

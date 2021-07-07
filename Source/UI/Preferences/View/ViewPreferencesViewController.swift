@@ -81,7 +81,7 @@ class ViewPreferencesViewController: NSViewController, PreferencesViewProtocol {
         
         updateLayoutMenu()
         
-        if let item = layoutMenu.item(withTitle: viewPrefs.layoutOnStartup.layoutName) {
+        if let layoutName = viewPrefs.layoutOnStartup.layoutName, let item = layoutMenu.item(withTitle: layoutName) {
             layoutMenu.select(item)
         } else {
             // Default

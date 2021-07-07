@@ -84,10 +84,10 @@ class MediaKeysControlsPreferencesTests: PreferencesTestCase {
             resetDefaults()
             
             let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: UserDefaults.standard)
+            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
             
             let deserializedPrefs = MediaKeysControlsPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: UserDefaults.standard)
+            compare(prefs: deserializedPrefs, userDefs: .standard)
         }
     }
     

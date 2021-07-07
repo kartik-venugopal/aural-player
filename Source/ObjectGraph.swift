@@ -21,7 +21,7 @@ class ObjectGraph {
     
     static let persistentState: PersistentAppState = persistenceManager.load(type: PersistentAppState.self) ?? PersistentAppState.defaults
     
-    static var lastPresentedAppMode: AppMode {persistentState.ui?.appMode ?? AppMode.defaultMode}
+    static var lastPresentedAppMode: AppMode? {persistentState.ui?.appMode}
     
     static let preferences: Preferences = Preferences.instance
     

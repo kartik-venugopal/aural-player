@@ -111,9 +111,9 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     func loadWindows() {
         
-        if preferences.layoutOnStartup.option == .specific {
+        if preferences.layoutOnStartup.option == .specific, let layoutName = preferences.layoutOnStartup.layoutName {
             
-            layout(preferences.layoutOnStartup.layoutName)
+            layout(layoutName)
             
         } else {
             
