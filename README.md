@@ -121,7 +121,7 @@ The contents of the "aural" folder should look like this:
 
 All the documentation can be found on the [wiki](https://github.com/maculateConception/aural-player/wiki).
 
-Some pages to get you started:
+#### Some pages to get you started
 
 [How To's](https://github.com/maculateConception/aural-player/wiki/How-To's)
 
