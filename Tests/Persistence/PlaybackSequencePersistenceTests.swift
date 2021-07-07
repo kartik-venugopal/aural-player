@@ -26,8 +26,8 @@ class PlaybackSequencePersistenceTests: PersistenceTestCase {
         
         for _ in 1...1000 {
             
-            let state = PlaybackSequencePersistentState(repeatMode: RepeatMode.randomCase(),
-                                                        shuffleMode: ShuffleMode.randomCase())
+            let state = PlaybackSequencePersistentState(repeatMode: .randomCase(),
+                                                        shuffleMode: .randomCase())
             
             doTestPersistence(serializedState: state)
         }

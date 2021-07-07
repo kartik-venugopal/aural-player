@@ -9,9 +9,26 @@
 //
 import XCTest
 
-class PlaybackPreferencesTests: AuralTestCase {
+class PlaybackPreferencesTests: PreferencesTestCase {
     
     private typealias Defaults = PreferencesDefaults.Playback
+    
+    override func setUp() {
+        
+        UserDefaults.standard[PlaybackPreferences.key_primarySeekLengthOption] = nil
+        UserDefaults.standard[PlaybackPreferences.key_primarySeekLengthConstant] = nil
+        UserDefaults.standard[PlaybackPreferences.key_primarySeekLengthPercentage] = nil
+        
+        UserDefaults.standard[PlaybackPreferences.key_secondarySeekLengthOption] = nil
+        UserDefaults.standard[PlaybackPreferences.key_secondarySeekLengthConstant] = nil
+        UserDefaults.standard[PlaybackPreferences.key_secondarySeekLengthPercentage] = nil
+        
+        UserDefaults.standard[PlaybackPreferences.key_autoplayOnStartup] = nil
+        UserDefaults.standard[PlaybackPreferences.key_autoplayAfterAddingTracks] = nil
+        UserDefaults.standard[PlaybackPreferences.key_autoplayAfterAddingOption] = nil
+        
+        UserDefaults.standard[PlaybackPreferences.key_rememberLastPositionOption] = nil
+    }
     
     // MARK: init() tests ------------------------------
     
@@ -34,6 +51,8 @@ class PlaybackPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
+            resetDefaults()
+            
             doTestInit(userDefs: UserDefaults(),
                        primarySeekLengthOption: randomNillableSeekLengthOption(),
                        primarySeekLengthConstant: randomNillableSeekLengthConstant(),
@@ -52,6 +71,8 @@ class PlaybackPreferencesTests: AuralTestCase {
     func testInit() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        primarySeekLengthOption: randomSeekLengthOption(),
@@ -114,12 +135,10 @@ class PlaybackPreferencesTests: AuralTestCase {
     
     func testPersist() {
         
-        var prefs: PlaybackPreferences!
-        
         for _ in 1...100 {
             
-            prefs = randomPreferences()
-            doTestPersist(prefs: prefs)
+            resetDefaults()
+            doTestPersist(prefs: randomPreferences())
         }
     }
     
@@ -127,11 +146,13 @@ class PlaybackPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
+            resetDefaults()
+            
             let serializedPrefs = randomPreferences()
-            doTestPersist(prefs: serializedPrefs, userDefs: UserDefaults.standard)
+            doTestPersist(prefs: serializedPrefs, userDefs: .standard)
             
             let deserializedPrefs = PlaybackPreferences(UserDefaults.standard.dictionaryRepresentation())
-            compare(prefs: deserializedPrefs, userDefs: UserDefaults.standard)
+            compare(prefs: deserializedPrefs, userDefs: .standard)
         }
     }
     

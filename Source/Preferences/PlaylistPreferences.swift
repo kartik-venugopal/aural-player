@@ -26,15 +26,15 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
     
     private static let keyPrefix: String = "playlist"
     
-    private static let key_viewOnStartupOption: String = "\(keyPrefix).viewOnStartup.option"
-    private static let key_viewOnStartupViewName: String = "\(keyPrefix).viewOnStartup.view"
+    static let key_viewOnStartupOption: String = "\(keyPrefix).viewOnStartup.option"
+    static let key_viewOnStartupViewName: String = "\(keyPrefix).viewOnStartup.view"
     
-    private static let key_playlistOnStartup: String = "\(keyPrefix).playlistOnStartup"
-    private static let key_playlistFile: String = "\(keyPrefix).playlistOnStartup.playlistFile"
-    private static let key_tracksFolder: String = "\(keyPrefix).playlistOnStartup.tracksFolder"
+    static let key_playlistOnStartup: String = "\(keyPrefix).playlistOnStartup"
+    static let key_playlistFile: String = "\(keyPrefix).playlistOnStartup.playlistFile"
+    static let key_tracksFolder: String = "\(keyPrefix).playlistOnStartup.tracksFolder"
     
-    private static let key_showNewTrackInPlaylist: String = "\(keyPrefix).showNewTrackInPlaylist"
-    private static let key_showChaptersList: String = "\(keyPrefix).showChaptersList"
+    static let key_showNewTrackInPlaylist: String = "\(keyPrefix).showNewTrackInPlaylist"
+    static let key_showChaptersList: String = "\(keyPrefix).showChaptersList"
     
     private typealias Defaults = PreferencesDefaults.Playlist
     
@@ -90,7 +90,7 @@ class PlaylistPreferences: PersistentPreferencesProtocol {
 }
 
 // All options for the playlist at startup
-enum PlaylistStartupOptions: String {
+enum PlaylistStartupOptions: String, CaseIterable {
     
     case empty
     case rememberFromLastAppLaunch
@@ -125,7 +125,7 @@ class PlaylistViewOnStartup {
     static let defaultInstance: PlaylistViewOnStartup = PlaylistViewOnStartup()
 }
 
-enum PlaylistViewStartupOptions: String {
+enum PlaylistViewStartupOptions: String, CaseIterable {
     
     case specific
     case rememberFromLastAppLaunch

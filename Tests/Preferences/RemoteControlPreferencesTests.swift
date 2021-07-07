@@ -9,7 +9,7 @@
 //
 import XCTest
 
-class RemoteControlPreferencesTests: AuralTestCase {
+class RemoteControlPreferencesTests: PreferencesTestCase {
     
     private typealias Defaults = PreferencesDefaults.Controls.RemoteControl
     
@@ -26,6 +26,8 @@ class RemoteControlPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
+            resetDefaults()
+            
             doTestInit(userDefs: UserDefaults(),
                        enabled: randomNillableBool(),
                        trackChangeOrSeekingOption: randomNillableTrackChangeOrSeekingOption())
@@ -36,6 +38,8 @@ class RemoteControlPreferencesTests: AuralTestCase {
     func testInit() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        enabled: Bool.random(),
@@ -61,6 +65,8 @@ class RemoteControlPreferencesTests: AuralTestCase {
     func testPersist() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             doTestPersist(prefs: randomPreferences())
         }
     }
@@ -68,6 +74,8 @@ class RemoteControlPreferencesTests: AuralTestCase {
     func testPersist_serializeAndDeserialize() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             let serializedPrefs = randomPreferences()
             doTestPersist(prefs: serializedPrefs, userDefs: UserDefaults.standard)

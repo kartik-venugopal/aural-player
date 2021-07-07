@@ -28,60 +28,6 @@ class HistoryPersistenceTests: PersistenceTestCase {
             doTestPersistence(serializedState: state)
         }
     }
-    
-    private func randomRecentlyPlayedItems() -> [HistoryItemPersistentState] {
-        
-        let numItems = Int.random(in: 10...100)
-        
-        return (1...numItems).map {_ in
-            
-            let file = randomAudioFile()
-            let name = randomString(length: Int.random(in: 10...50))
-            let time = Date.init(timeIntervalSinceNow: -randomTimeBeforeNow())
-            
-            return HistoryItemPersistentState(file: file, name: name, time: time.serializableString())
-        }
-    }
-    
-    private func randomRecentlyAddedItems() -> [HistoryItemPersistentState] {
-        
-        let numItems = Int.random(in: 10...100)
-        
-        return (1...numItems).map {_ in
-            
-            let file = randomRecentlyAddedItemFilePath()
-            let name = randomString(length: Int.random(in: 10...50))
-            let time = Date.init(timeIntervalSinceNow: -randomTimeBeforeNow())
-            
-            return HistoryItemPersistentState(file: file, name: name, time: time.serializableString())
-        }
-    }
-    
-    private func randomTimeBeforeNow() -> Double {
-        
-        // 1 minute to 60 days.
-        Double.random(in: 65...5184000)
-    }
-    
-    private func randomRecentlyAddedItemFilePath() -> URLPath {
-        
-        let randomNum = Int.random(in: 1...3)
-        
-        switch randomNum {
-        
-        case 1:     // Audio file
-                    return randomAudioFile()
-        
-        case 2:     // Playlist file
-                    return randomPlaylistFile()
-        
-        case 3:     // Folder
-                    return randomFolder()
-            
-        default:    return randomAudioFile()
-            
-        }
-    }
 }
 
 // MARK: Equality comparison for model objects -----------------------------

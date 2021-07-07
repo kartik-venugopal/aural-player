@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class MusicBrainzPreferencesTests: AuralTestCase {
+class MusicBrainzPreferencesTests: PreferencesTestCase {
     
     private typealias Defaults = PreferencesDefaults.Metadata.MusicBrainz
     
@@ -27,6 +27,8 @@ class MusicBrainzPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
+            resetDefaults()
+            
             doTestInit(userDefs: UserDefaults(),
                        httpTimeout: randomNillableHTTPTimeout(),
                        enableCoverArtSearch: randomNillableBool(),
@@ -38,6 +40,8 @@ class MusicBrainzPreferencesTests: AuralTestCase {
     func testInit() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        httpTimeout: randomHTTPTimeout(),
@@ -67,6 +71,8 @@ class MusicBrainzPreferencesTests: AuralTestCase {
     func testPersist() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             doTestPersist(prefs: randomPreferences())
         }
     }
@@ -74,6 +80,8 @@ class MusicBrainzPreferencesTests: AuralTestCase {
     func testPersist_serializeAndDeserialize() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             let serializedPrefs = randomPreferences()
             doTestPersist(prefs: serializedPrefs, userDefs: UserDefaults.standard)

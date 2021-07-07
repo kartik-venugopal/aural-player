@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class MediaKeysControlsPreferencesTests: AuralTestCase {
+class MediaKeysControlsPreferencesTests: PreferencesTestCase {
     
     private typealias Defaults = PreferencesDefaults.Controls.MediaKeys
     
@@ -27,6 +27,8 @@ class MediaKeysControlsPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
+            resetDefaults()
+            
             doTestInit(userDefs: UserDefaults(),
                        enabled: randomNillableBool(),
                        skipKeyBehavior: randomNillableSkipKeyBehavior(),
@@ -38,6 +40,8 @@ class MediaKeysControlsPreferencesTests: AuralTestCase {
     func testInit() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        enabled: Bool.random(),
@@ -67,6 +71,8 @@ class MediaKeysControlsPreferencesTests: AuralTestCase {
     func testPersist() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             doTestPersist(prefs: randomPreferences())
         }
     }
@@ -74,6 +80,8 @@ class MediaKeysControlsPreferencesTests: AuralTestCase {
     func testPersist_serializeAndDeserialize() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             let serializedPrefs = randomPreferences()
             doTestPersist(prefs: serializedPrefs, userDefs: UserDefaults.standard)

@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class HistoryPreferencesTests: AuralTestCase {
+class HistoryPreferencesTests: PreferencesTestCase {
     
     private typealias Defaults = PreferencesDefaults.History
     
@@ -26,6 +26,8 @@ class HistoryPreferencesTests: AuralTestCase {
         
         for _ in 1...100 {
             
+            resetDefaults()
+            
             doTestInit(userDefs: UserDefaults(),
                        recentlyAddedListSize: randomNillableHistoryListSize(),
                        recentlyPlayedListSize: randomNillableHistoryListSize())
@@ -36,6 +38,8 @@ class HistoryPreferencesTests: AuralTestCase {
     func testInit() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             doTestInit(userDefs: UserDefaults(),
                        recentlyAddedListSize: randomHistoryListSize(),
@@ -61,6 +65,8 @@ class HistoryPreferencesTests: AuralTestCase {
     func testPersist() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             doTestPersist(prefs: randomPreferences())
         }
     }
@@ -68,6 +74,8 @@ class HistoryPreferencesTests: AuralTestCase {
     func testPersist_serializeAndDeserialize() {
         
         for _ in 1...100 {
+            
+            resetDefaults()
             
             let serializedPrefs = randomPreferences()
             doTestPersist(prefs: serializedPrefs, userDefs: UserDefaults.standard)
