@@ -1,5 +1,5 @@
 //
-//  FlatPlaylist+MoveTracksUp.swift
+//  FlatPlaylistTests+MoveTracksToBottom.swift
 //  Tests
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,17 +9,17 @@
 //  
 import XCTest
 
-class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
+class FlatPlaylistTests_MoveTracksToBottom: FlatPlaylistTestCase {
     
     func test_emptyPlaylist() {
         
         assertEmptyPlaylist()
         
-        var result = playlist.moveTracksUp(IndexSet([0, 1]))
+        var result = playlist.moveTracksToBottom(IndexSet([0, 1]))
         XCTAssertTrue(result.playlistType == .tracks)
         XCTAssertTrue(result.results.isEmpty)
         
-        result = playlist.moveTracksUp(IndexSet([]))
+        result = playlist.moveTracksToBottom(IndexSet([]))
         XCTAssertTrue(result.playlistType == .tracks)
         XCTAssertTrue(result.results.isEmpty)
     }
@@ -40,17 +40,17 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
         for _ in 1...10 {
             
             let playlistSize = randomPlaylistSize()
-            doTest_allCanMove(playlistSize: playlistSize,
-                              movedTrackIndices: Set([.random(in: 1..<playlistSize)]))
+            doTest(playlistSize: playlistSize,
+                   movedTrackIndices: Set([.random(in: 0..<(playlistSize - 1))]))
         }
     }
     
-    func test_singleIndexAtTop_cannotMove() {
-        
-        let zeroIndexSet = Set([0])
+    func test_singleIndexAtBottom_cannotMove() {
         
         for _ in 1...10 {
-            doTest_noneCanMove(playlistSize: randomPlaylistSize(), movedTrackIndices: zeroIndexSet)
+            
+            let playlistSize = randomPlaylistSize()
+            doTest_noneCanMove(playlistSize: playlistSize, movedTrackIndices: Set([playlistSize - 1]))
         }
     }
     
@@ -62,30 +62,31 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
             
             let playlistSize = randomPlaylistSize()
             
-            doTest_someCanMove(playlistSize: playlistSize,
-                               movedTrackIndices: Set(randomIndices(playlistSize: playlistSize)))
+            doTest(playlistSize: playlistSize,
+                   movedTrackIndices: Set(randomIndices(playlistSize: playlistSize)))
         }
     }
     
-    func test_arbitraryIndices_singleTrackAtTopCannotMove() {
+    func test_arbitraryIndices_singleTrackAtBottomCannotMove() {
         
         for _ in 1...10 {
             
             let playlistSize = randomPlaylistSize()
-            let indices = Set([0] + randomIndices_allMovable(playlistSize: playlistSize))
-            doTest_someCanMove(playlistSize: playlistSize, movedTrackIndices: indices)
+            let indices = Set([playlistSize - 1] + randomIndices_allMovable(playlistSize: playlistSize))
+            doTest(playlistSize: playlistSize, movedTrackIndices: indices)
         }
     }
     
-    func test_arbitraryIndices_contiguousBlockAtTopCannotMove() {
+    func test_arbitraryIndices_contiguousBlockAtBottomCannotMove() {
         
         for _ in 1...10 {
             
             let playlistSize = randomPlaylistSize()
+            let lastPlaylistIndex = playlistSize - 1
+            let firstBlockIndex = Int.random(in: 0..<lastPlaylistIndex)
+            let indices = Set(Array(firstBlockIndex...lastPlaylistIndex) + randomIndices_allMovable(playlistSize: playlistSize))
             
-            let lastBlockIndex = Int.random(in: 1..<playlistSize)
-            let indices = Set(Array(0...lastBlockIndex) + randomIndices_allMovable(playlistSize: playlistSize))
-            doTest_someCanMove(playlistSize: playlistSize, movedTrackIndices: indices)
+            doTest(playlistSize: playlistSize, movedTrackIndices: indices)
         }
     }
     
@@ -94,8 +95,8 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
         for _ in 1...10 {
             
             let playlistSize = randomPlaylistSize()
-            doTest_allCanMove(playlistSize: playlistSize,
-                              movedTrackIndices: Set(randomIndices_allMovable(playlistSize: playlistSize)))
+            doTest(playlistSize: playlistSize,
+                   movedTrackIndices: Set(randomIndices_allMovable(playlistSize: playlistSize)))
         }
     }
     
@@ -107,8 +108,8 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
             
             let playlistSize = randomPlaylistSize()
             
-            doTest_allCanMove(playlistSize: playlistSize,
-                              movedTrackIndices: Set(randomNonContiguousIndices_allMovable(playlistSize: playlistSize)))
+            doTest(playlistSize: playlistSize,
+                   movedTrackIndices: Set(randomNonContiguousIndices_allMovable(playlistSize: playlistSize)))
         }
     }
     
@@ -118,18 +119,20 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
             
             let playlistSize = randomPlaylistSize()
             
-            doTest_allCanMove(playlistSize: playlistSize,
-                              movedTrackIndices: Set(randomContiguousIndices_movable(playlistSize: playlistSize)))
+            doTest(playlistSize: playlistSize,
+                   movedTrackIndices: Set(randomContiguousIndices_movable(playlistSize: playlistSize)))
         }
     }
     
-    func test_contiguousIndicesAtTop_cannotMove() {
+    func test_contiguousIndicesAtBottom_cannotMove() {
         
         for _ in 1...10 {
             
             let playlistSize = randomPlaylistSize()
-            let lastIndex = Int.random(in: 1..<playlistSize)
-            doTest_noneCanMove(playlistSize: playlistSize, movedTrackIndices: Set(0...lastIndex))
+            let lastPlaylistIndex = playlistSize - 1
+            let firstIndex = Int.random(in: 0..<lastPlaylistIndex)
+            
+            doTest_noneCanMove(playlistSize: playlistSize, movedTrackIndices: Set(firstIndex...lastPlaylistIndex))
         }
     }
     
@@ -144,7 +147,7 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
     
     // MARK: Helper functions ------------------------------
     
-    private func doTest_allCanMove(playlistSize: Int, movedTrackIndices: Set<Int>, actualMovedIndices: Set<Int>? = nil) {
+    private func doTest(playlistSize: Int, movedTrackIndices: Set<Int>) {
         
         playlist.clear()
         assertEmptyPlaylist()
@@ -157,31 +160,32 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
         // Store values to be used to perform verifications later.
         var sourceDestinationMap: [Int: Int] = [:]
         
-        for index in actualMovedIndices ?? movedTrackIndices {
-            
-            let destinationIndex = index - 1
-            sourceDestinationMap[index] = destinationIndex
+        let sortedMoveIndices = movedTrackIndices.sorted(by: Int.descendingIntComparator)
+        let lastPlaylistIndex = playlistSize - 1
+        
+        for (destinationIndex, sourceIndex) in sortedMoveIndices.enumerated().map({(lastPlaylistIndex - $0, $1)}).filter({$0.0 != $0.1}) {
+            sourceDestinationMap[sourceIndex] = destinationIndex
         }
         
-        let results = playlist.moveTracksUp(IndexSet(movedTrackIndices))
+        let results = playlist.moveTracksToBottom(IndexSet(movedTrackIndices))
         let playlistTracksAfterMove: [Track] = Array(playlist.tracks)
         
         // Verify the results of the move operation.
         XCTAssertTrue(results.playlistType == .tracks)
-        XCTAssertEqual(results.results.count, actualMovedIndices?.count ?? movedTrackIndices.count)
+        XCTAssertEqual(results.results.count, sourceDestinationMap.count)
         
         // Perform the move operations, one by one, on the original playlist tracks array,
         // to mimic the move operation on the playlist, as dictated by the results.
         
-        // Sort the results in ascending order by source index.
-        let sortedResults = results.results.sorted(by: {$0.sourceIndex < $1.sourceIndex})
+        // Sort the results in descending order by source index.
+        let sortedResults = results.results.sorted(by: {$0.sourceIndex > $1.sourceIndex})
         for result in sortedResults {
             
             // Verify that the actual destination index matches the expected one.
             XCTAssertEqual(result.destinationIndex, sourceDestinationMap[result.sourceIndex])
             
-            XCTAssertTrue(result.movedUp)
-            XCTAssertFalse(result.movedDown)
+            XCTAssertTrue(result.movedDown)
+            XCTAssertFalse(result.movedUp)
             
             let removedTrack = originalPlaylistTracks.remove(at: result.sourceIndex)
             originalPlaylistTracks.insert(removedTrack, at: result.destinationIndex)
@@ -189,14 +193,6 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
         
         // Now, compare the 2 arrays and verify that their tracks order is exactly equal.
         XCTAssertEqual(playlistTracksAfterMove, originalPlaylistTracks)
-    }
-    
-    private func doTest_someCanMove(playlistSize: Int, movedTrackIndices: Set<Int>) {
-        
-        let firstMovableIndex = (0..<playlistSize).first(where: {!movedTrackIndices.contains($0)}) ?? 0
-        let actualMovedIndices = movedTrackIndices.filter {$0 >= firstMovableIndex}
-        
-        doTest_allCanMove(playlistSize: playlistSize, movedTrackIndices: movedTrackIndices, actualMovedIndices: actualMovedIndices)
     }
     
     private func doTest_noneCanMove(playlistSize: Int, movedTrackIndices: Set<Int>) {
@@ -209,7 +205,7 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
         // Create a copy of the original playlist tracks for later comparison.
         let originalPlaylistTracks: [Track] = Array(playlist.tracks)
         
-        let results = playlist.moveTracksUp(IndexSet(movedTrackIndices))
+        let results = playlist.moveTracksToBottom(IndexSet(movedTrackIndices))
         
         // Verify the results of the move operation.
         XCTAssertTrue(results.playlistType == .tracks)
@@ -227,8 +223,8 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
     
     private func randomIndices_allMovable(playlistSize: Int) -> [Int] {
         
-        let lastIndex = Int.random(in: 2..<playlistSize)
-        let firstIndex = Int.random(in: 1..<lastIndex)
+        let lastIndex = Int.random(in: 1..<(playlistSize - 1))
+        let firstIndex = Int.random(in: 0..<lastIndex)
         
         let numIndices = Int.random(in: 1...(lastIndex - firstIndex))
         
@@ -237,8 +233,8 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
     
     private func randomNonContiguousIndices_allMovable(playlistSize: Int) -> [Int] {
         
-        let lastIndex = Int.random(in: 2..<playlistSize)
-        let firstIndex = Int.random(in: 1..<lastIndex)
+        let lastIndex = Int.random(in: 1..<(playlistSize - 1))
+        let firstIndex = Int.random(in: 0..<lastIndex)
         
         var curIndex: Int = lastIndex
         var indices: [Int] = []
@@ -256,8 +252,8 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
     
     private func randomContiguousIndices_movable(playlistSize: Int) -> [Int] {
         
-        let lastIndex = Int.random(in: 2..<playlistSize)
-        let firstIndex = Int.random(in: 1..<lastIndex)
+        let lastIndex = Int.random(in: 1..<(playlistSize - 1))
+        let firstIndex = Int.random(in: 0..<lastIndex)
         
         return Array(firstIndex...lastIndex)
     }

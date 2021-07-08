@@ -159,14 +159,11 @@ class FlatPlaylistTests_MoveTracksDown: FlatPlaylistTestCase {
         
         // Store values to be used to perform verifications later.
         var sourceDestinationMap: [Int: Int] = [:]
-        var destinationTrackMap: [Int: Track] = [:]
         
         for index in actualMovedIndices ?? movedTrackIndices {
             
             let destinationIndex = index + 1
-            
             sourceDestinationMap[index] = destinationIndex
-            destinationTrackMap[destinationIndex] = playlist.tracks[index]
         }
         
         let results = playlist.moveTracksDown(IndexSet(movedTrackIndices))

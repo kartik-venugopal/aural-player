@@ -243,6 +243,8 @@
 		3E65198E26955D4500BD5AAD /* SoundPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65198D26955D4500BD5AAD /* SoundPreferencesTests.swift */; };
 		3E65199126955F7500BD5AAD /* PreferencesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E65199026955F7500BD5AAD /* PreferencesTestCase.swift */; };
 		3E67876D2697B0BF00408566 /* FlatPlaylistTests+MoveTracksDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67876C2697B0BF00408566 /* FlatPlaylistTests+MoveTracksDown.swift */; };
+		3E6787702697B60300408566 /* FlatPlaylistTests+MoveTracksToTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E67876F2697B60300408566 /* FlatPlaylistTests+MoveTracksToTop.swift */; };
+		3E6787742697BEE600408566 /* FlatPlaylistTests+MoveTracksToBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6787732697BEE600408566 /* FlatPlaylistTests+MoveTracksToBottom.swift */; };
 		3E6C0EC325CEB3ED00BF0D07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */; };
 		3E6C115425CEB9C200BF0D07 /* AlegreyaSansSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C114925CEB9C100BF0D07 /* AlegreyaSansSC-Regular.ttf */; };
 		3E6C115C25CEB9C200BF0D07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C115325CEB9C100BF0D07 /* Assets.xcassets */; };
@@ -1229,6 +1231,8 @@
 		3E65198D26955D4500BD5AAD /* SoundPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPreferencesTests.swift; sourceTree = "<group>"; };
 		3E65199026955F7500BD5AAD /* PreferencesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTestCase.swift; sourceTree = "<group>"; };
 		3E67876C2697B0BF00408566 /* FlatPlaylistTests+MoveTracksDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlatPlaylistTests+MoveTracksDown.swift"; sourceTree = "<group>"; };
+		3E67876F2697B60300408566 /* FlatPlaylistTests+MoveTracksToTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlatPlaylistTests+MoveTracksToTop.swift"; sourceTree = "<group>"; };
+		3E6787732697BEE600408566 /* FlatPlaylistTests+MoveTracksToBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlatPlaylistTests+MoveTracksToBottom.swift"; sourceTree = "<group>"; };
 		3E6C0EBF25CEB3ED00BF0D07 /* Aural.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aural.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E6C0EC925CEB3EE00BF0D07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3663,7 +3667,9 @@
 				3E475BC1269649880065FD53 /* FlatPlaylistTests+TrackAccessByIndex.swift */,
 				3E475BC5269652320065FD53 /* FlatPlaylistTests+RemoveTracks.swift */,
 				3E1C2A5E26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift */,
+				3E67876F2697B60300408566 /* FlatPlaylistTests+MoveTracksToTop.swift */,
 				3E67876C2697B0BF00408566 /* FlatPlaylistTests+MoveTracksDown.swift */,
+				3E6787732697BEE600408566 /* FlatPlaylistTests+MoveTracksToBottom.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -5190,6 +5196,7 @@
 				3EE4B86D268FBF0C006BDEB2 /* SoundPreferences.swift in Sources */,
 				3EA1BE03268F577900A5D81B /* Messenger_AsynchronousNotificationsTests.swift in Sources */,
 				3EF28DC42694F07B005D5B43 /* PersistentAppState.swift in Sources */,
+				3E6787742697BEE600408566 /* FlatPlaylistTests+MoveTracksToBottom.swift in Sources */,
 				3E5ECA48268F4D99000AE8B7 /* ValueFormatterTests.swift in Sources */,
 				3E21ECCC268F4A1900731E4C /* MetadataFormat.swift in Sources */,
 				3E21ECCF268F4A1900731E4C /* Chapter.swift in Sources */,
@@ -5285,6 +5292,7 @@
 				3EA1BDF8268F50B900A5D81B /* Utils.swift in Sources */,
 				3EF28DAF2694DF95005D5B43 /* ThemesPersistentState.swift in Sources */,
 				3EA1BE1C268F629100A5D81B /* PlaybackSessionTests.swift in Sources */,
+				3E6787702697B60300408566 /* FlatPlaylistTests+MoveTracksToTop.swift in Sources */,
 				3EA1BDFB268F50F800A5D81B /* ExclusiveAccessSemaphore.swift in Sources */,
 				3EA1BE17268F610100A5D81B /* PlaybackSequence.swift in Sources */,
 				3EFDA981268F810400CFF785 /* ValueConversions.swift in Sources */,
