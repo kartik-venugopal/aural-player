@@ -10,7 +10,7 @@
 
 ## Table of Contents
   * [Overview](#overview)
-  * [How it works (under the hood)](how-it-works-under-the-hood)
+  * [How it works (under the hood)](#how-it-works-under-the-hood)
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
