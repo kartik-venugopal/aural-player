@@ -158,7 +158,7 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ### Changing the color scheme
 
-![Changing the color scheme demo](/Documentation/Demos/ChangingColorScheme.gif?raw=true)
+![Changing the color scheme demo](/Documentation/Demos/ColorSchemes.gif?raw=true)
 
 ### Customizing the player view
 
