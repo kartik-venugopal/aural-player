@@ -16,6 +16,7 @@
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
     + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
+  * [Building and running the app](#building-and-running-the-app)
   * [Documentation](#documentation)
   * [Screenshots](#screenshots)
   * [Known issues (and solutions)](#known-issues-and-solutions)
@@ -97,6 +98,10 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
 Please read [this important note](https://github.com/maculateConception/aural-player/wiki/Important-note-for-anyone-upgrading-from-v2.2.0-(or-older)-to-v2.3.0-or-newer-app-versions), otherwise you will lose your previous app settings.
+
+## How it works (under the hood)
+
+Aural Player is approximately 100,000 lines of Swift code (incl. tests). It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
 
 ## Building and running the app
 
