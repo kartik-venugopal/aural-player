@@ -81,10 +81,6 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
-**Developer requirements**: XCode 12.2+ (Swift 5.x).
-
-[Source code zip archive](https://github.com/maculateConception/aural-player/archive/refs/heads/master.zip)
-
 ### Installation
 
 1. Mount the **AuralPlayer-x.y.z.dmg** image file
@@ -101,6 +97,12 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
 Please read [this important note](https://github.com/maculateConception/aural-player/wiki/Important-note-for-anyone-upgrading-from-v2.2.0-(or-older)-to-v2.3.0-or-newer-app-versions), otherwise you will lose your previous app settings.
+
+## Building and running the app
+
+All you need is Xcode 12.2+, the [source code](https://github.com/maculateConception/aural-player/releases/latest), and a working knowledge of Swift. It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
+
+Read the [quick start guide](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
 
 ## Documentation
 
