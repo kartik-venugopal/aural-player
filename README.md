@@ -42,7 +42,7 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 ### How it works (under the hood)
 
-Aural Player consists of approximately 100,000 lines of Swift code. It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
+Aural Player is written entirely in Swift (approximately 100,000 lines of code). It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
 
 <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
 
