@@ -104,18 +104,7 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
-In order to circumvent the hassle of macOS security restrictions, the location where the app stores its persisted state has changed from *~/Documents* to *~/Music*. This means that if you are upgrading from an older version of Aural Player (v2.2.0 or older), you need to move your app state directory from *~/Documents* to *~/Music* (exact steps listed below). Otherwise, note that you will lose all your previously saved app settings (playlist, sound settings, favorites, history, color schemes, window layouts, etc).
-
-Perform the following simple steps when upgrading from v2.2.0 or any older version to v2.3.0 or any newer version.
-
-* Quit Aural Player v2.2.0 (or any older app version) if it is running.
-* Move the folder named ***aural*** in your user's *Documents* folder, to your user's *Music* folder.
-* Download/install Aural Player v2.3.0 (or any newer app version) and run it.
-* Verify that your previous app settings have been carried over to the new version - playlist tracks, window layouts, color schemes, history, favorites, bookmarks, etc. If not, please file an issue, and I will help you restore your previous app settings (this should not happen, but just in case).
-
-The contents of the "aural" folder should look like this:
-
-![aural app state folder screenshot](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/auralDir2.png)
+Please read [this important note](https://github.com/maculateConception/aural-player/wiki/Important-note-for-anyone-upgrading-from-v2.2.0-(or-older)-to-v2.3.0-or-newer-app-versions), otherwise you will lose your previous app settings.
 
 ## Documentation
 
