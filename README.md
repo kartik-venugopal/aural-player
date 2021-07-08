@@ -10,7 +10,7 @@
 
 ## Table of Contents
   * [Overview](#overview)
-  * [How it works (under the hood)](#how-it-works-under-the-hood)
+    + [How it works (under the hood)](#how-it-works-under-the-hood)
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
@@ -40,9 +40,13 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 |  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="700" /> |
 | By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Units (AU) plug-ins, sound tweaking and monitoring possibilities are endless. |
 
-## How it works (under the hood)
+### How it works (under the hood)
 
-Aural Player is approximately 100,000 lines of Swift code (incl. tests). It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
+Aural Player consists of approximately 100,000 lines of Swift code. It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
+
+<img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
+
+Read more about it [here](https://github.com/maculateConception/aural-player/wiki/Developer-reference).
 
 ## Summary of features
 
@@ -106,7 +110,7 @@ Please read [this important note](https://github.com/maculateConception/aural-pl
 
 ## Building and running the app
 
-All you need is Xcode 12.2+, the [source code](https://github.com/maculateConception/aural-player/releases/latest), and a working knowledge of Swift. It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
+All you need is Xcode 12.2+ and the [source code](https://github.com/maculateConception/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
 
 Read the [quick start guide](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
 
@@ -190,15 +194,13 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ## Contact and conversation
 
-I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement. If you just wanna tell me you love Aural Player, I'd love to hear that too 😊.
+I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement.
 
 **Twitter:** https://twitter.com/AuralPlayer. I will try to post informal updates there.
 
 **Email:** [aural.student@gmail.com](mailto:aural.student@gmail.com)
 
 **GitHub Issues** https://github.com/maculateConception/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
-
-I look forward to hearing from you !
 
 ## Third party code attributions
 
