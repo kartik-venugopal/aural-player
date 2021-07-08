@@ -10,6 +10,7 @@
 
 ## Table of Contents
   * [Overview](#overview)
+  * [How it works (under the hood)](how-it-works-under-the-hood)
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
@@ -38,6 +39,10 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 | :-- | --: |
 |  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="700" /> |
 | By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Units (AU) plug-ins, sound tweaking and monitoring possibilities are endless. |
+
+## How it works (under the hood)
+
+Aural Player is approximately 100,000 lines of Swift code (incl. tests). It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
 
 ## Summary of features
 
@@ -98,10 +103,6 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
 Please read [this important note](https://github.com/maculateConception/aural-player/wiki/Important-note-for-anyone-upgrading-from-v2.2.0-(or-older)-to-v2.3.0-or-newer-app-versions), otherwise you will lose your previous app settings.
-
-## How it works (under the hood)
-
-Aural Player is approximately 100,000 lines of Swift code (incl. tests). It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
 
 ## Building and running the app
 
