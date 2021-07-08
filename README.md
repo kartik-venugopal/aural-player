@@ -192,15 +192,13 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ## Contact and conversation
 
-I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement. If you just wanna tell me you love Aural Player, I'd love to hear that too 😊.
+I encourage you to provide feedback or start a conversation about features you'd like to see implemented, bugs you've encountered, or suggestions for improvement.
 
 **Twitter:** https://twitter.com/AuralPlayer. I will try to post informal updates there.
 
 **Email:** [aural.student@gmail.com](mailto:aural.student@gmail.com)
 
 **GitHub Issues** https://github.com/maculateConception/aural-player/issues. I'm usually pretty good at responding to issues, even if I'm not always able to fix them.
-
-I look forward to hearing from you !
 
 ## Third party code attributions
 
