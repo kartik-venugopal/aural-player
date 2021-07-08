@@ -8,8 +8,6 @@
 
 [Try it out](https://github.com/maculateConception/aural-player/releases/latest).
 
-Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the latest release build works fine on M1 hardware !
-
 ## Table of Contents
   * [Overview](#overview)
   * [Summary of features](#summary-of-features)
@@ -46,14 +44,12 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 
 * Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Opus, Monkey's Audio (APE), True Audio (TTA), DSD & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
 * Supports M3U / M3U8 playlists
-* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
-* **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
-* **Effects:** 
-  * **Built-in effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
-  * Hosts Audio Units (AU) plug-ins, providing unlimited possibilities for advanced sound tweaking and monitoring / analysis
-  * Built-in and custom effects presets, per-track effects settings memory
-  * Recording of clips with effects captured
-* **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection
+* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, chapters support, autoplay.
+* **Effects:**
+  * Built-in effects: Graphic equalizer, pitch shift, time stretch, reverb, delay, filter.
+  * Hosts Audio Units (AU) plug-ins, for advanced sound tweaking and monitoring / analysis.
+  * Built-in and custom effects presets, per-track effects settings memory.
+* **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection.
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
@@ -64,9 +60,9 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
   * Menu bar mode to run the app in the macOS menu bar.
   * Control bar mode to run the app as a floating widget with essential controls.
 * **Usability:** 
-  * Configurable media keys support
-  * Swipe/scroll gesture recognition
-  * Remote control (control the app from Control Center, headphones, or other media control devices / apps)
+  * Configurable media keys support.
+  * Swipe/scroll gesture recognition.
+  * Remote control (control the app from Control Center, headphones, or other media control devices / apps).
 
 ## Download
 
