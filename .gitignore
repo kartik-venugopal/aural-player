@@ -17,3 +17,4 @@ wiki/
 Resources/copyright.sh
 Resources/xml-copyright.sh
 UserGuide.pdf
+*.umdx
