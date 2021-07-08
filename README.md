@@ -108,7 +108,7 @@ Please read [this important note](https://github.com/maculateConception/aural-pl
 
 ## Building and running the app
 
-All you need is Xcode 12.2+, the [source code](https://github.com/maculateConception/aural-player/releases/latest), and a working knowledge of Swift. It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
+All you need is Xcode 12.2+ and the [source code](https://github.com/maculateConception/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
 
 Read the [quick start guide](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
 
