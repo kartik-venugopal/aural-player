@@ -8,16 +8,16 @@
 
 [Try it out](https://github.com/maculateConception/aural-player/releases/latest).
 
-Thanks to [ReekyStive](https://github.com/ReekyStive) for confirming that the latest release build works fine on M1 hardware !
-
 ## Table of Contents
   * [Overview](#overview)
+  * [How it works (under the hood)](#how-it-works-under-the-hood)
   * [Summary of features](#summary-of-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
     + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
+  * [Building and running the app](#building-and-running-the-app)
   * [Documentation](#documentation)
   * [Screenshots](#screenshots)
   * [Known issues (and solutions)](#known-issues-and-solutions)
@@ -40,20 +40,22 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
 |  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="700" /> |
 | By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Units (AU) plug-ins, sound tweaking and monitoring possibilities are endless. |
 
+## How it works (under the hood)
+
+Aural Player is approximately 100,000 lines of Swift code (incl. tests). It uses **AVFoundation's AVAudioEngine** framework for playback, effects, and visualization, and uses **FFmpeg** libraries to decode formats not native to macOS.
+
 ## Summary of features
 
 (Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
 
 * Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Opus, Monkey's Audio (APE), True Audio (TTA), DSD & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
 * Supports M3U / M3U8 playlists
-* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, autoplay
-* **Chapters support:** Chapters list window, playback functions including loop, current chapter indication, search by title
-* **Effects:** 
-  * **Built-in effects:** Graphic equalizer, pitch shift, time stretch, reverb, delay, filter
-  * Hosts Audio Units (AU) plug-ins, providing unlimited possibilities for advanced sound tweaking and monitoring / analysis
-  * Built-in and custom effects presets, per-track effects settings memory
-  * Recording of clips with effects captured
-* **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection
+* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, chapters support, autoplay.
+* **Effects:**
+  * Built-in effects: Graphic equalizer, pitch shift, time stretch, reverb, delay, filter.
+  * Hosts Audio Units (AU) plug-ins, for advanced sound tweaking and monitoring / analysis.
+  * Built-in and custom effects presets, per-track effects settings memory.
+* **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection.
 * **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
@@ -64,9 +66,9 @@ Aural Player is an audio player for macOS. Inspired by the classic Winamp player
   * Menu bar mode to run the app in the macOS menu bar.
   * Control bar mode to run the app as a floating widget with essential controls.
 * **Usability:** 
-  * Configurable media keys support
-  * Swipe/scroll gesture recognition
-  * Remote control (control the app from Control Center, headphones, or other media control devices / apps)
+  * Configurable media keys support.
+  * Swipe/scroll gesture recognition.
+  * Remote control (control the app from Control Center, headphones, or other media control devices / apps).
 
 ## Download
 
@@ -85,10 +87,6 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 [See all releases](https://github.com/maculateConception/aural-player/releases)
 
-**Developer requirements**: XCode 12.2+ (Swift 5.x).
-
-[Source code zip archive](https://github.com/maculateConception/aural-player/archive/refs/heads/master.zip)
-
 ### Installation
 
 1. Mount the **AuralPlayer-x.y.z.dmg** image file
@@ -104,18 +102,13 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
-In order to circumvent the hassle of macOS security restrictions, the location where the app stores its persisted state has changed from *~/Documents* to *~/Music*. This means that if you are upgrading from an older version of Aural Player (v2.2.0 or older), you need to move your app state directory from *~/Documents* to *~/Music* (exact steps listed below). Otherwise, note that you will lose all your previously saved app settings (playlist, sound settings, favorites, history, color schemes, window layouts, etc).
+Please read [this important note](https://github.com/maculateConception/aural-player/wiki/Important-note-for-anyone-upgrading-from-v2.2.0-(or-older)-to-v2.3.0-or-newer-app-versions), otherwise you will lose your previous app settings.
 
-Perform the following simple steps when upgrading from v2.2.0 or any older version to v2.3.0 or any newer version.
+## Building and running the app
 
-* Quit Aural Player v2.2.0 (or any older app version) if it is running.
-* Move the folder named ***aural*** in your user's *Documents* folder, to your user's *Music* folder.
-* Download/install Aural Player v2.3.0 (or any newer app version) and run it.
-* Verify that your previous app settings have been carried over to the new version - playlist tracks, window layouts, color schemes, history, favorites, bookmarks, etc. If not, please file an issue, and I will help you restore your previous app settings (this should not happen, but just in case).
+All you need is Xcode 12.2+, the [source code](https://github.com/maculateConception/aural-player/releases/latest), and a working knowledge of Swift. It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
 
-The contents of the "aural" folder should look like this:
-
-![aural app state folder screenshot](https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Screenshots/auralDir2.png)
+Read the [quick start guide](https://github.com/maculateConception/aural-player/wiki/Building-and-running-Aural-Player-(quick-start-guide)) for more details.
 
 ## Documentation
 
