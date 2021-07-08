@@ -152,13 +152,13 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ![Control Center integration 2 screenshot](/Documentation/Screenshots/ControlCenter2.png?raw=true)
 
-### Changing the font scheme
+### Font schemes
 
-![Changing the font scheme demo](/Documentation/Demos/FontSchemes.gif?raw=true)
+![Font schemes demo](/Documentation/Demos/FontSchemes.gif?raw=true)
 
-### Changing the color scheme
+### Color schemes
 
-![Changing the color scheme demo](/Documentation/Demos/ColorSchemes.gif?raw=true)
+![Color schemes demo](/Documentation/Demos/ColorSchemes.gif?raw=true)
 
 ### Customizing the player view
 
