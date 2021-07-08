@@ -22,6 +22,8 @@ class ControlBarAppModeController: NSObject, AppModeController, NSMenuDelegate, 
         
         controller = ControlBarPlayerWindowController()
         controller?.showWindow(self)
+        
+        // TODO: Sequencer scope should always be set to "All Tracks". Reset it here.
     }
     
     func dismissMode() {

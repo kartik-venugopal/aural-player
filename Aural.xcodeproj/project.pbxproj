@@ -58,6 +58,7 @@
 		3E1454FF268103070034056E /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454FE268103070034056E /* UserDefaultsExtensions.swift */; };
 		3E145501268106DF0034056E /* DictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E145500268106DF0034056E /* DictionaryExtensions.swift */; };
 		3E145503268107910034056E /* MirrorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E145502268107910034056E /* MirrorExtensions.swift */; };
+		3E1C2A5F26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C2A5E26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift */; };
 		3E2000BF267CDFFF008BAB70 /* MediaKeysPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */; };
 		3E2000C1267CE00E008BAB70 /* GesturesPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */; };
 		3E2000C3267CE019008BAB70 /* RemoteControlPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */; };
@@ -1085,6 +1086,7 @@
 		3E1454FE268103070034056E /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
 		3E145500268106DF0034056E /* DictionaryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtensions.swift; sourceTree = "<group>"; };
 		3E145502268107910034056E /* MirrorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MirrorExtensions.swift; sourceTree = "<group>"; };
+		3E1C2A5E26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlatPlaylistTests+MoveTracksUp.swift"; sourceTree = "<group>"; };
 		3E2000BE267CDFFF008BAB70 /* MediaKeysPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaKeysPreferences.xib; sourceTree = "<group>"; };
 		3E2000C0267CE00E008BAB70 /* GesturesPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GesturesPreferences.xib; sourceTree = "<group>"; };
 		3E2000C2267CE019008BAB70 /* RemoteControlPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RemoteControlPreferences.xib; sourceTree = "<group>"; };
@@ -3654,10 +3656,11 @@
 				3ED6D90726926A07007DA433 /* PlaylistTestCase.swift */,
 				3E9025AD268E830800C5A1C5 /* PlaylistItemArrayTests.swift */,
 				3E9025AE268E830800C5A1C5 /* GroupingPlaylistTests.swift */,
+				3E475BC92696527A0065FD53 /* FlatPlaylistTestCase.swift */,
 				3ED6D90226926867007DA433 /* FlatPlaylistTests+AddSizeDuration.swift */,
 				3E475BC1269649880065FD53 /* FlatPlaylistTests+TrackAccessByIndex.swift */,
 				3E475BC5269652320065FD53 /* FlatPlaylistTests+RemoveTracks.swift */,
-				3E475BC92696527A0065FD53 /* FlatPlaylistTestCase.swift */,
+				3E1C2A5E26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift */,
 			);
 			path = Playlist;
 			sourceTree = "<group>";
@@ -5170,6 +5173,7 @@
 				3EFDA96F268F726900CFF785 /* AudioGraphDefaults.swift in Sources */,
 				3EFDA96B268F724B00CFF785 /* MappedPresets.swift in Sources */,
 				3EA62F502693D86A004A780A /* PlaybackProfilesPersistenceTests.swift in Sources */,
+				3E1C2A5F26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift in Sources */,
 				3E21ECCD268F4A1900731E4C /* AuxiliaryMetadata.swift in Sources */,
 				3E21ECC8268F4A1900731E4C /* FileMetadata.swift in Sources */,
 				3EF28DB92694E42C005D5B43 /* AppMode.swift in Sources */,
