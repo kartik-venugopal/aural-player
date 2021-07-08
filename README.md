@@ -46,6 +46,8 @@ Aural Player consists of approximately 100,000 lines of Swift code. It uses **AV
 
 <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Diagrams/UnderTheHood.png" alt="How it works screenshot" width="850" />
 
+Read more about it [here](https://github.com/maculateConception/aural-player/wiki/Developer-reference).
+
 ## Summary of features
 
 (Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
