@@ -37,33 +37,34 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {
-        
-        return SearchResults(tracks.compactMap {executeQuery($0, searchQuery)}.map {
-            
-            SearchResult(location: SearchResultLocation(trackIndex: -1, track: $0.track, groupInfo: nil),
-                         match: ($0.matchedField, $0.matchedFieldValue))
-        })
+        return SearchResults(tracks.compactMap {executeQuery($0, searchQuery)})
     }
     
-    private func executeQuery(_ track: Track, _ query: SearchQuery) -> SearchQueryMatch? {
+    private func executeQuery(_ track: Track, _ query: SearchQuery) -> SearchResult? {
 
         // Check both the filename and the display name
         if query.fields.name {
             
             let filename = track.fileSystemInfo.fileName
             if query.compare(filename) {
-                return SearchQueryMatch(track: track, matchedField: "filename", matchedFieldValue: filename)
+
+                return SearchResult(location: SearchResultLocation(trackIndex: -1, track: track, groupInfo: nil),
+                                    match: ("filename", filename))
             }
             
             let displayName = track.displayName
             if query.compare(displayName) {
-                return SearchQueryMatch(track: track, matchedField: "name", matchedFieldValue: displayName)
+                
+                return SearchResult(location: SearchResultLocation(trackIndex: -1, track: track, groupInfo: nil),
+                             match: ("name", displayName))
             }
         }
         
         // Compare title field if included in search
         if query.fields.title, let title = track.title, query.compare(title) {
-            return SearchQueryMatch(track: track, matchedField: "title", matchedFieldValue: title)
+
+            return SearchResult(location: SearchResultLocation(trackIndex: -1, track: track, groupInfo: nil),
+                         match: ("title", title))
         }
         
         // Didn't match

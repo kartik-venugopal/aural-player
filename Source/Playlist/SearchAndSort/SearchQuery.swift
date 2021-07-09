@@ -44,13 +44,6 @@ class SearchQuery {
     }
 }
 
-struct SearchQueryMatch {
-    
-    let track: Track
-    let matchedField: String
-    let matchedFieldValue: String
-}
-
 // Indicates which track fields are to be compared, in the search
 class SearchFields {
     
