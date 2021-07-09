@@ -1,15 +1,16 @@
 //
 //  SearchFields.swift
-//  Tests
+//  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
-import Foundation
 
-// Indicates which track fields are to be compared, in the search
+///
+/// Indicates which track fields are to be compared, in the search
+///
 struct SearchFields: OptionSet {
     
     let rawValue: Int

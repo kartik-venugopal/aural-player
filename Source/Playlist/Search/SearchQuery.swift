@@ -9,13 +9,15 @@
 //
 import Cocoa
 
-// Encapsulates the options/criteria of a playlist search
+///
+/// Encapsulates the options/criteria of a playlist search
+///
 class SearchQuery {
     
     var text: String = ""
     var type: SearchType = .contains
     var fields: SearchFields = .all
-    var options: SearchOptions = SearchOptions()
+    var options: SearchOptions = .none
     
     var noFieldsSelected: Bool {fields.isEmpty}
     
@@ -50,7 +52,7 @@ class SearchQuery {
     // Helper function that compares the value of a single field to the search text to determine if there is a match
     func compare(_ fieldValue: String) -> Bool {
         
-        let caseSensitive: Bool = options.caseSensitive
+        let caseSensitive: Bool = options.contains(.caseSensitive)
         let queryText: String = caseSensitive ? text : text.lowercased()
         let compared: String = caseSensitive ? fieldValue : fieldValue.lowercased()
         
@@ -66,28 +68,4 @@ class SearchQuery {
             
         }
     }
-}
-
-// Additional search options
-class SearchOptions {
-    
-    // Whether or not field comparisons are to be case sensitive
-    // By default, searches are not case sensitive
-    var caseSensitive: Bool = false
-}
-
-// Enumeration of different types of field comparison for the search
-enum SearchType {
-    
-    // Will return results for which field values contain, as a substring, the search query text
-    case contains
-    
-    // Will return results for which field values begin with the search query text
-    case beginsWith
-    
-    // Will return results for which field values end with the search query text
-    case endsWith
-    
-    // Will return results for which field values exactly match the search query text
-    case equals
 }

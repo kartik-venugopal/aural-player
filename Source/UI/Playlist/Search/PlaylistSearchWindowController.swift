@@ -174,7 +174,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     
     @IBAction func searchOptionsChangedAction(_ sender: Any) {
         
-        searchQuery.options.caseSensitive = searchCaseSensitive.isOn
+        searchQuery.options.include(.caseSensitive, if: searchCaseSensitive.isOn)
         redoSearchIfPossible()
     }
 }

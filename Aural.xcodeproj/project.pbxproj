@@ -627,6 +627,24 @@
 		3E8719FA2698B89200C626DC /* M3UPlaylistIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10A325CEB98700BF0D07 /* M3UPlaylistIO.swift */; };
 		3E8719FD2698BD0D00C626DC /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8719FC2698BD0D00C626DC /* Library.swift */; };
 		3E871A002698BDC500C626DC /* library.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3E8719FF2698BDC500C626DC /* library.txt */; };
+		3E871A052698E60300C626DC /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A042698E60300C626DC /* SearchOptions.swift */; };
+		3E871A082698E6A900C626DC /* SearchOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A042698E60300C626DC /* SearchOptions.swift */; };
+		3E871A0B2698E7F900C626DC /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A0A2698E7F900C626DC /* SearchType.swift */; };
+		3E871A0D2698E80200C626DC /* SearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A0A2698E7F900C626DC /* SearchType.swift */; };
+		3E871A102698E84000C626DC /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A0F2698E84000C626DC /* SearchResult.swift */; };
+		3E871A122698E85000C626DC /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A0F2698E84000C626DC /* SearchResult.swift */; };
+		3E871A152698E86600C626DC /* SearchResultLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A142698E86600C626DC /* SearchResultLocation.swift */; };
+		3E871A172698E86C00C626DC /* SearchResultLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A142698E86600C626DC /* SearchResultLocation.swift */; };
+		3E871A1A2698E8BB00C626DC /* GroupedTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A192698E8BB00C626DC /* GroupedTrack.swift */; };
+		3E871A1C2698E8C100C626DC /* GroupedTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A192698E8BB00C626DC /* GroupedTrack.swift */; };
+		3E871A202698E9C500C626DC /* TracksSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A1F2698E9C500C626DC /* TracksSort.swift */; };
+		3E871A232698E9DE00C626DC /* TracksSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A1F2698E9C500C626DC /* TracksSort.swift */; };
+		3E871A262698E9F800C626DC /* GroupsSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A252698E9F800C626DC /* GroupsSort.swift */; };
+		3E871A282698EA0500C626DC /* GroupsSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A252698E9F800C626DC /* GroupsSort.swift */; };
+		3E871A2B2698EA3800C626DC /* SortField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A2A2698EA3800C626DC /* SortField.swift */; };
+		3E871A312698EA9500C626DC /* SortResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A302698EA9500C626DC /* SortResults.swift */; };
+		3E871A332698EADB00C626DC /* SortResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A302698EA9500C626DC /* SortResults.swift */; };
+		3E871A362698EAF700C626DC /* SortField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E871A2A2698EA3800C626DC /* SortField.swift */; };
 		3E91932425E0CE2500F30F81 /* FontSchemes.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932325E0CE2500F30F81 /* FontSchemes.xib */; };
 		3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */; };
 		3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */; };
@@ -1628,6 +1646,15 @@
 		3E836B5225DD3ABC00B9E303 /* monaco.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = monaco.ttf; sourceTree = "<group>"; };
 		3E8719FC2698BD0D00C626DC /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		3E8719FF2698BDC500C626DC /* library.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = library.txt; sourceTree = "<group>"; };
+		3E871A042698E60300C626DC /* SearchOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptions.swift; sourceTree = "<group>"; };
+		3E871A0A2698E7F900C626DC /* SearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchType.swift; sourceTree = "<group>"; };
+		3E871A0F2698E84000C626DC /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		3E871A142698E86600C626DC /* SearchResultLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultLocation.swift; sourceTree = "<group>"; };
+		3E871A192698E8BB00C626DC /* GroupedTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedTrack.swift; sourceTree = "<group>"; };
+		3E871A1F2698E9C500C626DC /* TracksSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksSort.swift; sourceTree = "<group>"; };
+		3E871A252698E9F800C626DC /* GroupsSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSort.swift; sourceTree = "<group>"; };
+		3E871A2A2698EA3800C626DC /* SortField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortField.swift; sourceTree = "<group>"; };
+		3E871A302698EA9500C626DC /* SortResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortResults.swift; sourceTree = "<group>"; };
 		3E9025AD268E830800C5A1C5 /* PlaylistItemArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistItemArrayTests.swift; sourceTree = "<group>"; };
 		3E9025AE268E830800C5A1C5 /* GroupingPlaylistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupingPlaylistTests.swift; sourceTree = "<group>"; };
 		3E9025B0268E830800C5A1C5 /* ValueFormatterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueFormatterTests.swift; sourceTree = "<group>"; };
@@ -2434,7 +2461,8 @@
 				3E6C0F0D25CEB98500BF0D07 /* Group.swift */,
 				3E6C0F0125CEB98500BF0D07 /* ChangeListenerProtocols.swift */,
 				3E6C0F1225CEB98500BF0D07 /* CRUDOperationResults.swift */,
-				3E6C0F0625CEB98500BF0D07 /* SearchAndSort */,
+				3E6C0F0625CEB98500BF0D07 /* Search */,
+				3E871A032698E5D000C626DC /* Sort */,
 				3E6C0F0E25CEB98500BF0D07 /* Delegates */,
 				3E6C10A125CEB98700BF0D07 /* Export */,
 				3E21EC8C268F451400731E4C /* GroupType.swift */,
@@ -2444,16 +2472,18 @@
 			path = Playlist;
 			sourceTree = "<group>";
 		};
-		3E6C0F0625CEB98500BF0D07 /* SearchAndSort */ = {
+		3E6C0F0625CEB98500BF0D07 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C0F0725CEB98500BF0D07 /* SortComparator.swift */,
-				3E6C0F0825CEB98500BF0D07 /* SearchResults.swift */,
-				3E6C0F0925CEB98500BF0D07 /* Sort.swift */,
 				3E6C0F0A25CEB98500BF0D07 /* SearchQuery.swift */,
+				3E6C0F0825CEB98500BF0D07 /* SearchResults.swift */,
 				3E67878526981CA500408566 /* SearchFields.swift */,
+				3E871A042698E60300C626DC /* SearchOptions.swift */,
+				3E871A0A2698E7F900C626DC /* SearchType.swift */,
+				3E871A0F2698E84000C626DC /* SearchResult.swift */,
+				3E871A142698E86600C626DC /* SearchResultLocation.swift */,
 			);
-			path = SearchAndSort;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		3E6C0F0E25CEB98500BF0D07 /* Delegates */ = {
@@ -3661,6 +3691,19 @@
 			path = HTTP;
 			sourceTree = "<group>";
 		};
+		3E871A032698E5D000C626DC /* Sort */ = {
+			isa = PBXGroup;
+			children = (
+				3E6C0F0925CEB98500BF0D07 /* Sort.swift */,
+				3E6C0F0725CEB98500BF0D07 /* SortComparator.swift */,
+				3E871A1F2698E9C500C626DC /* TracksSort.swift */,
+				3E871A252698E9F800C626DC /* GroupsSort.swift */,
+				3E871A2A2698EA3800C626DC /* SortField.swift */,
+				3E871A302698EA9500C626DC /* SortResults.swift */,
+			);
+			path = Sort;
+			sourceTree = "<group>";
+		};
 		3E9025AB268E830800C5A1C5 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -3962,6 +4005,7 @@
 			isa = PBXGroup;
 			children = (
 				3EDB343225E8B75D004DF7DE /* Track.swift */,
+				3E871A192698E8BB00C626DC /* GroupedTrack.swift */,
 				3EDB343125E8B75D004DF7DE /* MetadataFormat.swift */,
 				3EAFB5D4267FE7CC00F0DC96 /* FileMetadata.swift */,
 				3EAFB5D2267FE79200F0DC96 /* CoverArt.swift */,
@@ -4679,6 +4723,7 @@
 				3E6C11E725CEBDC400BF0D07 /* TrackPlaybackCompletedChain.swift in Sources */,
 				3E6C128C25CEBE1800BF0D07 /* ColorClipboard.swift in Sources */,
 				3EEC042A2687B727004478CE /* ConcurrentCompositeKeyMap.swift in Sources */,
+				3E871A0D2698E80200C626DC /* SearchType.swift in Sources */,
 				3E6C12DC25CEBE8100BF0D07 /* FilterChart.swift in Sources */,
 				3E6C124D25CEBDF400BF0D07 /* PlaylistSearchWindowController.swift in Sources */,
 				3EE7CB9F25E22D6C0075F1DD /* EffectsFontSchemeViewController.swift in Sources */,
@@ -4819,6 +4864,7 @@
 				3E6C12E625CEBE8100BF0D07 /* FilterBandViewController.swift in Sources */,
 				3E6C12C425CEBE6700BF0D07 /* EQView.swift in Sources */,
 				3E6C123C25CEBDF400BF0D07 /* ArtistsPlaylistSortViewController.swift in Sources */,
+				3E871A082698E6A900C626DC /* SearchOptions.swift in Sources */,
 				3EA3CE6D25E3FE2000BC7D07 /* FontSchemePreviewView.swift in Sources */,
 				3EDB345D25E8B75D004DF7DE /* ID3AVFParser.swift in Sources */,
 				3E5F943525E571A6002DEF80 /* Supernova.swift in Sources */,
@@ -4838,8 +4884,10 @@
 				3E752744267F32A60092BB89 /* RoundedImageView.swift in Sources */,
 				3E6C119F25CEBD6D00BF0D07 /* AudioGraphProtocols.swift in Sources */,
 				3E53ACBE267FDE4C00B5AF52 /* TimeUtils.swift in Sources */,
+				3E871A332698EADB00C626DC /* SortResults.swift in Sources */,
 				3EDB33EC25E8AE09004DF7DE /* FFmpegFrame.swift in Sources */,
 				3E6C11C725CEBDB400BF0D07 /* Sequencer.swift in Sources */,
+				3E871A172698E86C00C626DC /* SearchResultLocation.swift in Sources */,
 				3E6C117725CEBD6000BF0D07 /* MasterPresets.swift in Sources */,
 				3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */,
 				3E6C12E425CEBE8100BF0D07 /* CutoffFrequencySlider.swift in Sources */,
@@ -4955,6 +5003,7 @@
 				3E6C11A925CEBD9E00BF0D07 /* HistoryItems.swift in Sources */,
 				3E11B2D7267BFDEF00AB7DC9 /* RemoteCommandManager.swift in Sources */,
 				3EBF29332686979700D87021 /* EffectsTextButtonCell.swift in Sources */,
+				3E871A122698E85000C626DC /* SearchResult.swift in Sources */,
 				3E6C11F625CEBDD100BF0D07 /* ViewPreferences.swift in Sources */,
 				3EEC041D2687AAAD004478CE /* WindowedModePlayerAudioViewController.swift in Sources */,
 				3E4322832687E138009E8ADB /* ControlBarPlaybackViewController.swift in Sources */,
@@ -4966,10 +5015,12 @@
 				3E6C119A25CEBD6D00BF0D07 /* TimeUnitDelegate.swift in Sources */,
 				3E634E09267C7C1C00B6EA5F /* NowPlayingInfoManager.swift in Sources */,
 				3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */,
+				3E871A362698EAF700C626DC /* SortField.swift in Sources */,
 				3EAFB5E7267FEA4A00F0DC96 /* DateExtensions.swift in Sources */,
 				3EEC04192687A9E9004478CE /* WindowedModePlayerSequencingViewController.swift in Sources */,
 				3E6361F82685085C006F5A2A /* PlayerColorScheme.swift in Sources */,
 				3EDB346125E8B75D004DF7DE /* AVFFormatDescriptions.swift in Sources */,
+				3E871A232698E9DE00C626DC /* TracksSort.swift in Sources */,
 				3E0DF3D0267E6EE60035FE29 /* RemoteControlManager.swift in Sources */,
 				3E6C11B525CEBDA900BF0D07 /* MKExtensions.swift in Sources */,
 				3E6C11FA25CEBDD100BF0D07 /* ChangeListenerProtocols.swift in Sources */,
@@ -4997,6 +5048,7 @@
 				3E6C11FB25CEBDD100BF0D07 /* PlaylistDelegate.swift in Sources */,
 				3E67878926981E4800408566 /* SearchFields.swift in Sources */,
 				3E6C118325CEBD6D00BF0D07 /* FavoritesDelegate.swift in Sources */,
+				3E871A1C2698E8C100C626DC /* GroupedTrack.swift in Sources */,
 				3E61D146260EFBA400C86BB2 /* FileCoverArtReader.swift in Sources */,
 				3E5F942125E570A9002DEF80 /* Spectrogram3D.swift in Sources */,
 				3E5F943C25E571F7002DEF80 /* AudioGraphCallbacks.swift in Sources */,
@@ -5084,6 +5136,7 @@
 				3E5ECA51268F4E2A000AE8B7 /* AVAudioFramePositionExtensions.swift in Sources */,
 				3E09D0D726805C19008ECB8C /* PlaylistFontSchemePersistentState.swift in Sources */,
 				3EDB346625E8B75D004DF7DE /* ParserUtils.swift in Sources */,
+				3E871A282698EA0500C626DC /* GroupsSort.swift in Sources */,
 				3E6C127B25CEBE1800BF0D07 /* PlaylistColorSchemeViewController.swift in Sources */,
 				3E21EC90268F455D00731E4C /* PlaylistItem.swift in Sources */,
 				3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */,
@@ -5197,6 +5250,7 @@
 				3EA62F542693D977004A780A /* PlaybackProfiles.swift in Sources */,
 				3E21ECD6268F4A4600731E4C /* SearchQuery.swift in Sources */,
 				3E21ECBF268F49B900731E4C /* TrackIOErrors.swift in Sources */,
+				3E871A312698EA9500C626DC /* SortResults.swift in Sources */,
 				3EABDE172694CF20008066E8 /* ColorSchemePreset.swift in Sources */,
 				3EABDDC22694B613008066E8 /* PlayerUIPersistentState.swift in Sources */,
 				3EABDDA826949040008066E8 /* WindowLayoutPersistentState.swift in Sources */,
@@ -5221,6 +5275,7 @@
 				3EFDA96B268F724B00CFF785 /* MappedPresets.swift in Sources */,
 				3EA62F502693D86A004A780A /* PlaybackProfilesPersistenceTests.swift in Sources */,
 				3E1C2A5F26972D47005E7E12 /* FlatPlaylistTests+MoveTracksUp.swift in Sources */,
+				3E871A2B2698EA3800C626DC /* SortField.swift in Sources */,
 				3E21ECCD268F4A1900731E4C /* AuxiliaryMetadata.swift in Sources */,
 				3E21ECC8268F4A1900731E4C /* FileMetadata.swift in Sources */,
 				3EF28DB92694E42C005D5B43 /* AppMode.swift in Sources */,
@@ -5268,6 +5323,7 @@
 				3E67877F26981B2B00408566 /* OptionSetExtensions.swift in Sources */,
 				3EA62F312693A7B6004A780A /* PersistentModelObject.swift in Sources */,
 				3EFDA971268F727400CFF785 /* ReverbSpaces.swift in Sources */,
+				3E871A0B2698E7F900C626DC /* SearchType.swift in Sources */,
 				3E21ECD5268F4A4600731E4C /* SortComparator.swift in Sources */,
 				3EEF3739268F6B5A002EA77F /* SequencerPlaylistTypeChangeTests.swift in Sources */,
 				3EF28D9F2694DD52005D5B43 /* PlayerFontScheme.swift in Sources */,
@@ -5278,6 +5334,7 @@
 				3E65199126955F7500BD5AAD /* PreferencesTestCase.swift in Sources */,
 				3EE4B84C268F99BC006BDEB2 /* DelayPresets.swift in Sources */,
 				3EA1BE2B268F6A3900A5D81B /* Sequencer.swift in Sources */,
+				3E871A052698E60300C626DC /* SearchOptions.swift in Sources */,
 				3EEF3732268F6AE2002EA77F /* NotificationNames.swift in Sources */,
 				3EE4B866268FBEF6006BDEB2 /* GesturesControlsPreferences.swift in Sources */,
 				3EF28DA82694DDC8005D5B43 /* FontConstants.swift in Sources */,
@@ -5299,6 +5356,7 @@
 				3EABDDFD2694C57B008066E8 /* ControlBarPlayerUIPersistenceTests.swift in Sources */,
 				3EA62F572693DAF9004A780A /* HistoryPersistenceTests.swift in Sources */,
 				3EE4B87F268FDAA1006BDEB2 /* JSONSerializationExtensions.swift in Sources */,
+				3E871A262698E9F800C626DC /* GroupsSort.swift in Sources */,
 				3E21ECA7268F47EB00731E4C /* IntExtensions.swift in Sources */,
 				3EA1BE0C268F60AB00A5D81B /* RepeatMode.swift in Sources */,
 				3ECC310F26908A08001A5CA7 /* PersistenceTestCase.swift in Sources */,
@@ -5313,6 +5371,7 @@
 				3EABDDF32694C4B5008066E8 /* ControlBarPlayerUIPersistentState.swift in Sources */,
 				3EA1BDED268F507D00A5D81B /* Messenger_SynchronousNotifications_ArbitraryPayloadTests.swift in Sources */,
 				3EF28DA32694DD56005D5B43 /* EffectsFontScheme.swift in Sources */,
+				3E871A1A2698E8BB00C626DC /* GroupedTrack.swift in Sources */,
 				3EE4B848268F95A7006BDEB2 /* ReverbPresets.swift in Sources */,
 				3E21ECB5268F498A00731E4C /* PlaylistType.swift in Sources */,
 				3EE4B86E268FBF0C006BDEB2 /* HistoryPreferences.swift in Sources */,
@@ -5333,6 +5392,7 @@
 				3E21ECC6268F4A0B00731E4C /* StringExtensions.swift in Sources */,
 				3EA1BDF8268F50B900A5D81B /* Utils.swift in Sources */,
 				3EF28DAF2694DF95005D5B43 /* ThemesPersistentState.swift in Sources */,
+				3E871A202698E9C500C626DC /* TracksSort.swift in Sources */,
 				3EA1BE1C268F629100A5D81B /* PlaybackSessionTests.swift in Sources */,
 				3E6787702697B60300408566 /* FlatPlaylistTests+MoveTracksToTop.swift in Sources */,
 				3EA1BDFB268F50F800A5D81B /* ExclusiveAccessSemaphore.swift in Sources */,
@@ -5378,6 +5438,7 @@
 				3EA62F392693B964004A780A /* SoundProfilesPersistenceTests.swift in Sources */,
 				3EE4B858268FA463006BDEB2 /* FilterBand.swift in Sources */,
 				3EEF373F268F6B96002EA77F /* SequencerTrackSelectionTests.swift in Sources */,
+				3E871A102698E84000C626DC /* SearchResult.swift in Sources */,
 				3EFDA96D268F725800CFF785 /* EQPresets.swift in Sources */,
 				3EFDA973268F727800CFF785 /* FilterBandType.swift in Sources */,
 				3EA1BDE0268F4F5900A5D81B /* Messenger_UnsubscribeTests.swift in Sources */,
@@ -5431,6 +5492,7 @@
 				3EABDDE82694BC30008066E8 /* VisualizerViewOptions.swift in Sources */,
 				3E21ECCA268F4A1900731E4C /* MetadataEntry.swift in Sources */,
 				3EABDE052694C9A6008066E8 /* ColorScheme.swift in Sources */,
+				3E871A152698E86600C626DC /* SearchResultLocation.swift in Sources */,
 				3EA62F592693DB69004A780A /* HistoryPersistentState.swift in Sources */,
 				3EA1BE20268F62C100A5D81B /* PlaybackLoopTests.swift in Sources */,
 				3EABDD9626948686008066E8 /* MusicBrainzCachePersistentState.swift in Sources */,
