@@ -64,7 +64,7 @@ class PitchView: NSView {
         sliders.forEach({$0.updateState()})
     }
     
-    func applyPreset(_ preset: PitchPreset) {
+    func applyPreset(_ preset: PitchShiftPreset) {
         
         let pitch = preset.pitch * ValueConversions.pitch_audioGraphToUI
         setPitch(pitch, ValueFormatter.formatPitch(pitch))

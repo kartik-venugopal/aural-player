@@ -13,8 +13,8 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
     
     private let masterPresetsManagerViewController: MasterPresetsManagerViewController = MasterPresetsManagerViewController()
     private let eqPresetsManagerViewController: EQPresetsManagerViewController = EQPresetsManagerViewController()
-    private let pitchPresetsManagerViewController: PitchPresetsManagerViewController = PitchPresetsManagerViewController()
-    private let timePresetsManagerViewController: TimePresetsManagerViewController = TimePresetsManagerViewController()
+    private let pitchPresetsManagerViewController: PitchShiftPresetsManagerViewController = PitchShiftPresetsManagerViewController()
+    private let timePresetsManagerViewController: TimeStretchPresetsManagerViewController = TimeStretchPresetsManagerViewController()
     private let reverbPresetsManagerViewController: ReverbPresetsManagerViewController = ReverbPresetsManagerViewController()
     private let delayPresetsManagerViewController: DelayPresetsManagerViewController = DelayPresetsManagerViewController()
     private let filterPresetsManagerViewController: FilterPresetsManagerViewController = FilterPresetsManagerViewController()

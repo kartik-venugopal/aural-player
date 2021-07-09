@@ -1,5 +1,5 @@
 //
-//  TimePresets.swift
+//  TimeStretchPresets.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,23 +12,23 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Time Stretch effects unit.
 ///
-class TimePresets: EffectsPresets<TimePreset> {
+class TimeStretchPresets: EffectsPresets<TimeStretchPreset> {
     
     init(persistentState: TimeStretchUnitPersistentState?) {
         
-        let systemDefinedPresets = SystemDefinedTimePresetParams.allCases.map {$0.preset}
-        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {TimePreset(persistentState: $0)}
+        let systemDefinedPresets = SystemDefinedTimeStretchPresetParams.allCases.map {$0.preset}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {TimeStretchPreset(persistentState: $0)}
         
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    override var defaultPreset: TimePreset {systemDefinedPreset(named: SystemDefinedTimePresetParams.normal.rawValue)!}
+    override var defaultPreset: TimeStretchPreset {systemDefinedPreset(named: SystemDefinedTimeStretchPresetParams.normal.rawValue)!}
 }
 
 ///
 /// Represents a single Time Stretch effects unit preset.
 ///
-class TimePreset: EffectsUnitPreset {
+class TimeStretchPreset: EffectsUnitPreset {
     
     let rate: Float
     let overlap: Float
@@ -58,7 +58,7 @@ class TimePreset: EffectsUnitPreset {
 ///
 /// An enumeration of system-defined (built-in) Time Stretch presets the user can choose from.
 ///
-fileprivate enum SystemDefinedTimePresetParams: String, CaseIterable {
+fileprivate enum SystemDefinedTimeStretchPresetParams: String, CaseIterable {
     
     case normal = "Normal (1x)"  // default
     
@@ -75,9 +75,9 @@ fileprivate enum SystemDefinedTimePresetParams: String, CaseIterable {
     case speedyGonzales = "Speedy Gonzales"
     case slowLikeMolasses = "Slow like molasses"
     
-    // Converts a user-friendly display name to an instance of TimePresets
-    static func fromDisplayName(_ displayName: String) -> SystemDefinedTimePresetParams {
-        return SystemDefinedTimePresetParams(rawValue: displayName) ?? .normal
+    // Converts a user-friendly display name to an instance of TimeStretchPresets
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedTimeStretchPresetParams {
+        return SystemDefinedTimeStretchPresetParams(rawValue: displayName) ?? .normal
     }
     
     var rate: Float {
@@ -121,7 +121,7 @@ fileprivate enum SystemDefinedTimePresetParams: String, CaseIterable {
         return .active
     }
     
-    var preset: TimePreset {
-        TimePreset(rawValue, state, rate, overlap, shiftPitch, true)
+    var preset: TimeStretchPreset {
+        TimeStretchPreset(rawValue, state, rate, overlap, shiftPitch, true)
     }
 }

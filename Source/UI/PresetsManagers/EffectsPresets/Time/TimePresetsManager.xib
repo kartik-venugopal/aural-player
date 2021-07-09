@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TimePresetsManagerViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="TimeStretchPresetsManagerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="previewBox" destination="9TF-F8-zrP" id="RZJ-hU-HLS"/>
                 <outlet property="tableView" destination="5AF-Uq-T8E" id="bXK-su-C9q"/>
@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" white="0.42990451390000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_TimePresetName" width="225" minWidth="225" maxWidth="225" id="fFY-7f-DV5">
+                                    <tableColumn identifier="cid_TimeStretchPresetName" width="225" minWidth="225" maxWidth="225" id="fFY-7f-DV5">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>

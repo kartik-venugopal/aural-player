@@ -85,7 +85,7 @@ class TimeView: NSView {
         lblTimeOverlapValue.stringValue = overlapString
     }
     
-    func applyPreset(_ preset: TimePreset) {
+    func applyPreset(_ preset: TimeStretchPreset) {
         
         setUnitState(preset.state)
         btnShiftPitch.onIf(preset.shiftPitch)

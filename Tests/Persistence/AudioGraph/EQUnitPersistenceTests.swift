@@ -12,7 +12,7 @@ import XCTest
 ///
 /// Unit tests for **EQUnitPersistentState**.
 ///
-class EQUnitPersistenceTests: AudioGraphPersistenceTestCase {
+class EQUnitPersistenceTests: AudioGraphTestCase {
     
     func testPersistence_10BandEQ() {
         

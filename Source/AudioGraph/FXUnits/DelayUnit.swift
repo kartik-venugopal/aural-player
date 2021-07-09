@@ -18,7 +18,7 @@ import AVFoundation
 ///
 class DelayUnit: EffectsUnit, DelayUnitProtocol {
     
-    private let node: AVAudioUnitDelay = AVAudioUnitDelay()
+    let node: AVAudioUnitDelay = AVAudioUnitDelay()
     let presets: DelayPresets
     
     init(persistentState: DelayUnitPersistentState?) {

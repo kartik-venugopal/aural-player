@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PitchPresetsManagerViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="PitchShiftPresetsManagerViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="pitchView" destination="d7S-3W-NMI" id="fuG-vp-0pA"/>
                 <outlet property="previewBox" destination="dva-Wp-792" id="BAn-TR-G16"/>
@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="gridColor" white="0.42990451390000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <tableColumns>
-                                    <tableColumn identifier="cid_PitchPresetName" width="225" minWidth="225" maxWidth="225" id="dUw-Q2-iux">
+                                    <tableColumn identifier="cid_PitchShiftPresetName" width="225" minWidth="225" maxWidth="225" id="dUw-Q2-iux">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Name">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>

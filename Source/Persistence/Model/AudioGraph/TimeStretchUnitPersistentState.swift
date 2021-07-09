@@ -28,7 +28,7 @@ struct TimeStretchPresetPersistentState: Codable {
     let overlap: Float?
     let shiftPitch: Bool?
     
-    init(preset: TimePreset) {
+    init(preset: TimeStretchPreset) {
         
         self.name = preset.name
         self.state = preset.state

@@ -1,5 +1,5 @@
 //
-//  PitchPresetsManagerViewController.swift
+//  PitchShiftPresetsManagerViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,11 +9,11 @@
 //
 import Cocoa
 
-class PitchPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
+class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var pitchView: PitchView!
     
-    override var nibName: String? {"PitchPresetsManager"}
+    override var nibName: String? {"PitchShiftPresetsManager"}
     
     var pitchUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
     
@@ -23,7 +23,7 @@ class PitchPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
         
         unitType = .pitch
         effectsUnit = pitchUnit
-        presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
+        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchUnit.presets)
     }
     
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ class PitchPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
         }
     }
    
-    private func renderPreview(_ preset: PitchPreset) {
+    private func renderPreview(_ preset: PitchShiftPreset) {
         pitchView.applyPreset(preset)
     }
 }

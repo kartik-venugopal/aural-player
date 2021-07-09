@@ -26,7 +26,7 @@ struct PitchShiftPresetPersistentState: Codable {
     let pitch: Float?
     let overlap: Float?
     
-    init(preset: PitchPreset) {
+    init(preset: PitchShiftPreset) {
         
         self.name = preset.name
         self.state = preset.state

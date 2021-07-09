@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class MasterUnitPersistenceTests: AudioGraphPersistenceTestCase {
+class MasterUnitPersistenceTests: AudioGraphTestCase {
     
     func testPersistence() {
         

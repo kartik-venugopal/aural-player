@@ -16,7 +16,7 @@ import AVFoundation
 ///
 class FilterUnit: EffectsUnit, FilterUnitProtocol {
     
-    private let node: FlexibleFilterNode = FlexibleFilterNode()
+    let node: FlexibleFilterNode = FlexibleFilterNode()
     let presets: FilterPresets
     
     override var avNodes: [AVAudioNode] {return [node]}

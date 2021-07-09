@@ -16,29 +16,29 @@ import AVFoundation
 ///
 class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     
-    private let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
-    let presets: PitchPresets
+    let node: AVAudioUnitTimePitch = AVAudioUnitTimePitch()
+    let presets: PitchShiftPresets
     
     init(persistentState: PitchShiftUnitPersistentState?) {
         
-        presets = PitchPresets(persistentState: persistentState)
+        presets = PitchShiftPresets(persistentState: persistentState)
         super.init(.pitch, persistentState?.state ?? AudioGraphDefaults.pitchState)
         
         node.pitch = persistentState?.pitch ?? AudioGraphDefaults.pitch
         node.overlap = persistentState?.overlap ?? AudioGraphDefaults.pitchOverlap
     }
     
-    override var avNodes: [AVAudioNode] {return [node]}
+    override var avNodes: [AVAudioNode] {[node]}
     
     var pitch: Float {
         
-        get {return node.pitch}
+        get {node.pitch}
         set {node.pitch = newValue}
     }
     
     var overlap: Float {
         
-        get {return node.overlap}
+        get {node.overlap}
         set {node.overlap = newValue}
     }
     
@@ -49,7 +49,7 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
     }
     
     override func savePreset(_ presetName: String) {
-        presets.addPreset(PitchPreset(presetName, .active, pitch, overlap, false))
+        presets.addPreset(PitchShiftPreset(presetName, .active, pitch, overlap, false))
     }
 
     override func applyPreset(_ presetName: String) {
@@ -59,14 +59,14 @@ class PitchShiftUnit: EffectsUnit, PitchShiftUnitProtocol {
         }
     }
     
-    func applyPreset(_ preset: PitchPreset) {
+    func applyPreset(_ preset: PitchShiftPreset) {
         
         pitch = preset.pitch
         overlap = preset.overlap
     }
     
-    var settingsAsPreset: PitchPreset {
-        return PitchPreset("pitchSettings", state, pitch, overlap, false)
+    var settingsAsPreset: PitchShiftPreset {
+        return PitchShiftPreset("pitchSettings", state, pitch, overlap, false)
     }
     
     var persistentState: PitchShiftUnitPersistentState {

@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class SoundProfilesPersistenceTests: AudioGraphPersistenceTestCase {
+class SoundProfilesPersistenceTests: AudioGraphTestCase {
     
     func testPersistence_noProfiles() {
         doTestPersistence(serializedState: [SoundProfilePersistentState]())

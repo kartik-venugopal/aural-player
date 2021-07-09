@@ -1,5 +1,5 @@
 //
-//  AudioGraphPersistenceTestCase.swift
+//  AudioGraphTestCase.swift
 //  Tests
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //  
 import XCTest
 
-class AudioGraphPersistenceTestCase: PersistenceTestCase {
+class AudioGraphTestCase: PersistenceTestCase {
     
     // MARK: Master unit --------------------------------------------
     
@@ -19,8 +19,8 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         if numPresets == 0 {return []}
         
         let eqPresets = randomEQPresets(count: numPresets).compactMap {EQPreset(persistentState: $0)}
-        let pitchShiftPresets = randomPitchShiftPresets(count: numPresets).compactMap {PitchPreset(persistentState: $0)}
-        let timeStretchPresets = randomTimeStretchPresets(count: numPresets).compactMap {TimePreset(persistentState: $0)}
+        let pitchShiftPresets = randomPitchShiftPresets(count: numPresets).compactMap {PitchShiftPreset(persistentState: $0)}
+        let timeStretchPresets = randomTimeStretchPresets(count: numPresets).compactMap {TimeStretchPreset(persistentState: $0)}
         let reverbPresets = randomReverbPresets(count: numPresets).compactMap {ReverbPreset(persistentState: $0)}
         let delayPresets = randomDelayPresets(count: numPresets).compactMap {DelayPreset(persistentState: $0)}
         let filterPresets = randomFilterPresets(count: numPresets).compactMap {FilterPreset(persistentState: $0)}
@@ -99,7 +99,7 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
             
-            PitchShiftPresetPersistentState(preset: PitchPreset("preset-\(index)", unitState ?? randomUnitState(),
+            PitchShiftPresetPersistentState(preset: PitchShiftPreset("preset-\(index)", unitState ?? randomUnitState(),
                                                                 randomPitch(), randomOverlap(),
                                                                 false))
         }
@@ -133,7 +133,7 @@ class AudioGraphPersistenceTestCase: PersistenceTestCase {
         
         return numPresets == 0 ? [] : (1...numPresets).map {index in
             
-            TimeStretchPresetPersistentState(preset: TimePreset("preset-\(index)", unitState ?? randomUnitState(),
+            TimeStretchPresetPersistentState(preset: TimeStretchPreset("preset-\(index)", unitState ?? randomUnitState(),
                                                                 randomTimeStretchRate(), randomOverlap(),
                                                                 .random(), false))
         }

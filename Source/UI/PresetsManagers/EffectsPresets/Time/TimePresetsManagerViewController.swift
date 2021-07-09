@@ -1,5 +1,5 @@
 //
-//  TimePresetsManagerViewController.swift
+//  TimeStretchPresetsManagerViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,11 +9,11 @@
 //
 import Cocoa
 
-class TimePresetsManagerViewController: EffectsPresetsManagerGenericViewController {
+class TimeStretchPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
     @IBOutlet weak var timeView: TimeView!
     
-    override var nibName: String? {"TimePresetsManager"}
+    override var nibName: String? {"TimeStretchPresetsManager"}
     
     var timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
     
@@ -23,7 +23,7 @@ class TimePresetsManagerViewController: EffectsPresetsManagerGenericViewControll
         
         unitType = .time
         effectsUnit = timeUnit
-        presetsWrapper = PresetsWrapper<TimePreset, TimePresets>(timeUnit.presets)
+        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeUnit.presets)
     }
     
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ class TimePresetsManagerViewController: EffectsPresetsManagerGenericViewControll
         }
     }
     
-    private func renderPreview(_ preset: TimePreset) {
+    private func renderPreview(_ preset: TimeStretchPreset) {
         timeView.applyPreset(preset)
     }
 }

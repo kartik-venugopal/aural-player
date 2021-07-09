@@ -39,7 +39,7 @@ class TimeViewController: EffectsUnitViewController {
         
         unitType = .time
         effectsUnit = graph.timeUnit
-        presetsWrapper = PresetsWrapper<TimePreset, TimePresets>(timeUnit.presets)
+        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeUnit.presets)
     }
     
     override func initSubscriptions() {

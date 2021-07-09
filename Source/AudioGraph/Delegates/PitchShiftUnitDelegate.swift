@@ -42,7 +42,7 @@ class PitchShiftUnitDelegate: EffectsUnitDelegate<PitchShiftUnit>, PitchShiftUni
         return ValueFormatter.formatOverlap(overlap)
     }
     
-    var presets: PitchPresets {return unit.presets}
+    var presets: PitchShiftPresets {return unit.presets}
     
     init(_ unit: PitchShiftUnit, _ preferences: SoundPreferences) {
         

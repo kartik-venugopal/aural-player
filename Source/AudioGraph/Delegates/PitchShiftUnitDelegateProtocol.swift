@@ -36,5 +36,5 @@ protocol PitchShiftUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     // Decreases the pitch shift by a small decrement. Returns the new pitch shift value.
     func decreasePitch() -> (pitch: Float, pitchString: String)
     
-    var presets: PitchPresets {get}
+    var presets: PitchShiftPresets {get}
 }

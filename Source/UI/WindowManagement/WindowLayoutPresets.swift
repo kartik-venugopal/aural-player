@@ -38,7 +38,7 @@ enum WindowLayoutPresets: String, CaseIterable {
     static let effectsWindowWidth: CGFloat = 530
     static let effectsWindowHeight: CGFloat = 230
     
-    // Converts a user-friendly display name to an instance of PitchPresets
+    // Converts a user-friendly display name to an instance of PitchShiftPresets
     static func fromDisplayName(_ displayName: String) -> WindowLayoutPresets {
         return WindowLayoutPresets(rawValue: displayName.camelCased()) ?? .verticalFullStack
     }

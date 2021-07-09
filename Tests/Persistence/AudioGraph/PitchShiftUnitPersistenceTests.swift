@@ -12,7 +12,7 @@ import XCTest
 ///
 /// Unit tests for **PitchShiftUnitPersistentState**.
 ///
-class PitchShiftUnitPersistenceTests: AudioGraphPersistenceTestCase {
+class PitchShiftUnitPersistenceTests: AudioGraphTestCase {
     
     func testPersistence() {
         

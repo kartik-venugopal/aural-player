@@ -1,5 +1,5 @@
 //
-//  PitchPresets.swift
+//  PitchShiftPresets.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,23 +12,23 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Pitch Shift effects unit.
 ///
-class PitchPresets: EffectsPresets<PitchPreset> {
+class PitchShiftPresets: EffectsPresets<PitchShiftPreset> {
     
     init(persistentState: PitchShiftUnitPersistentState?) {
         
-        let systemDefinedPresets = SystemDefinedPitchPresetParams.allCases.map {$0.preset}
-        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {PitchPreset(persistentState: $0)}
+        let systemDefinedPresets = SystemDefinedPitchShiftPresetParams.allCases.map {$0.preset}
+        let userDefinedPresets = (persistentState?.userPresets ?? []).compactMap {PitchShiftPreset(persistentState: $0)}
         
         super.init(systemDefinedPresets: systemDefinedPresets, userDefinedPresets: userDefinedPresets)
     }
     
-    override var defaultPreset: PitchPreset {systemDefinedPreset(named: SystemDefinedPitchPresetParams.normal.rawValue)!}
+    override var defaultPreset: PitchShiftPreset {systemDefinedPreset(named: SystemDefinedPitchShiftPresetParams.normal.rawValue)!}
 }
 
 ///
 /// Represents a single Pitch Shift effects unit preset.
 ///
-class PitchPreset: EffectsUnitPreset {
+class PitchShiftPreset: EffectsUnitPreset {
     
     let pitch: Float
     let overlap: Float
@@ -55,7 +55,7 @@ class PitchPreset: EffectsUnitPreset {
 ///
 /// An enumeration of system-defined (built-in) Pitch Shift presets the user can choose from.
 ///
-fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
+fileprivate enum SystemDefinedPitchShiftPresetParams: String, CaseIterable {
     
     case normal = "Normal"  // default
     case happyLittleGirl = "Happy little girl"
@@ -68,9 +68,9 @@ fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
     case oneOctaveDown = "-1 8ve"
     case twoOctavesDown = "-2 8ve"
     
-    // Converts a user-friendly display name to an instance of PitchPresets
-    static func fromDisplayName(_ displayName: String) -> SystemDefinedPitchPresetParams {
-        return SystemDefinedPitchPresetParams(rawValue: displayName) ?? .normal
+    // Converts a user-friendly display name to an instance of PitchShiftPresets
+    static func fromDisplayName(_ displayName: String) -> SystemDefinedPitchShiftPresetParams {
+        return SystemDefinedPitchShiftPresetParams(rawValue: displayName) ?? .normal
     }
     
     var pitch: Float {
@@ -106,7 +106,7 @@ fileprivate enum SystemDefinedPitchPresetParams: String, CaseIterable {
         return .active
     }
     
-    var preset: PitchPreset {
-        PitchPreset(rawValue, state, pitch, overlap, true)
+    var preset: PitchShiftPreset {
+        PitchShiftPreset(rawValue, state, pitch, overlap, true)
     }
 }

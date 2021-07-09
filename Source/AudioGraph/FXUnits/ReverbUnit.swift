@@ -18,7 +18,7 @@ import AVFoundation
 ///
 class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
-    private let node: AVAudioUnitReverb = AVAudioUnitReverb()
+    let node: AVAudioUnitReverb = AVAudioUnitReverb()
     let presets: ReverbPresets
     
     init(persistentState: ReverbUnitPersistentState?) {
@@ -42,7 +42,7 @@ class ReverbUnit: EffectsUnit, ReverbUnitProtocol {
     
     var space: ReverbSpaces {
         
-        get {ReverbSpaces.mapFromAVPreset(avSpace)}
+        get {.mapFromAVPreset(avSpace)}
         set {avSpace = newValue.avPreset}
     }
     

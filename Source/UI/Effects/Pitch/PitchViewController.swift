@@ -38,7 +38,7 @@ class PitchViewController: EffectsUnitViewController {
         // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
         unitType = .pitch
         effectsUnit = pitchUnit
-        presetsWrapper = PresetsWrapper<PitchPreset, PitchPresets>(pitchUnit.presets)
+        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchUnit.presets)
     }
     
     override func initSubscriptions() {

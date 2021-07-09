@@ -9,7 +9,7 @@
 //  
 import Foundation
 
-class AppStatePersistenceTests: AudioGraphPersistenceTestCase {
+class AppStatePersistenceTests: AudioGraphTestCase {
     
     func testPersistence() {
         

@@ -42,5 +42,5 @@ protocol TimeStretchUnitDelegateProtocol: EffectsUnitDelegateProtocol {
     // Decreases the playback rate by a small decrement. Returns the new playback rate value.
     func decreaseRate() -> (rate: Float, rateString: String)
     
-    var presets: TimePresets {get}
+    var presets: TimeStretchPresets {get}
 }

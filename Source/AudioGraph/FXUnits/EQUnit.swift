@@ -18,7 +18,7 @@ import AVFoundation
 ///
 class EQUnit: EffectsUnit, EQUnitProtocol {
     
-    private let node: ParametricEQ
+    let node: ParametricEQ
     let presets: EQPresets
     
     init(persistentState: EQUnitPersistentState?) {
@@ -40,13 +40,13 @@ class EQUnit: EffectsUnit, EQUnitProtocol {
     
     var type: EQType {
         
-        get {return node.type}
+        get {node.type}
         set(newType) {node.chooseType(newType)}
     }
     
     var globalGain: Float {
         
-        get {return node.globalGain}
+        get {node.globalGain}
         set {node.globalGain = newValue}
     }
     

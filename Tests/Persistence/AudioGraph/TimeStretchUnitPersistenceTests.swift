@@ -12,7 +12,7 @@ import XCTest
 ///
 /// Unit tests for **TimeStretchUnitPersistentState**.
 ///
-class TimeStretchUnitPersistenceTests: AudioGraphPersistenceTestCase {
+class TimeStretchUnitPersistenceTests: AudioGraphTestCase {
     
     func testPersistence() {
         

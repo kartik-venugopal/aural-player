@@ -52,7 +52,7 @@ class TimeUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretchUnitDel
     
     var formattedPitch: String {return ValueFormatter.formatPitch(pitch * ValueConversions.pitch_audioGraphToUI)}
     
-    var presets: TimePresets {return unit.presets}
+    var presets: TimeStretchPresets {return unit.presets}
     
     init(_ unit: TimeStretchUnit, _ preferences: SoundPreferences) {
         
