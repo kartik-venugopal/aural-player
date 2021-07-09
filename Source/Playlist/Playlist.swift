@@ -84,35 +84,57 @@ class Playlist: PlaylistCRUDProtocol {
     func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
         
         // Union of results from each of the individual searches
-        var allResults: SearchResults = SearchResults([])
+        let allResults: SearchResults = SearchResults([])
+        
+        var flatPlaylistResults: SearchResults? = nil
+        var artistPlaylistResults: SearchResults? = nil
+        var albumsPlaylistResults: SearchResults? = nil
         
         // The flat playlist searches by name or title
         if searchQuery.fields.name || searchQuery.fields.title {
-            allResults = flatPlaylist.search(searchQuery)
+            
+            opQueue.addOperation {
+                flatPlaylistResults = self.flatPlaylist.search(searchQuery)
+            }
         }
         
         // The Artists playlist searches only by artist
         if searchQuery.fields.artist, let artistsPlaylist = groupingPlaylists[.artists] {
-            allResults.performUnionWith(artistsPlaylist.search(searchQuery))
+            
+            opQueue.addOperation {
+                artistPlaylistResults = artistsPlaylist.search(searchQuery)
+            }
         }
         
         // The Albums playlist searches only by album
         if searchQuery.fields.album, let albumsPlaylist = groupingPlaylists[.albums] {
-            allResults.performUnionWith(albumsPlaylist.search(searchQuery))
+            
+            opQueue.addOperation {
+                albumsPlaylistResults = albumsPlaylist.search(searchQuery)
+            }
+        }
+        
+        opQueue.waitUntilAllOperationsAreFinished()
+        
+        // Perform a union of all the gathered results.
+        let individualResults = [flatPlaylistResults, artistPlaylistResults, albumsPlaylistResults].compactMap {$0}
+        for results in individualResults {
+            allResults.performUnionWith(results)
         }
         
         // Determine locations for each of the result tracks, within the given playlist type, and sort results in ascending order by location
-        // NOTE - Locations are specific to the playlist type. That's why they need to be determined after the searches are performed.
+        // NOTE - Locations are specific to the playlist type. A playlist that reports a match is not necessarily the same as the given playlist type. That's why locations need to be determined after the searches are performed.
+        
         if let groupType = playlistType.toGroupType() {
             
             // Grouping playlist locations
-            allResults.results.forEach({$0.location.groupInfo = groupingInfoForTrack(groupType, $0.location.track)})
+            allResults.results.forEach {$0.location.groupInfo = groupingInfoForTrack(groupType, $0.location.track)}
             allResults.sortByGroupAndTrackIndex()
             
         } else {
             
             // Flat playlist locations
-            allResults.results.forEach({$0.location.trackIndex = indexOfTrack($0.location.track)})
+            allResults.results.forEach {$0.location.trackIndex = indexOfTrack($0.location.track)}
             allResults.sortByTrackIndex()
         }
         
@@ -267,7 +289,7 @@ class Playlist: PlaylistCRUDProtocol {
         return groupingPlaylists[groupType.toPlaylistType()]!.dropTracksAndGroups(tracks, groups, dropParent, dropIndex)
     }
     
-    private let reorderOpQueue: OperationQueue = {
+    private let opQueue: OperationQueue = {
 
         let queue = OperationQueue()
         queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
@@ -292,13 +314,13 @@ class Playlist: PlaylistCRUDProtocol {
                 // In other words, reordering one grouping playlist does not
                 // affect any other grouping playlist.
                 
-                reorderOpQueue.addOperation {
+                opQueue.addOperation {
                     playlist.reOrder(accordingTo: playlistState)
                 }
             }
         }
         
-        reorderOpQueue.waitUntilAllOperationsAreFinished()
+        opQueue.waitUntilAllOperationsAreFinished()
     }
 }
 
