@@ -120,6 +120,6 @@ struct SearchResultLocation: Equatable {
     
     // Two locations are equal if they describe the location of the same track
     public static func ==(lhs: SearchResultLocation, rhs: SearchResultLocation) -> Bool {
-        return lhs.track === rhs.track
+        return lhs.track == rhs.track
     }
 }

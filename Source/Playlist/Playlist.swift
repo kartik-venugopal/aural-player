@@ -91,7 +91,7 @@ class Playlist: PlaylistCRUDProtocol {
         var albumsPlaylistResults: SearchResults? = nil
         
         // The flat playlist searches by name or title
-        if searchQuery.fields.name || searchQuery.fields.title {
+        if searchQuery.fields.contains(.name) || searchQuery.fields.contains(.title) {
             
             opQueue.addOperation {
                 flatPlaylistResults = self.flatPlaylist.search(searchQuery)
@@ -99,7 +99,7 @@ class Playlist: PlaylistCRUDProtocol {
         }
         
         // The Artists playlist searches only by artist
-        if searchQuery.fields.artist, let artistsPlaylist = groupingPlaylists[.artists] {
+        if searchQuery.fields.contains(.artist), let artistsPlaylist = groupingPlaylists[.artists] {
             
             opQueue.addOperation {
                 artistPlaylistResults = artistsPlaylist.search(searchQuery)
@@ -107,7 +107,7 @@ class Playlist: PlaylistCRUDProtocol {
         }
         
         // The Albums playlist searches only by album
-        if searchQuery.fields.album, let albumsPlaylist = groupingPlaylists[.albums] {
+        if searchQuery.fields.contains(.album), let albumsPlaylist = groupingPlaylists[.albums] {
             
             opQueue.addOperation {
                 albumsPlaylistResults = albumsPlaylist.search(searchQuery)
@@ -134,7 +134,13 @@ class Playlist: PlaylistCRUDProtocol {
         } else {
             
             // Flat playlist locations
-            allResults.results.forEach {$0.location.trackIndex = indexOfTrack($0.location.track)}
+            allResults.results.forEach {
+                
+                if $0.location.trackIndex == nil {
+                    $0.location.trackIndex = indexOfTrack($0.location.track)
+                }
+            }
+            
             allResults.sortByTrackIndex()
         }
         

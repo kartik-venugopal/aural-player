@@ -496,10 +496,28 @@ func randomRecentlyAddedItemFilePath() -> URLPath {
     }
 }
 
+func fileMetadata(_ title: String?, _ artist: String?, _ album: String?, _ genre: String?, _ duration: Double) -> FileMetadata {
+    
+    let fileMetadata: FileMetadata = FileMetadata()
+    var playlistMetadata: PlaylistMetadata = PlaylistMetadata()
+    
+    playlistMetadata.title = title
+    playlistMetadata.artist = artist
+    playlistMetadata.album = album
+    playlistMetadata.genre = genre
+    playlistMetadata.duration = duration
+    
+    fileMetadata.playlist = playlistMetadata
+    
+    return fileMetadata
+}
+
+let allAudioExtensions: [String] = Array(SupportedTypes.allAudioExtensions)
+
 func randomAudioFileExtension() -> URLPath {
     
     let randomIndex = Int.random(in: 0..<SupportedTypes.allAudioExtensions.count)
-    return SupportedTypes.allAudioExtensions[randomIndex]
+    return allAudioExtensions[randomIndex]
 }
 
 private let imageFileExtensions: [String] = ["jpg", "png", "tiff", "bmp"]

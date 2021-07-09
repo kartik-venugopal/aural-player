@@ -13,19 +13,22 @@ import Foundation
 class ConcurrentSet<T: Hashable> {
     
     private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
-    private(set) var set: Set<T> = Set<T>()
+    private var _set: Set<T> = Set<T>()
+    var set: Set<T> {_set}
+    
+    var count: Int {_set.count}
     
     func contains(_ value: T) -> Bool {
         
         lock.produceValueAfterWait {
-            set.contains(value)
+            _set.contains(value)
         }
     }
     
     func insert(_ value: T) {
         
         lock.executeAfterWait {
-            set.insert(value)
+            _set.insert(value)
         }
     }
 }

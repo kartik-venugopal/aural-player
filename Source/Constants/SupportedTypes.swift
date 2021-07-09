@@ -26,7 +26,7 @@ struct SupportedTypes {
     static let nativeAudioExtensions: [String] = ["aac", "adts", "aif", "aiff", "aifc", "caf", "mp1", "mp2", "mp3", "m4a", "m4b", "m4r", "snd", "au", "sd2", "wav", "ac3", "amr"]
     static let nonNativeAudioExtensions: [String] = ["flac", "oga", "opus", "wma", "dsf", "dsd", "dff", "mpc", "ape", "wv", "mka", "ogg", "tta", "tak", "ra", "rm"]
 
-    static let allAudioExtensions: [String] = nativeAudioExtensions + nonNativeAudioExtensions
+    static let allAudioExtensions: Set<String> = Set(nativeAudioExtensions + nonNativeAudioExtensions)
     
     // Supported AV Foundation formats
     

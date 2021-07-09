@@ -37,34 +37,34 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func search(_ searchQuery: SearchQuery) -> SearchResults {
-        return SearchResults(tracks.compactMap {executeQuery($0, searchQuery)})
+        return SearchResults(tracks.enumerated().compactMap {executeQuery(index: $0, track: $1, searchQuery)})
     }
     
-    private func executeQuery(_ track: Track, _ query: SearchQuery) -> SearchResult? {
+    private func executeQuery(index: Int, track: Track, _ query: SearchQuery) -> SearchResult? {
 
         // Check both the filename and the display name
-        if query.fields.name {
+        if query.fields.contains(.name) {
             
             let filename = track.fileSystemInfo.fileName
             if query.compare(filename) {
 
-                return SearchResult(location: SearchResultLocation(trackIndex: -1, track: track, groupInfo: nil),
+                return SearchResult(location: SearchResultLocation(trackIndex: index, track: track, groupInfo: nil),
                                     match: ("filename", filename))
             }
             
             let displayName = track.displayName
             if query.compare(displayName) {
                 
-                return SearchResult(location: SearchResultLocation(trackIndex: -1, track: track, groupInfo: nil),
-                             match: ("name", displayName))
+                return SearchResult(location: SearchResultLocation(trackIndex: index, track: track, groupInfo: nil),
+                                    match: ("name", displayName))
             }
         }
         
         // Compare title field if included in search
-        if query.fields.title, let title = track.title, query.compare(title) {
+        if query.fields.contains(.title), let title = track.title, query.compare(title) {
 
-            return SearchResult(location: SearchResultLocation(trackIndex: -1, track: track, groupInfo: nil),
-                         match: ("title", title))
+            return SearchResult(location: SearchResultLocation(trackIndex: index, track: track, groupInfo: nil),
+                                match: ("title", title))
         }
         
         // Didn't match

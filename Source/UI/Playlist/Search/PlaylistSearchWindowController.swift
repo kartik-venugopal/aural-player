@@ -143,12 +143,12 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     
     @IBAction func searchFieldsChangedAction(_ sender: Any) {
         
-        let searchFields = searchQuery.fields
+        var searchFields = searchQuery.fields
         
-        searchFields.name = searchByName.isOn
-        searchFields.artist = searchByArtist.isOn
-        searchFields.title = searchByTitle.isOn
-        searchFields.album = searchByAlbum.isOn
+        searchFields.include(.name, if: searchByName.isOn)
+        searchFields.include(.artist, if: searchByName.isOn)
+        searchFields.include(.title, if: searchByName.isOn)
+        searchFields.include(.album, if: searchByName.isOn)
         
         redoSearchIfPossible()
     }
