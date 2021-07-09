@@ -11,6 +11,8 @@ import XCTest
 
 class PlaylistItemArrayTests: AuralTestCase {
     
+    // TODO: Tests with large arrays (~ 10,000 elements) and arbitrary indices.
+    
     var arr: [Int] = []
     
     // MARK: moveItemsUp() tests --------------------------------------------------------------------------------
@@ -25,7 +27,17 @@ class PlaylistItemArrayTests: AuralTestCase {
         XCTAssertTrue(arr.elementsEqual([]))
     }
     
-    func testMoveItemsUp_singleElement_unmovable() {
+    func testMoveItemsUp_invalidIndices() {
+        
+        arr = Array(0..<10)
+        
+        let results = arr.moveItemsUp(IndexSet([3, 5, 10, 15]))
+        
+        XCTAssertEqual(results, [:])
+        XCTAssertTrue(arr.elementsEqual(Array(0..<10)))
+    }
+    
+    func testMoveItemsUp_moveSingleItem_unmovable() {
         
         arr = [0]
         
@@ -119,6 +131,16 @@ class PlaylistItemArrayTests: AuralTestCase {
         
         XCTAssertEqual(results, [:])
         XCTAssertTrue(arr.elementsEqual([]))
+    }
+    
+    func testMoveItemsDown_invalidIndices() {
+        
+        arr = Array(0..<10)
+        
+        let results = arr.moveItemsDown(IndexSet([3, 5, 10, 15]))
+        
+        XCTAssertEqual(results, [:])
+        XCTAssertTrue(arr.elementsEqual(Array(0..<10)))
     }
     
     func testMoveItemsDown_singleElement_unmovable() {
@@ -217,6 +239,16 @@ class PlaylistItemArrayTests: AuralTestCase {
         XCTAssertTrue(arr.elementsEqual([]))
     }
     
+    func testMoveItemsToTop_invalidIndices() {
+        
+        arr = Array(0..<10)
+        
+        let results = arr.moveItemsToTop(IndexSet([3, 5, 10, 15]))
+        
+        XCTAssertEqual(results, [:])
+        XCTAssertTrue(arr.elementsEqual(Array(0..<10)))
+    }
+    
     func testMoveItemsToTop_singleElement_unmovable() {
         
         arr = [0]
@@ -311,6 +343,16 @@ class PlaylistItemArrayTests: AuralTestCase {
         
         XCTAssertEqual(results, [:])
         XCTAssertTrue(arr.elementsEqual([]))
+    }
+    
+    func testMoveItemsToBottom_invalidIndices() {
+        
+        arr = Array(0..<10)
+        
+        let results = arr.moveItemsToBottom(IndexSet([3, 5, 10, 15]))
+        
+        XCTAssertEqual(results, [:])
+        XCTAssertTrue(arr.elementsEqual(Array(0..<10)))
     }
     
     func testMoveItemsToBottom_singleElement_unmovable() {

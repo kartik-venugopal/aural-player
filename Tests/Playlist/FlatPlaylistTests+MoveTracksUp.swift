@@ -33,6 +33,16 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
         }
     }
     
+    func test_invalidIndices() {
+        
+        for _ in 1...10 {
+            
+            let playlistSize = randomPlaylistSize()
+            let invalidIndices: Set<Int> = Set([0, playlistSize - 1, playlistSize, playlistSize + 10])
+            doTest_noneCanMove(playlistSize: playlistSize, movedTrackIndices: invalidIndices)
+        }
+    }
+    
     // MARK: Tests with a single index ------------------------------
     
     func test_singleIndex() {
@@ -130,6 +140,15 @@ class FlatPlaylistTests_MoveTracksUp: FlatPlaylistTestCase {
             let playlistSize = randomPlaylistSize()
             let lastIndex = Int.random(in: 1..<playlistSize)
             doTest_noneCanMove(playlistSize: playlistSize, movedTrackIndices: Set(0...lastIndex))
+        }
+    }
+    
+    func test_allExceptTopIndex_allMovable() {
+        
+        for _ in 1...10 {
+            
+            let playlistSize = randomPlaylistSize()
+            doTest_allCanMove(playlistSize: playlistSize, movedTrackIndices: Set(1..<playlistSize))
         }
     }
     
