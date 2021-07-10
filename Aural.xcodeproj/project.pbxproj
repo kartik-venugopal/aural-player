@@ -287,7 +287,7 @@
 		3E6C119F25CEBD6D00BF0D07 /* AudioGraphProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112B25CEB98700BF0D07 /* AudioGraphProtocols.swift */; };
 		3E6C11A225CEBD6D00BF0D07 /* FilterUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C112625CEB98700BF0D07 /* FilterUnitDelegate.swift */; };
 		3E6C11A425CEBD9E00BF0D07 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10AE25CEB98700BF0D07 /* History.swift */; };
-		3E6C11A525CEBD9E00BF0D07 /* LRUArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10AD25CEB98700BF0D07 /* LRUArray.swift */; };
+		3E6C11A525CEBD9E00BF0D07 /* FixedSizeLRUArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10AD25CEB98700BF0D07 /* FixedSizeLRUArray.swift */; };
 		3E6C11A625CEBD9E00BF0D07 /* HistoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10AC25CEB98700BF0D07 /* HistoryProtocol.swift */; };
 		3E6C11A725CEBD9E00BF0D07 /* HistoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10AF25CEB98700BF0D07 /* HistoryDelegate.swift */; };
 		3E6C11A825CEBD9E00BF0D07 /* HistoryDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10AB25CEB98700BF0D07 /* HistoryDelegateProtocol.swift */; };
@@ -756,6 +756,9 @@
 		3EA89D972699F0240021CDB9 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89D962699F0240021CDB9 /* EventMonitor.swift */; };
 		3EA89D9B2699F50C0021CDB9 /* ScrollSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89D9A2699F50C0021CDB9 /* ScrollSession.swift */; };
 		3EA89D9E2699F5270021CDB9 /* GestureDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */; };
+		3EA89DA4269A37110021CDB9 /* SearchIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89DA3269A37110021CDB9 /* SearchIndex.swift */; };
+		3EA89DA7269A371C0021CDB9 /* SearchIndexEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89DA6269A371C0021CDB9 /* SearchIndexEntry.swift */; };
+		3EA89DAB269A3D690021CDB9 /* LRUArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA89DAA269A3D690021CDB9 /* LRUArray.swift */; };
 		3EABDD8B2694824A008066E8 /* BookmarkPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0B526805C18008ECB8C /* BookmarkPersistentState.swift */; };
 		3EABDD8E26948258008066E8 /* BookmarksPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDD8D26948258008066E8 /* BookmarksPersistenceTests.swift */; };
 		3EABDD91269483E7008066E8 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10B525CEB98700BF0D07 /* Bookmark.swift */; };
@@ -1610,7 +1613,7 @@
 		3E6C10AA25CEB98700BF0D07 /* HistoryItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItems.swift; sourceTree = "<group>"; };
 		3E6C10AB25CEB98700BF0D07 /* HistoryDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E6C10AC25CEB98700BF0D07 /* HistoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProtocol.swift; sourceTree = "<group>"; };
-		3E6C10AD25CEB98700BF0D07 /* LRUArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRUArray.swift; sourceTree = "<group>"; };
+		3E6C10AD25CEB98700BF0D07 /* FixedSizeLRUArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedSizeLRUArray.swift; sourceTree = "<group>"; };
 		3E6C10AE25CEB98700BF0D07 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		3E6C10AF25CEB98700BF0D07 /* HistoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDelegate.swift; sourceTree = "<group>"; };
 		3E6C10B325CEB98700BF0D07 /* BookmarksDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksDelegateProtocol.swift; sourceTree = "<group>"; };
@@ -1831,6 +1834,9 @@
 		3EA89D962699F0240021CDB9 /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		3EA89D9A2699F50C0021CDB9 /* ScrollSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollSession.swift; sourceTree = "<group>"; };
 		3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureDirection.swift; sourceTree = "<group>"; };
+		3EA89DA3269A37110021CDB9 /* SearchIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIndex.swift; sourceTree = "<group>"; };
+		3EA89DA6269A371C0021CDB9 /* SearchIndexEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIndexEntry.swift; sourceTree = "<group>"; };
+		3EA89DAA269A3D690021CDB9 /* LRUArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRUArray.swift; sourceTree = "<group>"; };
 		3EABDD8D26948258008066E8 /* BookmarksPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksPersistenceTests.swift; sourceTree = "<group>"; };
 		3EABDD9326948657008066E8 /* MusicBrainzCachePersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicBrainzCachePersistenceTests.swift; sourceTree = "<group>"; };
 		3EABDDA526948D73008066E8 /* WindowLayoutsPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutsPersistenceTests.swift; sourceTree = "<group>"; };
@@ -2541,6 +2547,9 @@
 				3E871A0A2698E7F900C626DC /* SearchType.swift */,
 				3E871A0F2698E84000C626DC /* SearchResult.swift */,
 				3E871A142698E86600C626DC /* SearchResultLocation.swift */,
+				3EA89DA3269A37110021CDB9 /* SearchIndex.swift */,
+				3EA89DA6269A371C0021CDB9 /* SearchIndexEntry.swift */,
+				3EA89DAA269A3D690021CDB9 /* LRUArray.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -3470,7 +3479,7 @@
 				3E6C10AB25CEB98700BF0D07 /* HistoryDelegateProtocol.swift */,
 				3E6C10AF25CEB98700BF0D07 /* HistoryDelegate.swift */,
 				3E6C10AC25CEB98700BF0D07 /* HistoryProtocol.swift */,
-				3E6C10AD25CEB98700BF0D07 /* LRUArray.swift */,
+				3E6C10AD25CEB98700BF0D07 /* FixedSizeLRUArray.swift */,
 				3E6C10AE25CEB98700BF0D07 /* History.swift */,
 			);
 			path = History;
@@ -4713,6 +4722,7 @@
 				3E6C11B325CEBDA900BF0D07 /* MediaKeyTapInternals.swift in Sources */,
 				3EABDDE52694BC24008066E8 /* VisualizationType.swift in Sources */,
 				3E4D18F125D5626C00A22E09 /* MockAudioGraph.swift in Sources */,
+				3EA89DA4269A37110021CDB9 /* SearchIndex.swift in Sources */,
 				3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */,
 				3E6C12B725CEBE5800BF0D07 /* PlaylistMenuController.swift in Sources */,
 				3E6C11F125CEBDD100BF0D07 /* Preferences.swift in Sources */,
@@ -4935,6 +4945,7 @@
 				3E6C11AF25CEBDA200BF0D07 /* CueSheetIO.swift in Sources */,
 				3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */,
 				3E3633E02685FB10006A88ED /* EffectsPresetsManagerGenericViewController.swift in Sources */,
+				3EA89DA7269A371C0021CDB9 /* SearchIndexEntry.swift in Sources */,
 				3EAFB617267FF4C200F0DC96 /* EffectsSliderPreviewCell.swift in Sources */,
 				3E12677A269382D300B4DBA5 /* NSSizePersistentState.swift in Sources */,
 				3EA1BDE5268F4FAE00A5D81B /* NotificationPayload.swift in Sources */,
@@ -5188,7 +5199,8 @@
 				3E6C134125CEBEF500BF0D07 /* StopPlaybackChain.swift in Sources */,
 				3E6C124C25CEBDF400BF0D07 /* AlbumsPlaylistViewController.swift in Sources */,
 				3E6C11A425CEBD9E00BF0D07 /* History.swift in Sources */,
-				3E6C11A525CEBD9E00BF0D07 /* LRUArray.swift in Sources */,
+				3E6C11A525CEBD9E00BF0D07 /* FixedSizeLRUArray.swift in Sources */,
+				3EA89DAB269A3D690021CDB9 /* LRUArray.swift in Sources */,
 				3E39754A268924110055887E /* ControlBarPlayerUIPersistentState.swift in Sources */,
 				3E6C121725CEBDE500BF0D07 /* HistoryPreferencesViewController.swift in Sources */,
 				3EDB33EB25E8AE09004DF7DE /* FFmpegMetadataReader.swift in Sources */,

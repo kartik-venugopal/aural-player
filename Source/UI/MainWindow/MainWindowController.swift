@@ -242,7 +242,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     // MARK: Event handling (keyboard and gestures) ---------------------------------------
     
-    // Handles a single key press event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
+    // Handles a single key press event. Returns nil if the event has been successfully handled (or needs to be suppressed),
+    // returns the same event otherwise.
     private func handleKeyDown(_ event: NSEvent) -> NSEvent? {
 
         // One-off special case: Without this, a space key press (for play/pause) is not sent to main window

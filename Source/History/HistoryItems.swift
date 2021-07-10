@@ -9,18 +9,11 @@
 //
 import Cocoa
 
-// Protocol that marks a history item as being equatable (for comparison in data structures)
-protocol EquatableHistoryItem {
-    
-    // Compares this history item to another. Returns true if the two items point to the same filesystem path, and false otherwise.
-    func equals(_ other: EquatableHistoryItem) -> Bool
-}
-
 // Marker protocol that indicates a history item as being playable (i.e. if it represents a track, as opposed to a playlist file or folder)
 protocol PlayableHistoryItem {}
 
 // An abstract base class for all history items
-class HistoryItem: EquatableHistoryItem {
+class HistoryItem: Equatable {
     
     // The filesystem location of the item
     var file: URL
@@ -59,13 +52,8 @@ class HistoryItem: EquatableHistoryItem {
         self._displayName = displayName
     }
     
-    func equals(_ other: EquatableHistoryItem) -> Bool {
-        
-        if let otherHistoryItem = other as? HistoryItem {
-            return self.file.path == otherHistoryItem.file.path
-        }
-        
-        return false
+    static func == (lhs: HistoryItem, rhs: HistoryItem) -> Bool {
+        lhs.file == rhs.file
     }
 }
 

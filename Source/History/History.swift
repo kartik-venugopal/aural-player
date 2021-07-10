@@ -20,15 +20,15 @@ import Cocoa
 class History: HistoryProtocol {
     
     // Recently added items
-    var recentlyAddedItems: LRUArray<AddedItem>
+    var recentlyAddedItems: FixedSizeLRUArray<AddedItem>
     
     // Recently played items
-    var recentlyPlayedItems: LRUArray<PlayedItem>
+    var recentlyPlayedItems: FixedSizeLRUArray<PlayedItem>
     
     init(_ preferences: HistoryPreferences) {
         
-        recentlyAddedItems = LRUArray<AddedItem>(preferences.recentlyAddedListSize)
-        recentlyPlayedItems = LRUArray<PlayedItem>(preferences.recentlyPlayedListSize)
+        recentlyAddedItems = FixedSizeLRUArray<AddedItem>(size: preferences.recentlyAddedListSize)
+        recentlyPlayedItems = FixedSizeLRUArray<PlayedItem>(size: preferences.recentlyPlayedListSize)
     }
     
     func addRecentlyAddedItem(_ file: URL, _ name: String, _ time: Date) {

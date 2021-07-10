@@ -10,6 +10,8 @@ The changes are completely backward compatible, so app state persisted by previo
 
 ### Other improvements
 
+* **Bug fix** - When in control bar mode, if the user performed a gesture with the app in focus, the app would crash. This bug has been fixed.
+
 * **Faster playlist search** - Parallelized playlist search operations that were being performed serially, potentially cutting down search times, noticeably with large playlists.
 
 ### Unit testing

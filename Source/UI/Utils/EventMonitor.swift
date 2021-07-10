@@ -53,9 +53,9 @@ class EventMonitor {
     
     func stopMonitoring() {
         
-        if let theEventMonitor = monitor {
+        if let theMonitor = monitor {
             
-            NSEvent.removeMonitor(theEventMonitor)
+            NSEvent.removeMonitor(theMonitor)
             monitor = nil
         }
     }
