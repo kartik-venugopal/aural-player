@@ -36,12 +36,12 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     @IBOutlet weak var mainMenu: NSMenu!
     
-    private var eventMonitor: Any?
-    
-    private var gestureHandler: GestureHandler!
+    private var eventMonitor: EventMonitor! = EventMonitor()
     
     // Delegate that retrieves current playback info
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    
+    private let preferences: GesturesControlsPreferences = ObjectGraph.preferences.controlsPreferences.gestures
     
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
@@ -61,7 +61,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         initWindow()
         theWindow.setIsVisible(false)
         
-        activateGestureHandler()
+        setUpEventHandling()
         initSubscriptions()
         
         super.windowDidLoad()
@@ -97,14 +97,14 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         }
     }
     
-    private func activateGestureHandler() {
+    // Registers handlers for keyboard events and trackpad/mouse gestures (NSEvent).
+    private func setUpEventHandling() {
         
-        // Register a handler for trackpad/MagicMouse gestures
-        gestureHandler = GestureHandler(theWindow)
+        eventMonitor.registerHandler(forEventType: .keyDown, self.handleKeyDown(_:))
+        eventMonitor.registerHandler(forEventType: .scrollWheel, self.handleScroll(_:))
+        eventMonitor.registerHandler(forEventType: .swipe, self.handleSwipe(_:))
 
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .swipe, .scrollWheel], handler: {[weak self] (event: NSEvent) -> NSEvent? in
-            return (self?.gestureHandler.handle(event) ?? false) ? nil : event
-        })
+        eventMonitor.startMonitoring()
     }
     
     private func initSubscriptions() {
@@ -125,6 +125,9 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     }
     
     func destroy() {
+        
+        eventMonitor.stopMonitoring()
+        eventMonitor = nil
         
         playerViewController.destroy()
         
@@ -225,7 +228,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         logoImage.reTint()
     }
     
-    // MARK: Message handling
+    // MARK: Message handling -----------------------------------------------------------
     
     func windowLayoutChanged(_ notification: WindowLayoutChangedNotification) {
         
@@ -235,5 +238,128 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     func changeWindowCornerRadius(_ radius: CGFloat) {
         rootContainerBox.cornerRadius = radius
+    }
+    
+    // MARK: Event handling (keyboard and gestures) ---------------------------------------
+    
+    // Handles a single key press event. Returns true if the event has been successfully handled (or needs to be suppressed), false otherwise
+    private func handleKeyDown(_ event: NSEvent) -> NSEvent? {
+
+        // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
+        // Send the space key event to the main window unless a modal component is currently displayed
+        if event.charactersIgnoringModifiers == " " && !WindowManager.instance.isShowingModalComponent {
+
+            self.window?.keyDown(with: event)
+            return nil
+        }
+
+        return event
+    }
+
+    // Handles a single swipe event
+    private func handleSwipe(_ event: NSEvent) -> NSEvent? {
+
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
+
+        if event.window === self.window,
+           !WindowManager.instance.isShowingModalComponent,
+           let swipeDirection = event.gestureDirection, swipeDirection.isHorizontal {
+
+            handleTrackChange(swipeDirection)
+        }
+
+        return event
+    }
+
+    // Handles a single scroll event
+    private func handleScroll(_ event: NSEvent) -> NSEvent? {
+
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
+
+        // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
+        if event.window === self.window,
+           !WindowManager.instance.isShowingModalComponent,
+           let scrollDirection = event.gestureDirection {
+
+            // Vertical scroll = volume control, horizontal scroll = seeking
+            scrollDirection.isVertical ? handleVolumeControl(event, scrollDirection) : handleSeek(event, scrollDirection)
+        }
+
+        return event
+    }
+    
+    private func handleTrackChange(_ swipeDirection: GestureDirection) {
+        
+        if preferences.allowTrackChange {
+            
+            // Publish the command notification
+            Messenger.publish(swipeDirection == .left ? .player_previousTrack : .player_nextTrack)
+        }
+    }
+    
+    private func handleVolumeControl(_ event: NSEvent, _ scrollDirection: GestureDirection) {
+        
+        if preferences.allowVolumeControl && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
+        
+            // Scroll up = increase volume, scroll down = decrease volume
+            Messenger.publish(scrollDirection == .up ?.player_increaseVolume : .player_decreaseVolume, payload: UserInputMode.continuous)
+        }
+    }
+    
+    private func handleSeek(_ event: NSEvent, _ scrollDirection: GestureDirection) {
+        
+        if preferences.allowSeeking {
+            
+            // If no track is playing, seeking cannot be performed
+            if playbackInfo.state.isNotPlayingOrPaused {
+                return
+            }
+            
+            // Seeking forward (do not allow residual scroll)
+            if scrollDirection == .right && isResidualScroll(event) {
+                return
+            }
+            
+            if ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
+        
+                // Scroll left = seek backward, scroll right = seek forward
+                Messenger.publish(scrollDirection == .left ? .player_seekBackward : .player_seekForward, payload: UserInputMode.continuous)
+            }
+        }
+    }
+    
+    /*
+        "Residual scrolling" occurs when seeking forward to the end of a playing track (scrolling right), resulting in the next track playing while the scroll is still occurring. Inertia (i.e. the momentum phase of the scroll) can cause scrolling, and hence seeking, to continue after the new track has begun playing. This is undesirable behavior. The scrolling should stop when the new track begins playing.
+     
+        To prevent residual scrolling, we need to take into account the following variables:
+        - the time when the scroll session began
+        - the time when the new track began playing
+        - the time interval between this event and the last event
+     
+        Returns a value indicating whether or not this event constitutes residual scroll.
+     */
+    private func isResidualScroll(_ event: NSEvent) -> Bool {
+    
+        // If the scroll session began before the currently playing track began playing, then it is now invalid and all its future events should be ignored.
+        if let playingTrackStartTime = playbackInfo.playingTrackStartTime,
+           let scrollSessionStartTime = ScrollSession.sessionStartTime,
+            scrollSessionStartTime < playingTrackStartTime {
+        
+            // If the time interval between this event and the last one in the scroll session is within the maximum allowed gap between events, it is a part of the previous scroll session
+            let lastEventTime = ScrollSession.lastEventTime ?? 0
+            
+            // If the session is invalid and this event is part of that invalid session, that indicates residual scroll, and the event should not be processed
+            if (event.timestamp - lastEventTime) < ScrollSession.maxTimeGapSeconds {
+                
+                // Mark the timestamp of this event (for future events), but do not process it
+                ScrollSession.updateLastEventTime(event)
+                return true
+            }
+        }
+        
+        // Not residual scroll
+        return false
     }
 }

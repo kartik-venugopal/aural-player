@@ -60,7 +60,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
     // For gesture handling
-    private var eventMonitor: Any?
+    private var eventMonitor: EventMonitor! = EventMonitor()
     
     // Delegate that relays CRUD actions to the playlist
     private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
@@ -69,6 +69,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
     private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
+    private lazy var gesturesPreferences: GesturesControlsPreferences = ObjectGraph.preferences.controlsPreferences.gestures
     
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
@@ -95,6 +96,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
+        setUpEventHandling()
         initSubscriptions()
     }
     
@@ -121,14 +123,14 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         [artistsViewController, albumsViewController, genresViewController].forEach {$0.contextMenu = self.contextMenu}
     }
     
-    private func initSubscriptions() {
+    // Registers handlers for keyboard events and trackpad/mouse gestures (NSEvent).
+    private func setUpEventHandling() {
         
-        // Set up an input handler to handle scrolling and gestures
-        eventMonitor = NSEvent.addLocalMonitorForEvents(matching: [.swipe], handler: {(event: NSEvent) -> NSEvent? in
-            
-            PlaylistGestureHandler.handle(event)
-            return event
-        })
+        eventMonitor.registerHandler(forEventType: .swipe, self.handleSwipe(_:))
+        eventMonitor.startMonitoring()
+    }
+    
+    private func initSubscriptions() {
         
         Messenger.subscribeAsync(self, .playlist_startedAddingTracks, self.startedAddingTracks, queue: .main)
         Messenger.subscribeAsync(self, .playlist_doneAddingTracks, self.doneAddingTracks, queue: .main)
@@ -178,6 +180,9 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     func destroy() {
+        
+        eventMonitor.stopMonitoring()
+        eventMonitor = nil
         
         ([tracksViewController, artistsViewController, albumsViewController, genresViewController] as? [Destroyable])?.forEach {$0.destroy()}
         
@@ -491,5 +496,41 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     // Updates the summary in response to a change in the tab group selected tab
     func playlistTypeChanged() {
         updatePlaylistSummary()
+    }
+    
+    // MARK: Event handling (keyboard and gestures) ---------------------------------------
+    
+    // Handles a single swipe event.
+    private func handleSwipe(_ event: NSEvent) -> NSEvent? {
+        
+        // If a modal dialog is open, don't do anything
+        // Also, ignore any swipe events that weren't performed over the playlist window
+        // (they trigger other functions if performed over the main window)
+        
+        // TODO: Enable top/bottom gestures for chapters list window too !!!
+        
+        if event.type == .swipe, !WindowManager.instance.isShowingModalComponent && event.window === WindowManager.instance.playlistWindow,
+           let swipeDirection = event.gestureDirection {
+            
+            swipeDirection.isHorizontal ? handleTabToggle(swipeDirection) : handleScrolling(swipeDirection)
+        }
+        
+        return event
+    }
+    
+    private func handleTabToggle(_ swipeDirection: GestureDirection) {
+        
+        if gesturesPreferences.allowPlaylistTabToggle {
+            Messenger.publish(swipeDirection == .left ? .playlist_previousView : .playlist_nextView)
+        }
+    }
+    
+    private func handleScrolling(_ swipeDirection: GestureDirection) {
+        
+        if gesturesPreferences.allowPlaylistNavigation {
+        
+            Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom,
+                              payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        }
     }
 }
