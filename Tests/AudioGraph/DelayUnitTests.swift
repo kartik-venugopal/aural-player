@@ -32,24 +32,7 @@ class DelayUnitTests: AudioGraphTestCase {
     private func doTestInit(persistentState: DelayUnitPersistentState) {
         
         let delayUnit = DelayUnit(persistentState: persistentState)
-        
-        XCTAssertEqual(delayUnit.state, persistentState.state)
-        XCTAssertEqual(delayUnit.node.bypass, delayUnit.state != .active)
-        
-        XCTAssertEqual(delayUnit.amount, persistentState.amount!, accuracy: 0.001)
-        XCTAssertEqual(delayUnit.node.wetDryMix, persistentState.amount!, accuracy: 0.001)
-        
-        XCTAssertEqual(delayUnit.time, persistentState.time!, accuracy: 0.001)
-        XCTAssertEqual(delayUnit.node.delayTime, persistentState.time!, accuracy: 0.001)
-        
-        XCTAssertEqual(delayUnit.feedback, persistentState.feedback!, accuracy: 0.001)
-        XCTAssertEqual(delayUnit.node.feedback, persistentState.feedback!, accuracy: 0.001)
-        
-        XCTAssertEqual(delayUnit.lowPassCutoff, persistentState.lowPassCutoff!, accuracy: 0.001)
-        XCTAssertEqual(delayUnit.node.lowPassCutoff, persistentState.lowPassCutoff!, accuracy: 0.001)
-
-        let expectedPresets = Set(persistentState.userPresets!.map {DelayPreset(persistentState: $0)})
-        XCTAssertEqual(Set(delayUnit.presets.userDefinedPresets), expectedPresets)
+        validate(delayUnit, persistentState: persistentState)
     }
 }
 

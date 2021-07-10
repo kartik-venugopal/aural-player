@@ -41,6 +41,27 @@ class AudioGraphTestCase: PersistenceTestCase {
     
     // MARK: EQ unit --------------------------------------------
     
+    func validate(_ eqUnit: EQUnit, persistentState: EQUnitPersistentState) {
+        
+        XCTAssertEqual(eqUnit.state, persistentState.state)
+        XCTAssertEqual(eqUnit.node.bypass, eqUnit.state != .active)
+        XCTAssertEqual(eqUnit.node.activeNode.bypass, eqUnit.state != .active)
+        
+        XCTAssertEqual(eqUnit.node.type, persistentState.type!)
+        XCTAssertEqual(eqUnit.type, persistentState.type!)
+        
+        XCTAssertEqual(eqUnit.node.activeNode.numberOfBands, persistentState.type! == .tenBand ? 10 : 15)
+        
+        XCTAssertEqual(eqUnit.globalGain, persistentState.globalGain!, accuracy: 0.001)
+        XCTAssertEqual(eqUnit.node.activeNode.globalGain, persistentState.globalGain!, accuracy: 0.001)
+        
+        AssertEqual(eqUnit.bands, persistentState.bands!, accuracy: 0.001)
+        AssertEqual(eqUnit.node.activeNode.bandGains, persistentState.bands!, accuracy: 0.001)
+        
+        let expectedPresets = Set(persistentState.userPresets!.map {EQPreset(persistentState: $0)})
+        XCTAssertEqual(Set(eqUnit.presets.userDefinedPresets), expectedPresets)
+    }
+    
     func randomNillableEQPresets(unitState: EffectsUnitState? = nil) -> [EQPresetPersistentState]? {
         randomNillableValue {self.randomEQPresets(unitState: unitState)}
     }
@@ -89,6 +110,21 @@ class AudioGraphTestCase: PersistenceTestCase {
     
     // MARK: Pitch Shift unit --------------------------------------------
     
+    func validate(_ pitchShiftUnit: PitchShiftUnit, persistentState: PitchShiftUnitPersistentState) {
+        
+        XCTAssertEqual(pitchShiftUnit.state, persistentState.state)
+        XCTAssertEqual(pitchShiftUnit.node.bypass, pitchShiftUnit.state != .active)
+        
+        XCTAssertEqual(pitchShiftUnit.pitch, persistentState.pitch!, accuracy: 0.001)
+        XCTAssertEqual(pitchShiftUnit.node.pitch, persistentState.pitch!, accuracy: 0.001)
+        
+        XCTAssertEqual(pitchShiftUnit.overlap, persistentState.overlap!, accuracy: 0.001)
+        XCTAssertEqual(pitchShiftUnit.node.overlap, persistentState.overlap!, accuracy: 0.001)
+        
+        let expectedPresets = Set(persistentState.userPresets!.map {PitchShiftPreset(persistentState: $0)})
+        XCTAssertEqual(Set(pitchShiftUnit.presets.userDefinedPresets), expectedPresets)
+    }
+    
     func randomNillablePitchShiftPresets(unitState: EffectsUnitState? = nil) -> [PitchShiftPresetPersistentState]? {
         randomNillableValue {self.randomPitchShiftPresets(unitState: unitState)}
     }
@@ -123,6 +159,29 @@ class AudioGraphTestCase: PersistenceTestCase {
     
     // MARK: Time Stretch unit --------------------------------------------
     
+    func validate(_ timeStretchUnit: TimeStretchUnit, persistentState: TimeStretchUnitPersistentState) {
+        
+        XCTAssertEqual(timeStretchUnit.state, persistentState.state)
+        XCTAssertEqual(timeStretchUnit.node.bypass, timeStretchUnit.state != .active)
+        
+        XCTAssertEqual(timeStretchUnit.shiftPitch, persistentState.shiftPitch!)
+        
+        XCTAssertEqual(timeStretchUnit.node.variNode.bypass, timeStretchUnit.state != .active || (!timeStretchUnit.shiftPitch))
+        XCTAssertEqual(timeStretchUnit.node.timePitchNode.bypass, timeStretchUnit.state != .active || timeStretchUnit.shiftPitch)
+        
+        XCTAssertEqual(timeStretchUnit.rate, persistentState.rate!, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.rate, persistentState.rate!, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.variNode.rate, persistentState.rate!, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.timePitchNode.rate, persistentState.rate!, accuracy: 0.001)
+        
+        XCTAssertEqual(timeStretchUnit.overlap, persistentState.overlap!, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.overlap, persistentState.overlap!, accuracy: 0.001)
+        XCTAssertEqual(timeStretchUnit.node.timePitchNode.overlap, persistentState.overlap!, accuracy: 0.001)
+
+        let expectedPresets = Set(persistentState.userPresets!.map {TimeStretchPreset(persistentState: $0)})
+        XCTAssertEqual(Set(timeStretchUnit.presets.userDefinedPresets), expectedPresets)
+    }
+    
     func randomNillableTimeStretchPresets(unitState: EffectsUnitState? = nil) -> [TimeStretchPresetPersistentState]? {
         randomNillableValue {self.randomTimeStretchPresets(unitState: unitState)}
     }
@@ -155,6 +214,21 @@ class AudioGraphTestCase: PersistenceTestCase {
     
     // MARK: Reverb unit --------------------------------------------
     
+    func validate(_ reverbUnit: ReverbUnit, persistentState: ReverbUnitPersistentState) {
+        
+        XCTAssertEqual(reverbUnit.state, persistentState.state)
+        XCTAssertEqual(reverbUnit.node.bypass, reverbUnit.state != .active)
+        
+        XCTAssertEqual(reverbUnit.amount, persistentState.amount!, accuracy: 0.001)
+        XCTAssertEqual(reverbUnit.node.wetDryMix, persistentState.amount!, accuracy: 0.001)
+        
+        XCTAssertEqual(reverbUnit.space, persistentState.space!)
+        XCTAssertEqual(reverbUnit.avSpace, persistentState.space!.avPreset)
+
+        let expectedPresets = Set(persistentState.userPresets!.map {ReverbPreset(persistentState: $0)})
+        XCTAssertEqual(Set(reverbUnit.presets.userDefinedPresets), expectedPresets)
+    }
+    
     func randomNillableReverbPresets(unitState: EffectsUnitState? = nil) -> [ReverbPresetPersistentState]? {
         randomNillableValue {self.randomReverbPresets(unitState: unitState)}
     }
@@ -184,6 +258,27 @@ class AudioGraphTestCase: PersistenceTestCase {
     }
     
     // MARK: Delay unit --------------------------------------------
+    
+    func validate(_ delayUnit: DelayUnit, persistentState: DelayUnitPersistentState) {
+        
+        XCTAssertEqual(delayUnit.state, persistentState.state)
+        XCTAssertEqual(delayUnit.node.bypass, delayUnit.state != .active)
+        
+        XCTAssertEqual(delayUnit.amount, persistentState.amount!, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.wetDryMix, persistentState.amount!, accuracy: 0.001)
+        
+        XCTAssertEqual(delayUnit.time, persistentState.time!, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.delayTime, persistentState.time!, accuracy: 0.001)
+        
+        XCTAssertEqual(delayUnit.feedback, persistentState.feedback!, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.feedback, persistentState.feedback!, accuracy: 0.001)
+        
+        XCTAssertEqual(delayUnit.lowPassCutoff, persistentState.lowPassCutoff!, accuracy: 0.001)
+        XCTAssertEqual(delayUnit.node.lowPassCutoff, persistentState.lowPassCutoff!, accuracy: 0.001)
+
+        let expectedPresets = Set(persistentState.userPresets!.map {DelayPreset(persistentState: $0)})
+        XCTAssertEqual(Set(delayUnit.presets.userDefinedPresets), expectedPresets)
+    }
     
     func randomNillableDelayPresets(unitState: EffectsUnitState? = nil) -> [DelayPresetPersistentState]? {
         randomNillableValue {self.randomDelayPresets(unitState: unitState)}
@@ -227,6 +322,58 @@ class AudioGraphTestCase: PersistenceTestCase {
     }
     
     // MARK: Filter unit --------------------------------------------
+    
+    func validate(_ filterUnit: FilterUnit, persistentState: FilterUnitPersistentState) {
+        
+        XCTAssertEqual(filterUnit.state, persistentState.state)
+        XCTAssertEqual(filterUnit.node.bypass, filterUnit.state != .active)
+        
+        let expectedBands: [FilterBand] = persistentState.bands!.compactMap {FilterBand(persistentState: $0)}
+        
+        XCTAssertEqual(filterUnit.bands, expectedBands)
+        XCTAssertEqual(filterUnit.node.activeBands, expectedBands)
+        
+        for band in filterUnit.node.activeBands {
+            
+            let params = band.params!
+            
+            XCTAssertFalse(params.bypass)
+            XCTAssertEqual(params.filterType, band.type.toAVFilterType())
+            
+            if params.filterType == .parametric {
+                XCTAssertEqual(params.gain, FlexibleFilterNode.bandStopGain, accuracy: 0.001)
+            }
+            
+            switch band.type {
+            
+            case .bandPass, .bandStop:
+                
+                let minFreq = band.minFreq!
+                let maxFreq = band.maxFreq!
+                
+                // Frequency at the center of the band is the geometric mean of the min and max frequencies
+                let centerFrequency = sqrt(minFreq * maxFreq)
+                
+                // Bandwidth in octaves is the log of the ratio of max to min
+                // Ex: If min=200 and max=800, bandwidth = 2 octaves (200 to 400, and 400 to 800)
+                let bandwidth = log2(maxFreq / minFreq)
+                
+                XCTAssertEqual(params.frequency, centerFrequency, accuracy: 0.001)
+                XCTAssertEqual(params.bandwidth, bandwidth, accuracy: 0.001)
+                
+            case .lowPass:
+                
+                XCTAssertEqual(params.frequency, band.maxFreq!, accuracy: 0.001)
+                
+            case .highPass:
+                
+                XCTAssertEqual(params.frequency, band.minFreq!, accuracy: 0.001)
+            }
+        }
+
+        let expectedPresets = Set(persistentState.userPresets!.map {FilterPreset(persistentState: $0)})
+        XCTAssertEqual(Set(filterUnit.presets.userDefinedPresets), expectedPresets)
+    }
     
     func randomFilterBandType() -> FilterBandType {FilterBandType.randomCase()}
     

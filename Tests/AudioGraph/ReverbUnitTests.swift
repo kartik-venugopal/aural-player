@@ -33,18 +33,7 @@ class ReverbUnitTests: AudioGraphTestCase {
     private func doTestInit(persistentState: ReverbUnitPersistentState) {
         
         let reverbUnit = ReverbUnit(persistentState: persistentState)
-        
-        XCTAssertEqual(reverbUnit.state, persistentState.state)
-        XCTAssertEqual(reverbUnit.node.bypass, reverbUnit.state != .active)
-        
-        XCTAssertEqual(reverbUnit.amount, persistentState.amount!, accuracy: 0.001)
-        XCTAssertEqual(reverbUnit.node.wetDryMix, persistentState.amount!, accuracy: 0.001)
-        
-        XCTAssertEqual(reverbUnit.space, persistentState.space!)
-        XCTAssertEqual(reverbUnit.avSpace, persistentState.space!.avPreset)
-
-        let expectedPresets = Set(persistentState.userPresets!.map {ReverbPreset(persistentState: $0)})
-        XCTAssertEqual(Set(reverbUnit.presets.userDefinedPresets), expectedPresets)
+        validate(reverbUnit, persistentState: persistentState)
     }
 }
 

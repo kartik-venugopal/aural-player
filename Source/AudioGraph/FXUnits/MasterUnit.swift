@@ -37,12 +37,12 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
         
         self.nativeSlaveUnits = nativeSlaveUnits
         
-        eqUnit = nativeSlaveUnits.first(where: {$0 is EQUnit})! as! EQUnit
-        pitchUnit = nativeSlaveUnits.first(where: {$0 is PitchShiftUnit})! as! PitchShiftUnit
-        timeUnit = nativeSlaveUnits.first(where: {$0 is TimeStretchUnit})! as! TimeStretchUnit
-        reverbUnit = nativeSlaveUnits.first(where: {$0 is ReverbUnit})! as! ReverbUnit
-        delayUnit = nativeSlaveUnits.first(where: {$0 is DelayUnit})! as! DelayUnit
-        filterUnit = nativeSlaveUnits.first(where: {$0 is FilterUnit})! as! FilterUnit
+        eqUnit = nativeSlaveUnits.first(where: {$0 is EQUnit}) as! EQUnit
+        pitchUnit = nativeSlaveUnits.first(where: {$0 is PitchShiftUnit}) as! PitchShiftUnit
+        timeUnit = nativeSlaveUnits.first(where: {$0 is TimeStretchUnit}) as! TimeStretchUnit
+        reverbUnit = nativeSlaveUnits.first(where: {$0 is ReverbUnit}) as! ReverbUnit
+        delayUnit = nativeSlaveUnits.first(where: {$0 is DelayUnit}) as! DelayUnit
+        filterUnit = nativeSlaveUnits.first(where: {$0 is FilterUnit}) as! FilterUnit
         
         self.audioUnits = audioUnits
         presets = MasterPresets(persistentState: persistentState)

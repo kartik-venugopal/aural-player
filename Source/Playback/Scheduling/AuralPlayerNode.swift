@@ -145,14 +145,11 @@ class AuralPlayerNode: AVAudioPlayerNode {
     /// to schedule anything for playback, e.g. when defining a segment loop that extends to the very end of a track while
     /// paused.
     ///
-    func seekToEndOfTrack(_ session: PlaybackSession) {
+    func seekToEndOfTrack(_ session: PlaybackSession, frameCount: AVAudioFramePosition) {
         
-        if let plbkCtx = session.track.playbackContext as? FFmpegPlaybackContext {
-            
-            // Advance the last seek position to the end of the track.
-            cachedSeekPosn = session.track.duration
-            startFrame = plbkCtx.frameCount
-        }
+        // Advance the last seek position to the end of the track.
+        cachedSeekPosn = session.track.duration
+        startFrame = frameCount
     }
     
     func scheduleBuffer(_ buffer: AVAudioPCMBuffer, for session: PlaybackSession, completionHandler: @escaping SessionCompletionHandler, _ startTime: Double? = nil, _ immediatePlayback: Bool = false) {

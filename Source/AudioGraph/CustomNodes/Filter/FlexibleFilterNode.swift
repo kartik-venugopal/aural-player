@@ -31,10 +31,11 @@ class FlexibleFilterNode: AVAudioUnitEQ {
         
         super.init(numberOfBands: 31)
         
-        bands.forEach({
+        bands.forEach {
+            
             $0.bypass = true
             inactiveBands.append($0)
-        })
+        }
     }
     
     var activeBands: [FilterBand] {

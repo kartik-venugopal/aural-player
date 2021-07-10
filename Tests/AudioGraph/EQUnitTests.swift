@@ -48,23 +48,7 @@ class EQUnitTests: AudioGraphTestCase {
     private func doTestInit(persistentState: EQUnitPersistentState) {
         
         let eqUnit = EQUnit(persistentState: persistentState)
-        
-        XCTAssertEqual(eqUnit.state, persistentState.state)
-        XCTAssertEqual(eqUnit.node.activeNode.bypass, eqUnit.state != .active)
-        
-        XCTAssertEqual(eqUnit.node.type, persistentState.type!)
-        XCTAssertEqual(eqUnit.type, persistentState.type!)
-        
-        XCTAssertEqual(eqUnit.node.activeNode.numberOfBands, persistentState.type! == .tenBand ? 10 : 15)
-        
-        XCTAssertEqual(eqUnit.globalGain, persistentState.globalGain!, accuracy: 0.001)
-        XCTAssertEqual(eqUnit.node.activeNode.globalGain, persistentState.globalGain!, accuracy: 0.001)
-        
-        AssertEqual(eqUnit.bands, persistentState.bands!, accuracy: 0.001)
-        AssertEqual(eqUnit.node.activeNode.bandGains, persistentState.bands!, accuracy: 0.001)
-        
-        let expectedPresets = Set(persistentState.userPresets!.map {EQPreset(persistentState: $0)})
-        XCTAssertEqual(Set(eqUnit.presets.userDefinedPresets), expectedPresets)
+        validate(eqUnit, persistentState: persistentState)
     }
 }
 

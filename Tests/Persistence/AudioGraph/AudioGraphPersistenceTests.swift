@@ -22,7 +22,7 @@ class AudioGraphPersistenceTests: AudioGraphTestCase {
             let muted: Bool? = .random()
             let balance: Float? = randomBalance()
             
-            let masterUnit: MasterUnitPersistentState? = MasterUnitPersistentState(state: randomUnitState(),
+            let masterUnit: MasterUnitPersistentState? = MasterUnitPersistentState(state: Bool.random() ? .active : .bypassed,
                                                                                    userPresets: randomMasterPresets())
             
             let eqType: EQType = randomEQType()

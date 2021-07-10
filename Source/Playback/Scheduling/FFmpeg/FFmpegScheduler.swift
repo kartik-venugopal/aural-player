@@ -129,7 +129,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
                         
                     } else {
                         
-                        playerNode.seekToEndOfTrack(session)
+                        playerNode.seekToEndOfTrack(session, frameCount: context.frameCount)
                         trackCompletedWhilePaused = true
                     }
                     

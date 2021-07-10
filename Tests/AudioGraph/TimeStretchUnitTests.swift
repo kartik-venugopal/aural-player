@@ -33,26 +33,7 @@ class TimeStretchUnitTests: AudioGraphTestCase {
     private func doTestInit(persistentState: TimeStretchUnitPersistentState) {
         
         let timeStretchUnit = TimeStretchUnit(persistentState: persistentState)
-        
-        XCTAssertEqual(timeStretchUnit.state, persistentState.state)
-        XCTAssertEqual(timeStretchUnit.node.bypass, timeStretchUnit.state != .active)
-        
-        XCTAssertEqual(timeStretchUnit.shiftPitch, persistentState.shiftPitch!)
-        
-        XCTAssertEqual(timeStretchUnit.node.variNode.bypass, timeStretchUnit.state != .active || (!timeStretchUnit.shiftPitch))
-        XCTAssertEqual(timeStretchUnit.node.timePitchNode.bypass, timeStretchUnit.state != .active || timeStretchUnit.shiftPitch)
-        
-        XCTAssertEqual(timeStretchUnit.rate, persistentState.rate!, accuracy: 0.001)
-        XCTAssertEqual(timeStretchUnit.node.rate, persistentState.rate!, accuracy: 0.001)
-        XCTAssertEqual(timeStretchUnit.node.variNode.rate, persistentState.rate!, accuracy: 0.001)
-        XCTAssertEqual(timeStretchUnit.node.timePitchNode.rate, persistentState.rate!, accuracy: 0.001)
-        
-        XCTAssertEqual(timeStretchUnit.overlap, persistentState.overlap!, accuracy: 0.001)
-        XCTAssertEqual(timeStretchUnit.node.overlap, persistentState.overlap!, accuracy: 0.001)
-        XCTAssertEqual(timeStretchUnit.node.timePitchNode.overlap, persistentState.overlap!, accuracy: 0.001)
-
-        let expectedPresets = Set(persistentState.userPresets!.map {TimeStretchPreset(persistentState: $0)})
-        XCTAssertEqual(Set(timeStretchUnit.presets.userDefinedPresets), expectedPresets)
+        validate(timeStretchUnit, persistentState: persistentState)
     }
 }
 

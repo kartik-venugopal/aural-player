@@ -31,18 +31,7 @@ class PitchShiftUnitTests: AudioGraphTestCase {
     private func doTestInit(persistentState: PitchShiftUnitPersistentState) {
         
         let pitchShiftUnit = PitchShiftUnit(persistentState: persistentState)
-        
-        XCTAssertEqual(pitchShiftUnit.state, persistentState.state)
-        XCTAssertEqual(pitchShiftUnit.node.bypass, pitchShiftUnit.state != .active)
-        
-        XCTAssertEqual(pitchShiftUnit.pitch, persistentState.pitch!, accuracy: 0.001)
-        XCTAssertEqual(pitchShiftUnit.node.pitch, persistentState.pitch!, accuracy: 0.001)
-        
-        XCTAssertEqual(pitchShiftUnit.overlap, persistentState.overlap!, accuracy: 0.001)
-        XCTAssertEqual(pitchShiftUnit.node.overlap, persistentState.overlap!, accuracy: 0.001)
-        
-        let expectedPresets = Set(persistentState.userPresets!.map {PitchShiftPreset(persistentState: $0)})
-        XCTAssertEqual(Set(pitchShiftUnit.presets.userDefinedPresets), expectedPresets)
+        validate(pitchShiftUnit, persistentState: persistentState)
     }
 }
 

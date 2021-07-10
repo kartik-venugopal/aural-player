@@ -13,7 +13,7 @@ class MasterUnitPersistenceTests: AudioGraphTestCase {
     
     func testPersistence() {
         
-        for state in EffectsUnitState.allCases {
+        for state in [EffectsUnitState.active, EffectsUnitState.bypassed] {
             
             for _ in 1...100 {
                 

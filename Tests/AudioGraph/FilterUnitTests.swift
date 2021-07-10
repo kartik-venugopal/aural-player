@@ -29,17 +29,7 @@ class FilterUnitTests: AudioGraphTestCase {
     private func doTestInit(persistentState: FilterUnitPersistentState) {
         
         let filterUnit = FilterUnit(persistentState: persistentState)
-        
-        XCTAssertEqual(filterUnit.state, persistentState.state)
-        XCTAssertEqual(filterUnit.node.bypass, filterUnit.state != .active)
-        
-        let expectedBands: [FilterBand] = persistentState.bands!.compactMap {FilterBand(persistentState: $0)}
-        
-        XCTAssertEqual(filterUnit.bands, expectedBands)
-        XCTAssertEqual(filterUnit.node.activeBands, expectedBands)
-
-        let expectedPresets = Set(persistentState.userPresets!.map {FilterPreset(persistentState: $0)})
-        XCTAssertEqual(Set(filterUnit.presets.userDefinedPresets), expectedPresets)
+        validate(filterUnit, persistentState: persistentState)
     }
 }
 
