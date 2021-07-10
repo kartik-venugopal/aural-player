@@ -148,9 +148,9 @@ All the documentation can be found on the [wiki](https://github.com/maculateConc
 
 ### Control Center integration (macOS Big Sur)
 
-![Control Center integration 1 screenshot](/Documentation/Screenshots/ControlCenter1.png?raw=true)
+<img width="700" src="https://raw.githubusercontent.com/maculateConception/aural-player/master//Documentation/Screenshots/ControlCenter1.png" alt="Control Center integration 1 screenshot"/>
 
-![Control Center integration 2 screenshot](/Documentation/Screenshots/ControlCenter2.png?raw=true)
+<img width="700" src="https://raw.githubusercontent.com/maculateConception/aural-player/master//Documentation/Screenshots/ControlCenter2.png" alt="Control Center integration 2 screenshot"/>
 
 ### Font schemes
 
