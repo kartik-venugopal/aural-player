@@ -239,6 +239,18 @@ extension String {
         return self.range(of: regex, options: .regularExpression, range: nil, locale: nil) != nil
     }
     
+    ///
+    /// Returns a 2-D array, one array for each match. Within each such array, each element is a capture group within the match.
+    ///
+    func match(regex: String) -> [[String]] {
+        
+        let nsString = self as NSString
+        
+        return (try? NSRegularExpression(pattern: regex, options: []))?.matches(in: self, options: [], range: NSMakeRange(0, nsString.length)).map { match in
+            (0..<match.numberOfRanges).map { match.range(at: $0).location == NSNotFound ? "" : nsString.substring(with: match.range(at: $0)) }
+        } ?? []
+    }
+    
     func encodedAsURLComponent() -> String {
         self.addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? self.replacingOccurrences(of: " ", with: "%20")
     }

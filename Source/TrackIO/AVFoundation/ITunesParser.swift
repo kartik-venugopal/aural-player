@@ -72,7 +72,7 @@ class ITunesParser: AVFMetadataParser {
         }
         
         if let str = genreItem.stringValue {
-            return parseITunesGenreNumericString(str)
+            return parseITunesGenreString(str)
             
         } else if let data = genreItem.dataValue, let code = Int(data.hexEncodedString(), radix: 16) { // Parse as hex string
             return GenreMap.forITunesCode(code)
@@ -81,11 +81,23 @@ class ITunesParser: AVFMetadataParser {
         return nil
     }
     
-    private func parseITunesGenreNumericString(_ string: String) -> String {
+    // A genre string consisting of a number (ITunes genre code) in parenthesis,
+    // followed by the genre name. eg. "(9)Opera"
+    private let hybridGenreStringRegex = "\\([0-9]+\\)(.+)"
+    
+    private func parseITunesGenreString(_ string: String) -> String {
 
         // Look up genreId in ID3 table
         if let genreCode = ParserUtils.parseNumericString(string) {
             return GenreMap.forITunesCode(genreCode) ?? string
+        }
+        
+        // Sometimes, genre strings look like "(9)Metal".
+        if let firstMatch = string.match(regex: hybridGenreStringRegex).first,
+           firstMatch.count >= 2 {
+            
+            // The second capture group within the first match is our genre string.
+            return firstMatch[1].trim()
         }
         
         return string

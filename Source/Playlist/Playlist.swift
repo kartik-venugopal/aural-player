@@ -84,42 +84,24 @@ class Playlist: PlaylistCRUDProtocol {
     func search(_ searchQuery: SearchQuery, _ playlistType: PlaylistType) -> SearchResults {
         
         // Union of results from each of the individual searches
-        let allResults: SearchResults = SearchResults([])
-        
-        var flatPlaylistResults: SearchResults? = nil
-        var artistPlaylistResults: SearchResults? = nil
-        var albumsPlaylistResults: SearchResults? = nil
+        var allResults: SearchResults = SearchResults([])
         
         // The flat playlist searches by name or title
         if searchQuery.fields.contains(.name) || searchQuery.fields.contains(.title) {
             
-            opQueue.addOperation {
-                flatPlaylistResults = self.flatPlaylist.search(searchQuery)
-            }
+            allResults = flatPlaylist.search(searchQuery)
         }
         
         // The Artists playlist searches only by artist
         if searchQuery.fields.contains(.artist), let artistsPlaylist = groupingPlaylists[.artists] {
             
-            opQueue.addOperation {
-                artistPlaylistResults = artistsPlaylist.search(searchQuery)
-            }
+            allResults.performUnionWith(artistsPlaylist.search(searchQuery))
         }
         
         // The Albums playlist searches only by album
         if searchQuery.fields.contains(.album), let albumsPlaylist = groupingPlaylists[.albums] {
             
-            opQueue.addOperation {
-                albumsPlaylistResults = albumsPlaylist.search(searchQuery)
-            }
-        }
-        
-        opQueue.waitUntilAllOperationsAreFinished()
-        
-        // Perform a union of all the gathered results.
-        let individualResults = [flatPlaylistResults, artistPlaylistResults, albumsPlaylistResults].compactMap {$0}
-        for results in individualResults {
-            allResults.performUnionWith(results)
+            allResults.performUnionWith(albumsPlaylist.search(searchQuery))
         }
         
         // Determine locations for each of the result tracks, within the given playlist type, and sort results in ascending order by location

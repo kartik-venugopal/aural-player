@@ -18,7 +18,7 @@ class ParserUtils {
         }
         
         if let str = item.stringValue {
-            return parseID3GenreNumericString(str, offset)
+            return parseID3GenreString(str, offset)
         }
         
         if let data = item.dataValue {
@@ -53,11 +53,24 @@ class ParserUtils {
         return nil
     }
     
-    static func parseID3GenreNumericString(_ string: String, _ offset: Int = 0) -> String {
+    // A genre string consisting of a number (ID3 genre code) in parenthesis,
+    // followed by the genre name. eg. "(9)Metal"
+    private static let hybridGenreStringRegex = "\\([0-9]+\\)(.+)"
+    
+    static func parseID3GenreString(_ string: String, _ offset: Int = 0) -> String {
         
         if let genreCode = parseNumericString(string) {
+            
             // Look up genreId in ID3 table
             return GenreMap.forID3Code(genreCode + offset) ?? string
+        }
+        
+        // Sometimes, genre strings look like "(9)Metal".
+        if let firstMatch = string.match(regex: hybridGenreStringRegex).first,
+           firstMatch.count >= 2 {
+            
+            // The second capture group within the first match is our genre string.
+            return firstMatch[1].trim()
         }
         
         return string

@@ -111,7 +111,7 @@ class WMParser: FFmpegMetadataParser {
         }
         
         if let genreId = metadataMap.wmMetadata.essentialFields[key_genreId]?.trim() {
-            return ParserUtils.parseID3GenreNumericString(genreId)
+            return ParserUtils.parseID3GenreString(genreId)
         }
         
         return nil

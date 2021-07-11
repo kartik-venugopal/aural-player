@@ -23,7 +23,7 @@ class GenreMap {
         return iTunesMap[code]
     }
     
-    private static let id3Map: [Int: String] = [
+    static let id3Map: [Int: String] = [
         
         0: "Blues",
         1: "Classic Rock",
