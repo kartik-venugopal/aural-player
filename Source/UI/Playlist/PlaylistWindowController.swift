@@ -368,7 +368,10 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     }
     
     private func search() {
-        _ = playlistSearchDialogLoader.controller.showDialog()
+        
+        if !checkIfPlaylistIsBeingModified() {
+            _ = playlistSearchDialogLoader.controller.showDialog()
+        }
     }
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks

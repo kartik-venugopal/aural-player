@@ -325,6 +325,8 @@ enum UserInputMode {
 // as the intended recipient of a command notification.
 struct PlaylistViewSelector {
     
+    // TODO: Make this an OptionSet
+    
     // A specific playlist view, if any, that should be exclusively selected.
     // nil value means all playlist views are selected.
     let specificView: PlaylistType?
