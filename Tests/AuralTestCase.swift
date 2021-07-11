@@ -11,7 +11,9 @@ import XCTest
 
 class AuralTestCase: XCTestCase {
 
-    var runLongRunningTests: Bool {return false}
+    static var runLongRunningTests: Bool {false}
+    
+    var runLongRunningTests: Bool {Self.runLongRunningTests}
     
     var tempDirectory: URL {FileManager.default.temporaryDirectory}
     

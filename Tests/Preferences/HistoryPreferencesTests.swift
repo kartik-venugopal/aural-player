@@ -24,7 +24,7 @@ class HistoryPreferencesTests: PreferencesTestCase {
     
     func testInit_someValues() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        recentlyAddedListSize: randomNillableHistoryListSize(),
@@ -34,7 +34,7 @@ class HistoryPreferencesTests: PreferencesTestCase {
     
     func testInit() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        recentlyAddedListSize: randomHistoryListSize(),
@@ -59,14 +59,14 @@ class HistoryPreferencesTests: PreferencesTestCase {
     
     func testPersist() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             doTestPersist(prefs: randomHistoryPreferences())
         }
     }
     
     func testPersist_serializeAndDeserialize() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let defaults = UserDefaults()
             let serializedPrefs = randomHistoryPreferences()

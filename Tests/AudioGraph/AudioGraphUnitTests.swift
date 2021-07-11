@@ -13,7 +13,7 @@ class AudioGraphUnitTests: AudioGraphTestCase {
     
     func testInit() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let master = MasterUnitPersistentState(state: Bool.random() ? .active : .bypassed, userPresets: randomMasterPresets())
             

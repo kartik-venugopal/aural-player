@@ -36,7 +36,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             XCTAssertTrue(publisherIsBlocked)
         })
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -67,7 +67,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: neverReceiveFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -99,7 +99,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: alwaysReceiveFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -132,7 +132,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: conditionalFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             filterCondition = .random()
@@ -172,7 +172,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, opQueue: opQueue)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -214,7 +214,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             XCTAssertTrue(publisherIsBlocked)
         })
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -251,7 +251,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: neverReceiveFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -289,7 +289,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: alwaysReceiveFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -329,7 +329,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: conditionalFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -379,7 +379,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
 
         }, opQueue: opQueue)
 
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             receivedNotif = false
             
@@ -421,7 +421,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             XCTAssertTrue(publisherIsBlocked)
         })
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -457,7 +457,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: neverReceiveFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -494,7 +494,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: alwaysReceiveFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -533,7 +533,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
             
         }, filter: conditionalFilter)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             receivedNotif = false
             
@@ -582,7 +582,7 @@ class Messenger_SynchronousNotificationsTests: AuralTestCase, NotificationSubscr
 
         }, opQueue: opQueue)
 
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             receivedNotif = false
             

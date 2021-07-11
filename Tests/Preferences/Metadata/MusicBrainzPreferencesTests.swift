@@ -25,7 +25,7 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
     
     func testInit_someValues() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        httpTimeout: randomNillableHTTPTimeout(),
@@ -37,7 +37,7 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
     
     func testInit() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        httpTimeout: randomHTTPTimeout(),
@@ -66,14 +66,14 @@ class MusicBrainzPreferencesTests: PreferencesTestCase {
     
     func testPersist() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             doTestPersist(prefs: randomMusicBrainzPreferences())
         }
     }
     
     func testPersist_serializeAndDeserialize() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let defaults = UserDefaults()
             let serializedPrefs = randomMusicBrainzPreferences()

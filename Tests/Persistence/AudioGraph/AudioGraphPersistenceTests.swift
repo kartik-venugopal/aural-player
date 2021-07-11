@@ -13,7 +13,7 @@ class AudioGraphPersistenceTests: AudioGraphTestCase {
     
     func testPersistence() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let outputDevice = AudioDevicePersistentState(name: randomDeviceName(),
                                                           uid: randomDeviceUID())

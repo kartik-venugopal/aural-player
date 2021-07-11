@@ -15,7 +15,7 @@ class AudioUnitPersistenceTests: AudioGraphTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 let serializedState = AudioUnitPersistentState(state: unitState, userPresets: randomAUPresets(),
                                                                componentType: randomAUOSType(), componentSubType: randomAUOSType(),

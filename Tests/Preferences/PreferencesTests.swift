@@ -79,7 +79,7 @@ class PreferencesTests: PreferencesTestCase {
     
     func testInit() {
 
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             let playlistStartupOptions = randomPlaylistStartupOptions()
 
@@ -425,7 +425,7 @@ class PreferencesTests: PreferencesTestCase {
     
     func testPersist() {
 
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             let defaults = UserDefaults()
             doTestPersist(prefs: randomPreferences(defaults: defaults), userDefs: defaults)
@@ -434,7 +434,7 @@ class PreferencesTests: PreferencesTestCase {
 
     func testPersist_serializeAndDeserialize() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let userDefs: UserDefaults = UserDefaults()
             let serializedPrefs = randomPreferences(defaults: userDefs)

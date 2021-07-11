@@ -17,7 +17,7 @@ class ReverbUnitPersistenceTests: AudioGraphTestCase {
             
             for space in ReverbSpaces.allCases {
                 
-                for _ in 1...100 {
+                for _ in 1...(runLongRunningTests ? 1000 : 100) {
                     
                     let serializedState = ReverbUnitPersistentState(state: unitState,
                                                                     userPresets: randomReverbPresets(unitState: .active),

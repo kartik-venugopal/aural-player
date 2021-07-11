@@ -15,7 +15,7 @@ class MasterUnitPersistenceTests: AudioGraphTestCase {
         
         for state in [EffectsUnitState.active, EffectsUnitState.bypassed] {
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 let serializedState = MasterUnitPersistentState(state: state, userPresets: randomMasterPresets())
                 doTestPersistence(serializedState: serializedState)

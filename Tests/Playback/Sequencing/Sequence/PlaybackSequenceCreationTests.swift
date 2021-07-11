@@ -11,8 +11,6 @@ import XCTest
 
 class PlaybackSequenceCreationTests: PlaybackSequenceTests {
     
-//    override var runLongRunningTests: Bool {return true}
-    
     func testResizeAndStart_lessThan100Elements() {
         
         for (repeatMode, shuffleMode) in repeatShufflePermutations {

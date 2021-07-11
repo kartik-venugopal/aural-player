@@ -32,7 +32,7 @@ class PlaybackPreferencesTests: PreferencesTestCase {
     
     func testInit_someValues() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        primarySeekLengthOption: randomNillableSeekLengthOption(),
@@ -51,7 +51,7 @@ class PlaybackPreferencesTests: PreferencesTestCase {
     
     func testInit() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        primarySeekLengthOption: randomSeekLengthOption(),
@@ -114,14 +114,14 @@ class PlaybackPreferencesTests: PreferencesTestCase {
     
     func testPersist() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             doTestPersist(prefs: randomPlaybackPreferences())
         }
     }
     
     func testPersist_serializeAndDeserialize() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let defaults = UserDefaults()
             let serializedPrefs = randomPlaybackPreferences()

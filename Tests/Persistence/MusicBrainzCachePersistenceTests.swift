@@ -19,7 +19,7 @@ class MusicBrainzCachePersistenceTests: PersistenceTestCase {
     
     func testPersistence() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let numReleases = Int.random(in: 5...500)
             let numRecordings = Int.random(in: 5...500)

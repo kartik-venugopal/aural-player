@@ -112,7 +112,7 @@ class FlatPlaylistTests_Search: FlatPlaylistTestCase {
         
         let query: SearchQuery = SearchQuery().withText("_RandomABCDText1298Here_").withFields(.name).withType(.contains)
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let playlistSize = Int.random(in: 10...library.size)
             populatePlaylist(size: playlistSize)

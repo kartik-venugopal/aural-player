@@ -18,7 +18,7 @@ class EQUnitPersistenceTests: AudioGraphTestCase {
         
         for state in EffectsUnitState.allCases {
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 let serializedState = EQUnitPersistentState(state: state,
                                                             userPresets: randomEQPresets(unitState: .active),
@@ -34,7 +34,7 @@ class EQUnitPersistenceTests: AudioGraphTestCase {
         
         for state in EffectsUnitState.allCases {
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 let serializedState = EQUnitPersistentState(state: state,
                                                             userPresets: randomEQPresets(unitState: .active),

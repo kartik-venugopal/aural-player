@@ -17,7 +17,7 @@ class FlatPlaylistTests_AddSizeDuration: FlatPlaylistTestCase {
     
     func test_startingFromEmptyPlaylist() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             assertEmptyPlaylist()
             let track = createRandomTrack()

@@ -29,7 +29,7 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
     
     func testInit_someValues() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        allowVolumeControl: randomNillableBool(),
@@ -44,7 +44,7 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
     
     func testInit() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        allowVolumeControl: .random(),
@@ -93,14 +93,14 @@ class GesturesControlsPreferencesTests: PreferencesTestCase {
     
     func testPersist() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             doTestPersist(prefs: randomGesturesPreferences())
         }
     }
     
     func testPersist_serializeAndDeserialize() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let defaults = UserDefaults()
             let serializedPrefs = randomGesturesPreferences()

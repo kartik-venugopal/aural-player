@@ -26,7 +26,7 @@ class PlaylistPersistenceTests: PersistenceTestCase {
     
     func testPersistence() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
         
             let newTracks = createNTracks(numTracks: Int.random(in: 1...1000))
             

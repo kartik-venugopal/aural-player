@@ -13,7 +13,7 @@ class VisualizerUIPersistenceTests: PersistenceTestCase {
     
     func testPersistence() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let options = VisualizerOptionsPersistentState(lowAmplitudeColor: randomColor(),
                                                            highAmplitudeColor: randomColor())

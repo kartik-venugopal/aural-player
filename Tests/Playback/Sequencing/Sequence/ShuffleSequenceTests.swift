@@ -14,8 +14,6 @@ import XCTest
  */
 class ShuffleSequenceTests: AuralTestCase {
     
-    //    override var runLongRunningTests: Bool {return true}
-    
     private var sequence: ShuffleSequence = ShuffleSequence()
     
     private var sequenceArray: [Int] {

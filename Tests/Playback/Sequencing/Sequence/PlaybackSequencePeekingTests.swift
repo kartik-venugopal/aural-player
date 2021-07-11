@@ -11,8 +11,6 @@ import XCTest
 
 class PlaybackSequencePeekingTests: PlaybackSequenceTests {
     
-//    override var runLongRunningTests: Bool {return true}
-    
     // MARK: peekSubsequent() tests -----------------------------------------------------------------------------------------------
     
     func testPeekSubsequent_emptySequence() {

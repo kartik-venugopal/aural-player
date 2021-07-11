@@ -1067,8 +1067,6 @@
 		3EF28DBE2694E48C005D5B43 /* UIPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF28DBD2694E48C005D5B43 /* UIPersistenceTests.swift */; };
 		3EF28DC22694EDC1005D5B43 /* AppStatePersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF28DC12694EDC1005D5B43 /* AppStatePersistenceTests.swift */; };
 		3EF28DC42694F07B005D5B43 /* PersistentAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0EB26805C50008ECB8C /* PersistentAppState.swift */; };
-		3EF5EF3A2698A5EF002E6B1C /* MusicLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5EF392698A5EF002E6B1C /* MusicLibrary.swift */; };
-		3EF5EF3E2698A9D1002E6B1C /* ConcurrentArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5EF3D2698A9D1002E6B1C /* ConcurrentArray.swift */; };
 		3EFA0AD1262ABBA40023143E /* MasterPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */; };
 		3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */; };
 		3EFB1C5E25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */; };
@@ -2059,8 +2057,6 @@
 		3EF28DB82694E42C005D5B43 /* AppMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMode.swift; sourceTree = "<group>"; };
 		3EF28DBD2694E48C005D5B43 /* UIPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPersistenceTests.swift; sourceTree = "<group>"; };
 		3EF28DC12694EDC1005D5B43 /* AppStatePersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStatePersistenceTests.swift; sourceTree = "<group>"; };
-		3EF5EF392698A5EF002E6B1C /* MusicLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicLibrary.swift; sourceTree = "<group>"; };
-		3EF5EF3D2698A9D1002E6B1C /* ConcurrentArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentArray.swift; sourceTree = "<group>"; };
 		3EFA0AD0262ABBA40023143E /* MasterPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresetView.swift; sourceTree = "<group>"; };
 		3EFB1C5B25EFCF7E00EF7F0F /* FFmpegScheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegScheduler.swift; sourceTree = "<group>"; };
 		3EFB1C5C25EFCF7E00EF7F0F /* FFmpegLoopScheduling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegLoopScheduling.swift; sourceTree = "<group>"; };
@@ -2488,7 +2484,6 @@
 			children = (
 				3E6C0EC225CEB3ED00BF0D07 /* AppDelegate.swift */,
 				3E6C105725CEB98600BF0D07 /* ObjectGraph.swift */,
-				3EF5EF392698A5EF002E6B1C /* MusicLibrary.swift */,
 				3EDD2C4D2684DC2E0090BAF7 /* Constants */,
 				3E6C10FF25CEB98700BF0D07 /* AudioGraph */,
 				3E6C105A25CEB98600BF0D07 /* Playback */,
@@ -4463,7 +4458,6 @@
 				3E6C10C225CEB98700BF0D07 /* ConcurrentMap.swift */,
 				3EEC042B2687B76D004478CE /* ConcurrentSet.swift */,
 				3EEC04292687B727004478CE /* ConcurrentCompositeKeyMap.swift */,
-				3EF5EF3D2698A9D1002E6B1C /* ConcurrentArray.swift */,
 			);
 			path = Concurrent;
 			sourceTree = "<group>";
@@ -5004,9 +4998,7 @@
 				3E6C121925CEBDE600BF0D07 /* TracksPlaylistViewController.swift in Sources */,
 				3E3633EC26862848006A88ED /* DelayUnitDelegateProtocol.swift in Sources */,
 				3E6C12B225CEBE5800BF0D07 /* DockMenuController.swift in Sources */,
-				3EF5EF3E2698A9D1002E6B1C /* ConcurrentArray.swift in Sources */,
 				3E9C12112622208F00D90EA4 /* Theme.swift in Sources */,
-				3EF5EF3A2698A5EF002E6B1C /* MusicLibrary.swift in Sources */,
 				3EFB1C5D25EFCF7E00EF7F0F /* FFmpegScheduler.swift in Sources */,
 				3EAFB5FC267FEF1C00F0DC96 /* NSColorExtensions.swift in Sources */,
 				3E3633DE2685FAE5006A88ED /* EffectsPresets.swift in Sources */,

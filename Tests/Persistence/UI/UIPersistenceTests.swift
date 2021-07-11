@@ -15,7 +15,7 @@ class UIPersistenceTests: PersistenceTestCase {
         
         for appMode in AppMode.allCases {
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 // Window layouts
                 

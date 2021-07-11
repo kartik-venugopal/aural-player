@@ -13,7 +13,7 @@ class FontSchemesPersistenceTests: PersistenceTestCase {
     
     func testPersistence() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let systemScheme = randomFontScheme(named: "_system_")
             let userSchemes = randomFontSchemes()

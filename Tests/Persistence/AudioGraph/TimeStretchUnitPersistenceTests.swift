@@ -18,7 +18,7 @@ class TimeStretchUnitPersistenceTests: AudioGraphTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 let serializedState = TimeStretchUnitPersistentState(state: unitState,
                                                                      userPresets: randomTimeStretchPresets(unitState: .active),

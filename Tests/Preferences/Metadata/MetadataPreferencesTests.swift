@@ -25,7 +25,7 @@ class MetadataPreferencesTests: PreferencesTestCase {
     
     func testInit() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             doTestInit(userDefs: UserDefaults(),
                        httpTimeout: randomHTTPTimeout(),
@@ -55,14 +55,14 @@ class MetadataPreferencesTests: PreferencesTestCase {
     
     func testPersist() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             doTestPersist(prefs: randomMetadataPreferences())
         }
     }
     
     func testPersist_serializeAndDeserialize() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let defaults = UserDefaults()
             let serializedPrefs = randomMetadataPreferences()

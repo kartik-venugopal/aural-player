@@ -17,7 +17,7 @@ class SoundProfilesPersistenceTests: AudioGraphTestCase {
     
     func testPersistence() {
         
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             
             let numProfiles = Int.random(in: 10...100)
             

@@ -15,7 +15,7 @@ class DelayUnitPersistenceTests: AudioGraphTestCase {
         
         for unitState in EffectsUnitState.allCases {
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 let serializedState = DelayUnitPersistentState(state: unitState,
                                                                userPresets: randomDelayPresets(unitState: .active),

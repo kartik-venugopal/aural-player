@@ -21,7 +21,7 @@ class WindowLayoutsPersistenceTests: PersistenceTestCase {
             // the user applying a system-defined layout.
             let layoutFromPreset = preset.layout(gap: 2)
             
-            for _ in 1...100 {
+            for _ in 1...(runLongRunningTests ? 1000 : 100) {
                 
                 // Move the layout to a random location on-screen to simulate the user moving the
                 // windows to a preferred location.
@@ -39,7 +39,7 @@ class WindowLayoutsPersistenceTests: PersistenceTestCase {
             
             for showEffects in [false, true] {
                 
-                for _ in 1...100 {
+                for _ in 1...(runLongRunningTests ? 1000 : 100) {
                     
                     let layout = randomLayout(name: "_system_", systemDefined: true,
                                               showPlaylist: showPlaylist, showEffects: showEffects)

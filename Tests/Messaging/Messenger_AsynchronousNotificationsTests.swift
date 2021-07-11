@@ -67,7 +67,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
         }, filter: neverReceiveFilter,
            queue: DispatchQueue.global(qos: .userInteractive))
 
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
             Messenger.publish(notifName)
         }
 
@@ -262,7 +262,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
         }, filter: neverReceiveFilter,
            queue: DispatchQueue.global(qos: .userInteractive))
 
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             let sentVal: Double = Double.random(in: 0...3600000)
             let payload = TestPayload<Double>(notificationName: notifName, equatableValue: sentVal)
@@ -428,7 +428,7 @@ class Messenger_AsynchronousNotificationsTests: AuralTestCase, NotificationSubsc
         }, filter: neverReceiveFilter,
            queue: DispatchQueue.global(qos: .userInteractive))
 
-        for _ in 1...100 {
+        for _ in 1...(runLongRunningTests ? 1000 : 100) {
 
             let sentVal: Double = Double.random(in: 0...3600000)
             Messenger.publish(notifName, payload: sentVal)
