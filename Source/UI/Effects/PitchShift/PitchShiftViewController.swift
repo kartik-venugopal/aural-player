@@ -12,9 +12,9 @@ import Cocoa
 /*
     View controller for the Pitch effects unit
  */
-class PitchViewController: EffectsUnitViewController {
+class PitchShiftViewController: EffectsUnitViewController {
     
-    @IBOutlet weak var pitchView: PitchView!
+    @IBOutlet weak var pitchView: PitchShiftView!
     @IBOutlet weak var box: NSBox!
     
     @IBOutlet weak var lblPitch: VALabel!
@@ -27,9 +27,9 @@ class PitchViewController: EffectsUnitViewController {
     @IBOutlet weak var lblOverlapMax: VALabel!
     @IBOutlet weak var lblPitchOverlapValue: VALabel!
     
-    override var nibName: String? {"Pitch"}
+    override var nibName: String? {"PitchShift"}
     
-    private var pitchUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
+    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchShiftUnit
  
     override func awakeFromNib() {
         
@@ -37,8 +37,8 @@ class PitchViewController: EffectsUnitViewController {
         
         // TODO: Could some of this move to AudioGraphDelegate ??? e.g. graph.getUnit(self.unitType) OR graph.getStateFunction(self.unitTyp
         unitType = .pitch
-        effectsUnit = pitchUnit
-        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchUnit.presets)
+        effectsUnit = pitchShiftUnit
+        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchShiftUnit.presets)
     }
     
     override func initSubscriptions() {
@@ -63,7 +63,7 @@ class PitchViewController: EffectsUnitViewController {
     override func initControls() {
         
         super.initControls()
-        pitchView.setState(pitchUnit.pitch, pitchUnit.formattedPitch, pitchUnit.overlap, pitchUnit.formattedOverlap)
+        pitchView.setState(pitchShiftUnit.pitch, pitchShiftUnit.formattedPitch, pitchShiftUnit.overlap, pitchShiftUnit.formattedOverlap)
     }
     
     override func stateChanged() {
@@ -75,17 +75,17 @@ class PitchViewController: EffectsUnitViewController {
     // Updates the pitch
     @IBAction func pitchAction(_ sender: AnyObject) {
         
-        pitchUnit.pitch = pitchView.pitch
-        pitchView.setPitch(pitchUnit.pitch, pitchUnit.formattedPitch)
+        pitchShiftUnit.pitch = pitchView.pitch
+        pitchView.setPitch(pitchShiftUnit.pitch, pitchShiftUnit.formattedPitch)
     }
     
     // Sets the pitch to a specific value
     private func setPitch(_ pitch: Float) {
         
-        pitchUnit.pitch = pitch
-        pitchUnit.ensureActive()
+        pitchShiftUnit.pitch = pitch
+        pitchShiftUnit.ensureActive()
         
-        pitchView.setPitch(pitch, pitchUnit.formattedPitch)
+        pitchView.setPitch(pitch, pitchShiftUnit.formattedPitch)
         
         btnBypass.updateState()
         pitchView.stateChanged()
@@ -99,21 +99,21 @@ class PitchViewController: EffectsUnitViewController {
     // Updates the Overlap parameter of the Pitch shift effects unit
     @IBAction func pitchOverlapAction(_ sender: AnyObject) {
 
-        pitchUnit.overlap = pitchView.overlap
-        pitchView.setPitchOverlap(pitchUnit.overlap, pitchUnit.formattedOverlap)
+        pitchShiftUnit.overlap = pitchView.overlap
+        pitchView.setPitchOverlap(pitchShiftUnit.overlap, pitchShiftUnit.formattedOverlap)
     }
     
     // Increases the overall pitch by a certain preset increment
     private func increasePitch() {
         
-        let newPitch = pitchUnit.increasePitch()
+        let newPitch = pitchShiftUnit.increasePitch()
         pitchChange(newPitch.pitch, newPitch.pitchString)
     }
     
     // Decreases the overall pitch by a certain preset decrement
     private func decreasePitch() {
         
-        let newPitch = pitchUnit.decreasePitch()
+        let newPitch = pitchShiftUnit.decreasePitch()
         pitchChange(newPitch.pitch, newPitch.pitchString)
     }
     
@@ -143,7 +143,7 @@ class PitchViewController: EffectsUnitViewController {
         
         super.changeActiveUnitStateColor(color)
         
-        if pitchUnit.isActive {
+        if pitchShiftUnit.isActive {
             pitchView.redrawSliders()
         }
     }
@@ -152,7 +152,7 @@ class PitchViewController: EffectsUnitViewController {
         
         super.changeBypassedUnitStateColor(color)
         
-        if pitchUnit.state == .bypassed {
+        if pitchShiftUnit.state == .bypassed {
             pitchView.redrawSliders()
         }
     }
@@ -161,7 +161,7 @@ class PitchViewController: EffectsUnitViewController {
         
         super.changeSuppressedUnitStateColor(color)
         
-        if pitchUnit.state == .suppressed {
+        if pitchShiftUnit.state == .suppressed {
             pitchView.redrawSliders()
         }
     }

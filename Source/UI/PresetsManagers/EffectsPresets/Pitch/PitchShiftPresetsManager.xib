@@ -104,7 +104,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="TYy-DX-glm" userLabel="Controls Box">
                                 <rect key="frame" x="43" y="171" width="388" height="68"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" id="d7S-3W-NMI" customClass="PitchView" customModule="Aural" customModuleProvider="target">
+                                <view key="contentView" id="d7S-3W-NMI" customClass="PitchShiftView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="388" height="68"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

@@ -24,8 +24,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
     let presets: MasterPresets
     
     var eqUnit: EQUnit
-    var pitchUnit: PitchShiftUnit
-    var timeUnit: TimeStretchUnit
+    var pitchShiftUnit: PitchShiftUnit
+    var timeStretchUnit: TimeStretchUnit
     var reverbUnit: ReverbUnit
     var delayUnit: DelayUnit
     var filterUnit: FilterUnit
@@ -38,8 +38,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
         self.nativeSlaveUnits = nativeSlaveUnits
         
         eqUnit = nativeSlaveUnits.first(where: {$0 is EQUnit}) as! EQUnit
-        pitchUnit = nativeSlaveUnits.first(where: {$0 is PitchShiftUnit}) as! PitchShiftUnit
-        timeUnit = nativeSlaveUnits.first(where: {$0 is TimeStretchUnit}) as! TimeStretchUnit
+        pitchShiftUnit = nativeSlaveUnits.first(where: {$0 is PitchShiftUnit}) as! PitchShiftUnit
+        timeStretchUnit = nativeSlaveUnits.first(where: {$0 is TimeStretchUnit}) as! TimeStretchUnit
         reverbUnit = nativeSlaveUnits.first(where: {$0 is ReverbUnit}) as! ReverbUnit
         delayUnit = nativeSlaveUnits.first(where: {$0 is DelayUnit}) as! DelayUnit
         filterUnit = nativeSlaveUnits.first(where: {$0 is FilterUnit}) as! FilterUnit
@@ -76,10 +76,10 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
         let eqPreset = eqUnit.settingsAsPreset
         eqPreset.name = String(format: "EQ settings for Master preset: '%@'", presetName)
         
-        let pitchPreset = pitchUnit.settingsAsPreset
+        let pitchPreset = pitchShiftUnit.settingsAsPreset
         pitchPreset.name = String(format: "Pitch settings for Master preset: '%@'", presetName)
         
-        let timePreset = timeUnit.settingsAsPreset
+        let timePreset = timeStretchUnit.settingsAsPreset
         timePreset.name = String(format: "Time settings for Master preset: '%@'", presetName)
         
         let reverbPreset = reverbUnit.settingsAsPreset
@@ -99,8 +99,8 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
     var settingsAsPreset: MasterPreset {
         
         let eqPreset = eqUnit.settingsAsPreset
-        let pitchPreset = pitchUnit.settingsAsPreset
-        let timePreset = timeUnit.settingsAsPreset
+        let pitchPreset = pitchShiftUnit.settingsAsPreset
+        let timePreset = timeStretchUnit.settingsAsPreset
         let reverbPreset = reverbUnit.settingsAsPreset
         let delayPreset = delayUnit.settingsAsPreset
         let filterPreset = filterUnit.settingsAsPreset
@@ -120,11 +120,11 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
         eqUnit.applyPreset(preset.eq)
         eqUnit.state = preset.eq.state
         
-        pitchUnit.applyPreset(preset.pitch)
-        pitchUnit.state = preset.pitch.state
+        pitchShiftUnit.applyPreset(preset.pitch)
+        pitchShiftUnit.state = preset.pitch.state
         
-        timeUnit.applyPreset(preset.time)
-        timeUnit.state = preset.time.state
+        timeStretchUnit.applyPreset(preset.time)
+        timeStretchUnit.state = preset.time.state
         
         reverbUnit.applyPreset(preset.reverb)
         reverbUnit.state = preset.reverb.state

@@ -9,7 +9,9 @@
 //
 import Foundation
 
+typealias PlaylistTypeString = String
+
 struct PlaylistUIPersistentState: Codable {
     
-    let view: PlaylistType?
+    let view: PlaylistTypeString?
 }

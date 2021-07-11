@@ -121,7 +121,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         
         // Playback rate
         
-        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeUnit.effectiveRate) : .zero
+        let playbackRate: Double = playbackInfo.state == .playing ? Double(audioGraph.timeStretchUnit.effectiveRate) : .zero
         nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = playbackRate
         nowPlayingInfo[MPNowPlayingInfoPropertyDefaultPlaybackRate] = playbackRate
         
@@ -169,7 +169,7 @@ class NowPlayingInfoManager: NSObject, NotificationSubscriber {
         if preTrackChange {return}
         
         infoCenter.playbackState = MPNowPlayingPlaybackState.fromPlaybackState(playbackInfo.state)
-        playbackRateChanged(audioGraph.timeUnit.effectiveRate)
+        playbackRateChanged(audioGraph.timeStretchUnit.effectiveRate)
     }
     
     private func playbackRateChanged(_ newRate: Float) {

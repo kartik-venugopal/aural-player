@@ -12,9 +12,9 @@ import Cocoa
 /*
     View controller for the Time effects unit
  */
-class TimeViewController: EffectsUnitViewController {
+class TimeStretchViewController: EffectsUnitViewController {
     
-    @IBOutlet weak var timeView: TimeView!
+    @IBOutlet weak var timeStretchView: TimeStretchView!
     
     @IBOutlet weak var lblRate: VALabel!
     @IBOutlet weak var lblRateMin: VALabel!
@@ -29,17 +29,17 @@ class TimeViewController: EffectsUnitViewController {
     @IBOutlet weak var lblPitchShiftValue: VALabel!
     @IBOutlet weak var btnShiftPitch: NSButton!
     
-    override var nibName: String? {"Time"}
+    override var nibName: String? {"TimeStretch"}
     
-    var timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
+    var timeStretchUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeStretchUnit
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
         unitType = .time
-        effectsUnit = graph.timeUnit
-        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeUnit.presets)
+        effectsUnit = graph.timeStretchUnit
+        presetsWrapper = PresetsWrapper<TimeStretchPreset, TimeStretchPresets>(timeStretchUnit.presets)
     }
     
     override func initSubscriptions() {
@@ -54,19 +54,19 @@ class TimeViewController: EffectsUnitViewController {
     override func oneTimeSetup() {
         
         super.oneTimeSetup()
-        timeView.initialize(self.unitStateFunction)
+        timeStretchView.initialize(self.unitStateFunction)
     }
 
     override func initControls() {
 
         super.initControls()
-        timeView.setState(timeUnit.rate, timeUnit.formattedRate, timeUnit.overlap, timeUnit.formattedOverlap, timeUnit.shiftPitch, timeUnit.formattedPitch)
+        timeStretchView.setState(timeStretchUnit.rate, timeStretchUnit.formattedRate, timeStretchUnit.overlap, timeStretchUnit.formattedOverlap, timeStretchUnit.shiftPitch, timeStretchUnit.formattedPitch)
     }
     
     override func stateChanged() {
         
         super.stateChanged()
-        timeView.stateChanged()
+        timeStretchView.stateChanged()
     }
 
     // Activates/deactivates the Time stretch effects unit
@@ -75,44 +75,44 @@ class TimeViewController: EffectsUnitViewController {
         super.bypassAction(sender)
         
         // The playback rate may have changed, send out a notification
-        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
     }
 
     // Toggles the "pitch shift" option of the Time stretch effects unit
     @IBAction func shiftPitchAction(_ sender: AnyObject) {
 
-        timeUnit.shiftPitch = timeView.shiftPitch
+        timeStretchUnit.shiftPitch = timeStretchView.shiftPitch
         updatePitchShift()
     }
 
     // Updates the playback rate value
     @IBAction func timeStretchAction(_ sender: AnyObject) {
 
-        timeUnit.rate = timeView.rate
-        timeView.setRate(timeUnit.rate, timeUnit.formattedRate, timeUnit.formattedPitch)
+        timeStretchUnit.rate = timeStretchView.rate
+        timeStretchView.setRate(timeStretchUnit.rate, timeStretchUnit.formattedRate, timeStretchUnit.formattedPitch)
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
-        if timeUnit.isActive {
-            Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.rate)
+        if timeStretchUnit.isActive {
+            Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
         }
     }
 
     // Sets the playback rate to a specific value
     private func setRate(_ rate: Float) {
 
-        timeUnit.rate = rate
-        timeUnit.ensureActive()
-        rateChange((rate, timeUnit.formattedRate))
+        timeStretchUnit.rate = rate
+        timeStretchUnit.ensureActive()
+        rateChange((rate, timeStretchUnit.formattedRate))
     }
 
     // Increases the playback rate by a certain preset increment
     private func increaseRate() {
-        rateChange(timeUnit.increaseRate())
+        rateChange(timeStretchUnit.increaseRate())
     }
 
     // Decreases the playback rate by a certain preset decrement
     private func decreaseRate() {
-        rateChange(timeUnit.decreaseRate())
+        rateChange(timeStretchUnit.decreaseRate())
     }
 
     // Changes the playback rate to a specific value
@@ -120,7 +120,7 @@ class TimeViewController: EffectsUnitViewController {
 
         Messenger.publish(.effects_unitStateChanged)
 
-        timeView.setRate(rateInfo.rate, rateInfo.rateString, timeUnit.formattedPitch)
+        timeStretchView.setRate(rateInfo.rate, rateInfo.rateString, timeStretchUnit.formattedPitch)
         stateChanged()
 
         showThisTab()
@@ -131,13 +131,13 @@ class TimeViewController: EffectsUnitViewController {
     // Updates the Overlap parameter of the Time stretch effects unit
     @IBAction func timeOverlapAction(_ sender: Any) {
         
-        timeUnit.overlap = timeView.overlap
-        timeView.setOverlap(timeUnit.overlap, timeUnit.formattedOverlap)
+        timeStretchUnit.overlap = timeStretchView.overlap
+        timeStretchView.setOverlap(timeStretchUnit.overlap, timeStretchUnit.formattedOverlap)
     }
 
     // Updates the label that displays the pitch shift value
     private func updatePitchShift() {
-        timeView.updatePitchShift(timeUnit.formattedPitch)
+        timeStretchView.updatePitchShift(timeStretchUnit.formattedPitch)
     }
     
     override func applyFontScheme(_ fontScheme: FontScheme) {
@@ -159,15 +159,15 @@ class TimeViewController: EffectsUnitViewController {
     }
     
     override func changeSliderColors() {
-        timeView.redrawSliders()
+        timeStretchView.redrawSliders()
     }
     
     override func changeActiveUnitStateColor(_ color: NSColor) {
         
         super.changeActiveUnitStateColor(color)
         
-        if timeUnit.isActive {
-            timeView.redrawSliders()
+        if timeStretchUnit.isActive {
+            timeStretchView.redrawSliders()
         }
     }
     
@@ -175,8 +175,8 @@ class TimeViewController: EffectsUnitViewController {
         
         super.changeBypassedUnitStateColor(color)
         
-        if timeUnit.state == .bypassed {
-            timeView.redrawSliders()
+        if timeStretchUnit.state == .bypassed {
+            timeStretchView.redrawSliders()
         }
     }
     
@@ -184,14 +184,14 @@ class TimeViewController: EffectsUnitViewController {
         
         super.changeSuppressedUnitStateColor(color)
         
-        if timeUnit.state == .suppressed {
-            timeView.redrawSliders()
+        if timeStretchUnit.state == .suppressed {
+            timeStretchView.redrawSliders()
         }
     }
     
     override func changeFunctionCaptionTextColor(_ color: NSColor) {
         
         super.changeFunctionCaptionTextColor(color)
-        timeView.changeFunctionCaptionTextColor()
+        timeStretchView.changeFunctionCaptionTextColor()
     }
 }

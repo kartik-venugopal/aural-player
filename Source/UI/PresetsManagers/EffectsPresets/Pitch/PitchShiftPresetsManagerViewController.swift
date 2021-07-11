@@ -11,19 +11,19 @@ import Cocoa
 
 class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewController {
     
-    @IBOutlet weak var pitchView: PitchView!
+    @IBOutlet weak var pitchView: PitchShiftView!
     
     override var nibName: String? {"PitchShiftPresetsManager"}
     
-    var pitchUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchUnit
+    var pitchShiftUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchShiftUnit
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         
         unitType = .pitch
-        effectsUnit = pitchUnit
-        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchUnit.presets)
+        effectsUnit = pitchShiftUnit
+        presetsWrapper = PresetsWrapper<PitchShiftPreset, PitchShiftPresets>(pitchShiftUnit.presets)
     }
     
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewCo
     
     override func renderPreview(_ presetName: String) {
         
-        if let preset = pitchUnit.presets.preset(named: presetName) {
+        if let preset = pitchShiftUnit.presets.preset(named: presetName) {
             renderPreview(preset)
         }
     }

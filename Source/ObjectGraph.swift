@@ -54,7 +54,12 @@ class ObjectGraph {
                                                                                     sampleConverter: FFmpegSampleConverter())
     private static let sequencer: SequencerProtocol = {
         
-        let playlistType = persistentState.ui?.playlist?.view ?? .tracks
+        var playlistType: PlaylistType = .tracks
+        
+        if let viewString = persistentState.ui?.playlist?.view?.lowercased(), let view = PlaylistType(rawValue: viewString) {
+            playlistType = view
+        }
+        
         return Sequencer(persistentState: persistentState.playbackSequence, playlist, playlistType)
     }()
     

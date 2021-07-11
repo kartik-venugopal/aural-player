@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class TimeView: NSView {
+class TimeStretchView: NSView {
     
     @IBOutlet weak var timeSlider: EffectsUnitSlider!
     @IBOutlet weak var timeOverlapSlider: EffectsUnitSlider!

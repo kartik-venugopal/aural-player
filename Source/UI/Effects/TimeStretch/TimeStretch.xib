@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TimeViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="TimeStretchViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="btnBypass" destination="0b3-aI-4fr" id="b9o-1J-3tO"/>
                 <outlet property="btnSavePreset" destination="Zcn-3u-MVb" id="RZL-Xa-E1E"/>
@@ -23,7 +22,7 @@
                 <outlet property="lblRateValue" destination="4Bh-R6-0a8" id="U1T-EJ-1jn"/>
                 <outlet property="presetsMenu" destination="SzE-Ik-872" id="tm0-wO-1y1"/>
                 <outlet property="presetsMenuIconItem" destination="HQi-sq-AI8" id="zbw-Qt-GBa"/>
-                <outlet property="timeView" destination="qyk-i5-HuE" id="2u0-6D-ArB"/>
+                <outlet property="timeStretchView" destination="qyk-i5-HuE" id="2u0-6D-ArB"/>
                 <outlet property="view" destination="cWd-Fu-GJN" id="02m-Ap-0Qq"/>
             </connections>
         </customObject>
@@ -47,7 +46,7 @@
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="cgm-Fs-HA3" userLabel="Controls Box">
                     <rect key="frame" x="50" y="38" width="468" height="97"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" id="qyk-i5-HuE" customClass="TimeView" customModule="Aural" customModuleProvider="target">
+                    <view key="contentView" id="qyk-i5-HuE" customClass="TimeStretchView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="468" height="97"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

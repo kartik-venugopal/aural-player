@@ -42,8 +42,8 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
     // Effects units
     var masterUnit: MasterUnit
     var eqUnit: EQUnit
-    var pitchUnit: PitchShiftUnit
-    var timeUnit: TimeStretchUnit
+    var pitchShiftUnit: PitchShiftUnit
+    var timeStretchUnit: TimeStretchUnit
     var reverbUnit: ReverbUnit
     var delayUnit: DelayUnit
     var filterUnit: FilterUnit
@@ -75,8 +75,8 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         deviceManager = DeviceManager(outputAudioUnit: outputNode.audioUnit!)
         
         eqUnit = EQUnit(persistentState: persistentState?.eqUnit)
-        pitchUnit = PitchShiftUnit(persistentState: persistentState?.pitchUnit)
-        timeUnit = TimeStretchUnit(persistentState: persistentState?.timeUnit)
+        pitchShiftUnit = PitchShiftUnit(persistentState: persistentState?.pitchUnit)
+        timeStretchUnit = TimeStretchUnit(persistentState: persistentState?.timeUnit)
         reverbUnit = ReverbUnit(persistentState: persistentState?.reverbUnit)
         delayUnit = DelayUnit(persistentState: persistentState?.delayUnit)
         filterUnit = FilterUnit(persistentState: persistentState?.filterUnit)
@@ -93,7 +93,7 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
             }
         }
         
-        let nativeSlaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit]
+        let nativeSlaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit]
         masterUnit = MasterUnit(persistentState: persistentState?.masterUnit, nativeSlaveUnits: nativeSlaveUnits, audioUnits: audioUnits)
 
         let permanentNodes = [playerNode, auxMixer] + (nativeSlaveUnits.flatMap {$0.avNodes})
@@ -228,8 +228,8 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
                                          balance: balance,
                                          masterUnit: masterUnit.persistentState,
                                          eqUnit: eqUnit.persistentState,
-                                         pitchUnit: pitchUnit.persistentState,
-                                         timeUnit: timeUnit.persistentState,
+                                         pitchUnit: pitchShiftUnit.persistentState,
+                                         timeUnit: timeStretchUnit.persistentState,
                                          reverbUnit: reverbUnit.persistentState,
                                          delayUnit: delayUnit.persistentState,
                                          filterUnit: filterUnit.persistentState,

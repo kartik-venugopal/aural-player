@@ -64,8 +64,8 @@ protocol AudioGraphDelegateProtocol {
     
     var masterUnit: MasterUnitDelegateProtocol {get set}
     var eqUnit: EQUnitDelegateProtocol {get set}
-    var pitchUnit: PitchShiftUnitDelegateProtocol {get set}
-    var timeUnit: TimeStretchUnitDelegateProtocol {get set}
+    var pitchShiftUnit: PitchShiftUnitDelegateProtocol {get set}
+    var timeStretchUnit: TimeStretchUnitDelegateProtocol {get set}
     var reverbUnit: ReverbUnitDelegateProtocol {get set}
     var delayUnit: DelayUnitDelegateProtocol {get set}
     var filterUnit: FilterUnitDelegateProtocol {get set}

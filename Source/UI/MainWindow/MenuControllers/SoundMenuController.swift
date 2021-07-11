@@ -251,7 +251,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             Messenger.publish(.pitchEffectsUnit_decreasePitch)
         } else {
-            _ = graph.pitchUnit.decreasePitch()
+            _ = graph.pitchShiftUnit.decreasePitch()
         }
     }
     
@@ -261,7 +261,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             Messenger.publish(.pitchEffectsUnit_increasePitch)
         } else {
-            _ = graph.pitchUnit.increasePitch()
+            _ = graph.pitchShiftUnit.increasePitch()
         }
     }
     
@@ -276,8 +276,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            graph.pitchUnit.pitch = pitch
-            graph.pitchUnit.ensureActive()
+            graph.pitchShiftUnit.pitch = pitch
+            graph.pitchShiftUnit.ensureActive()
         }
     }
     
@@ -287,7 +287,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             Messenger.publish(.timeEffectsUnit_decreaseRate)
         } else {
-            _ = graph.timeUnit.decreaseRate()
+            _ = graph.timeStretchUnit.decreaseRate()
         }
     }
     
@@ -297,7 +297,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
         if effectsWindowLoaded {
             Messenger.publish(.timeEffectsUnit_increaseRate)
         } else {
-            _ = graph.timeUnit.increaseRate()
+            _ = graph.timeStretchUnit.increaseRate()
         }
     }
     
@@ -312,8 +312,8 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             
         } else {
             
-            graph.timeUnit.rate = rate
-            graph.timeUnit.ensureActive()
+            graph.timeStretchUnit.rate = rate
+            graph.timeStretchUnit.ensureActive()
         }
     }
     

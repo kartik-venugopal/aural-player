@@ -104,7 +104,7 @@
                             <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="iDM-hl-gve" userLabel="Controls Box">
                                 <rect key="frame" x="43" y="153" width="355" height="84"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" id="tOK-Xi-xQr" customClass="TimeView" customModule="Aural" customModuleProvider="target">
+                                <view key="contentView" id="tOK-Xi-xQr" customClass="TimeStretchView" customModule="Aural" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="355" height="84"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

@@ -30,8 +30,8 @@ protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
     
     var masterUnit: MasterUnit {get}
     var eqUnit: EQUnit {get}
-    var pitchUnit: PitchShiftUnit {get}
-    var timeUnit: TimeStretchUnit {get}
+    var pitchShiftUnit: PitchShiftUnit {get}
+    var timeStretchUnit: TimeStretchUnit {get}
     var reverbUnit: ReverbUnit {get}
     var delayUnit: DelayUnit {get}
     var filterUnit: FilterUnit {get}

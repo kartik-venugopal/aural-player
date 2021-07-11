@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PitchViewController" customModule="Aural" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="PitchShiftViewController" customModule="Aural" customModuleProvider="target">
             <connections>
                 <outlet property="box" destination="SqM-jh-LRn" id="YvI-vh-auk"/>
                 <outlet property="btnBypass" destination="0Wm-Yf-mhU" id="lt6-Dr-xyx"/>
@@ -34,7 +35,7 @@
                 <box fixedFrame="YES" boxType="custom" borderType="none" cornerRadius="3" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="SqM-jh-LRn" userLabel="Controls Box">
                     <rect key="frame" x="58" y="66" width="460" height="68"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <view key="contentView" id="dcu-Yh-pFz" customClass="PitchView" customModule="Aural" customModuleProvider="target">
+                    <view key="contentView" id="dcu-Yh-pFz" customClass="PitchShiftView" customModule="Aural" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="460" height="68"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

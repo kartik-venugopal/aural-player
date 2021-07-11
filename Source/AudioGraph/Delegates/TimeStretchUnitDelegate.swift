@@ -1,5 +1,5 @@
 //
-//  TimeUnitDelegate.swift
+//  TimeStretchUnitDelegate.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -18,7 +18,7 @@ import Foundation
 /// - SeeAlso: `TimeStretchUnit`
 /// - SeeAlso: `TimeStretchUnitDelegateProtocol`
 ///
-class TimeUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretchUnitDelegateProtocol {
+class TimeStretchUnitDelegate: EffectsUnitDelegate<TimeStretchUnit>, TimeStretchUnitDelegateProtocol {
     
     let preferences: SoundPreferences
     

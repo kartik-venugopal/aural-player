@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class PitchView: NSView {
+class PitchShiftView: NSView {
 
     @IBOutlet weak var pitchSlider: EffectsUnitSlider!
     @IBOutlet weak var pitchOverlapSlider: EffectsUnitSlider!

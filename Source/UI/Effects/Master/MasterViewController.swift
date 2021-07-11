@@ -22,8 +22,8 @@ class MasterViewController: EffectsUnitViewController {
     
     private var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
     private var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}
-    private var pitchUnit: PitchShiftUnitDelegateProtocol {return graph.pitchUnit}
-    private var timeUnit: TimeStretchUnitDelegateProtocol {return graph.timeUnit}
+    private var pitchShiftUnit: PitchShiftUnitDelegateProtocol {return graph.pitchShiftUnit}
+    private var timeStretchUnit: TimeStretchUnitDelegateProtocol {return graph.timeStretchUnit}
     private var reverbUnit: ReverbUnitDelegateProtocol {return graph.reverbUnit}
     private var delayUnit: DelayUnitDelegateProtocol {return graph.delayUnit}
     private var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}
@@ -61,7 +61,7 @@ class MasterViewController: EffectsUnitViewController {
             return .bypassed
         }
         
-        masterView.initialize(graph.eqUnit.stateFunction, graph.pitchUnit.stateFunction, graph.timeUnit.stateFunction, graph.reverbUnit.stateFunction, graph.delayUnit.stateFunction, graph.filterUnit.stateFunction, auStateFunction)
+        masterView.initialize(graph.eqUnit.stateFunction, graph.pitchShiftUnit.stateFunction, graph.timeStretchUnit.stateFunction, graph.reverbUnit.stateFunction, graph.delayUnit.stateFunction, graph.filterUnit.stateFunction, auStateFunction)
     }
     
     override func initSubscriptions() {
@@ -91,7 +91,7 @@ class MasterViewController: EffectsUnitViewController {
         updateButtons()
         broadcastStateChangeNotification()
         
-        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
         
         audioUnitsTable.reloadData()
     }
@@ -126,7 +126,7 @@ class MasterViewController: EffectsUnitViewController {
     // Activates/deactivates the Pitch effects unit
     @IBAction func pitchBypassAction(_ sender: AnyObject) {
         
-        _ = pitchUnit.toggleState()
+        _ = pitchShiftUnit.toggleState()
         updateButtons()
         broadcastStateChangeNotification()
     }
@@ -134,9 +134,9 @@ class MasterViewController: EffectsUnitViewController {
     // Activates/deactivates the Time stretch effects unit
     @IBAction func timeBypassAction(_ sender: AnyObject) {
         
-        _ = timeUnit.toggleState()
+        _ = timeStretchUnit.toggleState()
         
-        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
         
         updateButtons()
         broadcastStateChangeNotification()
@@ -241,7 +241,7 @@ class MasterViewController: EffectsUnitViewController {
     override func stateChanged() {
         
         updateButtons()
-        Messenger.publish(.effects_playbackRateChanged, payload: timeUnit.effectiveRate)
+        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
         
         audioUnitsTable.reloadData()
     }

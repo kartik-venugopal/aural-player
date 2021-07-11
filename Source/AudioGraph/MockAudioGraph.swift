@@ -20,8 +20,8 @@
 //    // Effects units
 //    var masterUnit: MasterUnit
 //    var eqUnit: EQUnit
-//    var pitchUnit: PitchUnit
-//    var timeUnit: TimeUnit
+//    var pitchShiftUnit: PitchUnit
+//    var timeStretchUnit: TimeUnit
 //    var reverbUnit: ReverbUnit
 //    var delayUnit: DelayUnit
 //    var filterUnit: FilterUnit
@@ -65,13 +65,13 @@
 //        playerNode.pan = state.balance
 //        
 //        eqUnit = EQUnit(state)
-//        pitchUnit = PitchUnit(state)
-//        timeUnit = TimeUnit(state)
+//        pitchShiftUnit = PitchUnit(state)
+//        timeStretchUnit = TimeUnit(state)
 //        reverbUnit = ReverbUnit(state)
 //        delayUnit = DelayUnit(state)
 //        filterUnit = FilterUnit(state)
 //        
-//        let slaveUnits = [eqUnit, pitchUnit, timeUnit, reverbUnit, delayUnit, filterUnit]
+//        let slaveUnits = [eqUnit, pitchShiftUnit, timeStretchUnit, reverbUnit, delayUnit, filterUnit]
 //        masterUnit = MasterUnit(state, slaveUnits)
 //        
 //        state.soundProfiles.forEach {
@@ -122,8 +122,8 @@
 //        
 //        state.masterUnit = masterUnit.persistentState
 //        state.eqUnit = eqUnit.persistentState
-//        state.pitchUnit = pitchUnit.persistentState
-//        state.timeUnit = timeUnit.persistentState
+//        state.pitchShiftUnit = pitchShiftUnit.persistentState
+//        state.timeStretchUnit = timeStretchUnit.persistentState
 //        state.reverbUnit = reverbUnit.persistentState
 //        state.delayUnit = delayUnit.persistentState
 //        state.filterUnit = filterUnit.persistentState

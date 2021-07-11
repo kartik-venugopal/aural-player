@@ -44,8 +44,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var masterUnit: MasterUnitDelegateProtocol
     var eqUnit: EQUnitDelegateProtocol
-    var pitchUnit: PitchShiftUnitDelegateProtocol
-    var timeUnit: TimeStretchUnitDelegateProtocol
+    var pitchShiftUnit: PitchShiftUnitDelegateProtocol
+    var timeStretchUnit: TimeStretchUnitDelegateProtocol
     var reverbUnit: ReverbUnitDelegateProtocol
     var delayUnit: DelayUnitDelegateProtocol
     var filterUnit: FilterUnitDelegateProtocol
@@ -68,8 +68,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
         
         masterUnit = MasterUnitDelegate(graph.masterUnit)
         eqUnit = EQUnitDelegate(graph.eqUnit, preferences)
-        pitchUnit = PitchShiftUnitDelegate(graph.pitchUnit, preferences)
-        timeUnit = TimeUnitDelegate(graph.timeUnit, preferences)
+        pitchShiftUnit = PitchShiftUnitDelegate(graph.pitchShiftUnit, preferences)
+        timeStretchUnit = TimeStretchUnitDelegate(graph.timeStretchUnit, preferences)
         reverbUnit = ReverbUnitDelegate(graph.reverbUnit)
         delayUnit = DelayUnitDelegate(graph.delayUnit)
         filterUnit = FilterUnitDelegate(graph.filterUnit)

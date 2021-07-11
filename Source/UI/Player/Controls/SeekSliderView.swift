@@ -30,7 +30,7 @@ class SeekSliderView: NSView {
     var seekTimer: RepeatingTaskExecutor?
     
     // Delegate representing the Time effects unit
-    let timeUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeUnit
+    let timeStretchUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeStretchUnit
     
     // Delegate that conveys all playback requests to the player / playback sequencer
     let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
@@ -57,7 +57,7 @@ class SeekSliderView: NSView {
     
     func initSeekTimer() {
         
-        let seekTimerInterval = (1000 / (2 * timeUnit.effectiveRate)).roundedInt
+        let seekTimerInterval = (1000 / (2 * timeStretchUnit.effectiveRate)).roundedInt
         
         seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
             self?.updateSeekPosition()

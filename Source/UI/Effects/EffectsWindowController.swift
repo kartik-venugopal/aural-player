@@ -23,8 +23,8 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     
     private let masterViewController: MasterViewController = MasterViewController()
     private let eqViewController: EQViewController = EQViewController()
-    private let pitchViewController: PitchViewController = PitchViewController()
-    private let timeViewController: TimeViewController = TimeViewController()
+    private let pitchViewController: PitchShiftViewController = PitchShiftViewController()
+    private let timeViewController: TimeStretchViewController = TimeStretchViewController()
     private let reverbViewController: ReverbViewController = ReverbViewController()
     private let delayViewController: DelayViewController = DelayViewController()
     private let filterViewController: FilterViewController = FilterViewController()
@@ -88,8 +88,8 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         
         masterTabViewButton.stateFunction = graph.masterUnit.stateFunction
         eqTabViewButton.stateFunction = graph.eqUnit.stateFunction
-        pitchTabViewButton.stateFunction = graph.pitchUnit.stateFunction
-        timeTabViewButton.stateFunction = graph.timeUnit.stateFunction
+        pitchTabViewButton.stateFunction = graph.pitchShiftUnit.stateFunction
+        timeTabViewButton.stateFunction = graph.timeStretchUnit.stateFunction
         reverbTabViewButton.stateFunction = graph.reverbUnit.stateFunction
         delayTabViewButton.stateFunction = graph.delayUnit.stateFunction
         filterTabViewButton.stateFunction = graph.filterUnit.stateFunction
