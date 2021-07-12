@@ -557,8 +557,8 @@
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
                                     <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the Effects panel"/>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the Effects panel"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="offStateTooltip" value="Show the effects panel"/>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="onStateTooltip" value="Hide the effects panel"/>
                                         <userDefinedRuntimeAttribute type="image" keyPath="offStateImage" value="EffectsView-Off"/>
                                         <userDefinedRuntimeAttribute type="image" keyPath="onStateImage" value="EffectsView-On"/>
                                     </userDefinedRuntimeAttributes>
