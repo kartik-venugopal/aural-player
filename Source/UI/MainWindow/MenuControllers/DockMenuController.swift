@@ -59,14 +59,13 @@ class DockMenuController: NSObject, NSMenuDelegate {
         
         favoritesMenuItem.off()
         
-        messenger.subscribeAsync(to: .favoritesList_trackAdded, handler: trackAddedToFavorites(_:), queue: .main)
-        messenger.subscribeAsync(to: .favoritesList_tracksRemoved, handler: tracksRemovedFromFavorites(_:), queue: .main)
-        messenger.subscribeAsync(to: .history_updated, handler: recreateHistoryMenus, queue: .main)
+        messenger.subscribeAsync(to: .favoritesList_trackAdded, handler: trackAddedToFavorites(_:))
+        messenger.subscribeAsync(to: .favoritesList_tracksRemoved, handler: tracksRemovedFromFavorites(_:))
+        messenger.subscribeAsync(to: .history_updated, handler: recreateHistoryMenus)
         
         // Subscribe to notifications
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged},
-                                 queue: .main)
+                                 filter: {msg in msg.trackChanged})
         
         recreateHistoryMenus()
         

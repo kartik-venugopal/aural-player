@@ -64,10 +64,9 @@ class PlayerViewController: NSViewController, Destroyable {
         // Only respond if the playing track was updated
         messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: playingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.playingTrack &&
-                                    msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
-                                 queue: .main)
+                                    msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)})
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
         
         messenger.subscribe(to: .player_changeView, handler: infoView.switchView(_:))
         messenger.subscribe(to: .player_showOrHideAlbumArt, handler: infoView.showOrHideAlbumArt)

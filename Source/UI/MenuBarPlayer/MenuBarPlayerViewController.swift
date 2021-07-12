@@ -56,10 +56,10 @@ class MenuBarPlayerViewController: NSViewController, Destroyable {
 
         // MARK: Notification subscriptions
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
-        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:))
         messenger.subscribe(to: .player_chapterChanged, handler: chapterChanged(_:))
-        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:))
     }
     
     func destroy() {

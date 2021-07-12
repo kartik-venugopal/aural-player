@@ -105,9 +105,9 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
         
         // MARK: Notification subscriptions
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
-        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:), queue: .main)
-        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:))
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:))
         
         messenger.subscribe(to: .favoritesList_addOrRemove, handler: addOrRemoveFavorite)
         

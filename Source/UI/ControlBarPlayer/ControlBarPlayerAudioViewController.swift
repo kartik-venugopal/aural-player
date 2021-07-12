@@ -24,8 +24,7 @@ class ControlBarPlayerAudioViewController: PlayerAudioViewController {
     override func initSubscriptions() {
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged},
-                                 queue: .main)
+                                 filter: {msg in msg.trackChanged})
         
         messenger.subscribe(to: .player_muteOrUnmute, handler: muteOrUnmute)
         messenger.subscribe(to: .player_decreaseVolume, handler: decreaseVolume(_:))

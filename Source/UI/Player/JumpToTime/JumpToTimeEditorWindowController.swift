@@ -67,8 +67,7 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate,
         percentageFormatter.maxValue = 100
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
-                                 filter: {[weak self] msg in self?.window?.isVisible ?? false},
-                                 queue: .main)
+                                 filter: {[weak self] msg in self?.window?.isVisible ?? false})
         
         WindowManager.instance.registerModalComponent(self)
     }

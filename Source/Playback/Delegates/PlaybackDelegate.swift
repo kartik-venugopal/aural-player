@@ -61,11 +61,11 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         
         // Subscribe to notifications
         messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
-        messenger.subscribeAsync(to: .player_trackPlaybackCompleted, handler: trackPlaybackCompleted(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackPlaybackCompleted, handler: trackPlaybackCompleted(_:))
         messenger.subscribe(to: .sequencer_playingTrackRemoved, handler: doStop(_:))
 
         // Commands
-        messenger.subscribeAsync(to: .player_autoplay, handler: autoplay(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_autoplay, handler: autoplay(_:))
         messenger.subscribe(to: .player_savePlaybackProfile, handler: savePlaybackProfile)
         messenger.subscribe(to: .player_deletePlaybackProfile, handler: deletePlaybackProfile)
     }

@@ -33,6 +33,8 @@ class Messenger {
     
     private unowned var client: AnyObject!
     
+    private let asyncNotificationQueue: DispatchQueue
+    
     //
     // A map that keeps track of all subscriptions.
     // This is needed to be able to allow the client to unsubscribe from notifications.
@@ -43,8 +45,14 @@ class Messenger {
     ///
     /// The client is any object that subscribes to, and/or publishes, notifications.
     ///
-    init(for client: AnyObject) {
+    /// - Parameter asyncNotificationQueue:     The **DispatchQueue** on which to (asynchronously)
+    ///                                         receive incoming notifications that are marked as being
+    ///                                         asynchronous, i.e. subscribed to by calling subscribeAsync().
+    ///
+    init(for client: AnyObject, asyncNotificationQueue: DispatchQueue = .main) {
+        
         self.client = client
+        self.asyncNotificationQueue = asyncNotificationQueue
     }
     
     ///
@@ -66,16 +74,15 @@ class Messenger {
     ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
-    /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
-    ///
-    func subscribe<P: Any>(to notifName: Notification.Name, handler: @escaping PayloadMessageHandler<P>,
-                             filter: PayloadMessageFilter<P>? = nil, opQueue: OperationQueue? = nil) {
+    func subscribe<P: Any>(to notifName: Notification.Name,
+                           handler: @escaping PayloadMessageHandler<P>,
+                           filter: PayloadMessageFilter<P>? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
         // the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: {notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: {notif in
             
             if let payload = notif.payload as? P {
                 
@@ -121,16 +128,15 @@ class Messenger {
     /// - Parameter filter:         A  function that, given the payload object, decides whether or not the handler should be invoked
     ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///
-    /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
-    ///
-    func subscribe<P: Any>(to notifName: Notification.Name, handler: @escaping MessageHandler,
-                             filter: @escaping PayloadMessageFilter<P>, opQueue: OperationQueue? = nil) {
+    func subscribe<P: Any>(to notifName: Notification.Name,
+                           handler: @escaping MessageHandler,
+                           filter: @escaping PayloadMessageFilter<P>) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
         // the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: {notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: {notif in
             
             if let payload = notif.payload as? P {
                 
@@ -170,15 +176,14 @@ class Messenger {
     ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
-    /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
-    ///
-    func subscribe(to notifName: Notification.Name, handler: @escaping MessageHandler,
-                   filter: MessageFilter? = nil, opQueue: OperationQueue? = nil) {
+    func subscribe(to notifName: Notification.Name,
+                   handler: @escaping MessageHandler,
+                   filter: MessageFilter? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: {notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: {notif in
             
             if filter?() ?? true {
                 handler()
@@ -204,10 +209,9 @@ class Messenger {
     ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
-    /// - Parameter opQueue:        A DispatchQueue on which to (asynchronously) receive the incoming notifications.
-    ///
-    func subscribeAsync<P: Any>(to notifName: Notification.Name, handler: @escaping PayloadMessageHandler<P>,
-                                  filter: PayloadMessageFilter<P>? = nil, queue: DispatchQueue) {
+    func subscribeAsync<P: Any>(to notifName: Notification.Name,
+                                handler: @escaping PayloadMessageHandler<P>,
+                                filter: PayloadMessageFilter<P>? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
@@ -216,7 +220,7 @@ class Messenger {
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: {notif in
             
             // Dispatch the notification asynchronously on the specified queue.
-            queue.async {
+            self.asyncNotificationQueue.async {
             
                 if let payload = notif.payload as? P {
                     
@@ -258,10 +262,11 @@ class Messenger {
     ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
-    /// - Parameter opQueue:        A DispatchQueue on which to (asynchronously) receive the incoming notifications.
+    /// - Parameter queue:          The DispatchQueue on which to (asynchronously) receive the incoming notifications.
     ///
-    func subscribeAsync(to notifName: Notification.Name, handler: @escaping MessageHandler,
-                        filter: MessageFilter? = nil, queue: DispatchQueue) {
+    func subscribeAsync(to notifName: Notification.Name,
+                        handler: @escaping MessageHandler,
+                        filter: MessageFilter? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.
@@ -269,7 +274,7 @@ class Messenger {
         let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: {notif in
             
             // Dispatch the notification asynchronously on the specified queue.
-            queue.async {
+            self.asyncNotificationQueue.async {
                 
                 if filter?() ?? true {
                     handler()
@@ -312,7 +317,7 @@ class Messenger {
     ///
     /// Publishes a notification with an associated payload object that conforms to the **NotificationPayload** protocol.
     ///
-    /// - Parameter payload: The payload object to be published (must conform to NotificationPayload)
+    /// - Parameter payload: The payload object to be published (must conform to **NotificationPayload**)
     ///
     func publish<P: NotificationPayload>(_ payload: P) {
         

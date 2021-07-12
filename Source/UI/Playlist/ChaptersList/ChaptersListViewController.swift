@@ -91,7 +91,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Dest
         
         messenger.subscribe(to: .player_playbackLoopChanged, handler: playbackLoopChanged)
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged, queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged)
         
         messenger.subscribe(to: .chaptersList_playSelectedChapter, handler: playSelectedChapter)
         

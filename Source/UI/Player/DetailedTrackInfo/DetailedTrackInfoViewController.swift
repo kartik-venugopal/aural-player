@@ -116,8 +116,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         // Only respond to these notifications when the popover is shown, the updated track matches the displayed track,
         // and the album art field of the track was updated.
         messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
-                                 filter: {[weak self] msg in (self?.popover.isShown ?? false) && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)},
-                                 queue: .main)
+                                 filter: {[weak self] msg in (self?.popover.isShown ?? false) && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)})
     }
     
     func destroy() {

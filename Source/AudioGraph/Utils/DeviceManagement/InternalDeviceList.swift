@@ -40,7 +40,7 @@ class InternalDeviceList {
         rebuildList()
         
         // Devices list change listener
-        systemAudioObject.registerDevicesPropertyListener({self.rebuildList()}, queue: DispatchQueue.global(qos: .utility))
+        systemAudioObject.registerDevicesPropertyListener({self.rebuildList()}, queue: .global(qos: .utility))
     }
     
     private func rebuildList() {

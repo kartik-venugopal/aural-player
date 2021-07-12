@@ -63,17 +63,16 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     
     private func initSubscriptions() {
         
-        messenger.subscribeAsync(to: .playlist_trackAdded, handler: trackAdded(_:), queue: .main)
-        messenger.subscribeAsync(to: .playlist_tracksRemoved, handler: tracksRemoved(_:), queue: .main)
-        messenger.subscribeAsync(to: .playlist_doneAddingTracks, handler: doneAddingTracks(_:), filter: {(needToRefresh: Bool) in needToRefresh}, queue: .main)
+        messenger.subscribeAsync(to: .playlist_trackAdded, handler: trackAdded(_:))
+        messenger.subscribeAsync(to: .playlist_tracksRemoved, handler: tracksRemoved(_:))
+        messenger.subscribeAsync(to: .playlist_doneAddingTracks, handler: doneAddingTracks(_:), filter: {(needToRefresh: Bool) in needToRefresh})
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
-        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:))
         
         // Don't bother responding if only album art was updated
         messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
-                                 filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
-                                 queue: .main)
+                                 filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)})
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         

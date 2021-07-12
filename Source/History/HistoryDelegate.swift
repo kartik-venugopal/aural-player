@@ -27,7 +27,7 @@ class HistoryDelegate: HistoryDelegateProtocol {
     
     let backgroundQueue: DispatchQueue = .global(qos: .background)
     
-    private lazy var messenger = Messenger(for: self)
+    private lazy var messenger = Messenger(for: self, asyncNotificationQueue: backgroundQueue)
     
     init(persistentState: HistoryPersistentState?, _ history: HistoryProtocol,
          _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
@@ -58,11 +58,10 @@ class HistoryDelegate: HistoryDelegateProtocol {
         
         messenger.publish(.history_updated)
         
-        messenger.subscribeAsync(to: .history_itemsAdded, handler: itemsAdded(_:), queue: backgroundQueue)
+        messenger.subscribeAsync(to: .history_itemsAdded, handler: itemsAdded(_:))
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackPlayed(_:),
-                                 filter: {msg in msg.playbackStarted},
-                                 queue: backgroundQueue)
+                                 filter: {msg in msg.playbackStarted})
     }
     
     func allRecentlyAddedItems() -> [AddedItem] {

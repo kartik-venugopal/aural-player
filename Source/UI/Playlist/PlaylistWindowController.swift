@@ -134,20 +134,19 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     private func initSubscriptions() {
         
-        messenger.subscribeAsync(to: .playlist_startedAddingTracks, handler: startedAddingTracks, queue: .main)
-        messenger.subscribeAsync(to: .playlist_doneAddingTracks, handler: doneAddingTracks, queue: .main)
+        messenger.subscribeAsync(to: .playlist_startedAddingTracks, handler: startedAddingTracks)
+        messenger.subscribeAsync(to: .playlist_doneAddingTracks, handler: doneAddingTracks)
         
-        messenger.subscribeAsync(to: .playlist_trackAdded, handler: trackAdded(_:), queue: .main)
-        messenger.subscribeAsync(to: .playlist_tracksRemoved, handler: tracksRemoved, queue: .main)
-        messenger.subscribeAsync(to: .playlist_tracksNotAdded, handler: tracksNotAdded(_:), queue: .main)
+        messenger.subscribeAsync(to: .playlist_trackAdded, handler: trackAdded(_:))
+        messenger.subscribeAsync(to: .playlist_tracksRemoved, handler: tracksRemoved)
+        messenger.subscribeAsync(to: .playlist_tracksNotAdded, handler: tracksNotAdded(_:))
         
         // Respond only if track duration has changed (affecting the summary)
         messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
-                                 filter: {msg in msg.updatedFields.contains(.duration)},
-                                 queue: .main)
+                                 filter: {msg in msg.updatedFields.contains(.duration)})
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged, queue: .main)
-        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackChanged, queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged)
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackChanged)
         
         messenger.subscribe(to: .playlist_viewChanged, handler: playlistTypeChanged)
         

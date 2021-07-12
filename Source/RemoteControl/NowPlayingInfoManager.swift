@@ -65,14 +65,14 @@ class NowPlayingInfoManager: NSObject {
         // Subscribe to notifications about changes in the player's state, so that the Now Playing Info Center can be
         // updated in response to any of those changes.
         //
-        messenger.subscribeAsync(to: .player_preTrackChange, handler: handlePreTrackChange, queue: .main)
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged, queue: .main)
-        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:), queue: .main)
-        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackChanged, queue: .main)
-        messenger.subscribeAsync(to: .player_playbackStateChanged, handler: playbackStateChanged, queue: .main)
-        messenger.subscribeAsync(to: .player_seekPerformed, handler: seekPerformed, queue: .main)
-        messenger.subscribeAsync(to: .player_loopRestarted, handler: seekPerformed, queue: .main)
-        messenger.subscribeAsync(to: .effects_playbackRateChanged, handler: playbackRateChanged(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_preTrackChange, handler: handlePreTrackChange)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged)
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:))
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackChanged)
+        messenger.subscribeAsync(to: .player_playbackStateChanged, handler: playbackStateChanged)
+        messenger.subscribeAsync(to: .player_seekPerformed, handler: seekPerformed)
+        messenger.subscribeAsync(to: .player_loopRestarted, handler: seekPerformed)
+        messenger.subscribeAsync(to: .effects_playbackRateChanged, handler: playbackRateChanged(_:))
         
         activated = true
     }

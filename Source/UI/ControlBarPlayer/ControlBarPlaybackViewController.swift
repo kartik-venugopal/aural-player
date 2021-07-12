@@ -26,7 +26,7 @@ class ControlBarPlaybackViewController: PlaybackViewController {
         messenger.subscribe(to: .player_seekForward, handler: seekForward(_:))
         messenger.subscribe(to: .player_jumpToTime, handler: jumpToTime(_:))
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .player_trackNotPlayed, handler: trackNotPlayed(_:))
         
         messenger.subscribe(to: .effects_playbackRateChanged, handler: playbackRateChanged(_:))

@@ -15,7 +15,7 @@ class WindowedModePlaybackViewController: PlaybackViewController {
         
         // MARK: Notifications --------------------------------------------------------------
         
-        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:))
         messenger.subscribe(to: .player_trackNotPlayed, handler: trackNotPlayed(_:))
         
         messenger.subscribe(to: .effects_playbackRateChanged, handler: playbackRateChanged(_:))

@@ -69,8 +69,7 @@ class MasterViewController: EffectsUnitViewController {
         super.initSubscriptions()
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged(_:),
-                                 filter: {msg in msg.trackChanged},
-                                 queue: .main)
+                                 filter: {msg in msg.trackChanged})
         
         messenger.subscribe(to: .masterEffectsUnit_toggleEffects, handler: toggleEffects)
         messenger.subscribe(to: .auEffectsUnit_audioUnitsAddedOrRemoved, handler: refreshAUTable)

@@ -75,9 +75,8 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
         messenger.subscribe(to: .favoritesList_tracksRemoved, handler: tracksRemovedFromFavorites(_:))
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
-                                 filter: {msg in msg.trackChanged},
-                                 queue: .main)
-        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: noTrackPlaying, queue: .main)
+                                 filter: {msg in msg.trackChanged})
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: noTrackPlaying)
         
         messenger.subscribe(to: .player_moreInfo, handler: moreInfo)
         messenger.subscribe(to: .favoritesList_addOrRemove, handler: addOrRemoveFavorite)
