@@ -130,6 +130,63 @@ class Messenger {
     }
     
     ///
+    /// Subscribes a subscriber to synchronous notifications with the given notification name and an associated payload object,
+    /// specifying a notification handler, a filtering function to reject unwanted notifications, and an optional OperationQueue on
+    /// which to receive the notifications.
+    ///
+    /// This function can be used when the subscriber needs the payload only for filtering purposes and not for message handling.
+    ///
+    /// - Warning:                  The incoming notification must have a payload object matching the type of the inferred generic type P;
+    ///                             Otherwise, the notification handler will not be invoked.
+    ///
+    /// - Parameter P:              The (arbitrary) type of the payload object associated with the notification.
+    ///
+    /// - Parameter subscriber:     The subscriber that is subscribing to notifications.
+    ///
+    /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
+    ///
+    /// - Parameter msgHandler:     The function that will handle receipt of notifications, with no parameters.
+    ///
+    /// - Parameter filter:         A  function that, given the payload object, decides whether or not the handler should be invoked
+    ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
+    ///
+    /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
+    ///
+    static func subscribe<P>(_ subscriber: NotificationSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
+                             filter: @escaping ((P) -> Bool), opQueue: OperationQueue? = nil) where P: Any {
+        
+        // Wrap the provided handler function in a block that receives a Notification.
+        // Extract the payload from the Notification, type-check it, and pass it onto
+        // the handler, if the optionally provided filter allows it.
+        
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: { notif in
+            
+            if let payload = notif.payload as? P {
+                
+                if filter(payload) {
+                    msgHandler()
+                }
+                
+            } else {
+                
+                if let payload = notif.payload {
+                    
+                    // Payload is non-nil, type mismatch
+                
+                    NSLog("Warning: Unable to deliver notification '%@' because of a payload type mismatch. Expected type: %@, but found type: %@", notifName.rawValue, String(describing: Mirror(reflecting: P.self).subjectType), String(describing: Mirror(reflecting: payload).subjectType))
+                    
+                } else {
+                    
+                    // No payload provided
+                    NSLog("Warning: Unable to deliver notification '%@' because a payload of type %@ was expected but no payload was published.", notifName.rawValue, String(describing: Mirror(reflecting: P.self).subjectType))
+                }
+            }
+        })
+        
+        registerSubscription(subscriber.subscriberId, notifName, observer)
+    }
+    
+    ///
     /// Subscribes a subscriber to synchronous notifications with the given notification name and no associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.

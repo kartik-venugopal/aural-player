@@ -75,37 +75,37 @@ class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, 
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
+        let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.contains(PlaylistViewSelector.selector(forView: self.playlistType))}
+        
         Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:),
-                            filter: {cmd in cmd.viewSelector.includes(self.playlistType)})
+                            filter: {cmd in viewSelectionFilter(cmd.viewSelector)})
         
-        let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(self.playlistType)}
+        Messenger.subscribe(self, .playlist_refresh, self.refresh, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_removeTracks, self.removeTracks, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_removeTracks, {(PlaylistViewSelector) in self.removeTracks()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksUp, self.moveTracksUp, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksDown, self.moveTracksDown, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksToTop, self.moveTracksToTop, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_moveTracksToBottom, self.moveTracksToBottom, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_moveTracksUp, {(PlaylistViewSelector) in self.moveTracksUp()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_moveTracksDown, {(PlaylistViewSelector) in self.moveTracksDown()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_moveTracksToTop, {(PlaylistViewSelector) in self.moveTracksToTop()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_moveTracksToBottom, {(PlaylistViewSelector) in self.moveTracksToBottom()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_clearSelection, self.clearSelection, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_invertSelection, self.invertSelection, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_cropSelection, self.cropSelection, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_clearSelection, {(PlaylistViewSelector) in self.clearSelection()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_invertSelection, {(PlaylistViewSelector) in self.invertSelection()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_cropSelection, {(PlaylistViewSelector) in self.cropSelection()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_scrollToTop, self.scrollToTop, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_scrollToBottom, self.scrollToBottom, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_pageUp, self.pageUp, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_pageDown, self.pageDown, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_scrollToTop, {(PlaylistViewSelector) in self.scrollToTop()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_scrollToBottom, {(PlaylistViewSelector) in self.scrollToBottom()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_pageUp, {(PlaylistViewSelector) in self.pageUp()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_pageDown, {(PlaylistViewSelector) in self.pageDown()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_expandSelectedGroups, self.expandSelectedGroups, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_collapseSelectedItems, self.collapseSelectedItems, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_expandAllGroups, self.expandAllGroups, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_collapseAllGroups, self.collapseAllGroups, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_expandSelectedGroups, {(PlaylistViewSelector) in self.expandSelectedGroups()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_collapseSelectedItems, {(PlaylistViewSelector) in self.collapseSelectedItems()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_expandAllGroups, {(PlaylistViewSelector) in self.expandAllGroups()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_collapseAllGroups, {(PlaylistViewSelector) in self.collapseAllGroups()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_showPlayingTrack, self.showPlayingTrack, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_showTrackInFinder, self.showTrackInFinder, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_showPlayingTrack, {(PlaylistViewSelector) in self.showPlayingTrack()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_showTrackInFinder, {(PlaylistViewSelector) in self.showTrackInFinder()}, filter: viewSelectionFilter)
-        
-        Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedItem()}, filter: viewSelectionFilter)
+        Messenger.subscribe(self, .playlist_playSelectedItem, self.playSelectedItem, filter: viewSelectionFilter)
         
         Messenger.subscribe(self, .applyTheme, self.applyTheme)
         Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
