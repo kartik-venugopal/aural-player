@@ -11,30 +11,30 @@ import Foundation
 
 // Helps in filtering command notifications sent to playlist views, i.e. "selects" a playlist view
 // as the intended recipient of a command notification.
-struct PlaylistViewSelector {
+struct PlaylistViewSelector: OptionSet {
     
-    // TODO: Make this an OptionSet
+    let rawValue: Int
     
-    // A specific playlist view, if any, that should be exclusively selected.
-    // nil value means all playlist views are selected.
-    let specificView: PlaylistType?
-    
-    private init(_ specificView: PlaylistType? = nil) {
-        self.specificView = specificView
-    }
-    
-    // Whether or not a given playlist view is included in the selection specified by this object.
-    // If a specific view was specified when creating this object, this method will return true
-    // only for that playlist view. Otherwise, it will return true for all playlist views.
-    func includes(_ view: PlaylistType) -> Bool {
-        return specificView == nil || specificView == view
-    }
+    static let tracks = PlaylistViewSelector(rawValue: 1 << 0)
+    static let artists = PlaylistViewSelector(rawValue: 1 << 1)
+    static let albums = PlaylistViewSelector(rawValue: 1 << 2)
+    static let genres = PlaylistViewSelector(rawValue: 1 << 3)
     
     // A selector instance that specifies a selection of all playlist views.
-    static let allViews: PlaylistViewSelector = PlaylistViewSelector()
+    static let all: PlaylistViewSelector = [tracks, artists, albums, genres]
     
-    // Factory method that creates a selector for a specific playlist view.
-    static func forView(_ view: PlaylistType) -> PlaylistViewSelector {
-        return PlaylistViewSelector(view)
+    static func selector(forView view: PlaylistType) -> PlaylistViewSelector {
+        
+        switch view {
+        
+        case .tracks:   return .tracks
+            
+        case .artists:  return .artists
+            
+        case .albums:   return .albums
+            
+        case .genres:   return .genres
+            
+        }
     }
 }

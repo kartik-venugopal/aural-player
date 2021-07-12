@@ -15,6 +15,21 @@ class PlaylistViewState {
     // The current playlist view type displayed within the playlist tab group
     static var currentView: PlaylistType = .tracks
     
+    static var currentViewSelector: PlaylistViewSelector {
+        
+        switch currentView {
+        
+        case .tracks:   return .tracks
+            
+        case .artists:  return .artists
+            
+        case .albums:   return .albums
+            
+        case .genres:   return .genres
+            
+        }
+    }
+    
     static func initialize(_ persistentState: PlaylistUIPersistentState?) {
         
         if let viewString = persistentState?.view?.lowercased(), let view = PlaylistType(rawValue: viewString) {

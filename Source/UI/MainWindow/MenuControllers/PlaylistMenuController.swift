@@ -137,7 +137,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func removeSelectedItemsAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_removeTracks, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+            Messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -158,7 +158,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsUpAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -166,7 +166,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToTopAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+            Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -174,7 +174,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsDownAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -182,7 +182,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToBottomAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+            Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -206,56 +206,56 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             Messenger.publish(.chaptersList_playSelectedChapter)
             
         } else {
-            Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+            Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
     @IBAction func clearSelectionAction(_ sender: Any) {
-        Messenger.publish(.playlist_clearSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_clearSelection, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func invertSelectionAction(_ sender: Any) {
-        Messenger.publish(.playlist_invertSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_invertSelection, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func cropSelectionAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_cropSelection, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+            Messenger.publish(.playlist_cropSelection, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
     @IBAction func expandSelectedGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func collapseSelectedItemsAction(_ sender: Any) {
-        Messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func expandAllGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func collapseAllGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewState.currentViewSelector)
     }
     
     // Scrolls the current playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: Any) {
-        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewState.currentViewSelector)
     }
     
     // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: Any) {
-        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func pageUpAction(_ sender: Any) {
-        Messenger.publish(.playlist_pageUp, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_pageUp, payload: PlaylistViewState.currentViewSelector)
     }
     @IBAction func pageDownAction(_ sender: Any) {
-        Messenger.publish(.playlist_pageDown, payload: PlaylistViewSelector.forView(PlaylistViewState.currentView))
+        Messenger.publish(.playlist_pageDown, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func previousPlaylistViewAction(_ sender: Any) {

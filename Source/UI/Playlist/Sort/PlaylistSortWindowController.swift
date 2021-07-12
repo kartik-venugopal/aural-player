@@ -76,7 +76,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         playlist.sort(displayedSortView.sortOptions, displayedSortView.playlistType)
         
         // Notify playlist views
-        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.forView(displayedSortView.playlistType))
+        Messenger.publish(.playlist_refresh,
+                          payload: PlaylistViewSelector.selector(forView: displayedSortView.playlistType))
         
         modalDialogResponse = .ok
         theWindow.close()

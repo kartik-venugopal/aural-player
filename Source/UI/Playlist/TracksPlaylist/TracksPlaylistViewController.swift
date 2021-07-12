@@ -72,9 +72,9 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
         Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:),
-                            filter: {cmd in cmd.viewSelector.includes(.tracks)})
+                            filter: {cmd in cmd.viewSelector.contains(.tracks)})
         
-        let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.includes(.tracks)}
+        let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.contains(.tracks)}
         
         Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
         Messenger.subscribe(self, .playlist_removeTracks, {(PlaylistViewSelector) in self.removeTracks()}, filter: viewSelectionFilter)

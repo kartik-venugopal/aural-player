@@ -121,7 +121,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
         
         // Selects a track within the playlist view, to show the user where the track is located within the playlist
         Messenger.publish(SelectSearchResultCommandNotification(searchResult: searchResult,
-                                                                viewSelector: PlaylistViewSelector.forView(PlaylistViewState.currentView)))
+                                                                viewSelector: PlaylistViewState.currentViewSelector))
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {
