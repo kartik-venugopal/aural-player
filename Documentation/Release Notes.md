@@ -16,6 +16,8 @@ The changes are completely backward compatible, so app state persisted by previo
 
 * **Crash** - When in control bar mode, if the user performed a gesture with the app in focus, the app would crash. This bug has been fixed.
 
+* **Filter slider knobs** - Sometimes, the filter effects unit's slider knobs would be displayed in the wrong color.  This bug has been fixed.
+
 ### Unit testing
 
 * Restored some unit tests that were previously decommisioned.
