@@ -13,7 +13,7 @@ import Cocoa
     View controller for playback sequencing controls (repeat/shuffle).
     Also handles sequencing requests from app menus.
  */
-class PlayerSequencingViewController: NSViewController, NotificationSubscriber, Destroyable {
+class PlayerSequencingViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var btnShuffle: MultiStateImageButton!
     @IBOutlet weak var btnRepeat: MultiStateImageButton!

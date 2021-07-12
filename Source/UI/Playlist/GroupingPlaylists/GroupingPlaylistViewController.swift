@@ -12,7 +12,7 @@ import Cocoa
 /*
     Base view controller for the hierarchical/grouping ("Artists", "Albums", and "Genres") playlist views
  */
-class GroupingPlaylistViewController: NSViewController, NotificationSubscriber, Destroyable {
+class GroupingPlaylistViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var scrollView: NSScrollView!
     @IBOutlet weak var clipView: NSClipView!

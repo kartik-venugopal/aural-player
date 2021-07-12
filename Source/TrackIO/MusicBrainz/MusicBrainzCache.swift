@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class MusicBrainzCache: NotificationSubscriber, PersistentModelObject {
+class MusicBrainzCache: PersistentModelObject {
     
     let preferences: MusicBrainzPreferences
     

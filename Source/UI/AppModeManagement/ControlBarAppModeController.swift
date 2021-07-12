@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class ControlBarAppModeController: NSObject, AppModeController, NSMenuDelegate, NotificationSubscriber {
+class ControlBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 
     var mode: AppMode {.controlBar}
 

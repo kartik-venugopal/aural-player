@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, NotificationSubscriber, Destroyable {
+class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputReceiver, Destroyable {
     
     @IBOutlet weak var btnBypass: EffectsUnitTriStateBypassButton!
     

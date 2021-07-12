@@ -51,7 +51,6 @@
 		3E1267742693826000B4DBA5 /* NSRectPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1267732693826000B4DBA5 /* NSRectPersistentState.swift */; };
 		3E1267772693829D00B4DBA5 /* NSPointPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1267762693829D00B4DBA5 /* NSPointPersistentState.swift */; };
 		3E12677A269382D300B4DBA5 /* NSSizePersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E126779269382D300B4DBA5 /* NSSizePersistentState.swift */; };
-		3E1454F32680B5000034056E /* NotificationSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F22680B5000034056E /* NotificationSubscriber.swift */; };
 		3E1454F92680F9C50034056E /* MediaKeysControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F82680F9C50034056E /* MediaKeysControlsPreferences.swift */; };
 		3E1454FB2680F9DF0034056E /* GesturesControlsPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */; };
 		3E1454FD2680FA0D0034056E /* RemoteControlPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */; };
@@ -712,11 +711,9 @@
 		3E9E591025DB6B150064EB5F /* WindowedAppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */; };
 		3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102825E2725900A80DAC /* FontSchemeHistory.swift */; };
 		3EA0102D25E28C4C00A80DAC /* FontSchemeChangeContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0102C25E28C4C00A80DAC /* FontSchemeChangeContext.swift */; };
-		3EA1BDDE268F4F5000A5D81B /* NotificationSubscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1454F22680B5000034056E /* NotificationSubscriber.swift */; };
 		3EA1BDE0268F4F5900A5D81B /* Messenger_UnsubscribeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E902605268E830900C5A1C5 /* Messenger_UnsubscribeTests.swift */; };
 		3EA1BDE2268F4F6500A5D81B /* Messenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C109125CEB98700BF0D07 /* Messenger.swift */; };
 		3EA1BDE5268F4FAE00A5D81B /* NotificationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA1BDE4268F4FAE00A5D81B /* NotificationPayload.swift */; };
-		3EA1BDE8268F4FEE00A5D81B /* NotificationPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA1BDE4268F4FAE00A5D81B /* NotificationPayload.swift */; };
 		3EA1BDEB268F507600A5D81B /* Messenger_SynchronousNotificationsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E902606268E830900C5A1C5 /* Messenger_SynchronousNotificationsTests.swift */; };
 		3EA1BDED268F507D00A5D81B /* Messenger_SynchronousNotifications_ArbitraryPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E902608268E830900C5A1C5 /* Messenger_SynchronousNotifications_ArbitraryPayloadTests.swift */; };
 		3EA1BDEF268F507D00A5D81B /* NotificationSubscriberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E90260A268E830900C5A1C5 /* NotificationSubscriberTests.swift */; };
@@ -1184,7 +1181,6 @@
 		3E1267732693826000B4DBA5 /* NSRectPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRectPersistentState.swift; sourceTree = "<group>"; };
 		3E1267762693829D00B4DBA5 /* NSPointPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPointPersistentState.swift; sourceTree = "<group>"; };
 		3E126779269382D300B4DBA5 /* NSSizePersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSizePersistentState.swift; sourceTree = "<group>"; };
-		3E1454F22680B5000034056E /* NotificationSubscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubscriber.swift; sourceTree = "<group>"; };
 		3E1454F82680F9C50034056E /* MediaKeysControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaKeysControlsPreferences.swift; sourceTree = "<group>"; };
 		3E1454FA2680F9DF0034056E /* GesturesControlsPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesControlsPreferences.swift; sourceTree = "<group>"; };
 		3E1454FC2680FA0D0034056E /* RemoteControlPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlPreferences.swift; sourceTree = "<group>"; };
@@ -3476,11 +3472,9 @@
 		3E6C109025CEB98600BF0D07 /* Messaging */ = {
 			isa = PBXGroup;
 			children = (
+				3E6C109125CEB98700BF0D07 /* Messenger.swift */,
 				3E8C792A269C4207005E78D1 /* NotificationNames */,
 				3E8C78F7269C3EA1005E78D1 /* NotificationDefinitions */,
-				3E6C109125CEB98700BF0D07 /* Messenger.swift */,
-				3E1454F22680B5000034056E /* NotificationSubscriber.swift */,
-				3EA1BDE4268F4FAE00A5D81B /* NotificationPayload.swift */,
 			);
 			path = Messaging;
 			sourceTree = "<group>";
@@ -3834,6 +3828,7 @@
 		3E8C78F7269C3EA1005E78D1 /* NotificationDefinitions */ = {
 			isa = PBXGroup;
 			children = (
+				3EA1BDE4268F4FAE00A5D81B /* NotificationPayload.swift */,
 				3E8C78F8269C3EB8005E78D1 /* TrackTransitionNotification.swift */,
 				3E8C78FB269C3EED005E78D1 /* PreTrackPlaybackNotification.swift */,
 				3E8C78FE269C3F04005E78D1 /* ChapterChangedNotification.swift */,
@@ -5338,7 +5333,6 @@
 				3E36340A26863C63006A88ED /* ParametricEQ.swift in Sources */,
 				3E8C7927269C41D7005E78D1 /* ShowAudioUnitEditorCommandNotification.swift in Sources */,
 				3E6C12F825CEBE8F00BF0D07 /* DetailedTrackInfoRowView.swift in Sources */,
-				3E1454F32680B5000034056E /* NotificationSubscriber.swift in Sources */,
 				3E09D0C826805C19008ECB8C /* PlaylistPersistentState.swift in Sources */,
 				3E6C116A25CEBD6000BF0D07 /* EQPresets.swift in Sources */,
 				3E2ED4A525DBAD8400732E79 /* FontScheme.swift in Sources */,
@@ -5596,7 +5590,6 @@
 				3ECE4BF1269613D10017DD25 /* GesturesControlsPreferencesTests.swift in Sources */,
 				3EE4B856268FA459006BDEB2 /* FilterPresets.swift in Sources */,
 				3E5ECA46268F4CB8000AE8B7 /* GroupingPlaylistTests.swift in Sources */,
-				3EA1BDDE268F4F5000A5D81B /* NotificationSubscriber.swift in Sources */,
 				3EABDDF32694C4B5008066E8 /* ControlBarPlayerUIPersistentState.swift in Sources */,
 				3EA1BDED268F507D00A5D81B /* Messenger_SynchronousNotifications_ArbitraryPayloadTests.swift in Sources */,
 				3EF28DA32694DD56005D5B43 /* EffectsFontScheme.swift in Sources */,
@@ -5774,7 +5767,6 @@
 				3EF28DA52694DD72005D5B43 /* FontSchemePreset.swift in Sources */,
 				3ED5A153269979BC007E5343 /* MasterUnit.swift in Sources */,
 				3ED5A149269978A1007E5343 /* AudioDevice.swift in Sources */,
-				3EA1BDE8268F4FEE00A5D81B /* NotificationPayload.swift in Sources */,
 				3E21ECB3268F498A00731E4C /* PlaylistItem.swift in Sources */,
 				3EE4B85D268FBD7C006BDEB2 /* PlaybackPreferencesTests.swift in Sources */,
 				3EE4B854268FA44D006BDEB2 /* FilterUnitPersistentState.swift in Sources */,

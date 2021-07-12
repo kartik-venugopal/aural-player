@@ -26,7 +26,7 @@ fileprivate typealias TrackProducer = () -> Track?
 ///
 /// - SeeAlso: `Player`
 ///
-class PlaybackDelegate: PlaybackDelegateProtocol, NotificationSubscriber {
+class PlaybackDelegate: PlaybackDelegateProtocol {
     
     // The actual player
     let player: PlayerProtocol

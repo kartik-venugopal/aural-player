@@ -12,7 +12,7 @@ import Cocoa
 /*
     Window controller for the main application window.
  */
-class MainWindowController: NSWindowController, NotificationSubscriber, Destroyable {
+class MainWindowController: NSWindowController, Destroyable {
     
     @IBOutlet weak var logoImage: TintedImageView!
     

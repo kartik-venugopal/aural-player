@@ -13,7 +13,7 @@ import AVFoundation
 /*
     View controller for the Audio Units view.
  */
-class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSubscriber, Destroyable {
+class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     
     override var nibName: String? {"AudioUnits"}
     

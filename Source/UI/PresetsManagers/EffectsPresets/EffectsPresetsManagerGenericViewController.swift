@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, NotificationSubscriber, Destroyable {
+class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate, NSTextFieldDelegate, Destroyable {
     
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var previewBox: NSBox!

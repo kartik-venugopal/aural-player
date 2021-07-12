@@ -22,7 +22,7 @@ import Cocoa
  
         - Functions toolbar (detailed track info / favorite / bookmark, etc)
  */
-class PlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
+class PlayerViewController: NSViewController, Destroyable {
 
     @IBOutlet weak var playbackViewController: PlaybackViewController!
     @IBOutlet weak var playerSequencingViewController: PlayerSequencingViewController!

@@ -11,12 +11,7 @@ import Cocoa
 
 class ControlBarPlayerViewState {
     
-    static var windowFrame: NSRect? {
-        
-        didSet {
-            NSLog("DidSet windowFrame to: \(windowFrame)")
-        }
-    }
+    static var windowFrame: NSRect?
     
     static let defaultCornerRadius: CGFloat = 3
     static var cornerRadius: CGFloat = defaultCornerRadius
@@ -40,7 +35,7 @@ class ControlBarPlayerViewState {
         
         var windowFrame: NSRectPersistentState? = nil
         
-        if let frame = self.windowFrame {
+        if let frame = Self.windowFrame {
             windowFrame = NSRectPersistentState(rect: frame)
         }
         

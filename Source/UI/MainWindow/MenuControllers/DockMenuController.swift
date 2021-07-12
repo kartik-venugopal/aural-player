@@ -18,7 +18,7 @@ import Cocoa
  
         - Since the dock menu runs outside the Aural Player process, it does not respond to menu delegate callbacks. For this reason, it needs to listen for model updates and be updated eagerly. It cannot be updated lazily, just in time, as the menu is about to open.
  */
-class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
+class DockMenuController: NSObject, NSMenuDelegate {
     
     // TODO: Add Bookmarks sub-menu under Favorites sub-menu
     

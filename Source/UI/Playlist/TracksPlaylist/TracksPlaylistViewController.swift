@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the flat ("Tracks") playlist view
  */
-class TracksPlaylistViewController: NSViewController, NotificationSubscriber, Destroyable {
+class TracksPlaylistViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var playlistView: NSTableView!
     @IBOutlet weak var playlistViewDelegate: TracksPlaylistViewDelegate!

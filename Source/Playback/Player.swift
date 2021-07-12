@@ -19,7 +19,7 @@ import AVFoundation
 ///
 /// - SeeAlso: `PlayerProtocol`
 ///
-class Player: PlayerProtocol, NotificationSubscriber {
+class Player: PlayerProtocol {
     
     // The underlying audio graph used to perform playback
     private let graph: PlayerGraphProtocol

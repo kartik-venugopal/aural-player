@@ -297,9 +297,8 @@ class ParserUtils {
     
     static func getImageMetadata(_ image: NSData) -> ImageMetadata? {
 
-        guard let imageSourceRef = CGImageSourceCreateWithData(image, nil), let currentProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil) else {
-            return nil
-        }
+        guard let imageSourceRef = CGImageSourceCreateWithData(image, nil),
+              let currentProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil) else {return nil}
         
         let dict = NSMutableDictionary(dictionary: currentProperties)
         

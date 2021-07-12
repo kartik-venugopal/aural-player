@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Destroyable {
+class MenuBarPlayerViewController: NSViewController, Destroyable {
 
     override var nibName: String? {"MenuBarPlayer"}
     

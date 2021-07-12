@@ -27,7 +27,7 @@ let visualizationAnalysisBufferSize: Int = 2048
 ///
 /// - SeeAlso: `AudioGraphProtocol`
 ///
-class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObject {
+class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     private let audioEngine: AudioEngine
     

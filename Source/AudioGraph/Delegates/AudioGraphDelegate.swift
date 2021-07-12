@@ -22,7 +22,7 @@ import AVFoundation
 /// - SeeAlso: `AudioGraphDelegateProtocol`
 /// - SeeAlso: `AudioGraph`
 ///
-class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
+class AudioGraphDelegate: AudioGraphDelegateProtocol {
     
     var availableDevices: AudioDeviceList {graph.availableDevices}
     

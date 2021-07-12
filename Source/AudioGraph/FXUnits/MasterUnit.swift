@@ -19,7 +19,7 @@ protocol MasterUnitProtocol: EffectsUnitProtocol {}
 /// 1. Acts as a "master on/off switch" to enable / disable all effects at once.
 /// 2. Provides a way to capture all audio effects in a single preset object that can be saved and reused.
 ///
-class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
+class MasterUnit: EffectsUnit, MasterUnitProtocol {
     
     let presets: MasterPresets
     

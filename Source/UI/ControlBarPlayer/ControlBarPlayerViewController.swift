@@ -9,7 +9,7 @@
 //  
 import Cocoa
 
-class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, NotificationSubscriber, Destroyable {
+class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroyable {
     
     @IBOutlet weak var containerBox: NSBox!
 

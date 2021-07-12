@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// A window of time within which multiple file open operations will be considered as chunks of one single operation
     private let fileOpenNotificationWindow_seconds: Double = 3
     
-    private let messenger = Messenger(for: self)
+    private lazy var messenger = Messenger(for: self)
     
     override init() {
         

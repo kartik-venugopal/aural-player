@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for the Recorder unit
  */
-class RecorderViewController: NSViewController, NotificationSubscriber, Destroyable {
+class RecorderViewController: NSViewController, Destroyable {
     
     // Recorder controls
     @IBOutlet weak var btnRecord: OnOffImageButton!

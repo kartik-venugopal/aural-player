@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate, NotificationSubscriber {
+class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 
     var mode: AppMode {.menuBar}
 

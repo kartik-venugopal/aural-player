@@ -13,7 +13,7 @@ import Cocoa
     View controller for all playback-related controls (play/pause, prev/next track, seeking, segment looping).
     Also handles playback requests from app menus.
  */
-class PlaybackViewController: NSViewController, NotificationSubscriber, Destroyable {
+class PlaybackViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var playbackView: PlaybackView!
     

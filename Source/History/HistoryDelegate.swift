@@ -12,7 +12,7 @@ import Foundation
 /*
     Concrete implementation of HistoryDelegateProtocol
  */
-class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
+class HistoryDelegate: HistoryDelegateProtocol {
     
     // The actual underlying History model object
     private let history: HistoryProtocol

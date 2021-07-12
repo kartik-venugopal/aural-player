@@ -15,7 +15,7 @@ import Foundation
 /// It is composed of several actions that perform any required
 /// pre-processing or notifications.
 ///
-class StartPlaybackChain: PlaybackChain, NotificationSubscriber {
+class StartPlaybackChain: PlaybackChain {
 
     private let player: PlayerProtocol
     private let sequencer: SequencerProtocol

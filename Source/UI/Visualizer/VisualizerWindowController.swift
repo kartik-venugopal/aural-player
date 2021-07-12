@@ -10,7 +10,7 @@
 import Cocoa
 import AVFoundation
 
-class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverProtocol, NSWindowDelegate, NotificationSubscriber, Destroyable {
+class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGraphRenderObserverProtocol, Destroyable {
     
     override var windowNibName: String? {"Visualizer"}
     

@@ -9,7 +9,7 @@
 //
 import Foundation
 
-class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
+class PlaylistDelegate: PlaylistDelegateProtocol {
     
     // The actual playlist
     private let playlist: PlaylistCRUDProtocol

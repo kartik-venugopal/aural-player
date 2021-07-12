@@ -19,7 +19,7 @@ import Foundation
 /// - SeeAlso: `SequencerProtocol`
 /// - SeeAlso: `PlaybackSequence`
 ///
-class Sequencer: SequencerProtocol, NotificationSubscriber {
+class Sequencer: SequencerProtocol {
     
     // The underlying linear sequence of tracks for the current playback scope
     let sequence: PlaybackSequence

@@ -15,7 +15,7 @@ import MediaPlayer
 /// i.e. playback state, playback rate, track info, etc.
 ///
 @available(OSX 10.12.2, *)
-class NowPlayingInfoManager: NSObject, NotificationSubscriber {
+class NowPlayingInfoManager: NSObject {
 
     /// The underlying Now Playing Info Center.
     fileprivate let infoCenter = MPNowPlayingInfoCenter.default()

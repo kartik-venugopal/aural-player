@@ -10,29 +10,40 @@
 import Foundation
 
 /*
-    A thin wrapper around NotificationCenter that is used to dispatch notifications between app components. It does the following:
+    A thin wrapper around NotificationCenter that is used to subscribe to, and dispatch, notifications
+    between app components. It does the following:
  
         - Wraps and unwraps payload objects in and from Notification objects, so clients can deal directly with relevant payload objects.
-        - Provides a mechanism to allow clients to filter incoming notifications (and reject unwanted ones) based on any arbitrary criteria.
+        - Provides a mechanism to allow clients to filter incoming notifications (rejecting unwanted ones) based on any arbitrary criteria.
         - Allows notifications to be delivered on a desired queue either synchronously or asynchronously.
         - Provides methods that use publish/subscribe parlance.
  */
 class Messenger {
     
     // The underlying NotificationCenter that is used for actual notification delivery.
-    var notifCtr: NotificationCenter {.default}
+    private let notifCtr: NotificationCenter = .default
     
-    typealias Observer = NSObjectProtocol
+    private typealias Observer = NSObjectProtocol
     
-    private var client: Any
+    typealias MessageHandler = () -> Void
+    typealias PayloadMessageHandler<P> = (P) -> Void
+    
+    typealias MessageFilter = () -> Bool
+    typealias PayloadMessageFilter<P> = (P) -> Bool
+    
+    private unowned var client: AnyObject!
     
     //
-    // A map that keeps track of all subscriptions, structured as follows:
-    // subscriberId -> [notificationName -> observer]
-    // This is needed to be able to allow subscribers to unsubscribe.
+    // A map that keeps track of all subscriptions.
+    // This is needed to be able to allow the client to unsubscribe from notifications.
     private var subscriptions: [Notification.Name: Observer] = [:]
     
-    init(for client: Any) {
+    ///
+    /// Initializes a messenger for a given client.
+    ///
+    /// The client is any object that subscribes to, and/or publishes, notifications.
+    ///
+    init(for client: AnyObject) {
         self.client = client
     }
     
@@ -46,21 +57,19 @@ class Messenger {
     ///
     /// - Parameter P:              The (arbitrary) type of the payload object associated with the notification.
     ///
-    /// - Parameter subscriber:     The subscriber that is subscribing to notifications.
-    ///
-    /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
+    /// - Parameter notifName:      The name of the notification the client wishes to subscribe to.
     ///
     /// - Parameter handler:        The function that will handle receipt of notifications, with an arbitrary payload
     ///                             object as a parameter.
     ///
     /// - Parameter filter:         An optional function that, given the payload object, decides whether or not the handler should be invoked
-    ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
+    ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
     /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
     ///
-    func subscribe<P>(to notifName: Notification.Name, handler: @escaping (P) -> Void,
-                             filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: Any {
+    func subscribe<P: Any>(to notifName: Notification.Name, handler: @escaping PayloadMessageHandler<P>,
+                             filter: PayloadMessageFilter<P>? = nil, opQueue: OperationQueue? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
@@ -90,7 +99,7 @@ class Messenger {
             }
         })
         
-        registerSubscription(to: notifName, observer: observer)
+        subscriptions[notifName] = observer
     }
     
     ///
@@ -98,26 +107,24 @@ class Messenger {
     /// specifying a notification handler, a filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.
     ///
-    /// This function can be used when the subscriber needs the payload only for filtering purposes and not for message handling.
+    /// This function can be used when the client needs the payload only for filtering purposes and not for message handling.
     ///
     /// - Warning:                  The incoming notification must have a payload object matching the type of the inferred generic type P;
     ///                             Otherwise, the notification handler will not be invoked.
     ///
     /// - Parameter P:              The (arbitrary) type of the payload object associated with the notification.
     ///
-    /// - Parameter subscriber:     The subscriber that is subscribing to notifications.
-    ///
-    /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
+    /// - Parameter notifName:      The name of the notification the client wishes to subscribe to.
     ///
     /// - Parameter handler:        The function that will handle receipt of notifications, with no parameters.
     ///
     /// - Parameter filter:         A  function that, given the payload object, decides whether or not the handler should be invoked
-    ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
+    ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///
     /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
     ///
-    func subscribe<P>(to notifName: Notification.Name, handler: @escaping () -> Void,
-                             filter: @escaping ((P) -> Bool), opQueue: OperationQueue? = nil) where P: Any {
+    func subscribe<P: Any>(to notifName: Notification.Name, handler: @escaping MessageHandler,
+                             filter: @escaping PayloadMessageFilter<P>, opQueue: OperationQueue? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
@@ -147,7 +154,7 @@ class Messenger {
             }
         })
         
-        registerSubscription(to: notifName, observer: observer)
+        subscriptions[notifName] = observer
     }
     
     ///
@@ -155,20 +162,18 @@ class Messenger {
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.
     ///
-    /// - Parameter subscriber:     The subscriber that is subscribing to notifications.
-    ///
-    /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
+    /// - Parameter notifName:      The name of the notification the client wishes to subscribe to.
     ///
     /// - Parameter handler:        The function that will handle receipt of notifications.
     ///
     /// - Parameter filter:         An optional function that decides whether or not the handler should be invoked
-    ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
+    ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
     /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
     ///
-    func subscribe(to notifName: Notification.Name, handler: @escaping () -> Void,
-                          filter: (() -> Bool)? = nil, opQueue: OperationQueue? = nil) {
+    func subscribe(to notifName: Notification.Name, handler: @escaping MessageHandler,
+                   filter: MessageFilter? = nil, opQueue: OperationQueue? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.
@@ -180,7 +185,7 @@ class Messenger {
             }
         })
         
-        registerSubscription(to: notifName, observer: observer)
+        subscriptions[notifName] = observer
     }
     
     ///
@@ -190,21 +195,19 @@ class Messenger {
     ///
     /// - Parameter P:              The (arbitrary) type of the payload object associated with the notification.
     ///
-    /// - Parameter subscriber:     The subscriber that is subscribing to notifications.
-    ///
-    /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
+    /// - Parameter notifName:      The name of the notification the client wishes to subscribe to.
     ///
     /// - Parameter handler:        The function that will handle receipt of notifications, with an arbitrary payload
     ///                             object as a parameter.
     ///
     /// - Parameter filter:         An optional function that, given the payload object, decides whether or not the handler should be invoked
-    ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
+    ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
     /// - Parameter opQueue:        A DispatchQueue on which to (asynchronously) receive the incoming notifications.
     ///
-    func subscribeAsync<P>(to notifName: Notification.Name, handler: @escaping (P) -> Void,
-                                  filter: ((P) -> Bool)? = nil, queue: DispatchQueue) where P: Any {
+    func subscribeAsync<P: Any>(to notifName: Notification.Name, handler: @escaping PayloadMessageHandler<P>,
+                                  filter: PayloadMessageFilter<P>? = nil, queue: DispatchQueue) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
@@ -238,7 +241,7 @@ class Messenger {
             }
         })
         
-        registerSubscription(to: notifName, observer: observer)
+        subscriptions[notifName] = observer
     }
     
     ///
@@ -246,21 +249,19 @@ class Messenger {
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and a DispatchQueue on
     /// which to receive the notifications.
     ///
-    /// - Parameter subscriber:     The subscriber that is subscribing to notifications.
-    ///
-    /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
+    /// - Parameter notifName:      The name of the notification the client wishes to subscribe to.
     ///
     /// - Parameter handler:        The function that will handle receipt of notifications, with an arbitrary payload
     ///                             object as a parameter.
     ///
     /// - Parameter filter:         An optional function that, given the payload object, decides whether or not the handler should be invoked
-    ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
+    ///                             i.e. whether or not the client is interested in handling this particular notification instance.
     ///                             May be nil (meaning all notifications will be passed onto the handler).
     ///
     /// - Parameter opQueue:        A DispatchQueue on which to (asynchronously) receive the incoming notifications.
     ///
-    func subscribeAsync(to notifName: Notification.Name, handler: @escaping () -> Void,
-                                  filter: (() -> Bool)? = nil, queue: DispatchQueue) {
+    func subscribeAsync(to notifName: Notification.Name, handler: @escaping MessageHandler,
+                        filter: MessageFilter? = nil, queue: DispatchQueue) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.
@@ -276,15 +277,13 @@ class Messenger {
             }
         })
         
-        registerSubscription(to: notifName, observer: observer)
+        subscriptions[notifName] = observer
     }
     
     ///
-    /// Unsubscribes a subscriber from notifications with the given notification name.
+    /// Unsubscribes the client from notifications with the given notification name.
     ///
-    /// - Parameter subscriber:     The subscriber that is unsubscribing from notifications.
-    ///
-    /// - Parameter notifName:      The name of the notification the subscriber wishes to unsubscribe from.
+    /// - Parameter notifName:      The name of the notification the client wishes to unsubscribe from.
     ///
     func unsubscribe(from notifName: Notification.Name) {
         
@@ -296,9 +295,7 @@ class Messenger {
     }
     
     ///
-    /// Unsubscribes a subscriber from all its registered notifications.
-    ///
-    /// - Parameter subscriber:     The subscriber that is unsubscribing from notifications.
+    /// Unsubscribes the client from all its registered notifications.
     ///
     func unsubscribeFromAll() {
         
@@ -310,28 +307,14 @@ class Messenger {
         subscriptions.removeAll()
     }
     
-    ///
-    /// Helper function that adds a new subscription to the subscriptions map, for later reference (eg. when unsubscribing).
-    ///
-    /// - Parameter subscriberId:   A unique identifier for the subscriber of the relevant notification.
-    ///
-    /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
-    ///
-    /// - Parameter observer:       The observer object returned by NotificationCenter when subscribing to this notification.
-    ///                             This object can later be used to unsubscribe from this notification.
-    ///
-    private func registerSubscription(to notifName: Notification.Name, observer: Observer) {
-        subscriptions[notifName] = observer
-    }
-    
     // MARK: Publish ---------------------------------------------
     
     ///
-    /// Publishes a notification with an associated payload object that conforms to the NotificationPayload protocol.
+    /// Publishes a notification with an associated payload object that conforms to the **NotificationPayload** protocol.
     ///
     /// - Parameter payload: The payload object to be published (must conform to NotificationPayload)
     ///
-    func publish<P>(_ payload: P) where P: NotificationPayload {
+    func publish<P: NotificationPayload>(_ payload: P) {
         
         // The notification name is extracted from the payload object, and the payload
         // object is wrapped in a Notification which is then posted by the NotificationCenter.
@@ -344,7 +327,7 @@ class Messenger {
     }
     
     ///
-    /// Publishes a notification with no associated payload.
+    /// Publishes a notification with a name but no associated payload.
     ///
     /// - Parameter notifName: The name for the notification to be published.
     ///

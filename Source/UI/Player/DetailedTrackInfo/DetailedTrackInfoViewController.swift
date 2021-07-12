@@ -12,7 +12,7 @@
 */
 import Cocoa
 
-class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, NotificationSubscriber, Destroyable {
+class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, Destroyable {
     
     private static var _instance: DetailedTrackInfoViewController?
     static var instance: DetailedTrackInfoViewController {

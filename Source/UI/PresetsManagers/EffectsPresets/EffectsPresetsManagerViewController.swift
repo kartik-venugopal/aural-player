@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class EffectsPresetsManagerViewController: NSViewController, NotificationSubscriber, Destroyable {
+class EffectsPresetsManagerViewController: NSViewController, Destroyable {
     
     private let masterPresetsManagerViewController: MasterPresetsManagerViewController = MasterPresetsManagerViewController()
     private let eqPresetsManagerViewController: EQPresetsManagerViewController = EQPresetsManagerViewController()

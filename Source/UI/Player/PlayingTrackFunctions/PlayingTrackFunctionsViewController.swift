@@ -15,7 +15,7 @@ import Cocoa
  
     Also handles such requests from app menus.
  */
-class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscriber, Destroyable {
+class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     
     // Button to display more details about the playing track
     @IBOutlet weak var btnMoreInfo: TintedImageButton!

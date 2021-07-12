@@ -12,7 +12,7 @@ import Cocoa
 /*
     View controller for player volume and pan
  */
-class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destroyable {
+class PlayerAudioViewController: NSViewController, Destroyable {
     
     var showsPanControl: Bool {true}
     
