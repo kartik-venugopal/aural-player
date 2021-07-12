@@ -42,8 +42,8 @@ extension NSLayoutConstraint {
 
 class LayoutConstraintsManager {
     
-    let view: NSView
-    var superview: NSView? {view.superview}
+    private unowned var view: NSView
+    private var superview: NSView? {view.superview}
     
     init(for view: NSView) {
         

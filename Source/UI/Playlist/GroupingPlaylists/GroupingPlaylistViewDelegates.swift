@@ -153,6 +153,7 @@ class GroupingPlaylistViewDelegate: NSObject, NSOutlineViewDelegate {
             
         cell.updateText(fontSchemesManager.systemScheme.playlist.groupTextFont, String(format: "%@ (%d)", group.name, group.size))
         cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.groupTextYOffset)
+        cell.textField?.lineBreakMode = .byTruncatingMiddle
         cell.imageView?.image = AuralPlaylistOutlineView.cachedGroupIcon
         
         // Constraints

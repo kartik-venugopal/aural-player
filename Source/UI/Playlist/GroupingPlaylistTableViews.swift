@@ -121,7 +121,6 @@ class GroupedItemCellView: NSTableCellView {
     }
 }
 
-@IBDesignable
 class GroupedItemNameCellView: GroupedItemCellView {
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
