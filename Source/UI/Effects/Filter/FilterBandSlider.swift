@@ -32,11 +32,20 @@ class FilterBandSlider: RangeSlider {
     }
     
     override var knobColor: NSColor {
-        Colors.Effects.sliderKnobColorForState(self.unitState)
+        
+        switch unitState {
+            
+        case .active:   return filterType == .bandPass ? Colors.Effects.activeUnitStateColor : Colors.Effects.bypassedUnitStateColor
+            
+        case .bypassed: return Colors.Effects.bypassedUnitStateColor
+            
+        case .suppressed:   return Colors.Effects.suppressedUnitStateColor
+            
+        }
     }
     
     override var barBackgroundColor: NSColor {
-        return Colors.Effects.sliderBackgroundColor
+        Colors.Effects.sliderBackgroundColor
     }
     
     var startFrequency: Float {

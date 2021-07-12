@@ -374,9 +374,6 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
         barBackgroundColor.setFill()
         framePath.fill()
         
-//        /*  Draw bar background */
-//        barBackgroundColor.draw(in: framePath, angle: -.horizontalGradientDegrees)
-        
         /*  Draw bar fill */
         if NSWidth(selectedRect) > 0.0 {
 
@@ -392,8 +389,8 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
         if let shadow = sliderShadow() {
             NSGraphicsContext.saveGraphicsState()
             shadow.set()
-            
-            NSColor.white.set()
+
+            NSColor.black.set()
             startSliderPath.fill()
             endSliderPath.fill()
             NSGraphicsContext.restoreGraphicsState()
@@ -407,7 +404,6 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
         startSliderPath.stroke()
         
         knobColor.setFill()
-        
         startSliderPath.fill()
         endSliderPath.fill()
     }
