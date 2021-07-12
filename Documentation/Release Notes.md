@@ -10,7 +10,9 @@ The changes are completely backward compatible, so app state persisted by previo
 
 ### Bug fixes
 
-* **Genre strings** - Sometimes, genre strings in the **Genres** playlist view would be displayed as a genre code followed by the genre name, eg. "(9)Metal". Now, it will be parsed properly and displayed as "Metal", without the genre code.
+* **Tooltips** - The 4 function buttons on the right edge of the player were not displaying their tooltips. This is no longer an issue.
+
+* **Genre names** - Sometimes, genre names in the **Genres** playlist view were displayed as a genre code followed by the genre name, eg. "(9)Metal". Now, they will be parsed properly and displayed without the genre code.
 
 * **Crash** - When in control bar mode, if the user performed a gesture with the app in focus, the app would crash. This bug has been fixed.
 
