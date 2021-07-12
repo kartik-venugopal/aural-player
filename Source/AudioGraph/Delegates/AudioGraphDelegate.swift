@@ -60,6 +60,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
     
     var soundProfiles: SoundProfiles {graph.soundProfiles}
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(_ graph: AudioGraphProtocol, _ player: PlaybackInfoDelegateProtocol, _ preferences: SoundPreferences, _ graphState: AudioGraphPersistentState?) {
         
         self.graph = graph
@@ -110,11 +112,11 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol, NotificationSubscriber {
             masterUnit.applyPreset(presetName)
         }
         
-        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
-        Messenger.subscribe(self, .player_preTrackPlayback, self.preTrackPlayback(_:))
+        messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
+        messenger.subscribe(to: .player_preTrackPlayback, handler: preTrackPlayback(_:))
         
-        Messenger.subscribe(self, .effects_saveSoundProfile, self.saveSoundProfile)
-        Messenger.subscribe(self, .effects_deleteSoundProfile, self.deleteSoundProfile)
+        messenger.subscribe(to: .effects_saveSoundProfile, handler: saveSoundProfile)
+        messenger.subscribe(to: .effects_deleteSoundProfile, handler: deleteSoundProfile)
     }
     
     var settingsAsMasterPreset: MasterPreset {

@@ -17,6 +17,8 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     func numberOfRows(in tableView: NSTableView) -> Int {audioGraph.audioUnits.count}
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {24}
@@ -63,7 +65,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             cell.action = {
                 
                 _ = audioUnit.toggleState()
-                Messenger.publish(.effects_unitStateChanged)
+                self.messenger.publish(.effects_unitStateChanged)
             }
             
             return cell
@@ -99,7 +101,7 @@ class AudioUnitsTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewD
             cell.btnEdit.reTint()
             
             cell.action = {
-                Messenger.publish(ShowAudioUnitEditorCommandNotification(audioUnit: audioUnit))
+                self.messenger.publish(ShowAudioUnitEditorCommandNotification(audioUnit: audioUnit))
             }
             
             return cell

@@ -22,15 +22,17 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber, 
     
     override var windowNibName: String? {"ChaptersList"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func windowDidLoad() {
         
         changeBackgroundColor(colorSchemesManager.systemScheme.general.backgroundColor)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
@@ -58,6 +60,6 @@ class ChaptersListWindowController: NSWindowController, NotificationSubscriber, 
         viewController.destroy()
         
         close()
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 }

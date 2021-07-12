@@ -27,7 +27,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
     
     let backgroundQueue: DispatchQueue = .global(qos: .background)
     
-    let subscriberId: String = "HistoryDelegate"
+    private lazy var messenger = Messenger(for: self)
     
     init(persistentState: HistoryPersistentState?, _ history: HistoryProtocol,
          _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
@@ -56,11 +56,11 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
             history.addRecentlyPlayedItem(file, item.name ?? file.lastPathComponent, date)
         }
         
-        Messenger.publish(.history_updated)
+        messenger.publish(.history_updated)
         
-        Messenger.subscribeAsync(self, .history_itemsAdded, self.itemsAdded(_:), queue: backgroundQueue)
+        messenger.subscribeAsync(to: .history_itemsAdded, handler: itemsAdded(_:), queue: backgroundQueue)
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackPlayed(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackPlayed(_:),
                                  filter: {msg in msg.playbackStarted},
                                  queue: backgroundQueue)
     }
@@ -115,7 +115,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int) {
         
         history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize)
-        Messenger.publish(.history_updated)
+        messenger.publish(.history_updated)
     }
     
     func clearAllHistory() {
@@ -152,7 +152,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
         
             lastPlayedTrack = newTrack
             history.addRecentlyPlayedItem(newTrack.file, newTrack.displayName, Date())
-            Messenger.publish(.history_updated)
+            messenger.publish(.history_updated)
         }
     }
     
@@ -175,7 +175,7 @@ class HistoryDelegate: HistoryDelegateProtocol, NotificationSubscriber {
             }
         }
         
-        Messenger.publish(.history_updated)
+        messenger.publish(.history_updated)
     }
     
     var persistentState: HistoryPersistentState {

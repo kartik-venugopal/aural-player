@@ -87,6 +87,8 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
     private var modalComponentRegistry: [ModalComponentProtocol] = []
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(layoutsManager: WindowLayoutsManager, preferences: ViewPreferences) {
         
         self.layoutsManager = layoutsManager
@@ -150,7 +152,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
             }
             
             mainWindow.makeKeyAndOrderFront(self)
-            Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: WindowLayoutState.showPlaylist, showingEffectsWindow: WindowLayoutState.showEffects))
+            messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: WindowLayoutState.showPlaylist, showingEffectsWindow: WindowLayoutState.showEffects))
             
             (mainWindow as? SnappingWindow)?.ensureOnScreen()
         }
@@ -211,7 +213,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
             hidePlaylist()
         }
         
-        Messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: layout.showPlaylist,
+        messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: layout.showPlaylist,
                                                           showingEffectsWindow: layout.showEffects))
     }
     

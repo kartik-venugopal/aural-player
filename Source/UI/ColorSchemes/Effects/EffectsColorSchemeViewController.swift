@@ -46,6 +46,8 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     override var nibName: NSNib.Name? {return "EffectsColorScheme"}
     
     override func viewDidLoad() {
@@ -113,7 +115,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionCaptionTextColor() {
         
         colorSchemesManager.systemScheme.effects.functionCaptionTextColor = functionCaptionTextColorPicker.color
-        Messenger.publish(.effects_changeFunctionCaptionTextColor, payload: functionCaptionTextColorPicker.color)
+        messenger.publish(.effects_changeFunctionCaptionTextColor, payload: functionCaptionTextColorPicker.color)
     }
     
     @IBAction func functionValueTextColorAction(_ sender: Any) {
@@ -125,7 +127,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionValueTextColor() {
         
         colorSchemesManager.systemScheme.effects.functionValueTextColor = functionValueTextColorPicker.color
-        Messenger.publish(.effects_changeFunctionValueTextColor, payload: functionValueTextColorPicker.color)
+        messenger.publish(.effects_changeFunctionValueTextColor, payload: functionValueTextColorPicker.color)
     }
     
     @IBAction func enableSliderForegroundGradientAction(_ sender: Any) {
@@ -224,7 +226,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     }
     
     private func sliderColorsChanged() {
-        Messenger.publish(.effects_changeSliderColors)
+        messenger.publish(.effects_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorAction(_ sender: Any) {
@@ -236,7 +238,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderKnobColor() {
         
         colorSchemesManager.systemScheme.effects.sliderKnobColor = sliderKnobColorPicker.color
-        Messenger.publish(.effects_changeSliderColors)
+        messenger.publish(.effects_changeSliderColors)
     }
     
     @IBAction func sliderKnobColorSameAsForegroundAction(_ sender: Any) {
@@ -248,7 +250,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func toggleKnobColorSameAsForeground() {
         
         colorSchemesManager.systemScheme.effects.sliderKnobColorSameAsForeground = btnSliderKnobColorSameAsForeground.isOn
-        Messenger.publish(.effects_changeSliderColors)
+        messenger.publish(.effects_changeSliderColors)
     }
     
     @IBAction func sliderTickColorAction(_ sender: Any) {
@@ -260,7 +262,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSliderTickColor() {
         
         colorSchemesManager.systemScheme.effects.sliderTickColor = sliderTickColorPicker.color
-        Messenger.publish(.effects_changeSliderColors)
+        messenger.publish(.effects_changeSliderColors)
     }
     
     @IBAction func activeUnitStateColorAction(_ sender: Any) {
@@ -272,7 +274,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeActiveUnitStateColor() {
         
         colorSchemesManager.systemScheme.effects.activeUnitStateColor = activeUnitStateColorPicker.color
-        Messenger.publish(.effects_changeActiveUnitStateColor, payload: activeUnitStateColorPicker.color)
+        messenger.publish(.effects_changeActiveUnitStateColor, payload: activeUnitStateColorPicker.color)
     }
     
     @IBAction func bypassedUnitStateColorAction(_ sender: Any) {
@@ -284,7 +286,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeBypassedUnitStateColor() {
 
         colorSchemesManager.systemScheme.effects.bypassedUnitStateColor = bypassedUnitStateColorPicker.color
-        Messenger.publish(.effects_changeBypassedUnitStateColor, payload: bypassedUnitStateColorPicker.color)
+        messenger.publish(.effects_changeBypassedUnitStateColor, payload: bypassedUnitStateColorPicker.color)
     }
     
     @IBAction func suppressedUnitStateColorAction(_ sender: Any) {
@@ -296,6 +298,6 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     private func changeSuppressedUnitStateColor() {
         
         colorSchemesManager.systemScheme.effects.suppressedUnitStateColor = suppressedUnitStateColorPicker.color
-        Messenger.publish(.effects_changeSuppressedUnitStateColor, payload: suppressedUnitStateColorPicker.color)
+        messenger.publish(.effects_changeSuppressedUnitStateColor, payload: suppressedUnitStateColorPicker.color)
     }
 }

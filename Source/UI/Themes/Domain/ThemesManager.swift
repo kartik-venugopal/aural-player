@@ -17,6 +17,8 @@ class ThemesManager: MappedPresets<Theme> {
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: ThemesPersistentState?, fontSchemesManager: FontSchemesManager) {
         
         let systemDefinedThemes = ThemePreset.allCases.map {$0.theme}
@@ -33,7 +35,7 @@ class ThemesManager: MappedPresets<Theme> {
         colorSchemesManager.applyScheme(theme.colorScheme)
         WindowAppearanceState.cornerRadius = theme.windowAppearance.cornerRadius
         
-        Messenger.publish(.applyTheme)
+        messenger.publish(.applyTheme)
     }
     
     // Attempts to apply a theme to the system theme, looking up the scheme by the given display name, and if found, returns the modified system scheme.

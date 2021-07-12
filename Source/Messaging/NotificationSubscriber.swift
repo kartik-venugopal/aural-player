@@ -31,10 +31,14 @@ extension NotificationSubscriber {
         
         // If the subscriber is an NSObject, its hashValue is appended to the subscriberId to provide more uniqueness.
         if let object = self as? NSObject {
-            return String(format: "%@-%ld", className, object.hashValue)
+            return "\(className)-\(object.hashValue)"
         }
         
         // For singleton objects, the className will suffice as a unique subscriberId.
         return className
     }
+}
+
+protocol NotificationPublisher {
+    
 }

@@ -43,6 +43,8 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     
     override var nibName: String? {"Tracks"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         playlistView.enableDragDrop()
@@ -58,63 +60,63 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     
     private func initSubscriptions() {
         
-        Messenger.subscribeAsync(self, .playlist_trackAdded, self.trackAdded(_:), queue: .main)
-        Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved(_:), queue: .main)
+        messenger.subscribeAsync(to: .playlist_trackAdded, handler: trackAdded(_:), queue: .main)
+        messenger.subscribeAsync(to: .playlist_tracksRemoved, handler: tracksRemoved(_:), queue: .main)
 
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:), queue: .main)
         
         // Don't bother responding if only album art was updated
-        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
         // MARK: Command handling -------------------------------------------------------------------------------------------------
         
-        Messenger.subscribe(self, .playlist_selectSearchResult, self.selectSearchResult(_:),
+        messenger.subscribe(to: .playlist_selectSearchResult, handler: selectSearchResult(_:),
                             filter: {cmd in cmd.viewSelector.contains(.tracks)})
         
         let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.contains(.tracks)}
         
-        Messenger.subscribe(self, .playlist_refresh, {(PlaylistViewSelector) in self.refresh()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_removeTracks, {(PlaylistViewSelector) in self.removeTracks()}, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_refresh, handler: refresh, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_removeTracks, handler: removeTracks, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_moveTracksUp, {(PlaylistViewSelector) in self.moveTracksUp()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_moveTracksDown, {(PlaylistViewSelector) in self.moveTracksDown()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_moveTracksToTop, {(PlaylistViewSelector) in self.moveTracksToTop()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_moveTracksToBottom, {(PlaylistViewSelector) in self.moveTracksToBottom()}, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_moveTracksUp, handler: moveTracksUp, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_moveTracksDown, handler: moveTracksDown, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_moveTracksToTop, handler: moveTracksToTop, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_moveTracksToBottom, handler: moveTracksToBottom, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_clearSelection, {(PlaylistViewSelector) in self.clearSelection()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_invertSelection, {(PlaylistViewSelector) in self.invertSelection()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_cropSelection, {(PlaylistViewSelector) in self.cropSelection()}, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_clearSelection, handler: clearSelection, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_invertSelection, handler: invertSelection, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_cropSelection, handler: cropSelection, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_scrollToTop, {(PlaylistViewSelector) in self.scrollToTop()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_scrollToBottom, {(PlaylistViewSelector) in self.scrollToBottom()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_pageUp, {(PlaylistViewSelector) in self.pageUp()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_pageDown, {(PlaylistViewSelector) in self.pageDown()}, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_scrollToTop, handler: scrollToTop, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_scrollToBottom, handler: scrollToBottom, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_pageUp, handler: pageUp, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_pageDown, handler: pageDown, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_showPlayingTrack, {(PlaylistViewSelector) in self.showPlayingTrack()}, filter: viewSelectionFilter)
-        Messenger.subscribe(self, .playlist_showTrackInFinder, {(PlaylistViewSelector) in self.showTrackInFinder()}, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_showPlayingTrack, handler: showPlayingTrack, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_showTrackInFinder, handler: showTrackInFinder, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .playlist_playSelectedItem, {(PlaylistViewSelector) in self.playSelectedTrack()}, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_playSelectedItem, handler: playSelectedTrack, filter: viewSelectionFilter)
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
         
-        Messenger.subscribe(self, .playlist_changeTrackNameTextColor, self.changeTrackNameTextColor(_:))
-        Messenger.subscribe(self, .playlist_changeIndexDurationTextColor, self.changeIndexDurationTextColor(_:))
+        messenger.subscribe(to: .playlist_changeTrackNameTextColor, handler: changeTrackNameTextColor(_:))
+        messenger.subscribe(to: .playlist_changeIndexDurationTextColor, handler: changeIndexDurationTextColor(_:))
         
-        Messenger.subscribe(self, .playlist_changeTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
-        Messenger.subscribe(self, .playlist_changeIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
+        messenger.subscribe(to: .playlist_changeTrackNameSelectedTextColor, handler: changeTrackNameSelectedTextColor(_:))
+        messenger.subscribe(to: .playlist_changeIndexDurationSelectedTextColor, handler: changeIndexDurationSelectedTextColor(_:))
         
-        Messenger.subscribe(self, .playlist_changePlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
-        Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
+        messenger.subscribe(to: .playlist_changePlayingTrackIconColor, handler: changePlayingTrackIconColor(_:))
+        messenger.subscribe(to: .playlist_changeSelectionBoxColor, handler: changeSelectionBoxColor(_:))
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     private var selectedRows: IndexSet {playlistView.selectedRowIndexes}
@@ -133,7 +135,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
         PlaylistViewState.currentView = .tracks
         PlaylistViewState.currentTableView = playlistView
         
-        Messenger.publish(.playlist_viewChanged, payload: PlaylistType.tracks)
+        messenger.publish(.playlist_viewChanged, payload: PlaylistType.tracks)
     }
     
     // Plays the track selected within the playlist, if there is one. If multiple tracks are selected, the first one will be chosen.
@@ -144,7 +146,7 @@ class TracksPlaylistViewController: NSViewController, NotificationSubscriber, De
     func playSelectedTrack() {
         
         if let firstSelectedRow = playlistView.selectedRowIndexes.min() {
-            Messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow))
+            messenger.publish(TrackPlaybackCommandNotification(index: firstSelectedRow))
         }
     }
     

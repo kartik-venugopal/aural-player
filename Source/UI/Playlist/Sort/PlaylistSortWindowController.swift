@@ -30,6 +30,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
     
     private var displayedSortView: SortViewProtocol!
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func windowDidLoad() {
         
         container.addSubviews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
@@ -76,7 +78,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         playlist.sort(displayedSortView.sortOptions, displayedSortView.playlistType)
         
         // Notify playlist views
-        Messenger.publish(.playlist_refresh,
+        messenger.publish(.playlist_refresh,
                           payload: PlaylistViewSelector.selector(forView: displayedSortView.playlistType))
         
         modalDialogResponse = .ok

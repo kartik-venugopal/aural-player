@@ -42,10 +42,12 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
     // Recurring task used to repeat key press events according to the preferred repeat speed
     private var repeatExecutor: RepeatingTaskExecutor?
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(_ preferences: MediaKeysControlsPreferences) {
         
         self.preferences = preferences
-        Messenger.subscribe(self, .application_launched, self.startMonitoring, filter: {[weak self] in self?.preferences.enabled ?? false})
+        messenger.subscribe(to: .application_launched, handler: startMonitoring, filter: {[weak self] in self?.preferences.enabled ?? false})
     }
     
     func startMonitoring() {
@@ -80,7 +82,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
             if event.keyPressed {
                 
                 DispatchQueue.main.async {
-                    Messenger.publish(.player_playOrPause)
+                    self.messenger.publish(.player_playOrPause)
                 }
             }
             
@@ -112,7 +114,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
             
             // Seeking (repeated)
             initTimerIfRequired {
-                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
+                self.messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed {
@@ -129,7 +131,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
                 
                 // Change track
                 DispatchQueue.main.async {
-                    Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
+                    self.messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
                 }
             }
         }
@@ -144,14 +146,14 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
         if event.keyPressed && !event.keyRepeat {
             
             DispatchQueue.main.async {
-                Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
+                self.messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
             }
             
             // Only do this on keyDown, if it is being repeated
         } else if event.keyPressed && event.keyRepeat {
             
             initTimerIfRequired {
-                Messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
+                self.messenger.publish(isFwd ? .player_nextTrack : .player_previousTrack)
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {
@@ -171,7 +173,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
         if event.keyPressed && !event.keyRepeat {
             
             DispatchQueue.main.async {
-                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
+                self.messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
             }
             
         // Only do this on keyDown, if it is being repeated
@@ -179,7 +181,7 @@ class MediaKeyHandler: MediaKeyTapDelegate, NotificationSubscriber {
             
             // Seeking (repeated)
             initTimerIfRequired {
-                Messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
+                self.messenger.publish(isFwd ? .player_seekForward : .player_seekBackward, payload: UserInputMode.discrete)
             }
             
         } else if !event.keyPressed, let lastEvent = lastEvent, lastEvent.keyPressed && lastEvent.keyRepeat {

@@ -46,6 +46,8 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
     
     private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func awakeFromNib() {
         
         [btnQuit, btnWindowedMode, btnControlBarMode, btnSettings].forEach {$0?.tintFunction = {ColorConstants.white70Percent}}
@@ -54,10 +56,10 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
 
         // MARK: Notification subscriptions
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
-        Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
-        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:), queue: .main)
+        messenger.subscribe(to: .player_chapterChanged, handler: chapterChanged(_:))
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:), queue: .main)
     }
     
     func destroy() {
@@ -66,7 +68,7 @@ class MenuBarPlayerViewController: NSViewController, NotificationSubscriber, Des
             ($0 as? Destroyable)?.destroy()
         }
         
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     override func viewDidLoad() {

@@ -32,6 +32,8 @@ class EffectsUnit {
     
     var isActive: Bool {return state == .active}
     
+    lazy var messenger = Messenger(for: self)
+    
     init(_ unitType: EffectsUnitType, _ state: EffectsUnitState) {
         
         self.unitType = unitType
@@ -42,7 +44,7 @@ class EffectsUnit {
     func stateChanged() {
         
         if isActive && unitType != .master {
-            Messenger.publish(.effects_unitActivated)
+            messenger.publish(.effects_unitActivated)
         }
     }
     

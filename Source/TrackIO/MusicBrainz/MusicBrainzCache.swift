@@ -20,8 +20,7 @@ class MusicBrainzCache: NotificationSubscriber, PersistentModelObject {
     var onDiskReleasesCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     var onDiskRecordingsCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     
-    private let baseDir: URL = FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache",
-                                                                                         isDirectory: true)
+    private let baseDir: URL = FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache", isDirectory: true)
     
     private let diskIOOpQueue: OperationQueue = {
 
@@ -32,10 +31,12 @@ class MusicBrainzCache: NotificationSubscriber, PersistentModelObject {
         return queue
     }()
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(state: MusicBrainzCachePersistentState?, preferences: MusicBrainzPreferences) {
         
         self.preferences = preferences
-        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
+        messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
         
         guard preferences.enableCoverArtSearch && preferences.enableOnDiskCoverArtCache else {
             

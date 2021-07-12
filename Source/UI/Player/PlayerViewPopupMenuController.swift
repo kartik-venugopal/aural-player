@@ -44,6 +44,8 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func awakeFromNib() {
         
         timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
@@ -134,7 +136,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         if PlayerViewState.viewType != .defaultView {
             
             PlayerViewState.viewType = .defaultView
-            Messenger.publish(.player_changeView, payload: PlayerViewType.defaultView)
+            messenger.publish(.player_changeView, payload: PlayerViewType.defaultView)
         }
     }
     
@@ -143,56 +145,56 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         if PlayerViewState.viewType != .expandedArt {
             
             PlayerViewState.viewType = .expandedArt
-            Messenger.publish(.player_changeView, payload: PlayerViewType.expandedArt)
+            messenger.publish(.player_changeView, payload: PlayerViewType.expandedArt)
         }
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showPlayingTrackFunctions.toggle()
-        Messenger.publish(.player_showOrHidePlayingTrackFunctions)
+        messenger.publish(.player_showOrHidePlayingTrackFunctions)
     }
     
     @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showTrackInfo.toggle()
-        Messenger.publish(.player_showOrHidePlayingTrackInfo)
+        messenger.publish(.player_showOrHidePlayingTrackInfo)
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showAlbumArt.toggle()
-        Messenger.publish(.player_showOrHideAlbumArt)
+        messenger.publish(.player_showOrHideAlbumArt)
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showArtist.toggle()
-        Messenger.publish(.player_showOrHideArtist)
+        messenger.publish(.player_showOrHideArtist)
     }
     
     @IBAction func showOrHideAlbumAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showAlbum.toggle()
-        Messenger.publish(.player_showOrHideAlbum)
+        messenger.publish(.player_showOrHideAlbum)
     }
     
     @IBAction func showOrHideCurrentChapterAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showCurrentChapter.toggle()
-        Messenger.publish(.player_showOrHideCurrentChapter)
+        messenger.publish(.player_showOrHideCurrentChapter)
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showControls.toggle()
-        Messenger.publish(.player_showOrHideMainControls)
+        messenger.publish(.player_showOrHideMainControls)
     }
     
     @IBAction func showOrHideTimeElapsedRemainingAction(_ sender: NSMenuItem) {
         
         PlayerViewState.showTimeElapsedRemaining.toggle()
-        Messenger.publish(.player_showOrHideTimeElapsedRemaining)
+        messenger.publish(.player_showOrHideTimeElapsedRemaining)
     }
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
@@ -212,7 +214,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         PlayerViewState.timeElapsedDisplayType = format
-        Messenger.publish(.player_setTimeElapsedDisplayFormat, payload: format)
+        messenger.publish(.player_setTimeElapsedDisplayFormat, payload: format)
     }
     
     @IBAction func timeRemainingDisplayFormatAction(_ sender: NSMenuItem) {
@@ -236,6 +238,6 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         PlayerViewState.timeRemainingDisplayType = format
-        Messenger.publish(.player_setTimeRemainingDisplayFormat, payload: format)
+        messenger.publish(.player_setTimeRemainingDisplayFormat, payload: format)
     }
 }

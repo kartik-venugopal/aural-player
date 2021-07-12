@@ -39,6 +39,8 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
     
     private var normalDeviceBufferSize: Int = 0
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func awakeFromNib() {
         
         window?.delegate = self
@@ -53,14 +55,14 @@ class VisualizerWindowController: NSWindowController, AudioGraphRenderObserverPr
         
         allViews = [spectrogram, supernova, discoBall]
         
-        Messenger.subscribe(self, .visualizer_showOptions, self.showOptions)
-        Messenger.subscribe(self, .visualizer_hideOptions, self.hideOptions)
+        messenger.subscribe(to: .visualizer_showOptions, handler: showOptions)
+        messenger.subscribe(to: .visualizer_hideOptions, handler: hideOptions)
     }
     
     func destroy() {
         
         close()
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     override func showWindow(_ sender: Any?) {

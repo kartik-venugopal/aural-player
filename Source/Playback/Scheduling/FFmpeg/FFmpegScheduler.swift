@@ -59,6 +59,8 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
         return queue
     }()
     
+    lazy var messenger = Messenger(for: self)
+    
     init(playerNode: AuralPlayerNode, sampleConverter: FFmpegSampleConverter) {
         
         self.playerNode = playerNode
@@ -254,7 +256,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     
     // Signal track playback completion
     func trackCompleted(_ session: PlaybackSession) {
-        Messenger.publish(.player_trackPlaybackCompleted, payload: session)
+        messenger.publish(.player_trackPlaybackCompleted, payload: session)
     }
     
     func pause() {

@@ -10,52 +10,52 @@
 import Cocoa
 
 class WindowedModePlaybackViewController: PlaybackViewController {
- 
+    
     override func initSubscriptions() {
         
         // MARK: Notifications --------------------------------------------------------------
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribe(to: .player_trackNotPlayed, handler: trackNotPlayed(_:))
         
-        Messenger.subscribe(self, .effects_playbackRateChanged, self.playbackRateChanged(_:))
-        Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
+        messenger.subscribe(to: .effects_playbackRateChanged, handler: playbackRateChanged(_:))
+        messenger.subscribe(to: .player_playbackLoopChanged, handler: playbackLoopChanged)
         
         // MARK: Commands --------------------------------------------------------------
         
-        Messenger.subscribe(self, .player_playTrack, self.performTrackPlayback(_:))
+        messenger.subscribe(to: .player_playTrack, handler: performTrackPlayback(_:))
         
-        Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
-        Messenger.subscribe(self, .player_stop, self.stop)
-        Messenger.subscribe(self, .player_previousTrack, self.previousTrack)
-        Messenger.subscribe(self, .player_nextTrack, self.nextTrack)
-        Messenger.subscribe(self, .player_replayTrack, self.replayTrack)
-        Messenger.subscribe(self, .player_seekBackward, self.seekBackward(_:))
-        Messenger.subscribe(self, .player_seekForward, self.seekForward(_:))
-        Messenger.subscribe(self, .player_seekBackward_secondary, self.seekBackward_secondary)
-        Messenger.subscribe(self, .player_seekForward_secondary, self.seekForward_secondary)
-        Messenger.subscribe(self, .player_jumpToTime, self.jumpToTime(_:))
-        Messenger.subscribe(self, .player_toggleLoop, self.toggleLoop)
+        messenger.subscribe(to: .player_playOrPause, handler: playOrPause)
+        messenger.subscribe(to: .player_stop, handler: stop)
+        messenger.subscribe(to: .player_previousTrack, handler: previousTrack)
+        messenger.subscribe(to: .player_nextTrack, handler: nextTrack)
+        messenger.subscribe(to: .player_replayTrack, handler: replayTrack)
+        messenger.subscribe(to: .player_seekBackward, handler: seekBackward(_:))
+        messenger.subscribe(to: .player_seekForward, handler: seekForward(_:))
+        messenger.subscribe(to: .player_seekBackward_secondary, handler: seekBackward_secondary)
+        messenger.subscribe(to: .player_seekForward_secondary, handler: seekForward_secondary)
+        messenger.subscribe(to: .player_jumpToTime, handler: jumpToTime(_:))
+        messenger.subscribe(to: .player_toggleLoop, handler: toggleLoop)
         
-        Messenger.subscribe(self, .player_playChapter, self.playChapter(_:))
-        Messenger.subscribe(self, .player_previousChapter, self.previousChapter)
-        Messenger.subscribe(self, .player_nextChapter, self.nextChapter)
-        Messenger.subscribe(self, .player_replayChapter, self.replayChapter)
-        Messenger.subscribe(self, .player_toggleChapterLoop, self.toggleChapterLoop)
+        messenger.subscribe(to: .player_playChapter, handler: playChapter(_:))
+        messenger.subscribe(to: .player_previousChapter, handler: previousChapter)
+        messenger.subscribe(to: .player_nextChapter, handler: nextChapter)
+        messenger.subscribe(to: .player_replayChapter, handler: replayChapter)
+        messenger.subscribe(to: .player_toggleChapterLoop, handler: toggleChapterLoop)
         
-        Messenger.subscribe(self, .player_showOrHideTimeElapsedRemaining, playbackView.showOrHideTimeElapsedRemaining)
-        Messenger.subscribe(self, .player_setTimeElapsedDisplayFormat, playbackView.setTimeElapsedDisplayFormat(_:))
-        Messenger.subscribe(self, .player_setTimeRemainingDisplayFormat, playbackView.setTimeRemainingDisplayFormat(_:))
+        messenger.subscribe(to: .player_showOrHideTimeElapsedRemaining, handler: playbackView.showOrHideTimeElapsedRemaining)
+        messenger.subscribe(to: .player_setTimeElapsedDisplayFormat, handler: playbackView.setTimeElapsedDisplayFormat(_:))
+        messenger.subscribe(to: .player_setTimeRemainingDisplayFormat, handler: playbackView.setTimeRemainingDisplayFormat(_:))
         
         guard let playbackView = self.playbackView as? WindowedModePlaybackView else {return}
         
-        Messenger.subscribe(self, .applyTheme, playbackView.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, playbackView.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, playbackView.applyColorScheme(_:))
-        Messenger.subscribe(self, .player_changeSliderColors, playbackView.changeSliderColors)
-        Messenger.subscribe(self, .changeFunctionButtonColor, playbackView.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .changeToggleButtonOffStateColor, playbackView.changeToggleButtonOffStateColor(_:))
-        Messenger.subscribe(self, .player_changeSliderValueTextColor, playbackView.changeSliderValueTextColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: playbackView.applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: playbackView.applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: playbackView.applyColorScheme(_:))
+        messenger.subscribe(to: .player_changeSliderColors, handler: playbackView.changeSliderColors)
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: playbackView.changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: playbackView.changeToggleButtonOffStateColor(_:))
+        messenger.subscribe(to: .player_changeSliderValueTextColor, handler: playbackView.changeSliderValueTextColor(_:))
     }
     
     func performTrackPlayback(_ command: TrackPlaybackCommandNotification) {
@@ -148,6 +148,6 @@ class WindowedModePlaybackViewController: PlaybackViewController {
         _ = player.toggleChapterLoop()
         playbackView.playbackLoopChanged(player.playbackLoop, player.playingTrack?.duration ?? 0)
         
-        Messenger.publish(.player_playbackLoopChanged)
+        messenger.publish(.player_playbackLoopChanged)
     }
 }

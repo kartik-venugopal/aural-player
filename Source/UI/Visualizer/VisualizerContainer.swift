@@ -11,6 +11,8 @@ import Cocoa
 
 class VisualizerContainer: NSBox {
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func viewDidEndLiveResize() {
         
         super.viewDidEndLiveResize()
@@ -18,7 +20,7 @@ class VisualizerContainer: NSBox {
         self.removeAllTrackingAreas()
         self.updateTrackingAreas()
 
-        Messenger.publish(.visualizer_hideOptions)
+        messenger.publish(.visualizer_hideOptions)
     }
     
     // Signals the view to start tracking mouse movements.
@@ -42,10 +44,10 @@ class VisualizerContainer: NSBox {
     }
     
     override func mouseEntered(with event: NSEvent) {
-        Messenger.publish(.visualizer_showOptions)
+        messenger.publish(.visualizer_showOptions)
     }
     
     override func mouseExited(with event: NSEvent) {
-        Messenger.publish(.visualizer_hideOptions)
+        messenger.publish(.visualizer_hideOptions)
     }
 }

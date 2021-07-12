@@ -38,6 +38,8 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     
     var unitType: EffectsUnitType!
     
+    lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         self.unitStateFunction = effectsUnit.stateFunction
@@ -83,29 +85,29 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     func initSubscriptions() {
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .effects_unitStateChanged, self.stateChanged)
+        messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
         
-        Messenger.subscribe(self, .effects_updateEffectsUnitView, {[weak self] (EffectsUnit) in self?.initControls()},
+        messenger.subscribe(to: .effects_updateEffectsUnitView, handler: {[weak self] (EffectsUnit) in self?.initControls()},
                             filter: {[weak self] (unitType: EffectsUnitType) in unitType == .master || (unitType == self?.unitType)})
         
-        Messenger.subscribe(self, .effects_changeSliderColors, self.changeSliderColors)
+        messenger.subscribe(to: .effects_changeSliderColors, handler: changeSliderColors)
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
         
-        Messenger.subscribe(self, .effects_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
-        Messenger.subscribe(self, .effects_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+        messenger.subscribe(to: .effects_changeFunctionCaptionTextColor, handler: changeFunctionCaptionTextColor(_:))
+        messenger.subscribe(to: .effects_changeFunctionValueTextColor, handler: changeFunctionValueTextColor(_:))
         
-        Messenger.subscribe(self, .effects_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
-        Messenger.subscribe(self, .effects_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
-        Messenger.subscribe(self, .effects_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeActiveUnitStateColor, handler: changeActiveUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeBypassedUnitStateColor, handler: changeBypassedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeSuppressedUnitStateColor, handler: changeSuppressedUnitStateColor(_:))
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     func initControls() {
@@ -119,7 +121,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     }
     
     func showThisTab() {
-        Messenger.publish(.effects_showEffectsUnitTab, payload: self.unitType!)
+        messenger.publish(.effects_showEffectsUnitTab, payload: self.unitType!)
     }
     
     @IBAction func bypassAction(_ sender: AnyObject) {
@@ -127,7 +129,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         _ = effectsUnit.toggleState()
         stateChanged()
         
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
     }
     
     // Applies a preset to the effects unit

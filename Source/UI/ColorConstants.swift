@@ -9,6 +9,8 @@
 //  
 import Cocoa
 
+// TODO: Make this an NSColor extension.
+
 struct ColorConstants {
     
     static let white7Percent: NSColor = NSColor(white: 0.07, alpha: 1)

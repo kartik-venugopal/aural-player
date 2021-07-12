@@ -39,18 +39,18 @@ class EQViewController: EffectsUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .eqEffectsUnit_decreaseBass, self.decreaseBass)
-        Messenger.subscribe(self, .eqEffectsUnit_increaseBass, self.increaseBass)
+        messenger.subscribe(to: .eqEffectsUnit_decreaseBass, handler: decreaseBass)
+        messenger.subscribe(to: .eqEffectsUnit_increaseBass, handler: increaseBass)
         
-        Messenger.subscribe(self, .eqEffectsUnit_decreaseMids, self.decreaseMids)
-        Messenger.subscribe(self, .eqEffectsUnit_increaseMids, self.increaseMids)
+        messenger.subscribe(to: .eqEffectsUnit_decreaseMids, handler: decreaseMids)
+        messenger.subscribe(to: .eqEffectsUnit_increaseMids, handler: increaseMids)
         
-        Messenger.subscribe(self, .eqEffectsUnit_decreaseTreble, self.decreaseTreble)
-        Messenger.subscribe(self, .eqEffectsUnit_increaseTreble, self.increaseTreble)
+        messenger.subscribe(to: .eqEffectsUnit_decreaseTreble, handler: decreaseTreble)
+        messenger.subscribe(to: .eqEffectsUnit_increaseTreble, handler: increaseTreble)
 
-        Messenger.subscribe(self, .changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
-        Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
-        Messenger.subscribe(self, .changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
     }
     
     override func initControls() {
@@ -115,7 +115,7 @@ class EQViewController: EffectsUnitViewController {
         stateChanged()
         eqView.bandsUpdated(bands, eqUnit.globalGain)
         
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
         showThisTab()
     }
     

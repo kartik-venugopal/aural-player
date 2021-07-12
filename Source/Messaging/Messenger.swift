@@ -20,60 +20,24 @@ import Foundation
 class Messenger {
     
     // The underlying NotificationCenter that is used for actual notification delivery.
-    static let notifCtr: NotificationCenter = .default
+    var notifCtr: NotificationCenter {.default}
     
     typealias Observer = NSObjectProtocol
+    
+    private var client: Any
     
     //
     // A map that keeps track of all subscriptions, structured as follows:
     // subscriberId -> [notificationName -> observer]
     // This is needed to be able to allow subscribers to unsubscribe.
-    private static var subscriptions: [String: [Notification.Name: Observer]] = [:]
+    private var subscriptions: [Notification.Name: Observer] = [:]
     
-    ///
-    /// Publishes a notification with an associated payload object that conforms to the NotificationPayload protocol.
-    ///
-    /// - Parameter payload: The payload object to be published (must conform to NotificationPayload)
-    ///
-    static func publish<P>(_ payload: P) where P: NotificationPayload {
-        
-        // The notification name is extracted from the payload object, and the payload
-        // object is wrapped in a Notification which is then posted by the NotificationCenter.
-        
-        var notification = Notification(name: payload.notificationName)
-        notification.payload = payload
-        
-        notifCtr.post(notification)
+    init(for client: Any) {
+        self.client = client
     }
     
     ///
-    /// Publishes a notification with no associated payload.
-    ///
-    /// - Parameter notifName: The name for the notification to be published.
-    ///
-    static func publish(_ notifName: Notification.Name) {
-        notifCtr.post(name: notifName, object: nil)
-    }
-    
-    ///
-    /// Publishes a notification with an arbitrary associated payload object.
-    ///
-    /// - Parameter notifName:  The name for the notification to be published.
-    ///
-    /// - Parameter payload:    The (arbitrary) payload object to be published.
-    ///
-    static func publish(_ notifName: Notification.Name, payload: Any) {
-        
-        // The payload object is wrapped in a Notification which is then posted by the NotificationCenter.
-        
-        var notification = Notification(name: notifName)
-        notification.payload = payload
-        
-        notifCtr.post(notification)
-    }
-    
-    ///
-    /// Subscribes a subscriber to synchronous notifications with the given notification name and an associated payload object,
+    /// Subscribes the client to synchronous notifications with the given notification name and an associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.
     ///
@@ -86,7 +50,7 @@ class Messenger {
     ///
     /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
     ///
-    /// - Parameter msgHandler:     The function that will handle receipt of notifications, with an arbitrary payload
+    /// - Parameter handler:        The function that will handle receipt of notifications, with an arbitrary payload
     ///                             object as a parameter.
     ///
     /// - Parameter filter:         An optional function that, given the payload object, decides whether or not the handler should be invoked
@@ -95,19 +59,19 @@ class Messenger {
     ///
     /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
     ///
-    static func subscribe<P>(_ subscriber: NotificationSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
+    func subscribe<P>(to notifName: Notification.Name, handler: @escaping (P) -> Void,
                              filter: ((P) -> Bool)? = nil, opQueue: OperationQueue? = nil) where P: Any {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
         // the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: { notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: {notif in
             
             if let payload = notif.payload as? P {
                 
                 if filter?(payload) ?? true {
-                    msgHandler(payload)
+                    handler(payload)
                 }
                 
             } else {
@@ -126,11 +90,11 @@ class Messenger {
             }
         })
         
-        registerSubscription(subscriber.subscriberId, notifName, observer)
+        registerSubscription(to: notifName, observer: observer)
     }
     
     ///
-    /// Subscribes a subscriber to synchronous notifications with the given notification name and an associated payload object,
+    /// Subscribes the client to synchronous notifications with the given notification name and an associated payload object,
     /// specifying a notification handler, a filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.
     ///
@@ -145,26 +109,26 @@ class Messenger {
     ///
     /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
     ///
-    /// - Parameter msgHandler:     The function that will handle receipt of notifications, with no parameters.
+    /// - Parameter handler:        The function that will handle receipt of notifications, with no parameters.
     ///
     /// - Parameter filter:         A  function that, given the payload object, decides whether or not the handler should be invoked
     ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
     ///
     /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
     ///
-    static func subscribe<P>(_ subscriber: NotificationSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
+    func subscribe<P>(to notifName: Notification.Name, handler: @escaping () -> Void,
                              filter: @escaping ((P) -> Bool), opQueue: OperationQueue? = nil) where P: Any {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
         // the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: { notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: {notif in
             
             if let payload = notif.payload as? P {
                 
                 if filter(payload) {
-                    msgHandler()
+                    handler()
                 }
                 
             } else {
@@ -183,11 +147,11 @@ class Messenger {
             }
         })
         
-        registerSubscription(subscriber.subscriberId, notifName, observer)
+        registerSubscription(to: notifName, observer: observer)
     }
     
     ///
-    /// Subscribes a subscriber to synchronous notifications with the given notification name and no associated payload object,
+    /// Subscribes the client to synchronous notifications with the given notification name and no associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.
     ///
@@ -195,7 +159,7 @@ class Messenger {
     ///
     /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
     ///
-    /// - Parameter msgHandler:     The function that will handle receipt of notifications.
+    /// - Parameter handler:        The function that will handle receipt of notifications.
     ///
     /// - Parameter filter:         An optional function that decides whether or not the handler should be invoked
     ///                             i.e. whether or not the subscriber is interested in handling this particular notification instance.
@@ -203,24 +167,24 @@ class Messenger {
     ///
     /// - Parameter opQueue:        An optional OperatitonQueue on which to (synchronously) receive the incoming notifications.
     ///
-    static func subscribe(_ subscriber: NotificationSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
+    func subscribe(to notifName: Notification.Name, handler: @escaping () -> Void,
                           filter: (() -> Bool)? = nil, opQueue: OperationQueue? = nil) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: { notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: opQueue, using: {notif in
             
             if filter?() ?? true {
-                msgHandler()
+                handler()
             }
         })
         
-        registerSubscription(subscriber.subscriberId, notifName, observer)
+        registerSubscription(to: notifName, observer: observer)
     }
     
     ///
-    /// Subscribes a subscriber to asynchronous notifications with the given notification name and an associated payload object,
+    /// Subscribes the client to asynchronous notifications with the given notification name and an associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and a DispatchQueue on
     /// which to receive the notifications.
     ///
@@ -230,7 +194,7 @@ class Messenger {
     ///
     /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
     ///
-    /// - Parameter msgHandler:     The function that will handle receipt of notifications, with an arbitrary payload
+    /// - Parameter handler:        The function that will handle receipt of notifications, with an arbitrary payload
     ///                             object as a parameter.
     ///
     /// - Parameter filter:         An optional function that, given the payload object, decides whether or not the handler should be invoked
@@ -239,14 +203,14 @@ class Messenger {
     ///
     /// - Parameter opQueue:        A DispatchQueue on which to (asynchronously) receive the incoming notifications.
     ///
-    static func subscribeAsync<P>(_ subscriber: NotificationSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping (P) -> Void,
+    func subscribeAsync<P>(to notifName: Notification.Name, handler: @escaping (P) -> Void,
                                   filter: ((P) -> Bool)? = nil, queue: DispatchQueue) where P: Any {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Extract the payload from the Notification, type-check it, and pass it onto
         // the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: {notif in
             
             // Dispatch the notification asynchronously on the specified queue.
             queue.async {
@@ -254,7 +218,7 @@ class Messenger {
                 if let payload = notif.payload as? P {
                     
                     if filter?(payload) ?? true {
-                        msgHandler(payload)
+                        handler(payload)
                     }
                     
                 } else {
@@ -274,11 +238,11 @@ class Messenger {
             }
         })
         
-        registerSubscription(subscriber.subscriberId, notifName, observer)
+        registerSubscription(to: notifName, observer: observer)
     }
     
     ///
-    /// Subscribes a subscriber to asynchronous notifications with the given notification name and no associated payload object,
+    /// Subscribes the client to asynchronous notifications with the given notification name and no associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and a DispatchQueue on
     /// which to receive the notifications.
     ///
@@ -286,7 +250,7 @@ class Messenger {
     ///
     /// - Parameter notifName:      The name of the notification the subscriber wishes to subscribe to.
     ///
-    /// - Parameter msgHandler:     The function that will handle receipt of notifications, with an arbitrary payload
+    /// - Parameter handler:        The function that will handle receipt of notifications, with an arbitrary payload
     ///                             object as a parameter.
     ///
     /// - Parameter filter:         An optional function that, given the payload object, decides whether or not the handler should be invoked
@@ -295,24 +259,24 @@ class Messenger {
     ///
     /// - Parameter opQueue:        A DispatchQueue on which to (asynchronously) receive the incoming notifications.
     ///
-    static func subscribeAsync(_ subscriber: NotificationSubscriber, _ notifName: Notification.Name, _ msgHandler: @escaping () -> Void,
+    func subscribeAsync(to notifName: Notification.Name, handler: @escaping () -> Void,
                                   filter: (() -> Bool)? = nil, queue: DispatchQueue) {
         
         // Wrap the provided handler function in a block that receives a Notification.
         // Invoke the handler, if the optionally provided filter allows it.
         
-        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: { notif in
+        let observer = notifCtr.addObserver(forName: notifName, object: nil, queue: nil, using: {notif in
             
             // Dispatch the notification asynchronously on the specified queue.
             queue.async {
                 
                 if filter?() ?? true {
-                    msgHandler()
+                    handler()
                 }
             }
         })
         
-        registerSubscription(subscriber.subscriberId, notifName, observer)
+        registerSubscription(to: notifName, observer: observer)
     }
     
     ///
@@ -322,14 +286,12 @@ class Messenger {
     ///
     /// - Parameter notifName:      The name of the notification the subscriber wishes to unsubscribe from.
     ///
-    static func unsubscribe(_ subscriber: NotificationSubscriber, _ notifName: Notification.Name) {
+    func unsubscribe(from notifName: Notification.Name) {
         
-        // Retrieve the subscription from the subscriptions map
-        if let subscriptionsForSubscriber = subscriptions[subscriber.subscriberId],
-            let observer = subscriptionsForSubscriber[notifName] {
+        if let observer = subscriptions[notifName] {
             
             notifCtr.removeObserver(observer)
-            subscriptions[subscriber.subscriberId]?.removeValue(forKey: notifName)
+            subscriptions.removeValue(forKey: notifName)
         }
     }
     
@@ -338,17 +300,14 @@ class Messenger {
     ///
     /// - Parameter subscriber:     The subscriber that is unsubscribing from notifications.
     ///
-    static func unsubscribeAll(for subscriber: NotificationSubscriber) {
+    func unsubscribeFromAll() {
         
         // Retrieve the subscriptions from the subscriptions map
-        if let subscriptionsForSubscriber = subscriptions[subscriber.subscriberId] {
-            
-            for observer in subscriptionsForSubscriber.values {
-                notifCtr.removeObserver(observer)
-            }
-            
-            subscriptions.removeValue(forKey: subscriber.subscriberId)
+        for observer in subscriptions.values {
+            notifCtr.removeObserver(observer)
         }
+        
+        subscriptions.removeAll()
     }
     
     ///
@@ -361,13 +320,54 @@ class Messenger {
     /// - Parameter observer:       The observer object returned by NotificationCenter when subscribing to this notification.
     ///                             This object can later be used to unsubscribe from this notification.
     ///
-    private static func registerSubscription(_ subscriberId: String, _ notifName: Notification.Name, _ observer: Observer) {
+    private func registerSubscription(to notifName: Notification.Name, observer: Observer) {
+        subscriptions[notifName] = observer
+    }
+    
+    // MARK: Publish ---------------------------------------------
+    
+    ///
+    /// Publishes a notification with an associated payload object that conforms to the NotificationPayload protocol.
+    ///
+    /// - Parameter payload: The payload object to be published (must conform to NotificationPayload)
+    ///
+    func publish<P>(_ payload: P) where P: NotificationPayload {
         
-        if subscriptions[subscriberId] == nil {
-            subscriptions[subscriberId] = [:]
-        }
+        // The notification name is extracted from the payload object, and the payload
+        // object is wrapped in a Notification which is then posted by the NotificationCenter.
         
-        subscriptions[subscriberId]![notifName] = observer
+        var notification = Notification(name: payload.notificationName)
+        notification.payload = payload
+        notification.object = client
+        
+        notifCtr.post(notification)
+    }
+    
+    ///
+    /// Publishes a notification with no associated payload.
+    ///
+    /// - Parameter notifName: The name for the notification to be published.
+    ///
+    func publish(_ notifName: Notification.Name) {
+        notifCtr.post(name: notifName, object: client)
+    }
+    
+    ///
+    /// Publishes a notification with an arbitrary associated payload object.
+    ///
+    /// - Parameter notifName:  The name for the notification to be published.
+    ///
+    /// - Parameter payload:    The (arbitrary) payload object to be published.
+    ///
+    func publish(_ notifName: Notification.Name, payload: Any) {
+        
+        // The payload object is wrapped in a Notification which is then posted by the NotificationCenter.
+        
+        var notification = Notification(name: notifName)
+        notification.payload = payload
+        notification.object = client
+        
+        notifCtr.post(notification)
     }
 }
 

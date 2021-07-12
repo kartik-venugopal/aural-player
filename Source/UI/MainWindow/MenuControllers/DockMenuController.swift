@@ -52,17 +52,19 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
     private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
     
+    private lazy var messenger = Messenger(for: self)
+    
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
     override func awakeFromNib() {
         
         favoritesMenuItem.off()
         
-        Messenger.subscribeAsync(self, .favoritesList_trackAdded, self.trackAddedToFavorites(_:), queue: .main)
-        Messenger.subscribeAsync(self, .favoritesList_tracksRemoved, self.tracksRemovedFromFavorites(_:), queue: .main)
-        Messenger.subscribeAsync(self, .history_updated, self.recreateHistoryMenus, queue: .main)
+        messenger.subscribeAsync(to: .favoritesList_trackAdded, handler: trackAddedToFavorites(_:), queue: .main)
+        messenger.subscribeAsync(to: .favoritesList_tracksRemoved, handler: tracksRemovedFromFavorites(_:), queue: .main)
+        messenger.subscribeAsync(to: .history_updated, handler: recreateHistoryMenus, queue: .main)
         
         // Subscribe to notifications
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
@@ -87,7 +89,7 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
-        Messenger.publish(.favoritesList_addOrRemove)
+        messenger.publish(.favoritesList_addOrRemove)
     }
     
     // Responds to a notification that a track has been added to the Favorites list, by updating the Favorites menu
@@ -178,76 +180,76 @@ class DockMenuController: NSObject, NSMenuDelegate, NotificationSubscriber {
     
     // Pauses or resumes playback
     @IBAction func playOrPauseAction(_ sender: AnyObject) {
-        Messenger.publish(.player_playOrPause)
+        messenger.publish(.player_playOrPause)
     }
     
     @IBAction func stopAction(_ sender: AnyObject) {
-        Messenger.publish(.player_stop)
+        messenger.publish(.player_stop)
     }
     
     // Replays the currently playing track from the beginning, if there is one
     @IBAction func replayTrackAction(_ sender: AnyObject) {
-        Messenger.publish(.player_replayTrack)
+        messenger.publish(.player_replayTrack)
     }
     
     // Plays the previous track in the current playback sequence
     @IBAction func previousTrackAction(_ sender: AnyObject) {
-        Messenger.publish(.player_previousTrack)
+        messenger.publish(.player_previousTrack)
     }
     
     // Plays the next track in the current playback sequence
     @IBAction func nextTrackAction(_ sender: AnyObject) {
-        Messenger.publish(.player_nextTrack)
+        messenger.publish(.player_nextTrack)
     }
     
     // Seeks backward within the currently playing track
     @IBAction func seekBackwardAction(_ sender: AnyObject) {
-        Messenger.publish(.player_seekBackward, payload: UserInputMode.discrete)
+        messenger.publish(.player_seekBackward, payload: UserInputMode.discrete)
     }
     
     // Seeks forward within the currently playing track
     @IBAction func seekForwardAction(_ sender: AnyObject) {
-        Messenger.publish(.player_seekForward, payload: UserInputMode.discrete)
+        messenger.publish(.player_seekForward, payload: UserInputMode.discrete)
     }
     
     // Sets the repeat mode to "Off"
     @IBAction func repeatOffAction(_ sender: AnyObject) {
-        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.off)
+        messenger.publish(.player_setRepeatMode, payload: RepeatMode.off)
     }
     
     // Sets the repeat mode to "Repeat One"
     @IBAction func repeatOneAction(_ sender: AnyObject) {
-        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.one)
+        messenger.publish(.player_setRepeatMode, payload: RepeatMode.one)
     }
     
     // Sets the repeat mode to "Repeat All"
     @IBAction func repeatAllAction(_ sender: AnyObject) {
-        Messenger.publish(.player_setRepeatMode, payload: RepeatMode.all)
+        messenger.publish(.player_setRepeatMode, payload: RepeatMode.all)
     }
     
     // Sets the shuffle mode to "Off"
     @IBAction func shuffleOffAction(_ sender: AnyObject) {
-        Messenger.publish(.player_setShuffleMode, payload: ShuffleMode.off)
+        messenger.publish(.player_setShuffleMode, payload: ShuffleMode.off)
     }
     
     // Sets the shuffle mode to "On"
     @IBAction func shuffleOnAction(_ sender: AnyObject) {
-        Messenger.publish(.player_setShuffleMode, payload: ShuffleMode.on)
+        messenger.publish(.player_setShuffleMode, payload: ShuffleMode.on)
     }
     
     // Mutes or unmutes the player
     @IBAction func muteOrUnmuteAction(_ sender: AnyObject) {
-        Messenger.publish(.player_muteOrUnmute)
+        messenger.publish(.player_muteOrUnmute)
     }
     
     // Decreases the volume by a certain preset decrement
     @IBAction func decreaseVolumeAction(_ sender: Any) {
-        Messenger.publish(.player_decreaseVolume, payload: UserInputMode.discrete)
+        messenger.publish(.player_decreaseVolume, payload: UserInputMode.discrete)
     }
     
     // Increases the volume by a certain preset increment
     @IBAction func increaseVolumeAction(_ sender: Any) {
-        Messenger.publish(.player_increaseVolume, payload: UserInputMode.discrete)
+        messenger.publish(.player_increaseVolume, payload: UserInputMode.discrete)
     }
     
     // Updates the menu item states per the current playback modes

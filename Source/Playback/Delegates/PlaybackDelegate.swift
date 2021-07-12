@@ -45,6 +45,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol, NotificationSubscriber {
     let stopPlaybackChain: StopPlaybackChain
     let trackPlaybackCompletedChain: TrackPlaybackCompletedChain
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(_ player: PlayerProtocol, _ sequencer: SequencerProtocol, _ profiles: PlaybackProfiles, _ preferences: PlaybackPreferences,
          _ startPlaybackChain: StartPlaybackChain, _ stopPlaybackChain: StopPlaybackChain, _ trackPlaybackCompletedChain: TrackPlaybackCompletedChain) {
         
@@ -58,14 +60,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol, NotificationSubscriber {
         self.trackPlaybackCompletedChain = trackPlaybackCompletedChain
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
-        Messenger.subscribeAsync(self, .player_trackPlaybackCompleted, self.trackPlaybackCompleted(_:), queue: .main)
-        Messenger.subscribe(self, .sequencer_playingTrackRemoved, self.doStop(_:))
+        messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
+        messenger.subscribeAsync(to: .player_trackPlaybackCompleted, handler: trackPlaybackCompleted(_:), queue: .main)
+        messenger.subscribe(to: .sequencer_playingTrackRemoved, handler: doStop(_:))
 
         // Commands
-        Messenger.subscribeAsync(self, .player_autoplay, self.autoplay(_:), queue: .main)
-        Messenger.subscribe(self, .player_savePlaybackProfile, self.savePlaybackProfile)
-        Messenger.subscribe(self, .player_deletePlaybackProfile, self.deletePlaybackProfile)
+        messenger.subscribeAsync(to: .player_autoplay, handler: autoplay(_:), queue: .main)
+        messenger.subscribe(to: .player_savePlaybackProfile, handler: savePlaybackProfile)
+        messenger.subscribe(to: .player_deletePlaybackProfile, handler: deletePlaybackProfile)
     }
     
     // MARK: play()
@@ -311,7 +313,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol, NotificationSubscriber {
                 doTrackPlaybackCompleted()
                 
             } else if seekResult.loopRemoved {
-                Messenger.publish(.player_playbackLoopChanged)
+                messenger.publish(.player_playbackLoopChanged)
             }
         }
     }

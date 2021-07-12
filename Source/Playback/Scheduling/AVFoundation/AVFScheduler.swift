@@ -29,6 +29,8 @@ class AVFScheduler: PlaybackSchedulerProtocol {
     // Caches a previously computed/scheduled playback segment, when a segment loop is defined, in order to prevent redundant computations.
     var loopingSegment: PlaybackSegment?
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(_ playerNode: AuralPlayerNode) {
         
         self.playerNode = playerNode
@@ -142,7 +144,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
             playerNode.play()
         }
         
-        Messenger.publish(.player_loopRestarted)
+        messenger.publish(.player_loopRestarted)
     }
     
     func endLoop(_ session: PlaybackSession, _ loopEndTime: Double, _ beginPlayback: Bool) {
@@ -182,7 +184,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
     
     // Signal track playback completion
     func trackCompleted(_ session: PlaybackSession) {
-        Messenger.publish(.player_trackPlaybackCompleted, payload: session)
+        messenger.publish(.player_trackPlaybackCompleted, payload: session)
     }
     
     func loopSegmentCompleted(_ session: PlaybackSession) {
@@ -213,7 +215,7 @@ class AVFScheduler: PlaybackSchedulerProtocol {
             playerNode.play()
         }
         
-        Messenger.publish(.player_loopRestarted)
+        messenger.publish(.player_loopRestarted)
     }
 
     // Computes a segment completion handler closure, given a playback session.

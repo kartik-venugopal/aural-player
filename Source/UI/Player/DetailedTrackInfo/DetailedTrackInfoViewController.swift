@@ -109,18 +109,20 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
     private let horizHTMLTablePadding: Int = 20
     private let vertHTMLTablePadding: Int = 5
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func awakeFromNib() {
         
         // Only respond to these notifications when the popover is shown, the updated track matches the displayed track,
         // and the album art field of the track was updated.
-        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
                                  filter: {[weak self] msg in (self?.popover.isShown ?? false) && msg.updatedTrack == DetailedTrackInfoViewController.shownTrack && msg.updatedFields.contains(.art)},
                                  queue: .main)
     }
     
     func destroy() {
         
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
         
         close()
         

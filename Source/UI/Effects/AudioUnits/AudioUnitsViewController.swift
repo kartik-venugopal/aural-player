@@ -37,6 +37,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
     @IBOutlet weak var audioUnitsMenuIconItem: TintedIconMenuItem!
     @IBOutlet weak var btnRemove: TintedImageButton!
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         audioUnitsMenuIconItem.tintFunction = {return Colors.functionButtonColor}
@@ -46,29 +48,29 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
         applyColorScheme(colorSchemesManager.systemScheme)
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .effects_unitStateChanged, self.stateChanged)
-        Messenger.subscribe(self, .auEffectsUnit_showEditor, {[weak self] (notif: ShowAudioUnitEditorCommandNotification) in self?.doEditAudioUnit(notif.audioUnit)})
+        messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
+        messenger.subscribe(to: .auEffectsUnit_showEditor, handler: {[weak self] (notif: ShowAudioUnitEditorCommandNotification) in self?.doEditAudioUnit(notif.audioUnit)})
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
         
-        Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
-        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
         
-        Messenger.subscribe(self, .effects_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
-        Messenger.subscribe(self, .effects_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
-        Messenger.subscribe(self, .effects_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeActiveUnitStateColor, handler: changeActiveUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeBypassedUnitStateColor, handler: changeBypassedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeSuppressedUnitStateColor, handler: changeSuppressedUnitStateColor(_:))
         
-        Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
-        Messenger.subscribe(self, .playlist_changeTrackNameTextColor, self.changeAURowTextColor(_:))
-        Messenger.subscribe(self, .playlist_changeTrackNameSelectedTextColor, self.changeAURowSelectedTextColor(_:))
+        messenger.subscribe(to: .playlist_changeSelectionBoxColor, handler: changeSelectionBoxColor(_:))
+        messenger.subscribe(to: .playlist_changeTrackNameTextColor, handler: changeAURowTextColor(_:))
+        messenger.subscribe(to: .playlist_changeTrackNameSelectedTextColor, handler: changeAURowSelectedTextColor(_:))
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 
     @IBAction func addAudioUnitAction(_ sender: Any) {
@@ -89,8 +91,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             DispatchQueue.main.async {
 
                 self.doEditAudioUnit(audioUnit)
-                Messenger.publish(.auEffectsUnit_audioUnitsAddedOrRemoved)
-                Messenger.publish(.effects_unitStateChanged)
+                self.messenger.publish(.auEffectsUnit_audioUnitsAddedOrRemoved)
+                self.messenger.publish(.effects_unitStateChanged)
             }
         }
     }
@@ -132,8 +134,8 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, NotificationSu
             }
             
             tableView.reloadData()
-            Messenger.publish(.auEffectsUnit_audioUnitsAddedOrRemoved)
-            Messenger.publish(.effects_unitStateChanged)
+            messenger.publish(.auEffectsUnit_audioUnitsAddedOrRemoved)
+            messenger.publish(.effects_unitStateChanged)
         }
     }
     

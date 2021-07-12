@@ -51,6 +51,8 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
     
     var soundProfiles: SoundProfiles
     
+    private lazy var messenger = Messenger(for: self)
+    
     // Sets up the audio engine
     init(_ audioUnitsManager: AudioUnitsManager, _ persistentState: AudioGraphPersistentState?) {
         
@@ -103,7 +105,7 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         soundProfiles = SoundProfiles(persistentState: persistentState?.soundProfiles)
         
         // Register self as an observer for notifications when the audio output device has changed (e.g. headphones)
-        Messenger.subscribe(self, .AVAudioEngineConfigurationChange, self.outputDeviceChanged)
+        messenger.subscribe(to: .AVAudioEngineConfigurationChange, handler: outputDeviceChanged)
         
         deviceManager.maxFramesPerSlice = visualizationAnalysisBufferSize
         audioEngine.start()
@@ -176,7 +178,7 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         audioEngine.start()
         
         // Send out a notification
-        Messenger.publish(.audioGraph_outputDeviceChanged)
+        messenger.publish(.audioGraph_outputDeviceChanged)
     }
     
     // MARK: Audio Units management ----------------------------------
@@ -190,9 +192,9 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
             masterUnit.addAudioUnit(newUnit)
             
             let context = AudioGraphChangeContext()
-            Messenger.publish(PreAudioGraphChangeNotification(context: context))
+            messenger.publish(PreAudioGraphChangeNotification(context: context))
             audioEngine.insertNode(newUnit.avNodes[0])
-            Messenger.publish(AudioGraphChangedNotification(context: context))
+            messenger.publish(AudioGraphChangedNotification(context: context))
             
             return (audioUnit: newUnit, index: audioUnits.lastIndex)
         }
@@ -211,9 +213,9 @@ class AudioGraph: AudioGraphProtocol, NotificationSubscriber, PersistentModelObj
         masterUnit.removeAudioUnits(descendingIndices)
         
         let context = AudioGraphChangeContext()
-        Messenger.publish(PreAudioGraphChangeNotification(context: context))
+        messenger.publish(PreAudioGraphChangeNotification(context: context))
         audioEngine.removeNodes(descendingIndices)
-        Messenger.publish(AudioGraphChangedNotification(context: context))
+        messenger.publish(AudioGraphChangedNotification(context: context))
     }
     
     // MARK: Miscellaneous properties / functions ------------------------

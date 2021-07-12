@@ -24,6 +24,8 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
     
     lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
+    lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         initSubscriptions()
     }
@@ -31,7 +33,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
     func initSubscriptions() {}
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     // MARK: Track playback actions/functions ------------------------------------------------------------
@@ -158,7 +160,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
             _ = player.toggleLoop()
             playbackLoopChanged()
             
-            Messenger.publish(.player_playbackLoopChanged)
+            messenger.publish(.player_playbackLoopChanged)
         }
     }
     
@@ -187,7 +189,7 @@ class PlaybackViewController: NSViewController, NotificationSubscriber, Destroya
             if self.curChapter != playingChapter {
                 
                 // There has been a change ... notify observers and update the variable
-                Messenger.publish(ChapterChangedNotification(oldChapter: self.curChapter, newChapter: playingChapter))
+                self.messenger.publish(ChapterChangedNotification(oldChapter: self.curChapter, newChapter: playingChapter))
                 self.curChapter = playingChapter
             }
         })

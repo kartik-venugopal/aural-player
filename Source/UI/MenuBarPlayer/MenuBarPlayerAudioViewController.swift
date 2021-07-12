@@ -23,7 +23,7 @@ class MenuBarPlayerAudioViewController: PlayerAudioViewController {
     
     override func initSubscriptions() {
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
     }

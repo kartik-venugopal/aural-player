@@ -57,6 +57,8 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     
     private var allButtons: [Tintable] = []
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         allButtons = [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite, btnBookmark]
@@ -69,29 +71,29 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         // Subscribe to various notifications
         
         // TODO: Add a subscribe() method overload to Messenger that takes multiple notif names for a single msgHandler ???
-        Messenger.subscribe(self, .favoritesList_trackAdded, self.trackAddedToFavorites(_:))
-        Messenger.subscribe(self, .favoritesList_tracksRemoved, self.tracksRemovedFromFavorites(_:))
+        messenger.subscribe(to: .favoritesList_trackAdded, handler: trackAddedToFavorites(_:))
+        messenger.subscribe(to: .favoritesList_tracksRemoved, handler: tracksRemovedFromFavorites(_:))
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
-        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.noTrackPlaying, queue: .main)
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: noTrackPlaying, queue: .main)
         
-        Messenger.subscribe(self, .player_moreInfo, self.moreInfo)
-        Messenger.subscribe(self, .favoritesList_addOrRemove, self.addOrRemoveFavorite)
-        Messenger.subscribe(self, .player_bookmarkPosition, self.bookmarkPosition)
-        Messenger.subscribe(self, .player_bookmarkLoop, self.bookmarkLoop)
+        messenger.subscribe(to: .player_moreInfo, handler: moreInfo)
+        messenger.subscribe(to: .favoritesList_addOrRemove, handler: addOrRemoveFavorite)
+        messenger.subscribe(to: .player_bookmarkPosition, handler: bookmarkPosition)
+        messenger.subscribe(to: .player_bookmarkLoop, handler: bookmarkLoop)
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: changeToggleButtonOffStateColor(_:))
     }
     
     func destroy() {
         
         DetailedTrackInfoViewController.destroy()
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     private func moreInfo() {
@@ -133,7 +135,7 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
     
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
-        Messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewState.currentViewSelector)
     }
     
     // Adds/removes the currently playing track to/from the "Favorites" list

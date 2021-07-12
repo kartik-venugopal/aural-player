@@ -41,6 +41,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     
     var duration: Double {playlist.duration}
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistCRUDProtocol, _ trackReader: TrackReader, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
         
         self.playlist = playlist
@@ -60,8 +62,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
         trackUpdateQueue.qualityOfService = .utility
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .application_launched, self.appLaunched(_:))
-        Messenger.subscribe(self, .application_reopened, self.appReopened(_:))
+        messenger.subscribe(to: .application_launched, handler: appLaunched(_:))
+        messenger.subscribe(to: .application_reopened, handler: appReopened(_:))
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
@@ -140,7 +142,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             
             // ------------------ ADD --------------------
             
-            Messenger.publish(.playlist_startedAddingTracks)
+            self.messenger.publish(.playlist_startedAddingTracks)
             
             if userAction {
                 self.collectTracks(files.sorted(by: URL.ascendingPathComparator), false)
@@ -161,7 +163,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             let results = self.addSession.results
             
             if userAction {
-                Messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
+                self.messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
             }
             
             // TODO: Reordering will mean that results will not be in the correct order when this notification
@@ -169,11 +171,11 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             // Notify change listeners
             self.changeListeners.forEach {$0.tracksAdded(results)}
             
-            Messenger.publish(.playlist_doneAddingTracks, payload: reorderGroupingPlaylists)
+            self.messenger.publish(.playlist_doneAddingTracks, payload: reorderGroupingPlaylists)
             
             // If errors > 0, send AsyncMessage to UI
             if self.addSession.errors.isNonEmpty {
-                Messenger.publish(.playlist_tracksNotAdded, payload: self.addSession.errors)
+                self.messenger.publish(.playlist_tracksNotAdded, payload: self.addSession.errors)
             }
             
             self.addSession = nil
@@ -282,7 +284,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
                 addSession.results.append(result)
                 
                 let progress = TrackAddOperationProgress(tracksAdded: addSession.tracksAdded, totalTracks: addSession.totalTracks)
-                Messenger.publish(TrackAddedNotification(trackIndex: result.flatPlaylistResult,
+                messenger.publish(TrackAddedNotification(trackIndex: result.flatPlaylistResult,
                                                          groupingInfo: result.groupingPlaylistResults, addOperationProgress: progress))
                 
                 if batchIndex == 0 && addSession.autoplayOptions.autoplay {
@@ -321,8 +323,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
             
         let trackAddedNotification = TrackAddedNotification(trackIndex: result.flatPlaylistResult, groupingInfo: result.groupingPlaylistResults, addOperationProgress: TrackAddOperationProgress(tracksAdded: 1, totalTracks: 1))
         
-        Messenger.publish(trackAddedNotification)
-        Messenger.publish(.history_itemsAdded, payload: [resolvedFile])
+        messenger.publish(trackAddedNotification)
+        messenger.publish(.history_itemsAdded, payload: [resolvedFile])
         
         self.changeListeners.forEach({$0.tracksAdded([result])})
         
@@ -332,7 +334,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     // Performs autoplay, by delegating a playback request to the player
     private func autoplay(_ autoplayType: AutoplayCommandType, _ track: Track, _ interruptPlayback: Bool) {
         
-        Messenger.publish(autoplayType == .playSpecificTrack ?
+        messenger.publish(autoplayType == .playSpecificTrack ?
             AutoplayCommandNotification(type: .playSpecificTrack, interruptPlayback: interruptPlayback, candidateTrack: track) :
             AutoplayCommandNotification(type: .beginPlayback))
     }
@@ -340,14 +342,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol, NotificationSubscriber {
     func removeTracks(_ indexes: IndexSet) {
         
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
-        Messenger.publish(.playlist_tracksRemoved, payload: results)
+        messenger.publish(.playlist_tracksRemoved, payload: results)
         changeListeners.forEach {$0.tracksRemoved(results)}
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
         let results: TrackRemovalResults = playlist.removeTracksAndGroups(tracks, groups, groupType)
-        Messenger.publish(.playlist_tracksRemoved, payload: results)
+        messenger.publish(.playlist_tracksRemoved, payload: results)
         changeListeners.forEach {$0.tracksRemoved(results)}
     }
     

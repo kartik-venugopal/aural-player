@@ -46,9 +46,9 @@ class TimeStretchViewController: EffectsUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .timeEffectsUnit_decreaseRate, self.decreaseRate)
-        Messenger.subscribe(self, .timeEffectsUnit_increaseRate, self.increaseRate)
-        Messenger.subscribe(self, .timeEffectsUnit_setRate, self.setRate(_:))
+        messenger.subscribe(to: .timeEffectsUnit_decreaseRate, handler: decreaseRate)
+        messenger.subscribe(to: .timeEffectsUnit_increaseRate, handler: increaseRate)
+        messenger.subscribe(to: .timeEffectsUnit_setRate, handler: setRate(_:))
     }
     
     override func oneTimeSetup() {
@@ -75,7 +75,7 @@ class TimeStretchViewController: EffectsUnitViewController {
         super.bypassAction(sender)
         
         // The playback rate may have changed, send out a notification
-        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
+        messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
     }
 
     // Toggles the "pitch shift" option of the Time stretch effects unit
@@ -93,7 +93,7 @@ class TimeStretchViewController: EffectsUnitViewController {
 
         // If the unit is active, publish a notification that the playback rate has changed. Other UI elements may need to be updated as a result.
         if timeStretchUnit.isActive {
-            Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
+            messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.rate)
         }
     }
 
@@ -118,14 +118,14 @@ class TimeStretchViewController: EffectsUnitViewController {
     // Changes the playback rate to a specific value
     private func rateChange(_ rateInfo: (rate: Float, rateString: String)) {
 
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
 
         timeStretchView.setRate(rateInfo.rate, rateInfo.rateString, timeStretchUnit.formattedPitch)
         stateChanged()
 
         showThisTab()
 
-        Messenger.publish(.effects_playbackRateChanged, payload: rateInfo.rate)
+        messenger.publish(.effects_playbackRateChanged, payload: rateInfo.rate)
     }
 
     // Updates the Overlap parameter of the Time stretch effects unit

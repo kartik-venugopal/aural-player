@@ -28,6 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// A window of time within which multiple file open operations will be considered as chunks of one single operation
     private let fileOpenNotificationWindow_seconds: Double = 3
     
+    private let messenger = Messenger(for: self)
+    
     override init() {
         
         super.init()
@@ -60,7 +62,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         appLaunched = true
         
         // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
-        Messenger.publish(.application_launched, payload: filesToOpen)
+        messenger.publish(.application_launched, payload: filesToOpen)
     }
     
     /// Opens the application with a single file (audio file or playlist)
@@ -88,7 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Publish a notification to the app that it needs to open the new set of files
             let reopenMsg = AppReopenedNotification(filesToOpen: filesToOpen, isDuplicateNotification: timeSinceLastFileOpen < fileOpenNotificationWindow_seconds)
             
-            Messenger.publish(reopenMsg)
+            messenger.publish(reopenMsg)
         }
         
         // Update the lastFileOpenTime timestamp to the current time
@@ -100,7 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Broadcast a request to all app components that the app needs to exit. Check responses to see if it is safe to exit. Some components may need to do some work before the app is able to safely exit, or cancel the exit operation altogether.
         let request = AppExitRequestNotification()
-        Messenger.publish(request)
+        messenger.publish(request)
         
         return request.okToExit ? .terminateNow : .terminateCancel
     }

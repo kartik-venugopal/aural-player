@@ -53,6 +53,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
+    private lazy var messenger = Messenger(for: self)
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
 
         let showingModalComponent = WindowManager.instance.isShowingModalComponent
@@ -129,7 +131,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func addFilesAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_addTracks)
+            messenger.publish(.playlist_addTracks)
         }
     }
     
@@ -137,20 +139,20 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func removeSelectedItemsAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
     // Invokes the Save file dialog, to allow the user to save all playlist items to a playlist file
     @IBAction func savePlaylistAction(_ sender: Any) {
-        Messenger.publish(.playlist_savePlaylist)
+        messenger.publish(.playlist_savePlaylist)
     }
     
     // Removes all items from the playlist
     @IBAction func clearPlaylistAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_clearPlaylist)
+            messenger.publish(.playlist_clearPlaylist)
         }
     }
     
@@ -158,7 +160,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsUpAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -166,7 +168,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToTopAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -174,7 +176,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsDownAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -182,20 +184,20 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToBottomAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
     @IBAction func playlistSearchAction(_ sender: Any) {
-        Messenger.publish(.playlist_search)
+        messenger.publish(.playlist_search)
     }
     
     // Presents the sort modal dialog to allow the user to sort playlist tracks
     @IBAction func playlistSortAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_sort)
+            messenger.publish(.playlist_sort)
         }
     }
     
@@ -203,67 +205,67 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func playSelectedItemAction(_ sender: Any) {
         
         if WindowManager.instance.isChaptersListWindowKey {
-            Messenger.publish(.chaptersList_playSelectedChapter)
+            messenger.publish(.chaptersList_playSelectedChapter)
             
         } else {
-            Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
     @IBAction func clearSelectionAction(_ sender: Any) {
-        Messenger.publish(.playlist_clearSelection, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_clearSelection, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func invertSelectionAction(_ sender: Any) {
-        Messenger.publish(.playlist_invertSelection, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_invertSelection, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func cropSelectionAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_cropSelection, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_cropSelection, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
     @IBAction func expandSelectedGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func collapseSelectedItemsAction(_ sender: Any) {
-        Messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func expandAllGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func collapseAllGroupsAction(_ sender: Any) {
-        Messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewState.currentViewSelector)
     }
     
     // Scrolls the current playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: Any) {
-        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToTop, payload: PlaylistViewState.currentViewSelector)
     }
     
     // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: Any) {
-        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func pageUpAction(_ sender: Any) {
-        Messenger.publish(.playlist_pageUp, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageUp, payload: PlaylistViewState.currentViewSelector)
     }
     @IBAction func pageDownAction(_ sender: Any) {
-        Messenger.publish(.playlist_pageDown, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageDown, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func previousPlaylistViewAction(_ sender: Any) {
-        Messenger.publish(.playlist_previousView)
+        messenger.publish(.playlist_previousView)
     }
     
     @IBAction func nextPlaylistViewAction(_ sender: Any) {
-        Messenger.publish(.playlist_nextView)
+        messenger.publish(.playlist_nextView)
     }
     
     private func checkIfPlaylistIsBeingModified() -> Bool {

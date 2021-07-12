@@ -34,6 +34,8 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
     
     private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
     
+    private lazy var messenger = Messenger(for: self)
+    
     private var modalDialogResponse: ModalDialogResponse = .ok
     
     override func windowDidLoad() {
@@ -64,7 +66,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
         
         percentageFormatter.maxValue = 100
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {[weak self] msg in self?.window?.isVisible ?? false},
                                  queue: .main)
         
@@ -72,7 +74,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     var isModal: Bool {
@@ -176,7 +178,7 @@ class JumpToTimeEditorWindowController: NSWindowController, NotificationSubscrib
             jumpToTime = percentageStepper.doubleValue * secondsStepper.maxValue / 100
         }
         
-        Messenger.publish(.player_jumpToTime, payload: jumpToTime)
+        messenger.publish(.player_jumpToTime, payload: jumpToTime)
         
         modalDialogResponse = .ok
         theWindow.close()

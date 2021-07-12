@@ -50,6 +50,8 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
     
     override var nibName: String? {"Recorder"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         initControls()
@@ -57,21 +59,21 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         applyColorScheme(colorSchemesManager.systemScheme)
         
         // Subscribe to notifications
-        Messenger.subscribe(self, .application_exitRequest, self.onAppExit(_:))
+        messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
-        Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
-        Messenger.subscribe(self, .changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeTextButtonMenuColor, handler: changeTextButtonMenuColor(_:))
+        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
+        messenger.subscribe(to: .changeButtonMenuTextColor, handler: changeButtonMenuTextColor(_:))
         
-        Messenger.subscribe(self, .effects_changeFunctionCaptionTextColor, self.changeFunctionCaptionTextColor(_:))
-        Messenger.subscribe(self, .effects_changeFunctionValueTextColor, self.changeFunctionValueTextColor(_:))
+        messenger.subscribe(to: .effects_changeFunctionCaptionTextColor, handler: changeFunctionCaptionTextColor(_:))
+        messenger.subscribe(to: .effects_changeFunctionValueTextColor, handler: changeFunctionValueTextColor(_:))
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     private func initControls() {
@@ -108,7 +110,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         lblRecorderFileSize.stringValue = Size.ZERO.toString()
         recordingInfoBox.show()
         
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
     }
     
     // Stops the current recording
@@ -124,7 +126,7 @@ class RecorderViewController: NSViewController, NotificationSubscriber, Destroya
         saveRecording(recordingInfo!.format)
         recordingInfoBox.hide()
         
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
     }
     
     // Prompts the user to save the new recording

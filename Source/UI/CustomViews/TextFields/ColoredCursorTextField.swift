@@ -31,9 +31,11 @@ class ColoredCursorTextField: NSTextField {
 // TODO: Use an NSSearchField and remove this class/notification if changing its cursor/text colors is possible.
 class ColoredCursorSearchField: ColoredCursorTextField {
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func textDidChange(_ notification: Notification) {
         
         // Notify the search view that the query text has changed
-        Messenger.publish(.playlist_searchTextChanged, payload: self.stringValue)
+        messenger.publish(.playlist_searchTextChanged, payload: self.stringValue)
     }
 }

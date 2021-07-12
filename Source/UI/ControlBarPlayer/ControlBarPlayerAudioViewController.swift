@@ -23,16 +23,16 @@ class ControlBarPlayerAudioViewController: PlayerAudioViewController {
     
     override func initSubscriptions() {
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
-        Messenger.subscribe(self, .player_muteOrUnmute, self.muteOrUnmute)
-        Messenger.subscribe(self, .player_decreaseVolume, self.decreaseVolume(_:))
-        Messenger.subscribe(self, .player_increaseVolume, self.increaseVolume(_:))
+        messenger.subscribe(to: .player_muteOrUnmute, handler: muteOrUnmute)
+        messenger.subscribe(to: .player_decreaseVolume, handler: decreaseVolume(_:))
+        messenger.subscribe(to: .player_increaseVolume, handler: increaseVolume(_:))
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
     }
 }

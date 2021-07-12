@@ -17,17 +17,19 @@ class EndPlaybackSequenceAction: PlaybackChainAction {
     
     private let sequencer: SequencerProtocol
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(_ sequencer: SequencerProtocol) {
         self.sequencer = sequencer
     }
     
     func execute(_ context: PlaybackRequestContext, _ chain: PlaybackChain) {
         
-        Messenger.publish(PreTrackPlaybackNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: nil))
+        messenger.publish(PreTrackPlaybackNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: nil))
         
         sequencer.end()
         
-        Messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
+        messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
                                                       endTrack: nil, endState: .noTrack))
         
         chain.proceed(context)

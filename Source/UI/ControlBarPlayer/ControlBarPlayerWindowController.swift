@@ -24,6 +24,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     
     private var snappingWindow: SnappingWindow!
     
+    private lazy var messenger = Messenger(for: self)
+    
     override var windowNibName: String? {"ControlBarPlayer"}
     
     private var appMovingWindow: Bool = false
@@ -37,7 +39,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         snappingWindow = window as? SnappingWindow
 
         if let persistentWindowFrame = ControlBarPlayerViewState.windowFrame {
-            window?.setFrame(persistentWindowFrame, display: true, animate: true)
+            window?.setFrame(persistentWindowFrame, display: true, animate: false)
+
         } else {
             
             // Dock to top left if persistent window frame not available (the first time
@@ -53,8 +56,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         applyTheme()
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         
         snappingWindow.ensureOnScreen()
     }
@@ -155,7 +158,7 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         close()
         viewController.destroy()
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     @IBAction func windowedModeAction(_ sender: AnyObject) {

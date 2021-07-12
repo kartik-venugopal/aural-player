@@ -19,6 +19,8 @@ class TrackReader {
     
     private var coverArtReader: CoverArtReader
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(_ fileReader: FileReader, _ coverArtReader: CoverArtReader) {
         
         self.fileReader = fileReader
@@ -58,7 +60,7 @@ class TrackReader {
                     track.duration = duration
                     track.durationIsAccurate = true
                     
-                    Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
+                    self.messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
                 }
             }
         }
@@ -72,7 +74,7 @@ class TrackReader {
         if !track.durationIsAccurate, let playbackContext = track.playbackContext, track.duration != playbackContext.duration {
             
             track.duration = playbackContext.duration
-            Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
+            messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .duration))
         }
     }
     
@@ -136,7 +138,7 @@ class TrackReader {
             if let art = self.coverArtReader.getCoverArt(forTrack: track) {
                 
                 track.art = art
-                Messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
+                self.messenger.publish(TrackInfoUpdatedNotification(updatedTrack: track, updatedFields: .art))
             }
         }
     }

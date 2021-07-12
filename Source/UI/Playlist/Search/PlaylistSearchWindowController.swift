@@ -46,14 +46,16 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
     
     override var windowNibName: String? {"PlaylistSearch"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func windowDidLoad() {
         
-        Messenger.subscribe(self, .playlist_searchTextChanged, self.searchTextChanged(_:))
+        messenger.subscribe(to: .playlist_searchTextChanged, handler: searchTextChanged(_:))
         WindowManager.instance.registerModalComponent(self)
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     var isModal: Bool {self.window?.isVisible ?? false}
@@ -120,7 +122,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, N
         btnPreviousSearch.showIf(searchResults.hasPrevious)
         
         // Selects a track within the playlist view, to show the user where the track is located within the playlist
-        Messenger.publish(SelectSearchResultCommandNotification(searchResult: searchResult,
+        messenger.publish(SelectSearchResultCommandNotification(searchResult: searchResult,
                                                                 viewSelector: PlaylistViewState.currentViewSelector))
     }
     

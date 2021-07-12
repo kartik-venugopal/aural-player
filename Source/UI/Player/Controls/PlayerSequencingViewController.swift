@@ -29,6 +29,8 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber, 
     // When the buttons are in an "On" state, they should be tinted according to the system color scheme's function button color.
     var onStateTintFunction: TintFunction {{.white}}
     
+    lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         btnRepeat.stateImageMappings = [(RepeatMode.off, (Images.imgRepeat, offStateTintFunction)), (RepeatMode.one, (Images.imgRepeatOne, onStateTintFunction)), (RepeatMode.all, (Images.imgRepeat, onStateTintFunction))]
@@ -43,7 +45,7 @@ class PlayerSequencingViewController: NSViewController, NotificationSubscriber, 
     func initSubscriptions() {}
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     // Toggles the repeat mode

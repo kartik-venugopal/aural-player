@@ -31,6 +31,8 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     
     private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
     
+    private lazy var messenger = Messenger(for: self)
+    
     override var nibName: String? {"MasterPresetsManager"}
     
     var masterUnit: MasterUnitDelegateProtocol {graph.masterUnit}
@@ -169,7 +171,7 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
             renderPreview(masterPreset)
         }
         
-        Messenger.publish(.presetsManager_selectionChanged, payload: numRows)
+        messenger.publish(.presetsManager_selectionChanged, payload: numRows)
     }
     
     override func renamePreset(named name: String, to newName: String) {

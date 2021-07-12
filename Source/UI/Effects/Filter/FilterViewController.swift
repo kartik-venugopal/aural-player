@@ -74,12 +74,12 @@ class FilterViewController: EffectsUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .changeTextButtonMenuColor, self.changeTextButtonMenuColor(_:))
-        Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
-        Messenger.subscribe(self, .changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
-        Messenger.subscribe(self, .changeButtonMenuTextColor, self.changeButtonMenuTextColor(_:))
-        Messenger.subscribe(self, .changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeTextButtonMenuColor, handler: changeTextButtonMenuColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
+        messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeButtonMenuTextColor, handler: changeButtonMenuTextColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
     }
     
     private func clearBands() {

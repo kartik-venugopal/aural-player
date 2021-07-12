@@ -68,14 +68,14 @@ class MasterViewController: EffectsUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
-        Messenger.subscribe(self, .masterEffectsUnit_toggleEffects, self.toggleEffects)
-        Messenger.subscribe(self, .auEffectsUnit_audioUnitsAddedOrRemoved, self.refreshAUTable)
+        messenger.subscribe(to: .masterEffectsUnit_toggleEffects, handler: toggleEffects)
+        messenger.subscribe(to: .auEffectsUnit_audioUnitsAddedOrRemoved, handler: refreshAUTable)
         
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
     }
     
     override func initControls() {
@@ -91,7 +91,7 @@ class MasterViewController: EffectsUnitViewController {
         updateButtons()
         broadcastStateChangeNotification()
         
-        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
+        messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
         
         audioUnitsTable.reloadData()
     }
@@ -103,7 +103,7 @@ class MasterViewController: EffectsUnitViewController {
     @IBAction override func presetsAction(_ sender: AnyObject) {
         
         super.presetsAction(sender)
-        Messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
+        messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
     }
     
     private func updateButtons() {
@@ -113,7 +113,7 @@ class MasterViewController: EffectsUnitViewController {
     
     private func broadcastStateChangeNotification() {
         // Update the bypass buttons for the effects units
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
     }
     
     @IBAction func eqBypassAction(_ sender: AnyObject) {
@@ -136,7 +136,7 @@ class MasterViewController: EffectsUnitViewController {
         
         _ = timeStretchUnit.toggleState()
         
-        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
+        messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
         
         updateButtons()
         broadcastStateChangeNotification()
@@ -172,7 +172,7 @@ class MasterViewController: EffectsUnitViewController {
         if let newTrack = notification.endTrack, soundProfiles.hasFor(newTrack) {
             
             updateButtons()
-            Messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
+            messenger.publish(.effects_updateEffectsUnitView, payload: EffectsUnitType.master)
         }
     }
     
@@ -241,7 +241,7 @@ class MasterViewController: EffectsUnitViewController {
     override func stateChanged() {
         
         updateButtons()
-        Messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
+        messenger.publish(.effects_playbackRateChanged, payload: timeStretchUnit.effectiveRate)
         
         audioUnitsTable.reloadData()
     }

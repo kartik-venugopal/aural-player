@@ -17,6 +17,8 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return audioGraph.audioUnits.count
     }
@@ -67,7 +69,7 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
             cell.action = {
                 
                 _ = audioUnit.toggleState()
-                Messenger.publish(.effects_unitStateChanged)
+                self.messenger.publish(.effects_unitStateChanged)
             }
             
             return cell

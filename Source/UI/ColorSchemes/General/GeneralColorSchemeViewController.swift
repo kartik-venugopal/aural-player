@@ -30,6 +30,8 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     override var nibName: NSNib.Name? {return "GeneralColorScheme"}
     
     override func viewDidLoad() {
@@ -81,7 +83,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeAppLogoColor() {
         
         colorSchemesManager.systemScheme.general.appLogoColor = appLogoColorPicker.color
-        Messenger.publish(.changeAppLogoColor, payload: appLogoColorPicker.color)
+        messenger.publish(.changeAppLogoColor, payload: appLogoColorPicker.color)
     }
     
     @IBAction func backgroundColorAction(_ sender: Any) {
@@ -93,7 +95,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeBackgroundColor() {
         
         colorSchemesManager.systemScheme.general.backgroundColor = backgroundColorPicker.color
-        Messenger.publish(.changeBackgroundColor, payload: backgroundColorPicker.color)
+        messenger.publish(.changeBackgroundColor, payload: backgroundColorPicker.color)
     }
     
     @IBAction func viewControlButtonColorAction(_ sender: Any) {
@@ -105,7 +107,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeViewControlButtonColor() {
         
         colorSchemesManager.systemScheme.general.viewControlButtonColor = viewControlButtonColorPicker.color
-        Messenger.publish(.changeViewControlButtonColor, payload: viewControlButtonColorPicker.color)
+        messenger.publish(.changeViewControlButtonColor, payload: viewControlButtonColorPicker.color)
     }
     
     @IBAction func functionButtonColorAction(_ sender: Any) {
@@ -117,7 +119,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeFunctionButtonColor() {
         
         colorSchemesManager.systemScheme.general.functionButtonColor = functionButtonColorPicker.color
-        Messenger.publish(.changeFunctionButtonColor, payload: functionButtonColorPicker.color)
+        messenger.publish(.changeFunctionButtonColor, payload: functionButtonColorPicker.color)
     }
     
     @IBAction func textButtonMenuColorAction(_ sender: Any) {
@@ -129,7 +131,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeTextButtonMenuColor() {
         
         colorSchemesManager.systemScheme.general.textButtonMenuColor = textButtonMenuColorPicker.color
-        Messenger.publish(.changeTextButtonMenuColor, payload: textButtonMenuColorPicker.color)
+        messenger.publish(.changeTextButtonMenuColor, payload: textButtonMenuColorPicker.color)
     }
     
     @IBAction func toggleButtonOffStateColorAction(_ sender: Any) {
@@ -141,7 +143,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeToggleButtonOffStateColor() {
         
         colorSchemesManager.systemScheme.general.toggleButtonOffStateColor = toggleButtonOffStateColorPicker.color
-        Messenger.publish(.changeToggleButtonOffStateColor, payload: toggleButtonOffStateColorPicker.color)
+        messenger.publish(.changeToggleButtonOffStateColor, payload: toggleButtonOffStateColorPicker.color)
     }
     
     @IBAction func selectedTabButtonColorAction(_ sender: Any) {
@@ -153,7 +155,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeSelectedTabButtonColor() {
         
         colorSchemesManager.systemScheme.general.selectedTabButtonColor = selectedTabButtonColorPicker.color
-        Messenger.publish(.changeSelectedTabButtonColor, payload: selectedTabButtonColorPicker.color)
+        messenger.publish(.changeSelectedTabButtonColor, payload: selectedTabButtonColorPicker.color)
     }
     
     @IBAction func mainCaptionTextColorAction(_ sender: Any) {
@@ -165,7 +167,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeMainCaptionTextColor() {
         
         colorSchemesManager.systemScheme.general.mainCaptionTextColor = mainCaptionTextColorPicker.color
-        Messenger.publish(.changeMainCaptionTextColor, payload: mainCaptionTextColorPicker.color)
+        messenger.publish(.changeMainCaptionTextColor, payload: mainCaptionTextColorPicker.color)
     }
     
     @IBAction func tabButtonTextColorAction(_ sender: Any) {
@@ -177,7 +179,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeTabButtonTextColor()	{
         
         colorSchemesManager.systemScheme.general.tabButtonTextColor = tabButtonTextColorPicker.color
-        Messenger.publish(.changeTabButtonTextColor, payload: tabButtonTextColorPicker.color)
+        messenger.publish(.changeTabButtonTextColor, payload: tabButtonTextColorPicker.color)
     }
     
     @IBAction func selectedTabButtonTextColorAction(_ sender: Any) {
@@ -189,7 +191,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeSelectedTabButtonTextColor()    {
         
         colorSchemesManager.systemScheme.general.selectedTabButtonTextColor = selectedTabButtonTextColorPicker.color
-        Messenger.publish(.changeSelectedTabButtonTextColor, payload: selectedTabButtonTextColorPicker.color)
+        messenger.publish(.changeSelectedTabButtonTextColor, payload: selectedTabButtonTextColorPicker.color)
     }
     
     @IBAction func buttonMenuTextColorAction(_ sender: Any) {
@@ -201,6 +203,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     private func changeButtonMenuTextColor() {
         
         colorSchemesManager.systemScheme.general.buttonMenuTextColor = buttonMenuTextColorPicker.color
-        Messenger.publish(.changeButtonMenuTextColor, payload: buttonMenuTextColorPicker.color)
+        messenger.publish(.changeButtonMenuTextColor, payload: buttonMenuTextColorPicker.color)
     }
 }

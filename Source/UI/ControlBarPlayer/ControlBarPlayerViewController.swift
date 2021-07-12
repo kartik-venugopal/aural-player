@@ -62,6 +62,8 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
     private let minWindowWidthToShowSeekPosition: CGFloat = 610
     private let distanceBetweenControlsAndInfo: CGFloat = 31
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func awakeFromNib() {
         
         // Hack to properly align the view settings menu button.
@@ -103,19 +105,19 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
         
         // MARK: Notification subscriptions
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:), queue: .main)
-        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackNotPlayed(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackNotPlayed(_:), queue: .main)
         
-        Messenger.subscribe(self, .favoritesList_addOrRemove, self.addOrRemoveFavorite)
+        messenger.subscribe(to: .favoritesList_addOrRemove, handler: addOrRemoveFavorite)
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
     }
     
     var windowWideEnoughForSeekPosition: Bool {
-        view.window!.width >= minWindowWidthToShowSeekPosition
+        (view.window?.width ?? 0) >= minWindowWidthToShowSeekPosition
     }
     
     func layoutTextView(forceChange: Bool = true) {
@@ -300,7 +302,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Notifica
             ($0 as? Destroyable)?.destroy()
         }
         
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 }
 

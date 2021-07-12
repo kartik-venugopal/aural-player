@@ -21,6 +21,8 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: [FavoritePersistentState]?, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.player = player
@@ -34,7 +36,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let favorite = Favorite(track.file, track.displayName)
         favorites.addPreset(favorite)
-        Messenger.publish(.favoritesList_trackAdded, payload: track.file)
+        messenger.publish(.favoritesList_trackAdded, payload: track.file)
         
         return favorite
     }
@@ -43,7 +45,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let favorite = Favorite(file, name)
         favorites.addPreset(favorite)
-        Messenger.publish(.favoritesList_trackAdded, payload: file)
+        messenger.publish(.favoritesList_trackAdded, payload: file)
         
         return favorite
     }
@@ -64,20 +66,20 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let fav = getFavoriteAtIndex(index)
         favorites.deletePreset(atIndex: index)
-        Messenger.publish(.favoritesList_tracksRemoved, payload: Set([fav.file]))
+        messenger.publish(.favoritesList_tracksRemoved, payload: Set([fav.file]))
     }
     
     func deleteFavorites(atIndices indices: IndexSet) {
         
         let deletedFavs = indices.map {favorites.userDefinedPresets[$0].file}
         favorites.deletePresets(atIndices: indices)
-        Messenger.publish(.favoritesList_tracksRemoved, payload: Set(deletedFavs))
+        messenger.publish(.favoritesList_tracksRemoved, payload: Set(deletedFavs))
     }
     
     func deleteFavoriteWithFile(_ file: URL) {
         
         favorites.deletePreset(named: file.path)
-        Messenger.publish(.favoritesList_tracksRemoved, payload: Set([file]))
+        messenger.publish(.favoritesList_tracksRemoved, payload: Set([file]))
     }
     
     func favoriteWithFileExists(_ file: URL) -> Bool {

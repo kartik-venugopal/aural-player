@@ -52,6 +52,8 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     // The chapters list window is only considered modal when it is the key window AND the search bar has focus
     // (i.e. a search is being performed)
     var isModal: Bool {
@@ -85,37 +87,37 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     
     private func initSubscriptions() {
         
-        Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
+        messenger.subscribe(to: .player_chapterChanged, handler: chapterChanged(_:))
         
-        Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
+        messenger.subscribe(to: .player_playbackLoopChanged, handler: playbackLoopChanged)
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged, queue: .main)
         
-        Messenger.subscribe(self, .chaptersList_playSelectedChapter, self.playSelectedChapter)
+        messenger.subscribe(to: .chaptersList_playSelectedChapter, handler: playSelectedChapter)
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
-        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
-        Messenger.subscribe(self, .changeMainCaptionTextColor, self.changeMainCaptionTextColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: changeToggleButtonOffStateColor(_:))
+        messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
         
-        Messenger.subscribe(self, .playlist_changeTrackNameTextColor, self.changeTrackNameTextColor(_:))
-        Messenger.subscribe(self, .playlist_changeIndexDurationTextColor, self.changeIndexDurationTextColor(_:))
+        messenger.subscribe(to: .playlist_changeTrackNameTextColor, handler: changeTrackNameTextColor(_:))
+        messenger.subscribe(to: .playlist_changeIndexDurationTextColor, handler: changeIndexDurationTextColor(_:))
         
-        Messenger.subscribe(self, .playlist_changeTrackNameSelectedTextColor, self.changeTrackNameSelectedTextColor(_:))
-        Messenger.subscribe(self, .playlist_changeIndexDurationSelectedTextColor, self.changeIndexDurationSelectedTextColor(_:))
+        messenger.subscribe(to: .playlist_changeTrackNameSelectedTextColor, handler: changeTrackNameSelectedTextColor(_:))
+        messenger.subscribe(to: .playlist_changeIndexDurationSelectedTextColor, handler: changeIndexDurationSelectedTextColor(_:))
         
-        Messenger.subscribe(self, .playlist_changePlayingTrackIconColor, self.changePlayingTrackIconColor(_:))
-        Messenger.subscribe(self, .playlist_changeSelectionBoxColor, self.changeSelectionBoxColor(_:))
+        messenger.subscribe(to: .playlist_changePlayingTrackIconColor, handler: changePlayingTrackIconColor(_:))
+        messenger.subscribe(to: .playlist_changeSelectionBoxColor, handler: changeSelectionBoxColor(_:))
         
-        Messenger.subscribe(self, .playlist_changeSummaryInfoColor, self.changeSummaryInfoColor(_:))
+        messenger.subscribe(to: .playlist_changeSummaryInfoColor, handler: changeSummaryInfoColor(_:))
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     override func viewDidAppear() {
@@ -152,7 +154,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         
         if let selRow = chaptersListView.selectedRowIndexes.first {
             
-            Messenger.publish(.player_playChapter, payload: selRow)
+            messenger.publish(.player_playChapter, payload: selRow)
             btnLoopChapter.onIf(player.chapterLoopExists)
             
             // Remove focus from the search field (if necessary)
@@ -162,7 +164,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     
     @IBAction func playPreviousChapterAction(_ sender: AnyObject) {
         
-        Messenger.publish(.player_previousChapter)
+        messenger.publish(.player_previousChapter)
         btnLoopChapter.onIf(player.chapterLoopExists)
         
         // Remove focus from the search field (if necessary)
@@ -171,7 +173,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
     
     @IBAction func playNextChapterAction(_ sender: AnyObject) {
         
-        Messenger.publish(.player_nextChapter)
+        messenger.publish(.player_nextChapter)
         btnLoopChapter.onIf(player.chapterLoopExists)
         
         // Remove focus from the search field (if necessary)
@@ -184,7 +186,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         // (possible if chapters don't cover the entire timespan of the track)
         if player.playingChapter != nil {
             
-            Messenger.publish(.player_replayChapter)
+            messenger.publish(.player_replayChapter)
             btnLoopChapter.onIf(player.chapterLoopExists)
         }
         
@@ -199,7 +201,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Noti
         if player.playingChapter != nil {
             
             // Toggle the loop
-            Messenger.publish(.player_toggleChapterLoop)
+            messenger.publish(.player_toggleChapterLoop)
             btnLoopChapter.onIf(player.chapterLoopExists)
         }
         

@@ -79,6 +79,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private var childContainerBoxes: [NSBox] = []
     private var functionButtons: [TintedImageButton] = []
     private var tabButtons: [NSButton] = []
+    
+    private lazy var messenger = Messenger(for: self)
 
     override func windowDidLoad() {
         
@@ -132,51 +134,51 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     private func initSubscriptions() {
         
-        Messenger.subscribeAsync(self, .playlist_startedAddingTracks, self.startedAddingTracks, queue: .main)
-        Messenger.subscribeAsync(self, .playlist_doneAddingTracks, self.doneAddingTracks, queue: .main)
+        messenger.subscribeAsync(to: .playlist_startedAddingTracks, handler: startedAddingTracks, queue: .main)
+        messenger.subscribeAsync(to: .playlist_doneAddingTracks, handler: doneAddingTracks, queue: .main)
         
-        Messenger.subscribeAsync(self, .playlist_trackAdded, self.trackAdded(_:), queue: .main)
-        Messenger.subscribeAsync(self, .playlist_tracksRemoved, self.tracksRemoved, queue: .main)
-        Messenger.subscribeAsync(self, .playlist_tracksNotAdded, self.tracksNotAdded(_:), queue: .main)
+        messenger.subscribeAsync(to: .playlist_trackAdded, handler: trackAdded(_:), queue: .main)
+        messenger.subscribeAsync(to: .playlist_tracksRemoved, handler: tracksRemoved, queue: .main)
+        messenger.subscribeAsync(to: .playlist_tracksNotAdded, handler: tracksNotAdded(_:), queue: .main)
         
         // Respond only if track duration has changed (affecting the summary)
-        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.trackInfoUpdated(_:),
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: trackInfoUpdated(_:),
                                  filter: {msg in msg.updatedFields.contains(.duration)},
                                  queue: .main)
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackChanged, queue: .main)
-        Messenger.subscribeAsync(self, .player_trackNotPlayed, self.trackChanged, queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackChanged, queue: .main)
+        messenger.subscribeAsync(to: .player_trackNotPlayed, handler: trackChanged, queue: .main)
         
-        Messenger.subscribe(self, .playlist_viewChanged, self.playlistTypeChanged)
+        messenger.subscribe(to: .playlist_viewChanged, handler: playlistTypeChanged)
         
         // MARK: Commands -------------------------------------------------------------------------------------
         
-        Messenger.subscribe(self, .playlist_addTracks, self.addTracks)
-        Messenger.subscribe(self, .playlist_savePlaylist, self.savePlaylist)
-        Messenger.subscribe(self, .playlist_clearPlaylist, self.clearPlaylist)
+        messenger.subscribe(to: .playlist_addTracks, handler: addTracks)
+        messenger.subscribe(to: .playlist_savePlaylist, handler: savePlaylist)
+        messenger.subscribe(to: .playlist_clearPlaylist, handler: clearPlaylist)
         
-        Messenger.subscribe(self, .playlist_search, self.search)
-        Messenger.subscribe(self, .playlist_sort, self.sort)
+        messenger.subscribe(to: .playlist_search, handler: search)
+        messenger.subscribe(to: .playlist_sort, handler: sort)
         
-        Messenger.subscribe(self, .playlist_previousView, self.previousView)
-        Messenger.subscribe(self, .playlist_nextView, self.nextView)
+        messenger.subscribe(to: .playlist_previousView, handler: previousView)
+        messenger.subscribe(to: .playlist_nextView, handler: nextView)
         
-        Messenger.subscribe(self, .playlist_viewChaptersList, self.viewChaptersList)
+        messenger.subscribe(to: .playlist_viewChaptersList, handler: viewChaptersList)
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
         
-        Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
-        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
         
-        Messenger.subscribe(self, .changeTabButtonTextColor, self.changeTabButtonTextColor(_:))
-        Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
-        Messenger.subscribe(self, .changeSelectedTabButtonTextColor, self.changeSelectedTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonTextColor, handler: changeSelectedTabButtonTextColor(_:))
         
-        Messenger.subscribe(self, .playlist_changeSummaryInfoColor, self.changeSummaryInfoColor(_:))
+        messenger.subscribe(to: .playlist_changeSummaryInfoColor, handler: changeSummaryInfoColor(_:))
     }
     
     func destroy() {
@@ -190,13 +192,13 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         playlistSortDialogLoader.destroy()
         
         close()
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
         
         AuralPlaylistOutlineView.destroy()
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        Messenger.publish(.windowManager_togglePlaylistWindow)
+        messenger.publish(.windowManager_togglePlaylistWindow)
     }
     
     private func checkIfPlaylistIsBeingModified() -> Bool {
@@ -298,7 +300,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         guard !checkIfPlaylistIsBeingModified() else {return}
         
-        Messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
         updatePlaylistSummary()
     }
     
@@ -329,7 +331,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         playlist.clear()
         
         // Tell all playlist views to refresh themselves
-        Messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.all)
+        messenger.publish(.playlist_refresh, payload: PlaylistViewSelector.all)
         
         updatePlaylistSummary()
     }
@@ -342,7 +344,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -350,7 +352,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -390,20 +392,20 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     
     // Scrolls the playlist view to the top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_scrollToTop, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToTop, payload: PlaylistViewState.currentViewSelector)
     }
     
     // Scrolls the playlist view to the bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func pageUpAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_pageUp, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageUp, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func pageDownAction(_ sender: AnyObject) {
-        Messenger.publish(.playlist_pageDown, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageDown, payload: PlaylistViewState.currentViewSelector)
     }
     
     private func applyTheme() {
@@ -524,7 +526,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
     private func handleTabToggle(_ swipeDirection: GestureDirection) {
         
         if gesturesPreferences.allowPlaylistTabToggle {
-            Messenger.publish(swipeDirection == .left ? .playlist_previousView : .playlist_nextView)
+            messenger.publish(swipeDirection == .left ? .playlist_previousView : .playlist_nextView)
         }
     }
     
@@ -532,7 +534,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Notificat
         
         if gesturesPreferences.allowPlaylistNavigation {
         
-            Messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom,
+            messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom,
                               payload: PlaylistViewState.currentViewSelector)
         }
     }

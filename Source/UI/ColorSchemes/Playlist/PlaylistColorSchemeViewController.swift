@@ -32,6 +32,8 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     override var nibName: NSNib.Name? {return "PlaylistColorScheme"}
     
     override func viewDidLoad() {
@@ -89,7 +91,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameTextColor() {
         
         colorSchemesManager.systemScheme.playlist.trackNameTextColor = trackNameTextColorPicker.color
-        Messenger.publish(.playlist_changeTrackNameTextColor, payload: trackNameTextColorPicker.color)
+        messenger.publish(.playlist_changeTrackNameTextColor, payload: trackNameTextColorPicker.color)
     }
     
     @IBAction func groupNameTextColorAction(_ sender: Any) {
@@ -101,7 +103,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupNameTextColor() {
         
         colorSchemesManager.systemScheme.playlist.groupNameTextColor = groupNameTextColorPicker.color
-        Messenger.publish(.playlist_changeGroupNameTextColor, payload: groupNameTextColorPicker.color)
+        messenger.publish(.playlist_changeGroupNameTextColor, payload: groupNameTextColorPicker.color)
     }
     
     @IBAction func indexDurationTextColorAction(_ sender: Any) {
@@ -113,7 +115,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeIndexDurationTextColor() {
         
         colorSchemesManager.systemScheme.playlist.indexDurationTextColor = indexDurationTextColorPicker.color
-        Messenger.publish(.playlist_changeIndexDurationTextColor, payload: indexDurationTextColorPicker.color)
+        messenger.publish(.playlist_changeIndexDurationTextColor, payload: indexDurationTextColorPicker.color)
     }
     
     @IBAction func trackNameSelectedTextColorAction(_ sender: Any) {
@@ -125,7 +127,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeTrackNameSelectedTextColor() {
         
         colorSchemesManager.systemScheme.playlist.trackNameSelectedTextColor = trackNameSelectedTextColorPicker.color
-        Messenger.publish(.playlist_changeTrackNameSelectedTextColor, payload: trackNameSelectedTextColorPicker.color)
+        messenger.publish(.playlist_changeTrackNameSelectedTextColor, payload: trackNameSelectedTextColorPicker.color)
     }
     
     @IBAction func groupNameSelectedTextColorAction(_ sender: Any) {
@@ -137,7 +139,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeGroupNameSelectedTextColor() {
         
         colorSchemesManager.systemScheme.playlist.groupNameSelectedTextColor = groupNameSelectedTextColorPicker.color
-        Messenger.publish(.playlist_changeGroupNameSelectedTextColor, payload: groupNameSelectedTextColorPicker.color)
+        messenger.publish(.playlist_changeGroupNameSelectedTextColor, payload: groupNameSelectedTextColorPicker.color)
     }
     
     @IBAction func indexDurationSelectedTextColorAction(_ sender: Any) {
@@ -149,7 +151,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeIndexDurationSelectedTextColor() {
         
         colorSchemesManager.systemScheme.playlist.indexDurationSelectedTextColor = indexDurationSelectedTextColorPicker.color
-        Messenger.publish(.playlist_changeIndexDurationSelectedTextColor, payload: indexDurationSelectedTextColorPicker.color)
+        messenger.publish(.playlist_changeIndexDurationSelectedTextColor, payload: indexDurationSelectedTextColorPicker.color)
     }
     
     @IBAction func groupIconColorAction(_ sender: Any) {
@@ -163,7 +165,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         colorSchemesManager.systemScheme.playlist.groupIconColor = groupIconColorPicker.color
         AuralPlaylistOutlineView.changeGroupIconColor(groupIconColorPicker.color)
         
-        Messenger.publish(.playlist_changeGroupIconColor, payload: groupIconColorPicker.color)
+        messenger.publish(.playlist_changeGroupIconColor, payload: groupIconColorPicker.color)
     }
     
     @IBAction func groupDisclosureTriangleColorAction(_ sender: Any) {
@@ -177,7 +179,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
         colorSchemesManager.systemScheme.playlist.groupDisclosureTriangleColor = groupDisclosureTriangleColorPicker.color
         AuralPlaylistOutlineView.changeDisclosureTriangleColor(groupDisclosureTriangleColorPicker.color)
         
-        Messenger.publish(.playlist_changeGroupDisclosureTriangleColor, payload: groupDisclosureTriangleColorPicker.color)
+        messenger.publish(.playlist_changeGroupDisclosureTriangleColor, payload: groupDisclosureTriangleColorPicker.color)
     }
     
     @IBAction func selectionBoxColorAction(_ sender: Any) {
@@ -189,7 +191,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeSelectionBoxColor() {
         
         colorSchemesManager.systemScheme.playlist.selectionBoxColor = selectionBoxColorPicker.color
-        Messenger.publish(.playlist_changeSelectionBoxColor, payload: selectionBoxColorPicker.color)
+        messenger.publish(.playlist_changeSelectionBoxColor, payload: selectionBoxColorPicker.color)
     }
     
     @IBAction func playingTrackIconColorAction(_ sender: Any) {
@@ -201,7 +203,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changePlayingTrackIconColor() {
         
         colorSchemesManager.systemScheme.playlist.playingTrackIconColor = playingTrackIconColorPicker.color
-        Messenger.publish(.playlist_changePlayingTrackIconColor, payload: playingTrackIconColorPicker.color)
+        messenger.publish(.playlist_changePlayingTrackIconColor, payload: playingTrackIconColorPicker.color)
     }
     
     @IBAction func summaryInfoColorAction(_ sender: Any) {
@@ -213,6 +215,6 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     private func changeSummaryInfoColor() {
         
         colorSchemesManager.systemScheme.playlist.summaryInfoColor = summaryInfoColorPicker.color
-        Messenger.publish(.playlist_changeSummaryInfoColor, payload: summaryInfoColorPicker.color)
+        messenger.publish(.playlist_changeSummaryInfoColor, payload: summaryInfoColorPicker.color)
     }
 }

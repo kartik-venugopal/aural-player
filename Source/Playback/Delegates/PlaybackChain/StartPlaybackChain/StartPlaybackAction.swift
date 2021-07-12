@@ -16,6 +16,8 @@ class StartPlaybackAction: PlaybackChainAction {
     
     private let player: PlayerProtocol
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(_ player: PlayerProtocol) {
         self.player = player
     }
@@ -32,14 +34,14 @@ class StartPlaybackAction: PlaybackChainAction {
         // Publish a pre-track-change notification for observers who need to perform actions before the track changes.
         // e.g. applying audio settings/effects.
         if context.currentTrack != context.requestedTrack {
-            Messenger.publish(PreTrackPlaybackNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: newTrack))
+            messenger.publish(PreTrackPlaybackNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: newTrack))
         }
         
         // Start playback
         player.play(newTrack, context.requestParams.startPosition ?? 0, context.requestParams.endPosition)
         
         // Inform observers of the track change/transition.
-        Messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
+        messenger.publish(TrackTransitionNotification(beginTrack: context.currentTrack, beginState: context.currentState,
                                                       endTrack: context.requestedTrack, endState: .playing))
         
         chain.proceed(context)

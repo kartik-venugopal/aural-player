@@ -47,6 +47,8 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     override var windowNibName: String? {"MainWindow"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     // MARK: Setup
     
     override func awakeFromNib() {
@@ -109,19 +111,19 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
     
     private func initSubscriptions() {
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeAppLogoColor, self.changeAppLogoColor(_:))
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
-        Messenger.subscribe(self, .changeToggleButtonOffStateColor, self.changeToggleButtonOffStateColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeAppLogoColor, handler: changeAppLogoColor(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
+        messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: changeToggleButtonOffStateColor(_:))
 
-        Messenger.subscribe(self, .windowManager_togglePlaylistWindow, self.togglePlaylistWindow)
-        Messenger.subscribe(self, .windowManager_toggleEffectsWindow, self.toggleEffectsWindow)
+        messenger.subscribe(to: .windowManager_togglePlaylistWindow, handler: togglePlaylistWindow)
+        messenger.subscribe(to: .windowManager_toggleEffectsWindow, handler: toggleEffectsWindow)
         
-        Messenger.subscribe(self, .windowManager_layoutChanged, self.windowLayoutChanged(_:))
+        messenger.subscribe(to: .windowManager_layoutChanged, handler: windowLayoutChanged(_:))
         
-        Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
     }
     
     func destroy() {
@@ -132,7 +134,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         playerViewController.destroy()
         
         close()
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
         
         InfoPopupViewController.destroy()
         AlertWindowController.destroy()
@@ -296,7 +298,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         if preferences.allowTrackChange {
             
             // Publish the command notification
-            Messenger.publish(swipeDirection == .left ? .player_previousTrack : .player_nextTrack)
+            messenger.publish(swipeDirection == .left ? .player_previousTrack : .player_nextTrack)
         }
     }
     
@@ -305,7 +307,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
         if preferences.allowVolumeControl && ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
         
             // Scroll up = increase volume, scroll down = decrease volume
-            Messenger.publish(scrollDirection == .up ?.player_increaseVolume : .player_decreaseVolume, payload: UserInputMode.continuous)
+            messenger.publish(scrollDirection == .up ?.player_increaseVolume : .player_decreaseVolume, payload: UserInputMode.continuous)
         }
     }
     
@@ -326,7 +328,7 @@ class MainWindowController: NSWindowController, NotificationSubscriber, Destroya
             if ScrollSession.validateEvent(timestamp: event.timestamp, eventDirection: scrollDirection) {
         
                 // Scroll left = seek backward, scroll right = seek forward
-                Messenger.publish(scrollDirection == .left ? .player_seekBackward : .player_seekForward, payload: UserInputMode.continuous)
+                messenger.publish(scrollDirection == .left ? .player_seekBackward : .player_seekForward, payload: UserInputMode.continuous)
             }
         }
     }

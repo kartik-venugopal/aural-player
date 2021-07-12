@@ -59,6 +59,8 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     private let preferences: ViewPreferences = ObjectGraph.preferences.viewPreferences
 
     override var windowNibName: String? {"Effects"}
+    
+    private lazy var messenger = Messenger(for: self)
 
     override func windowDidLoad() {
         
@@ -127,22 +129,22 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
 
     private func initSubscriptions() {
 
-        Messenger.subscribe(self, .effects_unitStateChanged, self.stateChanged)
+        messenger.subscribe(to: .effects_unitStateChanged, handler: stateChanged)
         
         // MARK: Commands ----------------------------------------------------------------------------------------
         
-        Messenger.subscribe(self, .effects_showEffectsUnitTab, self.showTab(_:))
+        messenger.subscribe(to: .effects_showEffectsUnitTab, handler: showTab(_:))
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeBackgroundColor, self.changeBackgroundColor(_:))
-        Messenger.subscribe(self, .changeViewControlButtonColor, self.changeViewControlButtonColor(_:))
-        Messenger.subscribe(self, .changeSelectedTabButtonColor, self.changeSelectedTabButtonColor(_:))
-        Messenger.subscribe(self, .windowAppearance_changeCornerRadius, self.changeWindowCornerRadius(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
+        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
+        messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
+        messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
         
-        Messenger.subscribe(self, .effects_changeActiveUnitStateColor, self.changeActiveUnitStateColor(_:))
-        Messenger.subscribe(self, .effects_changeBypassedUnitStateColor, self.changeBypassedUnitStateColor(_:))
-        Messenger.subscribe(self, .effects_changeSuppressedUnitStateColor, self.changeSuppressedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeActiveUnitStateColor, handler: changeActiveUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeBypassedUnitStateColor, handler: changeBypassedUnitStateColor(_:))
+        messenger.subscribe(to: .effects_changeSuppressedUnitStateColor, handler: changeSuppressedUnitStateColor(_:))
     }
     
     func destroy() {
@@ -150,7 +152,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
         ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController, recorderViewController] as? [Destroyable])?.forEach {$0.destroy()}
         
         close()
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
 
     // Switches the tab group to a particular tab
@@ -165,7 +167,7 @@ class EffectsWindowController: NSWindowController, NotificationSubscriber, Destr
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        Messenger.publish(.windowManager_toggleEffectsWindow)
+        messenger.publish(.windowManager_toggleEffectsWindow)
     }
     
     private func applyTheme() {

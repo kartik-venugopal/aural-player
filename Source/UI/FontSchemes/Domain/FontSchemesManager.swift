@@ -14,6 +14,8 @@ class FontSchemesManager: MappedPresets<FontScheme> {
     // The current system color scheme. It is initialized with the default scheme.
     private(set) var systemScheme: FontScheme
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: FontSchemesPersistentState?) {
         
         let systemDefinedSchemes = FontSchemePreset.allCases.map {FontScheme($0.name, $0)}
@@ -42,7 +44,7 @@ class FontSchemesManager: MappedPresets<FontScheme> {
     func applyScheme(_ fontScheme: FontScheme) {
 
         systemScheme = FontScheme("_system_", true, fontScheme)
-        Messenger.publish(.applyFontScheme, payload: systemScheme)
+        messenger.publish(.applyFontScheme, payload: systemScheme)
     }
     
     // State to be persisted to disk.

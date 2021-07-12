@@ -40,6 +40,8 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    lazy var messenger = Messenger(for: self)
+    
     // Numerical ranges
     let highVolumeRange: ClosedRange<Float> = 200.0/3...100
     let mediumVolumeRange: Range<Float> = 100.0/3..<200.0/3
@@ -72,7 +74,7 @@ class PlayerAudioViewController: NSViewController, NotificationSubscriber, Destr
     func initSubscriptions() {}
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     // Updates the volume

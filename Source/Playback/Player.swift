@@ -31,8 +31,10 @@ class Player: PlayerProtocol, NotificationSubscriber {
     private let avfScheduler: PlaybackSchedulerProtocol
     private let ffmpegScheduler: PlaybackSchedulerProtocol
     
+    private lazy var messenger = Messenger(for: self)
+    
     private(set) var state: PlaybackState = .noTrack {
-        didSet {Messenger.publish(.player_playbackStateChanged)}
+        didSet {messenger.publish(.player_playbackStateChanged)}
     }
     
     init(graph: PlayerGraphProtocol, avfScheduler: PlaybackSchedulerProtocol, ffmpegScheduler: PlaybackSchedulerProtocol) {
@@ -43,10 +45,10 @@ class Player: PlayerProtocol, NotificationSubscriber {
         self.avfScheduler = avfScheduler
         self.ffmpegScheduler = ffmpegScheduler
         
-        Messenger.subscribeAsync(self, .audioGraph_outputDeviceChanged, self.audioOutputDeviceChanged, queue: .main)
+        messenger.subscribeAsync(to: .audioGraph_outputDeviceChanged, handler: audioOutputDeviceChanged, queue: .main)
         
-        Messenger.subscribeAsync(self, .audioGraph_preGraphChange, self.preAudioGraphChange(_:), queue: .main)
-        Messenger.subscribeAsync(self, .audioGraph_graphChanged, self.audioGraphChanged(_:), queue: .main)
+        messenger.subscribeAsync(to: .audioGraph_preGraphChange, handler: preAudioGraphChange(_:), queue: .main)
+        messenger.subscribeAsync(to: .audioGraph_graphChanged, handler: audioGraphChanged(_:), queue: .main)
     }
     
     func play(_ track: Track, _ startPosition: Double, _ endPosition: Double? = nil) {
@@ -140,7 +142,7 @@ class Player: PlayerProtocol, NotificationSubscriber {
         if !playbackCompleted, let newSession = PlaybackSession.startNewSessionForPlayingTrack() {
             
             scheduler.seekToTime(newSession, actualSeekTime, state == .playing)
-            Messenger.publish(.player_seekPerformed)
+            messenger.publish(.player_seekPerformed)
         }
         
         return PlayerSeekResult(actualSeekPosition: actualSeekTime, loopRemoved: loopRemoved, trackPlaybackCompleted: playbackCompleted)

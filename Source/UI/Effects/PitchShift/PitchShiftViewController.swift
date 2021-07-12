@@ -45,9 +45,9 @@ class PitchShiftViewController: EffectsUnitViewController {
         
         super.initSubscriptions()
         
-        Messenger.subscribe(self, .pitchEffectsUnit_decreasePitch, self.decreasePitch)
-        Messenger.subscribe(self, .pitchEffectsUnit_increasePitch, self.increasePitch)
-        Messenger.subscribe(self, .pitchEffectsUnit_setPitch, self.setPitch(_:))
+        messenger.subscribe(to: .pitchEffectsUnit_decreasePitch, handler: decreasePitch)
+        messenger.subscribe(to: .pitchEffectsUnit_increasePitch, handler: increasePitch)
+        messenger.subscribe(to: .pitchEffectsUnit_setPitch, handler: setPitch(_:))
     }
     
     override func oneTimeSetup() {
@@ -90,7 +90,7 @@ class PitchShiftViewController: EffectsUnitViewController {
         btnBypass.updateState()
         pitchView.stateChanged()
         
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
         
         // Show the Pitch tab
         showThisTab()
@@ -120,7 +120,7 @@ class PitchShiftViewController: EffectsUnitViewController {
     // Changes the pitch to a specified value
     private func pitchChange(_ pitch: Float, _ pitchString: String) {
         
-        Messenger.publish(.effects_unitStateChanged)
+        messenger.publish(.effects_unitStateChanged)
         
         pitchView.setPitch(pitch, pitchString)
         pitchView.stateChanged()

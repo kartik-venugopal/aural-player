@@ -19,25 +19,27 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     var presetsWrapper: PresetsWrapperProtocol!
     var unitType: EffectsUnitType!
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         let unitTypeFilter: (EffectsUnitType) -> Bool = {[weak self] (unit: EffectsUnitType) in unit == self?.unitType}
         
-        Messenger.subscribe(self, .effectsPresetsManager_reload, {[weak self] (EffectsUnit) in self?.doViewDidAppear()},
+        messenger.subscribe(to: .effectsPresetsManager_reload, handler: {[weak self] (EffectsUnit) in self?.doViewDidAppear()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .effectsPresetsManager_apply, {[weak self] (EffectsUnit) in self?.applySelectedPreset()},
+        messenger.subscribe(to: .effectsPresetsManager_apply, handler: {[weak self] (EffectsUnit) in self?.applySelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .effectsPresetsManager_rename, {[weak self] (EffectsUnit) in self?.renameSelectedPreset()},
+        messenger.subscribe(to: .effectsPresetsManager_rename, handler: {[weak self] (EffectsUnit) in self?.renameSelectedPreset()},
                             filter: unitTypeFilter)
         
-        Messenger.subscribe(self, .effectsPresetsManager_delete, {[weak self] (EffectsUnit) in self?.deleteSelectedPresets()},
+        messenger.subscribe(to: .effectsPresetsManager_delete, handler: {[weak self] (EffectsUnit) in self?.deleteSelectedPresets()},
                             filter: unitTypeFilter)
     }
     
     func destroy() {
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     override func viewDidAppear() {
@@ -63,7 +65,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         
         previewBox.hide()
         
-        Messenger.publish(.presetsManager_selectionChanged, payload: Int(0))
+        messenger.publish(.presetsManager_selectionChanged, payload: Int(0))
     }
     
     var selectedPresets: [EffectsUnitPreset] {
@@ -87,7 +89,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         if let preset = firstSelectedPreset {
             
             effectsUnit.applyPreset(preset.name)
-            Messenger.publish(.effects_updateEffectsUnitView, payload: self.unitType!)
+            messenger.publish(.effects_updateEffectsUnitView, payload: self.unitType!)
         }
     }
     
@@ -109,7 +111,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
             renderPreview(preset.name)
         }
         
-        Messenger.publish(.presetsManager_selectionChanged, payload: numRows)
+        messenger.publish(.presetsManager_selectionChanged, payload: numRows)
     }
     
     // Returns a view for a single row

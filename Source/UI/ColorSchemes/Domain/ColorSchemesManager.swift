@@ -19,6 +19,8 @@ class ColorSchemesManager: MappedPresets<ColorScheme> {
         didSet {systemSchemeChanged()}
     }
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: ColorSchemesPersistentState?) {
         
         let systemDefinedSchemes = ColorSchemePreset.allCases.map {ColorScheme($0.name, $0)}
@@ -50,7 +52,7 @@ class ColorSchemesManager: MappedPresets<ColorScheme> {
         systemScheme.applyScheme(scheme)
         systemSchemeChanged()
         
-        Messenger.publish(.applyColorScheme, payload: systemScheme)
+        messenger.publish(.applyColorScheme, payload: systemScheme)
     }
     
     // Attempts to apply a color scheme to the system color scheme, looking up the scheme by the given display name, and if found, returns the modified system scheme.

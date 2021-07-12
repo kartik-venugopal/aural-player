@@ -41,6 +41,8 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     
     override var nibName: String? {"Player"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     override func viewDidLoad() {
         
         initSubscriptions()
@@ -56,34 +58,34 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
     // Subscribe to various notifications
     private func initSubscriptions() {
         
-        Messenger.subscribe(self, .player_chapterChanged, self.chapterChanged(_:))
-        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed)
+        messenger.subscribe(to: .player_chapterChanged, handler: chapterChanged(_:))
+        messenger.subscribe(to: .player_trackNotPlayed, handler: trackNotPlayed)
         
         // Only respond if the playing track was updated
-        Messenger.subscribeAsync(self, .player_trackInfoUpdated, self.playingTrackInfoUpdated(_:),
+        messenger.subscribeAsync(to: .player_trackInfoUpdated, handler: playingTrackInfoUpdated(_:),
                                  filter: {msg in msg.updatedTrack == self.player.playingTrack &&
                                     msg.updatedFields.contains(.art) || msg.updatedFields.contains(.displayInfo)},
                                  queue: .main)
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
         
-        Messenger.subscribe(self, .player_changeView, infoView.switchView(_:))
-        Messenger.subscribe(self, .player_showOrHideAlbumArt, infoView.showOrHideAlbumArt)
-        Messenger.subscribe(self, .player_showOrHideArtist, infoView.showOrHideArtist)
-        Messenger.subscribe(self, .player_showOrHideAlbum, infoView.showOrHideAlbum)
-        Messenger.subscribe(self, .player_showOrHideCurrentChapter, infoView.showOrHideCurrentChapter)
-        Messenger.subscribe(self, .player_showOrHideMainControls, infoView.showOrHideMainControls)
-        Messenger.subscribe(self, .player_showOrHidePlayingTrackInfo, infoView.showOrHidePlayingTrackInfo)
-        Messenger.subscribe(self, .player_showOrHidePlayingTrackFunctions, infoView.showOrHidePlayingTrackFunctions)
+        messenger.subscribe(to: .player_changeView, handler: infoView.switchView(_:))
+        messenger.subscribe(to: .player_showOrHideAlbumArt, handler: infoView.showOrHideAlbumArt)
+        messenger.subscribe(to: .player_showOrHideArtist, handler: infoView.showOrHideArtist)
+        messenger.subscribe(to: .player_showOrHideAlbum, handler: infoView.showOrHideAlbum)
+        messenger.subscribe(to: .player_showOrHideCurrentChapter, handler: infoView.showOrHideCurrentChapter)
+        messenger.subscribe(to: .player_showOrHideMainControls, handler: infoView.showOrHideMainControls)
+        messenger.subscribe(to: .player_showOrHidePlayingTrackInfo, handler: infoView.showOrHidePlayingTrackInfo)
+        messenger.subscribe(to: .player_showOrHidePlayingTrackFunctions, handler: infoView.showOrHidePlayingTrackFunctions)
         
-        Messenger.subscribe(self, .applyTheme, infoView.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, infoView.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, infoView.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeBackgroundColor, infoView.changeBackgroundColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: infoView.applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: infoView.applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: infoView.applyColorScheme(_:))
+        messenger.subscribe(to: .changeBackgroundColor, handler: infoView.changeBackgroundColor(_:))
         
-        Messenger.subscribe(self, .player_changeTrackInfoPrimaryTextColor, infoView.changePrimaryTextColor(_:))
-        Messenger.subscribe(self, .player_changeTrackInfoSecondaryTextColor, infoView.changeSecondaryTextColor(_:))
-        Messenger.subscribe(self, .player_changeTrackInfoTertiaryTextColor, infoView.changeTertiaryTextColor(_:))
+        messenger.subscribe(to: .player_changeTrackInfoPrimaryTextColor, handler: infoView.changePrimaryTextColor(_:))
+        messenger.subscribe(to: .player_changeTrackInfoSecondaryTextColor, handler: infoView.changeSecondaryTextColor(_:))
+        messenger.subscribe(to: .player_changeTrackInfoTertiaryTextColor, handler: infoView.changeTertiaryTextColor(_:))
     }
     
     func destroy() {
@@ -91,7 +93,7 @@ class PlayerViewController: NSViewController, NotificationSubscriber, Destroyabl
         [playbackViewController, playerAudioViewController, playerSequencingViewController,
           playingTrackFunctionsViewController].forEach {($0 as? Destroyable)?.destroy()}
         
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     private func trackChanged(_ track: Track?) {

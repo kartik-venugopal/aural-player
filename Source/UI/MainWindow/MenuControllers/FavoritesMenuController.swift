@@ -28,6 +28,8 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     private lazy var fileReader: FileReader = ObjectGraph.fileReader
     
+    private lazy var messenger = Messenger(for: self)
+    
     fileprivate lazy var artLoadingQueue: OperationQueue = {
         
         let queue = OperationQueue()
@@ -105,7 +107,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
     @IBAction func favoritesAction(_ sender: Any) {
-        Messenger.publish(.favoritesList_addOrRemove)
+        messenger.publish(.favoritesList_addOrRemove)
     }
     
     // When a "Favorites" menu item is clicked, the item is played

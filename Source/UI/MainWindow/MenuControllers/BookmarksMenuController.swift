@@ -28,6 +28,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
     private lazy var fileReader: FileReader = ObjectGraph.fileReader
     
+    private lazy var messenger = Messenger(for: self)
+    
     fileprivate lazy var artLoadingQueue: OperationQueue = {
         
         let queue = OperationQueue()
@@ -98,12 +100,12 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     // When a bookmark menu item is clicked, the item is played
     @IBAction func bookmarkTrackPositionAction(_ sender: Any) {
-        Messenger.publish(.player_bookmarkPosition)
+        messenger.publish(.player_bookmarkPosition)
     }
     
     // When a bookmark menu item is clicked, the item is played
     @IBAction func bookmarkTrackSegmentLoopAction(_ sender: Any) {
-        Messenger.publish(.player_bookmarkLoop)
+        messenger.publish(.player_bookmarkLoop)
     }
     
     // When a bookmark menu item is clicked, the item is played

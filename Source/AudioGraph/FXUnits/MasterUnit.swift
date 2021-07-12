@@ -49,7 +49,7 @@ class MasterUnit: EffectsUnit, MasterUnitProtocol, NotificationSubscriber {
         
         super.init(.master, persistentState?.state ?? AudioGraphDefaults.masterState)
         
-        Messenger.subscribe(self, .effects_unitActivated, self.ensureActive)
+        messenger.subscribe(to: .effects_unitActivated, handler: ensureActive)
     }
     
     override func toggleState() -> EffectsUnitState {

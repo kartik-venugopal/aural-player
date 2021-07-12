@@ -39,6 +39,8 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
     
     private var viewControllers: [NSViewController] = []
     
+    private lazy var messenger = Messenger(for: self)
+    
     override var nibName: String? {"EffectsPresetsManager"}
     
     override func viewDidLoad() {
@@ -46,13 +48,13 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
         viewControllers = [masterPresetsManagerViewController, eqPresetsManagerViewController, pitchPresetsManagerViewController, timePresetsManagerViewController, reverbPresetsManagerViewController, delayPresetsManagerViewController, filterPresetsManagerViewController]
         
         addSubViews()
-        Messenger.subscribe(self, .presetsManager_selectionChanged, self.managerSelectionChanged(_:))
+        messenger.subscribe(to: .presetsManager_selectionChanged, handler: managerSelectionChanged(_:))
     }
     
     func destroy() {
         
         (viewControllers as? [Destroyable])?.forEach {$0.destroy()}
-        Messenger.unsubscribeAll(for: self)
+        messenger.unsubscribeFromAll()
     }
     
     override func viewDidAppear() {
@@ -61,7 +63,7 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
         tabViewAction(masterPresetsTabViewButton)
         
         for unitType: EffectsUnitType in [.master, .eq, .pitch, .time, .reverb, .delay, .filter] {
-            Messenger.publish(.effectsPresetsManager_reload, payload: unitType)
+            messenger.publish(.effectsPresetsManager_reload, payload: unitType)
         }
     }
     
@@ -107,15 +109,15 @@ class EffectsPresetsManagerViewController: NSViewController, NotificationSubscri
     }
     
     @IBAction func renamePresetAction(_ sender: AnyObject) {
-        Messenger.publish(.effectsPresetsManager_rename, payload: effectsUnit)
+        messenger.publish(.effectsPresetsManager_rename, payload: effectsUnit)
     }
     
     @IBAction func deletePresetsAction(_ sender: AnyObject) {
-        Messenger.publish(.effectsPresetsManager_delete, payload: effectsUnit)
+        messenger.publish(.effectsPresetsManager_delete, payload: effectsUnit)
     }
     
     @IBAction func applyPresetAction(_ sender: AnyObject) {
-        Messenger.publish(.effectsPresetsManager_apply, payload: effectsUnit)
+        messenger.publish(.effectsPresetsManager_apply, payload: effectsUnit)
     }
     
     @IBAction func doneAction(_ sender: AnyObject) {

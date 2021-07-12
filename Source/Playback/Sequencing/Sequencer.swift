@@ -37,6 +37,8 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
     // Stores the currently playing track, if there is one
     private(set) var currentTrack: Track?
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: PlaybackSequencePersistentState?, _ playlist: PlaylistAccessorProtocol, _ playlistType: PlaylistType) {
         
         let repeatMode = persistentState?.repeatMode ?? .defaultMode
@@ -49,7 +51,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
         self.scope = SequenceScope(playlistType.toPlaylistScopeType())
         
         // Subscribe to notifications that the playlist view type has changed
-        Messenger.subscribe(self, .playlist_viewChanged, self.playlistTypeChanged(_:))
+        messenger.subscribe(to: .playlist_viewChanged, handler: playlistTypeChanged(_:))
     }
     
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
@@ -406,7 +408,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
         
         if let thePlayingTrack = currentTrack, !playlist.hasTrack(thePlayingTrack) {
             
-            Messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
+            messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
             end()
         }
         
@@ -427,7 +429,7 @@ class Sequencer: SequencerProtocol, NotificationSubscriber {
     func playlistCleared() {
         
         if let thePlayingTrack = currentTrack {
-            Messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
+            messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
         }
         
         end()

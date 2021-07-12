@@ -50,6 +50,8 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
     private lazy var colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
     
+    private lazy var messenger = Messenger(for: self)
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedPresets.isEmpty)
@@ -85,12 +87,12 @@ class ViewMenuController: NSObject, NSMenuDelegate {
  
     // Shows/hides the playlist window
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
-        Messenger.publish(.windowManager_togglePlaylistWindow)
+        messenger.publish(.windowManager_togglePlaylistWindow)
     }
     
     // Shows/hides the effects window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        Messenger.publish(.windowManager_toggleEffectsWindow)
+        messenger.publish(.windowManager_toggleEffectsWindow)
     }
     
     // Shows/hides the chapters list window

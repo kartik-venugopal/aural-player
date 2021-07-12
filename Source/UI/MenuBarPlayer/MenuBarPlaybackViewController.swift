@@ -15,17 +15,17 @@ class MenuBarPlaybackViewController: PlaybackViewController {
         
         // MARK: Notifications --------------------------------------------------------------
         
-        Messenger.subscribe(self, .player_playOrPause, self.playOrPause)
-        Messenger.subscribe(self, .player_previousTrack, self.previousTrack)
-        Messenger.subscribe(self, .player_nextTrack, self.nextTrack)
-        Messenger.subscribe(self, .player_seekBackward, self.seekBackward(_:))
-        Messenger.subscribe(self, .player_seekForward, self.seekForward(_:))
-        Messenger.subscribe(self, .player_jumpToTime, self.jumpToTime(_:))
+        messenger.subscribe(to: .player_playOrPause, handler: playOrPause)
+        messenger.subscribe(to: .player_previousTrack, handler: previousTrack)
+        messenger.subscribe(to: .player_nextTrack, handler: nextTrack)
+        messenger.subscribe(to: .player_seekBackward, handler: seekBackward(_:))
+        messenger.subscribe(to: .player_seekForward, handler: seekForward(_:))
+        messenger.subscribe(to: .player_jumpToTime, handler: jumpToTime(_:))
         
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:), queue: .main)
-        Messenger.subscribe(self, .player_trackNotPlayed, self.trackNotPlayed(_:))
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:), queue: .main)
+        messenger.subscribe(to: .player_trackNotPlayed, handler: trackNotPlayed(_:))
         
-        Messenger.subscribe(self, .effects_playbackRateChanged, self.playbackRateChanged(_:))
-        Messenger.subscribe(self, .player_playbackLoopChanged, self.playbackLoopChanged)
+        messenger.subscribe(to: .effects_playbackRateChanged, handler: playbackRateChanged(_:))
+        messenger.subscribe(to: .player_playbackLoopChanged, handler: playbackLoopChanged)
     }
 }

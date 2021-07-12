@@ -24,22 +24,22 @@ class WindowedModePlayerAudioViewController: PlayerAudioViewController {
     override func initSubscriptions() {
         
         // Subscribe to notifications
-        Messenger.subscribeAsync(self, .player_trackTransitioned, self.trackTransitioned(_:),
+        messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {msg in msg.trackChanged},
                                  queue: .main)
         
-        Messenger.subscribe(self, .player_muteOrUnmute, self.muteOrUnmute)
-        Messenger.subscribe(self, .player_decreaseVolume, self.decreaseVolume(_:))
-        Messenger.subscribe(self, .player_increaseVolume, self.increaseVolume(_:))
+        messenger.subscribe(to: .player_muteOrUnmute, handler: muteOrUnmute)
+        messenger.subscribe(to: .player_decreaseVolume, handler: decreaseVolume(_:))
+        messenger.subscribe(to: .player_increaseVolume, handler: increaseVolume(_:))
         
-        Messenger.subscribe(self, .player_panLeft, self.panLeft)
-        Messenger.subscribe(self, .player_panRight, self.panRight)
+        messenger.subscribe(to: .player_panLeft, handler: panLeft)
+        messenger.subscribe(to: .player_panRight, handler: panRight)
         
-        Messenger.subscribe(self, .applyTheme, self.applyTheme)
-        Messenger.subscribe(self, .applyFontScheme, self.applyFontScheme(_:))
-        Messenger.subscribe(self, .applyColorScheme, self.applyColorScheme(_:))
-        Messenger.subscribe(self, .changeFunctionButtonColor, self.changeFunctionButtonColor(_:))
-        Messenger.subscribe(self, .player_changeSliderColors, self.changeSliderColors)
-        Messenger.subscribe(self, .player_changeSliderValueTextColor, self.changeSliderValueTextColor(_:))
+        messenger.subscribe(to: .applyTheme, handler: applyTheme)
+        messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
+        messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
+        messenger.subscribe(to: .player_changeSliderColors, handler: changeSliderColors)
+        messenger.subscribe(to: .player_changeSliderValueTextColor, handler: changeSliderValueTextColor(_:))
     }
 }

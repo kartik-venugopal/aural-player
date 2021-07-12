@@ -68,6 +68,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
+    private lazy var messenger = Messenger(for: self)
+    
     // One-time setup
     override func awakeFromNib() {
         
@@ -125,7 +127,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
-        Messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewState.currentViewSelector)
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
@@ -174,7 +176,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func removeSelectedItemAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -182,7 +184,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemUpAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -190,7 +192,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemToTopAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -198,7 +200,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemDownAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
@@ -206,16 +208,16 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemToBottomAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            Messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewState.currentViewSelector)
         }
     }
     
     @IBAction func showTrackInFinderAction(_ sender: Any) {
-        Messenger.publish(.playlist_showTrackInFinder, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_showTrackInFinder, payload: PlaylistViewState.currentViewSelector)
     }
     
     @IBAction func viewChaptersAction(_ sender: Any) {
-        Messenger.publish(.playlist_viewChaptersList)
+        messenger.publish(.playlist_viewChaptersList)
     }
     
     private func checkIfPlaylistIsBeingModified() -> Bool {
