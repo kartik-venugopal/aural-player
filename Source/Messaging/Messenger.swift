@@ -20,15 +20,17 @@ import Foundation
 class Messenger {
     
     // The underlying NotificationCenter that is used for actual notification delivery.
-    static let notifCtr: NotificationCenter = NotificationCenter.default
+    static let notifCtr: NotificationCenter = .default
     
     typealias Observer = NSObjectProtocol
     
+    //
     // A map that keeps track of all subscriptions, structured as follows:
     // subscriberId -> [notificationName -> observer]
     // This is needed to be able to allow subscribers to unsubscribe.
     private static var subscriptions: [String: [Notification.Name: Observer]] = [:]
     
+    ///
     /// Publishes a notification with an associated payload object that conforms to the NotificationPayload protocol.
     ///
     /// - Parameter payload: The payload object to be published (must conform to NotificationPayload)
@@ -44,14 +46,16 @@ class Messenger {
         notifCtr.post(notification)
     }
     
+    ///
     /// Publishes a notification with no associated payload.
     ///
     /// - Parameter notifName: The name for the notification to be published.
     ///
     static func publish(_ notifName: Notification.Name) {
-        notifCtr.post(Notification(name: notifName))
+        notifCtr.post(name: notifName, object: nil)
     }
     
+    ///
     /// Publishes a notification with an arbitrary associated payload object.
     ///
     /// - Parameter notifName:  The name for the notification to be published.
@@ -68,6 +72,7 @@ class Messenger {
         notifCtr.post(notification)
     }
     
+    ///
     /// Subscribes a subscriber to synchronous notifications with the given notification name and an associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.
@@ -124,6 +129,7 @@ class Messenger {
         registerSubscription(subscriber.subscriberId, notifName, observer)
     }
     
+    ///
     /// Subscribes a subscriber to synchronous notifications with the given notification name and no associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and an optional OperationQueue on
     /// which to receive the notifications.
@@ -156,6 +162,7 @@ class Messenger {
         registerSubscription(subscriber.subscriberId, notifName, observer)
     }
     
+    ///
     /// Subscribes a subscriber to asynchronous notifications with the given notification name and an associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and a DispatchQueue on
     /// which to receive the notifications.
@@ -213,6 +220,7 @@ class Messenger {
         registerSubscription(subscriber.subscriberId, notifName, observer)
     }
     
+    ///
     /// Subscribes a subscriber to asynchronous notifications with the given notification name and no associated payload object,
     /// specifying a notification handler, an optional filtering function to reject unwanted notifications, and a DispatchQueue on
     /// which to receive the notifications.
@@ -250,6 +258,7 @@ class Messenger {
         registerSubscription(subscriber.subscriberId, notifName, observer)
     }
     
+    ///
     /// Unsubscribes a subscriber from notifications with the given notification name.
     ///
     /// - Parameter subscriber:     The subscriber that is unsubscribing from notifications.
@@ -267,6 +276,7 @@ class Messenger {
         }
     }
     
+    ///
     /// Unsubscribes a subscriber from all its registered notifications.
     ///
     /// - Parameter subscriber:     The subscriber that is unsubscribing from notifications.
@@ -284,6 +294,7 @@ class Messenger {
         }
     }
     
+    ///
     /// Helper function that adds a new subscription to the subscriptions map, for later reference (eg. when unsubscribing).
     ///
     /// - Parameter subscriberId:   A unique identifier for the subscriber of the relevant notification.
@@ -313,18 +324,14 @@ extension Notification {
     // map without having to refer to userInfo explicitly.
     var payload: Any? {
         
-        get {userInfo?[Notification.userInfoKey_payload]
-        }
+        get {userInfo?[Self.userInfoKey_payload]}
         
         set {
             
             if let theValue = newValue {
                 
-                if userInfo == nil {
-                    userInfo = [:]
-                }
-                
-                userInfo![Notification.userInfoKey_payload] = theValue
+                if userInfo == nil {userInfo = [:]}
+                userInfo![Self.userInfoKey_payload] = theValue
             }
         }
     }
