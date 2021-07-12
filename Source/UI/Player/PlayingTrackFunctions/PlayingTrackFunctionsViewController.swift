@@ -62,6 +62,10 @@ class PlayingTrackFunctionsViewController: NSViewController, NotificationSubscri
         allButtons = [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite, btnBookmark]
         redrawButtons()
         
+        if let playingTrack = player.playingTrack {
+            newTrackStarted(playingTrack)
+        }
+        
         // Subscribe to various notifications
         
         // TODO: Add a subscribe() method overload to Messenger that takes multiple notif names for a single msgHandler ???
