@@ -87,15 +87,6 @@ class BasicTableCellView: NSTableCellView {
         textField?.textColor = isSelectedRow ?  selectedTextColor : textColor
         textField?.font = isSelectedRow ? selectedTextFont : textFont
     }
-    
-    lazy var textFieldConstraintsManager = LayoutConstraintsManager(for: textField!)
-    
-    // Constraints
-    func realignText(yOffset: CGFloat) {
-
-        textFieldConstraintsManager.removeAll(withAttributes: [.bottom])
-        textFieldConstraintsManager.setBottom(relatedToBottomOf: self, offset: yOffset)
-    }
 }
 
 extension NSUserInterfaceItemIdentifier {

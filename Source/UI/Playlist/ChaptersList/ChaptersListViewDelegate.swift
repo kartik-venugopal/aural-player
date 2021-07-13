@@ -37,7 +37,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
             
         let chapter = track.chapters[row]
         
-        var cell: BasicTableCellView!
+        var cell: ChaptersListTableCellView!
         
         switch columnId {
             
@@ -66,9 +66,9 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         return cell
     }
     
-    private func createIndexCell(_ tableView: NSTableView, _ text: String, _ row: Int, _ showCurrentChapterMarker: Bool) -> BasicTableCellView? {
+    private func createIndexCell(_ tableView: NSTableView, _ text: String, _ row: Int, _ showCurrentChapterMarker: Bool) -> ChaptersListTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? BasicTableCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .uid_chapterIndex, owner: nil) as? ChaptersListTableCellView else {return nil}
         
         cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
@@ -87,9 +87,9 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         return cell
     }
     
-    private func createTitleCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> BasicTableCellView? {
+    private func createTitleCell(_ tableView: NSTableView, _ text: String, _ row: Int) -> ChaptersListTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? BasicTableCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: .uid_chapterTitle, owner: nil) as? ChaptersListTableCellView else {return nil}
         
         cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
@@ -105,9 +105,9 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
         return cell
     }
     
-    private func createDurationCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ text: String, _ row: Int) -> BasicTableCellView? {
+    private func createDurationCell(_ tableView: NSTableView, _ id: NSUserInterfaceItemIdentifier, _ text: String, _ row: Int) -> ChaptersListTableCellView? {
         
-        guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? BasicTableCellView else {return nil}
+        guard let cell = tableView.makeView(withIdentifier: id, owner: nil) as? ChaptersListTableCellView else {return nil}
         
         cell.textFont = fontSchemesManager.systemScheme.playlist.trackTextFont
         cell.selectedTextFont = fontSchemesManager.systemScheme.playlist.trackTextFont
