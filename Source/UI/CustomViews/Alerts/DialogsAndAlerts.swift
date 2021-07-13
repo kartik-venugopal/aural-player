@@ -86,15 +86,6 @@ struct DialogsAndAlerts {
         return savePanel
     }
     
-    // Used to save a recording to a file
-    static func saveRecordingDialog(fileExtension: String) -> NSSavePanel {
-        
-        configureSavePanel(title: String(format: "Save recording as a (.%@) file", fileExtension),
-                           allowedFileTypes: [fileExtension])
-        
-        return savePanel
-    }
-    
     // Used when exporting track metadata / cover art to an HTML / JPEG / PNG file.
     static func exportMetadataDialog(fileName: String, fileExtension: String) -> NSSavePanel {
         
@@ -123,23 +114,6 @@ struct DialogsAndAlerts {
     // MARK: NSAlert ------------------------------------------
     
     static let alert: NSAlert = NSAlert()
-    
-    // Used to prompt the user, when exiting the app, that a recording is ongoing,
-    // and give the user options to save/discard that recording
-    static let saveRecordingAlert: NSAlert = {
-        
-        let alert = NSAlert()
-        
-        configureAlert(alert, title: "Save/discard ongoing recording",
-                       message: "You have an ongoing recording. Would you like to save it before exiting the app ?",
-                       info: "",
-                       icon: Images.imgWarning,
-                       buttonTitles: ["Save recording and exit",
-                                      "Discard recording and exit",
-                                      "Don't exit"])
-        
-        return alert
-    }()
     
     static func genericErrorAlert(_ title: String, _ message: String, _ info: String) -> NSAlert {
         

@@ -10,7 +10,7 @@
 import Cocoa
 
 /*
-    A utility that maintains a chronological record of all changes made to a color scheme (used by the font scheme editor panel), using LIFO stacks.
+    A utility that maintains a chronological record of all changes made to a font scheme (used by the font scheme editor panel), using LIFO stacks.
     Provides undo/redo capabilities.
  */
 class FontSchemeHistory {
@@ -23,10 +23,10 @@ class FontSchemeHistory {
     // Stack used to store changes that can be redone (i.e. LIFO).
     private var redoStack: Stack<FontSchemeChange> = Stack()
     
-    // A snapshot of the system color scheme before any changes were made to it ... used when performing an "Undo all changes" operation.
+    // A snapshot of the system font scheme before any changes were made to it ... used when performing an "Undo all changes" operation.
     private var undoAllRestorePoint: FontScheme?
     
-    // The latest snapshot of the system color scheme (i.e. after all changes were made to it) ... used when performing a "Redo all changes" operation.
+    // The latest snapshot of the system font scheme (i.e. after all changes were made to it) ... used when performing a "Redo all changes" operation.
     private var redoAllRestorePoint: FontScheme?
     
     // A callback mechanism to notify an observer that the history state has changed (i.e. a new record has been added)
@@ -38,15 +38,17 @@ class FontSchemeHistory {
         undoStack.clear()
         redoStack.clear()
         
-        // Capture a snapshot of the system color scheme before any changes are made to it.
+        // Capture a snapshot of the system font scheme before any changes are made to it.
         undoAllRestorePoint = fontSchemesManager.systemScheme.clone()
     }
     
-    // Stores a record for a new change made to the system color scheme.
+    //
+    // Stores a record for a new change made to the system font scheme.
     //
     // - Parameter undoValue:   The font scheme that should be applied if/when an undo is performed.
     // - Parameter redoValue:   The font scheme that should be applied if/when a redo is performed.
-    // - Parameter changeType:  The type of change that this record represents (i.e. a color change or a gradient amount change).
+    // - Parameter changeType:  The type of change that this record represents (i.e. a font change).
+    //
     func noteChange(_ undoValue: FontScheme, _ redoValue: FontScheme) {
         
         // Any new record gets put on the undo stack for a potential undo.
@@ -82,7 +84,7 @@ class FontSchemeHistory {
     // Removes (pops) and returns the first possible undo operation, if one is available.
     func undoLastChange() -> FontScheme? {
         
-        // Capture a snapshot of the system color scheme for a potential "Redo all" operation later.
+        // Capture a snapshot of the system font scheme for a potential "Redo all" operation later.
         // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
         if redoStack.isEmpty && !undoStack.isEmpty {
             redoAllRestorePoint = fontSchemesManager.systemScheme.clone()
@@ -99,10 +101,10 @@ class FontSchemeHistory {
         return nil
     }
     
-    // Undoes all changes, if any. Returns a color scheme representing the restore point from the time before changes were made (if any).
+    // Undoes all changes, if any. Returns a font scheme representing the restore point from the time before changes were made (if any).
     func undoAll() -> FontScheme? {
         
-        // Capture a snapshot of the system color scheme for a potential "Redo all" operation later.
+        // Capture a snapshot of the system font scheme for a potential "Redo all" operation later.
         // Only do this if this is the first undo in the sequence (i.e. you want the latest restore point)
         if redoStack.isEmpty && !undoStack.isEmpty {
             redoAllRestorePoint = fontSchemesManager.systemScheme.clone()
@@ -131,7 +133,7 @@ class FontSchemeHistory {
         return nil
     }
     
-    // Redoes all changes, if any. Returns a color scheme representing the restore point from the time after all changes were made (if any).
+    // Redoes all changes, if any. Returns a font scheme representing the restore point from the time after all changes were made (if any).
     func redoAll() -> FontScheme? {
         
         // Transfer all records to the undo stack.

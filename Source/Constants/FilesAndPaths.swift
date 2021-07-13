@@ -25,7 +25,4 @@ struct FilesAndPaths {
     
     static let logFileName = "aural.log"
     static let logFile: URL = baseDir.appendingPathComponent(logFileName)
-    
-    // Directory where recordings are temporarily stored, till the user defines the location
-    static let recordingsDir: URL = baseDir.appendingPathComponent("recordings", isDirectory: true)
 }

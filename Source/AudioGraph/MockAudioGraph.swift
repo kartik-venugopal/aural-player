@@ -42,10 +42,6 @@
 //    
 //    var playerNode: AuralPlayerNode
 //    
-//    var nodeForRecorderTap: AVAudioNode {
-//        return AuralPlayerNode(useLegacyAPI: true)
-//    }
-//    
 //    var soundProfiles: SoundProfiles
 //    
 //    // Sound setting value holders

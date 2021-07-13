@@ -29,7 +29,6 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private let delayViewController: DelayViewController = DelayViewController()
     private let filterViewController: FilterViewController = FilterViewController()
     private let auViewController: AudioUnitsViewController = AudioUnitsViewController()
-    private let recorderViewController: RecorderViewController = RecorderViewController()
 
     // Tab view and its buttons
 
@@ -43,7 +42,6 @@ class EffectsWindowController: NSWindowController, Destroyable {
     @IBOutlet weak var delayTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var filterTabViewButton: EffectsUnitTabButton!
     @IBOutlet weak var auTabViewButton: EffectsUnitTabButton!
-    @IBOutlet weak var recorderTabViewButton: EffectsUnitTabButton!
 
     private var effectsTabViewButtons: [EffectsUnitTabButton] = []
     
@@ -51,8 +49,6 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
     // Delegate that alters the audio graph
     private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
-    
-    private let recorder: RecorderDelegateProtocol = ObjectGraph.recorderDelegate
     
     private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
 
@@ -81,12 +77,12 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
     private func addSubViews() {
         
-        for (index, viewController) in [masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController, recorderViewController].enumerated() {
+        for (index, viewController) in [masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController].enumerated() {
             
             effectsTabView.tabViewItem(at: index).view?.addSubview(viewController.view)
         }
 
-        effectsTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, auTabViewButton, recorderTabViewButton]
+        effectsTabViewButtons = [masterTabViewButton, eqTabViewButton, pitchTabViewButton, timeTabViewButton, reverbTabViewButton, delayTabViewButton, filterTabViewButton, auTabViewButton]
         
         masterTabViewButton.stateFunction = graph.masterUnit.stateFunction
         eqTabViewButton.stateFunction = graph.eqUnit.stateFunction
@@ -110,10 +106,6 @@ class EffectsWindowController: NSWindowController, Destroyable {
             }
             
             return .bypassed
-        }
-
-        recorderTabViewButton.stateFunction = {[weak self] in
-            return (self?.recorder.isRecording ?? false) ? .active : .bypassed
         }
     }
 
@@ -149,7 +141,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     
     func destroy() {
         
-        ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController, recorderViewController] as? [Destroyable])?.forEach {$0.destroy()}
+        ([masterViewController, eqViewController, pitchViewController, timeViewController, reverbViewController, delayViewController, filterViewController, auViewController] as? [Destroyable])?.forEach {$0.destroy()}
         
         close()
         messenger.unsubscribeFromAll()

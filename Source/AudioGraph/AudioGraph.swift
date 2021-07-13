@@ -13,7 +13,7 @@ let visualizationAnalysisBufferSize: Int = 2048
 
 ///
 /// The Audio Graph is one of the core components of the app and is responsible for all audio output. It serves as the infrastructure for playback,
-/// recording, and visualization, and also controls player volume, stereo pan, and all sound effects, including any Audio Units (AU) plug-ins configured by the user.
+/// effects, and visualization.
 ///
 /// It encapsulates an audio engine implemented using the **AVAudioEngine** framework and manages a "graph" of nodes attached to that
 /// engine. Each node in the graph performs a distinct function, such as playback, mixing, or an effect such as equalization or reverb. Each
@@ -33,7 +33,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
     
     let outputNode: AVAudioOutputNode
     let playerNode: AuralPlayerNode
-    let nodeForRecorderTap: AVAudioNode
     let auxMixer: AVAudioMixerNode  // Used for conversions of sample rates / channel counts
     
     private let audioUnitsManager: AudioUnitsManager
@@ -72,7 +71,6 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
         auxMixer = AVAudioMixerNode(volume: muted ? 0 : 1)
         
         outputNode = audioEngine.outputNode
-        nodeForRecorderTap = audioEngine.mainMixerNode
         
         deviceManager = DeviceManager(outputAudioUnit: outputNode.audioUnit!)
         

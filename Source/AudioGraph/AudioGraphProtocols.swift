@@ -14,9 +14,9 @@ import AVFoundation
 /// A functional contract for the Audio Graph.
 ///
 /// The Audio Graph is one of the core components of the app and is responsible for all audio output. It serves as the infrastructure for playback,
-/// recording, and visualization, and also controls player volume, stereo pan, and all sound effects, including any Audio Units (AU) plug-ins configured by the user.
+/// effects, and visualization.
 ///
-protocol AudioGraphProtocol: PlayerGraphProtocol, RecorderGraphProtocol {
+protocol AudioGraphProtocol: PlayerGraphProtocol {
     
     var availableDevices: AudioDeviceList {get}
     var systemDevice: AudioDevice {get}
@@ -68,15 +68,6 @@ protocol PlayerGraphProtocol {
     
     // When the audio output is changed
     func restartAudioEngine()
-}
-
-/*
-    Contract for a sub-graph of the audio graph, suitable for a recorder, that has access to only the graph node on which a recorder tap can be installed.
- */
-protocol RecorderGraphProtocol {
- 
-    // The audio graph node on which a recorder tap can be installed
-    var nodeForRecorderTap: AVAudioNode {get}
 }
 
 protocol AudioGraphRenderObserverProtocol {

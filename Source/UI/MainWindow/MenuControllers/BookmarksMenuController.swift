@@ -121,7 +121,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
             
             if let fnfError = error as? FileNotFoundError {
                 
-                // TODO: When this error occurs, offer more options like "Point to the new location of the file". See RecorderViewController for reference.
+                // TODO: When this error occurs, offer more options like "Point to the new location of the file".
                 
                 // This needs to be done async. Otherwise, other open dialogs could hang.
                 DispatchQueue.main.async {

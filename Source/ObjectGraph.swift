@@ -85,9 +85,6 @@ class ObjectGraph {
     static let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
                                                                                  sequencer: sequencerDelegate, preferences: preferences)
     
-    private static let recorder: Recorder = Recorder(audioGraph)
-    static let recorderDelegate: RecorderDelegateProtocol = RecorderDelegate(recorder)
-    
     private static let history: History = History(preferences.historyPreferences)
     static let historyDelegate: HistoryDelegateProtocol = HistoryDelegate(persistentState: persistentState.history, history, playlistDelegate, playbackDelegate)
     
@@ -144,20 +141,20 @@ class ObjectGraph {
         ControlBarPlayerViewState.initialize(persistentState.ui?.controlBarPlayer)
         
         DispatchQueue.global(qos: .background).async {
-            cleanUpTranscoderFolders()
+            cleanUpLegacyFolders()
         }
     }
     
     ///
-    /// Clean up (delete) file system folders that were used by previous app versions that had the transcoder.
+    /// Clean up (delete) file system folders that were used by previous app versions that had the transcoder and/or recorder.
     ///
-    private static func cleanUpTranscoderFolders() {
+    private static func cleanUpLegacyFolders() {
         
-        let transcoderDir: URL = URL(fileURLWithPath: FilesAndPaths.baseDir.path).appendingPathComponent("transcoderStore", isDirectory: true)
+        let transcoderDir = FilesAndPaths.baseDir.appendingPathComponent("transcoderStore", isDirectory: true)
+        let artDir = FilesAndPaths.baseDir.appendingPathComponent("albumArt", isDirectory: true)
+        let recordingsDir = FilesAndPaths.baseDir.appendingPathComponent("recordings", isDirectory: true)
         
-        let artDir: URL = URL(fileURLWithPath: FilesAndPaths.baseDir.path).appendingPathComponent("albumArt", isDirectory: true)
-        
-        for folder in [transcoderDir, artDir] {
+        for folder in [transcoderDir, artDir, recordingsDir] {
             folder.delete()
         }
     }

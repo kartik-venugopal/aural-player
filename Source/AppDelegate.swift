@@ -97,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         lastFileOpenTime = now
     }
     
-    /// Makes a decision whether or not the application can safely terminate without the user losing any unsaved changes (eg. ongoing recordings).
+    /// Makes a decision whether or not the application can safely terminate without the user losing any unsaved changes.
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         
         // Broadcast a request to all app components that the app needs to exit. Check responses to see if it is safe to exit. Some components may need to do some work before the app is able to safely exit, or cancel the exit operation altogether.
