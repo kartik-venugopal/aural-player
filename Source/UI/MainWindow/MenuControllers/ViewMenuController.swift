@@ -104,8 +104,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         WindowManager.instance.toggleVisualizer()
     }
     
-    // TODO: Revisit this
-    @IBAction func alwaysOnTopAction(_ sender: NSMenuItem) {
-//        WindowManager.instance.toggleAlwaysOnTop()
+    @IBAction func toggleTuneBrowserAction(_ sender: AnyObject) {
+        WindowManager.instance.toggleTuneBrowser()
     }
 }

@@ -114,6 +114,8 @@ class ObjectGraph {
     static let fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
     static let colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
     
+    static let fileSystem: FileSystem = FileSystem()
+    
     // Don't let any code invoke this initializer to create instances of ObjectGraph
     private init() {}
     
@@ -139,6 +141,7 @@ class ObjectGraph {
         WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
         MenuBarPlayerViewState.initialize(persistentState.ui?.menuBarPlayer)
         ControlBarPlayerViewState.initialize(persistentState.ui?.controlBarPlayer)
+        TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
         
         DispatchQueue.global(qos: .background).async {
             cleanUpLegacyFolders()
@@ -191,7 +194,8 @@ class ObjectGraph {
                                                visualizer: VisualizerViewState.persistentState,
                                                windowAppearance: WindowAppearanceState.persistentState,
                                                menuBarPlayer: MenuBarPlayerViewState.persistentState,
-                                               controlBarPlayer: ControlBarPlayerViewState.persistentState)
+                                               controlBarPlayer: ControlBarPlayerViewState.persistentState,
+                                               tuneBrowser: TuneBrowserState.persistentState)
         
         persistentState.history = (historyDelegate as! HistoryDelegate).persistentState
         persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState

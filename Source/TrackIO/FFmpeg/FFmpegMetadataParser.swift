@@ -81,6 +81,8 @@ protocol FFmpegMetadataParser {
     ///
     func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double?
     
+    func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int?
+    
     ///
     /// Reads whether or not the track is protected by DRM, from the given metadata map. Returns nil if not present.
     ///
@@ -115,6 +117,8 @@ extension FFmpegMetadataParser {
     func getTotalTracks(_ metadataMap: FFmpegMappedMetadata) -> Int? {nil}
  
     func getDuration(_ metadataMap: FFmpegMappedMetadata) -> Double? {nil}
+    
+    func getYear(_ metadataMap: FFmpegMappedMetadata) -> Int? {nil}
     
     func isDRMProtected(_ metadataMap: FFmpegMappedMetadata) -> Bool? {nil}
     

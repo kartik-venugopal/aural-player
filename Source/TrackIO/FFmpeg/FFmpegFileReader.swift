@@ -79,8 +79,6 @@ class FFmpegFileReader: FileReaderProtocol {
         // The file must have an audio stream, otherwise it's invalid.
         guard fctx.bestAudioStream != nil else {throw NoAudioTracksError(file)}
         
-        var metadata = PlaylistMetadata()
-        
         // Construct a metadata map for this track, using the file context.
         let metadataMap = FFmpegMappedMetadata(for: fctx)
         
@@ -88,6 +86,13 @@ class FFmpegFileReader: FileReaderProtocol {
         let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
         allParsers.forEach {$0.mapMetadata(metadataMap)}
         let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
+        
+        return try doGetPlaylistMetadata(for: file, fromCtx: fctx, andMap: metadataMap, usingParsers: relevantParsers)
+    }
+    
+    private func doGetPlaylistMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, andMap metadataMap: FFmpegMappedMetadata, usingParsers relevantParsers: [FFmpegMetadataParser]) throws -> PlaylistMetadata {
+        
+        var metadata = PlaylistMetadata()
 
         // Read all essential metadata fields.
         
@@ -144,7 +149,75 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getAuxiliaryMetadata(for file: URL, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil) -> AuxiliaryMetadata {
         
+        do {
+            
+            // Construct an ffmpeg file context for this track.
+            // This will be the source of all track metadata.
+            let fctx = try FFmpegFileContext(for: file)
+            
+            // The file must have an audio stream, otherwise it's invalid.
+            guard fctx.bestAudioStream != nil else {throw NoAudioTracksError(file)}
+            
+            // Construct a metadata map for this track, using the file context.
+            let metadataMap = FFmpegMappedMetadata(for: fctx)
+            
+            // Determine which parsers (and in what order) will examine the track's metadata.
+            let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
+            allParsers.forEach {$0.mapMetadata(metadataMap)}
+            let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
+            
+            return doGetAuxiliaryMetadata(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: playbackContext, usingParsers: relevantParsers)
+            
+        } catch {
+            return AuxiliaryMetadata()
+        }
+    }
+    
+    private func doGetAuxiliaryMetadata(for file: URL, fromCtx fctx: FFmpegFileContext, andMap metadataMap: FFmpegMappedMetadata, loadingAudioInfoFrom playbackContext: PlaybackContextProtocol? = nil, usingParsers relevantParsers: [FFmpegMetadataParser]) -> AuxiliaryMetadata {
+        
         var metadata = AuxiliaryMetadata()
+        
+        metadata.year = relevantParsers.firstNonNilMappedValue {$0.getYear(metadataMap)}
+        metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
+        
+        var auxiliaryMetadata: [String: MetadataEntry] = [:]
+        
+        for parser in relevantParsers {
+            parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in auxiliaryMetadata[k] = v}
+        }
+        
+        metadata.auxiliaryMetadata = auxiliaryMetadata
+        
+        // Load audio metadata.
+        
+        let audioInfo = AudioInfo()
+        
+        audioInfo.format = fctx.formatLongName
+        
+        audioInfo.codec = (playbackContext as? FFmpegPlaybackContext)?.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
+        
+        audioInfo.bitRate = (Double(fctx.bitRate) / Double(Size.KB)).roundedInt
+        
+        if let audioStream = fctx.bestAudioStream {
+            
+            audioInfo.sampleRate = audioStream.sampleRate
+            
+            audioInfo.sampleFormat = FFmpegSampleFormat(encapsulating: AVSampleFormat(rawValue: audioStream.codecParams.format)).description
+            
+            audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
+            
+            audioInfo.numChannels = Int(audioStream.channelCount)
+            audioInfo.channelLayout = FFmpegChannelLayoutsMapper.readableString(for: Int64(audioStream.channelLayout), channelCount: audioStream.channelCount)
+        }
+        
+        metadata.audioInfo = audioInfo
+        
+        return metadata
+    }
+    
+    func getAllMetadata(for file: URL) -> FileMetadata {
+        
+        let metadata = FileMetadata()
         
         do {
             
@@ -152,49 +225,27 @@ class FFmpegFileReader: FileReaderProtocol {
             // This will be the source of all track metadata.
             let fctx = try FFmpegFileContext(for: file)
             
+            // The file must have an audio stream, otherwise it's invalid.
+            guard fctx.bestAudioStream != nil else {throw NoAudioTracksError(file)}
+            
             // Construct a metadata map for this track, using the file context.
             let metadataMap = FFmpegMappedMetadata(for: fctx)
 
             // Determine which parsers (and in what order) will examine the track's metadata.
             let allParsers = parsersByExt[metadataMap.fileType] ?? self.allParsers
             allParsers.forEach {$0.mapMetadata(metadataMap)}
-            let relevantParsers = allParsers.filter {$0.hasAuxiliaryMetadataForTrack(metadataMap)}
+            let relevantParsers = allParsers.filter {$0.hasEssentialMetadataForTrack(metadataMap)}
             
-            metadata.lyrics = cleanUp(relevantParsers.firstNonNilMappedValue {$0.getLyrics(metadataMap)})
+            metadata.playlist = try doGetPlaylistMetadata(for: file, fromCtx: fctx, andMap: metadataMap, usingParsers: relevantParsers)
+            metadata.auxiliary = doGetAuxiliaryMetadata(for: file, fromCtx: fctx, andMap: metadataMap, loadingAudioInfoFrom: nil, usingParsers: relevantParsers)
             
-            var auxiliaryMetadata: [String: MetadataEntry] = [:]
-            
-            for parser in relevantParsers {
-                parser.getAuxiliaryMetadata(metadataMap).forEach {(k,v) in auxiliaryMetadata[k] = v}
+            if let imageData = fctx.bestImageStream?.attachedPic.data {
+                metadata.coverArt = NSImage(data: imageData)
             }
             
-            metadata.auxiliaryMetadata = auxiliaryMetadata
-            
-            // Load audio metadata.
-            
-            let audioInfo = AudioInfo()
-            
-            audioInfo.format = fctx.formatLongName
-            
-            audioInfo.codec = (playbackContext as? FFmpegPlaybackContext)?.audioCodec?.longName ?? fctx.bestAudioStream?.codecLongName ?? fctx.formatName
-            
-            audioInfo.bitRate = (Double(fctx.bitRate) / Double(Size.KB)).roundedInt
-            
-            if let audioStream = fctx.bestAudioStream {
-                
-                audioInfo.sampleRate = audioStream.sampleRate
-                
-                audioInfo.sampleFormat = FFmpegSampleFormat(encapsulating: AVSampleFormat(rawValue: audioStream.codecParams.format)).description
-                
-                audioInfo.frames = Int64(Double(audioStream.sampleRate) * fctx.duration)
-                
-                audioInfo.numChannels = Int(audioStream.channelCount)
-                audioInfo.channelLayout = FFmpegChannelLayoutsMapper.readableString(for: Int64(audioStream.channelLayout), channelCount: audioStream.channelCount)
-            }
-            
-            metadata.audioInfo = audioInfo
-            
-        } catch {}
+        } catch {
+            NSLog("Error retrieving metadata for file: '\(file.path)'. Error: \(error)")
+        }
         
         return metadata
     }

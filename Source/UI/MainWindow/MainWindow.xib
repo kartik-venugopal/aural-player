@@ -1655,9 +1655,14 @@ CA
                                     <action selector="toggleChaptersListAction:" target="7y7-Z8-Sp0" id="Fjd-12-28q"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="4" id="sLP-gV-qpW">
+                            <menuItem title=" Tune Browser window" image="ToggleVisualizer-Small" keyEquivalent="4" id="sLP-gV-qpW">
                                 <connections>
-                                    <action selector="toggleVisualizerAction:" target="7y7-Z8-Sp0" id="rd8-YM-gmo"/>
+                                    <action selector="toggleTuneBrowserAction:" target="7y7-Z8-Sp0" id="mP8-C4-8xm"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title=" Visualizer window" image="ToggleVisualizer-Small" keyEquivalent="5" id="nCv-Bk-9yW">
+                                <connections>
+                                    <action selector="toggleVisualizerAction:" target="7y7-Z8-Sp0" id="UFV-3t-NrU"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="efi-tn-whz"/>

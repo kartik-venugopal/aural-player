@@ -60,7 +60,7 @@ class AppStatePersistenceTests: AudioGraphTestCase {
             
             // Playlist
             
-            let playlistUI = PlaylistUIPersistentState(view: .randomCase())
+            let playlistUI = PlaylistUIPersistentState(view: PlaylistType.randomCase().rawValue)
             
             // Visualizer
             

@@ -60,7 +60,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
         self.trackPlaybackCompletedChain = trackPlaybackCompletedChain
         
         // Subscribe to notifications
-        messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
+        messenger.subscribe(to: .application_willExit, handler: onAppExit)
         messenger.subscribeAsync(to: .player_trackPlaybackCompleted, handler: trackPlaybackCompleted(_:))
         messenger.subscribe(to: .sequencer_playingTrackRemoved, handler: doStop(_:))
 
@@ -413,13 +413,10 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     
     // This function is invoked when the user attempts to exit the app. It checks if there
     // is a track playing and if playback settings for the track need to be remembered.
-    func onAppExit(_ request: AppExitRequestNotification) {
+    func onAppExit() {
         
         if let track = playingTrack {
             savePlaybackProfileIfNeeded(track)
         }
-        
-        // Proceed with exit
-        request.acceptResponse(okToExit: true)
     }
 }

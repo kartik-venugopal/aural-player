@@ -31,4 +31,23 @@ class SystemUtils {
         let os = osVersion
         return os.majorVersion > 10 || os.minorVersion > 15
     }
+    
+    static let fileManager = FileManager.default
+    
+    static let primaryVolumeName: String? = {
+        
+        let url = URL(fileURLWithPath: "/Users")
+        
+        do {
+            return try url.resourceValues(forKeys: [.volumeNameKey]).allValues[.volumeNameKey] as? String
+        } catch {
+            return nil
+        }
+    }()
+    
+    static var secondaryVolumes: [URL] {
+        
+        fileManager.mountedVolumeURLs(includingResourceValuesForKeys: [URLResourceKey.volumeNameKey],
+                                      options: [])?.filter{$0.path.hasPrefix("/Volumes")} ?? []
+    }
 }

@@ -36,7 +36,7 @@ class MusicBrainzCache: PersistentModelObject {
     init(state: MusicBrainzCachePersistentState?, preferences: MusicBrainzPreferences) {
         
         self.preferences = preferences
-        messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
+        messenger.subscribe(to: .application_willExit, handler: onAppExit)
         
         guard preferences.enableCoverArtSearch && preferences.enableOnDiskCoverArtCache else {
             
@@ -220,14 +220,11 @@ class MusicBrainzCache: PersistentModelObject {
     }
     
     // This function is invoked when the user attempts to exit the app.
-    func onAppExit(_ request: AppExitRequestNotification) {
+    func onAppExit() {
         
         // Wait till all disk I/O operations have completed, before allowing
         // the app to exit.
         diskIOOpQueue.waitUntilAllOperationsAreFinished()
-        
-        // Proceed with exit
-        request.acceptResponse(okToExit: true)
     }
     
     var persistentState: MusicBrainzCachePersistentState {

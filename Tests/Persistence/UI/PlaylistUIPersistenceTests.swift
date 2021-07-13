@@ -14,7 +14,7 @@ class PlaylistUIPersistenceTests: PersistenceTestCase {
     func testPersistence() {
         
         for playlistView in PlaylistType.allCases {
-            doTestPersistence(serializedState: PlaylistUIPersistentState(view: playlistView))
+            doTestPersistence(serializedState: PlaylistUIPersistentState(view: playlistView.rawValue))
         }
     }
 }

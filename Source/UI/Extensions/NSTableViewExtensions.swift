@@ -15,6 +15,18 @@ extension NSTableView {
         self.registerForDraggedTypes([.data, .file_URL])
     }
     
+    func selectRow(_ row: Int) {
+        self.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
+    }
+    
+    func selectRows(_ rows: [Int]) {
+        self.selectRowIndexes(IndexSet(rows), byExtendingSelection: false)
+    }
+    
+    func clearSelection() {
+        self.selectRowIndexes(IndexSet([]), byExtendingSelection: false)
+    }
+    
     func pageUp() {
         
         // Determine if the first row currently displayed has been truncated so it is not fully visible

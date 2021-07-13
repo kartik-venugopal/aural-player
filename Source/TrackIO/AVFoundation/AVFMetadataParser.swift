@@ -61,6 +61,8 @@ protocol AVFMetadataParser {
     ///
     func getTrackNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)?
     
+    func getYear(_ metadataMap: AVFMappedMetadata) -> Int?
+    
     ///
     /// Read track cover art from the given metadata map. Returns nil if not present.
     ///
@@ -96,6 +98,8 @@ extension AVFMetadataParser {
     func getTrackNumber(_ metadataMap: AVFMappedMetadata) -> (number: Int?, total: Int?)? {nil}
     
     func getLyrics(_ metadataMap: AVFMappedMetadata) -> String? {nil}
+    
+    func getYear(_ metadataMap: AVFMappedMetadata) -> Int? {nil}
     
     func getArt(_ metadataMap: AVFMappedMetadata) -> CoverArt? {nil}
     
