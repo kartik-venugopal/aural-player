@@ -222,19 +222,19 @@ class AudioGraph: AudioGraphProtocol, PersistentModelObject {
 
     var persistentState: AudioGraphPersistentState {
         
-        return AudioGraphPersistentState(outputDevice: AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid),
-                                         volume: volume,
-                                         muted: muted,
-                                         balance: balance,
-                                         masterUnit: masterUnit.persistentState,
-                                         eqUnit: eqUnit.persistentState,
-                                         pitchUnit: pitchShiftUnit.persistentState,
-                                         timeUnit: timeStretchUnit.persistentState,
-                                         reverbUnit: reverbUnit.persistentState,
-                                         delayUnit: delayUnit.persistentState,
-                                         filterUnit: filterUnit.persistentState,
-                                         audioUnits: audioUnits.map {$0.persistentState},
-                                         soundProfiles: self.soundProfiles.all().map {SoundProfilePersistentState(profile: $0)})
+        AudioGraphPersistentState(outputDevice: AudioDevicePersistentState(name: outputDevice.name, uid: outputDevice.uid),
+                                  volume: volume,
+                                  muted: muted,
+                                  balance: balance,
+                                  masterUnit: masterUnit.persistentState,
+                                  eqUnit: eqUnit.persistentState,
+                                  pitchUnit: pitchShiftUnit.persistentState,
+                                  timeUnit: timeStretchUnit.persistentState,
+                                  reverbUnit: reverbUnit.persistentState,
+                                  delayUnit: delayUnit.persistentState,
+                                  filterUnit: filterUnit.persistentState,
+                                  audioUnits: audioUnits.map {$0.persistentState},
+                                  soundProfiles: self.soundProfiles.all().map {SoundProfilePersistentState(profile: $0)})
     }
 }
 

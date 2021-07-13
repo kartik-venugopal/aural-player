@@ -112,7 +112,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             masterUnit.applyPreset(presetName)
         }
         
-        messenger.subscribe(to: .application_exitRequest, handler: onAppExit(_:))
+        messenger.subscribe(to: .application_willExit, handler: onAppExit)
         messenger.subscribe(to: .player_preTrackPlayback, handler: preTrackPlayback(_:))
         
         messenger.subscribe(to: .effects_saveSoundProfile, handler: saveSoundProfile)
@@ -250,7 +250,7 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     }
     
     // This function is invoked when the user attempts to exit the app. It checks if there is a track playing and if sound settings for the track need to be remembered.
-    func onAppExit(_ request: AppExitRequestNotification) {
+    func onAppExit() {
         
         // Apply sound profile if there is one for the new track and if the preferences allow it
         if let plTrack = player.playingTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(plTrack) {
@@ -260,8 +260,5 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             soundProfiles.add(plTrack, SoundProfile(file: plTrack.file, volume: graph.volume,
                                                     balance: graph.balance, effects: graph.settingsAsMasterPreset))
         }
-        
-        // Proceed with exit
-        request.acceptResponse(okToExit: true)
     }
 }

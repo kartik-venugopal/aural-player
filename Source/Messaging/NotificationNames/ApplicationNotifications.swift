@@ -21,7 +21,7 @@ extension Notification.Name {
     // Signifies that the application has been reopened after being launched previously.
     static let application_reopened = Notification.Name("application_reopened")
     
-    // Signifies that the application is about to exit/terminate, and asks observers for
-    // responses indicating whether they accept (are ok with) the termination request.
-    static let application_exitRequest = Notification.Name("application_exitRequest")
+    // Signifies that the application is about to exit/terminate, allowing observers
+    // to save any state or perform any kind of shutdown or cleanup prior to exiting.
+    static let application_willExit = Notification.Name("application_willExit")
 }

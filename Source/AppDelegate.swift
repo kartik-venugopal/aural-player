@@ -97,18 +97,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         lastFileOpenTime = now
     }
     
-    /// Makes a decision whether or not the application can safely terminate without the user losing any unsaved changes.
-    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        
-        // Broadcast a request to all app components that the app needs to exit. Check responses to see if it is safe to exit. Some components may need to do some work before the app is able to safely exit, or cancel the exit operation altogether.
-        let request = AppExitRequestNotification()
-        messenger.publish(request)
-        
-        return request.okToExit ? .terminateNow : .terminateCancel
-    }
-    
     /// Tears down app components in preparation for app termination.
     func applicationWillTerminate(_ aNotification: Notification) {
+        
+        // Broadcast a notification to all app components that the app will exit.
+        // This call is synchronous, i.e. it will block till all observers have
+        // finished saving their state or performing any cleanup.
+        messenger.publish(.application_willExit)
+        
+        // Perform a final shutdown.
         ObjectGraph.tearDown()
     }
 }
