@@ -45,6 +45,8 @@ class BasicFlatPlaylistCellView: NSTableCellView {
     
     var rowIsSelected: Bool {rowSelectionStateFunction()}
     
+    lazy var textFieldConstraintsManager = LayoutConstraintsManager(for: textField!)
+    
     func updateText(_ font: NSFont, _ text: String) {
         
         textField?.font = font
@@ -64,15 +66,9 @@ class BasicFlatPlaylistCellView: NSTableCellView {
 
     // Constraints
     func realignText(yOffset: CGFloat) {
-        
-        guard let textField = self.textField else {return}
-        
-        // Remove any existing constraints on the text field's 'bottom' attribute
-        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
 
-        let textFieldBottomConstraint = NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: yOffset)
-        
-        self.activateAndAddConstraint(textFieldBottomConstraint)
+        textFieldConstraintsManager.removeAll(withAttributes: [.bottom])
+        textFieldConstraintsManager.setBottom(relatedToBottomOf: self, offset: yOffset)
     }
     
     override var backgroundStyle: NSView.BackgroundStyle {
@@ -91,9 +87,7 @@ class BasicFlatPlaylistCellView: NSTableCellView {
     Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.
  */
 @IBDesignable
-class TrackNameCellView: BasicFlatPlaylistCellView {
-
-}
+class TrackNameCellView: BasicFlatPlaylistCellView {}
 
 /*
     Custom view for a single NSTableView cell. Customizes the look and feel of cells (in selected rows) - font and text color.

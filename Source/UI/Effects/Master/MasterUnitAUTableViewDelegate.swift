@@ -112,16 +112,12 @@ class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableVie
 
 class MasterUnitAUTableNameCellView: NSTableCellView {
     
+    private lazy var textFieldConstraintsManager = LayoutConstraintsManager(for: textField!)
+    
     // Constraints
     func realignText(yOffset: CGFloat) {
         
-        guard let textField = self.textField else {return}
-        
-        // Remove any existing constraints on the text field's 'bottom' attribute
-        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {self.deactivateAndRemoveConstraint($0)}
-
-        let textFieldBottomConstraint = NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: yOffset)
-        
-        self.activateAndAddConstraint(textFieldBottomConstraint)
+        textFieldConstraintsManager.removeAll(withAttributes: [.bottom])
+        textFieldConstraintsManager.setBottom(relatedToBottomOf: self, offset: yOffset)
     }
 }

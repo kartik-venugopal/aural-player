@@ -100,6 +100,8 @@ class GroupedItemCellView: NSTableCellView {
     // This is used to determine which NSOutlineView contains this cell
     var playlistType: PlaylistType = .artists
     
+    lazy var textFieldConstraintsManager = LayoutConstraintsManager(for: textField!)
+    
     func updateText(_ font: NSFont, _ text: String) {
         
         textField?.font = font
@@ -110,18 +112,14 @@ class GroupedItemCellView: NSTableCellView {
     // Constraints
     func realignText(yOffset: CGFloat) {
         
-        guard let textField = self.textField else {return}
-        
-        // Remove any existing constraints on the text field's 'bottom' attribute
-        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .bottom}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
-
-        let textFieldBottomConstraint = NSLayoutConstraint(item: textField, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: yOffset)
-        
-        self.activateAndAddConstraint(textFieldBottomConstraint)
+        textFieldConstraintsManager.removeAll(withAttributes: [.bottom])
+        textFieldConstraintsManager.setBottom(relatedToBottomOf: self, offset: yOffset)
     }
 }
 
 class GroupedItemNameCellView: GroupedItemCellView {
+    
+    lazy var imgViewConstraintsManager = LayoutConstraintsManager(for: imageView!)
     
     // When the background changes (as a result of selection/deselection) switch to the appropriate colors/fonts
     override var backgroundStyle: NSView.BackgroundStyle {
@@ -139,24 +137,13 @@ class GroupedItemNameCellView: GroupedItemCellView {
     
     func reActivateConstraints(imgViewCenterY: CGFloat, imgViewLeading: CGFloat, textFieldLeading: CGFloat) {
         
-        guard let imgView = self.imageView, let textField = self.textField else {return}
+        textFieldConstraintsManager.removeAll(withAttributes: [.leading])
+        imgViewConstraintsManager.removeAll(withAttributes: [.centerY, .leading])
         
-        self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .centerY}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
+        textFieldConstraintsManager.setLeading(relatedToTrailingOf: imageView!, offset: textFieldLeading)
         
-        self.constraints.filter {$0.firstItem === imgView && $0.firstAttribute == .leading}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
-        
-        self.constraints.filter {$0.firstItem === textField && $0.firstAttribute == .leading}.forEach {[weak self] in self?.deactivateAndRemoveConstraint($0)}
-        
-        let newImgViewCenterYConstraint = NSLayoutConstraint(item: imgView, attribute: .centerY, relatedBy: .equal,
-                                                          toItem: self, attribute: .centerY, multiplier: 1.0, constant: imgViewCenterY)
-        
-        let newImgViewLeadingConstraint = NSLayoutConstraint(item: imgView, attribute: .leading, relatedBy: .equal,
-                                                          toItem: self, attribute: .leading, multiplier: 1.0, constant: imgViewLeading)
-        
-        let newTextFieldLeadingConstraint = NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal,
-                                                            toItem: imgView, attribute: .trailing, multiplier: 1.0, constant: textFieldLeading)
-        
-        self.activateAndAddConstraints(newImgViewCenterYConstraint, newImgViewLeadingConstraint, newTextFieldLeadingConstraint)
+        imgViewConstraintsManager.centerVerticallyInSuperview(offset: imgViewCenterY)
+        imgViewConstraintsManager.setLeading(relatedToLeadingOf: self, offset: imgViewLeading)
     }
 }
 

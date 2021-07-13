@@ -99,6 +99,14 @@ class LayoutConstraintsManager {
         superview?.activateAndAddConstraint(constraint)
     }
     
+    func setBottom(relatedToBottomOf otherView: NSView, offset: CGFloat = 0) {
+        
+        let constraint = NSLayoutConstraint.bottomBottomConstraint(forItem: view,
+                                                                   relatedTo: otherView, offset: offset)
+        
+        superview?.activateAndAddConstraint(constraint)
+    }
+    
     func setBottom(equalToBottomOf otherView: NSView) {
         
         let constraint = NSLayoutConstraint.bottomBottomConstraint(forItem: view,
