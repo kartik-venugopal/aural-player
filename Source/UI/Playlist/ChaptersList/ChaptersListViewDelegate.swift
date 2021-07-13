@@ -37,28 +37,33 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
             
         let chapter = track.chapters[row]
         
+        var cell: BasicTableCellView!
+        
         switch columnId {
             
         case .uid_chapterIndex:
             
             // Display a marker icon if this chapter is currently playing
-            return createIndexCell(tableView, String(row + 1), row, row == playbackInfo.playingChapter?.index)
+            cell = createIndexCell(tableView, String(row + 1), row, row == playbackInfo.playingChapter?.index)
             
         case .uid_chapterTitle:
             
-            return createTitleCell(tableView, chapter.title, row)
+            cell = createTitleCell(tableView, chapter.title, row)
             
         case .uid_chapterStartTime:
             
-            return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.startTime), row)
+            cell = createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.startTime), row)
             
         case .uid_chapterDuration:
             
-            return createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.duration), row)
+            cell = createDurationCell(tableView, columnId, ValueFormatter.formatSecondsToHMS(chapter.duration), row)
             
         default: return nil
             
         }
+        
+        cell.realignText(yOffset: fontSchemesManager.systemScheme.playlist.trackTextYOffset)
+        return cell
     }
     
     private func createIndexCell(_ tableView: NSTableView, _ text: String, _ row: Int, _ showCurrentChapterMarker: Bool) -> BasicTableCellView? {

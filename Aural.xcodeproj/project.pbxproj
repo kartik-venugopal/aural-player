@@ -2817,8 +2817,8 @@
 				3E6C0F6025CEB98600BF0D07 /* ChaptersList.xib */,
 				3E6C0F6225CEB98600BF0D07 /* ChaptersListWindowController.swift */,
 				3E6C0F6125CEB98600BF0D07 /* ChaptersListViewController.swift */,
-				3E6C0F6325CEB98600BF0D07 /* ChaptersListTableHeaderCell.swift */,
 				3E6C0F6425CEB98600BF0D07 /* ChaptersListViewDelegate.swift */,
+				3E6C0F6325CEB98600BF0D07 /* ChaptersListTableHeaderCell.swift */,
 			);
 			path = ChaptersList;
 			sourceTree = "<group>";
