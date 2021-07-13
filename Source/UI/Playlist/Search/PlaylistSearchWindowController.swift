@@ -16,8 +16,9 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     
     @IBOutlet weak var searchField: ColoredCursorSearchField!
     
-    @IBOutlet weak var searchResultsSummaryLabel: NSTextField!
-    @IBOutlet weak var searchResultMatchInfo: NSTextField!
+    @IBOutlet weak var lblSummary: NSTextField!
+    @IBOutlet weak var lblMatchFieldName: NSTextField!
+    @IBOutlet weak var lblMatchFieldValue: NSTextField!
     
     @IBOutlet weak var btnNextSearch: NSButton!
     @IBOutlet weak var btnPreviousSearch: NSButton!
@@ -88,8 +89,10 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     
     private func noResultsFound() {
         
-        searchResultsSummaryLabel.stringValue = "No results"
-        searchResultMatchInfo.stringValue = ""
+        lblSummary.stringValue = "No results"
+        lblMatchFieldName.stringValue = ""
+        lblMatchFieldValue.stringValue = ""
+        
         NSView.hideViews(btnNextSearch, btnPreviousSearch)
     }
     
@@ -112,11 +115,11 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     // Updates displayed search results info with the current search result
     private func updateSearchPanelWithResult(_ searchResult: SearchResult) {
         
-        let numResults = searchResults.count
-        let resultsSingularOrPluralText = numResults > 1 ? "results" : "result"
+        lblSummary.stringValue = String(format: "Selected result:   %d / %d",
+                                        searchResults.currentIndex + 1, searchResults.count)
         
-        searchResultsSummaryLabel.stringValue = String(format: "%d %@ found. Selected %d / %d", numResults, resultsSingularOrPluralText, searchResults.currentIndex + 1, numResults)
-        searchResultMatchInfo.stringValue = String(format: "Matched %@: '%@'", searchResult.match.fieldKey, searchResult.match.fieldValue)
+        lblMatchFieldName.stringValue = "Matched field:   \(searchResult.match.fieldKey.capitalizingFirstLetter())"
+        lblMatchFieldValue.stringValue = "Matched value:   '\(searchResult.match.fieldValue)'"
         
         btnNextSearch.showIf(searchResults.hasNext)
         btnPreviousSearch.showIf(searchResults.hasPrevious)
@@ -145,13 +148,15 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     
     @IBAction func searchFieldsChangedAction(_ sender: Any) {
         
-        var searchFields = searchQuery.fields
+        var searchFields: SearchFields = .none
         
         searchFields.include(.name, if: searchByName.isOn)
-        searchFields.include(.artist, if: searchByName.isOn)
-        searchFields.include(.title, if: searchByName.isOn)
-        searchFields.include(.album, if: searchByName.isOn)
+        searchFields.include(.artist, if: searchByArtist.isOn)
+        searchFields.include(.title, if: searchByTitle.isOn)
+        searchFields.include(.album, if: searchByAlbum.isOn)
         
+        searchQuery.fields = searchFields
+
         redoSearchIfPossible()
     }
     
