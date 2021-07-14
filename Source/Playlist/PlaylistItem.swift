@@ -8,5 +8,7 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
-// Marker protocol indicating an item that belongs to a playlist (i.e. either a track or a group)
+///
+/// Marker protocol indicating an item that belongs to a playlist (i.e. either a track or a group).
+///
 protocol PlaylistItem {}

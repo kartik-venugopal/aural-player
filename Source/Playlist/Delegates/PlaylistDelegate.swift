@@ -9,6 +9,17 @@
 //
 import Foundation
 
+///
+/// A delegate representing the Playlist.
+///
+/// Acts as a middleman between the Playlist UI and the Playlist,
+/// providing a simplified interface / facade for the UI layer to manipulate the Playlist.
+///
+/// Also initializes the playlist on app startup, based on persistent app state and user
+/// preferences.
+///
+/// - SeeAlso: `PlaylistDelegateProtocol`
+///
 class PlaylistDelegate: PlaylistDelegateProtocol {
     
     // The actual playlist
@@ -17,10 +28,13 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     private let trackReader: TrackReader
     
     // Persistent playlist state (used upon app startup)
-    private var persistentState: PlaylistPersistentState?
+    private let persistentState: PlaylistPersistentState?
     
     // User preferences (used for autoplay)
     private let preferences: Preferences
+    
+    private var playlistPreferences: PlaylistPreferences {preferences.playlistPreferences}
+    private var playbackPreferences: PlaybackPreferences {preferences.playbackPreferences}
     
     private let trackAddQueue: OperationQueue = OperationQueue()
     private let trackUpdateQueue: OperationQueue = OperationQueue()
@@ -125,8 +139,8 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     func addFiles(_ files: [URL], beginPlayback: Bool? = nil) {
         
-        let autoplayEnabled: Bool = beginPlayback ?? preferences.playbackPreferences.autoplayAfterAddingTracks
-        let interruptPlayback: Bool = beginPlayback ?? (preferences.playbackPreferences.autoplayAfterAddingOption == .always)
+        let autoplayEnabled: Bool = beginPlayback ?? playbackPreferences.autoplayAfterAddingTracks
+        let interruptPlayback: Bool = beginPlayback ?? (playbackPreferences.autoplayAfterAddingOption == .always)
         
         addFiles_async(files, AutoplayOptions(autoplayEnabled, .playSpecificTrack, interruptPlayback))
     }
@@ -152,9 +166,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             self.addSessionTracks()
             
             if reorderGroupingPlaylists, let persistentState = self.persistentState {
-                
                 self.playlist.reOrder(accordingTo: persistentState)
-                self.persistentState = nil
             }
             
             // ------------------ NOTIFY ------------------
@@ -421,19 +433,21 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             // Launch parameters  specified, override playlist saved state and add file paths in params to playlist
             addFiles_async(filesToOpen, AutoplayOptions(true), userAction: false)
 
-        } else if preferences.playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch,
+        } else if playlistPreferences.playlistOnStartup == .rememberFromLastAppLaunch,
                   let tracks = self.persistentState?.tracks?.map({URL(fileURLWithPath: $0)}) {
 
             // No launch parameters specified, load playlist saved state if "Remember state from last launch" preference is selected
-            addFiles_async(tracks, AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
+            addFiles_async(tracks, AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false, reorderGroupingPlaylists: true)
             
-        } else if preferences.playlistPreferences.playlistOnStartup == .loadFile, let playlistFile: URL = preferences.playlistPreferences.playlistFile {
+        } else if playlistPreferences.playlistOnStartup == .loadFile,
+                  let playlistFile: URL = playlistPreferences.playlistFile {
             
-            addFiles_async([playlistFile], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false)
+            addFiles_async([playlistFile], AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false)
             
-        } else if preferences.playlistPreferences.playlistOnStartup == .loadFolder, let folder: URL = preferences.playlistPreferences.tracksFolder {
+        } else if playlistPreferences.playlistOnStartup == .loadFolder,
+                  let folder: URL = playlistPreferences.tracksFolder {
             
-            addFiles_async([folder], AutoplayOptions(preferences.playbackPreferences.autoplayOnStartup), userAction: false)
+            addFiles_async([folder], AutoplayOptions(playbackPreferences.autoplayOnStartup), userAction: false)
         }
     }
     
@@ -444,7 +458,9 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     }
 }
 
-// Encapsulates all autoplay options
+///
+/// Encapsulates all autoplay options.
+///
 fileprivate class AutoplayOptions {
     
     // Whether or not autoplay is requested
@@ -467,6 +483,10 @@ fileprivate class AutoplayOptions {
     }
 }
 
+///
+/// Keeps track of the incremental progress of a single operation of adding
+/// tracks to the playlist.
+///
 fileprivate class TrackAddSession {
     
     var tracks: [Track] = []
@@ -498,4 +518,7 @@ fileprivate class TrackAddSession {
     }
 }
 
+///
+/// A batch of tracks (indexes) to add to the playlist.
+///
 typealias AddBatch = ClosedRange<Int>

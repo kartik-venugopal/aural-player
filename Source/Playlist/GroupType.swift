@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// Enumerates the different types of track groups
+///
+/// An enumeration of all the different types of track groups.
+///
 enum GroupType: String, CaseIterable {
     
     // Group of tracks categorized by their artist

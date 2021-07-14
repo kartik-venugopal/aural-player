@@ -9,18 +9,25 @@
 //
 import Cocoa
 
-/*
-    Contract for a middleman/delegate that relays all read/write or CRUD operations to the playlist
- */
+///
+/// A functional contract for a delegate representing the Playlist.
+///
+/// Acts as a middleman between the Playlist UI and the Playlist,
+/// providing a simplified interface / facade for the UI layer to manipulate the Playlist.
+///
+/// - SeeAlso: `Playlist`
+/// - SeeAlso: `PlaylistAccessorDelegateProtocol`
+/// - SeeAlso: `PlaylistMutatorDelegateProtocol`
+///
 protocol PlaylistDelegateProtocol: PlaylistAccessorDelegateProtocol, PlaylistMutatorDelegateProtocol {
- 
-    // Saves the current playlist to a file
-    func savePlaylist(_ file: URL)
 }
 
-/*
-    Contract for a middleman/delegate that relays read-only operations to the playlist
- */
+///
+/// A functional contract for read-only access to the Playlist.
+///
+/// Acts as a middleman between the Playlist UI and the Playlist,
+/// providing a simplified interface / facade for the UI layer to read the Playlist.
+///
 protocol PlaylistAccessorDelegateProtocol {
     
     // Searches for a track by file. If it is found, its information is returned. If not, nil is returned.
@@ -68,11 +75,17 @@ protocol PlaylistAccessorDelegateProtocol {
     
     // Returns the display name for a track within a specific playlist. For example, within the Artists playlist, the display name of a track will consist of just its title.
     func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String
+    
+    // Saves the current playlist to a file
+    func savePlaylist(_ file: URL)
 }
 
-/*
-    Contract for a middleman/delegate that relays mutating/write operations to the playlist
- */
+///
+/// A functional contract for write access to the Playlist.
+///
+/// Acts as a middleman between the Playlist UI and the Playlist,
+/// providing a simplified interface / facade for the UI layer to manipulate the Playlist.
+///
 protocol PlaylistMutatorDelegateProtocol {
     
     // Whether or not tracks are being added to the playlist

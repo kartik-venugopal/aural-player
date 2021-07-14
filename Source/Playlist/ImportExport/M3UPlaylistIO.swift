@@ -9,9 +9,9 @@
 //
 import Foundation
 
-/*
-    Performs I/O of playlists in the M3U/M3U8 format
-*/
+///
+/// Performs M3U / M3U8 playlist file import / export I/O operations.
+///
 class M3UPlaylistIO: PlaylistIOProtocol {
     
     private static let header: String = "#EXTM3U"
@@ -46,7 +46,7 @@ class M3UPlaylistIO: PlaylistIOProtocol {
     }
     
     // Load playlist from file into current playlist. Handles varying M3U formats.
-    static func loadPlaylist(fromFile playlistFile: URL) -> SavedPlaylist? {
+    static func loadPlaylist(fromFile playlistFile: URL) -> ImportedPlaylist? {
         
         guard let fileContents: String = PlaylistIO.readFileAsString(playlistFile) else {return nil}
         
@@ -99,6 +99,6 @@ class M3UPlaylistIO: PlaylistIOProtocol {
             }
         }
         
-        return SavedPlaylist(file: playlistFile, tracks: tracks)
+        return ImportedPlaylist(file: playlistFile, tracks: tracks)
     }
 }

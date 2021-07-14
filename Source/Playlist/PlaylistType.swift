@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// Enumeration of each of the playlist types
+///
+/// An enumeration of all playlist types.
+///
 enum PlaylistType: String, CaseIterable, Codable {
     
     // Flat playlist listing all tracks
