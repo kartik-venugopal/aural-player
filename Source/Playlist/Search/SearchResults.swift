@@ -9,9 +9,10 @@
 //
 import Cocoa
 
-/*
-    Encapsulates the results of a playlist search, and provides convenient functions for iteration
- */
+///
+/// Encapsulates the results of a playlist search, and provides convenient functions
+/// for iteration through them.
+///
 class SearchResults {
     
     // Total number of results

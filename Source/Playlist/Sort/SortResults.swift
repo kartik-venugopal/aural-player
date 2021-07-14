@@ -8,6 +8,9 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
+///
+/// Encapsulates the results of a playlist sort.
+///
 struct SortResults {
     
     let playlistType: PlaylistType
@@ -15,7 +18,7 @@ struct SortResults {
     let tracksSorted: Bool
     
     // These 2 fields are only applicable when tracks are sorted within groups.
-    let affectedGroupsScope: GroupsScope?
+    let affectedGroupsScope: GroupedTracksSortScope?
     let affectedParentGroups: [Group]   // This array will be non-empty only when affectedGroupsScope == .selectedGroups
     
     let groupsSorted: Bool
@@ -30,10 +33,4 @@ struct SortResults {
         self.affectedGroupsScope = sort.tracksSort?.scope
         self.affectedParentGroups = sort.tracksSort?.parentGroups ?? []
     }
-}
-
-enum GroupsScope {
-    
-    case allGroups
-    case selectedGroups
 }

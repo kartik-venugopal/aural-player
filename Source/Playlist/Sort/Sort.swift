@@ -8,9 +8,9 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //
 
-/*
-    Options for performing a sort on the playlist
- */
+///
+/// Options for performing a sort on a playlist view.
+///
 class Sort {
     
     var tracksSort: TracksSort?
@@ -27,7 +27,9 @@ class Sort {
     }
 }
 
-// Specifies the order in which to perform the sort
+///
+/// Specifies the order in which to perform a sort.
+///
 enum SortOrder {
     
     case ascending

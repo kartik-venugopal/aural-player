@@ -8,6 +8,9 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
+///
+/// Criteria for sorting groups within a grouping playlist.
+///
 class GroupsSort {
     
     var fields: [SortField] = [.name]

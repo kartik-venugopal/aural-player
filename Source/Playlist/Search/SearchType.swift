@@ -9,7 +9,7 @@
 //  
 
 ///
-/// Enumeration of different types of field comparison for the search
+/// An enumeration of different types of text comparison when performing a playlist search.
 ///
 enum SearchType {
     

@@ -9,7 +9,7 @@
 //  
 
 ///
-/// Additional search options
+/// Additional options to further filter playlist search results.
 ///
 struct SearchOptions: OptionSet {
     

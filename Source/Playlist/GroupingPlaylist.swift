@@ -154,7 +154,7 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
         
         // For all groups whose names match the query, collect all their child tracks
         let results: [SearchResult] = groups.filter{query.compare($0.name)}.flatMap {group in group.tracks.map
-        {SearchResult(location: SearchResultLocation(trackIndex: nil, track: $0, groupInfo: nil), match: (searchField, group.name))}}
+        {SearchResult(location: SearchResultLocation(track: $0, trackIndex: nil, groupInfo: nil), match: SearchResultMatch(fieldKey: searchField, fieldValue: group.name))}}
         
         return SearchResults(results)
     }

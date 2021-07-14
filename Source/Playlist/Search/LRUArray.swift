@@ -10,12 +10,16 @@
 
 import Foundation
 
-/*
-    A fixed-size array-based data structure that maintains the most recent n items, where n is the size of the array. This is useful, for instance, when keeping track of a fixed-size set of items in chronological order.
- */
+///
+/// An array-based ordered data structure that maintains items in chronological order
+/// and does not allow duplicates.
+///
+/// If an item is added a second time, it will be removed from its previous location and
+/// re-inserted at the top of the array (i.e. the location of the most recent item).
+///
 class LRUArray<T: Equatable> {
     
-    var array: [T] = [T]()
+    var array: [T] = []
     
     // Adds a single new element to the array. If the array is already filled to capacity, the least recently added item will be removed to make room for the new element.
     func add(_ newElement: T) {

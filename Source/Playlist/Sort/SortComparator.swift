@@ -9,7 +9,9 @@
 //
 import Foundation
 
-// Utility class that encapsulates logic for different sort strategies
+///
+/// Utility class that encapsulates logic for different sort strategies.
+///
 class SortComparator {
     
     let sort: Sort

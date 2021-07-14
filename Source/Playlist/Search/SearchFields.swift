@@ -9,7 +9,7 @@
 //  
 
 ///
-/// Indicates which track fields are to be compared, in the search
+/// Enumerates the track fields used as playlist search criteria.
 ///
 struct SearchFields: OptionSet {
     

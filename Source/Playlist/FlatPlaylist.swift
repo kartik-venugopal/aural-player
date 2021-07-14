@@ -53,23 +53,23 @@ class FlatPlaylist: FlatPlaylistProtocol {
             let filename = track.fileSystemInfo.fileName
             if query.compare(filename) {
 
-                return SearchResult(location: SearchResultLocation(trackIndex: index, track: track, groupInfo: nil),
-                                    match: ("filename", filename))
+                return SearchResult(location: SearchResultLocation(track: track, trackIndex: index, groupInfo: nil),
+                                    match: SearchResultMatch(fieldKey: "filename", fieldValue: filename))
             }
             
             let displayName = track.displayName
             if query.compare(displayName) {
                 
-                return SearchResult(location: SearchResultLocation(trackIndex: index, track: track, groupInfo: nil),
-                                    match: ("name", displayName))
+                return SearchResult(location: SearchResultLocation(track: track, trackIndex: index, groupInfo: nil),
+                                    match: SearchResultMatch(fieldKey: "name", fieldValue: displayName))
             }
         }
         
         // Compare title field if included in search
         if query.fields.contains(.title), let title = track.title, query.compare(title) {
 
-            return SearchResult(location: SearchResultLocation(trackIndex: index, track: track, groupInfo: nil),
-                                match: ("title", title))
+            return SearchResult(location: SearchResultLocation(track: track, trackIndex: index, groupInfo: nil),
+                                match: SearchResultMatch(fieldKey: "title", fieldValue: title))
         }
         
         // Didn't match

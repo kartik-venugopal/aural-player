@@ -9,7 +9,7 @@
 //  
 
 ///
-/// Specifies which field is used as sort criteria
+/// An enumeration of fields that can be used as playlist sort criteria.
 ///
 enum SortField {
     

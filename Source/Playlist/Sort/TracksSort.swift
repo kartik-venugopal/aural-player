@@ -8,13 +8,16 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
+///
+/// Criteria for sorting tracks within the flat playlist or within groups.
+///
 class TracksSort {
     
     var fields: [SortField] = [.name]
     var order: SortOrder = .ascending
     
     // These 2 fields are used only when sorting tracks within groups
-    var scope: GroupsScope = .allGroups
+    var scope: GroupedTracksSortScope = .allGroups
     var parentGroups: [Group] = []
     
     var options: [TracksSortOptions] = [.useNameIfNoMetadata]
@@ -29,7 +32,7 @@ class TracksSort {
         return self
     }
     
-    func withScope(_ scope: GroupsScope) -> TracksSort {
+    func withScope(_ scope: GroupedTracksSortScope) -> TracksSort {
         self.scope = scope
         return self
     }
@@ -50,7 +53,19 @@ class TracksSort {
     }
 }
 
+///
+/// An enumeration of all options when sorting tracks.
+///
 enum TracksSortOptions {
     
     case useNameIfNoMetadata
+}
+
+///
+/// An enumeration of all possible scopes when sorting tracks within groups in a grouping playlist.
+///
+enum GroupedTracksSortScope {
+    
+    case allGroups
+    case selectedGroups
 }

@@ -9,17 +9,17 @@
 //  
 
 ///
-/// Encapsulates information used to locate a single search result within a playlist.
+/// Encapsulates information used to locate a single search result within a playlist view.
 ///
 struct SearchResultLocation: Equatable {
     
-    // Only for flat playlists
-    var trackIndex: Int?
-    
-    // The track whose location is being described
+    // The track whose location is being described.
     let track: Track
     
-    // Only for grouping playlists
+    // Only for flat playlists.
+    var trackIndex: Int?
+    
+    // Only for grouping playlists.
     var groupInfo: GroupedTrack?
     
     // Two locations are equal if they describe the location of the same track
