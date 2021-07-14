@@ -236,6 +236,44 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
         
         fileSystem.loadMetadata(forChildrenOf: fsItem)
     }
+    
+    func outlineView(_ outlineView: NSOutlineView, sortDescriptorsDidChange oldDescriptors: [NSSortDescriptor]) {
+        
+        guard let sortDescriptor = outlineView.sortDescriptors.first, let key = sortDescriptor.key else {return}
+        let ascending = sortDescriptor.ascending
+        
+        switch key {
+        
+        case "title":
+            
+            fileSystem.sort(by: .title, ascending: ascending)
+            
+        case "duration":
+            
+            fileSystem.sort(by: .duration, ascending: ascending)
+            
+        case "artist":
+            
+            fileSystem.sort(by: .artist, ascending: ascending)
+            
+        case "album":
+            
+            fileSystem.sort(by: .album, ascending: ascending)
+            
+        case "genre":
+            
+            fileSystem.sort(by: .genre, ascending: ascending)
+            
+        case "type":
+            
+            fileSystem.sort(by: .type, ascending: ascending)
+            
+        default: return
+            
+        }
+
+        outlineView.reloadData()
+    }
 }
 
 extension NSUserInterfaceItemIdentifier {

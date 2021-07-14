@@ -26,6 +26,8 @@ struct PlaylistMetadata {
     var discNumber: Int?
     var totalDiscs: Int?
     
+    var year: Int?
+    
     var duration: Double = 0
     var durationIsAccurate: Bool = false
     

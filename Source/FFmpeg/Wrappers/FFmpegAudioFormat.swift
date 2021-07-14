@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Encapsulates all information about the audio format of a track, as defined by ffmpeg.
 ///
-/// Analogous to **AVAudioFormat** in AVFoundation.
+/// Analogous to **AVAudioFormat** in **AVFoundation**.
 ///
 struct FFmpegAudioFormat {
     

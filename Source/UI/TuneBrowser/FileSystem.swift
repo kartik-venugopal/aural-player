@@ -149,4 +149,13 @@ class FileSystem {
             }
         }
     }
+    
+    func sort(by sortField: FileSystemSortField, ascending: Bool) {
+        root.sort(by: sortField, ascending: ascending)
+    }
+}
+
+enum FileSystemSortField {
+    
+    case name, title, artist, album, genre, format, duration, year, type
 }

@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Encapsulates an ffmpeg AVCodec, AVCodecContext, and AVCodecParameters struct,
+/// Encapsulates an ffmpeg **AVCodec**, **AVCodecContext**, and **AVCodecParameters** struct,
 /// and provides convenient Swift-style access to their functions and member variables.
 ///
 class FFmpegCodec {

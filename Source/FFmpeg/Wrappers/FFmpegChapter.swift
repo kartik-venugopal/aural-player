@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Encapsulates a single chapter marking (AVChapter) within an audio file.
+/// Encapsulates a single chapter marking (**AVChapter**) within an audio file.
 ///
 class FFmpegChapter {
     

@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Encapsulates an ffmpeg AVFormatContext struct that represents an audio file's container format,
+/// Encapsulates an ffmpeg **AVFormatContext** struct that represents an audio file's container format,
 /// and provides convenient Swift-style access to its functions and member variables.
 ///
 /// - Demultiplexing: Reads all streams within the audio file.

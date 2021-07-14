@@ -19,7 +19,7 @@ import Foundation
 ///
 /// NOTE - This is not to be confused with a "music / audio sequencer".
 ///
-protocol SequencerProtocol: PlaylistChangeListenerProtocol {
+protocol SequencerProtocol {
     
     /*  
      

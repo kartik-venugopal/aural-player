@@ -51,12 +51,12 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
         if item == nil {
             
             // Child of the root is a group
-            return playlist.groupAtIndex(groupType, index)!
+            return playlist.groupAtIndex(groupType, index) ?? ""
             
         } else if let group = item as? Group {
             
             // Child of a group is a track
-            return group.trackAtIndex(index)!
+            return group.trackAtIndex(index) ?? ""
         }
         
         // Impossible
@@ -230,8 +230,8 @@ class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     private func refreshView(_ outlineView: NSOutlineView, _ results: ItemMoveResults) {
         
         // First, sort all the move operations, so that they do not interfere with each other (all downward moves in descending order, followed by all upward moves in ascending order)
-        let sortedMoves = results.results.filter({$0.movedDown}).sorted(by: ItemMoveResultComparators.compareDescending) +
-            results.results.filter({$0.movedUp}).sorted(by: ItemMoveResultComparators.compareAscending)
+        let sortedMoves = results.results.filter({$0.movedDown}).sorted(by: ItemMoveResult.compareDescending) +
+            results.results.filter({$0.movedUp}).sorted(by: ItemMoveResult.compareAscending)
         
         // Then, move the relevant items within the playlist view
         for move in sortedMoves {

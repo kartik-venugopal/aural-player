@@ -9,9 +9,15 @@
 //
 import Foundation
 
-/*
-    Represents a group of tracks categorized by a certain property of the tracks - such as artist, album, or genre
- */
+///
+/// Represents a group of tracks categorized by a certain property of the tracks - such as artist, album, or genre.
+///
+/// Contains an ordered collection of tracks, accessed linearly through indexes, analogous to a one-dimensional array.
+///
+/// Instances of this class are the top level items within a **GroupingPlaylist**.
+///
+/// - SeeAlso: **GroupingPlaylist**
+///
 class Group: Hashable, PlaylistItem {
     
     let type: GroupType

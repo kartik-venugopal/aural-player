@@ -25,11 +25,11 @@ class ObjectGraph {
     
     static let preferences: Preferences = Preferences(defaults: .standard)
     
-    private static let playlist: PlaylistCRUDProtocol = Playlist(FlatPlaylist(),
+    private static let playlist: PlaylistProtocol = Playlist(FlatPlaylist(),
                                                                  [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
     
-    static let playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist, trackReader, preferences,
-                                                                             [sequencer])
+    static let playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist,
+                                                                             trackReader, preferences)
     
     static var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {playlistDelegate}
     

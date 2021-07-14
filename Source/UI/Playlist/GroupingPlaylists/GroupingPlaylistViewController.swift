@@ -260,19 +260,19 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     }
     
     private func moveTracksUp() {
-        doMoveItems(playlist.moveTracksAndGroupsUp, ItemMoveResultComparators.compareAscending, self.moveItems)
+        doMoveItems(playlist.moveTracksAndGroupsUp, ItemMoveResult.compareAscending, self.moveItems)
     }
     
     private func moveTracksDown() {
-        doMoveItems(playlist.moveTracksAndGroupsDown, ItemMoveResultComparators.compareDescending, self.moveItems)
+        doMoveItems(playlist.moveTracksAndGroupsDown, ItemMoveResult.compareDescending, self.moveItems)
     }
     
     private func moveTracksToTop() {
-        doMoveItems(playlist.moveTracksAndGroupsToTop, ItemMoveResultComparators.compareAscending, self.removeAndInsertItems)
+        doMoveItems(playlist.moveTracksAndGroupsToTop, ItemMoveResult.compareAscending, self.removeAndInsertItems)
     }
     
     private func moveTracksToBottom() {
-        doMoveItems(playlist.moveTracksAndGroupsToBottom, ItemMoveResultComparators.compareDescending, self.removeAndInsertItems)
+        doMoveItems(playlist.moveTracksAndGroupsToBottom, ItemMoveResult.compareDescending, self.removeAndInsertItems)
     }
     
     private func doMoveItems(_ moveAction: @escaping ([Track], [Group], GroupType) -> ItemMoveResults,
@@ -462,7 +462,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
             
             var groupsToReload = [Group]()
             
-            for removal in removals.sorted(by: GroupedItemRemovalResultComparators.compareDescending) {
+            for removal in removals.sorted(by: GroupedItemRemovalResult.compareDescending) {
                 
                 if let tracksRemoval = removal as? GroupedTracksRemovalResult {
                     

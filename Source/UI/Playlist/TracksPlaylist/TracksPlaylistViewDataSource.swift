@@ -91,8 +91,8 @@ class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
             if let sourceIndices = getSourceIndexes(info),
                 let results = playlist.dropTracks(sourceIndices, row).results as? [TrackMoveResult] {
                 
-                let sortedMoves = results.filter({$0.movedDown}).sorted(by: ItemMoveResultComparators.compareDescending) +
-                    results.filter({$0.movedUp}).sorted(by: ItemMoveResultComparators.compareAscending)
+                let sortedMoves = results.filter({$0.movedDown}).sorted(by: ItemMoveResult.compareDescending) +
+                    results.filter({$0.movedUp}).sorted(by: ItemMoveResult.compareAscending)
                 
                 var allIndices: [Int] = []
                 var destinationIndices: [Int] = []

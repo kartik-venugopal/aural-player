@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    TuneBrowser.xib
-    Aural
-
-    Copyright © 2021 Kartik Venugopal. All rights reserved.
-
-    This software is licensed under the MIT software license.
-    See the file "LICENSE" in the project root directory for license terms.
-
--->
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
@@ -121,7 +110,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="425"/>
                                                     <clipView key="contentView" id="sez-m0-WsD">
                                                         <rect key="frame" x="1" y="1" width="148" height="423"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="30" rowSizeStyle="automatic" viewBased="YES" indentationPerLevel="13" outlineTableColumn="VmL-vn-dnB" id="FB0-VR-zel" customClass="TuneBrowserSidebarOutlineView" customModule="Aural" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="423"/>
@@ -212,7 +201,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="519" height="395"/>
                                                     <clipView key="contentView" id="JxV-7x-wTQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="519" height="395"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" autosaveColumns="NO" rowHeight="30" rowSizeStyle="automatic" headerView="eGL-lw-kpG" viewBased="YES" indentationPerLevel="16" outlineTableColumn="wQR-x7-Rh4" id="aWI-Z6-ODA" customClass="TuneBrowserOutlineView" customModule="Aural" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="519" height="367"/>
@@ -231,6 +220,7 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="name"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_name" id="2AN-za-1XM" customClass="TuneBrowserItemNameCell" customModule="Aural" customModuleProvider="target">
@@ -270,14 +260,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="type"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_type" id="oQj-k3-g7P" customClass="TuneBrowserItemTypeCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="siX-Km-MHB">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="1m9-wv-zhD">
                                                                                             <font key="font" metaFont="system"/>
@@ -302,14 +293,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="title"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_title" id="Ll4-Ss-gHe" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jbD-oF-k0P">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="YVO-3P-9a8">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -334,14 +326,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="artist"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_artist" id="QYE-dq-go7" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FP8-lU-ipJ">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="P3J-KB-1k5">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -366,14 +359,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="album"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_album" id="xVS-S9-ax0" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9ue-HN-bnW">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="xSM-ZA-1wM">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -398,14 +392,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="genre"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_genre" id="ZQX-5K-SPZ" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dg-rV-uSW">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="hRv-ab-ghi">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -430,14 +425,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="trackNum"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_trackNum" id="0OQ-5U-Hec" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lg7-Gq-6K8">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="PS2-g1-fGB">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -462,14 +458,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="discNum"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_discNum" id="BAE-IM-qYz" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPu-QN-abQ">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="eO4-k7-QMU">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -494,14 +491,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="year"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_year" id="oJS-ni-gEM" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xY6-xy-FB0">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="dLA-V7-b6Z">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -526,14 +524,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="duration"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_duration" id="Yin-8o-jkP" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zew-hr-8lB">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Mop-LS-w8c">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -558,14 +557,15 @@
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
+                                                                        <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="format"/>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <prototypeCellViews>
                                                                             <tableCellView identifier="tuneBrowser_format" id="ntw-Vp-wdI" customClass="TuneBrowserItemTextCell" customModule="Aural" customModuleProvider="target">
-                                                                                <rect key="frame" x="1" y="1" width="0.0" height="30"/>
+                                                                                <rect key="frame" x="1" y="1" width="-3" height="30"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <subviews>
                                                                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aNl-mT-rgL">
-                                                                                        <rect key="frame" x="0.0" y="2" width="4" height="24"/>
+                                                                                        <rect key="frame" x="0.0" y="2" width="1" height="24"/>
                                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="mzu-TV-XOD">
                                                                                             <font key="font" usesAppearanceFont="YES"/>
@@ -582,7 +582,7 @@
                                                                     </tableColumn>
                                                                 </tableColumns>
                                                                 <connections>
-                                                                    <action trigger="doubleAction" selector="openFolderAction:" target="-2" id="HZI-aB-aL8"/>
+                                                                    <action trigger="doubleAction" selector="doubleClickAction:" target="-2" id="HZI-aB-aL8"/>
                                                                     <outlet property="dataSource" destination="rxi-DG-5sh" id="gHF-BV-CUt"/>
                                                                     <outlet property="delegate" destination="rxi-DG-5sh" id="rWn-ni-SjI"/>
                                                                     <outlet property="menu" destination="Jl5-On-Z38" id="K2G-5X-4gm"/>

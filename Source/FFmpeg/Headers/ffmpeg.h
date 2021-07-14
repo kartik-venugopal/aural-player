@@ -10,6 +10,7 @@
 #import <libavcodec/avcodec.h>
 #import <libavformat/avformat.h>
 #import <libavutil/avutil.h>
+#import <libavutil/dict.h>
 #import <libavutil/error.h>
 #import <libavutil/channel_layout.h>
 #import <libavutil/opt.h>

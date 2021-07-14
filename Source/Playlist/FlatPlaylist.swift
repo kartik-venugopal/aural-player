@@ -9,10 +9,15 @@
 //
 import Foundation
 
-/*
-    The flat playlist is a non-hierarchical playlist, in which tracks are arranged in a linear fashion, and in which each track is a top-level item and can be located with just an index.
- */
-class FlatPlaylist: FlatPlaylistCRUDProtocol {
+///
+/// The flat (non-hierarchical) playlist which arranges tracks in a linear, sequential, or "flat" structure.
+///
+/// Each track is a top-level item and can be located with an index, analogous to accessing elements
+/// in a one-dimensional array.
+///
+/// This is the backing playlist for the *Tracks* playlist view.
+///
+class FlatPlaylist: FlatPlaylistProtocol {
  
     var tracks: [Track] = [Track]()
     
@@ -90,26 +95,31 @@ class FlatPlaylist: FlatPlaylistCRUDProtocol {
     }
     
     func moveTracksToTop(_ indices: IndexSet) -> ItemMoveResults {
-        return ItemMoveResults(tracks.moveItemsToTop(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
+        
+        return ItemMoveResults(results: tracks.moveItemsToTop(indices).map {TrackMoveResult($0.key, $0.value)}, playlistType: .tracks)
     }
     
     func moveTracksToBottom(_ indices: IndexSet) -> ItemMoveResults {
-        return ItemMoveResults(tracks.moveItemsToBottom(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
+        
+        return ItemMoveResults(results: tracks.moveItemsToBottom(indices).map {TrackMoveResult($0.key, $0.value)}, playlistType: .tracks)
     }
     
     func moveTracksUp(_ indices: IndexSet) -> ItemMoveResults {
-        return ItemMoveResults(tracks.moveItemsUp(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
+        
+        return ItemMoveResults(results: tracks.moveItemsUp(indices).map {TrackMoveResult($0.key, $0.value)}, playlistType: .tracks)
     }
     
     func moveTracksDown(_ indices: IndexSet) -> ItemMoveResults {
-        return ItemMoveResults(tracks.moveItemsDown(indices).map {TrackMoveResult($0.key, $0.value)}, .tracks)
+        
+        return ItemMoveResults(results: tracks.moveItemsDown(indices).map {TrackMoveResult($0.key, $0.value)}, playlistType: .tracks)
     }
- 
+    
     func sort(_ sort: Sort) {
         tracks.sort(by: SortComparator(sort, self.displayNameForTrack).compareTracks)
     }
     
     func dropTracks(_ sourceIndexes: IndexSet, _ dropIndex: Int) -> ItemMoveResults {
-        return ItemMoveResults(tracks.dragAndDropItems(sourceIndexes, dropIndex).map {TrackMoveResult($0.key, $0.value)}, .tracks)
+        
+        return ItemMoveResults(results: tracks.dragAndDropItems(sourceIndexes, dropIndex).map {TrackMoveResult($0.key, $0.value)}, playlistType: .tracks)
     }
 }

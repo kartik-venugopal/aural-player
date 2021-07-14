@@ -135,24 +135,31 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
 //        browserView.reloadData(forRowIndexes: IndexSet([itemIndex]), columnIndexes: )
     }
         
-    @IBAction func openFolderAction(_ sender: Any) {
+    @IBAction func doubleClickAction(_ sender: Any) {
         
-        if let item = browserView.item(atRow: browserView.selectedRow), let fsItem = item as? FileSystemItem, fsItem.isDirectory {
+        if let item = browserView.item(atRow: browserView.selectedRow), let fsItem = item as? FileSystemItem {
             
-            let path = fsItem.url.path
-            
-            if !path.hasPrefix("/Volumes"), let volumeName = SystemUtils.primaryVolumeName {
-                pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(path)")
-            } else {
-                pathControlWidget.url = fsItem.url
+            if fsItem.isDirectory {
+                openFolder(item: fsItem)
             }
-            
-            fileSystem.root = fsItem
-            browserView.reloadData()
-            browserView.scrollRowToVisible(0)
-            
-            updateSidebarSelection()
         }
+    }
+    
+    private func openFolder(item: FileSystemItem) {
+        
+        let path = item.url.path
+        
+        if !path.hasPrefix("/Volumes"), let volumeName = SystemUtils.primaryVolumeName {
+            pathControlWidget.url = URL(fileURLWithPath: "/Volumes/\(volumeName)\(path)")
+        } else {
+            pathControlWidget.url = item.url
+        }
+        
+        fileSystem.root = item
+        browserView.reloadData()
+        browserView.scrollRowToVisible(0)
+        
+        updateSidebarSelection()
     }
     
     // If the folder currently shown by the browser corresponds to one of the folder shortcuts in the sidebar, select that
@@ -160,8 +167,6 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
     func updateSidebarSelection() {
         
         respondToSidebarSelectionChange = false
-        
-        print("Root: \(fileSystem.rootURL)")
         
         if let folder = TuneBrowserState.userFolder(forURL: fileSystem.rootURL) {
             sidebarView.selectRow(sidebarView.row(forItem: folder))
@@ -228,15 +233,15 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
     }
     
     @IBAction func addBrowserItemsToPlaylistAction(_ sender: Any) {
-        doAddBrowserItemsToPlaylist()
+        doAddBrowserItemsToPlaylist(indexes: browserView.selectedRowIndexes)
     }
     
     // TODO: Clarify this use case (which items qualify for this) ?
     @IBAction func addBrowserItemsToPlaylistAndPlayAction(_ sender: Any) {
-        doAddBrowserItemsToPlaylist(beginPlayback: true)
+        doAddBrowserItemsToPlaylist(indexes: browserView.selectedRowIndexes, beginPlayback: true)
     }
     
-    private func doAddBrowserItemsToPlaylist(beginPlayback: Bool? = nil) {
+    private func doAddBrowserItemsToPlaylist(indexes: IndexSet, beginPlayback: Bool = false) {
         
         let selIndexes = browserView.selectedRowIndexes
         let selItemURLs = selIndexes.compactMap {[weak browserView] in browserView?.item(atRow: $0) as? FileSystemItem}.map {$0.url}

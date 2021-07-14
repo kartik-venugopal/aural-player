@@ -31,12 +31,34 @@ extension Notification.Name {
     // Signifies that a new track has been added to the playlist.
     static let playlist_trackAdded = Notification.Name("playlist_trackAdded")
     
+    // Signifies that new tracks have been added to the playlist.
+    static let playlist_tracksAdded = Notification.Name("playlist_tracksAdded")
+    
     // Signifies that some tracks have been removed from the playlist.
     static let playlist_tracksRemoved = Notification.Name("playlist_tracksRemoved")
+    
+    // Signifies that some tracks have been reordered within the currently displayed playlist view.
+    //
+    // NOTE - This notification signifies an event that impacts only a single playlist
+    // view, i.e. other playlist views will remain unaffected and can ignore this
+    // notification.
+    static let playlist_tracksReordered = Notification.Name("playlist_tracksReordered")
+    
+    // Signifies that the currently displayed playlist view has been sorted.
+    //
+    // NOTE - This notification signifies an event that impacts only a single playlist
+    // view, i.e. other playlist views will remain unaffected and can ignore this
+    // notification.
+    static let playlist_sorted = Notification.Name("playlist_sorted")
+    
+    // Signifies that the playlist has been cleared of all tracks.
+    static let playlist_cleared = Notification.Name("playlist_cleared")
     
     // MARK: Playlist commands
 
     // Commands a playlist to refresh its list view (eg. in response to tracks being added/removed/updated).
+    //
+    // NOTE - This notification signifies an event that may not impact all playlist views.
     static let playlist_refresh = Notification.Name("playlist_refresh")
 
     // Invokes the file dialog to add tracks to the playlist
@@ -54,56 +76,113 @@ extension Notification.Name {
     // Commands the playlist to initiate playback of a selected item.
     static let playlist_playSelectedItem = Notification.Name("playlist_playSelectedItem")
 
-    // Commands the playlist to move selected tracks up one row.
+    // Commands the currently displayed playlist view to move selected tracks up one row.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_moveTracksUp = Notification.Name("playlist_moveTracksUp")
 
-    // Commands the playlist to move selected tracks to the top.
+    // Commands the currently displayed playlist view to move selected tracks to the top.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_moveTracksToTop = Notification.Name("playlist_moveTracksToTop")
 
-    // Commands the playlist to move selected tracks down one row.
+    // Commands the currently displayed playlist view to move selected tracks down one row.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_moveTracksDown = Notification.Name("playlist_moveTracksDown")
 
-    // Commands the playlist to move selected tracks to the bottom.
+    // Commands the currently displayed playlist view to move selected tracks to the bottom.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_moveTracksToBottom = Notification.Name("playlist_moveTracksToBottom")
     
-    // Commands the playlist to clear its current selection.
+    // Commands the currently displayed playlist view to clear its current selection.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_clearSelection = Notification.Name("playlist_clearSelection")
 
-    // Commands the playlist to invert its current selection.
+    // Commands the currently displayed playlist view to invert its current selection.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_invertSelection = Notification.Name("playlist_invertSelection")
 
-    // Commands the playlist to crop the current selection. i.e. only selected tracks will
-    // remain, with all other tracks being removed.
+    // Commands the currently displayed playlist view to crop the current selection.
+    // i.e. only selected tracks will remain, with all other tracks being removed.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_cropSelection = Notification.Name("playlist_cropSelection")
     
-    // Commands the playlist to expand all selected groups to reveal their children (i.e. tracks)
+    // Commands the currently displayed playlist view to expand all selected groups
+    // to reveal their children (i.e. tracks)
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_expandSelectedGroups = Notification.Name("playlist_expandSelectedGroups")
 
-    // Commands the playlist to collapse all selected groups to hide their children (i.e. tracks)
+    // Commands the currently displayed playlist view to collapse all selected groups
+    // to hide their children (i.e. tracks)
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_collapseSelectedItems = Notification.Name("playlist_collapseSelectedItems")
 
-    // Commands the playlist to expand all groups to reveal their children (i.e. tracks)
+    // Commands the currently displayed playlist view to expand all groups to reveal
+    // their children (i.e. tracks)
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_expandAllGroups = Notification.Name("playlist_expandAllGroups")
 
-    // Commands the playlist to collapse all groups to hide their children (i.e. tracks)
+    // Commands the currently displayed playlist view to collapse all groups to hide
+    // their children (i.e. tracks).
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_collapseAllGroups = Notification.Name("playlist_collapseAllGroups")
     
-    // Commands the playlist to reveal (i.e. scroll to and select) the currently playing track.
+    // Commands the currently displayed playlist view to reveal (i.e. scroll to and
+    // select) the currently playing track.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_showPlayingTrack = Notification.Name("playlist_showPlayingTrack")
 
-    // Commands the playlist to reveal the currently playing track in Finder.
+    // Commands the currently displayed playlist view to reveal the currently
+    // playing track in Finder.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_showTrackInFinder = Notification.Name("playlist_showTrackInFinder")
     
     // Commands the playlist to scroll to the top of its list view.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_scrollToTop = Notification.Name("playlist_scrollToTop")
 
-    // Commands the playlist to scroll to the bottom of its list view.
+    // Commands the currently displayed playlist view to scroll to the bottom of its list view.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_scrollToBottom = Notification.Name("playlist_scrollToBottom")
 
-    // Commands the playlist to scroll one page up within its list view.
+    // Commands the currently displayed playlist view to scroll one page up within its list view.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_pageUp = Notification.Name("playlist_pageUp")
 
-    // Commands the playlist to scroll one page down within its list view.
+    // Commands the currently displayed playlist view to scroll one page down within its list view.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_pageDown = Notification.Name("playlist_pageDown")
     
     // Commands the playlist to switch to the previous playlist view (in the tab group)
@@ -115,10 +194,16 @@ extension Notification.Name {
     // Commands the playlist to show the chapters list window for the currently playing track
     static let playlist_viewChaptersList = Notification.Name("playlist_viewChaptersList")
     
-    // Commands the playlist to invoke the search dialog
+    // Commands the currently displayed playlist view to invoke the search dialog.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_search = Notification.Name("playlist_search")
 
-    // Commands the playlist to invoke the sort dialog
+    // Commands the currently displayed playlist view to invoke the sort dialog.
+    //
+    // NOTE - This command is intended only for a single playlist
+    // view, i.e. other playlist views can ignore this notification.
     static let playlist_sort = Notification.Name("playlist_sort")
     
     // Commands the playlist to select a specific search result within the current list view.

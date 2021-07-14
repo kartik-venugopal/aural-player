@@ -52,6 +52,11 @@ class Sequencer: SequencerProtocol {
         
         // Subscribe to notifications that the playlist view type has changed
         messenger.subscribe(to: .playlist_viewChanged, handler: playlistTypeChanged(_:))
+        messenger.subscribe(to: .playlist_tracksAdded, handler: tracksAdded(_:))
+        messenger.subscribe(to: .playlist_tracksRemoved, handler: tracksRemoved(_:))
+        messenger.subscribe(to: .playlist_tracksReordered, handler: tracksReordered(_:))
+        messenger.subscribe(to: .playlist_sorted, handler: playlistSorted(_:))
+        messenger.subscribe(to: .playlist_cleared, handler: playlistCleared)
     }
     
     var sequenceInfo: (scope: SequenceScope, trackIndex: Int, totalTracks: Int) {
@@ -359,6 +364,31 @@ class Sequencer: SequencerProtocol {
         updateSequence(true)
     }
     
+    func tracksRemoved(_ removeResults: TrackRemovalResults) {
+        
+        // Playing track was not removed. If the scope is a group, it might be unaffected.
+        guard !removeResults.tracks.isEmpty else {return}
+        
+        if let thePlayingTrack = currentTrack, !playlist.hasTrack(thePlayingTrack) {
+            
+            messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
+            end()
+        }
+        
+        if let group = scope.group {
+
+            // We are only interested in the results matching the scope's group type.
+            let filteredResults: [GroupedItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
+            
+            // Loop through the results to see if a result for the scope group exists.
+            if let theResults = filteredResults, !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.group}) {
+                return
+            }
+        }
+        
+        updateSequence(true)
+    }
+    
     func tracksReordered(_ moveResults: ItemMoveResults) {
         
         // Only update the sequence if the type of the playlist that was reordered matches the playback sequence scope.
@@ -399,31 +429,6 @@ class Sequencer: SequencerProtocol {
         }
         
         updateSequence(false)
-    }
-    
-    func tracksRemoved(_ removeResults: TrackRemovalResults) {
-        
-        // Playing track was not removed. If the scope is a group, it might be unaffected.
-        guard !removeResults.tracks.isEmpty else {return}
-        
-        if let thePlayingTrack = currentTrack, !playlist.hasTrack(thePlayingTrack) {
-            
-            messenger.publish(.sequencer_playingTrackRemoved, payload: thePlayingTrack)
-            end()
-        }
-        
-        if let group = scope.group {
-
-            // We are only interested in the results matching the scope's group type.
-            let filteredResults: [GroupedItemRemovalResult]? = removeResults.groupingPlaylistResults[group.type]
-            
-            // Loop through the results to see if a result for the scope group exists.
-            if let theResults = filteredResults, !theResults.contains(where: {group == ($0 as? GroupedTracksRemovalResult)?.group}) {
-                return
-            }
-        }
-        
-        updateSequence(true)
     }
     
     func playlistCleared() {

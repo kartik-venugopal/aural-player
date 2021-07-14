@@ -10,14 +10,14 @@
 import Foundation
 
 ///
-/// Reads metadata from an AVDictionary.
+/// Reads metadata from an **AVDictionary**.
 ///
 class FFmpegMetadataReader {
 
     ///
-    /// Reads key / value pairs from a pointer to an AVDictionary and returns them in a Swift String-typed Dictionary.
+    /// Reads key / value pairs from a pointer to an **AVDictionary** and returns them in a Swift String-typed Dictionary.
     ///
-    /// - Parameter pointer: Pointer to the source AVDictionary from which key / value pairs are to be read.
+    /// - Parameter pointer: Pointer to the source **AVDictionary** from which key / value pairs are to be read.
     ///
     static func read(from pointer: OpaquePointer!) -> [String: String] {
         

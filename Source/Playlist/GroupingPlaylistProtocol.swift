@@ -1,5 +1,5 @@
 //
-//  GroupingPlaylistProtocols.swift
+//  GroupingPlaylistProtocol.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,10 +12,12 @@
  */
 import Foundation
 
-/*
-    Contract for all read-only operations on the grouping/hierarchical (Artists/Albums/Genres) playlists
- */
-protocol GroupingPlaylistAccessorProtocol {
+///
+/// A functional contract for the grouping/hierarchical (*Artists/Albums/Genres*) playlists.
+///
+protocol GroupingPlaylistProtocol: CommonPlaylistMutatorProtocol {
+    
+    // MARK: Read operations ----------------------------------------
     
     // Returns the type of this playlist
     var playlistType: PlaylistType {get}
@@ -43,12 +45,8 @@ protocol GroupingPlaylistAccessorProtocol {
     
     // Returns all groups in this playlist.
     var groups: [Group] {get}
-}
-
-/*
-    Contract for all write/mutating operations on the grouping/hierarchical (Artists/Albums/Genres) playlists
- */
-protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
+    
+    // MARK: Mutation operations ----------------------------------------
     
     // Adds a single track to the playlist, and returns its location within the playlist.
     func addTrack(_ track: Track) -> GroupedTrackAddResult
@@ -110,5 +108,3 @@ protocol GroupingPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     ///
     func reOrder(accordingTo: GroupingPlaylistPersistentState)
 }
-
-protocol GroupingPlaylistCRUDProtocol: GroupingPlaylistAccessorProtocol, GroupingPlaylistMutatorProtocol {}

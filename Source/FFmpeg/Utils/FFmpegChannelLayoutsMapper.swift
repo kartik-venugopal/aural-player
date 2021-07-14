@@ -10,7 +10,7 @@
 import AVFoundation
 
 ///
-/// Helps map ffmpeg channel layout identifiers to their corresponding AVFoundation channel layout tags.
+/// Helps map ffmpeg channel layout identifiers to their corresponding **AVFoundation** channel layout tags.
 ///
 /// This is required when setting the format for an audio buffer that is to be scheduled for playback, so that
 /// upmixing / downmixing can be performed correctly.

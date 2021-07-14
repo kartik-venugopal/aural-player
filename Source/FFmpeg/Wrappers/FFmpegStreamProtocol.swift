@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// A contract for all AVStream wrapper classes.
+/// A contract for all **AVStream** wrapper classes.
 ///
 protocol FFmpegStreamProtocol {
     

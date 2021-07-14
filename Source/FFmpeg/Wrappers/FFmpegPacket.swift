@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Encapsulates an ffmpeg AVPacket struct that represents a single packet
+/// Encapsulates an ffmpeg **AVPacke**t struct that represents a single packet
 /// i.e. audio data in its encoded / compressed form, prior to decoding,
 /// and provides convenient Swift-style access to their functions and member variables.
 ///

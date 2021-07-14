@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Encapsulates an ffmpeg AVStream struct that represents a single image (video) stream,
+/// Encapsulates an ffmpeg **AVStream** struct that represents a single image (video) stream,
 /// and provides convenient Swift-style access to its functions and member variables.
 ///
 /// Instantiates and provides the codec corresponding to the stream, and a codec context.

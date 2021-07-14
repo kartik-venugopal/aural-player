@@ -1,5 +1,5 @@
 //
-//  PlaylistProtocols.swift
+//  PlaylistProtocol.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,9 +9,15 @@
 //
 import Foundation
 
-/*
-    Contract for read-only playlist operations.
- */
+///
+/// A functional contract for all read-only and mutating/write playlist operations.
+///
+protocol PlaylistProtocol: PlaylistAccessorProtocol, PlaylistMutatorProtocol {
+}
+
+///
+/// A functional contract for read-only access to the playlist.
+///
 protocol PlaylistAccessorProtocol {
     
     // Retrieves all tracks, in the same order as in the flat playlist
@@ -72,9 +78,9 @@ protocol PlaylistAccessorProtocol {
     func displayNameForTrack(_ playlistType: PlaylistType, _ track: Track) -> String
 }
 
-/*
-    Contract for mutating/write playlist operations
- */
+///
+/// A functional contract for mutating (write) operations performed on the playlist.
+///
 protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     
     /*
@@ -206,15 +212,9 @@ protocol PlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     func reOrder(accordingTo state: PlaylistPersistentState)
 }
 
-/*
-    Contract for all read-only and mutating/write playlist operations
- */
-protocol PlaylistCRUDProtocol: PlaylistAccessorProtocol, PlaylistMutatorProtocol {
-}
-
-/*
-    Contract for common mutating/write playlist operations
- */
+///
+/// A functional contract for common mutating/write playlist operations (common to all playlist types).
+///
 protocol CommonPlaylistMutatorProtocol {
     
     /*

@@ -12,13 +12,9 @@ import Foundation
 class PlaylistDelegate: PlaylistDelegateProtocol {
     
     // The actual playlist
-    private let playlist: PlaylistCRUDProtocol
+    private let playlist: PlaylistProtocol
     
     private let trackReader: TrackReader
-    
-    // TODO - See if change listeners can be replaced with sync messages
-    // A set of all observers/listeners that are interested in changes to the playlist
-    private let changeListeners: [PlaylistChangeListenerProtocol]
     
     // Persistent playlist state (used upon app startup)
     private var persistentState: PlaylistPersistentState?
@@ -43,15 +39,14 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistCRUDProtocol, _ trackReader: TrackReader, _ preferences: Preferences, _ changeListeners: [PlaylistChangeListenerProtocol]) {
+    init(persistentState: PlaylistPersistentState?, _ playlist: PlaylistProtocol,
+         _ trackReader: TrackReader, _ preferences: Preferences) {
         
         self.playlist = playlist
         self.trackReader = trackReader
         
         self.persistentState = persistentState
         self.preferences = preferences
-        
-        self.changeListeners = changeListeners
         
         trackAddQueue.maxConcurrentOperationCount = concurrentAddOpCount
         trackAddQueue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
@@ -172,12 +167,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
             
             // TODO: Reordering will mean that results will not be in the correct order when this notification
             // is sent out. But currently, it has no impact (Sequencer does not care about results order).
-            // Notify change listeners
-            self.changeListeners.forEach {$0.tracksAdded(results)}
+            // Notify observers.
+            self.messenger.publish(.playlist_tracksAdded, payload: results)
             
             self.messenger.publish(.playlist_doneAddingTracks, payload: reorderGroupingPlaylists)
             
-            // If errors > 0, send AsyncMessage to UI
+            // If errors > 0, send a message to UI
             if self.addSession.errors.isNonEmpty {
                 self.messenger.publish(.playlist_tracksNotAdded, payload: self.addSession.errors)
             }
@@ -330,7 +325,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         messenger.publish(trackAddedNotification)
         messenger.publish(.history_itemsAdded, payload: [resolvedFile])
         
-        self.changeListeners.forEach({$0.tracksAdded([result])})
+        self.messenger.publish(.playlist_tracksAdded, payload: [result])
         
         return track
     }
@@ -347,14 +342,12 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
         
         let results: TrackRemovalResults = playlist.removeTracks(indexes)
         messenger.publish(.playlist_tracksRemoved, payload: results)
-        changeListeners.forEach {$0.tracksRemoved(results)}
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) {
         
         let results: TrackRemovalResults = playlist.removeTracksAndGroups(tracks, groups, groupType)
         messenger.publish(.playlist_tracksRemoved, payload: results)
-        changeListeners.forEach {$0.tracksRemoved(results)}
     }
     
     func moveTracksUp(_ indexes: IndexSet) -> ItemMoveResults {
@@ -402,20 +395,20 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
     private func doMoveTracks(_ moveOperation: () -> ItemMoveResults) -> ItemMoveResults {
         
         let results = moveOperation()
-        changeListeners.forEach({$0.tracksReordered(results)})
+        messenger.publish(.playlist_tracksReordered, payload: results)
         return results
     }
     
     func clear() {
         
         playlist.clear()
-        changeListeners.forEach({$0.playlistCleared()})
+        messenger.publish(.playlist_cleared)
     }
     
     func sort(_ sort: Sort, _ playlistType: PlaylistType) {
         
         let results = playlist.sort(sort, playlistType)
-        changeListeners.forEach({$0.playlistSorted(results)})
+        messenger.publish(.playlist_sorted, payload: results)
     }
     
     // MARK: Message handling
@@ -452,7 +445,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
 }
 
 // Encapsulates all autoplay options
-class AutoplayOptions {
+fileprivate class AutoplayOptions {
     
     // Whether or not autoplay is requested
     var autoplay: Bool

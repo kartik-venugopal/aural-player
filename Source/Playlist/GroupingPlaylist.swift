@@ -9,29 +9,36 @@
 //
 import Foundation
 
-/*
-    A grouping playlist is a hierarchical playlist in which tracks are categorized, into groups, by a certain criterion, for example - artist/album/genre.
- 
-    Each such category of tracks that have matching criteria (for ex, all have the same artist) is a "group". In such a playlist, groups are the top-level items, and tracks are children of the groups.
- 
-    The groups are ordered and have indexes ("group index"), and the tracks under each group are also ordered and have indexes ("track index") relative to their parent group.
- 
-    The playlist's hierarchy looks like the following:
- 
-    Group 0
-        -> Track 0
-        -> Track 1
-        -> Track 2
- 
-    Group 1
-        -> Track 0
-        -> Track 1
- 
-    Group 2
-        -> Track 0
-        -> Track 1
- */
-class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
+///
+/// A grouping playlist is a hierarchical playlist in which tracks are categorized, into groups, by a certain criterion,
+/// for example - artist / album / genre.
+///
+/// Each such category of tracks that have matching criteria (for ex, all have the same artist) is a "group". In such a playlist,
+/// groups are the top-level items, and tracks are children of the groups.
+///
+/// The groups are ordered and have indexes ("group index"), and the tracks under each group are also ordered and have
+/// indexes ("track index") relative to their parent group.
+///
+/// The playlist's hierarchy looks like the following:
+///
+/// Group 0
+///     -> Track 0
+///     -> Track 1
+///     -> Track 2
+///
+/// Group 1
+///     -> Track 0
+///     -> Track 1
+///
+/// Group 2
+///     -> Track 0
+///     -> Track 1
+///
+/// This is the backing playlist for the *Artists, Albums*, and *Genres* playlist views.
+///
+/// - SeeAlso: **Group**
+///
+class GroupingPlaylist: GroupingPlaylistProtocol {
     
     // The type of the playlist describes the criterion used to categorize the tracks within it (for ex, "artists")
     let playlistType: PlaylistType
@@ -211,7 +218,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     private func moveGroupsUp(_ groupsToMove: [Group]) -> ItemMoveResults {
-        return ItemMoveResults(groups.moveItemsUp(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
+        return ItemMoveResults(results: groups.moveItemsUp(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType: playlistType)
     }
     
     func moveTracksAndGroupsToTop(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {
@@ -222,7 +229,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     private func moveGroupsToTop(_ groupsToMove: [Group]) -> ItemMoveResults {
-        return ItemMoveResults(groups.moveItemsToTop(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
+        return ItemMoveResults(results: groups.moveItemsToTop(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType: playlistType)
     }
     
     func moveTracksAndGroupsDown(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {
@@ -233,7 +240,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
     
     private func moveGroupsDown(_ groupsToMove: [Group]) -> ItemMoveResults {
-        return ItemMoveResults(groups.moveItemsDown(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
+        return ItemMoveResults(results: groups.moveItemsDown(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType: playlistType)
     }
     
     func moveTracksAndGroupsToBottom(_ tracks: [Track], _ groupsToMove: [Group]) -> ItemMoveResults {
@@ -244,7 +251,7 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
     }
 
     private func moveGroupsToBottom(_ groupsToMove: [Group]) -> ItemMoveResults {
-        return ItemMoveResults(groups.moveItemsToBottom(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType)
+        return ItemMoveResults(results: groups.moveItemsToBottom(groupsToMove).map {GroupMoveResult($0.key, $0.value)}, playlistType: playlistType)
     }
     
     // Move tracks within a group
@@ -255,10 +262,10 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
         
         // Cannot move tracks from multiple groups
         guard parentGroups.count == 1, let group = parentGroups.first else {
-            return ItemMoveResults([], playlistType)
+            return ItemMoveResults(results: [], playlistType: playlistType)
         }
         
-        return ItemMoveResults(moveOperation(group, tracks).map {TrackMoveResult($0.key, $0.value, group)}, playlistType)
+        return ItemMoveResults(results: moveOperation(group, tracks).map {TrackMoveResult($0.key, $0.value, group)}, playlistType: playlistType)
     }
     
     // MARK: Drag 'n drop ---------------------------------------------------------------------------------------------------
@@ -270,17 +277,17 @@ class GroupingPlaylist: GroupingPlaylistCRUDProtocol {
             let sourceIndices = IndexSet(groups.compactMap {indexOfGroup($0)})
             let results: [ItemMoveResult] = self.groups.dragAndDropItems(sourceIndices, dropIndex).map {GroupMoveResult($0.key, $0.value)}
             
-            return ItemMoveResults(results, playlistType)
+            return ItemMoveResults(results: results, playlistType: playlistType)
             
         } else if let theDropParent = dropParent {
             
             let sourceIndices = IndexSet(tracks.compactMap {theDropParent.indexOfTrack($0)})
             let results: [ItemMoveResult] = theDropParent.dragAndDropItems(sourceIndices, dropIndex).map {TrackMoveResult($0.key, $0.value, theDropParent)}
             
-            return ItemMoveResults(results, playlistType)
+            return ItemMoveResults(results: results, playlistType: playlistType)
         }
         
-        return ItemMoveResults([], playlistType)
+        return ItemMoveResults(results: [], playlistType: playlistType)
     }
     
     func sort(_ sort: Sort) {

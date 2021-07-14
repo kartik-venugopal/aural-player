@@ -9,21 +9,22 @@
 //
 import Foundation
 
-/*
-    A facade providing unified access to all underlying playlist types (flat and grouping/hierarchical). Smartly delegates operations to the underlying playlists and aggregates results from those operations.
- */
-class Playlist: PlaylistCRUDProtocol {
+///
+/// A facade for all operations pertaining to the playlist. Delegates operations to the underlying
+/// playlists (flat and grouping/hierarchical), and aggregates results from those operations.
+///
+class Playlist: PlaylistProtocol {
     
     // Flat playlist
-    private var flatPlaylist: FlatPlaylistCRUDProtocol
+    private var flatPlaylist: FlatPlaylistProtocol
     
     // Hierarchical/grouping playlists (mapped by playlist type)
-    var groupingPlaylists: [PlaylistType: GroupingPlaylistCRUDProtocol] = [:]
+    var groupingPlaylists: [PlaylistType: GroupingPlaylistProtocol] = [:]
     
     // A map to quickly look up tracks by (absolute) file path (used when adding tracks, to prevent duplicates)
     private var tracksByFile: [URL: Track] = [:]
     
-    init(_ flatPlaylist: FlatPlaylistCRUDProtocol, _ groupingPlaylists: [GroupingPlaylistCRUDProtocol]) {
+    init(_ flatPlaylist: FlatPlaylistProtocol, _ groupingPlaylists: [GroupingPlaylistProtocol]) {
         
         self.flatPlaylist = flatPlaylist
         groupingPlaylists.forEach({self.groupingPlaylists[$0.playlistType] = $0})
@@ -156,7 +157,8 @@ class Playlist: PlaylistCRUDProtocol {
             groupingPlaylistResults[$0.typeOfGroups] = $0.removeTracksAndGroups(removedTracks, [])
         })
         
-        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults, flatPlaylistResults: indexes, tracks: removedTracks)
+        return TrackRemovalResults(tracks: removedTracks, flatPlaylistResults: indexes,
+                                   groupingPlaylistResults: groupingPlaylistResults)
     }
     
     func indexOfTrack(_ track: Track) -> Int? {
@@ -253,8 +255,8 @@ class Playlist: PlaylistCRUDProtocol {
         // Remove from flat playlist
         let flatPlaylistResults: IndexSet = flatPlaylist.removeTracks(removedTracks)
         
-        return TrackRemovalResults(groupingPlaylistResults: groupingPlaylistResults,
-                                   flatPlaylistResults: flatPlaylistResults, tracks: removedTracks)
+        return TrackRemovalResults(tracks: removedTracks, flatPlaylistResults: flatPlaylistResults,
+                                   groupingPlaylistResults: groupingPlaylistResults)
     }
     
     func moveTracksAndGroupsUp(_ tracks: [Track], _ groups: [Group], _ groupType: GroupType) -> ItemMoveResults {

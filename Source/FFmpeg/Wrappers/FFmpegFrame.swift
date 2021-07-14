@@ -11,7 +11,7 @@ import AVFoundation
 import Accelerate
 
 ///
-/// Encapsulates an ffmpeg AVFrame struct that represents a single (decoded) frame,
+/// Encapsulates an ffmpeg **AVFrame** struct that represents a single (decoded) frame,
 /// i.e. audio data in its raw decoded / uncompressed form, post-decoding,
 /// and provides convenient Swift-style access to its functions and member variables.
 ///

@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Wrapper around an AVSampleFormat.
+/// Wrapper around an **AVSampleFormat**.
 ///
 /// Reads and provides useful information about the format of audio samples,
 /// e.g. whether or not samples of this format need to be resampled for playback.

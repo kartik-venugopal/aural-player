@@ -1,5 +1,5 @@
 //
-//  FlatPlaylistProtocols.swift
+//  FlatPlaylistProtocol.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -12,10 +12,12 @@
  */
 import Foundation
 
-/*
-    Contract for all read-only operations on the flat (Tracks) playlist
- */
-protocol FlatPlaylistAccessorProtocol {
+///
+/// A functional contract for the flat (non-hierarchical) playlist, i.e. the *Tracks* playlist.
+///
+protocol FlatPlaylistProtocol: CommonPlaylistMutatorProtocol {
+    
+    // MARK: Read operations ----------------------------------------
     
     // Returns the size (i.e. total number of tracks) of the playlist
     var size: Int {get}
@@ -37,12 +39,8 @@ protocol FlatPlaylistAccessorProtocol {
     
     // Returns the display name for a track within the playlist.
     func displayNameForTrack(_ track: Track) -> String
-}
-
-/*
-    Contract for all write/mutating operations on the flat (Tracks) playlist
- */
-protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
+    
+    // MARK: Mutation operations ----------------------------------------
     
     // Adds a single track to the playlist, and returns its index within the playlist.
     func addTrack(_ track: Track) -> Int
@@ -85,5 +83,3 @@ protocol FlatPlaylistMutatorProtocol: CommonPlaylistMutatorProtocol {
     // Sorts the playlist according to the specified sort parameters
     func sort(_ sort: Sort)
 }
-
-protocol FlatPlaylistCRUDProtocol: FlatPlaylistAccessorProtocol, FlatPlaylistMutatorProtocol {}

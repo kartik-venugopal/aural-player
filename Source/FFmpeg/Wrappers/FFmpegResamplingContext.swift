@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// A wrapper around an ffmpeg SwrContext that performs a resampling conversion:
+/// A wrapper around an ffmpeg **SwrContext** that performs a resampling conversion:
 ///
 /// A resampling conversion could consist of any or all of the following:
 ///
