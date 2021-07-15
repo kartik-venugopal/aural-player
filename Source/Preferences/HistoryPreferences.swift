@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates all user preferences pertaining to the track history lists.
+///
 class HistoryPreferences: PersistentPreferencesProtocol {
     
     var recentlyAddedListSize: Int

@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// A collection of playback profiles.
+/// A mapped collection of playback profiles.
 ///
 /// - SeeAlso: `PlaybackProfile`
 ///

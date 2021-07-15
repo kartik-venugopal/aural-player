@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Encapsulates all persistent state for application window layouts.
+///
+/// - SeeAlso: `ThemesManager`
+///
 struct WindowLayoutsPersistentState: Codable {
     
     let showEffects: Bool?
@@ -21,6 +26,11 @@ struct WindowLayoutsPersistentState: Codable {
     let userLayouts: [UserWindowLayoutPersistentState]?
 }
 
+///
+/// Persistent state for a single user-defined window layout.
+///
+/// - SeeAlso: `WindowLayout`
+///
 struct UserWindowLayoutPersistentState: Codable {
     
     let name: String?

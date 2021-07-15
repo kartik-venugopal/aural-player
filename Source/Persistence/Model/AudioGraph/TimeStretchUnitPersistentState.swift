@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Time Stretch effects unit.
+///
+/// - SeeAlso:  `TimeStretchUnit`
+///
 struct TimeStretchUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
@@ -19,6 +24,11 @@ struct TimeStretchUnitPersistentState: Codable {
     let overlap: Float?
 }
 
+///
+/// Persistent state for a single Time Stretch effects unit preset.
+///
+/// - SeeAlso:  `TimeStretchPreset`
+///
 struct TimeStretchPresetPersistentState: Codable {
     
     let name: String?

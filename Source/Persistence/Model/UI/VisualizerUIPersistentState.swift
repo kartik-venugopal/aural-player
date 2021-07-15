@@ -9,12 +9,22 @@
 //
 import Cocoa
 
+///
+/// Persistent state for all Visualizer settings.
+///
+/// - SeeAlso: `VisualizerViewState`
+///
 struct VisualizerUIPersistentState: Codable {
     
     let type: VisualizationType?
     let options: VisualizerOptionsPersistentState?
 }
 
+///
+/// Persistent state for Visualizer options.
+///
+/// - SeeAlso: `VisualizerViewOptions`
+///
 struct VisualizerOptionsPersistentState: Codable {
     
     let lowAmplitudeColor: ColorPersistentState?

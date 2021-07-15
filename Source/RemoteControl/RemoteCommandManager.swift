@@ -18,7 +18,7 @@ import MediaPlayer
 class RemoteCommandManager: NSObject {
     
     /// The underlying command center.
-    fileprivate let cmdCenter = MPRemoteCommandCenter.shared()
+    private let cmdCenter = MPRemoteCommandCenter.shared()
     
     var playCommand: MPRemoteCommand {cmdCenter.playCommand}
     var pauseCommand: MPRemoteCommand {cmdCenter.pauseCommand}

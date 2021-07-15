@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Tune Browser.
+///
+/// - SeeAlso: `TuneBrowserState`
+///
 struct TuneBrowserPersistentState: Codable {
     
     let windowSize: NSSizePersistentState?
@@ -18,18 +23,33 @@ struct TuneBrowserPersistentState: Codable {
     let sidebar: TuneBrowserSidebarPersistentState?
 }
 
+///
+/// Persistent state for a single table column displayed within the Tune Browser.
+///
+/// - SeeAlso: `TuneBrowserTableColumn`
+///
 struct TuneBrowserTableColumnPersistentState: Codable {
     
     let id: String?
     let width: CGFloat?
 }
 
+///
+/// Persistent state for the Tune Browser's sidebar.
+///
+/// - SeeAlso: `TuneBrowserState`
+///
 struct TuneBrowserSidebarPersistentState: Codable {
     
     let userFolders: [TuneBrowserSidebarItemPersistentState]?
     let width: CGFloat?
 }
 
+///
+/// Persistent state for a single item (folder shortcut) displayed the Tune Browser's sidebar.
+///
+/// - SeeAlso: `TuneBrowserState`
+///
 struct TuneBrowserSidebarItemPersistentState: Codable {
     
     let url: URLPath?

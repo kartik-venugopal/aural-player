@@ -9,12 +9,22 @@
 //
 import Foundation
 
+///
+/// Persistent state for the MusicBrainz in-memory / on-disk cache.
+///
+/// - SeeAlso: `MusicBrainzCache`
+///
 struct MusicBrainzCachePersistentState: Codable {
 
     let releases: [MusicBrainzCacheEntryPersistentState]?
     let recordings: [MusicBrainzCacheEntryPersistentState]?
 }
 
+///
+/// Persistent state for a single entry within the MusicBrainz in-memory / on-disk cache.
+///
+/// - SeeAlso: `MusicBrainzCache`
+///
 struct MusicBrainzCacheEntryPersistentState: Codable {
     
     let artist: String?

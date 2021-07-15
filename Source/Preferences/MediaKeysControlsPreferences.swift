@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Encapsulates all user preferences pertaining to the use of media keys with this application.
+///
 class MediaKeysControlsPreferences: PersistentPreferencesProtocol {
     
     var enabled: Bool

@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates all user preferences pertaining to usability (i.e. how the app is controlled).
+///
 class ControlsPreferences: PersistentPreferencesProtocol {
     
     var mediaKeys: MediaKeysControlsPreferences

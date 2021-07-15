@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for an effects unit that hosts an Audio Units (AU) plug-in.
+///
+/// - SeeAlso:  `HostedAudioUnit`
+///
 struct AudioUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
@@ -19,12 +24,20 @@ struct AudioUnitPersistentState: Codable {
     let params: [AudioUnitParameterPersistentState]?
 }
 
+///
+/// Persistent state for a single Hosted Audio Unit effects parameter.
+///
 struct AudioUnitParameterPersistentState: Codable {
     
     let address: UInt64?
     let value: Float?
 }
 
+///
+/// Persistent state for a single Hosted Audio Unit effects preset.
+///
+/// - SeeAlso:  `AudioUnitPreset`
+///
 struct AudioUnitPresetPersistentState: Codable {
     
     let name: String?

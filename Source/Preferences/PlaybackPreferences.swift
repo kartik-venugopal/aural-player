@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates all user preferences pertaining to track playback.
+///
 class PlaybackPreferences: PersistentPreferencesProtocol {
     
     // General preferences

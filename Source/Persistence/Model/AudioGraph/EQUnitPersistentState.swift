@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Equalizer effects unit.
+///
+/// - SeeAlso:  `EQUnit`
+///
 struct EQUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
@@ -19,6 +24,11 @@ struct EQUnitPersistentState: Codable {
     let bands: [Float]?
 }
 
+///
+/// Persistent state for a single Equalizer effects unit preset.
+///
+/// - SeeAlso:  `EQPreset`
+///
 struct EQPresetPersistentState: Codable {
 
     let name: String?

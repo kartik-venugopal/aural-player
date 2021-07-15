@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for a single bookmark.
+///
+/// - SeeAlso: `Bookmark`
+///
 struct BookmarkPersistentState: Codable {
     
     let name: String?

@@ -18,7 +18,7 @@ import MediaPlayer
 class NowPlayingInfoManager: NSObject {
 
     /// The underlying Now Playing Info Center.
-    fileprivate let infoCenter = MPNowPlayingInfoCenter.default()
+    private let infoCenter = MPNowPlayingInfoCenter.default()
     
     /// Provides current player information (eg. which track is playing, playback state, playback position, etc).
     private let playbackInfo: PlaybackInfoDelegateProtocol
@@ -42,7 +42,8 @@ class NowPlayingInfoManager: NSObject {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(playbackInfo: PlaybackInfoDelegateProtocol, audioGraph: AudioGraphDelegateProtocol, sequencer: SequencerInfoDelegateProtocol) {
+    init(playbackInfo: PlaybackInfoDelegateProtocol, audioGraph: AudioGraphDelegateProtocol,
+         sequencer: SequencerInfoDelegateProtocol) {
         
         self.playbackInfo = playbackInfo
         self.audioGraph = audioGraph

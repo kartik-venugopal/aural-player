@@ -1,22 +1,20 @@
 //
-//  PlaylistUIPersistentState.swift
+//  PersistentPreferencesProtocol.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
 //
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
-//
+//  
 import Foundation
 
-typealias PlaylistTypeString = String
-
 ///
-/// Persistent state for the Playlist UI.
+/// Contract for a persistent preferences object.
 ///
-/// - SeeAlso: `PlaylistViewState`
-///
-struct PlaylistUIPersistentState: Codable {
+protocol PersistentPreferencesProtocol {
     
-    let view: PlaylistTypeString?
+    init(_ dict: [String: Any])
+    
+    func persist(to defaults: UserDefaults)
 }

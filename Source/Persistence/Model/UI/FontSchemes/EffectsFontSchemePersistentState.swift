@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates persistent app state for a single EffectsFontScheme.
- */
+///
+/// Persistent state for the effects component of a single font scheme.
+///
+/// - SeeAlso: `EffectsFontScheme`
+///
 struct EffectsFontSchemePersistentState: Codable {
 
     let unitCaptionSize: CGFloat?

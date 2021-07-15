@@ -9,12 +9,26 @@
 //
 import Foundation
 
+///
+/// Persistent state for the **History** lists
+/// (recently added and recently played).
+///
+/// - SeeAlso: `AddedItem`
+/// - SeeAlso: `PlayedItem`
+///
 struct HistoryPersistentState: Codable {
     
     let recentlyAdded: [HistoryItemPersistentState]?
     let recentlyPlayed: [HistoryItemPersistentState]?
 }
 
+///
+/// Persistent state for a single item in the **History** lists
+/// (recently added and recently played).
+///
+/// - SeeAlso: `AddedItem`
+/// - SeeAlso: `PlayedItem`
+///
 struct HistoryItemPersistentState: Codable {
     
     let file: URLPath?

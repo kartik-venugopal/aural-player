@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates playback sequence state
- */
+///
+/// Persistent state for the app's playback sequence.
+///
+/// - SeeAlso:  `PlaybackSequence`
+///
 struct PlaybackSequencePersistentState: Codable {
     
     let repeatMode: RepeatMode?

@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Reverb effects unit.
+///
+/// - SeeAlso:  `ReverbUnit`
+///
 struct ReverbUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
@@ -18,6 +23,11 @@ struct ReverbUnitPersistentState: Codable {
     let amount: Float?
 }
 
+///
+/// Persistent state for a single Reverb effects unit preset.
+///
+/// - SeeAlso:  `ReverbPreset`
+///
 struct ReverbPresetPersistentState: Codable {
     
     let name: String?

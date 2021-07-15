@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates persistent app state for a single PlaylistColorScheme.
- */
+///
+/// Persistent state for the playlist component of a single color scheme.
+///
+/// - SeeAlso: `PlaylistColorScheme`
+///
 struct PlaylistColorSchemePersistentState: Codable {
     
     let trackNameTextColor: ColorPersistentState?

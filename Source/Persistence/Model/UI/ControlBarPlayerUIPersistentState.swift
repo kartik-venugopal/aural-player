@@ -9,6 +9,11 @@
 //  
 import Foundation
 
+///
+/// Persistent state for the Control Bar app mode's UI.
+///
+/// - SeeAlso: `ControlBarPlayerViewState`
+///
 struct ControlBarPlayerUIPersistentState: Codable {
     
     let windowFrame: NSRectPersistentState?

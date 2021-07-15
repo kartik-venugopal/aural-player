@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Player UI.
+///
+/// - SeeAlso: `PlayerViewState`
+///
 struct PlayerUIPersistentState: Codable {
     
     let viewType: PlayerViewType?

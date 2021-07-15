@@ -9,11 +9,21 @@
 //
 import Foundation
 
+///
+/// Encapsulates all persistent state for application themes.
+///
+/// - SeeAlso: `ThemesManager`
+///
 struct ThemesPersistentState: Codable {
     
     let userThemes: [ThemePersistentState]?
 }
 
+///
+/// Persistent state for a single theme.
+///
+/// - SeeAlso: `Theme`
+///
 struct ThemePersistentState: Codable {
     
     let name: String?

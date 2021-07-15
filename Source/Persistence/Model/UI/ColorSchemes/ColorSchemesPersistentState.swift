@@ -9,18 +9,22 @@
 //
 import Cocoa
 
-/*
-    Encapsulates all persistent app state for color schemes.
- */
+///
+/// Encapsulates all persistent state for application color schemes.
+///
+/// - SeeAlso: `ColorSchemesManager`
+///
 struct ColorSchemesPersistentState: Codable {
 
     let systemScheme: ColorSchemePersistentState?
     let userSchemes: [ColorSchemePersistentState]?
 }
 
-/*
-    Encapsulates persistent app state for a single color scheme.
- */
+///
+/// Persistent state for a single color scheme.
+///
+/// - SeeAlso: `ColorScheme`
+///
 struct ColorSchemePersistentState: Codable {
     
     let name: String

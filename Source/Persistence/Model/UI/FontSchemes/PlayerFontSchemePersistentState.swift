@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates persistent app state for a single PlayerFontScheme.
- */
+///
+/// Persistent state for the player component of a single font scheme.
+///
+/// - SeeAlso: `PlayerFontScheme`
+///
 struct PlayerFontSchemePersistentState: Codable {
 
     let titleSize: CGFloat?

@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates persistent app state for a single PlayerColorScheme.
- */
+///
+/// Persistent state for the player component of a single color scheme.
+///
+/// - SeeAlso: `PlayerColorScheme`
+///
 struct PlayerColorSchemePersistentState: Codable {
     
     let trackInfoPrimaryTextColor: ColorPersistentState?

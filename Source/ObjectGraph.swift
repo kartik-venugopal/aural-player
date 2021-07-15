@@ -19,7 +19,7 @@ class ObjectGraph {
     
     private static let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
     
-    static let persistentState: PersistentAppState = persistenceManager.load(type: PersistentAppState.self) ?? PersistentAppState.defaults
+    static let persistentState: AppPersistentState = persistenceManager.load(type: AppPersistentState.self) ?? AppPersistentState.defaults
     
     static var lastPresentedAppMode: AppMode? {persistentState.ui?.appMode}
     
@@ -174,7 +174,7 @@ class ObjectGraph {
     static func tearDown() {
         
         // Gather all pieces of persistent state into the persistentState object
-        var persistentState: PersistentAppState = PersistentAppState()
+        var persistentState: AppPersistentState = AppPersistentState()
         
         persistentState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "1.0.0"
         

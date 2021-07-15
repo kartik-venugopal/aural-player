@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Delay effects unit.
+///
+/// - SeeAlso:  `DelayUnit`
+///
 struct DelayUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
@@ -20,6 +25,11 @@ struct DelayUnitPersistentState: Codable {
     let lowPassCutoff: Float?
 }
 
+///
+/// Persistent state for a single Delay effects unit preset.
+///
+/// - SeeAlso:  `DelayPreset`
+///
 struct DelayPresetPersistentState: Codable {
     
     let name: String?

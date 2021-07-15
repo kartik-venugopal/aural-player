@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Filter effects unit.
+///
+/// - SeeAlso:  `FilterUnit`
+///
 struct FilterUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
@@ -17,6 +22,11 @@ struct FilterUnitPersistentState: Codable {
     let bands: [FilterBandPersistentState]?
 }
 
+///
+/// Persistent state for a single Filter effects unit band.
+///
+/// - SeeAlso:  `FilterBand`
+///
 struct FilterBandPersistentState: Codable {
     
     let type: FilterBandType?
@@ -32,6 +42,11 @@ struct FilterBandPersistentState: Codable {
     }
 }
 
+///
+/// Persistent state for a single Filter effects unit preset.
+///
+/// - SeeAlso:  `FilterPreset`
+///
 struct FilterPresetPersistentState: Codable {
     
     let name: String?

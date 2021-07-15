@@ -9,12 +9,14 @@
 //
 import Cocoa
 
-/*
-    Handler that responds to macOS media keys (play/pause, next, previous)
- */
+///
+/// Handler that responds to macOS media keys (play / pause, next, previous).
+///
+/// Delegates to the **MediaKeyTap** framework to set up the underlying event handlers.
+///
 class MediaKeyHandler: MediaKeyTapDelegate {
     
-    private var preferences: MediaKeysControlsPreferences
+    private let preferences: MediaKeysControlsPreferences
     
     private var mediaKeyTap: MediaKeyTap?
     private var monitoringEnabled: Bool = false
@@ -39,7 +41,7 @@ class MediaKeyHandler: MediaKeyTapDelegate {
         }
     }
     
-    // Recurring task used to repeat key press events according to the preferred repeat speed
+    // Recurring task used to repeat key press events according to the preferred repeat speed.
     private var repeatExecutor: RepeatingTaskExecutor?
     
     private lazy var messenger = Messenger(for: self)

@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Pitch Shift effects unit.
+///
+/// - SeeAlso:  `PitchShiftUnit`
+///
 struct PitchShiftUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
@@ -18,6 +23,11 @@ struct PitchShiftUnitPersistentState: Codable {
     let overlap: Float?
 }
 
+///
+/// Persistent state for a single Pitch Shift effects unit preset.
+///
+/// - SeeAlso:  `PitchShiftPreset`
+///
 struct PitchShiftPresetPersistentState: Codable {
     
     let name: String?

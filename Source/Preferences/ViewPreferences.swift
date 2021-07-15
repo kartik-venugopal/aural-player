@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates all user preferences pertaining to the user interface (view).
+///
 class ViewPreferences: PersistentPreferencesProtocol {
     
     var appModeOnStartup: AppModeOnStartup

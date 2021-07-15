@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates persistent app state for a single PlaylistFontScheme.
- */
+///
+/// Persistent state for the playlist component of a single font scheme.
+///
+/// - SeeAlso: `PlaylistFontScheme`
+///
 struct PlaylistFontSchemePersistentState: Codable {
     
     let trackTextSize: CGFloat?

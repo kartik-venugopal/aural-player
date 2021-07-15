@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
- Encapsulates audio graph state
- */
+///
+/// Persistent state for the audio graph.
+///
+/// - SeeAlso:  `AudioGraph`
+///
 struct AudioGraphPersistentState: Codable {
     
     let outputDevice: AudioDevicePersistentState?

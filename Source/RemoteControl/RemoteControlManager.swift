@@ -11,7 +11,9 @@ import Foundation
 import MediaPlayer
 
 ///
-/// Facade for managing everything related to RemoteControl. Consists of 2 components:
+/// Facade for managing everything related to RemoteControl.
+///
+/// Consists of 2 components:
 /// 1 - Remote command manager
 /// 2 - Now Playing Info manager
 ///

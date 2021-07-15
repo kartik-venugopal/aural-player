@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates an audio output device (remembered device)
- */
+///
+/// Persistent state for a single audio output device.
+///
+/// - SeeAlso: `AudioDevice`
+///
 struct AudioDevicePersistentState: Codable {
     
     let name: String?

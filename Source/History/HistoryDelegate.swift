@@ -35,8 +35,6 @@ class HistoryDelegate: HistoryDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
-    var lastPlayedTrack: Track?
-    
     let backgroundQueue: DispatchQueue = .global(qos: .background)
     
     private lazy var messenger = Messenger(for: self, asyncNotificationQueue: backgroundQueue)
@@ -148,9 +146,7 @@ class HistoryDelegate: HistoryDelegateProtocol {
         
         if let newTrack = notification.endTrack {
         
-            lastPlayedTrack = newTrack
             recentlyPlayedItems.add(PlayedItem(newTrack.file, newTrack.displayName, Date()))
-            
             messenger.publish(.history_updated)
         }
     }

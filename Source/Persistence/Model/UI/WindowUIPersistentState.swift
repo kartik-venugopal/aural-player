@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for window appearance settings.
+///
+/// - SeeAlso: `WindowAppearanceState`
+///
 struct WindowUIPersistentState: Codable {
     
     let cornerRadius: CGFloat?

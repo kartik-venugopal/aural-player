@@ -9,9 +9,9 @@
 //
 import Cocoa
 
-/*
-    Encapsulates UI state
- */
+///
+/// Encapsulates all persistent state for the application UI.
+///
 struct UIPersistentState: Codable {
     
     let appMode: AppMode?

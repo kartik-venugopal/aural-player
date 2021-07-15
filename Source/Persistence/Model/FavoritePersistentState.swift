@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for a single item in the **Favorites** list.
+///
+/// - SeeAlso: `Favorite`
+///
 struct FavoritePersistentState: Codable {
 
     let file: URLPath?   // URL path

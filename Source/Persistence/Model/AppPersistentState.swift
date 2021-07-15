@@ -1,5 +1,5 @@
 //
-//  PersistentAppState.swift
+//  AppPersistentState.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,10 +9,10 @@
 //
 import Cocoa
 
-/*
-    Encapsulates all application state. It is persisted to disk upon exit and loaded into the application upon startup.
- */
-struct PersistentAppState: Codable {
+///
+/// Top-level persistent state object that encapsulates all application state.
+///
+struct AppPersistentState: Codable {
     
     var appVersion: String?
     
@@ -32,5 +32,5 @@ struct PersistentAppState: Codable {
     
     init() {}
     
-    static let defaults: PersistentAppState = PersistentAppState()
+    static let defaults: AppPersistentState = AppPersistentState()
 }

@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
- Encapsulates playlist state
- */
+///
+/// Persistent state for the playlist.
+///
+/// - SeeAlso:  `Playlist`
+///
 struct PlaylistPersistentState: Codable {
     
     // List of track files (as URL paths).

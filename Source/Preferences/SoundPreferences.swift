@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates all user preferences pertaining to audio / sound.
+///
 class SoundPreferences: PersistentPreferencesProtocol {
     
     var outputDeviceOnStartup: OutputDeviceOnStartup

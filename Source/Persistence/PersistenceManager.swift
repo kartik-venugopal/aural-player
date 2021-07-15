@@ -9,9 +9,9 @@
 //
 import Foundation
 
-/*
-    Handles persistence to/from disk for application state.
-*/
+///
+/// Handles persistence to / from disk for application state.
+///
 class PersistenceManager {
     
     let persistentStateFile: URL

@@ -9,18 +9,22 @@
 //
 import Cocoa
 
-/*
-    Encapsulates all persistent app state for color schemes.
- */
+///
+/// Encapsulates all persistent state for application font schemes.
+///
+/// - SeeAlso: `FontSchemesManager`
+///
 struct FontSchemesPersistentState: Codable {
 
     let systemScheme: FontSchemePersistentState?
     let userSchemes: [FontSchemePersistentState]?
 }
 
-/*
-    Encapsulates persistent app state for a single font scheme.
- */
+///
+/// Persistent state for a single font scheme.
+///
+/// - SeeAlso: `FontScheme`
+///
 struct FontSchemePersistentState: Codable {
 
     let name: String?

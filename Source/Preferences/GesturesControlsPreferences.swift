@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Encapsulates all user preferences pertaining to the use of trackpad / mouse gestures with this application.
+///
 class GesturesControlsPreferences: PersistentPreferencesProtocol {
     
     var allowVolumeControl: Bool

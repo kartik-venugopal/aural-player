@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// A collection of sound profiles.
+/// A mapped collection of sound profiles.
 ///
 /// - SeeAlso: `SoundProfile`
 ///

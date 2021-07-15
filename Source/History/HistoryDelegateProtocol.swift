@@ -42,6 +42,4 @@ protocol HistoryDelegateProtocol {
     func deleteItem(_ item: PlayedItem)
 
     func deleteItem(_ item: AddedItem)
-    
-    var lastPlayedTrack: Track? {get}
 }

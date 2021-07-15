@@ -11,11 +11,14 @@
 import Cocoa
 
 protocol MediaApplicationWatcherDelegate {
+    
     func updateIsActiveMediaApp(_ active: Bool)
+    
     func whitelistedAppStarted()
 }
 
 class MediaApplicationWatcher {
+    
     var mediaApps: [NSRunningApplication]
     var delegate: MediaApplicationWatcherDelegate?
 
@@ -24,10 +27,14 @@ class MediaApplicationWatcher {
 
     let mediaKeyTapDidStartNotification = "MediaKeyTapDidStart" // Sent on start()
     let mediaKeyTapReplyNotification = "MediaKeyTapReply" // Sent on receipt of a mediaKeyTapDidStartNotification
+    
+    let notificationCenter: NotificationCenter
 
     init() {
+        
         self.mediaApps = []
         self.dynamicWhitelist = []
+        self.notificationCenter = NSWorkspace.shared.notificationCenter
     }
 
     deinit {
@@ -36,12 +43,11 @@ class MediaApplicationWatcher {
 
     /// Activate the currently running application (without an NSNotification)
     func activate() {
-        handleApplicationActivation(application: NSRunningApplication.current)
+        handleApplicationActivation(application: .current)
     }
 
     func start() {
-        let notificationCenter = NSWorkspace.shared.notificationCenter
-
+        
         notificationCenter.addObserver(self,
                                        selector: #selector(applicationLaunched),
                                        name: NSWorkspace.didLaunchApplicationNotification,
@@ -61,10 +67,11 @@ class MediaApplicationWatcher {
     }
 
     func stop() {
-        NSWorkspace.shared.notificationCenter.removeObserver(self)
+        notificationCenter.removeObserver(self)
     }
 
     func setupDistributedNotifications() {
+        
         let distributedNotificationCenter = DistributedNotificationCenter.default()
 
         // Notify any other apps using this library using a distributed notification
@@ -75,7 +82,9 @@ class MediaApplicationWatcher {
         distributedNotificationCenter.postNotificationName(NSNotification.Name(rawValue: mediaKeyTapDidStartNotification), object: ownBundleIdentifier, userInfo: nil, deliverImmediately: true)
 
         distributedNotificationCenter.addObserver(forName: NSNotification.Name(rawValue: mediaKeyTapDidStartNotification), object: nil, queue: nil) { notification in
+            
             if let otherBundleIdentifier = notification.object as? String {
+                
                 guard otherBundleIdentifier != ownBundleIdentifier else { return }
                 self.dynamicWhitelist.insert(otherBundleIdentifier)
 
@@ -85,7 +94,9 @@ class MediaApplicationWatcher {
         }
 
         distributedNotificationCenter.addObserver(forName: NSNotification.Name(rawValue: mediaKeyTapReplyNotification), object: nil, queue: nil) { notification in
+            
             if let otherBundleIdentifier = notification.object as? String {
+                
                 guard otherBundleIdentifier != ownBundleIdentifier else { return }
                 self.dynamicWhitelist.insert(otherBundleIdentifier)
             }
@@ -95,7 +106,9 @@ class MediaApplicationWatcher {
     // MARK: - Notifications
 
     @objc private func applicationLaunched(_ notification: Notification) {
+        
         if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey, NSRunningApplication.self] {
+            
             if inStaticWhitelist(application) && application != NSRunningApplication.current {
                 delegate?.whitelistedAppStarted()
             }
@@ -103,14 +116,18 @@ class MediaApplicationWatcher {
     }
 
     @objc private func applicationActivated(_ notification: Notification) {
+        
         if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey, NSRunningApplication.self] {
+            
             guard whitelisted(application) else { return }
             handleApplicationActivation(application: application)
         }
     }
 
     @objc private func applicationTerminated(_ notification: Notification) {
+        
         if let application = (notification as NSNotification).userInfo?[NSWorkspace.applicationUserInfoKey, NSRunningApplication.self] {
+            
             mediaApps = mediaApps.filter { $0 != application }
             updateKeyInterceptStatus()
         }
@@ -118,12 +135,14 @@ class MediaApplicationWatcher {
 
     // When activated, move `application` to the front of `mediaApps` and toggle the tap as necessary
     private func handleApplicationActivation(application: NSRunningApplication) {
+        
         mediaApps = mediaApps.filter { $0 != application }
         mediaApps.insert(application, at: 0)
         updateKeyInterceptStatus()
     }
 
     private func updateKeyInterceptStatus() {
+        
         guard mediaApps.count > 0 else { return }
 
         let activeApp = mediaApps.first!
@@ -136,6 +155,7 @@ class MediaApplicationWatcher {
 
     // The static SPMediaKeyTap whitelist
     func whitelistedApplicationIdentifiers() -> Set<String> {
+        
         var whitelist: Set<String> = [
             "at.justp.Theremin",
             "co.rackit.mate",

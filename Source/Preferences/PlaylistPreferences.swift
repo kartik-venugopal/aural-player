@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates all user preferences pertaining to the playlist.
+///
 class PlaylistPreferences: PersistentPreferencesProtocol {
     
     var playlistOnStartup: PlaylistStartupOptions

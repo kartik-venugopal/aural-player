@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Menu Bar app mode's UI.
+///
+/// - SeeAlso: `MenuBarPlayerViewState`
+///
 struct MenuBarPlayerUIPersistentState: Codable {
     
     let showAlbumArt: Bool?

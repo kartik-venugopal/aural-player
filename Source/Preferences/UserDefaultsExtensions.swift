@@ -10,10 +10,13 @@
 import Foundation
 
 extension UserDefaults {
-    
+
+    ///
+    /// A convenient way to access / mutate key-value pairs in this **UserDefaults** instance.
+    ///
     subscript(_ key: String) -> Any? {
         
-        get {self.object(forKey: key)}
-        set {self.setValue(newValue, forKey: key)}
+        get {object(forKey: key)}
+        set {setValue(newValue, forKey: key)}
     }
 }

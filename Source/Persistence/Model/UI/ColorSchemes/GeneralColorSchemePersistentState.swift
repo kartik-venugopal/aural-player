@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates persistent app state for a single GeneralColorScheme.
- */
+///
+/// Persistent state for the general component of a single color scheme.
+///
+/// - SeeAlso: `GeneralColorScheme`
+///
 struct GeneralColorSchemePersistentState: Codable {
     
     let appLogoColor: ColorPersistentState?

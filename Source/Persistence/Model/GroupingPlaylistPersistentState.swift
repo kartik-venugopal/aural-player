@@ -7,15 +7,24 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
-
 import Foundation
 
+///
+/// Persistent state for a single grouping / hierarchical playlist.
+///
+/// - SeeAlso:  `GroupingPlaylist`
+///
 struct GroupingPlaylistPersistentState: Codable {
     
     let type: PlaylistType?
     let groups: [GroupPersistentState]?
 }
 
+///
+/// Persistent state for a single group within a grouping / hierarchical playlist.
+///
+/// - SeeAlso:  `Group`
+///
 struct GroupPersistentState: Codable {
     
     let name: String?

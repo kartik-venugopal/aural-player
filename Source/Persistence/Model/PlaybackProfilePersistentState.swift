@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for a single playback profile.
+///
+/// - SeeAlso:  `PlaybackProfile`
+///
 struct PlaybackProfilePersistentState: Codable {
     
     let file: URLPath?

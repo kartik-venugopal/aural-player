@@ -9,6 +9,10 @@
 //
 import Foundation
 
+///
+/// Encapsulates all user preferences pertaining to the **Remote Control** feature, i.e. the ability
+/// to control the app from outside it.
+///
 class RemoteControlPreferences: PersistentPreferencesProtocol {
     
     var enabled: Bool

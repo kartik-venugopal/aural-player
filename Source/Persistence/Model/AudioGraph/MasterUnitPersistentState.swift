@@ -9,12 +9,22 @@
 //
 import Foundation
 
+///
+/// Persistent state for the Master effects unit.
+///
+/// - SeeAlso:  `MasterUnit`
+///
 struct MasterUnitPersistentState: Codable {
     
     let state: EffectsUnitState?
     let userPresets: [MasterPresetPersistentState]?
 }
 
+///
+/// Persistent state for a single Master effects unit preset.
+///
+/// - SeeAlso:  `MasterPreset`
+///
 struct MasterPresetPersistentState: Codable {
     
     let name: String?

@@ -9,9 +9,9 @@
 //
 import Cocoa
 
-/*
-    Encapsulates persistent app state for a single NSColor.
- */
+///
+/// Encapsulates persistent state for a single NSColor.
+///
 struct ColorPersistentState: Codable {
     
     // Gray, RGB, or CMYK

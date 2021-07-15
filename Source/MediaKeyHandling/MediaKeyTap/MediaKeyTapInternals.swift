@@ -12,26 +12,39 @@ import Cocoa
 import CoreGraphics
 
 enum EventTapError: Error {
+    
     case eventTapCreationFailure
     case runLoopSourceCreationFailure
 }
 
 extension EventTapError: CustomStringConvertible {
+    
     var description: String {
+        
         switch self {
-        case .eventTapCreationFailure: return "Event tap creation failed: is your application sandboxed?"
-        case .runLoopSourceCreationFailure: return "Runloop source creation failed"
+        
+        case .eventTapCreationFailure:
+            
+            return "Event tap creation failed: is your application sandboxed?"
+            
+        case .runLoopSourceCreationFailure:
+            
+            return "Runloop source creation failed"
         }
     }
 }
 
 protocol MediaKeyTapInternalsDelegate {
+    
     func updateInterceptMediaKeys(_ intercept: Bool)
+    
     func handle(keyEvent: KeyEvent)
+    
     func isInterceptingMediaKeys() -> Bool
 }
 
 class MediaKeyTapInternals {
+    
     typealias EventTapCallback = @convention(block) (CGEventType, CGEvent) -> CGEvent?
 
     var delegate: MediaKeyTapInternalsDelegate?
@@ -49,29 +62,37 @@ class MediaKeyTapInternals {
         Enable/Disable the underlying tap
     */
     func enableTap(_ onOff: Bool) {
-        if let port = self.keyEventPort, let runLoop = self.runLoop {
-            CFRunLoopPerformBlock(runLoop, CFRunLoopMode.commonModes as CFTypeRef) {
-                CGEvent.tapEnable(tap: port, enable: onOff)
-            }
-            CFRunLoopWakeUp(runLoop)
+        
+        guard let port = self.keyEventPort, let runLoop = self.runLoop else {return}
+        
+        CFRunLoopPerformBlock(runLoop, CFRunLoopMode.commonModes as CFTypeRef) {
+            CGEvent.tapEnable(tap: port, enable: onOff)
         }
+        
+        CFRunLoopWakeUp(runLoop)
     }
 
     /**
         Restart the tap, placing it in front of existing taps
     */
     func restartTap() throws {
+        
         stopWatchingMediaKeys()
         try startWatchingMediaKeys(restart: true)
     }
 
     func startWatchingMediaKeys(restart: Bool = false) throws {
+        
         let eventTapCallback: EventTapCallback = { type, event in
+            
             if type == .tapDisabledByTimeout {
+                
                 if let port = self.keyEventPort {
                     CGEvent.tapEnable(tap: port, enable: true)
                 }
+                
                 return event
+                
             } else if type == .tapDisabledByUserInput {
                 return event
             }
@@ -86,27 +107,28 @@ class MediaKeyTapInternals {
     }
 
     func stopWatchingMediaKeys() {
+        
         CFRunLoopSourceInvalidate <^> runLoopSource
         CFRunLoopStop <^> runLoop
         CFMachPortInvalidate <^> keyEventPort
     }
 
     private func handle(event: CGEvent, ofType type: CGEventType) -> CGEvent? {
-        if let nsEvent = NSEvent(cgEvent: event) {
-            guard type.rawValue == UInt32(NX_SYSDEFINED)
-                && nsEvent.isMediaKeyEvent
-                && delegate?.isInterceptingMediaKeys() ?? false
-            else { return event }
-
-            self.delegate?.handle(keyEvent: nsEvent.keyEvent)
-
-            return nil
-        }
-
-        return event
+        
+        guard let nsEvent = NSEvent(cgEvent: event) else {return event}
+        
+        guard type.rawValue == UInt32(NX_SYSDEFINED),
+                nsEvent.isMediaKeyEvent,
+                delegate?.isInterceptingMediaKeys() ?? false
+        else {return event}
+        
+        self.delegate?.handle(keyEvent: nsEvent.keyEvent)
+        
+        return nil
     }
 
     private func startKeyEventTap(callback: @escaping EventTapCallback, restart: Bool) throws {
+        
         // On a restart we don't want to interfere with the application watcher
         if !restart {
             delegate?.updateInterceptMediaKeys(true)
@@ -129,7 +151,9 @@ class MediaKeyTapInternals {
     }
 
     private func keyCaptureEventTapPort(callback: @escaping EventTapCallback) -> CFMachPort? {
+        
         let cCallback: CGEventTapCallBack = { proxy, type, event, refcon in
+            
             let innerBlock = unsafeBitCast(refcon, to: EventTapCallback.self)
             return innerBlock(type, event).map(Unmanaged.passUnretained)
         }

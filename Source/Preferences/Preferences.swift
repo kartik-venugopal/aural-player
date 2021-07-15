@@ -13,19 +13,15 @@
 import Foundation
 import Cocoa
 
-// Contract for a persistent preferences object
-protocol PersistentPreferencesProtocol {
-    
-    init(_ dict: [String: Any])
-    
-    func persist(to defaults: UserDefaults)
-}
-
+///
+/// Encapsulates all user preferences for this application.
+///
 class Preferences {
     
+    /// The underlying datastore containing the user preferences.
     let defaults: UserDefaults
     
-    // The (cached) user preferences.
+    // Preferences for different app components / features.
     
     var playlistPreferences: PlaylistPreferences
     var playbackPreferences: PlaybackPreferences
@@ -44,8 +40,7 @@ class Preferences {
     init(defaults: UserDefaults) {
         
         self.defaults = defaults
-        
-        let defaultsDictionary: [String: Any] = defaults.dictionaryRepresentation()
+        let defaultsDictionary = defaults.dictionaryRepresentation()
         
         controlsPreferences = ControlsPreferences(defaultsDictionary)
         playbackPreferences = PlaybackPreferences(defaultsDictionary, controlsPreferences.gestures)

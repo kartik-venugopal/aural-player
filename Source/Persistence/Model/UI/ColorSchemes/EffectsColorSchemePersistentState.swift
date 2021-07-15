@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Encapsulates persistent app state for a single EffectsColorScheme.
- */
+///
+/// Persistent state for the effects component of a single color scheme.
+///
+/// - SeeAlso: `EffectsColorScheme`
+///
 struct EffectsColorSchemePersistentState: Codable {
     
     let functionCaptionTextColor: ColorPersistentState?

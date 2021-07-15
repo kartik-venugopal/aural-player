@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// Persistent state for a single sound profile.
+///
+/// - SeeAlso:  `SoundProfile`
+///
 struct SoundProfilePersistentState: Codable {
     
     let file: URLPath?

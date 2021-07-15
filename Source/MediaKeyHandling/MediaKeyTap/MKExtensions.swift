@@ -9,6 +9,7 @@
 import Foundation
 
 precedencegroup FunctorPrecedence {
+    
     associativity: left
     higherThan: DefaultPrecedence
 }
