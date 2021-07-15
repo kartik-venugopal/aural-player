@@ -127,8 +127,4 @@ class Band {
         self.maxIndex = maxIndex
         self.indexCount = UInt(maxIndex - minIndex + 1)
     }
-    
-    func toString() -> String {
-        return "minF: \(minF), maxF: \(maxF), minIndex: \(minIndex), maxIndex: \(maxIndex)"
-    }
 }

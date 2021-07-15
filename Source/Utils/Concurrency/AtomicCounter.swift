@@ -92,3 +92,10 @@ public final class AtomicCounter<T> where T: SignedInteger {
         }
     }
 }
+
+extension AtomicCounter where T == Int {
+    
+    convenience init() {
+        self.init(value: Int(0))
+    }
+}

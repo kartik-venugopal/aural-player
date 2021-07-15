@@ -21,7 +21,7 @@ extension FFmpegScheduler {
               let loop = session.loop else {return}
         
         stop()
-        scheduledBufferCounts[session] = AtomicCounter<Int>()
+        scheduledBufferCounts[session] = AtomicCounter()
         
         // Reset all the loop state in the decoder
         decoder.loopCompleted()
@@ -175,7 +175,7 @@ extension FFmpegScheduler {
     func playLoop(_ session: PlaybackSession, _ playbackStartTime: Double, _ beginPlayback: Bool) {
         
         stop()
-        scheduledBufferCounts[session] = AtomicCounter<Int>()
+        scheduledBufferCounts[session] = AtomicCounter()
         
         guard let thePlaybackCtx = session.track.playbackContext as? FFmpegPlaybackContext,
               let decoder = thePlaybackCtx.decoder,

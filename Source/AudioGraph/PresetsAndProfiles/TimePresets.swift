@@ -109,19 +109,7 @@ fileprivate enum SystemDefinedTimeStretchPresetParams: String, CaseIterable {
         }
     }
     
-    var overlap: Float {
-        return 8
-    }
-    
-    var shiftPitch: Bool {
-        return true
-    }
-    
-    var state: EffectsUnitState {
-        return .active
-    }
-    
     var preset: TimeStretchPreset {
-        TimeStretchPreset(rawValue, state, rate, overlap, shiftPitch, true)
+        TimeStretchPreset(rawValue, .active, rate, 8, true, true)
     }
 }

@@ -107,15 +107,7 @@ fileprivate enum SystemDefinedDelayPresetParams: String, CaseIterable {
         return self == .slightEcho ? 25 : 50
     }
     
-    var cutoff: Float {
-        return 15000
-    }
-    
-    var state: EffectsUnitState {
-        return .active
-    }
-    
     var preset: DelayPreset {
-        DelayPreset(rawValue, state, amount, time, feedback, cutoff, true)
+        DelayPreset(rawValue, .active, amount, time, feedback, 15000, true)
     }
 }

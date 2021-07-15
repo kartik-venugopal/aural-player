@@ -85,37 +85,29 @@ fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
         
         switch self {
             
-        case .flat: return EQPresetsBands.flatBands
-        case .highBassAndTreble: return EQPresetsBands.highBassAndTrebleBands
+        case .flat: return EQPresetsBands.flat
+        case .highBassAndTreble: return EQPresetsBands.highBassAndTreble
             
-        case .dance: return EQPresetsBands.danceBands
-        case .electronic: return EQPresetsBands.electronicBands
-        case .hipHop: return EQPresetsBands.hipHopBands
-        case .jazz: return EQPresetsBands.jazzBands
-        case .latin: return EQPresetsBands.latinBands
-        case .lounge: return EQPresetsBands.loungeBands
-        case .piano: return EQPresetsBands.pianoBands
-        case .pop: return EQPresetsBands.popBands
-        case .rAndB: return EQPresetsBands.rAndBBands
-        case .rock: return EQPresetsBands.rockBands
+        case .dance: return EQPresetsBands.dance
+        case .electronic: return EQPresetsBands.electronic
+        case .hipHop: return EQPresetsBands.hipHop
+        case .jazz: return EQPresetsBands.jazz
+        case .latin: return EQPresetsBands.latin
+        case .lounge: return EQPresetsBands.lounge
+        case .piano: return EQPresetsBands.piano
+        case .pop: return EQPresetsBands.pop
+        case .rAndB: return EQPresetsBands.rAndB
+        case .rock: return EQPresetsBands.rock
             
-        case .soft: return EQPresetsBands.softBands
-        case .vocal: return EQPresetsBands.vocalBands
-        case .karaoke: return EQPresetsBands.karaokeBands
+        case .soft: return EQPresetsBands.soft
+        case .vocal: return EQPresetsBands.vocal
+        case .karaoke: return EQPresetsBands.karaoke
             
         }
     }
     
-    var globalGain: Float {
-        return 0
-    }
-    
-    var state: EffectsUnitState {
-        return .active
-    }
-    
     var preset: EQPreset {
-        EQPreset(rawValue, state, bands, globalGain, true)
+        EQPreset(rawValue, .active, bands, 0, true)
     }
 }
 
@@ -124,33 +116,33 @@ fileprivate enum SystemDefinedEQPresetParams: String, CaseIterable {
 ///
 fileprivate struct EQPresetsBands {
     
-    static let flatBands: [Float] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    static let flat: [Float] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-    static let highBassAndTrebleBands: [Float] = [15, 12.5, 10, 0, 0, 0, 0, 10, 12.5, 15]
+    static let highBassAndTreble: [Float] = [15, 12.5, 10, 0, 0, 0, 0, 10, 12.5, 15]
     
-    static let danceBands: [Float] = [0, 7, 4, 0, -1, -2, -4, 0, 4, 5]
+    static let dance: [Float] = [0, 7, 4, 0, -1, -2, -4, 0, 4, 5]
     
-    static let electronicBands: [Float] = [7, 6.5, 0, -2, -5, 0, 0, 0, 6.5, 7]
+    static let electronic: [Float] = [7, 6.5, 0, -2, -5, 0, 0, 0, 6.5, 7]
     
-    static let hipHopBands: [Float] = [7, 7, 0, 0, -3, -3, -2, 1, 1, 7]
+    static let hipHop: [Float] = [7, 7, 0, 0, -3, -3, -2, 1, 1, 7]
     
-    static let jazzBands: [Float] = [0, 3, 0, 0, -3, -3, 0, 0, 3, 5]
+    static let jazz: [Float] = [0, 3, 0, 0, -3, -3, 0, 0, 3, 5]
     
-    static let latinBands: [Float] = [8, 5, 0, 0, -4, -4, -4, 0, 6, 8]
+    static let latin: [Float] = [8, 5, 0, 0, -4, -4, -4, 0, 6, 8]
     
-    static let loungeBands: [Float] = [-5, -2, 0, 2, 4, 3, 0, 0, 3, 0]
+    static let lounge: [Float] = [-5, -2, 0, 2, 4, 3, 0, 0, 3, 0]
     
-    static let pianoBands: [Float] = [1, -1, -3, 0, 1, -1, 2, 3, 1, 2]
+    static let piano: [Float] = [1, -1, -3, 0, 1, -1, 2, 3, 1, 2]
     
-    static let popBands: [Float] = [-2, -1.5, 0, 3, 7, 7, 3.5, 0, -2, -3]
+    static let pop: [Float] = [-2, -1.5, 0, 3, 7, 7, 3.5, 0, -2, -3]
     
-    static let rAndBBands: [Float] = [0, 7, 4, -3, -5, -4.5, -2, -1.5, 0, 1.5]
+    static let rAndB: [Float] = [0, 7, 4, -3, -5, -4.5, -2, -1.5, 0, 1.5]
     
-    static let rockBands: [Float] = [5, 3, 1.5, 0, -5, -6, -2.5, 0, 2.5, 4]
+    static let rock: [Float] = [5, 3, 1.5, 0, -5, -6, -2.5, 0, 2.5, 4]
     
-    static let softBands: [Float] = [0, 1, 2, 6, 8, 10, 12, 12, 13, 14]
+    static let soft: [Float] = [0, 1, 2, 6, 8, 10, 12, 12, 13, 14]
     
-    static let karaokeBands: [Float] = [8, 6, 4, -20, -20, -20, -20, 4, 6, 8]
+    static let karaoke: [Float] = [8, 6, 4, -20, -20, -20, -20, 4, 6, 8]
     
-    static let vocalBands: [Float] = [-20, -20, -20, 12, 14, 14, 12, -20, -20, -20]
+    static let vocal: [Float] = [-20, -20, -20, 12, 14, 14, 12, -20, -20, -20]
 }

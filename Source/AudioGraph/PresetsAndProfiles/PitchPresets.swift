@@ -98,15 +98,7 @@ fileprivate enum SystemDefinedPitchShiftPresetParams: String, CaseIterable {
         }
     }
     
-    var overlap: Float {
-        return 8
-    }
-    
-    var state: EffectsUnitState {
-        return .active
-    }
-    
     var preset: PitchShiftPreset {
-        PitchShiftPreset(rawValue, state, pitch, overlap, true)
+        PitchShiftPreset(rawValue, .active, pitch, 8, true)
     }
 }

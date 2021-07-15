@@ -14,19 +14,19 @@ import AVFoundation
 ///
 public class AudioDevice {
     
-    static var deviceUIDPropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyDeviceUID)
+    static var deviceUIDPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyDeviceUID)
     
-    static var modelUIDPropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyModelUID)
+    static var modelUIDPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyModelUID)
     
-    static var namePropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyDeviceNameCFString)
+    static var namePropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyDeviceNameCFString)
     
-    static var manufacturerPropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyDeviceManufacturerCFString)
+    static var manufacturerPropertyAddress = AudioObjectPropertyAddress(globalPropertyWithSelector: kAudioDevicePropertyDeviceManufacturerCFString)
     
-    static var streamConfigPropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(outputPropertyWithSelector: kAudioDevicePropertyStreamConfiguration)
+    static var streamConfigPropertyAddress = AudioObjectPropertyAddress(outputPropertyWithSelector: kAudioDevicePropertyStreamConfiguration)
     
-    static var dataSourcePropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(outputPropertyWithSelector: kAudioDevicePropertyDataSource)
+    static var dataSourcePropertyAddress = AudioObjectPropertyAddress(outputPropertyWithSelector: kAudioDevicePropertyDataSource)
     
-    static var transportTypePropertyAddress: AudioObjectPropertyAddress = AudioObjectPropertyAddress(outputPropertyWithSelector: kAudioDevicePropertyTransportType)
+    static var transportTypePropertyAddress = AudioObjectPropertyAddress(outputPropertyWithSelector: kAudioDevicePropertyTransportType)
     
     // The unique device ID relative to other devices currently available. Used to set the output device (is NOT persistent).
     let id: AudioDeviceID
@@ -50,9 +50,9 @@ public class AudioDevice {
     
     init?(deviceId: AudioDeviceID) {
         
-        guard let name = getCFStringProperty(deviceId: deviceId, addressPtr: &Self.namePropertyAddress),
+        guard let name = deviceId.getCFStringProperty(addressPtr: &Self.namePropertyAddress),
             !name.contains("CADefaultDeviceAggregate"),
-            let uid = getCFStringProperty(deviceId: deviceId, addressPtr: &Self.deviceUIDPropertyAddress) else {
+            let uid = deviceId.getCFStringProperty(addressPtr: &Self.deviceUIDPropertyAddress) else {
             
             return nil
         }
@@ -77,33 +77,36 @@ public class AudioDevice {
         
         self.id = deviceId
         self.uid = uid
-        self.modelUID = getCFStringProperty(deviceId: deviceId, addressPtr: &Self.modelUIDPropertyAddress)
+        self.modelUID = deviceId.getCFStringProperty(addressPtr: &Self.modelUIDPropertyAddress)
         
         self.name = name
-        self.manufacturer = getCFStringProperty(deviceId: deviceId, addressPtr: &Self.manufacturerPropertyAddress)
+        self.manufacturer = deviceId.getCFStringProperty(addressPtr: &Self.manufacturerPropertyAddress)
         
         self.channelCount = channelCount
         
-        self.dataSource = getCodeProperty(deviceId: deviceId, addressPtr: &Self.dataSourcePropertyAddress)
-        self.transportType = getCodeProperty(deviceId: deviceId, addressPtr: &Self.transportTypePropertyAddress)
+        self.dataSource = deviceId.getCodeProperty(addressPtr: &Self.dataSourcePropertyAddress)
+        self.transportType = deviceId.getCodeProperty(addressPtr: &Self.transportTypePropertyAddress)
         self.isConnectedViaBluetooth = transportType?.lowercased() == "blue"
     }
 }
 
-func getCFStringProperty(deviceId: AudioDeviceID, addressPtr: UnsafePointer<AudioObjectPropertyAddress>) -> String? {
+fileprivate extension AudioDeviceID {
     
-    var prop: CFString? = nil
-    var size: UInt32 = sizeOfCFStringOptional
+    func getCFStringProperty(addressPtr: UnsafePointer<AudioObjectPropertyAddress>) -> String? {
+        
+        var prop: CFString? = nil
+        var size: UInt32 = sizeOfCFStringOptional
+        
+        let result: OSStatus = AudioObjectGetPropertyData(self, addressPtr, 0, nil, &size, &prop)
+        return result == noErr ? prop as String? : nil
+    }
     
-    let result: OSStatus = AudioObjectGetPropertyData(deviceId, addressPtr, 0, nil, &size, &prop)
-    return result == noErr ? prop as String? : nil
-}
-
-func getCodeProperty(deviceId: AudioDeviceID, addressPtr: UnsafePointer<AudioObjectPropertyAddress>) -> String? {
-    
-    var prop: UInt32 = 0
-    var size: UInt32 = sizeOfUInt32
-    
-    let result: OSStatus = AudioObjectGetPropertyData(deviceId, addressPtr, 0, nil, &size, &prop)
-    return result == noErr ? (prop as FourCharCode).toString() : nil
+    func getCodeProperty(addressPtr: UnsafePointer<AudioObjectPropertyAddress>) -> String? {
+        
+        var prop: UInt32 = 0
+        var size: UInt32 = sizeOfUInt32
+        
+        let result: OSStatus = AudioObjectGetPropertyData(self, addressPtr, 0, nil, &size, &prop)
+        return result == noErr ? (prop as FourCharCode).toString() : nil
+    }
 }
