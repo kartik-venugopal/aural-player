@@ -32,7 +32,7 @@ class TrackReader {
     ///
     func loadPlaylistMetadata(for track: Track) {
         
-        let fileMetadata = FileMetadata()
+        var fileMetadata = FileMetadata()
         var durationIsAccurate: Bool = true
         
         do {

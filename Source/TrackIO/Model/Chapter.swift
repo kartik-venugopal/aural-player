@@ -12,7 +12,7 @@ import Foundation
 /*
     Represents a single chapter marking within a track
  */
-class Chapter {
+struct Chapter {
     
     // Title may be changed / corrected after chapter object is created
     var title: String
@@ -22,7 +22,7 @@ class Chapter {
     let endTime: Double
     let duration: Double
     
-    init(_ title: String, _ startTime: Double, _ endTime: Double, _ duration: Double? = nil) {
+    init(title: String, startTime: Double, endTime: Double, duration: Double? = nil) {
         
         self.title = title
         
@@ -36,35 +36,5 @@ class Chapter {
     // Convenience function to determine if a given track position lies within this chapter's time bounds
     func containsTimePosition(_ seconds: Double) -> Bool {
         return seconds >= startTime && seconds <= endTime
-    }
-}
-
-// Wrapper around Chapter that includes its parent track and chronological index
-class IndexedChapter: Equatable {
-    
-    // The track to which this chapter belongs
-    let track: Track
-    
-    // The chapter this object represents
-    let chapter: Chapter
-    
-    // The chronological index of this chapter within the track
-    let index: Int
-    
-    init(_ track: Track, _ chapter: Chapter, _ index: Int) {
-        
-        self.track = track
-        self.chapter = chapter
-        self.index = index
-    }
-    
-    static func == (lhs: IndexedChapter, rhs: IndexedChapter) -> Bool {
-        return lhs.track == rhs.track && lhs.index == rhs.index
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        
-        hasher.combine(track.file.path)
-        hasher.combine(index)
     }
 }

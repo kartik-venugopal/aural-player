@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Encapsulates a single chapter marking (**AVChapter**) within an audio file.
 ///
-class FFmpegChapter {
+struct FFmpegChapter {
     
     /// Time when the represented chapter begins, in seconds.
     let startTime: Double
@@ -45,9 +45,9 @@ class FFmpegChapter {
 
 extension Chapter {
     
-    convenience init(_ ffmpegChapter: FFmpegChapter) {
+    init(_ ffmpegChapter: FFmpegChapter) {
         
-        self.init(ffmpegChapter.title, ffmpegChapter.startTime, ffmpegChapter.endTime,
-                  max(ffmpegChapter.endTime - ffmpegChapter.startTime, 0))
+        self.init(title: ffmpegChapter.title, startTime: ffmpegChapter.startTime, endTime: ffmpegChapter.endTime,
+                  duration: max(ffmpegChapter.endTime - ffmpegChapter.startTime, 0))
     }
 }

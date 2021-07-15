@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class FileMetadata {
+struct FileMetadata {
     
     var playlist: PlaylistMetadata?
     var playback: PlaybackContextProtocol?

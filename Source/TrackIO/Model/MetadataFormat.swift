@@ -9,7 +9,9 @@
 //
 import Foundation
 
-// Denotes the type (format) of a metadata entry
+///
+/// An enumeration of all possible formats of track metadata.
+///
 enum MetadataFormat: String {
     
     case common

@@ -302,7 +302,7 @@ class ParserUtils {
         
         let dict = NSMutableDictionary(dictionary: currentProperties)
         
-        let imgMetadata = ImageMetadata()
+        var imgMetadata = ImageMetadata()
         
         imgMetadata.colorSpace = dict["ColorModel", String.self]
         imgMetadata.colorProfile = dict["ProfileName", String.self]

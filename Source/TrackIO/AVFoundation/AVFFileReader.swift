@@ -201,7 +201,7 @@ class AVFFileReader: FileReaderProtocol {
         let metadataMap = AVFMappedMetadata(file: file)
         guard metadataMap.hasAudioTracks else {return FileMetadata()}
         
-        let metadata = FileMetadata()
+        var metadata = FileMetadata()
         
         do {
             metadata.playlist = try doGetPlaylistMetadata(for: file, fromMap: metadataMap)
@@ -278,7 +278,7 @@ class AVFFileReader: FileReaderProtocol {
                 let correctedEnd = (end.isNaN || end < 0) ? 0 : end
                 let correctedDuration = (duration.isNaN || duration < 0) ? nil : duration
 
-                chapters.append(Chapter(title, correctedStart, correctedEnd, correctedDuration))
+                chapters.append(Chapter(title: title, startTime: correctedStart, endTime: correctedEnd, duration: correctedDuration))
             }
 
             // Sort chapters by start time, in ascending order
@@ -333,7 +333,7 @@ class AVFFileReader: FileReaderProtocol {
                 let correctedEnd = (end.isNaN || end < 0) ? 0 : end
                 let correctedDuration = (duration.isNaN || duration < 0) ? nil : duration
 
-                chapters.append(Chapter(title, correctedStart, correctedEnd, correctedDuration))
+                chapters.append(Chapter(title: title, startTime: correctedStart, endTime: correctedEnd, duration: correctedDuration))
             }
 
             // Sort chapters by start time, in ascending order

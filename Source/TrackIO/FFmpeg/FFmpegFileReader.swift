@@ -217,7 +217,7 @@ class FFmpegFileReader: FileReaderProtocol {
     
     func getAllMetadata(for file: URL) -> FileMetadata {
         
-        let metadata = FileMetadata()
+        var metadata = FileMetadata()
         
         do {
             

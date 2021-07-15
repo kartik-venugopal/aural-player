@@ -80,7 +80,7 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
     func groupingInfoForTrack(_ track: Track) -> GroupedTrack? {
         
         if let group = getGroupForTrack(track), let groupIndex = indexOfGroup(group), let trackIndex = group.indexOfTrack(track) {
-            return GroupedTrack(track, group, trackIndex, groupIndex)
+            return GroupedTrack(track: track, group: group, trackIndex: trackIndex, groupIndex: groupIndex)
         }
         
         return nil
@@ -165,14 +165,14 @@ class GroupingPlaylist: GroupingPlaylistProtocol {
         
         // Determine the group this track belongs in (the group may not already exist)
         if let group = getGroupForTrack(track) {
-            return GroupedTrackAddResult(track: GroupedTrack(track, group, group.addTrack(track), groups.firstIndex(of: group)!), groupCreated: false)
+            return GroupedTrackAddResult(track: GroupedTrack(track: track, group: group, trackIndex: group.addTrack(track), groupIndex: groups.firstIndex(of: group)!), groupCreated: false)
         }
         
         // Group doesn't exist, create it.
         let newGroupAndIndex = createGroupForTrack(track)
         let newGroup = newGroupAndIndex.group
         
-        return GroupedTrackAddResult(track: GroupedTrack(track, newGroup, newGroup.addTrack(track), newGroupAndIndex.groupIndex), groupCreated: true)
+        return GroupedTrackAddResult(track: GroupedTrack(track: track, group: newGroup, trackIndex: newGroup.addTrack(track), groupIndex: newGroupAndIndex.groupIndex), groupCreated: true)
     }
     
     func removeTracksAndGroups(_ tracks: [Track], _ removedGroups: [Group]) -> [GroupedItemRemovalResult] {

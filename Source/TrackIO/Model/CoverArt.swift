@@ -9,10 +9,10 @@
 //
 import Cocoa
 
-class CoverArt {
+struct CoverArt {
     
-    var image: NSImage
-    var metadata: ImageMetadata?
+    let image: NSImage
+    let metadata: ImageMetadata?
     
     init?(imageFile: URL) {
         
@@ -27,6 +27,7 @@ class CoverArt {
             
         } catch {
             NSLog("Warning - Unable to read data from the image file: \(imageFile.path)")
+            self.metadata = nil
         }
     }
     
@@ -39,7 +40,7 @@ class CoverArt {
     }
 }
 
-class ImageMetadata {
+struct ImageMetadata {
     
     // e.g. JPEG/PNG
     var type: String? = nil

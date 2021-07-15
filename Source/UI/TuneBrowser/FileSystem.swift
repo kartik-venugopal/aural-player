@@ -54,7 +54,7 @@ class FileSystem {
 
                 if let track = self.playlist.findFile(child.url) {
 
-                    let metadata = FileMetadata()
+                    var metadata = FileMetadata()
                     child.metadata = metadata
 
                     var playlistMetadata = PlaylistMetadata()
