@@ -722,6 +722,7 @@
 		3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */; };
 		3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */; };
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
+		3E97F68226A0B6C100984126 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97F68126A0B6C100984126 /* FileReader.swift */; };
 		3E987ECC2630088600E6836D /* MenuBarPlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */; };
 		3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */; };
 		3E9C12112622208F00D90EA4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12102622208F00D90EA4 /* Theme.swift */; };
@@ -1875,6 +1876,7 @@
 		3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralFontScheme.xib; sourceTree = "<group>"; };
 		3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
+		3E97F68126A0B6C100984126 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewState.swift; sourceTree = "<group>"; };
 		3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackInfo.swift; sourceTree = "<group>"; };
 		3E9C12102622208F00D90EA4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -2255,13 +2257,13 @@
 			children = (
 				3E0B9B20269E2EC800B4DED9 /* TuneBrowser.xib */,
 				3E0B9B1E269E2EC800B4DED9 /* TuneBrowserWindowController.swift */,
+				3E0B9B21269E2EC800B4DED9 /* TuneBrowserViewDelegate.swift */,
+				3E0B9B22269E2EC800B4DED9 /* TuneBrowserTableViews.swift */,
 				3E0B9B1A269E2EC800B4DED9 /* TuneBrowserGlobals.swift */,
 				3E0B9B1B269E2EC800B4DED9 /* FileSystem.swift */,
 				3E0B9B1C269E2EC800B4DED9 /* FileSystemItem.swift */,
 				3E0B9B1D269E2EC800B4DED9 /* TuneBrowserHistory.swift */,
 				3E0B9B1F269E2EC800B4DED9 /* TuneBrowserState.swift */,
-				3E0B9B21269E2EC800B4DED9 /* TuneBrowserViewDelegate.swift */,
-				3E0B9B22269E2EC800B4DED9 /* TuneBrowserTableViews.swift */,
 				3E0B9B17269E2EC800B4DED9 /* Sidebar */,
 			);
 			path = TuneBrowser;
@@ -4110,6 +4112,36 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		3E97F68426A0B75D00984126 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3EDB344425E8B75D004DF7DE /* CoverArtCache.swift */,
+				3EDB344725E8B75D004DF7DE /* ParserUtils.swift */,
+				3E6C10A725CEB98700BF0D07 /* TrackIOErrors.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		3E97F68726A0B85800984126 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				3EDB343B25E8B75D004DF7DE /* AudioToolboxParser.swift */,
+				3EDB343D25E8B75D004DF7DE /* ITunesParser.swift */,
+				3EDB343E25E8B75D004DF7DE /* ID3AVFParser.swift */,
+				3EDB344125E8B75D004DF7DE /* CommonAVAssetParser.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		3E97F68826A0B89900984126 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3EDB344025E8B75D004DF7DE /* AVFMappedMetadata.swift */,
+				3EDB344225E8B75D004DF7DE /* AVFFormatDescriptions.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		3E9C120F2622204F00D90EA4 /* Themes */ = {
 			isa = PBXGroup;
 			children = (
@@ -4246,10 +4278,10 @@
 				3EAFB5D6267FE7E400F0DC96 /* PlaylistMetadata.swift */,
 				3EAFB5D8267FE80000F0DC96 /* AuxiliaryMetadata.swift */,
 				3EAFB5DA267FE81A00F0DC96 /* Chapter.swift */,
+				3E47D31C269FA251003D08A7 /* IndexedChapter.swift */,
 				3EAFB5DC267FE83700F0DC96 /* AudioInfo.swift */,
 				3EAFB5DE267FE86000F0DC96 /* FileSystemInfo.swift */,
 				3EAFB5E0267FE88700F0DC96 /* MetadataEntry.swift */,
-				3E47D31C269FA251003D08A7 /* IndexedChapter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4487,13 +4519,12 @@
 				3EDB342725E8B75D004DF7DE /* FFmpeg */,
 				3E2743892609E7C100DBDB34 /* MusicBrainz */,
 				3EDB343325E8B75D004DF7DE /* Specifications */,
-				3EDB344425E8B75D004DF7DE /* CoverArtCache.swift */,
-				3EDB344625E8B75D004DF7DE /* FileReaderProtocol.swift */,
-				3EDB344725E8B75D004DF7DE /* ParserUtils.swift */,
+				3E97F68426A0B75D00984126 /* Utils */,
 				3EDB344825E8B75D004DF7DE /* TrackReader.swift */,
+				3EDB344625E8B75D004DF7DE /* FileReaderProtocol.swift */,
+				3E97F68126A0B6C100984126 /* FileReader.swift */,
 				3E61D143260EF53500C86BB2 /* CoverArtReader.swift */,
 				3E61D145260EFBA400C86BB2 /* FileCoverArtReader.swift */,
-				3E6C10A725CEB98700BF0D07 /* TrackIOErrors.swift */,
 			);
 			path = TrackIO;
 			sourceTree = "<group>";
@@ -4528,14 +4559,10 @@
 		3EDB343A25E8B75D004DF7DE /* AVFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				3EDB343B25E8B75D004DF7DE /* AudioToolboxParser.swift */,
-				3EDB343C25E8B75D004DF7DE /* AVFMetadataParser.swift */,
-				3EDB343D25E8B75D004DF7DE /* ITunesParser.swift */,
-				3EDB343E25E8B75D004DF7DE /* ID3AVFParser.swift */,
 				3EDB343F25E8B75D004DF7DE /* AVFFileReader.swift */,
-				3EDB344025E8B75D004DF7DE /* AVFMappedMetadata.swift */,
-				3EDB344125E8B75D004DF7DE /* CommonAVAssetParser.swift */,
-				3EDB344225E8B75D004DF7DE /* AVFFormatDescriptions.swift */,
+				3EDB343C25E8B75D004DF7DE /* AVFMetadataParser.swift */,
+				3E97F68726A0B85800984126 /* Parsers */,
+				3E97F68826A0B89900984126 /* Utils */,
 			);
 			path = AVFoundation;
 			sourceTree = "<group>";
@@ -4869,6 +4896,7 @@
 				3E8C794D269C477B005E78D1 /* VisualizerNotifications.swift in Sources */,
 				3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */,
 				3E6C12B725CEBE5800BF0D07 /* PlaylistMenuController.swift in Sources */,
+				3E97F68226A0B6C100984126 /* FileReader.swift in Sources */,
 				3E6C11F125CEBDD100BF0D07 /* Preferences.swift in Sources */,
 				3EABDDFA2694C561008066E8 /* ControlBarSeekPositionDisplayType.swift in Sources */,
 				3E5F3DF52681702000E826F0 /* MappedPresets.swift in Sources */,

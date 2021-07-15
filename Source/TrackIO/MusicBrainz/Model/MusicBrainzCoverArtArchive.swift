@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Used to represent the cover art archive for a single "release" entity in the Music Brainz domain model.
+/// Represents the cover art archive for a single "release" entity in the **MusicBrainz** domain model.
 /// Contains information (metadata) about all the cover art available for a single release.
 ///
 class MusicBrainzCoverArtArchive {

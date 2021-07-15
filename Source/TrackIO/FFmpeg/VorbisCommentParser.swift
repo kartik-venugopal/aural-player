@@ -45,6 +45,10 @@ fileprivate let key_bpm: String = "bpm"
 
 fileprivate let key_duration: String = "length"
 
+///
+/// A parser that reads Vorbis Comment metadata from a non-native track, i.e. a track that
+/// is read using **FFmpeg**.
+///
 class VorbisCommentParser: FFmpegMetadataParser {
     
     private let key_encodingTime = "encodingtime"
@@ -411,7 +415,7 @@ class VorbisCommentParser: FFmpegMetadataParser {
             
             value = value.withEncodingAndNullsRemoved()
             
-            metadata[key] = MetadataEntry(.vorbis, readableKey(key), value)
+            metadata[key] = MetadataEntry(format: .vorbis, key: readableKey(key), value: value)
         }
         
         return metadata

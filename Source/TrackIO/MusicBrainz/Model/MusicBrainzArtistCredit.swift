@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Used to represent an "artist credit" entity in the Music Brainz domain model.
+/// Represents an "artist credit" entity in the **MusicBrainz** domain model.
 /// An artist credit references an artist who has been credited for a particular release.
 ///
 class MusicBrainzArtistCredit {

@@ -9,21 +9,16 @@
 //
 import Foundation
 
-// Encapsulates a single metadata entry
-class MetadataEntry {
+///
+/// Encapsulates a single generic metadata key-value pair.
+///
+struct MetadataEntry {
     
     // Type: e.g. ID3 or iTunes
-    var format: MetadataFormat
+    let format: MetadataFormat
     
     // Key or "tag"
     let key: String
     
     let value: String
-    
-    init(_ format: MetadataFormat, _ key: String, _ value: String) {
-        
-        self.format = format
-        self.key = key
-        self.value = value
-    }
 }

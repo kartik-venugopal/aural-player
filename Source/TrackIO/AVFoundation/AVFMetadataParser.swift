@@ -12,7 +12,7 @@ import AVFoundation
 
 ///
 /// A contract for a parser that reads metadata from a natively supported track, i.e. a track
-/// supported by AVFoundation.
+/// supported by **AVFoundation**.
 ///
 protocol AVFMetadataParser {
     
@@ -80,7 +80,9 @@ protocol AVFMetadataParser {
     func getChapterTitle(_ items: [AVMetadataItem]) -> String?
 }
 
-// Default function implementations
+///
+/// Default function implementations
+///
 extension AVFMetadataParser {
     
     func getTitle(_ metadataMap: AVFMappedMetadata) -> String? {nil}

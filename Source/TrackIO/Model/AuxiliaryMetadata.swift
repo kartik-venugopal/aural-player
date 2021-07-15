@@ -9,6 +9,11 @@
 //
 import Foundation
 
+///
+/// A container for all non-essential metadata for a file / track.
+///
+/// This metadata will be loaded only when the user requests detailed track information.
+///
 struct AuxiliaryMetadata {
     
     var composer: String?

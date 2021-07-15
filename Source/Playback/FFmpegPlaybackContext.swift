@@ -10,7 +10,7 @@
 import AVFoundation
 
 ///
-/// Provides information necessary for scheduling and playback of a non-native track using FFmpeg.
+/// Provides information necessary for scheduling and playback of a non-native track using **FFmpeg**.
 ///
 class FFmpegPlaybackContext: PlaybackContextProtocol {
     

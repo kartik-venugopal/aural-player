@@ -9,6 +9,12 @@
 //
 import Foundation
 
+///
+/// An implementation of **CoverArtReaderProtocol** that reads cover art
+/// directly from the input file on disk.
+///
+/// - SeeAlso: `CoverArtReaderProtocol`
+///
 class FileCoverArtReader: CoverArtReaderProtocol {
     
     private var fileReader: FileReaderProtocol

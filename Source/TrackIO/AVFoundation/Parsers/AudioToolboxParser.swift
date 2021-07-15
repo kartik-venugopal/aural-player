@@ -25,7 +25,8 @@ fileprivate let key_year: String = "info-year"
 fileprivate let key_duration: String = "info-approximate duration in seconds"
 
 ///
-/// Parses metadata in the Audio Toolbox format / key space from natively supported tracks (supported by AVFoundation).
+/// Parses metadata in the Audio Toolbox format / key space from natively supported tracks (supported by **AVFoundation**).
+/// 
 /// NOTE - This class (and key space) is only available on macOS 10.13 and newer versions.
 ///
 @available(OSX 10.13, *)
@@ -97,7 +98,7 @@ class AudioToolboxParser: AVFMetadataParser {
             if let key = item.keyAsString, let value = item.valueAsString, !essentialFieldKeys.contains(key) {
                 
                 let rKey = readableKeys[key] ?? key.replacingOccurrences(of: "info-", with: "").capitalizingFirstLetter()
-                metadata[key] = MetadataEntry(.audioToolbox, rKey, value)
+                metadata[key] = MetadataEntry(format: .audioToolbox, key: rKey, value: value)
             }
         }
         

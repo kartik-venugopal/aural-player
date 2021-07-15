@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Used to represent an "artist" entity in the Music Brainz domain model.
+/// Represents an "artist" entity in the **MusicBrainz** domain model.
 ///
 class MusicBrainzArtist {
 

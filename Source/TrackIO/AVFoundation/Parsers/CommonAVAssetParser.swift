@@ -23,7 +23,7 @@ fileprivate let key_language: String = AVMetadataKey.commonKeyLanguage.rawValue
 fileprivate let essentialFieldKeys: Set<String> = [key_title, key_artist, key_album, key_genre, key_art]
 
 ///
-/// Parses metadata in the "common" format / key space from natively supported tracks (supported by AVFoundation).
+/// Parses metadata in the "common" format / key space from natively supported tracks (supported by **AVFoundation**).
 ///
 class CommonAVFMetadataParser: AVFMetadataParser {
     
@@ -75,7 +75,7 @@ class CommonAVFMetadataParser: AVFMetadataParser {
                     value = langName
                 }
 
-                metadata[key] = MetadataEntry(.common, key.splitAsCamelCaseWord(capitalizeEachWord: true), value)
+                metadata[key] = MetadataEntry(format: .common, key: key.splitAsCamelCaseWord(capitalizeEachWord: true), value: value)
             }
         }
 

@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Used to represent a "release" entity in the Music Brainz domain model.
+/// Represents a "release" entity in the **MusicBrainz** domain model.
 /// A release is either an album or a single or a compilation of tracks.
 ///
 class MusicBrainzRelease {

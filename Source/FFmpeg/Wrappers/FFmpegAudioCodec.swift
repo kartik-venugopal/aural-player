@@ -22,7 +22,7 @@ class FFmpegAudioCodec: FFmpegCodec {
     static let threadCount: Int32 = Int32(SystemUtils.numberOfPhysicalCores)
     
     ///
-    /// The type of multithreading used by ffmpeg when decoding.
+    /// The type of multithreading used by **FFmpeg** when decoding.
     ///
     /// *FF_THREAD_SLICE* means decode multiple segments
     /// or "slices" of a frame concurrently.

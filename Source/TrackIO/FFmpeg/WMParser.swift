@@ -50,6 +50,10 @@ fileprivate let key_language = "language"
 
 fileprivate let key_asfProtectionType = "asf_protection_type"
 
+///
+/// A parser that reads Windows Media metadata from a non-native track, i.e. a track that
+/// is read using **FFmpeg**.
+///
 class WMParser: FFmpegMetadataParser {
     
     private let keyPrefix = "wm/"
@@ -383,7 +387,7 @@ class WMParser: FFmpegMetadataParser {
             
             value = value.withEncodingAndNullsRemoved()
             
-            metadata[key] = MetadataEntry(.wma, readableKey(key), value)
+            metadata[key] = MetadataEntry(format: .wma, key: readableKey(key), value: value)
         }
         
         return metadata

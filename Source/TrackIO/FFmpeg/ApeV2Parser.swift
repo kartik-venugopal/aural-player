@@ -34,6 +34,10 @@ fileprivate let keys_year: [String] = ["year", "originaldate", "originalyear", "
 
 fileprivate let key_bpm: String = "bpm"
 
+///
+/// A parser that reads APE v2 metadata from a non-native track, i.e. a track that
+/// is read using **FFmpeg**.
+///
 class ApeV2Parser: FFmpegMetadataParser {
 
     private let essentialKeys: Set<String> = Set([key_title, key_album, key_originalAlbum, key_genre,
@@ -248,7 +252,7 @@ class ApeV2Parser: FFmpegMetadataParser {
             
             value = value.withEncodingAndNullsRemoved()
             
-            metadata[key] = MetadataEntry(.ape, readableKey(key), value)
+            metadata[key] = MetadataEntry(format: .ape, key: readableKey(key), value: value)
         }
         
         return metadata

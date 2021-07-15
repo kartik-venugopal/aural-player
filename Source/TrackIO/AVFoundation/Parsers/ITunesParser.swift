@@ -11,7 +11,7 @@ import Cocoa
 import AVFoundation
 
 ///
-/// Parses metadata in the iTunes format / key space from natively supported tracks (supported by AVFoundation).
+/// Parses metadata in the iTunes format / key space from natively supported tracks (supported by **AVFoundation**).
 ///
 class ITunesParser: AVFMetadataParser {
     
@@ -212,7 +212,7 @@ class ITunesParser: AVFMetadataParser {
             let rKey = ITunesSpec.readableKey(key.withEncodingAndNullsRemoved())
             
             if !ignoredKeys.contains(rKey.lowercased()) {
-                metadata[key] = MetadataEntry(.iTunes, rKey, value.withEncodingAndNullsRemoved())
+                metadata[key] = MetadataEntry(format: .iTunes, key: rKey, value: value.withEncodingAndNullsRemoved())
             }
         }
         

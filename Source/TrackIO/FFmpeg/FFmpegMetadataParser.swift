@@ -11,7 +11,7 @@ import Foundation
 
 ///
 /// A contract for a parser that reads metadata from a non-native track, i.e. a track that
-/// is read using ffmpeg.
+/// is read using **FFmpeg**.
 ///
 protocol FFmpegMetadataParser {
     

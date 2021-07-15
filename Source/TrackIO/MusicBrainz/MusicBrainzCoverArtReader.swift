@@ -9,6 +9,12 @@
 //
 import Cocoa
 
+///
+/// An implementation of **CoverArtReaderProtocol** that reads cover art
+/// from the **MusicBrainz** online database.
+///
+/// - SeeAlso: `CoverArtReaderProtocol`
+///
 class MusicBrainzCoverArtReader: CoverArtReaderProtocol {
     
     private let restAPIClient: MusicBrainzRESTClient

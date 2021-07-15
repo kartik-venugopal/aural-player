@@ -10,7 +10,7 @@
 import Cocoa
 
 ///
-/// Handles loading of track metadata from non-native tracks, using ffmpeg.
+/// Handles loading of track metadata from non-native tracks, using **FFmpeg*.
 ///
 class FFmpegFileReader: FileReaderProtocol {
     
@@ -190,7 +190,7 @@ class FFmpegFileReader: FileReaderProtocol {
         
         // Load audio metadata.
         
-        let audioInfo = AudioInfo()
+        var audioInfo = AudioInfo()
         
         audioInfo.format = fctx.formatLongName
         

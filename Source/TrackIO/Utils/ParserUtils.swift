@@ -9,6 +9,9 @@
 //
 import AVFoundation
 
+///
+/// A collection of utilities used by metadata parsers.
+///
 class ParserUtils {
     
     static func getID3Genre(_ item: AVMetadataItem, _ offset: Int = 0) -> String? {

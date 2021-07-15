@@ -9,22 +9,26 @@
 //
 import Foundation
 
+///
+/// Encapsulates all file-system-related information for a track.
+///
 class FileSystemInfo {
     
     // The filesystem file that contains the audio track represented by this object
     let file: URL
     let fileName: String
     
-    init(_ file: URL) {
+    private lazy var attributes = file.attributes
+    
+    var kindOfFile: String? {attributes.kindOfFile}
+    var size: Size?  {attributes.size}
+    var creationDate: Date? {attributes.creationDate}
+    var lastModified: Date? {attributes.lastModified}
+    var lastOpened: Date? {attributes.lastOpened}
+    
+    init(file: URL) {
         
         self.file = file
         self.fileName = file.deletingPathExtension().lastPathComponent
     }
-    
-    // Filesystem size
-    var size: Size?
-    var lastModified: Date?
-    var creationDate: Date?
-    var kindOfFile: String?
-    var lastOpened: Date?
 }

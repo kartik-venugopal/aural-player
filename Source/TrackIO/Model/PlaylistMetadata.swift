@@ -9,6 +9,13 @@
 //
 import Foundation
 
+///
+/// A container for all metadata required for a track to be displayed within the playlist.
+///
+/// This is considered the most essential type of metadata and is loaded immediately when a track is added to the playlist.
+///
+/// The artist / album / genre fields help the playlist categorize tracks into groups also participate in searching and sorting.
+///
 struct PlaylistMetadata {
     
     var title: String?

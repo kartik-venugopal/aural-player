@@ -7,12 +7,15 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-/*
-    Custom error types for error handling
- */
 import Foundation
 
-// Protocol that marks an error as being displayable (in an alert, for instance)
+///
+/// Custom error types for error handling.
+///
+
+///
+/// Represents an error that is displayable (in the UI).
+///
 class DisplayableError: Error {
     
     // A user-friendly message describing the error
@@ -23,6 +26,10 @@ class DisplayableError: Error {
     }
 }
 
+///
+/// Represents an error signifying that no track was requested for playback, indicating
+/// that playback cannot begin.
+///
 class NoRequestedTrackError: DisplayableError {
     
     static let instance: NoRequestedTrackError = NoRequestedTrackError()
@@ -32,7 +39,9 @@ class NoRequestedTrackError: DisplayableError {
     }
 }
 
-// Base error class indicating a track that cannot be played
+///
+/// Base error class indicating that a particular track cannot be played.
+///
 class InvalidTrackError: DisplayableError {
     
     let file: URL
@@ -44,7 +53,9 @@ class InvalidTrackError: DisplayableError {
     }
 }
 
-// Denotes a non-existent file
+///
+/// Error indicating that the given file cannot be found on the file system.
+///
 class FileNotFoundError: DisplayableError {
     
     let file: URL
@@ -56,7 +67,9 @@ class FileNotFoundError: DisplayableError {
     }
 }
 
-// Denotes a file with no audio tracks. For ex, a text/image file
+///
+/// Represents an error indicating a file with no audio tracks. For ex, a text/image file.
+///
 class NoAudioTracksError: InvalidTrackError {
     
     init(_ file: URL) {
@@ -64,7 +77,9 @@ class NoAudioTracksError: InvalidTrackError {
     }
 }
 
-// Denotes an audio track that cannot be played
+///
+/// Represents an error indicating a track that cannot be played.
+///
 class TrackNotPlayableError: InvalidTrackError {
     
     init(_ file: URL) {
@@ -72,6 +87,10 @@ class TrackNotPlayableError: InvalidTrackError {
     }
 }
 
+///
+/// Represents an error indicating that a track has Digital Rights Management (DRM)
+/// protection and cannot be played.
+///
 class DRMProtectionError: InvalidTrackError {
     
     init(_ file: URL) {
@@ -79,10 +98,15 @@ class DRMProtectionError: InvalidTrackError {
     }
 }
 
-// Indicates invalid user input
+///
+/// Represents an error indicating invalid user input.
+///
 class InvalidInputError: DisplayableError {
 }
 
-// Marker class indicating that an option to load a playlist file has been selected but no playlist file specified
+///
+/// Represents an error indicating that an option to load a playlist file has been selected
+/// but no playlist file was specified.
+///
 class PlaylistFileNotSpecifiedError: InvalidInputError {
 }

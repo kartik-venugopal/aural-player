@@ -97,7 +97,7 @@ extension PlaybackDelegate {
     var playingChapter: IndexedChapter? {
         
         if let track = playingTrack, let index = currentChapterIndex {
-            return IndexedChapter(track, track.chapters[index], index)
+            return IndexedChapter(track: track, chapter: track.chapters[index], index: index)
         }
         
         return nil

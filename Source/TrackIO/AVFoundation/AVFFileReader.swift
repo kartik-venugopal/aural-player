@@ -139,7 +139,7 @@ class AVFFileReader: FileReaderProtocol {
         
         // Load audio info for the track.
         
-        let audioInfo = AudioInfo()
+        var audioInfo = AudioInfo()
         
         // If the track has an associated playback context, use it, otherwise
         // construct a new one. Audio info will be extracted from this context.
@@ -248,7 +248,7 @@ class AVFFileReader: FileReaderProtocol {
     // NOTE - This code does not account for potential overlaps in chapter times due to bad metadata ... assumes no overlaps
     private func getChapters(for file: URL, from asset: AVURLAsset) -> [Chapter] {
 
-        // On older systems (Sierra/HighSierra), the end times are not properly read by AVFoundation
+        // On older systems (Sierra/HighSierra), the end times are not properly read by **AVFoundation**
         // So, use start times to compute end times / duration
         let fileExtension = file.lowerCasedExtension
         let useAlternativeComputation = SystemUtils.osVersion.minorVersion < 14 && !["m4a", "m4b"].contains(fileExtension)
@@ -297,7 +297,7 @@ class AVFFileReader: FileReaderProtocol {
         return chapters
     }
     
-    // On older systems (Sierra/HighSierra), the end times are not properly read by AVFoundation
+    // On older systems (Sierra/HighSierra), the end times are not properly read by **AVFoundation**
     // So, use start times to compute end times / duration
     private func getChapters_olderSystems(for file: URL, from asset: AVURLAsset) -> [Chapter] {
         

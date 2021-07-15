@@ -8,8 +8,10 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 
-// Wrapper around Chapter that includes its parent track and chronological index
-class IndexedChapter: Equatable {
+///
+/// Wrapper around **Chapter** that includes its parent track and chronological index.
+///
+struct IndexedChapter: Equatable {
     
     // The track to which this chapter belongs
     let track: Track
@@ -19,13 +21,6 @@ class IndexedChapter: Equatable {
     
     // The chronological index of this chapter within the track
     let index: Int
-    
-    init(_ track: Track, _ chapter: Chapter, _ index: Int) {
-        
-        self.track = track
-        self.chapter = chapter
-        self.index = index
-    }
     
     static func == (lhs: IndexedChapter, rhs: IndexedChapter) -> Bool {
         return lhs.track == rhs.track && lhs.index == rhs.index

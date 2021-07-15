@@ -9,9 +9,9 @@
 //
 import Foundation
 
-/*
-    Represents a single chapter marking within a track
- */
+///
+/// Represents a single chapter marking within a track.
+///
 struct Chapter {
     
     // Title may be changed / corrected after chapter object is created

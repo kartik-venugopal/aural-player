@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Used to represent a "recording" entity in the Music Brainz domain model.
+/// Represents a "recording" entity in the **MusicBrainz** domain model.
 /// A recording roughly translates to a single track.
 /// A single recording can be linked to several releases (albums / singles / compilations).
 ///

@@ -9,6 +9,13 @@
 //
 import Cocoa
 
+///
+/// Caches cover art retrieved from **MusicBrainz** for efficiency when performing repeated lookups
+/// for the same artist / album.
+///
+/// While the app is running, the cache is in-memory, and it is persisted to disk upon app exit, then loaded
+/// back into memory upon subsequent app startup.
+///
 class MusicBrainzCache: PersistentModelObject {
     
     let preferences: MusicBrainzPreferences

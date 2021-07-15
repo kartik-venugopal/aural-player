@@ -10,11 +10,12 @@
 import AVFoundation
 
 ///
-/// A "metadata map" that organizes a natively supported (by AVFoundation) track's metadata based on
-/// metadata format (ID3, iTunes, etc). So, it functions as an efficient data structure
-/// for repeated lookups by metadata parsers.
+/// A "metadata map" that organizes a natively supported (by **AVFoundation**) track's metadata based on
+/// metadata format (ID3, iTunes, etc).
 ///
-class AVFMappedMetadata {
+/// It functions as an efficient data structure for repeated lookups by metadata parsers.
+///
+struct AVFMappedMetadata {
     
     ///
     /// The file whose metadata is held in this object.

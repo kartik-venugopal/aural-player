@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates album art and metadata about the image.
+///
 struct CoverArt {
     
     let image: NSImage
@@ -40,6 +43,9 @@ struct CoverArt {
     }
 }
 
+///
+/// Metadata about an image (cover art).
+///
 struct ImageMetadata {
     
     // e.g. JPEG/PNG

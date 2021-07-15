@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Encapsulates all information about the audio format of a track, as defined by ffmpeg.
+/// Encapsulates all information about the audio format of a track, as defined by **FFmpeg**.
 ///
 /// Analogous to **AVAudioFormat** in **AVFoundation**.
 ///

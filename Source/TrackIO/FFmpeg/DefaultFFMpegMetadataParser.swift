@@ -10,7 +10,7 @@
 import Cocoa
 
 ///
-/// Parses metadata from non-native tracks (read by ffmpeg), that was not recognized by other parsers.
+/// Parses metadata from non-native tracks (read by **FFmpeg**), that was not recognized by other parsers.
 ///
 class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
     
@@ -56,7 +56,7 @@ class DefaultFFmpegMetadataParser: FFmpegMetadataParser {
         var metadata: [String: MetadataEntry] = [:]
         
         for (key, value) in metadataMap.otherMetadata.auxiliaryFields {
-            metadata[key] = MetadataEntry(.other, key, value.trim().withEncodingAndNullsRemoved())
+            metadata[key] = MetadataEntry(format: .other, key: key, value: value.trim().withEncodingAndNullsRemoved())
         }
         
         return metadata

@@ -86,7 +86,7 @@ class Track: Hashable, PlaylistItem {
     init(_ file: URL, fileMetadata: FileMetadata? = nil) {
 
         self.file = file
-        self.fileSystemInfo = FileSystemInfo(file)
+        self.fileSystemInfo = FileSystemInfo(file: file)
         
         self.defaultDisplayName = file.deletingPathExtension().lastPathComponent
         
@@ -137,7 +137,6 @@ class Track: Hashable, PlaylistItem {
         self.lyrics = metadata.lyrics
         self.auxiliaryMetadata = metadata.auxiliaryMetadata
         
-        self.fileSystemInfo = metadata.fileSystemInfo ?? self.fileSystemInfo
         self.audioInfo = metadata.audioInfo
         
         self.auxMetadataLoaded = true

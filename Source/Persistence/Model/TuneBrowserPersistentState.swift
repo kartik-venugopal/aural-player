@@ -13,6 +13,8 @@ struct TuneBrowserPersistentState: Codable {
     
     let windowSize: NSSizePersistentState?
     let displayedColumns: [TuneBrowserTableColumnPersistentState]?
+    let sortColumn: String?
+    let sortIsAscending: Bool?
     let sidebar: TuneBrowserSidebarPersistentState?
 }
 
@@ -39,6 +41,8 @@ extension TuneBrowserState {
         
         windowSize = persistentState?.windowSize?.toNSSize() ?? defaultWindowSize
         displayedColumns = persistentState?.displayedColumns?.compactMap {TuneBrowserTableColumn(persistentState: $0)} ?? []
+        sortColumn = persistentState?.sortColumn ?? defaultSortColumn
+        sortIsAscending = persistentState?.sortIsAscending ?? defaultSortIsAscending
         
         sidebarWidth = persistentState?.sidebar?.width ?? defaultSidebarWidth
         
@@ -51,6 +55,8 @@ extension TuneBrowserState {
         
         TuneBrowserPersistentState(windowSize: NSSizePersistentState(size: windowSize),
                                    displayedColumns: displayedColumns.map {TuneBrowserTableColumnPersistentState(id: $0.id, width: $0.width)},
+                                   sortColumn: sortColumn,
+                                   sortIsAscending: sortIsAscending,
                                    sidebar: TuneBrowserSidebarPersistentState(userFolders: sidebarUserFolders.map {TuneBrowserSidebarItemPersistentState(url: $0.url.path)}, width: sidebarWidth))
     }
 }

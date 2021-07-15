@@ -10,7 +10,7 @@
 import Cocoa
 
 ///
-/// Parses metadata in the ID3 format / key space from non-native tracks (read by ffmpeg).
+/// Parses metadata in the ID3 format / key space from non-native tracks (read by **FFmpeg**).
 ///
 class ID3FFmpegParser: FFmpegMetadataParser {
     
@@ -182,7 +182,7 @@ class ID3FFmpegParser: FFmpegMetadataParser {
             key = key.withEncodingAndNullsRemoved()
             value = value.withEncodingAndNullsRemoved()
             
-            metadata[key] = MetadataEntry(.id3, readableKey(key), value)
+            metadata[key] = MetadataEntry(format: .id3, key: readableKey(key), value: value)
         }
         
         return metadata

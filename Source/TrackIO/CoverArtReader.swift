@@ -9,11 +9,17 @@
 //
 import Foundation
 
+///
+/// A functional contract for a service that reads cover art for a track.
+///
 protocol CoverArtReaderProtocol {
     
     func getCoverArt(forTrack track: Track) -> CoverArt?
 }
 
+///
+/// A service that reads cover art for a track.
+///
 class CoverArtReader: CoverArtReaderProtocol {
     
     private let readers: [CoverArtReaderProtocol]

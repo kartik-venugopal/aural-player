@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// A container for all possible metadata for a file / track.
+///
 struct FileMetadata {
     
     var playlist: PlaylistMetadata?

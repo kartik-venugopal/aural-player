@@ -10,7 +10,7 @@
 import AVFoundation
 
 ///
-/// Handles scheduling of segment loops for non-native tracks using FFmpeg to perform decoding.
+/// Handles scheduling of segment loops for non-native tracks using **FFmpeg** to perform decoding.
 ///
 extension FFmpegScheduler {
     

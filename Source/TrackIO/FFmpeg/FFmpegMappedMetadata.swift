@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// A "metadata map" that organizes a non-native (read by ffmpeg) track's metadata based on
+/// A "metadata map" that organizes a non-native (read by **FFmpeg**) track's metadata based on
 /// metadata format (ID3, Vorbis Comment, etc). So, it functions as an efficient data structure
 /// for repeated lookups by metadata parsers.
 ///
@@ -27,7 +27,7 @@ class FFmpegMappedMetadata {
     let fileType: String
     
     ///
-    /// The "best audio stream" (as determined by ffmpeg) in this track. Can be nil (in an invalid track).
+    /// The "best audio stream" (as determined by **FFmpeg**) in this track. Can be nil (in an invalid track).
     /// Used to read audio metadata from the track.
     ///
     let audioStream: FFmpegAudioStream?
@@ -77,7 +77,7 @@ class FFmpegMappedMetadata {
 /// A "metadata map" that contains ffmpeg track metadata for a single metadata format (ID3, Vorbis Comment, etc).
 /// So, it functions as an efficient data structure for repeated lookups by metadata parsers.
 ///
-/// NOTE - Instances of this class are used as members by FFmpegMappedMetadata.
+/// NOTE - Instances of this class are used as members by **FFmpeg**MappedMetadata.
 ///
 class FFmpegParserMetadataMap {
     

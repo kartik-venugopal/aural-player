@@ -33,7 +33,7 @@ class FFmpegDecoder {
     let stream: FFmpegAudioStream
     
     ///
-    /// Audio codec chosen by ffmpeg to decode this file.
+    /// Audio codec chosen by **FFmpeg** to decode this file.
     ///
     let codec: FFmpegAudioCodec
     

@@ -10,7 +10,7 @@
 import AVFoundation
 
 ///
-/// Takes care of scheduling audio samples (in buffers) and initiating playback of non-native tracks using FFmpeg to perform decoding.
+/// Takes care of scheduling audio samples (in buffers) and initiating playback of non-native tracks using **FFmpeg** to perform decoding.
 /// 
 /// - SeeAlso: `PlaybackSchedulerProtocol`
 ///

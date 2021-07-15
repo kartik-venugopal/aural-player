@@ -11,7 +11,7 @@ import Cocoa
 import AVFoundation
 
 ///
-/// Manages scheduling and initiating playback for native tracks (supported by AVFoundation).
+/// Manages scheduling and initiating playback for native tracks (supported by **AVFoundation**).
 ///
 /// - SeeAlso: `PlaybackSchedulerProtocol`
 ///

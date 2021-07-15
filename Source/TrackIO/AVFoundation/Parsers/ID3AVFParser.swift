@@ -11,7 +11,7 @@ import Cocoa
 import AVFoundation
 
 ///
-/// Parses metadata in the ID3 format / key space from natively supported tracks (supported by AVFoundation).
+/// Parses metadata in the ID3 format / key space from natively supported tracks (supported by **AVFoundation**).
 ///
 class ID3AVFParser: AVFMetadataParser {
     
@@ -221,7 +221,7 @@ class ID3AVFParser: AVFMetadataParser {
             entryKey = entryKey.withEncodingAndNullsRemoved()
             entryValue = entryValue.withEncodingAndNullsRemoved()
             
-            metadata[entryKey] = MetadataEntry(.id3, readableKey(entryKey), entryValue)
+            metadata[entryKey] = MetadataEntry(format: .id3, key: readableKey(entryKey), value: entryValue)
         }
         
         return metadata

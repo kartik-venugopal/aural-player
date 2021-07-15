@@ -34,7 +34,7 @@ fileprivate let key_language = "language"
 fileprivate let key_date = "date"
 
 ///
-/// Parses "common" metadata recognized by ffmpeg from non-native tracks.
+/// Parses "common" metadata recognized by **FFmpeg** from non-native tracks.
 ///
 class CommonFFmpegMetadataParser: FFmpegMetadataParser {
     
@@ -142,7 +142,7 @@ class CommonFFmpegMetadataParser: FFmpegMetadataParser {
             
             value = value.withEncodingAndNullsRemoved()
             
-            metadata[key] = MetadataEntry(.common, readableKey(key), value)
+            metadata[key] = MetadataEntry(format: .common, key: readableKey(key), value: value)
         }
         
         return metadata
