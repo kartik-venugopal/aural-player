@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// Notifications pertaining to the **Tune Browser**.
+///
 extension Notification.Name {
     
     static let fileSystem_fileMetadataLoaded = Notification.Name("fileSystem_fileMetadataLoaded")

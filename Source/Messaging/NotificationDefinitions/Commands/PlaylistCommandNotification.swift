@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// A base class for commands sent to the playlist.
+///
+/// A base class for commands sent to the playlist.
+///
 class PlaylistCommandNotification: NotificationPayload {
 
     let notificationName: Notification.Name

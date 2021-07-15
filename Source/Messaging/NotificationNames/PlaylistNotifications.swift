@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// Notifications pertaining to the **Playlist**.
+///
 extension Notification.Name {
     
     // MARK: Notifications published by the playlist.

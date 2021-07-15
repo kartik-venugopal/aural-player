@@ -9,8 +9,10 @@
 //  
 import Foundation
 
-// A command issued to the player to begin playback in response to tracks being added to the playlist
-// (either automatically on startup, or manually by the user)
+///
+/// A command issued to the player to begin playback in response to tracks being added to the playlist
+/// (either automatically on startup, or manually by the user).
+///
 struct AutoplayCommandNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .player_autoplay

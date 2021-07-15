@@ -9,9 +9,10 @@
 //  
 import Foundation
 
+///
+/// Notifications pertaining to the **Presets Manager** UI.
+///
 extension Notification.Name {
-    
-    // MARK: Notifications published by the presets manager.
     
     // Signifies that the number of rows selected in a NSTableView within the presets manager has changed.
     static let presetsManager_selectionChanged = Notification.Name("presetsManager_selectionChanged")

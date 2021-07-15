@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// Notifications pertaining to *History* (chronological record of tracks added / played by the app).
+///
 extension Notification.Name {
     
     // MARK: Notifications related to the History lists (recently added / recently played).

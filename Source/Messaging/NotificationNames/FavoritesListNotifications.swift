@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// Notifications pertaining to the *Favorites* list.
+///
 extension Notification.Name {
     
     // ----------------------------------------------------------------------------------------

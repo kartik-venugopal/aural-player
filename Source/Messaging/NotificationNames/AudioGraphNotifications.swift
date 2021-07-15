@@ -9,9 +9,10 @@
 //  
 import Foundation
 
+///
+/// Notifications published by the audio graph (i.e. audio engine).
+///
 extension Notification.Name {
-    
-    // MARK: Notifications published by the audio graph (i.e. audio engine).
     
     // Signifies that the audio output device for the audio engine has changed.
     // eg. when the user plugs headphones in or out of the system, or connects to

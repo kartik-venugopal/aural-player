@@ -9,15 +9,17 @@
 //
 import Foundation
 
-/*
-    A thin wrapper around NotificationCenter that is used to subscribe to, and dispatch, notifications
-    between app components. It does the following:
- 
-        - Wraps and unwraps payload objects in and from Notification objects, so clients can deal directly with relevant payload objects.
-        - Provides a mechanism to allow clients to filter incoming notifications (rejecting unwanted ones) based on any arbitrary criteria.
-        - Allows notifications to be delivered on a desired queue either synchronously or asynchronously.
-        - Provides methods that use publish/subscribe parlance.
- */
+///
+/// A thin wrapper around NotificationCenter that is used to subscribe to, and dispatch, notifications
+/// between app components.
+///
+/// It does the following:
+///
+/// 1. Wraps and unwraps payload objects in and from Notification objects, so clients can deal directly with relevant payload objects.
+/// 2. Provides a mechanism to allow clients to filter incoming notifications (rejecting unwanted ones) based on any arbitrary criteria.
+/// 3. Allows notifications to be delivered either synchronously on the same thread as the calling thread or asynchronously on a chosen queue.
+/// 4. Provides methods that use publish / subscribe parlance.
+///
 class Messenger {
     
     // The underlying NotificationCenter that is used for actual notification delivery.
@@ -31,6 +33,9 @@ class Messenger {
     typealias MessageFilter = () -> Bool
     typealias PayloadMessageFilter<P> = (P) -> Bool
     
+    ///
+    /// The client serviced by this **Messenger** object.
+    ///
     private unowned var client: AnyObject!
     
     private let asyncNotificationQueue: DispatchQueue
@@ -43,7 +48,7 @@ class Messenger {
     ///
     /// Initializes a messenger for a given client.
     ///
-    /// The client is any object that subscribes to, and/or publishes, notifications.
+    /// - Parameter client:                     The client to be serviced by this **Messenger** object, i.e. the subscriber / publisher.
     ///
     /// - Parameter asyncNotificationQueue:     The **DispatchQueue** on which to (asynchronously)
     ///                                         receive incoming notifications that are marked as being

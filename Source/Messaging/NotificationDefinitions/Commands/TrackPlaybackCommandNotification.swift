@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// A command to initiate playback for a particular track/group
+///
+/// A command to initiate playback for a particular track / group.
+///
 struct TrackPlaybackCommandNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .player_playTrack

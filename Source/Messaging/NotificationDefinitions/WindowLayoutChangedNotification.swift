@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// Notification that the window manager has changed the window layout.
+///
+/// Notification that the window manager has changed the window layout.
+///
 struct WindowLayoutChangedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .windowManager_layoutChanged

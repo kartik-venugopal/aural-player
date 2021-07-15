@@ -3910,19 +3910,19 @@
 		3E8C792A269C4207005E78D1 /* NotificationNames */ = {
 			isa = PBXGroup;
 			children = (
+				3E8C7949269C45C0005E78D1 /* AppearanceNotifications.swift */,
 				3E8C792B269C4218005E78D1 /* ApplicationNotifications.swift */,
-				3E8C792E269C424E005E78D1 /* WindowManagerNotifications.swift */,
+				3E8C7943269C43B2005E78D1 /* AudioGraphNotifications.swift */,
+				3E8C7937269C42D9005E78D1 /* EffectsNotifications.swift */,
 				3E8C7931269C4278005E78D1 /* FavoritesListNotifications.swift */,
 				3E8C7934269C4299005E78D1 /* HistoryNotifications.swift */,
-				3E8C7937269C42D9005E78D1 /* EffectsNotifications.swift */,
 				3E8C793A269C4307005E78D1 /* PlayerNotifications.swift */,
 				3E8C793D269C4332005E78D1 /* PlaylistNotifications.swift */,
-				3E8C7940269C4383005E78D1 /* SequencerNotifications.swift */,
-				3E8C7943269C43B2005E78D1 /* AudioGraphNotifications.swift */,
 				3E8C7946269C4496005E78D1 /* PresetsManagerNotifications.swift */,
-				3E8C7949269C45C0005E78D1 /* AppearanceNotifications.swift */,
-				3E8C794C269C477B005E78D1 /* VisualizerNotifications.swift */,
+				3E8C7940269C4383005E78D1 /* SequencerNotifications.swift */,
 				3E0B9B3B269E2F7F00B4DED9 /* TuneBrowserNotifications.swift */,
+				3E8C794C269C477B005E78D1 /* VisualizerNotifications.swift */,
+				3E8C792E269C424E005E78D1 /* WindowManagerNotifications.swift */,
 			);
 			path = NotificationNames;
 			sourceTree = "<group>";

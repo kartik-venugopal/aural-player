@@ -9,7 +9,10 @@
 //  
 import Foundation
 
-// Command from the playlist search dialog to the playlist, to show (i.e. select) a specific search result within the playlist.
+///
+/// Command from the playlist search dialog to the playlist, to show (i.e. select) a specific
+/// search result within the playlist.
+///
 struct ShowAudioUnitEditorCommandNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .auEffectsUnit_showEditor

@@ -9,7 +9,10 @@
 //  
 import Foundation
 
-// Indicates that a new track has been added to the playlist, and that the UI should refresh itself to show the new information.
+///
+/// Indicates that a new track has been added to the playlist, and that the UI should
+/// refresh itself to show the new information.
+///
 struct TrackAddedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .playlist_trackAdded

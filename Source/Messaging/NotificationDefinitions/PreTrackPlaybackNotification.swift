@@ -9,10 +9,10 @@
 //  
 import Foundation
 
-/*
-    Signifies that track playback is about to occur. Gives observers a chance to perform some
-    computation/processing before track playback starts (eg. saving/applying audio settings).
-*/
+///
+/// Signifies that track playback is about to occur. Gives observers a chance to perform some
+/// computation/processing before track playback starts (eg. saving/applying audio settings).
+///
 struct PreTrackPlaybackNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .player_preTrackPlayback

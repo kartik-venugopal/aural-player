@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// Notification to indicate that the currently playing chapter has changed
+///
+/// Notification to indicate that the currently playing chapter has changed.
+///
 struct ChapterChangedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .player_chapterChanged

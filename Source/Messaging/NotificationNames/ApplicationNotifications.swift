@@ -9,11 +9,10 @@
 //  
 import Foundation
 
+///
+/// Notifications that pertain to the application life-cycle.
+///
 extension Notification.Name {
-    
-    // ----------------------------------------------------------------------------------------
-    
-    // MARK: Notifications published by the application (i.e. app delegate). They represent different lifecycle stages/events.
     
     // Signifies that the application has finished launching
     static let application_launched = Notification.Name("application_launched")

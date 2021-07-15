@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// Notifications that pertain to the appearance of the user interface.
+///
 extension Notification.Name {
     
     // MARK: Font scheme commands
@@ -16,8 +19,6 @@ extension Notification.Name {
     // Commands all UI components to apply a new specified font scheme.
     static let applyFontScheme = Notification.Name("applyFontScheme")
 
-    // ----------------------------------------------------------------------------------------
-    
     // MARK: Color scheme commands
 
     // Commands all UI components to apply a new specified color scheme.
@@ -59,6 +60,8 @@ extension Notification.Name {
     // MARK: Window appearance commands sent to all app windows
     
     static let windowAppearance_changeCornerRadius = Notification.Name("windowAppearance_changeCornerRadius")
+    
+    // MARK: Theme commands
     
     static let applyTheme = Notification.Name("applyTheme")
 }

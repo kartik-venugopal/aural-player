@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// Notification that the app has been reopened with a set of files
+///
+/// Notification that the app has been reopened with a set of files.
+///
 struct AppReopenedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .application_reopened

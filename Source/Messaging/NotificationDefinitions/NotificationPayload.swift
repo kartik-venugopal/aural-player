@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// A contract for payload objects dispatched by Messenger.
+///
+/// A contract for payload objects dispatched by **Messenger**.
+///
 protocol NotificationPayload {
     
     // The name of the associated Notification.

@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// Notifications pertaining to the **Visualizer**.
+///
 extension Notification.Name {
     
     // MARK: Visualizer commands sent to all app windows

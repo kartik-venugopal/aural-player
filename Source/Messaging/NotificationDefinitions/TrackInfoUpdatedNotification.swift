@@ -9,8 +9,10 @@
 //  
 import Foundation
 
-// Indicates that some new information has been loaded for a track (e.g. duration/display name/art, etc),
-// and that the UI should refresh itself to show the new information.
+///
+/// Indicates that some new information has been loaded for a track (e.g. duration/display name/art, etc),
+/// and that the UI should refresh itself to show the new information.
+///
 struct TrackInfoUpdatedNotification: NotificationPayload {
     
     let notificationName: Notification.Name = .player_trackInfoUpdated

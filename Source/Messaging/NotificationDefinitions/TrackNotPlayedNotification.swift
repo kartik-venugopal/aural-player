@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// Signifies that an error was encountered while attempting to play back a track.
+///
+/// Signifies that an error was encountered while attempting to play back a track.
+///
 struct TrackNotPlayedNotification: NotificationPayload {
  
     let notificationName: Notification.Name = .player_trackNotPlayed

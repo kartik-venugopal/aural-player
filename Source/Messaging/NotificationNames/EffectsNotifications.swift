@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// Notifications pertaining to audio effects.
+///
 extension Notification.Name {
     
     // MARK: Notifications published by Effects (effects processing) components.

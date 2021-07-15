@@ -9,7 +9,9 @@
 //  
 import Foundation
 
-// Command from the playlist search dialog to the playlist, to show (i.e. select) a specific search result within the playlist.
+///
+/// Command from the playlist search dialog to the playlist, to show (i.e. select) a specific search result within the playlist.
+///
 class SelectSearchResultCommandNotification: PlaylistCommandNotification {
     
     // Encapsulates information about the search result (eg. row index)

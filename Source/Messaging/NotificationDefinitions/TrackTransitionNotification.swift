@@ -8,12 +8,13 @@
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
 import Foundation
-/*
-    Signifies that a track transition has occurred, i.e. either the playback state, the current
-    track, or both, have changed. eg. when changing tracks or when a playing track is stopped.
- 
-    Contains information required for UI elements to update themselves to reflect the new state.
- */
+
+///
+/// Signifies that a track transition has occurred, i.e. either the playback state, the current
+/// track, or both, have changed. eg. when changing tracks or when a playing track is stopped.
+///
+/// Contains information required for UI elements to update themselves to reflect the new state.
+///
 struct TrackTransitionNotification: NotificationPayload {
 
     let notificationName: Notification.Name = .player_trackTransitioned
@@ -32,30 +33,21 @@ struct TrackTransitionNotification: NotificationPayload {
     
     // Whether or not the current track has changed as a result of this transition.
     var trackChanged: Bool {
-        return beginTrack != endTrack
+        beginTrack != endTrack
     }
     
     // Whether or not playback has started as a result of this transition.
     var playbackStarted: Bool {
-        return endState == .playing
+        endState == .playing
     }
     
     // Whether or not playback has ended/stopped as a result of this transition.
     var playbackEnded: Bool {
-        return endState == .noTrack
+        endState == .noTrack
     }
     
     // Whether or not the playback state has changed as a result of this transition.
     var stateChanged: Bool {
-        return beginState != endState
-    }
-    
-    init(beginTrack: Track?, beginState: PlaybackState, endTrack: Track?, endState: PlaybackState) {
-        
-        self.beginTrack = beginTrack
-        self.beginState = beginState
-        
-        self.endTrack = endTrack
-        self.endState = endState
+        beginState != endState
     }
 }
