@@ -9,6 +9,14 @@
 //
 import Foundation
 
+///
+/// A functional contract for a delegate allowing access to the list of user-defined favorites.
+///
+/// Acts as a middleman between the UI and the Favorites list,
+/// providing a simplified interface / facade for the UI layer to manipulate the Favorites list.
+///
+/// - SeeAlso: `Favorite`
+///
 protocol FavoritesDelegateProtocol {
     
     func addFavorite(_ track: Track) -> Favorite

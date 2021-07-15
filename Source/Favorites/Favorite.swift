@@ -9,6 +9,9 @@
 //
 import Cocoa
 
+///
+/// Encapsulates a user-defined favorite (a track marked as such).
+///
 class Favorite: MappedPreset {
     
     // The file of the track being favorited

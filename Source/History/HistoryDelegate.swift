@@ -9,13 +9,25 @@
 //
 import Foundation
 
-/*
-    Concrete implementation of HistoryDelegateProtocol
- */
+///
+/// A delegate allowing access to the chronologically ordered track lists:
+/// 1. tracks recently added to the playlist
+/// 2. tracks recently played
+///
+/// Acts as a middleman between the UI and the History lists,
+/// providing a simplified interface / facade for the UI layer to manipulate the History lists.
+/// and add / play tracks from those lists.
+///
+/// - SeeAlso: `AddedItem`
+/// - SeeAlso: `PlayedItem`
+///
 class HistoryDelegate: HistoryDelegateProtocol {
     
-    // The actual underlying History model object
-    private let history: HistoryProtocol
+    // Recently added items
+    var recentlyAddedItems: FixedSizeLRUArray<AddedItem>
+    
+    // Recently played items
+    var recentlyPlayedItems: FixedSizeLRUArray<PlayedItem>
     
     // Delegate used to perform CRUD on the playlist
     private let playlist: PlaylistDelegateProtocol
@@ -29,10 +41,12 @@ class HistoryDelegate: HistoryDelegateProtocol {
     
     private lazy var messenger = Messenger(for: self, asyncNotificationQueue: backgroundQueue)
     
-    init(persistentState: HistoryPersistentState?, _ history: HistoryProtocol,
+    init(persistentState: HistoryPersistentState?, _ preferences: HistoryPreferences,
          _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
-        self.history = history
+        recentlyAddedItems = FixedSizeLRUArray<AddedItem>(size: preferences.recentlyAddedListSize)
+        recentlyPlayedItems = FixedSizeLRUArray<PlayedItem>(size: preferences.recentlyPlayedListSize)
+        
         self.playlist = playlist
         self.player = player
         
@@ -44,7 +58,7 @@ class HistoryDelegate: HistoryDelegateProtocol {
                   let date = Date.fromString(timeString) else {return}
             
             let file = URL(fileURLWithPath: path)
-            history.addRecentlyAddedItem(file, item.name ?? file.lastPathComponent, date)
+            recentlyAddedItems.add(AddedItem(file, item.name ?? file.lastPathComponent, date))
         }
         
         persistentState?.recentlyPlayed?.reversed().forEach {item in
@@ -53,7 +67,7 @@ class HistoryDelegate: HistoryDelegateProtocol {
                   let date = Date.fromString(timeString) else {return}
             
             let file = URL(fileURLWithPath: path)
-            history.addRecentlyPlayedItem(file, item.name ?? file.lastPathComponent, date)
+            recentlyPlayedItems.add(PlayedItem(file, item.name ?? file.lastPathComponent, date))
         }
         
         messenger.publish(.history_updated)
@@ -65,11 +79,15 @@ class HistoryDelegate: HistoryDelegateProtocol {
     }
     
     func allRecentlyAddedItems() -> [AddedItem] {
-        return history.allRecentlyAddedItems()
+        
+        // Reverse the array for chronological order (most recent items first)
+        recentlyAddedItems.toArray().reversed()
     }
     
     func allRecentlyPlayedItems() -> [PlayedItem] {
-        return history.allRecentlyPlayedItems()
+        
+        // Reverse the array for chronological order (most recent items first)
+        recentlyPlayedItems.toArray().reversed()
     }
     
     func addItem(_ item: URL) throws {
@@ -103,45 +121,26 @@ class HistoryDelegate: HistoryDelegateProtocol {
         }
     }
     
-    func deleteItem(_ item: PlayedItem) {
-        history.deleteItem(item)
+    func deleteItem(_ item: AddedItem) {
+        recentlyAddedItems.remove(item)
     }
     
-    func deleteItem(_ item: AddedItem) {
-        history.deleteItem(item)
+    func deleteItem(_ item: PlayedItem) {
+        recentlyPlayedItems.remove(item)
     }
     
     func resizeLists(_ recentlyAddedListSize: Int, _ recentlyPlayedListSize: Int) {
         
-        history.resizeLists(recentlyAddedListSize, recentlyPlayedListSize)
+        recentlyAddedItems.resize(recentlyAddedListSize)
+        recentlyPlayedItems.resize(recentlyPlayedListSize)
+        
         messenger.publish(.history_updated)
     }
     
     func clearAllHistory() {
-        history.clearAllHistory()
-    }
-    
-    func compareChronologically(_ track1: URL, _ track2: URL) -> ComparisonResult {
         
-        let allHistory = history.allRecentlyPlayedItems()
-        
-        let index1 = allHistory.firstIndex(where: {$0.file == track1})
-        let index2 = allHistory.firstIndex(where: {$0.file == track2})
-        
-        if index1 == nil && index2 == nil {
-            return .orderedSame
-        }
-        
-        if index1 != nil && index2 != nil {
-            // Assume cannot be equal (that would imply duplicates in history list)
-            return index1! > index2! ? .orderedDescending : .orderedAscending
-        }
-        
-        if index1 != nil {
-            return .orderedAscending
-        }
-        
-        return .orderedDescending
+        recentlyAddedItems.clear()
+        recentlyPlayedItems.clear()
     }
     
     // Whenever a track is played by the player, add an entry in the "Recently played" list
@@ -150,7 +149,8 @@ class HistoryDelegate: HistoryDelegateProtocol {
         if let newTrack = notification.endTrack {
         
             lastPlayedTrack = newTrack
-            history.addRecentlyPlayedItem(newTrack.file, newTrack.displayName, Date())
+            recentlyPlayedItems.add(PlayedItem(newTrack.file, newTrack.displayName, Date()))
+            
             messenger.publish(.history_updated)
         }
     }
@@ -165,12 +165,12 @@ class HistoryDelegate: HistoryDelegateProtocol {
             if let track = playlist.findFile(file) {
                 
                 // Track
-                history.addRecentlyAddedItem(track, now)
+                recentlyAddedItems.add(AddedItem(track, now))
                 
             } else {
                 
                 // Folder or playlist
-                history.addRecentlyAddedItem(file, now)
+                recentlyAddedItems.add(AddedItem(file, now))
             }
         }
         

@@ -9,6 +9,14 @@
 //
 import Foundation
 
+///
+/// A delegate allowing access to the list of user-defined bookmarks.
+///
+/// Acts as a middleman between the UI and the Bookmarks list,
+/// providing a simplified interface / facade for the UI layer to manipulate the Bookmarks list.
+///
+/// - SeeAlso: `Bookmark`
+///
 class BookmarksDelegate: BookmarksDelegateProtocol {
     
     private typealias Bookmarks = MappedPresets<Bookmark>

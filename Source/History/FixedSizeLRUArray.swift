@@ -9,9 +9,12 @@
 //
 import Cocoa
 
-/*
-    A fixed-size array-based data structure that maintains the most recent n items, where n is the size of the array. This is useful, for instance, when keeping track of a fixed-size set of items in chronological order.
- */
+///
+/// A fixed-size array-based data structure that maintains the most recent n items, where n is the size
+/// of the array.
+///
+/// This is useful, for instance, when keeping track of a fixed-size set of items in chronological order.
+///
 class FixedSizeLRUArray<T: Equatable>: LRUArray<T> {
     
     private var size: Int

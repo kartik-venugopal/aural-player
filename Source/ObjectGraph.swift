@@ -85,8 +85,7 @@ class ObjectGraph {
     static let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
                                                                                  sequencer: sequencerDelegate, preferences: preferences)
     
-    private static let history: History = History(preferences.historyPreferences)
-    static let historyDelegate: HistoryDelegateProtocol = HistoryDelegate(persistentState: persistentState.history, history, playlistDelegate, playbackDelegate)
+    static let historyDelegate: HistoryDelegateProtocol = HistoryDelegate(persistentState: persistentState.history, preferences.historyPreferences, playlistDelegate, playbackDelegate)
     
     static var favoritesDelegate: FavoritesDelegateProtocol = FavoritesDelegate(persistentState: persistentState.favorites, playlistDelegate,
                                                                                 playbackDelegate)

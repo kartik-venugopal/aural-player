@@ -9,6 +9,14 @@
 //
 import Foundation
 
+///
+/// A delegate allowing access to the list of user-defined favorites.
+///
+/// Acts as a middleman between the UI and the Favorites list,
+/// providing a simplified interface / facade for the UI layer to manipulate the Favorites list.
+///
+/// - SeeAlso: `Favorite`
+///
 class FavoritesDelegate: FavoritesDelegateProtocol {
     
     private typealias Favorites = MappedPresets<Favorite>

@@ -9,9 +9,18 @@
 //
 import Foundation
 
-/*
-    Contract for a delegate that performs CRUD on the History model
- */
+///
+/// A functional contract for a delegate allowing access to the chronologically ordered track lists:
+/// 1. tracks recently added to the playlist
+/// 2. tracks recently played
+///
+/// Acts as a middleman between the UI and the History lists,
+/// providing a simplified interface / facade for the UI layer to manipulate the History lists
+/// and add / play tracks from those lists.
+///
+/// - SeeAlso: `AddedItem`
+/// - SeeAlso: `PlayedItem`
+///
 protocol HistoryDelegateProtocol {
     
     // Retrieves all items from the Recently added list, in chronological order
@@ -31,10 +40,8 @@ protocol HistoryDelegateProtocol {
     func clearAllHistory()
     
     func deleteItem(_ item: PlayedItem)
-    
+
     func deleteItem(_ item: AddedItem)
-    
-    func compareChronologically(_ track1: URL, _ track2: URL) -> ComparisonResult
     
     var lastPlayedTrack: Track? {get}
 }
