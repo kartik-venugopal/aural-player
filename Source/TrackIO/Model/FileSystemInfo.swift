@@ -21,7 +21,7 @@ class FileSystemInfo {
     private lazy var attributes = file.attributes
     
     var kindOfFile: String? {attributes.kindOfFile}
-    var size: Size?  {attributes.size}
+    var size: FileSize?  {attributes.size}
     var creationDate: Date? {attributes.creationDate}
     var lastModified: Date? {attributes.lastModified}
     var lastOpened: Date? {attributes.lastOpened}

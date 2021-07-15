@@ -25,7 +25,7 @@ class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
             guard let path = profile.file, let lastPosition = profile.lastPosition else {continue}
             
             let url = URL(fileURLWithPath: path)
-            self.add(url, PlaybackProfile(url, lastPosition))
+            self[url] = PlaybackProfile(url, lastPosition)
         }
     }
     
@@ -34,7 +34,7 @@ class PlaybackProfiles: TrackKeyedMap<PlaybackProfile> {
         super.init()
         
         for profile in profiles {
-            self.add(profile.file, profile)
+            self[profile.file] = profile
         }
     }
 }

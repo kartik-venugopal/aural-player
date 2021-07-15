@@ -350,7 +350,7 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     private func savePlaybackProfile() {
         
         if let track = playingTrack {
-            profiles.add(track, PlaybackProfile(track, seekPosition.timeElapsed))
+            profiles[track] = PlaybackProfile(track, seekPosition.timeElapsed)
         }
     }
     
@@ -367,14 +367,14 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
             // If a specific position has been specified, use it. Otherwise, use the current seek position.
             // NOTE - If the seek position has reached the end of the track, the profile position will be reset to 0.
             let lastPosition = position ?? (seekPosition.timeElapsed >= track.duration ? 0 : seekPosition.timeElapsed)
-            profiles.add(track, PlaybackProfile(track, lastPosition))
+            profiles[track] = PlaybackProfile(track, lastPosition)
         }
     }
     
     private func deletePlaybackProfile() {
         
         if let track = playingTrack {
-            profiles.remove(track)
+            profiles.removeFor(track)
         }
     }
     

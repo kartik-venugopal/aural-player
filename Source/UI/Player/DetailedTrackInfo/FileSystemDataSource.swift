@@ -34,7 +34,7 @@ class FileSystemDataSource: TrackInfoDataSource {
             trackInfo.append((key: "Kind", value: kindOfFile))
         }
         
-        trackInfo.append((key: "Size", value: track.fileSystemInfo.size!.toString()))
+        trackInfo.append((key: "Size", value: String(describing: track.fileSystemInfo.size!)))
         trackInfo.append((key: "Created", value: dateFormatter.string(from: track.fileSystemInfo.creationDate!)))
         trackInfo.append((key: "Last Modified", value: dateFormatter.string(from: track.fileSystemInfo.lastModified!)))
         

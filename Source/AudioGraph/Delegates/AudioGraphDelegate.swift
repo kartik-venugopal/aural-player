@@ -212,15 +212,15 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
     private func saveSoundProfile() {
         
         if let plTrack = player.playingTrack {
-            soundProfiles.add(plTrack, SoundProfile(file: plTrack.file, volume: graph.volume,
-                                                    balance: graph.balance, effects: graph.settingsAsMasterPreset))
+            soundProfiles[plTrack] = SoundProfile(file: plTrack.file, volume: graph.volume,
+                                                  balance: graph.balance, effects: graph.settingsAsMasterPreset)
         }
     }
     
     private func deleteSoundProfile() {
         
         if let plTrack = player.playingTrack {
-            soundProfiles.remove(plTrack)
+            soundProfiles.removeFor(plTrack)
         }
     }
     
@@ -236,12 +236,12 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
         if let theOldTrack = oldTrack, preferences.rememberEffectsSettingsOption == .allTracks || soundProfiles.hasFor(theOldTrack) {
             
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the track is done playing
-            soundProfiles.add(theOldTrack, SoundProfile(file: theOldTrack.file, volume: graph.volume,
-                                                        balance: graph.balance, effects: graph.settingsAsMasterPreset))
+            soundProfiles[theOldTrack] = SoundProfile(file: theOldTrack.file, volume: graph.volume,
+                                                        balance: graph.balance, effects: graph.settingsAsMasterPreset)
         }
         
         // Apply sound profile if there is one for the new track and the preferences allow it
-        if let theNewTrack = newTrack, let profile = soundProfiles.get(theNewTrack) {
+        if let theNewTrack = newTrack, let profile = soundProfiles[theNewTrack] {
             
             graph.volume = profile.volume
             graph.balance = profile.balance
@@ -257,8 +257,8 @@ class AudioGraphDelegate: AudioGraphDelegateProtocol {
             
             // Remember the current sound settings the next time this track plays. Update the profile with the latest settings applied for this track.
             // Save a profile if either 1 - the preferences require profiles for all tracks, or 2 - there is a profile for this track (chosen by user) so it needs to be updated as the app is exiting
-            soundProfiles.add(plTrack, SoundProfile(file: plTrack.file, volume: graph.volume,
-                                                    balance: graph.balance, effects: graph.settingsAsMasterPreset))
+            soundProfiles[plTrack] = SoundProfile(file: plTrack.file, volume: graph.volume,
+                                                    balance: graph.balance, effects: graph.settingsAsMasterPreset)
         }
     }
 }

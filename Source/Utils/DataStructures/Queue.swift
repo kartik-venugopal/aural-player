@@ -9,8 +9,12 @@
 //
 import Foundation
 
-// FIFO
-class Queue<T> {
+///
+/// Data structure that provides FIFO operations - enqueue / dequeue / peek.
+///
+/// Backed by an array.
+///
+class Queue<T: Any> {
     
     private var array: [T] = []
     
@@ -40,13 +44,12 @@ class Queue<T> {
         array.removeAll()
     }
     
-    func size() -> Int {
-        return array.count
-    }
+    var size: Int {array.count}
     
     var isEmpty: Bool {array.isEmpty}
     
     func toArray() -> [T] {
+        
         let copy = array
         return copy
     }

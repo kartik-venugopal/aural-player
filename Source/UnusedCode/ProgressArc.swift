@@ -94,7 +94,7 @@
 //
 //        // ---------------------- PERCENTAGE TEXT ----------------------
 //
-//        let text = String(format: "%d %%", Int(round(percentage)))
+//        let text = String(format: "%d %%", percentage.roundedInt)
 //
 //        let dict: [NSAttributedString.Key: Any] = [
 //            NSAttributedString.Key.font: textFont,

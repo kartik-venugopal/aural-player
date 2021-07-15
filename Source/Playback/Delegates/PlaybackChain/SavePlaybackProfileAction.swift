@@ -42,7 +42,7 @@ class SavePlaybackProfileAction: PlaybackChainAction {
             let lastPosition = (context.currentSeekPosition >= currentTrack.duration ? 0 : context.currentSeekPosition)
             
             // Save the profile
-            profiles.add(currentTrack, PlaybackProfile(currentTrack, lastPosition))
+            profiles[currentTrack] = PlaybackProfile(currentTrack, lastPosition)
         }
         
         chain.proceed(context)

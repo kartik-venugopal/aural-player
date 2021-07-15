@@ -9,6 +9,10 @@
 //
 import Foundation
 
+///
+/// A special type of **Dictionary** in which each mapping is accessed through
+/// two keys instead of one, i.e. each key is a composite key consisting of two parts.
+///
 class CompositeKeyMap<T: Hashable, U: Any> {
     
     private var map: [T: [T: U]] = [:]

@@ -7,9 +7,11 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
-
 import Foundation
 
+///
+/// Thread-safe **Set**.
+///
 class ConcurrentSet<T: Hashable> {
     
     private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()

@@ -75,7 +75,7 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         
         // Volume increment / decrement
         
-        let volumeDelta = Int(round(soundPrefs.volumeDelta * ValueConversions.volume_audioGraphToUI))
+        let volumeDelta = (soundPrefs.volumeDelta * ValueConversions.volume_audioGraphToUI).roundedInt
         volumeDeltaStepper.integerValue = volumeDelta
         volumeDeltaField.stringValue = String(format: "%d%%", volumeDelta)
         
@@ -84,14 +84,14 @@ class SoundPreferencesViewController: NSViewController, PreferencesViewProtocol 
         btnSpecifyVolume.onIf(soundPrefs.volumeOnStartupOption == .specific)
         
         startupVolumeSlider.enableIf(btnSpecifyVolume.isOn)
-        startupVolumeSlider.integerValue = Int(round(soundPrefs.startupVolumeValue * ValueConversions.volume_audioGraphToUI))
+        startupVolumeSlider.integerValue = (soundPrefs.startupVolumeValue * ValueConversions.volume_audioGraphToUI).roundedInt
         
         lblStartupVolume.enableIf(btnSpecifyVolume.isOn)
         lblStartupVolume.stringValue = String(format: "%d%%", startupVolumeSlider.integerValue)
         
         // Balance increment / decrement
         
-        let panDelta = Int(round(soundPrefs.panDelta * ValueConversions.pan_audioGraphToUI))
+        let panDelta = (soundPrefs.panDelta * ValueConversions.pan_audioGraphToUI).roundedInt
         panDeltaStepper.integerValue = panDelta
         panDeltaAction(self)
         

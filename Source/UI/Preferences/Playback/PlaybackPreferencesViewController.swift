@@ -191,11 +191,11 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
         let oldPrimarySeekLengthConstant = prefs.primarySeekLengthConstant
         
         prefs.primarySeekLengthOption = btnPrimarySeekLengthConstant.isOn ? .constant : .percentage
-        prefs.primarySeekLengthConstant = Int(round(primarySeekLengthPicker.interval))
+        prefs.primarySeekLengthConstant = primarySeekLengthPicker.interval.roundedInt
         prefs.primarySeekLengthPercentage = primarySeekLengthPercStepper.integerValue
         
         prefs.secondarySeekLengthOption = btnSecondarySeekLengthConstant.isOn ? .constant : .percentage
-        prefs.secondarySeekLengthConstant = Int(round(secondarySeekLengthPicker.interval))
+        prefs.secondarySeekLengthConstant = secondarySeekLengthPicker.interval.roundedInt
         prefs.secondarySeekLengthPercentage = secondarySeekLengthPercStepper.integerValue
         
         prefs.autoplayOnStartup = btnAutoplayOnStartup.isOn

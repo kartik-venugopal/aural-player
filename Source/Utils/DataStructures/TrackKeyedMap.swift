@@ -7,30 +7,51 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //  
-
 import Foundation
 
-class TrackKeyedMap<T> {
+///
+/// A special type of **Dictionary** in which a track is mapped
+/// to an arbitrary object.
+///
+class TrackKeyedMap<T: Any> {
 
     var map: [URL: T] = [:]
     
-    func add(_ track: Track, _ item: T) {
-        map[track.file] = item
+    subscript(_ key: URL) -> T? {
+        
+        get {map[key]}
+        
+        set {
+            
+            if let theValue = newValue {
+                map[key] = theValue
+                
+            } else {
+                map.removeValue(forKey: key)
+            }
+        }
     }
     
-    func add(_ file: URL, _ item: T) {
-        map[file] = item
-    }
-    
-    func get(_ track: Track) -> T? {
-        return map[track.file]
+    subscript(_ key: Track) -> T? {
+        
+        get {map[key.file]}
+        
+        set {
+            
+            if let theValue = newValue {
+                map[key.file] = theValue
+                
+            } else {
+                map.removeValue(forKey: key.file)
+            }
+        }
     }
     
     func hasFor(_ track: Track) -> Bool {
-        return get(track) != nil
+        map[track.file] != nil
     }
     
-    func remove(_ track: Track) {
+    func removeFor(_ track: Track) {
         map[track.file] = nil
     }
     
@@ -39,10 +60,8 @@ class TrackKeyedMap<T> {
     }
     
     func all() -> [T] {
-        return [T](map.values)
+        [T](map.values)
     }
     
-    var size: Int {
-        return map.count
-    }
+    var size: Int {map.count}
 }

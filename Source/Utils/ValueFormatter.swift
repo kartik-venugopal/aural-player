@@ -7,12 +7,11 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-/*
-    Utilities for formatting numerical values into user-friendly displayable representations with units (e.g. "20 Hz" for frequency values)
- */
-
 import Foundation
 
+///
+/// Utilities for formatting numerical values into user-friendly displayable representations with units (e.g. "20 Hz" for frequency values).
+///
 class ValueFormatter {
     
     private static var numberFormatter = { () -> NumberFormatter in
@@ -140,21 +139,21 @@ class ValueFormatter {
     }
     
     static func formatVolume(_ value: Float) -> String {
-        return String(format: "%d%%", Int(round(value)))
+        return String(format: "%d%%", value.roundedInt)
     }
     
     static func formatPan(_ value: Float) -> String {
         
-        let panVal = Int(round(value))
+        let panVal = value.roundedInt
         
-        if (panVal < 0) {
+        if panVal < 0 {
             
             // Left of center
             
             let absVal = abs(panVal)
             return absVal < 100 ? String(format: "L %d%%", absVal) : "L"
             
-        } else if (panVal > 0) {
+        } else if panVal > 0 {
             
             // Right of center
             
@@ -164,7 +163,6 @@ class ValueFormatter {
         } else {
             
             // Center
-            
             return "C"
         }
     }
@@ -183,12 +181,15 @@ class ValueFormatter {
     
     static func formatReverbAmount(_ value: Float) -> String {
         
-        if (value == 0) {
+        if value == 0 {
             return String(format: "100%% %@", Units.reverbDryAmount)
-        } else if (value == 100) {
+            
+        } else if value == 100 {
             return String(format: "100%% %@", Units.reverbWetAmount)
+            
         } else {
-            let dry = Int(round(value))
+            
+            let dry = value.roundedInt
             let wet = 100 - dry
             return String(format:"%d / %d", dry, wet)
         }

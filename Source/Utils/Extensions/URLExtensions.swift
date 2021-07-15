@@ -47,7 +47,7 @@ extension URL {
     }
     
     // Computes the size of a file, and returns a convenient representation
-    var size: Size {
+    var size: FileSize {
         
         var fileSize : UInt64
         
@@ -55,18 +55,18 @@ extension URL {
             
             let attr = try fileManager.attributesOfItem(atPath: path)
             fileSize = attr[.size] as! UInt64
-            return Size(sizeBytes: UInt(fileSize))
+            return FileSize(sizeBytes: UInt(fileSize))
             
         } catch let error as NSError {
             NSLog("Error getting size of file '%@': %@", path, error.description)
         }
         
-        return .ZERO
+        return .zero
     }
     
     var attributes: FileAttributes {
         
-        var fileSize : Size?
+        var fileSize : FileSize?
         var lastModified: Date?
         var creationDate: Date?
         var kindOfFile: String?
@@ -84,7 +84,7 @@ extension URL {
         do {
 
             let attr = try fileManager.attributesOfItem(atPath: path)
-            fileSize = Size(sizeBytes: attr.uintValue(forKey: FileAttributeKey.size)!)
+            fileSize = FileSize(sizeBytes: attr.uintValue(forKey: FileAttributeKey.size)!)
             
             if let modDate = attr[FileAttributeKey.modificationDate, Date.self] {
                 lastModified = modDate
@@ -274,7 +274,7 @@ extension URL {
 
 struct FileAttributes {
     
-    let size: Size?
+    let size: FileSize?
     let lastModified: Date?
     let creationDate: Date?
     let kindOfFile: String?

@@ -235,8 +235,8 @@
 		3E57AF8C262B2C8100678C16 /* ChicagoFLF.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3E57AF8B262B2C6400678C16 /* ChicagoFLF.ttf */; };
 		3E59A175262C9EDA006DF775 /* LazyWindowLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E59A174262C9EDA006DF775 /* LazyWindowLoader.swift */; };
 		3E5ECA36268F4B89000AE8B7 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E2267FE99500F0DC96 /* URLExtensions.swift */; };
-		3E5ECA38268F4B96000AE8B7 /* SizeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */; };
-		3E5ECA39268F4B96000AE8B7 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CF25CEB98700BF0D07 /* Size.swift */; };
+		3E5ECA38268F4B96000AE8B7 /* FileSizeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BD25CEB98700BF0D07 /* FileSizeUnit.swift */; };
+		3E5ECA39268F4B96000AE8B7 /* FileSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CF25CEB98700BF0D07 /* FileSize.swift */; };
 		3E5ECA3C268F4BD9000AE8B7 /* PlaylistPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D09F26805C18008ECB8C /* PlaylistPersistentState.swift */; };
 		3E5ECA40268F4BFB000AE8B7 /* SupportedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD2C4E2684DC3D0090BAF7 /* SupportedTypes.swift */; };
 		3E5ECA43268F4C46000AE8B7 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB5E6267FEA4A00F0DC96 /* DateExtensions.swift */; };
@@ -615,8 +615,8 @@
 		3E6C131225CEBE8F00BF0D07 /* DetailedTrackInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103A25CEB98600BF0D07 /* DetailedTrackInfoViewController.swift */; };
 		3E6C131325CEBE8F00BF0D07 /* WindowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105125CEB98600BF0D07 /* WindowLayout.swift */; };
 		3E6C131425CEBE8F00BF0D07 /* AudioDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103E25CEB98600BF0D07 /* AudioDataSource.swift */; };
-		3E6C131825CEBEA000BF0D07 /* SizeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */; };
-		3E6C131925CEBEA000BF0D07 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CF25CEB98700BF0D07 /* Size.swift */; };
+		3E6C131825CEBEA000BF0D07 /* FileSizeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10BD25CEB98700BF0D07 /* FileSizeUnit.swift */; };
+		3E6C131925CEBEA000BF0D07 /* FileSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CF25CEB98700BF0D07 /* FileSize.swift */; };
 		3E6C131B25CEBEA000BF0D07 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10C325CEB98700BF0D07 /* Queue.swift */; };
 		3E6C131C25CEBEA000BF0D07 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CC25CEB98700BF0D07 /* IntExtensions.swift */; };
 		3E6C131E25CEBEA000BF0D07 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C10CE25CEB98700BF0D07 /* CollectionExtensions.swift */; };
@@ -1685,7 +1685,7 @@
 		3E6C10B325CEB98700BF0D07 /* BookmarksDelegateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksDelegateProtocol.swift; sourceTree = "<group>"; };
 		3E6C10B425CEB98700BF0D07 /* BookmarksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksDelegate.swift; sourceTree = "<group>"; };
 		3E6C10B525CEB98700BF0D07 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
-		3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeUnit.swift; sourceTree = "<group>"; };
+		3E6C10BD25CEB98700BF0D07 /* FileSizeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSizeUnit.swift; sourceTree = "<group>"; };
 		3E6C10C025CEB98700BF0D07 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3E6C10C225CEB98700BF0D07 /* ConcurrentMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrentMap.swift; sourceTree = "<group>"; };
 		3E6C10C325CEB98700BF0D07 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -1695,7 +1695,7 @@
 		3E6C10CC25CEB98700BF0D07 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		3E6C10CD25CEB98700BF0D07 /* IndexSetExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexSetExtensions.swift; sourceTree = "<group>"; };
 		3E6C10CE25CEB98700BF0D07 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
-		3E6C10CF25CEB98700BF0D07 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		3E6C10CF25CEB98700BF0D07 /* FileSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSize.swift; sourceTree = "<group>"; };
 		3E6C10D425CEB98700BF0D07 /* RepeatingTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTaskExecutor.swift; sourceTree = "<group>"; };
 		3E6C10D625CEB98700BF0D07 /* TimeIntervalFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeIntervalFormatter.swift; sourceTree = "<group>"; };
 		3E6C10D825CEB98700BF0D07 /* HTMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLWriter.swift; sourceTree = "<group>"; };
@@ -3610,8 +3610,8 @@
 		3E6C10B725CEB98700BF0D07 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C10BD25CEB98700BF0D07 /* SizeUnit.swift */,
-				3E6C10CF25CEB98700BF0D07 /* Size.swift */,
+				3E6C10CF25CEB98700BF0D07 /* FileSize.swift */,
+				3E6C10BD25CEB98700BF0D07 /* FileSizeUnit.swift */,
 				3E6C10BF25CEB98700BF0D07 /* DataStructures */,
 				3E6C10C825CEB98700BF0D07 /* ValueFormatter.swift */,
 				3E6C10C925CEB98700BF0D07 /* Extensions */,
@@ -5371,7 +5371,7 @@
 				3E3633FA268630CB006A88ED /* TimeStretchUnitProtocol.swift in Sources */,
 				3E3633F4268628D6006A88ED /* EffectsUnitDelegateProtocol.swift in Sources */,
 				3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */,
-				3E6C131925CEBEA000BF0D07 /* Size.swift in Sources */,
+				3E6C131925CEBEA000BF0D07 /* FileSize.swift in Sources */,
 				3E3633F026862871006A88ED /* HostedAudioUnitDelegateProtocol.swift in Sources */,
 				3E6C125B25CEBE0600BF0D07 /* ReverbPresetsManagerViewController.swift in Sources */,
 				3E0012EF2684858A00F3880C /* AudioGraphDefaults.swift in Sources */,
@@ -5456,7 +5456,7 @@
 				3E6C127B25CEBE1800BF0D07 /* PlaylistColorSchemeViewController.swift in Sources */,
 				3E21EC90268F455D00731E4C /* PlaylistItem.swift in Sources */,
 				3E380DAE262F4D6500BDF7B4 /* LazyViewLoader.swift in Sources */,
-				3E6C131825CEBEA000BF0D07 /* SizeUnit.swift in Sources */,
+				3E6C131825CEBEA000BF0D07 /* FileSizeUnit.swift in Sources */,
 				3EA89D9B2699F50C0021CDB9 /* ScrollSession.swift in Sources */,
 				3E6C122325CEBDE600BF0D07 /* SettingsPopupMenuController.swift in Sources */,
 				3EEC04152687A940004478CE /* WindowedModePlaybackViewController.swift in Sources */,
@@ -5726,7 +5726,7 @@
 				3EA1BDF6268F509A00A5D81B /* ConcurrentQueue.swift in Sources */,
 				3EFDA967268F722700CFF785 /* EffectsPresets.swift in Sources */,
 				3EA1BE1E268F629F00A5D81B /* PlaybackLoop.swift in Sources */,
-				3E5ECA39268F4B96000AE8B7 /* Size.swift in Sources */,
+				3E5ECA39268F4B96000AE8B7 /* FileSize.swift in Sources */,
 				3EA1BE0A268F609E00A5D81B /* ShuffleSequence.swift in Sources */,
 				3EA1BE11268F60DA00A5D81B /* PlaybackSequenceTests.swift in Sources */,
 				3EE4B86A268FBF0C006BDEB2 /* MetadataPreferences.swift in Sources */,
@@ -5779,7 +5779,7 @@
 				3EDDEFCD26916BFA00219BDA /* AudioUnitPersistentState.swift in Sources */,
 				3EA1BE29268F6A3200A5D81B /* SequencerTests.swift in Sources */,
 				3EABDE032694C9A2008066E8 /* ColorSchemesPersistentState.swift in Sources */,
-				3E5ECA38268F4B96000AE8B7 /* SizeUnit.swift in Sources */,
+				3E5ECA38268F4B96000AE8B7 /* FileSizeUnit.swift in Sources */,
 				3EABDDCA2694B8B6008066E8 /* WindowUIPersistentState.swift in Sources */,
 				3EA1BE10268F60DA00A5D81B /* PlaybackSequenceRepeatAndShuffleTests.swift in Sources */,
 				3EA62F392693B964004A780A /* SoundProfilesPersistenceTests.swift in Sources */,

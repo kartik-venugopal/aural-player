@@ -57,8 +57,8 @@ class SpectrogramFFTData {
             let minF: Float = index > 0 ? bands[index - 1].maxF : sqrt((f * f) / tpb)
             let maxF: Float = sqrt((f * f) / tpb) * tpb
             
-            let minIndex: Int = Int(round(minF / frequencyInterval))
-            let maxIndex: Int = min(Int(round(maxF / frequencyInterval)) - 1, lastBinIndex)
+            let minIndex: Int = (minF / frequencyInterval).roundedInt
+            let maxIndex: Int = min((maxF / frequencyInterval).roundedInt - 1, lastBinIndex)
             
             bands.append(Band(minF: minF, maxF: maxF, minIndex: minIndex, maxIndex: maxIndex))
         }
@@ -92,8 +92,8 @@ class SpectrogramFFTData {
 //            let minF: Float = bands[index - 1].maxF
 //            let maxF: Float = sqrt((f * f) / tpb) * tpb
 //            
-//            var minIndex: Int = Int(round(minF / frequencyInterval))
-//            var maxIndex: Int = min(Int(round(maxF / frequencyInterval)) - 1, lastBinIndex)
+//            var minIndex: Int = (minF / frequencyInterval).roundedInt
+//            var maxIndex: Int = min((maxF / frequencyInterval).roundedInt - 1, lastBinIndex)
 //            
 //            if maxIndex < minIndex {
 //                minIndex = 0

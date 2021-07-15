@@ -27,8 +27,8 @@ class SoundProfiles: TrackKeyedMap<SoundProfile> {
                   let masterPreset = MasterPreset(persistentState: effects) else {continue}
             
             let url = URL(fileURLWithPath: path)
-            add(url, SoundProfile(file: url, volume: volume,
-                                   balance: balance, effects: masterPreset))
+            self[url] = SoundProfile(file: url, volume: volume,
+                                     balance: balance, effects: masterPreset)
         }
     }
 }

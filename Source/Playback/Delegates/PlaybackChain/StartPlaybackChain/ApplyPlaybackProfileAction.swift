@@ -37,7 +37,7 @@ class ApplyPlaybackProfileAction: PlaybackChainAction {
             
             // Check for an existing playback profile for the requested track, and only apply the profile
             // if no start position is defined in the request params.
-            if let profile = profiles.get(newTrack), params.startPosition == nil {
+            if let profile = profiles[newTrack], params.startPosition == nil {
                 
                 // Validate the playback profile before applying it
                 params.startPosition = (profile.lastPosition >= newTrack.duration ? 0 : profile.lastPosition)

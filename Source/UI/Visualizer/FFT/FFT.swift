@@ -62,7 +62,7 @@ class FFT {
         self.sampleRate = sampleRate
         self.bufferSize = bufferSize
         
-        log2n = UInt(round(log2(Double(bufferSize))))
+        log2n = log2(Double(bufferSize)).roundedUInt
         
         bufferSizePOT = Int(1 << log2n)
         bufferSizePOT_Float = Float(bufferSizePOT)

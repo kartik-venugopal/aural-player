@@ -9,6 +9,11 @@
 //  
 import Foundation
 
+///
+/// Thread-safe **CompositeKeyMap**.
+///
+/// - SeeAlso: `CompositeKeyMap`
+///
 class ConcurrentCompositeKeyMap<T: Hashable, U: Any> {
     
     private var map: CompositeKeyMap<T, U> = CompositeKeyMap()

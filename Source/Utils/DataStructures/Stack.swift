@@ -9,9 +9,11 @@
 //
 import Foundation
 
-/*
-    Data structure that provides LIFO operations - push/pop/peek. Backed by an array.
- */
+///
+/// Data structure that provides LIFO operations - push / pop / peek.
+///
+/// Backed by an array.
+///
 class Stack<T: Any> {
  
     // Backing array
@@ -33,11 +35,7 @@ class Stack<T: Any> {
         array.removeAll()
     }
     
-    var size: Int {
-        return array.count
-    }
+    var size: Int {array.count}
     
-    var isEmpty: Bool {
-        return array.count == 0
-    }
+    var isEmpty: Bool {array.isEmpty}
 }

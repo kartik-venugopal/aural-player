@@ -10,7 +10,7 @@
 import Foundation
 
 ///
-/// Handles persistence to / from disk for application state.
+/// Handles persistence of application state to / from disk.
 ///
 class PersistenceManager {
     

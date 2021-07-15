@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// Thread-safe **Dictionary**.
+///
 class ConcurrentMap<T: Hashable, U: Any> {
  
     private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()

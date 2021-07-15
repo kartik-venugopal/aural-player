@@ -187,7 +187,7 @@ class DiscoBall: AuralSCNView, VisualizerViewProtocol {
         ball.radius = 1 + (magnitude * maxRadiusIncreaseFactor)
         node.position = nodePosition
         
-        let interpolationLevel: Int = min(Int(round(magnitude * 10.0)), 10)
+        let interpolationLevel: Int = min((magnitude * 10.0).roundedInt, 10)
         ball.firstMaterial?.diffuse.contents = textureCache[interpolationLevel]
         
         let discoLightColor = startColor.interpolate(endColor, magnitude)
