@@ -141,6 +141,8 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
             
             if fsItem.isDirectory {
                 openFolder(item: fsItem)
+            } else {
+                doAddBrowserItemsToPlaylist(indexes: IndexSet([browserView.selectedRow]), beginPlayback: true)
             }
         }
     }
@@ -241,10 +243,11 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         doAddBrowserItemsToPlaylist(indexes: browserView.selectedRowIndexes, beginPlayback: true)
     }
     
+    // TODO: If some of these items already exist, playback won't begin.
+    // Need to modify playlist to always play the first item.
     private func doAddBrowserItemsToPlaylist(indexes: IndexSet, beginPlayback: Bool = false) {
         
-        let selIndexes = browserView.selectedRowIndexes
-        let selItemURLs = selIndexes.compactMap {[weak browserView] in browserView?.item(atRow: $0) as? FileSystemItem}.map {$0.url}
+        let selItemURLs = indexes.compactMap {[weak browserView] in browserView?.item(atRow: $0) as? FileSystemItem}.map {$0.url}
         
         playlist.addFiles(selItemURLs, beginPlayback: beginPlayback)
     }

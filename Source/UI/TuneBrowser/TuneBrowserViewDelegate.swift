@@ -244,6 +244,10 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
         
         switch key {
         
+        case "name":
+            
+            fileSystem.sort(by: .name, ascending: ascending)
+        
         case "title":
             
             fileSystem.sort(by: .title, ascending: ascending)

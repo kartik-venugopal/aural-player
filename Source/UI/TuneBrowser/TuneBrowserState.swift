@@ -16,8 +16,13 @@ class TuneBrowserState {
     
     static var displayedColumns: [TuneBrowserTableColumn] = []
     
-    private static var sidebarUserFoldersByURL: [URL: TuneBrowserSidebarItem] = [:]
+    static let defaultSortColumn: String = "name"
+    static var sortColumn: String = defaultSortColumn
     
+    static let defaultSortIsAscending: Bool = true
+    static var sortIsAscending: Bool = defaultSortIsAscending
+    
+    private static var sidebarUserFoldersByURL: [URL: TuneBrowserSidebarItem] = [:]
     private(set) static var sidebarUserFolders: [TuneBrowserSidebarItem] = []
     
     static let defaultSidebarWidth: CGFloat = 100
