@@ -9,6 +9,9 @@
 //
 import Foundation
 
+///
+/// A contract for a generic preset that can be mapped to a key.
+///
 protocol MappedPreset {
     
     var key: String {get set}
@@ -16,7 +19,13 @@ protocol MappedPreset {
     var userDefined: Bool {get}
 }
 
-class MappedPresets<P> where P: MappedPreset {
+///
+/// A utility to perform CRUD operations on an ordered / mapped collection
+/// of **MappedPreset** objects.
+///
+/// - SeeAlso: `MappedPreset`
+///
+class MappedPresets<P: MappedPreset> {
     
     private let userDefinedPresetsMap: PresetsMap<P> = PresetsMap()
     private let systemDefinedPresetsMap: PresetsMap<P> = PresetsMap()
@@ -90,7 +99,11 @@ class MappedPresets<P> where P: MappedPreset {
     }
 }
 
-fileprivate class PresetsMap<P> where P: MappedPreset {
+///
+/// A specialized collection that functions as both an array and dictionary for **MappedPreset** objects
+/// so that the presets can be accessed efficiently both by index and key.
+///
+fileprivate class PresetsMap<P: MappedPreset> {
     
     private var array: [P] = []
     private var map: [String: P] = [:]

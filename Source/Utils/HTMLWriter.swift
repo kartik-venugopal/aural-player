@@ -9,28 +9,9 @@
 //
 import Foundation
 
-class HTMLText {
-    
-    var text: String
-    
-    var underlined: Bool
-    var bold: Bool
-    var italic: Bool
-    
-    var width: Int?
-    
-    init(_ text: String, _ bold: Bool, _ underlined: Bool, _ italic: Bool, _ width: Int?) {
-        
-        self.text = text
-        
-        self.underlined = underlined
-        self.bold = bold
-        self.italic = italic
-        
-        self.width = width
-    }
-}
-
+///
+/// A utility that allows easy construction of an HTML document and its export to a file.
+///
 class HTMLWriter {
     
     private static let entities: [(text: String, entity: String)] = [
@@ -152,6 +133,18 @@ class HTMLWriter {
         }
     }
 }
+
+struct HTMLText {
+    
+    let text: String
+    
+    let underlined: Bool
+    let bold: Bool
+    let italic: Bool
+    
+    let width: Int?
+}
+
 
 class HTMLWriteError: DisplayableError {
     

@@ -16,16 +16,16 @@ class FileSize: CustomStringConvertible {
     
     var sizeUnit: FileSizeUnit = .b
     var size: Double = 0
-    var sizeBytes: UInt = 0
+    var sizeBytes: UInt64 = 0
     
     static let zero: FileSize = FileSize(sizeBytes: 0)  // Constant useful as a default value
     
-    static let KB: UInt = 1024
-    static let MB: UInt = 1024 * KB
-    static let GB: UInt = 1024 * MB
-    static let TB: UInt = 1024 * GB
+    static let KB: UInt64 = 1024
+    static let MB: UInt64 = 1024 * KB
+    static let GB: UInt64 = 1024 * MB
+    static let TB: UInt64 = 1024 * GB
     
-    init(sizeBytes: UInt) {
+    init(sizeBytes: UInt64) {
         
         self.sizeBytes = sizeBytes
         calculateSizeFromBytes()
@@ -86,11 +86,11 @@ class FileSize: CustomStringConvertible {
         
         switch sizeUnit {
             
-        case .tb: sizeBytes = (Double(Self.TB) * size).roundedUInt
-        case .gb: sizeBytes = (Double(Self.GB) * size).roundedUInt
-        case .mb: sizeBytes = (Double(Self.MB) * size).roundedUInt
-        case .kb: sizeBytes = (Double(Self.KB) * size).roundedUInt
-        case .b: sizeBytes = size.roundedUInt
+        case .tb: sizeBytes = (Double(Self.TB) * size).roundedUInt64
+        case .gb: sizeBytes = (Double(Self.GB) * size).roundedUInt64
+        case .mb: sizeBytes = (Double(Self.MB) * size).roundedUInt64
+        case .kb: sizeBytes = (Double(Self.KB) * size).roundedUInt64
+        case .b: sizeBytes = size.roundedUInt64
             
         }
     }
@@ -98,7 +98,7 @@ class FileSize: CustomStringConvertible {
     var description: String {
         
         sizeUnit == .b ?
-            String(format: "%d %@", UInt(size), sizeUnit.rawValue) :
+            String(format: "%d %@", UInt64(size), sizeUnit.rawValue) :
             String(format: "%.2lf %@", size, sizeUnit.rawValue)
     }
 }

@@ -9,10 +9,12 @@
 //
 import Foundation
 
+typealias AtomicIntCounter = AtomicCounter<Int>
+
 ///
 /// A thread-safe integer counter that safely tracks a value updated concurrently by multiple threads.
 ///
-public final class AtomicCounter<T> where T: SignedInteger {
+class AtomicCounter<T: SignedInteger> {
     
     private let lock: ExclusiveAccessSemaphore = ExclusiveAccessSemaphore()
     private var _value: T
@@ -26,11 +28,11 @@ public final class AtomicCounter<T> where T: SignedInteger {
     var isZero: Bool {value == 0}
     var isNonZero: Bool {value != 0}
     
-    public init(value initialValue: T = 0) {
+    init(value initialValue: T = 0) {
         _value = initialValue
     }
     
-    public var value: T {
+    var value: T {
         
         get {
 
@@ -47,28 +49,28 @@ public final class AtomicCounter<T> where T: SignedInteger {
         }
     }
     
-    public func decrementAndGet() -> T {
+    func decrementAndGet() -> T {
         
         lock.produceValueAfterWait {
             _value.decrementAndGet()
         }
     }
     
-    public func decrement() {
+    func decrement() {
         
         lock.executeAfterWait {
             _value.decrement()
         }
     }
     
-    public func incrementAndGet() -> T {
+    func incrementAndGet() -> T {
         
         lock.produceValueAfterWait {
             _value.incrementAndGet()
         }
     }
     
-    public func getAndIncrement() -> T {
+    func getAndIncrement() -> T {
         
         lock.produceValueAfterWait {
             
@@ -78,24 +80,17 @@ public final class AtomicCounter<T> where T: SignedInteger {
         }
     }
     
-    public func increment() {
+    func increment() {
 
         lock.executeAfterWait {
             _value.increment()
         }
     }
     
-    public func add(_ addend: T) {
+    func add(_ addend: T) {
 
         lock.executeAfterWait {
             _value += addend
         }
-    }
-}
-
-extension AtomicCounter where T == Int {
-    
-    convenience init() {
-        self.init(value: Int(0))
     }
 }

@@ -38,6 +38,6 @@ class FilterBandsTabButtonCell: TabGroupButtonCell {
         
         // Title
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
-        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, font, yOffset - (isOn ? -1 : 0))
+        title.drawCentered(in: cellFrame, withFont: font, andColor: textColor, offset: yOffset - (isOn ? -1 : 0))
     }
 }

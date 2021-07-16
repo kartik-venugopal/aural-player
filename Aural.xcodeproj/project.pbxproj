@@ -513,11 +513,9 @@
 		3E6C129225CEBE1800BF0D07 /* ColorSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0F9A25CEB98600BF0D07 /* ColorSchemeViewController.swift */; };
 		3E6C129325CEBE1800BF0D07 /* IntervalPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FB425CEB98600BF0D07 /* IntervalPicker.swift */; };
 		3E6C129425CEBE1800BF0D07 /* PrettyScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FB325CEB98600BF0D07 /* PrettyScroller.swift */; };
-		3E6C129625CEBE2700BF0D07 /* BannerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD825CEB98600BF0D07 /* BannerLabel.swift */; };
 		3E6C129725CEBE2700BF0D07 /* TintedIconMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FCE25CEB98600BF0D07 /* TintedIconMenuItem.swift */; };
 		3E6C129825CEBE2700BF0D07 /* VAlignedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FBF25CEB98600BF0D07 /* VAlignedTextField.swift */; };
 		3E6C129925CEBE2700BF0D07 /* AuralTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD125CEB98600BF0D07 /* AuralTabView.swift */; };
-		3E6C129A25CEBE2700BF0D07 /* ProgressArc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC025CEB98600BF0D07 /* ProgressArc.swift */; };
 		3E6C129B25CEBE2700BF0D07 /* ColoredCursorTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC525CEB98600BF0D07 /* ColoredCursorTextField.swift */; };
 		3E6C129C25CEBE2700BF0D07 /* AlertWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FC925CEB98600BF0D07 /* AlertWindowController.swift */; };
 		3E6C129D25CEBE2700BF0D07 /* HorizontalSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCell.swift */; };
@@ -1528,7 +1526,6 @@
 		3E6C0FBD25CEB98600BF0D07 /* TrackPeekingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPeekingButton.swift; sourceTree = "<group>"; };
 		3E6C0FBE25CEB98600BF0D07 /* TintedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TintedImageView.swift; sourceTree = "<group>"; };
 		3E6C0FBF25CEB98600BF0D07 /* VAlignedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VAlignedTextField.swift; sourceTree = "<group>"; };
-		3E6C0FC025CEB98600BF0D07 /* ProgressArc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressArc.swift; sourceTree = "<group>"; };
 		3E6C0FC225CEB98600BF0D07 /* StringInputReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInputReceiver.swift; sourceTree = "<group>"; };
 		3E6C0FC325CEB98600BF0D07 /* StringInputPopover.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StringInputPopover.xib; sourceTree = "<group>"; };
 		3E6C0FC425CEB98600BF0D07 /* StringInputPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringInputPopoverViewController.swift; sourceTree = "<group>"; };
@@ -1548,7 +1545,6 @@
 		3E6C0FD525CEB98600BF0D07 /* EffectsUnitSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitSlider.swift; sourceTree = "<group>"; };
 		3E6C0FD625CEB98600BF0D07 /* HorizontalSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSliderCell.swift; sourceTree = "<group>"; };
 		3E6C0FD725CEB98600BF0D07 /* EQSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSliderCell.swift; sourceTree = "<group>"; };
-		3E6C0FD825CEB98600BF0D07 /* BannerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerLabel.swift; sourceTree = "<group>"; };
 		3E6C0FD925CEB98600BF0D07 /* ValidatedLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatedLabelCell.swift; sourceTree = "<group>"; };
 		3E6C0FDB25CEB98600BF0D07 /* AboutDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDialogController.swift; sourceTree = "<group>"; };
 		3E6C0FDC25CEB98600BF0D07 /* AboutDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutDialog.xib; sourceTree = "<group>"; };
@@ -2632,7 +2628,6 @@
 				3E6C10F125CEB98700BF0D07 /* Persistence */,
 				3E6C0F1A25CEB98500BF0D07 /* UI */,
 				3E6C10B725CEB98700BF0D07 /* Utils */,
-				3ED983F72626157700E3A936 /* UnusedCode */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -4396,15 +4391,6 @@
 			path = Metadata;
 			sourceTree = "<group>";
 		};
-		3ED983F72626157700E3A936 /* UnusedCode */ = {
-			isa = PBXGroup;
-			children = (
-				3E6C0FD825CEB98600BF0D07 /* BannerLabel.swift */,
-				3E6C0FC025CEB98600BF0D07 /* ProgressArc.swift */,
-			);
-			path = UnusedCode;
-			sourceTree = "<group>";
-		};
 		3EDB334825E8AD89004DF7DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -5247,7 +5233,6 @@
 				3EDB345225E8B75D004DF7DE /* MetadataFormat.swift in Sources */,
 				3EFDA965268F71C600CFF785 /* EQType.swift in Sources */,
 				3E8C7915269C408B005E78D1 /* TrackAddedNotification.swift in Sources */,
-				3E6C129625CEBE2700BF0D07 /* BannerLabel.swift in Sources */,
 				3E21EC93268F457100731E4C /* PlaylistType.swift in Sources */,
 				3E6C116925CEBD6000BF0D07 /* PitchPresets.swift in Sources */,
 				3E6C12C125CEBE6700BF0D07 /* PitchShiftViewController.swift in Sources */,
@@ -5528,7 +5513,6 @@
 				3EDB33F525E8AE09004DF7DE /* FFmpegPacketFrames.swift in Sources */,
 				3E6C134225CEBEF500BF0D07 /* EndPlaybackSequenceAction.swift in Sources */,
 				3E6C122B25CEBDE600BF0D07 /* WindowLayoutPopupMenuController.swift in Sources */,
-				3E6C129A25CEBE2700BF0D07 /* ProgressArc.swift in Sources */,
 				3E6C118A25CEBD6D00BF0D07 /* EQUnitDelegate.swift in Sources */,
 				3E6C12FA25CEBE8F00BF0D07 /* PlayerViewController.swift in Sources */,
 				3E6C128E25CEBE1800BF0D07 /* ColorSchemePreset.swift in Sources */,

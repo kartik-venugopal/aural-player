@@ -9,6 +9,13 @@
 //
 import Cocoa
 
+///
+/// A utility used to format time intervals into a human-readable (user-friendly) format.
+///
+/// Example:
+///
+/// `3798.9345 seconds -> "01:03:19"`
+///
 class TimeIntervalFormatter: Formatter {
     
     var minValue: Double = 0
@@ -20,7 +27,9 @@ class TimeIntervalFormatter: Formatter {
     // Used to set the stepper value
     var updateFunction: ((Double) -> Void)?
 
-    override func isPartialStringValid(_ partialString: String, newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+    override func isPartialStringValid(_ partialString: String,
+                                       newEditingString newString: AutoreleasingUnsafeMutablePointer<NSString?>?,
+                                       errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         
         if partialString.isEmpty {
             
@@ -53,5 +62,7 @@ class TimeIntervalFormatter: Formatter {
         return valueFunction != nil ? valueFunction!() : "0"
     }
     
-    override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {true}
+    override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+                                 for string: String,
+                                 errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {true}
 }

@@ -44,7 +44,7 @@ class ModalDialogButtonCell: NSButtonCell {
         }
         
         // Title
-        GraphicsUtils.drawCenteredTextInRect(drawRect, title, isEnabled ? textColor : textColor_disabled, textFont, yOffset)
+        title.drawCentered(in: drawRect, withFont: textFont, andColor: isEnabled ? textColor : textColor_disabled, offset: yOffset)
     }
 }
 

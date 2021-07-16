@@ -263,6 +263,19 @@ extension String {
         self.draw(in: rect, withAttributes: [.font: font, .foregroundColor: color, .paragraphStyle: style])
     }
     
+    // Draws text, centered, within an NSRect, with a certain font and color
+    func drawCentered(in rect: NSRect, withFont font: NSFont, andColor color: NSColor, offset: CGFloat = 0) {
+        
+        // Compute size and origin
+        let size: CGSize = self.size(withFont: font)
+        let sx = (rect.width - size.width) / 2
+        let sy = (rect.height - size.height) / 2 - 1
+        
+        self.draw(in: NSRect(x: sx, y: sy + offset, width: size.width, height: size.height),
+                  withFont: font,
+                  andColor: color)
+    }
+    
     /*
         Takes a formatted artist/album string like "Artist -- Album" and truncates it so that it fits horizontally within a text view.
      */

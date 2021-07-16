@@ -300,7 +300,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     
                     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "1.0.0"
                     let text = String(format: "Metadata exported by Aural Player v%@ on: %@", appVersion, dateFormatter.string(from: Date()))
-                    let exportDate = HTMLText(text, true, false, false, nil)
+                    let exportDate = HTMLText(text: text, underlined: true, bold: false, italic: false, width: nil)
                     html.addParagraph(exportDate)
                     
                     // Embed art in HTML
@@ -320,7 +320,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     
                     html.addHeading("Lyrics:", 3, true)
                     
-                    let lyrics = HTMLText(lyricsView.string, false, false, false, nil)
+                    let lyrics = HTMLText(text: lyricsView.string, underlined: false, bold: false, italic: false, width: nil)
                     html.addParagraph(lyrics)
                     
                     html.addTable("Audio:", 3, nil, audioHTML, horizHTMLTablePadding, vertHTMLTablePadding)
@@ -350,8 +350,8 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                 let valueCell = table.view(atColumn: 1, row: index, makeIfNecessary: true) as! NSTableCellView
                 if let value = valueCell.textField?.stringValue {
                     
-                    let keyCol = HTMLText(String(key.prefix(key.count - 1)), true, false, false, 300)
-                    let valueCol = HTMLText(value, false, false, false, nil)
+                    let keyCol = HTMLText(text: String(key.prefix(key.count - 1)), underlined: true, bold: false, italic: false, width: 300)
+                    let valueCol = HTMLText(text: value, underlined: false, bold: false, italic: false, width: nil)
                     grid.append([keyCol, valueCol])
                 }
             }

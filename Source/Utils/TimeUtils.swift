@@ -10,6 +10,10 @@
 import Foundation
 
 ///
+/// Some utilities related to time and timing.
+///
+
+///
 /// Measures the execution time of a code block, in milliseconds.
 /// Useful for estimating performance of a function or code block.
 ///

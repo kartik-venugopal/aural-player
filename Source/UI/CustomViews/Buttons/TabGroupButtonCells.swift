@@ -51,7 +51,7 @@ class TabGroupButtonCell: NSButtonCell {
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
         let font = isOn ? boldTextFont : textFont
         
-        GraphicsUtils.drawCenteredTextInRect(drawRect, title, textColor, font, yOffset)
+        title.drawCentered(in: drawRect, withFont: font, andColor: textColor, offset: yOffset)
     }
 }
 

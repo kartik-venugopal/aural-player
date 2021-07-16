@@ -59,10 +59,9 @@ class SeekSliderView: NSView {
         
         let seekTimerInterval = (1000 / (2 * timeStretchUnit.effectiveRate)).roundedInt
         
-        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval, task: {[weak self] in
-            self?.updateSeekPosition()
-            
-        }, queue: .main)
+        seekTimer = RepeatingTaskExecutor(intervalMillis: seekTimerInterval,
+                                          task: updateSeekPosition,
+                                          queue: .main)
     }
     
     @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {

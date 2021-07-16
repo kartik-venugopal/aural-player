@@ -43,6 +43,6 @@ class EQSelectorButtonCell: TabGroupButtonCell {
         
         // Title
         let textColor = shouldHighlight ? highlightColor : (isOff ? unselectedTextColor : selectedTextColor)
-        GraphicsUtils.drawCenteredTextInRect(cellFrame, title, textColor, font, yOffset)
+        title.drawCentered(in: cellFrame, withFont: font, andColor: textColor, offset: yOffset)
     }
 }

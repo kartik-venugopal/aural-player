@@ -76,11 +76,9 @@ class LegacyAVFScheduler: AVFScheduler {
         }
             
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyAVFScheduler.completionPollTimerIntervalMillis, task: {
-            
-            self.pollForTrackCompletion()
-            
-        }, queue: completionHandlerQueue)
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyAVFScheduler.completionPollTimerIntervalMillis,
+                                                    task: pollForTrackCompletion,
+                                                    queue: completionHandlerQueue)
         
         // Don't start the timer if player is paused
         if playerNode.isPlaying {
@@ -117,11 +115,9 @@ class LegacyAVFScheduler: AVFScheduler {
         }
             
         // Start the completion poll timer
-        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyAVFScheduler.completionPollTimerIntervalMillis, task: {
-            
-            self.pollForLoopCompletion()
-            
-        }, queue: completionHandlerQueue)
+        completionPollTimer = RepeatingTaskExecutor(intervalMillis: LegacyAVFScheduler.completionPollTimerIntervalMillis,
+                                                    task: pollForLoopCompletion,
+                                                    queue: completionHandlerQueue)
         
         // Don't start the timer if player is paused
         if playerNode.isPlaying {

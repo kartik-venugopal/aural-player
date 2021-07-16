@@ -13,6 +13,8 @@ import Foundation
 /// A special type of **Dictionary** in which a track is mapped
 /// to an arbitrary object.
 ///
+/// - Parameter T:      The type of the values in the map.
+///
 class TrackKeyedMap<T: Any> {
 
     var map: [URL: T] = [:]

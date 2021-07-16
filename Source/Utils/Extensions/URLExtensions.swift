@@ -49,13 +49,25 @@ extension URL {
     // Computes the size of a file, and returns a convenient representation
     var size: FileSize {
         
-        var fileSize : UInt64
+        do {
+            
+            let attr = try fileManager.attributesOfItem(atPath: path)
+            return FileSize(sizeBytes: attr[.size] as? UInt64 ?? 0)
+            
+        } catch let error as NSError {
+            NSLog("Error getting size of file '%@': %@", path, error.description)
+        }
+        
+        return .zero
+    }
+    
+    // Computes the size of a file, and returns a convenient representation
+    var sizeBytes: UInt64 {
         
         do {
             
             let attr = try fileManager.attributesOfItem(atPath: path)
-            fileSize = attr[.size] as! UInt64
-            return FileSize(sizeBytes: UInt(fileSize))
+            return attr[.size] as? UInt64 ?? 0
             
         } catch let error as NSError {
             NSLog("Error getting size of file '%@': %@", path, error.description)
@@ -73,7 +85,6 @@ extension URL {
         var lastOpened: Date?
         
         if let mditem = MDItemCreate(nil, path as CFString),
-            
             let mdnames = MDItemCopyAttributeNames(mditem),
             let mdattrs = MDItemCopyAttributes(mditem, mdnames) as? [String: Any] {
             
@@ -84,13 +95,13 @@ extension URL {
         do {
 
             let attr = try fileManager.attributesOfItem(atPath: path)
-            fileSize = FileSize(sizeBytes: attr.uintValue(forKey: FileAttributeKey.size)!)
+            fileSize = FileSize(sizeBytes: attr.uint64Value(forKey: .size) ?? 0)
             
-            if let modDate = attr[FileAttributeKey.modificationDate, Date.self] {
+            if let modDate = attr[.modificationDate, Date.self] {
                 lastModified = modDate
             }
             
-            if let cDate = attr[FileAttributeKey.creationDate, Date.self] {
+            if let cDate = attr[.creationDate, Date.self] {
                 creationDate = cDate
             }
             

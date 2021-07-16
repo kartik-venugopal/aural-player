@@ -41,7 +41,7 @@ class ExclusiveAccessSemaphore {
     ///
     /// - Parameter task:   The block of code to execute.
     ///
-    func produceValueAfterWait<T>(_ task: () -> T) -> T where T: Any {
+    func produceValueAfterWait<T: Any>(_ task: () -> T) -> T {
         
         semaphore.wait()
         defer {semaphore.signal()}

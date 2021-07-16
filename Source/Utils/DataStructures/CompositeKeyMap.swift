@@ -13,6 +13,17 @@ import Foundation
 /// A special type of **Dictionary** in which each mapping is accessed through
 /// two keys instead of one, i.e. each key is a composite key consisting of two parts.
 ///
+/// - Parameter T:      The type of both keys that constitute the composite key.
+///
+/// - Parameter U:      The type of the values mapped to the keys.
+///
+/// Example (storing cover art images mapped to a track's artist / album):
+///
+/// ```
+///     var keyMap = CompositeKeyMap<String, NSImage>()
+///     keyMap["Conjure One", "Exilarch"] = myCoverArtImage
+/// ```
+///
 class CompositeKeyMap<T: Hashable, U: Any> {
     
     private var map: [T: [T: U]] = [:]

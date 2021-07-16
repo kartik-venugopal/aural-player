@@ -33,6 +33,8 @@ extension Double {
     
     var roundedUInt: UInt {UInt(lround(self))}
     
+    var roundedUInt64: UInt64 {UInt64(lround(self))}
+    
     var floorInt: Int {Int(floor(self))}
 }
 
@@ -41,6 +43,8 @@ extension Float {
     var roundedInt: Int {lroundf(self)}
     
     var roundedUInt: UInt {UInt(lroundf(self))}
+    
+    var roundedUInt64: UInt64 {UInt64(lroundf(self))}
     
     var floorInt: Int {Int(floorf(self))}
 }

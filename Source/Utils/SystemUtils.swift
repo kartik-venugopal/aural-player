@@ -9,10 +9,13 @@
 //
 import Foundation
 
+///
+/// A collection of utilities that provide access to system-level information.
+///
 class SystemUtils {
     
     static var numberOfActiveCores: Int {
-        return ProcessInfo.processInfo.activeProcessorCount
+        ProcessInfo.processInfo.activeProcessorCount
     }
     
     static var numberOfPhysicalCores: Int {
@@ -23,7 +26,7 @@ class SystemUtils {
     }
     
     static var osVersion: OperatingSystemVersion {
-        return ProcessInfo.processInfo.operatingSystemVersion
+        ProcessInfo.processInfo.operatingSystemVersion
     }
     
     static var isBigSur: Bool {
@@ -31,8 +34,6 @@ class SystemUtils {
         let os = osVersion
         return os.majorVersion > 10 || os.minorVersion > 15
     }
-    
-    static let fileManager = FileManager.default
     
     static let primaryVolumeName: String? = {
         
@@ -44,6 +45,8 @@ class SystemUtils {
             return nil
         }
     }()
+    
+    private static let fileManager = FileManager.default
     
     static var secondaryVolumes: [URL] {
         

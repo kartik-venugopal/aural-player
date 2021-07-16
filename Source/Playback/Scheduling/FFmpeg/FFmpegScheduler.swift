@@ -23,7 +23,7 @@ class FFmpegScheduler: PlaybackSchedulerProtocol {
     /// 1. when playback has completed.
     /// 2. whether or not a scheduling task was successful and whether or not playback should begin.
     ///
-    var scheduledBufferCounts: [PlaybackSession: AtomicCounter<Int>] = [:]
+    var scheduledBufferCounts: [PlaybackSession: AtomicIntCounter] = [:]
     
     // Player node used for actual playback
     let playerNode: AuralPlayerNode

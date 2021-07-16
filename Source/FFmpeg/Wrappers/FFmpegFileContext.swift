@@ -154,19 +154,7 @@ class FFmpegFileContext {
     ///
     /// Size of this file, in bytes.
     ///
-    lazy var fileSize: UInt64 = {
-        
-        do {
-            
-            let fileAttributes = try FileManager.default.attributesOfItem(atPath: filePath)
-            return fileAttributes.uint64Value(forKey: FileAttributeKey.size) ?? 0
-            
-        } catch let error as NSError {
-            
-            NSLog("Error getting size of file '%@': %@", filePath, error.description)
-            return 0
-        }
-    }()
+    lazy var fileSize: UInt64 = file.sizeBytes
     
     ///
     /// Attempts to construct a FormatContext instance for the given file.

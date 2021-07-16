@@ -7,14 +7,13 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-/*
-    A timer for tasks that repeat at regular intervals.
-
-    Wrapper around a GCD dispatch source timer.
-*/
-
 import Cocoa
 
+///
+/// A timer that executes tasks that repeat at regular intervals.
+///
+/// Implemented as a wrapper around a GCD dispatch source timer.
+///
 class RepeatingTaskExecutor {
     
     // GCD dispatch source timer
