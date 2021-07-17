@@ -102,15 +102,12 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         }
         
         // Register self as a modal component
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {
-            _ = theWindow
-        }
+        forceLoadingOfWindow()
         
         // Reset the change history and the color clipboard (every time the dialog is shown)
         history.begin()

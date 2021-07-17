@@ -69,7 +69,7 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate,
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {[weak self] msg in self?.window?.isVisible ?? false})
         
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     func destroy() {
@@ -82,10 +82,7 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate,
     
     func showDialog() -> ModalDialogResponse {
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {
-            _ = theWindow
-        }
+        forceLoadingOfWindow()
         
         guard let playingTrack = playbackInfo.playingTrack else {
             

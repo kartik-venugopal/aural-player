@@ -55,7 +55,7 @@ class PresetsManagerWindowController: NSWindowController, ModalComponentProtocol
     override func windowDidLoad() {
         
         theWindow.isMovableByWindowBackground = true
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     func destroy() {

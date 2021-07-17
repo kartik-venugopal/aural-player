@@ -68,15 +68,12 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         lblError?.font = Fonts.stringInputPopoverErrorFont
 
         // Register self as a modal component
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {
-            _ = theWindow
-        }
+        forceLoadingOfWindow()
         
         txtName.stringValue = "My New Theme"
         txtName.selectText(nil)

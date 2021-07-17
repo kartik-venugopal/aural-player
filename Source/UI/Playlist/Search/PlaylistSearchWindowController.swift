@@ -52,7 +52,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     override func windowDidLoad() {
         
         messenger.subscribe(to: .playlist_searchTextChanged, handler: searchTextChanged(_:))
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     func destroy() {
@@ -66,8 +66,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
         // Don't do anything if no tracks in playlist
         guard playlist.size > 0 else {return .cancel}
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {_ = theWindow}
+        forceLoadingOfWindow()
         
         searchField.stringValue = ""
         searchQuery.text = ""

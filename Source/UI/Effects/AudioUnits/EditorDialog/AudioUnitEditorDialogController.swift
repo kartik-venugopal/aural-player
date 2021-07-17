@@ -70,11 +70,7 @@ class AudioUnitEditorDialogController: NSWindowController, StringInputReceiver {
     
     func showDialog() {
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {
-            _ = theWindow
-        }
-        
+        forceLoadingOfWindow()
         theWindow.showCenteredOnScreen()
     }
     

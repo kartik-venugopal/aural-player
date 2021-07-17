@@ -20,6 +20,8 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     
     override var nibName: String? {"LayoutsManager"}
     
+    private lazy var messenger = Messenger(for: self)
+    
     override var numberOfPresets: Int {windowLayoutsManager.numberOfUserDefinedPresets}
     
     override func nameOfPreset(atIndex index: Int) -> String {windowLayoutsManager.userDefinedPresets[index].name}
@@ -45,7 +47,7 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     override func applyPreset(atIndex index: Int) {
         
         let selLayout = windowLayoutsManager.userDefinedPresets[index]
-        WindowManager.instance.layout(selLayout)
+        messenger.publish(.windowManager_applyLayout, payload: selLayout)
     }
     
     override func renamePreset(named name: String, to newName: String) {

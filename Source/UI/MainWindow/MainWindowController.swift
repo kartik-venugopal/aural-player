@@ -47,6 +47,8 @@ class MainWindowController: NSWindowController, Destroyable {
     
     override var windowNibName: String? {"MainWindow"}
     
+    private let windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    
     private lazy var messenger = Messenger(for: self)
     
     // MARK: Setup
@@ -63,7 +65,7 @@ class MainWindowController: NSWindowController, Destroyable {
         initWindow()
         theWindow.setIsVisible(false)
         
-        setUpEventHandling()
+//        setUpEventHandling()
         initSubscriptions()
         
         super.windowDidLoad()
@@ -86,9 +88,9 @@ class MainWindowController: NSWindowController, Destroyable {
         }
         
         logoImage.tintFunction = {Colors.appLogoColor}
-        
-        btnToggleEffects.onIf(WindowLayoutState.showEffects)
-        btnTogglePlaylist.onIf(WindowLayoutState.showPlaylist)
+
+        btnTogglePlaylist.onIf(windowLayoutState.isShowingPlaylist)
+        btnToggleEffects.onIf(windowLayoutState.isShowingEffects)
         
         applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
@@ -118,9 +120,6 @@ class MainWindowController: NSWindowController, Destroyable {
         messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
         messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: changeToggleButtonOffStateColor(_:))
 
-        messenger.subscribe(to: .windowManager_togglePlaylistWindow, handler: togglePlaylistWindow)
-        messenger.subscribe(to: .windowManager_toggleEffectsWindow, handler: toggleEffectsWindow)
-        
         messenger.subscribe(to: .windowManager_layoutChanged, handler: windowLayoutChanged(_:))
         
         messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
@@ -157,9 +156,7 @@ class MainWindowController: NSWindowController, Destroyable {
     }
     
     private func togglePlaylistWindow() {
-
-        WindowManager.instance.togglePlaylist()
-        btnTogglePlaylist.toggle()
+        messenger.publish(.windowManager_togglePlaylistWindow)
     }
     
     // Shows/hides the effects panel on the main window
@@ -168,9 +165,7 @@ class MainWindowController: NSWindowController, Destroyable {
     }
     
     private func toggleEffectsWindow() {
-        
-        WindowManager.instance.toggleEffects()
-        btnToggleEffects.toggle()
+        messenger.publish(.windowManager_toggleEffectsWindow)
     }
     
     // Quits the app
@@ -250,7 +245,8 @@ class MainWindowController: NSWindowController, Destroyable {
 
         // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
         // Send the space key event to the main window unless a modal component is currently displayed
-        if event.charactersIgnoringModifiers == " " && !WindowManager.instance.isShowingModalComponent {
+        if event.charactersIgnoringModifiers == " ",
+           !windowLayoutState.isShowingModalComponent {
 
             self.window?.keyDown(with: event)
             return nil
@@ -266,7 +262,7 @@ class MainWindowController: NSWindowController, Destroyable {
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
 
         if event.window === self.window,
-           !WindowManager.instance.isShowingModalComponent,
+           !windowLayoutState.isShowingModalComponent,
            let swipeDirection = event.gestureDirection, swipeDirection.isHorizontal {
 
             handleTrackChange(swipeDirection)
@@ -283,7 +279,7 @@ class MainWindowController: NSWindowController, Destroyable {
 
         // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
         if event.window === self.window,
-           !WindowManager.instance.isShowingModalComponent,
+           !windowLayoutState.isShowingModalComponent,
            let scrollDirection = event.gestureDirection {
 
             // Vertical scroll = volume control, horizontal scroll = seeking

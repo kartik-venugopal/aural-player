@@ -70,6 +70,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    
     // One-time setup
     override func awakeFromNib() {
         
@@ -115,7 +117,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(theClickedTrack.file))
             
             let isPlayingTrack: Bool = playbackInfo.playingTrack == theClickedTrack
-            viewChaptersMenuItem.showIf(isPlayingTrack && theClickedTrack.hasChapters && !WindowManager.instance.isShowingChaptersList)
+            viewChaptersMenuItem.showIf(isPlayingTrack && theClickedTrack.hasChapters && !windowLayoutState.isShowingChaptersList)
             
         case .group:
             
@@ -135,23 +137,23 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         guard let theClickedTrack = clickedTrack else {return}
         
-        WindowManager.instance.playlistWindow?.makeKeyAndOrderFront(self)
+        messenger.publish(.windowManager_makePlaylistWindowKey)
         
         if favoritesMenuItem.isOn {
         
             // Remove from Favorites list and display notification
             favorites.deleteFavoriteWithFile(theClickedTrack.file)
-            infoPopup.showMessage("Track removed from Favorites !", playlistSelectedRowView, NSRectEdge.maxX)
+            infoPopup.showMessage("Track removed from Favorites !", playlistSelectedRowView, .maxX)
             
         } else {
             
             // Add to Favorites list and display notification
             _ = favorites.addFavorite(theClickedTrack)
-            infoPopup.showMessage("Track added to Favorites !", playlistSelectedRowView, NSRectEdge.maxX)
+            infoPopup.showMessage("Track added to Favorites !", playlistSelectedRowView, .maxX)
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        WindowManager.instance.mainWindow.orderFront(self)
+        messenger.publish(.windowManager_makeMainWindowKey)
     }
     
     // Shows a popover with detailed information for the track that was right-clicked to bring up this context menu
@@ -163,14 +165,14 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         trackReader.loadAuxiliaryMetadata(for: theClickedTrack)
         
-        WindowManager.instance.playlistWindow?.makeKeyAndOrderFront(self)
-        detailedInfoPopover.show(theClickedTrack, playlistSelectedRowView, NSRectEdge.maxY)   // Display the popover below the selected row
-        WindowManager.instance.mainWindow.makeKeyAndOrderFront(self)
+        messenger.publish(.windowManager_makePlaylistWindowKey)
+        detailedInfoPopover.show(theClickedTrack, playlistSelectedRowView, .maxY)   // Display the popover below the selected row
+        messenger.publish(.windowManager_makeMainWindowKey)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)
     // Defaults to the content view of the playlist window
-    private var playlistSelectedRowView: NSView {PlaylistViewState.selectedRowView ?? WindowManager.instance.playlistWindow!.contentView!}
+    private var playlistSelectedRowView: NSView {PlaylistViewState.selectedRowView ?? windowLayoutState.playlistWindowContentView}
  
     // Removes the selected playlist item from the playlist
     @IBAction func removeSelectedItemAction(_ sender: Any) {

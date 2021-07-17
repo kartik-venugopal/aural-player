@@ -116,7 +116,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         
         if let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window {
             
-            WindowManager.instance.addChildWindow(dialogWindow)
+            messenger.publish(.windowManager_addChildWindow, payload: dialogWindow)
             dialog.showDialog()
         }
     }

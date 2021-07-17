@@ -43,6 +43,8 @@ class PlayerViewController: NSViewController, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    
     override func viewDidLoad() {
         
         initSubscriptions()
@@ -128,15 +130,15 @@ class PlayerViewController: NSViewController, Destroyable {
         trackChanged(notification.endTrack)
         
         // If the playlist window has not yet been loaded, we need to handle this notification on behalf of the playlist window.
-        guard !WindowManager.instance.playlistWindowLoaded else {return}
+        guard !windowLayoutState.playlistWindowLoaded else {return}
         
         // New track has no chapters, or there is no new track
         if player.chapterCount == 0 {
-            WindowManager.instance.hideChaptersList()
+            messenger.publish(.windowManager_hideChaptersListWindow)
             
         } // Only show chapters list if preferred by user
         else if playlistPreferences.showChaptersList {
-            WindowManager.instance.showChaptersList()
+            messenger.publish(.windowManager_showChaptersListWindow)
         }
     }
 }

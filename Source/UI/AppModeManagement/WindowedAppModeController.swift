@@ -25,12 +25,18 @@ class WindowedAppModeController: AppModeController {
     
     // TODO: Manage WindowManager singleton here.
     
+    private var windowManager: WindowManager?
+    
     func presentMode(transitioningFromMode previousMode: AppMode?) {
         
         NSApp.setActivationPolicy(.regular)
         
-        WindowManager.createInstance(layoutsManager: objectGraph.windowLayoutsManager,
-                                     preferences: objectGraph.preferences.viewPreferences).loadWindows()
+        let initialLayout: WindowLayout? = WindowLayout(systemLayoutFrom: objectGraph.windowLayoutState)
+        windowManager = WindowManager(layoutsManager: objectGraph.windowLayoutsManager,
+                                      initialLayout: initialLayout,
+                                      preferences: objectGraph.preferences.viewPreferences)
+        
+        windowManager?.performInitialLayout()
         
         // If this is not a transition from a different app mode, we don't need to execute the hack below.
         if previousMode == nil || previousMode == .windowed {return}
@@ -46,6 +52,6 @@ class WindowedAppModeController: AppModeController {
     }
     
     func dismissMode() {
-        WindowManager.destroy()
+        windowManager = nil
     }
 }

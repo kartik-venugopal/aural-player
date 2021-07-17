@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     override init() {
         
         super.init()
-        configureLogging()
+//        configureLogging()
     }
     
     /// Make sure all logging is done to the app's log file

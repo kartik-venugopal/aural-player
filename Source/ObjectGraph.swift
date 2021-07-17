@@ -105,6 +105,8 @@ class ObjectGraph {
     lazy var windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
                                                                                  viewPreferences: preferences.viewPreferences)
     
+    lazy var windowLayoutState: WindowLayoutState = WindowLayoutState(persistentState: persistentState.ui?.windowLayout)
+    
     lazy var themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     lazy var fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
     lazy var colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
@@ -130,8 +132,6 @@ class ObjectGraph {
         }
         
         // Initialize utility classes.
-        
-        WindowLayoutState.initialize(persistentState.ui?.windowLayout)
         
         PlayerViewState.initialize(persistentState.ui?.player)
         PlaylistViewState.initialize(persistentState.ui?.playlist)
@@ -184,7 +184,7 @@ class ObjectGraph {
         persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
         
         persistentState.ui = UIPersistentState(appMode: appModeManager.currentMode,
-                                               windowLayout: WindowLayoutState.persistentState,
+                                               windowLayout: windowLayoutState.persistentState,
                                                themes: themesManager.persistentState,
                                                fontSchemes: fontSchemesManager.persistentState,
                                                colorSchemes: colorSchemesManager.persistentState,

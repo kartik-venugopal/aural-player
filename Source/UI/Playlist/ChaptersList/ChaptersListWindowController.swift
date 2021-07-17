@@ -36,7 +36,7 @@ class ChaptersListWindowController: NSWindowController, Destroyable {
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        WindowManager.instance.hideChaptersList()
+        messenger.publish(.windowManager_hideChaptersListWindow)
     }
     
     private func applyTheme() {

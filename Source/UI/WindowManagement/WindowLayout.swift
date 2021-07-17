@@ -61,6 +61,54 @@ class WindowLayout {
         self.showEffects = showEffects
         self.showPlaylist = showPlaylist
     }
+    
+    init?(systemLayoutFrom persistentState: WindowLayoutsPersistentState?) {
+        
+        guard let showEffects = persistentState?.showEffects,
+              let showPlaylist = persistentState?.showPlaylist,
+              let mainWindowOrigin = persistentState?.mainWindowOrigin?.toNSPoint() else {return nil}
+        
+        if showEffects {
+            
+            guard let effectsWindowOrigin = persistentState?.effectsWindowOrigin?.toNSPoint() else {return nil}
+            self.effectsWindowOrigin = effectsWindowOrigin
+        }
+        
+        if showPlaylist {
+            
+            guard let playlistWindowFrame = persistentState?.playlistWindowFrame?.toNSRect() else {return nil}
+            self.playlistWindowFrame = playlistWindowFrame
+        }
+        
+        self.name = "_system_"
+        self.systemDefined = true
+        
+        self.mainWindowOrigin = mainWindowOrigin
+        self.showEffects = showEffects
+        self.showPlaylist = showPlaylist
+    }
+    
+    init?(systemLayoutFrom windowLayoutState: WindowLayoutState) {
+        
+        if windowLayoutState.isShowingEffects {
+            
+            guard let effectsWindowOrigin = windowLayoutState.effectsWindowOrigin else {return nil}
+            self.effectsWindowOrigin = effectsWindowOrigin
+        }
+        
+        if windowLayoutState.isShowingPlaylist {
+            
+            guard let playlistWindowFrame = windowLayoutState.playlistWindowFrame else {return nil}
+            self.playlistWindowFrame = playlistWindowFrame
+        }
+        
+        self.name = "_system_"
+        self.systemDefined = true
+        
+        self.mainWindowOrigin = windowLayoutState.mainWindowOrigin
+        self.showEffects = windowLayoutState.isShowingEffects
+        self.showPlaylist = windowLayoutState.isShowingPlaylist
+    }
 }
 
 extension WindowLayout: MappedPreset {

@@ -42,7 +42,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
         
         tabView.addViewsForTabs(subViews.map {$0.preferencesView})
         
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
         
         super.windowDidLoad()
     }
@@ -53,11 +53,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
     
     func showDialog() -> ModalDialogResponse {
      
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if (!self.isWindowLoaded) {
-            _ = theWindow
-        }
-        
+        forceLoadingOfWindow()
         resetPreferencesFields()
         
         // Select the playlist prefs tab

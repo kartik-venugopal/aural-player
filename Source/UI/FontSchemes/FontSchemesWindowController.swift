@@ -75,16 +75,12 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         }
 
         // Register self as a modal component
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {
-            _ = theWindow
-        }
-        
+        forceLoadingOfWindow()
         subViews.forEach {$0.resetFields(fontSchemesManager.systemScheme)}
         
         // Reset the change history (every time the dialog is shown)

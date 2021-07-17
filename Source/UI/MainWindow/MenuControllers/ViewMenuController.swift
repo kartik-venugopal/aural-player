@@ -52,12 +52,14 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedPresets.isEmpty)
         toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
         
-        let showingModalComponent: Bool = WindowManager.instance.isShowingModalComponent
+        let showingModalComponent: Bool = objectGraph.windowLayoutState.isShowingModalComponent
         
         [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
         manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedPresets > 0))
@@ -74,10 +76,10 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.show()})
         
-        togglePlaylistMenuItem.onIf(WindowManager.instance.isShowingPlaylist)
-        toggleEffectsMenuItem.onIf(WindowManager.instance.isShowingEffects)
-        toggleChaptersListMenuItem.onIf(WindowManager.instance.isShowingChaptersList)
-        toggleVisualizerMenuItem.onIf(WindowManager.instance.isShowingVisualizer)
+        togglePlaylistMenuItem.onIf(windowLayoutState.isShowingPlaylist)
+        toggleEffectsMenuItem.onIf(windowLayoutState.isShowingEffects)
+        toggleChaptersListMenuItem.onIf(windowLayoutState.isShowingChaptersList)
+        toggleVisualizerMenuItem.onIf(windowLayoutState.isShowingVisualizer)
         
         playerViewMenuItem.off()
         
@@ -97,14 +99,14 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     // Shows/hides the chapters list window
     @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
-        WindowManager.instance.toggleChaptersList()
+        messenger.publish(.windowManager_toggleChaptersListWindow)
     }
     
     @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
-        WindowManager.instance.toggleVisualizer()
+        messenger.publish(.windowManager_toggleVisualizerWindow)
     }
     
     @IBAction func toggleTuneBrowserAction(_ sender: AnyObject) {
-        WindowManager.instance.toggleTuneBrowser()
+        messenger.publish(.windowManager_toggleTuneBrowserWindow)
     }
 }

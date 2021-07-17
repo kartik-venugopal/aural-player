@@ -38,7 +38,7 @@ class AlertWindowController: NSWindowController, ModalComponentProtocol, Destroy
     @IBOutlet weak var btnOK: NSButton!
     
     override func windowDidLoad() {
-        WindowManager.instance?.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     var isModal: Bool {

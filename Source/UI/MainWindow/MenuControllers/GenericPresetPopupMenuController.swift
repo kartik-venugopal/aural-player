@@ -23,9 +23,9 @@ class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputRec
     var userDefinedPresets: [MappedPreset] {[]}
     var numberOfUserDefinedPresets: Int {0}
     
-    func presetExists(named name: String) -> Bool {
-        false
-    }
+    func presetExists(named name: String) -> Bool {false}
+    
+    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
     
     override func awakeFromNib() {
         
@@ -65,7 +65,7 @@ class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputRec
     }
     
     @IBAction func savePresetAction(_ sender: NSMenuItem) {
-        presetNamePopover.show(WindowManager.instance.mainWindow.contentView!, NSRectEdge.maxX)
+        presetNamePopover.show(windowLayoutState.mainWindowContentView, .maxX)
     }
     
     // MARK - StringInputReceiver functions (to receive the name of a new user-defined color scheme)

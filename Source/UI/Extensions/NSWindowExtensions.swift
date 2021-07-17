@@ -78,4 +78,11 @@ extension NSWindow {
 extension NSWindowController {
     
     var theWindow: NSWindow {self.window!}
+    
+    func forceLoadingOfWindow() {
+        
+        if !self.isWindowLoaded {
+            _ = self.window
+        }
+    }
 }

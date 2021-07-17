@@ -25,21 +25,21 @@ extension Destroyable {
 
 class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
-    private static var _instance: WindowManager?
-    
-    static var instance: WindowManager! {_instance}
-    
-    static func createInstance(layoutsManager: WindowLayoutsManager, preferences: ViewPreferences) -> WindowManager {
-        
-        _instance = WindowManager(layoutsManager: layoutsManager, preferences: preferences)
-        return instance
-    }
-    
-    static func destroy() {
-        
-        _instance?.destroy()
-        _instance = nil
-    }
+//    private static var _instance: WindowManager?
+//    
+//    static var instance: WindowManager! {_instance}
+//    
+//    static func createInstance(layoutsManager: WindowLayoutsManager, preferences: ViewPreferences) -> WindowManager {
+//        
+//        _instance = WindowManager(layoutsManager: layoutsManager, preferences: preferences)
+//        return instance
+//    }
+//    
+//    static func destroy() {
+//        
+//        _instance?.destroy()
+//        _instance = nil
+//    }
     
     private let preferences: ViewPreferences
     private let layoutsManager: WindowLayoutsManager
@@ -57,6 +57,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }()
     
     var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
+    var effectsWindowFrame: NSRect? {effectsWindowLoaded ? _effectsWindow.frame : nil}
     var effectsWindowLoaded: Bool {effectsWindowLoader.windowLoaded}
 
     private var playlistWindowLoader: LazyWindowLoader<PlaylistWindowController> = LazyWindowLoader()
@@ -67,6 +68,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }()
     
     var playlistWindow: NSWindow? {playlistWindowLoader.windowLoaded ? _playlistWindow : nil}
+    var playlistWindowFrame: NSRect? {playlistWindowLoaded ? _playlistWindow.frame : nil}
     var playlistWindowLoaded: Bool {playlistWindowLoader.windowLoaded}
 
     private lazy var chaptersListWindowLoader: LazyWindowLoader<ChaptersListWindowController> = LazyWindowLoader()
@@ -90,7 +92,9 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
-    init(layoutsManager: WindowLayoutsManager, preferences: ViewPreferences) {
+    private let initialLayout: WindowLayout?
+    
+    init(layoutsManager: WindowLayoutsManager, initialLayout: WindowLayout?, preferences: ViewPreferences) {
         
         self.layoutsManager = layoutsManager
         self.preferences = preferences
@@ -98,8 +102,13 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         self.mainWindowController = MainWindowController()
         self.mainWindow = mainWindowController.window!
         
+        self.initialLayout = initialLayout
+        
         super.init()
         self.mainWindow.delegate = self
+        
+        messenger.subscribe(to: .windowManager_togglePlaylistWindow, handler: togglePlaylist)
+        messenger.subscribe(to: .windowManager_toggleEffectsWindow, handler: toggleEffects)
     }
     
     func registerModalComponent(_ component: ModalComponentProtocol) {
@@ -107,68 +116,41 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }
     
     var isShowingModalComponent: Bool {
-        return modalComponentRegistry.contains(where: {$0.isModal}) || NSApp.modalWindow != nil
+        modalComponentRegistry.contains(where: {$0.isModal}) || NSApp.modalWindow != nil
     }
     
     // MARK - Core functionality ----------------------------------------------------
     
-    func loadWindows() {
+    func performInitialLayout() {
         
         if preferences.layoutOnStartup.option == .specific, let layoutName = preferences.layoutOnStartup.layoutName {
             
             layout(layoutName)
             
-        } else {
+        } else if let initialLayout = self.initialLayout {
             
             // Remember from last app launch
-            mainWindow.setFrameOrigin(WindowLayoutState.mainWindowOrigin)
-            mainWindow.show()
+            layout(initialLayout)
             
-            if WindowLayoutState.showEffects {
-                
-                mainWindow.addChildWindow(_effectsWindow, ordered: .below)
-                
-                if let effectsWindowOrigin = WindowLayoutState.effectsWindowOrigin {
-                    
-                    _effectsWindow.setFrameOrigin(effectsWindowOrigin)
-                    _effectsWindow.show()
-                    
-                } else {
-                    defaultLayout()
-                }
-            }
-            
-            if WindowLayoutState.showPlaylist {
-                
-                mainWindow.addChildWindow(_playlistWindow, ordered: .below)
-                
-                if let playlistWindowFrame = WindowLayoutState.playlistWindowFrame {
-                    
-                    _playlistWindow.setFrame(playlistWindowFrame, display: true)
-                    _playlistWindow.show()
-                    
-                } else {
-                    defaultLayout()
-                }
-            }
-            
-            mainWindow.makeKeyAndOrderFront(self)
-            messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: WindowLayoutState.showPlaylist, showingEffectsWindow: WindowLayoutState.showEffects))
-            
-            (mainWindow as? SnappingWindow)?.ensureOnScreen()
+        } else {
+            defaultLayout()
         }
+        
+        (mainWindow as? SnappingWindow)?.ensureOnScreen()
     }
     
     func destroy() {
         
         // Before destroying this instance, transfer its state info to WindowLayoutState.
         
-        WindowLayoutState.showEffects = isShowingEffects
-        WindowLayoutState.showPlaylist = isShowingPlaylist
+        messenger.unsubscribeFromAll()
         
-        WindowLayoutState.mainWindowOrigin = mainWindow.origin
-        WindowLayoutState.playlistWindowFrame = playlistWindow?.frame
-        WindowLayoutState.effectsWindowOrigin = effectsWindow?.origin
+//        WindowLayoutState.showEffects = isShowingEffects
+//        WindowLayoutState.showPlaylist = isShowingPlaylist
+//
+//        WindowLayoutState.mainWindowOrigin = mainWindow.origin
+//        WindowLayoutState.playlistWindowFrame = playlistWindow?.frame
+//        WindowLayoutState.effectsWindowOrigin = effectsWindow?.origin
         
         for window in mainWindow.childWindows ?? [] {
             mainWindow.removeChildWindow(window)
@@ -214,8 +196,13 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
             hidePlaylist()
         }
         
-        messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: layout.showPlaylist,
-                                                          showingEffectsWindow: layout.showEffects))
+        layoutChanged()
+    }
+    
+    private func layoutChanged() {
+        
+        messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: isShowingPlaylist,
+                                                          showingEffectsWindow: isShowingEffects))
     }
     
     var currentWindowLayout: WindowLayout {
@@ -276,13 +263,17 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         mainWindow.addChildWindow(_effectsWindow, ordered: NSWindow.OrderingMode.above)
         _effectsWindow.show()
         _effectsWindow.orderFront(self)
+        
+        layoutChanged()
     }
     
     // Hides the effects window
     private func hideEffects() {
         
         if effectsWindowLoaded {
+            
             _effectsWindow.hide()
+            layoutChanged()
         }
     }
     
@@ -297,13 +288,17 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         mainWindow.addChildWindow(_playlistWindow, ordered: NSWindow.OrderingMode.above)
         _playlistWindow.show()
         _playlistWindow.orderFront(self)
+        
+        layoutChanged()
     }
     
     // Hides the playlist window
     private func hidePlaylist() {
         
         if playlistWindowLoaded {
+            
             _playlistWindow.hide()
+            layoutChanged()
         }
     }
     

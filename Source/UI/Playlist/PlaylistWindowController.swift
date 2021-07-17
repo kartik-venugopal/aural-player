@@ -81,6 +81,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     private var tabButtons: [NSButton] = []
     
     private lazy var messenger = Messenger(for: self)
+    
+    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
 
     override func windowDidLoad() {
         
@@ -98,7 +100,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
         
-        setUpEventHandling()
+//        setUpEventHandling()
         initSubscriptions()
     }
     
@@ -483,7 +485,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         // New track has no chapters, or there is no new track
         if playbackInfo.chapterCount == 0 {
-            WindowManager.instance.hideChaptersList()
+            messenger.publish(.windowManager_hideChaptersListWindow)
             
         } // Only show chapters list if preferred by user
         else if playlistPreferences.showChaptersList {
@@ -492,7 +494,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     }
     
     private func viewChaptersList() {
-        WindowManager.instance.showChaptersList()
+        messenger.publish(.windowManager_showChaptersListWindow)
     }
     
     // MARK: Message handling
@@ -513,7 +515,9 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         // TODO: Enable top/bottom gestures for chapters list window too !!!
         
-        if event.type == .swipe, !WindowManager.instance.isShowingModalComponent && event.window === WindowManager.instance.playlistWindow,
+        if event.type == .swipe,
+           !windowLayoutState.isShowingModalComponent,
+           let eventWindow = event.window, windowLayoutState.isWindowEqualToPlaylistWindow(eventWindow),
            let swipeDirection = event.gestureDirection {
             
             swipeDirection.isHorizontal ? handleTabToggle(swipeDirection) : handleScrolling(swipeDirection)

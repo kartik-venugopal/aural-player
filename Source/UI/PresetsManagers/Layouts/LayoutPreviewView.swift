@@ -14,6 +14,8 @@ class LayoutPreviewView: NSView {
     private var layout: WindowLayout?
     private let idealImgSize: CGFloat = 15
     
+    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    
     private var screen: NSRect {
         return NSScreen.main!.frame
     }
@@ -62,7 +64,7 @@ class LayoutPreviewView: NSView {
         // Draw window frames
         if let layout = self.layout {
             
-            let mainWindowFrame = WindowManager.instance.mainWindowFrame
+            let mainWindowFrame = windowLayoutState.mainWindowFrame
             renderPreview(layout.mainWindowOrigin, mainWindowFrame.width, mainWindowFrame.height, Images.imgPlayerPreview)
             
             if layout.showEffects, let effectsWindowOrigin = layout.effectsWindowOrigin {

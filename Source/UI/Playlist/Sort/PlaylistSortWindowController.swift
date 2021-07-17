@@ -38,7 +38,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         
         [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach {$0.resetFields()}
         
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     var isModal: Bool {window?.isVisible ?? false}
@@ -48,8 +48,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         // Don't do anything if either no tracks or only 1 track in playlist
         guard playlist.size >= 2 else {return .cancel}
         
-        // Force loading of the window if it hasn't been loaded yet (only once)
-        if !self.isWindowLoaded {_ = theWindow}
+        forceLoadingOfWindow()
         
         // Choose sort view based on current playlist view
         NSView.hideViews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)

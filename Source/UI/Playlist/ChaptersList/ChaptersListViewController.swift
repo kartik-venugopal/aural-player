@@ -82,7 +82,7 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Dest
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
         
-        WindowManager.instance.registerModalComponent(self)
+        objectGraph.windowLayoutState.registerModalComponent(self)
     }
     
     private func initSubscriptions() {

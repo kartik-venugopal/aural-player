@@ -30,7 +30,8 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // These items should be enabled only if there is no modal component currently shown.
-        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem, applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!WindowManager.instance.isShowingModalComponent)}
+        let isShowingModalComponent: Bool = objectGraph.windowLayoutState.isShowingModalComponent
+        [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem, applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!isShowingModalComponent)}
         
         cornerRadiusStepper.integerValue = WindowAppearanceState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
