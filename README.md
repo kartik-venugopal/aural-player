@@ -69,10 +69,16 @@ The following features ***may be*** implemented in the future:
 - A file browser.
 - Allow for multiple playlists.
 - A single window "Unified" user interface mode.
-- A nicer looking playlist UI with a "tiles" view.
+- A nicer playlist UI with customizable columns and a "tiles" view.
 - Replay gain.
 - Crossfading between tracks.
 - Gapless playback.
+
+#### Other goals
+
+- More extensive unit testing.
+- More comprehensive documentation.
+- Better source code commenting.
 
 ## Download
 
