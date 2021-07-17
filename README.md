@@ -16,7 +16,7 @@
     + [Installation](#installation)
     + [Enabling media keys support](#enabling-media-keys-support-optional)
     + [Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions](#important-note-for-anyone-upgrading-from-v220-or-older-to-v230-or-newer-app-versions)
-  * [Building and running the app](#building-and-running-the-app)
+  * [Building the app](#building-the-app)
   * [Documentation](#documentation)
   * [Screenshots](#screenshots)
   * [Known issues (and solutions)](#known-issues-and-solutions)
@@ -82,6 +82,10 @@ The following features ***may be*** implemented in the future:
 
 ## Download
 
+[Latest release](https://github.com/maculateConception/aural-player/releases/latest)
+
+[See all releases](https://github.com/maculateConception/aural-player/releases)
+
 ### Compatibility
 
 This table lists the ***minimum*** required Aural Player version for your hardware and macOS version. It is always recommended to use the [latest](https://github.com/maculateConception/aural-player/releases/latest) app version, regardless of your hardware / macOS version.
@@ -93,18 +97,14 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 **NOTE:** Version 3.0.0 and all subsequent releases are universal binaries, i.e. capable of running on both Intel and M1 Macs.
 
-[Latest release](https://github.com/maculateConception/aural-player/releases/latest)
-
-[See all releases](https://github.com/maculateConception/aural-player/releases)
-
 ### Installation
 
 1. Mount the **AuralPlayer-x.y.z.dmg** image file
-2. From within the mounted image, copy **Aural.app** to your local drive (e.g. Applications folder)
+2. From within the mounted image, copy **Aural.app** to your local drive (e.g. **Applications** folder)
 3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
 4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
 
-NOTE - Please ***don't*** run the app directly from within the image. It is a compressed image, and may result in the app behaving slowly and/or unpredictably. So, copy it outside and run the copy.
+NOTE - Please ***don't*** run the app directly from within the image. Copy it outside and run the copy.
 
 ### Enabling media keys support (optional)
 
@@ -114,7 +114,7 @@ Follow the steps listed [here](https://github.com/maculateConception/aural-playe
 
 Please read [this important note](https://github.com/maculateConception/aural-player/wiki/Important-note-for-anyone-upgrading-from-v2.2.0-(or-older)-to-v2.3.0-or-newer-app-versions), otherwise you will lose your previous app settings.
 
-## Building and running the app
+## Building the app
 
 All you need is Xcode 12.2+ and the [source code](https://github.com/maculateConception/aural-player/releases/latest) (a working knowledge of Swift would help !). It is recommended to use the source code from the latest release (as opposed to the master branch) as code between releases can be buggy / unstable.
 
