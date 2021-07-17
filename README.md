@@ -9,7 +9,7 @@
 ## Table of Contents
   * [Overview](#overview)
     + [How it works (under the hood)](#how-it-works-under-the-hood)
-  * [Summary of features](#summary-of-features)
+  * [Key features](#key-features)
   * [Download](#download)
     + [Compatibility](#compatibility)
     + [Installation](#installation)
@@ -26,17 +26,17 @@
 
 ## Overview
 
-Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and powerful sound tuning capabilities for audio enthusiasts.
+Aural Player is an audio player for macOS. Inspired by the classic Winamp player for Windows, it is designed to be easy to use and customizable, with support for a wide variety of popular audio formats and powerful sound tuning capabilities.
 
 | Flexibility  | Personalization |
 | :-- | --: |
 |  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Modularity.gif" width="500" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Customization.gif" width="300" /> |
 | With Winamp-like modularity and multiple app presentation modes, you can lay out the app to suit your workspace or tuck it away in the macOS menu bar. | Personalize Aural Player with exactly the colors and fonts that define your creative tastes. |
 
-| Extensive Audio Formats Support  | Sound tweaking and monitoring |
+| Extensive Audio Formats Support  | Sound tuning and monitoring |
 | :-- | --: |
 |  <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-AudioFormats.gif" width="150" />| <img src="https://raw.githubusercontent.com/maculateConception/aural-player/master/Documentation/Demos/Aural-Effects.gif" width="700" /> |
-| By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Units (AU) plug-ins, sound tweaking and monitoring possibilities are endless. |
+| By harnessing the power of FFmpeg, Aural Player supports a wide variety of popular audio formats, in addition to all macOS Core Audio formats. | With several built-in effects and support for Audio Units (AU) plug-ins, sound tuning and monitoring possibilities are endless. |
 
 ### How it works (under the hood)
 
@@ -46,31 +46,20 @@ Aural Player is written entirely in Swift (approximately 100,000 lines of code).
 
 Read more about it [here](https://github.com/maculateConception/aural-player/wiki/Developer-reference).
 
-## Summary of features
+## Key features
 
 (Comprehensive feature list [here](https://github.com/maculateConception/aural-player/wiki/Features))
 
-* Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Opus, Monkey's Audio (APE), True Audio (TTA), DSD & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
+* Supports all [Core Audio formats](https://developer.apple.com/library/archive/documentation/MusicAudio/Conceptual/CoreAudioOverview/SupportedAudioFormatsMacOSX/SupportedAudioFormatsMacOSX.html) and several non-native formats: (including FLAC, Vorbis, Monkey's Audio (APE) & [more](https://github.com/maculateConception/aural-player/wiki/Features#audio-formats))
 * Supports M3U / M3U8 playlists
-* **Playback:** Repeat / shuffle, bookmarking, segment looping, 2 custom seek intervals, last position memory, chapters support, autoplay.
-* **Effects:**
-  * Built-in effects: Graphic equalizer, pitch shift, time stretch, reverb, delay, filter.
-  * Hosts Audio Units (AU) plug-ins, for advanced sound tweaking and monitoring / analysis.
-  * Built-in and custom effects presets, per-track effects settings memory.
+* **Playback:** Bookmarking, segment looping, custom seek intervals, last position memory, chapters support, autoplay.
+* **Effects:** Built-in effects (incl. equalizer), Audio Units (AU) plug-ins support, built-in / custom presets, per-track settings memory.
 * **Playlist:** Grouping by artist/album/genre, searching, sorting, type selection.
-* **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, and other metadata (when available). Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
+* **Information:** ID3, iTunes, WMA, Vorbis Comment, ApeV2, etc. Cover art (with MusicBrainz lookups), lyrics, file system and audio data. Option to export.
 * **Track lists:** *Favorites* list, *recently added* and *recently played* lists.
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
-* **UI:** 
-  * Winamp-like modular interface with 3 different app modes.
-  * Fully customizable fonts and colors with built-in and custom schemes.
-  * Window layouts (built-in and custom), window snapping, collapsible UI components.
-  * Menu bar mode to run the app in the macOS menu bar.
-  * Control bar mode to run the app as a floating widget with essential controls.
-* **Usability:** 
-  * Configurable media keys support.
-  * Swipe/scroll gesture recognition.
-  * Remote control (control the app from Control Center, headphones, or other media control devices / apps).
+* **UI:** Modular interface, fully customizable fonts and colors, built-in / custom window layouts, menu bar mode, control bar (widget) mode.
+* **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, media control devices / apps).
 
 ## Download
 
