@@ -28,7 +28,7 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var selectedTabButtonTextColorPicker: AuralColorPicker!
     @IBOutlet weak var buttonMenuTextColorPicker: AuralColorPicker!
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var messenger = Messenger(for: self)
     

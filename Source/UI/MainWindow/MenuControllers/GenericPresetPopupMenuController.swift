@@ -47,7 +47,7 @@ class GenericPresetPopupMenuController: NSObject, NSMenuDelegate, StringInputRec
         // Recreate the user-defined color scheme items
         userDefinedPresets.forEach {
 
-            let item: NSMenuItem = NSMenuItem(title: $0.key, action: #selector(self.applyPresetAction(_:)), keyEquivalent: "")
+            let item: NSMenuItem = NSMenuItem(title: $0.key, action: #selector(self.applyPresetAction(_:)))
             item.target = self
             item.indentationLevel = 1
 

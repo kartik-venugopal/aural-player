@@ -32,7 +32,7 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate,
     @IBOutlet weak var txtPercentage: NSTextField!
     @IBOutlet weak var percentageStepper: NSStepper!
     
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
     private lazy var messenger = Messenger(for: self)
     

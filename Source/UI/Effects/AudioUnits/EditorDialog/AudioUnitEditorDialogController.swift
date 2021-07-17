@@ -161,7 +161,7 @@ class AudioUnitUserPresetsMenuDelegate: NSObject, NSMenuDelegate {
         if let userPresets = audioUnit?.presets {
             
             for preset in userPresets.userDefinedPresets.sorted(by: {$0.name < $1.name}) {
-                menu.addItem(withTitle: preset.name, action: nil, keyEquivalent: "")
+                menu.addItem(withTitle: preset.name)
             }
         }
     }
@@ -186,7 +186,7 @@ class AudioUnitFactoryPresetsMenuDelegate: NSObject, NSMenuDelegate {
         if let factoryPresets = audioUnit?.factoryPresets {
             
             for preset in factoryPresets.sorted(by: {$0.name < $1.name}) {
-                menu.addItem(withTitle: preset.name, action: nil, keyEquivalent: "")
+                menu.addItem(withTitle: preset.name)
             }
         }
     }

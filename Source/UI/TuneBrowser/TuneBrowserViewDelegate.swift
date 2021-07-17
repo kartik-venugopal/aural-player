@@ -15,7 +15,7 @@ class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDat
     
     @IBOutlet weak var browserView: TuneBrowserOutlineView!
     
-    private let fileSystem: FileSystem = ObjectGraph.fileSystem
+    private let fileSystem: FileSystem = objectGraph.fileSystem
     
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         return 30

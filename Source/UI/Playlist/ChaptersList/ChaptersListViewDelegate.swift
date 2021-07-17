@@ -15,9 +15,9 @@ import Cocoa
 class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
     
     // Used to determine the currently playing track/chapter
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     // Returns a custom view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {
@@ -140,7 +140,7 @@ class ChaptersListViewDelegate: NSObject, NSTableViewDelegate {
 class ChaptersListViewDataSource: NSObject, NSTableViewDataSource {
     
     // Used to determine if a track is currently playing
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
     // Returns the total number of playlist rows (i.e. the number of chapters for the currently playing track)
     func numberOfRows(in tableView: NSTableView) -> Int {playbackInfo.chapterCount}

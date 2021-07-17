@@ -56,12 +56,12 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var rememberSettingsMenuItem: ToggleMenuItem!
     
     // Delegate that alters the audio graph
-    private var graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
-    private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
+    private var graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
+    private let soundProfiles: SoundProfiles = objectGraph.audioGraphDelegate.soundProfiles
     
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let preferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
+    private let preferences: SoundPreferences = objectGraph.preferences.soundPreferences
     
     private lazy var presetsManager: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
@@ -117,7 +117,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
             // Add menu items for each available device
             for device in graph.availableDevices.allDevices {
                 
-                let menuItem = NSMenuItem(title: device.name, action: #selector(self.outputDeviceAction(_:)), keyEquivalent: "")
+                let menuItem = NSMenuItem(title: device.name, action: #selector(self.outputDeviceAction(_:)))
                 menuItem.representedObject = device
                 menuItem.target = self
                 

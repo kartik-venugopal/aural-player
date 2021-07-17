@@ -15,7 +15,7 @@ import Cocoa
 class TracksPlaylistViewDataSource: NSObject, NSTableViewDataSource {
     
     // Delegate that relays accessor operations to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     // Signifies an invalid drag/drop operation
     private let invalidDragOperation: NSDragOperation = []

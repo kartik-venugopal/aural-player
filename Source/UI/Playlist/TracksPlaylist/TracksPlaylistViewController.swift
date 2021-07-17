@@ -31,15 +31,15 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     @IBOutlet weak var clipView: NSClipView!
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
-    private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
+    private let preferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
     
     override var nibName: String? {"Tracks"}
     

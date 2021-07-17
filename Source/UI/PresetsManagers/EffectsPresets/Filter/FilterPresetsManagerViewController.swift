@@ -19,7 +19,7 @@ class FilterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     
     override var nibName: String? {"FilterPresetsManager"}
     
-    var filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
+    var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
     
     override func awakeFromNib() {
         

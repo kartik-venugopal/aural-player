@@ -19,9 +19,9 @@ class PlayerSequencingViewController: NSViewController, Destroyable {
     @IBOutlet weak var btnRepeat: MultiStateImageButton!
     
     // Delegate that conveys all repeat/shuffle requests to the sequencer
-    let sequencer: SequencerDelegateProtocol = ObjectGraph.sequencerDelegate
+    let sequencer: SequencerDelegateProtocol = objectGraph.sequencerDelegate
     
-    let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
     var offStateTintFunction: TintFunction {{.gray}}

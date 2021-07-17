@@ -22,7 +22,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
     private var genresPlaylistSortView: SortViewProtocol = GenresPlaylistSortViewController()
     
     // Delegate that relays sort requests to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     

@@ -28,7 +28,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
     
     private var subViews: [PreferencesViewProtocol] = []
     
-    private lazy var preferences: Preferences = ObjectGraph.preferences
+    private lazy var preferences: Preferences = objectGraph.preferences
     
     private var modalDialogResponse: ModalDialogResponse = .ok
     

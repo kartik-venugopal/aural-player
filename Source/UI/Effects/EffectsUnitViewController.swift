@@ -27,10 +27,10 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
     @IBOutlet weak var btnSavePreset: TintedImageButton!
     lazy var userPresetsPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     var effectsUnit: EffectsUnitDelegateProtocol!
     var unitStateFunction: EffectsUnitStateFunction!

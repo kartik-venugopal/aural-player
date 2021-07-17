@@ -14,10 +14,10 @@ import Cocoa
  */
 class BookmarksMenuController: NSObject, NSMenuDelegate {
     
-    private var bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
+    private var bookmarks: BookmarksDelegateProtocol = objectGraph.bookmarksDelegate
     
     // Delegate used to perform playback
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
     @IBOutlet weak var bookmarkTrackPositionMenuItem: NSMenuItem!
     @IBOutlet weak var bookmarkTrackSegmentLoopMenuItem: NSMenuItem!
@@ -25,8 +25,8 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
     
     private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
-    private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
-    private lazy var fileReader: FileReader = ObjectGraph.fileReader
+    private lazy var playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
+    private lazy var fileReader: FileReader = objectGraph.fileReader
     
     private lazy var messenger = Messenger(for: self)
     
@@ -74,7 +74,7 @@ class BookmarksMenuController: NSObject, NSMenuDelegate {
         // The action for the menu item will depend on whether it is a playable item
         let action = #selector(self.playSelectedItemAction(_:))
         
-        let menuItem = BookmarksMenuItem(title: "  " + bookmark.name, action: action, keyEquivalent: "")
+        let menuItem = BookmarksMenuItem(title: "  " + bookmark.name, action: action)
         menuItem.target = self
         
         menuItem.image = Images.imgPlayedTrack

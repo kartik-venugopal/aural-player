@@ -49,7 +49,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var previousViewMenuItem: NSMenuItem!
     @IBOutlet weak var nextViewMenuItem: NSMenuItem!
     
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     

@@ -18,7 +18,7 @@ class ReverbViewController: EffectsUnitViewController {
     
     override var nibName: String? {"Reverb"}
     
-    var reverbUnit: ReverbUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.reverbUnit
+    var reverbUnit: ReverbUnitDelegateProtocol = objectGraph.audioGraphDelegate.reverbUnit
     
     override func awakeFromNib() {
         

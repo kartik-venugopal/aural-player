@@ -25,7 +25,7 @@ class MenuBarPlayerSettingsViewController: NSViewController {
     @IBOutlet weak var settingsBox: NSBox!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
     override func viewWillAppear() {
         

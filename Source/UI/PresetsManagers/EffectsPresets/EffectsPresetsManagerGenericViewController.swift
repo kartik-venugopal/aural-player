@@ -14,7 +14,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
     @IBOutlet weak var tableView: NSTableView!
     @IBOutlet weak var previewBox: NSBox!
     
-    let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     var effectsUnit: EffectsUnitDelegateProtocol!
     var presetsWrapper: PresetsWrapperProtocol!
     var unitType: EffectsUnitType!

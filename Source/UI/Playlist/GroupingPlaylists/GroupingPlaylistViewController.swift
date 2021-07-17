@@ -19,8 +19,8 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     @IBOutlet weak var playlistView: AuralPlaylistOutlineView!
     @IBOutlet weak var playlistViewDelegate: GroupingPlaylistViewDelegate!
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     var contextMenu: NSMenu! {
         
@@ -30,12 +30,12 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     }
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let preferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
+    private let preferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
     
     private lazy var messenger = Messenger(for: self)
     

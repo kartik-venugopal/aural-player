@@ -24,13 +24,13 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
     var mode: AppMode {.menuBar}
 
     private var statusItem: NSStatusItem?
-    private var controller: MenuBarPlayerViewController!
+    private var viewController: MenuBarPlayerViewController!
     
-    private lazy var appIcon: NSImage = NSImage(named: "AppIcon-MenuBar")!
+    private let appIcon: NSImage = NSImage(named: "AppIcon-MenuBar")!
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {
         
-        controller = MenuBarPlayerViewController()
+        viewController = MenuBarPlayerViewController()
 
         // Make app run in menu bar and make it active.
         NSApp.setActivationPolicy(.accessory)
@@ -38,17 +38,10 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
         
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItem?.button?.image = appIcon
-        
-        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] {
-            statusItem?.button?.toolTip = "Aural Player v\(appVersion)"
-        } else {
-            statusItem?.button?.toolTip = "Aural Player"
-        }
+        statusItem?.button?.toolTip = "Aural Player v\(NSApp.appVersion)"
         
         let menu = NSMenu()
-        
-        let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-        menuItem.view = controller.view
+        let menuItem = NSMenuItem(view: viewController.view)
         
         menu.addItem(menuItem)
         menu.delegate = self
@@ -57,16 +50,16 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
     }
     
     func menuDidClose(_ menu: NSMenu) {
-        controller?.menuBarMenuClosed()
+        viewController?.menuBarMenuClosed()
     }
     
     func menuWillOpen(_ menu: NSMenu) {
-        controller.menuBarMenuOpened()
+        viewController?.menuBarMenuOpened()
     }
     
     func dismissMode() {
         
-        controller?.destroy()
+        viewController?.destroy()
      
         if let statusItem = self.statusItem {
             
@@ -77,6 +70,6 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
             self.statusItem = nil
         }
         
-        controller = nil
+        viewController = nil
     }
 }

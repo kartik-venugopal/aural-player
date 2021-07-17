@@ -15,7 +15,7 @@ class PitchShiftPresetsManagerViewController: EffectsPresetsManagerGenericViewCo
     
     override var nibName: String? {"PitchShiftPresetsManager"}
     
-    var pitchShiftUnit: PitchShiftUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.pitchShiftUnit
+    var pitchShiftUnit: PitchShiftUnitDelegateProtocol = objectGraph.audioGraphDelegate.pitchShiftUnit
     
     override func awakeFromNib() {
         

@@ -39,11 +39,11 @@ class MainWindowController: NSWindowController, Destroyable {
     private var eventMonitor: EventMonitor! = EventMonitor()
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let preferences: GesturesControlsPreferences = ObjectGraph.preferences.controlsPreferences.gestures
+    private let preferences: GesturesControlsPreferences = objectGraph.preferences.controlsPreferences.gestures
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     override var windowNibName: String? {"MainWindow"}
     

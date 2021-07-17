@@ -22,8 +22,8 @@ class ControlBarSeekSliderView: SeekSliderView {
         }
     }
  
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     ///
     /// Determines whether or not the seek position needs to be displayed (when a track is playing).

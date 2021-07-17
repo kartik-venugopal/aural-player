@@ -18,7 +18,7 @@ class DelayViewController: EffectsUnitViewController {
     
     override var nibName: String? {"Delay"}
     
-    var delayUnit: DelayUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.delayUnit
+    var delayUnit: DelayUnitDelegateProtocol = objectGraph.audioGraphDelegate.delayUnit
     
     override func awakeFromNib() {
         

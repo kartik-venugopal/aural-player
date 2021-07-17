@@ -15,7 +15,7 @@ import Cocoa
  */
 class ColorSchemeHistory {
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     // Stack used to store changes that can be undone (i.e. LIFO).
     private var undoStack: Stack<ColorSchemeChange> = Stack()

@@ -9,7 +9,28 @@
 //
 import Cocoa
 
+extension NSMenu {
+    
+    func addItem(withTitle title: String) {
+        addItem(withTitle: title, action: nil, keyEquivalent: "")
+    }
+}
+
 extension NSMenuItem {
+    
+    convenience init(title: String) {
+        self.init(title: title, action: nil, keyEquivalent: "")
+    }
+    
+    convenience init(title: String, action: Selector) {
+        self.init(title: title, action: action, keyEquivalent: "")
+    }
+    
+    convenience init(view: NSView) {
+        
+        self.init(title: "", action: nil, keyEquivalent: "")
+        self.view = view
+    }
     
     @objc func off() {
         self.state = .off

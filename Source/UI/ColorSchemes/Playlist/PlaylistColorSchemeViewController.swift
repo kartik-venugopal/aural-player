@@ -30,7 +30,7 @@ class PlaylistColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var selectionBoxColorPicker: AuralColorPicker!
     @IBOutlet weak var playingTrackIconColorPicker: AuralColorPicker!
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var messenger = Messenger(for: self)
     

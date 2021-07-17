@@ -12,10 +12,10 @@ import AVFoundation
 
 class MasterUnitAUTableViewDelegate: NSObject, NSTableViewDataSource, NSTableViewDelegate {
     
-    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var messenger = Messenger(for: self)
     

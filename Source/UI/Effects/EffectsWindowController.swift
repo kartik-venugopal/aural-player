@@ -48,11 +48,11 @@ class EffectsWindowController: NSWindowController, Destroyable {
     @IBOutlet weak var btnClose: TintedImageButton!
 
     // Delegate that alters the audio graph
-    private let graph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let graph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
 
-    private let preferences: ViewPreferences = ObjectGraph.preferences.viewPreferences
+    private let preferences: ViewPreferences = objectGraph.preferences.viewPreferences
 
     override var windowNibName: String? {"Effects"}
     

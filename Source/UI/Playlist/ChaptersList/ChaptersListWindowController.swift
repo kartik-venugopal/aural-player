@@ -18,7 +18,7 @@ class ChaptersListWindowController: NSWindowController, Destroyable {
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var viewController: ChaptersListViewController!
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     override var windowNibName: String? {"ChaptersList"}
     

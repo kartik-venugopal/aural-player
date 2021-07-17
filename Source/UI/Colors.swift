@@ -15,7 +15,7 @@ import Cocoa
 
 struct Colors {
     
-    private static let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private static let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     static var windowBackgroundColor: NSColor {
         return colorSchemesManager.systemScheme.general.backgroundColor

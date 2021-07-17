@@ -20,7 +20,7 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     @IBOutlet weak var cornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private var snappingWindow: SnappingWindow!
     

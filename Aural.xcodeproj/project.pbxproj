@@ -143,7 +143,7 @@
 		3E308D1B268A336900B0FD60 /* UpdatesDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */; };
 		3E308D1D268A356300B0FD60 /* UpdatesDialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */; };
 		3E3579D026835A6A009522A0 /* GenericPresetPopupMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */; };
-		3E3579D226837D3D009522A0 /* GenericPresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579D126837D3D009522A0 /* GenericPresetsManagerViewController.swift */; };
+		3E3579D226837D3D009522A0 /* PresetsManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3579D126837D3D009522A0 /* PresetsManagerViewController.swift */; };
 		3E35AC9F25E6254500EBCCEB /* VisualizerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */; };
 		3E3633C22685FA9F006A88ED /* EffectsUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633C12685FA9F006A88ED /* EffectsUnitDelegate.swift */; };
 		3E3633D12685FAD0006A88ED /* EffectsUnitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633C52685FAD0006A88ED /* EffectsUnitState.swift */; };
@@ -1250,7 +1250,7 @@
 		3E308D1A268A336900B0FD60 /* UpdatesDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatesDialog.xib; sourceTree = "<group>"; };
 		3E308D1C268A356300B0FD60 /* UpdatesDialogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatesDialogController.swift; sourceTree = "<group>"; };
 		3E3579CF26835A6A009522A0 /* GenericPresetPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPresetPopupMenuController.swift; sourceTree = "<group>"; };
-		3E3579D126837D3D009522A0 /* GenericPresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPresetsManagerViewController.swift; sourceTree = "<group>"; };
+		3E3579D126837D3D009522A0 /* PresetsManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetsManagerViewController.swift; sourceTree = "<group>"; };
 		3E35AC9E25E6254500EBCCEB /* VisualizerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerContainer.swift; sourceTree = "<group>"; };
 		3E3633C12685FA9F006A88ED /* EffectsUnitDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitDelegate.swift; sourceTree = "<group>"; };
 		3E3633C52685FAD0006A88ED /* EffectsUnitState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EffectsUnitState.swift; sourceTree = "<group>"; };
@@ -2910,7 +2910,7 @@
 			children = (
 				3E6C0F6D25CEB98600BF0D07 /* PresetsManagerWindow.xib */,
 				3E6C0F9425CEB98600BF0D07 /* PresetsManagerWindowController.swift */,
-				3E3579D126837D3D009522A0 /* GenericPresetsManagerViewController.swift */,
+				3E3579D126837D3D009522A0 /* PresetsManagerViewController.swift */,
 				3E6C0F8925CEB98600BF0D07 /* Bookmarks */,
 				3E6C0F6A25CEB98600BF0D07 /* Favorites */,
 				3E6C0F6E25CEB98600BF0D07 /* EffectsPresets */,
@@ -5423,7 +5423,7 @@
 				3E6C11AC25CEBDA200BF0D07 /* M3UPlaylistIO.swift in Sources */,
 				3E6C11B025CEBDA200BF0D07 /* PlaylistIO.swift in Sources */,
 				3E6C12C625CEBE6700BF0D07 /* PitchShiftView.swift in Sources */,
-				3E3579D226837D3D009522A0 /* GenericPresetsManagerViewController.swift in Sources */,
+				3E3579D226837D3D009522A0 /* PresetsManagerViewController.swift in Sources */,
 				3E3633D52685FAD0006A88ED /* ReverbUnit.swift in Sources */,
 				3E5623CC2619FCB300D55E43 /* AudioUnitPresets.swift in Sources */,
 				3E3633DB2685FAD0006A88ED /* EffectsUnitProtocol.swift in Sources */,

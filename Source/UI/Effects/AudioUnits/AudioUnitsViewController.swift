@@ -26,12 +26,12 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     // Audio Unit ID -> Dialog
     private var editorDialogs: [String: AudioUnitEditorDialogController] = [:]
     
-    private let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private let audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
-    private let audioUnitsManager: AudioUnitsManager = ObjectGraph.audioUnitsManager
+    private let audioUnitsManager: AudioUnitsManager = objectGraph.audioUnitsManager
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     @IBOutlet weak var btnAudioUnitsMenu: NSPopUpButton!
     @IBOutlet weak var audioUnitsMenuIconItem: TintedIconMenuItem!
@@ -202,7 +202,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     
     func changeSuppressedUnitStateColor(_ color: NSColor) {
         
-        let rowsForSuppressedUnits: [Int] = (0..<tableView.numberOfRows).filter {audioGraph.audioUnits[$0].state == .bypassed}
+        let rowsForSuppressedUnits: [Int] = (0..<tableView.numberOfRows).filter {audioGraph.audioUnits[$0].state == .suppressed}
         tableView.reloadData(forRowIndexes: IndexSet(rowsForSuppressedUnits), columnIndexes: [0])
     }
     
@@ -242,7 +242,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         for unit in audioUnitsManager.audioUnits {
 
             let itemTitle = "\(unit.name) v\(unit.versionString) by \(unit.manufacturerName)"
-            let item = NSMenuItem(title: itemTitle, action: nil, keyEquivalent: "")
+            let item = NSMenuItem(title: itemTitle)
             item.target = self
             item.representedObject = unit
             

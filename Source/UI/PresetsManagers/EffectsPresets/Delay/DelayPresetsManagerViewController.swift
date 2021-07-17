@@ -15,7 +15,7 @@ class DelayPresetsManagerViewController: EffectsPresetsManagerGenericViewControl
     
     override var nibName: String? {"DelayPresetsManager"}
     
-    var delayUnit: DelayUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.delayUnit
+    var delayUnit: DelayUnitDelegateProtocol = objectGraph.audioGraphDelegate.delayUnit
     
     override func awakeFromNib() {
         

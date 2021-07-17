@@ -23,20 +23,20 @@ class ControlBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 
     var mode: AppMode {.controlBar}
 
-    private var controller: ControlBarPlayerWindowController?
+    private var windowController: ControlBarPlayerWindowController?
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)
         NSApp.menu = nil
         
-        controller = ControlBarPlayerWindowController()
-        controller?.showWindow(self)
+        windowController = ControlBarPlayerWindowController()
+        windowController?.showWindow(self)
     }
     
     func dismissMode() {
         
-        controller?.destroy()
-        controller = nil
+        windowController?.destroy()
+        windowController = nil
     }
 }

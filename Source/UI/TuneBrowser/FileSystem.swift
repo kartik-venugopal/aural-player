@@ -14,8 +14,8 @@ class FileSystem {
     private let opQueue: OperationQueue = OperationQueue()
     private let concurrentOpCount = (Double(SystemUtils.numberOfActiveCores) * 1.5).roundedInt
     
-    private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
-    private lazy var fileReader: FileReaderProtocol = ObjectGraph.fileReader
+    private lazy var playlist: PlaylistAccessorDelegateProtocol = objectGraph.playlistAccessorDelegate
+    private lazy var fileReader: FileReaderProtocol = objectGraph.fileReader
     
     var root: FileSystemItem = FileSystemItem.create(forURL: FilesAndPaths.musicDir) {
         

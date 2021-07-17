@@ -31,7 +31,7 @@ class TimeStretchViewController: EffectsUnitViewController {
     
     override var nibName: String? {"TimeStretch"}
     
-    var timeStretchUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeStretchUnit
+    var timeStretchUnit: TimeStretchUnitDelegateProtocol = objectGraph.audioGraphDelegate.timeStretchUnit
     
     override func awakeFromNib() {
         

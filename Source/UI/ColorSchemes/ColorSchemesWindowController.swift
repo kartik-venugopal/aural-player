@@ -55,7 +55,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
     // Popover to collect user input (i.e. color scheme name) when saving new color schemes
     lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     // Maintains a history of all changes made to the system color scheme since the dialog opened. Allows undo/redo.
     private var history: ColorSchemeHistory = ColorSchemeHistory()
@@ -285,7 +285,7 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
         // Recreate the user-defined scheme items
         colorSchemesManager.userDefinedPresets.forEach({
             
-            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)), keyEquivalent: "")
+            let item: NSMenuItem = NSMenuItem(title: $0.name, action: #selector(self.applySchemeAction(_:)))
             item.target = self
             item.indentationLevel = 1
             

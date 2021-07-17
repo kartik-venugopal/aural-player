@@ -32,12 +32,12 @@ class PlayerViewController: NSViewController, Destroyable {
     @IBOutlet weak var infoView: PlayingTrackView!
     
     // Delegate that conveys all seek and playback info requests to the player
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
-    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
+    private let playlistPreferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
     
     override var nibName: String? {"Player"}
     

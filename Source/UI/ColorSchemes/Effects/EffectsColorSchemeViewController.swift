@@ -44,7 +44,7 @@ class EffectsColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var bypassedUnitStateColorPicker: AuralColorPicker!
     @IBOutlet weak var suppressedUnitStateColorPicker: AuralColorPicker!
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var messenger = Messenger(for: self)
     

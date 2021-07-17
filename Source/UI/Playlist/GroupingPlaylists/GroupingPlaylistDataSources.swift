@@ -15,7 +15,7 @@ import Cocoa
 class GroupingPlaylistDataSource: NSObject, NSOutlineViewDataSource {
     
     // Delegate that relays CRUD operations to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     // Indicates the type of groups displayed by this NSOutlineView (intended to be overridden by subclasses)
     fileprivate var groupType: GroupType

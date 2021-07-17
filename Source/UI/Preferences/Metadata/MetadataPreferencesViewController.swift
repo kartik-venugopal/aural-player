@@ -19,9 +19,9 @@ class MetadataPreferencesViewController: NSViewController, PreferencesViewProtoc
     @IBOutlet weak var btnEnableMusicBrainzOnDiskCoverArtCache: NSButton!
     @IBOutlet weak var btnDisableMusicBrainzOnDiskCoverArtCache: NSButton!
     
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    private let trackReader: TrackReader = ObjectGraph.trackReader
-    private let musicBrainzCache: MusicBrainzCache = ObjectGraph.musicBrainzCache
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
+    private let trackReader: TrackReader = objectGraph.trackReader
+    private let musicBrainzCache: MusicBrainzCache = objectGraph.musicBrainzCache
     
     override var nibName: String? {"MetadataPreferences"}
     

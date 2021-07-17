@@ -51,13 +51,13 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     @IBOutlet weak var rememberLastPositionMenuItem: ToggleMenuItem!
     
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
-    private lazy var sequenceInfo: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
-    private lazy var playbackProfiles: PlaybackProfiles = ObjectGraph.playbackDelegate.profiles
+    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
+    private lazy var sequenceInfo: SequencerInfoDelegateProtocol = objectGraph.sequencerInfoDelegate
+    private lazy var playbackProfiles: PlaybackProfiles = objectGraph.playbackDelegate.profiles
     
-    private lazy var playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
+    private lazy var playlist: PlaylistAccessorDelegateProtocol = objectGraph.playlistAccessorDelegate
     
-    private let preferences: PlaybackPreferences = ObjectGraph.preferences.playbackPreferences
+    private let preferences: PlaybackPreferences = objectGraph.preferences.playbackPreferences
     
     private lazy var jumpToTimeDialogLoader: LazyWindowLoader<JumpToTimeEditorWindowController> = LazyWindowLoader()
     

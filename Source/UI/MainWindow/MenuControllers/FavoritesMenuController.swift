@@ -18,15 +18,15 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var manageFavoritesMenuItem: NSMenuItem!    
 
     // Delegate that performs CRUD on the favorites model
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    private let favorites: FavoritesDelegateProtocol = objectGraph.favoritesDelegate
     
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private lazy var playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
     
-    private lazy var fileReader: FileReader = ObjectGraph.fileReader
+    private lazy var fileReader: FileReader = objectGraph.fileReader
     
     private lazy var messenger = Messenger(for: self)
     
@@ -81,7 +81,7 @@ class FavoritesMenuController: NSObject, NSMenuDelegate {
         // The action for the menu item will depend on whether it is a playable item
         let action = #selector(self.playSelectedItemAction(_:))
         
-        let menuItem = FavoritesMenuItem(title: "  " + item.name, action: action, keyEquivalent: "")
+        let menuItem = FavoritesMenuItem(title: "  " + item.name, action: action)
         menuItem.target = self
         
         menuItem.image = Images.imgPlayedTrack

@@ -21,14 +21,16 @@ import Cocoa
 ///
 class WindowedAppModeController: AppModeController {
     
-    var mode: AppMode {return .windowed}
+    var mode: AppMode {.windowed}
+    
+    // TODO: Manage WindowManager singleton here.
     
     func presentMode(transitioningFromMode previousMode: AppMode?) {
         
         NSApp.setActivationPolicy(.regular)
         
-        WindowManager.createInstance(layoutsManager: ObjectGraph.windowLayoutsManager,
-                                     preferences: ObjectGraph.preferences.viewPreferences).loadWindows()
+        WindowManager.createInstance(layoutsManager: objectGraph.windowLayoutsManager,
+                                     preferences: objectGraph.preferences.viewPreferences).loadWindows()
         
         // If this is not a transition from a different app mode, we don't need to execute the hack below.
         if previousMode == nil || previousMode == .windowed {return}

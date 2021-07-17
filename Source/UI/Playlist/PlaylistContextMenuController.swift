@@ -56,15 +56,15 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     private lazy var infoPopup: InfoPopupProtocol = InfoPopupViewController.instance
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
     // Delegate that provides access to History information
-    private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    private lazy var favorites: FavoritesDelegateProtocol = objectGraph.favoritesDelegate
     
-    private lazy var trackReader: TrackReader = ObjectGraph.trackReader
+    private lazy var trackReader: TrackReader = objectGraph.trackReader
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     

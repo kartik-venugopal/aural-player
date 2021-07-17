@@ -42,13 +42,13 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var cornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
-    private let player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
-    private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
-    private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private lazy var colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private lazy var themesManager: ThemesManager = objectGraph.themesManager
+    private lazy var fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private lazy var colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var messenger = Messenger(for: self)
     

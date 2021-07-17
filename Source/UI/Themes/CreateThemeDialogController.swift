@@ -42,10 +42,10 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
     @IBOutlet weak var windowCornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblWindowCornerRadius: NSTextField!
     
-    private lazy var themesManager: ThemesManager = ObjectGraph.themesManager
+    private lazy var themesManager: ThemesManager = objectGraph.themesManager
     
-    private lazy var fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private lazy var colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private lazy var fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private lazy var colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     var isModal: Bool {
         return self.window?.isVisible ?? false
@@ -104,7 +104,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         // Recreate the user-defined scheme items
         fontSchemesManager.userDefinedPresets.forEach {
 
-            let item: NSMenuItem = NSMenuItem(title: $0.name, action: nil, keyEquivalent: "")
+            let item: NSMenuItem = NSMenuItem(title: $0.name)
             item.indentationLevel = 1
             fontSchemesMenu.insertItem(item, at: 3)
         }
@@ -128,7 +128,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         // Recreate the user-defined scheme items
         colorSchemesManager.userDefinedPresets.forEach {
             
-            let item: NSMenuItem = NSMenuItem(title: $0.name, action: nil, keyEquivalent: "")
+            let item: NSMenuItem = NSMenuItem(title: $0.name)
             item.indentationLevel = 1
             colorSchemesMenu.insertItem(item, at: 3)
         }

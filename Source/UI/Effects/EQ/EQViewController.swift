@@ -16,7 +16,7 @@ class EQViewController: EffectsUnitViewController {
     
     @IBOutlet weak var eqView: EQView!
     
-    private var eqUnit: EQUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.eqUnit
+    private var eqUnit: EQUnitDelegateProtocol = objectGraph.audioGraphDelegate.eqUnit
     
     override var nibName: String? {"EQ"}
     

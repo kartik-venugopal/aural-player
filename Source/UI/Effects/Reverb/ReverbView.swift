@@ -15,7 +15,7 @@ class ReverbView: NSView {
     @IBOutlet weak var reverbAmountSlider: EffectsUnitSlider!
     @IBOutlet weak var lblReverbAmountValue: NSTextField!
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     var spaceString: String {
         return reverbSpaceMenu.titleOfSelectedItem!

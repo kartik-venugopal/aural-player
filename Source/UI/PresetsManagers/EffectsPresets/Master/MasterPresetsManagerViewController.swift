@@ -27,9 +27,9 @@ class MasterPresetsManagerViewController: EffectsPresetsManagerGenericViewContro
     @IBOutlet weak var bandsTable: NSTableView!
     @IBOutlet weak var tableViewDelegate: FilterBandsViewDelegate!
     
-    private lazy var preferences: Preferences = ObjectGraph.preferences
+    private lazy var preferences: Preferences = objectGraph.preferences
     
-    private let masterPresets: MasterPresets = ObjectGraph.audioGraphDelegate.masterUnit.presets
+    private let masterPresets: MasterPresets = objectGraph.audioGraphDelegate.masterUnit.presets
     
     private lazy var messenger = Messenger(for: self)
     

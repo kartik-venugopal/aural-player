@@ -21,7 +21,7 @@ class MediaKeysPreferencesViewController: NSViewController, PreferencesViewProto
     
     @IBOutlet weak var repeatSpeedMenu: NSPopUpButton!
     
-    private lazy var mediaKeyHandler: MediaKeyHandler = ObjectGraph.mediaKeyHandler
+    private lazy var mediaKeyHandler: MediaKeyHandler = objectGraph.mediaKeyHandler
     
     override var nibName: String? {"MediaKeysPreferences"}
     

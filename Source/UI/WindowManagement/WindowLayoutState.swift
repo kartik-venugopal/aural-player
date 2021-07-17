@@ -30,7 +30,7 @@ class WindowLayoutState {
     
     static var persistentState: WindowLayoutsPersistentState {
         
-        let userLayouts = ObjectGraph.windowLayoutsManager.userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)}
+        let userLayouts = objectGraph.windowLayoutsManager.userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)}
         
         var effectsWindowOrigin: NSPointPersistentState? = nil
         var playlistWindowFrame: NSRectPersistentState? = nil

@@ -17,12 +17,12 @@ class TracksPlaylistViewDelegate: NSObject, NSTableViewDelegate {
     @IBOutlet weak var playlistView: NSTableView!
     
     // Delegate that relays accessor operations to the playlist
-    private let playlist: PlaylistAccessorDelegateProtocol = ObjectGraph.playlistAccessorDelegate
+    private let playlist: PlaylistAccessorDelegateProtocol = objectGraph.playlistAccessorDelegate
     
     // Used to determine the currently playing track
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     // Returns a view for a single row
     func tableView(_ tableView: NSTableView, rowViewForRow row: Int) -> NSTableRowView? {

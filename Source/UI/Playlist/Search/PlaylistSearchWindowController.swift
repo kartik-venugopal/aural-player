@@ -36,7 +36,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     @IBOutlet weak var searchCaseSensitive: NSButton!
     
     // Delegate that relays search requests to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     private var searchQuery: SearchQuery = SearchQuery()
     

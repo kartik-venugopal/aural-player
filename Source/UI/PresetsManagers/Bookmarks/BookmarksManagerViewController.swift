@@ -9,10 +9,10 @@
 //
 import Cocoa
 
-class BookmarksManagerViewController: GenericPresetsManagerViewController {
+class BookmarksManagerViewController: PresetsManagerViewController {
 
     // Delegate that relays accessor operations to the bookmarks model
-    private let bookmarks: BookmarksDelegateProtocol = ObjectGraph.bookmarksDelegate
+    private let bookmarks: BookmarksDelegateProtocol = objectGraph.bookmarksDelegate
     
     override var nibName: String? {"BookmarksManager"}
     

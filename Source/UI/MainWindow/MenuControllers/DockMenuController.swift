@@ -43,14 +43,14 @@ class DockMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var favoritesMenu: NSMenu!
     
     // Delegate that retrieves current playback info (e.g. currently playing track)
-    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private lazy var playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
     // Delegate that retrieves current playback sequence info (e.g. repeat/shuffle modes)
-    private lazy var sequenceInfo: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
+    private lazy var sequenceInfo: SequencerInfoDelegateProtocol = objectGraph.sequencerInfoDelegate
     
     // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
-    private let favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    private let history: HistoryDelegateProtocol = objectGraph.historyDelegate
+    private let favorites: FavoritesDelegateProtocol = objectGraph.favoritesDelegate
     
     private lazy var messenger = Messenger(for: self)
     
@@ -72,7 +72,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
         // Favorites menu
         favorites.allFavorites.reversed().forEach {
             
-            let item = FavoritesMenuItem(title: $0.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+            let item = FavoritesMenuItem(title: $0.name, action: #selector(self.playSelectedFavoriteAction(_:)))
             item.target = self
             item.favorite = $0
             favoritesMenu.addItem(item)
@@ -97,7 +97,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
         if let fav = favorites.getFavoriteWithFile(trackFile) {
             
             // Add it to the menu
-            let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)), keyEquivalent: "")
+            let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)))
             item.target = self
             item.favorite = fav
             
@@ -291,7 +291,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
     // Factory method to create a single menu item, given a model object (HistoryItem)
     private func createHistoryMenuItem(_ item: HistoryItem) -> NSMenuItem {
         
-        let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: #selector(self.playSelectedHistoryItemAction(_:)), keyEquivalent: "")
+        let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: #selector(self.playSelectedHistoryItemAction(_:)))
         menuItem.target = self
         menuItem.historyItem = item
         

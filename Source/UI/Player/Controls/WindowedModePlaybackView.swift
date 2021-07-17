@@ -11,8 +11,8 @@ import Cocoa
 
 class WindowedModePlaybackView: PlaybackView, ColorSchemeable {
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
     override var offStateTintFunction: TintFunction {{Colors.toggleButtonOffStateColor}}

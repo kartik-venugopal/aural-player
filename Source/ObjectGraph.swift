@@ -7,7 +7,7 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
-import Foundation
+import Cocoa
 
 ///
 /// (Lazily) Initializes all the core objects and state required by the application (mostly singletons), and exposes them for application-wide
@@ -17,29 +17,30 @@ import Foundation
 ///
 class ObjectGraph {
     
-    private static let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
+    static let instance: ObjectGraph = ObjectGraph()
     
-    static let persistentState: AppPersistentState = persistenceManager.load(type: AppPersistentState.self) ?? AppPersistentState.defaults
+    let appModeManager: AppModeManager = AppModeManager()
     
-    static let appModeManager: AppModeManager = AppModeManager()
+    private let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
+    lazy var persistentState: AppPersistentState = persistenceManager.load(type: AppPersistentState.self) ?? .defaults
     
-    static let preferences: Preferences = Preferences(defaults: .standard)
+    let preferences: Preferences = Preferences(defaults: .standard)
     
-    private static let playlist: PlaylistProtocol = Playlist(FlatPlaylist(),
+    private lazy var playlist: PlaylistProtocol = Playlist(FlatPlaylist(),
                                                                  [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
     
-    static let playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist,
+    lazy var playlistDelegate: PlaylistDelegateProtocol = PlaylistDelegate(persistentState: persistentState.playlist, playlist,
                                                                              trackReader, preferences)
     
-    static var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {playlistDelegate}
+    var playlistAccessorDelegate: PlaylistAccessorDelegateProtocol {playlistDelegate}
     
-    static let audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
-    private static let audioGraph: AudioGraphProtocol = AudioGraph(audioUnitsManager, persistentState.audioGraph)
-    static let audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(audioGraph, playbackDelegate,
+    lazy var audioUnitsManager: AudioUnitsManager = AudioUnitsManager()
+    private lazy var audioGraph: AudioGraphProtocol = AudioGraph(audioUnitsManager, persistentState.audioGraph)
+    lazy var audioGraphDelegate: AudioGraphDelegateProtocol = AudioGraphDelegate(audioGraph, playbackDelegate,
                                                                                    preferences.soundPreferences, persistentState.audioGraph)
     
-    private static let player: PlayerProtocol = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
-    private static let avfScheduler: PlaybackSchedulerProtocol = {
+    private lazy var player: PlayerProtocol = Player(graph: audioGraph, avfScheduler: avfScheduler, ffmpegScheduler: ffmpegScheduler)
+    private lazy var avfScheduler: PlaybackSchedulerProtocol = {
         
         // The new scheduler uses an AVFoundation API that is only available with macOS >= 10.13.
         // Instantiate the legacy scheduler if running on 10.12 Sierra or older systems.
@@ -50,9 +51,9 @@ class ObjectGraph {
         }
     }()
     
-    private static let ffmpegScheduler: PlaybackSchedulerProtocol = FFmpegScheduler(playerNode: audioGraph.playerNode,
+    private lazy var ffmpegScheduler: PlaybackSchedulerProtocol = FFmpegScheduler(playerNode: audioGraph.playerNode,
                                                                                     sampleConverter: FFmpegSampleConverter())
-    private static let sequencer: SequencerProtocol = {
+    private lazy var sequencer: SequencerProtocol = {
         
         var playlistType: PlaylistType = .tracks
         
@@ -63,10 +64,10 @@ class ObjectGraph {
         return Sequencer(persistentState: persistentState.playbackSequence, playlist, playlistType)
     }()
     
-    static let sequencerDelegate: SequencerDelegateProtocol = SequencerDelegate(sequencer)
-    static var sequencerInfoDelegate: SequencerInfoDelegateProtocol! {sequencerDelegate}
+    lazy var sequencerDelegate: SequencerDelegateProtocol = SequencerDelegate(sequencer)
+    var sequencerInfoDelegate: SequencerInfoDelegateProtocol {sequencerDelegate}
     
-    static let playbackDelegate: PlaybackDelegateProtocol = {
+    lazy var playbackDelegate: PlaybackDelegateProtocol = {
         
         let profiles = PlaybackProfiles(persistentState: persistentState.playbackProfiles ?? [])
         
@@ -79,52 +80,49 @@ class ObjectGraph {
                                 startPlaybackChain, stopPlaybackChain, trackPlaybackCompletedChain)
     }()
     
-    static var playbackInfoDelegate: PlaybackInfoDelegateProtocol! {playbackDelegate}
+    var playbackInfoDelegate: PlaybackInfoDelegateProtocol {playbackDelegate}
     
-    @available(OSX 10.12.2, *)
-    static let remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
-                                                                                 sequencer: sequencerDelegate, preferences: preferences)
+    lazy var historyDelegate: HistoryDelegateProtocol = HistoryDelegate(persistentState: persistentState.history, preferences.historyPreferences, playlistDelegate, playbackDelegate)
     
-    static let historyDelegate: HistoryDelegateProtocol = HistoryDelegate(persistentState: persistentState.history, preferences.historyPreferences, playlistDelegate, playbackDelegate)
-    
-    static var favoritesDelegate: FavoritesDelegateProtocol = FavoritesDelegate(persistentState: persistentState.favorites, playlistDelegate,
+    lazy var favoritesDelegate: FavoritesDelegateProtocol = FavoritesDelegate(persistentState: persistentState.favorites, playlistDelegate,
                                                                                 playbackDelegate)
     
-    static let bookmarksDelegate: BookmarksDelegateProtocol = BookmarksDelegate(persistentState: persistentState.bookmarks, playlistDelegate,
+    lazy var bookmarksDelegate: BookmarksDelegateProtocol = BookmarksDelegate(persistentState: persistentState.bookmarks, playlistDelegate,
                                                                                 playbackDelegate)
     
-    static let fileReader: FileReader = FileReader()
-    static let trackReader: TrackReader = TrackReader(fileReader, coverArtReader)
+    lazy var fileReader: FileReader = FileReader()
+    lazy var trackReader: TrackReader = TrackReader(fileReader, coverArtReader)
     
-    static let mediaKeyHandler: MediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences.mediaKeys)
-    
-    static let coverArtReader: CoverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
-    static let fileCoverArtReader: FileCoverArtReader = FileCoverArtReader(fileReader)
-    static let musicBrainzCoverArtReader: MusicBrainzCoverArtReader = MusicBrainzCoverArtReader(preferences: preferences.metadataPreferences.musicBrainz,
+    lazy var coverArtReader: CoverArtReader = CoverArtReader(fileCoverArtReader, musicBrainzCoverArtReader)
+    lazy var fileCoverArtReader: FileCoverArtReader = FileCoverArtReader(fileReader)
+    lazy var musicBrainzCoverArtReader: MusicBrainzCoverArtReader = MusicBrainzCoverArtReader(preferences: preferences.metadataPreferences.musicBrainz,
                                                                                                 cache: musicBrainzCache)
     
-    static let musicBrainzCache: MusicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache,
+    lazy var musicBrainzCache: MusicBrainzCache = MusicBrainzCache(state: persistentState.musicBrainzCache,
                                                                      preferences: preferences.metadataPreferences.musicBrainz)
     
-    static let windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
+    lazy var windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
                                                                                  viewPreferences: preferences.viewPreferences)
     
-    static let themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
-    static let fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
-    static let colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
+    lazy var themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
+    lazy var fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
+    lazy var colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
     
-    static let fileSystem: FileSystem = FileSystem()
+    lazy var fileSystem: FileSystem = FileSystem()
     
-    // Don't let any code invoke this initializer to create instances of ObjectGraph
-    private init() {}
+    let mediaKeyHandler: MediaKeyHandler
+    
+    @available(OSX 10.12.2, *)
+    lazy var remoteControlManager: RemoteControlManager = RemoteControlManager(playbackInfo: playbackInfoDelegate, audioGraph: audioGraphDelegate,
+                                                                               sequencer: sequencerDelegate, preferences: preferences)
     
     // Performs all necessary object initialization
-    static func initialize() {
+    private init() {
         
          // Force initialization of objects that would not be initialized soon enough otherwise
         // (they are not referred to in code that is executed on app startup).
         
-        _ = mediaKeyHandler
+        self.mediaKeyHandler = MediaKeyHandler(preferences.controlsPreferences.mediaKeys)
         
         if #available(OSX 10.12.2, *) {
             _ = remoteControlManager
@@ -143,14 +141,14 @@ class ObjectGraph {
         TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
         
         DispatchQueue.global(qos: .background).async {
-            cleanUpLegacyFolders()
+            self.cleanUpLegacyFolders()
         }
     }
     
     ///
     /// Clean up (delete) file system folders that were used by previous app versions that had the transcoder and/or recorder.
     ///
-    private static func cleanUpLegacyFolders() {
+    private func cleanUpLegacyFolders() {
         
         let transcoderDir = FilesAndPaths.baseDir.appendingPathComponent("transcoderStore", isDirectory: true)
         let artDir = FilesAndPaths.baseDir.appendingPathComponent("albumArt", isDirectory: true)
@@ -161,22 +159,23 @@ class ObjectGraph {
         }
     }
     
-    private static let tearDownOpQueue: OperationQueue = {
+    private lazy var tearDownOpQueue: OperationQueue = {
 
         let queue = OperationQueue()
-        queue.underlyingQueue = DispatchQueue.global(qos: .userInteractive)
+        queue.underlyingQueue = .global(qos: .userInteractive)
+        queue.qualityOfService = .userInteractive
         queue.maxConcurrentOperationCount = 2
         
         return queue
     }()
     
     // Called when app exits
-    static func tearDown() {
+    func tearDown() {
         
         // Gather all pieces of persistent state into the persistentState object
         var persistentState: AppPersistentState = AppPersistentState()
         
-        persistentState.appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "1.0.0"
+        persistentState.appVersion = NSApp.appVersion
         
         persistentState.audioGraph = (audioGraph as! AudioGraph).persistentState
         persistentState.playlist = (playlist as! Playlist).persistentState
@@ -204,19 +203,21 @@ class ObjectGraph {
         // App state persistence and shutting down the audio engine can be performed concurrently
         // on two background threads to save some time when exiting the app.
         
-        // App state persistence to disk
-        tearDownOpQueue.addOperation {
-            persistenceManager.save(persistentState)
-        }
-
-        // Tear down the audio engine
-        tearDownOpQueue.addOperation {
+        tearDownOpQueue.addOperations([
             
-            player.tearDown()
-            audioGraph.tearDown()
-        }
-
-        // Wait for all concurrent operations to finish executing.
-        tearDownOpQueue.waitUntilAllOperationsAreFinished()
+            BlockOperation {
+                
+                // Persist app state to disk.
+                self.persistenceManager.save(persistentState)
+            },
+            
+            BlockOperation {
+        
+                // Tear down the player and audio engine.
+                self.player.tearDown()
+                self.audioGraph.tearDown()
+            }
+            
+        ], waitUntilFinished: true)
     }
 }

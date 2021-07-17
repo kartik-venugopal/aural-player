@@ -29,7 +29,7 @@ class PlaybackView: NSView {
     @IBOutlet weak var btnSeekForward: TintedImageButton!
     
     // Delegate that retrieves playback sequencing info (previous/next track)
-    private let sequencer: SequencerInfoDelegateProtocol = ObjectGraph.sequencerInfoDelegate
+    private let sequencer: SequencerInfoDelegateProtocol = objectGraph.sequencerInfoDelegate
     
     // When the buttons are in an "Off" state, they should be tinted according to the system color scheme's off state button color.
     var offStateTintFunction: TintFunction {{.gray}}
@@ -73,7 +73,7 @@ class PlaybackView: NSView {
         
         // MARK: Update controls based on current player state
         
-        let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+        let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
         
         btnPlayPause.onIf(player.state == .playing)
         

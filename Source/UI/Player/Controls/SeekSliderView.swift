@@ -30,10 +30,10 @@ class SeekSliderView: NSView {
     var seekTimer: RepeatingTaskExecutor?
     
     // Delegate representing the Time effects unit
-    let timeStretchUnit: TimeStretchUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.timeStretchUnit
+    let timeStretchUnit: TimeStretchUnitDelegateProtocol = objectGraph.audioGraphDelegate.timeStretchUnit
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
     var seekSliderValue: Double {seekSlider.doubleValue}
     

@@ -39,12 +39,12 @@ class MenuBarPlayerViewController: NSViewController, Destroyable {
 //    private var gestureHandler: GestureHandler?
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
     // Delegate that retrieves playback sequencing info (previous/next track)
-    private let sequencer: SequencerDelegateProtocol = ObjectGraph.sequencerDelegate
+    private let sequencer: SequencerDelegateProtocol = objectGraph.sequencerDelegate
     
-    private var audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+    private var audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
     
     private lazy var messenger = Messenger(for: self)
     

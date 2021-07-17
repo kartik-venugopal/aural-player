@@ -16,8 +16,8 @@ import Cocoa
 // Base class for all modal dialog button cells
 class ModalDialogButtonCell: NSButtonCell {
     
-    var cellInsetX: CGFloat {return 0}
-    var cellInsetY: CGFloat {return 0}
+    var cellInsetX: CGFloat {0}
+    var cellInsetY: CGFloat {0}
     
     var backgroundFillGradient: NSGradient {return Colors.modalDialogButtonGradient}
     var backgroundFillGradient_disabled: NSGradient {return Colors.modalDialogButtonGradient_disabled}
@@ -51,10 +51,11 @@ class ModalDialogButtonCell: NSButtonCell {
 // Cell for all response buttons (Save/Cancel, etc)
 class ModalDialogResponseButtonCell: ModalDialogButtonCell {
     
-    override var cellInsetX: CGFloat {return 1}
-    override var cellInsetY: CGFloat {return 1}
+    override var cellInsetX: CGFloat {1}
+    override var cellInsetY: CGFloat {0}
+    override var yOffset: CGFloat {-2}
     
-    override var borderRadius: CGFloat {return 2.5}
+    override var borderRadius: CGFloat {2.5}
 }
 
 class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {

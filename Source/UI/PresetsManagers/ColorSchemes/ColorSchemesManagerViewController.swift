@@ -12,12 +12,12 @@ import Cocoa
 /*
  View controller for the manager that allows the user to manage user-defined color schemes.
  */
-class ColorSchemesManagerViewController: GenericPresetsManagerViewController {
+class ColorSchemesManagerViewController: PresetsManagerViewController {
     
     // A view that gives the user a visual preview of what each color scheme looks like.
     @IBOutlet weak var previewView: ColorSchemePreviewView!
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     override var nibName: String? {"ColorSchemesManager"}
     

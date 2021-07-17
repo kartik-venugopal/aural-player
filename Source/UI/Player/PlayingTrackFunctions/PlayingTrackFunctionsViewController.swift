@@ -32,12 +32,12 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     @IBOutlet weak var btnShowPlayingTrackInPlaylist: TintedImageButton!
     
     // Delegate that provides info about the playing track
-    private lazy var player: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private lazy var player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
     // Delegate that provides access to the Favorites track list.
-    private lazy var favorites: FavoritesDelegateProtocol = ObjectGraph.favoritesDelegate
+    private lazy var favorites: FavoritesDelegateProtocol = objectGraph.favoritesDelegate
     
-    private lazy var trackReader: TrackReader = ObjectGraph.trackReader
+    private lazy var trackReader: TrackReader = objectGraph.trackReader
     
     // Popover view that displays detailed info for the currently playing track
     private lazy var detailedInfoPopover: DetailedTrackInfoViewController = {
@@ -53,7 +53,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     
     private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
     
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private var allButtons: [Tintable] = []
     

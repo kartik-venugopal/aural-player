@@ -45,7 +45,7 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
     private lazy var playlistView: FontSchemesViewProtocol = PlaylistFontSchemeViewController()
     private lazy var effectsView: FontSchemesViewProtocol = EffectsFontSchemeViewController()
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     // Popover to collect user input (i.e. color scheme name) when saving new color schemes
     lazy var userSchemesPopover: StringInputPopoverViewController = StringInputPopoverViewController.create(self)

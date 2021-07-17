@@ -47,10 +47,10 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Dest
     // Will be nil if no results available or no chapters available.
     private var resultIndex: Int?
     
-    private let player: PlaybackDelegateProtocol = ObjectGraph.playbackDelegate
+    private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     private lazy var messenger = Messenger(for: self)
     

@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-fileprivate let preferences: ViewPreferences = ObjectGraph.preferences.viewPreferences
+fileprivate let preferences: ViewPreferences = objectGraph.preferences.viewPreferences
 
 class SnappingWindow: NoTitleBarWindow {
     

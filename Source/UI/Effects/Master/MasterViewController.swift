@@ -17,8 +17,8 @@ class MasterViewController: EffectsUnitViewController {
     @IBOutlet weak var audioUnitsClipView: NSClipView!
     @IBOutlet weak var audioUnitsTable: NSTableView!
     
-    private let soundPreferences: SoundPreferences = ObjectGraph.preferences.soundPreferences
-    private let playbackPreferences: PlaybackPreferences = ObjectGraph.preferences.playbackPreferences
+    private let soundPreferences: SoundPreferences = objectGraph.preferences.soundPreferences
+    private let playbackPreferences: PlaybackPreferences = objectGraph.preferences.playbackPreferences
     
     private var masterUnit: MasterUnitDelegateProtocol {return graph.masterUnit}
     private var eqUnit: EQUnitDelegateProtocol {return graph.eqUnit}
@@ -28,7 +28,7 @@ class MasterViewController: EffectsUnitViewController {
     private var delayUnit: DelayUnitDelegateProtocol {return graph.delayUnit}
     private var filterUnit: FilterUnitDelegateProtocol {return graph.filterUnit}
     
-    private let soundProfiles: SoundProfiles = ObjectGraph.audioGraphDelegate.soundProfiles
+    private let soundProfiles: SoundProfiles = objectGraph.audioGraphDelegate.soundProfiles
     
     override var nibName: String? {"Master"}
     
@@ -252,7 +252,7 @@ class MasterViewController: EffectsUnitViewController {
 
 //class AudioUnitsMenuDelegate: NSObject, NSMenuDelegate {
 //
-//    let audioGraph: AudioGraphDelegateProtocol = ObjectGraph.audioGraphDelegate
+//    let audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
 //
 //    func menuNeedsUpdate(_ menu: NSMenu) {
 //

@@ -1,5 +1,5 @@
 //
-//  GenericPresetsManagerViewController.swift
+//  PresetsManagerViewController.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,7 +9,7 @@
 //
 import Cocoa
 
-class GenericPresetsManagerViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
+class PresetsManagerViewController: NSViewController, NSTableViewDataSource,  NSTableViewDelegate, NSTextFieldDelegate {
     
     @IBOutlet weak var tableView: NSTableView!
     

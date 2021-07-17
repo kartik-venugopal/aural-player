@@ -30,8 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    private let appModeManager: AppModeManager = ObjectGraph.appModeManager
-    
     override init() {
         
         super.init()
@@ -44,16 +42,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let logFileCString = FilesAndPaths.logFile.path.cString(using: .ascii) {
             freopen(logFileCString, "a+", stderr)
         }
-    }
-
-    func applicationWillFinishLaunching(_ notification: Notification) {
-
-        ObjectGraph.initialize()
-        
-        messenger.subscribe(to: .application_switchMode, handler: appModeManager.presentMode(_:))
-        
-        // Disable the "Enter Full Screen" menu item that is otherwise automatically added to the View menu
-        UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
     }
 
     /// Presents the application's user interface upon app startup.
@@ -70,8 +58,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func presentApp() {
         
-        let lastPresentedAppMode = ObjectGraph.persistentState.ui?.appMode
-        let preferences = ObjectGraph.preferences.viewPreferences
+        let appModeManager = objectGraph.appModeManager
+        
+        let lastPresentedAppMode = objectGraph.persistentState.ui?.appMode
+        let preferences = objectGraph.preferences.viewPreferences
         
         if preferences.appModeOnStartup.option == .specific,
            let appMode = preferences.appModeOnStartup.mode {
@@ -82,6 +72,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         } else {    // Remember app mode from last app launch.
             appModeManager.presentMode(lastPresentedAppMode ?? .defaultMode)
         }
+        
+        messenger.subscribe(to: .application_switchMode, handler: appModeManager.presentMode(_:))
     }
     
     /// Opens the application with a single file (audio file or playlist)
@@ -125,6 +117,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         messenger.publish(.application_willExit)
         
         // Perform a final shutdown.
-        ObjectGraph.tearDown()
+        objectGraph.tearDown()
     }
 }
+
+let objectGraph: ObjectGraph = ObjectGraph.instance

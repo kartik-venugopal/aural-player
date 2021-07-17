@@ -27,10 +27,10 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         }
     }
     
-    private let fileSystem: FileSystem = ObjectGraph.fileSystem
+    private let fileSystem: FileSystem = objectGraph.fileSystem
     
     // Delegate that relays CRUD actions to the playlist
-    private lazy var playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private lazy var playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     private lazy var messenger = Messenger(for: self)
     

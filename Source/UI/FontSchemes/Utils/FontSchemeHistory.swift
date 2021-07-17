@@ -15,7 +15,7 @@ import Cocoa
  */
 class FontSchemeHistory {
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     // Stack used to store changes that can be undone (i.e. LIFO).
     private var undoStack: Stack<FontSchemeChange> = Stack()

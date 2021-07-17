@@ -9,14 +9,14 @@
 //
 import Cocoa
 
-class LayoutsManagerViewController: GenericPresetsManagerViewController {
+class LayoutsManagerViewController: PresetsManagerViewController {
     
     @IBOutlet weak var previewView: LayoutPreviewView!
     
     // Delegate that performs CRUD on user preferences
-    private lazy var preferences: Preferences = ObjectGraph.preferences
+    private lazy var preferences: Preferences = objectGraph.preferences
     
-    private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     override var nibName: String? {"LayoutsManager"}
     

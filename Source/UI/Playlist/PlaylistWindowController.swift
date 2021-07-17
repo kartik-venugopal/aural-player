@@ -63,16 +63,16 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     private var eventMonitor: EventMonitor! = EventMonitor()
     
     // Delegate that relays CRUD actions to the playlist
-    private let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
+    private let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
     
     // Delegate that retrieves current playback info
-    private let playbackInfo: PlaybackInfoDelegateProtocol = ObjectGraph.playbackInfoDelegate
+    private let playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
-    private let playlistPreferences: PlaylistPreferences = ObjectGraph.preferences.playlistPreferences
-    private lazy var gesturesPreferences: GesturesControlsPreferences = ObjectGraph.preferences.controlsPreferences.gestures
+    private let playlistPreferences: PlaylistPreferences = objectGraph.preferences.playlistPreferences
+    private lazy var gesturesPreferences: GesturesControlsPreferences = objectGraph.preferences.controlsPreferences.gestures
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     override var windowNibName: String? {"Playlist"}
     

@@ -59,11 +59,11 @@ class GeneralFontSchemeViewController: NSViewController, FontSchemesViewProtocol
                         let displayName = String(format: "%@ %@", family, weight)
                         fontNameToDisplayNameMap[fontName] = displayName
                         
-                        let newItem1 = FontMenuItem(title: displayName, action: nil, keyEquivalent: "")
+                        let newItem1 = FontMenuItem(title: displayName)
                         newItem1.fontName = fontName
                         textFontMenu.addItem(newItem1)
                         
-                        let newItem2 = FontMenuItem(title: displayName, action: nil, keyEquivalent: "")
+                        let newItem2 = FontMenuItem(title: displayName)
                         newItem2.fontName = fontName
                         headingFontMenu.addItem(newItem2)
                     }

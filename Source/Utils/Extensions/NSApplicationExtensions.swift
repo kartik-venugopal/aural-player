@@ -12,7 +12,7 @@ import Cocoa
 extension NSApplication {
     
     ///
-    /// The version number of this application (used in a request header for all requests sent to MusicBrainz). Used to idenfity this app to MusicBrainz.
+    /// The version number of this application.
     ///
-    var appVersion: String {Bundle.main.infoDictionary?["CFBundleShortVersionString", String.self] ?? "3.0.0"}
+    var appVersion: String {Bundle.main.infoDictionary!["CFBundleShortVersionString", String.self]!}
 }

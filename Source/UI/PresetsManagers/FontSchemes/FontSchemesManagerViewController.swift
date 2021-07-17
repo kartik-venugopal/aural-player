@@ -12,9 +12,9 @@ import Cocoa
 /*
  View controller for the manager that allows the user to manage user-defined font schemes.
  */
-class FontSchemesManagerViewController: GenericPresetsManagerViewController {
+class FontSchemesManagerViewController: PresetsManagerViewController {
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     // A view that gives the user a visual preview of what each font scheme looks like.
     @IBOutlet weak var previewView: FontSchemePreviewView!

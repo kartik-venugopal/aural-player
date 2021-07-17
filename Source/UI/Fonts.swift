@@ -14,7 +14,7 @@ import Cocoa
  */
 struct Fonts {
     
-    private static let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
+    private static let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
     static let menuFont: NSFont = FontConstants.Standard.mainFont_11
     

@@ -17,7 +17,7 @@ let menuItemCoverArtImageSize: NSSize = NSSize(width: 22, height: 22)
 class HistoryMenuController: NSObject {
 
     // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+    private let history: HistoryDelegateProtocol = objectGraph.historyDelegate
     
     @IBAction fileprivate func clearHistoryAction(_ sender: NSMenuItem) {
         history.clearAllHistory()
@@ -47,8 +47,8 @@ class HistoryMenuItem: NSMenuItem {
     var historyItem: HistoryItem!
 }
 
-fileprivate let playlist: PlaylistDelegateProtocol = ObjectGraph.playlistDelegate
-fileprivate let fileReader: FileReader = ObjectGraph.fileReader
+fileprivate let playlist: PlaylistDelegateProtocol = objectGraph.playlistDelegate
+fileprivate let fileReader: FileReader = objectGraph.fileReader
 
 fileprivate func artForFile(_ _file: URL) -> NSImage? {
     
@@ -87,7 +87,7 @@ fileprivate func createHistoryMenuItem(_ item: HistoryItem, _ actionTarget: AnyO
     
     // The action for the menu item will depend on whether it is a playable item
     
-    let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: action, keyEquivalent: "")
+    let menuItem = HistoryMenuItem(title: "  " + item.displayName, action: action)
     menuItem.target = actionTarget
     
     menuItem.image = Images.imgPlayedTrack
@@ -147,7 +147,7 @@ class RecentlyAddedMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var recentlyAddedMenu: NSMenu!
     
     // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+    private let history: HistoryDelegateProtocol = objectGraph.historyDelegate
     
     // Before the menu opens, re-create the menu items from the model
     func menuWillOpen(_ menu: NSMenu) {
@@ -193,7 +193,7 @@ class RecentlyPlayedMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var recentlyPlayedMenu: NSMenu!
     
     // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = ObjectGraph.historyDelegate
+    private let history: HistoryDelegateProtocol = objectGraph.historyDelegate
     
     // Before the menu opens, re-create the menu items from the model
     func menuWillOpen(_ menu: NSMenu) {

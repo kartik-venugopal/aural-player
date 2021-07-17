@@ -12,7 +12,7 @@ import Cocoa
 class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
 
     private lazy var managerWindowController: PresetsManagerWindowController = PresetsManagerWindowController.instance
-    private lazy var windowLayoutsManager: WindowLayoutsManager = ObjectGraph.windowLayoutsManager
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     override var descriptionOfPreset: String {"layout"}
     override var descriptionOfPreset_plural: String {"layouts"}

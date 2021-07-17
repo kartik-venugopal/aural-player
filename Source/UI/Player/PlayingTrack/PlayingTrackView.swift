@@ -20,8 +20,8 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     @IBOutlet weak var defaultView: PlayingTrackSubview!
     @IBOutlet weak var expandedArtView: PlayingTrackSubview!
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     // The player view that is currently displayed
     private var activeView: PlayingTrackSubview {

@@ -33,10 +33,10 @@ class FilterBandViewController: NSViewController {
     
     private var functionLabels: [NSTextField] = []
     
-    private var filterUnit: FilterUnitDelegateProtocol = ObjectGraph.audioGraphDelegate.filterUnit
+    private var filterUnit: FilterUnitDelegateProtocol = objectGraph.audioGraphDelegate.filterUnit
     
-    private let fontSchemesManager: FontSchemesManager = ObjectGraph.fontSchemesManager
-    private let colorSchemesManager: ColorSchemesManager = ObjectGraph.colorSchemesManager
+    private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
+    private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
     var band: FilterBand = FilterBand.init(.bandStop).withMinFreq(SoundConstants.audibleRangeMin).withMaxFreq(SoundConstants.subBass_max)
     var bandIndex: Int!
