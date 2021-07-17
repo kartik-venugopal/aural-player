@@ -47,33 +47,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        presentApp()
+        objectGraph.appModeManager.presentApp()
         
         // Update the appLaunched flag
         appLaunched = true
         
         // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
         messenger.publish(.application_launched, payload: filesToOpen)
-    }
-    
-    private func presentApp() {
-        
-        let appModeManager = objectGraph.appModeManager
-        
-        let lastPresentedAppMode = objectGraph.persistentState.ui?.appMode
-        let preferences = objectGraph.preferences.viewPreferences
-        
-        if preferences.appModeOnStartup.option == .specific,
-           let appMode = preferences.appModeOnStartup.mode {
-            
-            // Present a specific app mode.
-            appModeManager.presentMode(appMode)
-            
-        } else {    // Remember app mode from last app launch.
-            appModeManager.presentMode(lastPresentedAppMode ?? .defaultMode)
-        }
-        
-        messenger.subscribe(to: .application_switchMode, handler: appModeManager.presentMode(_:))
     }
     
     /// Opens the application with a single file (audio file or playlist)

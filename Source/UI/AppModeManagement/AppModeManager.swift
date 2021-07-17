@@ -22,6 +22,34 @@ class AppModeManager {
     
     private lazy var controlBarMode: ControlBarAppModeController = ControlBarAppModeController()
     
+    private let preferences: ViewPreferences
+    private let lastPresentedAppMode: AppMode?
+    
+    private lazy var messenger = Messenger(for: self)
+    
+    init(persistentState: UIPersistentState?, preferences: ViewPreferences) {
+        
+        self.lastPresentedAppMode = persistentState?.appMode
+        self.preferences = preferences
+        
+        messenger.subscribe(to: .application_switchMode, handler: presentMode(_:))
+    }
+    
+    func presentApp() {
+        
+        if preferences.appModeOnStartup.option == .specific,
+           let appMode = preferences.appModeOnStartup.mode {
+            
+            // Present a specific app mode.
+            presentMode(appMode)
+            
+        } else {
+            
+            // Remember app mode from last app launch.
+            presentMode(lastPresentedAppMode ?? .defaultMode)
+        }
+    }
+    
     func presentMode(_ newMode: AppMode) {
         
         dismissCurrentMode()

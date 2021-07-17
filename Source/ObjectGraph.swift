@@ -19,12 +19,13 @@ class ObjectGraph {
     
     static let instance: ObjectGraph = ObjectGraph()
     
-    let appModeManager: AppModeManager = AppModeManager()
-    
     private let persistenceManager: PersistenceManager = PersistenceManager(persistentStateFile: FilesAndPaths.persistentStateFile)
     lazy var persistentState: AppPersistentState = persistenceManager.load(type: AppPersistentState.self) ?? .defaults
     
     let preferences: Preferences = Preferences(defaults: .standard)
+    
+    lazy var appModeManager: AppModeManager = AppModeManager(persistentState: persistentState.ui,
+                                                             preferences: preferences.viewPreferences)
     
     private lazy var playlist: PlaylistProtocol = Playlist(FlatPlaylist(),
                                                                  [GroupingPlaylist(.artists), GroupingPlaylist(.albums), GroupingPlaylist(.genres)])
