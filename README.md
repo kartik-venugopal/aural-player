@@ -2,10 +2,6 @@
 
 ![App demo](/Documentation/Demos/mainDemo.gif?raw=true "App demo")
 
-### Update (June 16, 2021)
-
-**Machines with Apple silicon (M1) are now supported !**
-
 ## Table of Contents
   * [Overview](#overview)
     + [How it works (under the hood)](#how-it-works-under-the-hood)
@@ -99,8 +95,8 @@ This table lists the ***minimum*** required Aural Player version for your hardwa
 
 ### Installation
 
-1. Mount the **AuralPlayer-x.y.z.dmg** image file
-2. From within the mounted image, copy **Aural.app** to your local drive (e.g. **Applications** folder)
+1. Mount the **AuralPlayer-x.y.z.dmg** image file.
+2. From within the mounted image, copy **Aural.app** to your local drive (e.g. **Applications** folder).
 3. Run the copy from your local drive. You will likely see a security warning and the app will not open because the app's developer is not recognized by macOS.
 4. Go to **System Preferences > Security & Privacy > General > Open anyway**, to allow Aural.app to open.
 
@@ -108,7 +104,7 @@ NOTE - Please ***don't*** run the app directly from within the image. Copy it ou
 
 ### Enabling media keys support (optional)
 
-Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support)
+Follow the steps listed [here](https://github.com/maculateConception/aural-player/wiki/Enabling-media-keys-support).
 
 ### Important note for anyone upgrading from v2.2.0 (or older) to v2.3.0 or newer app versions
 
