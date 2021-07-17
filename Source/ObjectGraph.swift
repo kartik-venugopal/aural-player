@@ -21,7 +21,7 @@ class ObjectGraph {
     
     static let persistentState: AppPersistentState = persistenceManager.load(type: AppPersistentState.self) ?? AppPersistentState.defaults
     
-    static var lastPresentedAppMode: AppMode? {persistentState.ui?.appMode}
+    static let appModeManager: AppModeManager = AppModeManager()
     
     static let preferences: Preferences = Preferences(defaults: .standard)
     
@@ -183,7 +183,7 @@ class ObjectGraph {
         persistentState.playbackSequence = (sequencer as! Sequencer).persistentState
         persistentState.playbackProfiles = playbackDelegate.profiles.all().map {PlaybackProfilePersistentState(profile: $0)}
         
-        persistentState.ui = UIPersistentState(appMode: AppModeManager.mode,
+        persistentState.ui = UIPersistentState(appMode: appModeManager.currentMode,
                                                windowLayout: WindowLayoutState.persistentState,
                                                themes: themesManager.persistentState,
                                                fontSchemes: fontSchemesManager.persistentState,

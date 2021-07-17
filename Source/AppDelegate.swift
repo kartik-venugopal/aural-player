@@ -30,6 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
+    private let appModeManager: AppModeManager = ObjectGraph.appModeManager
+    
     override init() {
         
         super.init()
@@ -48,6 +50,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         ObjectGraph.initialize()
         
+        messenger.subscribe(to: .application_switchMode, handler: appModeManager.presentMode(_:))
+        
         // Disable the "Enter Full Screen" menu item that is otherwise automatically added to the View menu
         UserDefaults.standard.set(false, forKey: "NSFullScreenMenuItemEverywhere")
     }
@@ -55,14 +59,29 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Presents the application's user interface upon app startup.
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
-        AppModeManager.presentApp(lastPresentedAppMode: ObjectGraph.lastPresentedAppMode,
-                                  preferences: ObjectGraph.preferences.viewPreferences)
+        presentApp()
         
         // Update the appLaunched flag
         appLaunched = true
         
         // Tell app components that the app has finished launching, and pass along any launch parameters (set of files to open)
         messenger.publish(.application_launched, payload: filesToOpen)
+    }
+    
+    private func presentApp() {
+        
+        let lastPresentedAppMode = ObjectGraph.persistentState.ui?.appMode
+        let preferences = ObjectGraph.preferences.viewPreferences
+        
+        if preferences.appModeOnStartup.option == .specific,
+           let appMode = preferences.appModeOnStartup.mode {
+            
+            // Present a specific app mode.
+            appModeManager.presentMode(appMode)
+            
+        } else {    // Remember app mode from last app launch.
+            appModeManager.presentMode(lastPresentedAppMode ?? .defaultMode)
+        }
     }
     
     /// Opens the application with a single file (audio file or playlist)

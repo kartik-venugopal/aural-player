@@ -179,11 +179,11 @@ class MenuBarPlayerViewController: NSViewController, Destroyable {
     }
     
     @IBAction func windowedModeAction(_ sender: AnyObject) {
-        AppModeManager.presentMode(.windowed)
+        messenger.publish(.application_switchMode, payload: AppMode.windowed)
     }
     
     @IBAction func controlBarModeAction(_ sender: AnyObject) {
-        AppModeManager.presentMode(.controlBar)
+        messenger.publish(.application_switchMode, payload: AppMode.controlBar)
     }
 
     @IBAction func quitAction(_ sender: AnyObject) {

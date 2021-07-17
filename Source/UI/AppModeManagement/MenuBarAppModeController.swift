@@ -9,6 +9,16 @@
 //
 import Cocoa
 
+///
+/// Controller responsible for presenting / dismissing the *Menu Bar* application user interface mode.
+///
+/// The menu bar app mode's interace consists of a menu that drops down from the macOS menu bar.
+/// The menu item that is displayed presents a view containing essential player controls and some basic
+/// options to customize that view.
+///
+/// The menu bar app mode allows the user access to essential player functions and is intended for a
+/// low level of user interaction. It will typically be used when running the application in the "background".
+///
 class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 
     var mode: AppMode {.menuBar}
@@ -18,7 +28,7 @@ class MenuBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
     
     private lazy var appIcon: NSImage = NSImage(named: "AppIcon-MenuBar")!
     
-    func presentMode(transitioningFromMode previousMode: AppMode) {
+    func presentMode(transitioningFromMode previousMode: AppMode?) {
         
         controller = MenuBarPlayerViewController()
 

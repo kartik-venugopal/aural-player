@@ -9,11 +9,21 @@
 //
 import Cocoa
 
+///
+/// Controller responsible for presenting / dismissing the *Windowed* application user interface mode.
+///
+/// The windowed app mode's interace consists of several windows representing different application
+/// modules - player, playlist, effects, chapters list, and several dialogs and utilities panels.
+///
+/// The windowed app mode is the default app mode and the one that will be presented upon the first
+/// app startup or when no prior app state is available. It allows the user access to all of the application's
+/// features and is intended for a high level of user interaction.
+///
 class WindowedAppModeController: AppModeController {
     
     var mode: AppMode {return .windowed}
     
-    func presentMode(transitioningFromMode previousMode: AppMode) {
+    func presentMode(transitioningFromMode previousMode: AppMode?) {
         
         NSApp.setActivationPolicy(.regular)
         
@@ -21,7 +31,7 @@ class WindowedAppModeController: AppModeController {
                                      preferences: ObjectGraph.preferences.viewPreferences).loadWindows()
         
         // If this is not a transition from a different app mode, we don't need to execute the hack below.
-        if previousMode == .windowed {return}
+        if previousMode == nil || previousMode == .windowed {return}
         
         // HACK - Because of an Apple bug, the main menu will not be usable until the app loses and then regains focus.
         // The following code simulates the user action of activating another app and then activating this app after a

@@ -9,21 +9,29 @@
 //
 import Cocoa
 
+///
+/// Controller responsible for presenting / dismissing the *Control Bar* application user interface mode.
+///
+/// The control bar app mode presents a minimalistic user interface consisting of a single compact "floating"
+/// window containing only player controls, playing track info, and some options to change the displayed info
+/// and appearance (theme).
+///
+/// The control bar app mode allows the user access to essential player functions and is intended for a
+/// low level of user interaction. It will typically be used when running the application in the "background".
+///
 class ControlBarAppModeController: NSObject, AppModeController, NSMenuDelegate {
 
     var mode: AppMode {.controlBar}
 
     private var controller: ControlBarPlayerWindowController?
     
-    func presentMode(transitioningFromMode previousMode: AppMode) {
+    func presentMode(transitioningFromMode previousMode: AppMode?) {
 
         NSApp.setActivationPolicy(.regular)
         NSApp.menu = nil
         
         controller = ControlBarPlayerWindowController()
         controller?.showWindow(self)
-        
-        // TODO: Sequencer scope should always be set to "All Tracks". Reset it here.
     }
     
     func dismissMode() {

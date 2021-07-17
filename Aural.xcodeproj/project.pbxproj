@@ -722,6 +722,7 @@
 		3E91932925E0CF5D00F30F81 /* GeneralFontScheme.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */; };
 		3E91932C25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */; };
 		3E91932F25E0DA9C00F30F81 /* FontSchemesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */; };
+		3E9792E326A24EFF0010BE99 /* AppModeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9792E226A24EFF0010BE99 /* AppModeController.swift */; };
 		3E97F68226A0B6C100984126 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97F68126A0B6C100984126 /* FileReader.swift */; };
 		3E97F68D26A0C50800984126 /* AddedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97F68C26A0C50800984126 /* AddedItem.swift */; };
 		3E97F69026A0C52D00984126 /* PlayedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97F68F26A0C52D00984126 /* PlayedItem.swift */; };
@@ -1875,6 +1876,7 @@
 		3E91932825E0CF5D00F30F81 /* GeneralFontScheme.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralFontScheme.xib; sourceTree = "<group>"; };
 		3E91932B25E0D96A00F30F81 /* GeneralFontSchemeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralFontSchemeViewController.swift; sourceTree = "<group>"; };
 		3E91932E25E0DA9C00F30F81 /* FontSchemesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSchemesWindowController.swift; sourceTree = "<group>"; };
+		3E9792E226A24EFF0010BE99 /* AppModeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModeController.swift; sourceTree = "<group>"; };
 		3E97F68126A0B6C100984126 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		3E97F68C26A0C50800984126 /* AddedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedItem.swift; sourceTree = "<group>"; };
 		3E97F68F26A0C52D00984126 /* PlayedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayedItem.swift; sourceTree = "<group>"; };
@@ -4175,6 +4177,7 @@
 			children = (
 				3EF28DB82694E42C005D5B43 /* AppMode.swift */,
 				3E9E590025DB6B150064EB5F /* AppModeManager.swift */,
+				3E9792E226A24EFF0010BE99 /* AppModeController.swift */,
 				3E9E590125DB6B150064EB5F /* WindowedAppModeController.swift */,
 				3E9E58FF25DB6B150064EB5F /* MenuBarAppModeController.swift */,
 				3E4322742687C96E009E8ADB /* ControlBarAppModeController.swift */,
@@ -5007,6 +5010,7 @@
 				3EE7CB9F25E22D6C0075F1DD /* EffectsFontSchemeViewController.swift in Sources */,
 				3E6C11E125CEBDBE00BF0D07 /* LegacyAVFScheduler.swift in Sources */,
 				3E3633DC2685FAD0006A88ED /* EffectsUnitType.swift in Sources */,
+				3E9792E326A24EFF0010BE99 /* AppModeController.swift in Sources */,
 				3E6C12EB25CEBE8100BF0D07 /* BookmarkNameInputReceiver.swift in Sources */,
 				3EAFB5DB267FE81A00F0DC96 /* Chapter.swift in Sources */,
 				3EDB344D25E8B75D004DF7DE /* FFmpegMappedMetadata.swift in Sources */,

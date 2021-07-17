@@ -9,6 +9,9 @@
 //  
 import Foundation
 
+///
+/// An enumeration of all application user interface modes.
+///
 enum AppMode: String, CaseIterable, Codable {
     
     static let defaultMode: AppMode = .windowed

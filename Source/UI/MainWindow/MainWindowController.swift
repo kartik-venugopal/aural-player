@@ -184,11 +184,11 @@ class MainWindowController: NSWindowController, Destroyable {
     }
     
     @IBAction func menuBarModeAction(_ sender: AnyObject) {
-        AppModeManager.presentMode(.menuBar)
+        messenger.publish(.application_switchMode, payload: AppMode.menuBar)
     }
     
     @IBAction func controlBarModeAction(_ sender: AnyObject) {
-        AppModeManager.presentMode(.controlBar)
+        messenger.publish(.application_switchMode, payload: AppMode.controlBar)
     }
     
     private func applyTheme() {

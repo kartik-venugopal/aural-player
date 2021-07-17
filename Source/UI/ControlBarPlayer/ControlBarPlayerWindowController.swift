@@ -164,13 +164,13 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     @IBAction func windowedModeAction(_ sender: AnyObject) {
         
         transferViewState()
-        AppModeManager.presentMode(.windowed)
+        messenger.publish(.application_switchMode, payload: AppMode.windowed)
     }
     
     @IBAction func menuBarModeAction(_ sender: AnyObject) {
         
         transferViewState()
-        AppModeManager.presentMode(.menuBar)
+        messenger.publish(.application_switchMode, payload: AppMode.menuBar)
     }
 
     @IBAction func quitAction(_ sender: AnyObject) {

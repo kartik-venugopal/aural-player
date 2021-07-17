@@ -23,4 +23,7 @@ extension Notification.Name {
     // Signifies that the application is about to exit/terminate, allowing observers
     // to save any state or perform any kind of shutdown or cleanup prior to exiting.
     static let application_willExit = Notification.Name("application_willExit")
+    
+    // Commands the application to switch its user interface mode to a new mode.
+    static let application_switchMode = Notification.Name("application_switchMode")
 }

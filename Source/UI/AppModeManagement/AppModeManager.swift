@@ -9,48 +9,46 @@
 //
 import Cocoa
 
+///
+/// Switches between application user interface modes.
+///
 class AppModeManager {
     
-    static var mode: AppMode = .windowed
+    var currentMode: AppMode? = nil
     
-    private static var windowedMode: WindowedAppModeController = WindowedAppModeController()
+    private lazy var windowedMode: WindowedAppModeController = WindowedAppModeController()
     
-    private static var menuBarMode: MenuBarAppModeController = MenuBarAppModeController()
+    private lazy var menuBarMode: MenuBarAppModeController = MenuBarAppModeController()
     
-    private static var controlBarMode: ControlBarAppModeController = ControlBarAppModeController()
+    private lazy var controlBarMode: ControlBarAppModeController = ControlBarAppModeController()
     
-    static func presentApp(lastPresentedAppMode: AppMode?, preferences: ViewPreferences) {
-        
-        if preferences.appModeOnStartup.option == .specific,
-           let appMode = preferences.appModeOnStartup.mode {
-            
-            presentMode(appMode)
-            
-        } else {    // Remember from last app launch.
-            presentMode(lastPresentedAppMode ?? .defaultMode)
-        }
-    }
-    
-    static func presentMode(_ newMode: AppMode) {
+    func presentMode(_ newMode: AppMode) {
         
         dismissCurrentMode()
         
         switch newMode {
         
-        case .windowed:  windowedMode.presentMode(transitioningFromMode: mode)
-        
-        case .menuBar: menuBarMode.presentMode(transitioningFromMode: mode)
+        case .windowed:
             
-        case .controlBar:   controlBarMode.presentMode(transitioningFromMode: mode)
+            windowedMode.presentMode(transitioningFromMode: currentMode)
         
+        case .menuBar:
+            
+            menuBarMode.presentMode(transitioningFromMode: currentMode)
+            
+        case .controlBar:
+            
+            controlBarMode.presentMode(transitioningFromMode: currentMode)
         }
         
-        mode = newMode
+        currentMode = newMode
     }
     
-    private static func dismissCurrentMode() {
+    private func dismissCurrentMode() {
         
-        switch mode {
+        guard let currentMode = self.currentMode else {return}
+        
+        switch currentMode {
             
         case .windowed:  windowedMode.dismissMode()
             
@@ -60,13 +58,4 @@ class AppModeManager {
             
         }
     }
-}
-
-protocol AppModeController {
-    
-    var mode: AppMode {get}
-    
-    func presentMode(transitioningFromMode previousMode: AppMode)
-    
-    func dismissMode()
 }
