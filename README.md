@@ -10,6 +10,7 @@
   * [Overview](#overview)
     + [How it works (under the hood)](#how-it-works-under-the-hood)
   * [Key features](#key-features)
+    + [Roadmap](#roadmap)
   * [Download](#download)
     + [Compatibility](#compatibility)
     + [Installation](#installation)
@@ -60,6 +61,18 @@ Read more about it [here](https://github.com/maculateConception/aural-player/wik
 * **Visualizations:** 3 different visualizations that dance to the music, with customizable colors.
 * **UI:** Modular interface, fully customizable fonts and colors, built-in / custom window layouts, menu bar mode, control bar (widget) mode.
 * **Usability:** Configurable media keys support, swipe/scroll gesture recognition, remote control from Control Center, headphones, media control devices / apps).
+
+### Roadmap
+
+The following features ***may be*** implemented in the future:
+
+- A file browser.
+- Allow for multiple playlists.
+- A single window "Unified" user interface mode.
+- A nicer looking playlist UI with a "tiles" view.
+- Replay gain.
+- Crossfading between tracks.
+- Gapless playback.
 
 ## Download
 
