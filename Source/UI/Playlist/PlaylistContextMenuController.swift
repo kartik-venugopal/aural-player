@@ -70,7 +70,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     // One-time setup
     override func awakeFromNib() {
@@ -117,7 +117,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
             favoritesMenuItem.onIf(favorites.favoriteWithFileExists(theClickedTrack.file))
             
             let isPlayingTrack: Bool = playbackInfo.playingTrack == theClickedTrack
-            viewChaptersMenuItem.showIf(isPlayingTrack && theClickedTrack.hasChapters && !windowLayoutState.isShowingChaptersList)
+            viewChaptersMenuItem.showIf(isPlayingTrack && theClickedTrack.hasChapters && !windowLayoutsManager.isShowingChaptersList)
             
         case .group:
             
@@ -143,13 +143,19 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
             // Remove from Favorites list and display notification
             favorites.deleteFavoriteWithFile(theClickedTrack.file)
-            infoPopup.showMessage("Track removed from Favorites !", playlistSelectedRowView, .maxX)
+            
+            if let rowView = playlistSelectedRowView {
+                infoPopup.showMessage("Track removed from Favorites !", rowView, .maxX)
+            }
             
         } else {
             
             // Add to Favorites list and display notification
             _ = favorites.addFavorite(theClickedTrack)
-            infoPopup.showMessage("Track added to Favorites !", playlistSelectedRowView, .maxX)
+            
+            if let rowView = playlistSelectedRowView {
+                infoPopup.showMessage("Track added to Favorites !", rowView, .maxX)
+            }
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
@@ -166,13 +172,17 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         trackReader.loadAuxiliaryMetadata(for: theClickedTrack)
         
         messenger.publish(.windowManager_makePlaylistWindowKey)
-        detailedInfoPopover.show(theClickedTrack, playlistSelectedRowView, .maxY)   // Display the popover below the selected row
+        
+        if let rowView = playlistSelectedRowView {
+            detailedInfoPopover.show(theClickedTrack, rowView, .maxY)   // Display the popover below the selected row
+        }
+        
         messenger.publish(.windowManager_makeMainWindowKey)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)
     // Defaults to the content view of the playlist window
-    private var playlistSelectedRowView: NSView {PlaylistViewState.selectedRowView ?? windowLayoutState.playlistWindowContentView}
+    private var playlistSelectedRowView: NSView? {PlaylistViewState.selectedRowView ?? windowLayoutsManager.playlistWindow?.contentView}
  
     // Removes the selected playlist item from the playlist
     @IBAction func removeSelectedItemAction(_ sender: Any) {

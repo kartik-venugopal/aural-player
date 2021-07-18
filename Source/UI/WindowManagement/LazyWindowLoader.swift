@@ -9,6 +9,32 @@
 //
 import Cocoa
 
+class WindowLoader<T>: Destroyable, Restorable where T: NSWindowController, T: Destroyable {
+    
+    private var lazyLoader: LazyWindowLoader<T>?
+    
+    var windowLoaded: Bool {lazyLoader?.windowLoaded ?? false}
+    var window: NSWindow {lazyLoader!.controller.window!}
+    
+    func showWindow() {
+        lazyLoader?.controller.showWindow(self)
+    }
+    
+    func close() {
+        lazyLoader?.controller.close()
+    }
+    
+    func destroy() {
+        
+        lazyLoader?.destroy()
+        lazyLoader = nil
+    }
+    
+    func restore() {
+        lazyLoader = LazyWindowLoader()
+    }
+}
+
 class LazyWindowLoader<T>: Destroyable where T: NSWindowController, T: Destroyable {
     
     lazy var controller: T = {

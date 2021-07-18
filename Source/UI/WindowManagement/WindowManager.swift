@@ -1,5 +1,5 @@
 //
-//  WindowManager.swift
+//  WindowLayoutsManager.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,83 +9,42 @@
 //
 import Cocoa
 
-protocol Destroyable {
-    
-    func destroy()
-    
-    static func destroy()
-}
-
-extension Destroyable {
-    
-    func destroy() {}
-    
-    static func destroy() {}
-}
-
-class WindowManager: NSObject, NSWindowDelegate, Destroyable {
-    
-//    private static var _instance: WindowManager?
-//    
-//    static var instance: WindowManager! {_instance}
-//    
-//    static func createInstance(layoutsManager: WindowLayoutsManager, preferences: ViewPreferences) -> WindowManager {
-//        
-//        _instance = WindowManager(layoutsManager: layoutsManager, preferences: preferences)
-//        return instance
-//    }
-//    
-//    static func destroy() {
-//        
-//        _instance?.destroy()
-//        _instance = nil
-//    }
+class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable {
     
     private let preferences: ViewPreferences
-    private let layoutsManager: WindowLayoutsManager
     
     // App's main window
-    private let mainWindowController: MainWindowController
-    let mainWindow: NSWindow
+    private let mainWindowLoader: WindowLoader<MainWindowController> = WindowLoader()
+    lazy var mainWindow: NSWindow = loadWindowFromLoader(mainWindowLoader)
     
     // Load these optional windows only if/when needed
-    private var effectsWindowLoader: LazyWindowLoader<EffectsWindowController> = LazyWindowLoader()
-    private lazy var _effectsWindow: NSWindow = {[weak self] in
-        
-        effectsWindowLoader.window.delegate = self
-        return effectsWindowLoader.window
-    }()
+    private var effectsWindowLoader: WindowLoader<EffectsWindowController> = WindowLoader()
+    private lazy var _effectsWindow: NSWindow = loadWindowFromLoader(effectsWindowLoader)
     
     var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
     var effectsWindowFrame: NSRect? {effectsWindowLoaded ? _effectsWindow.frame : nil}
     var effectsWindowLoaded: Bool {effectsWindowLoader.windowLoaded}
 
-    private var playlistWindowLoader: LazyWindowLoader<PlaylistWindowController> = LazyWindowLoader()
-    private lazy var _playlistWindow: NSWindow = {[weak self] in
-        
-        playlistWindowLoader.window.delegate = self
-        return playlistWindowLoader.window
-    }()
+    private var playlistWindowLoader: WindowLoader<PlaylistWindowController> = WindowLoader()
+    private lazy var _playlistWindow: NSWindow = loadWindowFromLoader(playlistWindowLoader)
     
     var playlistWindow: NSWindow? {playlistWindowLoader.windowLoaded ? _playlistWindow : nil}
     var playlistWindowFrame: NSRect? {playlistWindowLoaded ? _playlistWindow.frame : nil}
     var playlistWindowLoaded: Bool {playlistWindowLoader.windowLoaded}
 
-    private lazy var chaptersListWindowLoader: LazyWindowLoader<ChaptersListWindowController> = LazyWindowLoader()
-    private lazy var _chaptersListWindow: NSWindow = {[weak self] in
-        
-        chaptersListWindowLoader.window.delegate = self
-        return chaptersListWindowLoader.window
-    }()
+    private lazy var chaptersListWindowLoader: WindowLoader<ChaptersListWindowController> = WindowLoader()
+    private lazy var _chaptersListWindow: NSWindow = loadWindowFromLoader(chaptersListWindowLoader)
     var chaptersListWindow: NSWindow? {chaptersListWindowLoader.windowLoaded ? _chaptersListWindow : nil}
     
-    private lazy var visualizerWindowLoader: LazyWindowLoader<VisualizerWindowController> = LazyWindowLoader()
+    private lazy var visualizerWindowLoader: WindowLoader<VisualizerWindowController> = WindowLoader()
     private lazy var _visualizerWindow: NSWindow = visualizerWindowLoader.window
     
     var visualizerWindow: NSWindow? {visualizerWindowLoader.windowLoaded ? _visualizerWindow : nil}
     
-    private lazy var tuneBrowserWindowLoader: LazyWindowLoader<TuneBrowserWindowController> = LazyWindowLoader()
+    private lazy var tuneBrowserWindowLoader: WindowLoader<TuneBrowserWindowController> = WindowLoader()
     private lazy var _tuneBrowserWindow: NSWindow = tuneBrowserWindowLoader.window
+    
+    private var windowDelegates: [NSWindowDelegate] = []
     
     // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
     private var modalComponentRegistry: [ModalComponentProtocol] = []
@@ -94,21 +53,34 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     private let initialLayout: WindowLayout?
     
-    init(layoutsManager: WindowLayoutsManager, initialLayout: WindowLayout?, preferences: ViewPreferences) {
+    private func loadWindowFromLoader<T>(_ loader: WindowLoader<T>) -> NSWindow where T: NSWindowController, T: Destroyable {
         
-        self.layoutsManager = layoutsManager
-        self.preferences = preferences
+        let window = loader.window
+        let windowDelegate = SnappingWindowDelegate(window: window as! SnappingWindow)
+        windowDelegates.append(windowDelegate)
         
-        self.mainWindowController = MainWindowController()
-        self.mainWindow = mainWindowController.window!
+        window.delegate = windowDelegate
+        return window
+    }
+    
+    init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
         
-        self.initialLayout = initialLayout
+        self.preferences = viewPreferences
+        self.initialLayout = WindowLayout(systemLayoutFrom: persistentState)
         
-        super.init()
-        self.mainWindow.delegate = self
+        let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout(gap: CGFloat(viewPreferences.windowGap))}
+        let userDefinedLayouts: [WindowLayout] = persistentState?.userLayouts?.compactMap
+        {WindowLayout(persistentState: $0)} ?? []
         
-        messenger.subscribe(to: .windowManager_togglePlaylistWindow, handler: togglePlaylist)
-        messenger.subscribe(to: .windowManager_toggleEffectsWindow, handler: toggleEffects)
+        super.init(systemDefinedPresets: systemDefinedLayouts, userDefinedPresets: userDefinedLayouts)
+    }
+    
+    var defaultLayout: WindowLayout {
+        systemDefinedPreset(named: WindowLayoutPresets.verticalFullStack.name)!
+    }
+    
+    func recomputeSystemDefinedLayouts() {
+        systemDefinedPresets.forEach {WindowLayoutPresets.recompute(layout: $0, gap: CGFloat(preferences.windowGap))}
     }
     
     func registerModalComponent(_ component: ModalComponentProtocol) {
@@ -120,6 +92,35 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     }
     
     // MARK - Core functionality ----------------------------------------------------
+    
+    func restore() {
+        
+        ([mainWindowLoader, effectsWindowLoader, playlistWindowLoader,
+          chaptersListWindowLoader, visualizerWindowLoader] as? [Restorable])?.forEach {
+            
+            $0.restore()
+        }
+        
+        performInitialLayout()
+        
+        messenger.subscribe(to: .windowManager_togglePlaylistWindow, handler: togglePlaylist)
+        messenger.subscribe(to: .windowManager_toggleEffectsWindow, handler: toggleEffects)
+    }
+    
+    func destroy() {
+        
+        messenger.unsubscribeFromAll()
+        
+        for window in mainWindow.childWindows ?? [] {
+            mainWindow.removeChildWindow(window)
+        }
+        
+        ([mainWindowLoader, effectsWindowLoader, playlistWindowLoader,
+          chaptersListWindowLoader, visualizerWindowLoader] as? [Destroyable])?.forEach {
+            
+            $0.destroy()
+        }
+    }
     
     func performInitialLayout() {
         
@@ -133,37 +134,15 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
             layout(initialLayout)
             
         } else {
-            defaultLayout()
+            performDefaultLayout()
         }
         
         (mainWindow as? SnappingWindow)?.ensureOnScreen()
     }
     
-    func destroy() {
-        
-        // Before destroying this instance, transfer its state info to WindowLayoutState.
-        
-        messenger.unsubscribeFromAll()
-        
-//        WindowLayoutState.showEffects = isShowingEffects
-//        WindowLayoutState.showPlaylist = isShowingPlaylist
-//
-//        WindowLayoutState.mainWindowOrigin = mainWindow.origin
-//        WindowLayoutState.playlistWindowFrame = playlistWindow?.frame
-//        WindowLayoutState.effectsWindowOrigin = effectsWindow?.origin
-        
-        for window in mainWindow.childWindows ?? [] {
-            mainWindow.removeChildWindow(window)
-        }
-        
-        ([mainWindowController, effectsWindowLoader, playlistWindowLoader, chaptersListWindowLoader, visualizerWindowLoader] as? [Destroyable])?.forEach {
-            $0.destroy()
-        }
-    }
-    
     // Revert to default layout if app state is corrupted
-    private func defaultLayout() {
-        layout(layoutsManager.defaultLayout)
+    private func performDefaultLayout() {
+        layout(defaultLayout)
     }
     
     func layout(_ layout: WindowLayout) {
@@ -215,7 +194,7 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     
     func layout(_ name: String) {
         
-        if let theLayout = layoutsManager.preset(named: name) {
+        if let theLayout = preset(named: name) {
             layout(theLayout)
         }
     }
@@ -334,11 +313,11 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
     private func showVisualizer() {
         
         mainWindow.addChildWindow(_visualizerWindow, ordered: NSWindow.OrderingMode.above)
-        visualizerWindowLoader.controller.showWindow(self)
+        visualizerWindowLoader.showWindow()
     }
     
     private func hideVisualizer() {
-        visualizerWindowLoader.controller.close()
+        visualizerWindowLoader.close()
     }
     
     func toggleTuneBrowser() {
@@ -362,55 +341,26 @@ class WindowManager: NSObject, NSWindowDelegate, Destroyable {
         mainWindow.addChildWindow(window, ordered: .above)
     }
     
-    // MARK: NSWindowDelegate functions
-    
-    func windowDidMove(_ notification: Notification) {
+    var persistentState: WindowLayoutsPersistentState {
         
-        // Only respond if movement was user-initiated (flag on window)
-        if let movedWindow = notification.object as? SnappingWindow, movedWindow.userMovingWindow {
-
-            var snapped = false
-
-            if preferences.snapToWindows {
-
-                // First check if window can be snapped to another app window
-                for mate in getCandidateWindowsForSnap(movedWindow) {
-
-                    if mate.isVisible && movedWindow.checkForSnap(to: mate) {
-
-                        snapped = true
-                        break
-                    }
-                }
-            }
-
-            // If window doesn't need to be snapped to another window, check if it needs to be snapped to the visible frame
-            if preferences.snapToScreen && !snapped {
-                movedWindow.checkForSnapToVisibleFrame()
-            }
-        }
-    }
-    
-    // Sorted by order of relevance
-    private func getCandidateWindowsForSnap(_ movedWindow: SnappingWindow) -> [NSWindow] {
+        let userLayouts = objectGraph.windowLayoutsManager.userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)}
         
-        if isShowingPlaylist && movedWindow === _playlistWindow {
-            return isShowingEffects ? [mainWindow, _effectsWindow] : [mainWindow]
-            
-        } else if isShowingEffects && movedWindow === _effectsWindow {
-            return isShowingPlaylist ? [mainWindow, _playlistWindow] : [mainWindow]
-            
-        } else if isShowingChaptersList && movedWindow === _chaptersListWindow {
-            
-            var candidates: [NSWindow] = [mainWindow]
-            
-            if isShowingEffects {candidates.append(_effectsWindow)}
-            if isShowingPlaylist {candidates.append(_playlistWindow)}
-            
-            return candidates
+        var effectsWindowOrigin: NSPointPersistentState? = nil
+        var playlistWindowFrame: NSRectPersistentState? = nil
+        
+        if let origin = self.effectsWindow?.origin {
+            effectsWindowOrigin = NSPointPersistentState(point: origin)
         }
         
-        // Main window
-        return []
+        if let frame = self.playlistWindowFrame {
+            playlistWindowFrame = NSRectPersistentState(rect: frame)
+        }
+        
+        return WindowLayoutsPersistentState(showEffects: isShowingEffects,
+                showPlaylist: isShowingPlaylist,
+                mainWindowOrigin: NSPointPersistentState(point: mainWindow.origin),
+                effectsWindowOrigin: effectsWindowOrigin,
+                playlistWindowFrame: playlistWindowFrame,
+                userLayouts: userLayouts)
     }
 }

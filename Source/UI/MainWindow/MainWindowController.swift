@@ -47,7 +47,7 @@ class MainWindowController: NSWindowController, Destroyable {
     
     override var windowNibName: String? {"MainWindow"}
     
-    private let windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     private lazy var messenger = Messenger(for: self)
     
@@ -65,7 +65,7 @@ class MainWindowController: NSWindowController, Destroyable {
         initWindow()
         theWindow.setIsVisible(false)
         
-//        setUpEventHandling()
+        setUpEventHandling()
         initSubscriptions()
         
         super.windowDidLoad()
@@ -89,8 +89,8 @@ class MainWindowController: NSWindowController, Destroyable {
         
         logoImage.tintFunction = {Colors.appLogoColor}
 
-        btnTogglePlaylist.onIf(windowLayoutState.isShowingPlaylist)
-        btnToggleEffects.onIf(windowLayoutState.isShowingEffects)
+        btnTogglePlaylist.onIf(windowLayoutsManager.isShowingPlaylist)
+        btnToggleEffects.onIf(windowLayoutsManager.isShowingEffects)
         
         applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
@@ -246,7 +246,7 @@ class MainWindowController: NSWindowController, Destroyable {
         // One-off special case: Without this, a space key press (for play/pause) is not sent to main window
         // Send the space key event to the main window unless a modal component is currently displayed
         if event.charactersIgnoringModifiers == " ",
-           !windowLayoutState.isShowingModalComponent {
+           !windowLayoutsManager.isShowingModalComponent {
 
             self.window?.keyDown(with: event)
             return nil
@@ -262,7 +262,7 @@ class MainWindowController: NSWindowController, Destroyable {
         // Also, ignore any gestures that weren't triggered over the main window (they trigger other functions if performed over the playlist window)
 
         if event.window === self.window,
-           !windowLayoutState.isShowingModalComponent,
+           !windowLayoutsManager.isShowingModalComponent,
            let swipeDirection = event.gestureDirection, swipeDirection.isHorizontal {
 
             handleTrackChange(swipeDirection)
@@ -279,7 +279,7 @@ class MainWindowController: NSWindowController, Destroyable {
 
         // Calculate the direction and magnitude of the scroll (nil if there is no direction information)
         if event.window === self.window,
-           !windowLayoutState.isShowingModalComponent,
+           !windowLayoutsManager.isShowingModalComponent,
            let scrollDirection = event.gestureDirection {
 
             // Vertical scroll = volume control, horizontal scroll = seeking

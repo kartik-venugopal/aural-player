@@ -52,14 +52,12 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
-    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedPresets.isEmpty)
         toggleChaptersListMenuItem.enableIf(player.chapterCount > 0)
         
-        let showingModalComponent: Bool = objectGraph.windowLayoutState.isShowingModalComponent
+        let showingModalComponent: Bool = objectGraph.windowLayoutsManager.isShowingModalComponent
         
         [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem].forEach({$0.enableIf(!showingModalComponent)})
         manageThemesMenuItem.enableIf(!showingModalComponent && (themesManager.numberOfUserDefinedPresets > 0))
@@ -76,10 +74,10 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         [togglePlaylistMenuItem, toggleEffectsMenuItem].forEach({$0?.show()})
         
-        togglePlaylistMenuItem.onIf(windowLayoutState.isShowingPlaylist)
-        toggleEffectsMenuItem.onIf(windowLayoutState.isShowingEffects)
-        toggleChaptersListMenuItem.onIf(windowLayoutState.isShowingChaptersList)
-        toggleVisualizerMenuItem.onIf(windowLayoutState.isShowingVisualizer)
+        togglePlaylistMenuItem.onIf(windowLayoutsManager.isShowingPlaylist)
+        toggleEffectsMenuItem.onIf(windowLayoutsManager.isShowingEffects)
+        toggleChaptersListMenuItem.onIf(windowLayoutsManager.isShowingChaptersList)
+        toggleVisualizerMenuItem.onIf(windowLayoutsManager.isShowingVisualizer)
         
         playerViewMenuItem.off()
         

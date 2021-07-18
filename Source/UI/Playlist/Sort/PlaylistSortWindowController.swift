@@ -38,7 +38,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         
         [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach {$0.resetFields()}
         
-        objectGraph.windowLayoutState.registerModalComponent(self)
+        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     var isModal: Bool {window?.isVisible ?? false}

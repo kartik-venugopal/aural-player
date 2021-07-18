@@ -22,8 +22,6 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     
     private lazy var messenger: Messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
-    
     override func presetExists(named name: String) -> Bool {
         windowLayoutsManager.presetExists(named: name)
     }
@@ -31,7 +29,7 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     // Receives a new layout name and saves the new layout.
     override func addPreset(named name: String) {
         
-        let newLayout = windowLayoutState.currentLayout
+        let newLayout = windowLayoutsManager.currentWindowLayout
         newLayout.name = name
         windowLayoutsManager.addPreset(newLayout)
     }

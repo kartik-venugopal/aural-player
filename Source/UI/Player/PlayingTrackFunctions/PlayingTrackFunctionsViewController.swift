@@ -59,7 +59,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     override func viewDidLoad() {
         

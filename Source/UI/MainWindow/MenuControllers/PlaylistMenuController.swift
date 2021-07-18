@@ -55,13 +55,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        let showingModalComponent: Bool = windowLayoutState.isShowingModalComponent
+        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
 
-        if windowLayoutState.isChaptersListWindowKey {
+        if windowLayoutsManager.isChaptersListWindowKey {
 
             // If the chapters list window is key, most playlist menu items need to be disabled
             menu.items.forEach({$0.disable()})
@@ -81,7 +81,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             menu.items.forEach({$0.enable()})
         }
 
-        theMenu.enableIf(windowLayoutState.isShowingPlaylist)
+        theMenu.enableIf(windowLayoutsManager.isShowingPlaylist)
         if theMenu.isDisabled {return}
 
         // TODO: Revisit the below item enabling code (esp. the ones relying on no modal window). How to display modal windows so as to avoid
@@ -206,7 +206,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
         
-        if windowLayoutState.isChaptersListWindowKey {
+        if windowLayoutsManager.isChaptersListWindowKey {
             messenger.publish(.chaptersList_playSelectedChapter)
 
         } else {

@@ -40,7 +40,7 @@ class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
     }
     
     override func windowDidLoad() {
-        objectGraph.windowLayoutState.registerModalComponent(self)
+        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     var isModal: Bool {self.window?.isVisible ?? false}

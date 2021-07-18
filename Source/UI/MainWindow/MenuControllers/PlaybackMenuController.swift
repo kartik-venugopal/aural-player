@@ -63,7 +63,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     // One-time setup
     override func awakeFromNib() {
@@ -84,9 +84,9 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
         jumpToTimeMenuItem.enableIf(isPlayingOrPaused)
         
         // Enabled only if playing/paused
-        let showingModalComponent: Bool = windowLayoutState.isShowingModalComponent
+        let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
         
-        showInPlaylistMenuItem.enableIf(isPlayingOrPaused && windowLayoutState.isShowingPlaylist)
+        showInPlaylistMenuItem.enableIf(isPlayingOrPaused && windowLayoutsManager.isShowingPlaylist)
         [replayTrackMenuItem, loopMenuItem, detailedInfoMenuItem].forEach({$0.enableIf(isPlayingOrPaused)})
         
         // Should not invoke these items when a popover is being displayed (because of the keyboard shortcuts which conflict with the CMD arrow and Alt arrow functions when editing text within a popover)

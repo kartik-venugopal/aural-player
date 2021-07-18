@@ -52,7 +52,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     override func windowDidLoad() {
         
         messenger.subscribe(to: .playlist_searchTextChanged, handler: searchTextChanged(_:))
-        objectGraph.windowLayoutState.registerModalComponent(self)
+        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     func destroy() {

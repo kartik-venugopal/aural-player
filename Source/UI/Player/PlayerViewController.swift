@@ -43,7 +43,7 @@ class PlayerViewController: NSViewController, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     override func viewDidLoad() {
         
@@ -130,7 +130,7 @@ class PlayerViewController: NSViewController, Destroyable {
         trackChanged(notification.endTrack)
         
         // If the playlist window has not yet been loaded, we need to handle this notification on behalf of the playlist window.
-        guard !windowLayoutState.playlistWindowLoaded else {return}
+        guard !windowLayoutsManager.playlistWindowLoaded else {return}
         
         // New track has no chapters, or there is no new track
         if player.chapterCount == 0 {

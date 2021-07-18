@@ -11,10 +11,13 @@ import Cocoa
 
 fileprivate let preferences: ViewPreferences = objectGraph.preferences.viewPreferences
 
+@IBDesignable
 class SnappingWindow: NoTitleBarWindow {
     
     var snapped: Bool = false
     var snapLocation: NSPoint?
+    
+    @IBInspectable var snapLevel: Int = 0
     
     var userMovingWindow: Bool = false
     
@@ -23,25 +26,25 @@ class SnappingWindow: NoTitleBarWindow {
     private var snapProximity: CGFloat {Self.snapProximity}
 
     override func mouseUp(with event: NSEvent) {
-        
+
         // Mark Bool flag to indicate that user-initiated movement has ended
         userMovingWindow = false
-        
+
         // Snap window to its pre-determined snap location
         if snapped, let theSnapLocation = self.snapLocation {
-            
+
             self.setFrameOrigin(theSnapLocation)
-            
+
             snapped = false
             snapLocation = nil
         }
-        
+
         super.mouseUp(with: event)
     }
-    
+
     // Mark Bool flag to indicate that window movement is user-initiated
     override func mouseDown(with event: NSEvent) {
-        
+
         userMovingWindow = true
         super.mouseDown(with: event)
     }

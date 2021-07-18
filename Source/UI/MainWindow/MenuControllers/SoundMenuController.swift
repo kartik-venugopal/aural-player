@@ -67,7 +67,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     // One-time setup.
     override func awakeFromNib() {
@@ -101,7 +101,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     // When the menu is about to open, update the menu item states
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(!windowLayoutState.isShowingModalComponent)})
+        [panLeftMenuItem, panRightMenuItem].forEach({$0?.enableIf(!windowLayoutsManager.isShowingModalComponent)})
         rememberSettingsMenuItem.enableIf(player.playingTrack != nil)
     }
     
@@ -173,7 +173,7 @@ class SoundMenuController: NSObject, NSMenuDelegate {
     }
     
     // Whether or not the Effects window is loaded (and is able to receive commands).
-    var effectsWindowLoaded: Bool {windowLayoutState.effectsWindowLoaded}
+    var effectsWindowLoaded: Bool {windowLayoutsManager.effectsWindowLoaded}
     
     // Toggles the master bypass switch
     @IBAction func masterBypassAction(_ sender: Any) {

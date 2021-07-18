@@ -68,7 +68,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         lblError?.font = Fonts.stringInputPopoverErrorFont
 
         // Register self as a modal component
-        objectGraph.windowLayoutState.registerModalComponent(self)
+        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {

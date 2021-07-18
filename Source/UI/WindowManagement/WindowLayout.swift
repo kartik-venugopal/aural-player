@@ -87,28 +87,6 @@ class WindowLayout {
         self.showEffects = showEffects
         self.showPlaylist = showPlaylist
     }
-    
-    init?(systemLayoutFrom windowLayoutState: WindowLayoutState) {
-        
-        if windowLayoutState.isShowingEffects {
-            
-            guard let effectsWindowOrigin = windowLayoutState.effectsWindowOrigin else {return nil}
-            self.effectsWindowOrigin = effectsWindowOrigin
-        }
-        
-        if windowLayoutState.isShowingPlaylist {
-            
-            guard let playlistWindowFrame = windowLayoutState.playlistWindowFrame else {return nil}
-            self.playlistWindowFrame = playlistWindowFrame
-        }
-        
-        self.name = "_system_"
-        self.systemDefined = true
-        
-        self.mainWindowOrigin = windowLayoutState.mainWindowOrigin
-        self.showEffects = windowLayoutState.isShowingEffects
-        self.showPlaylist = windowLayoutState.isShowingPlaylist
-    }
 }
 
 extension WindowLayout: MappedPreset {

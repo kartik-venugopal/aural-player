@@ -42,7 +42,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
         
         tabView.addViewsForTabs(subViews.map {$0.preferencesView})
         
-        objectGraph.windowLayoutState.registerModalComponent(self)
+        objectGraph.windowLayoutsManager.registerModalComponent(self)
         
         super.windowDidLoad()
     }

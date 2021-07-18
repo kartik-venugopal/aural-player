@@ -82,7 +82,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     private lazy var messenger = Messenger(for: self)
     
-    private lazy var windowLayoutState: WindowLayoutState = objectGraph.windowLayoutState
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
 
     override func windowDidLoad() {
         
@@ -516,8 +516,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         // TODO: Enable top/bottom gestures for chapters list window too !!!
         
         if event.type == .swipe,
-           !windowLayoutState.isShowingModalComponent,
-           let eventWindow = event.window, windowLayoutState.isWindowEqualToPlaylistWindow(eventWindow),
+           !windowLayoutsManager.isShowingModalComponent,
+           let eventWindow = event.window, eventWindow == windowLayoutsManager.playlistWindow,
            let swipeDirection = event.gestureDirection {
             
             swipeDirection.isHorizontal ? handleTabToggle(swipeDirection) : handleScrolling(swipeDirection)
