@@ -87,24 +87,24 @@ class ViewMenuController: NSObject, NSMenuDelegate {
  
     // Shows/hides the playlist window
     @IBAction func togglePlaylistAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_togglePlaylistWindow)
+        windowLayoutsManager.togglePlaylistWindow()
     }
     
     // Shows/hides the effects window
     @IBAction func toggleEffectsAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_toggleEffectsWindow)
+        windowLayoutsManager.toggleEffectsWindow()
     }
     
     // Shows/hides the chapters list window
     @IBAction func toggleChaptersListAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_toggleChaptersListWindow)
+        windowLayoutsManager.toggleChaptersListWindow()
     }
     
     @IBAction func toggleVisualizerAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_toggleVisualizerWindow)
+        windowLayoutsManager.toggleVisualizerWindow()
     }
     
     @IBAction func toggleTuneBrowserAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_toggleTuneBrowserWindow)
+        windowLayoutsManager.toggleTuneBrowserWindow()
     }
 }

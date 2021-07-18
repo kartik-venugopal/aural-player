@@ -120,7 +120,7 @@ class MainWindowController: NSWindowController, Destroyable {
         messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
         messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: changeToggleButtonOffStateColor(_:))
 
-        messenger.subscribe(to: .windowManager_layoutChanged, handler: windowLayoutChanged(_:))
+        messenger.subscribe(to: .windowManager_layoutChanged, handler: windowLayoutChanged)
         
         messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
     }
@@ -156,7 +156,7 @@ class MainWindowController: NSWindowController, Destroyable {
     }
     
     private func togglePlaylistWindow() {
-        messenger.publish(.windowManager_togglePlaylistWindow)
+        windowLayoutsManager.togglePlaylistWindow()
     }
     
     // Shows/hides the effects panel on the main window
@@ -165,7 +165,7 @@ class MainWindowController: NSWindowController, Destroyable {
     }
     
     private func toggleEffectsWindow() {
-        messenger.publish(.windowManager_toggleEffectsWindow)
+        windowLayoutsManager.toggleEffectsWindow()
     }
     
     // Quits the app
@@ -227,10 +227,10 @@ class MainWindowController: NSWindowController, Destroyable {
     
     // MARK: Message handling -----------------------------------------------------------
     
-    func windowLayoutChanged(_ notification: WindowLayoutChangedNotification) {
-        
-        btnToggleEffects.onIf(notification.showingEffectsWindow)
-        btnTogglePlaylist.onIf(notification.showingPlaylistWindow)
+    func windowLayoutChanged() {
+
+        btnTogglePlaylist.onIf(windowLayoutsManager.isShowingPlaylist)
+        btnToggleEffects.onIf(windowLayoutsManager.isShowingEffects)
     }
     
     func changeWindowCornerRadius(_ radius: CGFloat) {

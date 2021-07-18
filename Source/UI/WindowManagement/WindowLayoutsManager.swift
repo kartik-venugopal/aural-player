@@ -22,16 +22,14 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     // MARK: Main window -------------------------------------------
     
-    // App's main window
     private lazy var mainWindowLoader: WindowLoader<MainWindowController> = initializeLoader(type: MainWindowController.self)
     var mainWindow: NSWindow {mainWindowLoader.window}
     
     // MARK: Effects window -------------------------------------------
     
-    // Load these optional windows only if/when needed
     private lazy var effectsWindowLoader: WindowLoader<EffectsWindowController> = initializeLoader(type: EffectsWindowController.self)
-    
     private var _effectsWindow: NSWindow {effectsWindowLoader.window}
+    
     var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
     var effectsWindowFrame: NSRect? {effectsWindowLoaded ? _effectsWindow.frame : nil}
     var effectsWindowLoaded: Bool {effectsWindowLoader.windowLoaded}
@@ -39,7 +37,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     // MARK: Playlist window -------------------------------------------
     
     private lazy var playlistWindowLoader: WindowLoader<PlaylistWindowController> = initializeLoader(type: PlaylistWindowController.self)
-    
     private var _playlistWindow: NSWindow {playlistWindowLoader.window}
     
     var playlistWindow: NSWindow? {playlistWindowLoader.windowLoaded ? _playlistWindow : nil}
@@ -63,28 +60,34 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     // MARK: Tune browser window -------------------------------------------
     
     private lazy var tuneBrowserWindowLoader: WindowLoader<TuneBrowserWindowController> = initializeLoader(type: TuneBrowserWindowController.self)
-    
     private var _tuneBrowserWindow: NSWindow {tuneBrowserWindowLoader.window}
     
-    private lazy var initializedLoaders: [DestroyableAndRestorable] = []
+    private var initializedLoaders: [DestroyableAndRestorable] = []
     
+    // TODO: See if this can be removed (by iterating through NSApp.windows and filtering by as? ModalComponentProtocol)
     // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
     private var modalComponentRegistry: [ModalComponentProtocol] = []
     
     private lazy var messenger = Messenger(for: self)
     
-    private let initialLayout: WindowLayout?
+    private var initialLayout: WindowLayout? = nil
 
     init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
         
         self.preferences = viewPreferences
-        self.initialLayout = WindowLayout(systemLayoutFrom: persistentState)
         
         let systemDefinedLayouts = WindowLayoutPresets.allCases.map {$0.layout(gap: CGFloat(viewPreferences.windowGap))}
         let userDefinedLayouts: [WindowLayout] = persistentState?.userLayouts?.compactMap
         {WindowLayout(persistentState: $0)} ?? []
         
         super.init(systemDefinedPresets: systemDefinedLayouts, userDefinedPresets: userDefinedLayouts)
+        
+        if preferences.layoutOnStartup.option == .specific, let layoutName = preferences.layoutOnStartup.layoutName {
+            self.initialLayout = preset(named: layoutName)
+            
+        } else {
+            self.initialLayout = WindowLayout(systemLayoutFrom: persistentState)
+        }
     }
     
     var defaultLayout: WindowLayout {
@@ -108,14 +111,13 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     func restore() {
         
         initializedLoaders.forEach {$0.restore()}
-        
         performInitialLayout()
-        
-        messenger.subscribe(to: .windowManager_togglePlaylistWindow, handler: togglePlaylist)
-        messenger.subscribe(to: .windowManager_toggleEffectsWindow, handler: toggleEffects)
     }
     
     func destroy() {
+        
+        // Save the current layout for future re-use.
+        initialLayout = currentWindowLayout
         
         messenger.unsubscribeFromAll()
         modalComponentRegistry.removeAll()
@@ -127,16 +129,12 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         initializedLoaders.forEach {$0.destroy()}
     }
     
-    func performInitialLayout() {
+    private func performInitialLayout() {
         
-        if preferences.layoutOnStartup.option == .specific, let layoutName = preferences.layoutOnStartup.layoutName {
-            
-            layout(layoutName)
-            
-        } else if let initialLayout = self.initialLayout {
+        if let initialLayout = self.initialLayout {
             
             // Remember from last app launch
-            layout(initialLayout)
+            applyLayout(initialLayout)
             
         } else {
             performDefaultLayout()
@@ -148,10 +146,17 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     // Revert to default layout if app state is corrupted
     private func performDefaultLayout() {
-        layout(defaultLayout)
+        applyLayout(defaultLayout)
     }
     
-    func layout(_ layout: WindowLayout) {
+    func applyLayout(named name: String) {
+        
+        if let layout = preset(named: name) {
+            applyLayout(layout)
+        }
+    }
+    
+    func applyLayout(_ layout: WindowLayout) {
         
         mainWindow.setFrameOrigin(layout.mainWindowOrigin)
         
@@ -165,7 +170,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
             _effectsWindow.show()
             
         } else {
-            hideEffects()
+            hideEffectsWindow()
         }
         
         if layout.showPlaylist {
@@ -178,31 +183,20 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
             _playlistWindow.show()
             
         } else {
-            hidePlaylist()
+            hidePlaylistWindow()
         }
         
         layoutChanged()
     }
     
     private func layoutChanged() {
-        
-        messenger.publish(WindowLayoutChangedNotification(showingPlaylistWindow: isShowingPlaylist,
-                                                          showingEffectsWindow: isShowingEffects))
+        messenger.publish(.windowManager_layoutChanged)
     }
     
     var currentWindowLayout: WindowLayout {
         
-        let effectsWindowOrigin = isShowingEffects ? _effectsWindow.origin : nil
-        let playlistWindowFrame = isShowingPlaylist ? _playlistWindow.frame : nil
-        
-        return WindowLayout("_currentWindowLayout_", isShowingEffects, isShowingPlaylist, mainWindow.origin, effectsWindowOrigin, playlistWindowFrame, false)
-    }
-    
-    func layout(_ name: String) {
-        
-        if let theLayout = preset(named: name) {
-            layout(theLayout)
-        }
+        WindowLayout("_system_", isShowingEffects, isShowingPlaylist, mainWindow.origin,
+                     effectsWindow?.origin, playlistWindow?.frame, true)
     }
     
     var isShowingEffects: Bool {
@@ -235,17 +229,17 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         return mainWindow.frame
     }
     
-    // MARK ----------- View toggling code ----------------------------------------------------
+    // MARK: View toggling code ----------------------------------------------------
     
     // Shows/hides the effects window
-    func toggleEffects() {
-        isShowingEffects ? hideEffects() : showEffects()
+    func toggleEffectsWindow() {
+        isShowingEffects ? hideEffectsWindow() : showEffectsWindow()
     }
     
     // Shows the effects window
-    private func showEffects() {
+    func showEffectsWindow() {
         
-        mainWindow.addChildWindow(_effectsWindow, ordered: NSWindow.OrderingMode.above)
+        mainWindow.addChildWindow(_effectsWindow, ordered: .above)
         _effectsWindow.show()
         _effectsWindow.orderFront(self)
         
@@ -253,7 +247,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     }
     
     // Hides the effects window
-    private func hideEffects() {
+    func hideEffectsWindow() {
         
         if effectsWindowLoaded {
             
@@ -263,14 +257,14 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     }
     
     // Shows/hides the playlist window
-    func togglePlaylist() {
-        isShowingPlaylist ? hidePlaylist() : showPlaylist()
+    func togglePlaylistWindow() {
+        isShowingPlaylist ? hidePlaylistWindow() : showPlaylistWindow()
     }
     
     // Shows the playlist window
-    private func showPlaylist() {
+    func showPlaylistWindow() {
         
-        mainWindow.addChildWindow(_playlistWindow, ordered: NSWindow.OrderingMode.above)
+        mainWindow.addChildWindow(_playlistWindow, ordered: .above)
         _playlistWindow.show()
         _playlistWindow.orderFront(self)
         
@@ -278,7 +272,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     }
     
     // Hides the playlist window
-    private func hidePlaylist() {
+    func hidePlaylistWindow() {
         
         if playlistWindowLoaded {
             
@@ -287,15 +281,15 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         }
     }
     
-    func toggleChaptersList() {
-        isShowingChaptersList ? hideChaptersList() : showChaptersList()
+    func toggleChaptersListWindow() {
+        isShowingChaptersList ? hideChaptersListWindow() : showChaptersListWindow()
     }
     
-    func showChaptersList() {
+    func showChaptersListWindow() {
         
         let shouldCenterChaptersListWindow = !chaptersListWindowLoader.windowLoaded
         
-        mainWindow.addChildWindow(_chaptersListWindow, ordered: NSWindow.OrderingMode.above)
+        mainWindow.addChildWindow(_chaptersListWindow, ordered: .above)
         _chaptersListWindow.makeKeyAndOrderFront(self)
         
         // This will happen only once after each app launch - the very first time the window is shown.
@@ -305,43 +299,45 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         }
     }
     
-    func hideChaptersList() {
+    func hideChaptersListWindow() {
         
         if chaptersListWindowLoader.windowLoaded {
             _chaptersListWindow.hide()
         }
     }
     
-    func toggleVisualizer() {
-        isShowingVisualizer ? hideVisualizer() : showVisualizer()
+    func toggleVisualizerWindow() {
+        isShowingVisualizer ? hideVisualizerWindow() : showVisualizerWindow()
     }
     
-    private func showVisualizer() {
+    private func showVisualizerWindow() {
         
-        mainWindow.addChildWindow(_visualizerWindow, ordered: NSWindow.OrderingMode.above)
+        mainWindow.addChildWindow(_visualizerWindow, ordered: .above)
         visualizerWindowLoader.showWindow()
     }
     
-    private func hideVisualizer() {
+    private func hideVisualizerWindow() {
         visualizerWindowLoader.close()
     }
     
-    func toggleTuneBrowser() {
-        isShowingTuneBrowser ? hideTuneBrowser() : showTuneBrowser()
+    func toggleTuneBrowserWindow() {
+        isShowingTuneBrowser ? hideTuneBrowserWindow() : showTuneBrowserWindow()
     }
     
-    private func showTuneBrowser() {
+    private func showTuneBrowserWindow() {
         
-        mainWindow.addChildWindow(_tuneBrowserWindow, ordered: NSWindow.OrderingMode.above)
+        mainWindow.addChildWindow(_tuneBrowserWindow, ordered: .above)
         _tuneBrowserWindow.makeKeyAndOrderFront(self)
     }
     
-    private func hideTuneBrowser() {
+    private func hideTuneBrowserWindow() {
         
         if tuneBrowserWindowLoader.windowLoaded {
             _tuneBrowserWindow.hide()
         }
     }
+    
+    // MARK: Miscellaneous functions ------------------------------------
 
     func addChildWindow(_ window: NSWindow) {
         mainWindow.addChildWindow(window, ordered: .above)

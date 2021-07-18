@@ -19,7 +19,7 @@ class WindowLayout {
     var effectsWindowOrigin: NSPoint?
     var playlistWindowFrame: NSRect?
     
-    let systemDefined: Bool
+    var systemDefined: Bool
     
     init(_ name: String, _ showEffects: Bool, _ showPlaylist: Bool, _ mainWindowOrigin: NSPoint, _ effectsWindowOrigin: NSPoint?, _ playlistWindowFrame: NSRect?, _ systemDefined: Bool) {
         

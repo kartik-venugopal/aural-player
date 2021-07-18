@@ -199,7 +199,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_togglePlaylistWindow)
+        windowLayoutsManager.hidePlaylistWindow()
     }
     
     private func checkIfPlaylistIsBeingModified() -> Bool {
@@ -485,7 +485,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         // New track has no chapters, or there is no new track
         if playbackInfo.chapterCount == 0 {
-            messenger.publish(.windowManager_hideChaptersListWindow)
+            windowLayoutsManager.hideChaptersListWindow()
             
         } // Only show chapters list if preferred by user
         else if playlistPreferences.showChaptersList {
@@ -494,7 +494,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     }
     
     private func viewChaptersList() {
-        messenger.publish(.windowManager_showChaptersListWindow)
+        windowLayoutsManager.showChaptersListWindow()
     }
     
     // MARK: Message handling

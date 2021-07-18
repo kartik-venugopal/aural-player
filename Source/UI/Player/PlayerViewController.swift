@@ -134,11 +134,11 @@ class PlayerViewController: NSViewController, Destroyable {
         
         // New track has no chapters, or there is no new track
         if player.chapterCount == 0 {
-            messenger.publish(.windowManager_hideChaptersListWindow)
+            windowLayoutsManager.hideChaptersListWindow()
             
         } // Only show chapters list if preferred by user
         else if playlistPreferences.showChaptersList {
-            messenger.publish(.windowManager_showChaptersListWindow)
+            windowLayoutsManager.showChaptersListWindow()
         }
     }
 }

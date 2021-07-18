@@ -27,7 +27,7 @@ class PopoverContentView: NSView {
                 
                 backgroundView = PopoverBackgroundView(frame: frameView.bounds)
                 backgroundView!.autoresizingMask = NSView.AutoresizingMask([NSView.AutoresizingMask.width, NSView.AutoresizingMask.height]);
-                frameView.addSubview(backgroundView!, positioned: NSWindow.OrderingMode.below, relativeTo: frameView)
+                frameView.addSubview(backgroundView!, positioned: .below, relativeTo: frameView)
             }
         }
     }

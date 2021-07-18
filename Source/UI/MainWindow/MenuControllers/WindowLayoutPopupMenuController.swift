@@ -20,8 +20,6 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
     override var userDefinedPresets: [MappedPreset] {windowLayoutsManager.userDefinedPresets}
     override var numberOfUserDefinedPresets: Int {windowLayoutsManager.numberOfUserDefinedPresets}
     
-    private lazy var messenger: Messenger = Messenger(for: self)
-    
     override func presetExists(named name: String) -> Bool {
         windowLayoutsManager.presetExists(named: name)
     }
@@ -31,11 +29,13 @@ class WindowLayoutPopupMenuController: GenericPresetPopupMenuController {
         
         let newLayout = windowLayoutsManager.currentWindowLayout
         newLayout.name = name
+        newLayout.systemDefined = false
+        
         windowLayoutsManager.addPreset(newLayout)
     }
     
     override func applyPreset(named name: String) {
-        messenger.publish(.windowManager_applyNamedLayout, payload: name)
+        windowLayoutsManager.applyLayout(named: name)
     }
     
     @IBAction func manageLayoutsAction(_ sender: Any) {

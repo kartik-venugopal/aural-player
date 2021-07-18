@@ -115,10 +115,9 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
                 
                 detailedInfoPopover.attachedToPlayer = true
                 
-                // TODO: This should be done through a delegate (TrackDelegate ???)
                 trackReader.loadAuxiliaryMetadata(for: playingTrack)
                 
-                messenger.publish(.windowManager_makeMainWindowKey)
+                windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
                 
                 let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
                 
@@ -197,7 +196,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
         
         let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
         
-        messenger.publish(.windowManager_makeMainWindowKey)
+        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
         
         // If controls are being auto-hidden, don't display popover relative to any view within the window. Show it relative to the window itself.
         if autoHideIsOn {
@@ -241,7 +240,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
         if let playingTrack = player.playingTrack, updatedFavoritesFiles.contains(playingTrack.file) {
             
             // TODO: Is this really required ???
-            messenger.publish(.windowManager_makeMainWindowKey)
+            windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
             
             btnFavorite.onIf(added)
             

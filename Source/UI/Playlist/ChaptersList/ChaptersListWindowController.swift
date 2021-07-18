@@ -24,6 +24,8 @@ class ChaptersListWindowController: NSWindowController, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
+    
     override func windowDidLoad() {
         
         changeBackgroundColor(colorSchemesManager.systemScheme.general.backgroundColor)
@@ -36,7 +38,7 @@ class ChaptersListWindowController: NSWindowController, Destroyable {
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_hideChaptersListWindow)
+        windowLayoutsManager.hideChaptersListWindow()
     }
     
     private func applyTheme() {

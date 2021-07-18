@@ -32,6 +32,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
     
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     @IBOutlet weak var btnAudioUnitsMenu: NSPopUpButton!
     @IBOutlet weak var audioUnitsMenuIconItem: TintedIconMenuItem!
@@ -116,7 +117,7 @@ class AudioUnitsViewController: NSViewController, NSMenuDelegate, Destroyable {
         
         if let dialog = editorDialogs[audioUnit.id], let dialogWindow = dialog.window {
             
-            messenger.publish(.windowManager_addChildWindow, payload: dialogWindow)
+            windowLayoutsManager.addChildWindow(dialogWindow)
             dialog.showDialog()
         }
     }

@@ -47,7 +47,7 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     override func applyPreset(atIndex index: Int) {
         
         let selLayout = windowLayoutsManager.userDefinedPresets[index]
-        messenger.publish(.windowManager_applyLayout, payload: selLayout)
+        windowLayoutsManager.applyLayout(selLayout)
     }
     
     override func renamePreset(named name: String, to newName: String) {

@@ -13,7 +13,7 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
     
     override var windowNibName: String? {"AboutDialog"}
     
-    private lazy var messenger = Messenger(for: self)
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     @IBOutlet weak var versionLabel: NSTextField! {
         
@@ -25,11 +25,11 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
     override func showWindow(_ sender: Any?) {
 
         forceLoadingOfWindow()
-        messenger.publish(.windowManager_showWindowCenteredOverMainWindow, payload: theWindow)
+        theWindow.showCentered(relativeTo: windowLayoutsManager.mainWindow)
     }
     
     override func windowDidLoad() {
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
+        windowLayoutsManager.registerModalComponent(self)
     }
     
     var isModal: Bool {self.window?.isVisible ?? false}

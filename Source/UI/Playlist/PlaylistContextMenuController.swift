@@ -137,7 +137,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         guard let theClickedTrack = clickedTrack else {return}
         
-        messenger.publish(.windowManager_makePlaylistWindowKey)
+        windowLayoutsManager.playlistWindow?.makeKeyAndOrderFront(self)
         
         if favoritesMenuItem.isOn {
         
@@ -159,7 +159,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         }
         
         // If this isn't done, the app windows are hidden when the popover is displayed
-        messenger.publish(.windowManager_makeMainWindowKey)
+        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Shows a popover with detailed information for the track that was right-clicked to bring up this context menu
@@ -171,13 +171,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
         
         trackReader.loadAuxiliaryMetadata(for: theClickedTrack)
         
-        messenger.publish(.windowManager_makePlaylistWindowKey)
+        windowLayoutsManager.playlistWindow?.makeKeyAndOrderFront(self)
         
         if let rowView = playlistSelectedRowView {
             detailedInfoPopover.show(theClickedTrack, rowView, .maxY)   // Display the popover below the selected row
         }
         
-        messenger.publish(.windowManager_makeMainWindowKey)
+        windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)

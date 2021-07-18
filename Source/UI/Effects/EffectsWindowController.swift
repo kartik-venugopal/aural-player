@@ -57,6 +57,8 @@ class EffectsWindowController: NSWindowController, Destroyable {
     override var windowNibName: String? {"Effects"}
     
     private lazy var messenger = Messenger(for: self)
+    
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
 
     override func windowDidLoad() {
         
@@ -159,7 +161,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     }
     
     @IBAction func closeWindowAction(_ sender: AnyObject) {
-        messenger.publish(.windowManager_toggleEffectsWindow)
+        windowLayoutsManager.hideEffectsWindow()
     }
     
     private func applyTheme() {

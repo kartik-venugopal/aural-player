@@ -25,7 +25,7 @@ class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
     private lazy var workspace: NSWorkspace = NSWorkspace.shared
     private let latestReleaseURL: URL = URL(string: "https://github.com/maculateConception/aural-player/releases/latest")!
     
-    private lazy var messenger = Messenger(for: self)
+    private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
     override func showWindow(_ sender: Any?) {
         
@@ -36,11 +36,11 @@ class UpdatesDialogController: NSWindowController, ModalComponentProtocol {
         
         [lblNoUpdates, lblUpdateAvailable, lblError].forEach {$0?.hide()}
         
-        messenger.publish(.windowManager_showWindowCenteredOverMainWindow, payload: theWindow)
+        theWindow.showCentered(relativeTo: windowLayoutsManager.mainWindow)
     }
     
     override func windowDidLoad() {
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
+        windowLayoutsManager.registerModalComponent(self)
     }
     
     var isModal: Bool {self.window?.isVisible ?? false}
