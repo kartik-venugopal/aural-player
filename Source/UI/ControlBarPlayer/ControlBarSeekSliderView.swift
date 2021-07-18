@@ -54,7 +54,7 @@ class ControlBarSeekSliderView: SeekSliderView {
         applyTheme()
     }
     
-    override func initSeekPositionLabels() {//TODO
+    override func initSeekPositionLabels() {
         
         lblSeekPosition?.addGestureRecognizer(NSClickGestureRecognizer(target: self,
                                                                        action: #selector(self.switchSeekPositionDisplay)))
@@ -66,7 +66,7 @@ class ControlBarSeekSliderView: SeekSliderView {
         updateSeekPositionLabels(player.seekPosition)
     }
     
-    override func initSeekTimer() {//TODO
+    override func initSeekTimer() {
         super.initSeekTimer()
     }
     

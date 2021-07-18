@@ -44,6 +44,8 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     private let player: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
     
+    private lazy var uiState: PlayerUIState = objectGraph.playerUIState
+    
     private lazy var messenger = Messenger(for: self)
     
     override func awakeFromNib() {
@@ -57,12 +59,12 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
         
         // Player view:
-        playerDefaultViewMenuItem.onIf(PlayerViewState.viewType == .defaultView)
-        playerExpandedArtViewMenuItem.onIf(PlayerViewState.viewType == .expandedArt)
+        playerDefaultViewMenuItem.onIf(uiState.viewType == .defaultView)
+        playerExpandedArtViewMenuItem.onIf(uiState.viewType == .expandedArt)
         
-        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf(PlayerViewState.viewType == .expandedArt)})
+        [showArtMenuItem, showMainControlsMenuItem].forEach({$0.hideIf(uiState.viewType == .expandedArt)})
         
-        let trackInfoVisible: Bool = PlayerViewState.viewType == .defaultView || PlayerViewState.showTrackInfo
+        let trackInfoVisible: Bool = uiState.viewType == .defaultView || uiState.showTrackInfo
         
         var hasArtist: Bool = false
         var hasAlbum: Bool = false
@@ -76,25 +78,25 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         }
         
         showArtistMenuItem.showIf(trackInfoVisible && hasArtist)
-        showArtistMenuItem.onIf(PlayerViewState.showArtist)
+        showArtistMenuItem.onIf(uiState.showArtist)
         
         showAlbumMenuItem.showIf(trackInfoVisible && hasAlbum)
-        showAlbumMenuItem.onIf(PlayerViewState.showAlbum)
+        showAlbumMenuItem.onIf(uiState.showAlbum)
         
         showCurrentChapterMenuItem.showIf(trackInfoVisible && hasChapters)
-        showCurrentChapterMenuItem.onIf(PlayerViewState.showCurrentChapter)
+        showCurrentChapterMenuItem.onIf(uiState.showCurrentChapter)
         
-        showTrackInfoMenuItem.hideIf(PlayerViewState.viewType == .defaultView)
+        showTrackInfoMenuItem.hideIf(uiState.viewType == .defaultView)
         
-        let defaultViewAndShowingControls = PlayerViewState.viewType == .defaultView && PlayerViewState.showControls
+        let defaultViewAndShowingControls = uiState.viewType == .defaultView && uiState.showControls
         showTimeElapsedRemainingMenuItem.showIf(defaultViewAndShowingControls)
         
-        showArtMenuItem.onIf(PlayerViewState.showAlbumArt)
-        showTrackInfoMenuItem.onIf(PlayerViewState.showTrackInfo)
-        showTrackFunctionsMenuItem.onIf(PlayerViewState.showPlayingTrackFunctions)
+        showArtMenuItem.onIf(uiState.showAlbumArt)
+        showTrackInfoMenuItem.onIf(uiState.showTrackInfo)
+        showTrackFunctionsMenuItem.onIf(uiState.showPlayingTrackFunctions)
         
-        showMainControlsMenuItem.onIf(PlayerViewState.showControls)
-        showTimeElapsedRemainingMenuItem.onIf(PlayerViewState.showTimeElapsedRemaining)
+        showMainControlsMenuItem.onIf(uiState.showControls)
+        showTimeElapsedRemainingMenuItem.onIf(uiState.showTimeElapsedRemaining)
         
         timeElapsedFormatMenuItem.showIf(defaultViewAndShowingControls)
         timeRemainingFormatMenuItem.showIf(defaultViewAndShowingControls)
@@ -103,7 +105,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             
             timeElapsedDisplayFormats.forEach({$0.off()})
             
-            switch PlayerViewState.timeElapsedDisplayType {
+            switch uiState.timeElapsedDisplayType {
                 
             case .formatted:    timeElapsedMenuItem_hms.on()
                 
@@ -115,7 +117,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             
             timeRemainingDisplayFormats.forEach({$0.off()})
             
-            switch PlayerViewState.timeRemainingDisplayType {
+            switch uiState.timeRemainingDisplayType {
                 
             case .formatted:    timeRemainingMenuItem_hms.on()
                 
@@ -133,67 +135,67 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
    
     @IBAction func playerDefaultViewAction(_ sender: NSMenuItem) {
         
-        if PlayerViewState.viewType != .defaultView {
+        if uiState.viewType != .defaultView {
             
-            PlayerViewState.viewType = .defaultView
+            uiState.viewType = .defaultView
             messenger.publish(.player_changeView, payload: PlayerViewType.defaultView)
         }
     }
     
     @IBAction func playerExpandedArtViewAction(_ sender: NSMenuItem) {
         
-        if PlayerViewState.viewType != .expandedArt {
+        if uiState.viewType != .expandedArt {
             
-            PlayerViewState.viewType = .expandedArt
+            uiState.viewType = .expandedArt
             messenger.publish(.player_changeView, payload: PlayerViewType.expandedArt)
         }
     }
     
     @IBAction func showOrHidePlayingTrackFunctionsAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showPlayingTrackFunctions.toggle()
+        uiState.showPlayingTrackFunctions.toggle()
         messenger.publish(.player_showOrHidePlayingTrackFunctions)
     }
     
     @IBAction func showOrHidePlayingTrackInfoAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showTrackInfo.toggle()
+        uiState.showTrackInfo.toggle()
         messenger.publish(.player_showOrHidePlayingTrackInfo)
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showAlbumArt.toggle()
+        uiState.showAlbumArt.toggle()
         messenger.publish(.player_showOrHideAlbumArt)
     }
     
     @IBAction func showOrHideArtistAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showArtist.toggle()
+        uiState.showArtist.toggle()
         messenger.publish(.player_showOrHideArtist)
     }
     
     @IBAction func showOrHideAlbumAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showAlbum.toggle()
+        uiState.showAlbum.toggle()
         messenger.publish(.player_showOrHideAlbum)
     }
     
     @IBAction func showOrHideCurrentChapterAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showCurrentChapter.toggle()
+        uiState.showCurrentChapter.toggle()
         messenger.publish(.player_showOrHideCurrentChapter)
     }
     
     @IBAction func showOrHideMainControlsAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showControls.toggle()
+        uiState.showControls.toggle()
         messenger.publish(.player_showOrHideMainControls)
     }
     
     @IBAction func showOrHideTimeElapsedRemainingAction(_ sender: NSMenuItem) {
         
-        PlayerViewState.showTimeElapsedRemaining.toggle()
+        uiState.showTimeElapsedRemaining.toggle()
         messenger.publish(.player_showOrHideTimeElapsedRemaining)
     }
     
@@ -213,7 +215,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             
         }
         
-        PlayerViewState.timeElapsedDisplayType = format
+        uiState.timeElapsedDisplayType = format
         messenger.publish(.player_setTimeElapsedDisplayFormat, payload: format)
     }
     
@@ -237,7 +239,7 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
             
         }
         
-        PlayerViewState.timeRemainingDisplayType = format
+        uiState.timeRemainingDisplayType = format
         messenger.publish(.player_setTimeRemainingDisplayFormat, payload: format)
     }
 }

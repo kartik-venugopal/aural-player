@@ -22,6 +22,8 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     // The clip view that contains the text view (used to center-align the text view vertically)
     @IBOutlet weak var clipView: NSClipView!
     
+    private lazy var uiState: PlayerUIState = objectGraph.playerUIState
+    
     var trackInfo: PlayingTrackInfo? {
         
         didSet {
@@ -54,15 +56,15 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
     }
     
     var shouldShowArtist: Bool {
-        PlayerViewState.showArtist
+        uiState.showArtist
     }
     
     var shouldShowAlbum: Bool {
-        PlayerViewState.showAlbum
+        uiState.showAlbum
     }
     
     var shouldShowChapterTitle: Bool {
-        PlayerViewState.showCurrentChapter
+        uiState.showCurrentChapter
     }
     
     var lineSpacingBetweenArtistAlbumAndChapterTitle: CGFloat {7}

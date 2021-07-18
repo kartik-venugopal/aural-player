@@ -23,14 +23,16 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
+    private lazy var uiState: PlayerUIState = objectGraph.playerUIState
+    
     // The player view that is currently displayed
     private var activeView: PlayingTrackSubview {
-        return PlayerViewState.viewType == .defaultView ? defaultView : expandedArtView
+        return uiState.viewType == .defaultView ? defaultView : expandedArtView
     }
     
     // The player view that is NOT currently displayed
     private var inactiveView: PlayingTrackSubview {
-        return PlayerViewState.viewType == .defaultView ? expandedArtView : defaultView
+        return uiState.viewType == .defaultView ? expandedArtView : defaultView
     }
  
     // Info about the currently playing track
@@ -46,7 +48,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     // Sets up the view for display.
     func showView() {
         
-        switchView(PlayerViewState.viewType)
+        switchView(uiState.viewType)
         
         setUpMouseTracking()
         activeView.showView()
@@ -73,7 +75,7 @@ class PlayingTrackView: MouseTrackingView, ColorSchemeable {
     // Switches between the 2 sub-views (Default and Expanded Art)
     func switchView(_ viewType: PlayerViewType) {
         
-        tabView.selectTabViewItem(at: PlayerViewState.viewType == .defaultView ? 0 : 1)
+        tabView.selectTabViewItem(at: uiState.viewType == .defaultView ? 0 : 1)
         
         inactiveView.hideView()
         activeView.showView()

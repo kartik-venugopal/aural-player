@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Encapsulates all persistent state for application window layouts.
 ///
-/// - SeeAlso: `ThemesManager`
+/// - SeeAlso: `WindowLayoutsManager`
 ///
 struct WindowLayoutsPersistentState: Codable {
     

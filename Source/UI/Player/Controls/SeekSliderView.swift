@@ -35,6 +35,8 @@ class SeekSliderView: NSView {
     // Delegate that conveys all playback requests to the player / playback sequencer
     let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
+    private lazy var uiState: PlayerUIState = objectGraph.playerUIState
+    
     var seekSliderValue: Double {seekSlider.doubleValue}
     
     override func awakeFromNib() {
@@ -66,13 +68,13 @@ class SeekSliderView: NSView {
     
     @IBAction func switchTimeElapsedDisplayAction(_ sender: Any) {
         
-        PlayerViewState.timeElapsedDisplayType = PlayerViewState.timeElapsedDisplayType.toggle()
+        uiState.timeElapsedDisplayType = uiState.timeElapsedDisplayType.toggle()
         updateSeekPosition()
     }
     
     @IBAction func switchTimeRemainingDisplayAction(_ sender: Any) {
         
-        PlayerViewState.timeRemainingDisplayType = PlayerViewState.timeRemainingDisplayType.toggle()
+        uiState.timeRemainingDisplayType = uiState.timeRemainingDisplayType.toggle()
         updateSeekPosition()
     }
     
@@ -95,7 +97,7 @@ class SeekSliderView: NSView {
     
     func showSeekPositionLabels() {
         
-        [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(PlayerViewState.showTimeElapsedRemaining)}
+        [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(uiState.showTimeElapsedRemaining)}
         setSeekTimerState(true)
     }
     
@@ -129,7 +131,7 @@ class SeekSliderView: NSView {
     
     func updateSeekPositionLabels(_ seekPos: PlaybackPosition) {
         
-        let trackTimes = ValueFormatter.formatTrackTimes(seekPos.timeElapsed, seekPos.trackDuration, seekPos.percentageElapsed, PlayerViewState.timeElapsedDisplayType, PlayerViewState.timeRemainingDisplayType)
+        let trackTimes = ValueFormatter.formatTrackTimes(seekPos.timeElapsed, seekPos.trackDuration, seekPos.percentageElapsed, uiState.timeElapsedDisplayType, uiState.timeRemainingDisplayType)
         
         lblTimeElapsed?.stringValue = trackTimes.elapsed
         lblTimeRemaining?.stringValue = trackTimes.remaining
@@ -183,7 +185,7 @@ class SeekSliderView: NSView {
     
     // TODO: Should disable / re-enable the timer when labels are hidden / shown (unnecessary CPU usage).
     func showOrHideTimeElapsedRemaining() {
-        [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(PlayerViewState.showTimeElapsedRemaining)}
+        [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(uiState.showTimeElapsedRemaining)}
     }
     
     // When the playback rate changes (caused by the Time Stretch effects unit), the seek timer interval needs to be updated, to ensure that the seek position fields are updated fast/slow enough to match the new playback rate.

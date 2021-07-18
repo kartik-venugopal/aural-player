@@ -61,6 +61,8 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
+    private lazy var uiState: PlayerUIState = objectGraph.playerUIState
+    
     override func viewDidLoad() {
         
         allButtons = [btnMoreInfo, btnShowPlayingTrackInPlaylist, btnFavorite, btnBookmark]
@@ -119,7 +121,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
                 
                 windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
                 
-                let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
+                let autoHideIsOn: Bool = uiState.viewType == .expandedArt || !uiState.showControls
                 
                 if btnMoreInfo.isVisible && !autoHideIsOn {
                     
@@ -194,7 +196,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
         
         // Show popover
         
-        let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
+        let autoHideIsOn: Bool = uiState.viewType == .expandedArt || !uiState.showControls
         
         windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
         
@@ -244,7 +246,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
             
             btnFavorite.onIf(added)
             
-            let autoHideIsOn: Bool = PlayerViewState.viewType == .expandedArt || !PlayerViewState.showControls
+            let autoHideIsOn: Bool = uiState.viewType == .expandedArt || !uiState.showControls
             
             if btnFavorite.isVisible && !autoHideIsOn {
                 

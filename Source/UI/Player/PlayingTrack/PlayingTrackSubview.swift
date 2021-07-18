@@ -24,6 +24,8 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     
     fileprivate var autoHideFields_showing: Bool = false
     
+    fileprivate lazy var uiState: PlayerUIState = objectGraph.playerUIState
+    
     var trackInfo: PlayingTrackInfo? {
         
         didSet {
@@ -51,7 +53,7 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
         
         textView.trackInfo = self.trackInfo
         artView.image = trackInfo?.art ?? Images.imgPlayingArt
-        functionButtons.forEach {$0.showIf(trackInfo != nil && PlayerViewState.showPlayingTrackFunctions)}
+        functionButtons.forEach {$0.showIf(trackInfo != nil && uiState.showPlayingTrackFunctions)}
     }
 
     fileprivate func moveInfoBoxTo(_ point: NSPoint) {
@@ -63,11 +65,11 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     }
     
     func showOrHidePlayingTrackInfo() {
-        infoBox.showIf(PlayerViewState.showTrackInfo || autoHideFields_showing)
+        infoBox.showIf(uiState.showTrackInfo || autoHideFields_showing)
     }
     
     func showOrHideAlbumArt() {
-        artView.showIf(PlayerViewState.showAlbumArt)
+        artView.showIf(uiState.showAlbumArt)
     }
     
     func showOrHideArtist() {
@@ -83,11 +85,11 @@ class PlayingTrackSubview: NSView, ColorSchemeable {
     }
     
     func showOrHidePlayingTrackFunctions() {
-        functionButtons.forEach {$0.showIf(trackInfo != nil && PlayerViewState.showPlayingTrackFunctions)}
+        functionButtons.forEach {$0.showIf(trackInfo != nil && uiState.showPlayingTrackFunctions)}
     }
     
     func showOrHideMainControls() {
-        controlsBox.showIf(PlayerViewState.showControls)
+        controlsBox.showIf(uiState.showControls)
     }
     
     func mouseEntered() {
@@ -148,18 +150,18 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
     private let infoBoxCenteredPosition: NSPoint = NSPoint(x: 90, y: 70)
     
     override var needsMouseTracking: Bool {
-        return !PlayerViewState.showControls
+        return !uiState.showControls
     }
     
     override func showView() {
 
         super.showView()
         
-        artView.showIf(PlayerViewState.showAlbumArt)
-        functionButtons.forEach {$0.showIf(trackInfo != nil && PlayerViewState.showPlayingTrackFunctions)}
-        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
+        artView.showIf(uiState.showAlbumArt)
+        functionButtons.forEach {$0.showIf(trackInfo != nil && uiState.showPlayingTrackFunctions)}
+        moveInfoBoxTo(uiState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
 
-        controlsBox.showIf(PlayerViewState.showControls)
+        controlsBox.showIf(uiState.showControls)
         controlsBox.bringToFront()
     }
     
@@ -174,7 +176,7 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
         super.showOrHideMainControls()
         
         // Re-position the info box, art view, and functions box
-        moveInfoBoxTo(PlayerViewState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
+        moveInfoBoxTo(uiState.showControls ? infoBoxDefaultPosition : infoBoxCenteredPosition)
     }
     
     // Do nothing (this function is not allowed on the default player view)
@@ -184,7 +186,7 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
         
         super.mouseEntered()
         
-        if !PlayerViewState.showControls {
+        if !uiState.showControls {
             autoHideControls_show()
         }
     }
@@ -193,7 +195,7 @@ class DefaultPlayingTrackSubview: PlayingTrackSubview {
         
         super.mouseExited()
         
-        if !PlayerViewState.showControls {
+        if !uiState.showControls {
             autoHideControls_hide()
         }
     }
@@ -238,13 +240,13 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
 
         NSView.hideViews(controlsBox, overlayBox)
         
-        infoBox.showIf(trackInfo != nil && PlayerViewState.showTrackInfo)
+        infoBox.showIf(trackInfo != nil && uiState.showTrackInfo)
         centerOverlayBox.showIf(infoBox.isShown)
         
         infoBox.bringToFront()
         controlsBox.bringToFront()
 
-        functionButtons.forEach {$0.showIf(trackInfo != nil && PlayerViewState.showPlayingTrackFunctions)}
+        functionButtons.forEach {$0.showIf(trackInfo != nil && uiState.showPlayingTrackFunctions)}
         moveInfoBoxTo(infoBoxDefaultPosition)
     }
     
@@ -262,7 +264,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
     
     override func showOrHidePlayingTrackInfo() {
         
-        infoBox.showIf(trackInfo != nil && (PlayerViewState.showTrackInfo || autoHideFields_showing))
+        infoBox.showIf(trackInfo != nil && (uiState.showTrackInfo || autoHideFields_showing))
         centerOverlayBox.showIf(infoBox.isShown && !overlayBox.isShown)
         
         infoBox.bringToFront()
@@ -301,7 +303,7 @@ class ExpandedArtPlayingTrackSubview: PlayingTrackSubview {
         NSView.hideViews(overlayBox, controlsBox)
         
         // Show info box only if the setting allows it.
-        infoBox.showIf(trackInfo != nil && PlayerViewState.showTrackInfo)
+        infoBox.showIf(trackInfo != nil && uiState.showTrackInfo)
         centerOverlayBox.showIf(infoBox.isShown)
         
         infoBox.bringToFront()

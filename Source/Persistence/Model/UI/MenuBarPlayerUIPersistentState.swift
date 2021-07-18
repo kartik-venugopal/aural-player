@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Persistent state for the Menu Bar app mode's UI.
 ///
-/// - SeeAlso: `MenuBarPlayerViewState`
+/// - SeeAlso: `MenuBarPlayerUIState`
 ///
 struct MenuBarPlayerUIPersistentState: Codable {
     

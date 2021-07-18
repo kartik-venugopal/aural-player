@@ -105,6 +105,7 @@ class ObjectGraph {
     lazy var windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
                                                                                  viewPreferences: preferences.viewPreferences)
     
+    lazy var playerUIState: PlayerUIState = PlayerUIState(persistentState: persistentState.ui?.player)
     lazy var menuBarPlayerUIState: MenuBarPlayerUIState = MenuBarPlayerUIState(persistentState: persistentState.ui?.menuBarPlayer)
     lazy var controlBarPlayerUIState: ControlBarPlayerUIState = ControlBarPlayerUIState(persistentState: persistentState.ui?.controlBarPlayer)
     
@@ -134,7 +135,6 @@ class ObjectGraph {
         
         // Initialize utility classes.
         
-        PlayerViewState.initialize(persistentState.ui?.player)
         PlaylistViewState.initialize(persistentState.ui?.playlist)
         VisualizerViewState.initialize(persistentState.ui?.visualizer)
         WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
@@ -187,7 +187,7 @@ class ObjectGraph {
                                                themes: themesManager.persistentState,
                                                fontSchemes: fontSchemesManager.persistentState,
                                                colorSchemes: colorSchemesManager.persistentState,
-                                               player: PlayerViewState.persistentState,
+                                               player: playerUIState.persistentState,
                                                playlist: PlaylistViewState.persistentState,
                                                visualizer: VisualizerViewState.persistentState,
                                                windowAppearance: WindowAppearanceState.persistentState,

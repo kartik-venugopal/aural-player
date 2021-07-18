@@ -571,7 +571,7 @@
 		3E6C12D325CEBE6700BF0D07 /* EQSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C0FFB25CEB98600BF0D07 /* EQSubview.swift */; };
 		3E6C12D425CEBE6700BF0D07 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C100825CEB98600BF0D07 /* MasterViewController.swift */; };
 		3E6C12D625CEBE8100BF0D07 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101425CEB98600BF0D07 /* FilterViewController.swift */; };
-		3E6C12D725CEBE8100BF0D07 /* PlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101F25CEB98600BF0D07 /* PlayerViewState.swift */; };
+		3E6C12D725CEBE8100BF0D07 /* PlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */; };
 		3E6C12D825CEBE8100BF0D07 /* SeekTimerTaskQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C102D25CEB98600BF0D07 /* SeekTimerTaskQueue.swift */; };
 		3E6C12D925CEBE8100BF0D07 /* Filter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C101225CEB98600BF0D07 /* Filter.xib */; };
 		3E6C12DC25CEBE8100BF0D07 /* FilterChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101125CEB98600BF0D07 /* FilterChart.swift */; };
@@ -823,7 +823,7 @@
 		3EABDDB226949175008066E8 /* WindowLayoutPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */; };
 		3EABDDBB2694A8D3008066E8 /* NSRectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EAFB604267FF1E700F0DC96 /* NSRectExtensions.swift */; };
 		3EABDDBE2694B5B3008066E8 /* PlayerUIPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDBD2694B5B3008066E8 /* PlayerUIPersistenceTests.swift */; };
-		3EABDDC02694B5F5008066E8 /* PlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101F25CEB98600BF0D07 /* PlayerViewState.swift */; };
+		3EABDDC02694B5F5008066E8 /* PlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */; };
 		3EABDDC22694B613008066E8 /* PlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0B426805C18008ECB8C /* PlayerUIPersistentState.swift */; };
 		3EABDDC52694B78B008066E8 /* PlaylistUIPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDC42694B78B008066E8 /* PlaylistUIPersistenceTests.swift */; };
 		3EABDDC72694B7B9008066E8 /* PlaylistUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0A326805C18008ECB8C /* PlaylistUIPersistentState.swift */; };
@@ -1596,7 +1596,7 @@
 		3E6C101825CEB98600BF0D07 /* DelayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayView.swift; sourceTree = "<group>"; };
 		3E6C101C25CEB98600BF0D07 /* BookmarkNameInputReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkNameInputReceiver.swift; sourceTree = "<group>"; };
 		3E6C101E25CEB98600BF0D07 /* PlayingTrackFunctionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackFunctionsViewController.swift; sourceTree = "<group>"; };
-		3E6C101F25CEB98600BF0D07 /* PlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewState.swift; sourceTree = "<group>"; };
+		3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUIState.swift; sourceTree = "<group>"; };
 		3E6C102425CEB98600BF0D07 /* MouseTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MouseTrackingView.swift; sourceTree = "<group>"; };
 		3E6C102525CEB98600BF0D07 /* PlayingTrackSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackSubview.swift; sourceTree = "<group>"; };
 		3E6C102725CEB98600BF0D07 /* PlayingTrackTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackTextView.swift; sourceTree = "<group>"; };
@@ -3328,7 +3328,7 @@
 				3E6C104225CEB98600BF0D07 /* Player.xib */,
 				3E6C103125CEB98600BF0D07 /* PlayerViewController.swift */,
 				3E6C101B25CEB98600BF0D07 /* PlayingTrackFunctions */,
-				3E6C101F25CEB98600BF0D07 /* PlayerViewState.swift */,
+				3E6C101F25CEB98600BF0D07 /* PlayerUIState.swift */,
 				3E6C102325CEB98600BF0D07 /* PlayingTrack */,
 				3E6C102D25CEB98600BF0D07 /* SeekTimerTaskQueue.swift */,
 				3E6C103225CEB98600BF0D07 /* InfoPopup */,
@@ -5049,7 +5049,7 @@
 				3EAFB5D9267FE80000F0DC96 /* AuxiliaryMetadata.swift in Sources */,
 				3EDB33E925E8AE09004DF7DE /* FFmpegFileContext.swift in Sources */,
 				3E09D0E426805C19008ECB8C /* SoundProfilePersistentState.swift in Sources */,
-				3E6C12D725CEBE8100BF0D07 /* PlayerViewState.swift in Sources */,
+				3E6C12D725CEBE8100BF0D07 /* PlayerUIState.swift in Sources */,
 				3E6C127225CEBE0600BF0D07 /* EQPresetsManagerViewController.swift in Sources */,
 				3E6C11EB25CEBDC400BF0D07 /* PlaybackSession.swift in Sources */,
 				3E6C12AE25CEBE2700BF0D07 /* DialogsAndAlerts.swift in Sources */,
@@ -5669,7 +5669,7 @@
 				3E21ECD8268F4A4600731E4C /* Sort.swift in Sources */,
 				3E20BF96268F71610004423C /* ParametricEQNode.swift in Sources */,
 				3ED6D8F826925E4C007DA433 /* MusicBrainzPreferencesTests.swift in Sources */,
-				3EABDDC02694B5F5008066E8 /* PlayerViewState.swift in Sources */,
+				3EABDDC02694B5F5008066E8 /* PlayerUIState.swift in Sources */,
 				3E21ECAE268F493600731E4C /* GroupingPlaylist.swift in Sources */,
 				3EABDDD32694B951008066E8 /* WindowUIPersistenceTests.swift in Sources */,
 				3E0B9B38269E2EC800B4DED9 /* TuneBrowserTableViews.swift in Sources */,
