@@ -68,8 +68,6 @@ class JumpToTimeEditorWindowController: NSWindowController, ModalDialogDelegate,
         
         messenger.subscribeAsync(to: .player_trackTransitioned, handler: trackTransitioned(_:),
                                  filter: {[weak self] msg in self?.window?.isVisible ?? false})
-        
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     func destroy() {

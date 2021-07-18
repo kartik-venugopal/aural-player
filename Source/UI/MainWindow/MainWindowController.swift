@@ -137,6 +137,7 @@ class MainWindowController: NSWindowController, Destroyable {
         
         InfoPopupViewController.destroy()
         AlertWindowController.destroy()
+        StringInputPopoverViewController.destroy()
         PresetsManagerWindowController.destroy()
         
         mainMenu.items.forEach {$0.hide()}

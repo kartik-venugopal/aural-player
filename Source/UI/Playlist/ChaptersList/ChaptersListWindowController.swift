@@ -13,7 +13,7 @@ import Cocoa
     Window controller for the Chapters list window.
     Contains the Chapters list view and performs window snapping.
  */
-class ChaptersListWindowController: NSWindowController, Destroyable {
+class ChaptersListWindowController: NSWindowController, ModalComponentProtocol, Destroyable {
     
     @IBOutlet weak var rootContainerBox: NSBox!
     @IBOutlet weak var viewController: ChaptersListViewController!
@@ -25,6 +25,12 @@ class ChaptersListWindowController: NSWindowController, Destroyable {
     private lazy var messenger = Messenger(for: self)
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
+    
+    // The chapters list window is only considered modal when it is the key window AND
+    // the search bar has focus (i.e. a search is being performed).
+    var isModal: Bool {
+        theWindow.isKeyWindow && viewController.isPerformingSearch
+    }
     
     override func windowDidLoad() {
         

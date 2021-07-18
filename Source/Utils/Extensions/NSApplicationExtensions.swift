@@ -15,4 +15,8 @@ extension NSApplication {
     /// The version number of this application.
     ///
     var appVersion: String {Bundle.main.infoDictionary!["CFBundleShortVersionString", String.self]!}
+    
+    var modalComponents: [ModalComponentProtocol] {
+        windows.compactMap {$0.windowController as? ModalComponentProtocol}
+    }
 }

@@ -13,7 +13,7 @@ import Cocoa
      View controller for the Chapters list.
      Displays the chapters list in a tabular format, and provides chapter search and playback functions.
  */
-class ChaptersListViewController: NSViewController, ModalComponentProtocol, Destroyable {
+class ChaptersListViewController: NSViewController, Destroyable {
     
     @IBOutlet weak var chaptersListView: NSTableView!
     @IBOutlet weak var scrollView: NSScrollView!
@@ -54,12 +54,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Dest
     
     private lazy var messenger = Messenger(for: self)
     
-    // The chapters list window is only considered modal when it is the key window AND the search bar has focus
-    // (i.e. a search is being performed)
-    var isModal: Bool {
-        return (self.view.window?.isKeyWindow ?? false) && isPerformingSearch
-    }
-    
     override func viewDidLoad() {
         
         scrollView.drawsBackground = false
@@ -81,8 +75,6 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Dest
         
         lblNumMatches.stringValue = ""
         [btnPreviousMatch, btnNextMatch].forEach({$0?.disable()})
-        
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     private func initSubscriptions() {
@@ -296,14 +288,14 @@ class ChaptersListViewController: NSViewController, ModalComponentProtocol, Dest
     }
     
     // Returns true if the search field has focus, false if not.
-    private var isPerformingSearch: Bool {
+    var isPerformingSearch: Bool {
         
-        // Check if the search field has focus (i.e. it's the first responder of the Chapters list window)
+        // Check if the search field has focus (i.e. it's the first responder of the Chapters list window).
         
         if let firstResponderView = self.view.window?.firstResponder as? NSView {
         
             // Iterate up the view hierarchy of the first responder view to see if any of its parent views
-            // is the search field
+            // is the search field.
             
             var curView: NSView? = firstResponderView
             while curView != nil {

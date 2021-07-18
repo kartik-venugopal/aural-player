@@ -37,8 +37,6 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         container.addSubviews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
         
         [tracksPlaylistSortView, artistsPlaylistSortView, albumsPlaylistSortView, genresPlaylistSortView].forEach {$0.resetFields()}
-        
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     var isModal: Bool {window?.isVisible ?? false}

@@ -73,9 +73,6 @@ class FontSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDial
         history.changeListener = {[weak self] in
             self?.updateButtonStates()
         }
-
-        // Register self as a modal component
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {

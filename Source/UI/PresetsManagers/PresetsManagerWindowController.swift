@@ -53,9 +53,7 @@ class PresetsManagerWindowController: NSWindowController, ModalComponentProtocol
     private var addedViews: Set<NSView> = Set()
     
     override func windowDidLoad() {
-        
         theWindow.isMovableByWindowBackground = true
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     func destroy() {

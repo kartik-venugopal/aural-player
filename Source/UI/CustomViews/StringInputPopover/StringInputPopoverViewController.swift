@@ -12,7 +12,7 @@
  */
 import Cocoa
 
-class StringInputPopoverViewController: NSViewController, ModalComponentProtocol {
+class StringInputPopoverViewController: NSViewController, ModalComponentProtocol, Destroyable {
     
     // The actual popover that is shown
     private var popover: NSPopover!
@@ -39,6 +39,8 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
     
     override var nibName: String? {"StringInputPopover"}
     
+    private static var createdInstances: [StringInputPopoverViewController] = []
+    
     static func create(_ client: StringInputReceiver) -> StringInputPopoverViewController {
         
         let controller = StringInputPopoverViewController()
@@ -49,18 +51,20 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
         popover.contentViewController = controller
         
         controller.popover = popover
-        controller.registerAsModalComponent()
+        createdInstances.append(controller)
         
         return controller
     }
     
-    private func registerAsModalComponent() {
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
+    static var isShowingAPopover: Bool {
+        createdInstances.contains(where: {$0.isShown})
     }
     
-    var isModal: Bool {
-        return isShown
+    static func destroy() {
+        createdInstances.removeAll()
     }
+    
+    var isModal: Bool {isShown}
     
     // Shows the popover
     func show(_ relativeToView: NSView, _ preferredEdge: NSRectEdge) {
@@ -122,7 +126,5 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
         self.close()
     }
     
-    var isShown: Bool {
-        return popover.isShown
-    }
+    var isShown: Bool {popover.isShown}
 }

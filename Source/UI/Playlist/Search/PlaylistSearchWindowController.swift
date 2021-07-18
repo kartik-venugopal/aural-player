@@ -50,9 +50,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     private lazy var messenger = Messenger(for: self)
     
     override func windowDidLoad() {
-        
         messenger.subscribe(to: .playlist_searchTextChanged, handler: searchTextChanged(_:))
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     func destroy() {

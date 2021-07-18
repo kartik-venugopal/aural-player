@@ -28,9 +28,5 @@ class AboutDialogController: NSWindowController, ModalComponentProtocol {
         theWindow.showCentered(relativeTo: windowLayoutsManager.mainWindow)
     }
     
-    override func windowDidLoad() {
-        windowLayoutsManager.registerModalComponent(self)
-    }
-    
     var isModal: Bool {self.window?.isVisible ?? false}
 }

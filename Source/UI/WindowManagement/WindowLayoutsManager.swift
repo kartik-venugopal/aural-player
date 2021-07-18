@@ -30,32 +30,32 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     private lazy var effectsWindowLoader: WindowLoader<EffectsWindowController> = initializeLoader(type: EffectsWindowController.self)
     private var _effectsWindow: NSWindow {effectsWindowLoader.window}
     
-    var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
+    var effectsWindow: NSWindow? {effectsWindowLoader.isWindowLoaded ? _effectsWindow : nil}
     var effectsWindowFrame: NSRect? {effectsWindowLoaded ? _effectsWindow.frame : nil}
-    var effectsWindowLoaded: Bool {effectsWindowLoader.windowLoaded}
+    var effectsWindowLoaded: Bool {effectsWindowLoader.isWindowLoaded}
     
     // MARK: Playlist window -------------------------------------------
     
     private lazy var playlistWindowLoader: WindowLoader<PlaylistWindowController> = initializeLoader(type: PlaylistWindowController.self)
     private var _playlistWindow: NSWindow {playlistWindowLoader.window}
     
-    var playlistWindow: NSWindow? {playlistWindowLoader.windowLoaded ? _playlistWindow : nil}
+    var playlistWindow: NSWindow? {playlistWindowLoader.isWindowLoaded ? _playlistWindow : nil}
     var playlistWindowFrame: NSRect? {playlistWindowLoaded ? _playlistWindow.frame : nil}
-    var playlistWindowLoaded: Bool {playlistWindowLoader.windowLoaded}
+    var playlistWindowLoaded: Bool {playlistWindowLoader.isWindowLoaded}
     
     // MARK: Chapters list window -------------------------------------------
 
     private lazy var chaptersListWindowLoader: WindowLoader<ChaptersListWindowController> = initializeLoader(type: ChaptersListWindowController.self)
     
     private var _chaptersListWindow: NSWindow {chaptersListWindowLoader.window}
-    var chaptersListWindow: NSWindow? {chaptersListWindowLoader.windowLoaded ? _chaptersListWindow : nil}
+    var chaptersListWindow: NSWindow? {chaptersListWindowLoader.isWindowLoaded ? _chaptersListWindow : nil}
     
     // MARK: Visualizer window -------------------------------------------
     
     private lazy var visualizerWindowLoader: WindowLoader<VisualizerWindowController> = initializeLoader(type: VisualizerWindowController.self)
     
     private var _visualizerWindow: NSWindow {visualizerWindowLoader.window}
-    var visualizerWindow: NSWindow? {visualizerWindowLoader.windowLoaded ? _visualizerWindow : nil}
+    var visualizerWindow: NSWindow? {visualizerWindowLoader.isWindowLoaded ? _visualizerWindow : nil}
     
     // MARK: Tune browser window -------------------------------------------
     
@@ -63,10 +63,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     private var _tuneBrowserWindow: NSWindow {tuneBrowserWindowLoader.window}
     
     private var initializedLoaders: [DestroyableAndRestorable] = []
-    
-    // TODO: See if this can be removed (by iterating through NSApp.windows and filtering by as? ModalComponentProtocol)
-    // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
-    private var modalComponentRegistry: [ModalComponentProtocol] = []
     
     private lazy var messenger = Messenger(for: self)
     
@@ -98,12 +94,11 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         systemDefinedPresets.forEach {WindowLayoutPresets.recompute(layout: $0, gap: CGFloat(preferences.windowGap))}
     }
     
-    func registerModalComponent(_ component: ModalComponentProtocol) {
-        modalComponentRegistry.append(component)
-    }
-    
     var isShowingModalComponent: Bool {
-        modalComponentRegistry.contains(where: {$0.isModal}) || NSApp.modalWindow != nil
+        
+        NSApp.modalComponents.contains(where: {$0.isModal}) ||
+            StringInputPopoverViewController.isShowingAPopover ||
+            NSApp.modalWindow != nil
     }
     
     // MARK - Core functionality ----------------------------------------------------
@@ -119,13 +114,8 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         // Save the current layout for future re-use.
         initialLayout = currentWindowLayout
         
-        messenger.unsubscribeFromAll()
-        modalComponentRegistry.removeAll()
-        
-        for window in mainWindow.childWindows ?? [] {
-            mainWindow.removeChildWindow(window)
-        }
-        
+        // Hide and release all windows.
+        mainWindow.childWindows?.forEach {mainWindow.removeChildWindow($0)}
         initializedLoaders.forEach {$0.destroy()}
     }
     
@@ -209,7 +199,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     // NOTE - Boolean short-circuiting is important here. Otherwise, the chapters list window will be unnecessarily loaded.
     var isShowingChaptersList: Bool {
-        return chaptersListWindowLoader.windowLoaded && _chaptersListWindow.isVisible
+        return chaptersListWindowLoader.isWindowLoaded && _chaptersListWindow.isVisible
     }
     
     // NOTE - Boolean short-circuiting is important here. Otherwise, the chapters list window will be unnecessarily loaded.
@@ -218,11 +208,11 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     }
     
     var isShowingVisualizer: Bool {
-        return visualizerWindowLoader.windowLoaded && _visualizerWindow.isVisible
+        return visualizerWindowLoader.isWindowLoaded && _visualizerWindow.isVisible
     }
     
     var isShowingTuneBrowser: Bool {
-        return tuneBrowserWindowLoader.windowLoaded && _tuneBrowserWindow.isVisible
+        return tuneBrowserWindowLoader.isWindowLoaded && _tuneBrowserWindow.isVisible
     }
     
     var mainWindowFrame: NSRect {
@@ -287,7 +277,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     func showChaptersListWindow() {
         
-        let shouldCenterChaptersListWindow = !chaptersListWindowLoader.windowLoaded
+        let shouldCenterChaptersListWindow = !chaptersListWindowLoader.isWindowLoaded
         
         mainWindow.addChildWindow(_chaptersListWindow, ordered: .above)
         _chaptersListWindow.makeKeyAndOrderFront(self)
@@ -301,7 +291,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     func hideChaptersListWindow() {
         
-        if chaptersListWindowLoader.windowLoaded {
+        if chaptersListWindowLoader.isWindowLoaded {
             _chaptersListWindow.hide()
         }
     }
@@ -332,7 +322,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     private func hideTuneBrowserWindow() {
         
-        if tuneBrowserWindowLoader.windowLoaded {
+        if tuneBrowserWindowLoader.isWindowLoaded {
             _tuneBrowserWindow.hide()
         }
     }

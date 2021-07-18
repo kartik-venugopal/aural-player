@@ -39,10 +39,7 @@ class PreferencesWindowController: NSWindowController, ModalDialogDelegate, Dest
         window?.isMovableByWindowBackground = true
         
         subViews = [playlistPrefsView, playbackPrefsView, soundPrefsView, viewPrefsView, historyPrefsView, controlsPrefsView, metadataPrefsView]
-        
         tabView.addViewsForTabs(subViews.map {$0.preferencesView})
-        
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
         
         super.windowDidLoad()
     }

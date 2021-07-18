@@ -13,7 +13,7 @@ class WindowLoader<T>: DestroyableAndRestorable where T: NSWindowController, T: 
     
     private var lazyLoader: LazyWindowLoader<T>? = LazyWindowLoader()
     
-    var windowLoaded: Bool {lazyLoader?.windowLoaded ?? false}
+    var isWindowLoaded: Bool {lazyLoader?.isWindowLoaded ?? false}
     var window: NSWindow {lazyLoader!.controller.window!}
     
     func showWindow() {
@@ -44,17 +44,17 @@ class LazyWindowLoader<T>: Destroyable where T: NSWindowController, T: Destroyab
         
         print("\nLoaded controller for: \(T.self)")
         
-        windowLoaded = true
+        isWindowLoaded = true
         return T.init()
     }()
     
     lazy var window: NSWindow = controller.window!
     
-    var windowLoaded: Bool = false
+    var isWindowLoaded: Bool = false
     
     func destroy() {
         
-        if windowLoaded {
+        if isWindowLoaded {
             controller.destroy()
         }
     }

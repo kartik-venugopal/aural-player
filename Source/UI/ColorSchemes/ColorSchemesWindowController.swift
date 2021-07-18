@@ -100,9 +100,6 @@ class ColorSchemesWindowController: NSWindowController, NSMenuDelegate, ModalDia
                 [nonNilSelf.clipboardIcon, nonNilSelf.clipboardColorViewer].forEach {$0?.hide()}
             }
         }
-        
-        // Register self as a modal component
-        objectGraph.windowLayoutsManager.registerModalComponent(self)
     }
     
     func showDialog() -> ModalDialogResponse {
