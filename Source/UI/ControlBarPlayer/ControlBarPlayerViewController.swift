@@ -55,6 +55,8 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
     private let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
+    private let uiState: ControlBarPlayerUIState = objectGraph.controlBarPlayerUIState
+    
     private var textViewConstraints: LayoutConstraintsManager!
     private var lblSeekPositionConstraints: LayoutConstraintsManager!
     private var seekSliderConstraints: LayoutConstraintsManager!
@@ -92,7 +94,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
         lblSeekPositionConstraints.centerVerticallyInSuperview(offset: -2)
         
         layoutTextView()
-        textView.scrollingEnabled = ControlBarPlayerViewState.trackInfoScrollingEnabled
+        textView.scrollingEnabled = uiState.trackInfoScrollingEnabled
         
         updateTrackInfo()
         
@@ -122,7 +124,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
     
     func layoutTextView(forceChange: Bool = true) {
         
-        let showSeekPosition: Bool = ControlBarPlayerViewState.showSeekPosition && windowWideEnoughForSeekPosition
+        let showSeekPosition: Bool = uiState.showSeekPosition && windowWideEnoughForSeekPosition
         
         guard forceChange || (seekSliderView.showSeekPosition != showSeekPosition) else {return}
         
@@ -255,12 +257,12 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
         
         let windowWideEnoughForSeekPosition = self.windowWideEnoughForSeekPosition
         showSeekPositionMenuItem.showIf(windowWideEnoughForSeekPosition)
-        seekPositionDisplayTypeMenuItem.showIf(windowWideEnoughForSeekPosition && ControlBarPlayerViewState.showSeekPosition)
+        seekPositionDisplayTypeMenuItem.showIf(windowWideEnoughForSeekPosition && uiState.showSeekPosition)
         
         guard windowWideEnoughForSeekPosition else {return}
         
-        showSeekPositionMenuItem.onIf(ControlBarPlayerViewState.showSeekPosition)
-        guard ControlBarPlayerViewState.showSeekPosition else {return}
+        showSeekPositionMenuItem.onIf(uiState.showSeekPosition)
+        guard uiState.showSeekPosition else {return}
         
         seekPositionDisplayTypeItems.forEach {$0.off()}
         
@@ -286,7 +288,7 @@ class ControlBarPlayerViewController: NSViewController, NSMenuDelegate, Destroya
     
     @IBAction func toggleShowSeekPositionAction(_ sender: NSMenuItem) {
         
-        ControlBarPlayerViewState.showSeekPosition.toggle()
+        uiState.showSeekPosition.toggle()
         layoutTextView()
     }
     

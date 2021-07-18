@@ -14,7 +14,12 @@ class WindowLoader<T>: DestroyableAndRestorable where T: NSWindowController, T: 
     private var lazyLoader: LazyWindowLoader<T>? = LazyWindowLoader()
     
     var isWindowLoaded: Bool {lazyLoader?.isWindowLoaded ?? false}
-    var window: NSWindow {lazyLoader!.controller.window!}
+    
+    var window: NSWindow {
+        
+        ensureLazyLoaderCreated()
+        return lazyLoader!.controller.window!
+    }
     
     func showWindow() {
         lazyLoader?.controller.showWindow(self)
@@ -31,6 +36,10 @@ class WindowLoader<T>: DestroyableAndRestorable where T: NSWindowController, T: 
     }
     
     func restore() {
+        ensureLazyLoaderCreated()
+    }
+    
+    private func ensureLazyLoaderCreated() {
         
         if lazyLoader == nil {
             lazyLoader = LazyWindowLoader()

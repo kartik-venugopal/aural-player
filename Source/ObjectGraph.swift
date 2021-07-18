@@ -106,6 +106,7 @@ class ObjectGraph {
                                                                                  viewPreferences: preferences.viewPreferences)
     
     lazy var menuBarPlayerUIState: MenuBarPlayerUIState = MenuBarPlayerUIState(persistentState: persistentState.ui?.menuBarPlayer)
+    lazy var controlBarPlayerUIState: ControlBarPlayerUIState = ControlBarPlayerUIState(persistentState: persistentState.ui?.controlBarPlayer)
     
     lazy var themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     lazy var fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
@@ -137,7 +138,6 @@ class ObjectGraph {
         PlaylistViewState.initialize(persistentState.ui?.playlist)
         VisualizerViewState.initialize(persistentState.ui?.visualizer)
         WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
-        ControlBarPlayerViewState.initialize(persistentState.ui?.controlBarPlayer)
         TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
         
         DispatchQueue.global(qos: .background).async {
@@ -192,7 +192,7 @@ class ObjectGraph {
                                                visualizer: VisualizerViewState.persistentState,
                                                windowAppearance: WindowAppearanceState.persistentState,
                                                menuBarPlayer: menuBarPlayerUIState.persistentState,
-                                               controlBarPlayer: ControlBarPlayerViewState.persistentState,
+                                               controlBarPlayer: controlBarPlayerUIState.persistentState,
                                                tuneBrowser: TuneBrowserState.persistentState)
         
         persistentState.history = (historyDelegate as! HistoryDelegate).persistentState

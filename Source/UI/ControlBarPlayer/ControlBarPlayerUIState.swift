@@ -1,5 +1,5 @@
 //
-//  ControlBarPlayerViewState.swift
+//  ControlBarPlayerUIState.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,21 +9,22 @@
 //  
 import Cocoa
 
-class ControlBarPlayerViewState {
+class ControlBarPlayerUIState {
     
-    static var windowFrame: NSRect?
+    var windowFrame: NSRect?
     
     static let defaultCornerRadius: CGFloat = 3
-    static var cornerRadius: CGFloat = defaultCornerRadius
+    var cornerRadius: CGFloat
     
-    static var showSeekPosition: Bool = true
-    static var seekPositionDisplayType: ControlBarSeekPositionDisplayType = .timeElapsed
-    static var trackInfoScrollingEnabled: Bool = true
+    var trackInfoScrollingEnabled: Bool
     
-    static func initialize(_ persistentState: ControlBarPlayerUIPersistentState?) {
+    var showSeekPosition: Bool
+    var seekPositionDisplayType: ControlBarSeekPositionDisplayType
+    
+    init(persistentState: ControlBarPlayerUIPersistentState?) {
         
         windowFrame = persistentState?.windowFrame?.toNSRect()
-        cornerRadius = persistentState?.cornerRadius ?? defaultCornerRadius
+        cornerRadius = persistentState?.cornerRadius ?? Self.defaultCornerRadius
         
         trackInfoScrollingEnabled = persistentState?.trackInfoScrollingEnabled ?? true
         
@@ -31,11 +32,11 @@ class ControlBarPlayerViewState {
         seekPositionDisplayType = persistentState?.seekPositionDisplayType ?? .timeElapsed
     }
     
-    static var persistentState: ControlBarPlayerUIPersistentState {
+    var persistentState: ControlBarPlayerUIPersistentState {
         
         var windowFrame: NSRectPersistentState? = nil
         
-        if let frame = Self.windowFrame {
+        if let frame = self.windowFrame {
             windowFrame = NSRectPersistentState(rect: frame)
         }
         

@@ -185,7 +185,7 @@
 		3E3975462688894C0055887E /* ControlBarSeekSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */; };
 		3E397548268900C60055887E /* ControlBarVolumeSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */; };
 		3E39754A268924110055887E /* ControlBarPlayerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */; };
-		3E39754E26892C890055887E /* ControlBarPlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39754D26892C890055887E /* ControlBarPlayerViewState.swift */; };
+		3E39754E26892C890055887E /* ControlBarPlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39754D26892C890055887E /* ControlBarPlayerUIState.swift */; };
 		3E3DFFCE260D9BBA0092F0BF /* MetadataPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */; };
 		3E3DFFD0260D9E3F0092F0BF /* MetadataPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */; };
 		3E3DFFD2260DA0560092F0BF /* MetadataPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */; };
@@ -1292,7 +1292,7 @@
 		3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarSeekSliderCell.swift; sourceTree = "<group>"; };
 		3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarVolumeSliderCell.swift; sourceTree = "<group>"; };
 		3E397549268924110055887E /* ControlBarPlayerUIPersistentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerUIPersistentState.swift; sourceTree = "<group>"; };
-		3E39754D26892C890055887E /* ControlBarPlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerViewState.swift; sourceTree = "<group>"; };
+		3E39754D26892C890055887E /* ControlBarPlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlBarPlayerUIState.swift; sourceTree = "<group>"; };
 		3E3DFFCD260D9BBA0092F0BF /* MetadataPreferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MetadataPreferences.xib; sourceTree = "<group>"; };
 		3E3DFFCF260D9E3F0092F0BF /* MetadataPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferences.swift; sourceTree = "<group>"; };
 		3E3DFFD1260DA0560092F0BF /* MetadataPreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesViewController.swift; sourceTree = "<group>"; };
@@ -2431,7 +2431,7 @@
 				3E43228A2687E313009E8ADB /* ControlBarSeekSliderView.swift */,
 				3E3975452688894C0055887E /* ControlBarSeekSliderCell.swift */,
 				3E397547268900C60055887E /* ControlBarVolumeSliderCell.swift */,
-				3E39754D26892C890055887E /* ControlBarPlayerViewState.swift */,
+				3E39754D26892C890055887E /* ControlBarPlayerUIState.swift */,
 				3EABDDF72694C4EC008066E8 /* ControlBarSeekPositionDisplayType.swift */,
 			);
 			path = ControlBarPlayer;
@@ -4866,7 +4866,7 @@
 				3E9C12152622259500D90EA4 /* ThemePreset.swift in Sources */,
 				3E6C124125CEBDF400BF0D07 /* ArtistsPlaylistViewController.swift in Sources */,
 				3E6C120025CEBDD100BF0D07 /* PreferencesDefaults.swift in Sources */,
-				3E39754E26892C890055887E /* ControlBarPlayerViewState.swift in Sources */,
+				3E39754E26892C890055887E /* ControlBarPlayerUIState.swift in Sources */,
 				3E6C129225CEBE1800BF0D07 /* ColorSchemeViewController.swift in Sources */,
 				3E6C129925CEBE2700BF0D07 /* AuralTabView.swift in Sources */,
 				3E6C118825CEBD6D00BF0D07 /* AudioGraphDelegateProtocol.swift in Sources */,

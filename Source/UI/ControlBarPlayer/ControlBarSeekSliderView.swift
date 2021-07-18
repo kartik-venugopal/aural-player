@@ -13,11 +13,13 @@ class ControlBarSeekSliderView: SeekSliderView {
     
     @IBOutlet weak var lblSeekPosition: CenterTextLabel!
     
+    private let uiState: ControlBarPlayerUIState = objectGraph.controlBarPlayerUIState
+    
     var seekPositionDisplayType: ControlBarSeekPositionDisplayType = .timeElapsed {
         
         didSet {
             
-            ControlBarPlayerViewState.seekPositionDisplayType = seekPositionDisplayType
+            uiState.seekPositionDisplayType = seekPositionDisplayType
             updateSeekPositionLabels(player.seekPosition)
         }
     }
@@ -48,7 +50,7 @@ class ControlBarSeekSliderView: SeekSliderView {
         
         super.awakeFromNib()
         
-        self.seekPositionDisplayType = ControlBarPlayerViewState.seekPositionDisplayType
+        self.seekPositionDisplayType = uiState.seekPositionDisplayType
         applyTheme()
     }
     

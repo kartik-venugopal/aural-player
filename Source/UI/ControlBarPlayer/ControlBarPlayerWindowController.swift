@@ -26,6 +26,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     
     private lazy var messenger = Messenger(for: self)
     
+    private let uiState: ControlBarPlayerUIState = objectGraph.controlBarPlayerUIState
+    
     override var windowNibName: String? {"ControlBarPlayer"}
     
     private var appMovingWindow: Bool = false
@@ -38,7 +40,7 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         snappingWindow = window as? SnappingWindow
 
-        if let persistentWindowFrame = ControlBarPlayerViewState.windowFrame {
+        if let persistentWindowFrame = uiState.windowFrame {
             window?.setFrame(persistentWindowFrame, display: true, animate: false)
 
         } else {
@@ -50,8 +52,9 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         btnQuit.tintFunction = {Colors.viewControlButtonColor}
         optionsMenuItem.tintFunction = {Colors.viewControlButtonColor}
-        
-        cornerRadiusStepper.integerValue = ControlBarPlayerViewState.cornerRadius.roundedInt
+
+        rootContainerBox.cornerRadius = uiState.cornerRadius
+        cornerRadiusStepper.integerValue = uiState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
         
         applyTheme()
@@ -63,9 +66,7 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     }
     
     func applyTheme() {
-        
         applyColorScheme(colorSchemesManager.systemScheme)
-        rootContainerBox.cornerRadius = ControlBarPlayerViewState.cornerRadius
     }
     
     func applyColorScheme(_ colorScheme: ColorScheme) {
@@ -78,7 +79,7 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
         
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue)px"
         rootContainerBox.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
-        ControlBarPlayerViewState.cornerRadius = rootContainerBox.cornerRadius
+        uiState.cornerRadius = rootContainerBox.cornerRadius
     }
     
     // MARK: Window delegate functions --------------------------------
@@ -180,7 +181,7 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
     }
     
     private func transferViewState() {
-        ControlBarPlayerViewState.windowFrame = theWindow.frame
+        uiState.windowFrame = theWindow.frame
     }
     
     // MARK: Menu delegate functions -----------------------------

@@ -67,7 +67,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     private lazy var messenger = Messenger(for: self)
     
-    private var initialLayout: WindowLayout? = nil
+    private var savedLayout: WindowLayout? = nil
 
     init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
         
@@ -80,10 +80,10 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         super.init(systemDefinedPresets: systemDefinedLayouts, userDefinedPresets: userDefinedLayouts)
         
         if preferences.layoutOnStartup.option == .specific, let layoutName = preferences.layoutOnStartup.layoutName {
-            self.initialLayout = preset(named: layoutName)
+            self.savedLayout = preset(named: layoutName)
             
         } else {
-            self.initialLayout = WindowLayout(systemLayoutFrom: persistentState)
+            self.savedLayout = WindowLayout(systemLayoutFrom: persistentState)
         }
     }
     
@@ -113,7 +113,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     func destroy() {
         
         // Save the current layout for future re-use.
-        initialLayout = currentWindowLayout
+        savedLayout = currentWindowLayout
         
         // Hide and release all windows.
         mainWindow.childWindows?.forEach {mainWindow.removeChildWindow($0)}
@@ -122,7 +122,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     private func performInitialLayout() {
         
-        if let initialLayout = self.initialLayout {
+        if let initialLayout = self.savedLayout {
             
             // Remember from last app launch
             applyLayout(initialLayout)
@@ -339,19 +339,42 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         var effectsWindowOrigin: NSPointPersistentState? = nil
         var playlistWindowFrame: NSRectPersistentState? = nil
         
-        if let origin = self.effectsWindow?.origin {
-            effectsWindowOrigin = NSPointPersistentState(point: origin)
-        }
+        let userLayouts = userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)}
         
-        if let frame = self.playlistWindowFrame {
-            playlistWindowFrame = NSRectPersistentState(rect: frame)
-        }
+        let currentAppMode = objectGraph.appModeManager.currentMode
         
-        return WindowLayoutsPersistentState(showEffects: isShowingEffects,
-                                            showPlaylist: isShowingPlaylist,
-                                            mainWindowOrigin: NSPointPersistentState(point: mainWindow.origin),
-                                            effectsWindowOrigin: effectsWindowOrigin,
-                                            playlistWindowFrame: playlistWindowFrame,
-                                            userLayouts: userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)})
+        if currentAppMode == .windowed {
+            
+            if let origin = self.effectsWindow?.origin {
+                effectsWindowOrigin = NSPointPersistentState(point: origin)
+            }
+            
+            if let frame = self.playlistWindowFrame {
+                playlistWindowFrame = NSRectPersistentState(rect: frame)
+            }
+            
+            return WindowLayoutsPersistentState(showEffects: isShowingEffects,
+                                                showPlaylist: isShowingPlaylist,
+                                                mainWindowOrigin: NSPointPersistentState(point: mainWindow.origin),
+                                                effectsWindowOrigin: effectsWindowOrigin,
+                                                playlistWindowFrame: playlistWindowFrame,
+                                                userLayouts: userLayouts)
+        } else {
+            
+            if let origin = savedLayout?.effectsWindowOrigin ?? defaultLayout.effectsWindowOrigin {
+                effectsWindowOrigin = NSPointPersistentState(point: origin)
+            }
+            
+            if let frame = savedLayout?.playlistWindowFrame ?? defaultLayout.playlistWindowFrame {
+                playlistWindowFrame = NSRectPersistentState(rect: frame)
+            }
+            
+            return WindowLayoutsPersistentState(showEffects: savedLayout?.showEffects ?? defaultLayout.showEffects,
+                                                showPlaylist: savedLayout?.showPlaylist ?? defaultLayout.showPlaylist,
+                                                mainWindowOrigin: NSPointPersistentState(point: savedLayout?.mainWindowOrigin ?? defaultLayout.mainWindowOrigin),
+                                                effectsWindowOrigin: effectsWindowOrigin,
+                                                playlistWindowFrame: playlistWindowFrame,
+                                                userLayouts: userLayouts)
+        }
     }
 }
