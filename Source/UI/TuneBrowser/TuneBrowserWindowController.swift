@@ -34,12 +34,14 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: TuneBrowserUIState = objectGraph.tuneBrowserUIState
+    
     override func awakeFromNib() {
         
         // Sidebar width
-        splitView.setPosition(TuneBrowserState.sidebarWidth + 3, ofDividerAt: 0)
+        splitView.setPosition(uiState.sidebarWidth + 3, ofDividerAt: 0)
         
-        var displayedColumnIds: [String] = TuneBrowserState.displayedColumns.compactMap {$0.id}
+        var displayedColumnIds: [String] = uiState.displayedColumns.compactMap {$0.id}
         
         // Show default columns if none have been selected (eg. first time app is launched).
         if displayedColumnIds.isEmpty {
@@ -58,10 +60,10 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         }
         
         var windowFrame = self.window!.frame
-        windowFrame.size = TuneBrowserState.windowSize
+        windowFrame.size = uiState.windowSize
         self.window?.setFrame(windowFrame, display: true)
         
-        for column in TuneBrowserState.displayedColumns {
+        for column in uiState.displayedColumns {
             browserView.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier(column.id))?.width = column.width
         }
     }
@@ -89,10 +91,10 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
     
     private func onAppExit() {
         
-        TuneBrowserState.windowSize = theWindow.size
-        TuneBrowserState.sidebarWidth = sidebarView.width
+        uiState.windowSize = theWindow.size
+        uiState.sidebarWidth = sidebarView.width
         
-        TuneBrowserState.displayedColumns = browserView.tableColumns.filter {$0.isShown}.map {TuneBrowserTableColumn(id: $0.identifier.rawValue, width: $0.width)}
+        uiState.displayedColumns = browserView.tableColumns.filter {$0.isShown}.map {TuneBrowserTableColumn(id: $0.identifier.rawValue, width: $0.width)}
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -170,7 +172,7 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         
         respondToSidebarSelectionChange = false
         
-        if let folder = TuneBrowserState.userFolder(forURL: fileSystem.rootURL) {
+        if let folder = uiState.userFolder(forURL: fileSystem.rootURL) {
             sidebarView.selectRow(sidebarView.row(forItem: folder))
             
         } else if fileSystem.rootURL == FilesAndPaths.musicDir || fileSystem.rootURL == tuneBrowserMusicFolderURL {
@@ -256,9 +258,9 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
         
         if let clickedItem: FileSystemItem = browserView.rightClickedItem as? FileSystemItem {
             
-            TuneBrowserState.addUserFolder(forURL: clickedItem.url)
+            uiState.addUserFolder(forURL: clickedItem.url)
             
-            sidebarView.insertItems(at: IndexSet(integer: TuneBrowserState.sidebarUserFolders.count),
+            sidebarView.insertItems(at: IndexSet(integer: uiState.sidebarUserFolders.count),
                                     inParent: TuneBrowserSidebarCategory.folders, withAnimation: .slideDown)
         }
     }
@@ -266,7 +268,7 @@ class TuneBrowserWindowController: NSWindowController, NSMenuDelegate, Destroyab
     @IBAction func removeSidebarShortcutAction(_ sender: Any) {
         
         if let clickedItem: TuneBrowserSidebarItem = sidebarView.rightClickedItem as? TuneBrowserSidebarItem,
-           let removedItemIndex = TuneBrowserState.removeUserFolder(item: clickedItem) {
+           let removedItemIndex = uiState.removeUserFolder(item: clickedItem) {
             
             let musicFolderRow = sidebarView.row(forItem: TuneBrowserSidebarCategory.folders) + 1
             let selectedRow = sidebarView.selectedRow

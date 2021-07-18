@@ -21,6 +21,8 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: TuneBrowserUIState = objectGraph.tuneBrowserUIState
+    
     func initializeUI() {
         
         categories.forEach {sidebarView.expandItem($0)}
@@ -46,7 +48,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
                 
             case .folders:
                 
-                return TuneBrowserState.sidebarUserFolders.count + 1
+                return uiState.sidebarUserFolders.count + 1
             }
         }
         
@@ -77,7 +79,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
             if index == 0 {
                 return tuneBrowserSidebarMusicFolder
             } else {
-                return TuneBrowserState.sidebarUserFolders[index - 1]
+                return uiState.sidebarUserFolders[index - 1]
             }
         }
         

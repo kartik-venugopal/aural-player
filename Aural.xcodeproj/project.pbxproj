@@ -59,8 +59,8 @@
 		3E0B9B2E269E2EC800B4DED9 /* TuneBrowserHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B1D269E2EC800B4DED9 /* TuneBrowserHistory.swift */; };
 		3E0B9B2F269E2EC800B4DED9 /* TuneBrowserWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B1E269E2EC800B4DED9 /* TuneBrowserWindowController.swift */; };
 		3E0B9B30269E2EC800B4DED9 /* TuneBrowserWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B1E269E2EC800B4DED9 /* TuneBrowserWindowController.swift */; };
-		3E0B9B31269E2EC800B4DED9 /* TuneBrowserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B1F269E2EC800B4DED9 /* TuneBrowserState.swift */; };
-		3E0B9B32269E2EC800B4DED9 /* TuneBrowserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B1F269E2EC800B4DED9 /* TuneBrowserState.swift */; };
+		3E0B9B31269E2EC800B4DED9 /* TuneBrowserUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B1F269E2EC800B4DED9 /* TuneBrowserUIState.swift */; };
+		3E0B9B32269E2EC800B4DED9 /* TuneBrowserUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B1F269E2EC800B4DED9 /* TuneBrowserUIState.swift */; };
 		3E0B9B33269E2EC800B4DED9 /* TuneBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0B9B20269E2EC800B4DED9 /* TuneBrowser.xib */; };
 		3E0B9B34269E2EC800B4DED9 /* TuneBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E0B9B20269E2EC800B4DED9 /* TuneBrowser.xib */; };
 		3E0B9B35269E2EC800B4DED9 /* TuneBrowserViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B21269E2EC800B4DED9 /* TuneBrowserViewDelegate.swift */; };
@@ -71,8 +71,8 @@
 		3E0B9B3D269E2F7F00B4DED9 /* TuneBrowserNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B3B269E2F7F00B4DED9 /* TuneBrowserNotifications.swift */; };
 		3E0B9B42269E352100B4DED9 /* NSTableColumnExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */; };
 		3E0B9B43269E352100B4DED9 /* NSTableColumnExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */; };
-		3E0B9B46269E3D8900B4DED9 /* TuneBrowserPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B45269E3D8800B4DED9 /* TuneBrowserPersistentState.swift */; };
-		3E0B9B47269E3D8900B4DED9 /* TuneBrowserPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B45269E3D8800B4DED9 /* TuneBrowserPersistentState.swift */; };
+		3E0B9B46269E3D8900B4DED9 /* TuneBrowserUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B45269E3D8800B4DED9 /* TuneBrowserUIPersistentState.swift */; };
+		3E0B9B47269E3D8900B4DED9 /* TuneBrowserUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0B9B45269E3D8800B4DED9 /* TuneBrowserUIPersistentState.swift */; };
 		3E0DF3D0267E6EE60035FE29 /* RemoteControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */; };
 		3E11B2D7267BFDEF00AB7DC9 /* RemoteCommandManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */; };
 		3E12677126937A1300B4DBA5 /* PersistentModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E12677026937A1300B4DBA5 /* PersistentModelObject.swift */; };
@@ -1208,13 +1208,13 @@
 		3E0B9B1C269E2EC800B4DED9 /* FileSystemItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileSystemItem.swift; sourceTree = "<group>"; };
 		3E0B9B1D269E2EC800B4DED9 /* TuneBrowserHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneBrowserHistory.swift; sourceTree = "<group>"; };
 		3E0B9B1E269E2EC800B4DED9 /* TuneBrowserWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneBrowserWindowController.swift; sourceTree = "<group>"; };
-		3E0B9B1F269E2EC800B4DED9 /* TuneBrowserState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneBrowserState.swift; sourceTree = "<group>"; };
+		3E0B9B1F269E2EC800B4DED9 /* TuneBrowserUIState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneBrowserUIState.swift; sourceTree = "<group>"; };
 		3E0B9B20269E2EC800B4DED9 /* TuneBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TuneBrowser.xib; sourceTree = "<group>"; };
 		3E0B9B21269E2EC800B4DED9 /* TuneBrowserViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneBrowserViewDelegate.swift; sourceTree = "<group>"; };
 		3E0B9B22269E2EC800B4DED9 /* TuneBrowserTableViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TuneBrowserTableViews.swift; sourceTree = "<group>"; };
 		3E0B9B3B269E2F7F00B4DED9 /* TuneBrowserNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TuneBrowserNotifications.swift; sourceTree = "<group>"; };
 		3E0B9B41269E352100B4DED9 /* NSTableColumnExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableColumnExtensions.swift; sourceTree = "<group>"; };
-		3E0B9B45269E3D8800B4DED9 /* TuneBrowserPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TuneBrowserPersistentState.swift; path = Source/Persistence/Model/TuneBrowserPersistentState.swift; sourceTree = SOURCE_ROOT; };
+		3E0B9B45269E3D8800B4DED9 /* TuneBrowserUIPersistentState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TuneBrowserUIPersistentState.swift; path = Source/Persistence/Model/TuneBrowserUIPersistentState.swift; sourceTree = SOURCE_ROOT; };
 		3E0DF3CF267E6EE60035FE29 /* RemoteControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteControlManager.swift; sourceTree = "<group>"; };
 		3E0E0D2D2684BD6E005121A1 /* xml-copyright.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "xml-copyright.sh"; sourceTree = "<group>"; };
 		3E11B2D6267BFDEF00AB7DC9 /* RemoteCommandManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCommandManager.swift; sourceTree = "<group>"; };
@@ -2198,7 +2198,7 @@
 				3E09D0A226805C18008ECB8C /* VisualizerUIPersistentState.swift */,
 				3E09D0A326805C18008ECB8C /* PlaylistUIPersistentState.swift */,
 				3E09D0A426805C18008ECB8C /* UIPersistentState.swift */,
-				3E0B9B45269E3D8800B4DED9 /* TuneBrowserPersistentState.swift */,
+				3E0B9B45269E3D8800B4DED9 /* TuneBrowserUIPersistentState.swift */,
 				3E09D0AF26805C18008ECB8C /* FontSchemes */,
 				3E09D0A526805C18008ECB8C /* ColorSchemes */,
 				3E09D0AC26805C18008ECB8C /* MenuBarPlayerUIPersistentState.swift */,
@@ -2266,7 +2266,7 @@
 				3E0B9B1B269E2EC800B4DED9 /* FileSystem.swift */,
 				3E0B9B1C269E2EC800B4DED9 /* FileSystemItem.swift */,
 				3E0B9B1D269E2EC800B4DED9 /* TuneBrowserHistory.swift */,
-				3E0B9B1F269E2EC800B4DED9 /* TuneBrowserState.swift */,
+				3E0B9B1F269E2EC800B4DED9 /* TuneBrowserUIState.swift */,
 				3E0B9B17269E2EC800B4DED9 /* Sidebar */,
 			);
 			path = TuneBrowser;
@@ -5207,7 +5207,7 @@
 				3E6C119E25CEBD6D00BF0D07 /* Bookmark.swift in Sources */,
 				3EAFB5F6267FEE9D00F0DC96 /* NSWindowExtensions.swift in Sources */,
 				3E47D30E269F83DB003D08A7 /* TrackMoveResult.swift in Sources */,
-				3E0B9B46269E3D8900B4DED9 /* TuneBrowserPersistentState.swift in Sources */,
+				3E0B9B46269E3D8900B4DED9 /* TuneBrowserUIPersistentState.swift in Sources */,
 				3E987ECC2630088600E6836D /* MenuBarPlayerUIState.swift in Sources */,
 				3E6C131F25CEBEA000BF0D07 /* StringExtensions.swift in Sources */,
 				3E6C11D725CEBDBE00BF0D07 /* AuralPlayerNode.swift in Sources */,
@@ -5352,7 +5352,7 @@
 				3E6C118325CEBD6D00BF0D07 /* FavoritesDelegate.swift in Sources */,
 				3E871A1C2698E8C100C626DC /* GroupedTrack.swift in Sources */,
 				3E61D146260EFBA400C86BB2 /* FileCoverArtReader.swift in Sources */,
-				3E0B9B31269E2EC800B4DED9 /* TuneBrowserState.swift in Sources */,
+				3E0B9B31269E2EC800B4DED9 /* TuneBrowserUIState.swift in Sources */,
 				3E5F942125E570A9002DEF80 /* Spectrogram3D.swift in Sources */,
 				3E5F943C25E571F7002DEF80 /* AudioGraphCallbacks.swift in Sources */,
 				3E6C118C25CEBD6D00BF0D07 /* DelayUnitDelegate.swift in Sources */,
@@ -5652,7 +5652,7 @@
 				3EABDD91269483E7008066E8 /* Bookmark.swift in Sources */,
 				3E0B9B28269E2EC800B4DED9 /* TuneBrowserGlobals.swift in Sources */,
 				3EA1BE1A268F628E00A5D81B /* PlaybackSession.swift in Sources */,
-				3E0B9B47269E3D8900B4DED9 /* TuneBrowserPersistentState.swift in Sources */,
+				3E0B9B47269E3D8900B4DED9 /* TuneBrowserUIPersistentState.swift in Sources */,
 				3E65199126955F7500BD5AAD /* PreferencesTestCase.swift in Sources */,
 				3EE4B84C268F99BC006BDEB2 /* DelayPresets.swift in Sources */,
 				3EA1BE2B268F6A3900A5D81B /* Sequencer.swift in Sources */,
@@ -5750,7 +5750,7 @@
 				3E21ECCE268F4A1900731E4C /* AudioInfo.swift in Sources */,
 				3EE4B87B268FD734006BDEB2 /* PersistenceManager.swift in Sources */,
 				3EABDE0D2694C9C1008066E8 /* EffectsColorScheme.swift in Sources */,
-				3E0B9B32269E2EC800B4DED9 /* TuneBrowserState.swift in Sources */,
+				3E0B9B32269E2EC800B4DED9 /* TuneBrowserUIState.swift in Sources */,
 				3EABDD9426948657008066E8 /* MusicBrainzCachePersistenceTests.swift in Sources */,
 				3EABDE112694CA60008066E8 /* PlayerColorSchemePersistentState.swift in Sources */,
 				3EEF3748268F6D5D002EA77F /* SequencerIteration_Group_Tests.swift in Sources */,

@@ -118,6 +118,7 @@ class ObjectGraph {
     lazy var colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
     
     lazy var fileSystem: FileSystem = FileSystem()
+    lazy var tuneBrowserUIState: TuneBrowserUIState = TuneBrowserUIState(persistentState: persistentState.ui?.tuneBrowser)
     
     let mediaKeyHandler: MediaKeyHandler
     
@@ -136,8 +137,6 @@ class ObjectGraph {
         if #available(OSX 10.12.2, *) {
             _ = remoteControlManager
         }
-        
-        TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
         
         DispatchQueue.global(qos: .background).async {
             self.cleanUpLegacyFolders()
@@ -192,7 +191,7 @@ class ObjectGraph {
                                                windowAppearance: windowAppearanceState.persistentState,
                                                menuBarPlayer: menuBarPlayerUIState.persistentState,
                                                controlBarPlayer: controlBarPlayerUIState.persistentState,
-                                               tuneBrowser: TuneBrowserState.persistentState)
+                                               tuneBrowser: tuneBrowserUIState.persistentState)
         
         persistentState.history = (historyDelegate as! HistoryDelegate).persistentState
         persistentState.favorites = (favoritesDelegate as! FavoritesDelegate).persistentState
