@@ -42,10 +42,12 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     // Intended to be overriden by subclasses
     
     // Indicates the type of each parent group in this playlist view
-    internal var groupType: GroupType {return .artist}
+    var groupType: GroupType {return .artist}
     
     // Indicates the type of playlist this view displays
-    internal var playlistType: PlaylistType {return .artists}
+    var playlistType: PlaylistType {return .artists}
+    
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
     
     override func viewDidLoad() {
         
@@ -56,7 +58,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         
         doApplyColorScheme(colorSchemesManager.systemScheme, false)
         
-        if PlaylistViewState.currentView == self.playlistType, preferences.showNewTrackInPlaylist {
+        if uiState.currentView == self.playlistType, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
         }
     }
@@ -135,8 +137,8 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     override func viewDidAppear() {
         
         // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
-        PlaylistViewState.currentView = self.playlistType
-        PlaylistViewState.currentTableView = playlistView
+        uiState.currentView = self.playlistType
+        uiState.currentTableView = playlistView
 
         messenger.publish(.playlist_viewChanged, payload: self.playlistType)
     }
@@ -449,7 +451,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     // Refreshes the playlist view in response to tracks/groups being removed from the playlist
     private func tracksRemoved(_ results: TrackRemovalResults) {
         
-        if PlaylistViewState.currentView != self.playlistType {
+        if uiState.currentView != self.playlistType {
             
             DispatchQueue.main.async {
                 self.playlistView.reloadData()
@@ -496,7 +498,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         }
         
         // Check if there is a new track, and change the selection accordingly.
-        if PlaylistViewState.currentView.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist {
+        if uiState.currentView.toGroupType() == self.groupType && preferences.showNewTrackInPlaylist {
             notification.endTrack != nil ? showPlayingTrack() : clearSelection()
         }
     }
@@ -511,7 +513,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         }
 
         // Only need to do this if this playlist view is shown
-        if PlaylistViewState.currentView.toGroupType() == self.groupType,
+        if uiState.currentView.toGroupType() == self.groupType,
            let groupingInfo = playlist.groupingInfoForTrack(self.groupType, errTrack) {
 
             selectTrack(groupingInfo)

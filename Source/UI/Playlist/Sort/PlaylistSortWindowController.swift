@@ -32,6 +32,8 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     override func windowDidLoad() {
         
         container.addSubviews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
@@ -51,7 +53,7 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
         // Choose sort view based on current playlist view
         NSView.hideViews(tracksPlaylistSortView.sortView, artistsPlaylistSortView.sortView, albumsPlaylistSortView.sortView, genresPlaylistSortView.sortView)
         
-        switch PlaylistViewState.currentView {
+        switch uiState.currentView {
 
         case .tracks:       displayedSortView = tracksPlaylistSortView
             

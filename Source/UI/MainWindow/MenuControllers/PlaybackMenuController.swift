@@ -65,6 +65,8 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
+    private lazy var playlistUIState: PlaylistUIState = objectGraph.playlistUIState
+    
     // One-time setup
     override func awakeFromNib() {
         playOrPauseMenuItem.off()
@@ -229,7 +231,7 @@ class PlaybackMenuController: NSObject, NSMenuDelegate {
     
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
-        messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_showPlayingTrack, payload: playlistUIState.currentViewSelector)
     }
     
     @IBAction func rememberLastPositionAction(_ sender: ToggleMenuItem) {

@@ -49,6 +49,8 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     override func windowDidLoad() {
         messenger.subscribe(to: .playlist_searchTextChanged, handler: searchTextChanged(_:))
     }
@@ -78,7 +80,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     // Called when any of the search criteria have changed, performs a new search
     private func updateSearch() {
         
-        searchResults = playlist.search(searchQuery, PlaylistViewState.currentView)
+        searchResults = playlist.search(searchQuery, uiState.currentView)
         
         // Show the first result
         searchResults.hasResults ? nextSearchAction(self) : noResultsFound()
@@ -123,7 +125,7 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
         
         // Selects a track within the playlist view, to show the user where the track is located within the playlist
         messenger.publish(SelectSearchResultCommandNotification(searchResult: searchResult,
-                                                                viewSelector: PlaylistViewState.currentViewSelector))
+                                                                viewSelector: uiState.currentViewSelector))
     }
     
     @IBAction func searchDoneAction(_ sender: Any) {

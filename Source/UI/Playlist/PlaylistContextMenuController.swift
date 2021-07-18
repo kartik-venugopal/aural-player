@@ -72,6 +72,8 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     // One-time setup
     override func awakeFromNib() {
         
@@ -89,7 +91,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Helper to determine the track represented by the clicked item
     private var clickedTrack: Track? {
         
-        guard let clickedItem = PlaylistViewState.clickedItem else {return nil}
+        guard let clickedItem = uiState.clickedItem else {return nil}
         
         if clickedItem.type == .index, let index = clickedItem.index {
             return playlist.trackAtIndex(index)
@@ -101,7 +103,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     // Sets up the menu items that need to be displayed, depending on what type of playlist item was clicked, and the current state of that item
     func menuNeedsUpdate(_ menu: NSMenu) {
         
-        guard let clickedItem = PlaylistViewState.clickedItem else {return}
+        guard let clickedItem = uiState.clickedItem else {return}
         
         switch clickedItem.type {
             
@@ -129,7 +131,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     // Plays the selected playlist item (track or group)
     @IBAction func playSelectedItemAction(_ sender: Any) {
-        messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_playSelectedItem, payload: uiState.currentViewSelector)
     }
     
     // Adds/removes the currently playing track, if there is one, to/from the "Favorites" list
@@ -182,13 +184,13 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     
     // Helper to obtain the view for the selected playlist row (used to position popovers)
     // Defaults to the content view of the playlist window
-    private var playlistSelectedRowView: NSView? {PlaylistViewState.selectedRowView ?? windowLayoutsManager.playlistWindow?.contentView}
+    private var playlistSelectedRowView: NSView? {uiState.selectedRowView ?? windowLayoutsManager.playlistWindow?.contentView}
  
     // Removes the selected playlist item from the playlist
     @IBAction func removeSelectedItemAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_removeTracks, payload: uiState.currentViewSelector)
         }
     }
     
@@ -196,7 +198,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemUpAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksUp, payload: uiState.currentViewSelector)
         }
     }
     
@@ -204,7 +206,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemToTopAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToTop, payload: uiState.currentViewSelector)
         }
     }
     
@@ -212,7 +214,7 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemDownAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksDown, payload: uiState.currentViewSelector)
         }
     }
     
@@ -220,12 +222,12 @@ class PlaylistContextMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemToBottomAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToBottom, payload: uiState.currentViewSelector)
         }
     }
     
     @IBAction func showTrackInFinderAction(_ sender: Any) {
-        messenger.publish(.playlist_showTrackInFinder, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_showTrackInFinder, payload: uiState.currentViewSelector)
     }
     
     @IBAction func viewChaptersAction(_ sender: Any) {

@@ -61,7 +61,8 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
-    private lazy var uiState: PlayerUIState = objectGraph.playerUIState
+    private lazy var playerUIState: PlayerUIState = objectGraph.playerUIState
+    private lazy var playlistUIState: PlaylistUIState = objectGraph.playlistUIState
     
     override func viewDidLoad() {
         
@@ -121,7 +122,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
                 
                 windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
                 
-                let autoHideIsOn: Bool = uiState.viewType == .expandedArt || !uiState.showControls
+                let autoHideIsOn: Bool = playerUIState.viewType == .expandedArt || !playerUIState.showControls
                 
                 if btnMoreInfo.isVisible && !autoHideIsOn {
                     
@@ -137,7 +138,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     
     // Shows (selects) the currently playing track, within the playlist, if there is one
     @IBAction func showPlayingTrackAction(_ sender: Any) {
-        messenger.publish(.playlist_showPlayingTrack, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_showPlayingTrack, payload: playlistUIState.currentViewSelector)
     }
     
     // Adds/removes the currently playing track to/from the "Favorites" list
@@ -196,7 +197,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
         
         // Show popover
         
-        let autoHideIsOn: Bool = uiState.viewType == .expandedArt || !uiState.showControls
+        let autoHideIsOn: Bool = playerUIState.viewType == .expandedArt || !playerUIState.showControls
         
         windowLayoutsManager.mainWindow.makeKeyAndOrderFront(self)
         
@@ -246,7 +247,7 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
             
             btnFavorite.onIf(added)
             
-            let autoHideIsOn: Bool = uiState.viewType == .expandedArt || !uiState.showControls
+            let autoHideIsOn: Bool = playerUIState.viewType == .expandedArt || !playerUIState.showControls
             
             if btnFavorite.isVisible && !autoHideIsOn {
                 

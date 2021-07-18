@@ -45,6 +45,8 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     override func viewDidLoad() {
         
         playlistView.enableDragDrop()
@@ -53,7 +55,7 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
         
         doApplyColorScheme(colorSchemesManager.systemScheme, false)
         
-        if PlaylistViewState.currentView == .tracks, preferences.showNewTrackInPlaylist {
+        if uiState.currentView == .tracks, preferences.showNewTrackInPlaylist {
             showPlayingTrack()
         }
     }
@@ -131,8 +133,8 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     override func viewDidAppear() {
         
         // When this view appears, the playlist type (tab) has changed. Update state and notify observers.
-        PlaylistViewState.currentView = .tracks
-        PlaylistViewState.currentTableView = playlistView
+        uiState.currentView = .tracks
+        uiState.currentTableView = playlistView
         
         messenger.publish(.playlist_viewChanged, payload: PlaylistType.tracks)
     }
@@ -330,7 +332,7 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     private func trackTransitioned(_ notification: TrackTransitionNotification) {
         
         let refreshIndexes: IndexSet = IndexSet(Set([notification.beginTrack, notification.endTrack].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
-        let needToShowTrack: Bool = PlaylistViewState.currentView == .tracks && preferences.showNewTrackInPlaylist
+        let needToShowTrack: Bool = uiState.currentView == .tracks && preferences.showNewTrackInPlaylist
 
         if let newTrack = notification.endTrack {
             
@@ -365,7 +367,7 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
         
         let refreshIndexes: IndexSet = IndexSet(Set([notification.oldTrack, errTrack].compactMap {$0}).compactMap {playlist.indexOfTrack($0)})
 
-        if let errTrackIndex = playlist.indexOfTrack(errTrack), PlaylistViewState.currentView == .tracks {
+        if let errTrackIndex = playlist.indexOfTrack(errTrack), uiState.currentView == .tracks {
             selectTrack(errTrackIndex)
         }
 

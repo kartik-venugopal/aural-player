@@ -82,6 +82,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
 
     override func windowDidLoad() {
@@ -118,7 +120,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
             tabGroup.selectTabViewItem(at: playlistPreferences.viewOnStartup.viewIndex)
             
         } else {    // Remember the view from the last app launch
-            tabGroup.selectTabViewItem(at: PlaylistViewState.currentView.index)
+            tabGroup.selectTabViewItem(at: uiState.currentView.index)
         }
         
         tabGroup.delegate = self
@@ -271,17 +273,17 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     // If tracks are currently being added to the playlist, the optional progress argument contains progress info that the spinner control uses for its animation
     private func updatePlaylistSummary(_ trackAddProgress: TrackAddOperationProgress? = nil) {
         
-        let summary = playlist.summary(PlaylistViewState.currentView)
+        let summary = playlist.summary(uiState.currentView)
         lblDurationSummary.stringValue = ValueFormatter.formatSecondsToHMS(summary.totalDuration)
         
         let numTracks = summary.size
         
-        if PlaylistViewState.currentView == .tracks {
+        if uiState.currentView == .tracks {
             
             lblTracksSummary.stringValue = String(format: "%d %@",
                                                   numTracks, numTracks == 1 ? "track" : "tracks")
             
-        } else if let groupType = PlaylistViewState.groupType {
+        } else if let groupType = uiState.groupType {
 
             let numGroups = summary.numGroups
             
@@ -301,7 +303,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         guard !checkIfPlaylistIsBeingModified() else {return}
         
-        messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_removeTracks, payload: uiState.currentViewSelector)
         updatePlaylistSummary()
     }
     
@@ -345,7 +347,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     @IBAction func moveTracksUpAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksUp, payload: uiState.currentViewSelector)
         }
     }
     
@@ -353,16 +355,16 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     @IBAction func moveTracksDownAction(_ sender: AnyObject) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksDown, payload: uiState.currentViewSelector)
         }
     }
     
     private func nextView() {
-        PlaylistViewState.currentView == .genres ? tabGroup.selectFirstTabViewItem(self) : tabGroup.selectNextTabViewItem(self)
+        uiState.currentView == .genres ? tabGroup.selectFirstTabViewItem(self) : tabGroup.selectNextTabViewItem(self)
     }
     
     private func previousView() {
-        PlaylistViewState.currentView == .tracks ? tabGroup.selectLastTabViewItem(self) : tabGroup.selectPreviousTabViewItem(self)
+        uiState.currentView == .tracks ? tabGroup.selectLastTabViewItem(self) : tabGroup.selectPreviousTabViewItem(self)
     }
     
     // Presents the search modal dialog to allow the user to search for playlist tracks
@@ -393,20 +395,20 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     
     // Scrolls the playlist view to the top
     @IBAction func scrollToTopAction(_ sender: AnyObject) {
-        messenger.publish(.playlist_scrollToTop, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToTop, payload: uiState.currentViewSelector)
     }
     
     // Scrolls the playlist view to the bottom
     @IBAction func scrollToBottomAction(_ sender: AnyObject) {
-        messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToBottom, payload: uiState.currentViewSelector)
     }
     
     @IBAction func pageUpAction(_ sender: AnyObject) {
-        messenger.publish(.playlist_pageUp, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageUp, payload: uiState.currentViewSelector)
     }
     
     @IBAction func pageDownAction(_ sender: AnyObject) {
-        messenger.publish(.playlist_pageDown, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageDown, payload: uiState.currentViewSelector)
     }
     
     private func applyTheme() {
@@ -538,7 +540,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         if gesturesPreferences.allowPlaylistNavigation {
         
             messenger.publish(swipeDirection == .up ? .playlist_scrollToTop : .playlist_scrollToBottom,
-                              payload: PlaylistViewState.currentViewSelector)
+                              payload: uiState.currentViewSelector)
         }
     }
 }

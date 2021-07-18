@@ -109,6 +109,8 @@ class ObjectGraph {
     lazy var menuBarPlayerUIState: MenuBarPlayerUIState = MenuBarPlayerUIState(persistentState: persistentState.ui?.menuBarPlayer)
     lazy var controlBarPlayerUIState: ControlBarPlayerUIState = ControlBarPlayerUIState(persistentState: persistentState.ui?.controlBarPlayer)
     
+    lazy var playlistUIState: PlaylistUIState = PlaylistUIState(persistentState: persistentState.ui?.playlist)
+    
     lazy var themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     lazy var fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
     lazy var colorSchemesManager: ColorSchemesManager = ColorSchemesManager(persistentState: persistentState.ui?.colorSchemes)
@@ -135,7 +137,6 @@ class ObjectGraph {
         
         // Initialize utility classes.
         
-        PlaylistViewState.initialize(persistentState.ui?.playlist)
         VisualizerViewState.initialize(persistentState.ui?.visualizer)
         WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
         TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
@@ -188,7 +189,7 @@ class ObjectGraph {
                                                fontSchemes: fontSchemesManager.persistentState,
                                                colorSchemes: colorSchemesManager.persistentState,
                                                player: playerUIState.persistentState,
-                                               playlist: PlaylistViewState.persistentState,
+                                               playlist: playlistUIState.persistentState,
                                                visualizer: VisualizerViewState.persistentState,
                                                windowAppearance: WindowAppearanceState.persistentState,
                                                menuBarPlayer: menuBarPlayerUIState.persistentState,

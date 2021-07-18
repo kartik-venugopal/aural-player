@@ -41,6 +41,8 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
     
     override var nibName: String? {"GenresPlaylistSort"}
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     var sortView: NSView {
         return self.view
     }
@@ -88,7 +90,7 @@ class GenresPlaylistSortViewController: NSViewController, SortViewProtocol {
             if tracksSort.scope == .selectedGroups {
                 
                 // Pick up only the groups selected (ignoring the tracks)
-                let selGroups: [Group] = PlaylistViewState.selectedItems.compactMap {$0.group}
+                let selGroups: [Group] = uiState.selectedItems.compactMap {$0.group}
                 _ = tracksSort.withParentGroups(selGroups)
             }
             

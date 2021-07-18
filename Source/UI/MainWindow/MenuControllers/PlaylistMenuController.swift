@@ -57,6 +57,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         let showingModalComponent: Bool = windowLayoutsManager.isShowingModalComponent
@@ -67,7 +69,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             menu.items.forEach({$0.disable()})
 
             // Allow playing of selected item (chapter) if the chapters list is not modal (i.e. performing a search) and an item is selected
-            let hasPlayableChapter: Bool = !showingModalComponent && PlaylistViewState.hasSelectedChapter
+            let hasPlayableChapter: Bool = !showingModalComponent && uiState.hasSelectedChapter
 
             playSelectedItemMenuItem.enableIf(hasPlayableChapter)
             theMenu.enableIf(hasPlayableChapter)
@@ -90,7 +92,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         let playlistSize = playlist.size
         let playlistNotEmpty = playlistSize > 0
 
-        let numSelectedRows = PlaylistViewState.selectedItemCount
+        let numSelectedRows = uiState.selectedItemCount
         let atLeastOneItemSelected = numSelectedRows > 0
 
         // These menu items require 1 - the playlist to be visible, and 2 - at least one playlist item to be selected
@@ -111,8 +113,8 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
 
         clearSelectionMenuItem.enableIf(playlistNotEmpty && atLeastOneItemSelected)
 
-        expandSelectedGroupsMenuItem.enableIf(PlaylistViewState.currentView != .tracks && atLeastOneItemSelected && onlyGroupsSelected)
-        collapseSelectedItemsMenuItem.enableIf(PlaylistViewState.currentView != .tracks && atLeastOneItemSelected)
+        expandSelectedGroupsMenuItem.enableIf(uiState.currentView != .tracks && atLeastOneItemSelected && onlyGroupsSelected)
+        collapseSelectedItemsMenuItem.enableIf(uiState.currentView != .tracks && atLeastOneItemSelected)
     }
     
     func menuWillOpen(_ menu: NSMenu) {
@@ -121,13 +123,13 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
         
         let playlistNotEmpty = playlist.size > 0
         
-        expandSelectedGroupsMenuItem.hideIf(PlaylistViewState.currentView == .tracks)
-        collapseSelectedItemsMenuItem.hideIf(PlaylistViewState.currentView == .tracks)
+        expandSelectedGroupsMenuItem.hideIf(uiState.currentView == .tracks)
+        collapseSelectedItemsMenuItem.hideIf(uiState.currentView == .tracks)
         
-        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf(!(PlaylistViewState.currentView != .tracks && playlistNotEmpty))})
+        [expandAllGroupsMenuItem, collapseAllGroupsMenuItem].forEach({$0.hideIf(!(uiState.currentView != .tracks && playlistNotEmpty))})
     }
     
-    private var areOnlyGroupsSelected: Bool {!PlaylistViewState.selectedItems.contains(where: {$0.type != .group})}
+    private var areOnlyGroupsSelected: Bool {!uiState.selectedItems.contains(where: {$0.type != .group})}
     
     // Invokes the Open file dialog, to allow the user to add tracks/playlists to the app playlist
     @IBAction func addFilesAction(_ sender: Any) {
@@ -141,7 +143,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func removeSelectedItemsAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_removeTracks, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_removeTracks, payload: uiState.currentViewSelector)
         }
     }
     
@@ -162,7 +164,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsUpAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksUp, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksUp, payload: uiState.currentViewSelector)
         }
     }
     
@@ -170,7 +172,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToTopAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksToTop, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToTop, payload: uiState.currentViewSelector)
         }
     }
     
@@ -178,7 +180,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsDownAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksDown, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksDown, payload: uiState.currentViewSelector)
         }
     }
     
@@ -186,7 +188,7 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
     @IBAction func moveItemsToBottomAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_moveTracksToBottom, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_moveTracksToBottom, payload: uiState.currentViewSelector)
         }
     }
     
@@ -210,56 +212,56 @@ class PlaylistMenuController: NSObject, NSMenuDelegate {
             messenger.publish(.chaptersList_playSelectedChapter)
 
         } else {
-            messenger.publish(.playlist_playSelectedItem, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_playSelectedItem, payload: uiState.currentViewSelector)
         }
     }
     
     @IBAction func clearSelectionAction(_ sender: Any) {
-        messenger.publish(.playlist_clearSelection, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_clearSelection, payload: uiState.currentViewSelector)
     }
     
     @IBAction func invertSelectionAction(_ sender: Any) {
-        messenger.publish(.playlist_invertSelection, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_invertSelection, payload: uiState.currentViewSelector)
     }
     
     @IBAction func cropSelectionAction(_ sender: Any) {
         
         if !checkIfPlaylistIsBeingModified() {
-            messenger.publish(.playlist_cropSelection, payload: PlaylistViewState.currentViewSelector)
+            messenger.publish(.playlist_cropSelection, payload: uiState.currentViewSelector)
         }
     }
     
     @IBAction func expandSelectedGroupsAction(_ sender: Any) {
-        messenger.publish(.playlist_expandSelectedGroups, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_expandSelectedGroups, payload: uiState.currentViewSelector)
     }
     
     @IBAction func collapseSelectedItemsAction(_ sender: Any) {
-        messenger.publish(.playlist_collapseSelectedItems, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_collapseSelectedItems, payload: uiState.currentViewSelector)
     }
     
     @IBAction func expandAllGroupsAction(_ sender: Any) {
-        messenger.publish(.playlist_expandAllGroups, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_expandAllGroups, payload: uiState.currentViewSelector)
     }
     
     @IBAction func collapseAllGroupsAction(_ sender: Any) {
-        messenger.publish(.playlist_collapseAllGroups, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_collapseAllGroups, payload: uiState.currentViewSelector)
     }
     
     // Scrolls the current playlist view to the very top
     @IBAction func scrollToTopAction(_ sender: Any) {
-        messenger.publish(.playlist_scrollToTop, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToTop, payload: uiState.currentViewSelector)
     }
     
     // Scrolls the current playlist view to the very bottom
     @IBAction func scrollToBottomAction(_ sender: Any) {
-        messenger.publish(.playlist_scrollToBottom, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_scrollToBottom, payload: uiState.currentViewSelector)
     }
     
     @IBAction func pageUpAction(_ sender: Any) {
-        messenger.publish(.playlist_pageUp, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageUp, payload: uiState.currentViewSelector)
     }
     @IBAction func pageDownAction(_ sender: Any) {
-        messenger.publish(.playlist_pageDown, payload: PlaylistViewState.currentViewSelector)
+        messenger.publish(.playlist_pageDown, payload: uiState.currentViewSelector)
     }
     
     @IBAction func previousPlaylistViewAction(_ sender: Any) {

@@ -11,6 +11,8 @@ import Cocoa
 
 extension NSTableView {
     
+    private var uiState: PlaylistUIState {objectGraph.playlistUIState}
+    
     /*
         An event handler for customized contextual menu behavior.
         This function needs to be overriden in order to:
@@ -35,7 +37,7 @@ extension NSTableView {
         
         // TODO: Shouldn't this be moved to AuralPlaylistTableView and AuralPlaylistOutlineView ?
         // Note that this view was clicked (this is required by the contextual menu)
-        PlaylistViewState.registerTableViewClick(self)
+        uiState.registerTableViewClick(self)
         
         return self.menu
     }

@@ -54,6 +54,8 @@ class DockMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var playlistUIState: PlaylistUIState = objectGraph.playlistUIState
+    
     // One-time setup. When the menu is loaded for the first time, update the menu item states per the current playback modes
     override func awakeFromNib() {
         
@@ -136,7 +138,7 @@ class DockMenuController: NSObject, NSMenuDelegate {
             
             do {
                 
-                try history.playItem(item.file, PlaylistViewState.currentView)
+                try history.playItem(item.file, playlistUIState.currentView)
                 
             } catch {
                 

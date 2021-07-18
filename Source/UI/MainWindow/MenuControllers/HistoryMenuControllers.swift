@@ -195,6 +195,8 @@ class RecentlyPlayedMenuController: NSObject, NSMenuDelegate {
     // Delegate that performs CRUD on the history model
     private let history: HistoryDelegateProtocol = objectGraph.historyDelegate
     
+    private lazy var playlistUIState: PlaylistUIState = objectGraph.playlistUIState
+    
     // Before the menu opens, re-create the menu items from the model
     func menuWillOpen(_ menu: NSMenu) {
         
@@ -215,7 +217,7 @@ class RecentlyPlayedMenuController: NSObject, NSMenuDelegate {
             
             do {
                 
-                try history.playItem(item.file, PlaylistViewState.currentView)
+                try history.playItem(item.file, playlistUIState.currentView)
                 
             } catch {
                 

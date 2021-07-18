@@ -54,6 +54,8 @@ class ChaptersListViewController: NSViewController, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
+    
     override func viewDidLoad() {
         
         scrollView.drawsBackground = false
@@ -67,7 +69,7 @@ class ChaptersListViewController: NSViewController, Destroyable {
         chaptersListView.customizeHeader(heightIncrease: 5, customCellType: ChaptersListTableHeaderCell.self)
         
         // Set these fields for later access
-        PlaylistViewState.chaptersListView = self.chaptersListView
+        uiState.chaptersListView = self.chaptersListView
         
         initSubscriptions()
         
