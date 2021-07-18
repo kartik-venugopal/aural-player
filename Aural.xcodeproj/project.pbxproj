@@ -830,7 +830,7 @@
 		3EABDDCA2694B8B6008066E8 /* WindowUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0A126805C18008ECB8C /* WindowUIPersistentState.swift */; };
 		3EABDDCF2694B910008066E8 /* WindowAppearanceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDCC2694B8D7008066E8 /* WindowAppearanceState.swift */; };
 		3EABDDD32694B951008066E8 /* WindowUIPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDD22694B951008066E8 /* WindowUIPersistenceTests.swift */; };
-		3EABDDD82694BA75008066E8 /* VisualizerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDD52694BA73008066E8 /* VisualizerViewState.swift */; };
+		3EABDDD82694BA75008066E8 /* VisualizerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */; };
 		3EABDDDB2694BAA5008066E8 /* VisualizerUIPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0A226805C18008ECB8C /* VisualizerUIPersistentState.swift */; };
 		3EABDDDE2694BAD8008066E8 /* VisualizerUIPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EABDDDD2694BAD8008066E8 /* VisualizerUIPersistenceTests.swift */; };
 		3EABDDE02694BB36008066E8 /* ColorPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0A626805C18008ECB8C /* ColorPersistentState.swift */; };
@@ -1927,7 +1927,7 @@
 		3EABDDC42694B78B008066E8 /* PlaylistUIPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistUIPersistenceTests.swift; sourceTree = "<group>"; };
 		3EABDDCC2694B8D7008066E8 /* WindowAppearanceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowAppearanceState.swift; sourceTree = "<group>"; };
 		3EABDDD22694B951008066E8 /* WindowUIPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowUIPersistenceTests.swift; sourceTree = "<group>"; };
-		3EABDDD52694BA73008066E8 /* VisualizerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerViewState.swift; sourceTree = "<group>"; };
+		3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerUIState.swift; sourceTree = "<group>"; };
 		3EABDDDD2694BAD8008066E8 /* VisualizerUIPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerUIPersistenceTests.swift; sourceTree = "<group>"; };
 		3EABDDE22694BC1E008066E8 /* VisualizationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizationType.swift; sourceTree = "<group>"; };
 		3EABDDE72694BC30008066E8 /* VisualizerViewOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerViewOptions.swift; sourceTree = "<group>"; };
@@ -2527,7 +2527,7 @@
 				3E5F93FA25E57081002DEF80 /* VisualizerUtils.swift */,
 				3E5F93F625E57081002DEF80 /* FFT */,
 				3E5F941625E570A9002DEF80 /* Experimental */,
-				3EABDDD52694BA73008066E8 /* VisualizerViewState.swift */,
+				3EABDDD52694BA73008066E8 /* VisualizerUIState.swift */,
 				3EABDDE22694BC1E008066E8 /* VisualizationType.swift */,
 				3EABDDE72694BC30008066E8 /* VisualizerViewOptions.swift */,
 			);
@@ -4859,7 +4859,7 @@
 				3E6C127725CEBE1800BF0D07 /* ColorSchemesManager.swift in Sources */,
 				3ECBF3032619CD4500AD5C30 /* HostedAUNode.swift in Sources */,
 				3EAFB609267FF29300F0DC96 /* VolumeSliderCell.swift in Sources */,
-				3EABDDD82694BA75008066E8 /* VisualizerViewState.swift in Sources */,
+				3EABDDD82694BA75008066E8 /* VisualizerUIState.swift in Sources */,
 				3E6C125225CEBDF400BF0D07 /* GroupingPlaylistViewDelegates.swift in Sources */,
 				3E62979426A3C0F100C96AB8 /* SnappingWindowDelegate.swift in Sources */,
 				3EEC04212687AB45004478CE /* WindowedModePlaybackView.swift in Sources */,

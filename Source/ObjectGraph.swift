@@ -110,6 +110,7 @@ class ObjectGraph {
     lazy var controlBarPlayerUIState: ControlBarPlayerUIState = ControlBarPlayerUIState(persistentState: persistentState.ui?.controlBarPlayer)
     
     lazy var playlistUIState: PlaylistUIState = PlaylistUIState(persistentState: persistentState.ui?.playlist)
+    lazy var visualizerUIState: VisualizerUIState = VisualizerUIState(persistentState: persistentState.ui?.visualizer)
     
     lazy var themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     lazy var fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
@@ -137,7 +138,6 @@ class ObjectGraph {
         
         // Initialize utility classes.
         
-        VisualizerViewState.initialize(persistentState.ui?.visualizer)
         WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
         TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
         
@@ -151,9 +151,9 @@ class ObjectGraph {
     ///
     private func cleanUpLegacyFolders() {
         
-        let transcoderDir = FilesAndPaths.baseDir.appendingPathComponent("transcoderStore", isDirectory: true)
-        let artDir = FilesAndPaths.baseDir.appendingPathComponent("albumArt", isDirectory: true)
-        let recordingsDir = FilesAndPaths.baseDir.appendingPathComponent("recordings", isDirectory: true)
+        let transcoderDir = FilesAndPaths.subDirectory(named: "transcoderStore")
+        let artDir = FilesAndPaths.subDirectory(named: "albumArt")
+        let recordingsDir = FilesAndPaths.subDirectory(named: "recordings")
         
         for folder in [transcoderDir, artDir, recordingsDir] {
             folder.delete()
@@ -190,7 +190,7 @@ class ObjectGraph {
                                                colorSchemes: colorSchemesManager.persistentState,
                                                player: playerUIState.persistentState,
                                                playlist: playlistUIState.persistentState,
-                                               visualizer: VisualizerViewState.persistentState,
+                                               visualizer: visualizerUIState.persistentState,
                                                windowAppearance: WindowAppearanceState.persistentState,
                                                menuBarPlayer: menuBarPlayerUIState.persistentState,
                                                controlBarPlayer: controlBarPlayerUIState.persistentState,

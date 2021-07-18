@@ -304,7 +304,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
                     // Embed art in HTML
                     if withArt, let image = track.art?.image, let bits = image.representations.first as? NSBitmapImageRep, let data = bits.representation(using: .jpeg, properties: [:]) {
                         
-                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.displayName + "-coverArt.jpg")
+                        let imgFile = outFile.deletingLastPathComponent().appendingPathComponent(track.displayName + "-coverArt.jpg", isDirectory: false)
                         
                         do {
                             

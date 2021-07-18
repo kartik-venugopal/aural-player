@@ -1,5 +1,5 @@
 //
-//  VisualizerViewState.swift
+//  VisualizerUIState.swift
 //  Aural
 //
 //  Copyright © 2021 Kartik Venugopal. All rights reserved.
@@ -9,22 +9,22 @@
 //  
 import Cocoa
 
-class VisualizerViewState {
+class VisualizerUIState {
     
-    static var type: VisualizationType = .spectrogram
-    static var options: VisualizerViewOptions = VisualizerViewOptions()
+    var type: VisualizationType = .spectrogram
+    var options: VisualizerViewOptions = VisualizerViewOptions()
     
-    static func initialize(_ persistentState: VisualizerUIPersistentState?) {
+    init(persistentState: VisualizerUIPersistentState?) {
         
         type = persistentState?.type ?? .spectrogram
         
         options = VisualizerViewOptions()
         
-        options.setColors(lowAmplitudeColor: persistentState?.options?.lowAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.lowAmplitudeColor,
-                          highAmplitudeColor: persistentState?.options?.highAmplitudeColor?.toColor() ?? VisualizerViewStateDefaults.highAmplitudeColor)
+        options.setColors(lowAmplitudeColor: persistentState?.options?.lowAmplitudeColor?.toColor() ?? VisualizerUIDefaults.lowAmplitudeColor,
+                          highAmplitudeColor: persistentState?.options?.highAmplitudeColor?.toColor() ?? VisualizerUIDefaults.highAmplitudeColor)
     }
     
-    static var persistentState: VisualizerUIPersistentState {
+    var persistentState: VisualizerUIPersistentState {
         
         let visOptions = VisualizerOptionsPersistentState(lowAmplitudeColor: ColorPersistentState(color: options.lowAmplitudeColor),
                                                           highAmplitudeColor: ColorPersistentState(color: options.highAmplitudeColor))
@@ -33,7 +33,7 @@ class VisualizerViewState {
     }
 }
 
-class VisualizerViewStateDefaults {
+class VisualizerUIDefaults {
     
     static let type: VisualizationType = .spectrogram
     static let options: VisualizerViewOptions = VisualizerViewOptions()

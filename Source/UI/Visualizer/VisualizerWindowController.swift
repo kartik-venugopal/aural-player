@@ -41,6 +41,8 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: VisualizerUIState = objectGraph.visualizerUIState
+    
     override func awakeFromNib() {
         
         window?.delegate = self
@@ -75,7 +77,8 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         fft.setUp(sampleRate: Float(audioGraph.outputDeviceSampleRate), bufferSize: audioGraph.outputDeviceBufferSize)
      
         containerBox.startTracking()
-        initUI(type: VisualizerViewState.type, lowAmplitudeColor: VisualizerViewState.options.lowAmplitudeColor, highAmplitudeColor: VisualizerViewState.options.highAmplitudeColor)
+        initUI(type: uiState.type, lowAmplitudeColor: uiState.options.lowAmplitudeColor,
+               highAmplitudeColor: uiState.options.highAmplitudeColor)
         
         audioGraph.registerRenderObserver(self)
         
@@ -117,7 +120,7 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         vizView?.dismissView()
         vizView = nil
         
-        VisualizerViewState.type = type
+        uiState.type = type
         
         switch type {
 
@@ -174,11 +177,14 @@ class VisualizerWindowController: NSWindowController, NSWindowDelegate, AudioGra
         [spectrogram, supernova, discoBall].forEach {
             
             if $0 !== (vizView as! NSView) {
-                ($0 as? VisualizerViewProtocol)?.setColors(startColor: startColorPicker.color, endColor: endColorPicker.color)
+                
+                ($0 as? VisualizerViewProtocol)?.setColors(startColor: startColorPicker.color,
+                                                           endColor: endColorPicker.color)
             }
         }
         
-        VisualizerViewState.options.setColors(lowAmplitudeColor: startColorPicker.color, highAmplitudeColor: endColorPicker.color)
+        uiState.options.setColors(lowAmplitudeColor: startColorPicker.color,
+                                  highAmplitudeColor: endColorPicker.color)
     }
     
     @IBAction func closeWindowAction(_ sender: Any) {

@@ -27,7 +27,7 @@ class MusicBrainzCache: PersistentModelObject {
     var onDiskReleasesCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     var onDiskRecordingsCache: ConcurrentCompositeKeyMap<String, URL> = ConcurrentCompositeKeyMap()
     
-    private let baseDir: URL = FilesAndPaths.baseDir.appendingPathComponent("musicBrainzCache", isDirectory: true)
+    private let baseDir: URL = FilesAndPaths.subDirectory(named: "musicBrainzCache")
     
     private let diskIOOpQueue: OperationQueue = {
 
@@ -129,7 +129,7 @@ class MusicBrainzCache: PersistentModelObject {
             let randomNum = Int.random(in: 0..<10000)
             
             let outputFileName = String(format: "release-%@-%@-%@-%d.jpg", artist, title, nowString, randomNum)
-            let file = self.baseDir.appendingPathComponent(outputFileName)
+            let file = self.baseDir.appendingPathComponent(outputFileName, isDirectory: false)
             
             do {
                 
@@ -162,7 +162,7 @@ class MusicBrainzCache: PersistentModelObject {
             let randomNum = Int.random(in: 0..<10000)
             
             let outputFileName = String(format: "recording-%@-%@-%@-%d.jpg", artist, title, nowString, randomNum)
-            let file = self.baseDir.appendingPathComponent(outputFileName)
+            let file = self.baseDir.appendingPathComponent(outputFileName, isDirectory: false)
             
             do {
                 
