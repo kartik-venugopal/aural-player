@@ -14,17 +14,17 @@ class TabGroupButtonCell: NSButtonCell {
     
     // Highlighting colors the button text to indicate that the effects unit represented by this button is currently active
     var shouldHighlight: Bool = false
-    var highlightColor: NSColor = Colors.tabViewButtonTextColor
+    var highlightColor: NSColor = .tabViewButtonTextColor
     
     var fillBeforeBorder: Bool {return true}
     var borderInsetX: CGFloat {return 1}
     var borderInsetY: CGFloat {return 1}
     var borderRadius: CGFloat {return 1}
     var borderLineWidth: CGFloat {return 2}
-    var selectionBoxColor: NSColor {return Colors.tabViewSelectionBoxColor}
+    var selectionBoxColor: NSColor {return .tabViewSelectionBoxColor}
     
-    var unselectedTextColor: NSColor {return Colors.tabViewButtonTextColor}
-    var selectedTextColor: NSColor {return Colors.defaultSelectedLightTextColor}
+    var unselectedTextColor: NSColor {return .tabViewButtonTextColor}
+    var selectedTextColor: NSColor {return .defaultSelectedLightTextColor}
     var textFont: NSFont {return Fonts.tabViewButtonFont}
     var boldTextFont: NSFont {return Fonts.tabViewButtonBoldFont}
     
@@ -65,10 +65,10 @@ class ModalDialogTabButtonCell: TabGroupButtonCell {
 
 class ContrastedModalDialogTabButtonCell: TabGroupButtonCell {
     
-    override var selectionBoxColor: NSColor {ColorConstants.white70Percent}
+    override var selectionBoxColor: NSColor {.white70Percent}
     override var selectedTextColor: NSColor {.black}
 }
 
 class EQPreviewTabButtonCell: TabGroupButtonCell {
-    override var selectionBoxColor: NSColor {return ColorConstants.white15Percent}
+    override var selectionBoxColor: NSColor {return .white15Percent}
 }

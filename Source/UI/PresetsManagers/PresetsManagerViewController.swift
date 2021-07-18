@@ -128,7 +128,7 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource,  NS
         }
         
         textField.stringValue = text
-        textField.textColor = Colors.defaultLightTextColor
+        textField.textColor = .defaultLightTextColor
         cell.row = row
         
         // Set tool tip on name/track only if text wider than column width
@@ -179,7 +179,7 @@ class PresetsManagerViewController: NSViewController, NSTableViewDataSource,  NS
         // No change in preset name. Nothing to be done.
         if newPresetName == oldPresetName {return}
         
-        editedTextField.textColor = Colors.defaultSelectedLightTextColor
+        editedTextField.textColor = .defaultSelectedLightTextColor
         
         // TODO: What if the string is too long ?
         

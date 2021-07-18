@@ -65,7 +65,7 @@ extension NSImage {
         let baseImg: CIImage = CIImage(data: self.tiffRepresentation!)!
         
         monoFilter.setValue(baseImg, forKey: "inputImage")
-        monoFilter.setValue(CIColor(color: NSColor(red: 0.75, green: 0.75, blue: 0.75, alpha: 1))!, forKey: "inputColor")
+        monoFilter.setValue(CIColor(color: NSColor(red: 0.75, green: 0.75, blue: 0.75))!, forKey: "inputColor")
         monoFilter.setValue(NSNumber(floatLiteral: 1.0), forKey: "inputIntensity")
         
         let compFilter: CIFilter = CIFilter(name: "CIMultiplyCompositing")!

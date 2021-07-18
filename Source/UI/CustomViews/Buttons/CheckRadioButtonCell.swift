@@ -28,8 +28,8 @@ class DialogCheckRadioButton: NSButton {
     // Call this function whenever the title is updated
     func titleUpdated() {
         
-        self.attributedTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.boxTextColor)
-        self.attributedAlternateTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, Colors.defaultSelectedLightTextColor)
+        self.attributedTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, .boxTextColor)
+        self.attributedAlternateTitle = attributedString(self.title, self.font ?? Fonts.checkRadioButtonFont, .defaultSelectedLightTextColor)
     }
 }
 
@@ -37,7 +37,7 @@ class CheckRadioButtonCell: NSButtonCell {
     
     var textFont: NSFont {return Fonts.checkRadioButtonFont}
     
-    var textColor: NSColor {return isOff ? Colors.boxTextColor : Colors.defaultSelectedLightTextColor}
+    var textColor: NSColor {return isOff ? .boxTextColor : .defaultSelectedLightTextColor}
     
     var xOffset: CGFloat {0}
     var yOffset: CGFloat {0}
@@ -67,5 +67,5 @@ class EffectsFunctionCheckRadioButtonCell: CheckRadioButtonCell {
 
 class ColorSchemesDialogCheckBoxCell: CheckRadioButtonCell {
     
-    override var textFont: NSFont {return FontConstants.Standard.mainFont_12}
+    override var textFont: NSFont {return standardFontSet.mainFont(size: 12)}
 }

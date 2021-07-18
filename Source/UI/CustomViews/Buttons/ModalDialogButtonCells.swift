@@ -19,12 +19,12 @@ class ModalDialogButtonCell: NSButtonCell {
     var cellInsetX: CGFloat {0}
     var cellInsetY: CGFloat {0}
     
-    var backgroundFillGradient: NSGradient {return Colors.modalDialogButtonGradient}
-    var backgroundFillGradient_disabled: NSGradient {return Colors.modalDialogButtonGradient_disabled}
+    var backgroundFillGradient: NSGradient {.modalDialogButtonGradient}
+    var backgroundFillGradient_disabled: NSGradient {.modalDialogButtonGradient_disabled}
     var borderRadius: CGFloat {return 2}
     
-    var textColor: NSColor {return Colors.modalDialogButtonTextColor}
-    var textColor_disabled: NSColor {return Colors.modalDialogButtonTextColor_disabled}
+    var textColor: NSColor {.modalDialogButtonTextColor}
+    var textColor_disabled: NSColor {.modalDialogButtonTextColor_disabled}
     
     var textFont: NSFont {return Fonts.modalDialogButtonFont}
     
@@ -77,7 +77,7 @@ class ModalDialogSmallControlButtonCell: ModalDialogButtonCell {
     override var cellInsetX: CGFloat {return 1}
     override var cellInsetY: CGFloat {return 0}
     
-    override var textFont: NSFont {return FontConstants.Standard.mainFont_10}
+    override var textFont: NSFont {return standardFontSet.mainFont(size: 10)}
 }
 
 // Cell for search results navigation buttons (next/previous)
@@ -88,7 +88,7 @@ class ColoredNavigationButtonCell: ModalDialogButtonCell {
     
     override var borderRadius: CGFloat {return 3}
     
-    override var textColor: NSColor {return Colors.modalDialogNavButtonTextColor}
+    override var textColor: NSColor {.modalDialogNavButtonTextColor}
     override var textFont: NSFont {return Fonts.modalDialogNavButtonFont}
 }
 

@@ -19,7 +19,7 @@ class PopupMenuCell: NSPopUpButtonCell {
     var cellInsetX: CGFloat {return 0}
     var cellInsetY: CGFloat {return 0}
     var rectRadius: CGFloat {return 1}
-    var menuGradient: NSGradient {return Colors.sliderBarGradient}
+    var menuGradient: NSGradient {.sliderBarGradient}
     
     var titleFont: NSFont {return Fonts.popupMenuFont}
     var titleColor: NSColor {return Colors.Effects.defaultPopupMenuTextColor}
@@ -29,7 +29,7 @@ class PopupMenuCell: NSPopUpButtonCell {
     var arrowWidth: CGFloat {return 3}
     var arrowHeight: CGFloat {return 3}
     var arrowLineWidth: CGFloat {return 2}
-    var arrowColor: NSColor {return Colors.popupMenuArrowColor}
+    var arrowColor: NSColor {.popupMenuArrowColor}
     
     var textOffsetX: CGFloat {0}
     var textOffsetY: CGFloat {0}
@@ -75,9 +75,9 @@ class FontsPopupMenuCell: PopupMenuCell {
     override var arrowXMargin: CGFloat {return 10}
     override var arrowYMargin: CGFloat {return 6}
     override var arrowHeight: CGFloat {return 6}
-    override var arrowColor: NSColor {return Colors.lightPopupMenuArrowColor}
+    override var arrowColor: NSColor {.lightPopupMenuArrowColor}
     
-    override var menuGradient: NSGradient {return Colors.popupMenuGradient}
+    override var menuGradient: NSGradient {.popupMenuGradient}
     
     override var textOffsetY: CGFloat {3}
 }

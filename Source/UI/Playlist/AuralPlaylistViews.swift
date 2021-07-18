@@ -56,7 +56,7 @@ class GenericTableRowView: NSTableRowView {
             let selectionRect = self.bounds.insetBy(dx: 1, dy: 0)
             let selectionPath = NSBezierPath.init(roundedRect: selectionRect, xRadius: 2, yRadius: 2)
             
-            Colors.playlistSelectionBoxColor.setFill()
+            NSColor.playlistSelectionBoxColor.setFill()
             selectionPath.fill()
         }
     }
@@ -66,11 +66,11 @@ class BasicTableCellView: NSTableCellView {
     
     var rowSelectionStateFunction: () -> Bool = {false}
     
-    var textFont: NSFont = FontConstants.Standard.mainFont_10
-    var selectedTextFont: NSFont = FontConstants.Standard.mainFont_10
+    var textFont: NSFont = standardFontSet.mainFont(size: 10)
+    var selectedTextFont: NSFont = standardFontSet.mainFont(size: 10)
     
-    var textColor: NSColor = Colors.defaultLightTextColor
-    var selectedTextColor: NSColor = Colors.defaultSelectedLightTextColor
+    var textColor: NSColor = .defaultLightTextColor
+    var selectedTextColor: NSColor = .defaultSelectedLightTextColor
     
     var rowIsSelected: Bool {rowSelectionStateFunction()}
     

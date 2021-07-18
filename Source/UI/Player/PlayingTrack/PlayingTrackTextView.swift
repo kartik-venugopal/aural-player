@@ -240,15 +240,15 @@ class MenuBarPlayingTrackTextView: PlayingTrackTextView {
     private lazy var uiState: MenuBarPlayerUIState = objectGraph.menuBarPlayerUIState
     
     override var titleFont: NSFont {
-        FontConstants.Standard.mainFont_13
+        standardFontSet.mainFont(size: 13)
     }
     
     override var artistAlbumFont: NSFont {
-        FontConstants.Standard.mainFont_11
+        standardFontSet.mainFont(size: 11)
     }
     
     override var chapterTitleFont: NSFont {
-        FontConstants.Standard.mainFont_10
+        standardFontSet.mainFont(size: 10)
     }
     
     override var titleColor: NSColor {
@@ -256,11 +256,11 @@ class MenuBarPlayingTrackTextView: PlayingTrackTextView {
     }
     
     override var artistAlbumColor: NSColor {
-        ColorConstants.white90Percent
+        .white90Percent
     }
     
     override var chapterTitleColor: NSColor {
-        ColorConstants.white80Percent
+        .white80Percent
     }
     
     override var shouldShowArtist: Bool {

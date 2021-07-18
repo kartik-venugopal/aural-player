@@ -17,7 +17,7 @@ class PreferencesPopupMenuCell: PopupMenuCell {
     override var arrowXMargin: CGFloat {return 10}
     override var arrowYMargin: CGFloat {return 6}
     override var arrowHeight: CGFloat {return 4}
-    override var arrowColor: NSColor {return Colors.lightPopupMenuArrowColor}
+    override var arrowColor: NSColor {return .lightPopupMenuArrowColor}
     
-    override var menuGradient: NSGradient {return Colors.popupMenuGradient}
+    override var menuGradient: NSGradient {return .popupMenuGradient}
 }

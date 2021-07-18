@@ -15,7 +15,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
     
     override var nibName: String? {"Sidebar"}
     
-    let mainFont_14: NSFont = NSFont(name: "Play Regular", size: 13)!
+    let size14: NSFont = NSFont(name: "Play Regular", size: 13)!
     
     let categories: [TuneBrowserSidebarCategory] = TuneBrowserSidebarCategory.allCases
     
@@ -110,7 +110,7 @@ class TuneBrowserSidebarViewController: NSViewController, NSOutlineViewDelegate,
         cell.imageView?.image = nil
 
         cell.textField?.stringValue = text
-        cell.textField?.font = mainFont_14
+        cell.textField?.font = size14
         
         return cell
     }

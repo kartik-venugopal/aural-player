@@ -15,7 +15,7 @@ class MenuBarPlayerAudioViewController: PlayerAudioViewController {
     
     override func viewDidLoad() {
         
-        btnVolume.tintFunction = {ColorConstants.white70Percent}
+        btnVolume.tintFunction = {.white70Percent}
         btnVolume.reTint()
         
         super.viewDidLoad()

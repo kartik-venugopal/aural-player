@@ -11,18 +11,19 @@ import Cocoa
 
 class PresetsManagerTableHeaderCell: NSTableHeaderCell {
     
+    private static let lineColor = NSColor.white30Percent
+    
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
         stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withFont: Fonts.presetsManagerTableHeaderTextFont,
-                         andColor: Colors.presetsManagerTableHeaderTextColor)
+                         andColor: .presetsManagerTableHeaderTextColor)
 
         // Right Partition line
-        let lineColor = ColorConstants.white30Percent
         let cw = cellFrame.width
         let pline = cellFrame.insetBy(dx: cw / 2 - 0.5, dy: 5).offsetBy(dx: cw / 2 - 3, dy: -3)
         
         let path = NSBezierPath.init(rect: pline)
-        lineColor.setFill()
+        Self.lineColor.setFill()
         path.fill()
     }
 }
@@ -47,7 +48,7 @@ class PresetsManagerTableCellView: NSTableCellView {
             
             if let textField = self.textField {
                 
-                textField.textColor = isSelRow ? Colors.defaultSelectedLightTextColor : Colors.defaultLightTextColor
+                textField.textColor = isSelRow ? .defaultSelectedLightTextColor : .defaultLightTextColor
                 textField.font = isSelRow ? Fonts.presetsManagerTableSelectedTextFont : Fonts.presetsManagerTableTextFont
             }
         }

@@ -16,37 +16,37 @@ struct Fonts {
     
     private static let fontSchemesManager: FontSchemesManager = objectGraph.fontSchemesManager
     
-    static let menuFont: NSFont = FontConstants.Standard.mainFont_11
+    static let menuFont: NSFont = standardFontSet.mainFont(size: 11)
     
-    static let stringInputPopoverFont: NSFont = FontConstants.Standard.mainFont_12_5
-    static let stringInputPopoverErrorFont: NSFont = FontConstants.Standard.mainFont_11_5
+    static let stringInputPopoverFont: NSFont = standardFontSet.mainFont(size: 12.5)
+    static let stringInputPopoverErrorFont: NSFont = standardFontSet.mainFont(size: 11.5)
     
-    static let largeTabButtonFont: NSFont = FontConstants.Standard.captionFont_14
+    static let largeTabButtonFont: NSFont = standardFontSet.captionFont(size: 14)
     
-    static let helpInfoTextFont: NSFont = FontConstants.Standard.mainFont_12
+    static let helpInfoTextFont: NSFont = standardFontSet.mainFont(size: 12)
     
-    static let presetsManagerTableHeaderTextFont: NSFont = FontConstants.Standard.mainFont_13
-    static let presetsManagerTableTextFont: NSFont = FontConstants.Standard.mainFont_12
-    static let presetsManagerTableSelectedTextFont: NSFont = FontConstants.Standard.mainFont_12
+    static let presetsManagerTableHeaderTextFont: NSFont = standardFontSet.mainFont(size: 13)
+    static let presetsManagerTableTextFont: NSFont = standardFontSet.mainFont(size: 12)
+    static let presetsManagerTableSelectedTextFont: NSFont = standardFontSet.mainFont(size: 12)
     
     // Font used by the playlist tab view buttons
-    static let tabViewButtonFont: NSFont = FontConstants.Standard.mainFont_12
-    static let tabViewButtonBoldFont: NSFont = FontConstants.Standard.mainFont_12
+    static let tabViewButtonFont: NSFont = standardFontSet.mainFont(size: 12)
+    static let tabViewButtonBoldFont: NSFont = standardFontSet.mainFont(size: 12)
     
     // Font used by modal dialog buttons
-    static let modalDialogButtonFont: NSFont = FontConstants.Standard.mainFont_12
+    static let modalDialogButtonFont: NSFont = standardFontSet.mainFont(size: 12)
     
     // Font used by modal dialog control buttons
-    static let modalDialogControlButtonFont: NSFont = FontConstants.Standard.mainFont_11
+    static let modalDialogControlButtonFont: NSFont = standardFontSet.mainFont(size: 11)
     
     // Font used by the search modal dialog navigation buttons
-    static let modalDialogNavButtonFont: NSFont = FontConstants.Standard.mainFont_12
+    static let modalDialogNavButtonFont: NSFont = standardFontSet.mainFont(size: 12)
     
     // Font used by modal dialog check and radio buttons
-    static let checkRadioButtonFont: NSFont = FontConstants.Standard.mainFont_11
+    static let checkRadioButtonFont: NSFont = standardFontSet.mainFont(size: 11)
     
     // Font used by the popup menus
-    static let popupMenuFont: NSFont = FontConstants.Standard.mainFont_10
+    static let popupMenuFont: NSFont = standardFontSet.mainFont(size: 10)
     
     struct Player {
         

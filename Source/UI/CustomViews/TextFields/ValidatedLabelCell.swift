@@ -25,7 +25,7 @@ class ValidatedLabelCell: NSTextFieldCell {
         self.stringValue = ""
         
         // TODO: Make this configurable/generic
-        textColor = Colors.boxTextColor
+        textColor = .boxTextColor
     }
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {

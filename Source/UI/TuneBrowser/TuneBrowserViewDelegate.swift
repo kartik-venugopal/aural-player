@@ -11,7 +11,7 @@ import Cocoa
 
 class TuneBrowserViewDelegate: NSObject, NSOutlineViewDelegate, NSOutlineViewDataSource {
     
-    let textFont: NSFont = FontConstants.Auxiliary.size13
+    let textFont: NSFont = .auxiliary_size13
     
     @IBOutlet weak var browserView: TuneBrowserOutlineView!
     

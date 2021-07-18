@@ -33,7 +33,7 @@ class PrettyScroller: NSScroller {
         
         let drawPath = NSBezierPath.init(roundedRect: knobRect, xRadius: knobRadius, yRadius: knobRadius)
         
-        Colors.scrollerKnobColor.setFill()
+        NSColor.scrollerKnobColor.setFill()
         drawPath.fill()
     }
     
@@ -42,7 +42,7 @@ class PrettyScroller: NSScroller {
         let rect = dirtyRect.insetBy(dx: barInsetX, dy: barInsetY)
         let drawPath = NSBezierPath.init(roundedRect: rect, xRadius: barRadius, yRadius: barRadius)
         
-        Colors.scrollerBarColor.setFill()
+        NSColor.scrollerBarColor.setFill()
         drawPath.fill()
         
         self.drawKnob()

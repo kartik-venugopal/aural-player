@@ -386,13 +386,13 @@ struct Colors {
         }
         
         static var defaultSliderBackgroundGradient: NSGradient {
-            return NSGradient(starting: ColorConstants.white40Percent, ending: ColorConstants.white20Percent)!
+            return NSGradient(starting: .white40Percent, ending: .white20Percent)!
         }
         
         // Fill color of all slider knobs
-        static let defaultActiveUnitColor: NSColor = NSColor(red: 0, green: 0.8, blue: 0, alpha: 1)
-        static let defaultBypassedUnitColor: NSColor = ColorConstants.white60Percent
-        static let defaultSuppressedUnitColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0, alpha: 1)
+        static let defaultActiveUnitColor: NSColor = NSColor(red: 0, green: 0.8, blue: 0)
+        static let defaultBypassedUnitColor: NSColor = .white60Percent
+        static let defaultSuppressedUnitColor: NSColor = NSColor(red: 0.8, green: 0.6, blue: 0)
         
         static let defaultActiveSliderGradient: NSGradient = {
             return NSGradient(starting: defaultActiveUnitColor, ending: defaultActiveUnitColor)!
@@ -406,15 +406,10 @@ struct Colors {
             return NSGradient(starting: defaultSuppressedUnitColor, ending: defaultSuppressedUnitColor)!
         }()
         
-        static let defaultPopupMenuGradient: NSGradient = {
-            
-            let backgroundStart = ColorConstants.white40Percent
-            let backgroundEnd =  ColorConstants.white20Percent
-            return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
-        }()
+        static let defaultPopupMenuGradient: NSGradient = NSGradient(starting: .white40Percent, ending: .white20Percent)!
         
         // Color of the displayed text in popup menus
-        static let defaultPopupMenuTextColor: NSColor = ColorConstants.white90Percent
+        static let defaultPopupMenuTextColor: NSColor = .white90Percent
         
         static let defaultTickColor: NSColor = NSColor.black
     }
@@ -422,88 +417,4 @@ struct Colors {
     static var filterChartTextColor: NSColor {
         return Effects.functionValueTextColor
     }
-    
-    // TODO: Rename these constants to reflect that they are constants (not dictated by the system color scheme).
-    
-    static let presetsManagerTableHeaderTextColor: NSColor = ColorConstants.white85Percent
-    
-    // Color of text inside the playlist (non-selected items)
-    static let defaultLightTextColor: NSColor = ColorConstants.white60Percent
-    
-    // Color of selected item text inside the playlist
-    static let defaultSelectedLightTextColor: NSColor = NSColor.white
-    
-    // Fill color of box drawn around selected playlist item
-    static let playlistSelectionBoxColor: NSColor = ColorConstants.white15Percent
-    
-    // Color used to outline tab view buttons
-    static let tabViewButtonOutlineColor: NSColor = NSColor(white: 0.65, alpha: 1)
-    
-    // Color used for text in tab view buttons
-    static let tabViewButtonTextColor: NSColor = ColorConstants.white90Percent
-    
-    // Color of the arrow drawn on popup menus
-    static let popupMenuArrowColor: NSColor = ColorConstants.white10Percent
-    
-    // A lighter version of popupMenuArrowColor
-    static let lightPopupMenuArrowColor: NSColor = ColorConstants.white80Percent
-    
-    static let sliderBarGradient: NSGradient = {
-
-        let backgroundStart = ColorConstants.white70Percent
-        let backgroundEnd =  ColorConstants.white20Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-
-        return barBackgroundGradient!
-    }()
-
-    static let popupMenuGradient: NSGradient = {
-
-        let backgroundStart = ColorConstants.white35Percent
-        let backgroundEnd =  ColorConstants.white10Percent
-        let barBackgroundGradient = NSGradient(starting: backgroundStart, ending: backgroundEnd)
-
-        return barBackgroundGradient!
-    }()
-
-    static let scrollerKnobColor: NSColor = ColorConstants.white40Percent
-    static let scrollerBarColor: NSColor = ColorConstants.white25Percent
-    
-    // Color of the ticks/notches on sliders
-    static let sliderNotchColor: NSColor = NSColor.black
-    
-    // Fill color of box drawn around selected tab view item
-    static let tabViewSelectionBoxColor: NSColor = NSColor(white: 0.125, alpha: 1)
-    
-    // Text color of modal dialog buttons
-    static let modalDialogButtonTextColor: NSColor = ColorConstants.white90Percent
-    
-    static let modalDialogButtonGradient: NSGradient = {
-        
-        let backgroundStart = ColorConstants.white50Percent
-        let backgroundEnd =  ColorConstants.white20Percent
-        return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
-    }()
-    
-    // Text color of modal dialog buttons
-    static let modalDialogButtonTextColor_disabled: NSColor = ColorConstants.white50Percent
-    
-    static let modalDialogButtonGradient_disabled: NSGradient = {
-        
-        let backgroundStart = ColorConstants.white25Percent
-        let backgroundEnd =  ColorConstants.white10Percent
-        return NSGradient(starting: backgroundStart, ending: backgroundEnd)!
-    }()
-    
-    // Fill color of text in modal dialog navigation buttons (search)
-    static let modalDialogNavButtonTextColor: NSColor = ColorConstants.white90Percent
-    
-    // Color of cursor inside text fields
-    static let textFieldCursorColor: NSColor = ColorConstants.white50Percent
-    
-    // Background color of the popover view
-    static let popoverBackgroundColor: NSColor = ColorConstants.white15Percent
-    
-    // Color of text inside any of the container boxes
-    static let boxTextColor: NSColor = ColorConstants.white70Percent
 }

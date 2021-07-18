@@ -43,7 +43,7 @@ class IntervalPicker: NSDatePicker {
 
         self.datePickerStyle = .textFieldAndStepper
         self.datePickerElements = .hourMinuteSecond
-        self.font = FontConstants.Standard.mainFont_11
+        self.font = standardFontSet.mainFont(size: 11)
         
         // 24 hour clock (don't want AM/PM)
         self.locale = Locale(identifier: "en_GB")
@@ -69,9 +69,9 @@ class FormattedIntervalLabel: NSTextField {
     override func awakeFromNib() {
         
         self.alignment = .left
-        self.font = FontConstants.Standard.mainFont_11
+        self.font = standardFontSet.mainFont(size: 11)
         self.isBordered = false
         self.drawsBackground = false
-        self.textColor = Colors.defaultLightTextColor
+        self.textColor = .defaultLightTextColor
     }
 }

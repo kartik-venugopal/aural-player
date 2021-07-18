@@ -159,7 +159,7 @@ class EffectsPresetsManagerGenericViewController: NSViewController, NSTableViewD
         // No change in preset name. Nothing to be done.
         if newPresetName == oldPresetName {return}
         
-        editedTextField.textColor = Colors.defaultSelectedLightTextColor
+        editedTextField.textColor = .defaultSelectedLightTextColor
         
         // TODO: What if the string is too long ?
         

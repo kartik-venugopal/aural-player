@@ -251,7 +251,7 @@ class ThemePreviewView: NSView {
         }
     }
     
-    var playlistTrackTitleColor: NSColor = ColorConstants.white70Percent {
+    var playlistTrackTitleColor: NSColor = .white70Percent {
         
         didSet {
             playlistTrackTitleLabels.forEach({$0.textColor = playlistTrackTitleColor})
@@ -272,35 +272,35 @@ class ThemePreviewView: NSView {
         }
     }
     
-    var playlistSelectedDurationColor: NSColor = ColorConstants.white70Percent {
+    var playlistSelectedDurationColor: NSColor = .white70Percent {
         
         didSet {
             lblPlaylistSelectedDuration.textColor = playlistSelectedDurationColor
         }
     }
     
-    var playlistSelectionBoxColor: NSColor = ColorConstants.white15Percent {
+    var playlistSelectionBoxColor: NSColor = .white15Percent {
         
         didSet {
             playlistSelectionBox.fillColor = playlistSelectionBoxColor
         }
     }
     
-    var playingTrackIconColor: NSColor = ColorConstants.green75Percent {
+    var playingTrackIconColor: NSColor = .green75Percent {
         
         didSet {
             imgPlayingTrack.reTint()
         }
     }
     
-    var activeUnitColor: NSColor = ColorConstants.green75Percent {
+    var activeUnitColor: NSColor = .green75Percent {
         
         didSet {
             btnBypass.reTint()
         }
     }
     
-    var effectsCaptionColor: NSColor = ColorConstants.white50Percent {
+    var effectsCaptionColor: NSColor = .white50Percent {
         
         didSet {
             lblEffectsCaption.textColor = effectsCaptionColor

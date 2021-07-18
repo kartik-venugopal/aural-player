@@ -91,23 +91,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .standard:  return FontConstants.Standard.mainFont_15
+        case .standard:  return standardFontSet.mainFont(size: 15)
             
-        case .rounded:  return FontConstants.Rounded.mainFont_16
+        case .rounded:  return roundedFontSet.mainFont(size: 16)
             
-        case .programmer:  return FontConstants.Programmer.mainFont_14
+        case .programmer:  return programmerFontSet.mainFont(size: 14)
             
-        case .futuristic:   return FontConstants.Futuristic.mainFont_19
+        case .futuristic:   return futuristicFontSet.mainFont(size: 19)
             
-        case .novelist:  return FontConstants.Novelist.mainFont_15
+        case .novelist:  return novelistFontSet.mainFont(size: 15)
             
-        case .soySauce:     return FontConstants.SoySauce.mainFont_25
+        case .soySauce:     return soySauceFontSet.mainFont(size: 25)
             
-        case .gothic:    return FontConstants.Gothic.mainFont_14
+        case .gothic:    return gothicFontSet.mainFont(size: 14)
             
-        case .papyrus:      return FontConstants.Papyrus.mainFont_16_5
+        case .papyrus:      return papyrusFontSet.mainFont(size: 16.5)
             
-        case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_14
+        case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 14)
             
         }
     }
@@ -116,23 +116,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .standard:  return FontConstants.Standard.mainFont_13
+        case .standard:  return standardFontSet.mainFont(size: 13)
             
-        case .rounded:  return FontConstants.Rounded.mainFont_14
+        case .rounded:  return roundedFontSet.mainFont(size: 14)
             
-        case .programmer:  return FontConstants.Programmer.mainFont_12
+        case .programmer:  return programmerFontSet.mainFont(size: 12)
             
-        case .futuristic:   return FontConstants.Futuristic.mainFont_16_5
+        case .futuristic:   return futuristicFontSet.mainFont(size: 16.5)
             
-        case .novelist:  return FontConstants.Novelist.mainFont_13
+        case .novelist:  return novelistFontSet.mainFont(size: 13)
             
-        case .soySauce:     return FontConstants.SoySauce.mainFont_22
+        case .soySauce:     return soySauceFontSet.mainFont(size: 22)
             
-        case .gothic:    return FontConstants.Gothic.mainFont_12
+        case .gothic:    return gothicFontSet.mainFont(size: 12)
             
-        case .papyrus:      return FontConstants.Papyrus.mainFont_15
+        case .papyrus:      return papyrusFontSet.mainFont(size: 15)
             
-        case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_12
+        case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 12)
             
         }
     }
@@ -141,23 +141,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
             
-        case .standard:  return FontConstants.Standard.mainFont_11
+        case .standard:  return standardFontSet.mainFont(size: 11)
             
-        case .rounded:  return FontConstants.Rounded.mainFont_12
+        case .rounded:  return roundedFontSet.mainFont(size: 12)
             
-        case .programmer:  return FontConstants.Programmer.mainFont_10
+        case .programmer:  return programmerFontSet.mainFont(size: 10)
             
-        case .futuristic:   return FontConstants.Futuristic.mainFont_14_5
+        case .futuristic:   return futuristicFontSet.mainFont(size: 14.5)
             
-        case .novelist:  return FontConstants.Novelist.mainFont_11
+        case .novelist:  return novelistFontSet.mainFont(size: 11)
             
-        case .soySauce:     return FontConstants.SoySauce.mainFont_18
+        case .soySauce:     return soySauceFontSet.mainFont(size: 18)
             
-        case .gothic:    return FontConstants.Gothic.mainFont_10
+        case .gothic:    return gothicFontSet.mainFont(size: 10)
             
-        case .papyrus:      return FontConstants.Papyrus.mainFont_13
+        case .papyrus:      return papyrusFontSet.mainFont(size: 13)
             
-        case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_10
+        case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 10)
             
         }
     }
@@ -166,23 +166,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_11
+            case .standard:  return standardFontSet.mainFont(size: 11)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_12
+            case .rounded:  return roundedFontSet.mainFont(size: 12)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_11
+            case .programmer:  return programmerFontSet.mainFont(size: 11)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_13_5
+            case .futuristic:   return futuristicFontSet.mainFont(size: 13.5)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_12
+            case .novelist:  return novelistFontSet.mainFont(size: 12)
                 
-            case .soySauce:     return FontConstants.SoySauce.mainFont_17
+            case .soySauce:     return soySauceFontSet.mainFont(size: 17)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_11
+            case .gothic:    return gothicFontSet.mainFont(size: 11)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_13
+            case .papyrus:      return papyrusFontSet.mainFont(size: 13)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_11
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 11)
         }
     }
     
@@ -190,23 +190,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_9
+            case .standard:  return standardFontSet.mainFont(size: 9)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_10_5
+            case .rounded:  return roundedFontSet.mainFont(size: 10.5)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_9
+            case .programmer:  return programmerFontSet.mainFont(size: 9)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_11
+            case .futuristic:   return futuristicFontSet.mainFont(size: 11)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_9
+            case .novelist:  return novelistFontSet.mainFont(size: 9)
                 
-            case .soySauce:     return FontConstants.SoySauce.mainFont_14
+            case .soySauce:     return soySauceFontSet.mainFont(size: 14)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_9
+            case .gothic:    return gothicFontSet.mainFont(size: 9)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_11
+            case .papyrus:      return papyrusFontSet.mainFont(size: 11)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_9
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 9)
         }
     }
     
@@ -214,23 +214,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_12
+            case .standard:  return standardFontSet.mainFont(size: 12)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_13
+            case .rounded:  return roundedFontSet.mainFont(size: 13)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_12
+            case .programmer:  return programmerFontSet.mainFont(size: 12)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_15_5
+            case .futuristic:   return futuristicFontSet.mainFont(size: 15.5)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_12_5
+            case .novelist:  return novelistFontSet.mainFont(size: 12.5)
                 
-            case .soySauce:     return FontConstants.SoySauce.mainFont_20
+            case .soySauce:     return soySauceFontSet.mainFont(size: 20)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_11_5
+            case .gothic:    return gothicFontSet.mainFont(size: 11.5)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_13_5
+            case .papyrus:      return papyrusFontSet.mainFont(size: 13.5)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_12
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 12)
         }
     }
     
@@ -262,23 +262,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_12_5
+            case .standard:  return standardFontSet.mainFont(size: 12.5)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_14
+            case .rounded:  return roundedFontSet.mainFont(size: 14)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_12_5
+            case .programmer:  return programmerFontSet.mainFont(size: 12.5)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_16
+            case .futuristic:   return futuristicFontSet.mainFont(size: 16)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_13_5
+            case .novelist:  return novelistFontSet.mainFont(size: 13.5)
                 
-            case .soySauce:  return FontConstants.SoySauce.mainFont_22
+            case .soySauce:  return soySauceFontSet.mainFont(size: 22)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_12_5
+            case .gothic:    return gothicFontSet.mainFont(size: 12.5)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_14_5
+            case .papyrus:      return papyrusFontSet.mainFont(size: 14.5)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_12_5
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 12.5)
                 
         }
     }
@@ -311,23 +311,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_12_5
+            case .standard:  return standardFontSet.mainFont(size: 12.5)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_14
+            case .rounded:  return roundedFontSet.mainFont(size: 14)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_12_5
+            case .programmer:  return programmerFontSet.mainFont(size: 12.5)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_16
+            case .futuristic:   return futuristicFontSet.mainFont(size: 16)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_13_5
+            case .novelist:  return novelistFontSet.mainFont(size: 13.5)
                 
-            case .soySauce:  return FontConstants.SoySauce.mainFont_22
+            case .soySauce:  return soySauceFontSet.mainFont(size: 22)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_12_5
+            case .gothic:    return gothicFontSet.mainFont(size: 12.5)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_14_5
+            case .papyrus:      return papyrusFontSet.mainFont(size: 14.5)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_12_5
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 12.5)
         }
     }
     
@@ -335,23 +335,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.captionFont_14
+            case .standard:  return standardFontSet.captionFont(size: 14)
                 
-            case .rounded:  return FontConstants.Rounded.captionFont_14
+            case .rounded:  return roundedFontSet.captionFont(size: 14)
                 
-            case .programmer:  return FontConstants.Programmer.captionFont_13
+            case .programmer:  return programmerFontSet.captionFont(size: 13)
                 
-            case .futuristic:   return FontConstants.Futuristic.captionFont_15
+            case .futuristic:   return futuristicFontSet.captionFont(size: 15)
                 
-            case .novelist:  return FontConstants.Novelist.captionFont_14
+            case .novelist:  return novelistFontSet.captionFont(size: 14)
                 
-            case .soySauce:  return FontConstants.SoySauce.captionFont_15
+            case .soySauce:  return soySauceFontSet.captionFont(size: 15)
                 
-            case .gothic:    return FontConstants.Gothic.captionFont_14
+            case .gothic:    return gothicFontSet.captionFont(size: 14)
                 
-            case .papyrus:      return FontConstants.Papyrus.captionFont_11
+            case .papyrus:      return papyrusFontSet.captionFont(size: 11)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.captionFont_13
+            case .poolsideFM:   return poolsideFMFontSet.captionFont(size: 13)
         }
     }
     
@@ -359,23 +359,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.captionFont_15
+            case .standard:  return standardFontSet.captionFont(size: 15)
                 
-            case .rounded:  return FontConstants.Rounded.captionFont_14
+            case .rounded:  return roundedFontSet.captionFont(size: 14)
                 
-            case .programmer:  return FontConstants.Programmer.captionFont_15
+            case .programmer:  return programmerFontSet.captionFont(size: 15)
                 
-            case .futuristic:   return FontConstants.Futuristic.captionFont_15
+            case .futuristic:   return futuristicFontSet.captionFont(size: 15)
                 
-            case .novelist:  return FontConstants.Novelist.captionFont_14
+            case .novelist:  return novelistFontSet.captionFont(size: 14)
                 
-            case .soySauce:  return FontConstants.SoySauce.captionFont_15
+            case .soySauce:  return soySauceFontSet.captionFont(size: 15)
                 
-            case .gothic:    return FontConstants.Gothic.captionFont_14
+            case .gothic:    return gothicFontSet.captionFont(size: 14)
                 
-            case .papyrus:      return FontConstants.Papyrus.captionFont_10
+            case .papyrus:      return papyrusFontSet.captionFont(size: 10)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.captionFont_13_5
+            case .poolsideFM:   return poolsideFMFontSet.captionFont(size: 13.5)
         }
     }
     
@@ -383,23 +383,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_12
+            case .standard:  return standardFontSet.mainFont(size: 12)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_13
+            case .rounded:  return roundedFontSet.mainFont(size: 13)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_12
+            case .programmer:  return programmerFontSet.mainFont(size: 12)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_15_5
+            case .futuristic:   return futuristicFontSet.mainFont(size: 15.5)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_12_5
+            case .novelist:  return novelistFontSet.mainFont(size: 12.5)
                 
-            case .soySauce:  return FontConstants.SoySauce.mainFont_20
+            case .soySauce:  return soySauceFontSet.mainFont(size: 20)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_11_5
+            case .gothic:    return gothicFontSet.mainFont(size: 11.5)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_13_5
+            case .papyrus:      return papyrusFontSet.mainFont(size: 13.5)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_12
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 12)
         }
     }
     
@@ -407,23 +407,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.captionFont_16
+            case .standard:  return standardFontSet.captionFont(size: 16)
                 
-            case .rounded:  return FontConstants.Rounded.captionFont_15
+            case .rounded:  return roundedFontSet.captionFont(size: 15)
                 
-            case .programmer:  return FontConstants.Programmer.captionFont_16
+            case .programmer:  return programmerFontSet.captionFont(size: 16)
                 
-            case .futuristic:   return FontConstants.Futuristic.captionFont_18
+            case .futuristic:   return futuristicFontSet.captionFont(size: 18)
                 
-            case .novelist:  return FontConstants.Novelist.captionFont_18
+            case .novelist:  return novelistFontSet.captionFont(size: 18)
                 
-            case .soySauce:  return FontConstants.SoySauce.captionFont_18
+            case .soySauce:  return soySauceFontSet.captionFont(size: 18)
                 
-            case .gothic:    return FontConstants.Gothic.captionFont_17
+            case .gothic:    return gothicFontSet.captionFont(size: 17)
                 
-            case .papyrus:   return FontConstants.Papyrus.captionFont_12
+            case .papyrus:   return papyrusFontSet.captionFont(size: 12)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.captionFont_16
+            case .poolsideFM:   return poolsideFMFontSet.captionFont(size: 16)
         }
     }
     
@@ -431,23 +431,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.captionFont_18
+            case .standard:  return standardFontSet.captionFont(size: 18)
                 
-            case .rounded:  return FontConstants.Rounded.captionFont_16
+            case .rounded:  return roundedFontSet.captionFont(size: 16)
                 
-            case .programmer:  return FontConstants.Programmer.captionFont_16
+            case .programmer:  return programmerFontSet.captionFont(size: 16)
                 
-            case .futuristic:   return FontConstants.Futuristic.captionFont_19
+            case .futuristic:   return futuristicFontSet.captionFont(size: 19)
                 
-            case .novelist:  return FontConstants.Novelist.captionFont_15
+            case .novelist:  return novelistFontSet.captionFont(size: 15)
                 
-            case .soySauce:  return FontConstants.SoySauce.captionFont_19
+            case .soySauce:  return soySauceFontSet.captionFont(size: 19)
                 
-            case .gothic:    return FontConstants.Gothic.captionFont_17
+            case .gothic:    return gothicFontSet.captionFont(size: 17)
                 
-            case .papyrus:      return FontConstants.Papyrus.captionFont_12_5
+            case .papyrus:      return papyrusFontSet.captionFont(size: 12.5)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.captionFont_16
+            case .poolsideFM:   return poolsideFMFontSet.captionFont(size: 16)
         }
     }
     
@@ -455,23 +455,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_11
+            case .standard:  return standardFontSet.mainFont(size: 11)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_12_5
+            case .rounded:  return roundedFontSet.mainFont(size: 12.5)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_11
+            case .programmer:  return programmerFontSet.mainFont(size: 11)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_14
+            case .futuristic:   return futuristicFontSet.mainFont(size: 14)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_11_5
+            case .novelist:  return novelistFontSet.mainFont(size: 11.5)
                 
-            case .soySauce:  return FontConstants.SoySauce.mainFont_18
+            case .soySauce:  return soySauceFontSet.mainFont(size: 18)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_11
+            case .gothic:    return gothicFontSet.mainFont(size: 11)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_12
+            case .papyrus:      return papyrusFontSet.mainFont(size: 12)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_11
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 11)
         }
     }
     
@@ -479,23 +479,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.captionFont_14
+            case .standard:  return standardFontSet.captionFont(size: 14)
                 
-            case .rounded:  return FontConstants.Rounded.captionFont_13_5
+            case .rounded:  return roundedFontSet.captionFont(size: 13.5)
                 
-            case .programmer:  return FontConstants.Programmer.captionFont_13
+            case .programmer:  return programmerFontSet.captionFont(size: 13)
                 
-            case .futuristic:   return FontConstants.Futuristic.captionFont_14
+            case .futuristic:   return futuristicFontSet.captionFont(size: 14)
                 
-            case .novelist:  return FontConstants.Novelist.captionFont_12_5
+            case .novelist:  return novelistFontSet.captionFont(size: 12.5)
                 
-            case .soySauce:  return FontConstants.SoySauce.captionFont_14
+            case .soySauce:  return soySauceFontSet.captionFont(size: 14)
                 
-            case .gothic:    return FontConstants.Gothic.captionFont_14
+            case .gothic:    return gothicFontSet.captionFont(size: 14)
                 
-            case .papyrus:      return FontConstants.Papyrus.captionFont_10
+            case .papyrus:      return papyrusFontSet.captionFont(size: 10)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.captionFont_13
+            case .poolsideFM:   return poolsideFMFontSet.captionFont(size: 13)
         }
     }
     
@@ -503,23 +503,23 @@ enum FontSchemePreset: String, CaseIterable {
         
         switch self {
                 
-            case .standard:  return FontConstants.Standard.mainFont_9
+            case .standard:  return standardFontSet.mainFont(size: 9)
                 
-            case .rounded:  return FontConstants.Rounded.mainFont_10
+            case .rounded:  return roundedFontSet.mainFont(size: 10)
                 
-            case .programmer:  return FontConstants.Programmer.mainFont_9
+            case .programmer:  return programmerFontSet.mainFont(size: 9)
                 
-            case .futuristic:   return FontConstants.Futuristic.mainFont_12
+            case .futuristic:   return futuristicFontSet.mainFont(size: 12)
                 
-            case .novelist:  return FontConstants.Novelist.mainFont_11
+            case .novelist:  return novelistFontSet.mainFont(size: 11)
                 
-            case .soySauce:  return FontConstants.SoySauce.mainFont_14
+            case .soySauce:  return soySauceFontSet.mainFont(size: 14)
                 
-            case .gothic:    return FontConstants.Gothic.mainFont_9
+            case .gothic:    return gothicFontSet.mainFont(size: 9)
                 
-            case .papyrus:      return FontConstants.Papyrus.mainFont_9
+            case .papyrus:      return papyrusFontSet.mainFont(size: 9)
                 
-            case .poolsideFM:   return FontConstants.PoolsideFM.mainFont_9
+            case .poolsideFM:   return poolsideFMFontSet.mainFont(size: 9)
         }
     }
     

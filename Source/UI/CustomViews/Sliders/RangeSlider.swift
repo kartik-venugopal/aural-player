@@ -39,9 +39,9 @@ enum DraggedSlider {
     case end
 }
 
-fileprivate let bandPassColor: NSColor = NSColor(red: 0, green: 0.45, blue: 0, alpha: 1)
-fileprivate let bypassedColor: NSColor = ColorConstants.white35Percent
-fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0, alpha: 1)
+fileprivate let bandPassColor: NSColor = NSColor(red: 0, green: 0.45, blue: 0)
+fileprivate let bypassedColor: NSColor = .white35Percent
+fileprivate let suppressedColor: NSColor = NSColor(red: 0.53, green: 0.4, blue: 0)
 
 @IBDesignable
 class RangeSlider: NSControl, EffectsUnitSliderProtocol {
@@ -204,7 +204,7 @@ class RangeSlider: NSControl, EffectsUnitSliderProtocol {
     }()
     
     // TODO: Change this to a computed color
-    var knobColor: NSColor {return ColorConstants.white50Percent}
+    var knobColor: NSColor {return .white50Percent}
     
     var barFillColor: NSColor {
         

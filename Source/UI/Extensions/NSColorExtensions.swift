@@ -11,6 +11,14 @@ import Cocoa
 
 extension NSColor {
     
+    convenience init(white: CGFloat) {
+        self.init(white: white, alpha: 1)
+    }
+    
+    convenience init(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        self.init(red: red, green: green, blue: blue, alpha: 1)
+    }
+    
     // Returns whether or not this color is opaque (i.e. alpha == 1)
     var isOpaque: Bool {
         return self.alphaComponent == 1
@@ -27,7 +35,7 @@ extension NSColor {
         
         // If the brightness is under a threshold, it is too dark for black to be visible as its shadow. In that case, return a shadow color that has a bit of brightness to it.
         if myBrightness < 0.15 {
-            return NSColor(white: min(0.2, myBrightness + 0.15), alpha: 1)
+            return NSColor(white: min(0.2, myBrightness + 0.15))
         }
         
         // For reasonably bright colors, black is the best shadow color.

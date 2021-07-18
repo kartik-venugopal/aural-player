@@ -60,10 +60,10 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
         
         didSet {
             
-            lyricsView.font = FontConstants.Standard.mainFont_13
+            lyricsView.font = standardFontSet.mainFont(size: 13)
             lyricsView.alignment = .center
-            lyricsView.backgroundColor = Colors.popoverBackgroundColor
-            lyricsView.textColor = Colors.boxTextColor
+            lyricsView.backgroundColor = .popoverBackgroundColor
+            lyricsView.textColor = .boxTextColor
             lyricsView.enclosingScrollView?.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
             lyricsView.enclosingScrollView?.scrollerInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: -9)
         }

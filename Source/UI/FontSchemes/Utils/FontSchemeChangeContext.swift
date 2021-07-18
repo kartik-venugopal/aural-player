@@ -14,6 +14,6 @@ import Foundation
  */
 class FontSchemeChangeContext {
     
-    var textFontName: String = FontConstants.Standard.mainFont_10.fontName
-    var headingFontName: String = FontConstants.Standard.captionFont_13.fontName
+    var textFontName: String = standardFontName
+    var headingFontName: String = standardCaptionFontName
 }
