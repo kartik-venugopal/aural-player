@@ -51,6 +51,8 @@ class MainWindowController: NSWindowController, Destroyable {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
+    
     // MARK: Setup
     
     override func awakeFromNib() {
@@ -93,7 +95,7 @@ class MainWindowController: NSWindowController, Destroyable {
         btnToggleEffects.onIf(windowLayoutsManager.isShowingEffects)
         
         applyColorScheme(colorSchemesManager.systemScheme)
-        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
+        rootContainerBox.cornerRadius = uiState.cornerRadius
         
         // Hackish fix to properly position settings menu button (hamburger icon) on older systems.
         if !SystemUtils.isBigSur {
@@ -190,7 +192,7 @@ class MainWindowController: NSWindowController, Destroyable {
     private func applyTheme() {
         
         applyColorScheme(colorSchemesManager.systemScheme)
-        changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
+        changeWindowCornerRadius(uiState.cornerRadius)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {

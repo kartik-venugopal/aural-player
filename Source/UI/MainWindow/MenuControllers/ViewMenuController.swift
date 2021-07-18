@@ -52,6 +52,8 @@ class ViewMenuController: NSObject, NSMenuDelegate {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         manageLayoutsMenuItem.enableIf(!windowLayoutsManager.userDefinedPresets.isEmpty)
@@ -81,7 +83,7 @@ class ViewMenuController: NSObject, NSMenuDelegate {
         
         playerViewMenuItem.off()
         
-        cornerRadiusStepper.integerValue = WindowAppearanceState.cornerRadius.roundedInt
+        cornerRadiusStepper.integerValue = uiState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
     }
  

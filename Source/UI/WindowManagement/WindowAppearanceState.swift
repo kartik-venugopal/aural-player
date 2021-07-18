@@ -13,14 +13,14 @@ import Foundation
 class WindowAppearanceState {
     
     static let defaultCornerRadius: CGFloat = 3
-    static var cornerRadius: CGFloat = defaultCornerRadius
+    var cornerRadius: CGFloat = defaultCornerRadius
     
-    static func initialize(_ persistentState: WindowUIPersistentState?) {
-        Self.cornerRadius = persistentState?.cornerRadius ?? WindowAppearanceState.defaultCornerRadius
+    init(persistentState: WindowAppearancePersistentState?) {
+        cornerRadius = persistentState?.cornerRadius ?? WindowAppearanceState.defaultCornerRadius
     }
     
-    static var persistentState: WindowUIPersistentState {
-        WindowUIPersistentState(cornerRadius: cornerRadius)
+    var persistentState: WindowAppearancePersistentState {
+        WindowAppearancePersistentState(cornerRadius: cornerRadius)
     }
 }
 

@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Persistent state for the Player UI.
 ///
-/// - SeeAlso: `PlayerViewState`
+/// - SeeAlso: `PlayerUIState`
 ///
 struct PlayerUIPersistentState: Codable {
     

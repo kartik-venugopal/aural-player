@@ -111,6 +111,7 @@ class ObjectGraph {
     
     lazy var playlistUIState: PlaylistUIState = PlaylistUIState(persistentState: persistentState.ui?.playlist)
     lazy var visualizerUIState: VisualizerUIState = VisualizerUIState(persistentState: persistentState.ui?.visualizer)
+    lazy var windowAppearanceState: WindowAppearanceState = WindowAppearanceState(persistentState: persistentState.ui?.windowAppearance)
     
     lazy var themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     lazy var fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
@@ -136,9 +137,6 @@ class ObjectGraph {
             _ = remoteControlManager
         }
         
-        // Initialize utility classes.
-        
-        WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
         TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
         
         DispatchQueue.global(qos: .background).async {
@@ -191,7 +189,7 @@ class ObjectGraph {
                                                player: playerUIState.persistentState,
                                                playlist: playlistUIState.persistentState,
                                                visualizer: visualizerUIState.persistentState,
-                                               windowAppearance: WindowAppearanceState.persistentState,
+                                               windowAppearance: windowAppearanceState.persistentState,
                                                menuBarPlayer: menuBarPlayerUIState.persistentState,
                                                controlBarPlayer: controlBarPlayerUIState.persistentState,
                                                tuneBrowser: TuneBrowserState.persistentState)

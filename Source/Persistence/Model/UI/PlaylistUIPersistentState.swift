@@ -14,7 +14,7 @@ typealias PlaylistTypeString = String
 ///
 /// Persistent state for the Playlist UI.
 ///
-/// - SeeAlso: `PlaylistViewState`
+/// - SeeAlso: `PlaylistUIState`
 ///
 struct PlaylistUIPersistentState: Codable {
     

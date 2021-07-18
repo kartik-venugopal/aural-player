@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Persistent state for the playlist.
 ///
-/// - SeeAlso:  `Playlist`
+/// - SeeAlso:  `PlaylistUIState`
 ///
 struct PlaylistPersistentState: Codable {
     

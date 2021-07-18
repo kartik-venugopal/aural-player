@@ -22,7 +22,7 @@ struct UIPersistentState: Codable {
     let player: PlayerUIPersistentState?
     let playlist: PlaylistUIPersistentState?
     let visualizer: VisualizerUIPersistentState?
-    let windowAppearance: WindowUIPersistentState?
+    let windowAppearance: WindowAppearancePersistentState?
     
     let menuBarPlayer: MenuBarPlayerUIPersistentState?
     let controlBarPlayer: ControlBarPlayerUIPersistentState?

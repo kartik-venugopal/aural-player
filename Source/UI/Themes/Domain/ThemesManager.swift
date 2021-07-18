@@ -19,6 +19,8 @@ class ThemesManager: MappedPresets<Theme> {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
+    
     init(persistentState: ThemesPersistentState?, fontSchemesManager: FontSchemesManager) {
         
         let systemDefinedThemes = ThemePreset.allCases.map {$0.theme}
@@ -33,7 +35,7 @@ class ThemesManager: MappedPresets<Theme> {
         
         fontSchemesManager.applyScheme(theme.fontScheme)
         colorSchemesManager.applyScheme(theme.colorScheme)
-        WindowAppearanceState.cornerRadius = theme.windowAppearance.cornerRadius
+        uiState.cornerRadius = theme.windowAppearance.cornerRadius
         
         messenger.publish(.applyTheme)
     }

@@ -16,11 +16,13 @@ class WindowCornerRadiusMenuItemView: NSView {
     
     private lazy var messenger = Messenger(for: self)
     
+    private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
+    
     @IBAction func cornerRadiusStepperAction(_ sender: NSStepper) {
         
-        WindowAppearanceState.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
+        uiState.cornerRadius = CGFloat(cornerRadiusStepper.integerValue)
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
         
-        messenger.publish(.windowAppearance_changeCornerRadius, payload: WindowAppearanceState.cornerRadius)
+        messenger.publish(.windowAppearance_changeCornerRadius, payload: uiState.cornerRadius)
     }
 }

@@ -14,7 +14,7 @@ import Foundation
 ///
 /// - SeeAlso: `WindowAppearanceState`
 ///
-struct WindowUIPersistentState: Codable {
+struct WindowAppearancePersistentState: Codable {
     
     let cornerRadius: CGFloat?
 }

@@ -25,6 +25,7 @@ class ChaptersListWindowController: NSWindowController, ModalComponentProtocol, 
     private lazy var messenger = Messenger(for: self)
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
+    private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
     
     // The chapters list window is only considered modal when it is the key window AND
     // the search bar has focus (i.e. a search is being performed).
@@ -35,7 +36,7 @@ class ChaptersListWindowController: NSWindowController, ModalComponentProtocol, 
     override func windowDidLoad() {
         
         changeBackgroundColor(colorSchemesManager.systemScheme.general.backgroundColor)
-        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
+        rootContainerBox.cornerRadius = uiState.cornerRadius
         
         messenger.subscribe(to: .applyTheme, handler: applyTheme)
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))

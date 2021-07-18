@@ -27,13 +27,15 @@ class SettingsPopupMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var cornerRadiusStepper: NSStepper!
     @IBOutlet weak var lblCornerRadius: NSTextField!
     
+    private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // These items should be enabled only if there is no modal component currently shown.
         let isShowingModalComponent: Bool = objectGraph.windowLayoutsManager.isShowingModalComponent
         [applyThemeMenuItem, saveThemeMenuItem, createThemeMenuItem, applyFontSchemeMenuItem, saveFontSchemeMenuItem, applyColorSchemeMenuItem, saveColorSchemeMenuItem].forEach {$0.enableIf(!isShowingModalComponent)}
         
-        cornerRadiusStepper.integerValue = WindowAppearanceState.cornerRadius.roundedInt
+        cornerRadiusStepper.integerValue = uiState.cornerRadius.roundedInt
         lblCornerRadius.stringValue = "\(cornerRadiusStepper.integerValue) px"
     }
 }

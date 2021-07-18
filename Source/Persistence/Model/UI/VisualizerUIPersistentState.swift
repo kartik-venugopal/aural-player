@@ -12,7 +12,7 @@ import Cocoa
 ///
 /// Persistent state for all Visualizer settings.
 ///
-/// - SeeAlso: `VisualizerViewState`
+/// - SeeAlso: `VisualizerUIState`
 ///
 struct VisualizerUIPersistentState: Codable {
     

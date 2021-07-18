@@ -85,6 +85,8 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
+    
+    private lazy var windowAppearanceState: WindowAppearanceState = objectGraph.windowAppearanceState
 
     override func windowDidLoad() {
         
@@ -100,9 +102,9 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
 
         applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(colorSchemesManager.systemScheme)
-        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
+        rootContainerBox.cornerRadius = windowAppearanceState.cornerRadius
         
-//        setUpEventHandling()
+        setUpEventHandling()
         initSubscriptions()
     }
     
@@ -415,7 +417,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         applyFontScheme(fontSchemesManager.systemScheme)
         applyColorScheme(colorSchemesManager.systemScheme)
-        changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
+        changeWindowCornerRadius(windowAppearanceState.cornerRadius)
     }
     
     func applyFontScheme(_ fontScheme: FontScheme) {

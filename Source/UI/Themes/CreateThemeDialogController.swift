@@ -200,6 +200,6 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
         let windowAppearance: WindowAppearance = WindowAppearance(cornerRadius: CGFloat(windowCornerRadiusStepper.integerValue))
         
         themesManager.addPreset(Theme(name: string, fontScheme: themeFontScheme, colorScheme: themeColorScheme,
-                                         windowAppearance: windowAppearance, userDefined: true))
+                                      windowAppearance: windowAppearance, userDefined: true))
     }
 }

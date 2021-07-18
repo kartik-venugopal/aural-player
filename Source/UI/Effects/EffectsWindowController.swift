@@ -59,6 +59,8 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private lazy var messenger = Messenger(for: self)
     
     private lazy var windowLayoutsManager: WindowLayoutsManager = objectGraph.windowLayoutsManager
+    
+    private lazy var uiState: WindowAppearanceState = objectGraph.windowAppearanceState
 
     override func windowDidLoad() {
         
@@ -70,7 +72,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
         btnClose.tintFunction = {return Colors.viewControlButtonColor}
         
         applyColorScheme(colorSchemesManager.systemScheme)
-        rootContainerBox.cornerRadius = WindowAppearanceState.cornerRadius
+        rootContainerBox.cornerRadius = uiState.cornerRadius
         
         initUnits()
         initTabGroup()
@@ -167,7 +169,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private func applyTheme() {
         
         applyColorScheme(colorSchemesManager.systemScheme)
-        changeWindowCornerRadius(WindowAppearanceState.cornerRadius)
+        changeWindowCornerRadius(uiState.cornerRadius)
     }
     
     private func applyColorScheme(_ scheme: ColorScheme) {
