@@ -602,7 +602,7 @@
 		3E6C130225CEBE8F00BF0D07 /* DetailedTrackInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E6C103D25CEB98600BF0D07 /* DetailedTrackInfo.xib */; };
 		3E6C130325CEBE8F00BF0D07 /* MetadataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103725CEB98600BF0D07 /* MetadataDataSource.swift */; };
 		3E6C130425CEBE8F00BF0D07 /* PlaybackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104725CEB98600BF0D07 /* PlaybackViewController.swift */; };
-		3E6C130525CEBE8F00BF0D07 /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105025CEB98600BF0D07 /* WindowManager.swift */; };
+		3E6C130525CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C105025CEB98600BF0D07 /* WindowLayoutsManager.swift */; };
 		3E6C130625CEBE8F00BF0D07 /* SeekSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104425CEB98600BF0D07 /* SeekSliderView.swift */; };
 		3E6C130725CEBE8F00BF0D07 /* InfoPopupProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C103425CEB98600BF0D07 /* InfoPopupProtocol.swift */; };
 		3E6C130925CEBE8F00BF0D07 /* SeekTimeFormats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C104525CEB98600BF0D07 /* SeekTimeFormats.swift */; };
@@ -1625,7 +1625,7 @@
 		3E6C104B25CEB98600BF0D07 /* PlayerViewPopupMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewPopupMenuController.swift; sourceTree = "<group>"; };
 		3E6C104D25CEB98600BF0D07 /* JumpToTimeEditorWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JumpToTimeEditorWindowController.swift; sourceTree = "<group>"; };
 		3E6C104E25CEB98600BF0D07 /* JumpToTimeEditorDialog.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JumpToTimeEditorDialog.xib; sourceTree = "<group>"; };
-		3E6C105025CEB98600BF0D07 /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		3E6C105025CEB98600BF0D07 /* WindowLayoutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutsManager.swift; sourceTree = "<group>"; };
 		3E6C105125CEB98600BF0D07 /* WindowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayout.swift; sourceTree = "<group>"; };
 		3E6C105225CEB98600BF0D07 /* ModalComponentProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalComponentProtocols.swift; sourceTree = "<group>"; };
 		3E6C105525CEB98600BF0D07 /* WindowLayoutPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowLayoutPresets.swift; sourceTree = "<group>"; };
@@ -3423,7 +3423,7 @@
 		3E6C104F25CEB98600BF0D07 /* WindowManagement */ = {
 			isa = PBXGroup;
 			children = (
-				3E6C105025CEB98600BF0D07 /* WindowManager.swift */,
+				3E6C105025CEB98600BF0D07 /* WindowLayoutsManager.swift */,
 				3E59A174262C9EDA006DF775 /* LazyWindowLoader.swift */,
 				3E62979326A3C0F100C96AB8 /* SnappingWindowDelegate.swift */,
 				3E6C105125CEB98600BF0D07 /* WindowLayout.swift */,
@@ -5072,7 +5072,7 @@
 				3E6C12D425CEBE6700BF0D07 /* MasterViewController.swift in Sources */,
 				3E6C12B125CEBE5800BF0D07 /* HistoryMenuControllers.swift in Sources */,
 				3E145501268106DF0034056E /* DictionaryExtensions.swift in Sources */,
-				3E6C130525CEBE8F00BF0D07 /* WindowManager.swift in Sources */,
+				3E6C130525CEBE8F00BF0D07 /* WindowLayoutsManager.swift in Sources */,
 				3EDB344A25E8B75D004DF7DE /* FFmpegMetadataParser.swift in Sources */,
 				3E3579D026835A6A009522A0 /* GenericPresetPopupMenuController.swift in Sources */,
 				3E62979D26A3CEBF00C96AB8 /* Restorable.swift in Sources */,

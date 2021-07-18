@@ -110,6 +110,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     func destroy() {
         
         messenger.unsubscribeFromAll()
+        modalComponentRegistry.removeAll()
         
         for window in mainWindow.childWindows ?? [] {
             mainWindow.removeChildWindow(window)
@@ -120,6 +121,8 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
             
             $0.destroy()
         }
+        
+        windowDelegates.removeAll()
     }
     
     func performInitialLayout() {
@@ -138,6 +141,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         }
         
         (mainWindow as? SnappingWindow)?.ensureOnScreen()
+        mainWindow.makeKeyAndOrderFront(self)
     }
     
     // Revert to default layout if app state is corrupted
