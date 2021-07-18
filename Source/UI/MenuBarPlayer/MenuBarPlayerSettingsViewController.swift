@@ -25,26 +25,28 @@ class MenuBarPlayerSettingsViewController: NSViewController {
     @IBOutlet weak var settingsBox: NSBox!
     
     // Delegate that conveys all playback requests to the player / playback sequencer
-    private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
+    private lazy var player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
+    
+    private lazy var uiState: MenuBarPlayerUIState = objectGraph.menuBarPlayerUIState
     
     override func viewWillAppear() {
         
-        btnShowArt.onIf(MenuBarPlayerViewState.showAlbumArt)
-        btnShowArtist.onIf(MenuBarPlayerViewState.showArtist)
-        btnShowAlbum.onIf(MenuBarPlayerViewState.showAlbum)
+        btnShowArt.onIf(uiState.showAlbumArt)
+        btnShowArtist.onIf(uiState.showArtist)
+        btnShowAlbum.onIf(uiState.showAlbum)
         
         btnShowChapterTitle.showIf(player.playingTrack?.hasChapters ?? false)
-        btnShowChapterTitle.onIf(MenuBarPlayerViewState.showCurrentChapter)
+        btnShowChapterTitle.onIf(uiState.showCurrentChapter)
     }
     
     @IBAction func showOrHideAlbumArtAction(_ sender: NSButton) {
         
-        MenuBarPlayerViewState.showAlbumArt.toggle()
-        [imgArt, artOverlayBox].forEach {$0.showIf(MenuBarPlayerViewState.showAlbumArt && player.state.isPlayingOrPaused)}
+        uiState.showAlbumArt.toggle()
+        [imgArt, artOverlayBox].forEach {$0.showIf(uiState.showAlbumArt && player.state.isPlayingOrPaused)}
 
         // Arrange the views in the following Z-order, with the settings box frontmost.
         
-        if MenuBarPlayerViewState.showAlbumArt {
+        if uiState.showAlbumArt {
             artOverlayBox.bringToFront()
         }
         
@@ -54,19 +56,19 @@ class MenuBarPlayerSettingsViewController: NSViewController {
     
     @IBAction func showOrHideArtistAction(_ sender: NSButton) {
         
-        MenuBarPlayerViewState.showArtist.toggle()
+        uiState.showArtist.toggle()
         trackInfoView.update()
     }
     
     @IBAction func showOrHideAlbumAction(_ sender: NSButton) {
         
-        MenuBarPlayerViewState.showAlbum.toggle()
+        uiState.showAlbum.toggle()
         trackInfoView.update()
     }
     
     @IBAction func showOrHideChapterTitleAction(_ sender: NSButton) {
         
-        MenuBarPlayerViewState.showCurrentChapter.toggle()
+        uiState.showCurrentChapter.toggle()
         trackInfoView.update()
     }
 }

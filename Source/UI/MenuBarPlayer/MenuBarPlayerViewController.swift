@@ -35,16 +35,10 @@ class MenuBarPlayerViewController: NSViewController, Destroyable {
     
     private lazy var alertDialog: AlertWindowController = AlertWindowController.instance
     
-    // TODO: Implement this for volume control / seeking, etc ???
-//    private var gestureHandler: GestureHandler?
-    
     // Delegate that conveys all playback requests to the player / playback sequencer
     private let player: PlaybackDelegateProtocol = objectGraph.playbackDelegate
     
-    // Delegate that retrieves playback sequencing info (previous/next track)
-    private let sequencer: SequencerDelegateProtocol = objectGraph.sequencerDelegate
-    
-    private var audioGraph: AudioGraphDelegateProtocol = objectGraph.audioGraphDelegate
+    private lazy var uiState: MenuBarPlayerUIState = objectGraph.menuBarPlayerUIState
     
     private lazy var messenger = Messenger(for: self)
     
@@ -87,16 +81,14 @@ class MenuBarPlayerViewController: NSViewController, Destroyable {
     private func updateTrackInfo() {
         
         if let theTrack = player.playingTrack {
-            
             trackInfoView.trackInfo = PlayingTrackInfo(theTrack, player.playingChapter?.chapter.title)
             
         } else {
-            
             trackInfoView.trackInfo = nil
         }
         
         imgArt.image = player.playingTrack?.art?.image
-        [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && MenuBarPlayerViewState.showAlbumArt)}
+        [imgArt, artOverlayBox].forEach {$0?.showIf(imgArt.image != nil && uiState.showAlbumArt)}
         
         infoBox.bringToFront()
         

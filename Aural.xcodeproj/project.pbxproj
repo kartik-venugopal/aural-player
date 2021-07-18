@@ -727,7 +727,7 @@
 		3E97F68226A0B6C100984126 /* FileReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97F68126A0B6C100984126 /* FileReader.swift */; };
 		3E97F68D26A0C50800984126 /* AddedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97F68C26A0C50800984126 /* AddedItem.swift */; };
 		3E97F69026A0C52D00984126 /* PlayedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E97F68F26A0C52D00984126 /* PlayedItem.swift */; };
-		3E987ECC2630088600E6836D /* MenuBarPlayerViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */; };
+		3E987ECC2630088600E6836D /* MenuBarPlayerUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E987ECB2630088600E6836D /* MenuBarPlayerUIState.swift */; };
 		3E98E5F8262D51AF00A65BCE /* PlayingTrackInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */; };
 		3E9C12112622208F00D90EA4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12102622208F00D90EA4 /* Theme.swift */; };
 		3E9C12132622216500D90EA4 /* ThemesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9C12122622216500D90EA4 /* ThemesManager.swift */; };
@@ -1881,7 +1881,7 @@
 		3E97F68126A0B6C100984126 /* FileReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileReader.swift; sourceTree = "<group>"; };
 		3E97F68C26A0C50800984126 /* AddedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedItem.swift; sourceTree = "<group>"; };
 		3E97F68F26A0C52D00984126 /* PlayedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayedItem.swift; sourceTree = "<group>"; };
-		3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerViewState.swift; sourceTree = "<group>"; };
+		3E987ECB2630088600E6836D /* MenuBarPlayerUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPlayerUIState.swift; sourceTree = "<group>"; };
 		3E98E5F7262D51AF00A65BCE /* PlayingTrackInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingTrackInfo.swift; sourceTree = "<group>"; };
 		3E9C12102622208F00D90EA4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		3E9C12122622216500D90EA4 /* ThemesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesManager.swift; sourceTree = "<group>"; };
@@ -4191,7 +4191,7 @@
 				3E824A4125DB74840089F217 /* MenuBarPlayer.xib */,
 				3E824A4225DB74840089F217 /* MenuBarPlayerViewController.swift */,
 				3EBABCBD262C1A350015A73A /* MenuBarPlayerSettingsViewController.swift */,
-				3E987ECB2630088600E6836D /* MenuBarPlayerViewState.swift */,
+				3E987ECB2630088600E6836D /* MenuBarPlayerUIState.swift */,
 				3EAFB610267FF3FE00F0DC96 /* MenuBarSeekSliderCell.swift */,
 				3EAFB612267FF42E00F0DC96 /* MenuBarVolumeSliderCell.swift */,
 				3EEC04122687A8E1004478CE /* MenuBarPlaybackViewController.swift */,
@@ -5208,7 +5208,7 @@
 				3EAFB5F6267FEE9D00F0DC96 /* NSWindowExtensions.swift in Sources */,
 				3E47D30E269F83DB003D08A7 /* TrackMoveResult.swift in Sources */,
 				3E0B9B46269E3D8900B4DED9 /* TuneBrowserPersistentState.swift in Sources */,
-				3E987ECC2630088600E6836D /* MenuBarPlayerViewState.swift in Sources */,
+				3E987ECC2630088600E6836D /* MenuBarPlayerUIState.swift in Sources */,
 				3E6C131F25CEBEA000BF0D07 /* StringExtensions.swift in Sources */,
 				3E6C11D725CEBDBE00BF0D07 /* AuralPlayerNode.swift in Sources */,
 				3E3633E8268627F3006A88ED /* TimeStretchUnitDelegateProtocol.swift in Sources */,

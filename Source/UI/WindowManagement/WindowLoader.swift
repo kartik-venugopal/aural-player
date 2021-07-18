@@ -42,8 +42,6 @@ class LazyWindowLoader<T>: Destroyable where T: NSWindowController, T: Destroyab
     
     lazy var controller: T = {
         
-        print("\nLoaded controller for: \(T.self)")
-        
         isWindowLoaded = true
         return T.init()
     }()

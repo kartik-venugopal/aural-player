@@ -105,7 +105,7 @@ class ObjectGraph {
     lazy var windowLayoutsManager: WindowLayoutsManager = WindowLayoutsManager(persistentState: persistentState.ui?.windowLayout,
                                                                                  viewPreferences: preferences.viewPreferences)
     
-//    lazy var windowLayoutState: WindowLayoutsManager = WindowLayoutState(persistentState: persistentState.ui?.windowLayout)
+    lazy var menuBarPlayerUIState: MenuBarPlayerUIState = MenuBarPlayerUIState(persistentState: persistentState.ui?.menuBarPlayer)
     
     lazy var themesManager: ThemesManager = ThemesManager(persistentState: persistentState.ui?.themes, fontSchemesManager: fontSchemesManager)
     lazy var fontSchemesManager: FontSchemesManager = FontSchemesManager(persistentState: persistentState.ui?.fontSchemes)
@@ -137,7 +137,6 @@ class ObjectGraph {
         PlaylistViewState.initialize(persistentState.ui?.playlist)
         VisualizerViewState.initialize(persistentState.ui?.visualizer)
         WindowAppearanceState.initialize(persistentState.ui?.windowAppearance)
-        MenuBarPlayerViewState.initialize(persistentState.ui?.menuBarPlayer)
         ControlBarPlayerViewState.initialize(persistentState.ui?.controlBarPlayer)
         TuneBrowserState.initialize(persistentState.ui?.tuneBrowser)
         
@@ -192,7 +191,7 @@ class ObjectGraph {
                                                playlist: PlaylistViewState.persistentState,
                                                visualizer: VisualizerViewState.persistentState,
                                                windowAppearance: WindowAppearanceState.persistentState,
-                                               menuBarPlayer: MenuBarPlayerViewState.persistentState,
+                                               menuBarPlayer: menuBarPlayerUIState.persistentState,
                                                controlBarPlayer: ControlBarPlayerViewState.persistentState,
                                                tuneBrowser: TuneBrowserState.persistentState)
         

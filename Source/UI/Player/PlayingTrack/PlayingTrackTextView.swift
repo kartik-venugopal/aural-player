@@ -235,6 +235,8 @@ class PlayingTrackTextView: NSView, ColorSchemeable {
 
 class MenuBarPlayingTrackTextView: PlayingTrackTextView {
     
+    private lazy var uiState: MenuBarPlayerUIState = objectGraph.menuBarPlayerUIState
+    
     override var titleFont: NSFont {
         FontConstants.Standard.mainFont_13
     }
@@ -260,15 +262,15 @@ class MenuBarPlayingTrackTextView: PlayingTrackTextView {
     }
     
     override var shouldShowArtist: Bool {
-        MenuBarPlayerViewState.showArtist
+        uiState.showArtist
     }
     
     override var shouldShowAlbum: Bool {
-        MenuBarPlayerViewState.showAlbum
+        uiState.showAlbum
     }
     
     override var shouldShowChapterTitle: Bool {
-        MenuBarPlayerViewState.showCurrentChapter
+        uiState.showCurrentChapter
     }
     
     override var lineSpacingBetweenArtistAlbumAndChapterTitle: CGFloat {4}

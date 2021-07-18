@@ -48,7 +48,8 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     private lazy var chaptersListWindowLoader: WindowLoader<ChaptersListWindowController> = initializeLoader(type: ChaptersListWindowController.self)
     
     private var _chaptersListWindow: NSWindow {chaptersListWindowLoader.window}
-    var chaptersListWindow: NSWindow? {chaptersListWindowLoader.isWindowLoaded ? _chaptersListWindow : nil}
+    var chaptersListWindow: NSWindow? {chaptersListWindowLoaded ? _chaptersListWindow : nil}
+    var chaptersListWindowLoaded: Bool {chaptersListWindowLoader.isWindowLoaded}
     
     // MARK: Visualizer window -------------------------------------------
     
@@ -291,7 +292,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     func hideChaptersListWindow() {
         
-        if chaptersListWindowLoader.isWindowLoaded {
+        if chaptersListWindowLoaded {
             _chaptersListWindow.hide()
         }
     }
@@ -335,8 +336,6 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     var persistentState: WindowLayoutsPersistentState {
         
-        let userLayouts = objectGraph.windowLayoutsManager.userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)}
-        
         var effectsWindowOrigin: NSPointPersistentState? = nil
         var playlistWindowFrame: NSRectPersistentState? = nil
         
@@ -349,10 +348,10 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         }
         
         return WindowLayoutsPersistentState(showEffects: isShowingEffects,
-                showPlaylist: isShowingPlaylist,
-                mainWindowOrigin: NSPointPersistentState(point: mainWindow.origin),
-                effectsWindowOrigin: effectsWindowOrigin,
-                playlistWindowFrame: playlistWindowFrame,
-                userLayouts: userLayouts)
+                                            showPlaylist: isShowingPlaylist,
+                                            mainWindowOrigin: NSPointPersistentState(point: mainWindow.origin),
+                                            effectsWindowOrigin: effectsWindowOrigin,
+                                            playlistWindowFrame: playlistWindowFrame,
+                                            userLayouts: userDefinedPresets.map {UserWindowLayoutPersistentState(layout: $0)})
     }
 }
