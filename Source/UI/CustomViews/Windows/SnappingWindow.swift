@@ -24,6 +24,12 @@ class SnappingWindow: NoTitleBarWindow {
     private static let snapProximity: CGFloat = 20
     
     private var snapProximity: CGFloat {Self.snapProximity}
+    
+    private lazy var theDelegate: SnappingWindowDelegate = SnappingWindowDelegate(window: self)
+    
+    override func awakeFromNib() {
+        self.delegate = theDelegate
+    }
 
     override func mouseUp(with event: NSEvent) {
 

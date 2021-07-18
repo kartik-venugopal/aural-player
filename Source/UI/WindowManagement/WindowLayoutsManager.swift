@@ -13,38 +13,60 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     private let preferences: ViewPreferences
     
+    private func initializeLoader<T>(type: T.Type) -> WindowLoader<T> where T: NSWindowController, T: Destroyable {
+        
+        let loader = WindowLoader<T>()
+        initializedLoaders.append(loader)
+        return loader
+    }
+    
+    // MARK: Main window -------------------------------------------
+    
     // App's main window
-    private let mainWindowLoader: WindowLoader<MainWindowController> = WindowLoader()
-    lazy var mainWindow: NSWindow = loadWindowFromLoader(mainWindowLoader)
+    private lazy var mainWindowLoader: WindowLoader<MainWindowController> = initializeLoader(type: MainWindowController.self)
+    var mainWindow: NSWindow {mainWindowLoader.window}
+    
+    // MARK: Effects window -------------------------------------------
     
     // Load these optional windows only if/when needed
-    private var effectsWindowLoader: WindowLoader<EffectsWindowController> = WindowLoader()
-    private lazy var _effectsWindow: NSWindow = loadWindowFromLoader(effectsWindowLoader)
+    private lazy var effectsWindowLoader: WindowLoader<EffectsWindowController> = initializeLoader(type: EffectsWindowController.self)
     
+    private var _effectsWindow: NSWindow {effectsWindowLoader.window}
     var effectsWindow: NSWindow? {effectsWindowLoader.windowLoaded ? _effectsWindow : nil}
     var effectsWindowFrame: NSRect? {effectsWindowLoaded ? _effectsWindow.frame : nil}
     var effectsWindowLoaded: Bool {effectsWindowLoader.windowLoaded}
-
-    private var playlistWindowLoader: WindowLoader<PlaylistWindowController> = WindowLoader()
-    private lazy var _playlistWindow: NSWindow = loadWindowFromLoader(playlistWindowLoader)
+    
+    // MARK: Playlist window -------------------------------------------
+    
+    private lazy var playlistWindowLoader: WindowLoader<PlaylistWindowController> = initializeLoader(type: PlaylistWindowController.self)
+    
+    private var _playlistWindow: NSWindow {playlistWindowLoader.window}
     
     var playlistWindow: NSWindow? {playlistWindowLoader.windowLoaded ? _playlistWindow : nil}
     var playlistWindowFrame: NSRect? {playlistWindowLoaded ? _playlistWindow.frame : nil}
     var playlistWindowLoaded: Bool {playlistWindowLoader.windowLoaded}
+    
+    // MARK: Chapters list window -------------------------------------------
 
-    private lazy var chaptersListWindowLoader: WindowLoader<ChaptersListWindowController> = WindowLoader()
-    private lazy var _chaptersListWindow: NSWindow = loadWindowFromLoader(chaptersListWindowLoader)
+    private lazy var chaptersListWindowLoader: WindowLoader<ChaptersListWindowController> = initializeLoader(type: ChaptersListWindowController.self)
+    
+    private var _chaptersListWindow: NSWindow {chaptersListWindowLoader.window}
     var chaptersListWindow: NSWindow? {chaptersListWindowLoader.windowLoaded ? _chaptersListWindow : nil}
     
-    private lazy var visualizerWindowLoader: WindowLoader<VisualizerWindowController> = WindowLoader()
-    private lazy var _visualizerWindow: NSWindow = visualizerWindowLoader.window
+    // MARK: Visualizer window -------------------------------------------
     
+    private lazy var visualizerWindowLoader: WindowLoader<VisualizerWindowController> = initializeLoader(type: VisualizerWindowController.self)
+    
+    private var _visualizerWindow: NSWindow {visualizerWindowLoader.window}
     var visualizerWindow: NSWindow? {visualizerWindowLoader.windowLoaded ? _visualizerWindow : nil}
     
-    private lazy var tuneBrowserWindowLoader: WindowLoader<TuneBrowserWindowController> = WindowLoader()
-    private lazy var _tuneBrowserWindow: NSWindow = tuneBrowserWindowLoader.window
+    // MARK: Tune browser window -------------------------------------------
     
-    private var windowDelegates: [NSWindowDelegate] = []
+    private lazy var tuneBrowserWindowLoader: WindowLoader<TuneBrowserWindowController> = initializeLoader(type: TuneBrowserWindowController.self)
+    
+    private var _tuneBrowserWindow: NSWindow {tuneBrowserWindowLoader.window}
+    
+    private lazy var initializedLoaders: [DestroyableAndRestorable] = []
     
     // Each modal component, when it is loaded, will register itself here, which will enable tracking of modal dialogs / popovers
     private var modalComponentRegistry: [ModalComponentProtocol] = []
@@ -52,17 +74,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     private lazy var messenger = Messenger(for: self)
     
     private let initialLayout: WindowLayout?
-    
-    private func loadWindowFromLoader<T>(_ loader: WindowLoader<T>) -> NSWindow where T: NSWindowController, T: Destroyable {
-        
-        let window = loader.window
-        let windowDelegate = SnappingWindowDelegate(window: window as! SnappingWindow)
-        windowDelegates.append(windowDelegate)
-        
-        window.delegate = windowDelegate
-        return window
-    }
-    
+
     init(persistentState: WindowLayoutsPersistentState?, viewPreferences: ViewPreferences) {
         
         self.preferences = viewPreferences
@@ -95,11 +107,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
     
     func restore() {
         
-        ([mainWindowLoader, effectsWindowLoader, playlistWindowLoader,
-          chaptersListWindowLoader, visualizerWindowLoader] as? [Restorable])?.forEach {
-            
-            $0.restore()
-        }
+        initializedLoaders.forEach {$0.restore()}
         
         performInitialLayout()
         
@@ -116,13 +124,7 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
             mainWindow.removeChildWindow(window)
         }
         
-        ([mainWindowLoader, effectsWindowLoader, playlistWindowLoader,
-          chaptersListWindowLoader, visualizerWindowLoader] as? [Destroyable])?.forEach {
-            
-            $0.destroy()
-        }
-        
-        windowDelegates.removeAll()
+        initializedLoaders.forEach {$0.destroy()}
     }
     
     func performInitialLayout() {

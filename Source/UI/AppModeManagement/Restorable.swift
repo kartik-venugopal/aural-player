@@ -21,3 +21,5 @@ extension Restorable {
     
     static func restore() {}
 }
+
+protocol DestroyableAndRestorable: Destroyable, Restorable {}
