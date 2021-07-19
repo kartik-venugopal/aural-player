@@ -80,7 +80,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
         messenger.subscribe(to: .playlist_selectSearchResult, handler: selectSearchResult(_:),
                             filter: {cmd in viewSelectionFilter(cmd.viewSelector)})
         
-        messenger.subscribe(to: .playlist_refresh, handler: refresh, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_refresh, handler: playlistView.reloadData, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_removeTracks, handler: removeTracks, filter: viewSelectionFilter)
         
         messenger.subscribe(to: .playlist_moveTracksUp, handler: moveTracksUp, filter: viewSelectionFilter)
@@ -196,10 +196,6 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
 
         playlistView.selectRow(trackRowIndex)
         playlistView.scrollRowToVisible(trackRowIndex)
-    }
-    
-    func refresh() {
-        self.playlistView.reloadData()
     }
     
     // Refreshes the playlist view by rearranging the items that were moved
@@ -338,7 +334,7 @@ class GroupingPlaylistViewController: NSViewController, Destroyable {
     private func expandSelectedGroups() {
         
         let selectedGroups = selectedRows.compactMap {playlistView.item(atRow: $0) as? Group}
-        selectedGroups.forEach({playlistView.expandItem($0)})
+        selectedGroups.forEach {playlistView.expandItem($0)}
     }
     
     private func collapseSelectedItems() {

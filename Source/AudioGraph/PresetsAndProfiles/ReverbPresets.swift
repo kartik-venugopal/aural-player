@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Reverb effects unit.
 ///
-class ReverbPresets: EffectsPresets<ReverbPreset> {
+class ReverbPresets: EffectsUnitPresets<ReverbPreset> {
     
     init(persistentState: ReverbUnitPersistentState?) {
         

@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Filter effects unit.
 ///
-class FilterPresets: EffectsPresets<FilterPreset> {
+class FilterPresets: EffectsUnitPresets<FilterPreset> {
     
     init(persistentState: FilterUnitPersistentState?) {
         

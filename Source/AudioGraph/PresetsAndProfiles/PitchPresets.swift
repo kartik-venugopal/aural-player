@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Pitch Shift effects unit.
 ///
-class PitchShiftPresets: EffectsPresets<PitchShiftPreset> {
+class PitchShiftPresets: EffectsUnitPresets<PitchShiftPreset> {
     
     init(persistentState: PitchShiftUnitPersistentState?) {
         

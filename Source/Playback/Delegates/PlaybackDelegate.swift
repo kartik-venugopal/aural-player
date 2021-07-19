@@ -242,8 +242,6 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
      
         The "inputMode" parameter denotes whether the seeking is occurring in a discrete (using the main controls) or continuous (through a scroll gesture) mode. The amount of seeking performed
         will vary depending on the mode.
-     
-        TODO: Clarify how useful this inputMode is, and see if it can be eliminated to prevent confusion.
      */
     private func getPrimarySeekLength(_ inputMode: UserInputMode) -> Double {
         

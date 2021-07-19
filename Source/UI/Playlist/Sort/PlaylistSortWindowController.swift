@@ -72,13 +72,15 @@ class PlaylistSortWindowController: NSWindowController, ModalDialogDelegate, Des
     }
     
     @IBAction func sortBtnAction(_ sender: Any) {
+        
+        let playlistType = displayedSortView.playlistType
 
         // Perform the sort
-        playlist.sort(displayedSortView.sortOptions, displayedSortView.playlistType)
+        playlist.sort(displayedSortView.sortOptions, playlistType)
         
         // Notify playlist views
         messenger.publish(.playlist_refresh,
-                          payload: PlaylistViewSelector.selector(forView: displayedSortView.playlistType))
+                          payload: PlaylistViewSelector.selector(forView: playlistType))
         
         modalDialogResponse = .ok
         theWindow.close()

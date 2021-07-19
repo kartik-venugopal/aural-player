@@ -148,23 +148,6 @@ class AudioEngine {
         }
     }
     
-    // TODO: AudioGraph should also respond to this notification and set its _outputDevice var to the new device
-    func restart() {
-        
-        // Disconnect and detach nodes (in this order)
-        allNodes.forEach {
-            
-            engine.disconnectNodeOutput($0)
-            engine.disconnectNodeInput($0)
-            engine.detach($0)
-        }
-        
-        // Attach them back and reconnect them
-        allNodes.forEach {engine.attach($0)}
-        connectNodes()
-        start()
-    }
-    
     func stop() {
         engine.stop()
     }

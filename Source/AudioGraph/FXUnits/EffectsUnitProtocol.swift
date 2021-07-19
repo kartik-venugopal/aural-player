@@ -26,7 +26,7 @@ protocol EffectsUnitProtocol {
     var avNodes: [AVAudioNode] {get}
     
     associatedtype PresetType: EffectsUnitPreset
-    associatedtype PresetsType: EffectsPresetsProtocol
+    associatedtype PresetsType: EffectsUnitPresetsProtocol
     
     var presets: PresetsType {get}
     

@@ -33,7 +33,7 @@ class StartPlaybackAction: PlaybackChainAction {
         
         // Publish a pre-track-change notification for observers who need to perform actions before the track changes.
         // e.g. applying audio settings/effects.
-        if context.currentTrack != context.requestedTrack {
+        if context.currentTrack != newTrack {
             messenger.publish(PreTrackPlaybackNotification(oldTrack: context.currentTrack, oldState: context.currentState, newTrack: newTrack))
         }
         

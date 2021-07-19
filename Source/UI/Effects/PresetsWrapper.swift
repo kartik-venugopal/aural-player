@@ -23,7 +23,7 @@ protocol PresetsWrapperProtocol {
     func presetExists(named name: String) -> Bool
 }
 
-class PresetsWrapper<T: EffectsUnitPreset, U: EffectsPresets<T>>: PresetsWrapperProtocol {
+class PresetsWrapper<T: EffectsUnitPreset, U: EffectsUnitPresets<T>>: PresetsWrapperProtocol {
     
     private let presets: U
     

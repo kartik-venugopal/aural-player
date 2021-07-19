@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Time Stretch effects unit.
 ///
-class TimeStretchPresets: EffectsPresets<TimeStretchPreset> {
+class TimeStretchPresets: EffectsUnitPresets<TimeStretchPreset> {
     
     init(persistentState: TimeStretchUnitPersistentState?) {
         

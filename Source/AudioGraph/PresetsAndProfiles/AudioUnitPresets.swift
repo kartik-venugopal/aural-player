@@ -13,7 +13,7 @@ import AVFoundation
 ///
 /// Manages a mapped collection of presets that can be applied to a hosted AU effects unit.
 ///
-class AudioUnitPresets: EffectsPresets<AudioUnitPreset> {
+class AudioUnitPresets: EffectsUnitPresets<AudioUnitPreset> {
     
     init() {
         super.init(systemDefinedPresets: [], userDefinedPresets: [])

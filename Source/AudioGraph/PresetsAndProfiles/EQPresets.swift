@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Equalizer effects unit.
 ///
-class EQPresets: EffectsPresets<EQPreset> {
+class EQPresets: EffectsUnitPresets<EQPreset> {
     
     init(persistentState: EQUnitPersistentState?) {
         

@@ -177,7 +177,7 @@ class PlaylistDelegate: PlaylistDelegateProtocol {
                 self.messenger.publish(.history_itemsAdded, payload: self.addSession.addedItems)
             }
             
-            // TODO: Reordering will mean that results will not be in the correct order when this notification
+            // WARNING: Reordering will mean that results will not be in the correct order when this notification
             // is sent out. But currently, it has no impact (Sequencer does not care about results order).
             // Notify observers.
             self.messenger.publish(.playlist_tracksAdded, payload: results)

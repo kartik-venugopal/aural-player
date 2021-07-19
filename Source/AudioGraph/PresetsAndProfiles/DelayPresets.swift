@@ -12,7 +12,7 @@ import Foundation
 ///
 /// Manages a mapped collection of presets that can be applied to the Delay effects unit.
 ///
-class DelayPresets: EffectsPresets<DelayPreset> {
+class DelayPresets: EffectsUnitPresets<DelayPreset> {
     
     init(persistentState: DelayUnitPersistentState?) {
         

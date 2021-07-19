@@ -74,7 +74,7 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
         
         let viewSelectionFilter: (PlaylistViewSelector) -> Bool = {selector in selector.contains(.tracks)}
         
-        messenger.subscribe(to: .playlist_refresh, handler: refresh, filter: viewSelectionFilter)
+        messenger.subscribe(to: .playlist_refresh, handler: playlistView.reloadData, filter: viewSelectionFilter)
         messenger.subscribe(to: .playlist_removeTracks, handler: removeTracks, filter: viewSelectionFilter)
         
         messenger.subscribe(to: .playlist_moveTracksUp, handler: moveTracksUp, filter: viewSelectionFilter)
@@ -163,10 +163,6 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
         }
     }
     
-    func refresh() {
-        playlistView.reloadData()
-    }
-    
     // Must have a non-empty playlist, and at least one selected row, but not all rows selected.
     private func moveTracksUp() {
 
@@ -211,7 +207,7 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     private func moveTracksToTop() {
         
         let selectedRows = self.selectedRows
-        let selectedRowCount = selectedRows.count
+        let selectedRowCount = self.selectedRowCount
         
         guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
         
@@ -235,7 +231,7 @@ class TracksPlaylistViewController: NSViewController, Destroyable {
     private func moveTracksToBottom() {
         
         let selectedRows = self.selectedRows
-        let selectedRowCount = selectedRows.count
+        let selectedRowCount = self.selectedRowCount
         
         guard rowCount > 1 && (1..<rowCount).contains(selectedRowCount) else {return}
         

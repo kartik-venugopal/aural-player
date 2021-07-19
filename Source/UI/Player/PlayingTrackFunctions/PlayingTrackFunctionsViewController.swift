@@ -51,7 +51,8 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     // Popup view that displays a brief notification when the currently playing track is added/removed to/from the Favorites list
     private lazy var infoPopup: InfoPopupProtocol = InfoPopupViewController.instance
     
-    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(BookmarkNameInputReceiver())
+    private lazy var bookmarkInputReceiver: BookmarkNameInputReceiver = BookmarkNameInputReceiver()
+    private lazy var bookmarkNamePopover: StringInputPopoverViewController = StringInputPopoverViewController.create(bookmarkInputReceiver)
     
     private let colorSchemesManager: ColorSchemesManager = objectGraph.colorSchemesManager
     
@@ -180,20 +181,23 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
     
     private func doBookmark(_ playingTrack: Track, _ startTime: Double, _ endTime: Double? = nil) {
         
-        BookmarkContext.bookmarkedTrack = playingTrack
-        BookmarkContext.bookmarkedTrackStartPosition = startTime
-        BookmarkContext.bookmarkedTrackEndPosition = endTime
+        let formattedStartTime: String = ValueFormatter.formatSecondsToHMS(startTime)
+        let defaultBookmarkName: String
         
         if let theEndTime = endTime {
             
             // Loop
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@ ⇄ %@)", playingTrack.displayName, ValueFormatter.formatSecondsToHMS(startTime), ValueFormatter.formatSecondsToHMS(theEndTime))
+            let formattedEndTime: String = ValueFormatter.formatSecondsToHMS(theEndTime)
+            defaultBookmarkName = "\(playingTrack.displayName) (\(formattedStartTime) ⇄ \(formattedEndTime))"
             
         } else {
             
             // Single position
-            BookmarkContext.defaultBookmarkName = String(format: "%@ (%@)", playingTrack.displayName, ValueFormatter.formatSecondsToHMS(startTime))
+            defaultBookmarkName = "\(playingTrack.displayName) (\(formattedStartTime))"
         }
+        
+        bookmarkInputReceiver.context = BookmarkInputContext(track: playingTrack, startPosition: startTime,
+                                                             endPosition: endTime, defaultName: defaultBookmarkName)
         
         // Show popover
         
