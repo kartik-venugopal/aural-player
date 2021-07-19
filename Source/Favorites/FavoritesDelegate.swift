@@ -70,25 +70,17 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         favorites.userDefinedPresets[index]
     }
     
-    func deleteFavoriteAtIndex(_ index: Int) {
-        
-        let favorite = getFavoriteAtIndex(index)
-        favorites.deletePreset(atIndex: index)
-        messenger.publish(.favoritesList_tracksRemoved, payload: Set([favorite]))
-    }
-    
     func deleteFavorites(atIndices indices: IndexSet) {
         
-        let deletedFavorites = indices.map {favorites.userDefinedPresets[$0]}
-        favorites.deletePresets(atIndices: indices)
+        let deletedFavorites = favorites.deletePresets(atIndices: indices)
         messenger.publish(.favoritesList_tracksRemoved, payload: Set(deletedFavorites))
     }
     
     func deleteFavoriteWithFile(_ file: URL) {
         
-        guard let favorite = favorites.preset(named: file.path) else {return}
-        favorites.deletePreset(named: file.path)
-        messenger.publish(.favoritesList_tracksRemoved, payload: Set([favorite]))
+        if let favorite = favorites.deletePreset(named: file.path) {
+            messenger.publish(.favoritesList_tracksRemoved, payload: Set([favorite]))
+        }
     }
     
     func favoriteWithFileExists(_ file: URL) -> Bool {

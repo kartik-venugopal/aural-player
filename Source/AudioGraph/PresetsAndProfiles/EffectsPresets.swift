@@ -23,7 +23,7 @@ protocol EffectsPresetsProtocol {
     
     func preset(named name: String) -> T?
     
-    func deletePresets(named presetNames: [String])
+    func deletePresets(named presetNames: [String]) -> [T]
     
     func renamePreset(named oldName: String, to newName: String)
     

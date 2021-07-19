@@ -40,7 +40,7 @@ class LayoutsManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        windowLayoutsManager.deletePresets(atIndices: indices)
+        _ = windowLayoutsManager.deletePresets(atIndices: indices)
         previewView.clear()
     }
     

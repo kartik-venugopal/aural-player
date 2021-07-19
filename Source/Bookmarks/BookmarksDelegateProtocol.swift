@@ -32,8 +32,6 @@ protocol BookmarksDelegateProtocol {
     
     func renameBookmark(named name: String, to newName: String)
     
-    func deleteBookmarkAtIndex(_ index: Int)
-    
     func deleteBookmarks(atIndices indices: IndexSet)
     
     func deleteBookmarkWithName(_ name: String)

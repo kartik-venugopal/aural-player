@@ -43,7 +43,7 @@ class PresetsWrapper<T: EffectsUnitPreset, U: EffectsPresets<T>>: PresetsWrapper
     }
     
     func deletePresets(atIndices indices: IndexSet) {
-        presets.deletePresets(atIndices: indices)
+        _ = presets.deletePresets(atIndices: indices)
     }
     
     func renamePreset(named oldName: String, to newName: String) {

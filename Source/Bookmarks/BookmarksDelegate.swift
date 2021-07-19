@@ -92,26 +92,16 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         bookmarks.renamePreset(named: name, to: newName)
     }
     
-    func deleteBookmarkAtIndex(_ index: Int) {
-        
-        let deletedBookmark = bookmarks.userDefinedPresets[index]
-        bookmarks.deletePreset(atIndex: index)
-        messenger.publish(.bookmarksList_tracksRemoved, payload: Set([deletedBookmark]))
-    }
-    
     func deleteBookmarks(atIndices indices: IndexSet) {
         
-        let deletedBookmarks = indices.map {bookmarks.userDefinedPresets[$0]}
-        bookmarks.deletePresets(atIndices: indices)
+        let deletedBookmarks = bookmarks.deletePresets(atIndices: indices)
         messenger.publish(.bookmarksList_tracksRemoved, payload: Set(deletedBookmarks))
     }
     
     func deleteBookmarkWithName(_ name: String) {
         
-        if let bookmark = bookmarks.preset(named: name) {
-            
-            bookmarks.deletePreset(named: name)
-            messenger.publish(.bookmarksList_tracksRemoved, payload: Set([bookmark]))
+        if let deletedBookmark = bookmarks.deletePreset(named: name) {
+            messenger.publish(.bookmarksList_tracksRemoved, payload: Set([deletedBookmark]))
         }
     }
     

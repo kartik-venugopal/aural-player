@@ -39,7 +39,7 @@ class ColorSchemesManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        colorSchemesManager.deletePresets(atIndices: indices)
+        _ = colorSchemesManager.deletePresets(atIndices: indices)
         previewView.clear()
     }
     

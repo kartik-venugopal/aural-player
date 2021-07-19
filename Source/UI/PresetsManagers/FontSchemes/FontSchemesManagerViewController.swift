@@ -39,7 +39,7 @@ class FontSchemesManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        fontSchemesManager.deletePresets(atIndices: indices)
+        _ = fontSchemesManager.deletePresets(atIndices: indices)
         previewView.clear()
     }
     

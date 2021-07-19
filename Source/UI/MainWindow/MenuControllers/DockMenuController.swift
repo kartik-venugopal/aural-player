@@ -20,8 +20,6 @@ import Cocoa
  */
 class DockMenuController: NSObject, NSMenuDelegate {
     
-    // TODO: Add Bookmarks sub-menu under Favorites sub-menu
-    
     // Menu items whose states are toggled when they (or others) are clicked
     
     // Playback repeat modes

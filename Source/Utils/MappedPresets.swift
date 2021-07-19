@@ -67,25 +67,25 @@ class MappedPresets<P: MappedPreset> {
     // TODO: All the delete functions should return the deleted elements.
     // This will require changes to the PresetsMap functions too.
     
-    func deletePreset(atIndex index: Int) {
-        userDefinedPresetsMap.removePresetAtIndex(index)
+    func deletePreset(atIndex index: Int) -> P {
+        return userDefinedPresetsMap.removePresetAtIndex(index)
     }
     
-    func deletePresets(atIndices indices: IndexSet) {
+    func deletePresets(atIndices indices: IndexSet) -> [P] {
         
-        for index in indices.sorted(by: Int.descendingIntComparator) {
-            userDefinedPresetsMap.removePresetAtIndex(index)
+        return indices.sorted(by: Int.descendingIntComparator).map {
+            userDefinedPresetsMap.removePresetAtIndex($0)
         }
     }
     
-    func deletePreset(named name: String) {
-        userDefinedPresetsMap.removePreset(withKey: name)
+    func deletePreset(named name: String) -> P? {
+        return userDefinedPresetsMap.removePreset(withKey: name)
     }
     
-    func deletePresets(named presetNames: [String]) {
+    func deletePresets(named presetNames: [String]) -> [P] {
         
-        for name in presetNames {
-            deletePreset(named: name)
+        return presetNames.compactMap {
+            deletePreset(named: $0)
         }
     }
     
@@ -94,11 +94,11 @@ class MappedPresets<P: MappedPreset> {
     }
     
     func presetExists(named name: String) -> Bool {
-        return userDefinedPresetsMap.presetWithKeyExists(name) || systemDefinedPresetsMap.presetWithKeyExists(name)
+        userDefinedPresetsMap.presetWithKeyExists(name) || systemDefinedPresetsMap.presetWithKeyExists(name)
     }
     
     func userDefinedPresetExists(named name: String) -> Bool {
-        return userDefinedPresetsMap.presetWithKeyExists(name)
+        userDefinedPresetsMap.presetWithKeyExists(name)
     }
 }
 
@@ -125,13 +125,12 @@ fileprivate class PresetsMap<P: MappedPreset> {
         map[preset.key] = preset
     }
     
-    func removePreset(withKey key: String) {
+    func removePreset(withKey key: String) -> P? {
         
-        if let index = array.firstIndex(where: {$0.key == key}) {
-            
-            array.remove(at: index)
-            map.removeValue(forKey: key)
-        }
+        guard let index = array.firstIndex(where: {$0.key == key}) else {return nil}
+        
+        map.removeValue(forKey: key)
+        return array.remove(at: index)
     }
     
     func reMap(presetWithKey oldKey: String, toKey newKey: String) {
@@ -147,13 +146,11 @@ fileprivate class PresetsMap<P: MappedPreset> {
         }
     }
     
-    func removePresetAtIndex(_ index: Int) {
-        
-        guard array.indices.contains(index) else {return}
+    func removePresetAtIndex(_ index: Int) -> P {
         
         let preset = array[index]
         map.removeValue(forKey: preset.key)
-        array.remove(at: index)
+        return array.remove(at: index)
     }
     
     func presetWithKeyExists(_ key: String) -> Bool {

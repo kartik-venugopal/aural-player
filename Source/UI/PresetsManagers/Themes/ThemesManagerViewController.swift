@@ -39,7 +39,7 @@ class ThemesManagerViewController: PresetsManagerViewController {
     
     override func deletePresets(atIndices indices: IndexSet) {
         
-        themesManager.deletePresets(atIndices: indices)
+        _ = themesManager.deletePresets(atIndices: indices)
         previewView.clear()
     }
     
