@@ -14,7 +14,7 @@ import Cocoa
  */
 class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, Destroyable {
     
-    @IBOutlet weak var searchField: ColoredCursorSearchField!
+    @IBOutlet weak var searchField: NSSearchField!
     
     @IBOutlet weak var lblSummary: NSTextField!
     @IBOutlet weak var lblMatchFieldName: NSTextField!
@@ -50,14 +50,6 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
     private lazy var messenger = Messenger(for: self)
     
     private lazy var uiState: PlaylistUIState = objectGraph.playlistUIState
-    
-    override func windowDidLoad() {
-        messenger.subscribe(to: .playlist_searchTextChanged, handler: searchTextChanged(_:))
-    }
-    
-    func destroy() {
-        messenger.unsubscribeFromAll()
-    }
     
     var isModal: Bool {self.window?.isVisible ?? false}
 
@@ -139,9 +131,10 @@ class PlaylistSearchWindowController: NSWindowController, ModalDialogDelegate, D
         searchQuery.queryPossible ? updateSearch() : noResultsFound()
     }
     
-    func searchTextChanged(_ searchText: String) {
+    @IBAction func searchTextChangeAction(_ sender: Any) {
         
-        searchQuery.text = searchText
+        searchQuery.text = searchField.stringValue
+        searchField.recentSearches.append(searchField.stringValue)
         redoSearchIfPossible()
     }
     

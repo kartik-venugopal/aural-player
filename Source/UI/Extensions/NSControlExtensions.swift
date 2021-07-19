@@ -13,14 +13,10 @@ extension NSControl {
     
     var isDisabled: Bool {!isEnabled}
     
-    // TODO: Why not just set the flag to true/false here ???
-    // Is there an overriden function somewhere in a subview ?
     @objc func enable() {
         self.isEnabled = true
     }
     
-    // TODO: Why not just set the flag to true/false here ???
-    // Is there an overriden function somewhere in a subview ?
     @objc func disable() {
         self.isEnabled = false
     }

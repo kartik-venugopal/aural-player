@@ -28,9 +28,6 @@ extension Notification.Name {
     // Signifies that the playlist view/tab has changed (tracks / artist / albums / genres).
     static let playlist_viewChanged = Notification.Name("playlist_viewChanged")
     
-    // Signifies that, within the search dialog, the search query text has changed.
-    static let playlist_searchTextChanged = Notification.Name("playlist_searchTextChanged")
-    
     // Signifies that a new track has been added to the playlist.
     static let playlist_trackAdded = Notification.Name("playlist_trackAdded")
     

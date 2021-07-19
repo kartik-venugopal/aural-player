@@ -33,7 +33,7 @@
                 <outlet property="searchByName" destination="1Id-TW-Vq3" id="xS6-ku-2lc"/>
                 <outlet property="searchByTitle" destination="uuB-zu-8aq" id="TdK-eQ-NJG"/>
                 <outlet property="searchCaseSensitive" destination="vhS-Ea-x2G" id="DqD-HC-ROy"/>
-                <outlet property="searchField" destination="Woa-gq-Por" id="4zl-ne-lms"/>
+                <outlet property="searchField" destination="zaO-tD-fhI" id="5MH-CS-M4V"/>
                 <outlet property="window" destination="iV8-gQ-7LV" id="9Oq-yc-sbg"/>
             </connections>
         </customObject>
@@ -43,7 +43,7 @@
             <windowStyleMask key="styleMask" titled="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="0.0" width="500" height="308"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <view key="contentView" wantsLayer="YES" id="kqR-d7-kUd">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="308"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -55,20 +55,18 @@
                             <rect key="frame" x="1" y="1" width="458" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Woa-gq-Por" userLabel="Search Field" customClass="ColoredCursorSearchField" customModule="Aural" customModuleProvider="target">
-                                    <rect key="frame" x="26" y="-2" width="430" height="22"/>
+                                <searchField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaO-tD-fhI">
+                                    <rect key="frame" x="1" y="0.0" width="457" height="22"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" focusRingType="none" placeholderString="" drawsBackground="YES" id="gh2-6g-bEi">
-                                        <font key="font" size="13" name="Play-Regular"/>
-                                        <color key="textColor" white="0.70157877599999996" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </textFieldCell>
-                                </textField>
-                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLk-yy-6qu" userLabel="Search Image">
-                                    <rect key="frame" x="8" y="3" width="13" height="13"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Search" id="zuT-l5-sRa"/>
-                                </imageView>
+                                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" focusRingType="none" usesSingleLineMode="YES" bezelStyle="round" maximumRecents="10" id="Ye3-ve-NN6">
+                                        <font key="font" size="12" name="Play-Regular"/>
+                                        <color key="textColor" white="0.70217628970000001" alpha="0.84705882349999995" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.48200924299999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    </searchFieldCell>
+                                    <connections>
+                                        <action selector="searchTextChangeAction:" target="-2" id="ZYL-8p-wod"/>
+                                    </connections>
+                                </searchField>
                             </subviews>
                         </view>
                         <color key="borderColor" white="0.1463487413" alpha="1" colorSpace="calibratedWhite"/>
@@ -306,7 +304,4 @@ Gw
             <point key="canvasLocation" x="-231" y="171"/>
         </window>
     </objects>
-    <resources>
-        <image name="Search" width="26" height="26"/>
-    </resources>
 </document>
