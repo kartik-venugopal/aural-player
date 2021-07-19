@@ -7,11 +7,11 @@
 //  This software is licensed under the MIT software license.
 //  See the file "LICENSE" in the project root directory for license terms.
 //
+import Cocoa
+
 /*
     View controller for the "Detailed Track Info" popover
 */
-import Cocoa
-
 class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, PopoverViewDelegate, Destroyable {
     
     private static var _instance: DetailedTrackInfoViewController?
@@ -200,7 +200,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             
             let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-coverArt", fileExtension: fileExtension)
             
-            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
+            if dialog.runModal() == .OK, let outFile = dialog.url {
                     
                 do {
                     try image.writeToFile(fileType: type, file: outFile)
@@ -236,7 +236,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             
             let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "json")
             
-            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
+            if dialog.runModal() == .OK, let outFile = dialog.url {
                 
                 do {
                     
@@ -288,7 +288,7 @@ class DetailedTrackInfoViewController: NSViewController, NSMenuDelegate, Popover
             
             let dialog = DialogsAndAlerts.exportMetadataDialog(fileName: track.displayName + "-metadata", fileExtension: "html")
             
-            if dialog.runModal() == NSApplication.ModalResponse.OK, let outFile = dialog.url {
+            if dialog.runModal() == .OK, let outFile = dialog.url {
                 
                 do {
                     

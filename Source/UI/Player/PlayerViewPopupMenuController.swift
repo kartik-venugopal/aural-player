@@ -52,7 +52,17 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
         
         timeElapsedDisplayFormats = [timeElapsedMenuItem_hms, timeElapsedMenuItem_seconds, timeElapsedMenuItem_percentage]
         
+        timeElapsedMenuItem_hms.representedObject = TimeElapsedDisplayType.formatted
+        timeElapsedMenuItem_seconds.representedObject = TimeElapsedDisplayType.seconds
+        timeElapsedMenuItem_percentage.representedObject = TimeElapsedDisplayType.percentage
+        
         timeRemainingDisplayFormats = [timeRemainingMenuItem_hms, timeRemainingMenuItem_seconds, timeRemainingMenuItem_percentage, timeRemainingMenuItem_durationHMS, timeRemainingMenuItem_durationSeconds]
+        
+        timeRemainingMenuItem_hms.representedObject = TimeRemainingDisplayType.formatted
+        timeRemainingMenuItem_seconds.representedObject = TimeRemainingDisplayType.seconds
+        timeRemainingMenuItem_percentage.representedObject = TimeRemainingDisplayType.percentage
+        timeRemainingMenuItem_durationHMS.representedObject = TimeRemainingDisplayType.duration_formatted
+        timeRemainingMenuItem_durationSeconds.representedObject = TimeRemainingDisplayType.duration_seconds
     }
     
     // When the menu is about to open, set the menu item states according to the current window/view state
@@ -201,45 +211,19 @@ class PlayerViewPopupMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func timeElapsedDisplayFormatAction(_ sender: NSMenuItem) {
         
-        var format: TimeElapsedDisplayType
-        
-        switch sender.tag {
+        if let format = sender.representedObject as? TimeElapsedDisplayType {
             
-        case 0: format = .formatted
-            
-        case 1: format = .seconds
-            
-        case 2: format = .percentage
-            
-        default: format = .formatted
-            
+            uiState.timeElapsedDisplayType = format
+            messenger.publish(.player_setTimeElapsedDisplayFormat, payload: format)
         }
-        
-        uiState.timeElapsedDisplayType = format
-        messenger.publish(.player_setTimeElapsedDisplayFormat, payload: format)
     }
     
     @IBAction func timeRemainingDisplayFormatAction(_ sender: NSMenuItem) {
         
-        var format: TimeRemainingDisplayType
-        
-        switch sender.tag {
+        if let format = sender.representedObject as? TimeRemainingDisplayType {
             
-        case 0: format = .formatted
-            
-        case 1: format = .seconds
-            
-        case 2: format = .percentage
-            
-        case 3: format = .duration_formatted
-            
-        case 4: format = .duration_seconds
-            
-        default: format = .formatted
-            
+            uiState.timeRemainingDisplayType = format
+            messenger.publish(.player_setTimeRemainingDisplayFormat, payload: format)
         }
-        
-        uiState.timeRemainingDisplayType = format
-        messenger.publish(.player_setTimeRemainingDisplayFormat, payload: format)
     }
 }

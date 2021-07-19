@@ -517,7 +517,7 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         if event.type == .swipe,
            !windowLayoutsManager.isShowingModalComponent,
-           let eventWindow = event.window, eventWindow == windowLayoutsManager.playlistWindow,
+           let eventWindow = event.window, eventWindow == theWindow,
            let swipeDirection = event.gestureDirection {
             
             swipeDirection.isHorizontal ? handleTabToggle(swipeDirection) : handleScrolling(swipeDirection)

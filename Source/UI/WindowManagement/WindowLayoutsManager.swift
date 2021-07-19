@@ -20,6 +20,8 @@ class WindowLayoutsManager: MappedPresets<WindowLayout>, Destroyable, Restorable
         return loader
     }
     
+    // TODO: Don't expose the windows, expose them and their properties through functions / vars.
+    
     // MARK: Main window -------------------------------------------
     
     private lazy var mainWindowLoader: WindowLoader<MainWindowController> = initializeLoader(type: MainWindowController.self)

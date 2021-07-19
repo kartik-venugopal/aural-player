@@ -76,7 +76,6 @@ class PlayingTrackFunctionsViewController: NSViewController, Destroyable {
         
         // Subscribe to various notifications
         
-        // TODO: Add a subscribe() method overload to Messenger that takes multiple notif names for a single msgHandler ???
         messenger.subscribe(to: .favoritesList_trackAdded, handler: trackAddedToFavorites(_:))
         messenger.subscribe(to: .favoritesList_tracksRemoved, handler: tracksRemovedFromFavorites(_:))
         

@@ -90,9 +90,7 @@ class TimeStretchView: NSView {
         setUnitState(preset.state)
         btnShiftPitch.onIf(preset.shiftPitch)
         
-        // TODO: Move this calculation to a new util functions class/file
-        let shiftedPitch = (preset.shiftPitch ? 1200 * log2(preset.rate) : 0) * ValueConversions.pitch_audioGraphToUI
-        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(shiftedPitch)
+        lblPitchShiftValue.stringValue = ValueFormatter.formatPitch(preset.shiftedPitch)
         
         timeSlider.floatValue = preset.rate
         lblTimeStretchRateValue.stringValue = ValueFormatter.formatTimeStretchRate(preset.rate)

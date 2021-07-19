@@ -43,9 +43,8 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
     static let trackInfoKeyColumnWidth: CGFloat = 135
     static let trackInfoValueColumnWidth: CGFloat = 365
     
-    let keyColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), TrackInfoDataSource.trackInfoKeyColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
-    
-    let valueColumnBounds: NSRect = NSMakeRect(CGFloat(0), CGFloat(0), TrackInfoDataSource.trackInfoValueColumnWidth, CGFloat(Float.greatestFiniteMagnitude))
+    let keyColumnBounds: NSRect = NSMakeRect(.zero, .zero, TrackInfoDataSource.trackInfoKeyColumnWidth, .greatestFiniteMagnitude)
+    let valueColumnBounds: NSRect = NSMakeRect(.zero, .zero, TrackInfoDataSource.trackInfoValueColumnWidth, .greatestFiniteMagnitude)
     
     let value_unknown: String = "<Unknown>"
     
@@ -91,12 +90,9 @@ class TrackInfoDataSource: NSObject, NSTableViewDataSource, NSTableViewDelegate 
     // Adjust row height based on if the text wraps over to the next line
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         
-        let keyText = info[row].key
-        let valueText = info[row].value
-        
         // Set the key and value within the virtual text fields (which are not displayed)
-        virtualKeyField.stringValue = keyText
-        virtualValueField.stringValue = valueText
+        virtualKeyField.stringValue = info[row].key
+        virtualValueField.stringValue = info[row].value
         
         // And then compute row height from their cell sizes
         let keyHeight = virtualKeyField.cell!.cellSize(forBounds: keyColumnBounds).height

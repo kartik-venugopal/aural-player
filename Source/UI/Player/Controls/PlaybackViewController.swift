@@ -26,6 +26,8 @@ class PlaybackViewController: NSViewController, Destroyable {
     
     lazy var messenger = Messenger(for: self)
     
+    private let seekTimerTaskQueue: SeekTimerTaskQueue = .instance
+    
     override func viewDidLoad() {
         initSubscriptions()
     }
@@ -177,18 +179,20 @@ class PlaybackViewController: NSViewController, Destroyable {
     // Keeps track of the last known value of the current chapter (used to detect chapter changes)
     var curChapter: IndexedChapter? = nil
     
+    private static let chapterChangePollingTaskId: String = "ChapterChangePollingTask"
+    
     // Creates a recurring task that polls the player to detect a change in the currently playing track chapter.
     // This only occurs when the currently playing track actually has chapters.
     func beginPollingForChapterChange() {
         
-        SeekTimerTaskQueue.enqueueTask("ChapterChangePollingTask", {() -> Void in
+        seekTimerTaskQueue.enqueueTask(Self.chapterChangePollingTaskId, {
             
             let playingChapter: IndexedChapter? = self.player.playingChapter
             
-            // Compare the current chapter with the last known value of current chapter
+            // Compare the current chapter with the last known value of current chapter.
             if self.curChapter != playingChapter {
                 
-                // There has been a change ... notify observers and update the variable
+                // There has been a change ... notify observers and update the variable.
                 self.messenger.publish(ChapterChangedNotification(oldChapter: self.curChapter, newChapter: playingChapter))
                 self.curChapter = playingChapter
             }
@@ -197,7 +201,7 @@ class PlaybackViewController: NSViewController, Destroyable {
     
     // Disables the chapter change polling task
     func stopPollingForChapterChange() {
-        SeekTimerTaskQueue.dequeueTask("ChapterChangePollingTask")
+        seekTimerTaskQueue.dequeueTask(Self.chapterChangePollingTaskId)
     }
     
     // MARK: Message handling ---------------------------------------------------------------------

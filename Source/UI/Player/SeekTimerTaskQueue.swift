@@ -18,25 +18,25 @@ typealias SeekTimerTask = () -> Void
  */
 class SeekTimerTaskQueue {
     
-    // TODO: Revisit this class, make it a singleton.
+    static let instance = SeekTimerTaskQueue()
     
     // Mapping of task ID -> task
-    private static var tasks: [String: SeekTimerTask] = [:]
+    private var tasksMap: [String: SeekTimerTask] = [:]
     
     // Accessor to retrieve all currently queued tasks
-    static var tasksArray: [SeekTimerTask] = []
+    var tasks: [SeekTimerTask] = []
     
     // Enqueues a single task and maps it to the given (unique) ID so that it can later be retrieved by the same ID when it needs to be dequeued
-    static func enqueueTask(_ id: String, _ task: @escaping SeekTimerTask) {
+    func enqueueTask(_ id: String, _ task: @escaping SeekTimerTask) {
         
-        tasks[id] = task
-        tasksArray = Array(tasks.values)
+        tasksMap[id] = task
+        tasks = Array(tasksMap.values)
     }
     
     // Dequeues a previously queued task, identified by the given ID
-    static func dequeueTask(_ id: String) {
+    func dequeueTask(_ id: String) {
         
-        tasks.removeValue(forKey: id)
-        tasksArray = Array(tasks.values)
+        tasksMap.removeValue(forKey: id)
+        tasks = Array(tasksMap.values)
     }
 }

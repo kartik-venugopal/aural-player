@@ -39,6 +39,8 @@ class SeekSliderView: NSView {
     
     var seekSliderValue: Double {seekSlider.doubleValue}
     
+    private let seekTimerTaskQueue: SeekTimerTaskQueue = .instance
+    
     override func awakeFromNib() {
         
         initSeekPositionLabels()
@@ -124,7 +126,7 @@ class SeekSliderView: NSView {
         
         updateSeekPositionLabels(seekPosn)
         
-        for task in SeekTimerTaskQueue.tasksArray {
+        for task in seekTimerTaskQueue.tasks {
             task()
         }
     }
@@ -184,6 +186,7 @@ class SeekSliderView: NSView {
     }
     
     // TODO: Should disable / re-enable the timer when labels are hidden / shown (unnecessary CPU usage).
+    // TODO: Also do this ^ when in Expanded Art view and time labels are auto-hidden.
     func showOrHideTimeElapsedRemaining() {
         [lblTimeElapsed, lblTimeRemaining].forEach {$0?.showIf(uiState.showTimeElapsedRemaining)}
     }
