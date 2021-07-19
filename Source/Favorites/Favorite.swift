@@ -12,7 +12,7 @@ import Cocoa
 ///
 /// Encapsulates a user-defined favorite (a track marked as such).
 ///
-class Favorite: MappedPreset {
+class Favorite: MappedPreset, Hashable {
     
     // The file of the track being favorited
     let file: URL
@@ -55,5 +55,13 @@ class Favorite: MappedPreset {
         
         self.file = URL(fileURLWithPath: path)
         self._name = name
+    }
+    
+    static func == (lhs: Favorite, rhs: Favorite) -> Bool {
+        lhs.file == rhs.file
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(file)
     }
 }

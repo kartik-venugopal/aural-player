@@ -44,7 +44,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let favorite = Favorite(track.file, track.displayName)
         favorites.addPreset(favorite)
-        messenger.publish(.favoritesList_trackAdded, payload: track.file)
+        messenger.publish(.favoritesList_trackAdded, payload: favorite)
         
         return favorite
     }
@@ -53,7 +53,7 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
         
         let favorite = Favorite(file, name)
         favorites.addPreset(favorite)
-        messenger.publish(.favoritesList_trackAdded, payload: file)
+        messenger.publish(.favoritesList_trackAdded, payload: favorite)
         
         return favorite
     }
@@ -72,22 +72,23 @@ class FavoritesDelegate: FavoritesDelegateProtocol {
     
     func deleteFavoriteAtIndex(_ index: Int) {
         
-        let fav = getFavoriteAtIndex(index)
+        let favorite = getFavoriteAtIndex(index)
         favorites.deletePreset(atIndex: index)
-        messenger.publish(.favoritesList_tracksRemoved, payload: Set([fav.file]))
+        messenger.publish(.favoritesList_tracksRemoved, payload: Set([favorite]))
     }
     
     func deleteFavorites(atIndices indices: IndexSet) {
         
-        let deletedFavs = indices.map {favorites.userDefinedPresets[$0].file}
+        let deletedFavorites = indices.map {favorites.userDefinedPresets[$0]}
         favorites.deletePresets(atIndices: indices)
-        messenger.publish(.favoritesList_tracksRemoved, payload: Set(deletedFavs))
+        messenger.publish(.favoritesList_tracksRemoved, payload: Set(deletedFavorites))
     }
     
     func deleteFavoriteWithFile(_ file: URL) {
         
+        guard let favorite = favorites.preset(named: file.path) else {return}
         favorites.deletePreset(named: file.path)
-        messenger.publish(.favoritesList_tracksRemoved, payload: Set([file]))
+        messenger.publish(.favoritesList_tracksRemoved, payload: Set([favorite]))
     }
     
     func favoriteWithFileExists(_ file: URL) -> Bool {

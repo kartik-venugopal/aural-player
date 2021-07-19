@@ -36,11 +36,14 @@ class DockMenuController: NSObject, NSMenuDelegate {
     // Favorites menu item (needs to be toggled)
     @IBOutlet weak var favoritesMenuItem: ToggleMenuItem!
     
-    // Sub-menu that displays recently played tracks. Clicking on any of these items will result in the track being played.
+    // Sub-menu that displays recently played tracks. Clicking on any of these items will result in the corresponding track being played.
     @IBOutlet weak var recentlyPlayedMenu: NSMenu!
     
-    // Sub-menu that displays tracks marked "favorites". Clicking on any of these items will result in the track being  played.
+    // Sub-menu that displays tracks marked "favorites". Clicking on any of these items will result in the corresponding track being played.
     @IBOutlet weak var favoritesMenu: NSMenu!
+    
+    // Sub-menu that displays bookmarks. Clicking on any of these items will result in the corresponding track being played.
+    @IBOutlet weak var bookmarksMenu: NSMenu!
     
     // Delegate that retrieves current playback info (e.g. currently playing track)
     private lazy var playbackInfo: PlaybackInfoDelegateProtocol = objectGraph.playbackInfoDelegate
@@ -49,8 +52,9 @@ class DockMenuController: NSObject, NSMenuDelegate {
     private lazy var sequenceInfo: SequencerInfoDelegateProtocol = objectGraph.sequencerInfoDelegate
     
     // Delegate that performs CRUD on the history model
-    private let history: HistoryDelegateProtocol = objectGraph.historyDelegate
-    private let favorites: FavoritesDelegateProtocol = objectGraph.favoritesDelegate
+    private lazy var history: HistoryDelegateProtocol = objectGraph.historyDelegate
+    private lazy var favorites: FavoritesDelegateProtocol = objectGraph.favoritesDelegate
+    private lazy var bookmarks: BookmarksDelegateProtocol = objectGraph.bookmarksDelegate
     
     private lazy var messenger = Messenger(for: self)
     
@@ -63,6 +67,10 @@ class DockMenuController: NSObject, NSMenuDelegate {
         
         messenger.subscribeAsync(to: .favoritesList_trackAdded, handler: trackAddedToFavorites(_:))
         messenger.subscribeAsync(to: .favoritesList_tracksRemoved, handler: tracksRemovedFromFavorites(_:))
+        
+        messenger.subscribeAsync(to: .bookmarksList_trackAdded, handler: trackAddedToBookmarks(_:))
+        messenger.subscribeAsync(to: .bookmarksList_tracksRemoved, handler: tracksRemovedFromBookmarks(_:))
+        
         messenger.subscribeAsync(to: .history_updated, handler: recreateHistoryMenus)
         
         // Subscribe to notifications
@@ -79,12 +87,19 @@ class DockMenuController: NSObject, NSMenuDelegate {
             item.favorite = $0
             favoritesMenu.addItem(item)
         }
+        
+        bookmarks.allBookmarks.reversed().forEach {
+            
+            let item = BookmarksMenuItem(title: $0.name, action: #selector(self.playSelectedBookmarkAction(_:)))
+            item.target = self
+            item.bookmark = $0
+            bookmarksMenu.addItem(item)
+        }
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
         
         // TODO: Recreate history and favorites menus here ???
-        
         updateRepeatAndShuffleMenuItemStates()
     }
     
@@ -93,42 +108,51 @@ class DockMenuController: NSObject, NSMenuDelegate {
         messenger.publish(.favoritesList_addOrRemove)
     }
     
-    // Responds to a notification that a track has been added to the Favorites list, by updating the Favorites menu
-    func trackAddedToFavorites(_ trackFile: URL) {
+    // Responds to a notification that a track has been added to the Favorites list, by updating the Favorites menu.
+    func trackAddedToFavorites(_ favorite: Favorite) {
         
-        if let fav = favorites.getFavoriteWithFile(trackFile) {
-            
-            // Add it to the menu
-            let item = FavoritesMenuItem(title: fav.name, action: #selector(self.playSelectedFavoriteAction(_:)))
-            item.target = self
-            item.favorite = fav
-            
-            favoritesMenu.insertItem(item, at: 0)
-        }
+        // Add it to the menu
+        let item = FavoritesMenuItem(title: favorite.name, action: #selector(self.playSelectedFavoriteAction(_:)))
+        item.target = self
+        item.favorite = favorite
+        
+        favoritesMenu.insertItem(item, at: 0)
         
         // Update the toggle menu item
-        if let plTrack = playbackInfo.playingTrack, plTrack.file.path == trackFile.path {
+        if let plTrack = playbackInfo.playingTrack, plTrack.file == favorite.file {
             favoritesMenuItem.on()
         }
     }
     
-    // Responds to a notification that a track has been removed from the Favorites list, by updating the Favorites menu
-    func tracksRemovedFromFavorites(_ removedFavoritesFiles: Set<URL>) {
+    // Responds to a notification that a track has been removed from the Favorites list, by updating the Favorites menu.
+    func tracksRemovedFromFavorites(_ removedFavorites: Set<Favorite>) {
         
-        // Remove it from the menu
-        favoritesMenu.items.forEach {
-            
-            if let favItem = $0 as? FavoritesMenuItem, removedFavoritesFiles.contains(favItem.favorite.file) {
-                 
-                favoritesMenu.removeItem($0)
-                return
-            }
-        }
+        let itemsToRemove = favoritesMenu.items.compactMap {$0 as? FavoritesMenuItem}.filter {removedFavorites.contains($0.favorite)}
+        itemsToRemove.forEach {favoritesMenu.removeItem($0)}
         
         // Update the toggle menu item
+        let removedFavoritesFiles = Set(removedFavorites.map {$0.file})
         if let plTrack = playbackInfo.playingTrack, removedFavoritesFiles.contains(plTrack.file) {
             favoritesMenuItem.off()
         }
+    }
+    
+    // Responds to a notification that a track has been added to the Bookmarks list, by updating the Bookmarks menu.
+    func trackAddedToBookmarks(_ bookmark: Bookmark) {
+        
+        // Add it to the menu
+        let item = BookmarksMenuItem(title: bookmark.name, action: #selector(self.playSelectedBookmarkAction(_:)))
+        item.target = self
+        item.bookmark = bookmark
+        
+        bookmarksMenu.insertItem(item, at: 0)
+    }
+    
+    // Responds to a notification that a track has been removed from the Bookmarks list, by updating the Bookmarks menu.
+    func tracksRemovedFromBookmarks(_ removedBookmarks: Set<Bookmark>) {
+        
+        let itemsToRemove = bookmarksMenu.items.compactMap {$0 as? BookmarksMenuItem}.filter {removedBookmarks.contains($0.bookmark)}
+        itemsToRemove.forEach {bookmarksMenu.removeItem($0)}
     }
     
     // When a "Recently played" or "Favorites" menu item is clicked, the item is played
@@ -158,11 +182,11 @@ class DockMenuController: NSObject, NSMenuDelegate {
     
     @IBAction func playSelectedFavoriteAction(_ sender: FavoritesMenuItem) {
         
-        let fav = sender.favorite!
+        guard let favorite = sender.favorite else {return}
         
         do {
             
-            try favorites.playFavorite(fav)
+            try favorites.playFavorite(favorite)
             
         } catch {
             
@@ -173,7 +197,30 @@ class DockMenuController: NSObject, NSMenuDelegate {
                     
                     // Position and display an alert with error info
                     _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove favorite").showModal()
-                    self.favorites.deleteFavoriteWithFile(fav.file)
+                    self.favorites.deleteFavoriteWithFile(favorite.file)
+                }
+            }
+        }
+    }
+    
+    @IBAction func playSelectedBookmarkAction(_ sender: BookmarksMenuItem) {
+        
+        guard let bookmark = sender.bookmark else {return}
+        
+        do {
+            
+            try bookmarks.playBookmark(bookmark)
+            
+        } catch {
+            
+            if let fnfError = error as? FileNotFoundError {
+                
+                // This needs to be done async. Otherwise, other open dialogs could hang.
+                DispatchQueue.main.async {
+                    
+                    // Position and display an alert with error info
+                    _ = DialogsAndAlerts.trackNotPlayedAlertWithError(fnfError, "Remove bookmark").showModal()
+                    self.bookmarks.deleteBookmarkWithName(sender.bookmark.name)
                 }
             }
         }
@@ -287,7 +334,9 @@ class DockMenuController: NSObject, NSMenuDelegate {
         recentlyPlayedMenu.removeAllItems()
         
         // Retrieve the model and re-create all sub-menu items
-        history.allRecentlyPlayedItems().forEach({recentlyPlayedMenu.addItem(createHistoryMenuItem($0))})
+        history.allRecentlyPlayedItems().forEach {
+            recentlyPlayedMenu.addItem(createHistoryMenuItem($0))
+        }
     }
     
     // Factory method to create a single menu item, given a model object (HistoryItem)

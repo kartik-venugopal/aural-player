@@ -134,6 +134,8 @@ class PlaybackDelegate: PlaybackDelegateProtocol {
     // Captures the current player state and proceeds with playback according to the playback sequence
     private func doPlay(_ trackProducer: TrackProducer, _ params: PlaybackParams = PlaybackParams.defaultParams()) {
         
+        // TODO: Optimization: If the requested track is the same as the current track, just do a forced seek.
+        
         let trackBeforeChange = playingTrack
         let stateBeforeChange = state
         let seekPositionBeforeChange = seekPosition.timeElapsed

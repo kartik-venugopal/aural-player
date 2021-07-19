@@ -907,6 +907,7 @@
 		3EBF29332686979700D87021 /* EffectsTextButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */; };
 		3EBF293526869A1200D87021 /* PreferencesPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */; };
 		3EBF293726869A9300D87021 /* EffectsUnitPopupMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */; };
+		3EC9E66C26A5974900C17302 /* BookmarksNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC9E66B26A5974900C17302 /* BookmarksNotifications.swift */; };
 		3ECA54F6268F9162002813E0 /* TimeStretchUnitPersistentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09D0BE26805C18008ECB8C /* TimeStretchUnitPersistentState.swift */; };
 		3ECA54F8268F9166002813E0 /* TimePresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C110B25CEB98700BF0D07 /* TimePresets.swift */; };
 		3ECB54E825E552A9002259C4 /* ragingredlotus-bb.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */; };
@@ -1985,6 +1986,7 @@
 		3EBF29322686979700D87021 /* EffectsTextButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsTextButtonCell.swift; sourceTree = "<group>"; };
 		3EBF293426869A1200D87021 /* PreferencesPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPopupMenuCell.swift; sourceTree = "<group>"; };
 		3EBF293626869A9300D87021 /* EffectsUnitPopupMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectsUnitPopupMenuCell.swift; sourceTree = "<group>"; };
+		3EC9E66B26A5974900C17302 /* BookmarksNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksNotifications.swift; sourceTree = "<group>"; };
 		3ECB54E625E552A1002259C4 /* ragingredlotus-bb.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ragingredlotus-bb.regular.ttf"; sourceTree = "<group>"; };
 		3ECB54E725E552A1002259C4 /* shufen.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shufen.regular.ttf; sourceTree = "<group>"; };
 		3ECB54EC25E559DE002259C4 /* futura light bt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "futura light bt.ttf"; sourceTree = "<group>"; };
@@ -3916,6 +3918,7 @@
 				3E8C7943269C43B2005E78D1 /* AudioGraphNotifications.swift */,
 				3E8C7937269C42D9005E78D1 /* EffectsNotifications.swift */,
 				3E8C7931269C4278005E78D1 /* FavoritesListNotifications.swift */,
+				3EC9E66B26A5974900C17302 /* BookmarksNotifications.swift */,
 				3E8C7934269C4299005E78D1 /* HistoryNotifications.swift */,
 				3E8C793A269C4307005E78D1 /* PlayerNotifications.swift */,
 				3E8C793D269C4332005E78D1 /* PlaylistNotifications.swift */,
@@ -4979,6 +4982,7 @@
 				3E5F943325E571A6002DEF80 /* Spectrogram.swift in Sources */,
 				3E6C123725CEBDF400BF0D07 /* AuralPlaylistViews.swift in Sources */,
 				3EDB33F025E8AE09004DF7DE /* FFmpegAudioCodec.swift in Sources */,
+				3EC9E66C26A5974900C17302 /* BookmarksNotifications.swift in Sources */,
 				3E09D0D826805C19008ECB8C /* FontSchemesPersistentState.swift in Sources */,
 				3E2000C9267CEF83008BAB70 /* RemoteControlPreferencesViewController.swift in Sources */,
 				3EDB33F725E8AE09004DF7DE /* FFmpegCodec.swift in Sources */,

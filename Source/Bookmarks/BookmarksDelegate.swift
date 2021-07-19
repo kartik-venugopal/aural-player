@@ -29,6 +29,8 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     // Delegate used to perform playback
     private let player: PlaybackDelegateProtocol
     
+    private lazy var messenger = Messenger(for: self)
+    
     init(persistentState: [BookmarkPersistentState]?, _ playlist: PlaylistDelegateProtocol, _ player: PlaybackDelegateProtocol) {
         
         self.playlist = playlist
@@ -43,12 +45,18 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
         
         let newBookmark = Bookmark(name, track.file, startPosition, endPosition)
         bookmarks.addPreset(newBookmark)
+        
+        messenger.publish(.bookmarksList_trackAdded, payload: newBookmark)
         return newBookmark
     }
     
     var allBookmarks: [Bookmark] {bookmarks.userDefinedPresets}
     
     var count: Int {bookmarks.numberOfUserDefinedPresets}
+    
+    func getBookmark(named name: String) -> Bookmark? {
+        bookmarks.userDefinedPreset(named: name)
+    }
     
     func getBookmarkAtIndex(_ index: Int) -> Bookmark {
         bookmarks.userDefinedPresets[index]
@@ -85,15 +93,26 @@ class BookmarksDelegate: BookmarksDelegateProtocol {
     }
     
     func deleteBookmarkAtIndex(_ index: Int) {
+        
+        let deletedBookmark = bookmarks.userDefinedPresets[index]
         bookmarks.deletePreset(atIndex: index)
+        messenger.publish(.bookmarksList_tracksRemoved, payload: Set([deletedBookmark]))
     }
     
     func deleteBookmarks(atIndices indices: IndexSet) {
+        
+        let deletedBookmarks = indices.map {bookmarks.userDefinedPresets[$0]}
         bookmarks.deletePresets(atIndices: indices)
+        messenger.publish(.bookmarksList_tracksRemoved, payload: Set(deletedBookmarks))
     }
     
     func deleteBookmarkWithName(_ name: String) {
-        bookmarks.deletePreset(named: name)
+        
+        if let bookmark = bookmarks.preset(named: name) {
+            
+            bookmarks.deletePreset(named: name)
+            messenger.publish(.bookmarksList_tracksRemoved, payload: Set([bookmark]))
+        }
     }
     
     var persistentState: [BookmarkPersistentState] {

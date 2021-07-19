@@ -64,6 +64,9 @@ class MappedPresets<P: MappedPreset> {
         systemDefinedPresetsMap[name]
     }
     
+    // TODO: All the delete functions should return the deleted elements.
+    // This will require changes to the PresetsMap functions too.
+    
     func deletePreset(atIndex index: Int) {
         userDefinedPresetsMap.removePresetAtIndex(index)
     }

@@ -12,7 +12,7 @@ import Cocoa
 ///
 /// Encapsulates a user-defined bookmark (i.e. a remembered playback position(s) within a track).
 ///
-class Bookmark: MappedPreset {
+class Bookmark: MappedPreset, Hashable {
     
     // A name or description (e.g. "2nd chapter of audiobook")
     private var _name: String
@@ -78,5 +78,13 @@ class Bookmark: MappedPreset {
         
         self.startPosition = startPosition
         self.endPosition = persistentState.endPosition
+    }
+    
+    static func == (lhs: Bookmark, rhs: Bookmark) -> Bool {
+        lhs.name == rhs.name
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
     }
 }

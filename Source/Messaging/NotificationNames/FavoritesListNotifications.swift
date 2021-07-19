@@ -14,10 +14,6 @@ import Foundation
 ///
 extension Notification.Name {
     
-    // ----------------------------------------------------------------------------------------
-    
-    // MARK: Notifications/commands related to the Favorites list.
-    
     // Signifies that a track has been added to the favorites list.
     static let favoritesList_trackAdded = Notification.Name("favoritesList_trackAdded")
     

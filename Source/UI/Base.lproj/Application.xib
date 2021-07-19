@@ -10,10 +10,10 @@
     See the file "LICENSE" in the project root directory for license terms.
 
 -->
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -27,6 +27,7 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Aural" customModuleProvider="target"/>
         <customObject id="29W-IU-ITu" customClass="DockMenuController" customModule="Aural" customModuleProvider="target">
             <connections>
+                <outlet property="bookmarksMenu" destination="4eY-AL-eB6" id="481-ip-TWL"/>
                 <outlet property="favoritesMenu" destination="WRB-ga-QzB" id="mFI-MZ-xYg"/>
                 <outlet property="favoritesMenuItem" destination="I89-DR-v3r" id="1HH-Sx-7rx"/>
                 <outlet property="recentlyPlayedMenu" destination="aSw-mI-3ut" id="3Cf-Ir-DJz"/>
@@ -43,6 +44,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Recently played" id="aSw-mI-3ut"/>
                 </menuItem>
+                <menuItem isSeparatorItem="YES" id="8oy-UA-JbT"/>
                 <menuItem title="Favorites" id="yx1-0C-wVJ" userLabel="Favorites">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Favorites" id="WRB-ga-QzB"/>
@@ -56,6 +58,11 @@
                     <connections>
                         <action selector="favoritesAction:" target="29W-IU-ITu" id="CDH-ow-dfV"/>
                     </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="74O-yJ-Ema"/>
+                <menuItem title="Bookmarks" id="W4Q-hW-09F">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Bookmarks" id="4eY-AL-eB6"/>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="C2z-jB-bGV"/>
                 <menuItem title="Play / Pause" id="haA-Vb-9QH">
