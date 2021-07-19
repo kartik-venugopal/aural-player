@@ -27,7 +27,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     @IBOutlet weak var controlButtonsSuperview: NSView!
     
     @IBOutlet weak var btnClose: TintedImageButton!
-    
     @IBOutlet weak var btnPageUp: TintedImageButton!
     @IBOutlet weak var btnPageDown: TintedImageButton!
     @IBOutlet weak var btnScrollToTop: TintedImageButton!
@@ -92,12 +91,15 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         
         theWindow.isMovableByWindowBackground = true
         
-        btnClose.tintFunction = {return Colors.viewControlButtonColor}
+        btnClose.tintFunction = {return Colors.functionButtonColor}
         
         setUpTabGroup()
         
         childContainerBoxes = [playlistContainerBox, tabButtonsBox, controlsBox]
-        functionButtons = [btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] + controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
+        
+        functionButtons = [btnClose, btnPageUp, btnPageDown, btnScrollToTop, btnScrollToBottom] +
+            controlButtonsSuperview.subviews.compactMap {$0 as? TintedImageButton}
+        
         tabButtons = [btnTracksTab, btnArtistsTab, btnAlbumsTab, btnGenresTab]
 
         applyFontScheme(fontSchemesManager.systemScheme)
@@ -176,7 +178,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
         messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
         
-        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
         messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
         
         messenger.subscribe(to: .changeTabButtonTextColor, handler: changeTabButtonTextColor(_:))
@@ -431,7 +432,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
-        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
         changeFunctionButtonColor(scheme.general.functionButtonColor)
         changeSummaryInfoColor(scheme.playlist.summaryInfoColor)
     }
@@ -447,10 +447,6 @@ class PlaylistWindowController: NSWindowController, NSTabViewDelegate, Destroyab
         }
         
         redrawTabButtons()
-    }
-    
-    private func changeViewControlButtonColor(_ color: NSColor) {
-        btnClose.reTint()
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {

@@ -81,11 +81,11 @@ class MainWindowController: NSWindowController, Destroyable {
         
         containerBox.addSubview(playerViewController.view)
         
-        [btnQuit, btnMinimize, btnMenuBarMode, btnControlBarMode].forEach {$0?.tintFunction = {Colors.viewControlButtonColor}}
+        [btnQuit, btnMinimize, btnMenuBarMode, btnControlBarMode].forEach {$0?.tintFunction = {Colors.functionButtonColor}}
         
         [btnToggleEffects, btnTogglePlaylist].forEach {
             
-            $0?.onStateTintFunction = {Colors.viewControlButtonColor}
+            $0?.onStateTintFunction = {Colors.functionButtonColor}
             $0?.offStateTintFunction = {Colors.toggleButtonOffStateColor}
         }
         
@@ -119,7 +119,7 @@ class MainWindowController: NSWindowController, Destroyable {
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         messenger.subscribe(to: .changeAppLogoColor, handler: changeAppLogoColor(_:))
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
-        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
         messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: changeToggleButtonOffStateColor(_:))
 
         messenger.subscribe(to: .windowManager_layoutChanged, handler: windowLayoutChanged)
@@ -198,7 +198,7 @@ class MainWindowController: NSWindowController, Destroyable {
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
-        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
         changeToggleButtonOffStateColor(scheme.general.toggleButtonOffStateColor)
         changeAppLogoColor(scheme.general.appLogoColor)
     }
@@ -207,7 +207,7 @@ class MainWindowController: NSWindowController, Destroyable {
         rootContainerBox.fillColor = color
     }
     
-    private func changeViewControlButtonColor(_ color: NSColor) {
+    private func changeFunctionButtonColor(_ color: NSColor) {
         
         [btnQuit, btnMinimize, btnMenuBarMode, btnControlBarMode,
          btnTogglePlaylist, btnToggleEffects, settingsMenuIconItem].forEach {

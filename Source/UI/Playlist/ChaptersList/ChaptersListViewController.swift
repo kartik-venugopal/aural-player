@@ -61,9 +61,9 @@ class ChaptersListViewController: NSViewController, Destroyable {
         scrollView.drawsBackground = false
         clipView.drawsBackground = false
         
-        functionButtons = [btnPreviousChapter, btnNextChapter, btnReplayChapter, btnLoopChapter, btnCaseSensitive, btnPreviousMatch, btnNextMatch]
+        functionButtons = [btnClose, btnPreviousChapter, btnNextChapter, btnReplayChapter,
+                           btnLoopChapter, btnCaseSensitive, btnPreviousMatch, btnNextMatch]
         
-        btnClose.tintFunction = {return Colors.viewControlButtonColor}
         applyColorScheme(colorSchemesManager.systemScheme)
         
         chaptersListView.customizeHeader(heightIncrease: 5, customCellType: ChaptersListTableHeaderCell.self)
@@ -93,7 +93,6 @@ class ChaptersListViewController: NSViewController, Destroyable {
         messenger.subscribe(to: .applyFontScheme, handler: applyFontScheme(_:))
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
-        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
         messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
         messenger.subscribe(to: .changeToggleButtonOffStateColor, handler: changeToggleButtonOffStateColor(_:))
         messenger.subscribe(to: .changeMainCaptionTextColor, handler: changeMainCaptionTextColor(_:))
@@ -385,7 +384,6 @@ class ChaptersListViewController: NSViewController, Destroyable {
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
-        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
         
         changeSummaryInfoColor(scheme.playlist.summaryInfoColor)
         changeMainCaptionTextColor(scheme.general.mainCaptionTextColor)
@@ -404,11 +402,7 @@ class ChaptersListViewController: NSViewController, Destroyable {
     }
     
     private func changeFunctionButtonColor(_ color: NSColor) {
-        functionButtons.forEach({$0.reTint()})
-    }
-    
-    private func changeViewControlButtonColor(_ color: NSColor) {
-        btnClose.reTint()
+        functionButtons.forEach {$0.reTint()}
     }
     
     private func changeToggleButtonOffStateColor(_ color: NSColor) {

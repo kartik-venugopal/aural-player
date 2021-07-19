@@ -25,10 +25,6 @@ struct Colors {
         return colorSchemesManager.systemScheme.general.appLogoColor
     }
     
-    static var viewControlButtonColor: NSColor {
-        return colorSchemesManager.systemScheme.general.viewControlButtonColor
-    }
-    
     static var functionButtonColor: NSColor {
         return colorSchemesManager.systemScheme.general.functionButtonColor
     }

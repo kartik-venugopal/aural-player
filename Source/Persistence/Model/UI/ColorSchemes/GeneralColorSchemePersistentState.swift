@@ -19,7 +19,6 @@ struct GeneralColorSchemePersistentState: Codable {
     let appLogoColor: ColorPersistentState?
     let backgroundColor: ColorPersistentState?
     
-    let viewControlButtonColor: ColorPersistentState?
     let functionButtonColor: ColorPersistentState?
     let textButtonMenuColor: ColorPersistentState?
     let toggleButtonOffStateColor: ColorPersistentState?
@@ -35,7 +34,6 @@ struct GeneralColorSchemePersistentState: Codable {
         self.appLogoColor = ColorPersistentState(color: scheme.appLogoColor)
         self.backgroundColor = ColorPersistentState(color: scheme.backgroundColor)
         
-        self.viewControlButtonColor = ColorPersistentState(color: scheme.viewControlButtonColor)
         self.functionButtonColor = ColorPersistentState(color: scheme.functionButtonColor)
         self.textButtonMenuColor = ColorPersistentState(color: scheme.textButtonMenuColor)
         self.toggleButtonOffStateColor = ColorPersistentState(color: scheme.toggleButtonOffStateColor)

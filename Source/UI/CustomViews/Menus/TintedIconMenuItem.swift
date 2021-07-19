@@ -21,7 +21,7 @@ class TintedIconMenuItem: NSMenuItem, Tintable {
     }
     
     // A function that produces a color used to tint the base image.
-    var tintFunction: () -> NSColor = {return Colors.viewControlButtonColor} {
+    var tintFunction: () -> NSColor = {return Colors.functionButtonColor} {
         didSet {reTint()}
     }
     

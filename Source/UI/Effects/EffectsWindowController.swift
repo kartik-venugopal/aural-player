@@ -69,7 +69,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
 
         theWindow.isMovableByWindowBackground = true
 
-        btnClose.tintFunction = {return Colors.viewControlButtonColor}
+        btnClose.tintFunction = {return Colors.functionButtonColor}
         
         applyColorScheme(colorSchemesManager.systemScheme)
         rootContainerBox.cornerRadius = uiState.cornerRadius
@@ -134,7 +134,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
         messenger.subscribe(to: .applyTheme, handler: applyTheme)
         messenger.subscribe(to: .applyColorScheme, handler: applyColorScheme(_:))
         messenger.subscribe(to: .changeBackgroundColor, handler: changeBackgroundColor(_:))
-        messenger.subscribe(to: .changeViewControlButtonColor, handler: changeViewControlButtonColor(_:))
+        messenger.subscribe(to: .changeFunctionButtonColor, handler: changeFunctionButtonColor(_:))
         messenger.subscribe(to: .changeSelectedTabButtonColor, handler: changeSelectedTabButtonColor(_:))
         messenger.subscribe(to: .windowAppearance_changeCornerRadius, handler: changeWindowCornerRadius(_:))
         
@@ -175,7 +175,7 @@ class EffectsWindowController: NSWindowController, Destroyable {
     private func applyColorScheme(_ scheme: ColorScheme) {
         
         changeBackgroundColor(scheme.general.backgroundColor)
-        changeViewControlButtonColor(scheme.general.viewControlButtonColor)
+        changeFunctionButtonColor(scheme.general.functionButtonColor)
         
         effectsTabViewButtons.forEach({$0.reTint()})
     }
@@ -185,41 +185,32 @@ class EffectsWindowController: NSWindowController, Destroyable {
         rootContainerBox.fillColor = color
         tabButtonsBox.fillColor = color
         
-        effectsTabViewButtons.forEach({$0.redraw()})
+        effectsTabViewButtons.forEach {$0.redraw()}
     }
     
-    private func changeViewControlButtonColor(_ color: NSColor) {
+    private func changeFunctionButtonColor(_ color: NSColor) {
         btnClose.reTint()
     }
     
     private func changeActiveUnitStateColor(_ color: NSColor) {
         
-        effectsTabViewButtons.forEach({
-            
-            if $0.unitState == .active {
-                $0.reTint()
-            }
-        })
+        effectsTabViewButtons.filter {$0.unitState == .active}.forEach {
+            $0.reTint()
+        }
     }
     
     private func changeBypassedUnitStateColor(_ color: NSColor) {
         
-        effectsTabViewButtons.forEach({
-            
-            if $0.unitState == .bypassed {
-                $0.reTint()
-            }
-        })
+        effectsTabViewButtons.filter {$0.unitState == .bypassed}.forEach {
+            $0.reTint()
+        }
     }
     
     private func changeSuppressedUnitStateColor(_ color: NSColor) {
         
-        effectsTabViewButtons.forEach({
-            
-            if $0.unitState == .suppressed {
-                $0.reTint()
-            }
-        })
+        effectsTabViewButtons.filter {$0.unitState == .suppressed}.forEach {
+            $0.reTint()
+        }
     }
     
     private func changeSelectedTabButtonColor(_ color: NSColor) {

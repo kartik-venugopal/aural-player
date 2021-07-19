@@ -17,7 +17,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
     @IBOutlet weak var appLogoColorPicker: AuralColorPicker!
     @IBOutlet weak var backgroundColorPicker: AuralColorPicker!
     
-    @IBOutlet weak var viewControlButtonColorPicker: AuralColorPicker!
     @IBOutlet weak var functionButtonColorPicker: AuralColorPicker!
     @IBOutlet weak var textButtonMenuColorPicker: AuralColorPicker!
     @IBOutlet weak var toggleButtonOffStateColorPicker: AuralColorPicker!
@@ -42,7 +41,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         
         actionsMap[appLogoColorPicker.tag] = self.changeAppLogoColor
         actionsMap[backgroundColorPicker.tag] = self.changeBackgroundColor
-        actionsMap[viewControlButtonColorPicker.tag] = self.changeViewControlButtonColor
         actionsMap[functionButtonColorPicker.tag] = self.changeFunctionButtonColor
         actionsMap[textButtonMenuColorPicker.tag] = self.changeTextButtonMenuColor
         actionsMap[toggleButtonOffStateColorPicker.tag] = self.changeToggleButtonOffStateColor
@@ -62,7 +60,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         appLogoColorPicker.color = scheme.general.appLogoColor
         backgroundColorPicker.color = scheme.general.backgroundColor
         
-        viewControlButtonColorPicker.color = scheme.general.viewControlButtonColor
         functionButtonColorPicker.color = scheme.general.functionButtonColor
         textButtonMenuColorPicker.color = scheme.general.textButtonMenuColor
         toggleButtonOffStateColorPicker.color = scheme.general.toggleButtonOffStateColor
@@ -96,18 +93,6 @@ class GeneralColorSchemeViewController: ColorSchemeViewController {
         
         colorSchemesManager.systemScheme.general.backgroundColor = backgroundColorPicker.color
         messenger.publish(.changeBackgroundColor, payload: backgroundColorPicker.color)
-    }
-    
-    @IBAction func viewControlButtonColorAction(_ sender: Any) {
-        
-        history.noteChange(viewControlButtonColorPicker.tag, colorSchemesManager.systemScheme.general.viewControlButtonColor, viewControlButtonColorPicker.color, .changeColor)
-        changeViewControlButtonColor()
-    }
-    
-    private func changeViewControlButtonColor() {
-        
-        colorSchemesManager.systemScheme.general.viewControlButtonColor = viewControlButtonColorPicker.color
-        messenger.publish(.changeViewControlButtonColor, payload: viewControlButtonColorPicker.color)
     }
     
     @IBAction func functionButtonColorAction(_ sender: Any) {

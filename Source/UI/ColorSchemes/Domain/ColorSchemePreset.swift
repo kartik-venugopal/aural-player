@@ -138,29 +138,6 @@ enum ColorSchemePreset: String, CaseIterable {
         }
     }
     
-    var viewControlButtonColor: NSColor {
-        
-        switch self {
-            
-        case .blackAttack:  return .white55Percent
-            
-        case .blackAqua:  return .white55Percent
-            
-        case .lava:     return .white55Percent
-            
-        case .whiteBlight:  return .black
-            
-        case .gloomyDay:    return .white55Percent
-            
-        case .brownie:      return NSColor(red: 0.636, green: 0.483, blue: 0.44)
-            
-        case .theBlues:     return NSColor(red: 0.423, green: 0.501, blue: 0.549)
-            
-        case .poolsideFM:  return .black
-        
-        }
-    }
-    
     var functionButtonColor: NSColor {
         
         switch self {

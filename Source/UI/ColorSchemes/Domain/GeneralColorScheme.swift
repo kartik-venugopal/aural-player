@@ -18,7 +18,6 @@ class GeneralColorScheme {
     var appLogoColor: NSColor
     var backgroundColor: NSColor
     
-    var viewControlButtonColor: NSColor
     var functionButtonColor: NSColor
     var textButtonMenuColor: NSColor
     var toggleButtonOffStateColor: NSColor
@@ -33,8 +32,6 @@ class GeneralColorScheme {
         
         self.appLogoColor = persistentState?.appLogoColor?.toColor() ?? ColorScheme.defaultScheme.general.appLogoColor
         self.backgroundColor = persistentState?.backgroundColor?.toColor() ?? ColorScheme.defaultScheme.general.backgroundColor
-        
-        self.viewControlButtonColor = persistentState?.viewControlButtonColor?.toColor() ?? ColorScheme.defaultScheme.general.viewControlButtonColor
         
         self.functionButtonColor = persistentState?.functionButtonColor?.toColor() ?? ColorScheme.defaultScheme.general.functionButtonColor
         
@@ -58,7 +55,6 @@ class GeneralColorScheme {
         self.appLogoColor = scheme.appLogoColor
         self.backgroundColor = scheme.backgroundColor
         
-        self.viewControlButtonColor = scheme.viewControlButtonColor
         self.functionButtonColor = scheme.functionButtonColor
         self.textButtonMenuColor = scheme.textButtonMenuColor
         self.toggleButtonOffStateColor = scheme.toggleButtonOffStateColor
@@ -75,7 +71,6 @@ class GeneralColorScheme {
         self.appLogoColor = preset.appLogoColor
         self.backgroundColor = preset.backgroundColor
         
-        self.viewControlButtonColor = preset.viewControlButtonColor
         self.functionButtonColor = preset.functionButtonColor
         self.textButtonMenuColor = preset.textButtonMenuColor
         self.toggleButtonOffStateColor = preset.toggleButtonOffStateColor
@@ -92,7 +87,6 @@ class GeneralColorScheme {
         self.appLogoColor = preset.appLogoColor
         self.backgroundColor = preset.backgroundColor
         
-        self.viewControlButtonColor = preset.viewControlButtonColor
         self.functionButtonColor = preset.functionButtonColor
         self.textButtonMenuColor = preset.textButtonMenuColor
         self.toggleButtonOffStateColor = preset.toggleButtonOffStateColor
@@ -109,7 +103,6 @@ class GeneralColorScheme {
         self.appLogoColor = scheme.appLogoColor
         self.backgroundColor = scheme.backgroundColor
         
-        self.viewControlButtonColor = scheme.viewControlButtonColor
         self.functionButtonColor = scheme.functionButtonColor
         self.textButtonMenuColor = scheme.textButtonMenuColor
         self.toggleButtonOffStateColor = scheme.toggleButtonOffStateColor

@@ -30,9 +30,6 @@ extension Notification.Name {
     // Commands all relevant UI components to change the color of their background.
     static let changeBackgroundColor = Notification.Name("changeBackgroundColor")
 
-    // Commands all relevant UI components to change the color of their view control buttons (eg. close/settings buttons).
-    static let changeViewControlButtonColor = Notification.Name("changeViewControlButtonColor")
-
     // Commands all relevant UI components to change the color of their function buttons (eg. play/seek buttons in the player).
     static let changeFunctionButtonColor = Notification.Name("changeFunctionButtonColor")
 

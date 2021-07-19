@@ -50,8 +50,8 @@ class ControlBarPlayerWindowController: NSWindowController, NSWindowDelegate, NS
             dockTopLeftAction(self)
         }
         
-        btnQuit.tintFunction = {Colors.viewControlButtonColor}
-        optionsMenuItem.tintFunction = {Colors.viewControlButtonColor}
+        btnQuit.tintFunction = {Colors.functionButtonColor}
+        optionsMenuItem.tintFunction = {Colors.functionButtonColor}
 
         rootContainerBox.cornerRadius = uiState.cornerRadius
         cornerRadiusStepper.integerValue = uiState.cornerRadius.roundedInt
