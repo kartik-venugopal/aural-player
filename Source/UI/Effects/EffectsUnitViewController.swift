@@ -154,7 +154,7 @@ class EffectsUnitViewController: NSViewController, NSMenuDelegate, StringInputRe
         
         lblCaption.font = fontSchemesManager.systemScheme.effects.unitCaptionFont
         functionLabels.forEach({$0.font = fontSchemesManager.systemScheme.effects.unitFunctionFont})
-        presetsMenu.font = Fonts.menuFont
+        presetsMenu.font = .menuFont
     }
     
     func applyColorScheme(_ scheme: ColorScheme) {

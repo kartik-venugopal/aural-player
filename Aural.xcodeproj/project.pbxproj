@@ -924,6 +924,7 @@
 		3ECE4BF1269613D10017DD25 /* GesturesControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */; };
 		3ECE4BF526961ECB0017DD25 /* MetadataPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF426961ECB0017DD25 /* MetadataPreferencesTests.swift */; };
 		3ECE4BF8269620F70017DD25 /* ControlsPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECE4BF7269620F70017DD25 /* ControlsPreferencesTests.swift */; };
+		3ECF275C26A5567000974120 /* FontSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF275B26A5567000974120 /* FontSet.swift */; };
 		3ED5A13126996E12007E5343 /* HostedAudioUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5A13026996E12007E5343 /* HostedAudioUnitTests.swift */; };
 		3ED5A13326996E53007E5343 /* HostedAudioUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3633C62685FAD0006A88ED /* HostedAudioUnit.swift */; };
 		3ED5A13526996E5A007E5343 /* AudioUnitsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5623C62619F8BA00D55E43 /* AudioUnitsManager.swift */; };
@@ -1999,6 +2000,7 @@
 		3ECE4BF0269613D10017DD25 /* GesturesControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesControlsPreferencesTests.swift; sourceTree = "<group>"; };
 		3ECE4BF426961ECB0017DD25 /* MetadataPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPreferencesTests.swift; sourceTree = "<group>"; };
 		3ECE4BF7269620F70017DD25 /* ControlsPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsPreferencesTests.swift; sourceTree = "<group>"; };
+		3ECF275B26A5567000974120 /* FontSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSet.swift; sourceTree = "<group>"; };
 		3ED5A13026996E12007E5343 /* HostedAudioUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostedAudioUnitTests.swift; sourceTree = "<group>"; };
 		3ED5A13B26996F3B007E5343 /* MockAVAudioUnitComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAVAudioUnitComponent.swift; sourceTree = "<group>"; };
 		3ED5A13E269973A1007E5343 /* AudioGraphUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioGraphUnitTests.swift; sourceTree = "<group>"; };
@@ -4257,6 +4259,7 @@
 				3EA89D9A2699F50C0021CDB9 /* ScrollSession.swift */,
 				3EA89D9D2699F5270021CDB9 /* GestureDirection.swift */,
 				3E8C7917269C40FC005E78D1 /* UserInputMode.swift */,
+				3ECF275B26A5567000974120 /* FontSet.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -5394,6 +5397,7 @@
 				3EAFB60D267FF2F300F0DC96 /* PanSliderCell.swift in Sources */,
 				3EEC04272687B397004478CE /* ExclusiveAccessSemaphore.swift in Sources */,
 				3EDB33F925E8AE09004DF7DE /* FFmpegSampleConverter.swift in Sources */,
+				3ECF275C26A5567000974120 /* FontSet.swift in Sources */,
 				3EA0102925E2725900A80DAC /* FontSchemeHistory.swift in Sources */,
 				3E6361FA26850883006F5A2A /* PlaylistColorScheme.swift in Sources */,
 				3E5F943725E571A6002DEF80 /* SpectrogramBar.swift in Sources */,

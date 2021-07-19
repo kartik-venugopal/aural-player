@@ -65,7 +65,7 @@ class CreateThemeDialogController: NSWindowController, StringInputReceiver, Moda
             theMenu.insertItem(NSMenuItem.separator(), at: 0)
         }
         
-        lblError?.font = Fonts.stringInputPopoverErrorFont
+        lblError?.font = .stringInputPopoverErrorFont
     }
     
     func showDialog() -> ModalDialogResponse {

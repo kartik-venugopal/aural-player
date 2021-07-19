@@ -26,7 +26,7 @@ class ModalDialogButtonCell: NSButtonCell {
     var textColor: NSColor {.modalDialogButtonTextColor}
     var textColor_disabled: NSColor {.modalDialogButtonTextColor_disabled}
     
-    var textFont: NSFont {return Fonts.modalDialogButtonFont}
+    var textFont: NSFont {.modalDialogButtonFont}
     
     var yOffset: CGFloat {return 0}
     
@@ -59,7 +59,7 @@ class ModalDialogResponseButtonCell: ModalDialogButtonCell {
 }
 
 class StringInputPopoverResponseButtonCell: ModalDialogResponseButtonCell {
-    override var textFont: NSFont {return Fonts.stringInputPopoverFont}
+    override var textFont: NSFont {.stringInputPopoverFont}
 }
 
 // Cell for all response buttons (Save/Cancel, etc)
@@ -68,7 +68,7 @@ class ModalDialogControlButtonCell: ModalDialogButtonCell {
     override var cellInsetX: CGFloat {return 1}
     override var cellInsetY: CGFloat {return 0}
     
-    override var textFont: NSFont {return Fonts.modalDialogControlButtonFont}
+    override var textFont: NSFont {.modalDialogControlButtonFont}
 }
 
 // Browse button in Playlist preferences
@@ -89,7 +89,7 @@ class ColoredNavigationButtonCell: ModalDialogButtonCell {
     override var borderRadius: CGFloat {return 3}
     
     override var textColor: NSColor {.modalDialogNavButtonTextColor}
-    override var textFont: NSFont {return Fonts.modalDialogNavButtonFont}
+    override var textFont: NSFont {.modalDialogNavButtonFont}
 }
 
 class ColorAwareButtonCell: ModalDialogButtonCell {

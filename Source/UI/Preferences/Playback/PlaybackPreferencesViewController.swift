@@ -176,7 +176,7 @@ class PlaybackPreferencesViewController: NSViewController, PreferencesViewProtoc
     private func showInfo(_ text: String) {
         
         let helpManager = NSHelpManager.shared
-        let textFontAttributes: [NSAttributedString.Key: Any] = [.font: Fonts.helpInfoTextFont]
+        let textFontAttributes: [NSAttributedString.Key: Any] = [.font: NSFont.helpInfoTextFont]
         
         helpManager.setContextHelp(NSAttributedString(string: text, attributes: textFontAttributes),
                                    for: btnInfo_primarySeekLength!)

@@ -15,7 +15,7 @@ class PresetsManagerTableHeaderCell: NSTableHeaderCell {
     
     override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
         
-        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withFont: Fonts.presetsManagerTableHeaderTextFont,
+        stringValue.draw(in: cellFrame.insetBy(dx: 5, dy: 3), withFont: .presetsManagerTableHeaderTextFont,
                          andColor: .presetsManagerTableHeaderTextColor)
 
         // Right Partition line
@@ -49,7 +49,7 @@ class PresetsManagerTableCellView: NSTableCellView {
             if let textField = self.textField {
                 
                 textField.textColor = isSelRow ? .defaultSelectedLightTextColor : .defaultLightTextColor
-                textField.font = isSelRow ? Fonts.presetsManagerTableSelectedTextFont : Fonts.presetsManagerTableTextFont
+                textField.font = isSelRow ? .presetsManagerTableSelectedTextFont : .presetsManagerTableTextFont
             }
         }
     }

@@ -185,7 +185,7 @@ class MasterViewController: EffectsUnitViewController {
                 fontSchemesManager.systemScheme.effects.unitCaptionFont
         }
         
-        presetsMenu.font = Fonts.menuFont
+        presetsMenu.font = .menuFont
         
         audioUnitsTable.reloadData(forRowIndexes: IndexSet((0..<audioUnitsTable.numberOfRows)), columnIndexes: [1])
     }

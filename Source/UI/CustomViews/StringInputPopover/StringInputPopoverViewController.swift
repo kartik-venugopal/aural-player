@@ -82,14 +82,14 @@ class StringInputPopoverViewController: NSViewController, ModalComponentProtocol
     private func initFields() {
         
         // TODO: Resize/realign fields and popover per input text length !!!
-        let font = Fonts.stringInputPopoverFont
+        let font = NSFont.stringInputPopoverFont
         lblPrompt?.font = font
         inputField?.font = font
         
         saveBtn?.redraw()
         cancelBtn?.redraw()
         
-        lblError?.font = Fonts.stringInputPopoverErrorFont
+        lblError?.font = .stringInputPopoverErrorFont
         
         // Initialize the fields with information from the client
         lblPrompt?.stringValue = client.inputPrompt

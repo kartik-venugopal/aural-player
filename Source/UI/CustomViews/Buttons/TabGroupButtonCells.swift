@@ -25,8 +25,8 @@ class TabGroupButtonCell: NSButtonCell {
     
     var unselectedTextColor: NSColor {return .tabViewButtonTextColor}
     var selectedTextColor: NSColor {return .defaultSelectedLightTextColor}
-    var textFont: NSFont {return Fonts.tabViewButtonFont}
-    var boldTextFont: NSFont {return Fonts.tabViewButtonBoldFont}
+    var textFont: NSFont {.tabViewButtonFont}
+    var boldTextFont: NSFont {.tabViewButtonBoldFont}
     
     var yOffset: CGFloat {return 0}
     

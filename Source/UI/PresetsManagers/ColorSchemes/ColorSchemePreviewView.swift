@@ -373,10 +373,10 @@ class PlaylistPreviewTabButtonCell: PlaylistViewsButtonCell {
     override var selectionBoxColor: NSColor {_selectionBoxColor}
     
     override var textFont: NSFont {_textFont}
-    var _textFont: NSFont = Fonts.largeTabButtonFont
+    var _textFont: NSFont = .largeTabButtonFont
     
     override var boldTextFont: NSFont {_boldTextFont}
-    var _boldTextFont: NSFont = Fonts.largeTabButtonFont
+    var _boldTextFont: NSFont = .largeTabButtonFont
     
     override var yOffset: CGFloat {1}
 }
