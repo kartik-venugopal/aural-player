@@ -52,9 +52,6 @@ class FontSet {
     let mainFontName: String
     let captionFontName: String
     
-    private var mainFonts: [CGFloat: NSFont] = [:]
-    private var captionFonts: [CGFloat: NSFont] = [:]
-    
     init(mainFontName: String, captionFontName: String) {
         
         self.mainFontName = mainFontName
@@ -62,27 +59,11 @@ class FontSet {
     }
     
     func mainFont(size: CGFloat) -> NSFont {
-        
-        if let font = mainFonts[size] {
-            return font
-        }
-        
-        let font = NSFont(name: mainFontName, size: size)!
-        mainFonts[size] = font
-        
-        return font
+        NSFont(name: mainFontName, size: size)!
     }
     
     func captionFont(size: CGFloat) -> NSFont {
-        
-        if let font = captionFonts[size] {
-            return font
-        }
-        
-        let font = NSFont(name: captionFontName, size: size)!
-        captionFonts[size] = font
-        
-        return font
+        NSFont(name: captionFontName, size: size)!
     }
 }
 
